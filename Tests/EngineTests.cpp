@@ -621,5 +621,82 @@ int main()
         for (int b = 1; b < 300 && t.ppq < 6.0; ++b) { t.ppq = b * 512.0 / 24000.0; l.clear(); g.process (t, s, 512, l); }
         CHECK (g.chordProgress() > 0.6f && g.nextRoot() == 7);
     }
+    // 32) Tonumfang: alle Ebenen bleiben in ihrem Bereich, auch mit Oktav-Einstellung, in beiden Genres
+    {
+        const int lo[kNumLayers] = { 48, 36, 60, 41, 48 }, hi[kNumLayers] = { 84, 81, 96, 77, 88 };
+        int checked = 0;
+        for (int genre = 0; genre < kNumGenres; ++genre)
+            for (float x : { 0.1f, 0.5f, 0.9f })
+                for (float y : { 0.2f, 0.6f, 0.95f })
+                    for (float z : { 0.0f, 0.7f })
+                    {
+                        Settings s; s.genre = genre; s.x = x; s.y = y; s.z = z; s.variation = 1 + (int) (x * 10 + y * 5);
+                        s.passing = true;
+                        for (int i = 0; i < kNumLayers; ++i) { s.rangeOn[i] = true; s.rangeLo[i] = lo[i]; s.rangeHi[i] = hi[i]; }
+                        s.octave[kArp] = (int) (z * 3) - 1;   // -1 oder +1
+                        s.octave[kBass] = -2;
+                        const auto ev = run (s, 480, 12.0);
+                        checkBalanced (ev);
+                        for (const auto& e : ev)
+                            if (e.velocity > 0)
+                            {
+                                CHECK (e.note >= lo[e.channel - 1] && e.note <= hi[e.channel - 1]);
+                                ++checked;
+                            }
+                    }
+        CHECK (checked > 2000);
+    }
+
+    // 33) Tonumfang ab einer Oktave: Flaeche, Bass und Farbe behalten zu jedem Zeitpunkt dieselben Tonnamen, das Arp verschluckt keinen Ton
+    {
+        for (float x : { 0.2f, 0.7f })
+            for (float y : { 0.3f, 0.8f })
+            {
+                Settings free; free.x = x; free.y = y; free.z = 0.5f;
+                Settings lim = free;
+                const int lo[kNumLayers] = { 55, 40, 72, 60, 50 }, hi[kNumLayers] = { 70, 52, 86, 74, 70 };
+                for (int i = 0; i < kNumLayers; ++i) { lim.rangeOn[i] = true; lim.rangeLo[i] = lo[i]; lim.rangeHi[i] = hi[i]; }
+                const auto a = run (free, 512, 16.0), b = run (lim, 512, 16.0);
+                checkBalanced (b);
+                for (int ch : { 1, 2, 4 })
+                {
+                    std::set<std::pair<long long, int>> pa, pb;
+                    for (const auto& e : a) if (e.velocity > 0 && e.channel == ch) pa.insert ({ e.sample, e.note % 12 });
+                    for (const auto& e : b) if (e.velocity > 0 && e.channel == ch) pb.insert ({ e.sample, e.note % 12 });
+                    CHECK (pa == pb);
+                }
+                CHECK (countOns (a, 3) == countOns (b, 3));
+                CHECK (countOns (b, 3) > 20);
+            }
+    }
+
+    // 34) Sehr enger Tonumfang (unter einer Oktave): bleibt im Bereich, spielt weiter, Akkordtoene ersetzen fehlende Tonnamen
+    {
+        Settings s; s.y = 0.8f; s.x = 0.4f;
+        for (int i = 0; i < kNumLayers; ++i) { s.rangeOn[i] = true; s.rangeLo[i] = 64; s.rangeHi[i] = 70; }
+        Settings free = s; for (auto& r : free.rangeOn) r = false;
+        const auto ev = run (s, 512, 16.0), fr = run (free, 512, 16.0);
+        checkBalanced (ev);
+        for (const auto& e : ev) if (e.velocity > 0) CHECK (e.note >= 64 && e.note <= 70);
+        CHECK (countOns (ev, 3) == countOns (fr, 3));
+        CHECK (countOns (ev, 1) > 0 && countOns (ev, 2) > 0 && countOns (ev, 5) > 0);
+    }
+
+    // 35) Gegenstimme mit Tonumfang: bleibt im Bereich und bewegt sich weiter
+    {
+        Settings s; s.y = 0.8f; s.solo[kGegenstimme] = true;
+        s.rangeOn[kGegenstimme] = true; s.rangeLo[kGegenstimme] = 36; s.rangeHi[kGegenstimme] = 55;   // tiefe Lage, unter der ueblichen
+        const auto ev = run (s, 512, 30.0);
+        checkBalanced (ev);
+        std::set<int> notes;
+        for (const auto& e : ev) if (e.velocity > 0) { CHECK (e.note >= 36 && e.note <= 55); notes.insert (e.note); }
+        CHECK (notes.size() >= 3);
+    }
+
+    // 36) Neue Wendungen im Pop-Rock-Vorrat: alle Akkordlaengen ergeben acht Takte
+    {
+        for (int i = 0; i < kNumPopWendungen; ++i) CHECK (wendungBars (kPopWendungen[i]) == 8);
+        for (int i = 0; i < kNumWendungen; ++i) CHECK (wendungBars (kWendungen[i]) == 8);
+    }
     return 0;
 }

@@ -92,7 +92,7 @@ class LayerView : public juce::Component, public juce::SettableTooltipClient
 public:
     LayerView()
     {
-        for (auto* c : std::initializer_list<juce::Component*> { &soloButton, &muteButton, &intensity, &octBox }) addAndMakeVisible (c);
+        for (auto* c : std::initializer_list<juce::Component*> { &soloButton, &muteButton, &intensity, &octBox, &rangeButton }) addAndMakeVisible (c);
         addChildComponent (followButton); addChildComponent (combo1); addChildComponent (combo2);
     }
     juce::Colour panel, line, accent, text, dim;
@@ -100,7 +100,7 @@ public:
     int index = 0, channel = 1;
     bool active = true;
     float activity = 0.0f;
-    juce::TextButton soloButton, muteButton, followButton;
+    juce::TextButton soloButton, muteButton, followButton, rangeButton;
     juce::Slider intensity;
     juce::ComboBox combo1, combo2, octBox;
     void paint (juce::Graphics& g) override;
@@ -115,8 +115,31 @@ public:
         intensity.setBounds (12, getHeight() - 32, w, 24);
         soloButton.setBounds (getWidth() - 76, 6, 21, 20);
         muteButton.setBounds (getWidth() - 52, 6, 21, 20);
+        rangeButton.setBounds (getWidth() - 12 - 62, 27, 62, 17);
     }
     static constexpr int kArpIndex = 2;
+};
+
+// Tonumfang einer Ebene: Ein/Aus, tiefster und hoechster Ton, Vorlagen, Anlernen ueber zwei Tasten am MIDI-Eingang
+class RangePanel : public juce::Component, private juce::Timer
+{
+public:
+    RangePanel (StromscoreProcessor& p, int layerIndex, juce::Colour panel, juce::Colour accent, juce::Colour text, juce::Colour dim);
+    ~RangePanel() override;
+    void paint (juce::Graphics& g) override;
+    void resized() override;
+
+private:
+    void timerCallback() override;
+    void applyRange (int lo, int hi);
+    StromscoreProcessor& processor;
+    int layer;
+    juce::Colour panelColour, accentColour, textColour, dimColour;
+    juce::TextButton onButton, learnButton;
+    juce::ComboBox templateBox, loBox, hiBox;
+    std::unique_ptr<juce::AudioProcessorValueTreeState::ButtonAttachment> onAttachment;
+    std::unique_ptr<juce::AudioProcessorValueTreeState::ComboBoxAttachment> loAttachment, hiAttachment;
+    juce::String status;
 };
 
 // Feld zum Herausziehen der naechsten Takte als MIDI-Datei; Klick wechselt die Laenge
@@ -251,6 +274,8 @@ private:
     void updateCcButton();
     void showCcMenu();
     void updateMidiLabel();
+    void showRangePanel (int layer);
+    void updateRangeButtons();
     float subtitleEnd() const;
 
     static constexpr int kBaseW = StromscoreProcessor::kUiWidth, kBaseH = StromscoreProcessor::kUiHeight;

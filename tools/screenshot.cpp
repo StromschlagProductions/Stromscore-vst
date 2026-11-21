@@ -15,6 +15,9 @@ public:
         processor.apvts.getParameter ("unruhe")->setValueNotifyingHost (0.45f);
         if (auto* bass = processor.apvts.getParameter ("intensitaet2"))   // Bass etwas dichter als das Feld
             bass->setValueNotifyingHost (bass->convertTo0to1 (0.3f));
+        // Arp mit Tonumfang einer Floete
+        for (auto [id, v] : { std::pair<const char*, float> { "umfang3", 1.0f }, { "tief3", 60.0f }, { "hoch3", 96.0f } })
+            if (auto* prm = processor.apvts.getParameter (id)) prm->setValueNotifyingHost (prm->convertTo0to1 (v));
         processor.hostPlaying.store (true);
         const int w = 4;   // "Agentenfarbe"
         processor.wendung.store (w);
@@ -30,7 +33,7 @@ public:
 private:
     void timerCallback() override
     {
-        if (index >= 3)
+        if (index >= 4)
         {
             auto* manifest = new juce::DynamicObject();
             manifest->setProperty ("version", PLUGIN_VERSION_TEXT);
@@ -59,11 +62,13 @@ private:
             const float levels[stromscore::kNumLayers] = { 1.0f, 0.0f, 1.0f, 0.0f, 0.0f };
             for (int i = 0; i < stromscore::kNumLayers; ++i) processor.activity[i].store (levels[i]);
             if (index == 2) clickButton (*editor, "Bearbeiten");   // drittes Bild: eigene Akkordfolge
+            if (index == 3) clickButton (*editor, "Umfang3");      // viertes Bild: Fenster fuer den Tonumfang
             lit = true;
             return;   // der Editor holt sich die Werte beim naechsten Takt
         }
+        if (index == 3 && ! settled) { settled = true; return; }   // das Fenster oeffnet sich asynchron
         auto image = editor->createComponentSnapshot (editor->getLocalBounds(), true, 2.0f);
-        static const char* names[] = { "oberflaeche-dunkel.png", "oberflaeche-hell.png", "oberflaeche-akkordfolge.png" };
+        static const char* names[] = { "oberflaeche-dunkel.png", "oberflaeche-hell.png", "oberflaeche-akkordfolge.png", "oberflaeche-tonumfang.png" };
         auto file = output.getChildFile (names[index]);
         file.deleteFile();
         juce::FileOutputStream stream (file);
@@ -93,7 +98,7 @@ private:
     std::unique_ptr<juce::AudioProcessorEditor> editor;
     juce::Array<juce::var> images;
     int index = 0;
-    bool lit = false;
+    bool lit = false, settled = false;
 };
 
 int main (int argc, char** argv)

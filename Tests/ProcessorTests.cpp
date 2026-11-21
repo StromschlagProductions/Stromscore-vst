@@ -354,6 +354,51 @@ int main()
         setParam (*p, "genre", 0.0f); setParam (*p, "dynamikCc", 0.0f);
     }
 
+    // Tonumfang: Parameter, Notennamen, Vorlagen, Anlernen per MIDI-Eingang und die herausgezogene Datei
+    {
+        CHECK (StromscoreProcessor::noteName (60) == "C3" && StromscoreProcessor::noteName (0) == "C-2" && StromscoreProcessor::noteName (71) == "H3");
+        CHECK (StromscoreProcessor::rangeTemplates().size() >= 15);
+        for (const auto& t : StromscoreProcessor::rangeTemplates()) CHECK (t.lo >= 0 && t.hi <= 127 && t.hi - t.lo >= 12);
+        CHECK (p->apvts.getParameter ("tief1")->getCurrentValueAsText() == "C-2");
+        setParam (*p, "umfang3", 1.0f); setParam (*p, "tief3", 60.0f); setParam (*p, "hoch3", 96.0f);
+        setParam (*p, "umfang2", 1.0f); setParam (*p, "tief2", 36.0f); setParam (*p, "hoch2", 50.0f);
+        setParam (*p, "intensitaet", 0.8f);
+        auto st = p->currentSettings();
+        CHECK (st.rangeOn[2] && st.rangeLo[2] == 60 && st.rangeHi[2] == 96 && ! st.rangeOn[0]);
+        const auto c = play (*p, host, 8, 512);
+        CHECK (c.ons > 0 && c.ons == c.offs && ! c.broken);
+
+        const auto file = p->renderMidiFile (8);
+        juce::MidiFile mf; juce::FileInputStream in (file);
+        CHECK (in.openedOk() && mf.readFrom (in));
+        int arpNotes = 0;
+        for (int t = 1; t < mf.getNumTracks(); ++t)
+            for (int i = 0; i < mf.getTrack (t)->getNumEvents(); ++i)
+            {
+                const auto& m = mf.getTrack (t)->getEventPointer (i)->message;
+                if (! m.isNoteOn()) continue;
+                if (t == 3) { CHECK (m.getNoteNumber() >= 60 && m.getNoteNumber() <= 96); ++arpNotes; }
+                if (t == 2) CHECK (m.getNoteNumber() >= 36 && m.getNoteNumber() <= 50);
+            }
+        CHECK (arpNotes > 10);
+
+        // Anlernen: zwei Tasten am Eingang, in beliebiger Reihenfolge; eingehende Noten gehen nicht hinaus
+        p->learnFirst.store (-1); p->learnSecond.store (-1); p->learnLayer.store (4);
+        juce::AudioBuffer<float> audio (2, 256); juce::MidiBuffer midi;
+        host.playing = false;
+        midi.addEvent (juce::MidiMessage::noteOn (1, 84, (juce::uint8) 100), 0);
+        p->processBlock (audio, midi);
+        for (const auto meta : midi) CHECK (! meta.getMessage().isNoteOn());
+        midi.clear(); midi.addEvent (juce::MidiMessage::noteOn (1, 84, (juce::uint8) 100), 0);
+        midi.addEvent (juce::MidiMessage::noteOn (1, 48, (juce::uint8) 100), 10);
+        p->processBlock (audio, midi);
+        CHECK (p->learnFirst.load() == 84 && p->learnSecond.load() == 48);
+        p->learnLayer.store (-1);
+        for (const char* id : { "umfang2", "umfang3" }) setParam (*p, id, 0.0f);
+        setParam (*p, "tief2", 0.0f); setParam (*p, "hoch2", 127.0f); setParam (*p, "tief3", 0.0f); setParam (*p, "hoch3", 127.0f);
+        setParam (*p, "intensitaet", 0.1f);
+    }
+
     // Texte: Prozent
     {
         auto* v = p->apvts.getParameter ("intensitaet");

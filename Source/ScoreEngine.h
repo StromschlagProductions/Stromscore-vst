@@ -151,7 +151,15 @@ constexpr Wendung kPopWendungen[] = {
     { "Machtakkorde",       0.70f, 0.80f, 0.30f, 4, { { 0, Fifth, 2 }, { 10, Fifth, 2 }, { 5, Fifth, 2 }, { 0, Fifth, 2 } }, { ArpRiff, ArpLeaps }, { BassEighth, BassGallop }, PadStabs },
     { "Sunset Strip",       0.80f, 0.45f, 0.05f, 4, { { 0, Add9, 2 }, { 5, Maj, 2, 0 }, { 0, Add9, 2 }, { 7, Sus4, 2 } }, { ArpSid, ArpCascade }, { BassPedal, BassEighth }, PadHeld },
     { "Sonnenseite",        0.80f, 0.65f, 0.10f, 3, { { 10, Maj, 2 }, { 5, Maj, 2 }, { 0, Maj, 4 } }, { ArpRiff, ArpUp }, { BassEighth, BassAlternating }, PadGated },
-    { "Stadionhymne",       0.85f, 0.90f, 0.10f, 6, { { 0, Maj, 2 }, { 8, Maj, 1 }, { 10, Maj, 1 }, { 0, Maj, 2 }, { 8, Maj, 1 }, { 10, Maj, 1 } }, { ArpUp, ArpLeaps }, { BassEighth, BassHiNrg }, PadPulse } };
+    { "Stadionhymne",       0.85f, 0.90f, 0.10f, 6, { { 0, Maj, 2 }, { 8, Maj, 1 }, { 10, Maj, 1 }, { 0, Maj, 2 }, { 8, Maj, 1 }, { 10, Maj, 1 } }, { ArpUp, ArpLeaps }, { BassEighth, BassHiNrg }, PadPulse },
+    // Fernseh-Disco-Funk um 1980 (Abschnitt "Weltraum-Disco und Teufelsgeiger" im Katalog)
+    { "Feindkontakt",       0.18f, 0.80f, 0.55f, 4, { { 0, Min7, 2 }, { 1, Maj7, 2 }, { 0, Min7, 2 }, { 6, Dom7, 2 } }, { ArpCell, ArpOctatonic }, { BassFunk, BassPulse }, PadStabs },
+    { "Teufelsgeiger",      0.32f, 0.70f, 0.25f, 8, { { 0, Min, 1 }, { 5, Min, 1 }, { 10, Maj, 1 }, { 3, Maj, 1 }, { 8, Maj, 1 }, { 2, HalfDim, 1 }, { 7, Dom7, 1 }, { 0, Min, 1 } }, { ArpLeaps, ArpCircle }, { BassHiNrg, BassEighth }, PadPulse },
+    { "Vorahnung",          0.38f, 0.45f, 0.45f, 4, { { 0, Min, 2 }, { 1, Maj, 2 }, { 7, Dom7b9, 2 }, { 0, Min, 2 } }, { ArpCircle, ArpCascade }, { BassHeartbeat, BassPulse }, PadHeld },
+    { "Einsamer Planet",    0.40f, 0.20f, 0.10f, 5, { { 0, Min9, 2 }, { 8, Maj7, 2 }, { 10, Sus4, 1 }, { 10, Maj, 1 }, { 0, Min9, 2 } }, { ArpCircle, ArpCascade }, { BassHeld, BassHalf }, PadHeld },
+    { "Weltraum-Disco",     0.48f, 0.62f, 0.20f, 5, { { 0, Min9, 2 }, { 5, Dom7, 2 }, { 0, Min9, 2 }, { 3, Maj7, 1 }, { 5, Dom7, 1 } }, { ArpRiff, ArpSid }, { BassHiNrg, BassFunk }, PadGated },
+    { "Serenade",           0.72f, 0.45f, 0.05f, 4, { { 0, Maj, 2 }, { 9, Min, 2 }, { 2, Min7, 2 }, { 7, Dom7, 2 } }, { ArpLeaps, ArpUp }, { BassAlternating, BassEighth }, PadStaccato },
+    { "Startfreigabe",      0.78f, 0.75f, 0.15f, 4, { { 0, Maj7, 2 }, { 2, Dom7, 2 }, { 2, Min7, 2 }, { 7, Sus4, 2 } }, { ArpRiff, ArpUp }, { BassHiNrg, BassFunk }, PadStabs } };
 constexpr int kNumPopWendungen = (int) (sizeof (kPopWendungen) / sizeof (kPopWendungen[0]));
 constexpr int kMaxWendungen = 64;
 static_assert (kNumWendungen <= kMaxWendungen && kNumPopWendungen <= kMaxWendungen, "Vorrat zu gross");
@@ -183,6 +191,9 @@ struct Settings
     int ccDynamics = 1, ccExpression = 11;   // 0 = diesen CC nicht senden
     bool passing = false;       // Durchgangsakkorde: bei viel Intensitaet die Dominante des naechsten Akkords auf dem letzten Schlag       // Abwechslung: 0 = nur die passendste Wendung, 1 = auch entferntere Nachbarn
     int octave[kNumLayers] = { 0, 0, 0, 0, 0 };               // -2 ... +2
+    bool rangeOn[kNumLayers] = {};                            // Tonumfang begrenzen (fuer Orchesterinstrumente)
+    int rangeLo[kNumLayers] = { 0, 0, 0, 0, 0 };              // tiefster spielbarer Ton (MIDI-Nummer)
+    int rangeHi[kNumLayers] = { 127, 127, 127, 127, 127 };    // hoechster spielbarer Ton
     bool follow[3] = { true, true, true };                    // Flaeche, Bass, Arp: false = bleibt auf dem Grundakkord
     int padPattern = PadAuto, bassPattern = BassAuto, arpFigure = ArpAuto, arpRate = RateAuto;
     bool custom = false;        // eigene Akkordfolge statt Wendungen
@@ -397,6 +408,12 @@ public:
         for (auto& v : s.layerIntensity) v = std::clamp (v, -1.0f, 1.0f);
         s.variety = std::clamp (s.variety, 0.0f, 1.0f);
         for (auto& o : s.octave) o = std::clamp (o, -2, 2);
+        for (int i = 0; i < kNumLayers; ++i)
+        {
+            int lo = std::clamp (s.rangeLo[i], 0, 127), hi = std::clamp (s.rangeHi[i], 0, 127);
+            if (lo > hi) std::swap (lo, hi);
+            s.rangeLo[i] = lo; s.rangeHi[i] = hi;
+        }
         s.padPattern = std::clamp (s.padPattern, 0, kNumPadPatterns - 1);
         s.bassPattern = std::clamp (s.bassPattern, 0, kNumBassPatterns - 1);
         s.arpFigure = std::clamp (s.arpFigure, 0, kNumArpFigures - 1);
@@ -450,7 +467,7 @@ public:
 private:
     static constexpr float kKeepRatio = 0.5f;   // so gut muss die laufende Wendung mindestens passen, sonst wird gewechselt
 
-    struct Active { uint8_t channel, note; long long endStep; };
+    struct Active { uint8_t channel, note; long long endStep, startStep; };
 
     // Wo im Takt / in der Phrase / in der Wendung ein Schritt liegt
     struct Pos
@@ -661,23 +678,85 @@ private:
         }
     }
 
+    // Tonumfang: Ton um ganze Oktaven in den spielbaren Bereich holen (gleicher Tonname, kein Ton faellt weg).
+    // Ist der Bereich enger als eine Oktave und der Tonname passt nicht hinein, nimmt ein Akkordton im Bereich seinen Platz ein.
+    bool rangeOn (int layer) const { return cur != nullptr && cur->rangeOn[layer]; }
+    int fitRange (int layer, int note) const
+    {
+        if (! rangeOn (layer)) return note;
+        const int lo = cur->rangeLo[layer], hi = cur->rangeHi[layer];
+        int n = note;
+        while (n < lo) n += 12;
+        while (n > hi) n -= 12;
+        if (n >= lo) return n;
+        int best = -1, bestD = 1000;
+        for (int m = lo; m <= hi; ++m)
+            if ((chordMask >> (m % 12)) & 1)
+            {
+                const int d = std::min (std::abs (m - n), std::abs (m - (n + 12)));
+                if (d < bestD) { bestD = d; best = m; }
+            }
+        return best >= 0 ? best : std::clamp (note, lo, hi);
+    }
+    // Klingender Ton einer Ebene: Oktav-Einstellung, dann Tonumfang
+    int sounding (int layer, int note) const
+    {
+        if (cur != nullptr) note = fitRange (layer, note + 12 * cur->octave[layer]);
+        return std::clamp (note, 0, 127);
+    }
+    // Eine Gruppe von Toenen (Akkord, Arpeggio) als Ganzes um Oktaven verschieben, so dass moeglichst viele in den Bereich passen
+    int bestShift (int layer, const int* notes, int n) const
+    {
+        if (! rangeOn (layer) || n <= 0) return 0;
+        const int lo = cur->rangeLo[layer] - 12 * cur->octave[layer], hi = cur->rangeHi[layer] - 12 * cur->octave[layer];
+        int best = 0, bestCount = -1;
+        for (int sh : { 0, 12, -12, 24, -24, 36, -36, 48, -48 })
+        {
+            int c = 0;
+            for (int i = 0; i < n; ++i) c += (notes[i] + sh >= lo && notes[i] + sh <= hi) ? 1 : 0;
+            if (c > bestCount) { bestCount = c; best = sh; }
+        }
+        return best;
+    }
+    // Verschieben, Ausreisser falten, sortieren, doppelte entfernen; liefert die neue Anzahl
+    int fitGroup (int layer, int* notes, int n) const
+    {
+        if (! rangeOn (layer)) return n;
+        const int sh = bestShift (layer, notes, n);
+        const int oct = 12 * cur->octave[layer];
+        for (int i = 0; i < n; ++i) notes[i] = fitRange (layer, notes[i] + sh + oct) - oct;
+        std::sort (notes, notes + n);
+        return (int) (std::unique (notes, notes + n) - notes);
+    }
+
     void noteOn (int layer, int note, int velocity, long long endStep, int offset, EventList& out)
     {
         if (cur != nullptr && ! layerActive (*cur, layer)) return;
         const int channel = layer + 1;
-        if (cur != nullptr) note += 12 * cur->octave[layer];
-        note = std::clamp (note, 0, 127);
+        note = sounding (layer, note);
         velocity = std::clamp (velocity, 1, 127);
         for (int i = 0; i < numActive; ++i)
             if (active[(size_t) i].channel == channel && active[(size_t) i].note == note)
             {
+                if (active[(size_t) i].startStep == nowStep)    // im selben Schritt schon angeschlagen (zusammengefaltet): nur verlaengern
+                {
+                    active[(size_t) i].endStep = std::max (active[(size_t) i].endStep, endStep);
+                    return;
+                }
                 out.add (offset, channel, note, 0);
                 active[(size_t) i] = active[(size_t) --numActive];
                 break;
             }
         if (numActive >= kMaxActive) return;
         out.add (offset, channel, note, velocity);
-        active[(size_t) numActive++] = { (uint8_t) channel, (uint8_t) note, endStep };
+        active[(size_t) numActive++] = { (uint8_t) channel, (uint8_t) note, endStep, nowStep };
+    }
+
+    void updateMask (const Settings& s)
+    {
+        const ChordShape& sh = kShapes[std::clamp (curType, 0, kNumChordTypes - 1)];
+        chordMask = 0;
+        for (int i = 0; i < sh.n; ++i) chordMask |= 1u << (unsigned) ((s.key + curRoot + sh.iv[i]) % 12);
     }
 
     int jitter (long long k, int layer, int range) const
@@ -700,15 +779,25 @@ private:
         const int root = voicing == 1 ? place (s.key + c.root, padLow (s) - 5) : place (s.key + c.root, padLow (s) - 12);
         int voices = sh.n;
         if (y < 0.2f) voices = std::min (voices, 3);
+        int notes[6]; int n = 0;
         for (int i = 0; i < voices; ++i)
         {
             const int iv = sh.iv[i];
             bool low = iv == 0 || iv == 7 || (iv == 5 && c.type == Quartal) || iv >= 12;
             if (voicing == 1) low = true;
             if (voicing == 2 && iv == 0) low = false;
-            noteOn (kFlaeche, root + iv + (low ? 0 : 12), velocity - (i == 0 ? 0 : 4), endStep, offset, out);
+            notes[n++] = root + iv + (low ? 0 : 12);
         }
-        if (y > 0.6f) noteOn (kFlaeche, root + 24, velocity - 10, endStep, offset, out);   // Verdopplung oben
+        if (y > 0.6f) notes[n++] = root + 24;   // Verdopplung oben
+        if (rangeOn (kFlaeche))
+        {
+            // Tonumfang: der Akkord rueckt als Ganzes in den Bereich, Ausreisser wandern um Oktaven nach innen
+            n = fitGroup (kFlaeche, notes, n);
+            for (int i = 0; i < n; ++i) noteOn (kFlaeche, notes[i], velocity - (i == 0 ? 0 : 4), endStep, offset, out);
+            return;
+        }
+        for (int i = 0; i < n; ++i)
+            noteOn (kFlaeche, notes[i], velocity - (i == 0 ? 0 : (i == voices ? 10 : 4)), endStep, offset, out);
     }
 
     // --- Farbe: Grundfarbe (None) und bei Unruhe ein fremder Ton
@@ -759,6 +848,7 @@ private:
         const Pos p = locate (k);
         curChord = p.chordIdx;
         curRoot = W().ch[p.chordIdx].root; curType = W().ch[p.chordIdx].type;
+        nowStep = k; updateMask (s);
         if (ppq > (double) p.chordStart * kStep + 1e-9)
             sustained (p, s, 0, out, true);
         else
@@ -781,6 +871,7 @@ private:
         const Wendung& w = W();
         curChord = p.chordIdx; curRoot = w.ch[p.chordIdx].root; curType = w.ch[p.chordIdx].type;
         if (p.passing && s.follow[kFlaeche]) { curRoot = (nextChordRoot (p) + 7) % 12; curType = Dom7; }
+        nowStep = k; updateMask (s);
         {
             const Chord& nc = p.chordIdx + 1 < w.n ? w.ch[p.chordIdx + 1] : w.ch[0];
             curNextRoot = nc.root; curNextType = nc.type;
@@ -925,15 +1016,23 @@ private:
             {
                 const Chord c = chordFor (p, kArp, s);
                 const ChordShape& sh = kShapes[c.type];
-                const int base = place (s.key + c.root, 55 + (int) std::lround (s.x * 7.0f)) + (fig == ArpGlitter ? 12 : 0);
-                int tones[10]; const int n = std::min (sh.n, 5), count = 2 * n;
+                int base = place (s.key + c.root, 55 + (int) std::lround (s.x * 7.0f)) + (fig == ArpGlitter ? 12 : 0);
+                int tones[10]; const int n = std::min (sh.n, 5); int count = 2 * n;
                 for (int i = 0; i < count; ++i) tones[i] = base + sh.iv[i % n] + 12 * (i / n);
+                if (rangeOn (kArp))
+                {
+                    // Tonumfang: die Figur rueckt als Ganzes in den Bereich; die Tonleiter der Figur wird gefaltet und
+                    // sortiert, so dass Auf, Ab und Kreisen an den Grenzen umkehren und kein Ton verschluckt wird
+                    const int shift = bestShift (kArp, tones, count);
+                    base += shift;
+                    count = fitGroup (kArp, tones, count);
+                }
                 const long long c0 = rel / rate + (long long) (hashInt (77u, s.follow[kArp] ? p.chordStart : phrase) % 4);
                 int note = base;
                 switch (fig)
                 {
                     case ArpDown:    note = tones[count - 1 - (int) (c0 % count)]; break;
-                    case ArpCircle:  { const int period = 2 * count - 2; const int q = (int) (c0 % period); note = tones[q < count ? q : period - q]; break; }
+                    case ArpCircle:  { const int period = std::max (1, 2 * count - 2); const int q = (int) (c0 % period); note = tones[q < count ? q : period - q]; break; }
                     case ArpCell:
                     {
                         static constexpr int cell[4] = { 0, 1, 0, 2 };
@@ -1031,9 +1130,21 @@ private:
         const ChordShape& sh = kShapes[c.type];
         const int lo = 60 + (int) std::lround (s.x * 4.0f);
         const int rootPc = (s.key + c.root) % 12, colourPc = (rootPc + 2) % 12;
-        const int prev = csNote >= 0 ? csNote : lo + 7;
+        int a = lo, b = lo + 14;
+        if (s.rangeOn[kGegenstimme])
+        {
+            // Tonumfang: nur Toene im spielbaren Bereich (Oktav-Einstellung eingerechnet); liegt die uebliche Lage
+            // ausserhalb, sucht die Linie im ganzen Bereich
+            const int rlo = s.rangeLo[kGegenstimme] - 12 * s.octave[kGegenstimme], rhi = s.rangeHi[kGegenstimme] - 12 * s.octave[kGegenstimme];
+            a = std::max (lo, rlo); b = std::min (lo + 14, rhi);
+            int found = 0;
+            for (int n = a; n <= b; ++n)
+                for (int i = 0; i < sh.n; ++i) found += (rootPc + sh.iv[i]) % 12 == n % 12 ? 1 : 0;
+            if (found < 2) { a = rlo; b = rhi; }
+        }
+        const int prev = csNote >= 0 ? csNote : (a + b) / 2;
         int best = -1; float bestScore = 1e9f;
-        for (int n = lo; n <= lo + 14; ++n)
+        for (int n = a; n <= b; ++n)
         {
             const int pc = n % 12;
             bool inChord = false;
@@ -1048,7 +1159,7 @@ private:
             score += (float) (hash3 ((uint32_t) s.variation, (uint32_t) (k * 16 + n), 401u) % 100u) / 250.0f;
             if (score < bestScore) { bestScore = score; best = n; }
         }
-        return best >= 0 ? best : place (s.key + c.root + sh.iv[std::min (1, sh.n - 1)], lo);
+        return best >= 0 ? best : place (s.key + c.root + sh.iv[std::min (1, sh.n - 1)], a);
     }
 
     // Pop-Rock: durchgehende, gleichbleibende Hook-Linie aus Akkordtoenen (eine Figur je VARIATION)
@@ -1078,7 +1189,7 @@ private:
     void releaseOthers (int layer, int keep, int offset, EventList& out)
     {
         const int channel = layer + 1;
-        const int keepNote = std::clamp (keep + (cur != nullptr ? 12 * cur->octave[layer] : 0), 0, 127);
+        const int keepNote = sounding (layer, keep);
         for (int i = 0; i < numActive;)
         {
             if (active[(size_t) i].channel == channel && active[(size_t) i].note != keepNote)
@@ -1132,6 +1243,8 @@ private:
     int current = -1, curChord = -1, curRoot = 0, curType = Min, style = -1;
     int genre = GenreScore, lastGenre = -1, curNextRoot = 0, curNextType = Min;
     float curProgress = 0.0f;
+    uint32_t chordMask = 0;          // Tonnamen des klingenden Akkords (Ersatz bei sehr engem Tonumfang)
+    long long nowStep = -1;
     int lastCc[kNumLayers] = { -1, -1, -1, -1, -1 }, lastExpr[kNumLayers] = { -1, -1, -1, -1, -1 };
     int csNote = -1, csPending = -1;                 // Gegenstimme: letzter Ton, aufzuloesender Vorhalt
     long long csPendingAt = -1, csPendingEnd = 0;

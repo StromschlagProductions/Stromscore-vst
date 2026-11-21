@@ -47,6 +47,10 @@ public:
     static juce::StringArray slotRootNames();
     static juce::StringArray slotTypeNames();
     static juce::StringArray slotBarNames();
+    // Tonumfang: Notenname wie in Studio One (mittleres C = C3), deutsche Namen; Vorlagen fuer Orchesterinstrumente
+    static juce::String noteName (int midiNote);
+    struct RangeTemplate { const char* name; int lo, hi; };
+    static const std::vector<RangeTemplate>& rangeTemplates();
 
     // Die drei Achsen des Stimmungsfeldes: Faerbung, Intensitaet, Unruhe
     static constexpr const char* kAxisIds[3] = { "faerbung", "intensitaet", "unruhe" };
@@ -69,6 +73,8 @@ public:
     std::atomic<int> wendung { -1 }, chordIndex { -1 }, chordRoot { 0 }, chordType { 0 };
     std::atomic<int> meterNum { 4 }, meterDen { 4 };
     std::atomic<bool> hostPlaying { false };
+    // Anlernen des Tonumfangs: die naechsten zwei Tasten am MIDI-Eingang (tiefste und hoechste) werden gemerkt
+    std::atomic<int> learnLayer { -1 }, learnFirst { -1 }, learnSecond { -1 };
 
 private:
     static juce::AudioProcessorValueTreeState::ParameterLayout createLayout();
@@ -96,7 +102,8 @@ private:
     std::atomic<float>* pMute[stromscore::kNumLayers] {}; std::atomic<float>* pSolo[stromscore::kNumLayers] {};
     std::atomic<float>* pLayerIntensity[stromscore::kNumLayers] {}; std::atomic<float>* pVariety = nullptr; std::atomic<float>* pPassing = nullptr; std::atomic<float>* pGenre = nullptr; std::atomic<float>* pDynamics = nullptr; std::atomic<float>* pFollow[3] {};
     std::atomic<float>* pPad = nullptr; std::atomic<float>* pBass = nullptr; std::atomic<float>* pArp = nullptr; std::atomic<float>* pRate = nullptr;
-    std::atomic<float>* pChange = nullptr; std::atomic<float>* pOctave[stromscore::kNumLayers] {}; std::atomic<float>* pCustom = nullptr;
+    std::atomic<float>* pChange = nullptr; std::atomic<float>* pOctave[stromscore::kNumLayers] {};
+    std::atomic<float>* pRangeOn[stromscore::kNumLayers] {}; std::atomic<float>* pRangeLo[stromscore::kNumLayers] {}; std::atomic<float>* pRangeHi[stromscore::kNumLayers] {}; std::atomic<float>* pCustom = nullptr;
     std::atomic<float>* pSlotRoot[stromscore::kMaxChords] {}; std::atomic<float>* pSlotType[stromscore::kMaxChords] {}; std::atomic<float>* pSlotBars[stromscore::kMaxChords] {};
     juce::RangedAudioParameter* axisParam[3] {};
 

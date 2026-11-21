@@ -21,7 +21,7 @@ klassischer Hörspiele. Daraus ist ein Vorrat an Wendungen entstanden: Akkordfol
 Melodien bekannter Stücke werden nicht nachgebaut. Das Ziel: Szenen so zu untermalen, wie ich es selbst tun würde, und das einfacher
 zu machen.
 
-**Stand 0.9:** Forschungsphase. Bedienung und Klang werden mit jeder Version weiter verfeinert.
+**Stand 1.0:** Forschungsphase. Bedienung und Klang werden mit jeder Version weiter verfeinert.
 
 **⬇ Download (Windows · VST3):** https://github.com/StromschlagProductions/Stromscore-vst/releases/latest
 
@@ -40,6 +40,10 @@ bin, auch wenn er manchmal umständlich war. STROMSCORE soll nur die technische 
 Über **Bearbeiten** legst du die eigene Akkordfolge fest:
 
 ![Eigene Akkordfolge](docs/oberflaeche-akkordfolge.png)
+
+Über **Umfang** in jedem Ebenen-Kasten begrenzt du die Ebene auf den spielbaren Bereich deines Instruments:
+
+![Tonumfang](docs/oberflaeche-tonumfang.png)
 
 Der Umschalter oben rechts wechselt den Look, die Wahl wird mit dem Projekt gespeichert. Der **?**-Knopf öffnet die Hilfe, über
 jedem Regler erscheint beim Darüberfahren ein kurzer Hinweis. Die Oberfläche lässt sich am rechten unteren Fensterrand stufenlos
@@ -78,8 +82,9 @@ zeigt die Akkord-Anzeige unter „Hier“. Fährst du mit der Maus über das Fel
 liegen; rechts oben in der Akkord-Anzeige stehen der nächste Akkord und eine Leiste bis zum Wechsel.
 
 **Genre:** Zwei Knöpfe neben STIMMUNG wählen das Vokabular. **Score** enthält die Wendungen für Filmmusik. **80er Pop-Rock**
-enthält 20 eigene Wendungen mit Powerchord-Riffs, Hi-NRG- und Galopp-Bass, SID-Arpeggios, gehackten Flächen, dunklen Synth-Nächten und
-Hymnen. Dort spielt die Gegenstimme eine durchgehende, gleichbleibende Hook-Linie. Alle anderen Funktionen bleiben gleich, auch die
+enthält 27 eigene Wendungen mit Powerchord-Riffs, Hi-NRG- und Galopp-Bass, SID-Arpeggios, gehackten Flächen, dunklen Synth-Nächten und
+Hymnen, dazu Disco-Funk und Fernsehmusik um 1980: Septakkorde über Oktav-Bass, Quintfall-Sequenzen in Moll wie bei einem Teufelsgeiger,
+sehnsüchtige Balladen und eine italienische Serenade. Dort spielt die Gegenstimme eine durchgehende, gleichbleibende Hook-Linie. Alle anderen Funktionen bleiben gleich, auch die
 eigene Folge, die dann den Pop-Rock-Stil leiht.
 
 **Controller:** Stromscore hört auf seinem MIDI-Eingang auf CC 11, CC 1 und CC 74, passend zu einem Fader-Controller für
@@ -107,10 +112,17 @@ CC-Knopf lässt sich die Zuordnung ändern oder abschalten.
 Jede Ebene hat neben ihrer Lampe **Solo** und **Mute**. Fläche und Bass spielen immer, die anderen Ebenen setzen mit der Intensität ein.
 Der Regler **Intensität** unten in jedem Kasten verschiebt die Intensität nur für diese Ebene: weniger macht sie dünner (beim Bass bis
 zu langen Tönen), mehr macht sie dichter (beim Bass bis zu durchgehenden Achteln), und sie setzt dann auch bei ruhiger Stimmung ein. Die
-übrigen Ebenen bleiben, wie das Feld sie vorgibt. Ab wann eine Ebene gerade einsetzt, steht neben ihrem MIDI-Kanal. Alle Ebenen sind
+übrigen Ebenen bleiben, wie das Feld sie vorgibt. Ab wann eine Ebene gerade einsetzt, steht unter ihrem Namen neben dem MIDI-Kanal. Alle Ebenen sind
 für tongebende Instrumente gedacht, Schlagwerk gehört nicht dazu. Bei Fläche, Bass und Arp bestimmt ein zweiter Schalter, ob die Ebene **den Akkorden folgt** oder **auf dem Grundakkord bleibt**,
 etwa für einen durchlaufenden Arp über wechselnden Flächen oder einen Bass auf dem Grundton. Auf Auto folgt das Muster der Wendung.
 Jede Ebene hat außerdem ihre eigene **Oktavlage** (zwei Oktaven tiefer bis zwei Oktaven höher).
+
+**Tonumfang:** Orchesterinstrumente spielen nur einen bestimmten Bereich, ein Synth spielt alles. Über **Umfang** oben rechts im Kasten
+begrenzt du jede Ebene auf den tiefsten und höchsten Ton deines Instruments. Vorlagen gibt es für übliche Instrumente von Violine bis
+Klavier; genauer geht es mit **Anlernen**: die tiefste und die höchste spielbare Taste deines Patches auf dem Keyboard drücken. Dabei
+fällt kein Ton weg. Akkorde rücken als Ganzes in den Bereich, einzelne Töne außerhalb wandern um Oktaven nach innen, Arpeggios kehren
+an den Grenzen um und die Gegenstimme sucht ihre Linie im Bereich. Die Oktavlage wirkt zuerst, der Tonumfang ist die feste Grenze. Auch
+die herausgezogene MIDI-Datei hält sich daran. Das mittlere C heißt wie in Studio One C3.
 
 | Ebene | Kanal | Muster | Auto setzt ein |
 |---|---|---|---|
@@ -131,12 +143,12 @@ Danach in der DAW die Plugins neu einlesen.
 - **0.2** – Hinweis zur Herkunft der Musik (keine KI, feste Regeln, Grundlage ist mein eigener Stil) in Hilfe und README.
 - **0.3** – Ebenen einzeln ein- und ausschaltbar (Aus / Auto / An), Fläche, Bass und Arp wahlweise den Akkorden folgend oder auf dem Grundakkord bleibend. Hängende Töne nach Stopp behoben. Neuer Untertitel „Underscore Inspirator“.
 - **0.4** – Stimmungsfeld mit Färbung, Intensität und Unruhe (ersetzt VERLAUF und MODUS), Steuerung per CC 11 / 1 / 74, Vorrat an 22 Wendungen aus Filmmusik und klassischer Hörspielmusik, Muster für Fläche, Bass und Arp, Taktarten inklusive ungerader Takte, Swing, Akkord- und Wendungsanzeige.
-
 - **0.5** – Wechsel schon am nächsten Schlag (wahlweise Takt, 2 oder 4 Takte) mit sauberem Übergang, eigene Akkordfolge mit bis zu acht Akkorden, Oktavlage je Ebene, Fläche und Bass eine Oktave höher, 13 neue Wendungen (35 insgesamt), neue Muster (Staccato, Walking, Wechselbass, Herzschlag, Arpeggio, Sprünge), Oktaven-Bass entfernt, Vorhören auch ohne Wiedergabe, Stimmungsfeld mit „Ruhe“ als Ausgangspunkt, kompaktere Oberfläche.
 - **0.6** – 13 neue Wendungen (48 insgesamt), neue Figuren (Kaskade, Oktatonisch, Quarten) und Bass Orgelpunkt, Akkorde mit eigenem Basston, weiter Satz der Fläche, Solo und Mute je Ebene, Intensität je Ebene, ABWECHSLUNG und Anzeige der passenden Wendungen.
-- **0.9** – Beschreibung der Gegenstimme gekürzt, damit sie unter Windows vollständig in den Kasten passt.
-- **0.8** – Genre-Schalter Score / 80er Pop-Rock mit 20 eigenen Wendungen und neuen Mustern (Hi-NRG, Galopp, SID, Gated, Hook-Linie), Dynamik per CC für Orchester-Libraries, Legato der Gegenstimme, MIDI zum Herausziehen, nächster Akkord mit Leiste, Feld-Karte beim Überfahren.
 - **0.7** – Ebene 5 wird zur Gegenstimme, eigene Folge leiht den Stil der Wendung am Punkt im Feld, VARIATION wählt bei eigener Folge die Lage der Fläche, Durchgangsakkorde zuschaltbar, Anzeige, ab wann jede Ebene einsetzt.
+- **0.8** – Genre-Schalter Score / 80er Pop-Rock mit 20 eigenen Wendungen und neuen Mustern (Hi-NRG, Galopp, SID, Gated, Hook-Linie), Dynamik per CC für Orchester-Libraries, Legato der Gegenstimme, MIDI zum Herausziehen, nächster Akkord mit Leiste, Feld-Karte beim Überfahren.
+- **0.9** – Beschreibung der Gegenstimme gekürzt, damit sie unter Windows vollständig in den Kasten passt.
+- **1.0** – Tonumfang je Ebene für Orchesterinstrumente, mit Vorlagen und Anlernen per Keyboard, ohne dass ein Ton wegfällt. Sieben neue Pop-Rock-Wendungen im Stil der Fernsehmusik um 1980 (27 insgesamt).
 
 Alle Release-Hinweise: `docs/releases/`.
 

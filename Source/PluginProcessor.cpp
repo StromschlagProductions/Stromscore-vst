@@ -31,6 +31,27 @@ juce::StringArray StromscoreProcessor::slotTypeNames()    { return { "Dur", "Mol
 juce::StringArray StromscoreProcessor::slotBarNames()     { return { u8 ("–"), "1 Takt", "2 Takte", "3 Takte", "4 Takte" }; }
 juce::StringArray StromscoreProcessor::arpRateNames()     { return { "Auto", "Viertel", "Achtel", "16tel" }; }
 
+juce::String StromscoreProcessor::noteName (int n)
+{
+    static const char* names[12] = { "C", "Cis", "D", "Dis", "E", "F", "Fis", "G", "Gis", "A", "B", "H" };
+    n = juce::jlimit (0, 127, n);
+    return juce::String (names[n % 12]) + juce::String (n / 12 - 2);
+}
+
+// Richtwerte fuer den klingenden Tonumfang (MIDI-Nummern); genauer geht es mit "Anlernen" am eigenen Patch
+const std::vector<StromscoreProcessor::RangeTemplate>& StromscoreProcessor::rangeTemplates()
+{
+    static const std::vector<RangeTemplate> t = {
+        { "Violine", 55, 100 },          { "Viola", 48, 88 },             { "Cello", 36, 81 },
+        { "Kontrabass", 28, 62 },        { "Streicher-Ensemble", 28, 100 },
+        { "Fl\xc3\xb6te", 60, 96 },
+        { "Piccolo", 74, 105 },          { "Oboe", 58, 91 },              { "Klarinette", 50, 91 },
+        { "Fagott", 34, 75 },            { "Horn", 41, 77 },              { "Trompete", 54, 82 },
+        { "Posaune", 40, 72 },           { "Tuba", 28, 58 },              { "Harfe", 24, 103 },
+        { "Celesta", 60, 108 },          { "Glockenspiel", 79, 108 },     { "Klavier", 21, 108 } };
+    return t;
+}
+
 juce::AudioProcessorValueTreeState::ParameterLayout StromscoreProcessor::createLayout()
 {
     using namespace juce;
@@ -69,6 +90,15 @@ juce::AudioProcessorValueTreeState::ParameterLayout StromscoreProcessor::createL
     for (int i = 0; i < stromscore::kNumLayers; ++i)
         layout.add (std::make_unique<AudioParameterChoice> (ParameterID { "oct" + String (i + 1), 1 },
             layerNames()[i] + " Oktave", octaveNames(), 2));
+    const auto noteAttr = AudioParameterIntAttributes()
+        .withStringFromValueFunction ([] (int v, int) { return noteName (v); });
+    for (int i = 0; i < stromscore::kNumLayers; ++i)
+    {
+        const String n (i + 1);
+        layout.add (std::make_unique<AudioParameterBool> (ParameterID { "umfang" + n, 1 }, layerNames()[i] + " Tonumfang", false));
+        layout.add (std::make_unique<AudioParameterInt> (ParameterID { "tief" + n, 1 }, layerNames()[i] + u8 (" tiefster Ton"), 0, 127, 0, noteAttr));
+        layout.add (std::make_unique<AudioParameterInt> (ParameterID { "hoch" + n, 1 }, layerNames()[i] + u8 (" höchster Ton"), 0, 127, 127, noteAttr));
+    }
     layout.add (std::make_unique<AudioParameterBool> (ParameterID { "eigeneFolge", 1 }, "Eigene Folge", false));
     static constexpr int defRoot[stromscore::kMaxChords] = { 5, 0, 10, 7, 9, 2, 4, 0 };   // F - C - B - G
     for (int i = 0; i < stromscore::kMaxChords; ++i)
@@ -108,7 +138,14 @@ StromscoreProcessor::StromscoreProcessor()
     pArp = apvts.getRawParameterValue ("arpFigure");
     pRate = apvts.getRawParameterValue ("arpRate");
     pChange = apvts.getRawParameterValue ("wechsel");
-    for (int i = 0; i < stromscore::kNumLayers; ++i) pOctave[i] = apvts.getRawParameterValue ("oct" + juce::String (i + 1));
+    for (int i = 0; i < stromscore::kNumLayers; ++i)
+    {
+        const juce::String n (i + 1);
+        pOctave[i] = apvts.getRawParameterValue ("oct" + n);
+        pRangeOn[i] = apvts.getRawParameterValue ("umfang" + n);
+        pRangeLo[i] = apvts.getRawParameterValue ("tief" + n);
+        pRangeHi[i] = apvts.getRawParameterValue ("hoch" + n);
+    }
     pCustom = apvts.getRawParameterValue ("eigeneFolge");
     for (int i = 0; i < stromscore::kMaxChords; ++i)
     {
@@ -172,7 +209,13 @@ stromscore::Settings StromscoreProcessor::currentSettings() const
     s.arpFigure = juce::roundToInt (pArp->load());
     s.arpRate = juce::roundToInt (pRate->load());
     s.change = juce::roundToInt (pChange->load());
-    for (int i = 0; i < stromscore::kNumLayers; ++i) s.octave[i] = juce::roundToInt (pOctave[i]->load()) - 2;
+    for (int i = 0; i < stromscore::kNumLayers; ++i)
+    {
+        s.octave[i] = juce::roundToInt (pOctave[i]->load()) - 2;
+        s.rangeOn[i] = pRangeOn[i]->load() >= 0.5f;
+        s.rangeLo[i] = juce::roundToInt (pRangeLo[i]->load());
+        s.rangeHi[i] = juce::roundToInt (pRangeHi[i]->load());
+    }
     s.custom = pCustom->load() >= 0.5f;
     for (int i = 0; i < stromscore::kMaxChords; ++i)
     {
@@ -190,6 +233,11 @@ void StromscoreProcessor::handleControllers (const juce::MidiBuffer& incoming)
     for (const auto meta : incoming)
     {
         const auto msg = meta.getMessage();
+        if (msg.isNoteOn() && learnLayer.load() >= 0)   // Anlernen: erste und zweite gedrueckte Taste
+        {
+            if (learnFirst.load() < 0) learnFirst.store (msg.getNoteNumber());
+            else if (learnSecond.load() < 0 && msg.getNoteNumber() != learnFirst.load()) learnSecond.store (msg.getNoteNumber());
+        }
         if (! msg.isController()) continue;
         for (int a = 0; a < 3; ++a)
         {
