@@ -339,40 +339,56 @@ void StromscoreEditor::paint (juce::Graphics& g)
         g.drawImage (logo, juce::Rectangle<float> (14.0f, 4.0f, 56.0f, 56.0f), juce::RectanglePlacement::centred, true);
     }
 
-    const float subX = 292.0f;
+    const float subX = 244.0f;
     g.setColour (theme.text);
     g.setFont (juce::FontOptions (24.0f, juce::Font::bold));
     g.drawText ("STROMSCORE", 80, 8, 210, 30, juce::Justification::centredLeft);
     g.setColour (theme.accent);
-    g.setFont (juce::FontOptions (13.0f, juce::Font::bold));
-    const juce::String subtitle = u8 ("SCORE-GENERATOR F\xc3\x9cR H\xc3\x96RSPIELE");
-    g.drawText (subtitle, (int) subX, 15, 300, 22, juce::Justification::centredLeft);
+    g.setFont (juce::FontOptions (12.0f, juce::Font::bold));
+    const juce::String subtitle = u8 ("AUDIO DRAMA UNDERSCORE GENERATOR");
+    g.drawText (subtitle, (int) subX, 15, 320, 22, juce::Justification::centredLeft);
     g.setColour (theme.dim);
     g.setFont (juce::FontOptions (11.0f));
     g.drawText (juce::String (juce::CharPointer_UTF8 ("STROMSCHLAG AUDIO  \xc2\xb7  v" PLUGIN_VERSION_TEXT)), 80, 36, 300, 16, juce::Justification::centredLeft);
 
-    // Symbol: Notenlinien mit ein paar Noten (einfarbig, folgt dem Look)
+    // Symbol: Violinschluessel, Notenlinien, ein paar Noten mit p und f (einfarbig, folgt dem Look)
     {
         juce::GlyphArrangement ga;
-        ga.addLineOfText (juce::Font (juce::FontOptions (13.0f, juce::Font::bold)), subtitle, 0.0f, 0.0f);
+        ga.addLineOfText (juce::Font (juce::FontOptions (12.0f, juce::Font::bold)), subtitle, 0.0f, 0.0f);
         const float subEnd = subX + ga.getBoundingBox (0, -1, true).getWidth();
         const float helpX = (float) (kBaseW - 170);
         const float mid = 0.5f * (subEnd + helpX);
-        g.setColour (theme.panel.interpolatedWith (theme.text, 0.30f));
-        const float x0 = mid - 44.0f, x1 = mid + 44.0f, y0 = 20.0f, gap = 5.5f;
+        g.setColour (theme.panel.interpolatedWith (theme.text, 0.34f));
+        const float x0 = mid - 50.0f, x1 = mid + 50.0f, y0 = 24.0f, gap = 4.0f;
         for (int i = 0; i < 5; ++i)
             g.fillRect (x0, y0 + (float) i * gap, x1 - x0, 1.0f);
-        // Noten: Position (x, Linienhoehe in halben Abstaenden von unten), Hals nach oben
-        const float notes[][2] = { { 14, 0 }, { 32, 2 }, { 50, 4 }, { 68, 3 } };
+
+        juce::Path clef;   // Linie G liegt bei y = 22 in Pfadkoordinaten (Notenlinien bei 10 ... 26)
+        clef.startNewSubPath (10.0f, 34.0f);
+        clef.cubicTo (10.0f, 38.0f, 16.0f, 38.0f, 16.0f, 34.0f);
+        clef.cubicTo (16.0f, 28.0f, 14.0f, 10.0f, 14.0f, 5.0f);
+        clef.cubicTo (14.0f, 0.0f, 19.0f, 0.0f, 18.0f, 6.0f);
+        clef.cubicTo (17.0f, 14.0f, 9.0f, 17.0f, 9.0f, 22.0f);
+        clef.cubicTo (9.0f, 28.0f, 19.0f, 28.0f, 19.0f, 22.0f);
+        clef.cubicTo (19.0f, 17.0f, 11.0f, 16.0f, 11.0f, 21.0f);
+        g.strokePath (clef, juce::PathStrokeType (1.3f, juce::PathStrokeType::curved, juce::PathStrokeType::rounded),
+                      juce::AffineTransform::translation (x0 + 1.0f, y0 - 10.0f));
+
+        // Noten: x, Hoehe in halben Linienabstaenden ueber der untersten Linie
+        const float notes[][2] = { { 44, 1 }, { 58, 3 }, { 72, 5 }, { 84, 4 } };
         for (const auto& n : notes)
         {
             const float cx = x0 + n[0];
             const float cy = y0 + 4.0f * gap - n[1] * gap * 0.5f;
             juce::Path head;
-            head.addEllipse (-3.6f, -2.6f, 7.2f, 5.2f);
+            head.addEllipse (-2.8f, -2.0f, 5.6f, 4.0f);
             g.fillPath (head, juce::AffineTransform::rotation (-0.4f).translated (cx, cy));
-            g.fillRect (cx + 2.8f, cy - 15.0f, 1.2f, 15.0f);
+            g.fillRect (cx + 2.2f, cy - 11.0f, 1.0f, 11.0f);
         }
+        // Lautstaerke: p vor den Noten, f am Ende (kursiv)
+        g.setFont (juce::Font (juce::FontOptions ("Times New Roman", 14.0f, juce::Font::bold | juce::Font::italic)));
+        g.drawText ("p", (int) (x0 + 25.0f), (int) (y0 + 18.0f), 14, 18, juce::Justification::centred);
+        g.drawText ("f", (int) (x0 + 90.0f), (int) (y0 + 18.0f), 12, 18, juce::Justification::centred);
     }
 
     // Obere Karte

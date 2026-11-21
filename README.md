@@ -1,4 +1,4 @@
-# STROMSCORE – Score-Generator für Hörspiele
+# STROMSCORE – Audio Drama Underscore Generator
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="docs/logo-dunkel.png">
