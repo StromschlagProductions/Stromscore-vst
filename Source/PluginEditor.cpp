@@ -45,6 +45,7 @@ void MoodPad::paint (juce::Graphics& g)
     g.drawText (u8 ("Angst"), ai, juce::Justification::topLeft);
     g.drawText (u8 ("Triumph"), ai, juce::Justification::topRight);
     g.drawText (u8 ("Lauern"), ai, juce::Justification::bottomLeft);
+    g.drawText (u8 ("Ruhe"), ai, juce::Justification::centredBottom);
     g.drawText (u8 ("Wärme"), ai, juce::Justification::bottomRight);
 
     // Punkt mit Unruhe-Ring: groesser und zittriger mit mehr Unruhe
@@ -89,7 +90,28 @@ void ChordDisplay::paint (juce::Graphics& g)
     g.drawText (meter, 14, 12, w - 28, 16, juce::Justification::centredRight);
     g.setColour (accent);
     g.setFont (juce::FontOptions (13.0f, juce::Font::bold));
-    g.drawText (playing ? u8 ("Wendung: ") + wendung : u8 ("Wiedergabe starten, dann spielt es"), 14, 48, w - 28, 18, juce::Justification::centredLeft);
+    g.drawText (playing ? (custom ? wendung : u8 ("Wendung: ") + wendung) : u8 ("Wiedergabe starten oder VORHÖREN einschalten"), 14, 48, w - 28, 18, juce::Justification::centredLeft);
+
+    // Stimmung live: Faerbung, Intensitaet, Unruhe in Prozent mit schmalem Balken
+    {
+        const char* names[3] = { "Färbung", "Intensität", "Unruhe" };
+        const float top = (float) getHeight() - 62.0f, labelW = 74.0f, valueW = 42.0f;
+        for (int i = 0; i < 3; ++i)
+        {
+            const float yy = top + (float) i * 18.0f;
+            g.setColour (dim);
+            g.setFont (juce::FontOptions (11.0f));
+            g.drawText (u8 (names[i]), juce::Rectangle<float> (14.0f, yy, labelW, 16.0f), juce::Justification::centredLeft);
+            const juce::Rectangle<float> bar (14.0f + labelW, yy + 6.0f, (float) w - 28.0f - labelW - valueW - 6.0f, 4.0f);
+            g.setColour (line);
+            g.fillRoundedRectangle (bar, 2.0f);
+            g.setColour (accent);
+            g.fillRoundedRectangle (bar.withWidth (juce::jmax (4.0f, bar.getWidth() * juce::jlimit (0.0f, 1.0f, mood[i]))), 2.0f);
+            g.setColour (text);
+            g.drawText (juce::String (juce::roundToInt (mood[i] * 100.0f)) + " %", juce::Rectangle<float> ((float) w - 14.0f - valueW, yy, valueW, 16.0f),
+                        juce::Justification::centredRight);
+        }
+    }
 
     // Akkorde der Wendung als Chips
     if (playing && numChips > 0)
@@ -139,8 +161,34 @@ void LayerView::paint (juce::Graphics& g)
     {
         g.setColour (active ? text : dim);
         g.setFont (juce::FontOptions (11.5f));
-        g.drawFittedText (lines, 12, 50, (int) r.getWidth() - 24, 80, juce::Justification::topLeft, 6, 1.0f);
+        g.drawFittedText (lines, 12, 50, (int) r.getWidth() - 24, (int) r.getHeight() - 116, juce::Justification::topLeft, 4, 1.0f);
     }
+}
+
+// ---------------------------------------------------------------- Eigene Akkordfolge
+
+void SlotPanel::paint (juce::Graphics& g)
+{
+    auto r = getLocalBounds().toFloat();
+    g.setColour (panel);
+    g.fillRoundedRectangle (r, 8.0f);
+    g.setColour (accent);
+    g.drawRoundedRectangle (r.reduced (0.5f), 8.0f, 1.5f);
+
+    g.setColour (accent);
+    g.setFont (juce::FontOptions (13.0f, juce::Font::bold));
+    g.drawText (u8 ("EIGENE AKKORDFOLGE"), 16, 12, 300, 18, juce::Justification::centredLeft);
+    g.setColour (dim);
+    g.setFont (juce::FontOptions (12.0f));
+    g.drawText (u8 ("Bis zu acht Akkorde mit Grundton, Art und Länge. Plätze mit „–“ werden übersprungen, danach beginnt die Folge von vorn."),
+                16, 32, getWidth() - 32, 18, juce::Justification::centredLeft);
+    const int cw = (getWidth() - 32 - 7 * 8) / stromscore::kMaxChords;
+    g.setFont (juce::FontOptions (11.0f, juce::Font::bold));
+    for (int i = 0; i < stromscore::kMaxChords; ++i)
+        g.drawText (juce::String (i + 1), 16 + i * (cw + 8), 66, cw, 16, juce::Justification::centred);
+    g.setColour (text);
+    g.setFont (juce::FontOptions (12.0f));
+    g.drawText (totalText, 16, getHeight() - 42, getWidth() - 170, 28, juce::Justification::centredLeft);
 }
 
 // ---------------------------------------------------------------- Farben
@@ -183,14 +231,22 @@ static juce::AttributedString buildHelp (juce::Colour text, juce::Colour accent,
     note ("Ohne eigene Instrumente hörst du mit VORHÖREN einen einfachen Testklang direkt aus dem Plugin.");
 
     head ("Das Stimmungsfeld");
-    body ("Ziehe den Punkt durch das Feld. Waagerecht ist die FÄRBUNG: links dunkel (Bedrohung, Trauer, Lauern), rechts hell (Wärme, Staunen, Triumph). Senkrecht ist die INTENSITÄT: unten ruhig und dünn, oben aufgewühlt und dicht. Mit dem Mausrad über dem Feld oder dem Regler UNRUHE änderst du die dritte Achse. Sie zeigt sich als Ring um den Punkt: Je größer und zittriger, desto mehr Reibung, Dissonanz, Halbtöne und verschobene Betonungen. Bei wenig Intensität sind es einzelne fremde Töne, bei viel Intensität kratzt der ganze Satz.");
-    body ("Alle drei Achsen lassen sich automatisieren. So fährst du durch eine Szene: langsam vom Lauern in die Panik und am Ende in die Erlösung. Wechsel greifen am nächsten Akkordwechsel, damit nichts mitten im Ton umspringt.");
+    body ("Ziehe den Punkt durch das Feld. Waagerecht ist die FÄRBUNG: links dunkel (Bedrohung, Trauer, Lauern), rechts hell (Wärme, Staunen, Triumph). Senkrecht ist die INTENSITÄT: unten ruhig und dünn, oben aufgewühlt und dicht. Unten in der Mitte liegt RUHE, der neutrale Ausgangspunkt. Färbung, Intensität und Unruhe stehen rechts in der Akkord-Anzeige laufend in Prozent.");
+    body ("Mit dem Mausrad über dem Feld (oder per Controller) änderst du die dritte Achse, die UNRUHE. Sie zeigt sich als Ring um den Punkt: Je größer und zittriger, desto mehr Reibung, Dissonanz, Halbtöne und verschobene Betonungen. Bei wenig Intensität sind es einzelne fremde Töne, bei viel Intensität kratzt der ganze Satz.");
+    body ("Alle drei Achsen lassen sich automatisieren. So fährst du durch eine Szene: langsam vom Lauern in die Panik und am Ende in die Erlösung.");
+
+    head ("WECHSEL");
+    body ("Bewegst du den Punkt deutlich, wechselt die Wendung am nächsten Wechselpunkt: am nächsten Schlag (Vorgabe), am nächsten Takt, alle 2 oder alle 4 Takte. Die neue Wendung beginnt dort mit ihrem ersten Akkord. Gehaltene Töne der alten Stimmung enden genau am Wechselpunkt, der Arp läuft im Takt weiter und spielt gleich die neuen Akkordtöne. Kleine Bewegungen lösen keinen Wechsel aus, solange die laufende Wendung noch gut zur Lage passt; die Ebenen reagieren trotzdem sofort auf Intensität und Unruhe.");
 
     head ("Controller (CC)");
     body ("Stromscore hört auf seinem MIDI-Eingang auf drei Controller: CC 11 für die Färbung, CC 1 für die Intensität und CC 74 für die Unruhe. Das passt zu einem Fader-Controller, wie er für Orchester-Instrumente üblich ist. Gib der Stromscore-Spur den Controller als Eingang und nimm die Fader-Bewegungen als MIDI-Part auf. Über den Knopf mit den CC-Nummern kannst du die Zuordnung ändern oder einzelne Achsen abschalten.");
 
     head ("Wendungen und Akkorde");
     body ("Rechts oben steht der klingende Akkord, darunter die Wendung und ihre Akkorde. Eine Wendung dauert acht Takte. Welche Wendung kommt, hängt vom Punkt im Feld und von VARIATION ab. Bleibst du an einer Stelle, wechseln sich passende Wendungen ab. Die Akkorde stehen mit deutschen Notennamen (H statt B).");
+    body ("Der Vorrat reicht von Lauern, Trauer und Grusel über Verfolgung, Ermittlung, Geheimnis, Fremde Orte, Synth-Nächte und Funk bis zu Sehnsucht, Romantik, Erhabenem, Heiterkeit, Western, Abenteuer und Triumph.");
+
+    head ("Eigene Folge");
+    body ("Mit EIGENE FOLGE spielt Stromscore deine Akkorde statt der Wendungen. Über „Bearbeiten“ legst du bis zu acht Akkorde fest, jeweils mit Grundton, Art (Dur, Moll, maj7, m7, 7, sus4, add9, m6, m(maj7), m7b5, dim7, +) und Länge in Takten. Die Grundtöne gelten unabhängig von TONART. Vorgabe ist F – C – B – G mit je 2 Takten. Das Stimmungsfeld bestimmt weiter, wie die Ebenen spielen: Dichte, Muster, Unruhe und welche Ebenen einsetzen.");
 
     head ("TONART, TAKT, VARIATION, SWING");
     body ("TONART legt den Grundton fest. TAKT übernimmt die Taktart aus dem Projekt oder legt sie fest (4/4, 3/4, 6/8, 5/4, 7/8, 5/8, 12/8); ungerade Takte bekommen eigene Betonungsgruppen, etwa 3+3+2+2 im 5/4. VARIATION wählt eine von sechzehn Kombinationen aus Wendungen und Figuren; gleiche Nummer, gleiches Ergebnis. SWING verschiebt die Zwischen-Achtel nach hinten, bis zum Triolen-Gefühl.");
@@ -199,13 +255,16 @@ static juce::AttributedString buildHelp (juce::Colour text, juce::Colour accent,
     body ("Jede Ebene hat ihren MIDI-Kanal und eine Lampe, die bei jedem Ton leuchtet. Der untere Schalter hat drei Stufen: Aus (die Ebene schweigt), Auto (sie setzt bei ihrer Intensitäts-Stufe ein: Arp ab 25 %, Farbe ab 40 % oder bei Unruhe, Akzente ab 70 %) und An (sie spielt immer). So kannst du auch nur mit dem Bass oder nur mit einer Fläche beginnen.");
 
     head ("Muster");
-    body ("Fläche: Gehalten, Schläge (kurze Akkorde auf der Zwischenzeit) oder Puls (auf jedem Schlag). Bass: Gehalten, Halbe, Viertel, Achtel, Puls (durchgehende Sechzehntel auf einem Ton), Oktaven, Funk (synkopiert) oder Pendel (Grundton und kleine Terz, bei Unruhe Halbton). Arp: Aufwärts, Abwärts, Kreisend (auf und ab), Zelle (kurze, obsessive Figur), Riff oder Glitzern (schnell und hoch); das Tempo wählst du daneben. Auf Auto folgt das Muster der Wendung.");
+    body ("Fläche: Gehalten, Schläge (kurze Akkorde auf der Zwischenzeit), Puls (auf jedem Schlag) oder Staccato (kurz auf jedem Schlag). Bass: Gehalten, Halbe, Viertel, Achtel, Puls (durchgehende Sechzehntel auf einem Ton), Funk (synkopiert, mit kurzem Sprung nach oben am Taktende), Pendel (Grundton und kleine Terz, bei Unruhe Halbton), Walking (Akkordtöne in Vierteln, chromatisch zum nächsten Grundton), Wechselbass (Grundton und Quinte im Wechsel), Herzschlag (doppelter Schlag, wie ein Puls) oder Arpeggio (Akkordtöne in Achteln). Arp: Aufwärts, Abwärts, Kreisend (auf und ab), Zelle (kurze, obsessive Figur), Riff, Glitzern (schnell und hoch) oder Sprünge (weite Dreiklangs-Sprünge); das Tempo wählst du darunter. Auf Auto folgt das Muster der Wendung.");
+
+    head ("Oktave");
+    body ("Jede Ebene hat ihre eigene Oktavlage: Normal, eine oder zwei Oktaven höher oder tiefer. So passt du die Lage an deine Instrumente an, ohne die Noten zu verändern.");
 
     head ("Folgt den Akkorden / bleibt");
     body ("Bei Fläche, Bass und Arp bestimmt dieser Schalter, ob die Ebene den Akkordwechseln folgt oder auf dem Grundakkord der Tonart bleibt. Ein Arp, der bleibt, läuft unverändert durch, während sich Fläche und Bass bewegen. Ein Bass, der bleibt, hält den Grundton unter wechselnden Akkorden.");
 
     head ("VORHÖREN");
-    body ("Ein einfacher Testklang im Plugin, damit du ohne eigene Instrumente hörst, was entsteht. Für die fertige Musik schaltest du ihn aus.");
+    body ("Ein einfacher Testklang im Plugin, damit du ohne eigene Instrumente hörst, was entsteht. Das geht auch bei stehender DAW: Ist VORHÖREN an und die Wiedergabe gestoppt, läuft Stromscore mit eigener Uhr im Projekttempo. Dabei klingt nur der Testklang, an deine Instrumentenspuren geht kein MIDI. Startest du die Wiedergabe, übernimmt der Takt des Projekts. Für die fertige Musik schaltest du VORHÖREN aus.");
 
     head ("Allgemein");
     body ("Doppelklick auf einen Drehregler oder Strg-Klick setzt ihn auf den Standardwert zurück. Look: Dunkel / Hell umschalten, die Wahl wird mit dem Projekt gespeichert. Das Fenster ist am rechten unteren Rand skalierbar (50–300 %).");
@@ -238,14 +297,13 @@ StromscoreEditor::StromscoreEditor (StromscoreProcessor& p) : AudioProcessorEdit
         content.addAndMakeVisible (l);
     };
     label (padLabel, u8 ("STIMMUNG"), juce::Justification::centredLeft);
-    label (padValues, "", juce::Justification::centred);
-    padValues.setFont (juce::Font (juce::FontOptions (11.0f)));
-    label (unruheLabel, "UNRUHE", juce::Justification::centred);
     label (keyLabel, "TONART", juce::Justification::centredLeft);
     label (meterLabel, "TAKT", juce::Justification::centredLeft);
     label (variationLabel, "VARIATION", juce::Justification::centredLeft);
     label (swingLabel, "SWING", juce::Justification::centredLeft);
     label (chordLabel, "AKKORD", juce::Justification::centredLeft);
+    label (changeLabel, "WECHSEL", juce::Justification::centredLeft);
+    label (customLabel, "AKKORDE", juce::Justification::centredLeft);
 
     // Stimmungsfeld: Faerbung und Intensitaet als ein Zug, Unruhe per Mausrad
     for (int a = 0; a < 3; ++a)
@@ -253,8 +311,6 @@ StromscoreEditor::StromscoreEditor (StromscoreProcessor& p) : AudioProcessorEdit
             [this, a] (float v)
             {
                 (a == 0 ? pad.x : a == 1 ? pad.y : pad.z) = v;
-                padValues.setText (u8 ("Färbung ") + juce::String (juce::roundToInt (pad.x * 100.0f)) + u8 (" %\nIntensität ")
-                                   + juce::String (juce::roundToInt (pad.y * 100.0f)) + " %", juce::dontSendNotification);
                 pad.repaint();
             }, nullptr);
     pad.onDragStart = [this] { axisAttachment[0]->beginGesture(); axisAttachment[1]->beginGesture(); };
@@ -264,11 +320,6 @@ StromscoreEditor::StromscoreEditor (StromscoreProcessor& p) : AudioProcessorEdit
     for (auto& a : axisAttachment) a->sendInitialUpdate();
     content.addAndMakeVisible (pad);
 
-    unruhe.setSliderStyle (juce::Slider::RotaryVerticalDrag);
-    unruhe.setMouseDragSensitivity (180);
-    unruhe.setTextBoxStyle (juce::Slider::TextBoxBelow, false, 80, 18);
-    content.addAndMakeVisible (unruhe);
-    unruheAttachment = std::make_unique<APVTS::SliderAttachment> (processor.apvts, "unruhe", unruhe);
 
     variation.setSliderStyle (juce::Slider::IncDecButtons);
     variation.setTextBoxStyle (juce::Slider::TextBoxLeft, false, 60, 24);
@@ -287,6 +338,38 @@ StromscoreEditor::StromscoreEditor (StromscoreProcessor& p) : AudioProcessorEdit
     keyAttachment = std::make_unique<APVTS::ComboBoxAttachment> (processor.apvts, "key", keyBox);
     meterAttachment = std::make_unique<APVTS::ComboBoxAttachment> (processor.apvts, "takt", meterBox);
 
+    changeBox.addItemList (StromscoreProcessor::changeNames(), 1);
+    content.addAndMakeVisible (changeBox);
+    changeAttachment = std::make_unique<APVTS::ComboBoxAttachment> (processor.apvts, "wechsel", changeBox);
+
+    // Eigene Akkordfolge
+    customButton.setClickingTogglesState (true);
+    customButton.onStateChange = [this]
+    { customButton.setButtonText (customButton.getToggleState() ? u8 ("Eigene Folge: An") : u8 ("Eigene Folge: Aus")); };
+    content.addAndMakeVisible (customButton);
+    customAttachment = std::make_unique<APVTS::ButtonAttachment> (processor.apvts, "eigeneFolge", customButton);
+    customButton.onStateChange();
+    editButton.setButtonText (u8 ("Bearbeiten …"));
+    editButton.onClick = [this] { slots.setVisible (! slots.isVisible()); if (slots.isVisible()) slots.toFront (false); };
+    content.addAndMakeVisible (editButton);
+    for (int i = 0; i < stromscore::kMaxChords; ++i)
+    {
+        const juce::String n (i + 1);
+        slots.root[i].addItemList (StromscoreProcessor::slotRootNames(), 1);
+        slots.type[i].addItemList (StromscoreProcessor::slotTypeNames(), 1);
+        slots.bars[i].addItemList (StromscoreProcessor::slotBarNames(), 1);
+        slotAttachment[3 * i] = std::make_unique<APVTS::ComboBoxAttachment> (processor.apvts, "slotRoot" + n, slots.root[i]);
+        slotAttachment[3 * i + 1] = std::make_unique<APVTS::ComboBoxAttachment> (processor.apvts, "slotType" + n, slots.type[i]);
+        slotAttachment[3 * i + 2] = std::make_unique<APVTS::ComboBoxAttachment> (processor.apvts, "slotBars" + n, slots.bars[i]);
+        slots.root[i].setTooltip (u8 ("Grundton des Akkords (unabhängig von TONART)."));
+        slots.type[i].setTooltip (u8 ("Art des Akkords."));
+        slots.bars[i].setTooltip (u8 ("Länge in Takten. „–“ lässt den Platz aus."));
+    }
+    slots.doneButton.setButtonText ("Fertig");
+    slots.doneButton.onClick = [this] { slots.setVisible (false); };
+    slots.setVisible (false);
+    content.addChildComponent (slots);
+
     ccButton.onClick = [this] { showCcMenu(); };
     content.addAndMakeVisible (ccButton);
     updateCcButton();
@@ -304,6 +387,11 @@ StromscoreEditor::StromscoreEditor (StromscoreProcessor& p) : AudioProcessorEdit
         lv.title = u8 (kLayerTitle[i]);
         lv.lines = u8 (kLayerLines[i]);
         lv.channel = i + 1;
+        lv.index = i;
+        lv.octBox.addItemList (StromscoreProcessor::octaveNames(), 1);
+        lv.octBox.setTooltip (u8 ("Oktavlage dieser Ebene."));
+        octaveAttachment[i] = std::make_unique<APVTS::ComboBoxAttachment> (processor.apvts, "oct" + juce::String (i + 1), lv.octBox);
+        lv.resized();   // Lage des Oktav-Felds haengt von der Ebene ab
         lv.setTooltip (u8 ("MIDI-Kanal ") + juce::String (i + 1) + ": " + u8 (kLayerTip[i]));
         lv.modeButton.setTooltip (u8 ("Aus: die Ebene schweigt. Auto: sie setzt bei ihrer Intensitäts-Stufe ein. An: sie spielt immer. Klick schaltet weiter."));
         modeAttachment[i] = std::make_unique<juce::ParameterAttachment> (*processor.apvts.getParameter ("layer" + juce::String (i + 1)),
@@ -355,14 +443,16 @@ StromscoreEditor::StromscoreEditor (StromscoreProcessor& p) : AudioProcessorEdit
     helpScroll.setVisible (false);
     content.addChildComponent (helpScroll);
 
-    pad.setTooltip (u8 ("Stimmungsfeld: waagerecht die Färbung (dunkel bis hell), senkrecht die Intensität (ruhig bis aufgewühlt). Mausrad: Unruhe. Automatisierbar, auch per CC."));
-    unruhe.setTooltip (u8 ("Unruhe: Reibung, Halbtöne, Dissonanz und verschobene Betonungen. Auch per Mausrad über dem Feld."));
+    pad.setTooltip (u8 ("Stimmungsfeld: waagerecht die Färbung (dunkel bis hell), senkrecht die Intensität (ruhig bis aufgewühlt), Mausrad: Unruhe (Ring um den Punkt). Automatisierbar, auch per CC."));
+    changeBox.setTooltip (u8 ("Wann eine neue Wendung einsetzt, wenn du den Punkt deutlich bewegst: am nächsten Schlag, am nächsten Takt, alle 2 oder alle 4 Takte."));
+    customButton.setTooltip (u8 ("An: deine eigene Akkordfolge statt der Wendungen. Das Stimmungsfeld bestimmt weiter, wie die Ebenen spielen."));
+    editButton.setTooltip (u8 ("Eigene Akkordfolge festlegen: bis zu acht Akkorde mit Grundton, Art und Länge."));
     keyBox.setTooltip (u8 ("Grundton der Tonart."));
     meterBox.setTooltip (u8 ("Taktart: vom Projekt übernehmen oder fest einstellen. Ungerade Takte bekommen eigene Betonungen."));
     variation.setTooltip (u8 ("Sechzehn Kombinationen aus Wendungen und Figuren. Gleiche Nummer, gleiches Ergebnis."));
     swing.setTooltip (u8 ("Verschiebt die Zwischen-Achtel nach hinten, bis zum Triolen-Gefühl."));
-    previewButton.setTooltip (u8 ("Einfacher Testklang im Plugin, damit du ohne eigene Instrumente hörst, was entsteht."));
-    chordDisplay.setTooltip (u8 ("Der klingende Akkord, darunter die Wendung (acht Takte) und ihre Akkorde."));
+    previewButton.setTooltip (u8 ("Einfacher Testklang im Plugin. Spielt auch ohne Wiedergabe mit eigener Uhr (nur der Testklang, kein MIDI)."));
+    chordDisplay.setTooltip (u8 ("Der klingende Akkord, darunter die Wendung (acht Takte) oder deine eigene Folge und ihre Akkorde."));
 
     applyTheme();
     const int savedW = processor.uiWidth.load();
@@ -427,15 +517,25 @@ void StromscoreEditor::timerCallback()
     // Akkord-Anzeige
     const int w = processor.wendung.load();
     const int key = juce::roundToInt (processor.apvts.getRawParameterValue ("key")->load());
-    chordDisplay.playing = w >= 0 && w < stromscore::kNumWendungen;
+    chordDisplay.playing = w >= 0 && w <= stromscore::kCustomWendung;
     chordDisplay.meter = u8 ("Takt ") + juce::String (processor.meterNum.load()) + "/" + juce::String (processor.meterDen.load());
+    const auto settings = processor.currentSettings();
+    {
+        int total = 0;
+        for (const auto& c : settings.customChords) total += c.bars;
+        slots.totalText = total > 0 ? u8 ("Länge der Folge: ") + juce::String (total) + (total == 1 ? " Takt" : " Takte")
+                                    : u8 ("Alle Plätze leer: es spielt der Grundakkord der Tonart.");
+        if (slots.isVisible()) slots.repaint();
+    }
     if (chordDisplay.playing)
     {
-        const auto& wd = stromscore::kWendungen[w];
+        const auto custom = stromscore::customWendung (settings);
+        const auto& wd = w == stromscore::kCustomWendung ? custom : stromscore::kWendungen[w];
         char buf[32];
         stromscore::chordName (key, processor.chordRoot.load(), processor.chordType.load(), buf, (int) sizeof (buf));
         chordDisplay.chord = juce::String (juce::CharPointer_UTF8 (buf));
         chordDisplay.wendung = juce::String (juce::CharPointer_UTF8 (wd.name));
+        chordDisplay.custom = w == stromscore::kCustomWendung;
         chordDisplay.numChips = wd.n;
         for (int i = 0; i < wd.n; ++i)
         {
@@ -444,6 +544,7 @@ void StromscoreEditor::timerCallback()
         }
         chordDisplay.current = processor.chordIndex.load();
     }
+    chordDisplay.mood[0] = pad.x; chordDisplay.mood[1] = pad.y; chordDisplay.mood[2] = pad.z;
     chordDisplay.repaint();
 
     // Ebenen
@@ -484,11 +585,12 @@ void StromscoreEditor::applyTheme()
     look.setColour (juce::TextButton::textColourOffId, theme.text);
     look.setColour (juce::TextButton::textColourOnId, juce::Colours::black);
 
-    for (auto* l : { &padLabel, &padValues, &unruheLabel, &keyLabel, &meterLabel, &variationLabel, &swingLabel, &chordLabel })
+    for (auto* l : { &padLabel, &keyLabel, &meterLabel, &variationLabel, &swingLabel, &chordLabel, &changeLabel, &customLabel })
         l->setColour (juce::Label::textColourId, theme.dim);
     const auto inner = theme.dark ? theme.bg : theme.bg.brighter (0.05f);
     pad.panel = inner; pad.line = theme.line; pad.accent = theme.accent; pad.text = theme.text; pad.dim = theme.dim;
     chordDisplay.panel = inner; chordDisplay.line = theme.line; chordDisplay.accent = theme.accent; chordDisplay.text = theme.text; chordDisplay.dim = theme.dim;
+    slots.panel = theme.panel; slots.line = theme.line; slots.accent = theme.accent; slots.text = theme.text; slots.dim = theme.dim;
     for (auto& l : layers) { l.panel = theme.panel; l.line = theme.line; l.accent = theme.accent; l.text = theme.text; l.dim = theme.dim; }
     themeButton.setButtonText (theme.dark ? "Look: Dunkel" : "Look: Hell");
     helpText.setAttributed (buildHelp (theme.text, theme.accent, theme.dim));
@@ -496,6 +598,13 @@ void StromscoreEditor::applyTheme()
     helpScroll.edge = theme.line;
     sendLookAndFeelChange();
     repaint();
+}
+
+float StromscoreEditor::subtitleEnd() const
+{
+    juce::GlyphArrangement ga;
+    ga.addLineOfText (juce::Font (juce::FontOptions (12.0f, juce::Font::bold)), u8 ("AUDIO DRAMA UNDERSCORE INSPIRATOR"), 0.0f, 0.0f);
+    return kSubtitleX + ga.getBoundingBox (0, -1, true).getWidth();
 }
 
 void StromscoreEditor::paint (juce::Graphics& g)
@@ -517,7 +626,7 @@ void StromscoreEditor::paint (juce::Graphics& g)
         g.drawImage (logo, juce::Rectangle<float> (14.0f, 4.0f, 56.0f, 56.0f), juce::RectanglePlacement::centred, true);
     }
 
-    const float subX = 244.0f;
+    const float subX = kSubtitleX;
     g.setColour (theme.text);
     g.setFont (juce::FontOptions (24.0f, juce::Font::bold));
     g.drawText ("STROMSCORE", 80, 8, 210, 30, juce::Justification::centredLeft);
@@ -529,15 +638,10 @@ void StromscoreEditor::paint (juce::Graphics& g)
     g.setFont (juce::FontOptions (11.0f));
     g.drawText (juce::String (juce::CharPointer_UTF8 ("STROMSCHLAG AUDIO  \xc2\xb7  v" PLUGIN_VERSION_TEXT)), 80, 36, 300, 16, juce::Justification::centredLeft);
 
-    // Symbol: Violinschluessel, Notenlinien, ein paar Noten mit p und f (einfarbig, folgt dem Look)
+    // Symbol: Violinschluessel, Notenlinien, drei Noten mit p und f (kompakt direkt hinter dem Untertitel, folgt dem Look)
     {
-        juce::GlyphArrangement ga;
-        ga.addLineOfText (juce::Font (juce::FontOptions (12.0f, juce::Font::bold)), subtitle, 0.0f, 0.0f);
-        const float subEnd = subX + ga.getBoundingBox (0, -1, true).getWidth();
-        const float helpX = (float) (kBaseW - 170);
-        const float mid = 0.5f * (subEnd + helpX);
+        const float x0 = subtitleEnd() + 12.0f, x1 = x0 + kSymbolW, y0 = 22.0f, gap = 4.0f;
         g.setColour (theme.panel.interpolatedWith (theme.text, 0.34f));
-        const float x0 = mid - 50.0f, x1 = mid + 50.0f, y0 = 24.0f, gap = 4.0f;
         for (int i = 0; i < 5; ++i)
             g.fillRect (x0, y0 + (float) i * gap, x1 - x0, 1.0f);
 
@@ -549,22 +653,22 @@ void StromscoreEditor::paint (juce::Graphics& g)
         clef.cubicTo (17.0f, 14.0f, 9.0f, 17.0f, 9.0f, 22.0f);
         clef.cubicTo (9.0f, 28.0f, 19.0f, 28.0f, 19.0f, 22.0f);
         clef.cubicTo (19.0f, 17.0f, 11.0f, 16.0f, 11.0f, 21.0f);
-        g.strokePath (clef, juce::PathStrokeType (1.3f, juce::PathStrokeType::curved, juce::PathStrokeType::rounded),
-                      juce::AffineTransform::translation (x0 + 1.0f, y0 - 10.0f));
+        g.strokePath (clef, juce::PathStrokeType (1.2f, juce::PathStrokeType::curved, juce::PathStrokeType::rounded),
+                      juce::AffineTransform::translation (-9.0f, -1.0f).scaled (0.9f).translated (x0 + 2.0f, y0 - 8.0f));
 
-        const float notes[][2] = { { 44, 1 }, { 58, 3 }, { 72, 5 }, { 84, 4 } };
+        const float notes[][2] = { { 28, 1 }, { 40, 4 }, { 52, 3 } };
         for (const auto& n : notes)
         {
             const float cx = x0 + n[0];
             const float cy = y0 + 4.0f * gap - n[1] * gap * 0.5f;
             juce::Path head;
-            head.addEllipse (-2.8f, -2.0f, 5.6f, 4.0f);
+            head.addEllipse (-2.6f, -1.9f, 5.2f, 3.8f);
             g.fillPath (head, juce::AffineTransform::rotation (-0.4f).translated (cx, cy));
-            g.fillRect (cx + 2.2f, cy - 11.0f, 1.0f, 11.0f);
+            g.fillRect (cx + 2.0f, cy - 10.0f, 1.0f, 10.0f);
         }
-        g.setFont (juce::Font (juce::FontOptions ("Times New Roman", 14.0f, juce::Font::bold | juce::Font::italic)));
-        g.drawText ("p", (int) (x0 + 25.0f), (int) (y0 + 18.0f), 14, 18, juce::Justification::centred);
-        g.drawText ("f", (int) (x0 + 90.0f), (int) (y0 + 18.0f), 12, 18, juce::Justification::centred);
+        g.setFont (juce::Font (juce::FontOptions ("Times New Roman", 13.0f, juce::Font::bold | juce::Font::italic)));
+        g.drawText ("p", (int) (x0 + 21.0f), (int) (y0 + 18.0f), 12, 16, juce::Justification::centred);
+        g.drawText ("f", (int) (x0 + 49.0f), (int) (y0 + 18.0f), 12, 16, juce::Justification::centred);
     }
 
     // Obere Karte
@@ -572,7 +676,7 @@ void StromscoreEditor::paint (juce::Graphics& g)
     g.fillRoundedRectangle (12.0f, 76.0f, (float) W - 24.0f, 244.0f, 8.0f);
     g.setColour (theme.line);
     g.drawRoundedRectangle (12.5f, 76.5f, (float) W - 25.0f, 243.0f, 8.0f, 1.0f);
-    for (float x : { 404.0f, 584.0f })
+    for (float x : { 244.0f, 410.0f, 586.0f })
         g.fillRect (x, 88.0f, 1.0f, 220.0f);
 }
 
@@ -586,36 +690,44 @@ void StromscoreEditor::resized()
     repaint();
 
     const int w = kBaseW;
-    themeButton.setBounds (w - 170, 18, 112, 28);
-    helpButton.setBounds (w - 48, 18, 32, 28);
+    // Kopfzeile: CC-Knopf klein links neben dem Look-Schalter
+    helpButton.setBounds (w - 44, 18, 30, 28);
+    themeButton.setBounds (w - 150, 18, 100, 28);
+    const int ccX = std::max (juce::roundToInt (subtitleEnd() + 12.0f + kSymbolW + 14.0f), w - 150 - 8 - 150);
+    ccButton.setBounds (ccX, 18, w - 150 - 8 - ccX, 28);
     helpScroll.setBounds (12, 76, w - 24, kBaseH - 88);
     helpText.setWidth (helpScroll.getMaximumVisibleWidth());
 
-    // Stimmungsfeld und Unruhe
+    // Stimmungsfeld, darunter Unruhe
     padLabel.setBounds (24, 82, 200, 18);
-    padValues.setBounds (246, 236, 146, 36);
-    pad.setBounds (24, 102, 210, 210);
-    unruheLabel.setBounds (246, 82, 146, 18);
-    unruhe.setBounds (252, 102, 134, 126);
-    ccButton.setBounds (250, 280, 142, 26);
+    pad.setBounds (24, 102, 208, 208);
 
     // Tonart, Takt, Variation, Swing
-    keyLabel.setBounds (418, 82, 150, 18);
-    keyBox.setBounds (418, 102, 154, 26);
-    meterLabel.setBounds (418, 136, 150, 18);
-    meterBox.setBounds (418, 156, 154, 26);
-    variationLabel.setBounds (418, 190, 150, 18);
-    variation.setBounds (418, 210, 154, 26);
-    swingLabel.setBounds (418, 244, 150, 18);
-    swing.setBounds (414, 264, 162, 24);
+    keyLabel.setBounds (256, 82, 140, 18);
+    keyBox.setBounds (256, 102, 142, 26);
+    meterLabel.setBounds (256, 136, 140, 18);
+    meterBox.setBounds (256, 156, 142, 26);
+    variationLabel.setBounds (256, 190, 140, 18);
+    variation.setBounds (256, 210, 142, 26);
+    swingLabel.setBounds (256, 244, 140, 18);
+    swing.setBounds (252, 264, 150, 24);
+
+    // Wechsel, eigene Folge, Vorhoeren
+    changeLabel.setBounds (422, 82, 150, 18);
+    changeBox.setBounds (422, 102, 152, 26);
+    customLabel.setBounds (422, 136, 150, 18);
+    customButton.setBounds (422, 156, 152, 26);
+    editButton.setBounds (422, 188, 152, 26);
+    previewButton.setBounds (422, 264, 152, 26);
 
     // Akkord-Anzeige
     chordLabel.setBounds (598, 82, 200, 18);
-    chordDisplay.setBounds (598, 102, w - 622, 172);
-    previewButton.setBounds (598, 282, w - 622, 26);
+    chordDisplay.setBounds (598, 102, w - 622, 208);
+    slots.setBounds (12, 76, w - 24, 244);
 
     // Ebenen
     for (int i = 0; i < stromscore::kNumLayers; ++i)
         layers[i].setBounds (12 + i * 177, 330, 168, kBaseH - 342);
+    if (slots.isVisible()) slots.toFront (false);
     helpScroll.toFront (false);
 }

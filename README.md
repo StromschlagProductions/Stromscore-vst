@@ -12,7 +12,8 @@ Intensität (ruhig bis aufgewühlt) und Unruhe (sauber bis kratzig). Alle drei l
 live fahren. So folgt die Musik der Szene, vom Lauern über die Panik bis zur Erlösung.
 
 Es läuft im Takt des Projekts, auch in 3/4, 6/8 und ungeraden Takten. Gleiche Einstellungen ergeben immer dieselben Noten, auch nach
-einem Sprung oder bei einem Loop.
+einem Sprung oder bei einem Loop. Bewegst du die Stimmung, reagiert die Musik schon am nächsten Schlag. Wer feste Harmonien braucht,
+gibt eine **eigene Akkordfolge** vor.
 
 **Es verwendet keine KI.** STROMSCORE arbeitet mit festen Regeln, nicht mit trainierten Modellen und nicht mit fremdem Material. Die
 Grundlage ist der Stil, den ich über Jahre für meine Hörspiele entwickelt habe, geprägt von großen Filmkomponisten und der Musik
@@ -20,7 +21,7 @@ klassischer Hörspiele. Daraus ist ein Vorrat an Wendungen entstanden: Akkordfol
 Melodien bekannter Stücke werden nicht nachgebaut. Das Ziel: Szenen so zu untermalen, wie ich es selbst tun würde, und das einfacher
 zu machen.
 
-**Stand 0.4:** Forschungsphase. Bedienung und Klang werden mit jeder Version weiter verfeinert.
+**Stand 0.5:** Forschungsphase. Bedienung und Klang werden mit jeder Version weiter verfeinert.
 
 **⬇ Download (Windows · VST3):** https://github.com/StromschlagProductions/Stromscore-vst/releases/latest
 
@@ -36,6 +37,10 @@ bin, auch wenn er manchmal umständlich war. STROMSCORE soll nur die technische 
 |---|---|
 | ![Dunkle Oberfläche](docs/oberflaeche-dunkel.png) | ![Helle Oberfläche](docs/oberflaeche-hell.png) |
 
+Über **Bearbeiten** legst du die eigene Akkordfolge fest:
+
+![Eigene Akkordfolge](docs/oberflaeche-akkordfolge.png)
+
 Der Umschalter oben rechts wechselt den Look, die Wahl wird mit dem Projekt gespeichert. Der **?**-Knopf öffnet die Hilfe, über
 jedem Regler erscheint beim Darüberfahren ein kurzer Hinweis. Die Oberfläche lässt sich am rechten unteren Fensterrand stufenlos
 von 50 % bis 300 % vergrößern oder verkleinern.
@@ -48,7 +53,7 @@ von 50 % bis 300 % vergrößern oder verkleinern.
 4. Spuren auf Monitor schalten, Wiedergabe starten.
 
 Zum Weiterarbeiten nimmst du die Ausgabe auf diesen Spuren als MIDI auf. Ohne eigene Instrumente hilft **VORHÖREN**: ein einfacher
-Testklang direkt aus dem Plugin.
+Testklang direkt aus dem Plugin, auch ohne die Wiedergabe zu starten.
 
 ## Das Stimmungsfeld
 
@@ -56,10 +61,18 @@ Testklang direkt aus dem Plugin.
 |---|---|---|
 | Färbung | Punkt waagerecht ziehen · CC 11 | Links dunkel (Bedrohung, Trauer, Lauern), rechts hell (Wärme, Staunen, Triumph). Bestimmt, welche Wendungen gezogen werden, und die Lage der Stimmen. |
 | Intensität | Punkt senkrecht ziehen · CC 1 | Unten ruhig und dünn, oben aufgewühlt und dicht. Ebenen setzen ein, Bass und Arp werden schneller, die Fläche voller. |
-| Unruhe | Mausrad über dem Feld, Regler UNRUHE · CC 74 | Reibung, Halbtöne, Dissonanz, verschobene Betonungen. Bei wenig Intensität einzelne fremde Töne, bei viel Intensität kratzt der ganze Satz. Sichtbar als Ring um den Punkt. |
+| Unruhe | Mausrad über dem Feld · CC 74 | Reibung, Halbtöne, Dissonanz, verschobene Betonungen. Bei wenig Intensität einzelne fremde Töne, bei viel Intensität kratzt der ganze Satz. Sichtbar als Ring um den Punkt. |
 
-Wechsel greifen am nächsten Akkordwechsel. Eine Wendung dauert acht Takte; die Anzeige rechts oben zeigt den klingenden Akkord,
-die Wendung und ihre Akkorde.
+Unten in der Mitte liegt **Ruhe**, der neutrale Ausgangspunkt; die Ecken heißen Angst, Triumph, Lauern und Wärme. Färbung,
+Intensität und Unruhe stehen rechts in der Akkord-Anzeige laufend in Prozent. Eine Wendung dauert acht Takte; die Anzeige rechts oben zeigt den klingenden
+Akkord, die Wendung und ihre Akkorde.
+
+**Wechsel:** Bewegst du den Punkt deutlich, setzt die neue Wendung am nächsten Wechselpunkt mit ihrem ersten Akkord ein: am nächsten
+Schlag (Vorgabe), am nächsten Takt, alle 2 oder alle 4 Takte. Gehaltene Töne der alten Stimmung enden genau dort, der Arp läuft im Takt
+weiter. Kleine Bewegungen lösen keinen Wechsel aus, solange die laufende Wendung noch passt.
+
+**Vorrat:** 35 Wendungen, von Lauern, Trauer und Grusel über Verfolgung, Ermittlung, Geheimnis, Fremde Orte, Synth-Nächte und Funk bis
+zu Sehnsucht, Romantik, Erhabenem, Heiterkeit, Western, Abenteuer und Triumph.
 
 **Controller:** Stromscore hört auf seinem MIDI-Eingang auf CC 11, CC 1 und CC 74, passend zu einem Fader-Controller für
 Orchester-Instrumente. Der Stromscore-Spur den Controller als Eingang geben und die Fader-Bewegungen als MIDI-Part aufnehmen. Über den
@@ -73,19 +86,22 @@ CC-Knopf lässt sich die Zuordnung ändern oder abschalten.
 | TAKT | Vom Projekt übernehmen oder fest: 4/4, 3/4, 6/8, 5/4, 7/8, 5/8, 12/8. Ungerade Takte bekommen eigene Betonungsgruppen (z. B. 3+3+2+2 im 5/4). |
 | VARIATION | 16 Kombinationen aus Wendungen und Figuren. Gleiche Nummer, gleiches Ergebnis. |
 | SWING | Verschiebt die Zwischen-Achtel nach hinten, bis zum Triolen-Gefühl. |
-| VORHÖREN | Einfacher Testklang im Plugin. |
+| WECHSEL | Wann eine neue Wendung einsetzt: nächster Schlag, nächster Takt, alle 2 oder alle 4 Takte. |
+| EIGENE FOLGE | Spielt deine Akkorde statt der Wendungen. Über **Bearbeiten** bis zu acht Akkorde mit Grundton, Art (Dur, Moll, maj7, m7, 7, sus4, add9, m6, m(maj7), m7b5, dim7, +) und Länge in Takten. Vorgabe: F – C – B – G mit je 2 Takten. Das Stimmungsfeld bestimmt weiter Dichte, Muster und Unruhe. |
+| VORHÖREN | Einfacher Testklang im Plugin. Spielt auch bei stehender DAW mit eigener Uhr im Projekttempo, dann nur als Testklang ohne MIDI an die Spuren. |
 
 ## Die fünf Ebenen
 
 Jede Ebene hat einen Schalter mit drei Stufen: **Aus** (schweigt), **Auto** (setzt bei ihrer Intensitäts-Stufe ein) und **An** (spielt
 immer). Bei Fläche, Bass und Arp bestimmt ein zweiter Schalter, ob die Ebene **den Akkorden folgt** oder **auf dem Grundakkord bleibt**,
 etwa für einen durchlaufenden Arp über wechselnden Flächen oder einen Bass auf dem Grundton. Auf Auto folgt das Muster der Wendung.
+Jede Ebene hat außerdem ihre eigene **Oktavlage** (zwei Oktaven tiefer bis zwei Oktaven höher).
 
 | Ebene | Kanal | Muster | Auto setzt ein |
 |---|---|---|---|
-| Fläche | 1 | Gehalten, Schläge (kurze Akkorde auf der Zwischenzeit), Puls | immer |
-| Bass | 2 | Gehalten, Halbe, Viertel, Achtel, Puls (Sechzehntel auf einem Ton), Oktaven, Funk, Pendel | immer |
-| Arp | 3 | Aufwärts, Abwärts, Kreisend, Zelle, Riff, Glitzern · Tempo Viertel, Achtel, Sechzehntel | ab 25 % Intensität |
+| Fläche | 1 | Gehalten, Schläge (kurze Akkorde auf der Zwischenzeit), Puls, Staccato | immer |
+| Bass | 2 | Gehalten, Halbe, Viertel, Achtel, Puls (Sechzehntel auf einem Ton), Funk, Pendel, Walking, Wechselbass, Herzschlag, Arpeggio | immer |
+| Arp | 3 | Aufwärts, Abwärts, Kreisend, Zelle, Riff, Glitzern, Sprünge · Tempo Viertel, Achtel, Sechzehntel | ab 25 % Intensität |
 | Farbe | 4 | Hoher Ton über dem Akkord, bei Unruhe ein fremder, reibender Ton | ab 40 % Intensität oder bei Unruhe |
 | Akzente | 5 | Tiefer Schlag bei Akkordwechseln, sehr aufgewühlt auch auf den Betonungen | ab 70 % Intensität |
 
@@ -100,6 +116,8 @@ Danach in der DAW die Plugins neu einlesen.
 - **0.2** – Hinweis zur Herkunft der Musik (keine KI, feste Regeln, Grundlage ist mein eigener Stil) in Hilfe und README.
 - **0.3** – Ebenen einzeln ein- und ausschaltbar (Aus / Auto / An), Fläche, Bass und Arp wahlweise den Akkorden folgend oder auf dem Grundakkord bleibend. Hängende Töne nach Stopp behoben. Neuer Untertitel „Underscore Inspirator“.
 - **0.4** – Stimmungsfeld mit Färbung, Intensität und Unruhe (ersetzt VERLAUF und MODUS), Steuerung per CC 11 / 1 / 74, Vorrat an 22 Wendungen aus Filmmusik und klassischer Hörspielmusik, Muster für Fläche, Bass und Arp, Taktarten inklusive ungerader Takte, Swing, Akkord- und Wendungsanzeige.
+
+- **0.5** – Wechsel schon am nächsten Schlag (wahlweise Takt, 2 oder 4 Takte) mit sauberem Übergang, eigene Akkordfolge mit bis zu acht Akkorden, Oktavlage je Ebene, Fläche und Bass eine Oktave höher, 13 neue Wendungen (35 insgesamt), neue Muster (Staccato, Walking, Wechselbass, Herzschlag, Arpeggio, Sprünge), Oktaven-Bass entfernt, Vorhören auch ohne Wiedergabe, Stimmungsfeld mit „Ruhe“ als Ausgangspunkt, kompaktere Oberfläche.
 
 Alle Release-Hinweise: `docs/releases/`.
 

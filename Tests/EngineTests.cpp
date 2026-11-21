@@ -290,5 +290,102 @@ int main()
         for (int i = 0; i < w.n; ++i) bars += w.ch[i].bars;
         CHECK (bars == kPhraseBars);
     }
+
+    // 17) Wechsel: bewegt sich der Punkt deutlich, kommt die neue Wendung am naechsten Wechselpunkt (Schlag / 4 Takte)
+    {
+        auto wendungAt = [] (int change, double moveAt, double until, std::vector<int>& seen, bool& balanced)
+        {
+            Generator g; g.reset(); EventList l; Settings s; s.x = 0.08f; s.y = 0.15f; s.z = 0.6f; s.change = change;
+            for (auto& m : s.layerMode) m = 2;
+            std::map<std::pair<int, int>, int> open;
+            const double blockQ = 256.0 / 24000.0;
+            for (int b = 0; b * blockQ < until; ++b)
+            {
+                const double ppq = b * blockQ;
+                if (ppq >= moveAt) { s.x = 0.85f; s.y = 0.55f; s.z = 0.05f; }
+                Transport t; t.playing = true; t.bpm = 120; t.sampleRate = 48000; t.ppq = ppq;
+                l.clear();
+                { NoAllocations guard; g.process (t, s, 256, l); }
+                for (int e = 0; e < l.size; ++e)
+                {
+                    const auto& ev = l.events[(size_t) e];
+                    int& o = open[std::make_pair ((int) ev.channel, (int) ev.note)];
+                    if (ev.velocity > 0) { if (o != 0) balanced = false; ++o; } else { if (o != 1) balanced = false; --o; }
+                }
+                seen.push_back (g.wendung());
+            }
+            Transport stop; l.clear(); g.process (stop, s, 256, l);
+            for (int e = 0; e < l.size; ++e) open[std::make_pair ((int) l.events[(size_t) e].channel, (int) l.events[(size_t) e].note)] -= 1;
+            for (const auto& o : open) if (o.second != 0) balanced = false;
+        };
+        const double blockQ = 256.0 / 24000.0;
+        std::vector<int> beat, four; bool okA = true, okB = true;
+        wendungAt (ChangeBeat, 9.3, 20.0, beat, okA);
+        wendungAt (Change4Bars, 9.3, 20.0, four, okB);
+        CHECK (okA && okB);
+        const int dark = beat[0];
+        CHECK (kShapes[kWendungen[dark].ch[0].type].minor);
+        CHECK (beat[(size_t) (10.05 / blockQ)] != dark);                                   // naechster Schlag (10.0)
+        CHECK (! kShapes[kWendungen[beat[(size_t) (10.05 / blockQ)]].ch[0].type].minor);
+        CHECK (four[(size_t) (15.9 / blockQ)] == dark);                                    // bei "4 Takte" erst ab Takt 5 (16.0)
+        CHECK (four[(size_t) (16.05 / blockQ)] != dark);
+    }
+
+    // 18) Hysterese: eine kleine Bewegung wechselt die Wendung nicht
+    {
+        Generator g; g.reset(); EventList l; Settings s; s.x = 0.30f; s.y = 0.45f; s.z = 0.45f;
+        int first = -1; bool same = true;
+        for (int b = 0; b < 600; ++b)
+        {
+            const double ppq = b * 256.0 / 24000.0;
+            if (ppq > 31.0) break;                 // innerhalb der ersten Phrase bleiben
+            s.x = 0.30f + 0.03f * (float) std::sin (ppq);
+            Transport t; t.playing = true; t.bpm = 120; t.sampleRate = 48000; t.ppq = ppq;
+            l.clear(); g.process (t, s, 256, l);
+            if (first < 0) first = g.wendung(); else if (g.wendung() != first) same = false;
+        }
+        CHECK (same);
+    }
+
+    // 19) Oktavlage je Ebene
+    {
+        Settings a; a.y = 0.5f; for (auto& m : a.layerMode) m = 0; a.layerMode[kFlaeche] = 2; a.padPattern = PadHeld;
+        Settings b = a; b.octave[kFlaeche] = 1;
+        Settings c = a; c.octave[kFlaeche] = -2;
+        auto ea = run (a, 512, 10.0), eb = run (b, 512, 10.0), ec = run (c, 512, 10.0);
+        CHECK (ea.size() == eb.size() && ea.size() == ec.size() && ! ea.empty());
+        for (size_t i = 0; i < ea.size(); ++i) { CHECK (eb[i].note == ea[i].note + 12); CHECK (ec[i].note == ea[i].note - 24); }
+    }
+
+    // 20) Eigene Akkordfolge: F - C - B - G je 2 Takte (Tonart egal), danach von vorn
+    {
+        Settings s; s.key = 9; s.y = 0.5f; s.custom = true; s.bassPattern = BassQuarter;
+        s.customChords[0] = { 5, Maj, 2 }; s.customChords[1] = { 0, Maj, 2 }; s.customChords[2] = { 10, Maj, 2 }; s.customChords[3] = { 7, Maj, 2 };
+        std::vector<int> roots;
+        for (const auto& e : run (s, 512, 32.0)) if (e.velocity > 0 && e.channel == 2) roots.push_back (e.note % 12);
+        // 120 BPM: 2 Takte = 4 s = 8 Viertel, also Bass-Viertel 0..7 = F, 8..15 = C, 16..23 = B, 24..31 = G, 32.. = F
+        CHECK (roots.size() >= 40);
+        CHECK (roots[0] == 5 && roots[7] == 5 && roots[8] == 0 && roots[16] == 10 && roots[24] == 7 && roots[32] == 5);
+        checkBalanced (run (s, 333, 30.0));
+        Generator g; g.reset(); EventList l; Transport t; t.playing = true; t.ppq = 0.0;
+        g.process (t, s, 512, l);
+        CHECK (g.wendung() == kCustomWendung);
+        // ungerade Laenge (3 Takte) und alle Ebenen
+        Settings o = s; o.customChords[1].bars = 1; o.customChords[2].bars = 0; o.customChords[3].bars = 0; o.bassPattern = BassWalking;
+        for (auto& m : o.layerMode) m = 2;
+        checkBalanced (run (o, 256, 30.0));
+        // Umschalten waehrend des Spielens: nichts haengt
+        Generator h; h.reset(); EventList m; std::map<std::pair<int, int>, int> open;
+        Settings u = s; u.custom = false;
+        for (int b = 0; b < 300; ++b)
+        {
+            if (b == 100) u.custom = true;
+            if (b == 200) u.custom = false;
+            Transport tt; tt.playing = b < 299; tt.bpm = 120; tt.sampleRate = 48000; tt.ppq = b * 512.0 / 24000.0;
+            m.clear(); h.process (tt, u, 512, m);
+            for (int e = 0; e < m.size; ++e) open[std::make_pair ((int) m.events[(size_t) e].channel, (int) m.events[(size_t) e].note)] += m.events[(size_t) e].velocity > 0 ? 1 : -1;
+        }
+        for (const auto& op : open) CHECK (op.second == 0);
+    }
     return 0;
 }

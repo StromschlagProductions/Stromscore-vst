@@ -42,11 +42,17 @@ public:
     static juce::StringArray bassPatternNames();
     static juce::StringArray arpFigureNames();
     static juce::StringArray arpRateNames();
+    static juce::StringArray changeNames();
+    static juce::StringArray octaveNames();
+    static juce::StringArray slotRootNames();
+    static juce::StringArray slotTypeNames();
+    static juce::StringArray slotBarNames();
 
     // Die drei Achsen des Stimmungsfeldes: Faerbung, Intensitaet, Unruhe
     static constexpr const char* kAxisIds[3] = { "faerbung", "intensitaet", "unruhe" };
 
     juce::AudioProcessorValueTreeState apvts;
+    stromscore::Settings currentSettings() const;
     std::atomic<int> uiTheme { 0 }, uiWidth { kUiWidth };
     // MIDI-CC-Nummern fuer Faerbung, Intensitaet, Unruhe (0 = aus); Vorgabe: Nuances-Fader 11, 1, 74
     std::atomic<int> ccNumber[3] { { 11 }, { 1 }, { 74 } };
@@ -59,12 +65,16 @@ public:
 
 private:
     static juce::AudioProcessorValueTreeState::ParameterLayout createLayout();
-    stromscore::Settings currentSettings() const;
     void handleControllers (const juce::MidiBuffer& incoming);
     void flushSounding (juce::MidiBuffer&, bool forceAllNotesOff);
-    void emit (const stromscore::EventList&, juce::MidiBuffer&, juce::AudioBuffer<float>&, bool preview);
+    void emit (const stromscore::EventList&, juce::MidiBuffer&, juce::AudioBuffer<float>&, bool preview, bool toMidi = true);
 
     stromscore::Generator generator;
+    // Vorhoeren bei stehender DAW: eigene Uhr, nur Testklang, kein MIDI
+    stromscore::Generator previewGenerator;
+    stromscore::EventList previewEvents;
+    double previewPpq = 0.0, hostBpm = 120.0;
+    bool previewRunning = false;
     stromscore::Preview preview;
     stromscore::EventList events;
     bool wasBypassed = false;
@@ -78,6 +88,8 @@ private:
     std::atomic<float>* pSwing = nullptr; std::atomic<float>* pVariation = nullptr; std::atomic<float>* pPreview = nullptr;
     std::atomic<float>* pLayer[stromscore::kNumLayers] {}; std::atomic<float>* pFollow[3] {};
     std::atomic<float>* pPad = nullptr; std::atomic<float>* pBass = nullptr; std::atomic<float>* pArp = nullptr; std::atomic<float>* pRate = nullptr;
+    std::atomic<float>* pChange = nullptr; std::atomic<float>* pOctave[stromscore::kNumLayers] {}; std::atomic<float>* pCustom = nullptr;
+    std::atomic<float>* pSlotRoot[stromscore::kMaxChords] {}; std::atomic<float>* pSlotType[stromscore::kMaxChords] {}; std::atomic<float>* pSlotBars[stromscore::kMaxChords] {};
     juce::RangedAudioParameter* axisParam[3] {};
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (StromscoreProcessor)

@@ -25,7 +25,7 @@ public:
 private:
     void timerCallback() override
     {
-        if (index >= 2)
+        if (index >= 3)
         {
             auto* manifest = new juce::DynamicObject();
             manifest->setProperty ("version", PLUGIN_VERSION_TEXT);
@@ -41,7 +41,7 @@ private:
             processor.getStateInformation (state);
             auto xml = juce::AudioProcessor::getXmlFromBinary (state.getData(), (int) state.getSize());
             if (! xml) { fail ("Invalid processor state"); return; }
-            xml->setAttribute ("theme", index);
+            xml->setAttribute ("theme", index == 1 ? 1 : 0);
             xml->setAttribute ("uiW", StromscoreProcessor::kUiWidth);
             juce::AudioProcessor::copyXmlToBinary (*xml, state);
             processor.setStateInformation (state.getData(), (int) state.getSize());
@@ -53,11 +53,13 @@ private:
         {
             const float levels[stromscore::kNumLayers] = { 1.0f, 0.0f, 1.0f, 0.0f, 0.0f };
             for (int i = 0; i < stromscore::kNumLayers; ++i) processor.activity[i].store (levels[i]);
+            if (index == 2) clickButton (*editor, "Bearbeiten");   // drittes Bild: eigene Akkordfolge
             lit = true;
             return;   // der Editor holt sich die Werte beim naechsten Takt
         }
         auto image = editor->createComponentSnapshot (editor->getLocalBounds(), true, 2.0f);
-        auto file = output.getChildFile (index == 0 ? "oberflaeche-dunkel.png" : "oberflaeche-hell.png");
+        static const char* names[] = { "oberflaeche-dunkel.png", "oberflaeche-hell.png", "oberflaeche-akkordfolge.png" };
+        auto file = output.getChildFile (names[index]);
         file.deleteFile();
         juce::FileOutputStream stream (file);
         if (! stream.openedOk() || ! juce::PNGImageFormat().writeImageToStream (image, stream))
@@ -67,6 +69,14 @@ private:
         editor.reset();
         lit = false;
         ++index;
+    }
+    static bool clickButton (juce::Component& c, const char* prefix)
+    {
+        if (auto* b = dynamic_cast<juce::Button*> (&c))
+            if (b->getButtonText().startsWith (prefix)) { b->triggerClick(); return true; }
+        for (auto* child : c.getChildren())
+            if (clickButton (*child, prefix)) return true;
+        return false;
     }
     void fail (const char* reason)
     {

@@ -149,6 +149,37 @@ int main()
         setParam (*p, "preview", 0.0f);
     }
 
+    // Vorhoeren bei stehender DAW: eigene Uhr, hoerbar, aber keine Noten am MIDI-Ausgang
+    {
+        host.playing = false;
+        p->prepareToPlay (48000, 512);
+        auto runStopped = [&] (float on)
+        {
+            setParam (*p, "preview", on);
+            juce::AudioBuffer<float> audio (2, 512); juce::MidiBuffer midi; double e = 0; int noteOns = 0;
+            for (int i = 0; i < 200; ++i)
+            {
+                audio.clear(); midi.clear();
+                { NoAllocations guard; p->processBlock (audio, midi); }
+                for (const auto meta : midi) if (meta.getMessage().isNoteOn()) ++noteOns;
+                for (int s = 0; s < 512; ++s) { const float x = audio.getSample (0, s); CHECK (std::isfinite (x) && std::abs (x) <= 1.0f); e += (double) x * x; }
+            }
+            CHECK (noteOns == 0);
+            return e;
+        };
+        CHECK (runStopped (1.0f) > 1e-4);
+        CHECK (p->wendung.load() >= 0);           // Anzeige laeuft mit
+        CHECK (runStopped (0.0f) == 0.0);
+        // DAW startet waehrend des Vorhoerens: ihr Takt uebernimmt, MIDI geht wieder raus
+        setParam (*p, "preview", 1.0f);
+        { juce::AudioBuffer<float> a (2, 512); juce::MidiBuffer m; p->processBlock (a, m); }
+        setParam (*p, "intensitaet", 0.6f);
+        auto c = play (*p, host, 4, 512);
+        CHECK (c.ons > 0 && c.ons == c.offs && ! c.broken);
+        setParam (*p, "preview", 0.0f);
+        host.playing = true;
+    }
+
     // Bypass beendet offene Noten genau einmal
     {
         {   // Reste des vorigen Tests (Wiedergabe lief weiter) zuerst sauber beenden
@@ -230,6 +261,42 @@ int main()
         CHECK (std::abs (p->apvts.getRawParameterValue ("faerbung")->load() - 1.0f) < 1e-3f);
         p->ccNumber[0].store (11);
         setParam (*p, "faerbung", 0.3f); setParam (*p, "unruhe", 0.0f);
+    }
+
+    // Auswahllisten passen zu den Mustern der Engine
+    CHECK (StromscoreProcessor::padPatternNames().size() == stromscore::kNumPadPatterns);
+    CHECK (StromscoreProcessor::bassPatternNames().size() == stromscore::kNumBassPatterns);
+    CHECK (StromscoreProcessor::arpFigureNames().size() == stromscore::kNumArpFigures);
+    CHECK (StromscoreProcessor::arpRateNames().size() == stromscore::kNumArpRates);
+    CHECK (StromscoreProcessor::changeNames().size() == stromscore::kNumChangeGrids);
+    CHECK (StromscoreProcessor::slotTypeNames().size() == stromscore::kNumCustomTypes);
+    CHECK (! StromscoreProcessor::bassPatternNames().contains ("Oktaven"));
+
+    // Wechsel, Oktaven und eigene Folge als Parameter; Vorgabe F - C - B - G je 2 Takte
+    {
+        CHECK (p->apvts.getParameter ("wechsel") != nullptr && p->apvts.getParameter ("eigeneFolge") != nullptr);
+        for (int i = 1; i <= 5; ++i) CHECK ((int) p->apvts.getRawParameterValue ("oct" + juce::String (i))->load() == 2);
+        auto st = p->currentSettings();
+        CHECK (! st.custom && st.change == stromscore::ChangeBeat);
+        CHECK (st.customChords[0].rootAbs == 5 && st.customChords[1].rootAbs == 0 && st.customChords[2].rootAbs == 10 && st.customChords[3].rootAbs == 7);
+        for (int i = 0; i < 4; ++i) CHECK (st.customChords[i].bars == 2 && st.customChords[i].type == stromscore::Maj);
+        for (int i = 4; i < 8; ++i) CHECK (st.customChords[i].bars == 0);
+        setParam (*p, "oct2", 3.0f); setParam (*p, "slotType2", 1.0f); setParam (*p, "eigeneFolge", 1.0f); setParam (*p, "wechsel", 1.0f);
+        st = p->currentSettings();
+        CHECK (st.custom && st.change == stromscore::ChangeBar && st.octave[1] == 1 && st.customChords[1].type == stromscore::Min);
+
+        // eigene Folge spielt und alles endet sauber
+        setParam (*p, "intensitaet", 0.6f);
+        auto c = play (*p, host, 8, 512);
+        CHECK (c.ons > 0 && c.ons == c.offs && ! c.broken);
+        CHECK (p->wendung.load() == stromscore::kCustomWendung || ! host.playing);
+
+        juce::MemoryBlock state; p->getStateInformation (state);
+        auto q = std::make_unique<StromscoreProcessor>();
+        q->setStateInformation (state.getData(), (int) state.getSize());
+        for (auto* id : { "eigeneFolge", "wechsel", "oct2", "slotType2", "slotRoot3", "slotBars4" })
+            CHECK (q->apvts.getRawParameterValue (id)->load() == p->apvts.getRawParameterValue (id)->load());
+        setParam (*p, "oct2", 2.0f); setParam (*p, "slotType2", 0.0f); setParam (*p, "eigeneFolge", 0.0f); setParam (*p, "wechsel", 0.0f);
     }
 
     // Texte: Prozent
