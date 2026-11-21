@@ -220,6 +220,8 @@ int main()
             for (auto* id : { "mute", "solo", "intensitaet" }) CHECK (p->apvts.getParameter (id + juce::String (i)) != nullptr);
         for (int i = 1; i <= 3; ++i) CHECK (p->apvts.getParameter ("follow" + juce::String (i)) != nullptr);
         CHECK (p->apvts.getParameter ("abwechslung") != nullptr);
+        CHECK (p->apvts.getParameter ("durchgaenge") != nullptr);
+        CHECK (StromscoreProcessor::layerNames()[4] == "Gegenstimme");
         setParam (*p, "solo3", 1.0f); setParam (*p, "intensitaet3", 0.5f);
         setParam (*p, "intensitaet", 0.0f);
         auto c = play (*p, host, 8, 512);

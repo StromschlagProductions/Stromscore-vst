@@ -75,7 +75,7 @@ private:
     static bool clickButton (juce::Component& c, const char* prefix)
     {
         if (auto* b = dynamic_cast<juce::Button*> (&c))
-            if (b->getButtonText().startsWith (prefix)) { b->triggerClick(); return true; }
+            if (b->getButtonText().startsWith (prefix) || b->getName() == prefix) { b->triggerClick(); return true; }
         for (auto* child : c.getChildren())
             if (clickButton (*child, prefix)) return true;
         return false;

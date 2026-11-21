@@ -18,7 +18,7 @@ juce::StringArray StromscoreProcessor::keyNames()
     return { "C", "Cis / Des", "D", "Dis / Es", "E", "F", "Fis / Ges", "G", "Gis / As", "A", "Ais / B", "H" };
 }
 juce::StringArray StromscoreProcessor::meterNames()  { return { "Vom Projekt", "4/4", "3/4", "6/8", "5/4", "7/8", "5/8", "12/8" }; }
-juce::StringArray StromscoreProcessor::layerNames()  { return { u8 ("Fläche"), "Bass", "Arp", "Farbe", "Akzente" }; }
+juce::StringArray StromscoreProcessor::layerNames()  { return { u8 ("Fläche"), "Bass", "Arp", "Farbe", "Gegenstimme" }; }
 juce::StringArray StromscoreProcessor::padPatternNames()  { return { "Auto", "Gehalten", u8 ("Schläge"), "Puls", "Staccato" }; }
 juce::StringArray StromscoreProcessor::bassPatternNames() { return { "Auto", "Gehalten", "Halbe", "Viertel", "Achtel", "Puls", "Funk", "Pendel",
                                                                      "Walking", "Wechselbass", "Herzschlag", "Arpeggio", "Orgelpunkt" }; }
@@ -52,6 +52,7 @@ juce::AudioProcessorValueTreeState::ParameterLayout StromscoreProcessor::createL
         layout.add (std::make_unique<AudioParameterFloat> (ParameterID { "intensitaet" + n, 1 }, layerNames()[i] + u8 (" Intensität"),
             NormalisableRange<float> (-1.0f, 1.0f), 0.0f, signedPercent));
     }
+    layout.add (std::make_unique<AudioParameterBool> (ParameterID { "durchgaenge", 1 }, u8 ("Durchgänge"), false));
     layout.add (std::make_unique<AudioParameterFloat> (ParameterID { "abwechslung", 1 }, "Abwechslung", NormalisableRange<float> (0.0f, 1.0f), 0.5f, percent()));
     for (int i = 0; i < 3; ++i)
         layout.add (std::make_unique<AudioParameterBool> (ParameterID { "follow" + String (i + 1), 1 },
@@ -95,6 +96,7 @@ StromscoreProcessor::StromscoreProcessor()
         pLayerIntensity[i] = apvts.getRawParameterValue ("intensitaet" + n);
     }
     pVariety = apvts.getRawParameterValue ("abwechslung");
+    pPassing = apvts.getRawParameterValue ("durchgaenge");
     for (int i = 0; i < 3; ++i) pFollow[i] = apvts.getRawParameterValue ("follow" + juce::String (i + 1));
     pPad = apvts.getRawParameterValue ("padPattern");
     pBass = apvts.getRawParameterValue ("bassPattern");
@@ -154,6 +156,7 @@ stromscore::Settings StromscoreProcessor::currentSettings() const
         s.layerIntensity[i] = pLayerIntensity[i]->load();
     }
     s.variety = pVariety->load();
+    s.passing = pPassing->load() >= 0.5f;
     for (int i = 0; i < 3; ++i) s.follow[i] = pFollow[i]->load() >= 0.5f;
     s.padPattern = juce::roundToInt (pPad->load());
     s.bassPattern = juce::roundToInt (pBass->load());
@@ -272,6 +275,7 @@ void StromscoreProcessor::processBlock (juce::AudioBuffer<float>& audio, juce::M
     meterNum.store (settings.meterNum); meterDen.store (settings.meterDen);
     generator.process (t, settings, audio.getNumSamples(), events);
     wendung.store (t.playing ? generator.wendung() : -1);
+    styleIndex.store (generator.styleWendung());
     chordIndex.store (t.playing ? generator.chordInWendung() : -1);
     chordRoot.store (generator.chordRoot());
     chordType.store (generator.chordType());
@@ -290,6 +294,7 @@ void StromscoreProcessor::processBlock (juce::AudioBuffer<float>& audio, juce::M
         previewGenerator.process (own, settings, audio.getNumSamples(), previewEvents);
         previewPpq += (double) audio.getNumSamples() / (own.sampleRate * 60.0 / own.bpm);
         wendung.store (previewGenerator.wendung());
+        styleIndex.store (previewGenerator.styleWendung());
         chordIndex.store (previewGenerator.chordInWendung());
         chordRoot.store (previewGenerator.chordRoot());
         chordType.store (previewGenerator.chordType());

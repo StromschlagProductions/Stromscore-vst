@@ -14,14 +14,14 @@
 namespace stromscore
 {
 constexpr int kNumLayers = 5;
-enum Layer { kFlaeche = 0, kBass = 1, kArp = 2, kFarbe = 3, kAkzente = 4 };
+enum Layer { kFlaeche = 0, kBass = 1, kArp = 2, kFarbe = 3, kGegenstimme = 4 };
 constexpr int kNumKeys = 12;
 constexpr double kStep = 0.25;          // Raster: Sechzehntel (in Viertelnoten)
 constexpr int kPhraseBars = 8;          // eine Wendung = 8 Takte
 constexpr int kMaxChords = 8;
 
 // Ab welcher Intensitaet eine Ebene im Modus Auto einsetzt (Farbe zusaetzlich ab Unruhe 0,4)
-constexpr float kLayerStart[kNumLayers] = { 0.0f, 0.0f, 0.25f, 0.4f, 0.7f };
+constexpr float kLayerStart[kNumLayers] = { 0.0f, 0.0f, 0.25f, 0.4f, 0.15f };
 
 // ------------------------------------------------------------------ Akkorde
 enum ChordType { Maj, Min, Maj7, Min7, Dom7, MinMaj7, MinMaj9, Dim7, HalfDim, Sus4, Quartal, Add9, Min9, Aug, Min6, Dom7b9, Sus2, Fifth, kNumChordTypes };
@@ -142,7 +142,8 @@ struct Settings
     bool mute[kNumLayers] = {};                               // Ebene stumm
     bool solo[kNumLayers] = {};                               // ist eine Ebene solo, spielen nur die Solo-Ebenen
     float layerIntensity[kNumLayers] = {};                    // -1 ... +1 zur Intensitaet des Feldes (0 = wie das Feld)
-    float variety = 0.5f;       // Abwechslung: 0 = nur die passendste Wendung, 1 = auch entferntere Nachbarn
+    float variety = 0.5f;
+    bool passing = false;       // Durchgangsakkorde: bei viel Intensitaet die Dominante des naechsten Akkords auf dem letzten Schlag       // Abwechslung: 0 = nur die passendste Wendung, 1 = auch entferntere Nachbarn
     int octave[kNumLayers] = { 0, 0, 0, 0, 0 };               // -2 ... +2
     bool follow[3] = { true, true, true };                    // Flaeche, Bass, Arp: false = bleibt auf dem Grundakkord
     int padPattern = PadAuto, bassPattern = BassAuto, arpFigure = ArpAuto, arpRate = RateAuto;
@@ -247,13 +248,14 @@ struct Meter
 class Generator
 {
 public:
-    void reset() { chaseStep = -1; numActive = 0; running = false; lastPpqEnd = 0.0; phraseIndex = -1; current = -1; wendungStart = 0; curRoot = 0; curType = Min; curChord = -1; }
+    void reset() { style = -1; csNote = -1; csPendingAt = -1; chaseStep = -1; numActive = 0; running = false; lastPpqEnd = 0.0; phraseIndex = -1; current = -1; wendungStart = 0; curRoot = 0; curType = Min; curChord = -1; }
 
     // Fuer die Anzeige (kCustomWendung = eigene Folge)
     int wendung() const { return current; }
     int chordInWendung() const { return curChord; }
     int chordRoot() const { return curRoot; }
     int chordType() const { return curType; }
+    int styleWendung() const { return current == kCustomWendung ? style : -1; }   // eigene Folge: Wendung, deren Stil geliehen wird
 
     // Intensitaet einer Ebene: Feld plus eigener Regler
     static float layerY (const Settings& s, int layer)
@@ -375,6 +377,7 @@ public:
             allNotesOff (out, 0);
             running = true;
             phraseIndex = -1;
+            csNote = -1; csPendingAt = -1;
             chase (t.ppq, s, out);
         }
 
@@ -402,6 +405,7 @@ private:
     {
         long long k, bar, phrase; int pos, barInPhrase;
         int chordIdx; long long chordStart, chordEnd, phraseStart, phraseEnd;
+        bool passing = false;   // Durchgangsakkord am Ende des Akkords
     };
 
     static long long floorDiv (long long a, long long b) { return a >= 0 ? a / b : -((-a + b - 1) / b); }
@@ -441,6 +445,12 @@ private:
         p.chordStart = cs;
         p.chordEnd = std::min (p.phraseEnd, cs + (long long) w.ch[p.chordIdx].bars * meter.len);
         if (p.chordIdx == w.n - 1) p.chordEnd = p.phraseEnd;   // letzter Akkord haelt bis zur Phrasengrenze
+        if (cur != nullptr && cur->passing && cur->y >= 0.6f && p.chordEnd - p.chordStart >= meter.len)
+        {
+            const long long ps = p.chordEnd - (meter.len - meter.groupStart[std::max (0, meter.numGroups - 1)]);   // letzte Betonungsgruppe
+            if (k >= ps) { p.chordStart = ps; p.passing = true; }
+            else p.chordEnd = ps;
+        }
         return p;
     }
 
@@ -448,6 +458,7 @@ private:
     {
         if (phrase == phraseIndex) return;
         current = s.custom ? kCustomWendung : pick (s, phrase);
+        if (s.custom) style = pick (s, phrase);
         phraseIndex = phrase;
         wendungStart = phrase * phraseBars * meter.len;
     }
@@ -466,16 +477,32 @@ private:
     // Wechsel auf eine neue Wendung, wenn die laufende nicht mehr zur Lage passt (Hysterese ueber kKeepRatio)
     bool maybeSwitch (long long k, const Pos& p, const Settings& s)
     {
-        if (s.custom || current == kCustomWendung || k == p.phraseStart || ! isChangePoint (p, s)) return false;
+        if (k == p.phraseStart || ! isChangePoint (p, s)) return false;
+        if (current == kCustomWendung)   // eigene Folge: nur der geliehene Stil wechselt, die Akkorde bleiben
+        {
+            if (style < 0 || weight (kWendungen[style], s) < std::min (kKeepRatio, keepRatio (s)) * bestWeight (s)) style = pick (s, k * 7 + 3);
+            return false;
+        }
+        if (s.custom) return false;
         if (weight (kWendungen[current], s) >= std::min (kKeepRatio, keepRatio (s)) * bestWeight (s)) return false;
         current = pick (s, k * 7 + 3);
         wendungStart = k;
         return true;
     }
 
+    const Wendung& SW() const { return current == kCustomWendung ? kWendungen[std::clamp (style, 0, kNumWendungen - 1)] : W(); }
+
+    int nextChordRoot (const Pos& p) const
+    {
+        const Wendung& w = W();
+        return (p.chordIdx + 1 < w.n ? w.ch[p.chordIdx + 1] : w.ch[0]).root;
+    }
+
     Chord chordFor (const Pos& p, int layer, const Settings& s) const
     {
         const Wendung& w = W();
+        if (p.passing && (layer > kArp || s.follow[layer]))
+            return Chord { (nextChordRoot (p) + 7) % 12, Dom7, 1 };
         if (layer <= kArp && ! s.follow[layer])
         {
             Chord tonic = w.ch[0]; tonic.root = current == kCustomWendung ? w.ch[0].root : 0;
@@ -519,8 +546,7 @@ private:
     int chooseArp (const Settings& s, long long phrase) const
     {
         if (s.arpFigure != ArpAuto) return s.arpFigure;
-        if (current == kCustomWendung) return layerY (s, kArp) > 0.6f ? ArpUp : ArpCircle;
-        return W().arp[hashInt (31u, phrase) % 2];
+        return SW().arp[hashInt (31u, phrase) % 2];
     }
     int chooseBass (const Settings& s, long long phrase) const
     {
@@ -528,8 +554,7 @@ private:
         const float y = layerY (s, kBass);
         if (y < 0.15f) return BassHeld;                       // ganz duenn: lange Toene
         if (y > 0.92f) return BassEighth;                     // ganz dicht: Achtel nageln
-        if (current == kCustomWendung) return y < 0.35f ? BassHalf : y < 0.6f ? BassQuarter : BassEighth;
-        int pref = W().bass[hashInt (47u, phrase) % 2];
+        int pref = SW().bass[hashInt (47u, phrase) % 2];
         if (y < 0.3f && pref != BassHeld && pref != BassPedal) pref = BassHalf;   // ausduennen
         if (y > 0.8f && (pref == BassHeld || pref == BassHalf || pref == BassQuarter || pref == BassPedal)) return BassEighth;
         return pref;
@@ -540,8 +565,7 @@ private:
     {
         if (s.padPattern != PadAuto) return s.padPattern;
         const float y = layerY (s, kFlaeche);
-        if (current == kCustomWendung) return y > 0.75f ? PadPulse : PadHeld;
-        return y < 0.3f ? PadHeld : W().pad;
+        return y < 0.3f ? PadHeld : SW().pad;
     }
 
     void releaseDue (long long step, int offset, EventList& out)
@@ -619,13 +643,17 @@ private:
         const Chord c = chordFor (p, kFlaeche, s);
         const ChordShape& sh = kShapes[padType (c.type, s.z)];
         const float y = layerY (s, kFlaeche);
-        const int root = place (s.key + c.root, padLow (s) - 12);
+        // VARIATION bei eigener Folge: weit, eng oder weit ohne tiefen Grundton
+        const int voicing = current == kCustomWendung ? hashInt (91u, p.chordStart) % 3 : 0;
+        const int root = voicing == 1 ? place (s.key + c.root, padLow (s) - 5) : place (s.key + c.root, padLow (s) - 12);
         int voices = sh.n;
         if (y < 0.2f) voices = std::min (voices, 3);
         for (int i = 0; i < voices; ++i)
         {
             const int iv = sh.iv[i];
-            const bool low = iv == 0 || iv == 7 || (iv == 5 && c.type == Quartal) || iv >= 12;
+            bool low = iv == 0 || iv == 7 || (iv == 5 && c.type == Quartal) || iv >= 12;
+            if (voicing == 1) low = true;
+            if (voicing == 2 && iv == 0) low = false;
             noteOn (kFlaeche, root + iv + (low ? 0 : 12), velocity - (i == 0 ? 0 : 4), endStep, offset, out);
         }
         if (y > 0.6f) noteOn (kFlaeche, root + 24, velocity - 10, endStep, offset, out);   // Verdopplung oben
@@ -700,24 +728,15 @@ private:
         chaseStep = -1;
         const Wendung& w = W();
         curChord = p.chordIdx; curRoot = w.ch[p.chordIdx].root; curType = w.ch[p.chordIdx].type;
+        if (p.passing && s.follow[kFlaeche]) { curRoot = (nextChordRoot (p) + 7) % 12; curType = Dom7; }
         const bool chordStart = k == p.chordStart;
         const bool beat = p.pos % 4 == 0;
         const bool group = meter.isGroupStart (p.pos);
         const float z = s.z;
-        const float yPad = layerY (s, kFlaeche), yBass = layerY (s, kBass), yArp = layerY (s, kArp), yAcc = layerY (s, kAkzente);
+        const float yPad = layerY (s, kFlaeche), yBass = layerY (s, kBass), yArp = layerY (s, kArp);
 
         if (chordStart)
-        {
             sustained (p, s, offset, out, restart);
-            if (layerActive (s, kAkzente))
-            {
-                const Chord c = chordFor (p, kAkzente, s);
-                const int root = place (s.key + c.root, 36);
-                noteOn (kAkzente, root, (int) (90 + 30 * yAcc), k + 2, offset, out);
-                noteOn (kAkzente, root + 7, (int) (82 + 30 * yAcc), k + 2, offset, out);
-                if (z >= 0.8f) { noteOn (kAkzente, root + 1, (int) (70 + 30 * z), k + 2, offset, out); noteOn (kAkzente, root + 6, (int) (70 + 30 * z), k + 2, offset, out); }
-            }
-        }
 
         // Unruhe: fremder Ton in der Mitte des Akkords (das "quietschende" Element)
         if (z >= 0.35f && layerActive (s, kFarbe) && k == p.chordStart + (p.chordEnd - p.chordStart) / 2)
@@ -892,16 +911,63 @@ private:
             }
         }
 
-        // --- Akzente auf den Betonungsgruppen (sehr aufgewuehlt), bei Unruhe vorgezogen
-        if (layerActive (s, kAkzente) && yAcc >= 0.85f && ! chordStart)
+        // --- Gegenstimme: ruhige Linie aus Akkordtoenen, schrittweise gefuehrt
+        counterLine (k, p, s, offset, chordStart, out);
+    }
+
+    // Zielton der Gegenstimme: Akkordton nahe am vorigen Ton, Terz und Septime bevorzugt, nicht der Ton der Farbe
+    int counterTarget (const Chord& c, const Settings& s, bool chordStart, long long k) const
+    {
+        const ChordShape& sh = kShapes[c.type];
+        const int lo = 60 + (int) std::lround (s.x * 4.0f);
+        const int rootPc = (s.key + c.root) % 12, colourPc = (rootPc + 2) % 12;
+        const int prev = csNote >= 0 ? csNote : lo + 7;
+        int best = -1; float bestScore = 1e9f;
+        for (int n = lo; n <= lo + 14; ++n)
         {
-            const int probe = z >= 0.5f ? (p.pos + 1) % meter.len : p.pos;
-            if (meter.isGroupStart (probe) && probe != 0)
-            {
-                const Chord c = chordFor (p, kAkzente, s);
-                noteOn (kAkzente, place (s.key + c.root, 36), (int) (70 + 30 * yAcc), k + 1, offset, out);
-            }
+            const int pc = n % 12;
+            bool inChord = false;
+            for (int i = 0; i < sh.n; ++i) inChord = inChord || (rootPc + sh.iv[i]) % 12 == pc;
+            if (! inChord || (pc == colourPc && sh.n > 1)) continue;
+            const int d = n - prev;
+            float score = (float) std::abs (d);
+            if (d == 0 && ! chordStart) score += 3.0f;            // innerhalb des Akkords: weitergehen
+            if (pc == rootPc) score += 1.5f;                       // Grundton hat der Bass
+            if (s.x < 0.4f && d > 0) score += 0.5f;                // dunkel: eher abwaerts
+            if (s.x > 0.6f && d < 0) score += 0.5f;                // hell: eher aufwaerts
+            score += (float) (hash3 ((uint32_t) s.variation, (uint32_t) (k * 16 + n), 401u) % 100u) / 250.0f;
+            if (score < bestScore) { bestScore = score; best = n; }
         }
+        return best >= 0 ? best : place (s.key + c.root + sh.iv[std::min (1, sh.n - 1)], lo);
+    }
+
+    void counterLine (long long k, const Pos& p, const Settings& s, int offset, bool chordStart, EventList& out)
+    {
+        if (! layerActive (s, kGegenstimme)) { csNote = -1; csPendingAt = -1; return; }
+        const float yc = layerY (s, kGegenstimme);
+        const int vel = (int) (50 + 35 * yc);
+        if (k == csPendingAt && csPending >= 0)                    // Vorhalt loest sich auf
+        {
+            noteOn (kGegenstimme, csPending, vel, csPendingEnd, offset, out);
+            csNote = csPending; csPendingAt = -1;
+        }
+        // Bewegung: ruhig nur bei Akkordwechseln, mittel alle zwei Takte, aufgewuehlt in Halben
+        const long long rate = yc < 0.4f ? 0 : yc < 0.7f ? 2LL * meter.len : std::max (4LL, (long long) meter.len / 2);
+        const bool move = chordStart || (rate > 0 && k > p.chordStart && (k - p.chordStart) % rate == 0 && p.chordEnd - k >= 4);
+        if (! move) return;
+        const Chord c = chordFor (p, kGegenstimme, s);
+        const long long end = rate > 0 ? std::min (p.chordEnd, k + rate) : p.chordEnd;
+        const int target = counterTarget (c, s, chordStart, k);
+        if (s.z >= 0.5f && chordStart && end - k >= 8)               // Unruhe: Vorhalt von oben, loest auf den Zielton auf
+        {
+            const int sus = target + (s.z >= 0.75f ? 1 : 2);
+            noteOn (kGegenstimme, sus, vel + 6, k + 4, offset, out);
+            csPending = target; csPendingAt = k + 4; csPendingEnd = end;
+            csNote = sus;
+            return;
+        }
+        noteOn (kGegenstimme, target, vel, end, offset, out);
+        csNote = target;
     }
 
     static constexpr int kMaxActive = 96;
@@ -910,7 +976,9 @@ private:
     bool running = false, wasCustom = false;
     double lastPpqEnd = 0.0;
     long long phraseIndex = -1, wendungStart = 0, chaseStep = -1;
-    int current = -1, curChord = -1, curRoot = 0, curType = Min;
+    int current = -1, curChord = -1, curRoot = 0, curType = Min, style = -1;
+    int csNote = -1, csPending = -1;                 // Gegenstimme: letzter Ton, aufzuloesender Vorhalt
+    long long csPendingAt = -1, csPendingEnd = 0;
     int phraseBars = kPhraseBars;
     Meter meter;
     Wendung custom {};

@@ -121,8 +121,9 @@ int main()
     {
         Settings s; s.z = 0.0f;
         s.y = 0.0f; CHECK ((channelsUsed (run (s, 512, 20.0)) == std::set<int> { 1, 2 }));
-        s.y = 0.3f; CHECK ((channelsUsed (run (s, 512, 20.0)) == std::set<int> { 1, 2, 3 }));
-        s.y = 0.5f; CHECK ((channelsUsed (run (s, 512, 20.0)) == std::set<int> { 1, 2, 3, 4 }));
+        s.y = 0.2f; CHECK ((channelsUsed (run (s, 512, 20.0)) == std::set<int> { 1, 2, 5 }));   // Gegenstimme ab 15 %
+        s.y = 0.3f; CHECK ((channelsUsed (run (s, 512, 20.0)) == std::set<int> { 1, 2, 3, 5 }));
+        s.y = 0.5f; CHECK ((channelsUsed (run (s, 512, 20.0)) == std::set<int> { 1, 2, 3, 4, 5 }));
         s.y = 0.9f; CHECK ((channelsUsed (run (s, 512, 20.0)) == std::set<int> { 1, 2, 3, 4, 5 }));
         s.y = 0.1f; s.z = 0.6f;
         CHECK (channelsUsed (run (s, 512, 20.0)).count (4) == 1);   // Unruhe holt die Farbe auch bei wenig Intensitaet
@@ -452,6 +453,75 @@ int main()
         s.bassPattern = BassPedal; pcs.clear();
         for (const auto& e : run (s, 512, 16.0)) if (e.velocity > 0) pcs.insert (e.note % 12);
         CHECK (pcs.size() == 1 && *pcs.begin() == 0);
+    }
+
+    // 25) Gegenstimme: immer nur ein Ton, in ihrer Lage, ueberwiegend Akkordtoene, bei Unruhe mit Vorhalten
+    for (float z : { 0.0f, 0.8f })
+        for (float y : { 0.3f, 0.6f, 0.9f })
+        {
+            Settings s; s.y = y; s.z = z; s.x = 0.5f; s.variation = 4; s.solo[kGegenstimme] = true;
+            const auto ev = run (s, 333, 30.0);
+            checkBalanced (ev);
+            int open = 0, maxOpen = 0, ons = 0;
+            for (const auto& e : ev)
+            {
+                if (e.channel != 5) continue;
+                open += e.velocity > 0 ? 1 : -1; maxOpen = std::max (maxOpen, open);
+                if (e.velocity > 0) { ++ons; CHECK (e.note >= 58 && e.note <= 80); }
+            }
+            CHECK (maxOpen == 1 && ons >= 4);
+        }
+    {   // mehr Intensitaet = bewegter
+        Settings a; a.y = 0.3f; a.solo[kGegenstimme] = true;
+        Settings b = a; b.y = 0.9f;
+        CHECK (countOns (run (b, 512, 30.0), 5) > countOns (run (a, 512, 30.0), 5));
+    }
+
+    // 26) Eigene Folge leiht den Stil der Wendung am Punkt im Feld; die Akkorde bleiben
+    {
+        Settings s; s.key = 0; s.custom = true; s.variety = 0.0f;
+        s.customChords[0] = { 5, Maj, 2 }; s.customChords[1] = { 0, Maj, 2 }; s.customChords[2] = { 10, Maj, 2 }; s.customChords[3] = { 7, Maj, 2 };
+        Settings a = s; a.x = 0.55f; a.y = 0.70f; a.z = 0.15f;     // Synth-Groove: Funk-Bass
+        Settings b = s; b.x = 0.40f; b.y = 0.50f; b.z = 0.20f;     // Ermittlung: Walking Bass
+        Generator g; g.reset(); EventList l; Transport t; t.playing = true;
+        g.process (t, a, 512, l);
+        CHECK (g.wendung() == kCustomWendung && std::string (kWendungen[g.styleWendung()].name) == "Synth-Groove");
+        g.reset(); l.clear(); g.process (t, b, 512, l);
+        CHECK (std::string (kWendungen[g.styleWendung()].name) == "Ermittlung");
+        std::vector<int> ra, rb;
+        for (const auto& e : run (a, 512, 16.0)) if (e.velocity > 0 && e.channel == 2) ra.push_back (e.note);
+        for (const auto& e : run (b, 512, 16.0)) if (e.velocity > 0 && e.channel == 2) rb.push_back (e.note);
+        CHECK (ra != rb);
+        // Flaeche spielt in beiden Faellen die eigenen Akkorde (Grundtoene F, C, B, G kommen vor)
+        std::set<int> pcs;
+        for (const auto& e : run (a, 512, 16.0)) if (e.velocity > 0 && e.channel == 1) pcs.insert (e.note % 12);
+        CHECK (pcs.count (5) && pcs.count (0) && pcs.count (10) && pcs.count (7));
+        // VARIATION aendert bei eigener Folge die Lage der Flaeche
+        std::set<std::vector<int>> voicings;
+        for (int v = 1; v <= 6; ++v)
+        {
+            Settings o = s; o.y = 0.4f; o.variation = v; o.solo[kFlaeche] = true; o.padPattern = PadHeld;
+            std::vector<int> first;
+            for (const auto& e : run (o, 512, 2.0)) if (e.velocity > 0 && e.channel == 1) first.push_back (e.note);
+            voicings.insert (first);
+        }
+        CHECK (voicings.size() >= 2);
+    }
+
+    // 27) Durchgaenge: bei viel Intensitaet erklingt vor dem naechsten Akkord dessen Dominante
+    {
+        Settings s; s.key = 0; s.custom = true; s.y = 0.7f; s.padPattern = PadHeld; s.solo[kFlaeche] = true;
+        s.customChords[0] = { 0, Maj, 2 }; s.customChords[1] = { 5, Maj, 2 };   // C - F: Dominante von F ist C7 (B kommt dazu)
+        auto has = [] (const std::vector<Abs>& ev, int pc) { for (const auto& e : ev) if (e.velocity > 0 && e.channel == 1 && e.note % 12 == pc) return true; return false; };
+        const auto off = run (s, 512, 8.0);
+        s.passing = true;
+        const auto on = run (s, 512, 8.0);
+        CHECK (! has (off, 10) && has (on, 10));
+        checkBalanced (on);
+        Settings calm = s; calm.y = 0.3f;                                         // bei wenig Intensitaet keine Durchgaenge
+        CHECK (! has (run (calm, 512, 8.0), 10));
+        Settings all; all.passing = true; all.y = 0.8f; for (auto& v : all.layerIntensity) v = 0.5f;
+        checkBalanced (run (all, 300, 30.0));
     }
     return 0;
 }

@@ -5,17 +5,17 @@ namespace
 {
 juce::String u8 (const char* s) { return juce::String (juce::CharPointer_UTF8 (s)); }
 
-const char* kLayerTitle[stromscore::kNumLayers] = { "FLÄCHE", "BASS", "ARP", "FARBE", "AKZENTE" };
+const char* kLayerTitle[stromscore::kNumLayers] = { "FLÄCHE", "BASS", "ARP", "FARBE", "GEGENSTIMME" };
 const char* kLayerTip[stromscore::kNumLayers] = {
     "Akkorde: gehalten, als kurze Schläge oder im Puls.",
     "Grundton der Akkorde in verschiedenen Mustern, von gehalten bis Funk.",
     "Gebrochene Akkorde und Figuren, auch als Ostinato.",
     "Einzelne hohe Töne über dem Akkord. Bei Unruhe auch Töne außerhalb der Tonart.",
-    "Tiefe Schläge bei Akkordwechseln, bei hoher Intensität auch auf den Betonungen." };
+    "Ruhige Linie aus langen Tönen, die schrittweise von Akkord zu Akkord geht, zum Beispiel für Horn, Cello oder Oboe." };
 const char* kLayerLines[stromscore::kNumLayers] = {
     "", "", "",
     "Hoher Ton über dem Akkord, bei Unruhe ein fremder, reibender Ton in der Mitte des Akkords",
-    "Tiefer Schlag bei jedem Akkordwechsel, sehr aufgewühlt auch auf den Betonungen" };
+    "Ruhige Linie aus langen Tönen von Akkord zu Akkord, bewegter mit mehr Intensität, bei Unruhe mit Vorhalten" };
 }
 
 // ---------------------------------------------------------------- Stimmungsfeld
@@ -92,11 +92,11 @@ void ChordDisplay::paint (juce::Graphics& g)
     g.drawText (playing ? (custom ? wendung : u8 ("Wendung: ") + wendung) : u8 ("Wiedergabe starten oder VORHÖREN einschalten"), 14, 48, w - 28, 18, juce::Justification::centredLeft);
 
     // Woraus VARIATION an dieser Stelle waehlt
-    if (! custom && candidates.isNotEmpty())
+    if (candidates.isNotEmpty())
     {
         g.setColour (dim);
         g.setFont (juce::FontOptions (11.0f));
-        g.drawFittedText (u8 ("Hier: ") + candidates, 14, getHeight() - 82, w - 28, 16, juce::Justification::centredLeft, 1, 0.85f);
+        g.drawFittedText (u8 ("Hier: ") + candidates, 14, getHeight() - 80, w - 28, 16, juce::Justification::centredLeft, 1, 0.85f);
     }
 
     // Stimmung live: Faerbung, Intensitaet, Unruhe in Prozent mit schmalem Balken
@@ -150,7 +150,7 @@ void LayerView::paint (juce::Graphics& g)
 
     g.setColour (active ? accent : dim);
     g.setFont (juce::FontOptions (12.0f, juce::Font::bold));
-    g.drawText (title, 12, 8, (int) r.getWidth() - 100, 16, juce::Justification::centredLeft);
+    g.drawFittedText (title, 12, 8, (int) r.getWidth() - 92, 16, juce::Justification::centredLeft, 1, 0.75f);
 
     const juce::Rectangle<float> lamp (r.getWidth() - 26.0f, 10.0f, 12.0f, 12.0f);
     g.setColour (line);
@@ -163,7 +163,8 @@ void LayerView::paint (juce::Graphics& g)
 
     g.setColour (dim);
     g.setFont (juce::FontOptions (11.0f));
-    g.drawText (u8 ("MIDI-Kanal ") + juce::String (channel), 12, 28, (int) r.getWidth() - 24, 14, juce::Justification::centredLeft);
+    g.drawText (u8 ("MIDI-Kanal ") + juce::String (channel) + (entry.isNotEmpty() ? u8 (" · ") + entry : juce::String()),
+                12, 28, (int) r.getWidth() - 24, 14, juce::Justification::centredLeft);
     if (lines.isNotEmpty())
     {
         g.setColour (active ? text : dim);
@@ -227,14 +228,14 @@ static juce::AttributedString buildHelp (juce::Colour text, juce::Colour accent,
     s.append (u8 ("Hilfe · v") + juce::String (PLUGIN_VERSION_TEXT) + "\n\n", juce::Font (juce::FontOptions (17.0f, juce::Font::bold)), accent);
 
     head ("Was das Plugin macht");
-    body ("Es erzeugt Musik für Untermalung und gibt sie als MIDI auf fünf Kanälen aus: Fläche, Bass, Arp, Farbe und Akzente. Die Klänge kommen aus deinen eigenen Instrumenten. Die Noten sind als Ausgangspunkt gedacht, den du weiter bearbeitest. Es läuft im Takt des Projekts: Wiedergabe starten, springen oder loopen, und es spielt an der richtigen Stelle weiter. Gleiche Einstellungen ergeben immer dieselben Noten.");
+    body ("Es erzeugt Musik für Untermalung und gibt sie als MIDI auf fünf Kanälen aus: Fläche, Bass, Arp, Farbe und Gegenstimme. Alle Ebenen sind tonal gedacht, für tongebende Instrumente; Schlagwerk gehört nicht dazu. Die Klänge kommen aus deinen eigenen Instrumenten. Die Noten sind als Ausgangspunkt gedacht, den du weiter bearbeitest. Es läuft im Takt des Projekts: Wiedergabe starten, springen oder loopen, und es spielt an der richtigen Stelle weiter. Gleiche Einstellungen ergeben immer dieselben Noten.");
 
     head ("Woher die Musik kommt");
     bold ("Es verwendet keine KI. ");
     body ("STROMSCORE arbeitet mit festen Regeln, nicht mit trainierten Modellen und nicht mit fremdem Material. Die Grundlage ist der Stil, den Lars Eickstädt über Jahre für seine Hörspiele entwickelt hat, geprägt von großen Filmkomponisten und der Musik klassischer Hörspiele. Daraus ist ein Vorrat an Wendungen entstanden: Akkordfolgen, Figuren und Rhythmen. Je nach Stimmung zieht das Plugin daraus. Melodien bekannter Stücke werden nicht nachgebaut.");
 
     head ("Einrichten in Studio One");
-    body ("1. Lege eine Instrumentenspur mit Stromscore an. 2. Lege für jede Ebene, die du hören willst, eine Instrumentenspur mit deinem Instrument an. 3. Stelle bei jeder dieser Spuren als Eingang Stromscore ein und wähle den MIDI-Kanal (Fläche 1, Bass 2, Arp 3, Farbe 4, Akzente 5). 4. Schalte die Spuren auf Monitor. Zum Weiterarbeiten nimmst du die Ausgabe einfach auf diesen Spuren auf.");
+    body ("1. Lege eine Instrumentenspur mit Stromscore an. 2. Lege für jede Ebene, die du hören willst, eine Instrumentenspur mit deinem Instrument an. 3. Stelle bei jeder dieser Spuren als Eingang Stromscore ein und wähle den MIDI-Kanal (Fläche 1, Bass 2, Arp 3, Farbe 4, Gegenstimme 5). 4. Schalte die Spuren auf Monitor. Zum Weiterarbeiten nimmst du die Ausgabe einfach auf diesen Spuren auf.");
     note ("Ohne eigene Instrumente hörst du mit VORHÖREN einen einfachen Testklang direkt aus dem Plugin.");
 
     head ("Das Stimmungsfeld");
@@ -254,17 +255,23 @@ static juce::AttributedString buildHelp (juce::Colour text, juce::Colour accent,
     body ("Der Vorrat umfasst 48 Wendungen: von Lauern, Trauer, Unruhigem Schlaf und Grusel über Verfolgung, Sog, Achse, Ermittlung, Geheimnis, Wurmloch, Fremde Orte, Synth-Nächte und Funk bis zu Schneelinien, Gleiten, Offenen Quinten, Sehnsucht, Romantik, Terrassen, Erhabenem, Heiterkeit, Western, Abenteuer, Erhebung, Fanfare und Triumph.");
 
     head ("Eigene Folge");
-    body ("Mit EIGENE FOLGE spielt Stromscore deine Akkorde statt der Wendungen. Über „Bearbeiten“ legst du bis zu acht Akkorde fest, jeweils mit Grundton, Art (Dur, Moll, maj7, m7, 7, sus4, sus2, add9, m6, m(maj7), m7b5, dim7, +) und Länge in Takten. Die Grundtöne gelten unabhängig von TONART. Vorgabe ist F – C – B – G mit je 2 Takten. Das Stimmungsfeld bestimmt weiter, wie die Ebenen spielen: Dichte, Muster, Unruhe und welche Ebenen einsetzen.");
+    body ("Mit EIGENE FOLGE spielt Stromscore deine Akkorde statt der Wendungen. Über „Bearbeiten“ legst du bis zu acht Akkorde fest, jeweils mit Grundton, Art (Dur, Moll, maj7, m7, 7, sus4, sus2, add9, m6, m(maj7), m7b5, dim7, +) und Länge in Takten. Die Grundtöne gelten unabhängig von TONART. Vorgabe ist F – C – B – G mit je 2 Takten. Die Akkorde bleiben fest, alles andere bestimmt weiter das Stimmungsfeld: Die Färbung leiht den Stil der Wendung, die am Punkt im Feld liegt, also ihre Figuren, Bass-Muster und den Rhythmus der Fläche. So spielt deine Folge zum Beispiel mit Funk-Bass und Riff oder mit Walking Bass, je nachdem, wohin du den Punkt ziehst. Welcher Stil gerade gilt, steht in der Akkord-Anzeige. Intensität und Unruhe wirken wie sonst. VARIATION wählt bei eigener Folge außerdem die Lage der Fläche: weit, eng oder ohne tiefen Grundton.");
 
     head ("TONART, TAKT, VARIATION, SWING");
     body ("TONART legt den Grundton fest. TAKT übernimmt die Taktart aus dem Projekt oder legt sie fest (4/4, 3/4, 6/8, 5/4, 7/8, 5/8, 12/8); ungerade Takte bekommen eigene Betonungsgruppen, etwa 3+3+2+2 im 5/4. VARIATION wählt eine von sechzehn Kombinationen aus Wendungen und Figuren; gleiche Nummer, gleiches Ergebnis. SWING verschiebt die Zwischen-Achtel nach hinten, bis zum Triolen-Gefühl.");
 
     head ("Die fünf Ebenen");
     body ("Jede Ebene hat ihren MIDI-Kanal und eine Lampe, die bei jedem Ton leuchtet. Daneben liegen S (Solo) und M (Mute): Mute lässt die Ebene schweigen, Solo lässt nur die Solo-Ebenen spielen, auch mehrere gleichzeitig. So kannst du zum Beispiel nur mit dem Bass oder nur mit einer Fläche beginnen.");
-    body ("Fläche und Bass spielen immer, die anderen Ebenen setzen mit der Intensität ein: Arp ab 25 %, Farbe ab 40 % oder bei Unruhe, Akzente ab 70 %. Der Regler INTENSITÄT unten in jedem Kasten verschiebt die Intensität nur für diese Ebene. In der Mitte folgt sie dem Feld. Weniger macht sie dünner, beim Bass bis zu langen Tönen. Mehr macht sie dichter, beim Bass bis zu durchgehenden Achteln auf einem Ton; die Ebene setzt dann auch bei ruhiger Stimmung ein. Die übrigen Ebenen bleiben dabei, wie das Feld sie vorgibt. Doppelklick setzt den Regler auf die Mitte.");
+    body ("Fläche und Bass spielen immer, die anderen Ebenen setzen mit der Intensität ein: Arp ab 25 %, Farbe ab 40 % oder bei Unruhe, Gegenstimme ab 15 %. Ab wann eine Ebene gerade einsetzt, steht neben ihrem MIDI-Kanal, etwa „ab 25 %“ oder „immer“. Der Regler INTENSITÄT unten in jedem Kasten verschiebt die Intensität nur für diese Ebene. In der Mitte folgt sie dem Feld. Weniger macht sie dünner, beim Bass bis zu langen Tönen. Mehr macht sie dichter, beim Bass bis zu durchgehenden Achteln auf einem Ton; die Ebene setzt dann auch bei ruhiger Stimmung ein. Die übrigen Ebenen bleiben dabei, wie das Feld sie vorgibt. Doppelklick setzt den Regler auf die Mitte.");
 
     head ("Muster");
     body ("Fläche: Gehalten, Schläge (kurze Akkorde auf der Zwischenzeit), Puls (auf jedem Schlag) oder Staccato (kurz auf jedem Schlag). Bass: Gehalten, Halbe, Viertel, Achtel, Puls (durchgehende Sechzehntel auf einem Ton), Funk (synkopiert, mit kurzem Sprung nach oben am Taktende), Pendel (Grundton und kleine Terz, bei Unruhe Halbton), Walking (Akkordtöne in Vierteln, chromatisch zum nächsten Grundton), Wechselbass (Grundton und Quinte im Wechsel), Herzschlag (doppelter Schlag, wie ein Puls), Arpeggio (Akkordtöne in Achteln) oder Orgelpunkt (liegt auf dem Grundton der Wendung, während die Akkorde darüber wandern). Arp: Aufwärts, Abwärts, Kreisend (auf und ab), Zelle (kurze, obsessive Figur), Riff, Glitzern (schnell und hoch), Sprünge (weite Dreiklangs-Sprünge), Kaskade (Harfen-Wellen in Dreiergruppen), Oktatonisch (Läufe auf der Halbton-Ganzton-Leiter) oder Quarten (gestapelte Quarten als Ostinato); das Tempo wählst du darunter. Auf Auto folgt das Muster der Wendung.");
+
+    head ("Gegenstimme");
+    body ("Die fünfte Ebene ist eine ruhige Linie aus langen Tönen, gedacht für Horn, Cello, Oboe oder ein Lead-Instrument. Sie geht schrittweise auf Akkordtönen von Akkord zu Akkord, bevorzugt Terz und Septime und meidet den Ton der Farbe, damit sich nichts doppelt. In dunkler Färbung neigt sie nach unten, in heller nach oben. Bei wenig Intensität wechselt sie nur mit den Akkorden, bei mehr alle zwei Takte, aufgewühlt in Halben. Bei Unruhe kommt sie mit einem Vorhalt von oben in den Akkord. Sie ist keine fertige Melodie, sondern ein roter Faden für deine eigene.");
+
+    head ("Durchgänge");
+    body ("Mit DURCHGÄNGE erklingt bei viel Intensität (ab 60 %) auf dem letzten Schlag eines Akkords kurz die Dominante des nächsten Akkords. Das zieht in den Wechsel hinein. Es gilt für Wendungen und eigene Folge und lässt sich jederzeit abschalten.");
 
     head ("Satz der Fläche");
     body ("Die Fläche ist weit gesetzt wie im Orchester: Grundton und Quinte unten, Terz und Farbtöne eine Oktave höher, bei viel Intensität mit Verdopplung oben.");
@@ -363,12 +370,16 @@ StromscoreEditor::StromscoreEditor (StromscoreProcessor& p) : AudioProcessorEdit
 
     // Eigene Akkordfolge
     customButton.setClickingTogglesState (true);
-    customButton.onStateChange = [this]
-    { customButton.setButtonText (customButton.getToggleState() ? u8 ("Eigene Folge: An") : u8 ("Eigene Folge: Aus")); };
+    customButton.setButtonText ("Eigene Folge");
     content.addAndMakeVisible (customButton);
     customAttachment = std::make_unique<APVTS::ButtonAttachment> (processor.apvts, "eigeneFolge", customButton);
-    customButton.onStateChange();
-    editButton.setButtonText (u8 ("Bearbeiten …"));
+    editButton.setButtonText (u8 ("…"));
+    editButton.setName ("Bearbeiten");
+    passingButton.setButtonText (u8 ("Durchgänge"));
+    passingButton.setClickingTogglesState (true);
+    content.addAndMakeVisible (passingButton);
+    passingAttachment = std::make_unique<APVTS::ButtonAttachment> (processor.apvts, "durchgaenge", passingButton);
+    passingButton.setTooltip (u8 ("Bei viel Intensität (ab 60 %) erklingt auf dem letzten Schlag eines Akkords kurz die Dominante des nächsten Akkords, als Durchgang. Gilt für Wendungen und eigene Folge."));
     editButton.onClick = [this] { slots.setVisible (! slots.isVisible()); if (slots.isVisible()) slots.toFront (false); };
     content.addAndMakeVisible (editButton);
     for (int i = 0; i < stromscore::kMaxChords; ++i)
@@ -479,8 +490,8 @@ StromscoreEditor::StromscoreEditor (StromscoreProcessor& p) : AudioProcessorEdit
 
     pad.setTooltip (u8 ("Stimmungsfeld: waagerecht die Färbung (dunkel bis hell), senkrecht die Intensität (ruhig bis aufgewühlt), Mausrad: Unruhe (Ring um den Punkt). Automatisierbar, auch per CC."));
     changeBox.setTooltip (u8 ("Wann eine neue Wendung einsetzt, wenn du den Punkt deutlich bewegst: am nächsten Schlag, am nächsten Takt, alle 2 oder alle 4 Takte."));
-    customButton.setTooltip (u8 ("An: deine eigene Akkordfolge statt der Wendungen. Das Stimmungsfeld bestimmt weiter, wie die Ebenen spielen."));
-    editButton.setTooltip (u8 ("Eigene Akkordfolge festlegen: bis zu acht Akkorde mit Grundton, Art und Länge."));
+    customButton.setTooltip (u8 ("An: deine eigene Akkordfolge statt der Wendungen. Die Akkorde bleiben fest, Figuren und Muster kommen von der Wendung, die am Punkt im Feld liegt."));
+    editButton.setTooltip (u8 ("Eigene Akkordfolge bearbeiten: bis zu acht Akkorde mit Grundton, Art und Länge."));
     keyBox.setTooltip (u8 ("Grundton der Tonart."));
     meterBox.setTooltip (u8 ("Taktart: vom Projekt übernehmen oder fest einstellen. Ungerade Takte bekommen eigene Betonungen."));
     variation.setTooltip (u8 ("Sechzehn Kombinationen aus Wendungen und Figuren. Gleiche Nummer, gleiches Ergebnis."));
@@ -560,6 +571,9 @@ void StromscoreEditor::timerCallback()
         chordDisplay.chord = juce::String (juce::CharPointer_UTF8 (buf));
         chordDisplay.wendung = juce::String (juce::CharPointer_UTF8 (wd.name));
         chordDisplay.custom = w == stromscore::kCustomWendung;
+        const int st = processor.styleIndex.load();
+        if (chordDisplay.custom && st >= 0 && st < stromscore::kNumWendungen)
+            chordDisplay.wendung << u8 (" · Stil: ") << juce::String (juce::CharPointer_UTF8 (stromscore::kWendungen[st].name));
         chordDisplay.numChips = wd.n;
         for (int i = 0; i < wd.n; ++i)
         {
@@ -592,6 +606,17 @@ void StromscoreEditor::timerCallback()
         const float a = processor.activity[i].exchange (0.0f);
         layers[i].activity = std::max (a, layers[i].activity * 0.88f);
         layers[i].active = stromscore::Generator::layerActive (s, i);
+        bool anySolo = false;
+        for (bool b : s.solo) anySolo = anySolo || b;
+        juce::String entry;
+        if (anySolo ? ! s.solo[i] : s.mute[i]) entry = "stumm";
+        else
+        {
+            const float t = stromscore::kLayerStart[i] - s.layerIntensity[i];
+            entry = t <= 0.0f ? juce::String ("immer") : t > 1.0f ? (i == stromscore::kFarbe ? juce::String ("bei Unruhe") : juce::String ("nie"))
+                                                                   : "ab " + juce::String (juce::roundToInt (t * 100.0f)) + " %";
+        }
+        if (layers[i].entry != entry) { layers[i].entry = entry; }
         layers[i].repaint();
     }
     if (pad.z > 0.01f) pad.repaint();   // der Unruhe-Ring zittert
@@ -751,8 +776,9 @@ void StromscoreEditor::resized()
     changeLabel.setBounds (422, 82, 150, 18);
     changeBox.setBounds (422, 102, 152, 26);
     customLabel.setBounds (422, 136, 150, 18);
-    customButton.setBounds (422, 156, 152, 26);
-    editButton.setBounds (422, 188, 152, 26);
+    customButton.setBounds (422, 156, 116, 26);
+    editButton.setBounds (542, 156, 32, 26);
+    passingButton.setBounds (422, 188, 152, 26);
     varietyLabel.setBounds (422, 222, 150, 18);
     variety.setBounds (418, 240, 160, 24);
     previewButton.setBounds (422, 280, 152, 26);

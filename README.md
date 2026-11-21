@@ -7,7 +7,7 @@
 
 VST3-Instrument für Hörspiel-Produktion. STROMSCORE ist als Inspiration gedacht: Es liefert einen Ausgangspunkt, den du auf deinen
 eigenen Instrumenten weiter bearbeitest und veredelst. Es erzeugt Musik zur Untermalung und gibt sie als **MIDI** auf fünf Kanälen aus:
-Fläche, Bass, Arp, Farbe und Akzente. Die Stimmung steuerst du über ein **Stimmungsfeld** mit drei Achsen: Färbung (dunkel bis hell),
+Fläche, Bass, Arp, Farbe und Gegenstimme. Die Stimmung steuerst du über ein **Stimmungsfeld** mit drei Achsen: Färbung (dunkel bis hell),
 Intensität (ruhig bis aufgewühlt) und Unruhe (sauber bis kratzig). Alle drei lassen sich automatisieren oder mit einem Fader-Controller
 live fahren. So folgt die Musik der Szene, vom Lauern über die Panik bis zur Erlösung.
 
@@ -21,7 +21,7 @@ klassischer Hörspiele. Daraus ist ein Vorrat an Wendungen entstanden: Akkordfol
 Melodien bekannter Stücke werden nicht nachgebaut. Das Ziel: Szenen so zu untermalen, wie ich es selbst tun würde, und das einfacher
 zu machen.
 
-**Stand 0.6:** Forschungsphase. Bedienung und Klang werden mit jeder Version weiter verfeinert.
+**Stand 0.7:** Forschungsphase. Bedienung und Klang werden mit jeder Version weiter verfeinert.
 
 **⬇ Download (Windows · VST3):** https://github.com/StromschlagProductions/Stromscore-vst/releases/latest
 
@@ -49,7 +49,7 @@ von 50 % bis 300 % vergrößern oder verkleinern.
 
 1. Eine Instrumentenspur mit **Stromscore** anlegen.
 2. Für jede Ebene, die du hören willst, eine eigene Instrumentenspur mit deinem Instrument anlegen.
-3. Bei jeder dieser Spuren als Eingang Stromscore wählen und den MIDI-Kanal einstellen: Fläche 1, Bass 2, Arp 3, Farbe 4, Akzente 5.
+3. Bei jeder dieser Spuren als Eingang Stromscore wählen und den MIDI-Kanal einstellen: Fläche 1, Bass 2, Arp 3, Farbe 4, Gegenstimme 5.
 4. Spuren auf Monitor schalten, Wiedergabe starten.
 
 Zum Weiterarbeiten nimmst du die Ausgabe auf diesen Spuren als MIDI auf. Ohne eigene Instrumente hilft **VORHÖREN**: ein einfacher
@@ -90,7 +90,8 @@ CC-Knopf lässt sich die Zuordnung ändern oder abschalten.
 | ABWECHSLUNG | Wie viele passende Wendungen sich abwechseln: ganz links immer nur die passendste, weiter rechts auch entferntere Nachbarn. |
 | SWING | Verschiebt die Zwischen-Achtel nach hinten, bis zum Triolen-Gefühl. |
 | WECHSEL | Wann eine neue Wendung einsetzt: nächster Schlag, nächster Takt, alle 2 oder alle 4 Takte. |
-| EIGENE FOLGE | Spielt deine Akkorde statt der Wendungen. Über **Bearbeiten** bis zu acht Akkorde mit Grundton, Art (Dur, Moll, maj7, m7, 7, sus4, sus2, add9, m6, m(maj7), m7b5, dim7, +) und Länge in Takten. Vorgabe: F – C – B – G mit je 2 Takten. Das Stimmungsfeld bestimmt weiter Dichte, Muster und Unruhe. |
+| EIGENE FOLGE | Spielt deine Akkorde statt der Wendungen. Über **Bearbeiten** bis zu acht Akkorde mit Grundton, Art (Dur, Moll, maj7, m7, 7, sus4, sus2, add9, m6, m(maj7), m7b5, dim7, +) und Länge in Takten. Vorgabe: F – C – B – G mit je 2 Takten. Die Akkorde bleiben fest; die Färbung leiht den Stil der Wendung am Punkt im Feld (Figuren, Bass-Muster, Rhythmus der Fläche), Intensität und Unruhe wirken wie sonst. VARIATION wählt die Lage der Fläche. |
+| DURCHGÄNGE | Bei viel Intensität erklingt auf dem letzten Schlag eines Akkords kurz die Dominante des nächsten Akkords. Abschaltbar. |
 | VORHÖREN | Einfacher Testklang im Plugin. Spielt auch bei stehender DAW mit eigener Uhr im Projekttempo, dann nur als Testklang ohne MIDI an die Spuren. |
 
 ## Die fünf Ebenen
@@ -98,7 +99,8 @@ CC-Knopf lässt sich die Zuordnung ändern oder abschalten.
 Jede Ebene hat neben ihrer Lampe **Solo** und **Mute**. Fläche und Bass spielen immer, die anderen Ebenen setzen mit der Intensität ein.
 Der Regler **Intensität** unten in jedem Kasten verschiebt die Intensität nur für diese Ebene: weniger macht sie dünner (beim Bass bis
 zu langen Tönen), mehr macht sie dichter (beim Bass bis zu durchgehenden Achteln), und sie setzt dann auch bei ruhiger Stimmung ein. Die
-übrigen Ebenen bleiben, wie das Feld sie vorgibt. Bei Fläche, Bass und Arp bestimmt ein zweiter Schalter, ob die Ebene **den Akkorden folgt** oder **auf dem Grundakkord bleibt**,
+übrigen Ebenen bleiben, wie das Feld sie vorgibt. Ab wann eine Ebene gerade einsetzt, steht neben ihrem MIDI-Kanal. Alle Ebenen sind
+für tongebende Instrumente gedacht, Schlagwerk gehört nicht dazu. Bei Fläche, Bass und Arp bestimmt ein zweiter Schalter, ob die Ebene **den Akkorden folgt** oder **auf dem Grundakkord bleibt**,
 etwa für einen durchlaufenden Arp über wechselnden Flächen oder einen Bass auf dem Grundton. Auf Auto folgt das Muster der Wendung.
 Jede Ebene hat außerdem ihre eigene **Oktavlage** (zwei Oktaven tiefer bis zwei Oktaven höher).
 
@@ -108,7 +110,7 @@ Jede Ebene hat außerdem ihre eigene **Oktavlage** (zwei Oktaven tiefer bis zwei
 | Bass | 2 | Gehalten, Halbe, Viertel, Achtel, Puls (Sechzehntel auf einem Ton), Funk, Pendel, Walking, Wechselbass, Herzschlag, Arpeggio, Orgelpunkt | immer |
 | Arp | 3 | Aufwärts, Abwärts, Kreisend, Zelle, Riff, Glitzern, Sprünge, Kaskade, Oktatonisch, Quarten · Tempo Viertel, Achtel, Sechzehntel | ab 25 % Intensität |
 | Farbe | 4 | Hoher Ton über dem Akkord, bei Unruhe ein fremder, reibender Ton | ab 40 % Intensität oder bei Unruhe |
-| Akzente | 5 | Tiefer Schlag bei Akkordwechseln, sehr aufgewühlt auch auf den Betonungen | ab 70 % Intensität |
+| Gegenstimme | 5 | Ruhige Linie aus langen Tönen, schrittweise von Akkord zu Akkord, bewegter mit mehr Intensität, bei Unruhe mit Vorhalten | ab 15 % Intensität |
 
 ## Installation (Windows)
 
@@ -124,6 +126,7 @@ Danach in der DAW die Plugins neu einlesen.
 
 - **0.5** – Wechsel schon am nächsten Schlag (wahlweise Takt, 2 oder 4 Takte) mit sauberem Übergang, eigene Akkordfolge mit bis zu acht Akkorden, Oktavlage je Ebene, Fläche und Bass eine Oktave höher, 13 neue Wendungen (35 insgesamt), neue Muster (Staccato, Walking, Wechselbass, Herzschlag, Arpeggio, Sprünge), Oktaven-Bass entfernt, Vorhören auch ohne Wiedergabe, Stimmungsfeld mit „Ruhe“ als Ausgangspunkt, kompaktere Oberfläche.
 - **0.6** – 13 neue Wendungen (48 insgesamt), neue Figuren (Kaskade, Oktatonisch, Quarten) und Bass Orgelpunkt, Akkorde mit eigenem Basston, weiter Satz der Fläche, Solo und Mute je Ebene, Intensität je Ebene, ABWECHSLUNG und Anzeige der passenden Wendungen.
+- **0.7** – Ebene 5 wird zur Gegenstimme, eigene Folge leiht den Stil der Wendung am Punkt im Feld, VARIATION wählt bei eigener Folge die Lage der Fläche, Durchgangsakkorde zuschaltbar, Anzeige, ab wann jede Ebene einsetzt.
 
 Alle Release-Hinweise: `docs/releases/`.
 

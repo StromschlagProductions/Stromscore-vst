@@ -82,7 +82,7 @@ public:
         addChildComponent (followButton); addChildComponent (combo1); addChildComponent (combo2);
     }
     juce::Colour panel, line, accent, text, dim;
-    juce::String title, lines;
+    juce::String title, lines, entry;   // entry: ab wann die Ebene einsetzt
     int index = 0, channel = 1;
     bool active = true;
     float activity = 0.0f;
@@ -99,8 +99,8 @@ public:
         else octBox.setBounds (12, getHeight() - 60, w, 24);
         followButton.setBounds (12, getHeight() - 60, w, 24);
         intensity.setBounds (12, getHeight() - 32, w, 24);
-        soloButton.setBounds (getWidth() - 84, 6, 24, 20);
-        muteButton.setBounds (getWidth() - 56, 6, 24, 20);
+        soloButton.setBounds (getWidth() - 76, 6, 21, 20);
+        muteButton.setBounds (getWidth() - 52, 6, 21, 20);
     }
     static constexpr int kArpIndex = 2;
 };
@@ -227,8 +227,8 @@ private:
     std::unique_ptr<APVTS::SliderAttachment> variationAttachment, swingAttachment;
     juce::ComboBox keyBox, meterBox, changeBox;
     std::unique_ptr<APVTS::ComboBoxAttachment> keyAttachment, meterAttachment, changeAttachment;
-    juce::TextButton ccButton, previewButton, customButton, editButton;
-    std::unique_ptr<APVTS::ButtonAttachment> previewAttachment, customAttachment;
+    juce::TextButton ccButton, previewButton, customButton, editButton, passingButton;
+    std::unique_ptr<APVTS::ButtonAttachment> previewAttachment, customAttachment, passingAttachment;
     SlotPanel slots;
     std::unique_ptr<APVTS::ComboBoxAttachment> slotAttachment[3 * stromscore::kMaxChords];
     ChordDisplay chordDisplay;
