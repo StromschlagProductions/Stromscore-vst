@@ -339,10 +339,10 @@ void StromscoreEditor::paint (juce::Graphics& g)
         g.drawImage (logo, juce::Rectangle<float> (14.0f, 4.0f, 56.0f, 56.0f), juce::RectanglePlacement::centred, true);
     }
 
-    const float subX = 232.0f;
+    const float subX = 292.0f;
     g.setColour (theme.text);
     g.setFont (juce::FontOptions (24.0f, juce::Font::bold));
-    g.drawText ("STROMSCORE", 80, 8, 150, 30, juce::Justification::centredLeft);
+    g.drawText ("STROMSCORE", 80, 8, 210, 30, juce::Justification::centredLeft);
     g.setColour (theme.accent);
     g.setFont (juce::FontOptions (13.0f, juce::Font::bold));
     const juce::String subtitle = u8 ("SCORE-GENERATOR F\xc3\x9cR H\xc3\x96RSPIELE");
