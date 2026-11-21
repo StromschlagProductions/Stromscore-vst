@@ -50,6 +50,7 @@ bool StromscoreProcessor::isBusesLayoutSupported (const BusesLayout& layouts) co
 
 void StromscoreProcessor::prepareToPlay (double sampleRate, int)
 {
+    currentRate = sampleRate;
     generator.reset();
     preview.prepare (sampleRate);
 }
@@ -107,7 +108,7 @@ void StromscoreProcessor::processBlock (juce::AudioBuffer<float>& audio, juce::M
     midi.clear();   // eingehende Noten werden in 0.1 nicht verwendet
 
     stromscore::Transport t;
-    t.sampleRate = getSampleRate();
+    t.sampleRate = currentRate > 0.0 ? currentRate : 48000.0;
     if (auto* head = getPlayHead())
         if (auto pos = head->getPosition())
         {

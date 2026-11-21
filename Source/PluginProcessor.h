@@ -54,6 +54,7 @@ private:
     stromscore::Preview preview;
     stromscore::EventList events;
     bool wasBypassed = false;
+    double currentRate = 48000.0;
 
     std::atomic<float>* pKey = nullptr; std::atomic<float>* pMode = nullptr; std::atomic<float>* pVerlauf = nullptr;
     std::atomic<float>* pVariation = nullptr; std::atomic<float>* pPreview = nullptr;
