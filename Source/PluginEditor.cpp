@@ -15,7 +15,7 @@ const char* kLayerTip[stromscore::kNumLayers] = {
 const char* kLayerLines[stromscore::kNumLayers] = {
     "", "", "",
     "Hoher Ton über dem Akkord, bei Unruhe ein fremder, reibender Ton in der Mitte des Akkords",
-    "Ruhige Linie aus langen Tönen von Akkord zu Akkord, bewegter mit mehr Intensität, bei Unruhe mit Vorhalten" };
+    "Ruhige Linie aus langen Tönen, bewegter mit mehr Intensität, bei Unruhe mit Vorhalten" };
 }
 
 // ---------------------------------------------------------------- Stimmungsfeld
