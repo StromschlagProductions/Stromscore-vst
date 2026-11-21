@@ -151,6 +151,11 @@ int main()
 
     // Bypass beendet offene Noten genau einmal
     {
+        {   // Reste des vorigen Tests (Wiedergabe lief weiter) zuerst sauber beenden
+            host.playing = false;
+            juce::AudioBuffer<float> a (2, 512); juce::MidiBuffer m;
+            p->processBlock (a, m);
+        }
         p->prepareToPlay (48000, 512);
         host.ppq = 0.0; host.playing = true;
         juce::AudioBuffer<float> audio (2, 512); juce::MidiBuffer midi; Counts c;
