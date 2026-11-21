@@ -21,12 +21,12 @@ juce::StringArray StromscoreProcessor::meterNames()  { return { "Vom Projekt", "
 juce::StringArray StromscoreProcessor::layerNames()  { return { u8 ("Fläche"), "Bass", "Arp", "Farbe", "Akzente" }; }
 juce::StringArray StromscoreProcessor::padPatternNames()  { return { "Auto", "Gehalten", u8 ("Schläge"), "Puls", "Staccato" }; }
 juce::StringArray StromscoreProcessor::bassPatternNames() { return { "Auto", "Gehalten", "Halbe", "Viertel", "Achtel", "Puls", "Funk", "Pendel",
-                                                                     "Walking", "Wechselbass", "Herzschlag", "Arpeggio" }; }
-juce::StringArray StromscoreProcessor::arpFigureNames()   { return { "Auto", u8 ("Aufwärts"), u8 ("Abwärts"), "Kreisend", "Zelle", "Riff", "Glitzern", u8 ("Sprünge") }; }
+                                                                     "Walking", "Wechselbass", "Herzschlag", "Arpeggio", "Orgelpunkt" }; }
+juce::StringArray StromscoreProcessor::arpFigureNames()   { return { "Auto", u8 ("Aufwärts"), u8 ("Abwärts"), "Kreisend", "Zelle", "Riff", "Glitzern", u8 ("Sprünge"), "Kaskade", "Oktatonisch", "Quarten" }; }
 juce::StringArray StromscoreProcessor::changeNames()      { return { u8 ("Nächster Schlag"), u8 ("Nächster Takt"), "Alle 2 Takte", "Alle 4 Takte" }; }
 juce::StringArray StromscoreProcessor::octaveNames()      { return { u8 ("−2 Okt."), u8 ("−1 Okt."), "Normal", "+1 Okt.", "+2 Okt." }; }
 juce::StringArray StromscoreProcessor::slotRootNames()    { return { "C", "Cis", "D", "Es", "E", "F", "Fis", "G", "As", "A", "B", "H" }; }
-juce::StringArray StromscoreProcessor::slotTypeNames()    { return { "Dur", "Moll", "maj7", "m7", "7", "sus4", "add9", "m6", "m(maj7)", "m7b5", "dim7", "+" }; }
+juce::StringArray StromscoreProcessor::slotTypeNames()    { return { "Dur", "Moll", "maj7", "m7", "7", "sus4", "sus2", "add9", "m6", "m(maj7)", "m7b5", "dim7", "+" }; }
 juce::StringArray StromscoreProcessor::slotBarNames()     { return { u8 ("–"), "1 Takt", "2 Takte", "3 Takte", "4 Takte" }; }
 juce::StringArray StromscoreProcessor::arpRateNames()     { return { "Auto", "Viertel", "Achtel", "16tel" }; }
 
@@ -41,9 +41,18 @@ juce::AudioProcessorValueTreeState::ParameterLayout StromscoreProcessor::createL
     layout.add (std::make_unique<AudioParameterChoice> (ParameterID { "takt", 1 }, "Takt", meterNames(), 0));
     layout.add (std::make_unique<AudioParameterFloat> (ParameterID { "swing", 1 }, "Swing", NormalisableRange<float> (0.0f, 1.0f), 0.0f, percent()));
     layout.add (std::make_unique<AudioParameterInt> (ParameterID { "variation", 1 }, "Variation", 1, 16, 1));
+    const auto signedPercent = AudioParameterFloatAttributes()
+        .withStringFromValueFunction ([] (float v, int) { const int p = roundToInt (v * 100.0f); return (p > 0 ? "+" : p < 0 ? String (CharPointer_UTF8 ("\xe2\x88\x92")) : String (CharPointer_UTF8 ("\xc2\xb1"))) + String (std::abs (p)) + " %"; })
+        .withValueFromStringFunction ([] (const String& t) { const auto c = t.replace (CharPointer_UTF8 ("\xe2\x88\x92"), "-").retainCharacters ("-0123456789.,").replaceCharacter (',', '.'); return jlimit (-1.0f, 1.0f, c.getFloatValue() / 100.0f); });
     for (int i = 0; i < stromscore::kNumLayers; ++i)
-        layout.add (std::make_unique<AudioParameterChoice> (ParameterID { "layer" + String (i + 1), 1 },
-            layerNames()[i] + " Ebene", StringArray { "Aus", "Auto", "An" }, 1));
+    {
+        const String n (i + 1);
+        layout.add (std::make_unique<AudioParameterBool> (ParameterID { "mute" + n, 1 }, layerNames()[i] + " Mute", false));
+        layout.add (std::make_unique<AudioParameterBool> (ParameterID { "solo" + n, 1 }, layerNames()[i] + " Solo", false));
+        layout.add (std::make_unique<AudioParameterFloat> (ParameterID { "intensitaet" + n, 1 }, layerNames()[i] + u8 (" Intensität"),
+            NormalisableRange<float> (-1.0f, 1.0f), 0.0f, signedPercent));
+    }
+    layout.add (std::make_unique<AudioParameterFloat> (ParameterID { "abwechslung", 1 }, "Abwechslung", NormalisableRange<float> (0.0f, 1.0f), 0.5f, percent()));
     for (int i = 0; i < 3; ++i)
         layout.add (std::make_unique<AudioParameterBool> (ParameterID { "follow" + String (i + 1), 1 },
             layerNames()[i] + " folgt den Akkorden", true));
@@ -78,7 +87,14 @@ StromscoreProcessor::StromscoreProcessor()
     pSwing = apvts.getRawParameterValue ("swing");
     pVariation = apvts.getRawParameterValue ("variation");
     pPreview = apvts.getRawParameterValue ("preview");
-    for (int i = 0; i < stromscore::kNumLayers; ++i) pLayer[i] = apvts.getRawParameterValue ("layer" + juce::String (i + 1));
+    for (int i = 0; i < stromscore::kNumLayers; ++i)
+    {
+        const juce::String n (i + 1);
+        pMute[i] = apvts.getRawParameterValue ("mute" + n);
+        pSolo[i] = apvts.getRawParameterValue ("solo" + n);
+        pLayerIntensity[i] = apvts.getRawParameterValue ("intensitaet" + n);
+    }
+    pVariety = apvts.getRawParameterValue ("abwechslung");
     for (int i = 0; i < 3; ++i) pFollow[i] = apvts.getRawParameterValue ("follow" + juce::String (i + 1));
     pPad = apvts.getRawParameterValue ("padPattern");
     pBass = apvts.getRawParameterValue ("bassPattern");
@@ -131,7 +147,13 @@ stromscore::Settings StromscoreProcessor::currentSettings() const
     s.meterDen = m == 0 ? hostDen : dens[m];
     s.swing = pSwing->load();
     s.variation = juce::roundToInt (pVariation->load());
-    for (int i = 0; i < stromscore::kNumLayers; ++i) s.layerMode[i] = juce::jlimit (0, 2, juce::roundToInt (pLayer[i]->load()));
+    for (int i = 0; i < stromscore::kNumLayers; ++i)
+    {
+        s.mute[i] = pMute[i]->load() >= 0.5f;
+        s.solo[i] = pSolo[i]->load() >= 0.5f;
+        s.layerIntensity[i] = pLayerIntensity[i]->load();
+    }
+    s.variety = pVariety->load();
     for (int i = 0; i < 3; ++i) s.follow[i] = pFollow[i]->load() >= 0.5f;
     s.padPattern = juce::roundToInt (pPad->load());
     s.bassPattern = juce::roundToInt (pBass->load());

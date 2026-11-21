@@ -67,6 +67,7 @@ public:
     juce::String chips[stromscore::kMaxChords];
     int numChips = 0, current = -1;
     bool playing = false, custom = false;
+    juce::String candidates;   // Wendungen, die an der aktuellen Stelle in Frage kommen
     float mood[3] {};   // Faerbung, Intensitaet, Unruhe (0..1), live angezeigt
     void paint (juce::Graphics& g) override;
 };
@@ -75,13 +76,18 @@ public:
 class LayerView : public juce::Component, public juce::SettableTooltipClient
 {
 public:
-    LayerView() { addAndMakeVisible (modeButton); addAndMakeVisible (octBox); addChildComponent (followButton); addChildComponent (combo1); addChildComponent (combo2); }
+    LayerView()
+    {
+        for (auto* c : std::initializer_list<juce::Component*> { &soloButton, &muteButton, &intensity, &octBox }) addAndMakeVisible (c);
+        addChildComponent (followButton); addChildComponent (combo1); addChildComponent (combo2);
+    }
     juce::Colour panel, line, accent, text, dim;
     juce::String title, lines;
-    int index = 0, channel = 1, mode = 1;
+    int index = 0, channel = 1;
     bool active = true;
     float activity = 0.0f;
-    juce::TextButton modeButton, followButton;
+    juce::TextButton soloButton, muteButton, followButton;
+    juce::Slider intensity;
     juce::ComboBox combo1, combo2, octBox;
     void paint (juce::Graphics& g) override;
     void resized() override
@@ -92,7 +98,9 @@ public:
         else if (index < kArpIndex) octBox.setBounds (12, 80, w, 24);
         else octBox.setBounds (12, getHeight() - 60, w, 24);
         followButton.setBounds (12, getHeight() - 60, w, 24);
-        modeButton.setBounds (12, getHeight() - 32, w, 24);
+        intensity.setBounds (12, getHeight() - 32, w, 24);
+        soloButton.setBounds (getWidth() - 84, 6, 24, 20);
+        muteButton.setBounds (getWidth() - 56, 6, 24, 20);
     }
     static constexpr int kArpIndex = 2;
 };
@@ -137,6 +145,28 @@ public:
         label.setBounds (1, 1, box.getWidth() - arrowWidth (box.getHeight()), box.getHeight() - 2);
         label.setFont (getComboBoxFont (box));
     }
+    // Balken-Regler (Intensitaet je Ebene): Fuellung von der Mitte aus, Schrift bleibt lesbar
+    void drawLinearSlider (juce::Graphics& g, int x, int y, int width, int height, float sliderPos, float minPos, float maxPos,
+                           juce::Slider::SliderStyle style, juce::Slider& slider) override
+    {
+        if (style != juce::Slider::LinearBar)
+        {
+            juce::LookAndFeel_V4::drawLinearSlider (g, x, y, width, height, sliderPos, minPos, maxPos, style, slider);
+            return;
+        }
+        const juce::Rectangle<float> r ((float) x, (float) y, (float) width, (float) height);
+        g.setColour (findColour (juce::ComboBox::backgroundColourId));
+        g.fillRoundedRectangle (r, 3.0f);
+        const double range = slider.getMaximum() - slider.getMinimum();
+        const float centre = range > 0.0 ? (float) x + (float) width * (float) ((0.0 - slider.getMinimum()) / range) : r.getCentreX();
+        const float a = std::min (centre, sliderPos), b = std::max (centre, sliderPos);
+        g.setColour (slider.findColour (juce::Slider::trackColourId).withAlpha (0.45f));
+        g.fillRect (juce::Rectangle<float> (a, r.getY() + 1.0f, std::max (1.0f, b - a), r.getHeight() - 2.0f));
+        g.setColour (findColour (juce::ComboBox::outlineColourId));
+        g.fillRect (centre - 0.5f, r.getY() + 3.0f, 1.0f, r.getHeight() - 6.0f);
+        g.drawRoundedRectangle (r.reduced (0.5f), 3.0f, 1.0f);
+    }
+
     void drawComboBox (juce::Graphics& g, int width, int height, bool, int, int, int, int, juce::ComboBox& box) override
     {
         const juce::Rectangle<float> r (0.0f, 0.0f, (float) width, (float) height);
@@ -171,7 +201,6 @@ private:
     static Theme lightTheme();
     void applyTheme();
     void timerCallback() override;
-    void updateModeButton (int layer, int mode);
     void updateCcButton();
     void showCcMenu();
     float subtitleEnd() const;
@@ -190,6 +219,9 @@ private:
     MoodPad pad;
     std::unique_ptr<juce::ParameterAttachment> axisAttachment[3];
 
+    juce::Label varietyLabel;
+    juce::Slider variety;
+    std::unique_ptr<APVTS::SliderAttachment> varietyAttachment;
     juce::Label padLabel, keyLabel, meterLabel, variationLabel, swingLabel, chordLabel, changeLabel, customLabel;
     juce::Slider variation, swing;
     std::unique_ptr<APVTS::SliderAttachment> variationAttachment, swingAttachment;
@@ -202,7 +234,8 @@ private:
     ChordDisplay chordDisplay;
 
     LayerView layers[stromscore::kNumLayers];
-    std::unique_ptr<juce::ParameterAttachment> modeAttachment[stromscore::kNumLayers];
+    std::unique_ptr<APVTS::ButtonAttachment> soloAttachment[stromscore::kNumLayers], muteAttachment[stromscore::kNumLayers];
+    std::unique_ptr<APVTS::SliderAttachment> intensityAttachment[stromscore::kNumLayers];
     std::unique_ptr<APVTS::ButtonAttachment> followAttachment[3];
     std::unique_ptr<APVTS::ComboBoxAttachment> patternAttachment[4], octaveAttachment[stromscore::kNumLayers];
 

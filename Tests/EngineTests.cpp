@@ -85,14 +85,14 @@ int main()
             {
                 Settings s; s.x = x; s.y = y; s.z = z; s.key = (int) (x * 11);
                 s.swing = y * 0.5f;
-                for (auto& m : s.layerMode) m = 2;
+                for (auto& v : s.layerIntensity) v = 1.0f;
                 checkBalanced (run (s, 333, 20.0));
             }
     for (int num : { 3, 4, 5, 6, 7 })
         for (int den : { 4, 8 })
         {
             Settings s; s.y = 0.9f; s.meterNum = num; s.meterDen = den;
-            for (auto& m : s.layerMode) m = 2;
+            for (auto& v : s.layerIntensity) v = 1.0f;
             checkBalanced (run (s, 256, 16.0));
         }
     for (int bp = 0; bp < kNumBassPatterns; ++bp)
@@ -100,14 +100,14 @@ int main()
         {
             Settings s; s.y = 0.6f; s.z = 0.7f; s.bassPattern = bp; s.arpFigure = af; s.padPattern = (bp + af) % kNumPadPatterns;
             s.arpRate = af % kNumArpRates;
-            for (auto& m : s.layerMode) m = 2;
+            for (auto& v : s.layerIntensity) v = 1.0f;
             checkBalanced (run (s, 512, 12.0));
         }
 
     // 3) Unabhaengig von der Blockgroesse (gleiche Einstellungen, gleiche Noten zur gleichen Zeit)
     {
         Settings s; s.y = 0.8f; s.z = 0.6f; s.swing = 0.4f; s.variation = 5;
-        for (auto& m : s.layerMode) m = 2;
+        for (auto& v : s.layerIntensity) v = 1.0f;
         auto a = run (s, 64, 30.0), b = run (s, 1000, 30.0), c = run (s, 4096, 30.0);
         CHECK (a.size() == b.size() && b.size() == c.size());
         for (size_t i = 0; i < a.size(); ++i)
@@ -193,7 +193,7 @@ int main()
 
     // 9) Ebenen-Schalter: aus = still, an = auch bei wenig Intensitaet; Ausschalten waehrend des Spielens beendet Noten
     {
-        Settings s; s.y = 0.0f; s.layerMode[kArp] = 2; s.layerMode[kFlaeche] = 0;
+        Settings s; s.y = 0.0f; s.layerIntensity[kArp] = 0.5f; s.mute[kFlaeche] = true;
         const auto used = channelsUsed (run (s, 512, 20.0));
         CHECK (used.count (3) == 1 && used.count (1) == 0 && used.count (2) == 1);
 
@@ -201,7 +201,7 @@ int main()
         std::map<std::pair<int, int>, int> open;
         for (int i = 0; i < 40; ++i)
         {
-            if (i == 20) a.layerMode[kFlaeche] = 0;
+            if (i == 20) a.mute[kFlaeche] = true;
             Transport t; t.playing = true; t.bpm = 120; t.sampleRate = 48000; t.ppq = i * 512.0 / 24000.0;
             l.clear(); g.process (t, a, 512, l);
             for (int e = 0; e < l.size; ++e)
@@ -242,7 +242,7 @@ int main()
 
     // 13) Swing verschiebt die Zwischen-Achtel nach hinten
     {
-        Settings s; s.y = 0.4f; s.arpRate = RateEighth; s.arpFigure = ArpUp; for (auto& m : s.layerMode) m = 0; s.layerMode[kArp] = 2;
+        Settings s; s.y = 0.4f; s.arpRate = RateEighth; s.arpFigure = ArpUp; s.solo[kArp] = true;
         auto straight = run (s, 512, 4.0);
         s.swing = 1.0f;
         auto swung = run (s, 512, 4.0);
@@ -296,7 +296,7 @@ int main()
         auto wendungAt = [] (int change, double moveAt, double until, std::vector<int>& seen, bool& balanced)
         {
             Generator g; g.reset(); EventList l; Settings s; s.x = 0.08f; s.y = 0.15f; s.z = 0.6f; s.change = change;
-            for (auto& m : s.layerMode) m = 2;
+            for (auto& v : s.layerIntensity) v = 1.0f;
             std::map<std::pair<int, int>, int> open;
             const double blockQ = 256.0 / 24000.0;
             for (int b = 0; b * blockQ < until; ++b)
@@ -349,7 +349,7 @@ int main()
 
     // 19) Oktavlage je Ebene
     {
-        Settings a; a.y = 0.5f; for (auto& m : a.layerMode) m = 0; a.layerMode[kFlaeche] = 2; a.padPattern = PadHeld;
+        Settings a; a.y = 0.5f; a.solo[kFlaeche] = true; a.padPattern = PadHeld;
         Settings b = a; b.octave[kFlaeche] = 1;
         Settings c = a; c.octave[kFlaeche] = -2;
         auto ea = run (a, 512, 10.0), eb = run (b, 512, 10.0), ec = run (c, 512, 10.0);
@@ -372,7 +372,7 @@ int main()
         CHECK (g.wendung() == kCustomWendung);
         // ungerade Laenge (3 Takte) und alle Ebenen
         Settings o = s; o.customChords[1].bars = 1; o.customChords[2].bars = 0; o.customChords[3].bars = 0; o.bassPattern = BassWalking;
-        for (auto& m : o.layerMode) m = 2;
+        for (auto& v : o.layerIntensity) v = 1.0f;
         checkBalanced (run (o, 256, 30.0));
         // Umschalten waehrend des Spielens: nichts haengt
         Generator h; h.reset(); EventList m; std::map<std::pair<int, int>, int> open;
@@ -386,6 +386,72 @@ int main()
             for (int e = 0; e < m.size; ++e) open[std::make_pair ((int) m.events[(size_t) e].channel, (int) m.events[(size_t) e].note)] += m.events[(size_t) e].velocity > 0 ? 1 : -1;
         }
         for (const auto& op : open) CHECK (op.second == 0);
+    }
+
+    // 21) Solo und Mute
+    {
+        Settings s; s.y = 0.9f;
+        s.solo[kBass] = true;
+        CHECK ((channelsUsed (run (s, 512, 10.0)) == std::set<int> { 2 }));
+        s.solo[kBass] = false; s.mute[kBass] = true;
+        const auto used = channelsUsed (run (s, 512, 10.0));
+        CHECK (used.count (2) == 0 && used.count (1) == 1 && used.count (3) == 1);
+        s.solo[kArp] = true; s.solo[kFlaeche] = true;     // mehrere Solo-Ebenen
+        CHECK ((channelsUsed (run (s, 512, 10.0)) == std::set<int> { 1, 3 }));
+    }
+
+    // 22) Intensitaet nur fuer den Bass: duenner oder dichter, die anderen Ebenen bleiben gleich
+    {
+        Settings a; a.y = 0.5f; a.variation = 3;
+        Settings thin = a; thin.layerIntensity[kBass] = -1.0f;
+        Settings dense = a; dense.layerIntensity[kBass] = 1.0f;
+        const auto ea = run (a, 512, 30.0), et = run (thin, 512, 30.0), ed = run (dense, 512, 30.0);
+        CHECK (countOns (ed, 2) > 2 * countOns (et, 2));
+        CHECK (countOns (ea, 1) == countOns (ed, 1) && countOns (ea, 3) == countOns (ed, 3));
+        CHECK (countOns (ea, 1) == countOns (et, 1) && countOns (ea, 3) == countOns (et, 3));
+        checkBalanced (ed); checkBalanced (et);
+        // hochgedrehter Arp spielt auch bei ruhiger Stimmung
+        Settings calm; calm.y = 0.05f; calm.layerIntensity[kArp] = 0.6f;
+        CHECK (channelsUsed (run (calm, 512, 10.0)).count (3) == 1);
+    }
+
+    // 23) Abwechslung: 0 = immer die passendste Wendung, 1 = mehrere Nachbarn; Kandidaten nach Passung sortiert
+    {
+        int c[16];
+        Settings s; s.x = 0.3f; s.y = 0.45f; s.z = 0.45f;
+        s.variety = 0.0f;
+        CHECK (Generator::candidates (s, c, 16) == 1);
+        std::set<int> picks;
+        for (int v = 1; v <= 16; ++v) for (long long ph = 0; ph < 8; ++ph) { Settings o = s; o.variation = v; picks.insert (Generator::pick (o, ph)); }
+        CHECK (picks.size() == 1 && *picks.begin() == c[0]);
+        s.variety = 1.0f;
+        const int n = Generator::candidates (s, c, 16);
+        CHECK (n >= 3);
+        for (int i = 1; i < n; ++i) CHECK (Generator::weight (kWendungen[c[i - 1]], s) >= Generator::weight (kWendungen[c[i]], s));
+        int few[2];                                     // begrenzte Liste: die besten zuerst
+        CHECK (Generator::candidates (s, few, 2) == 2 && few[0] == c[0] && few[1] == c[1]);
+        picks.clear();
+        for (int v = 1; v <= 16; ++v) for (long long ph = 0; ph < 8; ++ph) { Settings o = s; o.variation = v; picks.insert (Generator::pick (o, ph)); }
+        CHECK (picks.size() >= 3);
+        // ueber das ganze Feld mit viel Abwechslung und Wechsel am Schlag: nichts haengt
+        Settings w; w.variety = 1.0f; w.y = 0.7f; w.z = 0.5f; for (auto& v : w.layerIntensity) v = 0.5f;
+        checkBalanced (run (w, 300, 40.0));
+    }
+
+    // 24) Eigener Basston (Terrassen: D-Dur ueber C) und Orgelpunkt
+    {
+        int terr = -1;
+        for (int i = 0; i < kNumWendungen; ++i) if (std::string (kWendungen[i].name) == "Terrassen") terr = i;
+        CHECK (terr >= 0 && kWendungen[terr].ch[1].bass == 0);
+        char buf[16];
+        chordName (0, 2, Maj, buf, 16); CHECK (std::string (buf) == "D");
+        Settings s; s.x = 0.8f; s.y = 0.4f; s.z = 0.1f; s.variety = 0.0f; s.key = 0; s.bassPattern = BassQuarter; s.solo[kBass] = true;
+        std::set<int> pcs;
+        for (const auto& e : run (s, 512, 16.0)) if (e.velocity > 0) pcs.insert (e.note % 12);
+        CHECK (pcs.count (2) == 0);                  // unter D-Dur liegt C, kein D im Bass
+        s.bassPattern = BassPedal; pcs.clear();
+        for (const auto& e : run (s, 512, 16.0)) if (e.velocity > 0) pcs.insert (e.note % 12);
+        CHECK (pcs.size() == 1 && *pcs.begin() == 0);
     }
     return 0;
 }

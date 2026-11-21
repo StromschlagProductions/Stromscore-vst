@@ -21,7 +21,7 @@ klassischer Hörspiele. Daraus ist ein Vorrat an Wendungen entstanden: Akkordfol
 Melodien bekannter Stücke werden nicht nachgebaut. Das Ziel: Szenen so zu untermalen, wie ich es selbst tun würde, und das einfacher
 zu machen.
 
-**Stand 0.5:** Forschungsphase. Bedienung und Klang werden mit jeder Version weiter verfeinert.
+**Stand 0.6:** Forschungsphase. Bedienung und Klang werden mit jeder Version weiter verfeinert.
 
 **⬇ Download (Windows · VST3):** https://github.com/StromschlagProductions/Stromscore-vst/releases/latest
 
@@ -71,8 +71,10 @@ Akkord, die Wendung und ihre Akkorde.
 Schlag (Vorgabe), am nächsten Takt, alle 2 oder alle 4 Takte. Gehaltene Töne der alten Stimmung enden genau dort, der Arp läuft im Takt
 weiter. Kleine Bewegungen lösen keinen Wechsel aus, solange die laufende Wendung noch passt.
 
-**Vorrat:** 35 Wendungen, von Lauern, Trauer und Grusel über Verfolgung, Ermittlung, Geheimnis, Fremde Orte, Synth-Nächte und Funk bis
-zu Sehnsucht, Romantik, Erhabenem, Heiterkeit, Western, Abenteuer und Triumph.
+**Vorrat:** 48 Wendungen, von Lauern, Trauer, Unruhigem Schlaf und Grusel über Verfolgung, Sog, Achse, Ermittlung, Geheimnis,
+Wurmloch, Fremde Orte, Synth-Nächte und Funk bis zu Schneelinien, Gleiten, Offenen Quinten, Sehnsucht, Romantik, Terrassen,
+Erhabenem, Heiterkeit, Western, Abenteuer, Erhebung, Fanfare und Triumph. Welche Wendungen an der aktuellen Stelle in Frage kommen,
+zeigt die Akkord-Anzeige unter „Hier“.
 
 **Controller:** Stromscore hört auf seinem MIDI-Eingang auf CC 11, CC 1 und CC 74, passend zu einem Fader-Controller für
 Orchester-Instrumente. Der Stromscore-Spur den Controller als Eingang geben und die Fader-Bewegungen als MIDI-Part aufnehmen. Über den
@@ -84,24 +86,27 @@ CC-Knopf lässt sich die Zuordnung ändern oder abschalten.
 |---|---|
 | TONART | Grundton der Tonart. |
 | TAKT | Vom Projekt übernehmen oder fest: 4/4, 3/4, 6/8, 5/4, 7/8, 5/8, 12/8. Ungerade Takte bekommen eigene Betonungsgruppen (z. B. 3+3+2+2 im 5/4). |
-| VARIATION | 16 Kombinationen aus Wendungen und Figuren. Gleiche Nummer, gleiches Ergebnis. |
+| VARIATION | Wählt, welche der passenden Wendungen in welcher Phrase drankommt und welche Figuren sie spielt. Die Stimmung bleibt, nur das Arrangement ändert sich. Gleiche Nummer, gleiches Ergebnis. |
+| ABWECHSLUNG | Wie viele passende Wendungen sich abwechseln: ganz links immer nur die passendste, weiter rechts auch entferntere Nachbarn. |
 | SWING | Verschiebt die Zwischen-Achtel nach hinten, bis zum Triolen-Gefühl. |
 | WECHSEL | Wann eine neue Wendung einsetzt: nächster Schlag, nächster Takt, alle 2 oder alle 4 Takte. |
-| EIGENE FOLGE | Spielt deine Akkorde statt der Wendungen. Über **Bearbeiten** bis zu acht Akkorde mit Grundton, Art (Dur, Moll, maj7, m7, 7, sus4, add9, m6, m(maj7), m7b5, dim7, +) und Länge in Takten. Vorgabe: F – C – B – G mit je 2 Takten. Das Stimmungsfeld bestimmt weiter Dichte, Muster und Unruhe. |
+| EIGENE FOLGE | Spielt deine Akkorde statt der Wendungen. Über **Bearbeiten** bis zu acht Akkorde mit Grundton, Art (Dur, Moll, maj7, m7, 7, sus4, sus2, add9, m6, m(maj7), m7b5, dim7, +) und Länge in Takten. Vorgabe: F – C – B – G mit je 2 Takten. Das Stimmungsfeld bestimmt weiter Dichte, Muster und Unruhe. |
 | VORHÖREN | Einfacher Testklang im Plugin. Spielt auch bei stehender DAW mit eigener Uhr im Projekttempo, dann nur als Testklang ohne MIDI an die Spuren. |
 
 ## Die fünf Ebenen
 
-Jede Ebene hat einen Schalter mit drei Stufen: **Aus** (schweigt), **Auto** (setzt bei ihrer Intensitäts-Stufe ein) und **An** (spielt
-immer). Bei Fläche, Bass und Arp bestimmt ein zweiter Schalter, ob die Ebene **den Akkorden folgt** oder **auf dem Grundakkord bleibt**,
+Jede Ebene hat neben ihrer Lampe **Solo** und **Mute**. Fläche und Bass spielen immer, die anderen Ebenen setzen mit der Intensität ein.
+Der Regler **Intensität** unten in jedem Kasten verschiebt die Intensität nur für diese Ebene: weniger macht sie dünner (beim Bass bis
+zu langen Tönen), mehr macht sie dichter (beim Bass bis zu durchgehenden Achteln), und sie setzt dann auch bei ruhiger Stimmung ein. Die
+übrigen Ebenen bleiben, wie das Feld sie vorgibt. Bei Fläche, Bass und Arp bestimmt ein zweiter Schalter, ob die Ebene **den Akkorden folgt** oder **auf dem Grundakkord bleibt**,
 etwa für einen durchlaufenden Arp über wechselnden Flächen oder einen Bass auf dem Grundton. Auf Auto folgt das Muster der Wendung.
 Jede Ebene hat außerdem ihre eigene **Oktavlage** (zwei Oktaven tiefer bis zwei Oktaven höher).
 
 | Ebene | Kanal | Muster | Auto setzt ein |
 |---|---|---|---|
-| Fläche | 1 | Gehalten, Schläge (kurze Akkorde auf der Zwischenzeit), Puls, Staccato | immer |
-| Bass | 2 | Gehalten, Halbe, Viertel, Achtel, Puls (Sechzehntel auf einem Ton), Funk, Pendel, Walking, Wechselbass, Herzschlag, Arpeggio | immer |
-| Arp | 3 | Aufwärts, Abwärts, Kreisend, Zelle, Riff, Glitzern, Sprünge · Tempo Viertel, Achtel, Sechzehntel | ab 25 % Intensität |
+| Fläche | 1 | Gehalten, Schläge (kurze Akkorde auf der Zwischenzeit), Puls, Staccato; weit gesetzt wie im Orchester | immer |
+| Bass | 2 | Gehalten, Halbe, Viertel, Achtel, Puls (Sechzehntel auf einem Ton), Funk, Pendel, Walking, Wechselbass, Herzschlag, Arpeggio, Orgelpunkt | immer |
+| Arp | 3 | Aufwärts, Abwärts, Kreisend, Zelle, Riff, Glitzern, Sprünge, Kaskade, Oktatonisch, Quarten · Tempo Viertel, Achtel, Sechzehntel | ab 25 % Intensität |
 | Farbe | 4 | Hoher Ton über dem Akkord, bei Unruhe ein fremder, reibender Ton | ab 40 % Intensität oder bei Unruhe |
 | Akzente | 5 | Tiefer Schlag bei Akkordwechseln, sehr aufgewühlt auch auf den Betonungen | ab 70 % Intensität |
 
@@ -118,6 +123,7 @@ Danach in der DAW die Plugins neu einlesen.
 - **0.4** – Stimmungsfeld mit Färbung, Intensität und Unruhe (ersetzt VERLAUF und MODUS), Steuerung per CC 11 / 1 / 74, Vorrat an 22 Wendungen aus Filmmusik und klassischer Hörspielmusik, Muster für Fläche, Bass und Arp, Taktarten inklusive ungerader Takte, Swing, Akkord- und Wendungsanzeige.
 
 - **0.5** – Wechsel schon am nächsten Schlag (wahlweise Takt, 2 oder 4 Takte) mit sauberem Übergang, eigene Akkordfolge mit bis zu acht Akkorden, Oktavlage je Ebene, Fläche und Bass eine Oktave höher, 13 neue Wendungen (35 insgesamt), neue Muster (Staccato, Walking, Wechselbass, Herzschlag, Arpeggio, Sprünge), Oktaven-Bass entfernt, Vorhören auch ohne Wiedergabe, Stimmungsfeld mit „Ruhe“ als Ausgangspunkt, kompaktere Oberfläche.
+- **0.6** – 13 neue Wendungen (48 insgesamt), neue Figuren (Kaskade, Oktatonisch, Quarten) und Bass Orgelpunkt, Akkorde mit eigenem Basston, weiter Satz der Fläche, Solo und Mute je Ebene, Intensität je Ebene, ABWECHSLUNG und Anzeige der passenden Wendungen.
 
 Alle Release-Hinweise: `docs/releases/`.
 

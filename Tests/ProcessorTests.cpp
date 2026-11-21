@@ -214,16 +214,25 @@ int main()
         host.playing = true;
     }
 
-    // Ebenen-Schalter und "folgt den Akkorden" als Parameter
+    // Solo, Mute, Intensitaet je Ebene und "folgt den Akkorden" als Parameter
     {
-        for (int i = 1; i <= 5; ++i) CHECK (p->apvts.getParameter ("layer" + juce::String (i)) != nullptr);
+        for (int i = 1; i <= 5; ++i)
+            for (auto* id : { "mute", "solo", "intensitaet" }) CHECK (p->apvts.getParameter (id + juce::String (i)) != nullptr);
         for (int i = 1; i <= 3; ++i) CHECK (p->apvts.getParameter ("follow" + juce::String (i)) != nullptr);
-        setParam (*p, "layer1", 0.0f); setParam (*p, "layer2", 0.0f); setParam (*p, "layer3", 2.0f);
+        CHECK (p->apvts.getParameter ("abwechslung") != nullptr);
+        setParam (*p, "solo3", 1.0f); setParam (*p, "intensitaet3", 0.5f);
         setParam (*p, "intensitaet", 0.0f);
         auto c = play (*p, host, 8, 512);
-        CHECK (c.channels.size() == 1 && c.channels.count (3) == 1);   // nur der Arp
-        setParam (*p, "layer1", 1.0f); setParam (*p, "layer2", 1.0f); setParam (*p, "layer3", 1.0f);
+        CHECK (c.channels.size() == 1 && c.channels.count (3) == 1);   // nur der Arp, trotz ruhiger Stimmung
+        setParam (*p, "solo3", 0.0f); setParam (*p, "intensitaet3", 0.0f); setParam (*p, "mute2", 1.0f);
         setParam (*p, "intensitaet", 1.0f);
+        c = play (*p, host, 8, 512);
+        CHECK (c.channels.count (2) == 0 && c.channels.size() == 4 && c.ons == c.offs);
+        setParam (*p, "mute2", 0.0f);
+        // Text des Intensitaets-Reglers
+        auto* li = p->apvts.getParameter ("intensitaet2");
+        CHECK (li->getText (li->convertTo0to1 (0.2f), 32) == "+20 %");
+        CHECK (std::abs (li->convertFrom0to1 (li->getValueForText ("-30 %")) + 0.3f) < 1e-4f);
     }
 
     // Zustand speichern und laden

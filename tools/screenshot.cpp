@@ -13,6 +13,8 @@ public:
         processor.apvts.getParameter ("faerbung")->setValueNotifyingHost (0.26f);
         processor.apvts.getParameter ("intensitaet")->setValueNotifyingHost (0.58f);
         processor.apvts.getParameter ("unruhe")->setValueNotifyingHost (0.45f);
+        if (auto* bass = processor.apvts.getParameter ("intensitaet2"))   // Bass etwas dichter als das Feld
+            bass->setValueNotifyingHost (bass->convertTo0to1 (0.3f));
         processor.hostPlaying.store (true);
         const int w = 4;   // "Agentenfarbe"
         processor.wendung.store (w);

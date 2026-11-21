@@ -24,7 +24,7 @@ constexpr int kMaxChords = 8;
 constexpr float kLayerStart[kNumLayers] = { 0.0f, 0.0f, 0.25f, 0.4f, 0.7f };
 
 // ------------------------------------------------------------------ Akkorde
-enum ChordType { Maj, Min, Maj7, Min7, Dom7, MinMaj7, MinMaj9, Dim7, HalfDim, Sus4, Quartal, Add9, Min9, Aug, Min6, Dom7b9, kNumChordTypes };
+enum ChordType { Maj, Min, Maj7, Min7, Dom7, MinMaj7, MinMaj9, Dim7, HalfDim, Sus4, Quartal, Add9, Min9, Aug, Min6, Dom7b9, Sus2, Fifth, kNumChordTypes };
 struct ChordShape { int n; int iv[5]; const char* suffix; bool minor; };
 constexpr ChordShape kShapes[kNumChordTypes] = {
     { 3, { 0, 4, 7 }, "", false },
@@ -42,22 +42,24 @@ constexpr ChordShape kShapes[kNumChordTypes] = {
     { 5, { 0, 3, 7, 10, 14 }, "m9", true },
     { 3, { 0, 4, 8 }, "+", false },
     { 4, { 0, 3, 7, 9 }, "m6", true },
-    { 5, { 0, 4, 7, 10, 13 }, "7b9", false } };
+    { 5, { 0, 4, 7, 10, 13 }, "7b9", false },
+    { 3, { 0, 2, 7 }, "sus2", false },
+    { 3, { 0, 7, 12 }, "5", false } };
 
 // Akkordarten fuer die eigene Folge (Reihenfolge = Auswahlliste in der Oberflaeche)
-constexpr int kCustomTypes[] = { Maj, Min, Maj7, Min7, Dom7, Sus4, Add9, Min6, MinMaj7, HalfDim, Dim7, Aug };
+constexpr int kCustomTypes[] = { Maj, Min, Maj7, Min7, Dom7, Sus4, Sus2, Add9, Min6, MinMaj7, HalfDim, Dim7, Aug };
 constexpr int kNumCustomTypes = (int) (sizeof (kCustomTypes) / sizeof (kCustomTypes[0]));
 
 // ------------------------------------------------------------------ Muster
 enum PadPattern { PadAuto = 0, PadHeld, PadStabs, PadPulse, PadStaccato, kNumPadPatterns };
 enum BassPattern { BassAuto = 0, BassHeld, BassHalf, BassQuarter, BassEighth, BassPulse, BassFunk, BassPendulum,
-                   BassWalking, BassAlternating, BassHeartbeat, BassArpeggio, kNumBassPatterns };
-enum ArpFigure { ArpAuto = 0, ArpUp, ArpDown, ArpCircle, ArpCell, ArpRiff, ArpGlitter, ArpLeaps, kNumArpFigures };
+                   BassWalking, BassAlternating, BassHeartbeat, BassArpeggio, BassPedal, kNumBassPatterns };
+enum ArpFigure { ArpAuto = 0, ArpUp, ArpDown, ArpCircle, ArpCell, ArpRiff, ArpGlitter, ArpLeaps, ArpCascade, ArpOctatonic, ArpQuartal, kNumArpFigures };
 enum ArpRate { RateAuto = 0, RateQuarter, RateEighth, RateSixteenth, kNumArpRates };
 enum ChangeGrid { ChangeBeat = 0, ChangeBar, Change2Bars, Change4Bars, kNumChangeGrids };
 
 // ------------------------------------------------------------------ Vokabular (Wendungen)
-struct Chord { int root; int type; int bars; };
+struct Chord { int root; int type; int bars; int bass = -1; };   // bass: eigener Basston (Halbtoene ueber dem Grundton der Tonart), -1 = Grundton des Akkords
 struct Wendung
 {
     const char* name;
@@ -76,12 +78,16 @@ constexpr Wendung kWendungen[] = {
     { "Agentenfarbe",       0.30f, 0.45f, 0.45f, 3, { { 0, MinMaj9, 4 }, { 5, MinMaj7, 2 }, { 0, MinMaj9, 2 } }, { ArpCell, ArpCircle }, { BassQuarter, BassPendulum }, PadHeld },
     { "Septakkord-Paare",   0.22f, 0.55f, 0.55f, 4, { { 0, MinMaj7, 2 }, { 5, MinMaj7, 2 }, { 0, MinMaj7, 2 }, { 5, MinMaj7, 2 } }, { ArpCell, ArpUp }, { BassEighth, BassPendulum }, PadHeld },
     { "Schiefer Walzer",    0.20f, 0.55f, 0.35f, 4, { { 0, Min, 2 }, { 0, MinMaj7, 2 }, { 5, Min7, 2 }, { 7, Dom7, 2 } }, { ArpCircle, ArpDown }, { BassQuarter, BassHalf }, PadHeld },
+    { "Unruhiger Schlaf",   0.25f, 0.35f, 0.40f, 8, { { 0, Min, 1 }, { 8, Maj, 1 }, { 9, Dim7, 1 }, { 8, Maj, 1 }, { 0, Min, 1 }, { 8, Maj, 1 }, { 9, Dim7, 1 }, { 8, Maj, 1 } }, { ArpCircle, ArpCell }, { BassHeld, BassPendulum }, PadHeld },
+    { "Moll-Inseln",        0.30f, 0.45f, 0.30f, 4, { { 0, Min, 2 }, { 8, Min, 2 }, { 3, Min, 2 }, { 0, Min, 2 } }, { ArpDown, ArpCircle }, { BassHalf, BassHeld }, PadHeld },
     { "Grusel-Orchester",   0.15f, 0.50f, 0.50f, 4, { { 0, Min, 2 }, { 2, HalfDim, 2 }, { 0, Min, 2 }, { 1, Maj, 2 } }, { ArpDown, ArpCircle }, { BassQuarter, BassPendulum }, PadHeld },
     { "Geisterball",        0.15f, 0.55f, 0.55f, 4, { { 0, Min, 2 }, { 11, Dim7, 2 }, { 0, Min, 2 }, { 5, Min6, 2 } }, { ArpCircle, ArpDown }, { BassAlternating, BassQuarter }, PadStaccato },
     // dunkel und aufgewuehlt: Angst, Panik, Verfolgung
     { "Terz-Treppe",        0.20f, 0.80f, 0.60f, 4, { { 0, Min, 2 }, { 3, Min, 2 }, { 6, Min, 2 }, { 9, Min, 2 } }, { ArpCell, ArpUp }, { BassPulse, BassEighth }, PadPulse },
     { "Tritonus-Schock",    0.08f, 0.88f, 0.88f, 4, { { 0, Min, 2 }, { 6, Maj, 2 }, { 0, Min, 2 }, { 11, Dim7, 2 } }, { ArpCell, ArpCircle }, { BassPulse, BassPendulum }, PadStabs },
     { "Verfolgung",         0.25f, 0.95f, 0.80f, 8, { { 0, Min, 1 }, { 6, Min, 1 }, { 0, Min, 1 }, { 1, Maj, 1 }, { 0, Min, 1 }, { 6, Maj, 1 }, { 3, Min, 1 }, { 11, Dim7, 1 } }, { ArpCell, ArpUp }, { BassPulse, BassEighth }, PadStabs },
+    { "Achse",              0.15f, 0.70f, 0.75f, 4, { { 0, Min6, 2 }, { 6, Min6, 2 }, { 0, Min6, 2 }, { 9, Min7, 2 } }, { ArpOctatonic, ArpCell }, { BassPulse, BassPendulum }, PadStabs },
+    { "Sog",                0.30f, 0.70f, 0.70f, 8, { { 0, Aug, 1 }, { 11, Aug, 1 }, { 10, Aug, 1 }, { 9, Aug, 1 }, { 8, Aug, 1 }, { 7, Aug, 1 }, { 6, Aug, 1 }, { 5, Aug, 1 } }, { ArpCell, ArpDown }, { BassPulse, BassEighth }, PadPulse },
     { "Moll-Marsch",        0.32f, 0.75f, 0.20f, 4, { { 0, Min, 2 }, { 5, Min, 2 }, { 8, Maj, 2 }, { 7, Maj, 2 } }, { ArpUp, ArpDown }, { BassEighth, BassQuarter }, PadPulse },
     // Mitte: Spannung, Ermittlung, Synth-Nacht, Fremde Orte, Geheimnis
     { "Epische Spannung",   0.45f, 0.60f, 0.15f, 4, { { 0, Min, 2 }, { 8, Maj, 2 }, { 3, Maj, 2 }, { 10, Maj, 2 } }, { ArpUp, ArpCircle }, { BassEighth, BassQuarter }, PadHeld },
@@ -91,9 +97,15 @@ constexpr Wendung kWendungen[] = {
     { "Synth-Groove",       0.55f, 0.70f, 0.15f, 4, { { 0, Min, 2 }, { 10, Maj, 2 }, { 8, Maj, 2 }, { 10, Maj, 2 } }, { ArpUp, ArpRiff }, { BassFunk, BassArpeggio }, PadStabs },
     { "Funk-Spannung",      0.50f, 0.65f, 0.25f, 4, { { 0, Min9, 2 }, { 5, Dom7, 2 }, { 0, Min9, 2 }, { 10, Dom7, 2 } }, { ArpRiff, ArpRiff }, { BassFunk, BassFunk }, PadStabs },
     { "Fremde Orte",        0.30f, 0.50f, 0.45f, 4, { { 0, Dom7b9, 2 }, { 1, Maj, 2 }, { 0, Dom7b9, 2 }, { 5, Min, 2 } }, { ArpRiff, ArpCircle }, { BassPendulum, BassQuarter }, PadHeld },
+    { "Wurmloch",           0.40f, 0.55f, 0.55f, 4, { { 7, Aug, 2 }, { 0, Min, 2 }, { 8, Aug, 2 }, { 1, Min, 2 } }, { ArpCircle, ArpGlitter }, { BassPendulum, BassHeld }, PadHeld },
+    { "Quarten-Ruf",        0.55f, 0.60f, 0.30f, 4, { { 0, Quartal, 2 }, { 10, Add9, 2 }, { 0, Quartal, 2 }, { 5, Sus4, 2 } }, { ArpQuartal, ArpUp }, { BassPedal, BassAlternating }, PadPulse },
     { "Geheimnis",          0.45f, 0.30f, 0.50f, 4, { { 0, Aug, 2 }, { 2, Aug, 2 }, { 0, Aug, 2 }, { 10, Aug, 2 } }, { ArpCircle, ArpGlitter }, { BassHeld, BassPendulum }, PadHeld },
     { "Quarten-Weite",      0.60f, 0.45f, 0.45f, 4, { { 0, Quartal, 2 }, { 10, Quartal, 2 }, { 0, Quartal, 2 }, { 6, Maj, 2 } }, { ArpGlitter, ArpCircle }, { BassHeld, BassHalf }, PadHeld },
     // hell und ruhig: Waerme, Staunen, Sehnsucht, Romantik
+    { "Schneelinien",       0.55f, 0.30f, 0.10f, 4, { { 0, Sus2, 2 }, { 10, Add9, 2 }, { 5, Add9, 2 }, { 0, Min7, 2 } }, { ArpCascade, ArpCircle }, { BassPedal, BassHeld }, PadHeld },
+    { "Dorischer Schimmer", 0.60f, 0.45f, 0.05f, 4, { { 0, Min7, 2 }, { 2, Min7, 2 }, { 3, Maj7, 2 }, { 5, Maj, 2 } }, { ArpCascade, ArpUp }, { BassQuarter, BassArpeggio }, PadHeld },
+    { "Gleiten",            0.60f, 0.35f, 0.25f, 4, { { 0, Maj7, 2 }, { 11, Maj7, 2 }, { 10, Maj7, 2 }, { 9, Maj7, 2 } }, { ArpCircle, ArpDown }, { BassHalf, BassHeld }, PadHeld },
+    { "Offene Quinten",     0.65f, 0.30f, 0.05f, 4, { { 0, Maj7, 2 }, { 2, Min7, 2 }, { 4, Min7, 2 }, { 5, Maj7, 2 } }, { ArpCascade, ArpUp }, { BassHalf, BassArpeggio }, PadHeld },
     { "Bewegter Abschied",  0.60f, 0.35f, 0.15f, 4, { { 0, Maj, 2 }, { 7, Maj, 2 }, { 9, Min, 2 }, { 5, Maj, 2 } }, { ArpUp, ArpDown }, { BassQuarter, BassHalf }, PadHeld },
     { "Sehnsucht",          0.62f, 0.20f, 0.00f, 4, { { 0, Maj, 2 }, { 5, Maj, 2 }, { 5, Min, 2 }, { 0, Maj, 2 } }, { ArpDown, ArpCircle }, { BassHeld, BassHalf }, PadHeld },
     { "Weite",              0.65f, 0.15f, 0.05f, 4, { { 0, Add9, 2 }, { 9, Min7, 2 }, { 5, Maj7, 2 }, { 7, Sus4, 2 } }, { ArpUp, ArpCircle }, { BassHeld, BassHalf }, PadHeld },
@@ -102,10 +114,13 @@ constexpr Wendung kWendungen[] = {
     { "W\xc3\xa4rme",       0.80f, 0.18f, 0.00f, 4, { { 5, Maj7, 2 }, { 0, Maj7, 2 }, { 5, Maj7, 2 }, { 0, Maj7, 2 } }, { ArpCircle, ArpUp }, { BassHeld, BassHalf }, PadHeld },
     { "Lydisches Staunen",  0.85f, 0.35f, 0.10f, 4, { { 0, Maj, 2 }, { 2, Maj, 2 }, { 0, Maj7, 2 }, { 2, Maj, 2 } }, { ArpGlitter, ArpUp }, { BassHeld, BassHalf }, PadHeld },
     // hell und aufgewuehlt: Aufbruch, Abenteuer, Heiterkeit, Triumph
+    { "Terrassen",          0.80f, 0.40f, 0.10f, 7, { { 0, Maj, 1 }, { 2, Maj, 1, 0 }, { 10, Maj, 1 }, { 0, Maj, 1, 10 }, { 5, Maj, 1 }, { 7, Maj, 1, 5 }, { 0, Maj, 2 } }, { ArpCascade, ArpUp }, { BassHeld, BassHalf }, PadHeld },
     { "Abenteuer",          0.70f, 0.55f, 0.10f, 4, { { 0, Maj7, 2 }, { 2, Min7, 2 }, { 4, Min7, 2 }, { 7, Dom7, 2 } }, { ArpRiff, ArpUp }, { BassFunk, BassEighth }, PadStabs },
     { "Terzverwandtschaft", 0.72f, 0.68f, 0.30f, 4, { { 0, Maj, 2 }, { 4, Maj, 2 }, { 8, Maj, 2 }, { 0, Maj, 2 } }, { ArpUp, ArpCircle }, { BassQuarter, BassEighth }, PadHeld },
     { "Heiter",             0.82f, 0.50f, 0.05f, 4, { { 0, Maj, 2 }, { 5, Maj, 2 }, { 7, Dom7, 2 }, { 0, Maj, 2 } }, { ArpLeaps, ArpUp }, { BassAlternating, BassAlternating }, PadStaccato },
     { "Western",            0.85f, 0.55f, 0.05f, 4, { { 0, Maj, 2 }, { 5, Maj, 2 }, { 0, Maj, 2 }, { 10, Maj, 2 } }, { ArpLeaps, ArpUp }, { BassAlternating, BassQuarter }, PadHeld },
+    { "Erhebung",           0.75f, 0.70f, 0.15f, 8, { { 0, Maj, 1 }, { 0, Dom7, 1 }, { 10, Maj, 1 }, { 10, Dom7, 1 }, { 8, Maj, 1 }, { 8, Dom7, 1 }, { 1, Maj, 1 }, { 1, Maj, 1 } }, { ArpUp, ArpLeaps }, { BassQuarter, BassEighth }, PadPulse },
+    { "Fanfare",            0.70f, 0.85f, 0.20f, 4, { { 7, Dim7, 2 }, { 0, Fifth, 2 }, { 5, Dim7, 2 }, { 10, Fifth, 2 } }, { ArpLeaps, ArpUp }, { BassEighth, BassPulse }, PadStabs },
     { "Heldisch",           0.80f, 0.75f, 0.10f, 4, { { 0, Maj, 2 }, { 10, Maj, 2 }, { 5, Maj, 2 }, { 0, Maj, 2 } }, { ArpUp, ArpLeaps }, { BassEighth, BassQuarter }, PadPulse },
     { "Triumph",            0.88f, 0.92f, 0.05f, 4, { { 0, Maj, 2 }, { 8, Maj, 2 }, { 10, Maj, 2 }, { 0, Maj, 2 } }, { ArpUp, ArpLeaps }, { BassEighth, BassEighth }, PadPulse } };
 constexpr int kNumWendungen = (int) (sizeof (kWendungen) / sizeof (kWendungen[0]));
@@ -124,7 +139,10 @@ struct Settings
     float swing = 0.0f;         // 0 ... 1 (1 = Triolen-Feeling)
     int variation = 1;          // 1 ... 16
     int change = ChangeBeat;    // Wechselpunkt fuer neue Wendungen
-    int layerMode[kNumLayers] = { 1, 1, 1, 1, 1 };            // 0 aus, 1 Auto, 2 an
+    bool mute[kNumLayers] = {};                               // Ebene stumm
+    bool solo[kNumLayers] = {};                               // ist eine Ebene solo, spielen nur die Solo-Ebenen
+    float layerIntensity[kNumLayers] = {};                    // -1 ... +1 zur Intensitaet des Feldes (0 = wie das Feld)
+    float variety = 0.5f;       // Abwechslung: 0 = nur die passendste Wendung, 1 = auch entferntere Nachbarn
     int octave[kNumLayers] = { 0, 0, 0, 0, 0 };               // -2 ... +2
     bool follow[3] = { true, true, true };                    // Flaeche, Bass, Arp: false = bleibt auf dem Grundakkord
     int padPattern = PadAuto, bassPattern = BassAuto, arpFigure = ArpAuto, arpRate = RateAuto;
@@ -237,13 +255,44 @@ public:
     int chordRoot() const { return curRoot; }
     int chordType() const { return curType; }
 
+    // Intensitaet einer Ebene: Feld plus eigener Regler
+    static float layerY (const Settings& s, int layer)
+    {
+        return std::clamp (s.y + s.layerIntensity[layer], 0.0f, 1.0f);
+    }
+
     static bool layerActive (const Settings& s, int layer)
     {
-        const int m = s.layerMode[layer];
-        if (m == 2) return true;
-        if (m == 0) return false;
-        if (layer == kFarbe) return s.y >= kLayerStart[kFarbe] || s.z >= 0.4f;
-        return s.y >= kLayerStart[layer];
+        bool anySolo = false;
+        for (bool b : s.solo) anySolo = anySolo || b;
+        if (anySolo ? ! s.solo[layer] : s.mute[layer]) return false;
+        const float y = layerY (s, layer);
+        if (layer == kFarbe) return y >= kLayerStart[kFarbe] || s.z >= 0.4f;
+        return y >= kLayerStart[layer];
+    }
+
+    // Ab welchem Anteil der besten Passung eine Wendung in Frage kommt (Abwechslung 0 = nur die beste)
+    static float keepRatio (const Settings& s) { return 1.0f - 0.85f * std::clamp (s.variety, 0.0f, 1.0f); }
+
+    // Wendungen, die an der aktuellen Stelle in Frage kommen, nach Passung sortiert
+    static int candidates (const Settings& s, int* out, int maxOut)
+    {
+        float w[kNumWendungen]; float best = 0.0f;
+        for (int i = 0; i < kNumWendungen; ++i) { w[i] = weight (kWendungen[i], s); best = std::max (best, w[i]); }
+        const float r = keepRatio (s);
+        int n = 0;
+        if (maxOut <= 0) return 0;
+        for (int i = 0; i < kNumWendungen; ++i)
+        {
+            if (w[i] < r * best - 1e-9f) continue;
+            int j;
+            if (n < maxOut) j = n++;
+            else if (w[out[maxOut - 1]] < w[i]) j = maxOut - 1;   // ersetzt den schwaechsten
+            else continue;
+            out[j] = i;
+            while (j > 0 && w[out[j - 1]] < w[out[j]]) { std::swap (out[j - 1], out[j]); --j; }
+        }
+        return n;
     }
 
     // Gewicht einer Wendung fuer die aktuelle Lage im Feld
@@ -269,7 +318,8 @@ public:
             w[i] = weight (kWendungen[i], s);
             if (w[i] > best) { best = w[i]; bestIdx = i; }
         }
-        for (int i = 0; i < kNumWendungen; ++i) { if (w[i] < kKeepRatio * best) w[i] = 0.0f; total += w[i]; }
+        const float ratio = keepRatio (s);
+        for (int i = 0; i < kNumWendungen; ++i) { if (w[i] < ratio * best) w[i] = 0.0f; total += w[i]; }
         if (total <= 0.0f) return bestIdx;
         const float r = (float) (hash3 ((uint32_t) s.variation, (uint32_t) salt, 911u) % 100000u) / 100000.0f * total;
         float acc = 0.0f;
@@ -292,7 +342,8 @@ public:
         s.swing = std::clamp (s.swing, 0.0f, 1.0f);
         s.variation = std::clamp (s.variation, 1, 16);
         s.change = std::clamp (s.change, 0, kNumChangeGrids - 1);
-        for (auto& m : s.layerMode) m = std::clamp (m, 0, 2);
+        for (auto& v : s.layerIntensity) v = std::clamp (v, -1.0f, 1.0f);
+        s.variety = std::clamp (s.variety, 0.0f, 1.0f);
         for (auto& o : s.octave) o = std::clamp (o, -2, 2);
         s.padPattern = std::clamp (s.padPattern, 0, kNumPadPatterns - 1);
         s.bassPattern = std::clamp (s.bassPattern, 0, kNumBassPatterns - 1);
@@ -342,7 +393,7 @@ public:
     }
 
 private:
-    static constexpr float kKeepRatio = 0.5f;   // so gut muss eine Wendung mindestens passen, sonst wird gewechselt
+    static constexpr float kKeepRatio = 0.5f;   // so gut muss die laufende Wendung mindestens passen, sonst wird gewechselt
 
     struct Active { uint8_t channel, note; long long endStep; };
 
@@ -416,7 +467,7 @@ private:
     bool maybeSwitch (long long k, const Pos& p, const Settings& s)
     {
         if (s.custom || current == kCustomWendung || k == p.phraseStart || ! isChangePoint (p, s)) return false;
-        if (weight (kWendungen[current], s) >= kKeepRatio * bestWeight (s)) return false;
+        if (weight (kWendungen[current], s) >= std::min (kKeepRatio, keepRatio (s)) * bestWeight (s)) return false;
         current = pick (s, k * 7 + 3);
         wendungStart = k;
         return true;
@@ -428,16 +479,20 @@ private:
         if (layer <= kArp && ! s.follow[layer])
         {
             Chord tonic = w.ch[0]; tonic.root = current == kCustomWendung ? w.ch[0].root : 0;
+            tonic.bass = -1;
             tonic.type = kShapes[w.ch[0].type].minor ? Min : Maj;
             return tonic;
         }
         return w.ch[p.chordIdx];
     }
 
+    static int bassRoot (const Chord& c) { return c.bass >= 0 ? c.bass : c.root; }
+    int pedalRoot() const { return bassRoot (W().ch[0]); }
+
     int nextRoot (const Pos& p) const
     {
         const Wendung& w = W();
-        return p.chordIdx + 1 < w.n ? w.ch[p.chordIdx + 1].root : w.ch[0].root;
+        return bassRoot (p.chordIdx + 1 < w.n ? w.ch[p.chordIdx + 1] : w.ch[0]);
     }
 
     // Unruhe faerbt die Flaeche: Reibung durch grosse Septime, bei viel Unruhe zusaetzlich die None
@@ -464,23 +519,29 @@ private:
     int chooseArp (const Settings& s, long long phrase) const
     {
         if (s.arpFigure != ArpAuto) return s.arpFigure;
-        if (current == kCustomWendung) return s.y > 0.6f ? ArpUp : ArpCircle;
+        if (current == kCustomWendung) return layerY (s, kArp) > 0.6f ? ArpUp : ArpCircle;
         return W().arp[hashInt (31u, phrase) % 2];
     }
     int chooseBass (const Settings& s, long long phrase) const
     {
         if (s.bassPattern != BassAuto) return s.bassPattern;
-        if (s.y < 0.15f) return BassHeld;
-        if (current == kCustomWendung) return s.y < 0.35f ? BassHalf : s.y < 0.6f ? BassQuarter : BassEighth;
-        const int pref = W().bass[hashInt (47u, phrase) % 2];
-        if (s.y > 0.85f && (pref == BassHeld || pref == BassHalf || pref == BassQuarter)) return BassEighth;
+        const float y = layerY (s, kBass);
+        if (y < 0.15f) return BassHeld;                       // ganz duenn: lange Toene
+        if (y > 0.92f) return BassEighth;                     // ganz dicht: Achtel nageln
+        if (current == kCustomWendung) return y < 0.35f ? BassHalf : y < 0.6f ? BassQuarter : BassEighth;
+        int pref = W().bass[hashInt (47u, phrase) % 2];
+        if (y < 0.3f && pref != BassHeld && pref != BassPedal) pref = BassHalf;   // ausduennen
+        if (y > 0.8f && (pref == BassHeld || pref == BassHalf || pref == BassQuarter || pref == BassPedal)) return BassEighth;
         return pref;
     }
+    int pattern0 (const Settings& s, long long phrase) const { return chooseBass (s, phrase); }
+
     int choosePad (const Settings& s) const
     {
         if (s.padPattern != PadAuto) return s.padPattern;
-        if (current == kCustomWendung) return s.y > 0.75f ? PadPulse : PadHeld;
-        return s.y < 0.3f ? PadHeld : W().pad;
+        const float y = layerY (s, kFlaeche);
+        if (current == kCustomWendung) return y > 0.75f ? PadPulse : PadHeld;
+        return y < 0.3f ? PadHeld : W().pad;
     }
 
     void releaseDue (long long step, int offset, EventList& out)
@@ -554,24 +615,30 @@ private:
     // --- Flaeche
     void padChord (const Pos& p, const Settings& s, int offset, long long endStep, int velocity, EventList& out)
     {
+        // Weiter Satz wie im Orchester: Grundton und Quinte unten, Terz und Farbtoene eine Oktave hoeher
         const Chord c = chordFor (p, kFlaeche, s);
         const ChordShape& sh = kShapes[padType (c.type, s.z)];
-        const int root = place (s.key + c.root, padLow (s) - 7);
+        const float y = layerY (s, kFlaeche);
+        const int root = place (s.key + c.root, padLow (s) - 12);
         int voices = sh.n;
-        if (s.y < 0.2f) voices = std::min (voices, 3);
+        if (y < 0.2f) voices = std::min (voices, 3);
         for (int i = 0; i < voices; ++i)
-            noteOn (kFlaeche, root + sh.iv[i], velocity, endStep, offset, out);
-        if (s.y > 0.6f) noteOn (kFlaeche, root + 12, velocity - 8, endStep, offset, out);   // Verdopplung oben
+        {
+            const int iv = sh.iv[i];
+            const bool low = iv == 0 || iv == 7 || (iv == 5 && c.type == Quartal) || iv >= 12;
+            noteOn (kFlaeche, root + iv + (low ? 0 : 12), velocity - (i == 0 ? 0 : 4), endStep, offset, out);
+        }
+        if (y > 0.6f) noteOn (kFlaeche, root + 24, velocity - 10, endStep, offset, out);   // Verdopplung oben
     }
 
     // --- Farbe: Grundfarbe (None) und bei Unruhe ein fremder Ton
     void colour (const Pos& p, const Settings& s, int offset, EventList& out)
     {
         const Chord c = chordFor (p, kFarbe, s);
-        if (s.y >= kLayerStart[kFarbe] || s.layerMode[kFarbe] == 2)
+        if (layerY (s, kFarbe) >= kLayerStart[kFarbe])
         {
             const int ninth = place (s.key + c.root + 14, 74 + (int) std::lround (s.x * 4.0f));
-            noteOn (kFarbe, ninth, (int) (35 + 40 * s.y), p.chordEnd, offset, out);
+            noteOn (kFarbe, ninth, (int) (35 + 40 * layerY (s, kFarbe)), p.chordEnd, offset, out);
         }
     }
 
@@ -581,7 +648,7 @@ private:
         const int interval = s.x < 0.5f ? 1 : 6;                          // dunkel: kleine None, hell: uebermaessige Quarte
         const int note = place (s.key + c.root + interval, 79);
         noteOn (kFarbe, note, (int) (30 + 45 * s.z), p.chordEnd, offset, out);
-        if (s.z >= 0.8f && s.y < 0.5f)                                      // Halbton-Reibung ganz oben
+        if (s.z >= 0.8f && layerY (s, kFarbe) < 0.5f)                                      // Halbton-Reibung ganz oben
             noteOn (kFarbe, note + 11, (int) (25 + 30 * s.z), p.chordEnd, offset, out);
     }
 
@@ -592,13 +659,14 @@ private:
         const bool padFollow = s.follow[kFlaeche];
         const bool phraseStart = p.k == p.phraseStart;
         if (pad == PadHeld && (padFollow || phraseStart || restart))
-            padChord (p, s, offset, padFollow ? p.chordEnd : p.phraseEnd, (int) (40 + 45 * s.y), out);
+            padChord (p, s, offset, padFollow ? p.chordEnd : p.phraseEnd, (int) (40 + 45 * layerY (s, kFlaeche)), out);
 
-        if (chooseBass (s, p.phrase) == BassHeld && (s.follow[kBass] || phraseStart || restart))
+        const int bp = chooseBass (s, p.phrase);
+        if ((bp == BassHeld && (s.follow[kBass] || phraseStart || restart)) || bp == BassPedal)
         {
-            const Chord c = chordFor (p, kBass, s);
-            noteOn (kBass, place (s.key + c.root, bassLow (s)), (int) (60 + 35 * s.y),
-                    s.follow[kBass] ? p.chordEnd : p.phraseEnd, offset, out);
+            const bool pedal = bp == BassPedal;
+            noteOn (kBass, place (s.key + (pedal ? pedalRoot() : bassRoot (chordFor (p, kBass, s))), bassLow (s)),
+                    (int) (60 + 35 * layerY (s, kBass)), (s.follow[kBass] && ! pedal) ? p.chordEnd : (pedal ? p.chordEnd : p.phraseEnd), offset, out);
         }
         colour (p, s, offset, out);
     }
@@ -635,7 +703,8 @@ private:
         const bool chordStart = k == p.chordStart;
         const bool beat = p.pos % 4 == 0;
         const bool group = meter.isGroupStart (p.pos);
-        const float y = s.y, z = s.z;
+        const float z = s.z;
+        const float yPad = layerY (s, kFlaeche), yBass = layerY (s, kBass), yArp = layerY (s, kArp), yAcc = layerY (s, kAkzente);
 
         if (chordStart)
         {
@@ -644,8 +713,8 @@ private:
             {
                 const Chord c = chordFor (p, kAkzente, s);
                 const int root = place (s.key + c.root, 36);
-                noteOn (kAkzente, root, (int) (90 + 30 * y), k + 2, offset, out);
-                noteOn (kAkzente, root + 7, (int) (82 + 30 * y), k + 2, offset, out);
+                noteOn (kAkzente, root, (int) (90 + 30 * yAcc), k + 2, offset, out);
+                noteOn (kAkzente, root + 7, (int) (82 + 30 * yAcc), k + 2, offset, out);
                 if (z >= 0.8f) { noteOn (kAkzente, root + 1, (int) (70 + 30 * z), k + 2, offset, out); noteOn (kAkzente, root + 6, (int) (70 + 30 * z), k + 2, offset, out); }
             }
         }
@@ -657,20 +726,20 @@ private:
         // --- Flaeche: Schlaege, Puls oder Staccato
         const int pad = choosePad (s);
         if (pad == PadStabs && p.pos % 4 == 2)
-            padChord (p, s, offset, k + 1, (int) (55 + 40 * y) + jitter (k, kFlaeche, 4), out);
+            padChord (p, s, offset, k + 1, (int) (55 + 40 * yPad) + jitter (k, kFlaeche, 4), out);
         else if (pad == PadPulse && beat)
-            padChord (p, s, offset, k + 3, (int) (50 + 40 * y) + (group ? 8 : 0), out);
+            padChord (p, s, offset, k + 3, (int) (50 + 40 * yPad) + (group ? 8 : 0), out);
         else if (pad == PadStaccato && beat)
-            padChord (p, s, offset, k + 1, (int) (48 + 40 * y) + (group ? 6 : 0), out);
+            padChord (p, s, offset, k + 1, (int) (48 + 40 * yPad) + (group ? 6 : 0), out);
 
         // --- Bass
         {
             const Chord c = chordFor (p, kBass, s);
             const ChordShape& sh = kShapes[c.type];
             const int low = bassLow (s);
-            int root = place (s.key + c.root, low);
-            const int vel = (int) (58 + 38 * y) + (group ? 8 : 0) + jitter (k, kBass, 3);
-            const int pattern = chooseBass (s, phrase);
+            int root = place (s.key + (pattern0 (s, phrase) == BassPedal ? pedalRoot() : bassRoot (c)), low);
+            const int vel = (int) (58 + 38 * yBass) + (group ? 8 : 0) + jitter (k, kBass, 3);
+            const int pattern = pattern0 (s, phrase);
             const bool lastEighth = k == p.chordEnd - 2;
             // Chromatische Annaeherung an den naechsten Grundton im letzten Achtel des Akkords
             const bool approach = s.follow[kBass] && (z >= 0.3f || pattern == BassFunk) && lastEighth
@@ -698,7 +767,7 @@ private:
                 }
                 case BassPendulum:
                 {
-                    const int rate = y > 0.6f ? 2 : 4;
+                    const int rate = yBass > 0.6f ? 2 : 4;
                     if (p.pos % rate == 0)
                     {
                         const int other = z >= 0.5f ? 1 : 3;                 // Halbton (Unruhe) oder kleine Terz
@@ -732,6 +801,9 @@ private:
                         noteOn (kBass, approach ? root : (odd ? root - 5 : root), vel - (odd ? 6 : 0), k + 2, offset, out);   // Grundton, Quinte darunter
                     }
                     break;
+                case BassPedal:   // Orgelpunkt: liegt (in sustained), bei viel Intensitaet zusaetzlich ein Puls auf den Schlaegen
+                    if (yBass > 0.6f && beat && k != p.chordStart) noteOn (kBass, root, vel - 12, k + 1, offset, out);
+                    break;
                 case BassHeartbeat:
                     if (p.pos % 8 == 0) noteOn (kBass, root, vel + 4, k + 1, offset, out);
                     else if (p.pos % 8 == 2) noteOn (kBass, root, vel - 10, k + 4, offset, out);
@@ -753,7 +825,7 @@ private:
         {
             const int fig = chooseArp (s, phrase);
             int rate = s.arpRate == RateQuarter ? 4 : s.arpRate == RateEighth ? 2 : s.arpRate == RateSixteenth ? 1
-                     : (y < 0.15f ? 4 : y < 0.5f ? 2 : 1);
+                     : (yArp < 0.15f ? 4 : yArp < 0.5f ? 2 : 1);
             if (fig == ArpGlitter) rate = 1;
             const long long rel = k - (s.follow[kArp] ? p.chordStart : p.phraseStart);
             if (rel % rate == 0)
@@ -791,23 +863,43 @@ private:
                         note = base + leaps[c0 % 6];
                         break;
                     }
+                    case ArpCascade:   // Harfen-Kaskade: Dreiergruppen, die stufenweise steigen und von vorn beginnen
+                    {
+                        const int g = (int) ((c0 / 3) % n), j = (int) (c0 % 3);
+                        note = tones[std::min (count - 1, g + j)];
+                        break;
+                    }
+                    case ArpOctatonic: // Halbton-Ganzton-Leiter auf und ab
+                    {
+                        static constexpr int scale[8] = { 0, 1, 3, 4, 6, 7, 9, 10 };
+                        const int q = (int) (c0 % 14);
+                        const int idx = q < 8 ? q : 14 - q;
+                        note = base + (idx < 8 ? scale[idx] : 12);
+                        break;
+                    }
+                    case ArpQuartal:   // gestapelte Quarten als Ostinato
+                    {
+                        static constexpr int fourths[6] = { 0, 5, 10, 15, 10, 5 };
+                        note = base + fourths[c0 % 6];
+                        break;
+                    }
                     default:         note = tones[c0 % count]; break;       // Aufwaerts, Glitzern
                 }
                 if (z >= 0.6f && c0 % 8 == 7) note -= 1;                    // Unruhe: chromatischer Durchgang
-                const int vel = (int) ((fig == ArpGlitter ? 40 : 52) + 35 * y) + (group ? 6 : 0) + jitter (k, kArp, 6);
+                const int vel = (int) ((fig == ArpGlitter ? 40 : 52) + 35 * yArp) + (group ? 6 : 0) + jitter (k, kArp, 6);
                 const long long len = (fig == ArpGlitter || rate == 1) ? 1 : rate;
                 noteOn (kArp, note, vel, k + len, offset, out);
             }
         }
 
         // --- Akzente auf den Betonungsgruppen (sehr aufgewuehlt), bei Unruhe vorgezogen
-        if (layerActive (s, kAkzente) && y >= 0.85f && ! chordStart)
+        if (layerActive (s, kAkzente) && yAcc >= 0.85f && ! chordStart)
         {
             const int probe = z >= 0.5f ? (p.pos + 1) % meter.len : p.pos;
             if (meter.isGroupStart (probe) && probe != 0)
             {
                 const Chord c = chordFor (p, kAkzente, s);
-                noteOn (kAkzente, place (s.key + c.root, 36), (int) (70 + 30 * y), k + 1, offset, out);
+                noteOn (kAkzente, place (s.key + c.root, 36), (int) (70 + 30 * yAcc), k + 1, offset, out);
             }
         }
     }
