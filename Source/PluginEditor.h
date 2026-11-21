@@ -45,15 +45,24 @@ public:
     void paint (juce::Graphics& g) override;
 };
 
-// Ein Kasten pro Ebene: Name, MIDI-Kanal, Einsatzpunkt, Lampe fuer gespielte Noten
+// Ein Kasten pro Ebene: Name, MIDI-Kanal, Beschreibung, Schalter, Lampe fuer gespielte Noten
 class LayerView : public juce::Component, public juce::SettableTooltipClient
 {
 public:
+    LayerView() { addAndMakeVisible (modeButton); addChildComponent (followButton); }
     juce::Colour panel, line, accent, text, dim;
     juce::String title, lines;
     int channel = 1;
+    int mode = 1;   // 0 Aus, 1 Auto, 2 An
     float start = 0.0f, verlauf = 0.0f, activity = 0.0f;
+    juce::TextButton modeButton, followButton;
     void paint (juce::Graphics& g) override;
+    void resized() override
+    {
+        followButton.setBounds (12, getHeight() - 56, getWidth() - 24, 22);
+        modeButton.setBounds (12, getHeight() - 30, getWidth() - 24, 22);
+    }
+    bool isActive() const { return mode == 2 || (mode == 1 && verlauf + 1.0e-4f >= start); }
 };
 
 class StromscoreEditor : public juce::AudioProcessorEditor, private juce::Timer
@@ -90,6 +99,9 @@ private:
     std::unique_ptr<APVTS::SliderAttachment> verlaufAttachment, variationAttachment;
     juce::TextButton previewButton;
     std::unique_ptr<APVTS::ButtonAttachment> previewAttachment;
+    std::unique_ptr<juce::ParameterAttachment> modeAttachment_[stromscore::kNumLayers];
+    std::unique_ptr<APVTS::ButtonAttachment> followAttachment[3];
+    void updateModeButton (int layer, int mode);
     ChordDisplay chordDisplay;
     LayerView layers[stromscore::kNumLayers];
     juce::TextButton themeButton, helpButton;

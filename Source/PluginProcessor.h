@@ -1,6 +1,7 @@
 #pragma once
 #include <juce_audio_utils/juce_audio_utils.h>
 #include "ScoreEngine.h"
+#include <bitset>
 
 class StromscoreProcessor : public juce::AudioProcessor
 {
@@ -9,7 +10,7 @@ public:
     ~StromscoreProcessor() override = default;
 
     void prepareToPlay (double sampleRate, int samplesPerBlock) override;
-    void releaseResources() override {}
+    void releaseResources() override { flushPending = true; }
     bool isBusesLayoutSupported (const BusesLayout& layouts) const override;
     void processBlock (juce::AudioBuffer<float>&, juce::MidiBuffer&) override;
     void processBlockBypassed (juce::AudioBuffer<float>&, juce::MidiBuffer&) override;
@@ -36,6 +37,7 @@ public:
     static constexpr int kUiWidth = 820, kUiHeight = 420;
     static juce::StringArray keyNames();
     static juce::StringArray modeNames();
+    static juce::StringArray layerNames();
 
     juce::AudioProcessorValueTreeState apvts;
     std::atomic<int> uiTheme { 0 }, uiWidth { kUiWidth };
@@ -48,6 +50,7 @@ public:
 private:
     static juce::AudioProcessorValueTreeState::ParameterLayout createLayout();
     stromscore::Settings currentSettings() const;
+    void flushSounding (juce::MidiBuffer&, bool forceAllNotesOff);
     void emit (const stromscore::EventList&, juce::MidiBuffer&, juce::AudioBuffer<float>&, bool preview);
 
     stromscore::Generator generator;
@@ -55,8 +58,12 @@ private:
     stromscore::EventList events;
     bool wasBypassed = false;
     double currentRate = 48000.0;
+    // Was gerade klingt (unabhaengig von der Engine): damit nach Stopp, Reset oder Bypass nie eine Note haengen bleibt
+    std::bitset<128> sounding[stromscore::kNumLayers];
+    bool flushPending = false, wasPlaying = false;
 
     std::atomic<float>* pKey = nullptr; std::atomic<float>* pMode = nullptr; std::atomic<float>* pVerlauf = nullptr;
+    std::atomic<float>* pLayer[stromscore::kNumLayers] {}; std::atomic<float>* pFollow[3] {};
     std::atomic<float>* pVariation = nullptr; std::atomic<float>* pPreview = nullptr;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (StromscoreProcessor)

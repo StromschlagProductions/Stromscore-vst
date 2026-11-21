@@ -45,6 +45,8 @@ struct Settings
     int mode = 0;         // Index in kScales
     float verlauf = 0.3f; // 0..1
     int variation = 1;    // 1..16
+    int layerMode[kNumLayers] = { 1, 1, 1, 1, 1 };            // je Ebene: 0 aus, 1 Auto (VERLAUF entscheidet), 2 immer an
+    bool follow[kNumLayers] = { true, true, true, true, true }; // false: bleibt auf dem Grundakkord statt den Akkorden zu folgen
 };
 
 struct Transport
@@ -111,6 +113,12 @@ public:
     int chordIndex() const { return currentChord; }
 
     // Alle klingenden Noten beenden (z. B. bei Stopp, Sprung oder Bypass)
+    static bool layerActive (const Settings& s, int layer)
+    {
+        const int m = s.layerMode[layer];
+        return m == 2 || (m == 1 && s.verlauf >= kLayerStart[layer]);
+    }
+
     void allNotesOff (EventList& out, int offset)
     {
         for (int i = 0; i < numActive; ++i)
@@ -125,13 +133,17 @@ public:
         s.mode = std::clamp (s.mode, 0, kNumModes - 1);
         s.verlauf = std::clamp (s.verlauf, 0.0f, 1.0f);
         s.variation = std::clamp (s.variation, 1, 16);
+        for (auto& m : s.layerMode) m = std::clamp (m, 0, 2);
+        cur = &s;
 
         if (! t.playing || t.bpm <= 0.0 || t.sampleRate <= 0.0 || numSamples <= 0)
         {
             if (running) allNotesOff (out, 0);
             running = false; currentChord = -1;
+            cur = nullptr;
             return;
         }
+        releaseSilencedLayers (s, out);
         const double samplesPerQuarter = t.sampleRate * 60.0 / t.bpm;
         const double ppqEnd = t.ppq + (double) numSamples / samplesPerQuarter;
 
@@ -152,6 +164,7 @@ public:
             if (k >= 0) stepOn (k, offset, s, out);
         }
         lastPpqEnd = ppqEnd;
+        cur = nullptr;
     }
 
 private:
@@ -172,8 +185,23 @@ private:
         }
     }
 
+    // Ebenen, die ausgeschaltet wurden, beenden ihre klingenden Noten sofort
+    void releaseSilencedLayers (const Settings& s, EventList& out)
+    {
+        for (int i = 0; i < numActive;)
+        {
+            if (! layerActive (s, active[(size_t) i].channel - 1))
+            {
+                out.add (0, active[(size_t) i].channel, active[(size_t) i].note, 0);
+                active[(size_t) i] = active[(size_t) --numActive];
+            }
+            else ++i;
+        }
+    }
+
     void noteOn (int layer, int note, int velocity, long long endStep, int offset, EventList& out)
     {
+        if (cur != nullptr && ! layerActive (*cur, layer)) return;
         const int channel = layer + 1;
         note = std::clamp (note, 0, 127);
         velocity = std::clamp (velocity, 1, 127);
@@ -189,8 +217,9 @@ private:
         active[(size_t) numActive++] = { (uint8_t) channel, (uint8_t) note, endStep };
     }
 
-    static int degreeFor (const Settings& s, long long chord)
+    static int degreeFor (const Settings& s, long long chord, int layer)
     {
+        if (! s.follow[layer]) return kProgressions[s.mode][0];   // bleibt auf dem Grundakkord
         return kProgressions[s.mode][(int) (((chord % kChordsPerCycle) + kChordsPerCycle) % kChordsPerCycle)];
     }
 
@@ -201,19 +230,33 @@ private:
         return note;
     }
 
-    // Gehaltene Ebenen eines Akkords (Flaeche, Farbe, ruhiger Bass)
-    void sustained (long long chord, long long endStep, int offset, const Settings& s, EventList& out)
+    // Gehaltene Ebenen eines Akkords (Flaeche, Farbe, ruhiger Bass). Ebenen, die nicht den Akkorden folgen,
+    // werden nur am Anfang der Folge angeschlagen und halten ueber alle vier Akkorde (beim Nachholen sofort).
+    void sustained (long long chord, long long endStep, int offset, const Settings& s, EventList& out, int mode)   // mode 0 normal, 1 Nachholen, 2 nur nicht folgende Ebenen
     {
-        const int deg = degreeFor (s, chord);
         const float v = s.verlauf;
-        const int padRoot = register_ (s.key, 52);
-        const int tones = v > 0.6f ? 4 : 3;
-        for (int i = 0; i < tones; ++i)
-            noteOn (kFlaeche, padRoot + chordTone (s.mode, deg, i), (int) (40 + 50 * v), endStep, offset, out);
-        if (v >= kLayerStart[kFarbe])
-            noteOn (kFarbe, register_ (s.key + chordTone (s.mode, deg, 4), 76), (int) (35 + 40 * v), endStep, offset, out);
-        if (v < 0.3f)
-            noteOn (kBass, register_ (s.key + chordTone (s.mode, deg, 0), 36), (int) (60 + 40 * v), endStep, offset, out);
+        // liefert false, wenn die Ebene jetzt nichts anschlagen soll; setzt Akkordstufe und Ende
+        auto plan = [&] (int layer, int& deg, long long& end)
+        {
+            deg = degreeFor (s, chord, layer);
+            end = endStep;
+            if (s.follow[layer]) return mode != 2;
+            const long long inCycle = ((chord % kChordsPerCycle) + kChordsPerCycle) % kChordsPerCycle;
+            end = (chord - inCycle + kChordsPerCycle) * kStepsPerChord;
+            return mode != 0 || inCycle == 0;
+        };
+        int deg; long long end;
+        if (plan (kFlaeche, deg, end))
+        {
+            const int padRoot = register_ (s.key, 52);
+            const int tones = v > 0.6f ? 4 : 3;
+            for (int i = 0; i < tones; ++i)
+                noteOn (kFlaeche, padRoot + chordTone (s.mode, deg, i), (int) (40 + 50 * v), end, offset, out);
+        }
+        if (plan (kFarbe, deg, end))
+            noteOn (kFarbe, register_ (s.key + chordTone (s.mode, deg, 4), 76), (int) (35 + 40 * v), end, offset, out);
+        if (v < 0.3f && plan (kBass, deg, end))
+            noteOn (kBass, register_ (s.key + chordTone (s.mode, deg, 0), 36), (int) (60 + 40 * v), end, offset, out);
     }
 
     void chase (double ppq, const Settings& s, EventList& out)
@@ -223,15 +266,15 @@ private:
         const long long chord = floorDiv (step, kStepsPerChord);
         const double chordStartPpq = (double) (chord * kStepsPerChord) * kStep;
         currentChord = (int) (chord % kChordsPerCycle);
-        if (ppq > chordStartPpq + 1e-9)   // mitten im Akkord gestartet: Liegetöne sofort nachholen
-            sustained (chord, (chord + 1) * kStepsPerChord, 0, s, out);
+        // mitten im Akkord gestartet: Liegetöne sofort nachholen; genau am Akkordanfang nur die Ebenen,
+        // die nicht den Akkorden folgen (die anderen schlägt der normale Schritt an)
+        sustained (chord, (chord + 1) * kStepsPerChord, 0, s, out, ppq > chordStartPpq + 1e-9 ? 1 : 2);
     }
 
     void stepOn (long long k, int offset, const Settings& s, EventList& out)
     {
         const long long chord = floorDiv (k, kStepsPerChord);
         const int pos = (int) (k - chord * kStepsPerChord);
-        const int deg = degreeFor (s, chord);
         const float v = s.verlauf;
         const long long chordEnd = (chord + 1) * kStepsPerChord;
         const uint32_t var = (uint32_t) s.variation;
@@ -240,31 +283,30 @@ private:
         if (pos == 0)
         {
             currentChord = (int) (chord % kChordsPerCycle);
-            sustained (chord, chordEnd, offset, s, out);
-            if (v >= kLayerStart[kAkzente])
+            sustained (chord, chordEnd, offset, s, out, 0);
             {
-                const int root = register_ (s.key + chordTone (s.mode, deg, 0), 36);
+                const int root = register_ (s.key + chordTone (s.mode, degreeFor (s, chord, kAkzente), 0), 36);
                 noteOn (kAkzente, root, (int) (90 + 30 * v), k + 2, offset, out);
                 noteOn (kAkzente, root + 7, (int) (85 + 30 * v), k + 2, offset, out);
             }
         }
 
         // Bass: ruhig gehalten (< 30 %), Viertel-Puls (< 60 %), Oktav-Achtel (ab 60 %)
-        const int bassRoot = register_ (s.key + chordTone (s.mode, deg, 0), 36);
+        const int bassRoot = register_ (s.key + chordTone (s.mode, degreeFor (s, chord, kBass), 0), 36);
         if (v >= 0.6f && pos % 2 == 0)
             noteOn (kBass, bassRoot + ((pos / 2) % 2) * 12, 62 + (int) (35 * v) + ((pos % 4) == 0 ? 8 : 0) + jitter (kBass, 3), k + 1, offset, out);
         else if (v >= 0.3f && v < 0.6f && pos % 4 == 0)
             noteOn (kBass, bassRoot, 60 + (int) (35 * v) + jitter (kBass, 3), k + 3, offset, out);
 
         // Arp: Achtel, ab 60 % Sechzehntel; steigt ueber zwei Oktaven durch die Akkordtoene
-        if (v >= kLayerStart[kArp])
         {
+            const int degArp = degreeFor (s, chord, kArp);
             const int rate = v >= 0.6f ? 1 : 2;
             if (pos % rate == 0)
             {
-                const int start = (int) (hash3 (var, (uint32_t) chord, 77u) % 4u);
+                const int start = (int) (hash3 (var, (uint32_t) (s.follow[kArp] ? chord : 0), 77u) % 4u);
                 const int i = (pos / rate + start) % 8;
-                const int note = register_ (s.key, 57) + chordTone (s.mode, deg, i % 4) + 12 * (i / 4);
+                const int note = register_ (s.key, 57) + chordTone (s.mode, degArp, i % 4) + 12 * (i / 4);
                 noteOn (kArp, note, 55 + (int) (35 * v) + jitter (kArp, 6), k + 1, offset, out);
             }
         }
@@ -275,6 +317,7 @@ private:
     bool running = false;
     double lastPpqEnd = 0.0;
     int currentChord = -1;
+    const Settings* cur = nullptr;   // nur waehrend process() gueltig
 };
 
 // Einfacher Vorhoer-Klang: weiche Sinus-Stimmen, damit man ohne eigene Instrumente etwas hoert

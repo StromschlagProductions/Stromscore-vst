@@ -7,7 +7,7 @@ juce::String u8 (const char* s) { return juce::String (juce::CharPointer_UTF8 (s
 
 const char* kLayerTitle[stromscore::kNumLayers] = { "FL\xc3\x84" "CHE", "BASS", "ARP", "FARBE", "AKZENTE" };
 const char* kLayerNote[stromscore::kNumLayers] = {
-    "Gehaltene Akkorde, mit steigendem VERLAUF dichter und lauter",
+    "Gehaltene Akkorde, mit steigendem VERLAUF dichter",
     "Grundton: erst gehalten, dann als Puls, ab 60 % in Achteln",
     "Gebrochener Akkord in Achteln, ab 60 % in Sechzehnteln",
     "Ein hoher Ton \xc3\xbc" "ber dem Akkord",
@@ -49,7 +49,7 @@ void ChordDisplay::paint (juce::Graphics& g)
 
 void LayerView::paint (juce::Graphics& g)
 {
-    const bool active = verlauf + 1.0e-4f >= start;
+    const bool active = isActive();
     auto r = getLocalBounds().toFloat();
     g.setColour (panel);
     g.fillRoundedRectangle (r, 8.0f);
@@ -75,12 +75,8 @@ void LayerView::paint (juce::Graphics& g)
     g.drawText (u8 ("MIDI-Kanal ") + juce::String (channel), 12, 28, (int) r.getWidth() - 24, 14, juce::Justification::centredLeft);
     g.setColour (active ? text : dim);
     g.setFont (juce::FontOptions (11.5f));
-    g.drawFittedText (lines, 12, 52, (int) r.getWidth() - 24, 66, juce::Justification::topLeft, 5, 1.0f);
-
-    g.setColour (active ? text : dim);
-    g.setFont (juce::FontOptions (12.0f, juce::Font::bold));
-    g.drawText (start <= 0.0f ? u8 ("immer dabei") : u8 ("ab ") + juce::String (juce::roundToInt (start * 100.0f)) + " %",
-                12, (int) r.getHeight() - 30, (int) r.getWidth() - 24, 18, juce::Justification::centredLeft);
+    g.setFont (juce::FontOptions (11.0f));
+    g.drawFittedText (lines, 12, 46, (int) r.getWidth() - 24, 66, juce::Justification::topLeft, 5, 1.0f);
 }
 
 // ---------------------------------------------------------------- Farben
@@ -127,20 +123,23 @@ static juce::AttributedString buildHelp (juce::Colour text, juce::Colour accent,
     body ("Grundton und Tonleiter. Moll, Dur, Dorisch, Phrygisch und Lydisch. Alle Noten bleiben in der gew\xc3\xa4hlten Tonleiter. Pro Modus l\xc3\xa4uft eine Folge aus vier Akkorden, jeder Akkord dauert zwei Takte. Der gerade klingende Akkord leuchtet in der Anzeige.");
 
     head ("VERLAUF");
-    body ("Wie viel gleichzeitig passiert, von ruhig (0 %) bis dicht (100 %). Die Ebenen setzen nacheinander ein: Fl\xc3\xa4" "che und Bass sind immer dabei, der Arp kommt ab 25 %, die Farbe ab 50 %, die Akzente ab 75 %. Zus\xc3\xa4tzlich wird der Bass lebendiger und der Arp schneller. Die Leiste unter den Akkorden zeigt die Einsatzpunkte. Der Regler l\xc3\xa4sst sich automatisieren, so baust du Spannung \xc3\xbc" "ber die Szene auf.");
+    body ("Wie viel gleichzeitig passiert, von ruhig (0 %) bis dicht (100 %). Ebenen im Modus Auto setzen nacheinander ein: Arp ab 25 %, Farbe ab 50 %, Akzente ab 75 %; Fl\xc3\xa4" "che und Bass sind von Anfang an dabei. Zus\xc3\xa4tzlich wird der Bass lebendiger und der Arp schneller. Die Leiste unter den Akkorden zeigt die Einsatzpunkte. Der Regler l\xc3\xa4sst sich automatisieren, so baust du Spannung \xc3\xbc" "ber die Szene auf.");
 
     head ("VARIATION");
     body ("Sechzehn Varianten (1 bis 16) derselben Einstellung. Sie ver\xc3\xa4ndern kleine Details wie Anschlagst\xc3\xa4rken und den Einstieg des Arps. Gleiche Nummer ergibt immer das gleiche Ergebnis.");
 
     head ("Die f\xc3\xbcnf Ebenen");
-    body ("Jede Ebene hat ihren eigenen MIDI-Kanal und eine Lampe, die bei jedem gespielten Ton leuchtet. Fl\xc3\xa4" "che (Kanal 1), Bass (2), Arp (3), Farbe (4) und Akzente (5). So kannst du jede Ebene mit einem anderen Instrument spielen.");
+    body ("Jede Ebene hat ihren eigenen MIDI-Kanal und eine Lampe, die bei jedem gespielten Ton leuchtet: Fl\xc3\xa4" "che (Kanal 1), Bass (2), Arp (3), Farbe (4) und Akzente (5). So kannst du jede Ebene mit einem anderen Instrument spielen. Der untere Schalter jeder Ebene hat drei Stufen: Aus (die Ebene schweigt), Auto (sie setzt bei ihrer VERLAUF-Stufe ein) und An (sie spielt immer, auch bei niedrigem VERLAUF). So kannst du zum Beispiel nur mit dem Bass oder nur mit einer Fl\xc3\xa4" "che beginnen.");
+
+    head ("Folgt den Akkorden / bleibt");
+    body ("Bei Fl\xc3\xa4" "che, Bass und Arp bestimmt der zweite Schalter, ob die Ebene den Akkordwechseln folgt oder auf dem Grundakkord bleibt. Bleibt der Arp stehen, l\xc3\xa4uft er unver\xc3\xa4ndert durch, w\xc3\xa4hrend sich Fl\xc3\xa4" "che und Bass bewegen. Bleibt der Bass auf dem Grundton, k\xc3\xa4" "ndern sich die Fl\xc3\xa4" "chen dar\xc3\xbc" "ber. Umgekehrt geht es auch. Die Ebenen lassen sich frei mischen.");
 
     head ("VOR\xc3\x96REN");
     body ("Schaltet einen einfachen Testklang im Plugin ein, damit du auch ohne eigene Instrumente h\xc3\xb6rst, was erzeugt wird. F\xc3\xbcr die fertige Musik schaltest du ihn aus.");
 
     head ("Allgemein");
     body ("Doppelklick auf einen Drehregler oder Strg-Klick setzt ihn auf den Standardwert zur\xc3\xbck. Look: Dunkel / Hell umschalten, die Wahl wird mit dem Projekt gespeichert. Das Fenster ist am rechten unteren Rand skalierbar (50\xe2\x80\x93" "300 %).");
-    note ("Alle Regler sind automatisierbar. Bei Stopp, Sprung oder Bypass werden alle Noten sauber beendet. Das Ergebnis h\xc3\xa4ngt nur von der Projektposition ab, nicht von der Puffergr\xc3\xb6\xc3\x9f" "e.");
+    note ("Alle Regler sind automatisierbar. Bei Stopp, Sprung, Reset oder Bypass werden alle klingenden Noten beendet (zus\xc3\xa4tzlich geht auf jedem Kanal ein \xe2\x80\x9e" "Alle Noten aus\xe2\x80\x9c hinaus). Das Ergebnis h\xc3\xa4ngt nur von der Projektposition ab, nicht von der Puffergr\xc3\xb6\xc3\x9f" "e.");
 
     head ("Idee und Konzept");
     body ("Lars Eickst\xc3\xa4" "dt, Stromschlag Audio");
@@ -203,6 +202,20 @@ StromscoreEditor::StromscoreEditor (StromscoreProcessor& p) : AudioProcessorEdit
     content.addAndMakeVisible (chordDisplay);
     for (int i = 0; i < stromscore::kNumLayers; ++i)
     {
+        auto& lv = layers[i];
+        lv.followButton.setClickingTogglesState (true);
+        lv.modeButton.setTooltip (u8 ("Aus: die Ebene schweigt. Auto: sie setzt bei der angegebenen VERLAUF-Stufe ein. An: sie spielt immer, egal wie hoch VERLAUF steht. Klick schaltet weiter."));
+        modeAttachment_[i] = std::make_unique<juce::ParameterAttachment> (*processor.apvts.getParameter ("layer" + juce::String (i + 1)),
+            [this, i] (float v) { updateModeButton (i, juce::roundToInt (v)); }, nullptr);
+        lv.modeButton.onClick = [this, i] { modeAttachment_[i]->setValueAsCompleteGesture ((float) ((layers[i].mode + 1) % 3)); };
+        if (i < 3)
+        {
+            lv.followButton.setVisible (true);
+            lv.followButton.onStateChange = [this, i]
+            { layers[i].followButton.setButtonText (layers[i].followButton.getToggleState() ? u8 ("folgt den Akkorden") : u8 ("bleibt auf Grundakkord")); };
+            lv.followButton.setTooltip (u8 ("Ein: die Ebene folgt den Akkordwechseln. Aus: sie bleibt auf dem Grundakkord, zum Beispiel ein durchlaufender Arpeggio-Ostinato oder ein Bass auf dem Grundton."));
+            followAttachment[i] = std::make_unique<APVTS::ButtonAttachment> (processor.apvts, "follow" + juce::String (i + 1), lv.followButton);
+        }
         layers[i].title = u8 (kLayerTitle[i]);
         layers[i].lines = u8 (kLayerNote[i]);
         layers[i].channel = i + 1;
@@ -210,6 +223,8 @@ StromscoreEditor::StromscoreEditor (StromscoreProcessor& p) : AudioProcessorEdit
         layers[i].setTooltip (u8 ("MIDI-Kanal ") + juce::String (i + 1) + ": " + u8 (kLayerNote[i]));
         content.addAndMakeVisible (layers[i]);
     }
+
+    for (int i = 0; i < stromscore::kNumLayers; ++i) modeAttachment_[i]->sendInitialUpdate();
 
     themeButton.onClick = [this]
     {
@@ -232,7 +247,7 @@ StromscoreEditor::StromscoreEditor (StromscoreProcessor& p) : AudioProcessorEdit
 
     keyBox.setTooltip (u8 ("Grundton der Tonart. Alle erzeugten Noten bleiben in der gew\xc3\xa4hlten Tonleiter."));
     modeBox.setTooltip (u8 ("Tonleiter und Akkordfolge: Moll, Dur, Dorisch, Phrygisch oder Lydisch. Jeder Akkord dauert zwei Takte."));
-    verlauf.setTooltip (u8 ("Wie viel gleichzeitig passiert: Fl\xc3\xa4" "che und Bass immer, Arp ab 25 %, Farbe ab 50 %, Akzente ab 75 %. Automatisierbar."));
+    verlauf.setTooltip (u8 ("Wie viel gleichzeitig passiert. Ebenen im Modus Auto setzen nacheinander ein (Arp ab 25 %, Farbe ab 50 %, Akzente ab 75 %). Automatisierbar."));
     variation.setTooltip (u8 ("Sechzehn Varianten derselben Einstellung. Gleiche Nummer ergibt immer dieselben Noten."));
     previewButton.setTooltip (u8 ("Einfacher Testklang im Plugin, damit du auch ohne eigene Instrumente h\xc3\xb6rst, was erzeugt wird."));
     chordDisplay.setTooltip (u8 ("Die vier Akkorde der Folge (je zwei Takte). Der klingende Akkord leuchtet. Unten: VERLAUF mit den Einsatzpunkten der Ebenen."));
@@ -247,6 +262,18 @@ StromscoreEditor::StromscoreEditor (StromscoreProcessor& p) : AudioProcessorEdit
 }
 
 StromscoreEditor::~StromscoreEditor() { stopTimer(); setLookAndFeel (nullptr); }
+
+void StromscoreEditor::updateModeButton (int layer, int mode)
+{
+    auto& lv = layers[layer];
+    mode = juce::jlimit (0, 2, mode);
+    lv.mode = mode;
+    if (mode == 0) lv.modeButton.setButtonText ("Aus");
+    else if (mode == 2) lv.modeButton.setButtonText ("An");
+    else lv.modeButton.setButtonText (lv.start <= 0.0f ? juce::String ("Auto") : u8 ("Auto: ab ") + juce::String (juce::roundToInt (lv.start * 100.0f)) + " %");
+    lv.modeButton.setToggleState (mode == 2, juce::dontSendNotification);
+    lv.repaint();
+}
 
 void StromscoreEditor::updateChordNames()
 {
@@ -349,7 +376,7 @@ void StromscoreEditor::paint (juce::Graphics& g)
     g.drawText ("STROMSCORE", 80, 8, 210, 30, juce::Justification::centredLeft);
     g.setColour (theme.accent);
     g.setFont (juce::FontOptions (12.0f, juce::Font::bold));
-    const juce::String subtitle = u8 ("AUDIO DRAMA UNDERSCORE GENERATOR");
+    const juce::String subtitle = u8 ("AUDIO DRAMA UNDERSCORE INSPIRATOR");
     g.drawText (subtitle, (int) subX, 15, 320, 22, juce::Justification::centredLeft);
     g.setColour (theme.dim);
     g.setFont (juce::FontOptions (11.0f));

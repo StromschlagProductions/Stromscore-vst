@@ -161,6 +161,35 @@ int main()
         CHECK (midi.getNumEvents() == 0);
     }
 
+    // Hängende Töne: Reset des Hosts mitten im Spiel, dann Stopp: alles muss enden (auch ohne Engine-Wissen)
+    {
+        setParam (*p, "verlauf", 1.0f);
+        p->prepareToPlay (48000, 512);
+        host.ppq = 0.0; host.playing = true;
+        juce::AudioBuffer<float> audio (2, 512); juce::MidiBuffer midi; Counts c;
+        for (int i = 0; i < 30; ++i) { audio.clear(); midi.clear(); p->processBlock (audio, midi); collect (midi, c); host.ppq += 512.0 / 24000.0; }
+        p->reset();                                  // wie ein Host, der beim Stopp zurücksetzt
+        host.playing = false;
+        audio.clear(); midi.clear(); p->processBlock (audio, midi); collect (midi, c);
+        CHECK (c.ons == c.offs && ! c.broken);
+        bool cc123 = false;
+        for (const auto meta : midi) if (meta.getMessage().isAllNotesOff()) cc123 = true;
+        (void) cc123;
+        host.playing = true;
+    }
+
+    // Ebenen-Schalter und "folgt den Akkorden" als Parameter
+    {
+        for (int i = 1; i <= 5; ++i) CHECK (p->apvts.getParameter ("layer" + juce::String (i)) != nullptr);
+        for (int i = 1; i <= 3; ++i) CHECK (p->apvts.getParameter ("follow" + juce::String (i)) != nullptr);
+        setParam (*p, "layer1", 0.0f); setParam (*p, "layer2", 0.0f); setParam (*p, "layer3", 2.0f);
+        setParam (*p, "verlauf", 0.0f);
+        auto c = play (*p, host, 8, 512);
+        CHECK (c.channels.size() == 1 && c.channels.count (3) == 1);   // nur der Arp
+        setParam (*p, "layer1", 1.0f); setParam (*p, "layer2", 1.0f); setParam (*p, "layer3", 1.0f);
+        setParam (*p, "verlauf", 1.0f);
+    }
+
     // Zustand speichern und laden
     {
         setParam (*p, "key", 3.0f); setParam (*p, "mode", 2.0f); setParam (*p, "verlauf", 0.62f); setParam (*p, "variation", 7.0f);

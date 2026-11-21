@@ -16,6 +16,11 @@ juce::StringArray StromscoreProcessor::modeNames()
     return { "Moll", "Dur", "Dorisch", "Phrygisch", "Lydisch" };
 }
 
+juce::StringArray StromscoreProcessor::layerNames()
+{
+    return { u8 ("Fläche"), "Bass", "Arp", "Farbe", "Akzente" };
+}
+
 juce::AudioProcessorValueTreeState::ParameterLayout StromscoreProcessor::createLayout()
 {
     using namespace juce;
@@ -26,6 +31,12 @@ juce::AudioProcessorValueTreeState::ParameterLayout StromscoreProcessor::createL
         NormalisableRange<float> (0.0f, 1.0f), 0.3f,
         AudioParameterFloatAttributes().withStringFromValueFunction ([] (float v, int) { return String (roundToInt (v * 100.0f)) + " %"; })
                                        .withValueFromStringFunction ([] (const String& t) { return jlimit (0.0f, 1.0f, t.getFloatValue() / 100.0f); })));
+    for (int i = 0; i < stromscore::kNumLayers; ++i)
+        layout.add (std::make_unique<AudioParameterChoice> (ParameterID { "layer" + String (i + 1), 1 },
+            layerNames()[i] + " Ebene", StringArray { "Aus", "Auto", "An" }, 1));
+    for (int i = 0; i < 3; ++i)
+        layout.add (std::make_unique<AudioParameterBool> (ParameterID { "follow" + String (i + 1), 1 },
+            layerNames()[i] + " folgt den Akkorden", true));
     layout.add (std::make_unique<AudioParameterInt> (ParameterID { "variation", 1 }, "Variation", 1, 16, 1));
     layout.add (std::make_unique<AudioParameterBool> (ParameterID { "preview", 1 }, u8 ("Vorhören"), false));
     return layout;
@@ -40,6 +51,8 @@ StromscoreProcessor::StromscoreProcessor()
     pVerlauf = apvts.getRawParameterValue ("verlauf");
     pVariation = apvts.getRawParameterValue ("variation");
     pPreview = apvts.getRawParameterValue ("preview");
+    for (int i = 0; i < stromscore::kNumLayers; ++i) pLayer[i] = apvts.getRawParameterValue ("layer" + juce::String (i + 1));
+    for (int i = 0; i < 3; ++i) pFollow[i] = apvts.getRawParameterValue ("follow" + juce::String (i + 1));
 }
 
 bool StromscoreProcessor::isBusesLayoutSupported (const BusesLayout& layouts) const
@@ -51,12 +64,14 @@ bool StromscoreProcessor::isBusesLayoutSupported (const BusesLayout& layouts) co
 void StromscoreProcessor::prepareToPlay (double sampleRate, int)
 {
     currentRate = sampleRate;
+    flushPending = true;
     generator.reset();
     preview.prepare (sampleRate);
 }
 
 void StromscoreProcessor::reset()
 {
+    flushPending = true;   // klingende Noten beim naechsten Block beenden (die Engine vergisst sie hier)
     generator.reset();
     preview.reset();
 }
@@ -68,7 +83,26 @@ stromscore::Settings StromscoreProcessor::currentSettings() const
     s.mode = juce::roundToInt (pMode->load());
     s.verlauf = pVerlauf->load();
     s.variation = juce::roundToInt (pVariation->load());
+    for (int i = 0; i < stromscore::kNumLayers; ++i) s.layerMode[i] = juce::jlimit (0, 2, juce::roundToInt (pLayer[i]->load()));
+    for (int i = 0; i < 3; ++i) s.follow[i] = pFollow[i]->load() >= 0.5f;
     return s;
+}
+
+// Beendet alles, was noch klingt, und schickt zur Sicherheit "Alle Noten aus" (CC 123) auf den fuenf Kanaelen
+void StromscoreProcessor::flushSounding (juce::MidiBuffer& midi, bool forceAllNotesOff)
+{
+    for (int layer = 0; layer < stromscore::kNumLayers; ++layer)
+    {
+        bool any = forceAllNotesOff;
+        for (int note = 0; note < 128; ++note)
+            if (sounding[layer].test ((size_t) note))
+            {
+                midi.addEvent (juce::MidiMessage::noteOff (layer + 1, note), 0);
+                any = true;
+            }
+        sounding[layer].reset();
+        if (any) midi.addEvent (juce::MidiMessage::allNotesOff (layer + 1), 0);
+    }
 }
 
 void StromscoreProcessor::emit (const stromscore::EventList& list, juce::MidiBuffer& midi, juce::AudioBuffer<float>& audio, bool withPreview)
@@ -84,10 +118,14 @@ void StromscoreProcessor::emit (const stromscore::EventList& list, juce::MidiBuf
         if (e.velocity > 0)
         {
             midi.addEvent (juce::MidiMessage::noteOn (e.channel, e.note, (juce::uint8) e.velocity), e.offset);
+            sounding[e.channel - 1].set ((size_t) e.note);
             activity[e.channel - 1].store (1.0f);
         }
         else
+        {
             midi.addEvent (juce::MidiMessage::noteOff (e.channel, e.note), e.offset);
+            sounding[e.channel - 1].reset ((size_t) e.note);
+        }
 
         if (withPreview)
         {
@@ -120,12 +158,18 @@ void StromscoreProcessor::processBlock (juce::AudioBuffer<float>& audio, juce::M
 
     events.clear();
     if (wasBypassed) { generator.reset(); wasBypassed = false; }
+    if (flushPending) { flushSounding (midi, false); preview.reset(); flushPending = false; }
     generator.process (t, currentSettings(), audio.getNumSamples(), events);
     chordIndex.store (generator.chordIndex());
 
     const bool withPreview = pPreview->load() >= 0.5f;
     if (! withPreview) preview.reset();
     emit (events, midi, audio, withPreview);
+
+    // Stopp: was noch klingt (z. B. weil der Host zwischendurch zurueckgesetzt hat) sicher beenden
+    if (! t.playing)
+        flushSounding (midi, wasPlaying);
+    wasPlaying = t.playing;
 }
 
 void StromscoreProcessor::processBlockBypassed (juce::AudioBuffer<float>& audio, juce::MidiBuffer& midi)
@@ -134,11 +178,10 @@ void StromscoreProcessor::processBlockBypassed (juce::AudioBuffer<float>& audio,
     midi.clear();
     if (! wasBypassed)
     {
-        events.clear();
-        generator.allNotesOff (events, 0);
-        for (int i = 0; i < events.size; ++i)
-            midi.addEvent (juce::MidiMessage::noteOff (events.events[(size_t) i].channel, events.events[(size_t) i].note), 0);
+        generator.reset();
+        flushSounding (midi, true);
         preview.reset();
+        wasPlaying = false;
         wasBypassed = true;
     }
 }

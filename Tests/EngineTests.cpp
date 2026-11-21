@@ -205,5 +205,81 @@ int main()
         chordName (9, 0, 5, buf, 32); CHECK (std::string (buf) == "F-Dur");
         chordName (0, 1, 6, buf, 32); CHECK (std::string (buf) == "h-vermindert");
     }
+
+    // 12) Ebenen: aus = still und beendet klingende Noten, "an" spielt auch unter der VERLAUF-Schwelle
+    {
+        Settings s; s.verlauf = 0.0f;
+        s.layerMode[kArp] = 2;
+        auto ev = run (s, 512, 20.0);
+        CHECK (channelsUsed (ev).count (3) == 1);              // Arp trotz 0 % VERLAUF
+        s.layerMode[kFlaeche] = 0;
+        ev = run (s, 512, 20.0);
+        CHECK (channelsUsed (ev).count (1) == 0);              // Flaeche aus
+        CHECK (channelsUsed (ev).count (2) == 1);
+
+        // Ebene waehrend des Spielens ausschalten: keine haengenden Noten
+        Generator g; g.reset(); EventList l; Settings a; a.verlauf = 0.5f;
+        std::map<std::pair<int, int>, int> open;
+        for (int i = 0; i < 40; ++i)
+        {
+            if (i == 20) a.layerMode[kFlaeche] = 0;
+            Transport t; t.playing = true; t.bpm = 120; t.sampleRate = 48000; t.ppq = i * 512.0 / 24000.0;
+            l.clear(); g.process (t, a, 512, l);
+            for (int e = 0; e < l.size; ++e)
+            {
+                const auto& ev2 = l.events[(size_t) e];
+                open[std::make_pair ((int) ev2.channel, (int) ev2.note)] += ev2.velocity > 0 ? 1 : -1;
+            }
+        }
+        int flaecheOpen = 0;
+        for (const auto& o : open) if (o.first.first == 1 && o.second != 0) ++flaecheOpen;
+        CHECK (flaecheOpen == 0);
+    }
+
+    // 13) "bleibt" (folgt den Akkorden = aus): Bass, Arp und Flaeche bleiben auf dem Grundakkord
+    {
+        Settings s; s.verlauf = 1.0f; s.key = 0; s.mode = 1;
+        s.follow[kBass] = s.follow[kArp] = s.follow[kFlaeche] = false;
+        auto ev = run (s, 512, 40.0);   // 5 Akkorde bei 120 bpm in 4/4 (je 4 s)
+        std::set<int> bassPitchClasses, arpPitchClasses, padPitchClasses;
+        for (const auto& e : ev)
+        {
+            if (e.velocity == 0) continue;
+            if (e.channel == 2) bassPitchClasses.insert (e.note % 12);
+            if (e.channel == 3) arpPitchClasses.insert (e.note % 12);
+            if (e.channel == 1) padPitchClasses.insert (e.note % 12);
+        }
+        CHECK (bassPitchClasses.size() == 1 && *bassPitchClasses.begin() == 0);   // nur C
+        for (int pc : arpPitchClasses) CHECK (pc == 0 || pc == 4 || pc == 7 || pc == 11);   // Cmaj7
+        for (int pc : padPitchClasses) CHECK (pc == 0 || pc == 4 || pc == 7 || pc == 11);
+        // Folgen die Ebenen den Akkorden, kommen weitere Tonhoehen vor
+        s.follow[kBass] = s.follow[kArp] = s.follow[kFlaeche] = true;
+        auto ev2 = run (s, 512, 40.0);
+        std::set<int> bass2;
+        for (const auto& e : ev2) if (e.velocity > 0 && e.channel == 2) bass2.insert (e.note % 12);
+        CHECK (bass2.size() > 1);
+    }
+
+    // 14) Sprung mitten in die Folge: nicht folgende Ebenen klingen sofort, nichts haengt
+    {
+        Generator g; g.reset(); EventList l; Settings s; s.verlauf = 0.4f; s.follow[kFlaeche] = false;
+        std::map<std::pair<int, int>, int> open;
+        auto feed = [&] (double ppq, bool playing)
+        {
+            Transport t; t.playing = playing; t.bpm = 120; t.sampleRate = 48000; t.ppq = ppq;
+            l.clear(); g.process (t, s, 512, l);
+            for (int e = 0; e < l.size; ++e)
+            {
+                const auto& x = l.events[(size_t) e];
+                open[std::make_pair ((int) x.channel, (int) x.note)] += x.velocity > 0 ? 1 : -1;
+            }
+        };
+        feed (16.0, true);   // genau am Anfang des dritten Akkords
+        int pads = 0;
+        for (const auto& o : open) if (o.first.first == 1 && o.second > 0) ++pads;
+        CHECK (pads >= 3);
+        feed (200.0, true); feed (0.0, false);
+        for (const auto& o : open) CHECK (o.second == 0);
+    }
     return 0;
 }
