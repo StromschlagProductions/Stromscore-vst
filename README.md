@@ -11,9 +11,13 @@ wie viel gleichzeitig passiert. Jede der fünf Ebenen hat ihren eigenen MIDI-Kan
 spielen. Die Klänge kommen aus deinen eigenen Instrumenten, das Plugin liefert nur die Noten.
 
 Es läuft im Takt des Projekts. Gleiche Einstellungen ergeben immer dieselben Noten, auch nach einem Sprung oder bei einem Loop.
-Es verwendet keine KI.
 
-**Stand 0.1:** erster Test, ob die Noten sauber auf eigene Instrumentenspuren ankommen. Stimmungsverläufe, Stilvorlagen und
+**Keine KI-Musik:** STROMSCORE arbeitet mit festen Regeln, nicht mit trainierten Modellen und nicht mit fremdem Material. Die
+Grundlage ist der Stil, den ich über Jahre für meine Hörspiele entwickelt habe, geprägt von dem, was ich an großen Filmkomponisten
+schätze. Das Ziel: Szenen so zu untermalen, wie ich es selbst tun würde, und das einfacher zu machen. Mit jeder Version fließt
+mehr davon hinein, 0.2 ist noch ein früher Stand.
+
+**Stand 0.2:** erster Test, ob die Noten sauber auf eigene Instrumentenspuren ankommen. Stimmungsverläufe, Stilvorlagen und
 Ostinato-Muster folgen.
 
 **⬇ Download (Windows · VST3):** https://github.com/StromschlagProductions/Stromscore-vst/releases/latest
@@ -22,7 +26,8 @@ Ostinato-Muster folgen.
 
 Für die Musik zu meinen Hörspielen schreibe ich viel selbst. Was dabei oft Zeit kostet, sind nicht die Einfälle, sondern das
 Ausprobieren: eine Fläche, ein Bass, ein Puls darüber, und dann das Ganze noch einmal in einer anderen Spannung. STROMSCORE
-nimmt mir diesen Grundaufbau ab, damit ich mich auf Szene, Stimmung und Feinarbeit konzentrieren kann. Die Noten landen auf
+nimmt mir diesen Grundaufbau ab, damit ich mich auf Szene, Stimmung und Feinarbeit konzentrieren kann. Es ist mein Versuch, die
+Art, wie ich selbst untermale, zu automatisieren, ohne dass es nach Baukasten klingt. Die Noten landen auf
 meinen eigenen Instrumenten, so klingt es nach meinem Projekt und nicht nach einem Plugin.
 
 *STROMSCORE soll das eigene Komponieren nicht ersetzen. Es macht Spaß und ist lehrreich, Flächen, Bässe und Figuren selbst zu
@@ -78,6 +83,7 @@ Danach in der DAW die Plugins neu einlesen.
 ## Versionen
 
 - **0.1** – erster Test: Noten-Generator mit fünf MIDI-Kanälen, TONART, MODUS, VERLAUF, VARIATION und VORHÖREN.
+- **0.2** – Hinweis zur Herkunft der Musik (feste Regeln, kein KI-Modell, Grundlage ist mein eigener Stil) in Hilfe und README.
 
 Alle Release-Hinweise: `docs/releases/`.
 
