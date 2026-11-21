@@ -794,7 +794,7 @@ StromscoreEditor::StromscoreEditor (StromscoreProcessor& p) : AudioProcessorEdit
     small (startLabel, "Start"); small (durLabel, "Dauer"); small (curveLabel, "Kurve");
     small (sceneStatus, {});
     sceneStatus.setFont (juce::FontOptions (12.0f));
-    sceneStatus.setMinimumHorizontalScale (0.8f);
+    sceneStatus.setMinimumHorizontalScale (0.75f);
     for (auto* b : { &sceneButton, &driveButton }) { b->setClickingTogglesState (true); content.addAndMakeVisible (b); }
     sceneButton.setButtonText ("Aufbau");
     driveButton.setButtonText ("Fahrt");
@@ -847,7 +847,7 @@ StromscoreEditor::StromscoreEditor (StromscoreProcessor& p) : AudioProcessorEdit
     startBox.setTooltip (u8 ("Wann die Fahrt beginnt, gezählt ab dem Start der Wiedergabe."));
     durBox.setTooltip (u8 ("Wie lange die Fahrt von A nach B dauert."));
     curveBox.setTooltip (u8 ("Gleichmäßig; erst langsam, dann schnell; in vier Stufen; oder hin und zurück (zur Mitte der Dauer bei B, am Ende wieder bei A)."));
-    sceneStatus.setTooltip (u8 ("Stand der Szene: Takt seit dem Start der Wiedergabe, Einstieg, Aufbau und Ende."));
+    sceneStatus.setTooltip (u8 ("Stand der Szene: Takt seit dem Start der Wiedergabe, Einstieg, Aufbau, Fahrt und wie viele Takte bis zum Ende bleiben."));
 
     for (int a = 0; a < 2; ++a)
         targetAttachment[a] = std::make_unique<juce::ParameterAttachment> (*processor.apvts.getParameter (a == 0 ? "fahrtX" : "fahrtY"),
@@ -1129,7 +1129,7 @@ void StromscoreEditor::updateSceneStatus()
     {
         t = "Takt " + juce::String (bar + 1);
         const int e = juce::jlimit (1, stromscore::kNumEntries - 1, processor.sceneEntry.load());
-        if (s.scene || s.sceneBars > 0) t << u8 (" · Einstieg ") << (s.entry == stromscore::EntryAuto ? "Auto: " : "") << names[e];
+        if (s.scene || s.sceneBars > 0) t << u8 (" · ") << names[e] << (s.entry == stromscore::EntryAuto ? " (Auto)" : "");
         if (s.scene && e != stromscore::EntryAll && bar < s.buildBars) t << u8 (" · Aufbau bis Takt ") << s.buildBars;
         if (s.drive)
         {
@@ -1137,7 +1137,7 @@ void StromscoreEditor::updateSceneStatus()
             if (since < 0) t << u8 (" · Fahrt ab Takt ") << (s.driveFrom + 1);
             else if (since < s.driveBars) t << u8 (" · Fahrt ") << juce::roundToInt (100.0 * since / s.driveBars) << " %";
         }
-        if (s.sceneBars > 0) t << u8 (" · Ende in ") << (s.sceneBars - bar) << ((s.sceneBars - bar) == 1 ? " Takt" : " Takten");
+        if (s.sceneBars > 0) t << u8 (" · noch ") << (s.sceneBars - bar) << ((s.sceneBars - bar) == 1 ? " Takt" : " Takte");
     }
     if (sceneStatus.getText() != t) sceneStatus.setText (t, juce::dontSendNotification);
     const bool drive = s.drive;
