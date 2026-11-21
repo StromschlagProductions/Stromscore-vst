@@ -1,8 +1,9 @@
 {
-  "version": "0.9",
+  "version": "1.0",
   "images": [
     "oberflaeche-dunkel.png",
     "oberflaeche-hell.png",
-    "oberflaeche-akkordfolge.png"
+    "oberflaeche-akkordfolge.png",
+    "oberflaeche-tonumfang.png"
   ]
 }
