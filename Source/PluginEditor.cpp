@@ -238,7 +238,7 @@ StromscoreEditor::StromscoreEditor (StromscoreProcessor& p) : AudioProcessorEdit
         content.addAndMakeVisible (l);
     };
     label (padLabel, u8 ("STIMMUNG"), juce::Justification::centredLeft);
-    label (padValues, "", juce::Justification::centredRight);
+    label (padValues, "", juce::Justification::centred);
     padValues.setFont (juce::Font (juce::FontOptions (11.0f)));
     label (unruheLabel, "UNRUHE", juce::Justification::centred);
     label (keyLabel, "TONART", juce::Justification::centredLeft);
@@ -253,7 +253,7 @@ StromscoreEditor::StromscoreEditor (StromscoreProcessor& p) : AudioProcessorEdit
             [this, a] (float v)
             {
                 (a == 0 ? pad.x : a == 1 ? pad.y : pad.z) = v;
-                padValues.setText (u8 ("Färbung ") + juce::String (juce::roundToInt (pad.x * 100.0f)) + u8 (" % · Intensität ")
+                padValues.setText (u8 ("Färbung ") + juce::String (juce::roundToInt (pad.x * 100.0f)) + u8 (" %\nIntensität ")
                                    + juce::String (juce::roundToInt (pad.y * 100.0f)) + " %", juce::dontSendNotification);
                 pad.repaint();
             }, nullptr);
@@ -592,8 +592,8 @@ void StromscoreEditor::resized()
     helpText.setWidth (helpScroll.getMaximumVisibleWidth());
 
     // Stimmungsfeld und Unruhe
-    padLabel.setBounds (24, 82, 100, 18);
-    padValues.setBounds (84, 82, 150, 18);
+    padLabel.setBounds (24, 82, 200, 18);
+    padValues.setBounds (246, 236, 146, 36);
     pad.setBounds (24, 102, 210, 210);
     unruheLabel.setBounds (246, 82, 146, 18);
     unruhe.setBounds (252, 102, 134, 126);
