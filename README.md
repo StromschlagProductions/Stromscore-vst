@@ -12,7 +12,7 @@ spielen. Die Klänge kommen aus deinen eigenen Instrumenten, das Plugin liefert 
 
 Es läuft im Takt des Projekts. Gleiche Einstellungen ergeben immer dieselben Noten, auch nach einem Sprung oder bei einem Loop.
 
-**Keine KI-Musik:** STROMSCORE arbeitet mit festen Regeln, nicht mit trainierten Modellen und nicht mit fremdem Material. Die
+**Es verwendet keine KI.** STROMSCORE arbeitet mit festen Regeln, nicht mit trainierten Modellen und nicht mit fremdem Material. Die
 Grundlage ist der Stil, den ich über Jahre für meine Hörspiele entwickelt habe, geprägt von dem, was ich an großen Filmkomponisten
 schätze. Das Ziel: Szenen so zu untermalen, wie ich es selbst tun würde, und das einfacher zu machen. Mit jeder Version fließt
 mehr davon hinein, 0.2 ist noch ein früher Stand.
@@ -83,7 +83,7 @@ Danach in der DAW die Plugins neu einlesen.
 ## Versionen
 
 - **0.1** – erster Test: Noten-Generator mit fünf MIDI-Kanälen, TONART, MODUS, VERLAUF, VARIATION und VORHÖREN.
-- **0.2** – Hinweis zur Herkunft der Musik (feste Regeln, kein KI-Modell, Grundlage ist mein eigener Stil) in Hilfe und README.
+- **0.2** – Hinweis zur Herkunft der Musik (keine KI, feste Regeln, Grundlage ist mein eigener Stil) in Hilfe und README.
 
 Alle Release-Hinweise: `docs/releases/`.
 

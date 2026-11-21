@@ -116,7 +116,8 @@ static juce::AttributedString buildHelp (juce::Colour text, juce::Colour accent,
     note ("Version 0.1 ist ein erster Test: Sie soll zeigen, dass die Noten sauber auf deine eigenen Instrumentenspuren ankommen. Weitere Stimmungen und Stilvorlagen folgen.");
 
     head ("Woher die Musik kommt");
-    body ("Das ist keine KI-Musik. STROMSCORE arbeitet mit festen Regeln, nicht mit trainierten Modellen und nicht mit fremdem Material. Die Grundlage ist der Stil, den Lars Eickst\xc3\xa4" "dt \xc3\xbc" "ber Jahre f\xc3\xbc" "r seine H\xc3\xb6rspiele entwickelt hat, gepr\xc3\xa4gt von gro\xc3\x9f" "en Filmkomponisten. Das Ziel: Szenen so zu untermalen, wie er es selbst tun w\xc3\xbc" "rde, und das einfacher zu machen. Mit jeder Version flie\xc3\x9ft mehr davon hinein.");
+    s.append (u8 ("Es verwendet keine KI. "), juce::Font (juce::FontOptions (13.0f, juce::Font::bold)), text);
+    body ("STROMSCORE arbeitet mit festen Regeln, nicht mit trainierten Modellen und nicht mit fremdem Material. Die Grundlage ist der Stil, den Lars Eickst\xc3\xa4" "dt \xc3\xbc" "ber Jahre f\xc3\xbc" "r seine H\xc3\xb6rspiele entwickelt hat, gepr\xc3\xa4gt von gro\xc3\x9f" "en Filmkomponisten. Das Ziel: Szenen so zu untermalen, wie er es selbst tun w\xc3\xbc" "rde, und das einfacher zu machen. Mit jeder Version flie\xc3\x9ft mehr davon hinein.");
 
     head ("Einrichten in Studio One");
     body ("1. Lege eine Instrumentenspur mit Stromscore an. 2. Lege f\xc3\xbcr jede Ebene, die du h\xc3\xb6ren willst, eine eigene Instrumentenspur mit deinem Instrument an. 3. Stelle bei jeder dieser Spuren als Eingang Stromscore ein und w\xc3\xa4hle dort den passenden MIDI-Kanal (Fl\xc3\xa4" "che 1, Bass 2, Arp 3, Farbe 4, Akzente 5). 4. Schalte die Spuren auf Monitor, dann spielen sie beim Abspielen mit.");
