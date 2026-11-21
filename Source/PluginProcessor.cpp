@@ -33,6 +33,13 @@ juce::StringArray StromscoreProcessor::slotRootNames()    { return { "C", "Cis",
 juce::StringArray StromscoreProcessor::slotTypeNames()    { return { "Dur", "Moll", "maj7", "m7", "7", "sus4", "sus2", "add9", "m6", "m(maj7)", "m7b5", "dim7", "+" }; }
 juce::StringArray StromscoreProcessor::slotBarNames()     { return { u8 ("–"), "1 Takt", "2 Takte", "3 Takte", "4 Takte" }; }
 juce::StringArray StromscoreProcessor::arpRateNames()     { return { "Auto", "Viertel", "Achtel", "16tel" }; }
+juce::StringArray StromscoreProcessor::entryNames()       { return { "Auto", u8 ("Fläche, schüchtern"), "Bass-Schlag", "Puls", "Arpeggio", "Akzent", "Gegenstimme", "Alles zugleich" }; }
+juce::StringArray StromscoreProcessor::buildNames()       { return { "4 Takte", "8 Takte", "16 Takte" }; }
+juce::StringArray StromscoreProcessor::sceneLengthNames() { return { "unbegrenzt", "8 Takte", "16 Takte", "24 Takte", "32 Takte", "48 Takte", "64 Takte" }; }
+juce::StringArray StromscoreProcessor::endingNames()      { return { "Hart", "Ausklingend", "Offen" }; }
+juce::StringArray StromscoreProcessor::driveStartNames()  { return { "sofort", "ab Takt 5", "ab Takt 9", "ab Takt 17", "ab Takt 33" }; }
+juce::StringArray StromscoreProcessor::driveBarsNames()   { return { "4 Takte", "8 Takte", "16 Takte", "32 Takte" }; }
+juce::StringArray StromscoreProcessor::curveNames()       { return { u8 ("Gleichmäßig"), "Erst langsam", "In Stufen", u8 ("Hin und zurück") }; }
 
 juce::String StromscoreProcessor::noteName (int n)
 {
@@ -107,6 +114,21 @@ juce::AudioProcessorValueTreeState::ParameterLayout StromscoreProcessor::createL
         layout.add (std::make_unique<AudioParameterChoice> (ParameterID { "kanal" + String (i + 1), 1 }, outputNames()[i] + " MIDI-Kanal", channelNames(), i));
     layout.add (std::make_unique<AudioParameterBool> (ParameterID { "legato", 1 }, "Gegenstimme Legato", true));
     layout.add (std::make_unique<AudioParameterBool> (ParameterID { "eigeneFolge", 1 }, "Eigene Folge", false));
+    // Szene (ab 1.3): Einstieg und Aufbau ab Wiedergabebeginn, Ende, Fahrt von A nach B, Motiv
+    layout.add (std::make_unique<AudioParameterBool> (ParameterID { "aufbau", 1 }, "Aufbau", true));
+    layout.add (std::make_unique<AudioParameterChoice> (ParameterID { "einstieg", 1 }, "Einstieg", entryNames(), 0));
+    layout.add (std::make_unique<AudioParameterInt> (ParameterID { "wurf", 1 }, "Wurf", 0, 9999, 0));
+    layout.add (std::make_unique<AudioParameterChoice> (ParameterID { "aufbauTakte", 1 }, u8 ("Aufbau Länge"), buildNames(), 1));
+    layout.add (std::make_unique<AudioParameterFloat> (ParameterID { "haerte", 1 }, u8 ("Härte"), NormalisableRange<float> (0.0f, 1.0f), 0.5f, percent()));
+    layout.add (std::make_unique<AudioParameterChoice> (ParameterID { "szenenLaenge", 1 }, u8 ("Szenenlänge"), sceneLengthNames(), 0));
+    layout.add (std::make_unique<AudioParameterChoice> (ParameterID { "ende", 1 }, "Ende", endingNames(), 1));
+    layout.add (std::make_unique<AudioParameterBool> (ParameterID { "motiv", 1 }, "Gegenstimme Motiv", true));
+    layout.add (std::make_unique<AudioParameterBool> (ParameterID { "fahrt", 1 }, "Fahrt", false));
+    layout.add (std::make_unique<AudioParameterFloat> (ParameterID { "fahrtX", 1 }, u8 ("Fahrt Ziel Färbung"), NormalisableRange<float> (0.0f, 1.0f), 0.8f, percent()));
+    layout.add (std::make_unique<AudioParameterFloat> (ParameterID { "fahrtY", 1 }, u8 ("Fahrt Ziel Intensität"), NormalisableRange<float> (0.0f, 1.0f), 0.85f, percent()));
+    layout.add (std::make_unique<AudioParameterChoice> (ParameterID { "fahrtStart", 1 }, "Fahrt Start", driveStartNames(), 0));
+    layout.add (std::make_unique<AudioParameterChoice> (ParameterID { "fahrtTakte", 1 }, "Fahrt Dauer", driveBarsNames(), 1));
+    layout.add (std::make_unique<AudioParameterChoice> (ParameterID { "fahrtKurve", 1 }, "Fahrt Kurve", curveNames(), 0));
     static constexpr int defRoot[stromscore::kMaxChords] = { 5, 0, 10, 7, 9, 2, 4, 0 };   // F - C - B - G
     for (int i = 0; i < stromscore::kMaxChords; ++i)
     {
@@ -157,6 +179,20 @@ StromscoreProcessor::StromscoreProcessor()
     for (int i = 0; i < stromscore::kNumOutputs; ++i) pChannel[i] = apvts.getRawParameterValue ("kanal" + juce::String (i + 1));
     pLegato = apvts.getRawParameterValue ("legato");
     pCustom = apvts.getRawParameterValue ("eigeneFolge");
+    pScene = apvts.getRawParameterValue ("aufbau");
+    pEntry = apvts.getRawParameterValue ("einstieg");
+    pSeed = apvts.getRawParameterValue ("wurf");
+    pBuild = apvts.getRawParameterValue ("aufbauTakte");
+    pHardness = apvts.getRawParameterValue ("haerte");
+    pSceneLen = apvts.getRawParameterValue ("szenenLaenge");
+    pEnding = apvts.getRawParameterValue ("ende");
+    pMotif = apvts.getRawParameterValue ("motiv");
+    pDrive = apvts.getRawParameterValue ("fahrt");
+    pDriveX = apvts.getRawParameterValue ("fahrtX");
+    pDriveY = apvts.getRawParameterValue ("fahrtY");
+    pDriveFrom = apvts.getRawParameterValue ("fahrtStart");
+    pDriveBars = apvts.getRawParameterValue ("fahrtTakte");
+    pCurve = apvts.getRawParameterValue ("fahrtKurve");
     for (int i = 0; i < stromscore::kMaxChords; ++i)
     {
         const juce::String n (i + 1);
@@ -237,6 +273,21 @@ stromscore::Settings StromscoreProcessor::currentSettings() const
         s.customChords[i].type = stromscore::kCustomTypes[juce::jlimit (0, stromscore::kNumCustomTypes - 1, juce::roundToInt (pSlotType[i]->load()))];
         s.customChords[i].bars = juce::roundToInt (pSlotBars[i]->load());
     }
+    auto pick = [] (std::atomic<float>* p, const int* table, int n) { return table[juce::jlimit (0, n - 1, juce::roundToInt (p->load()))]; };
+    s.scene = pScene->load() >= 0.5f;
+    s.entry = juce::jlimit (0, stromscore::kNumEntries - 1, juce::roundToInt (pEntry->load()));
+    s.seed = juce::roundToInt (pSeed->load());
+    s.buildBars = pick (pBuild, kBuildBars, 3);
+    s.hardness = pHardness->load();
+    s.sceneBars = pick (pSceneLen, kSceneBars, 7);
+    s.ending = juce::jlimit (0, stromscore::kNumEndings - 1, juce::roundToInt (pEnding->load()));
+    s.motif = pMotif->load() >= 0.5f;
+    s.inertia = true;   // Traegheit ist im Plugin immer an
+    s.drive = pDrive->load() >= 0.5f;
+    s.driveX = pDriveX->load(); s.driveY = pDriveY->load();
+    s.driveFrom = pick (pDriveFrom, kDriveFrom, 5);
+    s.driveBars = pick (pDriveBars, kDriveBars, 4);
+    s.driveCurve = juce::jlimit (0, stromscore::kNumCurves - 1, juce::roundToInt (pCurve->load()));
     return s;
 }
 
@@ -352,6 +403,7 @@ void StromscoreProcessor::processBlock (juce::AudioBuffer<float>& audio, juce::M
     const auto settings = currentSettings();
     meterNum.store (settings.meterNum); meterDen.store (settings.meterDen);
     generator.process (t, settings, audio.getNumSamples(), events);
+    publish (generator, t.playing);
     wendung.store (t.playing ? generator.wendung() : -1);
     styleIndex.store (generator.styleWendung());
     genreInUse.store (generator.genreInUse());
@@ -373,6 +425,7 @@ void StromscoreProcessor::processBlock (juce::AudioBuffer<float>& audio, juce::M
         previewEvents.clear();
         previewGenerator.process (own, settings, audio.getNumSamples(), previewEvents);
         previewPpq += (double) audio.getNumSamples() / (own.sampleRate * 60.0 / own.bpm);
+        publish (previewGenerator, true);
         wendung.store (previewGenerator.wendung());
         styleIndex.store (previewGenerator.styleWendung());
         genreInUse.store (previewGenerator.genreInUse());
@@ -392,6 +445,14 @@ void StromscoreProcessor::processBlock (juce::AudioBuffer<float>& audio, juce::M
     if (! t.playing)
         flushSounding (midi, wasPlaying);
     wasPlaying = t.playing;
+}
+
+void StromscoreProcessor::publish (const stromscore::Generator& g, bool playing)
+{
+    sceneBar.store (playing ? g.sceneBar() : -1);
+    sceneEntry.store (g.sceneEntry());
+    sceneOver.store (playing && g.sceneOver());
+    if (playing) { pointX.store (g.pointX()); pointY.store (g.pointY()); }
 }
 
 void StromscoreProcessor::processBlockBypassed (juce::AudioBuffer<float>& audio, juce::MidiBuffer& midi)

@@ -34,7 +34,7 @@ public:
     void getStateInformation (juce::MemoryBlock& destData) override;
     void setStateInformation (const void* data, int sizeInBytes) override;
 
-    static constexpr int kUiWidth = 1000, kUiHeight = 560;
+    static constexpr int kUiWidth = 1000, kUiHeight = 656;
     static juce::StringArray keyNames();
     static juce::StringArray meterNames();
     static juce::StringArray layerNames();
@@ -50,6 +50,14 @@ public:
     static juce::StringArray slotRootNames();
     static juce::StringArray slotTypeNames();
     static juce::StringArray slotBarNames();
+    // Szene (ab 1.3)
+    static juce::StringArray entryNames();
+    static juce::StringArray buildNames();         static constexpr int kBuildBars[3] = { 4, 8, 16 };
+    static juce::StringArray sceneLengthNames();   static constexpr int kSceneBars[7] = { 0, 8, 16, 24, 32, 48, 64 };
+    static juce::StringArray endingNames();
+    static juce::StringArray driveStartNames();    static constexpr int kDriveFrom[5] = { 0, 4, 8, 16, 32 };
+    static juce::StringArray driveBarsNames();     static constexpr int kDriveBars[4] = { 4, 8, 16, 32 };
+    static juce::StringArray curveNames();
     // Tonumfang: Notenname wie in Studio One (mittleres C = C3), deutsche Namen; Vorlagen fuer Orchesterinstrumente
     static juce::String noteName (int midiNote);
     struct RangeTemplate { const char* name; int lo, hi; };
@@ -76,6 +84,10 @@ public:
     std::atomic<int> wendung { -1 }, chordIndex { -1 }, chordRoot { 0 }, chordType { 0 };
     std::atomic<int> meterNum { 4 }, meterDen { 4 };
     std::atomic<bool> hostPlaying { false };
+    // Szene: Takte seit Szenenstart (-1 = steht), aufgeloester Einstieg, Ende erreicht, klingender Punkt im Feld (mit Fahrt)
+    std::atomic<int> sceneBar { -1 }, sceneEntry { 0 };
+    std::atomic<bool> sceneOver { false };
+    std::atomic<float> pointX { 0.5f }, pointY { 0.1f };
     // Anlernen des Tonumfangs: die naechsten zwei Tasten am MIDI-Eingang (tiefste und hoechste) werden gemerkt
     std::atomic<int> learnLayer { -1 }, learnFirst { -1 }, learnSecond { -1 };
 
@@ -84,6 +96,7 @@ private:
     void handleControllers (const juce::MidiBuffer& incoming);
     void flushSounding (juce::MidiBuffer&, bool forceAllNotesOff);
     void emit (const stromscore::EventList&, juce::MidiBuffer&, juce::AudioBuffer<float>&, bool preview, bool toMidi = true);
+    void publish (const stromscore::Generator&, bool playing);
 
     stromscore::Generator generator;
     // Vorhoeren bei stehender DAW: eigene Uhr, nur Testklang, kein MIDI
@@ -108,6 +121,10 @@ private:
     std::atomic<float>* pChange = nullptr; std::atomic<float>* pOctave[stromscore::kNumLayers] {};
     std::atomic<float>* pRangeOn[stromscore::kNumRanges] {}; std::atomic<float>* pRangeLo[stromscore::kNumRanges] {}; std::atomic<float>* pRangeHi[stromscore::kNumRanges] {};
     std::atomic<float>* pChannel[stromscore::kNumOutputs] {}; std::atomic<float>* pLegato = nullptr; std::atomic<float>* pCustom = nullptr;
+    std::atomic<float>* pScene = nullptr; std::atomic<float>* pEntry = nullptr; std::atomic<float>* pSeed = nullptr; std::atomic<float>* pBuild = nullptr;
+    std::atomic<float>* pHardness = nullptr; std::atomic<float>* pSceneLen = nullptr; std::atomic<float>* pEnding = nullptr; std::atomic<float>* pMotif = nullptr;
+    std::atomic<float>* pDrive = nullptr; std::atomic<float>* pDriveX = nullptr; std::atomic<float>* pDriveY = nullptr; std::atomic<float>* pDriveFrom = nullptr;
+    std::atomic<float>* pDriveBars = nullptr; std::atomic<float>* pCurve = nullptr;
     std::atomic<float>* pSlotRoot[stromscore::kMaxChords] {}; std::atomic<float>* pSlotType[stromscore::kMaxChords] {}; std::atomic<float>* pSlotBars[stromscore::kMaxChords] {};
     juce::RangedAudioParameter* axisParam[3] {};
 

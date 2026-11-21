@@ -12,9 +12,11 @@ Töne, damit Orchester-Libraries für jede Spielweise das passende Patch bekomme
 Intensität (ruhig bis aufgewühlt) und Unruhe (sauber bis kratzig). Alle drei lassen sich automatisieren oder mit einem Fader-Controller
 live fahren. So folgt die Musik der Szene, vom Lauern über die Panik bis zur Erlösung.
 
-Es läuft im Takt des Projekts, auch in 3/4, 6/8 und ungeraden Takten. Gleiche Einstellungen ergeben immer dieselben Noten, auch nach
-einem Sprung oder bei einem Loop. Bewegst du die Stimmung, reagiert die Musik schon am nächsten Schlag. Wer feste Harmonien braucht,
-gibt eine **eigene Akkordfolge** vor.
+Es läuft im Takt des Projekts, auch in 3/4, 6/8 und ungeraden Takten. Bewegst du die Stimmung, reagiert die Musik schon am nächsten
+Schlag. Mit dem Start der Wiedergabe beginnt eine **Szene**: Sie setzt mit einer Ebene ein, etwa einem einzelnen stehenden Ton, einem
+Bass-Schlag oder einem Puls, baut sich über einige Takte auf und endet auf Wunsch hart, ausklingend oder offen. Eine **Fahrt** führt die
+Musik selbst von einer Stimmung zur nächsten und bereitet das Ziel vor. Gleiche Einstellungen ergeben immer dieselben Noten, auch nach
+einem Sprung oder bei einem Loop. Wer feste Harmonien braucht, gibt eine **eigene Akkordfolge** vor.
 
 **Es verwendet keine KI.** STROMSCORE arbeitet mit festen Regeln, nicht mit trainierten Modellen und nicht mit fremdem Material. Die
 Grundlage ist der Stil, den ich über Jahre für meine Hörspiele entwickelt habe, geprägt von großen Filmkomponisten und der Musik
@@ -22,7 +24,7 @@ klassischer Hörspiele. Daraus ist ein Vorrat an Wendungen entstanden: Akkordfol
 Melodien bekannter Stücke werden nicht nachgebaut. Das Ziel: Szenen so zu untermalen, wie ich es selbst tun würde, und das einfacher
 zu machen.
 
-**Stand 1.2:** Forschungsphase. Bedienung und Klang werden mit jeder Version weiter verfeinert.
+**Stand 1.3:** Forschungsphase. Bedienung und Klang werden mit jeder Version weiter verfeinert.
 
 **⬇ Download (Windows · VST3):** https://github.com/StromschlagProductions/Stromscore-vst/releases/latest
 
@@ -37,6 +39,9 @@ bin, auch wenn er manchmal umständlich war. STROMSCORE soll nur die technische 
 | Dunkel (Standard) | Hell |
 |---|---|
 | ![Dunkle Oberfläche](docs/oberflaeche-dunkel.png) | ![Helle Oberfläche](docs/oberflaeche-hell.png) |
+
+Die Bilder zeigen eine laufende Szene in Takt 6: Einstieg mit Bass-Schlag, Aufbau über 8 Takte und eine Fahrt von A nach B, der kleine
+Punkt im Stimmungsfeld zeigt, wo die Musik gerade ist.
 
 Über **Bearbeiten** legst du die eigene Akkordfolge fest:
 
@@ -93,6 +98,27 @@ eigene Folge, die dann den Pop-Rock-Stil leiht.
 Orchester-Instrumente. Der Stromscore-Spur den Controller als Eingang geben und die Fader-Bewegungen als MIDI-Part aufnehmen. Über den
 CC-Knopf lässt sich die Zuordnung ändern oder abschalten.
 
+## Szene und Fahrt
+
+Die Leiste unter der oberen Karte steuert den Verlauf einer Szene. Die Szene beginnt mit dem Start der Wiedergabe. Ein Sprung nach vorn
+oder ein Loop, der nicht vor den Start zurückspringt, setzt sie fort; Stopp und neuer Start beginnen eine neue. Die herausgezogene
+MIDI-Datei beginnt immer mit einer Szene.
+
+| Regler | Was er macht |
+|---|---|
+| AUFBAU · 4 / 8 / 16 Takte | Zuerst spielt nur die Ebene des Einstiegs, die anderen folgen nacheinander auf Taktgrenzen, bis nach der eingestellten Zahl von Takten alles da ist. Dabei wird die Musik von dünn zu dicht. Aus: alle Ebenen setzen gleich ein. |
+| EINSTIEG | Fläche, schüchtern (ein stehender Ton, der später zum Akkord wird), Bass-Schlag, Puls (kurze Viertel auf dem Grundton, wie ein Ticken), Arpeggio, Akzent (ein Stich oder Tupfer in der Stille), Gegenstimme oder alles zugleich. Danach folgen die verwandten Ebenen, beim Bass zum Beispiel Arpeggio, Fläche, Akzent und Gegenstimme. **Auto** würfelt den Einstieg passend zu Genre und Stimmung, nur aus Ebenen, die gerade spielen können. |
+| NEU WÜRFELN | Ein anderer Einstieg bei Auto und ein anderes Motiv der Gegenstimme. Derselbe Wurf ergibt immer dasselbe und wird mit dem Projekt gespeichert. |
+| HÄRTE | Wie die Ebenen einsetzen: unter 50 % weich eingeblendet (ganz links über zwei Takte), über 50 % mit kräftigem ersten Anschlag. Gilt auch, wenn eine Ebene mit steigender Intensität dazukommt. |
+| LÄNGE | Unbegrenzt oder 8 bis 64 Takte ab dem Start der Wiedergabe. |
+| ENDE | **Hart:** alle Ebenen bis zum Schluss, im letzten Takt zieht sich der Bass zurück und ein Stich kündigt an, dann ein kurzer, kräftiger Schlag und Stille. **Ausklingend:** die Ebenen gehen nacheinander, was zuletzt kam, zuerst; die Ebene des Einstiegs klingt bis zum Ende. **Offen:** zum Schluss noch dichter, dann Abbruch ohne Schlussschlag. |
+| FAHRT | Die Musik wandert selbst vom Punkt im Feld (A) zu einem Ziel (B), das als Ring im Stimmungsfeld erscheint und sich dort ziehen lässt. **Start** sofort oder ab Takt 5, 9, 17 oder 33, **Dauer** 4 bis 32 Takte, **Kurve** gleichmäßig, erst langsam, in vier Stufen oder hin und zurück. Führt die Fahrt nach oben, zieht sich im Takt vor dem Ziel der Bass zurück, ein Stich kündigt an, und am Ziel setzen Fläche und Bass kräftig neu ein. |
+
+Rechts in der Leiste steht während der Wiedergabe der Stand: Takt, Einstieg, Aufbau, Fahrt und die Takte bis zum Ende.
+
+**Trägheit:** Wackelt der Punkt an der Schwelle einer Ebene, geht sie nicht ständig an und aus. Ebenen schalten nur auf Taktanfängen,
+gehen erst einige Prozent unter ihrer Schwelle wieder aus und bleiben mindestens zwei Takte. Mute und Solo wirken sofort.
+
 ## Weitere Regler
 
 | Regler | Was er macht |
@@ -113,7 +139,7 @@ CC-Knopf lässt sich die Zuordnung ändern oder abschalten.
 
 Oben in jedem Kasten stehen der Name, **Mute** und **Solo** in der Reihenfolge von Studio One und die Lampe, die bei jedem Ton leuchtet
 (bei Fläche, Bass und Akzent eine je Kanal). Die Beschreibung jeder Ebene steht im Tooltip über ihrem Kasten. Fläche und Bass spielen
-immer, die anderen Ebenen setzen mit der Intensität ein. Der Regler **Intensität** in jedem Kasten verschiebt die Intensität nur für
+immer, die anderen Ebenen setzen mit der Intensität ein; mit **Aufbau** kommen alle am Anfang einer Szene nacheinander dazu. Der Regler **Intensität** in jedem Kasten verschiebt die Intensität nur für
 diese Ebene: weniger macht sie dünner (beim Bass bis zu langen Tönen), mehr macht sie dichter (beim Bass bis zu durchgehenden Achteln),
 und sie setzt dann auch bei ruhiger Stimmung ein. Ab wann eine Ebene gerade einsetzt, steht im Regler hinter dem Wert: die Intensität im Stimmungsfeld, unter der sie schweigt (beim Akzent zwei Werte, erst Tupfer, dann Stich, etwa „ab 25 / 50 %“). Alle Ebenen sind
 für tongebende Instrumente gedacht, Schlagwerk gehört nicht dazu. Bei Fläche, Bass und Arp bestimmt ein Schalter, ob die Ebene
@@ -134,8 +160,10 @@ Tupfer, ab 50 % kommt der Stich dazu, bei viel Intensität schlagen am Phrasenen
 Tonumfang und lassen sich auch gemeinsam auf ein Instrument legen. Bei Unruhe kommt ein fremder, reibender Ton in der Mitte des Akkords
 dazu.
 
-**Gegenstimme:** die einzige lange Linie, in mittlerer Lage zwischen Tupfer und Stich. Mit **Legato** an überlappen die Töne minimal,
-damit Legato-Patches gebunden spielen; aus setzen sie kurz vor dem nächsten Ton ab.
+**Gegenstimme:** die einzige lange Linie, in mittlerer Lage zwischen Tupfer und Stich. Mit **Legato** überlappen die Töne minimal,
+damit Legato-Patches gebunden spielen; ohne setzen sie kurz vor dem nächsten Ton ab. Mit **Motiv** beginnt jede Phrase mit einer kurzen
+Figur aus drei bis fünf Tönen, die wiederkehrt und abgewandelt wird: wie zuvor, einen Akkordton höher, mit umgekehrter Richtung, mit
+höherem Schluss. Die Töne folgen der Harmonie, bei wenig Intensität fallen die letzten weg. Welche Figur, bestimmt der Wurf.
 
 **Tonumfang:** Orchesterinstrumente spielen nur einen bestimmten Bereich, ein Synth spielt alles. Über **Umfang** neben der Oktave
 (beim Akzent je eine eigene Zeile für Tupfer und Stich) begrenzt du jede Ebene auf den tiefsten und höchsten Ton deines Instruments. Vorlagen
@@ -150,7 +178,7 @@ zuerst, der Tonumfang ist die feste Grenze. Auch die herausgezogene MIDI-Datei h
 | Bass | 3 lang · 4 kurz | Gehalten, Halbe, Viertel, Achtel, Puls (Sechzehntel auf einem Ton), Funk, Pendel, Walking, Wechselbass, Herzschlag, Arpeggio, Orgelpunkt, Hi-NRG (Grundton und Oberoktave), Galopp | immer |
 | Arp | 5 | Aufwärts, Abwärts, Kreisend, Zelle, Riff, Glitzern, Sprünge, Kaskade, Oktatonisch, Quarten, SID (Dreiklang in Sechzehnteln) · Tempo Viertel, Achtel, Sechzehntel | ab 25 % Intensität |
 | Akzent | 6 Tupfer · 7 Stich | Tupfer: einzelne kurze hohe Töne; Stich: kurze Schläge an den Nahtstellen der Musik; bei Unruhe ein fremder, reibender Ton | Tupfer ab 25 %, Stich ab 50 % Intensität, oder bei Unruhe |
-| Gegenstimme | 8 | Die einzige lange Linie, schrittweise von Akkord zu Akkord, bewegter mit mehr Intensität, bei Unruhe mit Vorhalten, Legato schaltbar; im Pop-Rock eine durchgehende Hook-Linie | ab 15 % Intensität |
+| Gegenstimme | 8 | Die einzige lange Linie, schrittweise von Akkord zu Akkord, bewegter mit mehr Intensität, bei Unruhe mit Vorhalten, Legato und Motiv schaltbar; im Pop-Rock eine durchgehende Hook-Linie | ab 15 % Intensität |
 
 ## Installation (Windows)
 
@@ -171,12 +199,13 @@ Danach in der DAW die Plugins neu einlesen.
 - **1.0** – Tonumfang je Ebene für Orchesterinstrumente, mit Vorlagen und Anlernen per Keyboard, ohne dass ein Ton wegfällt. Sieben neue Pop-Rock-Wendungen im Stil der Fernsehmusik um 1980 (27 insgesamt).
 - **1.1** – MIDI-Kanal je Ebene frei wählbar, Fläche und Bass mit getrennten Kanälen für lange und kurze Töne, Farbe wird zum Akzent mit Tupfer und Stich, Gegenstimme als einzige lange Linie mit Legato-Schalter, getrennte Lagen für Akzent und Gegenstimme, aufgeräumte Ebenen-Kästen mit Mute und Solo wie in Studio One, größere Tooltip-Schrift, breiteres Fenster.
 - **1.2** – Akzent-Kasten mit eigener Zeile für den Tonumfang von Tupfer und Stich; Tupfer und Stich zeigen ihren Einsatz getrennt („ab 25 / 50 %“).
+- **1.3** – Szene ab Wiedergabebeginn: Einstieg mit einer Ebene (sieben Arten oder gewürfelt), gestaffelter Aufbau über 4, 8 oder 16 Takte, Härte des Einsatzes, Szenenlänge mit hartem, ausklingendem oder offenem Ende; Fahrt von A nach B mit Vorbereitung des Ziels; Motiv der Gegenstimme; Trägheit gegen Flackern an den Schwellen.
 
 Alle Release-Hinweise: `docs/releases/`.
 
 ## Aufbau
 
-- `Source/ScoreEngine.h`: Noten-Generator mit dem Vorrat an Wendungen, reines C++ ohne JUCE. Die Ausgabe hängt nur von der Projektposition und den Einstellungen ab.
+- `Source/ScoreEngine.h`: Noten-Generator mit dem Vorrat an Wendungen, reines C++ ohne JUCE. Die Ausgabe hängt nur vom Start der Szene, der Projektposition und den Einstellungen ab.
 - `Source/PluginProcessor.*`: Plugin-Hülle, MIDI-Ausgabe, Parameter, Controller-Eingang.
 - `Source/PluginEditor.*`: Oberfläche mit Stimmungsfeld und Hilfe.
 - `Tests/`: Tests für Engine und Plugin. `tools/screenshot.cpp`: erzeugt die Oberflächenbilder aus der echten Oberfläche.
@@ -186,7 +215,8 @@ Alle Release-Hinweise: `docs/releases/`.
 Bei jeder Änderung baut GitHub das Plugin unter Windows, führt die Regressionstests aus und prüft es mit pluginval (Strictness 8).
 Die Noten-Engine läuft zusätzlich unter Linux mit Speicher- und Fehlerprüfern. Die Tests prüfen unter anderem, dass über das ganze
 Stimmungsfeld, alle Taktarten und alle Muster keine Note hängen bleibt oder doppelt angeschlagen wird und dass das Ergebnis nicht von
-der Puffergröße abhängt. Siehe `docs/CI.md`.
+der Puffergröße abhängt, außerdem jeden Einstieg mit der Reihenfolge des Aufbaus, die drei Enden, die Fahrt mit allen Kurven, das Motiv
+und die Trägheit. Siehe `docs/CI.md`.
 
 ## Hinweis
 

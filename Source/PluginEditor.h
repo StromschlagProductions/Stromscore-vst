@@ -33,23 +33,40 @@ public:
     }
 };
 
-// Das Stimmungsfeld: ziehen = Faerbung (waagerecht) und Intensitaet (senkrecht), Mausrad = Unruhe (Ring um den Punkt)
+// Das Stimmungsfeld: ziehen = Faerbung (waagerecht) und Intensitaet (senkrecht), Mausrad = Unruhe (Ring um den Punkt).
+// Mit Fahrt: ein zweiter Punkt B (Ziel), der naeher liegende Punkt wird gezogen; waehrend der Wiedergabe zeigt ein
+// kleiner Punkt, wo die Musik gerade ist.
 class MoodPad : public juce::Component, public juce::SettableTooltipClient
 {
 public:
     juce::Colour panel, line, accent, text, dim;
     float x = 0.3f, y = 0.3f, z = 0.0f;
-    std::function<void (float, float)> onDrag;
-    std::function<void()> onDragStart, onDragEnd;
+    bool showB = false, showNow = false;
+    float bx = 0.8f, by = 0.85f, nowX = 0.0f, nowY = 0.0f;
+    std::function<void (float, float)> onDrag, onDragB;
+    std::function<void()> onDragStart, onDragEnd, onDragStartB, onDragEndB;
     std::function<void (float)> onWheel;
     std::function<void (float, float)> onHover;   // Maus ueber dem Feld (ohne Klick): Feld-Karte
     struct HoverItem { juce::String name; float x = 0, y = 0; };
     HoverItem hover[3];
     int numHover = 0;
     void paint (juce::Graphics& g) override;
-    void mouseDown (const juce::MouseEvent& e) override { dragging = true; numHover = 0; if (onDragStart) onDragStart(); move (e); }
+    void mouseDown (const juce::MouseEvent& e) override
+    {
+        dragging = true; numHover = 0;
+        const auto a = area();
+        auto dist = [&] (float px, float py) { return e.position.getDistanceFrom ({ a.getX() + px * a.getWidth(), a.getBottom() - py * a.getHeight() }); };
+        draggingB = showB && dist (bx, by) < dist (x, y);
+        if (draggingB) { if (onDragStartB) onDragStartB(); } else if (onDragStart) onDragStart();
+        move (e);
+    }
     void mouseDrag (const juce::MouseEvent& e) override { move (e); }
-    void mouseUp (const juce::MouseEvent&) override { dragging = false; if (onDragEnd) onDragEnd(); }
+    void mouseUp (const juce::MouseEvent&) override
+    {
+        dragging = false;
+        if (draggingB) { if (onDragEndB) onDragEndB(); } else if (onDragEnd) onDragEnd();
+        draggingB = false;
+    }
     void mouseMove (const juce::MouseEvent& e) override
     {
         if (dragging || ! onHover) return;
@@ -57,7 +74,7 @@ public:
         onHover (juce::jlimit (0.0f, 1.0f, (e.position.x - a.getX()) / a.getWidth()), juce::jlimit (0.0f, 1.0f, 1.0f - (e.position.y - a.getY()) / a.getHeight()));
     }
     void mouseExit (const juce::MouseEvent&) override { numHover = 0; repaint(); }
-    bool dragging = false;
+    bool dragging = false, draggingB = false;
     void mouseWheelMove (const juce::MouseEvent&, const juce::MouseWheelDetails& w) override { if (onWheel) onWheel (w.deltaY * 0.25f); }
 private:
     juce::Rectangle<float> area() const { return getLocalBounds().toFloat().reduced (10.0f); }
@@ -66,7 +83,8 @@ private:
         const auto a = area();
         const float nx = juce::jlimit (0.0f, 1.0f, (e.position.x - a.getX()) / a.getWidth());
         const float ny = juce::jlimit (0.0f, 1.0f, 1.0f - (e.position.y - a.getY()) / a.getHeight());
-        if (onDrag) onDrag (nx, ny);
+        if (draggingB) { if (onDragB) onDragB (nx, ny); }
+        else if (onDrag) onDrag (nx, ny);
     }
 };
 
@@ -95,7 +113,7 @@ public:
     LayerView()
     {
         for (auto* c : std::initializer_list<juce::Component*> { &muteButton, &soloButton, &intensity, &octBox, &chanBox[0] }) addAndMakeVisible (c);
-        for (auto* c : std::initializer_list<juce::Component*> { &chanBox[1], &rangeButton, &rangeButton2, &followButton, &legatoButton, &combo1, &combo2 })
+        for (auto* c : std::initializer_list<juce::Component*> { &chanBox[1], &rangeButton, &rangeButton2, &followButton, &legatoButton, &motifButton, &combo1, &combo2 })
             addChildComponent (c);
     }
     juce::Colour panel, line, accent, text, dim;
@@ -104,7 +122,7 @@ public:
     int index = 0, numLamps = 1;
     bool active = true;
     float activity[2] {};
-    juce::TextButton soloButton, muteButton, followButton, rangeButton, rangeButton2, legatoButton;
+    juce::TextButton soloButton, muteButton, followButton, rangeButton, rangeButton2, legatoButton, motifButton;
     juce::Slider intensity;
     juce::ComboBox combo1, combo2, octBox, chanBox[2];
     void paint (juce::Graphics& g) override;
@@ -124,7 +142,8 @@ public:
             rangeButton2.setBounds (cx, row (3), cw, 24);
         }
         combo2.setBounds (cx, row (1), cw, 24);         // Arp: Tempo
-        legatoButton.setBounds (cx, row (1), 52, 24);   // Gegenstimme
+        legatoButton.setBounds (cx, row (1), cw / 2 - 2, 24);                 // Gegenstimme: Legato und Motiv
+        motifButton.setBounds (cx + cw / 2 + 2, row (1), cw - cw / 2 - 2, 24);
         combo1.setBounds (cx, row (2), cw, 24);         // Muster
         followButton.setBounds (12, row (3), w - 24, 24);
         intensity.setBounds (12, getHeight() - 64, w - 24, 24);
@@ -320,6 +339,7 @@ private:
     void showRangePanel (int rangeIndex);
     juce::TextButton& rangeButtonFor (int rangeIndex);
     void updateRangeButtons();
+    void updateSceneStatus();
     float subtitleEnd() const;
 
     static constexpr int kBaseW = StromscoreProcessor::kUiWidth, kBaseH = StromscoreProcessor::kUiHeight;
@@ -358,6 +378,16 @@ private:
     std::unique_ptr<APVTS::ButtonAttachment> followAttachment[3];
     std::unique_ptr<APVTS::ComboBoxAttachment> patternAttachment[4], octaveAttachment[stromscore::kNumLayers], channelAttachment[stromscore::kNumOutputs];
     std::unique_ptr<APVTS::ButtonAttachment> legatoAttachment;
+
+    // Szene und Fahrt (ab 1.3)
+    juce::Label sceneLabel, driveLabel, entryLabel, lengthLabel, endLabel, startLabel, durLabel, curveLabel, sceneStatus;
+    juce::TextButton sceneButton, diceButton, driveButton;
+    juce::ComboBox buildBox, entryBox, lengthBox, endBox, startBox, durBox, curveBox;
+    juce::Slider hardness;
+    std::unique_ptr<APVTS::ButtonAttachment> sceneAttachment, driveAttachment, motifAttachment;
+    std::unique_ptr<APVTS::ComboBoxAttachment> buildAttachment, entryAttachment, lengthAttachment, endAttachment, startAttachment, durAttachment, curveAttachment;
+    std::unique_ptr<APVTS::SliderAttachment> hardnessAttachment;
+    std::unique_ptr<juce::ParameterAttachment> targetAttachment[2];
 
     juce::TextButton themeButton, helpButton;
     HelpPanel helpScroll;

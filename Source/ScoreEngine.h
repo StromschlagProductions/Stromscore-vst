@@ -69,6 +69,26 @@ enum ArpRate { RateAuto = 0, RateQuarter, RateEighth, RateSixteenth, kNumArpRate
 enum Genre { GenreScore = 0, GenrePopRock, kNumGenres };
 enum ChangeGrid { ChangeBeat = 0, ChangeBar, Change2Bars, Change4Bars, kNumChangeGrids };
 
+// ------------------------------------------------------------------ Dramaturgie (ab 1.3)
+// Szenenstart ist der Wiedergabebeginn (beim Herausziehen der Anfang der Datei). Von dort an laufen Einstieg und
+// Aufbau, die Fahrt von A nach B und das Ende der Szene. Alles ist eine Funktion von Szenenstart, Position und
+// Einstellungen; nur die Traegheit merkt sich, welche Ebenen gerade spielen.
+enum Entry { EntryAuto = 0, EntryPad, EntryBass, EntryPulse, EntryArp, EntryAkzent, EntryCounter, EntryAll, kNumEntries };
+enum Ending { EndHard = 0, EndFade, EndOpen, kNumEndings };
+enum Curve { CurveEven = 0, CurveSlow, CurveSteps, CurveWave, kNumCurves };
+// Reihenfolge der Ebenen nach dem Einstieg: verwandte Ebenen folgen zuerst (Bass -> Puls/Arp -> Flaeche ...)
+constexpr int kEntryOrder[kNumEntries][kNumLayers] = {
+    { kFlaeche, kBass, kArp, kGegenstimme, kAkzent },   // Auto (wird vorher aufgeloest)
+    { kFlaeche, kBass, kArp, kGegenstimme, kAkzent },   // Flaeche, schuechtern
+    { kBass, kArp, kFlaeche, kAkzent, kGegenstimme },   // Bass-Schlag
+    { kBass, kFlaeche, kArp, kAkzent, kGegenstimme },   // Puls
+    { kArp, kBass, kFlaeche, kGegenstimme, kAkzent },   // Arpeggio
+    { kAkzent, kFlaeche, kBass, kArp, kGegenstimme },   // Akzent
+    { kGegenstimme, kFlaeche, kBass, kArp, kAkzent },   // Gegenstimme
+    { kFlaeche, kBass, kArp, kGegenstimme, kAkzent } }; // Alles zugleich (Reihenfolge nur fuers Ausduennen)
+constexpr int kEntryLayer[kNumEntries] = { -1, kFlaeche, kBass, kBass, kArp, kAkzent, kGegenstimme, -1 };
+constexpr float kHysteresis = 0.06f;   // Traegheit: so weit unter der Schwelle geht eine Ebene erst wieder aus
+
 // ------------------------------------------------------------------ Vokabular (Wendungen)
 struct Chord { int root; int type; int bars; int bass = -1; };   // bass: eigener Basston (Halbtoene ueber dem Grundton der Tonart), -1 = Grundton des Akkords
 struct Wendung
@@ -210,6 +230,22 @@ struct Settings
     int padPattern = PadAuto, bassPattern = BassAuto, arpFigure = ArpAuto, arpRate = RateAuto;
     bool custom = false;        // eigene Akkordfolge statt Wendungen
     CustomChord customChords[kMaxChords];
+
+    // Dramaturgie (ab 1.3). Vorgaben hier: alles aus, wie vor 1.3; das Plugin schaltet Aufbau, Motiv und Traegheit ein.
+    bool scene = false;         // Aufbau: Ebenen setzen nach dem Einstieg gestaffelt ein
+    int entry = EntryAuto;      // womit die Szene beginnt
+    int seed = 0;               // Wurf ("Neu wuerfeln"): Einstieg bei Auto und Motiv
+    int buildBars = 8;          // Laenge des Aufbaus: 4, 8 oder 16 Takte
+    float hardness = 0.5f;      // Einsatz: 0 weich eingeblendet (zwei Takte) ... 0,5 neutral ... 1 hart gesetzt
+    int sceneBars = 0;          // Laenge der Szene in Takten, 0 = unbegrenzt
+    int ending = EndFade;       // Ende der Szene: hart, ausklingend, offen
+    bool motif = false;         // Szenenmotiv in der Gegenstimme
+    bool inertia = false;       // Traegheit: Ebenen schalten nur auf Taktgrenzen, mit Abstand zur Schwelle, mindestens 2 Takte
+    bool drive = false;         // Fahrt von A (x, y) nach B
+    float driveX = 0.8f, driveY = 0.85f;
+    int driveFrom = 0;          // Takte nach Szenenstart
+    int driveBars = 8;
+    int driveCurve = CurveEven;
 };
 
 struct Transport
@@ -315,7 +351,72 @@ struct Meter
 class Generator
 {
 public:
-    void reset() { style = -1; csNote = -1; csPendingAt = -1; chaseStep = -1; lastGenre = -1; resetCc(); numActive = 0; running = false; lastPpqEnd = 0.0; phraseIndex = -1; current = -1; wendungStart = 0; curRoot = 0; curType = Min; curChord = -1; }
+    void reset() { style = -1; csNote = -1; csPendingAt = -1; chaseStep = -1; lastGenre = -1; resetCc(); numActive = 0; running = false; lastPpqEnd = 0.0; phraseIndex = -1; current = -1; wendungStart = 0; curRoot = 0; curType = Min; curChord = -1;
+                   sceneStep = 0; autoSeed = -1; sceneBarNow = -1; sceneEnded = false; for (int l = 0; l < kNumLayers; ++l) { on[l] = prevOn[l] = hOn[l] = false; } }
+
+    // Fuer die Anzeige: Szene
+    int sceneBar() const { return sceneBarNow; }              // Takte seit Szenenstart (-1: steht)
+    int sceneEntry() const { return entryInUse; }             // aufgeloester Einstieg
+    bool sceneOver() const { return sceneEnded; }
+    float pointX() const { return curX; }                     // Punkt im Feld, wie er gerade klingt (mit Fahrt)
+    float pointY() const { return curY; }
+    bool layerPlaying (int l) const { return on[std::clamp (l, 0, kNumLayers - 1)]; }
+
+    // Ebene nicht stumm (Mute) und nicht durch Solo einer anderen Ebene ausgeschlossen
+    static bool muteSoloOk (const Settings& s, int layer)
+    {
+        bool anySolo = false;
+        for (bool b : s.solo) anySolo = anySolo || b;
+        return anySolo ? s.solo[layer] : ! s.mute[layer];
+    }
+    // Schwelle erreicht (ohne Mute/Solo); levelOff: weit genug darunter, dass die Traegheit loslaesst
+    static bool levelOn (const Settings& s, int layer)
+    {
+        const float y = layerY (s, layer);
+        if (layer == kAkzent) return y >= kLayerStart[kAkzent] || s.z >= kAkzentUnruhe;
+        return y >= kLayerStart[layer];
+    }
+    static bool levelOff (const Settings& s, int layer)
+    {
+        const float y = layerY (s, layer);
+        if (layer == kAkzent) return y < kLayerStart[kAkzent] - kHysteresis && s.z < kAkzentUnruhe - kHysteresis;
+        return y < kLayerStart[layer] - kHysteresis;
+    }
+
+    // Einstieg bei Auto: gewuerfelt aus dem Wurf, gewichtet nach Genre und Stimmungsfeld (nur Ebenen, die spielen koennen)
+    static int autoEntry (const Settings& s)
+    {
+        const bool pop = s.genre == GenrePopRock;
+        auto ok = [&s] (int l) { return muteSoloOk (s, l) && levelOn (s, l); };
+        float w[kNumEntries] {};
+        if (ok (kFlaeche)) w[EntryPad] = pop ? 1.0f : 3.0f + (s.z >= kAkzentUnruhe ? 1.0f : 0.0f) + (s.y < 0.3f ? 1.0f : 0.0f);
+        if (ok (kBass)) { w[EntryBass] = 2.0f; w[EntryPulse] = 1.0f + (s.z >= kAkzentUnruhe ? 2.0f : 0.0f); }
+        if (ok (kArp)) w[EntryArp] = pop ? 3.0f : 1.0f;
+        if (ok (kAkzent)) w[EntryAkzent] = pop ? 0.5f : 1.0f;
+        if (ok (kGegenstimme)) w[EntryCounter] = pop ? 0.5f : 1.0f;
+        if (s.y >= (pop ? 0.6f : 0.7f)) w[EntryAll] = pop ? 1.5f : 0.75f;
+        float total = 0.0f;
+        for (float v : w) total += v;
+        if (total <= 0.0f) return EntryAll;
+        const float r = (float) (hash3 ((uint32_t) s.seed, (uint32_t) s.variation, 1301u) % 100000u) / 100000.0f * total;
+        float acc = 0.0f;
+        for (int e = 1; e < kNumEntries; ++e) { acc += w[e]; if (r < acc) return e; }
+        return EntryPad;
+    }
+
+    // Fahrt: Anteil des Weges von A nach B (0 ... 1) nach Takten seit Szenenstart, mit Kurve
+    static float driveAmount (const Settings& s, double barsSinceStart)
+    {
+        if (! s.drive || s.driveBars <= 0) return 0.0f;
+        const double t = std::clamp ((barsSinceStart - (double) s.driveFrom) / (double) s.driveBars, 0.0, 1.0);
+        switch (s.driveCurve)
+        {
+            case CurveSlow:  return (float) (t * t);
+            case CurveSteps: return (float) (std::floor (t * 4.0 + 1e-9) / 4.0);
+            case CurveWave:  return (float) (0.5 - 0.5 * std::cos (2.0 * 3.14159265358979 * t));
+            default:         return (float) t;
+        }
+    }
 
     // Fuer die Anzeige (kCustomWendung = eigene Folge)
     int wendung() const { return current; }
@@ -334,15 +435,7 @@ public:
         return std::clamp (s.y + s.layerIntensity[layer], 0.0f, 1.0f);
     }
 
-    static bool layerActive (const Settings& s, int layer)
-    {
-        bool anySolo = false;
-        for (bool b : s.solo) anySolo = anySolo || b;
-        if (anySolo ? ! s.solo[layer] : s.mute[layer]) return false;
-        const float y = layerY (s, layer);
-        if (layer == kAkzent) return y >= kLayerStart[kAkzent] || s.z >= kAkzentUnruhe;
-        return y >= kLayerStart[layer];
-    }
+    static bool layerActive (const Settings& s, int layer) { return muteSoloOk (s, layer) && levelOn (s, layer); }
 
     // Ab welchem Anteil der besten Passung eine Wendung in Frage kommt (Abwechslung 0 = nur die beste)
     static float keepRatio (const Settings& s) { return 1.0f - 0.85f * std::clamp (s.variety, 0.0f, 1.0f); }
@@ -431,6 +524,14 @@ public:
         s.bassPattern = std::clamp (s.bassPattern, 0, kNumBassPatterns - 1);
         s.arpFigure = std::clamp (s.arpFigure, 0, kNumArpFigures - 1);
         s.arpRate = std::clamp (s.arpRate, 0, kNumArpRates - 1);
+        s.entry = std::clamp (s.entry, 0, kNumEntries - 1);
+        s.buildBars = std::clamp (s.buildBars, 1, 64);
+        s.hardness = std::clamp (s.hardness, 0.0f, 1.0f);
+        s.sceneBars = std::clamp (s.sceneBars, 0, 4096);
+        s.ending = std::clamp (s.ending, 0, kNumEndings - 1);
+        s.driveX = std::clamp (s.driveX, 0.0f, 1.0f); s.driveY = std::clamp (s.driveY, 0.0f, 1.0f);
+        s.driveFrom = std::clamp (s.driveFrom, 0, 4096); s.driveBars = std::clamp (s.driveBars, 1, 4096);
+        s.driveCurve = std::clamp (s.driveCurve, 0, kNumCurves - 1);
         cur = &s;
         meter = Meter::from (s.meterNum, s.meterDen);
         custom = customWendung (s);
@@ -446,7 +547,7 @@ public:
         if (! t.playing || t.bpm <= 0.0 || t.sampleRate <= 0.0 || numSamples <= 0)
         {
             if (running) allNotesOff (out, 0);
-            running = false; curChord = -1; cur = nullptr;
+            running = false; curChord = -1; cur = nullptr; sceneBarNow = -1;
             return;
         }
         releaseSilencedLayers (s, out);
@@ -454,12 +555,18 @@ public:
         const double samplesPerQuarter = t.sampleRate * 60.0 / t.bpm;
         const double ppqEnd = t.ppq + (double) numSamples / samplesPerQuarter;
         const bool jumped = running && std::fabs (t.ppq - lastPpqEnd) > 0.05;
+        const float ax = s.x, ay = s.y;   // Punkt A im Feld (die Fahrt bewegt den klingenden Punkt von hier nach B)
         if (! running || jumped)
         {
             allNotesOff (out, 0);
+            // Szenenstart: Wiedergabebeginn, auf den Taktanfang gerundet. Ein Sprung nach vorn (oder ein Loop, der nicht
+            // vor den Start zurueckspringt) laeuft in derselben Szene weiter, ein Sprung davor beginnt eine neue.
+            const long long k0 = (long long) std::floor (t.ppq / kStep + 1e-9);
+            if (! running || k0 < sceneStep) sceneStep = floorDiv (k0, meter.len) * meter.len;
             running = true;
             phraseIndex = -1;
             csNote = -1; csPendingAt = -1; resetCc();
+            applyDrive (k0, s, ax, ay);
             chase (t.ppq, s, out);
         }
 
@@ -470,6 +577,7 @@ public:
             if (when >= ppqEnd - 1e-12) break;
             if (when < t.ppq - 1e-12) continue;
             const int offset = std::clamp ((int) std::llround ((when - t.ppq) * samplesPerQuarter), 0, numSamples - 1);
+            applyDrive (k, s, ax, ay);
             releaseDue (k, offset, out);
             stepOn (k, offset, s, out);
         }
@@ -493,6 +601,255 @@ private:
     static long long floorDiv (long long a, long long b) { return a >= 0 ? a / b : -((-a + b - 1) / b); }
 
     const Wendung& W() const { return current == kCustomWendung ? custom : wendungAt (genre, current); }
+
+    // ---------------------------------------------------------------- Dramaturgie
+    static constexpr int kPulseTick = 100;   // Bass-Muster nur fuer den Puls-Einstieg: kurze Viertel auf dem Orgelpunkt
+
+    long long barsSince (long long k) const { return floorDiv (k - sceneStep, meter.len); }
+
+    // Fahrt: der klingende Punkt wandert von A (Punkt im Feld) nach B
+    void applyDrive (long long k, Settings& s, float ax, float ay)
+    {
+        driveAY = ay;
+        if (s.drive)
+        {
+            const float a = driveAmount (s, (double) (k - sceneStep) / (double) meter.len);
+            s.x = ax + (s.driveX - ax) * a;
+            s.y = ay + (s.driveY - ay) * a;
+        }
+        else { s.x = ax; s.y = ay; }
+        curX = s.x; curY = s.y;
+    }
+
+    // Platz einer Ebene in der Reihenfolge des Einstiegs (stumme Ebenen zaehlen nicht mit); m = Anzahl der Plaetze
+    static int orderIndex (const Settings& s, int e, int layer, int& m)
+    {
+        const int row = e == EntryAuto ? EntryPad : e;
+        int idx = -1; m = 0;
+        for (int i = 0; i < kNumLayers; ++i)
+        {
+            const int l = kEntryOrder[row][i];
+            if (! muteSoloOk (s, l)) continue;
+            if (l == layer) idx = m;
+            ++m;
+        }
+        return idx;
+    }
+    // Takt, an dem Platz i von m einsetzt (verteilt auf span Takte; der letzte im letzten Takt des Aufbaus)
+    static long long slotBar (int i, int m, int span)
+    {
+        return (m <= 1 || span <= 1 || i <= 0) ? 0 : (long long) std::lround ((double) i * (double) (span - 1) / (double) (m - 1));
+    }
+
+    // Was klingt jetzt: Traegheit, Aufbau, Ausduennen, Ende. Setzt on[], gain[], boost[] und die Sonderfaelle des Einstiegs.
+    void updateScene (long long k, const Pos& p, const Settings& s, bool fresh, int offset, EventList& out)
+    {
+        const long long bs = barsSince (k);
+        const bool barStart = p.pos == 0;
+        sceneBarNow = (int) std::clamp (bs, 0LL, 1LL << 30);
+        const long long autoKey = ((long long) s.seed << 12) ^ ((long long) s.variation << 2) ^ (long long) s.genre;
+        if (fresh || autoKey != autoSeed) { autoValue = autoEntry (s); autoSeed = autoKey; }
+        const int e = s.entry == EntryAuto ? autoValue : s.entry;
+        entryInUse = e;
+        const int L = s.buildBars;
+        const bool building = s.scene && e != EntryAll && bs < L;
+        const int first = building ? kEntryLayer[e] : -1;
+
+        const bool hasEnd = s.sceneBars > 0;
+        sceneEndStep = hasEnd ? sceneStep + (long long) s.sceneBars * meter.len : (1LL << 60);
+        const int T = std::clamp (std::min (L, s.sceneBars / 2), 1, 64);   // Takte zum Ausduennen / Steigern vor dem Ende
+        const long long left = hasEnd ? (long long) s.sceneBars - bs : (1LL << 30);   // Takte bis zum Ende, der laufende mitgezaehlt
+        sceneEnded = hasEnd && k >= sceneEndStep;
+
+        // Traegheit: ein nur auf Taktanfaengen, aus erst deutlich unter der Schwelle und nach mindestens zwei Takten
+        for (int l = 0; l < kNumLayers; ++l)
+        {
+            if (fresh) { hOn[l] = levelOn (s, l); hSince[l] = k; prevOn[l] = false; continue; }
+            if (! s.inertia || ! barStart) continue;
+            if (! hOn[l] && levelOn (s, l)) { hOn[l] = true; hSince[l] = k; }
+            else if (hOn[l] && levelOff (s, l) && k - hSince[l] >= 2LL * meter.len) hOn[l] = false;
+        }
+
+        int m = 0;
+        orderIndex (s, e, kFlaeche, m);
+        for (int l = 0; l < kNumLayers; ++l)
+        {
+            const bool level = s.inertia ? hOn[l] : levelOn (s, l);
+            bool v = muteSoloOk (s, l) && (level || l == first);
+            int mm = 0;
+            const int idx = orderIndex (s, e, l, mm);
+            if (v && s.scene && e != EntryAll && idx >= 0 && bs < slotBar (idx, m, L)) v = false;              // Aufbau: noch nicht dran
+            thinned[l] = v && hasEnd && s.ending == EndFade && idx > 0 && left <= slotBar (idx, m, T);       // was zuletzt kam, geht zuerst
+            if (thinned[l] || sceneEnded) v = false;
+            on[l] = v;
+        }
+
+        // Einsatz: weich eingeblendet oder hart gesetzt; beim Ausklingen leiser werdend
+        const bool special = s.scene || s.inertia || hasEnd;
+        for (int l = 0; l < kNumLayers; ++l)
+        {
+            enterNow[l] = false;
+            if (on[l] && ! prevOn[l])
+            {
+                enterNow[l] = ! fresh && special;
+                entryStep[l] = (s.scene || (s.inertia && ! fresh)) ? k : -(1LL << 50);
+            }
+            if (! on[l] && prevOn[l] && ! fresh && special) cut (l, k, thinned[l] ? k + meter.len : k, offset, out);
+            prevOn[l] = on[l];
+
+            // Haerte: unter der Mitte eingeblendet (ganz weich ueber zwei Takte), ueber der Mitte ein kraeftiger erster Anschlag
+            const long long fadeLen = s.hardness < 0.5f ? (long long) std::lround ((0.5f - s.hardness) * 4.0f * (float) meter.len) : 0;
+            const long long t = k - entryStep[l];
+            gain[l] = (fadeLen > 0 && t >= 0 && t < fadeLen) ? 0.6f + 0.4f * (float) t / (float) fadeLen : 1.0f;
+            boost[l] = (t == 0 && s.hardness > 0.5f) ? (int) std::lround ((s.hardness - 0.5f) * 28.0f) : 0;
+            if (t == 0 && l == kBass && e == EntryBass && building) boost[l] += 14;   // Bass-Schlag: ein fetter Ton
+        }
+
+        // Dichte waechst im Aufbau; zum Ende hin duennt sie aus (ausklingend) oder steigt weiter (offen)
+        dens = building ? 0.45f + 0.55f * std::clamp ((float) bs / (float) L, 0.0f, 1.0f) : 1.0f;
+        yAdd = 0.0f;
+        if (hasEnd && left > 0 && left <= T)
+        {
+            const float r = (float) (left - 1) / (float) T;   // knapp 1 ... 0 im letzten Takt
+            if (s.ending == EndFade) { dens *= 0.45f + 0.55f * r; for (float& g : gain) g *= 0.65f + 0.35f * r; }
+            if (s.ending == EndOpen) yAdd = 0.3f * (1.0f - r);
+        }
+
+        // Sonderfaelle des Einstiegs, solange die erste Ebene allein spielt (bzw. beim Puls: den ganzen Aufbau lang)
+        const long long stage1 = slotBar (1, m, L);
+        const bool stage0 = building && bs < stage1;
+        padShy = stage0 && e == EntryPad;
+        padGrow = s.scene && e == EntryPad && stage1 > 0 && bs == stage1 && barStart && on[kFlaeche];
+        bassOverride = (building && e == EntryPulse) ? kPulseTick : (stage0 && e == EntryBass) ? (int) BassHeld : -1;
+        akzentForced = stage0 && e == EntryAkzent;
+
+        // Vorbereiten: vor dem harten Ende und vor dem Ziel einer Fahrt nach oben zieht sich der Bass zurueck,
+        // ein Stich kuendigt an; am Ziel selbst setzen alle Ebenen kraeftig neu ein
+        bool prep = hasEnd && s.ending == EndHard && bs == (long long) s.sceneBars - 1;
+        peak = false;
+        if (s.drive && s.driveY - driveAY >= 0.2f)
+        {
+            const long long arrive = s.driveFrom + (s.driveCurve == CurveWave ? s.driveBars / 2 : s.driveBars);
+            if (arrive > 0 && bs == arrive - 1) prep = true;
+            if (bs == arrive && barStart) { peak = true; for (int& b : boost) b += 10; }
+        }
+        const int lastGroup = meter.groupStart[std::max (0, meter.numGroups - 1)];
+        bassRest = prep && p.pos >= meter.len / 2;
+        prepStich = prep && lastGroup > 0 && p.pos == lastGroup;
+        if (prep && ! fresh && p.pos == meter.len / 2) cut (kBass, k, k, offset, out);
+    }
+
+    // Toene einer Ebene beenden: sofort (until <= k) oder spaetestens bei until
+    void cut (int layer, long long k, long long until, int offset, EventList& out)
+    {
+        for (int i = 0; i < numActive;)
+        {
+            auto& a = active[(size_t) i];
+            if (kOutputLayer[a.out] != layer) { ++i; continue; }
+            if (until <= k)
+            {
+                out.add (offset, a.channel, a.note, 0, a.out);
+                active[(size_t) i] = active[(size_t) --numActive];
+                continue;
+            }
+            a.endStep = std::min (a.endStep, until);
+            ++i;
+        }
+    }
+
+    // Hartes Ende: ein kurzer, kraeftiger Schlag auf dem Grundakkord der Tonart, dann Stille
+    void finalHit (const Pos& p, const Settings& s, int offset, EventList& out)
+    {
+        forceOn = true;
+        const bool minor = kShapes[std::clamp (W().ch[0].type, 0, kNumChordTypes - 1)].minor;
+        const int v = (int) (96 + 20 * s.hardness);
+        if (muteSoloOk (s, kFlaeche))
+        {
+            const int r = place (s.key, padLow (s) - 12);
+            for (int n : { r, r + 7, r + 12 + (minor ? 3 : 4), r + 19 }) noteOn (OutPadShort, n, v - 6, p.k + 2, offset, out);
+        }
+        if (muteSoloOk (s, kBass)) noteOn (OutBassShort, place (s.key, bassLow (s)), v, p.k + 2, offset, out);
+        if (muteSoloOk (s, kAkzent))
+        {
+            const int top = place (s.key, stichLow (s));
+            for (int n : { top - 12, top - 5, top }) noteOn (OutStich, n, v, p.k + 2, offset, out);
+        }
+        forceOn = false;
+    }
+
+    // ---------------------------------------------------------------- Szenenmotiv
+    // 3 bis 5 Toene aus dem Wurf, am Anfang jeder Phrase in der Gegenstimme (die ersten zwei Takte). Die Toene sind
+    // Stufen auf der Leiter der Akkordtoene, so passt sich das Motiv jeder Harmonie an. Im Wechsel der Phrasen:
+    // A, A' (einen Akkordton hoeher), B (Kontur umgekehrt), A'' (Schluss hoeher). Wenig Intensitaet: letzte Toene fallen weg.
+    struct Motif { int n = 0; int on[5] {}; int deg[5] {}; };
+    Motif motifFor (const Settings& s, long long phrase) const
+    {
+        static constexpr int rhythms[7][6] = { { 4, 0, 6, 8, 16, 0 }, { 5, 0, 4, 8, 12, 16 }, { 4, 0, 2, 4, 16, 0 }, { 5, 0, 8, 12, 14, 16 },
+                                               { 4, 0, 12, 16, 24, 0 }, { 5, 0, 3, 4, 8, 16 }, { 3, 0, 8, 16, 0, 0 } };
+        static constexpr int contours[6][4] = { { 1, 1, -1, -1 }, { 2, -1, -1, 1 }, { -1, 2, 1, -1 }, { 1, 2, -1, -2 }, { 1, -2, 1, 2 }, { -1, -1, 2, 1 } };
+        const uint32_t h = hash3 ((uint32_t) s.seed, (uint32_t) s.variation, 1409u);
+        const int* r = rhythms[h % 7];
+        const int* c = contours[(h / 7) % 6];
+        const int q = (int) (((phrase - phraseOf (sceneStep)) % 4 + 4) % 4);
+        Motif mo;
+        mo.n = r[0];
+        int d = 1 + (int) ((h / 42) % 3) + (q == 1 ? 1 : q == 2 ? 2 : 0);
+        for (int i = 0; i < mo.n; ++i)
+        {
+            if (i > 0) d += (q == 2 ? -1 : 1) * c[i - 1];
+            mo.on[i] = r[i + 1];
+            mo.deg[i] = d;
+        }
+        if (q == 3) mo.deg[mo.n - 1] += 2;
+        return mo;
+    }
+
+    // Leiter der Akkordtoene fuer die Gegenstimme (zwei Oktaven ab ihrer Lage, im Tonumfang)
+    int counterLadder (const Chord& c, const Settings& s, int* out) const
+    {
+        const ChordShape& sh = kShapes[c.type];
+        int a = 62 + (int) std::lround (s.x * 3.0f), b = a + 24;
+        const int ri = kOutputRange[OutCounter];
+        if (s.rangeOn[ri])
+        {
+            const int rlo = s.rangeLo[ri] - 12 * s.octave[kGegenstimme], rhi = s.rangeHi[ri] - 12 * s.octave[kGegenstimme];
+            a = std::max (a, rlo); b = std::min (b, rhi);
+            if (b - a < 7) { a = rlo; b = rhi; }
+        }
+        const int rootPc = (s.key + c.root) % 12;
+        int n = 0;
+        for (int m = a; m <= b && n < 16; ++m)
+            for (int i = 0; i < sh.n; ++i)
+                if ((rootPc + sh.iv[i]) % 12 == ((m % 12) + 12) % 12) { out[n++] = m; break; }
+        if (n == 0) out[n++] = place (s.key + c.root, a);
+        return n;
+    }
+
+    // Spielt das Motiv, solange der Schritt in seinen zwei Takten liegt (dann true: die normale Linie pausiert)
+    bool motifStep (long long k, const Pos& p, const Settings& s, int offset, EventList& out)
+    {
+        const long long span = std::min ((long long) 2 * meter.len, p.phraseEnd - p.phraseStart);
+        const long long rel = k - p.phraseStart;
+        if (rel < 0 || rel >= span) return false;
+        const Motif mo = motifFor (s, p.phrase);
+        const float yc = layerY (s, kGegenstimme);
+        const int count = yc >= 0.55f ? mo.n : yc >= 0.3f ? std::max (2, mo.n - 1) : std::max (2, mo.n - 2);
+        for (int i = 0; i < count; ++i)
+        {
+            const long long at = (long long) mo.on[i] * meter.len / 16;
+            if (at != rel) continue;
+            long long end = i + 1 < count ? (long long) mo.on[i + 1] * meter.len / 16 : std::max (span, p.chordEnd - p.phraseStart);
+            end = std::min (end, p.phraseEnd - p.phraseStart);
+            const Chord c = chordFor (p, kGegenstimme, s);
+            int ladder[16];
+            const int nl = counterLadder (c, s, ladder);
+            const int note = ladder[std::clamp (mo.deg[i], 0, nl - 1)];
+            noteOn (OutCounter, note, (int) (56 + 35 * yc) + (i == 0 ? 6 : 0), p.phraseStart + end + tail (end - at), offset, out);
+            releaseOthers (OutCounter, note, offset, out);
+            csNote = note; csPendingAt = -1;
+        }
+        return true;
+    }
 
     double swingDelay (long long k, const Settings& s) const
     {
@@ -632,6 +989,7 @@ private:
     }
     int chooseBass (const Settings& s, long long phrase) const
     {
+        if (bassOverride >= 0) return bassOverride;   // Einstieg: Bass-Schlag (gehalten) oder Puls
         if (s.bassPattern != BassAuto) return s.bassPattern;
         const float y = layerY (s, kBass);
         if (y < 0.15f) return BassHeld;                       // ganz duenn: lange Toene
@@ -645,6 +1003,7 @@ private:
 
     int choosePad (const Settings& s) const
     {
+        if (padShy) return PadHeld;                   // Einstieg: ein stehender Ton
         if (s.padPattern != PadAuto) return s.padPattern;
         const float y = layerY (s, kFlaeche);
         return y < 0.3f ? PadHeld : SW().pad;
@@ -667,7 +1026,8 @@ private:
     {
         for (int i = 0; i < numActive;)
         {
-            if (! layerActive (s, kOutputLayer[active[(size_t) i].out]))
+            const int l = kOutputLayer[active[(size_t) i].out];
+            if (! muteSoloOk (s, l) || (! s.inertia && ! s.scene && s.sceneBars <= 0 && ! levelOn (s, l)))
             {
                 out.add (0, active[(size_t) i].channel, active[(size_t) i].note, 0, active[(size_t) i].out);
                 active[(size_t) i] = active[(size_t) --numActive];
@@ -749,15 +1109,17 @@ private:
     // dann dem Ausgang mit dem laengeren Rest, so dass das Ende eines kurzen Tons nie einen langen abschneidet.
     void noteOn (int o, int note, int velocity, long long endStep, int offset, EventList& out)
     {
-        if (cur != nullptr && ! layerActive (*cur, kOutputLayer[o])) return;
+        const int layer = kOutputLayer[o];
+        if (cur != nullptr && ! forceOn && ! on[layer]) return;
         const int channel = cur != nullptr ? cur->channel[o] : o + 1;
         note = sounding (o, note);
+        if (! forceOn) velocity = (int) std::lround ((float) velocity * gain[layer]) + boost[layer];
         velocity = std::clamp (velocity, 1, 127);
         for (int i = 0; i < numActive; ++i)
         {
             auto& a = active[(size_t) i];
             if (a.channel != channel || a.note != note) continue;
-            if (a.startStep == nowStep)    // im selben Schritt schon angeschlagen (zusammengefaltet): nur verlaengern
+            if (a.startStep == nowStep || extendOnly)    // im selben Schritt schon angeschlagen (zusammengefaltet): nur verlaengern
             {
                 if (endStep > a.endStep) { a.endStep = endStep; a.out = (uint8_t) o; }
                 return;
@@ -793,6 +1155,11 @@ private:
     {
         // Weiter Satz wie im Orchester: Grundton und Quinte unten, Terz und Farbtoene eine Oktave hoeher
         const Chord c = chordFor (p, kFlaeche, s);
+        if (padShy && o == OutPadLong)   // Einstieg: nur ein stehender Ton, der Grundton in tiefer Lage
+        {
+            noteOn (o, place (s.key + c.root, padLow (s) - 12), velocity - 6, endStep, offset, out);
+            return;
+        }
         const ChordShape& sh = kShapes[padType (c.type, s.z)];
         const float y = layerY (s, kFlaeche);
         // VARIATION bei eigener Folge: weit, eng oder weit ohne tiefen Grundton
@@ -836,14 +1203,14 @@ private:
     bool tupferAt (long long k, const Settings& s) const
     {
         const float ya = layerY (s, kAkzent);
-        if (ya < kLayerStart[kAkzent]) return false;
+        if (ya < kLayerStart[kAkzent] && ! akzentForced) return false;
         const long long bar = floorDiv (k, meter.len);
         const int pos = (int) (k - bar * meter.len);
         if (pos % 2 != 0 || pos % 8 == 0 || meter.isGroupStart (pos)) return false;   // nur Zwischenzeiten
         const long long window = bar * 4 + pos / 8;                                   // hoechstens ein Tupfer je halben Takt
         const int slot = 2 + 2 * (hashInt (601u, window) % 3);
         if (pos % 8 != slot) return false;
-        const float prob = 0.12f + 0.5f * ya + 0.15f * s.z;
+        const float prob = 0.12f + 0.5f * ya + 0.15f * s.z + (akzentForced ? 0.3f : 0.0f);
         return (float) (hashInt (607u, window) % 1000) < prob * 1000.0f;
     }
 
@@ -887,7 +1254,17 @@ private:
 
     void accents (long long k, const Pos& p, const Settings& s, int offset, EventList& out)
     {
-        if (! layerActive (s, kAkzent)) return;
+        if (prepStich && muteSoloOk (s, kAkzent))   // Vorbereiten: ein Stich kuendigt den Wechsel an
+        {
+            forceOn = true; stich (p, s, offset, 2, 10, out); forceOn = false;
+            return;
+        }
+        if (! on[kAkzent]) return;
+        if (akzentForced && k == entryStep[kAkzent])   // Einstieg mit dem Akzent: ein Stich (hart) oder Tupfer (weich) in der Stille
+        {
+            if (cur->hardness >= 0.5f) stich (p, s, offset, 2, 8, out); else tupfer (p, s, offset, 2, 6, out);
+            return;
+        }
         const float ya = layerY (s, kAkzent);
         const bool lastBar = p.barInPhrase == phraseBars - 1;
         const int lastGroup = meter.groupStart[std::max (0, meter.numGroups - 1)];
@@ -911,16 +1288,16 @@ private:
     }
 
     // Liegetoene einer Akkordposition (Flaeche gehalten, Bass gehalten)
-    void sustained (const Pos& p, const Settings& s, int offset, EventList& out, bool restart)
+    void sustained (const Pos& p, const Settings& s, int offset, EventList& out, bool restart, unsigned mask = 3u)
     {
         const int pad = choosePad (s);
         const bool padFollow = s.follow[kFlaeche];
         const bool phraseStart = p.k == p.phraseStart;
-        if (pad == PadHeld && (padFollow || phraseStart || restart))
+        if ((mask & 1u) && pad == PadHeld && (padFollow || phraseStart || restart))
             padChord (p, s, OutPadLong, offset, padFollow ? p.chordEnd : p.phraseEnd, (int) (40 + 45 * layerY (s, kFlaeche)), out);
 
         const int bp = chooseBass (s, p.phrase);
-        if ((bp == BassHeld && (s.follow[kBass] || phraseStart || restart)) || bp == BassPedal)
+        if ((mask & 2u) && ((bp == BassHeld && (s.follow[kBass] || phraseStart || restart)) || bp == BassPedal))
         {
             const bool pedal = bp == BassPedal;
             noteOn (OutBassLong, place (s.key + (pedal ? pedalRoot() : bassRoot (chordFor (p, kBass, s))), bassLow (s)),
@@ -937,6 +1314,8 @@ private:
         curChord = p.chordIdx;
         curRoot = W().ch[p.chordIdx].root; curType = W().ch[p.chordIdx].type;
         nowStep = k; updateMask (s);
+        updateScene (k, p, s, true, 0, out);
+        if (sceneEnded) return;
         if (ppq > (double) p.chordStart * kStep + 1e-9)
             sustained (p, s, 0, out, true);
         else
@@ -956,6 +1335,32 @@ private:
             restart = true;
         }
         chaseStep = -1;
+        nowStep = k;
+        updateScene (k, p, s, false, offset, out);
+        if (sceneEnded)
+        {
+            if (k == sceneEndStep)
+            {
+                allNotesOff (out, offset);
+                if (s.ending == EndHard) finalHit (p, s, offset, out);
+            }
+            return;
+        }
+        // Dichte: im Aufbau duenner, zum Ende ausklingend duenner oder offen dichter (Schwellen bleiben beim Feld)
+        if (dens < 0.999f || yAdd > 0.001f)
+        {
+            Settings sb = s;
+            sb.y = std::clamp (s.y * dens + yAdd, 0.0f, 1.0f);
+            const Settings* saved = cur;
+            cur = &sb;
+            render (k, offset, p, restart, phrase, sb, out);
+            cur = saved;
+        }
+        else render (k, offset, p, restart, phrase, s, out);
+    }
+
+    void render (long long k, int offset, const Pos& p, bool restart, long long phrase, const Settings& s, EventList& out)
+    {
         const Wendung& w = W();
         curChord = p.chordIdx; curRoot = w.ch[p.chordIdx].root; curType = w.ch[p.chordIdx].type;
         if (p.passing && s.follow[kFlaeche]) { curRoot = (nextChordRoot (p) + 7) % 12; curType = Dom7; }
@@ -973,7 +1378,13 @@ private:
         const float yPad = layerY (s, kFlaeche), yBass = layerY (s, kBass), yArp = layerY (s, kArp);
 
         if (chordStart)
-            sustained (p, s, offset, out, restart);
+            sustained (p, s, offset, out, restart, bassRest ? 1u : 3u);
+        else if (padGrow || peak || enterNow[kFlaeche] || enterNow[kBass])   // Ebene setzt mitten im Akkord ein
+        {
+            unsigned mask = (enterNow[kFlaeche] || peak ? 1u : 0u) | (enterNow[kBass] || peak ? 2u : 0u);
+            if (padGrow && ! peak) { extendOnly = true; sustained (p, s, offset, out, true, 1u); extendOnly = false; }
+            if (mask != 0) sustained (p, s, offset, out, true, mask);
+        }
 
         // Akzente: Tupfer und Stich, bei Unruhe der fremde Ton in der Mitte des Akkords
         accents (k, p, s, offset, out);
@@ -994,21 +1405,23 @@ private:
             const Chord c = chordFor (p, kBass, s);
             const ChordShape& sh = kShapes[c.type];
             const int low = bassLow (s);
-            int root = place (s.key + (pattern0 (s, phrase) == BassPedal ? pedalRoot() : bassRoot (c)), low);
+            const int pat = pattern0 (s, phrase);
+            int root = place (s.key + ((pat == BassPedal || pat == kPulseTick) ? pedalRoot() : bassRoot (c)), low);
             const int vel = (int) (58 + 38 * yBass) + (group ? 8 : 0) + jitter (k, kBass, 3);
             const int pattern = pattern0 (s, phrase);
             const int bo = bassOut (pattern);
             const bool lastEighth = k == p.chordEnd - 2;
             // Chromatische Annaeherung an den naechsten Grundton im letzten Achtel des Akkords
             const bool approach = s.follow[kBass] && (z >= 0.3f || pattern == BassFunk) && lastEighth
-                                  && pattern != BassHeld && pattern != BassWalking && pattern != BassHeartbeat;
+                                  && pattern != BassHeld && pattern != BassWalking && pattern != BassHeartbeat && pattern != kPulseTick;
             if (approach)
             {
                 const int target = place (s.key + nextRoot (p), low);
                 root = target - 1 >= low ? target - 1 : target + 1;
             }
-            switch (pattern)
+            switch (bassRest ? -1 : pattern)   // Vorbereiten: in der zweiten Takthaelfte schweigt der Bass
             {
+                case kPulseTick:   if (beat) noteOn (bo, root, vel - (group ? 0 : 8), k + 1, offset, out); break;   // Ticken in Vierteln
                 case BassHalf:     if (p.pos % 8 == 0 || approach) noteOn (bo, root, vel, k + (approach ? 2 : 7), offset, out); break;
                 case BassQuarter:  if (beat || approach) noteOn (bo, root, vel, k + (approach ? 2 : 3), offset, out); break;
                 case BassEighth:   if (p.pos % 2 == 0) noteOn (bo, root, vel, k + 2, offset, out); break;
@@ -1093,7 +1506,7 @@ private:
         }
 
         // --- Arp / Figur
-        if (layerActive (s, kArp))
+        if (on[kArp])
         {
             const int fig = chooseArp (s, phrase);
             int rate = s.arpRate == RateQuarter ? 4 : s.arpRate == RateEighth ? 2 : s.arpRate == RateSixteenth ? 1
@@ -1178,7 +1591,7 @@ private:
         }
 
         // --- Gegenstimme: ruhige Linie aus Akkordtoenen, schrittweise gefuehrt
-        counterLine (k, p, s, offset, chordStart, out);
+        counterLine (k, p, s, offset, chordStart || enterNow[kGegenstimme], out);
     }
 
     // Dynamik als CC: Grundwert folgt der Intensitaet, darauf atmende Boegen (Grundlage: Dynamikkurven der eigenen Vorlagen,
@@ -1193,10 +1606,10 @@ private:
             const int layer = kOutputLayer[o];
             const int channel = s.channel[o];
             if ((sent >> channel) & 1u) continue;
-            if (! layerActive (s, layer)) continue;
+            if (! on[layer]) continue;
             sent |= 1u << channel;
             const float yl = layerY (s, layer);
-            const float base = 50.0f + 40.0f * yl;
+            const float base = (50.0f + 40.0f * yl) * gain[layer];
             float value = base;
             if (s.genre == GenrePopRock) value += 2.0f * std::sin (3.14159265f * (float) ((k - p.chordStart) % 16) / 16.0f);
             else
@@ -1300,8 +1713,9 @@ private:
 
     void counterLine (long long k, const Pos& p, const Settings& s, int offset, bool chordStart, EventList& out)
     {
-        if (! layerActive (s, kGegenstimme)) { csNote = -1; csPendingAt = -1; return; }
+        if (! on[kGegenstimme]) { csNote = -1; csPendingAt = -1; return; }
         if (s.genre == GenrePopRock) { leadHook (k, p, s, offset, out); return; }
+        if (s.motif && motifStep (k, p, s, offset, out)) return;
         const float yc = layerY (s, kGegenstimme);
         const int vel = (int) (50 + 35 * yc);
         if (k == csPendingAt && csPending >= 0)                    // Vorhalt loest sich auf
@@ -1346,6 +1760,16 @@ private:
     int csNote = -1, csPending = -1;                 // Gegenstimme: letzter Ton, aufzuloesender Vorhalt
     long long csPendingAt = -1, csPendingEnd = 0;
     int phraseBars = kPhraseBars;
+    // Szene
+    long long sceneStep = 0, sceneEndStep = 1LL << 60, autoSeed = -1;
+    int autoValue = EntryPad, entryInUse = EntryPad, sceneBarNow = -1, bassOverride = -1;
+    bool sceneEnded = false, padShy = false, padGrow = false, akzentForced = false, bassRest = false, prepStich = false, peak = false;
+    bool forceOn = false, extendOnly = false;
+    bool on[kNumLayers] {}, prevOn[kNumLayers] {}, hOn[kNumLayers] {}, enterNow[kNumLayers] {}, thinned[kNumLayers] {};
+    long long hSince[kNumLayers] {}, entryStep[kNumLayers] { -(1LL << 50), -(1LL << 50), -(1LL << 50), -(1LL << 50), -(1LL << 50) };
+    float gain[kNumLayers] { 1.0f, 1.0f, 1.0f, 1.0f, 1.0f };
+    int boost[kNumLayers] {};
+    float dens = 1.0f, yAdd = 0.0f, curX = 0.0f, curY = 0.0f, driveAY = 0.0f;
     Meter meter;
     Wendung custom {};
     const Settings* cur = nullptr;   // nur waehrend process() gueltig

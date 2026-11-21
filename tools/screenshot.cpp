@@ -18,6 +18,13 @@ public:
         // Arp mit Tonumfang einer Floete
         for (auto [id, v] : { std::pair<const char*, float> { "umfang3", 1.0f }, { "tief3", 60.0f }, { "hoch3", 96.0f } })
             if (auto* prm = processor.apvts.getParameter (id)) prm->setValueNotifyingHost (prm->convertTo0to1 (v));
+        // Szene: Fahrt nach oben, 32 Takte mit hartem Ende, gerade in Takt 6 (Einstieg Bass-Schlag)
+        for (auto [id, v] : { std::pair<const char*, float> { "fahrt", 1.0f }, { "fahrtX", 0.72f }, { "fahrtY", 0.88f }, { "szenenLaenge", 4.0f }, { "ende", 0.0f } })
+            if (auto* prm = processor.apvts.getParameter (id)) prm->setValueNotifyingHost (prm->convertTo0to1 (v));
+        processor.sceneBar.store (5);
+        processor.sceneEntry.store (stromscore::EntryBass);
+        processor.pointX.store (0.26f + (0.72f - 0.26f) * 0.625f);
+        processor.pointY.store (0.58f + (0.88f - 0.58f) * 0.625f);
         processor.hostPlaying.store (true);
         const int w = 4;   // "Agentenfarbe"
         processor.wendung.store (w);

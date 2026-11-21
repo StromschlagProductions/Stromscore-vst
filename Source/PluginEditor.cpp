@@ -46,6 +46,25 @@ void MoodPad::paint (juce::Graphics& g)
     // Punkt mit Unruhe-Ring: groesser und zittriger mit mehr Unruhe
     const float px = a.getX() + x * a.getWidth();
     const float py = a.getBottom() - y * a.getHeight();
+    // Fahrt: gestrichelter Weg von A nach B, B als Ring
+    if (showB)
+    {
+        const float bpx = a.getX() + bx * a.getWidth(), bpy = a.getBottom() - by * a.getHeight();
+        juce::Path path, dashed;
+        path.startNewSubPath (px, py);
+        path.lineTo (bpx, bpy);
+        const float dashes[] = { 4.0f, 4.0f };
+        juce::PathStrokeType (1.3f).createDashedStroke (dashed, path, dashes, 2);
+        g.setColour (accent.withAlpha (0.65f));
+        g.fillPath (dashed);
+        g.setColour (panel);
+        g.fillEllipse (bpx - 8.0f, bpy - 8.0f, 16.0f, 16.0f);
+        g.setColour (accent);
+        g.drawEllipse (bpx - 8.0f, bpy - 8.0f, 16.0f, 16.0f, 2.0f);
+        g.setFont (juce::FontOptions (10.5f, juce::Font::bold));
+        g.drawText ("B", juce::Rectangle<float> (bpx - 8.0f, bpy - 8.0f, 16.0f, 16.0f), juce::Justification::centred);
+    }
+
     const float radius = 9.0f + z * 24.0f;
     const float amp = z * 0.22f;
     const float phase = (float) (juce::Time::getMillisecondCounter() % 100000) * 0.004f * (0.3f + z);
@@ -64,6 +83,22 @@ void MoodPad::paint (juce::Graphics& g)
     g.strokePath (ring, juce::PathStrokeType (1.5f));
     g.setColour (accent);
     g.fillEllipse (px - 6.0f, py - 6.0f, 12.0f, 12.0f);
+    if (showB)   // mit Fahrt ist der Punkt A beschriftet
+    {
+        g.setColour (juce::Colours::black);
+        g.setFont (juce::FontOptions (9.5f, juce::Font::bold));
+        g.drawText ("A", juce::Rectangle<float> (px - 6.0f, py - 6.0f, 12.0f, 12.0f), juce::Justification::centred);
+    }
+
+    // Wo die Musik gerade ist (waehrend einer Fahrt)
+    if (showNow)
+    {
+        const float nx = a.getX() + nowX * a.getWidth(), ny = a.getBottom() - nowY * a.getHeight();
+        g.setColour (text);
+        g.fillEllipse (nx - 4.5f, ny - 4.5f, 9.0f, 9.0f);
+        g.setColour (panel);
+        g.drawEllipse (nx - 4.5f, ny - 4.5f, 9.0f, 9.0f, 1.5f);
+    }
 
     // Feld-Karte: beim Ueberfahren die naechstgelegenen Wendungen, klein und blass
     if (numHover > 0 && ! dragging)
@@ -376,7 +411,7 @@ static juce::AttributedString buildHelp (juce::Colour text, juce::Colour accent,
     s.append (u8 ("Hilfe · v") + juce::String (PLUGIN_VERSION_TEXT) + "\n\n", juce::Font (juce::FontOptions (17.0f, juce::Font::bold)), accent);
 
     head ("Was das Plugin macht");
-    body ("Es erzeugt Musik für Untermalung in fünf Ebenen und gibt sie als MIDI aus: Fläche, Bass, Arp, Akzent und Gegenstimme, auf bis zu acht frei wählbaren MIDI-Kanälen. Alle Ebenen sind tonal gedacht, für tongebende Instrumente; Schlagwerk gehört nicht dazu. Die Klänge kommen aus deinen eigenen Instrumenten. Die Noten sind als Ausgangspunkt gedacht, den du weiter bearbeitest. Es läuft im Takt des Projekts: Wiedergabe starten, springen oder loopen, und es spielt an der richtigen Stelle weiter. Gleiche Einstellungen ergeben immer dieselben Noten.");
+    body ("Es erzeugt Musik für Untermalung in fünf Ebenen und gibt sie als MIDI aus: Fläche, Bass, Arp, Akzent und Gegenstimme, auf bis zu acht frei wählbaren MIDI-Kanälen. Alle Ebenen sind tonal gedacht, für tongebende Instrumente; Schlagwerk gehört nicht dazu. Die Klänge kommen aus deinen eigenen Instrumenten. Die Noten sind als Ausgangspunkt gedacht, den du weiter bearbeitest. Es läuft im Takt des Projekts: Wiedergabe starten, springen oder loopen, und es spielt an der richtigen Stelle weiter. Mit dem Start der Wiedergabe beginnt eine Szene mit Einstieg, Aufbau und auf Wunsch einem Ende. Gleiche Einstellungen ergeben immer dieselben Noten.");
 
     head ("Woher die Musik kommt");
     bold ("Es verwendet keine KI. ");
@@ -390,6 +425,20 @@ static juce::AttributedString buildHelp (juce::Colour text, juce::Colour accent,
     body ("Ziehe den Punkt durch das Feld. Waagerecht ist die FÄRBUNG: links dunkel (Bedrohung, Trauer, Lauern), rechts hell (Wärme, Staunen, Triumph). Senkrecht ist die INTENSITÄT: unten ruhig und dünn, oben aufgewühlt und dicht. Unten in der Mitte liegt RUHE, der neutrale Ausgangspunkt. Färbung, Intensität und Unruhe stehen rechts in der Akkord-Anzeige laufend in Prozent.");
     body ("Mit dem Mausrad über dem Feld (oder per Controller) änderst du die dritte Achse, die UNRUHE. Sie zeigt sich als Ring um den Punkt: Je größer und zittriger, desto mehr Reibung, Dissonanz, Halbtöne und verschobene Betonungen. Bei wenig Intensität sind es einzelne fremde Töne, bei viel Intensität kratzt der ganze Satz.");
     body ("Alle drei Achsen lassen sich automatisieren. So fährst du durch eine Szene: langsam vom Lauern in die Panik und am Ende in die Erlösung.");
+
+    head ("Szene: Einstieg, Aufbau und Ende");
+    body ("Eine Szene beginnt mit dem Start der Wiedergabe. Springst du während der Wiedergabe nach vorn oder läuft ein Loop, der nicht vor den Start zurückspringt, geht dieselbe Szene weiter. Stoppen und neu starten beginnt eine neue Szene, ebenso ein Sprung vor den Start. Die herausgezogene MIDI-Datei beginnt immer mit einer Szene.");
+    body ("Mit AUFBAU spielt am Anfang nur die Ebene des EINSTIEGS. Die anderen folgen nacheinander auf Taktgrenzen, bis nach 4, 8 oder 16 Takten alles da ist; dabei wird die Musik von dünn zu dicht. Einstiege: Fläche, schüchtern (ein einzelner stehender Ton, der später zum Akkord wird), Bass-Schlag (ein tiefer Ton, kräftig gesetzt), Puls (kurze Viertel auf dem Grundton, wie ein Ticken, den ganzen Aufbau lang), Arpeggio, Akzent (ein Stich oder Tupfer in der Stille), Gegenstimme oder alles zugleich. Danach kommen die verwandten Ebenen: Beginnt der Bass, folgt das Arpeggio, dann die Fläche, zuletzt Akzent und Gegenstimme. Gewählt hat immer Vorrang. Auf AUTO würfelt Stromscore den Einstieg, passend zu Genre und Stimmung und nur aus Ebenen, die gerade spielen können. NEU WÜRFELN ergibt einen anderen Einstieg und ein anderes Motiv; derselbe Wurf ergibt immer dasselbe. Die Ebene des Einstiegs spielt im Aufbau auch dann, wenn die Intensität für sie eigentlich zu niedrig ist; danach gelten wieder die normalen Schwellen. Aus: alle Ebenen setzen gleich ein, wie vor Version 1.3.");
+    body ("HÄRTE bestimmt, wie eine Ebene einsetzt: unter 50 % weich eingeblendet (ganz links über zwei Takte), über 50 % mit einem kräftigen ersten Anschlag. Das gilt im Aufbau und immer, wenn eine Ebene mit steigender Intensität dazukommt. Ist die Dynamik per CC eingeschaltet, folgt sie mit.");
+    body ("Mit LÄNGE endet die Szene nach 8 bis 64 Takten. ENDE wählt, wie: HART spielt bis zum Schluss mit allen Ebenen; im letzten Takt zieht sich der Bass zurück und ein Stich kündigt an, dann kommt ein kurzer, kräftiger Schlag auf dem Grundakkord und danach Stille. AUSKLINGEND lässt die Ebenen nacheinander gehen, was zuletzt kam, zuerst, und die Ebene des Einstiegs klingt bis zum Ende. OFFEN wird zum Schluss noch dichter und bricht dann ohne Schlussschlag ab, die Spannung bleibt stehen. Unbegrenzt: Die Musik läuft weiter.");
+    note ("Rechts in der Leiste FAHRT steht während der Wiedergabe der Stand der Szene: Takt, Einstieg, Aufbau, Fahrt und wie viele Takte bis zum Ende bleiben.");
+
+    head ("Fahrt von A nach B");
+    body ("Mit FAHRT wandert die Musik selbst vom Punkt im Feld (A) zu einem Ziel (B). B erscheint als Ring im Stimmungsfeld; gezogen wird jeweils der Punkt, der näher an der Maus liegt. START legt fest, wann die Fahrt beginnt (sofort oder ab Takt 5, 9, 17, 33), DAUER, wie lange sie braucht, KURVE den Verlauf: gleichmäßig, erst langsam und dann schnell, in vier Stufen oder hin und zurück (zur Mitte der Dauer bei B, am Ende wieder bei A). Danach bleibt die Musik am Ziel. Während der Wiedergabe zeigt ein kleiner Punkt, wo die Musik gerade ist; die Werte in der Akkord-Anzeige folgen ihm.");
+    body ("Weil Stromscore das Ziel kennt, bereitet es eine Fahrt nach oben vor: Im Takt vor dem Ziel zieht sich der Bass in der zweiten Hälfte zurück und ein Stich kündigt an, am Ziel setzen Fläche und Bass kräftig neu ein. Von Hand fahren und Automation gehen weiterhin; die Fahrt geht dann vom aktuellen Punkt A aus.");
+
+    head ("Trägheit");
+    body ("Damit eine Ebene nicht an- und ausgeht, wenn der Punkt an ihrer Schwelle wackelt, schalten die Ebenen nur auf Taktanfängen. Eine Ebene geht erst wieder aus, wenn die Intensität einige Prozent unter ihre Schwelle fällt, und frühestens nach zwei Takten. Mute und Solo wirken sofort.");
 
     head ("Genre: Score oder 80er Pop-Rock");
     body ("Die beiden Knöpfe neben STIMMUNG wählen das Vokabular. Score enthält die Wendungen für Filmmusik, von Lauern bis Triumph, orchestral und mit 80er-Synth-Farben. 80er Pop-Rock enthält Powerchord-Riffs, Hi-NRG- und Galopp-Bass, SID-Arpeggios, gehackte Flächen und Hymnen-Wendungen wie ♭VI – ♭VII – I, dazu Disco-Funk und Fernsehmusik um 1980: Septakkorde mit Oktav-Bass, Quintfall-Sequenzen in Moll wie bei einem Teufelsgeiger und sehnsüchtige Balladen. Das Stimmungsfeld funktioniert in beiden gleich: links dunkel, rechts hell, oben aufgewühlt. Alle anderen Funktionen bleiben, auch die eigene Folge, die dann den Pop-Rock-Stil leiht.");
@@ -414,7 +463,7 @@ static juce::AttributedString buildHelp (juce::Colour text, juce::Colour accent,
 
     head ("Die fünf Ebenen");
     body ("Oben in jedem Kasten stehen der Name, M (Mute), S (Solo) wie in Studio One und die Lampe, die bei jedem Ton leuchtet. Bei Fläche, Bass und Akzent sind es zwei Lampen, eine je Kanal. Mute lässt die Ebene schweigen, Solo lässt nur die Solo-Ebenen spielen, auch mehrere gleichzeitig. So kannst du zum Beispiel nur mit dem Bass oder nur mit einer Fläche beginnen. Die Beschreibung jeder Ebene steht im Tooltip über ihrem Kasten.");
-    body ("Fläche und Bass spielen immer, die anderen Ebenen setzen mit der Intensität ein: Arp ab 25 %, Akzent ab 25 % oder bei Unruhe, Gegenstimme ab 15 %. Ab wann eine Ebene gerade einsetzt, steht im Regler INTENSITÄT hinter dem Wert, etwa „ab 25 %“ oder „immer“. Gemeint ist die Intensität im Stimmungsfeld: Darunter schweigt die Ebene. Beim Akzent stehen zwei Werte, erst der Tupfer, dann der Stich, etwa „ab 25 / 50 %“. Der Regler der Ebene verschiebt diese Schwellen. Der Regler INTENSITÄT unten in jedem Kasten verschiebt die Intensität nur für diese Ebene. In der Mitte folgt sie dem Feld. Weniger macht sie dünner, beim Bass bis zu langen Tönen. Mehr macht sie dichter, beim Bass bis zu durchgehenden Achteln auf einem Ton; die Ebene setzt dann auch bei ruhiger Stimmung ein. Die übrigen Ebenen bleiben dabei, wie das Feld sie vorgibt. Doppelklick setzt den Regler auf die Mitte.");
+    body ("Fläche und Bass spielen immer, die anderen Ebenen setzen mit der Intensität ein: Arp ab 25 %, Akzent ab 25 % oder bei Unruhe, Gegenstimme ab 15 %. Ab wann eine Ebene gerade einsetzt, steht im Regler INTENSITÄT hinter dem Wert, etwa „ab 25 %“ oder „immer“. Gemeint ist die Intensität im Stimmungsfeld: Darunter schweigt die Ebene. Beim Akzent stehen zwei Werte, erst der Tupfer, dann der Stich, etwa „ab 25 / 50 %“. Der Regler der Ebene verschiebt diese Schwellen. Der Regler INTENSITÄT unten in jedem Kasten verschiebt die Intensität nur für diese Ebene. In der Mitte folgt sie dem Feld. Weniger macht sie dünner, beim Bass bis zu langen Tönen. Mehr macht sie dichter, beim Bass bis zu durchgehenden Achteln auf einem Ton; die Ebene setzt dann auch bei ruhiger Stimmung ein. Die übrigen Ebenen bleiben dabei, wie das Feld sie vorgibt. Doppelklick setzt den Regler auf die Mitte. Mit AUFBAU kommen die Ebenen am Anfang einer Szene nacheinander dazu (siehe „Szene“).");
 
     head ("MIDI-Kanäle, lang und kurz");
     body ("Jede Ebene hat ein Auswahlfeld für ihren MIDI-Kanal (1 bis 16). Mehrere Ebenen dürfen sich einen Kanal teilen: Stellst du überall Kanal 1 ein, spielt alles auf einem einzigen Instrument, zum Beispiel einem Klavier. Treffen dabei zwei Ebenen denselben Ton, schneidet keine die andere ab.");
@@ -436,7 +485,8 @@ static juce::AttributedString buildHelp (juce::Colour text, juce::Colour accent,
     body ("Im Menü des CC-Knopfs schaltest du unter „Ausgabe an die Spuren“ die Dynamik ein. Dann bekommt jeder benutzte Kanal CC 1 (Dynamik) und CC 11 (Ausdruck), wie es Orchester-Libraries erwarten; beide Nummern lassen sich dort ändern oder abschalten. Der Grundwert folgt der Intensität, darauf liegen atmende Bögen von einem bis vier Vierteln, im Score weiter und bei Unruhe mit einem Akzent beim Akkordwechsel, im Pop-Rock fast flach. Das ist getrennt von den Controllern am Eingang: Dein Controller bewegt das Stimmungsfeld, die Ausgabe geht an deine Instrumente. Für Synth-Klänge lässt du die Dynamik besser aus, weil CC 1 dort oft ein Vibrato steuert.");
 
     head ("Gegenstimme");
-    body ("Die fünfte Ebene ist die einzige lange Linie, gedacht für Horn, Cello, Oboe oder ein Lead-Instrument. Sie liegt in der Mitte, zwischen Tupfer und Stich, damit sich nichts überschneidet. Sie geht schrittweise auf Akkordtönen von Akkord zu Akkord und bevorzugt Terz und Septime. In dunkler Färbung neigt sie nach unten, in heller nach oben. Bei wenig Intensität wechselt sie nur mit den Akkorden, bei mehr alle zwei Takte, aufgewühlt in Halben. Bei Unruhe kommt sie mit einem Vorhalt von oben in den Akkord. Mit LEGATO an überlappen die Töne minimal, damit Legato-Instrumente sie gebunden spielen; aus setzen sie kurz vor dem nächsten Ton ab. Sie ist keine fertige Melodie, sondern ein roter Faden für deine eigene.");
+    body ("Die fünfte Ebene ist die einzige lange Linie, gedacht für Horn, Cello, Oboe oder ein Lead-Instrument. Sie liegt in der Mitte, zwischen Tupfer und Stich, damit sich nichts überschneidet. Sie geht schrittweise auf Akkordtönen von Akkord zu Akkord und bevorzugt Terz und Septime. In dunkler Färbung neigt sie nach unten, in heller nach oben. Bei wenig Intensität wechselt sie nur mit den Akkorden, bei mehr alle zwei Takte, aufgewühlt in Halben. Bei Unruhe kommt sie mit einem Vorhalt von oben in den Akkord. Mit LEGATO überlappen die Töne minimal, damit Legato-Instrumente sie gebunden spielen; ohne setzen sie kurz vor dem nächsten Ton ab. Sie ist keine fertige Melodie, sondern ein roter Faden für deine eigene.");
+    body ("Mit MOTIV spielt die Gegenstimme am Anfang jeder Phrase eine kurze Figur aus drei bis fünf Tönen, die ersten zwei Takte lang. Die Figur ist gewürfelt (NEU WÜRFELN bei SZENE) und kehrt wieder, im Wechsel der Phrasen abgewandelt: wie zuvor, einen Akkordton höher, mit umgekehrter Richtung, mit höherem Schluss. Die Töne sind Stufen auf den Akkordtönen, so passt sich die Figur jeder Harmonie an. Bei wenig Intensität fallen die letzten Töne weg. Danach geht die ruhige Linie weiter. Im Pop-Rock spielt statt des Motivs die Hook-Linie.");
 
     head ("Durchgänge");
     body ("Mit DURCHGÄNGE erklingt bei viel Intensität (ab 60 %) auf dem letzten Schlag eines Akkords kurz die Dominante des nächsten Akkords. Das zieht in den Wechsel hinein. Es gilt für Wendungen und eigene Folge und lässt sich jederzeit abschalten.");
@@ -460,7 +510,7 @@ static juce::AttributedString buildHelp (juce::Colour text, juce::Colour accent,
 
     head ("Allgemein");
     body ("Doppelklick auf einen Drehregler oder Strg-Klick setzt ihn auf den Standardwert zurück. Look: Dunkel / Hell umschalten, die Wahl wird mit dem Projekt gespeichert. Das Fenster ist am rechten unteren Rand skalierbar (50–300 %).");
-    note ("Bei Stopp, Sprung, Reset oder Bypass werden alle klingenden Noten beendet, zusätzlich geht auf jedem Kanal ein „Alle Noten aus“ hinaus. Das Ergebnis hängt nur von der Projektposition ab, nicht von der Puffergröße.");
+    note ("Bei Stopp, Sprung, Reset oder Bypass werden alle klingenden Noten beendet, zusätzlich geht auf jedem Kanal ein „Alle Noten aus“ hinaus. Das Ergebnis hängt nur vom Start der Szene, der Projektposition und den Einstellungen ab, nicht von der Puffergröße.");
 
     head ("Idee und Konzept");
     body ("Lars Eickstädt, Stromschlag Audio");
@@ -719,12 +769,93 @@ StromscoreEditor::StromscoreEditor (StromscoreProcessor& p) : AudioProcessorEdit
         content.addAndMakeVisible (lv);
     }
     layers[2].rowLabel[1] = "Tempo";
-    layers[4].rowLabel[1] = "Legato";
     layers[4].legatoButton.setVisible (true);
     layers[4].legatoButton.setClickingTogglesState (true);
-    layers[4].legatoButton.onStateChange = [this] { layers[4].legatoButton.setButtonText (layers[4].legatoButton.getToggleState() ? "an" : "aus"); };
     layers[4].legatoButton.setTooltip (u8 ("An: jeder Ton klingt bis zum nächsten und überlappt ihn minimal, so spielen Legato-Patches gebunden. Aus: die Töne setzen kurz vor dem nächsten ab."));
     legatoAttachment = std::make_unique<APVTS::ButtonAttachment> (processor.apvts, "legato", layers[4].legatoButton);
+    layers[4].rowLabel[1] = "Linie";
+    layers[4].legatoButton.setButtonText ("Legato");
+    layers[4].motifButton.setVisible (true);
+    layers[4].motifButton.setClickingTogglesState (true);
+    layers[4].motifButton.setButtonText ("Motiv");
+    layers[4].motifButton.setTooltip (u8 ("Motiv: am Anfang jeder Phrase spielt die Gegenstimme eine kurze Figur aus drei bis fünf Tönen, gewürfelt mit „Neu würfeln“. Sie kehrt wieder und wird abgewandelt: wie zuvor, einen Akkordton höher, umgekehrt, mit höherem Schluss. Die Töne folgen der Harmonie. Bei wenig Intensität fallen die letzten Töne weg. Aus: nur die ruhige Linie."));
+    motifAttachment = std::make_unique<APVTS::ButtonAttachment> (processor.apvts, "motiv", layers[4].motifButton);
+
+    // Szene: Aufbau, Einstieg, Wurf, Haerte, Laenge, Ende
+    auto small = [this] (juce::Label& l, const juce::String& t)
+    {
+        l.setText (t, juce::dontSendNotification);
+        l.setJustificationType (juce::Justification::centredLeft);
+        l.setFont (juce::FontOptions (11.5f));
+        content.addAndMakeVisible (l);
+    };
+    small (sceneLabel, "SZENE"); small (driveLabel, "FAHRT");
+    small (entryLabel, "Einstieg"); small (lengthLabel, u8 ("Länge")); small (endLabel, "Ende");
+    small (startLabel, "Start"); small (durLabel, "Dauer"); small (curveLabel, "Kurve");
+    small (sceneStatus, {});
+    sceneStatus.setFont (juce::FontOptions (12.0f));
+    sceneStatus.setMinimumHorizontalScale (0.8f);
+    for (auto* b : { &sceneButton, &driveButton }) { b->setClickingTogglesState (true); content.addAndMakeVisible (b); }
+    sceneButton.setButtonText ("Aufbau");
+    driveButton.setButtonText ("Fahrt");
+    sceneAttachment = std::make_unique<APVTS::ButtonAttachment> (processor.apvts, "aufbau", sceneButton);
+    driveAttachment = std::make_unique<APVTS::ButtonAttachment> (processor.apvts, "fahrt", driveButton);
+    diceButton.setButtonText (u8 ("Neu würfeln"));
+    diceButton.onClick = [this]
+    {
+        if (auto* prm = processor.apvts.getParameter ("wurf"))
+        {
+            const int now = juce::roundToInt (processor.apvts.getRawParameterValue ("wurf")->load());
+            prm->beginChangeGesture();
+            prm->setValueNotifyingHost (prm->convertTo0to1 ((float) ((now + 1) % 10000)));
+            prm->endChangeGesture();
+        }
+    };
+    content.addAndMakeVisible (diceButton);
+    auto box = [this] (juce::ComboBox& b, const juce::StringArray& items, std::unique_ptr<APVTS::ComboBoxAttachment>& att, const char* id)
+    {
+        b.addItemList (items, 1);
+        content.addAndMakeVisible (b);
+        att = std::make_unique<APVTS::ComboBoxAttachment> (processor.apvts, id, b);
+    };
+    box (buildBox, StromscoreProcessor::buildNames(), buildAttachment, "aufbauTakte");
+    box (entryBox, StromscoreProcessor::entryNames(), entryAttachment, "einstieg");
+    box (lengthBox, StromscoreProcessor::sceneLengthNames(), lengthAttachment, "szenenLaenge");
+    box (endBox, StromscoreProcessor::endingNames(), endAttachment, "ende");
+    box (startBox, StromscoreProcessor::driveStartNames(), startAttachment, "fahrtStart");
+    box (durBox, StromscoreProcessor::driveBarsNames(), durAttachment, "fahrtTakte");
+    box (curveBox, StromscoreProcessor::curveNames(), curveAttachment, "fahrtKurve");
+    hardness.setSliderStyle (juce::Slider::LinearBar);
+    content.addAndMakeVisible (hardness);
+    hardnessAttachment = std::make_unique<APVTS::SliderAttachment> (processor.apvts, "haerte", hardness);
+    hardness.textFromValueFunction = [] (double v)
+    {
+        const int p = juce::roundToInt (v * 100.0);
+        return u8 ("Härte ") + juce::String (p) + " %" + (p < 40 ? u8 (" · weich") : p > 60 ? u8 (" · hart") : juce::String());
+    };
+    hardness.updateText();
+    hardness.setDoubleClickReturnValue (true, 0.5);
+
+    sceneButton.setTooltip (u8 ("Aufbau: Die Szene beginnt mit dem Start der Wiedergabe. Zuerst spielt nur die Ebene des Einstiegs, die anderen folgen nacheinander auf Taktgrenzen, bis nach der eingestellten Zahl von Takten alles da ist. Dabei wird die Musik dichter. Aus: alle Ebenen setzen gleich ein."));
+    buildBox.setTooltip (u8 ("Wie lange der Aufbau dauert: 4, 8 oder 16 Takte bis alle Ebenen spielen."));
+    entryBox.setTooltip (u8 ("Womit die Szene beginnt: ein einzelner stehender Ton der Fläche, ein Bass-Schlag, ein Puls in Vierteln, das Arpeggio, ein Akzent in der Stille, die Gegenstimme oder alles zugleich. Danach folgen die verwandten Ebenen. Auto würfelt passend zu Genre und Stimmung, nur aus Ebenen, die gerade spielen können."));
+    diceButton.setTooltip (u8 ("Neuer Wurf: ein anderer Einstieg bei Auto und ein anderes Motiv der Gegenstimme. Gleicher Wurf, gleiches Ergebnis; er wird mit dem Projekt gespeichert."));
+    hardness.setTooltip (u8 ("Wie die Ebenen einsetzen. Unter 50 % weich eingeblendet (ganz links über zwei Takte), über 50 % mit einem kräftigen ersten Anschlag. Gilt auch, wenn eine Ebene mit steigender Intensität dazukommt. Doppelklick: Mitte."));
+    lengthBox.setTooltip (u8 ("Länge der Szene ab dem Start der Wiedergabe. Unbegrenzt: die Musik läuft weiter. Mit Länge endet sie nach dieser Zahl von Takten, wie unter „Ende“ eingestellt."));
+    endBox.setTooltip (u8 ("Hart: Bis zum Schluss spielen alle Ebenen, im letzten Takt zieht sich der Bass zurück und ein Stich kündigt an, dann ein kurzer, kräftiger Schlag und Stille. Ausklingend: Die Ebenen gehen nacheinander, was zuletzt kam, zuerst; die erste Ebene klingt bis zum Ende. Offen: Die Musik wird zum Schluss noch dichter und bricht dann ohne Schlussschlag ab."));
+    driveButton.setTooltip (u8 ("Fahrt von A nach B: Die Musik wandert selbst vom Punkt im Feld (A) zum Ziel (B). Ziehe B im Stimmungsfeld an seinen Platz (der Punkt, der näher an der Maus liegt, wird gezogen). Führt die Fahrt nach oben, bereitet die Musik das Ziel vor: Der Bass zieht sich zurück, ein Stich kündigt an, am Ziel setzen alle Ebenen kräftig ein."));
+    startBox.setTooltip (u8 ("Wann die Fahrt beginnt, gezählt ab dem Start der Wiedergabe."));
+    durBox.setTooltip (u8 ("Wie lange die Fahrt von A nach B dauert."));
+    curveBox.setTooltip (u8 ("Gleichmäßig; erst langsam, dann schnell; in vier Stufen; oder hin und zurück (zur Mitte der Dauer bei B, am Ende wieder bei A)."));
+    sceneStatus.setTooltip (u8 ("Stand der Szene: Takt seit dem Start der Wiedergabe, Einstieg, Aufbau und Ende."));
+
+    for (int a = 0; a < 2; ++a)
+        targetAttachment[a] = std::make_unique<juce::ParameterAttachment> (*processor.apvts.getParameter (a == 0 ? "fahrtX" : "fahrtY"),
+            [this, a] (float v) { (a == 0 ? pad.bx : pad.by) = v; pad.repaint(); }, nullptr);
+    for (auto& t : targetAttachment) t->sendInitialUpdate();
+    pad.onDragStartB = [this] { targetAttachment[0]->beginGesture(); targetAttachment[1]->beginGesture(); };
+    pad.onDragB = [this] (float nx, float ny) { targetAttachment[0]->setValueAsPartOfGesture (nx); targetAttachment[1]->setValueAsPartOfGesture (ny); };
+    pad.onDragEndB = [this] { targetAttachment[0]->endGesture(); targetAttachment[1]->endGesture(); };
     layers[0].combo1.addItemList (StromscoreProcessor::padPatternNames(), 1);
     layers[1].combo1.addItemList (StromscoreProcessor::bassPatternNames(), 1);
     layers[2].combo1.addItemList (StromscoreProcessor::arpFigureNames(), 1);
@@ -920,7 +1051,21 @@ void StromscoreEditor::timerCallback()
         }
         chordDisplay.current = processor.chordIndex.load();
     }
-    chordDisplay.mood[0] = pad.x; chordDisplay.mood[1] = pad.y; chordDisplay.mood[2] = pad.z;
+    {
+        const bool drive = settings.drive;
+        const bool running = processor.sceneBar.load() >= 0;
+        const bool showNow = drive && running;
+        if (pad.showB != drive || pad.showNow != showNow) { pad.showB = drive; pad.showNow = showNow; pad.repaint(); }
+        if (showNow && (pad.nowX != processor.pointX.load() || pad.nowY != processor.pointY.load()))
+        {
+            pad.nowX = processor.pointX.load(); pad.nowY = processor.pointY.load();
+            pad.repaint();
+        }
+        chordDisplay.mood[0] = showNow ? pad.nowX : pad.x;
+        chordDisplay.mood[1] = showNow ? pad.nowY : pad.y;
+    }
+    chordDisplay.mood[2] = pad.z;
+    updateSceneStatus();
     chordDisplay.repaint();
 
     // Kandidaten an der aktuellen Stelle
@@ -968,6 +1113,39 @@ void StromscoreEditor::timerCallback()
     if (pad.z > 0.01f) pad.repaint();   // der Unruhe-Ring zittert
 }
 
+void StromscoreEditor::updateSceneStatus()
+{
+    const auto s = processor.currentSettings();
+    const int bar = processor.sceneBar.load();
+    const auto names = StromscoreProcessor::entryNames();
+    juce::String t;
+    if (bar < 0)
+    {
+        t = u8 ("Die Szene beginnt mit dem Start der Wiedergabe");
+        if (s.drive) t << u8 (" · B im Feld ziehen");
+    }
+    else if (processor.sceneOver.load()) t = u8 ("Szene zu Ende (Takt ") + juce::String (s.sceneBars) + u8 (") · neu mit dem nächsten Start");
+    else
+    {
+        t = "Takt " + juce::String (bar + 1);
+        const int e = juce::jlimit (1, stromscore::kNumEntries - 1, processor.sceneEntry.load());
+        if (s.scene || s.sceneBars > 0) t << u8 (" · Einstieg ") << (s.entry == stromscore::EntryAuto ? "Auto: " : "") << names[e];
+        if (s.scene && e != stromscore::EntryAll && bar < s.buildBars) t << u8 (" · Aufbau bis Takt ") << s.buildBars;
+        if (s.drive)
+        {
+            const double since = (double) bar - s.driveFrom;
+            if (since < 0) t << u8 (" · Fahrt ab Takt ") << (s.driveFrom + 1);
+            else if (since < s.driveBars) t << u8 (" · Fahrt ") << juce::roundToInt (100.0 * since / s.driveBars) << " %";
+        }
+        if (s.sceneBars > 0) t << u8 (" · Ende in ") << (s.sceneBars - bar) << ((s.sceneBars - bar) == 1 ? " Takt" : " Takten");
+    }
+    if (sceneStatus.getText() != t) sceneStatus.setText (t, juce::dontSendNotification);
+    const bool drive = s.drive;
+    for (auto* c : std::initializer_list<juce::Component*> { &startBox, &durBox, &curveBox, &startLabel, &durLabel, &curveLabel }) c->setEnabled (drive);
+    endBox.setEnabled (s.sceneBars > 0); endLabel.setEnabled (s.sceneBars > 0);
+    buildBox.setEnabled (s.scene);
+}
+
 void StromscoreEditor::applyTheme()
 {
     look.setColour (juce::Slider::thumbColourId, theme.accent);
@@ -994,8 +1172,11 @@ void StromscoreEditor::applyTheme()
     look.setColour (juce::TooltipWindow::textColourId, theme.text);
     look.setColour (juce::TooltipWindow::outlineColourId, theme.accent.withAlpha (0.6f));
 
-    for (auto* l : { &padLabel, &varietyLabel, &keyLabel, &meterLabel, &variationLabel, &swingLabel, &chordLabel, &changeLabel, &customLabel })
+    for (auto* l : { &padLabel, &varietyLabel, &keyLabel, &meterLabel, &variationLabel, &swingLabel, &chordLabel, &changeLabel, &customLabel,
+                     &sceneLabel, &driveLabel, &entryLabel, &lengthLabel, &endLabel, &startLabel, &durLabel, &curveLabel })
         l->setColour (juce::Label::textColourId, theme.dim);
+    sceneStatus.setColour (juce::Label::textColourId, theme.text);
+    sceneLabel.setFont (juce::FontOptions (12.0f, juce::Font::bold)); driveLabel.setFont (juce::FontOptions (12.0f, juce::Font::bold));
     const auto inner = theme.dark ? theme.bg : theme.bg.brighter (0.05f);
     pad.panel = inner; pad.line = theme.line; pad.accent = theme.accent; pad.text = theme.text; pad.dim = theme.dim;
     chordDisplay.panel = inner; chordDisplay.line = theme.line; chordDisplay.accent = theme.accent; chordDisplay.text = theme.text; chordDisplay.dim = theme.dim;
@@ -1088,6 +1269,13 @@ void StromscoreEditor::paint (juce::Graphics& g)
     g.drawRoundedRectangle (12.5f, 76.5f, (float) W - 25.0f, 243.0f, 8.0f, 1.0f);
     for (float x : { 244.0f, 410.0f, 586.0f })
         g.fillRect (x, 88.0f, 1.0f, 220.0f);
+
+    // Szene und Fahrt
+    g.setColour (theme.panel);
+    g.fillRoundedRectangle (12.0f, 330.0f, (float) W - 24.0f, 84.0f, 8.0f);
+    g.setColour (theme.line);
+    g.drawRoundedRectangle (12.5f, 330.5f, (float) W - 25.0f, 83.0f, 8.0f, 1.0f);
+    g.fillRect (24.0f, 371.5f, (float) W - 48.0f, 1.0f);
 }
 
 void StromscoreEditor::resized()
@@ -1141,9 +1329,34 @@ void StromscoreEditor::resized()
     chordDisplay.setBounds (598, 102, w - 622, 208);
     slots.setBounds (12, 76, w - 24, 244);
 
+    // Szene (obere Zeile) und Fahrt (untere Zeile)
+    {
+        const int y1 = 340, y2 = 381, h = 24;
+        sceneLabel.setBounds (22, y1, 58, h);
+        sceneButton.setBounds (80, y1, 70, h);
+        buildBox.setBounds (154, y1, 84, h);
+        entryLabel.setBounds (248, y1, 56, h);
+        entryBox.setBounds (302, y1, 146, h);
+        diceButton.setBounds (452, y1, 86, h);
+        hardness.setBounds (548, y1, 132, h);
+        lengthLabel.setBounds (690, y1, 42, h);
+        lengthBox.setBounds (730, y1, 98, h);
+        endLabel.setBounds (838, y1, 36, h);
+        endBox.setBounds (872, y1, 104, h);
+        driveLabel.setBounds (22, y2, 58, h);
+        driveButton.setBounds (80, y2, 70, h);
+        startLabel.setBounds (160, y2, 40, h);
+        startBox.setBounds (198, y2, 98, h);
+        durLabel.setBounds (306, y2, 42, h);
+        durBox.setBounds (346, y2, 90, h);
+        curveLabel.setBounds (446, y2, 42, h);
+        curveBox.setBounds (486, y2, 132, h);
+        sceneStatus.setBounds (630, y2, w - 24 - 630, h);
+    }
+
     // Ebenen
     for (int i = 0; i < stromscore::kNumLayers; ++i)
-        layers[i].setBounds (12 + i * 197, 330, 188, kBaseH - 342);
+        layers[i].setBounds (12 + i * 197, 424, 188, kBaseH - 436);
     if (slots.isVisible()) slots.toFront (false);
     helpScroll.toFront (false);
 }

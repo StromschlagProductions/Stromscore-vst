@@ -795,5 +795,198 @@ int main()
         for (int i = 0; i < kNumPopWendungen; ++i) CHECK (wendungBars (kPopWendungen[i]) == 8);
         for (int i = 0; i < kNumWendungen; ++i) CHECK (wendungBars (kWendungen[i]) == 8);
     }
+    // 40) Einstieg und Aufbau: zuerst nur die Einstiegs-Ebene, die anderen folgen auf Taktgrenzen in fester Reihenfolge
+    {
+        const long long bar = 96000;   // 4/4, 120 bpm
+        for (int e = EntryPad; e < kNumEntries; ++e)
+        {
+            Settings s; s.scene = true; s.entry = e; s.buildBars = 8; s.y = 0.8f; s.x = 0.5f;
+            const auto ev = run (s, 512, 40.0);
+            checkBalanced (ev);
+            long long firstOn[kNumLayers]; for (auto& f : firstOn) f = -1;
+            for (const auto& x : ev) if (x.velocity > 0 && firstOn[x.channel - 1] < 0) firstOn[x.channel - 1] = x.sample;
+            if (e == EntryAll)
+            {
+                for (int l : { kFlaeche, kBass, kArp, kGegenstimme }) CHECK (firstOn[l] >= 0 && firstOn[l] < bar);
+                continue;
+            }
+            const int lead = kEntryLayer[e];
+            CHECK (firstOn[lead] >= 0 && firstOn[lead] < bar);
+            for (int i = 1; i < kNumLayers; ++i)
+            {
+                const int l = kEntryOrder[e][i];
+                const long long due = (long long) std::lround (i * 7.0 / 4.0) * bar;   // Platz i von 5, ueber 8 Takte verteilt
+                CHECK (firstOn[l] < 0 || firstOn[l] >= due);
+                if (l != kAkzent) CHECK (firstOn[l] >= 0 && firstOn[l] < due + bar);
+            }
+            for (const auto& x : ev)   // im ersten Takt nur die Einstiegs-Ebene
+                if (x.velocity > 0 && x.sample < bar) CHECK (x.channel - 1 == lead);
+            if (e == EntryPad)   // schuechtern: ein einzelner stehender Ton
+            {
+                int n = 0;
+                for (const auto& x : ev) if (x.velocity > 0 && x.sample < bar) ++n;
+                CHECK (n == 1);
+            }
+            if (e == EntryPulse)   // Puls: kurze Viertel im ganzen Aufbau
+                for (const auto& x : ev)
+                    if (x.velocity > 0 && x.channel - 1 == kBass && x.sample < 8 * bar) CHECK (x.sample % 24000 == 0);
+        }
+        // Ohne Aufbau setzt alles zugleich ein (wie vor 1.3)
+        Settings off; off.y = 0.8f;
+        long long first[kNumLayers]; for (auto& f : first) f = -1;
+        for (const auto& x : run (off, 512, 4.0)) if (x.velocity > 0 && first[x.channel - 1] < 0) first[x.channel - 1] = x.sample;
+        for (int l : { kFlaeche, kBass, kArp, kGegenstimme }) CHECK (first[l] >= 0 && first[l] < bar);
+        // Szenenstart ist der Wiedergabebeginn: ab Takt 9 gestartet beginnt der Aufbau dort
+        Settings late; late.scene = true; late.entry = EntryArp; late.y = 0.8f;
+        for (const auto& x : run (late, 512, 2.0, 120.0, 48000.0, 32.0)) if (x.velocity > 0) CHECK (x.channel - 1 == kArp);
+    }
+
+    // 41) Auto-Einstieg: gleicher Wurf, gleicher Einstieg; verschiedene Wuerfe ergeben verschiedene Einstiege;
+    //     es kommen nur Ebenen in Frage, die bei dieser Intensitaet spielen
+    {
+        std::set<int> seen;
+        for (int w = 0; w < 40; ++w)
+        {
+            Settings s; s.seed = w; s.y = 0.8f;
+            const int e = Generator::autoEntry (s);
+            CHECK (e == Generator::autoEntry (s));
+            CHECK (e > EntryAuto && e < kNumEntries);
+            seen.insert (e);
+            Settings q = s; q.y = 0.05f;
+            const int eq = Generator::autoEntry (q);
+            CHECK (eq == EntryPad || eq == EntryBass || eq == EntryPulse);
+            Settings m = s; m.mute[kFlaeche] = true; m.mute[kBass] = true;
+            const int em = Generator::autoEntry (m);
+            CHECK (em != EntryPad && em != EntryBass && em != EntryPulse);
+        }
+        CHECK (seen.size() >= 4);
+    }
+
+    // 42) Traegheit: wackelt die Intensitaet an der Schwelle, flackert der Arp nicht; er setzt nur auf Taktanfaengen ein
+    {
+        for (int inertia = 0; inertia < 2; ++inertia)
+        {
+            Generator g; g.reset(); EventList list;
+            Settings s; s.inertia = inertia == 1; s.solo[kArp] = true; s.x = 0.5f;
+            std::vector<long long> ons;
+            int switches = 0; bool was = false;
+            for (long long pos = 0; pos < 48000LL * 32; pos += 512)
+            {
+                s.y = ((pos / 512) % 7 < 3) ? 0.22f : 0.27f;
+                Transport t; t.playing = true; t.bpm = 120.0; t.sampleRate = 48000.0; t.ppq = (double) pos / 24000.0;
+                list.clear();
+                g.process (t, s, 512, list);
+                for (int i = 0; i < list.size; ++i) if (list.events[(size_t) i].velocity > 0 && list.events[(size_t) i].type == 0) ons.push_back (pos + list.events[(size_t) i].offset);
+                const bool now = g.layerPlaying (kArp);
+                if (now != was) ++switches;
+                was = now;
+            }
+            CHECK (! ons.empty());
+            if (inertia == 1)
+            {
+                CHECK (switches == 1);
+                CHECK (ons.front() % 96000 == 0);
+            }
+            else CHECK (switches > 10);
+        }
+    }
+
+    // 43) Ende der Szene: hart (ein Schlag, dann Stille), ausklingend (Ebenen gehen nacheinander), offen (dichter bis zum Abbruch)
+    {
+        const long long bar = 96000;
+        for (int end = 0; end < kNumEndings; ++end)
+        {
+            Settings s; s.sceneBars = 8; s.ending = end; s.y = 0.7f; s.x = 0.4f;
+            const auto ev = run (s, 512, 24.0);
+            checkBalanced (ev);
+            int after = 0, hit = 0, lastBar = 0, early = 0;
+            std::set<int> lastLayers;
+            for (const auto& x : ev)
+            {
+                if (x.velocity == 0) continue;
+                if (x.sample == 8 * bar) { ++hit; CHECK (x.velocity >= 90); }
+                else if (x.sample >= 8 * bar) ++after;
+                if (x.sample >= 7 * bar && x.sample < 8 * bar) { ++lastBar; lastLayers.insert (x.channel - 1); }
+                if (x.sample >= 2 * bar && x.sample < 3 * bar) ++early;
+            }
+            CHECK (after == 0);
+            for (const auto& x : ev) if (x.velocity == 0) CHECK (x.sample <= 8 * bar + 12000);   // alles ist kurz nach dem Ende aus
+            if (end == EndHard)
+            {
+                CHECK (hit >= 5);
+                for (const auto& x : ev)   // Vorbereiten: in der zweiten Haelfte des letzten Takts schweigt der Bass
+                    if (x.velocity > 0 && x.channel - 1 == kBass && x.sample >= 7 * bar + bar / 2 && x.sample < 8 * bar) CHECK (false);
+            }
+            else CHECK (hit == 0);
+            if (end == EndFade)   // am laengsten bleibt die Ebene, mit der die Szene begonnen hat
+            {
+                const int e = Generator::autoEntry (s);
+                CHECK (lastLayers.size() <= 1 && (lastLayers.empty() || lastLayers.count (kEntryOrder[e][0]) == 1));
+                CHECK (lastBar < early);
+            }
+            if (end == EndOpen) CHECK (lastBar > early);
+        }
+    }
+
+    // 44) Fahrt von A nach B: der klingende Punkt wandert in 8 Takten nach oben, Ebenen kommen dazu; Hin und zurueck endet bei A
+    {
+        for (int curve = 0; curve < kNumCurves; ++curve)
+        {
+            Generator g; g.reset(); EventList list;
+            Settings s; s.drive = true; s.driveCurve = curve; s.driveBars = 8; s.x = 0.3f; s.y = 0.1f; s.driveX = 0.8f; s.driveY = 0.9f;
+            float lastY = 0.0f, maxY = 0.0f;
+            bool arpEarly = false, arpLate = false;
+            for (long long pos = 0; pos < 48000LL * 20; pos += 512)
+            {
+                Transport t; t.playing = true; t.bpm = 120.0; t.sampleRate = 48000.0; t.ppq = (double) pos / 24000.0;
+                list.clear();
+                g.process (t, s, 512, list);
+                for (int i = 0; i < list.size; ++i)
+                    if (list.events[(size_t) i].velocity > 0 && list.events[(size_t) i].out == OutArp) (pos < 96000 ? arpEarly : arpLate) = true;
+                if (curve != CurveWave) CHECK (g.pointY() >= lastY - 1e-6f);
+                lastY = g.pointY(); maxY = std::max (maxY, lastY);
+            }
+            CHECK (! arpEarly && arpLate && maxY > 0.85f);
+            CHECK (curve == CurveWave ? lastY < 0.15f : lastY > 0.85f);
+        }
+    }
+
+    // 45) Szenenmotiv: gleicher Rhythmus in A und A', anderer Wurf, anderes Motiv
+    {
+        auto onsets = [] (int seed, long long fromBar)
+        {
+            Settings s; s.motif = true; s.seed = seed; s.solo[kGegenstimme] = true; s.y = 0.6f; s.x = 0.3f;
+            std::vector<std::pair<long long, int>> o;
+            for (const auto& x : run (s, 512, 40.0))
+                if (x.velocity > 0 && x.sample >= fromBar * 96000 && x.sample < (fromBar + 2) * 96000) o.push_back ({ x.sample - fromBar * 96000, x.note });
+            return o;
+        };
+        const auto a = onsets (3, 0), a2 = onsets (3, 8);
+        CHECK (a.size() >= 3 && a.size() == a2.size());
+        for (size_t i = 0; i < a.size(); ++i) CHECK (a[i].first == a2[i].first);
+        bool differs = false;
+        for (int w = 4; w < 10 && ! differs; ++w) differs = onsets (w, 0) != a;
+        CHECK (differs);
+    }
+
+    // 46) Mit allem eingeschaltet: unabhaengig von der Blockgroesse, keine Speicheranforderung, nichts haengt
+    {
+        Settings s; s.scene = true; s.inertia = true; s.motif = true; s.sceneBars = 12; s.ending = EndHard; s.drive = true;
+        s.driveFrom = 2; s.driveBars = 4; s.x = 0.2f; s.y = 0.2f; s.driveY = 0.9f; s.z = 0.4f; s.dynamics = true;
+        const auto a = run (s, 64, 30.0), b = run (s, 512, 30.0);
+        checkBalanced (a);
+        CHECK (a.size() == b.size());
+        for (size_t i = 0; i < a.size(); ++i) CHECK (a[i].sample == b[i].sample && a[i].note == b[i].note && a[i].velocity == b[i].velocity);
+        Generator g; g.reset(); EventList list;
+        Transport t; t.playing = true; t.bpm = 120.0; t.sampleRate = 48000.0;
+        list.clear(); g.process (t, s, 512, list);
+        NoAllocations na;
+        for (long long pos = 512; pos < 48000LL * 30; pos += 512)
+        {
+            t.ppq = (double) pos / 24000.0;
+            list.clear();
+            g.process (t, s, 512, list);
+        }
+    }
     return 0;
 }

@@ -417,6 +417,62 @@ int main()
         setParam (*p, "intensitaet", 0.1f);
     }
 
+    // Szene (ab 1.3): Vorgaben, Einstieg ab Wiedergabebeginn, Laenge und Ende, Zustand wird gespeichert
+    {
+        for (auto* id : { "aufbau", "einstieg", "wurf", "aufbauTakte", "haerte", "szenenLaenge", "ende", "motiv", "fahrt", "fahrtX", "fahrtY", "fahrtStart", "fahrtTakte", "fahrtKurve" })
+            CHECK (p->apvts.getParameter (id) != nullptr);
+        auto st = p->currentSettings();
+        CHECK (st.scene && st.entry == stromscore::EntryAuto && st.motif && st.inertia && ! st.drive && st.sceneBars == 0 && st.buildBars == 8);
+
+        // Bass-Schlag: im ersten Takt spielt nur der Bass, nach dem Aufbau alle Ebenen
+        setParam (*p, "intensitaet", 1.0f);
+        setParam (*p, "einstieg", (float) stromscore::EntryBass);
+        setParam (*p, "takt", 1.0f);   // 4/4 fest (weiter oben wurden andere Taktarten probiert)
+        p->prepareToPlay (48000, 512);
+        juce::AudioBuffer<float> audio (2, 512); juce::MidiBuffer midi;
+        host.ppq = 16.0; host.playing = true;   // Wiedergabe startet in Takt 5: dort beginnt die Szene
+        std::map<int, int> firstBar, later;
+        for (int i = 0; i < 94 * 19; ++i)       // gut 9 Takte zu 2 Sekunden (94 Bloecke je Sekunde)
+        {
+            audio.clear(); midi.clear();
+            p->processBlock (audio, midi);
+            for (const auto meta : midi) if (meta.getMessage().isNoteOn()) ++(host.ppq < 20.0 ? firstBar : later)[meta.getMessage().getChannel()];
+            host.ppq += 512.0 / 24000.0;
+        }
+        CHECK (p->sceneBar.load() >= 8 && p->sceneEntry.load() == stromscore::EntryBass);
+        CHECK (! firstBar.empty());
+        for (const auto& kv : firstBar) CHECK (kv.first == 3 || kv.first == 4);
+        for (int ch : { 5, 8 }) CHECK (later.count (ch) == 1);
+        host.playing = false; audio.clear(); midi.clear(); p->processBlock (audio, midi);
+        CHECK (p->sceneBar.load() == -1);
+
+        // Laenge 8 Takte, hartes Ende: in der herausgezogenen Datei nach dem Schlusspunkt kein Ton mehr
+        setParam (*p, "szenenLaenge", 1.0f);
+        setParam (*p, "ende", (float) stromscore::EndHard);
+        {
+            const auto file = p->renderMidiFile (16);
+            juce::MidiFile mf; juce::FileInputStream in (file);
+            CHECK (in.openedOk() && mf.readFrom (in));
+            int ons = 0, late = 0;
+            for (int t = 1; t < mf.getNumTracks(); ++t)
+                for (const auto* ev : *mf.getTrack (t))
+                    if (ev->message.isNoteOn()) { ++ons; if (ev->message.getTimeStamp() > 8 * 4 * 960 + 1) ++late; }
+            CHECK (ons > 20 && late == 0);
+        }
+
+        // Wurf, Fahrt und Ziel werden mit dem Projekt gespeichert
+        setParam (*p, "wurf", 42.0f); setParam (*p, "fahrt", 1.0f); setParam (*p, "fahrtX", 0.3f);
+        juce::MemoryBlock state;
+        p->getStateInformation (state);
+        StromscoreProcessor q;
+        q.setStateInformation (state.getData(), (int) state.getSize());
+        const auto qs = q.currentSettings();
+        CHECK (qs.seed == 42 && qs.drive && std::abs (qs.driveX - 0.3f) < 1e-3f && qs.sceneBars == 8 && qs.ending == stromscore::EndHard && qs.entry == stromscore::EntryBass);
+        for (auto [id, v] : { std::pair<const char*, float> { "wurf", 0.0f }, { "fahrt", 0.0f }, { "fahrtX", 0.8f }, { "szenenLaenge", 0.0f }, { "ende", 1.0f }, { "einstieg", 0.0f } })
+            setParam (*p, id, v);
+        setParam (*p, "intensitaet", 0.1f);
+    }
+
     // Texte: Prozent
     {
         auto* v = p->apvts.getParameter ("intensitaet");
