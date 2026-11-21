@@ -19,7 +19,7 @@ struct FakeHost final : juce::AudioPlayHead
     }
 };
 
-struct Counts { int ons = 0, offs = 0; std::map<int, int> channels; std::map<std::pair<int, int>, int> open; bool broken = false; };
+struct Counts { int ons = 0, offs = 0, ccs = 0; std::map<int, int> channels; std::map<std::pair<int, int>, int> open; bool broken = false; };
 
 void collect (const juce::MidiBuffer& midi, Counts& c)
 {
@@ -32,6 +32,7 @@ void collect (const juce::MidiBuffer& midi, Counts& c)
             ++c.ons; ++c.channels[ch];
             if (++c.open[std::make_pair (ch, m.getNoteNumber())] > 1) c.broken = true;   // doppelter Anschlag ohne Ende
         }
+        else if (m.isController()) { if (m.getControllerNumber() == 1 || m.getControllerNumber() == 11) ++c.ccs; }
         else if (m.isNoteOff())
         {
             ++c.offs;
@@ -308,6 +309,49 @@ int main()
         for (auto* id : { "eigeneFolge", "wechsel", "oct2", "slotType2", "slotRoot3", "slotBars4" })
             CHECK (q->apvts.getRawParameterValue (id)->load() == p->apvts.getRawParameterValue (id)->load());
         setParam (*p, "oct2", 2.0f); setParam (*p, "slotType2", 0.0f); setParam (*p, "eigeneFolge", 0.0f); setParam (*p, "wechsel", 0.0f);
+    }
+
+    // 80er Pop-Rock, Dynamik per CC und MIDI-Datei zum Herausziehen
+    {
+        CHECK (p->apvts.getParameter ("genre") != nullptr && p->apvts.getParameter ("dynamikCc") != nullptr);
+        setParam (*p, "intensitaet", 0.6f);
+        auto c = play (*p, host, 8, 512);
+        CHECK (c.ccs == 0);                                   // Vorgabe: keine Dynamik-Controller
+        setParam (*p, "dynamikCc", 1.0f);
+        c = play (*p, host, 8, 512);
+        CHECK (c.ccs > 10 && c.ons == c.offs && ! c.broken);
+        setParam (*p, "genre", 1.0f);
+        c = play (*p, host, 8, 512);
+        CHECK (c.ons > 0 && c.ons == c.offs && ! c.broken);
+        CHECK (StromscoreProcessor::bassPatternNames().contains ("Hi-NRG") && StromscoreProcessor::arpFigureNames().contains ("SID"));
+
+        const auto file = p->renderMidiFile (8);
+        CHECK (file.existsAsFile());
+        juce::MidiFile mf;
+        juce::FileInputStream in (file);
+        CHECK (in.openedOk() && mf.readFrom (in));
+        CHECK (mf.getNumTracks() == 6);
+        int notes = 0, ccs = 0; double last = 0.0;
+        for (int t = 1; t < mf.getNumTracks(); ++t)
+        {
+            const auto* seq = mf.getTrack (t);
+            int open = 0;
+            for (int i = 0; i < seq->getNumEvents(); ++i)
+            {
+                const auto& m = seq->getEventPointer (i)->message;
+                if (m.isNoteOn()) { ++notes; ++open; CHECK (m.getChannel() == t); }
+                if (m.isNoteOff()) --open;
+                if (m.isController()) ++ccs;
+                last = std::max (last, m.getTimeStamp());
+            }
+            CHECK (open == 0);
+        }
+        CHECK (notes > 20 && ccs > 0);
+        const auto st = p->currentSettings();
+        const auto meter = stromscore::Meter::from (st.meterNum, st.meterDen);
+        CHECK (last <= 8.0 * meter.len * stromscore::kStep * 960.0 + 1.0);   // genau 8 Takte im aktuellen Takt
+        CHECK (last >= 7.0 * meter.len * stromscore::kStep * 960.0);
+        setParam (*p, "genre", 0.0f); setParam (*p, "dynamikCc", 0.0f);
     }
 
     // Texte: Prozent

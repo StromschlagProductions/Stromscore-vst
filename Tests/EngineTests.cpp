@@ -28,6 +28,7 @@ static std::vector<Abs> run (const Settings& s, int block, double seconds, doubl
         {
             const auto& e = list.events[(size_t) i];
             CHECK (e.offset >= 0 && e.offset < n);
+            if (e.type != 0) continue;   // Controller zaehlen hier nicht als Noten
             all.push_back ({ pos + e.offset, e.channel, e.note, e.velocity });
         }
     }
@@ -469,7 +470,7 @@ int main()
                 open += e.velocity > 0 ? 1 : -1; maxOpen = std::max (maxOpen, open);
                 if (e.velocity > 0) { ++ons; CHECK (e.note >= 58 && e.note <= 80); }
             }
-            CHECK (maxOpen == 1 && ons >= 4);
+            CHECK (maxOpen <= 2 && ons >= 4);   // hoechstens kurz zwei Toene: Legato-Ueberlappung
         }
     {   // mehr Intensitaet = bewegter
         Settings a; a.y = 0.3f; a.solo[kGegenstimme] = true;
@@ -522,6 +523,103 @@ int main()
         CHECK (! has (run (calm, 512, 8.0), 10));
         Settings all; all.passing = true; all.y = 0.8f; for (auto& v : all.layerIntensity) v = 0.5f;
         checkBalanced (run (all, 300, 30.0));
+    }
+
+    // 28) 80er Pop-Rock: eigener Vorrat, alle Muster und das ganze Feld sauber, Lead-Hook einstimmig und gleichbleibend
+    {
+        CHECK (kNumPopWendungen >= 16);
+        for (int i = 0; i < kNumPopWendungen; ++i)
+        {
+            int bars = 0;
+            for (int c = 0; c < kPopWendungen[i].n; ++c) bars += kPopWendungen[i].ch[c].bars;
+            CHECK (bars == kPhraseBars);
+        }
+        int c[8];
+        Settings pop; pop.genre = GenrePopRock; pop.x = 0.25f; pop.y = 0.85f; pop.z = 0.4f; pop.variety = 0.0f;
+        CHECK (Generator::candidates (pop, c, 8) == 1 && std::string (kPopWendungen[c[0]].name) == "Rebellenschrei");
+        for (float x : { 0.1f, 0.5f, 0.9f })
+            for (float y : { 0.2f, 0.6f, 0.95f })
+                for (float z : { 0.0f, 0.8f })
+                {
+                    Settings s = pop; s.x = x; s.y = y; s.z = z; s.variety = 0.7f;
+                    checkBalanced (run (s, 333, 20.0));
+                }
+        for (int bp : { (int) BassHiNrg, (int) BassGallop })
+        {
+            Settings s = pop; s.bassPattern = bp; s.padPattern = PadGated; s.arpFigure = ArpSid;
+            const auto ev = run (s, 256, 10.0);
+            checkBalanced (ev);
+            CHECK (countOns (ev, 2) > 20 && countOns (ev, 3) > 40);
+        }
+        Settings h = pop; h.bassPattern = BassHiNrg; h.y = 0.5f; h.solo[kBass] = true;   // Hi-NRG: Grundton und Oberoktave
+        std::set<int> notes;
+        for (const auto& e : run (h, 512, 2.0)) if (e.velocity > 0) notes.insert (e.note);
+        CHECK (notes.size() >= 2 && (*notes.rbegin() - *notes.begin()) % 12 == 0);
+        Settings l = pop; l.y = 0.6f; l.z = 0.0f; l.solo[kGegenstimme] = true; l.custom = true;   // Lead-Hook
+        l.customChords[0] = { 9, Min, 4 }; l.customChords[1] = { 9, Min, 4 };
+        const auto ev = run (l, 512, 32.0);
+        checkBalanced (ev);
+        std::vector<int> seq;
+        int open = 0, maxOpen = 0;
+        for (const auto& e : ev) { open += e.velocity > 0 ? 1 : -1; maxOpen = std::max (maxOpen, open); if (e.velocity > 0) seq.push_back (e.note); }
+        CHECK (maxOpen == 1 && seq.size() >= 32);
+        for (size_t i = 8; i < seq.size(); ++i) CHECK (seq[i] == seq[i - 8]);   // gleichbleibende Figur ueber gleichem Akkord
+    }
+
+    // 29) Dynamik als CC: nur wenn eingeschaltet, Werte im Bereich, sparsam, Pop flacher als Score
+    {
+        auto collect = [] (Settings s, int& count, int& lo, int& hi)
+        {
+            Generator g; g.reset(); EventList l; count = 0; lo = 127; hi = 0;
+            for (int b = 0; b < 2000; ++b)   // gut 40 Viertel
+            {
+                Transport t; t.playing = true; t.bpm = 120; t.sampleRate = 48000; t.ppq = b * 512.0 / 24000.0;
+                l.clear();
+                { NoAllocations guard; g.process (t, s, 512, l); }
+                for (int i = 0; i < l.size; ++i)
+                {
+                    const auto& e = l.events[(size_t) i];
+                    if (e.type == 1 && e.note == 1 && e.channel == 1) { ++count; lo = std::min (lo, (int) e.velocity); hi = std::max (hi, (int) e.velocity); }
+                    if (e.type == 1) CHECK (e.velocity >= 1 && e.velocity <= 127 && (e.note == 1 || e.note == 11));
+                }
+            }
+        };
+        Settings s; s.y = 0.5f; s.z = 0.3f;
+        int n, lo, hi;
+        collect (s, n, lo, hi); CHECK (n == 0);
+        s.dynamics = true;
+        collect (s, n, lo, hi);
+        CHECK (n > 40 && n < 2000);
+        CHECK (hi - lo >= 4 && lo >= 40 && hi <= 110);
+        Settings p = s; p.genre = GenrePopRock;
+        int pn, plo, phi;
+        collect (p, pn, plo, phi);
+        CHECK (phi - plo < hi - lo);
+        Settings off = s; off.ccDynamics = 0; off.ccExpression = 0;
+        collect (off, n, lo, hi); CHECK (n == 0);
+        checkBalanced (run (s, 300, 20.0));
+    }
+
+    // 30) Legato der Gegenstimme: der neue Ton kommt vor dem Loslassen des alten
+    {
+        Settings s; s.y = 0.8f; s.solo[kGegenstimme] = true; s.x = 0.5f;
+        const auto ev = run (s, 512, 20.0);
+        checkBalanced (ev);
+        int overlaps = 0, open = 0;
+        for (const auto& e : ev) { open += e.velocity > 0 ? 1 : -1; if (open == 2) ++overlaps; CHECK (open <= 2); }
+        CHECK (overlaps >= 4);
+    }
+
+    // 31) Naechster Akkord und Fortschritt fuer die Anzeige
+    {
+        Settings s; s.custom = true; s.key = 0;
+        s.customChords[0] = { 0, Maj, 2 }; s.customChords[1] = { 7, Min, 2 };
+        Generator g; g.reset(); EventList l;
+        Transport t; t.playing = true; t.bpm = 120; t.sampleRate = 48000; t.ppq = 0.0;
+        g.process (t, s, 512, l);
+        CHECK (g.nextRoot() == 7 && g.nextType() == Min && g.chordProgress() < 0.1f);
+        for (int b = 1; b < 300 && t.ppq < 6.0; ++b) { t.ppq = b * 512.0 / 24000.0; l.clear(); g.process (t, s, 512, l); }
+        CHECK (g.chordProgress() > 0.6f && g.nextRoot() == 7);
     }
     return 0;
 }

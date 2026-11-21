@@ -19,10 +19,11 @@ juce::StringArray StromscoreProcessor::keyNames()
 }
 juce::StringArray StromscoreProcessor::meterNames()  { return { "Vom Projekt", "4/4", "3/4", "6/8", "5/4", "7/8", "5/8", "12/8" }; }
 juce::StringArray StromscoreProcessor::layerNames()  { return { u8 ("Fläche"), "Bass", "Arp", "Farbe", "Gegenstimme" }; }
-juce::StringArray StromscoreProcessor::padPatternNames()  { return { "Auto", "Gehalten", u8 ("Schläge"), "Puls", "Staccato" }; }
+juce::StringArray StromscoreProcessor::padPatternNames()  { return { "Auto", "Gehalten", u8 ("Schläge"), "Puls", "Staccato", "Gated" }; }
+juce::StringArray StromscoreProcessor::genreNames()       { return { "Score", "80er Pop-Rock" }; }
 juce::StringArray StromscoreProcessor::bassPatternNames() { return { "Auto", "Gehalten", "Halbe", "Viertel", "Achtel", "Puls", "Funk", "Pendel",
-                                                                     "Walking", "Wechselbass", "Herzschlag", "Arpeggio", "Orgelpunkt" }; }
-juce::StringArray StromscoreProcessor::arpFigureNames()   { return { "Auto", u8 ("Aufwärts"), u8 ("Abwärts"), "Kreisend", "Zelle", "Riff", "Glitzern", u8 ("Sprünge"), "Kaskade", "Oktatonisch", "Quarten" }; }
+                                                                     "Walking", "Wechselbass", "Herzschlag", "Arpeggio", "Orgelpunkt", "Hi-NRG", "Galopp" }; }
+juce::StringArray StromscoreProcessor::arpFigureNames()   { return { "Auto", u8 ("Aufwärts"), u8 ("Abwärts"), "Kreisend", "Zelle", "Riff", "Glitzern", u8 ("Sprünge"), "Kaskade", "Oktatonisch", "Quarten", "SID" }; }
 juce::StringArray StromscoreProcessor::changeNames()      { return { u8 ("Nächster Schlag"), u8 ("Nächster Takt"), "Alle 2 Takte", "Alle 4 Takte" }; }
 juce::StringArray StromscoreProcessor::octaveNames()      { return { u8 ("−2 Okt."), u8 ("−1 Okt."), "Normal", "+1 Okt.", "+2 Okt." }; }
 juce::StringArray StromscoreProcessor::slotRootNames()    { return { "C", "Cis", "D", "Es", "E", "F", "Fis", "G", "As", "A", "B", "H" }; }
@@ -53,6 +54,8 @@ juce::AudioProcessorValueTreeState::ParameterLayout StromscoreProcessor::createL
             NormalisableRange<float> (-1.0f, 1.0f), 0.0f, signedPercent));
     }
     layout.add (std::make_unique<AudioParameterBool> (ParameterID { "durchgaenge", 1 }, u8 ("Durchgänge"), false));
+    layout.add (std::make_unique<AudioParameterChoice> (ParameterID { "genre", 1 }, "Genre", genreNames(), 0));
+    layout.add (std::make_unique<AudioParameterBool> (ParameterID { "dynamikCc", 1 }, "Dynamik per CC", false));
     layout.add (std::make_unique<AudioParameterFloat> (ParameterID { "abwechslung", 1 }, "Abwechslung", NormalisableRange<float> (0.0f, 1.0f), 0.5f, percent()));
     for (int i = 0; i < 3; ++i)
         layout.add (std::make_unique<AudioParameterBool> (ParameterID { "follow" + String (i + 1), 1 },
@@ -97,6 +100,8 @@ StromscoreProcessor::StromscoreProcessor()
     }
     pVariety = apvts.getRawParameterValue ("abwechslung");
     pPassing = apvts.getRawParameterValue ("durchgaenge");
+    pGenre = apvts.getRawParameterValue ("genre");
+    pDynamics = apvts.getRawParameterValue ("dynamikCc");
     for (int i = 0; i < 3; ++i) pFollow[i] = apvts.getRawParameterValue ("follow" + juce::String (i + 1));
     pPad = apvts.getRawParameterValue ("padPattern");
     pBass = apvts.getRawParameterValue ("bassPattern");
@@ -157,6 +162,10 @@ stromscore::Settings StromscoreProcessor::currentSettings() const
     }
     s.variety = pVariety->load();
     s.passing = pPassing->load() >= 0.5f;
+    s.genre = juce::roundToInt (pGenre->load());
+    s.dynamics = pDynamics->load() >= 0.5f;
+    s.ccDynamics = ccOut[0].load();
+    s.ccExpression = ccOut[1].load();
     for (int i = 0; i < 3; ++i) s.follow[i] = pFollow[i]->load() >= 0.5f;
     s.padPattern = juce::roundToInt (pPad->load());
     s.bassPattern = juce::roundToInt (pBass->load());
@@ -221,6 +230,11 @@ void StromscoreProcessor::emit (const stromscore::EventList& list, juce::MidiBuf
     for (int i = 0; i < list.size; ++i)
     {
         const auto& e = list.events[(size_t) i];
+        if (e.type == 1)   // Dynamik-Controller: nur an die Spuren, nicht in den Testklang
+        {
+            if (toMidi) midi.addEvent (juce::MidiMessage::controllerEvent (e.channel, e.note, e.velocity), e.offset);
+            continue;
+        }
         if (! toMidi)
         {
             if (e.velocity > 0) activity[e.channel - 1].store (1.0f);
@@ -276,6 +290,8 @@ void StromscoreProcessor::processBlock (juce::AudioBuffer<float>& audio, juce::M
     generator.process (t, settings, audio.getNumSamples(), events);
     wendung.store (t.playing ? generator.wendung() : -1);
     styleIndex.store (generator.styleWendung());
+    genreInUse.store (generator.genreInUse());
+    nextRoot.store (generator.nextRoot()); nextType.store (generator.nextType()); chordProgress.store (generator.chordProgress());
     chordIndex.store (t.playing ? generator.chordInWendung() : -1);
     chordRoot.store (generator.chordRoot());
     chordType.store (generator.chordType());
@@ -295,6 +311,8 @@ void StromscoreProcessor::processBlock (juce::AudioBuffer<float>& audio, juce::M
         previewPpq += (double) audio.getNumSamples() / (own.sampleRate * 60.0 / own.bpm);
         wendung.store (previewGenerator.wendung());
         styleIndex.store (previewGenerator.styleWendung());
+        genreInUse.store (previewGenerator.genreInUse());
+        nextRoot.store (previewGenerator.nextRoot()); nextType.store (previewGenerator.nextType()); chordProgress.store (previewGenerator.chordProgress());
         chordIndex.store (previewGenerator.chordInWendung());
         chordRoot.store (previewGenerator.chordRoot());
         chordType.store (previewGenerator.chordType());
@@ -335,6 +353,9 @@ void StromscoreProcessor::getStateInformation (juce::MemoryBlock& destData)
     state.setProperty ("ccFaerbung", ccNumber[0].load(), nullptr);
     state.setProperty ("ccIntensitaet", ccNumber[1].load(), nullptr);
     state.setProperty ("ccUnruhe", ccNumber[2].load(), nullptr);
+    state.setProperty ("ccDynamik", ccOut[0].load(), nullptr);
+    state.setProperty ("ccAusdruck", ccOut[1].load(), nullptr);
+    state.setProperty ("exportTakte", exportBars.load(), nullptr);
     if (auto xml = state.createXml())
         copyXmlToBinary (*xml, destData);
 }
@@ -351,6 +372,9 @@ void StromscoreProcessor::setStateInformation (const void* data, int sizeInBytes
             ccNumber[0].store (juce::jlimit (0, 127, (int) state.getProperty ("ccFaerbung", 11)));
             ccNumber[1].store (juce::jlimit (0, 127, (int) state.getProperty ("ccIntensitaet", 1)));
             ccNumber[2].store (juce::jlimit (0, 127, (int) state.getProperty ("ccUnruhe", 74)));
+            ccOut[0].store (juce::jlimit (0, 127, (int) state.getProperty ("ccDynamik", 1)));
+            ccOut[1].store (juce::jlimit (0, 127, (int) state.getProperty ("ccAusdruck", 11)));
+            exportBars.store (juce::jlimit (1, 64, (int) state.getProperty ("exportTakte", 8)));
             apvts.replaceState (state);
         }
     }
@@ -359,3 +383,73 @@ void StromscoreProcessor::setStateInformation (const void* data, int sizeInBytes
 juce::AudioProcessorEditor* StromscoreProcessor::createEditor() { return new StromscoreEditor (*this); }
 
 juce::AudioProcessor* JUCE_CALLTYPE createPluginFilter() { return new StromscoreProcessor(); }
+
+// ---------------------------------------------------------------- MIDI-Datei zum Herausziehen
+juce::File StromscoreProcessor::renderMidiFile (int bars) const
+{
+    auto settings = currentSettings();
+    const double bpm = hostBpm > 1.0 ? hostBpm : 120.0;
+    const double sr = 48000.0;
+    const int block = 480;
+    const auto meter = stromscore::Meter::from (settings.meterNum, settings.meterDen);
+    const double quarters = (double) bars * meter.len * stromscore::kStep;
+    const double samplesPerQuarter = sr * 60.0 / bpm;
+    constexpr int tpq = 960;
+
+    stromscore::Generator gen;
+    gen.reset();
+    auto events = std::make_unique<stromscore::EventList>();
+    juce::MidiMessageSequence tracks[stromscore::kNumLayers];
+    stromscore::Transport t;
+    t.playing = true; t.bpm = bpm; t.sampleRate = sr;
+    auto collect = [&] (double blockPpq)
+    {
+        for (int i = 0; i < events->size; ++i)
+        {
+            const auto& e = events->events[(size_t) i];
+            const double tick = std::min (quarters, blockPpq + (double) e.offset / samplesPerQuarter) * tpq;
+            const int layer = juce::jlimit (0, stromscore::kNumLayers - 1, (int) e.channel - 1);
+            juce::MidiMessage m = e.type == 1 ? juce::MidiMessage::controllerEvent (e.channel, e.note, e.velocity)
+                                : e.velocity > 0 ? juce::MidiMessage::noteOn (e.channel, e.note, (juce::uint8) e.velocity)
+                                                 : juce::MidiMessage::noteOff (e.channel, e.note);
+            m.setTimeStamp (std::round (tick));
+            tracks[layer].addEvent (m);
+        }
+    };
+    for (double ppq = 0.0; ppq < quarters - 1e-9; ppq += block / samplesPerQuarter)
+    {
+        t.ppq = ppq;
+        const int n = (int) std::min ((double) block, std::ceil ((quarters - ppq) * samplesPerQuarter));
+        events->clear();
+        gen.process (t, settings, std::max (1, n), *events);
+        collect (ppq);
+    }
+    stromscore::Transport stop;
+    events->clear();
+    gen.process (stop, settings, block, *events);   // alle Noten am Ende beenden
+    collect (quarters);
+
+    juce::MidiFile file;
+    file.setTicksPerQuarterNote (tpq);
+    juce::MidiMessageSequence conductor;
+    conductor.addEvent (juce::MidiMessage::tempoMetaEvent (juce::roundToInt (60000000.0 / bpm)));
+    conductor.addEvent (juce::MidiMessage::timeSignatureMetaEvent (juce::jlimit (1, 16, settings.meterNum), juce::jlimit (1, 16, settings.meterDen)));
+    file.addTrack (conductor);
+    for (int i = 0; i < stromscore::kNumLayers; ++i)
+    {
+        juce::MidiMessageSequence seq;
+        seq.addEvent (juce::MidiMessage::textMetaEvent (3, layerNames()[i]));
+        seq.addSequence (tracks[i], 0.0);
+        seq.sort();
+        seq.updateMatchedPairs();
+        file.addTrack (seq);
+    }
+    const auto name = juce::String ("Stromscore ") + (settings.genre == stromscore::GenrePopRock ? "Pop-Rock" : "Score") + " " + juce::String (bars) + " Takte.mid";
+    auto out = juce::File::getSpecialLocation (juce::File::tempDirectory).getChildFile ("Stromscore").getChildFile (name);
+    out.getParentDirectory().createDirectory();
+    out.deleteFile();
+    if (auto stream = out.createOutputStream())
+        file.writeTo (*stream);
+    return out;
+}
+

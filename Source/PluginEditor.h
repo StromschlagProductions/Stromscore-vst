@@ -42,10 +42,22 @@ public:
     std::function<void (float, float)> onDrag;
     std::function<void()> onDragStart, onDragEnd;
     std::function<void (float)> onWheel;
+    std::function<void (float, float)> onHover;   // Maus ueber dem Feld (ohne Klick): Feld-Karte
+    struct HoverItem { juce::String name; float x = 0, y = 0; };
+    HoverItem hover[3];
+    int numHover = 0;
     void paint (juce::Graphics& g) override;
-    void mouseDown (const juce::MouseEvent& e) override { if (onDragStart) onDragStart(); move (e); }
+    void mouseDown (const juce::MouseEvent& e) override { dragging = true; numHover = 0; if (onDragStart) onDragStart(); move (e); }
     void mouseDrag (const juce::MouseEvent& e) override { move (e); }
-    void mouseUp (const juce::MouseEvent&) override { if (onDragEnd) onDragEnd(); }
+    void mouseUp (const juce::MouseEvent&) override { dragging = false; if (onDragEnd) onDragEnd(); }
+    void mouseMove (const juce::MouseEvent& e) override
+    {
+        if (dragging || ! onHover) return;
+        const auto a = area();
+        onHover (juce::jlimit (0.0f, 1.0f, (e.position.x - a.getX()) / a.getWidth()), juce::jlimit (0.0f, 1.0f, 1.0f - (e.position.y - a.getY()) / a.getHeight()));
+    }
+    void mouseExit (const juce::MouseEvent&) override { numHover = 0; repaint(); }
+    bool dragging = false;
     void mouseWheelMove (const juce::MouseEvent&, const juce::MouseWheelDetails& w) override { if (onWheel) onWheel (w.deltaY * 0.25f); }
 private:
     juce::Rectangle<float> area() const { return getLocalBounds().toFloat().reduced (10.0f); }
@@ -67,6 +79,8 @@ public:
     juce::String chips[stromscore::kMaxChords];
     int numChips = 0, current = -1;
     bool playing = false, custom = false;
+    juce::String nextChord;    // naechster Akkord
+    float progress = 0.0f;     // bis zum naechsten Akkordwechsel
     juce::String candidates;   // Wendungen, die an der aktuellen Stelle in Frage kommen
     float mood[3] {};   // Faerbung, Intensitaet, Unruhe (0..1), live angezeigt
     void paint (juce::Graphics& g) override;
@@ -103,6 +117,39 @@ public:
         muteButton.setBounds (getWidth() - 52, 6, 21, 20);
     }
     static constexpr int kArpIndex = 2;
+};
+
+// Feld zum Herausziehen der naechsten Takte als MIDI-Datei; Klick wechselt die Laenge
+class MidiDragBox : public juce::Component, public juce::SettableTooltipClient
+{
+public:
+    juce::Colour panel, line, accent, text, dim;
+    juce::String label;
+    std::function<juce::File()> render;
+    std::function<void()> onClick;
+    void paint (juce::Graphics& g) override
+    {
+        auto r = getLocalBounds().toFloat().reduced (0.5f);
+        g.setColour (over ? accent.withAlpha (0.18f) : panel);
+        g.fillRoundedRectangle (r, 4.0f);
+        g.setColour (accent);
+        g.drawRoundedRectangle (r, 4.0f, 1.2f);
+        g.setFont (juce::FontOptions (12.0f, juce::Font::bold));
+        g.drawText (label, getLocalBounds(), juce::Justification::centred);
+    }
+    void mouseEnter (const juce::MouseEvent&) override { over = true; repaint(); }
+    void mouseExit (const juce::MouseEvent&) override { over = false; repaint(); }
+    void mouseDown (const juce::MouseEvent&) override { started = false; }
+    void mouseDrag (const juce::MouseEvent& e) override
+    {
+        if (started || e.getDistanceFromDragStart() < 6 || ! render) return;
+        started = true;
+        const auto file = render();
+        if (file.existsAsFile()) juce::DragAndDropContainer::performExternalDragDropOfFiles ({ file.getFullPathName() }, false, this);
+    }
+    void mouseUp (const juce::MouseEvent&) override { if (! started && onClick) onClick(); }
+private:
+    bool over = false, started = false;
 };
 
 // Eigene Akkordfolge: acht Plaetze mit Grundton, Art und Laenge (ueber der oberen Karte eingeblendet)
@@ -203,6 +250,7 @@ private:
     void timerCallback() override;
     void updateCcButton();
     void showCcMenu();
+    void updateMidiLabel();
     float subtitleEnd() const;
 
     static constexpr int kBaseW = StromscoreProcessor::kUiWidth, kBaseH = StromscoreProcessor::kUiHeight;
@@ -227,7 +275,9 @@ private:
     std::unique_ptr<APVTS::SliderAttachment> variationAttachment, swingAttachment;
     juce::ComboBox keyBox, meterBox, changeBox;
     std::unique_ptr<APVTS::ComboBoxAttachment> keyAttachment, meterAttachment, changeAttachment;
-    juce::TextButton ccButton, previewButton, customButton, editButton, passingButton;
+    juce::TextButton ccButton, previewButton, customButton, editButton, passingButton, genreScore, genrePop;
+    std::unique_ptr<juce::ParameterAttachment> genreAttachment;
+    MidiDragBox midiDrag;
     std::unique_ptr<APVTS::ButtonAttachment> previewAttachment, customAttachment, passingAttachment;
     SlotPanel slots;
     std::unique_ptr<APVTS::ComboBoxAttachment> slotAttachment[3 * stromscore::kMaxChords];

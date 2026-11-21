@@ -21,6 +21,9 @@ public:
         processor.chordIndex.store (1);
         processor.chordRoot.store (stromscore::kWendungen[w].ch[1].root);
         processor.chordType.store (stromscore::kWendungen[w].ch[1].type);
+        processor.nextRoot.store (stromscore::kWendungen[w].ch[2].root);
+        processor.nextType.store (stromscore::kWendungen[w].ch[2].type);
+        processor.chordProgress.store (0.4f);
         startTimer (100);
     }
     int result = 0;

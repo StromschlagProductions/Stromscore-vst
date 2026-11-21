@@ -51,11 +51,12 @@ constexpr int kCustomTypes[] = { Maj, Min, Maj7, Min7, Dom7, Sus4, Sus2, Add9, M
 constexpr int kNumCustomTypes = (int) (sizeof (kCustomTypes) / sizeof (kCustomTypes[0]));
 
 // ------------------------------------------------------------------ Muster
-enum PadPattern { PadAuto = 0, PadHeld, PadStabs, PadPulse, PadStaccato, kNumPadPatterns };
+enum PadPattern { PadAuto = 0, PadHeld, PadStabs, PadPulse, PadStaccato, PadGated, kNumPadPatterns };
 enum BassPattern { BassAuto = 0, BassHeld, BassHalf, BassQuarter, BassEighth, BassPulse, BassFunk, BassPendulum,
-                   BassWalking, BassAlternating, BassHeartbeat, BassArpeggio, BassPedal, kNumBassPatterns };
-enum ArpFigure { ArpAuto = 0, ArpUp, ArpDown, ArpCircle, ArpCell, ArpRiff, ArpGlitter, ArpLeaps, ArpCascade, ArpOctatonic, ArpQuartal, kNumArpFigures };
+                   BassWalking, BassAlternating, BassHeartbeat, BassArpeggio, BassPedal, BassHiNrg, BassGallop, kNumBassPatterns };
+enum ArpFigure { ArpAuto = 0, ArpUp, ArpDown, ArpCircle, ArpCell, ArpRiff, ArpGlitter, ArpLeaps, ArpCascade, ArpOctatonic, ArpQuartal, ArpSid, kNumArpFigures };
 enum ArpRate { RateAuto = 0, RateQuarter, RateEighth, RateSixteenth, kNumArpRates };
+enum Genre { GenreScore = 0, GenrePopRock, kNumGenres };
 enum ChangeGrid { ChangeBeat = 0, ChangeBar, Change2Bars, Change4Bars, kNumChangeGrids };
 
 // ------------------------------------------------------------------ Vokabular (Wendungen)
@@ -124,7 +125,41 @@ constexpr Wendung kWendungen[] = {
     { "Heldisch",           0.80f, 0.75f, 0.10f, 4, { { 0, Maj, 2 }, { 10, Maj, 2 }, { 5, Maj, 2 }, { 0, Maj, 2 } }, { ArpUp, ArpLeaps }, { BassEighth, BassQuarter }, PadPulse },
     { "Triumph",            0.88f, 0.92f, 0.05f, 4, { { 0, Maj, 2 }, { 8, Maj, 2 }, { 10, Maj, 2 }, { 0, Maj, 2 } }, { ArpUp, ArpLeaps }, { BassEighth, BassEighth }, PadPulse } };
 constexpr int kNumWendungen = (int) (sizeof (kWendungen) / sizeof (kWendungen[0]));
-constexpr int kCustomWendung = kNumWendungen;   // Index fuer die eigene Folge
+
+// 80er Pop-Rock (Genre-Schalter): Grundlage ist der Abschnitt "80er Pop-Rock" im Stilmittel-Katalog.
+constexpr Wendung kPopWendungen[] = {
+    // dunkel und ruhig: Nacht, Neon, kalte Welle
+    { "Kalte Welle",        0.12f, 0.45f, 0.45f, 2, { { 0, Min, 4 }, { 1, Maj, 4 } }, { ArpSid, ArpCell }, { BassPulse, BassHiNrg }, PadHeld },
+    { "Neonregen",          0.35f, 0.25f, 0.10f, 4, { { 0, Min, 2 }, { 5, Min, 2 }, { 8, Maj, 2 }, { 10, Maj, 2 } }, { ArpCircle, ArpDown }, { BassHalf, BassEighth }, PadHeld },
+    { "Nachtfahrt",         0.30f, 0.40f, 0.15f, 4, { { 0, Min, 2 }, { 8, Maj, 2 }, { 3, Maj, 2 }, { 10, Maj, 2 } }, { ArpUp, ArpCircle }, { BassEighth, BassPulse }, PadHeld },
+    { "Sequenzer-Fieber",   0.30f, 0.55f, 0.25f, 4, { { 0, Min, 2 }, { 8, Maj7, 2 }, { 0, Min, 2 }, { 8, Maj7, 2 } }, { ArpUp, ArpSid }, { BassHiNrg, BassHeartbeat }, PadHeld },
+    { "Miami-Nacht",        0.45f, 0.35f, 0.10f, 4, { { 8, Maj7, 2 }, { 5, Min7, 2 }, { 7, Min7, 2 }, { 0, Min7, 2 } }, { ArpCircle, ArpSid }, { BassArpeggio, BassHalf }, PadHeld },
+    // dunkel und aufgewuehlt: Rebellion, Bombast, Jagd
+    { "Kalter Krieg",       0.10f, 0.75f, 0.85f, 4, { { 0, Min, 2 }, { 6, Maj, 2 }, { 0, Min, 2 }, { 11, Dim7, 2 } }, { ArpSid, ArpOctatonic }, { BassHiNrg, BassPulse }, PadStabs },
+    { "Jagd durch L.A.",    0.15f, 0.95f, 0.70f, 8, { { 0, Min, 1 }, { 8, Maj, 1 }, { 10, Maj, 1 }, { 0, Min, 1 }, { 6, Maj, 1 }, { 8, Maj, 1 }, { 10, Maj, 1 }, { 11, Dim7, 1 } }, { ArpSid, ArpCell }, { BassHiNrg, BassPulse }, PadStabs },
+    { "Bombast",            0.20f, 0.90f, 0.55f, 3, { { 0, Min, 4 }, { 8, Maj, 2 }, { 10, Maj, 2 } }, { ArpSid, ArpUp }, { BassHiNrg, BassHiNrg }, PadGated },
+    { "Rebellenschrei",     0.25f, 0.85f, 0.40f, 4, { { 0, Fifth, 2 }, { 10, Fifth, 2 }, { 8, Fifth, 2 }, { 10, Fifth, 2 } }, { ArpRiff, ArpSid }, { BassEighth, BassGallop }, PadStabs },
+    { "Kommando",           0.30f, 0.80f, 0.30f, 4, { { 0, Min, 2 }, { 10, Maj, 2 }, { 8, Maj, 2 }, { 7, Dom7, 2 } }, { ArpSid, ArpUp }, { BassGallop, BassEighth }, PadGated },
+    { "Galopp",             0.40f, 0.85f, 0.35f, 5, { { 0, Min, 2 }, { 7, Dom7, 1 }, { 0, Min, 1 }, { 8, Maj, 2 }, { 7, Dom7, 2 } }, { ArpSid, ArpRiff }, { BassGallop, BassGallop }, PadStabs },
+    // Mitte: Groove, Glanz
+    { "Dunkler Glanz",      0.45f, 0.65f, 0.25f, 4, { { 0, Min, 2 }, { 5, Maj, 2 }, { 0, Min, 2 }, { 5, Maj, 2 } }, { ArpUp, ArpRiff }, { BassEighth, BassGallop }, PadPulse },
+    { "Synth-Funk",         0.55f, 0.70f, 0.15f, 4, { { 0, Min, 2 }, { 10, Maj, 2 }, { 8, Maj, 2 }, { 10, Maj, 2 } }, { ArpRiff, ArpUp }, { BassFunk, BassGallop }, PadStabs },
+    { "Mosaik",             0.60f, 0.55f, 0.10f, 4, { { 0, Maj, 2 }, { 7, Maj, 2 }, { 9, Min, 2 }, { 5, Maj, 2 } }, { ArpUp, ArpSid }, { BassEighth, BassHiNrg }, PadGated },
+    // hell: Tanzsaal, Ballade, Hymne
+    { "Tanzsaal",           0.65f, 0.65f, 0.15f, 4, { { 0, Maj, 2 }, { 10, Maj, 2 }, { 5, Maj, 2 }, { 0, Maj, 2 } }, { ArpRiff, ArpUp }, { BassHiNrg, BassEighth }, PadGated },
+    { "Powerballade",       0.70f, 0.30f, 0.05f, 4, { { 0, Maj, 2 }, { 4, Min, 2 }, { 5, Maj, 2 }, { 7, Maj, 2 } }, { ArpCircle, ArpUp }, { BassHalf, BassQuarter }, PadHeld },
+    { "Machtakkorde",       0.70f, 0.80f, 0.30f, 4, { { 0, Fifth, 2 }, { 10, Fifth, 2 }, { 5, Fifth, 2 }, { 0, Fifth, 2 } }, { ArpRiff, ArpLeaps }, { BassEighth, BassGallop }, PadStabs },
+    { "Sunset Strip",       0.80f, 0.45f, 0.05f, 4, { { 0, Add9, 2 }, { 5, Maj, 2, 0 }, { 0, Add9, 2 }, { 7, Sus4, 2 } }, { ArpSid, ArpCascade }, { BassPedal, BassEighth }, PadHeld },
+    { "Sonnenseite",        0.80f, 0.65f, 0.10f, 3, { { 10, Maj, 2 }, { 5, Maj, 2 }, { 0, Maj, 4 } }, { ArpRiff, ArpUp }, { BassEighth, BassAlternating }, PadGated },
+    { "Stadionhymne",       0.85f, 0.90f, 0.10f, 6, { { 0, Maj, 2 }, { 8, Maj, 1 }, { 10, Maj, 1 }, { 0, Maj, 2 }, { 8, Maj, 1 }, { 10, Maj, 1 } }, { ArpUp, ArpLeaps }, { BassEighth, BassHiNrg }, PadPulse } };
+constexpr int kNumPopWendungen = (int) (sizeof (kPopWendungen) / sizeof (kPopWendungen[0]));
+constexpr int kMaxWendungen = 64;
+static_assert (kNumWendungen <= kMaxWendungen && kNumPopWendungen <= kMaxWendungen, "Vorrat zu gross");
+constexpr int kCustomWendung = 1000;   // Index fuer die eigene Folge
+
+inline const Wendung* wendungTable (int genre) { return genre == GenrePopRock ? kPopWendungen : kWendungen; }
+inline int wendungCount (int genre) { return genre == GenrePopRock ? kNumPopWendungen : kNumWendungen; }
+inline const Wendung& wendungAt (int genre, int i) { return wendungTable (genre)[std::clamp (i, 0, wendungCount (genre) - 1)]; }
 
 // ------------------------------------------------------------------ Ein- und Ausgabe
 struct CustomChord { int rootAbs = 0; int type = Maj; int bars = 0; };   // bars 0 = Platz leer
@@ -143,6 +178,9 @@ struct Settings
     bool solo[kNumLayers] = {};                               // ist eine Ebene solo, spielen nur die Solo-Ebenen
     float layerIntensity[kNumLayers] = {};                    // -1 ... +1 zur Intensitaet des Feldes (0 = wie das Feld)
     float variety = 0.5f;
+    int genre = GenreScore;     // Vokabular: Score oder 80er Pop-Rock
+    bool dynamics = false;      // Dynamik als CC an die Spuren senden
+    int ccDynamics = 1, ccExpression = 11;   // 0 = diesen CC nicht senden
     bool passing = false;       // Durchgangsakkorde: bei viel Intensitaet die Dominante des naechsten Akkords auf dem letzten Schlag       // Abwechslung: 0 = nur die passendste Wendung, 1 = auch entferntere Nachbarn
     int octave[kNumLayers] = { 0, 0, 0, 0, 0 };               // -2 ... +2
     bool follow[3] = { true, true, true };                    // Flaeche, Bass, Arp: false = bleibt auf dem Grundakkord
@@ -160,7 +198,8 @@ struct Transport
 };
 
 // velocity 0 = Note aus
-struct Event { int offset; uint8_t channel; uint8_t note; uint8_t velocity; };
+// type 0: Note (velocity 0 = aus), type 1: Controller (note = CC-Nummer, velocity = Wert)
+struct Event { int offset; uint8_t channel; uint8_t note; uint8_t velocity; uint8_t type = 0; };
 
 struct EventList
 {
@@ -172,7 +211,12 @@ struct EventList
     void add (int offset, int channel, int note, int velocity)
     {
         if (size >= kCapacity) { overflow = true; return; }
-        events[(size_t) size++] = { offset, (uint8_t) channel, (uint8_t) note, (uint8_t) velocity };
+        events[(size_t) size++] = { offset, (uint8_t) channel, (uint8_t) note, (uint8_t) velocity, 0 };
+    }
+    void addCc (int offset, int channel, int controller, int value)
+    {
+        if (size >= kCapacity) { overflow = true; return; }
+        events[(size_t) size++] = { offset, (uint8_t) channel, (uint8_t) controller, (uint8_t) std::clamp (value, 0, 127), 1 };
     }
 };
 
@@ -248,7 +292,7 @@ struct Meter
 class Generator
 {
 public:
-    void reset() { style = -1; csNote = -1; csPendingAt = -1; chaseStep = -1; numActive = 0; running = false; lastPpqEnd = 0.0; phraseIndex = -1; current = -1; wendungStart = 0; curRoot = 0; curType = Min; curChord = -1; }
+    void reset() { style = -1; csNote = -1; csPendingAt = -1; chaseStep = -1; lastGenre = -1; resetCc(); numActive = 0; running = false; lastPpqEnd = 0.0; phraseIndex = -1; current = -1; wendungStart = 0; curRoot = 0; curType = Min; curChord = -1; }
 
     // Fuer die Anzeige (kCustomWendung = eigene Folge)
     int wendung() const { return current; }
@@ -256,6 +300,10 @@ public:
     int chordRoot() const { return curRoot; }
     int chordType() const { return curType; }
     int styleWendung() const { return current == kCustomWendung ? style : -1; }   // eigene Folge: Wendung, deren Stil geliehen wird
+    int genreInUse() const { return genre; }
+    int nextRoot() const { return curNextRoot; }
+    int nextType() const { return curNextType; }
+    float chordProgress() const { return curProgress; }   // 0 ... 1 bis zum naechsten Akkordwechsel
 
     // Intensitaet einer Ebene: Feld plus eigener Regler
     static float layerY (const Settings& s, int layer)
@@ -279,12 +327,13 @@ public:
     // Wendungen, die an der aktuellen Stelle in Frage kommen, nach Passung sortiert
     static int candidates (const Settings& s, int* out, int maxOut)
     {
-        float w[kNumWendungen]; float best = 0.0f;
-        for (int i = 0; i < kNumWendungen; ++i) { w[i] = weight (kWendungen[i], s); best = std::max (best, w[i]); }
+        const Wendung* tbl = wendungTable (s.genre); const int count = wendungCount (s.genre);
+        float w[kMaxWendungen]; float best = 0.0f;
+        for (int i = 0; i < count; ++i) { w[i] = weight (tbl[i], s); best = std::max (best, w[i]); }
         const float r = keepRatio (s);
         int n = 0;
         if (maxOut <= 0) return 0;
-        for (int i = 0; i < kNumWendungen; ++i)
+        for (int i = 0; i < count; ++i)
         {
             if (w[i] < r * best - 1e-9f) continue;
             int j;
@@ -307,25 +356,26 @@ public:
     static float bestWeight (const Settings& s)
     {
         float best = 0.0f;
-        for (const auto& w : kWendungen) best = std::max (best, weight (w, s));
+        for (int i = 0; i < wendungCount (s.genre); ++i) best = std::max (best, weight (wendungTable (s.genre)[i], s));
         return best;
     }
 
     // Deterministische Wahl unter den Wendungen, die gut zur Lage passen (mindestens halb so gut wie die beste)
     static int pick (const Settings& s, long long salt)
     {
-        float w[kNumWendungen]; float total = 0.0f, best = 0.0f; int bestIdx = 0;
-        for (int i = 0; i < kNumWendungen; ++i)
+        const Wendung* tbl = wendungTable (s.genre); const int count = wendungCount (s.genre);
+        float w[kMaxWendungen]; float total = 0.0f, best = 0.0f; int bestIdx = 0;
+        for (int i = 0; i < count; ++i)
         {
-            w[i] = weight (kWendungen[i], s);
+            w[i] = weight (tbl[i], s);
             if (w[i] > best) { best = w[i]; bestIdx = i; }
         }
         const float ratio = keepRatio (s);
-        for (int i = 0; i < kNumWendungen; ++i) { if (w[i] < ratio * best) w[i] = 0.0f; total += w[i]; }
+        for (int i = 0; i < count; ++i) { if (w[i] < ratio * best) w[i] = 0.0f; total += w[i]; }
         if (total <= 0.0f) return bestIdx;
         const float r = (float) (hash3 ((uint32_t) s.variation, (uint32_t) salt, 911u) % 100000u) / 100000.0f * total;
         float acc = 0.0f;
-        for (int i = 0; i < kNumWendungen; ++i) { acc += w[i]; if (r < acc) return i; }
+        for (int i = 0; i < count; ++i) { acc += w[i]; if (r < acc) return i; }
         return bestIdx;
     }
 
@@ -355,9 +405,11 @@ public:
         meter = Meter::from (s.meterNum, s.meterDen);
         custom = customWendung (s);
         const int bars = s.custom ? wendungBars (custom) : kPhraseBars;
-        if (s.custom != wasCustom || bars != phraseBars)       // Umschalten oder neue Laenge: neue Phrase
+        s.genre = std::clamp (s.genre, 0, kNumGenres - 1);
+        if (s.custom != wasCustom || bars != phraseBars || s.genre != lastGenre)   // Umschalten, neue Laenge oder anderes Genre: neue Phrase
         {
-            phraseIndex = -1; wasCustom = s.custom; phraseBars = bars;
+            phraseIndex = -1; wasCustom = s.custom; phraseBars = bars; style = -1;
+            genre = s.genre; lastGenre = s.genre;
             if (running) releaseHeld (0, out);
         }
 
@@ -377,7 +429,7 @@ public:
             allNotesOff (out, 0);
             running = true;
             phraseIndex = -1;
-            csNote = -1; csPendingAt = -1;
+            csNote = -1; csPendingAt = -1; resetCc();
             chase (t.ppq, s, out);
         }
 
@@ -410,7 +462,7 @@ private:
 
     static long long floorDiv (long long a, long long b) { return a >= 0 ? a / b : -((-a + b - 1) / b); }
 
-    const Wendung& W() const { return current == kCustomWendung ? custom : kWendungen[std::clamp (current, 0, kNumWendungen - 1)]; }
+    const Wendung& W() const { return current == kCustomWendung ? custom : wendungAt (genre, current); }
 
     double swingDelay (long long k, const Settings& s) const
     {
@@ -480,17 +532,17 @@ private:
         if (k == p.phraseStart || ! isChangePoint (p, s)) return false;
         if (current == kCustomWendung)   // eigene Folge: nur der geliehene Stil wechselt, die Akkorde bleiben
         {
-            if (style < 0 || weight (kWendungen[style], s) < std::min (kKeepRatio, keepRatio (s)) * bestWeight (s)) style = pick (s, k * 7 + 3);
+            if (style < 0 || weight (wendungAt (genre, style), s) < std::min (kKeepRatio, keepRatio (s)) * bestWeight (s)) style = pick (s, k * 7 + 3);
             return false;
         }
         if (s.custom) return false;
-        if (weight (kWendungen[current], s) >= std::min (kKeepRatio, keepRatio (s)) * bestWeight (s)) return false;
+        if (weight (wendungAt (genre, current), s) >= std::min (kKeepRatio, keepRatio (s)) * bestWeight (s)) return false;
         current = pick (s, k * 7 + 3);
         wendungStart = k;
         return true;
     }
 
-    const Wendung& SW() const { return current == kCustomWendung ? kWendungen[std::clamp (style, 0, kNumWendungen - 1)] : W(); }
+    const Wendung& SW() const { return current == kCustomWendung ? wendungAt (genre, style) : W(); }
 
     int nextChordRoot (const Pos& p) const
     {
@@ -729,6 +781,12 @@ private:
         const Wendung& w = W();
         curChord = p.chordIdx; curRoot = w.ch[p.chordIdx].root; curType = w.ch[p.chordIdx].type;
         if (p.passing && s.follow[kFlaeche]) { curRoot = (nextChordRoot (p) + 7) % 12; curType = Dom7; }
+        {
+            const Chord& nc = p.chordIdx + 1 < w.n ? w.ch[p.chordIdx + 1] : w.ch[0];
+            curNextRoot = nc.root; curNextType = nc.type;
+            curProgress = p.chordEnd > p.chordStart ? (float) (k - p.chordStart) / (float) (p.chordEnd - p.chordStart) : 0.0f;
+        }
+        if (s.dynamics) dynamicsCc (k, p, s, offset, out);
         const bool chordStart = k == p.chordStart;
         const bool beat = p.pos % 4 == 0;
         const bool group = meter.isGroupStart (p.pos);
@@ -750,6 +808,8 @@ private:
             padChord (p, s, offset, k + 3, (int) (50 + 40 * yPad) + (group ? 8 : 0), out);
         else if (pad == PadStaccato && beat)
             padChord (p, s, offset, k + 1, (int) (48 + 40 * yPad) + (group ? 6 : 0), out);
+        else if (pad == PadGated && p.pos % 2 == 0)                 // gehackte Achtel wie ein Gate
+            padChord (p, s, offset, k + 1, (int) (46 + 40 * yPad) + (group ? 10 : 0), out);
 
         // --- Bass
         {
@@ -823,6 +883,20 @@ private:
                 case BassPedal:   // Orgelpunkt: liegt (in sustained), bei viel Intensitaet zusaetzlich ein Puls auf den Schlaegen
                     if (yBass > 0.6f && beat && k != p.chordStart) noteOn (kBass, root, vel - 12, k + 1, offset, out);
                     break;
+                case BassHiNrg:   // Grundton und Oberoktave im Wechsel, sehr aufgewuehlt in Sechzehnteln
+                {
+                    const int rate = yBass > 0.75f ? 1 : 2;
+                    if (p.pos % rate == 0)
+                        noteOn (kBass, ((p.pos / rate) % 2 == 0) ? root : root + 12, vel - ((p.pos / rate) % 2 == 0 ? 0 : 8), k + rate, offset, out);
+                    break;
+                }
+                case BassGallop:  // Achtel und zwei Sechzehntel
+                {
+                    const int q = p.pos % 4;
+                    if (q == 0) noteOn (kBass, root, vel + 4, k + 2, offset, out);
+                    else if (q == 2 || q == 3) noteOn (kBass, root, vel - 8, k + 1, offset, out);
+                    break;
+                }
                 case BassHeartbeat:
                     if (p.pos % 8 == 0) noteOn (kBass, root, vel + 4, k + 1, offset, out);
                     else if (p.pos % 8 == 2) noteOn (kBass, root, vel - 10, k + 4, offset, out);
@@ -845,7 +919,7 @@ private:
             const int fig = chooseArp (s, phrase);
             int rate = s.arpRate == RateQuarter ? 4 : s.arpRate == RateEighth ? 2 : s.arpRate == RateSixteenth ? 1
                      : (yArp < 0.15f ? 4 : yArp < 0.5f ? 2 : 1);
-            if (fig == ArpGlitter) rate = 1;
+            if (fig == ArpGlitter || fig == ArpSid) rate = 1;
             const long long rel = k - (s.follow[kArp] ? p.chordStart : p.phraseStart);
             if (rel % rate == 0)
             {
@@ -896,6 +970,11 @@ private:
                         note = base + (idx < 8 ? scale[idx] : 12);
                         break;
                     }
+                    case ArpSid:       // SID-Arpeggio: Dreiklang in Sechzehnteln, eine Oktave hoeher, wie ein Akkord auf einem Kanal
+                    {
+                        note = base + 12 + sh.iv[(int) (c0 % std::min (3, sh.n))];
+                        break;
+                    }
                     case ArpQuartal:   // gestapelte Quarten als Ostinato
                     {
                         static constexpr int fourths[6] = { 0, 5, 10, 15, 10, 5 };
@@ -906,13 +985,44 @@ private:
                 }
                 if (z >= 0.6f && c0 % 8 == 7) note -= 1;                    // Unruhe: chromatischer Durchgang
                 const int vel = (int) ((fig == ArpGlitter ? 40 : 52) + 35 * yArp) + (group ? 6 : 0) + jitter (k, kArp, 6);
-                const long long len = (fig == ArpGlitter || rate == 1) ? 1 : rate;
+                const long long len = (fig == ArpGlitter || fig == ArpSid || rate == 1) ? 1 : rate;
                 noteOn (kArp, note, vel, k + len, offset, out);
             }
         }
 
         // --- Gegenstimme: ruhige Linie aus Akkordtoenen, schrittweise gefuehrt
         counterLine (k, p, s, offset, chordStart, out);
+    }
+
+    // Dynamik als CC: Grundwert folgt der Intensitaet, darauf atmende Boegen (Grundlage: Dynamikkurven der eigenen Vorlagen,
+    // meist zwischen 62 und 75 in Boegen von ein bis drei Vierteln). Pop-Rock fast flach, Score weiter, bei Unruhe mit Akzent.
+    void resetCc() { for (auto& v : lastCc) v = -1; for (auto& v : lastExpr) v = -1; }
+
+    void dynamicsCc (long long k, const Pos& p, const Settings& s, int offset, EventList& out)
+    {
+        for (int layer = 0; layer < kNumLayers; ++layer)
+        {
+            if (! layerActive (s, layer)) { lastCc[layer] = -1; lastExpr[layer] = -1; continue; }
+            const float yl = layerY (s, layer);
+            const float base = 50.0f + 40.0f * yl;
+            float value = base;
+            if (s.genre == GenrePopRock) value += 2.0f * std::sin (3.14159265f * (float) ((k - p.chordStart) % 16) / 16.0f);
+            else
+            {
+                const bool slow = layer == kGegenstimme || (layer == kFlaeche && choosePad (s) == PadHeld);
+                const int arc = slow ? 16 : 8;
+                const float amp = 4.0f + 6.0f * yl + 4.0f * s.z;
+                const float phase = (float) ((k - p.chordStart) % arc) / (float) arc;
+                value += -0.5f * amp + amp * std::sin (3.14159265f * phase);
+                const long long since = k - p.chordStart;
+                if (s.z >= 0.6f && since < 4) value += (amp + 6.0f) * (1.0f - (float) since / 4.0f);   // Sforzato beim Akkordwechsel
+            }
+            const int v = std::clamp ((int) std::lround (value), 1, 127);
+            const int e = std::clamp ((int) std::lround (70.0f + 50.0f * s.y), 1, 127);
+            const int channel = layer + 1;
+            if (s.ccDynamics > 0 && (lastCc[layer] < 0 || std::abs (v - lastCc[layer]) >= 2)) { out.addCc (offset, channel, s.ccDynamics, v); lastCc[layer] = v; }
+            if (s.ccExpression > 0 && (lastExpr[layer] < 0 || std::abs (e - lastExpr[layer]) >= 2)) { out.addCc (offset, channel, s.ccExpression, e); lastExpr[layer] = e; }
+        }
     }
 
     // Zielton der Gegenstimme: Akkordton nahe am vorigen Ton, Terz und Septime bevorzugt, nicht der Ton der Farbe
@@ -941,14 +1051,55 @@ private:
         return best >= 0 ? best : place (s.key + c.root + sh.iv[std::min (1, sh.n - 1)], lo);
     }
 
+    // Pop-Rock: durchgehende, gleichbleibende Hook-Linie aus Akkordtoenen (eine Figur je VARIATION)
+    void leadHook (long long k, const Pos& p, const Settings& s, int offset, EventList& out)
+    {
+        static constexpr int figures[6][8] = { { 0, 1, 2, 1, 0, 1, 2, 3 }, { 2, 1, 0, 1, 2, 3, 2, 1 }, { 0, 0, 2, 0, 3, 0, 2, 1 },
+                                               { 3, 2, 1, 2, 3, 2, 1, 0 }, { 0, 2, 1, 2, 0, 3, 2, 1 }, { 1, 2, 3, 2, 1, 0, 1, 2 } };
+        const float yc = layerY (s, kGegenstimme);
+        const int rate = yc < 0.45f ? 4 : 2;
+        if ((k - p.phraseStart) % rate != 0) return;
+        const int slot = (int) (((k - p.phraseStart) / rate) % 8);
+        const int* fig = figures[hash3 ((uint32_t) s.variation, 17u, 523u) % 6];
+        const Chord c = chordFor (p, kGegenstimme, s);
+        const ChordShape& sh = kShapes[c.type];
+        const int base = place (s.key + c.root, 67 + (int) std::lround (s.x * 4.0f));
+        const int idx = fig[slot];
+        int note = idx >= 3 || idx >= sh.n ? base + 12 : base + sh.iv[idx];
+        if (s.z >= 0.5f && slot == 7)                               // Unruhe: chromatischer Nachbar vor dem naechsten Ton
+        {
+            const int nx = fig[0] >= 3 || fig[0] >= sh.n ? base + 12 : base + sh.iv[fig[0]];
+            note = nx - 1;
+        }
+        noteOn (kGegenstimme, note, (int) (58 + 35 * yc) + (slot % 2 == 0 ? 6 : 0), k + rate, offset, out);
+    }
+
+    // Legato: neuen Ton anschlagen, dann den vorigen derselben Ebene loslassen (Ueberlappung fuer Legato-Patches)
+    void releaseOthers (int layer, int keep, int offset, EventList& out)
+    {
+        const int channel = layer + 1;
+        const int keepNote = std::clamp (keep + (cur != nullptr ? 12 * cur->octave[layer] : 0), 0, 127);
+        for (int i = 0; i < numActive;)
+        {
+            if (active[(size_t) i].channel == channel && active[(size_t) i].note != keepNote)
+            {
+                out.add (offset, channel, active[(size_t) i].note, 0);
+                active[(size_t) i] = active[(size_t) --numActive];
+            }
+            else ++i;
+        }
+    }
+
     void counterLine (long long k, const Pos& p, const Settings& s, int offset, bool chordStart, EventList& out)
     {
         if (! layerActive (s, kGegenstimme)) { csNote = -1; csPendingAt = -1; return; }
+        if (s.genre == GenrePopRock) { leadHook (k, p, s, offset, out); return; }
         const float yc = layerY (s, kGegenstimme);
         const int vel = (int) (50 + 35 * yc);
         if (k == csPendingAt && csPending >= 0)                    // Vorhalt loest sich auf
         {
-            noteOn (kGegenstimme, csPending, vel, csPendingEnd, offset, out);
+            noteOn (kGegenstimme, csPending, vel, csPendingEnd + 1, offset, out);
+            releaseOthers (kGegenstimme, csPending, offset, out);
             csNote = csPending; csPendingAt = -1;
         }
         // Bewegung: ruhig nur bei Akkordwechseln, mittel alle zwei Takte, aufgewuehlt in Halben
@@ -961,12 +1112,14 @@ private:
         if (s.z >= 0.5f && chordStart && end - k >= 8)               // Unruhe: Vorhalt von oben, loest auf den Zielton auf
         {
             const int sus = target + (s.z >= 0.75f ? 1 : 2);
-            noteOn (kGegenstimme, sus, vel + 6, k + 4, offset, out);
+            noteOn (kGegenstimme, sus, vel + 6, k + 5, offset, out);
+            releaseOthers (kGegenstimme, sus, offset, out);
             csPending = target; csPendingAt = k + 4; csPendingEnd = end;
             csNote = sus;
             return;
         }
-        noteOn (kGegenstimme, target, vel, end, offset, out);
+        noteOn (kGegenstimme, target, vel, end + 1, offset, out);   // eine Sechzehntel laenger: bindet zum naechsten Ton
+        releaseOthers (kGegenstimme, target, offset, out);
         csNote = target;
     }
 
@@ -977,6 +1130,9 @@ private:
     double lastPpqEnd = 0.0;
     long long phraseIndex = -1, wendungStart = 0, chaseStep = -1;
     int current = -1, curChord = -1, curRoot = 0, curType = Min, style = -1;
+    int genre = GenreScore, lastGenre = -1, curNextRoot = 0, curNextType = Min;
+    float curProgress = 0.0f;
+    int lastCc[kNumLayers] = { -1, -1, -1, -1, -1 }, lastExpr[kNumLayers] = { -1, -1, -1, -1, -1 };
     int csNote = -1, csPending = -1;                 // Gegenstimme: letzter Ton, aufzuloesender Vorhalt
     long long csPendingAt = -1, csPendingEnd = 0;
     int phraseBars = kPhraseBars;
@@ -994,6 +1150,7 @@ public:
 
     void handle (const Event& e)
     {
+        if (e.type != 0) return;
         if (e.velocity == 0)
         {
             for (auto& v : voices)

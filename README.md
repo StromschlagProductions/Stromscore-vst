@@ -21,7 +21,7 @@ klassischer Hörspiele. Daraus ist ein Vorrat an Wendungen entstanden: Akkordfol
 Melodien bekannter Stücke werden nicht nachgebaut. Das Ziel: Szenen so zu untermalen, wie ich es selbst tun würde, und das einfacher
 zu machen.
 
-**Stand 0.7:** Forschungsphase. Bedienung und Klang werden mit jeder Version weiter verfeinert.
+**Stand 0.8:** Forschungsphase. Bedienung und Klang werden mit jeder Version weiter verfeinert.
 
 **⬇ Download (Windows · VST3):** https://github.com/StromschlagProductions/Stromscore-vst/releases/latest
 
@@ -74,7 +74,13 @@ weiter. Kleine Bewegungen lösen keinen Wechsel aus, solange die laufende Wendun
 **Vorrat:** 48 Wendungen, von Lauern, Trauer, Unruhigem Schlaf und Grusel über Verfolgung, Sog, Achse, Ermittlung, Geheimnis,
 Wurmloch, Fremde Orte, Synth-Nächte und Funk bis zu Schneelinien, Gleiten, Offenen Quinten, Sehnsucht, Romantik, Terrassen,
 Erhabenem, Heiterkeit, Western, Abenteuer, Erhebung, Fanfare und Triumph. Welche Wendungen an der aktuellen Stelle in Frage kommen,
-zeigt die Akkord-Anzeige unter „Hier“.
+zeigt die Akkord-Anzeige unter „Hier“. Fährst du mit der Maus über das Feld, erscheinen klein die Wendungen, die dort am nächsten
+liegen; rechts oben in der Akkord-Anzeige stehen der nächste Akkord und eine Leiste bis zum Wechsel.
+
+**Genre:** Zwei Knöpfe neben STIMMUNG wählen das Vokabular. **Score** enthält die Wendungen für Filmmusik. **80er Pop-Rock**
+enthält 20 eigene Wendungen mit Powerchord-Riffs, Hi-NRG- und Galopp-Bass, SID-Arpeggios, gehackten Flächen, dunklen Synth-Nächten und
+Hymnen. Dort spielt die Gegenstimme eine durchgehende, gleichbleibende Hook-Linie. Alle anderen Funktionen bleiben gleich, auch die
+eigene Folge, die dann den Pop-Rock-Stil leiht.
 
 **Controller:** Stromscore hört auf seinem MIDI-Eingang auf CC 11, CC 1 und CC 74, passend zu einem Fader-Controller für
 Orchester-Instrumente. Der Stromscore-Spur den Controller als Eingang geben und die Fader-Bewegungen als MIDI-Part aufnehmen. Über den
@@ -93,6 +99,8 @@ CC-Knopf lässt sich die Zuordnung ändern oder abschalten.
 | EIGENE FOLGE | Spielt deine Akkorde statt der Wendungen. Über **Bearbeiten** bis zu acht Akkorde mit Grundton, Art (Dur, Moll, maj7, m7, 7, sus4, sus2, add9, m6, m(maj7), m7b5, dim7, +) und Länge in Takten. Vorgabe: F – C – B – G mit je 2 Takten. Die Akkorde bleiben fest; die Färbung leiht den Stil der Wendung am Punkt im Feld (Figuren, Bass-Muster, Rhythmus der Fläche), Intensität und Unruhe wirken wie sonst. VARIATION wählt die Lage der Fläche. |
 | DURCHGÄNGE | Bei viel Intensität erklingt auf dem letzten Schlag eines Akkords kurz die Dominante des nächsten Akkords. Abschaltbar. |
 | VORHÖREN | Einfacher Testklang im Plugin. Spielt auch bei stehender DAW mit eigener Uhr im Projekttempo, dann nur als Testklang ohne MIDI an die Spuren. |
+| MIDI | Auf die DAW ziehen: die nächsten 8, 16 oder 32 Takte als MIDI-Datei, eine Spur je Ebene, mit allen aktuellen Einstellungen. Klick wechselt die Länge. Mit Solo ziehst du einzelne Ebenen heraus. |
+| Dynamik per CC | Im Menü des CC-Knopfs unter „Ausgabe an die Spuren“: jede Ebene bekommt CC 1 (Dynamik) und CC 11 (Ausdruck) für Orchester-Libraries, mit atmenden Bögen nach der Intensität. Nummern änderbar, abschaltbar. Getrennt von den Controllern am Eingang. |
 
 ## Die fünf Ebenen
 
@@ -106,11 +114,11 @@ Jede Ebene hat außerdem ihre eigene **Oktavlage** (zwei Oktaven tiefer bis zwei
 
 | Ebene | Kanal | Muster | Auto setzt ein |
 |---|---|---|---|
-| Fläche | 1 | Gehalten, Schläge (kurze Akkorde auf der Zwischenzeit), Puls, Staccato; weit gesetzt wie im Orchester | immer |
-| Bass | 2 | Gehalten, Halbe, Viertel, Achtel, Puls (Sechzehntel auf einem Ton), Funk, Pendel, Walking, Wechselbass, Herzschlag, Arpeggio, Orgelpunkt | immer |
-| Arp | 3 | Aufwärts, Abwärts, Kreisend, Zelle, Riff, Glitzern, Sprünge, Kaskade, Oktatonisch, Quarten · Tempo Viertel, Achtel, Sechzehntel | ab 25 % Intensität |
+| Fläche | 1 | Gehalten, Schläge (kurze Akkorde auf der Zwischenzeit), Puls, Staccato, Gated (gehackte Achtel); weit gesetzt wie im Orchester | immer |
+| Bass | 2 | Gehalten, Halbe, Viertel, Achtel, Puls (Sechzehntel auf einem Ton), Funk, Pendel, Walking, Wechselbass, Herzschlag, Arpeggio, Orgelpunkt, Hi-NRG (Grundton und Oberoktave), Galopp | immer |
+| Arp | 3 | Aufwärts, Abwärts, Kreisend, Zelle, Riff, Glitzern, Sprünge, Kaskade, Oktatonisch, Quarten, SID (Dreiklang in Sechzehnteln) · Tempo Viertel, Achtel, Sechzehntel | ab 25 % Intensität |
 | Farbe | 4 | Hoher Ton über dem Akkord, bei Unruhe ein fremder, reibender Ton | ab 40 % Intensität oder bei Unruhe |
-| Gegenstimme | 5 | Ruhige Linie aus langen Tönen, schrittweise von Akkord zu Akkord, bewegter mit mehr Intensität, bei Unruhe mit Vorhalten | ab 15 % Intensität |
+| Gegenstimme | 5 | Ruhige Linie aus langen Tönen, schrittweise von Akkord zu Akkord, bewegter mit mehr Intensität, bei Unruhe mit Vorhalten, gebunden für Legato-Instrumente; im Pop-Rock eine durchgehende Hook-Linie | ab 15 % Intensität |
 
 ## Installation (Windows)
 
@@ -126,6 +134,7 @@ Danach in der DAW die Plugins neu einlesen.
 
 - **0.5** – Wechsel schon am nächsten Schlag (wahlweise Takt, 2 oder 4 Takte) mit sauberem Übergang, eigene Akkordfolge mit bis zu acht Akkorden, Oktavlage je Ebene, Fläche und Bass eine Oktave höher, 13 neue Wendungen (35 insgesamt), neue Muster (Staccato, Walking, Wechselbass, Herzschlag, Arpeggio, Sprünge), Oktaven-Bass entfernt, Vorhören auch ohne Wiedergabe, Stimmungsfeld mit „Ruhe“ als Ausgangspunkt, kompaktere Oberfläche.
 - **0.6** – 13 neue Wendungen (48 insgesamt), neue Figuren (Kaskade, Oktatonisch, Quarten) und Bass Orgelpunkt, Akkorde mit eigenem Basston, weiter Satz der Fläche, Solo und Mute je Ebene, Intensität je Ebene, ABWECHSLUNG und Anzeige der passenden Wendungen.
+- **0.8** – Genre-Schalter Score / 80er Pop-Rock mit 20 eigenen Wendungen und neuen Mustern (Hi-NRG, Galopp, SID, Gated, Hook-Linie), Dynamik per CC für Orchester-Libraries, Legato der Gegenstimme, MIDI zum Herausziehen, nächster Akkord mit Leiste, Feld-Karte beim Überfahren.
 - **0.7** – Ebene 5 wird zur Gegenstimme, eigene Folge leiht den Stil der Wendung am Punkt im Feld, VARIATION wählt bei eigener Folge die Lage der Fläche, Durchgangsakkorde zuschaltbar, Anzeige, ab wann jede Ebene einsetzt.
 
 Alle Release-Hinweise: `docs/releases/`.

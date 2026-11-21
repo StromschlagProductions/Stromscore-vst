@@ -68,6 +68,21 @@ void MoodPad::paint (juce::Graphics& g)
     g.strokePath (ring, juce::PathStrokeType (1.5f));
     g.setColour (accent);
     g.fillEllipse (px - 6.0f, py - 6.0f, 12.0f, 12.0f);
+
+    // Feld-Karte: beim Ueberfahren die naechstgelegenen Wendungen, klein und blass
+    if (numHover > 0 && ! dragging)
+    {
+        g.setFont (juce::FontOptions (10.0f));
+        for (int i = 0; i < numHover; ++i)
+        {
+            const float hx = a.getX() + hover[i].x * a.getWidth(), hy = a.getY() + (1.0f - hover[i].y) * a.getHeight();
+            g.setColour (text.withAlpha (i == 0 ? 0.75f : 0.45f));
+            g.fillEllipse (hx - 2.0f, hy - 2.0f, 4.0f, 4.0f);
+            const float tw = 96.0f;
+            const float tx = juce::jlimit (a.getX(), a.getRight() - tw, hx - tw * 0.5f);
+            g.drawText (hover[i].name, juce::Rectangle<float> (tx, hy + 3.0f, tw, 12.0f), juce::Justification::centred);
+        }
+    }
 }
 
 // ---------------------------------------------------------------- Akkord-Anzeige
@@ -87,9 +102,18 @@ void ChordDisplay::paint (juce::Graphics& g)
     g.setColour (dim);
     g.setFont (juce::FontOptions (11.0f));
     g.drawText (meter, 14, 12, w - 28, 16, juce::Justification::centredRight);
+    if (playing && nextChord.isNotEmpty())
+    {
+        g.setFont (juce::FontOptions (13.0f));
+        g.drawText (u8 ("dann ") + nextChord, 14, 28, w - 28, 16, juce::Justification::centredRight);
+        g.setColour (line);
+        g.fillRoundedRectangle (14.0f, 46.0f, (float) w - 28.0f, 2.0f, 1.0f);
+        g.setColour (accent.withAlpha (0.8f));
+        g.fillRoundedRectangle (14.0f, 46.0f, ((float) w - 28.0f) * juce::jlimit (0.0f, 1.0f, progress), 2.0f, 1.0f);
+    }
     g.setColour (accent);
     g.setFont (juce::FontOptions (13.0f, juce::Font::bold));
-    g.drawText (playing ? (custom ? wendung : u8 ("Wendung: ") + wendung) : u8 ("Wiedergabe starten oder VORHÖREN einschalten"), 14, 48, w - 28, 18, juce::Justification::centredLeft);
+    g.drawText (playing ? (custom ? wendung : u8 ("Wendung: ") + wendung) : u8 ("Wiedergabe starten oder VORHÖREN einschalten"), 14, 52, w - 28, 18, juce::Justification::centredLeft);
 
     // Woraus VARIATION an dieser Stelle waehlt
     if (candidates.isNotEmpty())
@@ -243,6 +267,10 @@ static juce::AttributedString buildHelp (juce::Colour text, juce::Colour accent,
     body ("Mit dem Mausrad über dem Feld (oder per Controller) änderst du die dritte Achse, die UNRUHE. Sie zeigt sich als Ring um den Punkt: Je größer und zittriger, desto mehr Reibung, Dissonanz, Halbtöne und verschobene Betonungen. Bei wenig Intensität sind es einzelne fremde Töne, bei viel Intensität kratzt der ganze Satz.");
     body ("Alle drei Achsen lassen sich automatisieren. So fährst du durch eine Szene: langsam vom Lauern in die Panik und am Ende in die Erlösung.");
 
+    head ("Genre: Score oder 80er Pop-Rock");
+    body ("Die beiden Knöpfe neben STIMMUNG wählen das Vokabular. Score enthält die Wendungen für Filmmusik, von Lauern bis Triumph, orchestral und mit 80er-Synth-Farben. 80er Pop-Rock enthält Powerchord-Riffs, Hi-NRG- und Galopp-Bass, SID-Arpeggios, gehackte Flächen und Hymnen-Wendungen wie ♭VI – ♭VII – I. Das Stimmungsfeld funktioniert in beiden gleich: links dunkel, rechts hell, oben aufgewühlt. Alle anderen Funktionen bleiben, auch die eigene Folge, die dann den Pop-Rock-Stil leiht.");
+    body ("Im Pop-Rock spielt die Gegenstimme eine durchgehende, gleichbleibende Hook-Linie in Achteln, bei wenig Intensität in Vierteln. Welche Figur, bestimmt VARIATION.");
+
     head ("WECHSEL");
     body ("Bewegst du den Punkt deutlich, wechselt die Wendung am nächsten Wechselpunkt: am nächsten Schlag (Vorgabe), am nächsten Takt, alle 2 oder alle 4 Takte. Die neue Wendung beginnt dort mit ihrem ersten Akkord. Gehaltene Töne der alten Stimmung enden genau am Wechselpunkt, der Arp läuft im Takt weiter und spielt gleich die neuen Akkordtöne. Kleine Bewegungen lösen keinen Wechsel aus, solange die laufende Wendung noch gut zur Lage passt; die Ebenen reagieren trotzdem sofort auf Intensität und Unruhe.");
 
@@ -265,10 +293,19 @@ static juce::AttributedString buildHelp (juce::Colour text, juce::Colour accent,
     body ("Fläche und Bass spielen immer, die anderen Ebenen setzen mit der Intensität ein: Arp ab 25 %, Farbe ab 40 % oder bei Unruhe, Gegenstimme ab 15 %. Ab wann eine Ebene gerade einsetzt, steht neben ihrem MIDI-Kanal, etwa „ab 25 %“ oder „immer“. Der Regler INTENSITÄT unten in jedem Kasten verschiebt die Intensität nur für diese Ebene. In der Mitte folgt sie dem Feld. Weniger macht sie dünner, beim Bass bis zu langen Tönen. Mehr macht sie dichter, beim Bass bis zu durchgehenden Achteln auf einem Ton; die Ebene setzt dann auch bei ruhiger Stimmung ein. Die übrigen Ebenen bleiben dabei, wie das Feld sie vorgibt. Doppelklick setzt den Regler auf die Mitte.");
 
     head ("Muster");
-    body ("Fläche: Gehalten, Schläge (kurze Akkorde auf der Zwischenzeit), Puls (auf jedem Schlag) oder Staccato (kurz auf jedem Schlag). Bass: Gehalten, Halbe, Viertel, Achtel, Puls (durchgehende Sechzehntel auf einem Ton), Funk (synkopiert, mit kurzem Sprung nach oben am Taktende), Pendel (Grundton und kleine Terz, bei Unruhe Halbton), Walking (Akkordtöne in Vierteln, chromatisch zum nächsten Grundton), Wechselbass (Grundton und Quinte im Wechsel), Herzschlag (doppelter Schlag, wie ein Puls), Arpeggio (Akkordtöne in Achteln) oder Orgelpunkt (liegt auf dem Grundton der Wendung, während die Akkorde darüber wandern). Arp: Aufwärts, Abwärts, Kreisend (auf und ab), Zelle (kurze, obsessive Figur), Riff, Glitzern (schnell und hoch), Sprünge (weite Dreiklangs-Sprünge), Kaskade (Harfen-Wellen in Dreiergruppen), Oktatonisch (Läufe auf der Halbton-Ganzton-Leiter) oder Quarten (gestapelte Quarten als Ostinato); das Tempo wählst du darunter. Auf Auto folgt das Muster der Wendung.");
+    body ("Fläche: Gehalten, Schläge (kurze Akkorde auf der Zwischenzeit), Puls (auf jedem Schlag), Staccato (kurz auf jedem Schlag) oder Gated (gehackte Achtel). Bass: Gehalten, Halbe, Viertel, Achtel, Puls (durchgehende Sechzehntel auf einem Ton), Funk (synkopiert, mit kurzem Sprung nach oben am Taktende), Pendel (Grundton und kleine Terz, bei Unruhe Halbton), Walking (Akkordtöne in Vierteln, chromatisch zum nächsten Grundton), Wechselbass (Grundton und Quinte im Wechsel), Herzschlag (doppelter Schlag, wie ein Puls), Arpeggio (Akkordtöne in Achteln), Orgelpunkt (liegt auf dem Grundton der Wendung, während die Akkorde darüber wandern), Hi-NRG (Grundton und Oberoktave im Wechsel) oder Galopp (Achtel und zwei Sechzehntel). Arp: Aufwärts, Abwärts, Kreisend (auf und ab), Zelle (kurze, obsessive Figur), Riff, Glitzern (schnell und hoch), Sprünge (weite Dreiklangs-Sprünge), Kaskade (Harfen-Wellen in Dreiergruppen), Oktatonisch (Läufe auf der Halbton-Ganzton-Leiter), Quarten (gestapelte Quarten als Ostinato) oder SID (Dreiklang in Sechzehnteln wie auf dem C64); das Tempo wählst du darunter. Auf Auto folgt das Muster der Wendung.");
+
+    head ("Nächster Akkord und Feld-Karte");
+    body ("Rechts oben in der Akkord-Anzeige steht der nächste Akkord, darunter läuft eine dünne Leiste bis zum Wechsel. Fährst du mit der Maus über das Stimmungsfeld, ohne zu klicken, erscheinen klein die Wendungen, die dort am nächsten liegen.");
+
+    head ("MIDI herausziehen");
+    body ("Das Feld MIDI neben VORHÖREN ziehst du auf deine DAW: Es entsteht eine MIDI-Datei mit den nächsten Takten, eine Spur je Ebene, mit allen aktuellen Einstellungen. Stumme Ebenen bleiben leer, mit Solo ziehst du also auch einzelne Ebenen heraus. Ein Klick auf das Feld wechselt die Länge zwischen 8, 16 und 32 Takten. Ist die Dynamik eingeschaltet, sind die Dynamikkurven mit in der Datei.");
+
+    head ("Dynamik per CC");
+    body ("Im Menü des CC-Knopfs schaltest du unter „Ausgabe an die Spuren“ die Dynamik ein. Dann bekommt jede Ebene CC 1 (Dynamik) und CC 11 (Ausdruck), wie es Orchester-Libraries erwarten; beide Nummern lassen sich dort ändern oder abschalten. Der Grundwert folgt der Intensität, darauf liegen atmende Bögen von einem bis vier Vierteln, im Score weiter und bei Unruhe mit einem Akzent beim Akkordwechsel, im Pop-Rock fast flach. Das ist getrennt von den Controllern am Eingang: Dein Controller bewegt das Stimmungsfeld, die Ausgabe geht an deine Instrumente. Für Synth-Klänge lässt du die Dynamik besser aus, weil CC 1 dort oft ein Vibrato steuert.");
 
     head ("Gegenstimme");
-    body ("Die fünfte Ebene ist eine ruhige Linie aus langen Tönen, gedacht für Horn, Cello, Oboe oder ein Lead-Instrument. Sie geht schrittweise auf Akkordtönen von Akkord zu Akkord, bevorzugt Terz und Septime und meidet den Ton der Farbe, damit sich nichts doppelt. In dunkler Färbung neigt sie nach unten, in heller nach oben. Bei wenig Intensität wechselt sie nur mit den Akkorden, bei mehr alle zwei Takte, aufgewühlt in Halben. Bei Unruhe kommt sie mit einem Vorhalt von oben in den Akkord. Sie ist keine fertige Melodie, sondern ein roter Faden für deine eigene.");
+    body ("Die fünfte Ebene ist eine ruhige Linie aus langen Tönen, gedacht für Horn, Cello, Oboe oder ein Lead-Instrument. Sie geht schrittweise auf Akkordtönen von Akkord zu Akkord, bevorzugt Terz und Septime und meidet den Ton der Farbe, damit sich nichts doppelt. In dunkler Färbung neigt sie nach unten, in heller nach oben. Bei wenig Intensität wechselt sie nur mit den Akkorden, bei mehr alle zwei Takte, aufgewühlt in Halben. Bei Unruhe kommt sie mit einem Vorhalt von oben in den Akkord. Die Töne überlappen minimal, damit Legato-Instrumente sie gebunden spielen. Sie ist keine fertige Melodie, sondern ein roter Faden für deine eigene.");
 
     head ("Durchgänge");
     body ("Mit DURCHGÄNGE erklingt bei viel Intensität (ab 60 %) auf dem letzten Schlag eines Akkords kurz die Dominante des nächsten Akkords. Das zieht in den Wechsel hinein. Es gilt für Wendungen und eigene Folge und lässt sich jederzeit abschalten.");
@@ -336,6 +373,49 @@ StromscoreEditor::StromscoreEditor (StromscoreProcessor& p) : AudioProcessorEdit
     pad.onDrag = [this] (float nx, float ny) { axisAttachment[0]->setValueAsPartOfGesture (nx); axisAttachment[1]->setValueAsPartOfGesture (ny); };
     pad.onDragEnd = [this] { axisAttachment[0]->endGesture(); axisAttachment[1]->endGesture(); };
     pad.onWheel = [this] (float dz) { axisAttachment[2]->setValueAsCompleteGesture (juce::jlimit (0.0f, 1.0f, pad.z + dz)); };
+    pad.onHover = [this] (float hx, float hy)
+    {
+        auto st = processor.currentSettings();
+        st.x = hx; st.y = hy; st.variety = 1.0f;
+        int c[3];
+        const int n = stromscore::Generator::candidates (st, c, 3);
+        pad.numHover = n;
+        for (int i = 0; i < n; ++i)
+        {
+            const auto& wd = stromscore::wendungAt (st.genre, c[i]);
+            pad.hover[i] = { juce::String (juce::CharPointer_UTF8 (wd.name)), wd.x, wd.y };
+        }
+        pad.repaint();
+    };
+
+    // Genre: Score oder 80er Pop-Rock
+    genreScore.setButtonText ("Score");
+    genrePop.setButtonText ("Pop-Rock");
+    for (auto* b : { &genreScore, &genrePop }) { b->setRadioGroupId (77); content.addAndMakeVisible (b); }
+    genreAttachment = std::make_unique<juce::ParameterAttachment> (*processor.apvts.getParameter ("genre"),
+        [this] (float v)
+        {
+            const bool pop = juce::roundToInt (v) == 1;
+            genreScore.setToggleState (! pop, juce::dontSendNotification);
+            genrePop.setToggleState (pop, juce::dontSendNotification);
+        }, nullptr);
+    genreScore.onClick = [this] { genreAttachment->setValueAsCompleteGesture (0.0f); };
+    genrePop.onClick = [this] { genreAttachment->setValueAsCompleteGesture (1.0f); };
+    genreAttachment->sendInitialUpdate();
+    genreScore.setTooltip (u8 ("Vokabular für Filmmusik: Wendungen von Lauern bis Triumph, orchestral und mit 80er-Synth-Farben."));
+    genrePop.setTooltip (u8 ("Vokabular für 80er Pop-Rock: Powerchords, Hi-NRG- und Galopp-Bass, SID-Arpeggios, gehackte Flächen, eine durchgehende Hook-Linie. Alle anderen Funktionen bleiben gleich."));
+
+    // MIDI herausziehen
+    midiDrag.render = [this] { return processor.renderMidiFile (processor.exportBars.load()); };
+    midiDrag.onClick = [this]
+    {
+        const int now = processor.exportBars.load();
+        processor.exportBars.store (now == 8 ? 16 : now == 16 ? 32 : 8);
+        processor.updateHostDisplay (juce::AudioProcessorListener::ChangeDetails{}.withNonParameterStateChanged (true));
+        updateMidiLabel();
+    };
+    content.addAndMakeVisible (midiDrag);
+    updateMidiLabel();
     for (auto& a : axisAttachment) a->sendInitialUpdate();
     content.addAndMakeVisible (pad);
 
@@ -516,6 +596,14 @@ void StromscoreEditor::updateCcButton()
     ccButton.setTooltip (u8 ("MIDI-Controller am Eingang: Färbung, Intensität, Unruhe. Klick zum Ändern."));
 }
 
+void StromscoreEditor::updateMidiLabel()
+{
+    const int bars = processor.exportBars.load();
+    midiDrag.label = "MIDI " + juce::String (bars);
+    midiDrag.setTooltip (u8 ("Auf die DAW ziehen: die nächsten ") + juce::String (bars) + u8 (" Takte als MIDI-Datei, eine Spur je Ebene, mit den aktuellen Einstellungen (stumme Ebenen bleiben leer). Klick wechselt die Länge: 8, 16 oder 32 Takte."));
+    midiDrag.repaint();
+}
+
 void StromscoreEditor::showCcMenu()
 {
     static const int common[] = { 1, 2, 4, 7, 11, 16, 17, 18, 19, 21, 71, 72, 73, 74, 75, 76, 77 };
@@ -532,10 +620,30 @@ void StromscoreEditor::showCcMenu()
     }
     menu.addSeparator();
     menu.addItem (9999, u8 ("Vorgabe: 11 · 1 · 74"));
+    menu.addSeparator();
+    menu.addSectionHeader (u8 ("Ausgabe an die Spuren"));
+    const bool dyn = processor.apvts.getRawParameterValue ("dynamikCc")->load() >= 0.5f;
+    menu.addItem (8001, u8 ("Dynamik per CC senden"), true, dyn);
+    const char* outName[2] = { "Dynamik", "Ausdruck" };
+    static const int outCommon[] = { 1, 2, 7, 11, 21 };
+    for (int o = 0; o < 2; ++o)
+    {
+        juce::PopupMenu sub;
+        const int now = processor.ccOut[o].load();
+        sub.addItem (5000 + 1000 * o, "aus", true, now == 0);
+        for (int cc : outCommon) sub.addItem (5000 + 1000 * o + cc, "CC " + juce::String (cc), true, now == cc);
+        menu.addSubMenu (u8 (outName[o]) + " (" + (now > 0 ? "CC " + juce::String (now) : juce::String ("aus")) + ")", sub, dyn);
+    }
     menu.showMenuAsync (juce::PopupMenu::Options().withTargetComponent (&ccButton), [this] (int r)
     {
         if (r == 0) return;
         if (r == 9999) { processor.ccNumber[0].store (11); processor.ccNumber[1].store (1); processor.ccNumber[2].store (74); }
+        else if (r == 8001)
+        {
+            auto* p = processor.apvts.getParameter ("dynamikCc");
+            p->beginChangeGesture(); p->setValueNotifyingHost (p->getValue() >= 0.5f ? 0.0f : 1.0f); p->endChangeGesture();
+        }
+        else if (r >= 5000 && r < 7000) processor.ccOut[(r - 5000) / 1000].store ((r - 5000) % 1000);
         else { const int a = r / 1000 - 1; if (a >= 0 && a < 3) processor.ccNumber[a].store (r % 1000); }
         processor.updateHostDisplay (juce::AudioProcessorListener::ChangeDetails{}.withNonParameterStateChanged (true));
         updateCcButton();
@@ -552,7 +660,8 @@ void StromscoreEditor::timerCallback()
     // Akkord-Anzeige
     const int w = processor.wendung.load();
     const int key = juce::roundToInt (processor.apvts.getRawParameterValue ("key")->load());
-    chordDisplay.playing = w >= 0 && w <= stromscore::kCustomWendung;
+    const int gen = processor.genreInUse.load();
+    chordDisplay.playing = w >= 0 && (w == stromscore::kCustomWendung || w < stromscore::wendungCount (gen));
     chordDisplay.meter = u8 ("Takt ") + juce::String (processor.meterNum.load()) + "/" + juce::String (processor.meterDen.load());
     const auto settings = processor.currentSettings();
     {
@@ -565,15 +674,18 @@ void StromscoreEditor::timerCallback()
     if (chordDisplay.playing)
     {
         const auto custom = stromscore::customWendung (settings);
-        const auto& wd = w == stromscore::kCustomWendung ? custom : stromscore::kWendungen[w];
+        const auto& wd = w == stromscore::kCustomWendung ? custom : stromscore::wendungAt (gen, w);
         char buf[32];
         stromscore::chordName (key, processor.chordRoot.load(), processor.chordType.load(), buf, (int) sizeof (buf));
         chordDisplay.chord = juce::String (juce::CharPointer_UTF8 (buf));
         chordDisplay.wendung = juce::String (juce::CharPointer_UTF8 (wd.name));
         chordDisplay.custom = w == stromscore::kCustomWendung;
         const int st = processor.styleIndex.load();
-        if (chordDisplay.custom && st >= 0 && st < stromscore::kNumWendungen)
-            chordDisplay.wendung << u8 (" · Stil: ") << juce::String (juce::CharPointer_UTF8 (stromscore::kWendungen[st].name));
+        if (chordDisplay.custom && st >= 0 && st < stromscore::wendungCount (gen))
+            chordDisplay.wendung << u8 (" · Stil: ") << juce::String (juce::CharPointer_UTF8 (stromscore::wendungAt (gen, st).name));
+        stromscore::chordName (key, processor.nextRoot.load(), processor.nextType.load(), buf, (int) sizeof (buf));
+        chordDisplay.nextChord = juce::String (juce::CharPointer_UTF8 (buf));
+        chordDisplay.progress = processor.chordProgress.load();
         chordDisplay.numChips = wd.n;
         for (int i = 0; i < wd.n; ++i)
         {
@@ -595,7 +707,7 @@ void StromscoreEditor::timerCallback()
         int c[6];
         const int n = stromscore::Generator::candidates (settings, c, 6);
         juce::String t;
-        for (int i = 0; i < n; ++i) t << (i > 0 ? u8 (" · ") : juce::String()) << juce::String (juce::CharPointer_UTF8 (stromscore::kWendungen[c[i]].name));
+        for (int i = 0; i < n; ++i) t << (i > 0 ? u8 (" · ") : juce::String()) << juce::String (juce::CharPointer_UTF8 (stromscore::wendungAt (settings.genre, c[i]).name));
         chordDisplay.candidates = t;
     }
 
@@ -650,6 +762,7 @@ void StromscoreEditor::applyTheme()
     const auto inner = theme.dark ? theme.bg : theme.bg.brighter (0.05f);
     pad.panel = inner; pad.line = theme.line; pad.accent = theme.accent; pad.text = theme.text; pad.dim = theme.dim;
     chordDisplay.panel = inner; chordDisplay.line = theme.line; chordDisplay.accent = theme.accent; chordDisplay.text = theme.text; chordDisplay.dim = theme.dim;
+    midiDrag.panel = theme.panel; midiDrag.line = theme.line; midiDrag.accent = theme.accent; midiDrag.text = theme.text; midiDrag.dim = theme.dim;
     slots.panel = theme.panel; slots.line = theme.line; slots.accent = theme.accent; slots.text = theme.text; slots.dim = theme.dim;
     for (auto& l : layers) { l.panel = theme.panel; l.line = theme.line; l.accent = theme.accent; l.text = theme.text; l.dim = theme.dim; }
     themeButton.setButtonText (theme.dark ? "Look: Dunkel" : "Look: Hell");
@@ -759,7 +872,9 @@ void StromscoreEditor::resized()
     helpText.setWidth (helpScroll.getMaximumVisibleWidth());
 
     // Stimmungsfeld, darunter Unruhe
-    padLabel.setBounds (24, 82, 200, 18);
+    padLabel.setBounds (24, 82, 90, 18);
+    genreScore.setBounds (118, 80, 52, 20);
+    genrePop.setBounds (172, 80, 60, 20);
     pad.setBounds (24, 102, 208, 208);
 
     // Tonart, Takt, Variation, Swing
@@ -781,7 +896,8 @@ void StromscoreEditor::resized()
     passingButton.setBounds (422, 188, 152, 26);
     varietyLabel.setBounds (422, 222, 150, 18);
     variety.setBounds (418, 240, 160, 24);
-    previewButton.setBounds (422, 280, 152, 26);
+    previewButton.setBounds (422, 280, 94, 26);
+    midiDrag.setBounds (520, 280, 54, 26);
 
     // Akkord-Anzeige
     chordLabel.setBounds (598, 82, 200, 18);
