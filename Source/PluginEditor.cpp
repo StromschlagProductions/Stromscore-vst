@@ -5,17 +5,13 @@ namespace
 {
 juce::String u8 (const char* s) { return juce::String (juce::CharPointer_UTF8 (s)); }
 
-const char* kLayerTitle[stromscore::kNumLayers] = { "FLÄCHE", "BASS", "ARP", "FARBE", "GEGENSTIMME" };
+const char* kLayerTitle[stromscore::kNumLayers] = { "FLÄCHE", "BASS", "ARP", "AKZENT", "GEGENSTIMME" };
 const char* kLayerTip[stromscore::kNumLayers] = {
-    "Akkorde: gehalten, als kurze Schläge oder im Puls.",
-    "Grundton der Akkorde in verschiedenen Mustern, von gehalten bis Funk.",
-    "Gebrochene Akkorde und Figuren, auch als Ostinato.",
-    "Einzelne hohe Töne über dem Akkord. Bei Unruhe auch Töne außerhalb der Tonart.",
-    "Ruhige Linie aus langen Tönen, die schrittweise von Akkord zu Akkord geht, zum Beispiel für Horn, Cello oder Oboe." };
-const char* kLayerLines[stromscore::kNumLayers] = {
-    "", "", "",
-    "Hoher Ton über dem Akkord, bei Unruhe ein fremder, reibender Ton in der Mitte des Akkords",
-    "Ruhige Linie aus langen Tönen, bewegter mit mehr Intensität, bei Unruhe mit Vorhalten" };
+    "Fläche: Akkorde, gehalten oder als kurze Schläge, Puls, Staccato und Gated. Gehaltene Akkorde gehen auf den Kanal für lang, alle kurzen Muster auf den für kurz. Stellst du beide auf denselben Kanal, spielt alles auf einem Instrument.",
+    "Bass: Grundton der Akkorde in verschiedenen Mustern. Gehalten, Halbe und Orgelpunkt gehen auf den Kanal für lang, alle anderen Muster auf den für kurz. Stellst du beide auf denselben Kanal, spielt alles auf einem Instrument.",
+    "Arp: gebrochene Akkorde und Figuren, auch als Ostinato.",
+    "Akzent: gelegentliche kurze Einwürfe, nie ein stehender Ton. Der Tupfer spielt einzelne hohe Töne auf Zwischenzeiten, etwa für Celesta, Glocken oder Pizzicato. Der Stich ist ein kurzer Schlag in mittlerer bis tiefer Lage an Akkordwechseln und am Ende der Phrase, etwa für Klavier oder einen Synth-Stab. Bei wenig Intensität spielt nur der Tupfer, mit mehr kommt der Stich dazu und antwortet. Bei Unruhe kommt ein fremder, reibender Ton in der Mitte des Akkords hinzu.",
+    "Gegenstimme: die einzige lange Linie, in mittlerer Lage. Sie geht schrittweise von Akkord zu Akkord, bewegter mit mehr Intensität, bei Unruhe mit Vorhalten. Gedacht für Horn, Cello, Oboe oder ein Lead-Instrument." };
 }
 
 // ---------------------------------------------------------------- Stimmungsfeld
@@ -174,33 +170,33 @@ void LayerView::paint (juce::Graphics& g)
 
     g.setColour (active ? accent : dim);
     g.setFont (juce::FontOptions (12.0f, juce::Font::bold));
-    g.drawFittedText (title, 12, 8, (int) r.getWidth() - 92, 16, juce::Justification::centredLeft, 1, 0.75f);
+    g.drawFittedText (title, 12, 8, (int) r.getWidth() - 100, 16, juce::Justification::centredLeft, 1, 0.75f);
 
-    const juce::Rectangle<float> lamp (r.getWidth() - 26.0f, 10.0f, 12.0f, 12.0f);
-    g.setColour (line);
-    g.fillEllipse (lamp);
-    if (activity > 0.02f)
+    // Lampe(n) rechts neben Solo: ein Punkt je Ausgang
+    for (int i = 0; i < numLamps; ++i)
     {
-        g.setColour (accent.withAlpha (juce::jlimit (0.0f, 1.0f, activity)));
+        const float d = numLamps == 1 ? 12.0f : 9.0f;
+        const juce::Rectangle<float> lamp (numLamps == 1 ? r.getWidth() - 26.0f : r.getWidth() - 31.0f + (float) i * 11.0f, 16.0f - d * 0.5f, d, d);
+        g.setColour (line);
         g.fillEllipse (lamp);
+        if (activity[i] > 0.02f)
+        {
+            g.setColour (accent.withAlpha (juce::jlimit (0.0f, 1.0f, activity[i])));
+            g.fillEllipse (lamp);
+        }
     }
 
-    g.setColour (dim);
-    g.setFont (juce::FontOptions (11.0f));
-    g.drawFittedText (u8 ("Kanal ") + juce::String (channel) + (entry.isNotEmpty() ? u8 (" · ") + entry : juce::String()),
-                      12, 28, (int) r.getWidth() - 24 - 66, 14, juce::Justification::centredLeft, 1, 0.8f);
-    if (lines.isNotEmpty())
-    {
-        g.setColour (active ? text : dim);
-        g.setFont (juce::FontOptions (11.5f));
-        g.drawFittedText (lines, 12, 50, (int) r.getWidth() - 24, (int) r.getHeight() - 116, juce::Justification::topLeft, 4, 1.0f);
-    }
+    g.setColour (active ? text : dim);
+    g.setFont (juce::FontOptions (11.5f));
+    for (int i = 0; i < 4; ++i)
+        if (rowLabel[i].isNotEmpty())
+            g.drawFittedText (rowLabel[i], 12, 34 + i * 28, kLabelW, 24, juce::Justification::centredLeft, 1, 0.8f);
 }
 
 // ---------------------------------------------------------------- Tonumfang
 
-RangePanel::RangePanel (StromscoreProcessor& p, int layerIndex, juce::Colour panel, juce::Colour accent, juce::Colour text, juce::Colour dim)
-    : processor (p), layer (layerIndex), panelColour (panel), accentColour (accent), textColour (text), dimColour (dim)
+RangePanel::RangePanel (StromscoreProcessor& p, int rangeIndex, juce::Colour panel, juce::Colour accent, juce::Colour text, juce::Colour dim)
+    : processor (p), layer (rangeIndex), panelColour (panel), accentColour (accent), textColour (text), dimColour (dim)
 {
     const juce::String n (layer + 1);
     onButton.setClickingTogglesState (true);
@@ -300,7 +296,7 @@ void RangePanel::paint (juce::Graphics& g)
     g.fillAll (panelColour);
     g.setColour (accentColour);
     g.setFont (juce::FontOptions (12.0f, juce::Font::bold));
-    g.drawText (u8 ("TONUMFANG · ") + StromscoreProcessor::layerNames()[layer].toUpperCase(), 10, 6, getWidth() - 20, 16, juce::Justification::centredLeft);
+    g.drawText (u8 ("TONUMFANG · ") + StromscoreProcessor::rangeName (layer).toUpperCase(), 10, 6, getWidth() - 20, 16, juce::Justification::centredLeft);
     g.setColour (dimColour);
     g.setFont (juce::FontOptions (11.0f));
     g.drawText (u8 ("Tiefster Ton"), 10, 88, 120, 14, juce::Justification::centredLeft);
@@ -380,14 +376,14 @@ static juce::AttributedString buildHelp (juce::Colour text, juce::Colour accent,
     s.append (u8 ("Hilfe · v") + juce::String (PLUGIN_VERSION_TEXT) + "\n\n", juce::Font (juce::FontOptions (17.0f, juce::Font::bold)), accent);
 
     head ("Was das Plugin macht");
-    body ("Es erzeugt Musik für Untermalung und gibt sie als MIDI auf fünf Kanälen aus: Fläche, Bass, Arp, Farbe und Gegenstimme. Alle Ebenen sind tonal gedacht, für tongebende Instrumente; Schlagwerk gehört nicht dazu. Die Klänge kommen aus deinen eigenen Instrumenten. Die Noten sind als Ausgangspunkt gedacht, den du weiter bearbeitest. Es läuft im Takt des Projekts: Wiedergabe starten, springen oder loopen, und es spielt an der richtigen Stelle weiter. Gleiche Einstellungen ergeben immer dieselben Noten.");
+    body ("Es erzeugt Musik für Untermalung in fünf Ebenen und gibt sie als MIDI aus: Fläche, Bass, Arp, Akzent und Gegenstimme, auf bis zu acht frei wählbaren MIDI-Kanälen. Alle Ebenen sind tonal gedacht, für tongebende Instrumente; Schlagwerk gehört nicht dazu. Die Klänge kommen aus deinen eigenen Instrumenten. Die Noten sind als Ausgangspunkt gedacht, den du weiter bearbeitest. Es läuft im Takt des Projekts: Wiedergabe starten, springen oder loopen, und es spielt an der richtigen Stelle weiter. Gleiche Einstellungen ergeben immer dieselben Noten.");
 
     head ("Woher die Musik kommt");
     bold ("Es verwendet keine KI. ");
     body ("STROMSCORE arbeitet mit festen Regeln, nicht mit trainierten Modellen und nicht mit fremdem Material. Die Grundlage ist der Stil, den Lars Eickstädt über Jahre für seine Hörspiele entwickelt hat, geprägt von großen Filmkomponisten und der Musik klassischer Hörspiele. Daraus ist ein Vorrat an Wendungen entstanden: Akkordfolgen, Figuren und Rhythmen. Je nach Stimmung zieht das Plugin daraus. Melodien bekannter Stücke werden nicht nachgebaut.");
 
     head ("Einrichten in Studio One");
-    body ("1. Lege eine Instrumentenspur mit Stromscore an. 2. Lege für jede Ebene, die du hören willst, eine Instrumentenspur mit deinem Instrument an. 3. Stelle bei jeder dieser Spuren als Eingang Stromscore ein und wähle den MIDI-Kanal (Fläche 1, Bass 2, Arp 3, Farbe 4, Gegenstimme 5). 4. Schalte die Spuren auf Monitor. Zum Weiterarbeiten nimmst du die Ausgabe einfach auf diesen Spuren auf.");
+    body ("1. Lege eine Instrumentenspur mit Stromscore an. 2. Lege für jede Ebene, die du hören willst, eine Instrumentenspur mit deinem Instrument an. 3. Stelle bei jeder dieser Spuren als Eingang Stromscore ein und wähle den MIDI-Kanal. Vorgabe: Fläche lang 1, Fläche kurz 2, Bass lang 3, Bass kurz 4, Arp 5, Akzent Tupfer 6, Akzent Stich 7, Gegenstimme 8. Die Kanäle stellst du in jedem Ebenen-Kasten selbst ein. 4. Schalte die Spuren auf Monitor. Zum Weiterarbeiten nimmst du die Ausgabe einfach auf diesen Spuren auf.");
     note ("Ohne eigene Instrumente hörst du mit VORHÖREN einen einfachen Testklang direkt aus dem Plugin.");
 
     head ("Das Stimmungsfeld");
@@ -417,8 +413,15 @@ static juce::AttributedString buildHelp (juce::Colour text, juce::Colour accent,
     body ("TONART legt den Grundton fest. TAKT übernimmt die Taktart aus dem Projekt oder legt sie fest (4/4, 3/4, 6/8, 5/4, 7/8, 5/8, 12/8); ungerade Takte bekommen eigene Betonungsgruppen, etwa 3+3+2+2 im 5/4. VARIATION wählt eine von sechzehn Kombinationen aus Wendungen und Figuren; gleiche Nummer, gleiches Ergebnis. SWING verschiebt die Zwischen-Achtel nach hinten, bis zum Triolen-Gefühl.");
 
     head ("Die fünf Ebenen");
-    body ("Jede Ebene hat ihren MIDI-Kanal (unter dem Namen) und eine Lampe, die bei jedem Ton leuchtet. Daneben liegen S (Solo) und M (Mute): Mute lässt die Ebene schweigen, Solo lässt nur die Solo-Ebenen spielen, auch mehrere gleichzeitig. So kannst du zum Beispiel nur mit dem Bass oder nur mit einer Fläche beginnen.");
-    body ("Fläche und Bass spielen immer, die anderen Ebenen setzen mit der Intensität ein: Arp ab 25 %, Farbe ab 40 % oder bei Unruhe, Gegenstimme ab 15 %. Ab wann eine Ebene gerade einsetzt, steht neben ihrem MIDI-Kanal, etwa „ab 25 %“ oder „immer“. Der Regler INTENSITÄT unten in jedem Kasten verschiebt die Intensität nur für diese Ebene. In der Mitte folgt sie dem Feld. Weniger macht sie dünner, beim Bass bis zu langen Tönen. Mehr macht sie dichter, beim Bass bis zu durchgehenden Achteln auf einem Ton; die Ebene setzt dann auch bei ruhiger Stimmung ein. Die übrigen Ebenen bleiben dabei, wie das Feld sie vorgibt. Doppelklick setzt den Regler auf die Mitte.");
+    body ("Oben in jedem Kasten stehen der Name, M (Mute), S (Solo) wie in Studio One und die Lampe, die bei jedem Ton leuchtet. Bei Fläche, Bass und Akzent sind es zwei Lampen, eine je Kanal. Mute lässt die Ebene schweigen, Solo lässt nur die Solo-Ebenen spielen, auch mehrere gleichzeitig. So kannst du zum Beispiel nur mit dem Bass oder nur mit einer Fläche beginnen. Die Beschreibung jeder Ebene steht im Tooltip über ihrem Kasten.");
+    body ("Fläche und Bass spielen immer, die anderen Ebenen setzen mit der Intensität ein: Arp ab 25 %, Akzent ab 25 % oder bei Unruhe, Gegenstimme ab 15 %. Ab wann eine Ebene gerade einsetzt, steht im Regler INTENSITÄT hinter dem Wert, etwa „ab 25 %“ oder „immer“. Der Regler INTENSITÄT unten in jedem Kasten verschiebt die Intensität nur für diese Ebene. In der Mitte folgt sie dem Feld. Weniger macht sie dünner, beim Bass bis zu langen Tönen. Mehr macht sie dichter, beim Bass bis zu durchgehenden Achteln auf einem Ton; die Ebene setzt dann auch bei ruhiger Stimmung ein. Die übrigen Ebenen bleiben dabei, wie das Feld sie vorgibt. Doppelklick setzt den Regler auf die Mitte.");
+
+    head ("MIDI-Kanäle, lang und kurz");
+    body ("Jede Ebene hat ein Auswahlfeld für ihren MIDI-Kanal (1 bis 16). Mehrere Ebenen dürfen sich einen Kanal teilen: Stellst du überall Kanal 1 ein, spielt alles auf einem einzigen Instrument, zum Beispiel einem Klavier. Treffen dabei zwei Ebenen denselben Ton, schneidet keine die andere ab.");
+    body ("Fläche und Bass haben zwei Kanäle, LANG und KURZ, denn Orchester-Instrumente brauchen für gehaltene und für kurze Töne verschiedene Patches. Bei der Fläche gehen gehaltene Akkorde auf „Lang“, Schläge, Puls, Staccato und Gated auf „Kurz“. Beim Bass gehen Gehalten, Halbe und Orgelpunkt auf „Lang“, alle anderen Muster auf „Kurz“. Stellst du bei beiden denselben Kanal ein, spielt alles auf einem Instrument.");
+
+    head ("Akzent");
+    body ("Der Akzent wirft nur ab und zu etwas ein und bleibt nie stehen. Er hat zwei Stimmen mit eigenem Kanal und eigenem Tonumfang. Der TUPFER spielt einzelne kurze, hohe Töne auf Zwischenzeiten, für Celesta, Glocken, Harfe oder Pizzicato. Der STICH ist ein kurzer Schlag in mittlerer bis tiefer Lage, an Akkordwechseln, am Ende einer Phrase und als Antwort kurz nach einem Tupfer, für Klavier, Synth-Stab oder tiefe Streicher. Bei wenig Intensität spielt nur der Tupfer, ab 50 % kommt der Stich dazu, bei viel Intensität schlagen am Phrasenende beide zugleich. Im Pop-Rock setzt der Stich zusätzlich Stabs auf die Zwischenzeit. Bei Unruhe kommt in der Mitte jedes Akkords ein fremder, reibender Ton hinzu, im Stich ein Dissonanz-Stachel. Gibst du beiden Akzenten denselben Kanal, spielen sie auf einem Instrument.");
 
     head ("Muster");
     body ("Fläche: Gehalten, Schläge (kurze Akkorde auf der Zwischenzeit), Puls (auf jedem Schlag), Staccato (kurz auf jedem Schlag) oder Gated (gehackte Achtel). Bass: Gehalten, Halbe, Viertel, Achtel, Puls (durchgehende Sechzehntel auf einem Ton), Funk (synkopiert, mit kurzem Sprung nach oben am Taktende), Pendel (Grundton und kleine Terz, bei Unruhe Halbton), Walking (Akkordtöne in Vierteln, chromatisch zum nächsten Grundton), Wechselbass (Grundton und Quinte im Wechsel), Herzschlag (doppelter Schlag, wie ein Puls), Arpeggio (Akkordtöne in Achteln), Orgelpunkt (liegt auf dem Grundton der Wendung, während die Akkorde darüber wandern), Hi-NRG (Grundton und Oberoktave im Wechsel) oder Galopp (Achtel und zwei Sechzehntel). Arp: Aufwärts, Abwärts, Kreisend (auf und ab), Zelle (kurze, obsessive Figur), Riff, Glitzern (schnell und hoch), Sprünge (weite Dreiklangs-Sprünge), Kaskade (Harfen-Wellen in Dreiergruppen), Oktatonisch (Läufe auf der Halbton-Ganzton-Leiter), Quarten (gestapelte Quarten als Ostinato) oder SID (Dreiklang in Sechzehnteln wie auf dem C64); das Tempo wählst du darunter. Auf Auto folgt das Muster der Wendung.");
@@ -427,13 +430,13 @@ static juce::AttributedString buildHelp (juce::Colour text, juce::Colour accent,
     body ("Rechts oben in der Akkord-Anzeige steht der nächste Akkord, darunter läuft eine dünne Leiste bis zum Wechsel. Fährst du mit der Maus über das Stimmungsfeld, ohne zu klicken, erscheinen klein die Wendungen, die dort am nächsten liegen.");
 
     head ("MIDI herausziehen");
-    body ("Das Feld MIDI neben VORHÖREN ziehst du auf deine DAW: Es entsteht eine MIDI-Datei mit den nächsten Takten, eine Spur je Ebene, mit allen aktuellen Einstellungen. Stumme Ebenen bleiben leer, mit Solo ziehst du also auch einzelne Ebenen heraus. Ein Klick auf das Feld wechselt die Länge zwischen 8, 16 und 32 Takten. Ist die Dynamik eingeschaltet, sind die Dynamikkurven mit in der Datei.");
+    body ("Das Feld MIDI neben VORHÖREN ziehst du auf deine DAW: Es entsteht eine MIDI-Datei mit den nächsten Takten, eine Spur je eingestelltem MIDI-Kanal, benannt nach den Ebenen darauf, mit allen aktuellen Einstellungen. Stumme Ebenen bleiben leer, mit Solo ziehst du also auch einzelne Ebenen heraus. Ein Klick auf das Feld wechselt die Länge zwischen 8, 16 und 32 Takten. Ist die Dynamik eingeschaltet, sind die Dynamikkurven mit in der Datei.");
 
     head ("Dynamik per CC");
-    body ("Im Menü des CC-Knopfs schaltest du unter „Ausgabe an die Spuren“ die Dynamik ein. Dann bekommt jede Ebene CC 1 (Dynamik) und CC 11 (Ausdruck), wie es Orchester-Libraries erwarten; beide Nummern lassen sich dort ändern oder abschalten. Der Grundwert folgt der Intensität, darauf liegen atmende Bögen von einem bis vier Vierteln, im Score weiter und bei Unruhe mit einem Akzent beim Akkordwechsel, im Pop-Rock fast flach. Das ist getrennt von den Controllern am Eingang: Dein Controller bewegt das Stimmungsfeld, die Ausgabe geht an deine Instrumente. Für Synth-Klänge lässt du die Dynamik besser aus, weil CC 1 dort oft ein Vibrato steuert.");
+    body ("Im Menü des CC-Knopfs schaltest du unter „Ausgabe an die Spuren“ die Dynamik ein. Dann bekommt jeder benutzte Kanal CC 1 (Dynamik) und CC 11 (Ausdruck), wie es Orchester-Libraries erwarten; beide Nummern lassen sich dort ändern oder abschalten. Der Grundwert folgt der Intensität, darauf liegen atmende Bögen von einem bis vier Vierteln, im Score weiter und bei Unruhe mit einem Akzent beim Akkordwechsel, im Pop-Rock fast flach. Das ist getrennt von den Controllern am Eingang: Dein Controller bewegt das Stimmungsfeld, die Ausgabe geht an deine Instrumente. Für Synth-Klänge lässt du die Dynamik besser aus, weil CC 1 dort oft ein Vibrato steuert.");
 
     head ("Gegenstimme");
-    body ("Die fünfte Ebene ist eine ruhige Linie aus langen Tönen, gedacht für Horn, Cello, Oboe oder ein Lead-Instrument. Sie geht schrittweise auf Akkordtönen von Akkord zu Akkord, bevorzugt Terz und Septime und meidet den Ton der Farbe, damit sich nichts doppelt. In dunkler Färbung neigt sie nach unten, in heller nach oben. Bei wenig Intensität wechselt sie nur mit den Akkorden, bei mehr alle zwei Takte, aufgewühlt in Halben. Bei Unruhe kommt sie mit einem Vorhalt von oben in den Akkord. Die Töne überlappen minimal, damit Legato-Instrumente sie gebunden spielen. Sie ist keine fertige Melodie, sondern ein roter Faden für deine eigene.");
+    body ("Die fünfte Ebene ist die einzige lange Linie, gedacht für Horn, Cello, Oboe oder ein Lead-Instrument. Sie liegt in der Mitte, zwischen Tupfer und Stich, damit sich nichts überschneidet. Sie geht schrittweise auf Akkordtönen von Akkord zu Akkord und bevorzugt Terz und Septime. In dunkler Färbung neigt sie nach unten, in heller nach oben. Bei wenig Intensität wechselt sie nur mit den Akkorden, bei mehr alle zwei Takte, aufgewühlt in Halben. Bei Unruhe kommt sie mit einem Vorhalt von oben in den Akkord. Mit LEGATO an überlappen die Töne minimal, damit Legato-Instrumente sie gebunden spielen; aus setzen sie kurz vor dem nächsten Ton ab. Sie ist keine fertige Melodie, sondern ein roter Faden für deine eigene.");
 
     head ("Durchgänge");
     body ("Mit DURCHGÄNGE erklingt bei viel Intensität (ab 60 %) auf dem letzten Schlag eines Akkords kurz die Dominante des nächsten Akkords. Das zieht in den Wechsel hinein. Es gilt für Wendungen und eigene Folge und lässt sich jederzeit abschalten.");
@@ -445,7 +448,7 @@ static juce::AttributedString buildHelp (juce::Colour text, juce::Colour accent,
     body ("Jede Ebene hat ihre eigene Oktavlage: Normal, eine oder zwei Oktaven höher oder tiefer. So passt du die Lage an deine Instrumente an, ohne die Noten zu verändern.");
 
     head ("Tonumfang");
-    body ("Orchesterinstrumente können nur einen bestimmten Bereich spielen, ein Synth spielt alles. Oben rechts in jedem Ebenen-Kasten steht deshalb „Umfang“. Ein Klick öffnet ein kleines Fenster: Dort schaltest du die Begrenzung ein und legst den tiefsten und den höchsten Ton fest. Das mittlere C heißt hier wie in Studio One C3, in Klammern steht die MIDI-Nummer.");
+    body ("Orchesterinstrumente können nur einen bestimmten Bereich spielen, ein Synth spielt alles. Unten in jedem Ebenen-Kasten steht deshalb neben der Oktave „Umfang“, beim Akzent gibt es für Tupfer und Stich je einen kleinen Knopf „Umf.“. Ein Klick öffnet ein kleines Fenster: Dort schaltest du die Begrenzung ein und legst den tiefsten und den höchsten Ton fest. Das mittlere C heißt hier wie in Studio One C3, in Klammern steht die MIDI-Nummer.");
     body ("Für den Anfang gibt es Vorlagen für übliche Instrumente, von Violine bis Klavier. Genauer geht es mit ANLERNEN: Klicken, dann auf dem Keyboard die tiefste und die höchste Taste drücken, die dein Patch spielen kann. Die Reihenfolge ist egal. Dein Keyboard muss dafür auf die Spur mit Stromscore geleitet sein. Danach steht der Bereich im Knopf, zum Beispiel C3–C6.");
     body ("Es fällt kein Ton weg. Ein Akkord rückt als Ganzes in den Bereich, einzelne Töne außerhalb wandern um ganze Oktaven nach innen. Ein Arpeggio kehrt an den Grenzen um und spielt jeden Schritt weiter. Die Gegenstimme sucht ihre Linie von vornherein im Bereich. Die Oktav-Einstellung wirkt zuerst, der Tonumfang ist die feste Grenze. Ist der Bereich enger als eine Oktave, ersetzen Akkordtöne im Bereich die Töne, die nicht hineinpassen. Auch die herausgezogene MIDI-Datei hält sich an den Tonumfang.");
 
@@ -624,24 +627,63 @@ StromscoreEditor::StromscoreEditor (StromscoreProcessor& p) : AudioProcessorEdit
     content.addAndMakeVisible (chordDisplay);
 
     // Ebenen
+    static const int firstOut[stromscore::kNumLayers] = { stromscore::OutPadLong, stromscore::OutBassLong, stromscore::OutArp, stromscore::OutTupfer, stromscore::OutCounter };
     for (int i = 0; i < stromscore::kNumLayers; ++i)
     {
         auto& lv = layers[i];
+        const juce::String n (i + 1);
         lv.title = u8 (kLayerTitle[i]);
-        lv.lines = u8 (kLayerLines[i]);
-        lv.channel = i + 1;
         lv.index = i;
+        const bool two = i == stromscore::kFlaeche || i == stromscore::kBass || i == stromscore::kAkzent;
+        lv.numLamps = two ? 2 : 1;
+        lv.setTooltip (u8 (kLayerTip[i]));
+
+        // MIDI-Kanaele
+        for (int c = 0; c < (two ? 2 : 1); ++c)
+        {
+            const int o = firstOut[i] + c;
+            lv.chanBox[c].addItemList (StromscoreProcessor::channelNames(), 1);
+            lv.chanBox[c].setVisible (true);
+            channelAttachment[o] = std::make_unique<APVTS::ComboBoxAttachment> (processor.apvts, "kanal" + juce::String (o + 1), lv.chanBox[c]);
+        }
+        if (i == stromscore::kFlaeche || i == stromscore::kBass)
+        {
+            lv.rowLabel[0] = "Lang"; lv.rowLabel[1] = "Kurz";
+            const auto what = i == stromscore::kFlaeche ? u8 ("gehaltene Akkorde") : u8 ("Gehalten, Halbe und Orgelpunkt");
+            lv.chanBox[0].setTooltip (u8 ("MIDI-Kanal für die langen Töne: ") + what + u8 (". Zum Beispiel ein Sustain-Patch."));
+            lv.chanBox[1].setTooltip (u8 ("MIDI-Kanal für die kurzen Töne: alle übrigen Muster. Zum Beispiel ein Staccato- oder Spiccato-Patch. Derselbe Kanal wie bei „Lang“: alles auf einem Instrument."));
+        }
+        else if (i == stromscore::kAkzent)
+        {
+            lv.rowLabel[0] = "Tupfer"; lv.rowLabel[1] = "Stich";
+            lv.chanBox[0].setTooltip (u8 ("MIDI-Kanal für den Tupfer: einzelne kurze hohe Töne, etwa Celesta, Glocken oder Pizzicato."));
+            lv.chanBox[1].setTooltip (u8 ("MIDI-Kanal für den Stich: kurze Schläge in mittlerer bis tiefer Lage, etwa Klavier oder Synth-Stab. Derselbe Kanal wie beim Tupfer: beide Akzente auf einem Instrument."));
+        }
+        else
+        {
+            lv.rowLabel[0] = "Kanal";
+            lv.chanBox[0].setTooltip (u8 ("MIDI-Kanal dieser Ebene. Mehrere Ebenen dürfen sich einen Kanal teilen, etwa alles auf Kanal 1 für ein einziges Klavier."));
+        }
+
         lv.octBox.addItemList (StromscoreProcessor::octaveNames(), 1);
         lv.octBox.setTooltip (u8 ("Oktavlage dieser Ebene."));
-        octaveAttachment[i] = std::make_unique<APVTS::ComboBoxAttachment> (processor.apvts, "oct" + juce::String (i + 1), lv.octBox);
-        lv.resized();   // Lage des Oktav-Felds haengt von der Ebene ab
-        lv.rangeButton.setName ("Umfang" + juce::String (i + 1));
+        octaveAttachment[i] = std::make_unique<APVTS::ComboBoxAttachment> (processor.apvts, "oct" + n, lv.octBox);
+
+        // Tonumfang: je Ebene, beim Akzent getrennt fuer Tupfer und Stich
+        const int r0 = i;
+        lv.rangeButton.setVisible (true);
+        lv.rangeButton.setName ("Umfang" + juce::String (r0 + 1));
+        lv.rangeButton.onClick = [this, r0] { showRangePanel (r0); };
         lv.rangeButton.setTooltip (u8 ("Tonumfang: auf den spielbaren Bereich des Instruments begrenzen, mit Vorlagen und Anlernen per Keyboard."));
-        lv.rangeButton.onClick = [this, i] { showRangePanel (i); };
-        lv.setTooltip (u8 ("MIDI-Kanal ") + juce::String (i + 1) + ": " + u8 (kLayerTip[i]));
-        const juce::String n (i + 1);
-        lv.soloButton.setButtonText ("S");
+        if (i == stromscore::kAkzent)
+        {
+            lv.rangeButton2.setVisible (true);
+            lv.rangeButton2.setName ("Umfang6");
+            lv.rangeButton2.onClick = [this] { showRangePanel (5); };
+        }
+
         lv.muteButton.setButtonText ("M");
+        lv.soloButton.setButtonText ("S");
         lv.soloButton.setClickingTogglesState (true);
         lv.muteButton.setClickingTogglesState (true);
         lv.soloButton.setTooltip (u8 ("Solo: nur diese Ebene spielt (mehrere Ebenen können gleichzeitig solo sein)."));
@@ -651,14 +693,16 @@ StromscoreEditor::StromscoreEditor (StromscoreProcessor& p) : AudioProcessorEdit
         lv.intensity.setSliderStyle (juce::Slider::LinearBar);
         lv.intensity.setTextValueSuffix ("");
         intensityAttachment[i] = std::make_unique<APVTS::SliderAttachment> (processor.apvts, "intensitaet" + n, lv.intensity);
-        lv.intensity.textFromValueFunction = [] (double v)
+        lv.intensity.textFromValueFunction = [this, i] (double v)
         {
             const int p = juce::roundToInt (v * 100.0);
-            return u8 ("Intensität ") + (p > 0 ? juce::String ("+") : p < 0 ? u8 ("−") : u8 ("±")) + juce::String (std::abs (p)) + " %";
+            auto t = u8 ("Intensität ") + (p > 0 ? juce::String ("+") : p < 0 ? u8 ("−") : u8 ("±")) + juce::String (std::abs (p)) + " %";
+            if (layers[i].entry.isNotEmpty()) t << u8 (" · ") << layers[i].entry;
+            return t;
         };
         lv.intensity.updateText();
         lv.intensity.setDoubleClickReturnValue (true, 0.0);
-        lv.intensity.setTooltip (u8 ("Intensität nur für diese Ebene, zusätzlich zum Stimmungsfeld. Mitte: wie das Feld. Weniger: dünner, bis zu langen Tönen. Mehr: dichter, bis zu durchgehenden Achteln; die Ebene setzt dann auch bei ruhiger Stimmung ein. Doppelklick: Mitte."));
+        lv.intensity.setTooltip (u8 ("Intensität nur für diese Ebene, zusätzlich zum Stimmungsfeld. Mitte: wie das Feld. Weniger: dünner, bis zu langen Tönen. Mehr: dichter, bis zu durchgehenden Achteln; die Ebene setzt dann auch bei ruhiger Stimmung ein. Hinter dem Wert steht, ab wann die Ebene gerade einsetzt. Doppelklick: Mitte."));
         if (i < 3)
         {
             lv.followButton.setVisible (true);
@@ -668,9 +712,17 @@ StromscoreEditor::StromscoreEditor (StromscoreProcessor& p) : AudioProcessorEdit
             lv.followButton.setTooltip (u8 ("Ein: die Ebene folgt den Akkordwechseln. Aus: sie bleibt auf dem Grundakkord der Tonart, zum Beispiel ein durchlaufender Arp oder ein Bass auf dem Grundton."));
             followAttachment[i] = std::make_unique<APVTS::ButtonAttachment> (processor.apvts, "follow" + juce::String (i + 1), lv.followButton);
             lv.combo1.setVisible (true);
+            lv.rowLabel[2] = "Muster";
         }
         content.addAndMakeVisible (lv);
     }
+    layers[2].rowLabel[1] = "Tempo";
+    layers[4].rowLabel[1] = "Legato";
+    layers[4].legatoButton.setVisible (true);
+    layers[4].legatoButton.setClickingTogglesState (true);
+    layers[4].legatoButton.onStateChange = [this] { layers[4].legatoButton.setButtonText (layers[4].legatoButton.getToggleState() ? "an" : "aus"); };
+    layers[4].legatoButton.setTooltip (u8 ("An: jeder Ton klingt bis zum nächsten und überlappt ihn minimal, so spielen Legato-Patches gebunden. Aus: die Töne setzen kurz vor dem nächsten ab."));
+    legatoAttachment = std::make_unique<APVTS::ButtonAttachment> (processor.apvts, "legato", layers[4].legatoButton);
     layers[0].combo1.addItemList (StromscoreProcessor::padPatternNames(), 1);
     layers[1].combo1.addItemList (StromscoreProcessor::bassPatternNames(), 1);
     layers[2].combo1.addItemList (StromscoreProcessor::arpFigureNames(), 1);
@@ -684,6 +736,7 @@ StromscoreEditor::StromscoreEditor (StromscoreProcessor& p) : AudioProcessorEdit
     layers[1].combo1.setTooltip (u8 ("Muster des Basses. Auto: wie es zur Wendung passt, sehr ruhig gehalten, sehr aufgewühlt mindestens Achtel."));
     layers[2].combo1.setTooltip (u8 ("Figur des Arps. Auto: wie es zur Wendung passt."));
     layers[2].combo2.setTooltip (u8 ("Tempo des Arps. Auto: ruhig Viertel, mittel Achtel, aufgewühlt Sechzehntel."));
+    for (auto& lv : layers) lv.resized();
 
     themeButton.onClick = [this]
     {
@@ -732,27 +785,40 @@ void StromscoreEditor::updateCcButton()
     ccButton.setTooltip (u8 ("MIDI-Controller am Eingang: Färbung, Intensität, Unruhe. Klick zum Ändern."));
 }
 
-void StromscoreEditor::showRangePanel (int layer)
+juce::TextButton& StromscoreEditor::rangeButtonFor (int r)
 {
-    auto panel = std::make_unique<RangePanel> (processor, layer, theme.panel, theme.accent, theme.text, theme.dim);
+    return r == 5 ? layers[stromscore::kAkzent].rangeButton2 : layers[juce::jlimit (0, stromscore::kNumLayers - 1, r)].rangeButton;
+}
+
+void StromscoreEditor::showRangePanel (int r)
+{
+    auto panel = std::make_unique<RangePanel> (processor, r, theme.panel, theme.accent, theme.text, theme.dim);
     panel->setLookAndFeel (&look);
-    auto& button = layers[layer].rangeButton;
+    auto& button = rangeButtonFor (r);
     juce::CallOutBox::launchAsynchronously (std::move (panel), content.getLocalArea (&button, button.getLocalBounds()), &content);
 }
 
 void StromscoreEditor::updateRangeButtons()
 {
-    for (int i = 0; i < stromscore::kNumLayers; ++i)
+    for (int r = 0; r < stromscore::kNumRanges; ++r)
     {
-        const juce::String n (i + 1);
+        const juce::String n (r + 1);
         const bool on = processor.apvts.getRawParameterValue ("umfang" + n)->load() >= 0.5f;
         int lo = juce::roundToInt (processor.apvts.getRawParameterValue ("tief" + n)->load());
         int hi = juce::roundToInt (processor.apvts.getRawParameterValue ("hoch" + n)->load());
         if (lo > hi) std::swap (lo, hi);
-        const juce::String text = on ? StromscoreProcessor::noteName (lo) + u8 ("–") + StromscoreProcessor::noteName (hi) : juce::String ("Umfang");
-        auto& b = layers[i].rangeButton;
+        const auto range = StromscoreProcessor::noteName (lo) + u8 ("–") + StromscoreProcessor::noteName (hi);
+        const bool small = r == 3 || r == 5;   // Akzent: schmale Knoepfe, der Bereich steht im Tooltip
+        const juce::String text = small ? u8 ("Umf.") : on ? range : juce::String ("Umfang");
+        auto& b = rangeButtonFor (r);
         if (b.getButtonText() != text) b.setButtonText (text);
         if (b.getToggleState() != on) b.setToggleState (on, juce::dontSendNotification);
+        if (small)
+        {
+            const auto tip = u8 ("Tonumfang ") + (r == 3 ? juce::String ("Tupfer") : juce::String ("Stich")) + ": "
+                           + (on ? range : u8 ("nicht begrenzt")) + u8 (". Klick: begrenzen, mit Vorlagen und Anlernen per Keyboard.");
+            if (b.getTooltip() != tip) b.setTooltip (tip);
+        }
     }
 }
 
@@ -760,7 +826,7 @@ void StromscoreEditor::updateMidiLabel()
 {
     const int bars = processor.exportBars.load();
     midiDrag.label = "MIDI " + juce::String (bars);
-    midiDrag.setTooltip (u8 ("Auf die DAW ziehen: die nächsten ") + juce::String (bars) + u8 (" Takte als MIDI-Datei, eine Spur je Ebene, mit den aktuellen Einstellungen (stumme Ebenen bleiben leer). Klick wechselt die Länge: 8, 16 oder 32 Takte."));
+    midiDrag.setTooltip (u8 ("Auf die DAW ziehen: die nächsten ") + juce::String (bars) + u8 (" Takte als MIDI-Datei, eine Spur je MIDI-Kanal, mit den aktuellen Einstellungen (stumme Ebenen bleiben leer). Klick wechselt die Länge: 8, 16 oder 32 Takte."));
     midiDrag.repaint();
 }
 
@@ -874,11 +940,16 @@ void StromscoreEditor::timerCallback()
     // Ebenen
     updateRangeButtons();
     const auto& s = settings;
+    static const int firstOut[stromscore::kNumLayers] = { stromscore::OutPadLong, stromscore::OutBassLong, stromscore::OutArp, stromscore::OutTupfer, stromscore::OutCounter };
     for (int i = 0; i < stromscore::kNumLayers; ++i)
     {
-        const float a = processor.activity[i].exchange (0.0f);
-        layers[i].activity = std::max (a, layers[i].activity * 0.88f);
-        layers[i].active = stromscore::Generator::layerActive (s, i);
+        auto& lv = layers[i];
+        for (int c = 0; c < lv.numLamps; ++c)
+        {
+            const float a = processor.activity[firstOut[i] + c].exchange (0.0f);
+            lv.activity[c] = std::max (a, lv.activity[c] * 0.88f);
+        }
+        lv.active = stromscore::Generator::layerActive (s, i);
         bool anySolo = false;
         for (bool b : s.solo) anySolo = anySolo || b;
         juce::String entry;
@@ -886,11 +957,11 @@ void StromscoreEditor::timerCallback()
         else
         {
             const float t = stromscore::kLayerStart[i] - s.layerIntensity[i];
-            entry = t <= 0.0f ? juce::String ("immer") : t > 1.0f ? (i == stromscore::kFarbe ? juce::String ("bei Unruhe") : juce::String ("nie"))
+            entry = t <= 0.0f ? juce::String ("immer") : t > 1.0f ? (i == stromscore::kAkzent ? juce::String ("bei Unruhe") : juce::String ("nie"))
                                                                    : "ab " + juce::String (juce::roundToInt (t * 100.0f)) + " %";
         }
-        if (layers[i].entry != entry) { layers[i].entry = entry; }
-        layers[i].repaint();
+        if (lv.entry != entry) { lv.entry = entry; lv.intensity.updateText(); }
+        lv.repaint();
     }
     if (pad.z > 0.01f) pad.repaint();   // der Unruhe-Ring zittert
 }
@@ -917,6 +988,9 @@ void StromscoreEditor::applyTheme()
     look.setColour (juce::TextButton::buttonOnColourId, theme.accent);
     look.setColour (juce::TextButton::textColourOffId, theme.text);
     look.setColour (juce::TextButton::textColourOnId, juce::Colours::black);
+    look.setColour (juce::TooltipWindow::backgroundColourId, theme.dark ? theme.panel.brighter (0.15f) : juce::Colours::white);
+    look.setColour (juce::TooltipWindow::textColourId, theme.text);
+    look.setColour (juce::TooltipWindow::outlineColourId, theme.accent.withAlpha (0.6f));
 
     for (auto* l : { &padLabel, &varietyLabel, &keyLabel, &meterLabel, &variationLabel, &swingLabel, &chordLabel, &changeLabel, &customLabel })
         l->setColour (juce::Label::textColourId, theme.dim);
@@ -1067,7 +1141,7 @@ void StromscoreEditor::resized()
 
     // Ebenen
     for (int i = 0; i < stromscore::kNumLayers; ++i)
-        layers[i].setBounds (12 + i * 177, 330, 168, kBaseH - 342);
+        layers[i].setBounds (12 + i * 197, 330, 188, kBaseH - 342);
     if (slots.isVisible()) slots.toFront (false);
     helpScroll.toFront (false);
 }

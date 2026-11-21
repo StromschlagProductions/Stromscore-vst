@@ -8,7 +8,9 @@
 
 using namespace stromscore;
 
-struct Abs { long long sample; int channel, note, velocity; };
+// channel: Ebene 1 ... 5 (aus dem Ausgang), midi: tatsaechlicher MIDI-Kanal, range: Index des Tonumfangs, out: Ausgang
+struct Abs { long long sample; int channel, note, velocity, midi = 0, range = 0, out = 0; };
+static Abs mk (long long t, const Event& e, int vel) { return { t, kOutputLayer[e.out] + 1, e.note, vel, e.channel, kOutputRange[e.out], e.out }; }
 
 // Spielt 'seconds' Sekunden ab 'startPpq' mit fester Blockgroesse und sammelt alle Ereignisse
 static std::vector<Abs> run (const Settings& s, int block, double seconds, double bpm = 120.0, double sr = 48000.0, double startPpq = 0.0)
@@ -29,14 +31,14 @@ static std::vector<Abs> run (const Settings& s, int block, double seconds, doubl
             const auto& e = list.events[(size_t) i];
             CHECK (e.offset >= 0 && e.offset < n);
             if (e.type != 0) continue;   // Controller zaehlen hier nicht als Noten
-            all.push_back ({ pos + e.offset, e.channel, e.note, e.velocity });
+            all.push_back (mk (pos + e.offset, e, e.velocity));
         }
     }
     Transport stop; stop.playing = false;
     list.clear();
     g.process (stop, s, block, list);
     for (int i = 0; i < list.size; ++i)
-        all.push_back ({ total, list.events[(size_t) i].channel, list.events[(size_t) i].note, 0 });
+        all.push_back (mk (total, list.events[(size_t) i], 0));
     return all;
 }
 
@@ -53,9 +55,9 @@ static void checkBalanced (const std::vector<Abs>& ev)
     std::map<std::pair<int, int>, int> open;
     for (const auto& e : ev)
     {
-        CHECK (e.channel >= 1 && e.channel <= kNumLayers);
+        CHECK (e.midi >= 1 && e.midi <= 16);
         CHECK (e.note >= 0 && e.note <= 127);
-        auto& o = open[std::make_pair (e.channel, e.note)];
+        auto& o = open[std::make_pair (e.midi, e.note)];
         if (e.velocity > 0) { CHECK (o == 0); ++o; }
         else { CHECK (o == 1); --o; }
     }
@@ -123,11 +125,11 @@ int main()
         Settings s; s.z = 0.0f;
         s.y = 0.0f; CHECK ((channelsUsed (run (s, 512, 20.0)) == std::set<int> { 1, 2 }));
         s.y = 0.2f; CHECK ((channelsUsed (run (s, 512, 20.0)) == std::set<int> { 1, 2, 5 }));   // Gegenstimme ab 15 %
-        s.y = 0.3f; CHECK ((channelsUsed (run (s, 512, 20.0)) == std::set<int> { 1, 2, 3, 5 }));
+        s.y = 0.3f; CHECK ((channelsUsed (run (s, 512, 20.0)) == std::set<int> { 1, 2, 3, 4, 5 }));   // Akzent (Tupfer) ab 25 %
         s.y = 0.5f; CHECK ((channelsUsed (run (s, 512, 20.0)) == std::set<int> { 1, 2, 3, 4, 5 }));
         s.y = 0.9f; CHECK ((channelsUsed (run (s, 512, 20.0)) == std::set<int> { 1, 2, 3, 4, 5 }));
         s.y = 0.1f; s.z = 0.6f;
-        CHECK (channelsUsed (run (s, 512, 20.0)).count (4) == 1);   // Unruhe holt die Farbe auch bei wenig Intensitaet
+        CHECK (channelsUsed (run (s, 512, 20.0)).count (4) == 1);   // Unruhe holt den Akzent auch bei wenig Intensitaet
     }
 
     // 5) Mehr Intensitaet = mehr Noten
@@ -562,8 +564,12 @@ int main()
         std::vector<int> seq;
         int open = 0, maxOpen = 0;
         for (const auto& e : ev) { open += e.velocity > 0 ? 1 : -1; maxOpen = std::max (maxOpen, open); if (e.velocity > 0) seq.push_back (e.note); }
-        CHECK (maxOpen == 1 && seq.size() >= 32);
+        CHECK (maxOpen <= 2 && seq.size() >= 32);                                // Legato: der neue Ton kommt kurz vor dem Ende des alten
         for (size_t i = 8; i < seq.size(); ++i) CHECK (seq[i] == seq[i - 8]);   // gleichbleibende Figur ueber gleichem Akkord
+        Settings nl = l; nl.legato = false;                                     // ohne Legato: Toene abgesetzt, nie zwei zugleich
+        open = 0; maxOpen = 0;
+        for (const auto& e : run (nl, 512, 16.0)) { open += e.velocity > 0 ? 1 : -1; maxOpen = std::max (maxOpen, open); }
+        CHECK (maxOpen == 1);
     }
 
     // 29) Dynamik als CC: nur wenn eingeschaltet, Werte im Bereich, sparsam, Pop flacher als Score
@@ -623,7 +629,7 @@ int main()
     }
     // 32) Tonumfang: alle Ebenen bleiben in ihrem Bereich, auch mit Oktav-Einstellung, in beiden Genres
     {
-        const int lo[kNumLayers] = { 48, 36, 60, 41, 48 }, hi[kNumLayers] = { 84, 81, 96, 77, 88 };
+        const int lo[kNumRanges] = { 48, 36, 60, 72, 48, 40 }, hi[kNumRanges] = { 84, 81, 96, 100, 88, 64 };
         int checked = 0;
         for (int genre = 0; genre < kNumGenres; ++genre)
             for (float x : { 0.1f, 0.5f, 0.9f })
@@ -632,7 +638,7 @@ int main()
                     {
                         Settings s; s.genre = genre; s.x = x; s.y = y; s.z = z; s.variation = 1 + (int) (x * 10 + y * 5);
                         s.passing = true;
-                        for (int i = 0; i < kNumLayers; ++i) { s.rangeOn[i] = true; s.rangeLo[i] = lo[i]; s.rangeHi[i] = hi[i]; }
+                        for (int i = 0; i < kNumRanges; ++i) { s.rangeOn[i] = true; s.rangeLo[i] = lo[i]; s.rangeHi[i] = hi[i]; }
                         s.octave[kArp] = (int) (z * 3) - 1;   // -1 oder +1
                         s.octave[kBass] = -2;
                         const auto ev = run (s, 480, 12.0);
@@ -640,22 +646,22 @@ int main()
                         for (const auto& e : ev)
                             if (e.velocity > 0)
                             {
-                                CHECK (e.note >= lo[e.channel - 1] && e.note <= hi[e.channel - 1]);
+                                CHECK (e.note >= lo[e.range] && e.note <= hi[e.range]);
                                 ++checked;
                             }
                     }
         CHECK (checked > 2000);
     }
 
-    // 33) Tonumfang ab einer Oktave: Flaeche, Bass und Farbe behalten zu jedem Zeitpunkt dieselben Tonnamen, das Arp verschluckt keinen Ton
+    // 33) Tonumfang ab einer Oktave: Flaeche, Bass und Akzent behalten zu jedem Zeitpunkt dieselben Tonnamen, das Arp verschluckt keinen Ton
     {
         for (float x : { 0.2f, 0.7f })
             for (float y : { 0.3f, 0.8f })
             {
                 Settings free; free.x = x; free.y = y; free.z = 0.5f;
                 Settings lim = free;
-                const int lo[kNumLayers] = { 55, 40, 72, 60, 50 }, hi[kNumLayers] = { 70, 52, 86, 74, 70 };
-                for (int i = 0; i < kNumLayers; ++i) { lim.rangeOn[i] = true; lim.rangeLo[i] = lo[i]; lim.rangeHi[i] = hi[i]; }
+                const int lo[kNumRanges] = { 55, 40, 72, 76, 50, 42 }, hi[kNumRanges] = { 70, 52, 86, 90, 70, 60 };
+                for (int i = 0; i < kNumRanges; ++i) { lim.rangeOn[i] = true; lim.rangeLo[i] = lo[i]; lim.rangeHi[i] = hi[i]; }
                 const auto a = run (free, 512, 16.0), b = run (lim, 512, 16.0);
                 checkBalanced (b);
                 for (int ch : { 1, 2, 4 })
@@ -673,7 +679,7 @@ int main()
     // 34) Sehr enger Tonumfang (unter einer Oktave): bleibt im Bereich, spielt weiter, Akkordtoene ersetzen fehlende Tonnamen
     {
         Settings s; s.y = 0.8f; s.x = 0.4f;
-        for (int i = 0; i < kNumLayers; ++i) { s.rangeOn[i] = true; s.rangeLo[i] = 64; s.rangeHi[i] = 70; }
+        for (int i = 0; i < kNumRanges; ++i) { s.rangeOn[i] = true; s.rangeLo[i] = 64; s.rangeHi[i] = 70; }
         Settings free = s; for (auto& r : free.rangeOn) r = false;
         const auto ev = run (s, 512, 16.0), fr = run (free, 512, 16.0);
         checkBalanced (ev);
@@ -691,6 +697,97 @@ int main()
         std::set<int> notes;
         for (const auto& e : ev) if (e.velocity > 0) { CHECK (e.note >= 36 && e.note <= 55); notes.insert (e.note); }
         CHECK (notes.size() >= 3);
+    }
+
+    // 37) Freie Kanalwahl: alle Ausgaenge auf einem Kanal (z. B. ein Klavier) - nichts haengt, nichts doppelt
+    for (int genre = 0; genre < kNumGenres; ++genre)
+        for (float y : { 0.3f, 0.7f, 1.0f })
+            for (float z : { 0.0f, 0.6f })
+            {
+                Settings s; s.genre = genre; s.y = y; s.z = z; s.x = 0.4f + 0.2f * z;
+                for (auto& c : s.channel) c = 1;
+                for (auto& v : s.layerIntensity) v = 0.5f;
+                const auto ev = run (s, 300, 20.0);
+                checkBalanced (ev);
+                for (const auto& e : ev) CHECK (e.midi == 1);
+                CHECK (countOns (ev) > 50);
+            }
+    {
+        Settings s; s.y = 0.8f;
+        s.channel[OutPadLong] = 9; s.channel[OutPadShort] = 9; s.channel[OutBassLong] = 16;
+        for (const auto& e : run (s, 512, 10.0))
+        {
+            if (e.out == OutPadLong || e.out == OutPadShort) CHECK (e.midi == 9);
+            if (e.out == OutBassLong) CHECK (e.midi == 16);
+        }
+    }
+
+    // 38) Lang und kurz: gehaltene Muster auf dem Kanal fuer lang, kurze auf dem fuer kurz
+    {
+        auto outs = [] (Settings s, int layer)
+        {
+            std::set<int> o;
+            for (const auto& e : run (s, 512, 12.0)) if (e.velocity > 0 && e.channel == layer + 1) o.insert (e.out);
+            return o;
+        };
+        Settings s; s.y = 0.5f;
+        s.padPattern = PadHeld;     CHECK ((outs (s, kFlaeche) == std::set<int> { OutPadLong }));
+        s.padPattern = PadStaccato; CHECK ((outs (s, kFlaeche) == std::set<int> { OutPadShort }));
+        s.padPattern = PadGated;    CHECK ((outs (s, kFlaeche) == std::set<int> { OutPadShort }));
+        s.bassPattern = BassHalf;   CHECK ((outs (s, kBass) == std::set<int> { OutBassLong }));
+        s.bassPattern = BassHeld;   CHECK ((outs (s, kBass) == std::set<int> { OutBassLong }));
+        s.bassPattern = BassEighth; CHECK ((outs (s, kBass) == std::set<int> { OutBassShort }));
+        s.bassPattern = BassFunk;   CHECK ((outs (s, kBass) == std::set<int> { OutBassShort }));
+        s.bassPattern = BassPedal; s.y = 0.8f;   // Orgelpunkt liegt, bei viel Intensitaet pulsiert er zusaetzlich kurz
+        CHECK ((outs (s, kBass) == std::set<int> { OutBassLong, OutBassShort }));
+        // Lang und kurz auf demselben Kanal: wie ein einziger Kanal, nichts haengt
+        Settings one = s; one.padPattern = PadAuto; one.bassPattern = BassAuto; one.channel[OutPadShort] = 1; one.channel[OutBassShort] = 3;
+        for (float x : { 0.2f, 0.5f, 0.8f }) { one.x = x; checkBalanced (run (one, 333, 20.0)); }
+    }
+
+    // 39) Akzent: Tupfer hoch und kurz, Stich tief und kurz, erst ab mehr Intensitaet; Gegenstimme in eigener Lage dazwischen
+    {
+        auto collect = [] (const Settings& s, std::map<int, std::vector<long long>>& len, std::map<int, std::set<int>>& notes)
+        {
+            std::map<std::pair<int, int>, long long> start;
+            for (const auto& e : run (s, 512, 40.0))
+            {
+                const auto key = std::make_pair (e.midi, e.note);
+                if (e.velocity > 0) { start[key] = e.sample; notes[e.out].insert (e.note); }
+                else len[e.out].push_back (e.sample - start[key]);
+            }
+        };
+        const long long sixteenth = 6000;   // 120 BPM, 48 kHz
+        for (int genre = 0; genre < kNumGenres; ++genre)
+            for (float x : { 0.0f, 0.5f, 1.0f })
+            {
+                Settings low; low.genre = genre; low.x = x; low.y = 0.35f;
+                std::map<int, std::vector<long long>> len; std::map<int, std::set<int>> notes;
+                collect (low, len, notes);
+                CHECK (notes[OutTupfer].size() >= 1 && notes[OutStich].empty());          // wenig Intensitaet: nur Tupfer
+                Settings high = low; high.y = 0.9f;
+                len.clear(); notes.clear();
+                collect (high, len, notes);
+                CHECK (! notes[OutTupfer].empty() && ! notes[OutStich].empty());
+                for (int n : notes[OutTupfer]) CHECK (n >= 79);
+                for (int n : notes[OutStich]) CHECK (n <= 61);
+                if (genre == GenreScore) for (int n : notes[OutCounter]) CHECK (n >= 62 && n <= 78);
+                for (int o : { (int) OutTupfer, (int) OutStich })
+                    for (long long l : len[o]) CHECK (l <= 3 * sixteenth + 1);                // nie ein stehender Ton
+            }
+        // Selten: deutlich weniger Akzente als Arp-Toene, mehr bei mehr Intensitaet
+        Settings a; a.y = 0.4f; Settings b; b.y = 0.95f;
+        int ta = 0, tb = 0, arp = 0;
+        for (const auto& e : run (a, 512, 40.0)) if (e.velocity > 0) { ta += e.out == OutTupfer ? 1 : 0; arp += e.out == OutArp ? 1 : 0; }
+        for (const auto& e : run (b, 512, 40.0)) if (e.velocity > 0) tb += (e.out == OutTupfer || e.out == OutStich) ? 1 : 0;
+        CHECK (ta > 0 && ta * 4 < arp && tb > ta);
+        // Nur von der Position abhaengig: ab Takt 9 gestartet wie durchgespielt
+        Settings j; j.y = 0.85f; j.z = 0.2f; j.solo[kAkzent] = true;
+        const auto whole = run (j, 512, 32.0), late = run (j, 512, 16.0, 120.0, 48000.0, 32.0);
+        std::vector<std::pair<long long, int>> wa, wb;
+        for (const auto& e : whole) if (e.velocity > 0 && e.sample >= 16 * 48000) wa.push_back ({ e.sample - 16 * 48000, e.note });
+        for (const auto& e : late) if (e.velocity > 0) wb.push_back ({ e.sample, e.note });
+        CHECK (! wb.empty() && wa == wb);
     }
 
     // 36) Neue Wendungen im Pop-Rock-Vorrat: alle Akkordlaengen ergeben acht Takte

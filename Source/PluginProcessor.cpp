@@ -18,7 +18,10 @@ juce::StringArray StromscoreProcessor::keyNames()
     return { "C", "Cis / Des", "D", "Dis / Es", "E", "F", "Fis / Ges", "G", "Gis / As", "A", "Ais / B", "H" };
 }
 juce::StringArray StromscoreProcessor::meterNames()  { return { "Vom Projekt", "4/4", "3/4", "6/8", "5/4", "7/8", "5/8", "12/8" }; }
-juce::StringArray StromscoreProcessor::layerNames()  { return { u8 ("Fläche"), "Bass", "Arp", "Farbe", "Gegenstimme" }; }
+juce::StringArray StromscoreProcessor::layerNames()  { return { u8 ("Fläche"), "Bass", "Arp", "Akzent", "Gegenstimme" }; }
+juce::StringArray StromscoreProcessor::outputNames() { return { u8 ("Fläche lang"), u8 ("Fläche kurz"), "Bass lang", "Bass kurz", "Arp", "Akzent Tupfer", "Akzent Stich", "Gegenstimme" }; }
+juce::String StromscoreProcessor::rangeName (int r) { return r == 3 ? juce::String ("Akzent Tupfer") : r == 5 ? juce::String ("Akzent Stich") : layerNames()[juce::jlimit (0, 4, r)]; }
+juce::StringArray StromscoreProcessor::channelNames() { juce::StringArray a; for (int i = 1; i <= 16; ++i) a.add ("Kanal " + juce::String (i)); return a; }
 juce::StringArray StromscoreProcessor::padPatternNames()  { return { "Auto", "Gehalten", u8 ("Schläge"), "Puls", "Staccato", "Gated" }; }
 juce::StringArray StromscoreProcessor::genreNames()       { return { "Score", "80er Pop-Rock" }; }
 juce::StringArray StromscoreProcessor::bassPatternNames() { return { "Auto", "Gehalten", "Halbe", "Viertel", "Achtel", "Puls", "Funk", "Pendel",
@@ -92,13 +95,17 @@ juce::AudioProcessorValueTreeState::ParameterLayout StromscoreProcessor::createL
             layerNames()[i] + " Oktave", octaveNames(), 2));
     const auto noteAttr = AudioParameterIntAttributes()
         .withStringFromValueFunction ([] (int v, int) { return noteName (v); });
-    for (int i = 0; i < stromscore::kNumLayers; ++i)
+    for (int i = 0; i < stromscore::kNumRanges; ++i)
     {
         const String n (i + 1);
-        layout.add (std::make_unique<AudioParameterBool> (ParameterID { "umfang" + n, 1 }, layerNames()[i] + " Tonumfang", false));
-        layout.add (std::make_unique<AudioParameterInt> (ParameterID { "tief" + n, 1 }, layerNames()[i] + u8 (" tiefster Ton"), 0, 127, 0, noteAttr));
-        layout.add (std::make_unique<AudioParameterInt> (ParameterID { "hoch" + n, 1 }, layerNames()[i] + u8 (" höchster Ton"), 0, 127, 127, noteAttr));
+        layout.add (std::make_unique<AudioParameterBool> (ParameterID { "umfang" + n, 1 }, rangeName (i) + " Tonumfang", false));
+        layout.add (std::make_unique<AudioParameterInt> (ParameterID { "tief" + n, 1 }, rangeName (i) + u8 (" tiefster Ton"), 0, 127, 0, noteAttr));
+        layout.add (std::make_unique<AudioParameterInt> (ParameterID { "hoch" + n, 1 }, rangeName (i) + u8 (" höchster Ton"), 0, 127, 127, noteAttr));
     }
+    // MIDI-Kanal je Ausgang; Vorgabe 1 ... 8, mehrere Ausgaenge duerfen sich einen Kanal teilen
+    for (int i = 0; i < stromscore::kNumOutputs; ++i)
+        layout.add (std::make_unique<AudioParameterChoice> (ParameterID { "kanal" + String (i + 1), 1 }, outputNames()[i] + " MIDI-Kanal", channelNames(), i));
+    layout.add (std::make_unique<AudioParameterBool> (ParameterID { "legato", 1 }, "Gegenstimme Legato", true));
     layout.add (std::make_unique<AudioParameterBool> (ParameterID { "eigeneFolge", 1 }, "Eigene Folge", false));
     static constexpr int defRoot[stromscore::kMaxChords] = { 5, 0, 10, 7, 9, 2, 4, 0 };   // F - C - B - G
     for (int i = 0; i < stromscore::kMaxChords; ++i)
@@ -139,13 +146,16 @@ StromscoreProcessor::StromscoreProcessor()
     pRate = apvts.getRawParameterValue ("arpRate");
     pChange = apvts.getRawParameterValue ("wechsel");
     for (int i = 0; i < stromscore::kNumLayers; ++i)
+        pOctave[i] = apvts.getRawParameterValue ("oct" + juce::String (i + 1));
+    for (int i = 0; i < stromscore::kNumRanges; ++i)
     {
         const juce::String n (i + 1);
-        pOctave[i] = apvts.getRawParameterValue ("oct" + n);
         pRangeOn[i] = apvts.getRawParameterValue ("umfang" + n);
         pRangeLo[i] = apvts.getRawParameterValue ("tief" + n);
         pRangeHi[i] = apvts.getRawParameterValue ("hoch" + n);
     }
+    for (int i = 0; i < stromscore::kNumOutputs; ++i) pChannel[i] = apvts.getRawParameterValue ("kanal" + juce::String (i + 1));
+    pLegato = apvts.getRawParameterValue ("legato");
     pCustom = apvts.getRawParameterValue ("eigeneFolge");
     for (int i = 0; i < stromscore::kMaxChords; ++i)
     {
@@ -210,8 +220,12 @@ stromscore::Settings StromscoreProcessor::currentSettings() const
     s.arpRate = juce::roundToInt (pRate->load());
     s.change = juce::roundToInt (pChange->load());
     for (int i = 0; i < stromscore::kNumLayers; ++i)
-    {
         s.octave[i] = juce::roundToInt (pOctave[i]->load()) - 2;
+    for (int i = 0; i < stromscore::kNumOutputs; ++i)
+        s.channel[i] = juce::jlimit (1, 16, juce::roundToInt (pChannel[i]->load()) + 1);
+    s.legato = pLegato->load() >= 0.5f;
+    for (int i = 0; i < stromscore::kNumRanges; ++i)
+    {
         s.rangeOn[i] = pRangeOn[i]->load() >= 0.5f;
         s.rangeLo[i] = juce::roundToInt (pRangeLo[i]->load());
         s.rangeHi[i] = juce::roundToInt (pRangeHi[i]->load());
@@ -251,20 +265,22 @@ void StromscoreProcessor::handleControllers (const juce::MidiBuffer& incoming)
             axisParam[a]->setValueNotifyingHost (last[a]);
 }
 
-// Beendet alles, was noch klingt, und schickt zur Sicherheit "Alle Noten aus" (CC 123) auf den fuenf Kanaelen
+// Beendet alles, was noch klingt, und schickt zur Sicherheit "Alle Noten aus" (CC 123) auf den benutzten Kanaelen
 void StromscoreProcessor::flushSounding (juce::MidiBuffer& midi, bool forceAllNotesOff)
 {
-    for (int layer = 0; layer < stromscore::kNumLayers; ++layer)
+    uint32_t configured = 0;
+    for (auto* c : pChannel) configured |= 1u << juce::jlimit (0, 15, juce::roundToInt (c->load()));
+    for (int ch = 0; ch < 16; ++ch)
     {
-        bool any = forceAllNotesOff;
+        bool any = forceAllNotesOff && ((configured >> ch) & 1u) != 0;
         for (int note = 0; note < 128; ++note)
-            if (sounding[layer].test ((size_t) note))
+            if (sounding[ch].test ((size_t) note))
             {
-                midi.addEvent (juce::MidiMessage::noteOff (layer + 1, note), 0);
+                midi.addEvent (juce::MidiMessage::noteOff (ch + 1, note), 0);
                 any = true;
             }
-        sounding[layer].reset();
-        if (any) midi.addEvent (juce::MidiMessage::allNotesOff (layer + 1), 0);
+        sounding[ch].reset();
+        if (any) midi.addEvent (juce::MidiMessage::allNotesOff (ch + 1), 0);
     }
 }
 
@@ -285,18 +301,18 @@ void StromscoreProcessor::emit (const stromscore::EventList& list, juce::MidiBuf
         }
         if (! toMidi)
         {
-            if (e.velocity > 0) activity[e.channel - 1].store (1.0f);
+            if (e.velocity > 0) activity[e.out % stromscore::kNumOutputs].store (1.0f);
         }
         else if (e.velocity > 0)
         {
             midi.addEvent (juce::MidiMessage::noteOn (e.channel, e.note, (juce::uint8) e.velocity), e.offset);
-            sounding[e.channel - 1].set ((size_t) e.note);
-            activity[e.channel - 1].store (1.0f);
+            sounding[(e.channel - 1) & 15].set ((size_t) e.note);
+            activity[e.out % stromscore::kNumOutputs].store (1.0f);
         }
         else
         {
             midi.addEvent (juce::MidiMessage::noteOff (e.channel, e.note), e.offset);
-            sounding[e.channel - 1].reset ((size_t) e.note);
+            sounding[(e.channel - 1) & 15].reset ((size_t) e.note);
         }
 
         if (withPreview)
@@ -447,7 +463,7 @@ juce::File StromscoreProcessor::renderMidiFile (int bars) const
     stromscore::Generator gen;
     gen.reset();
     auto events = std::make_unique<stromscore::EventList>();
-    juce::MidiMessageSequence tracks[stromscore::kNumLayers];
+    juce::MidiMessageSequence tracks[16];   // je MIDI-Kanal
     stromscore::Transport t;
     t.playing = true; t.bpm = bpm; t.sampleRate = sr;
     auto collect = [&] (double blockPpq)
@@ -456,12 +472,12 @@ juce::File StromscoreProcessor::renderMidiFile (int bars) const
         {
             const auto& e = events->events[(size_t) i];
             const double tick = std::min (quarters, blockPpq + (double) e.offset / samplesPerQuarter) * tpq;
-            const int layer = juce::jlimit (0, stromscore::kNumLayers - 1, (int) e.channel - 1);
+            const int ch = juce::jlimit (0, 15, (int) e.channel - 1);
             juce::MidiMessage m = e.type == 1 ? juce::MidiMessage::controllerEvent (e.channel, e.note, e.velocity)
                                 : e.velocity > 0 ? juce::MidiMessage::noteOn (e.channel, e.note, (juce::uint8) e.velocity)
                                                  : juce::MidiMessage::noteOff (e.channel, e.note);
             m.setTimeStamp (std::round (tick));
-            tracks[layer].addEvent (m);
+            tracks[ch].addEvent (m);
         }
     };
     for (double ppq = 0.0; ppq < quarters - 1e-9; ppq += block / samplesPerQuarter)
@@ -483,11 +499,16 @@ juce::File StromscoreProcessor::renderMidiFile (int bars) const
     conductor.addEvent (juce::MidiMessage::tempoMetaEvent (juce::roundToInt (60000000.0 / bpm)));
     conductor.addEvent (juce::MidiMessage::timeSignatureMetaEvent (juce::jlimit (1, 16, settings.meterNum), juce::jlimit (1, 16, settings.meterDen)));
     file.addTrack (conductor);
-    for (int i = 0; i < stromscore::kNumLayers; ++i)
+    // Eine Spur je eingestelltem Kanal, benannt nach den Ausgaengen darauf (z. B. "Fläche lang + Fläche kurz")
+    for (int ch = 0; ch < 16; ++ch)
     {
+        juce::StringArray names;
+        for (int o = 0; o < stromscore::kNumOutputs; ++o)
+            if (settings.channel[o] == ch + 1) names.add (outputNames()[o]);
+        if (names.isEmpty()) continue;
         juce::MidiMessageSequence seq;
-        seq.addEvent (juce::MidiMessage::textMetaEvent (3, layerNames()[i]));
-        seq.addSequence (tracks[i], 0.0);
+        seq.addEvent (juce::MidiMessage::textMetaEvent (3, names.joinIntoString (" + ") + " (Kanal " + juce::String (ch + 1) + ")"));
+        seq.addSequence (tracks[ch], 0.0);
         seq.sort();
         seq.updateMatchedPairs();
         file.addTrack (seq);

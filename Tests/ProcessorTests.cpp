@@ -94,21 +94,39 @@ int main()
     for (auto* id : { "key", "faerbung", "intensitaet", "unruhe", "takt", "swing", "variation", "preview", "padPattern", "bassPattern", "arpFigure", "arpRate" })
         CHECK (p->apvts.getParameter (id) != nullptr);
 
-    // Bei geringem Verlauf: nur Flaeche und Bass; bei vollem: alle fuenf Kanaele. Jede Note endet, nichts doppelt.
+    // Bei geringem Verlauf: nur Flaeche und Bass (gehalten, also die Kanaele fuer lang); bei vollem: alle Ebenen.
+    // Vorgabe der Kanaele: Flaeche 1 und 2, Bass 3 und 4, Arp 5, Tupfer 6, Stich 7, Gegenstimme 8. Jede Note endet, nichts doppelt.
     setParam (*p, "intensitaet", 0.0f);
     {
         auto c = play (*p, host, 8, 512);
         CHECK (c.ons > 0 && c.ons == c.offs && ! c.broken);
-        CHECK (c.channels.count (1) && c.channels.count (2));
-        CHECK (! c.channels.count (3) && ! c.channels.count (4) && ! c.channels.count (5));
+        CHECK (c.channels.count (1) && c.channels.count (3));
+        for (int ch = 5; ch <= 8; ++ch) CHECK (! c.channels.count (ch));
     }
     setParam (*p, "intensitaet", 1.0f);
     for (int block : { 64, 441, 512, 1024 })
     {
         auto c = play (*p, host, 8, block);
         CHECK (c.ons > 0 && c.ons == c.offs && ! c.broken);
-        for (int ch = 1; ch <= 5; ++ch) CHECK (c.channels.count (ch) == 1);
-        CHECK (c.channels.size() == 5);
+        for (int ch : { 5, 6, 7, 8 }) CHECK (c.channels.count (ch) == 1);
+        CHECK (c.channels.count (1) + c.channels.count (2) >= 1 && c.channels.count (3) + c.channels.count (4) >= 1);
+        for (const auto& kv : c.channels) CHECK (kv.first >= 1 && kv.first <= 8);
+    }
+
+    // Freie Kanalwahl: alles auf Kanal 1 (ein einziges Instrument), Legato als Parameter
+    {
+        for (int i = 1; i <= 8; ++i) CHECK (p->apvts.getParameter ("kanal" + juce::String (i)) != nullptr);
+        CHECK (p->apvts.getParameter ("legato") != nullptr && p->currentSettings().legato);
+        CHECK (p->currentSettings().channel[7] == 8 && p->currentSettings().channel[0] == 1);
+        for (int i = 1; i <= 8; ++i) setParam (*p, ("kanal" + juce::String (i)).toRawUTF8(), 0.0f);
+        CHECK (p->currentSettings().channel[5] == 1);
+        auto c = play (*p, host, 8, 441);
+        CHECK (c.ons > 0 && c.ons == c.offs && ! c.broken && c.channels.size() == 1 && c.channels.count (1) == 1);
+        const auto file = p->renderMidiFile (8);
+        juce::MidiFile mf; juce::FileInputStream in (file);
+        CHECK (in.openedOk() && mf.readFrom (in) && mf.getNumTracks() == 2);   // Takt-Spur und eine Spur fuer Kanal 1
+        for (int i = 1; i <= 8; ++i) setParam (*p, ("kanal" + juce::String (i)).toRawUTF8(), (float) (i - 1));
+        CHECK (p->currentSettings().channel[3] == 4);
     }
 
     // Gleiche Einstellungen, andere Blockgroesse: gleiche Anzahl Noten
@@ -226,11 +244,11 @@ int main()
         setParam (*p, "solo3", 1.0f); setParam (*p, "intensitaet3", 0.5f);
         setParam (*p, "intensitaet", 0.0f);
         auto c = play (*p, host, 8, 512);
-        CHECK (c.channels.size() == 1 && c.channels.count (3) == 1);   // nur der Arp, trotz ruhiger Stimmung
+        CHECK (c.channels.size() == 1 && c.channels.count (5) == 1);   // nur der Arp, trotz ruhiger Stimmung
         setParam (*p, "solo3", 0.0f); setParam (*p, "intensitaet3", 0.0f); setParam (*p, "mute2", 1.0f);
         setParam (*p, "intensitaet", 1.0f);
         c = play (*p, host, 8, 512);
-        CHECK (c.channels.count (2) == 0 && c.channels.size() == 4 && c.ons == c.offs);
+        CHECK (c.channels.count (3) == 0 && c.channels.count (4) == 0 && c.channels.count (5) == 1 && c.ons == c.offs);
         setParam (*p, "mute2", 0.0f);
         // Text des Intensitaets-Reglers
         auto* li = p->apvts.getParameter ("intensitaet2");
@@ -330,7 +348,7 @@ int main()
         juce::MidiFile mf;
         juce::FileInputStream in (file);
         CHECK (in.openedOk() && mf.readFrom (in));
-        CHECK (mf.getNumTracks() == 6);
+        CHECK (mf.getNumTracks() == 9);   // Takt-Spur und eine Spur je Kanal (Vorgabe: acht)
         int notes = 0, ccs = 0; double last = 0.0;
         for (int t = 1; t < mf.getNumTracks(); ++t)
         {
@@ -377,10 +395,10 @@ int main()
             {
                 const auto& m = mf.getTrack (t)->getEventPointer (i)->message;
                 if (! m.isNoteOn()) continue;
-                if (t == 3) { CHECK (m.getNoteNumber() >= 60 && m.getNoteNumber() <= 96); ++arpNotes; }
-                if (t == 2) CHECK (m.getNoteNumber() >= 36 && m.getNoteNumber() <= 50);
+                if (m.getChannel() == 5) { CHECK (m.getNoteNumber() >= 60 && m.getNoteNumber() <= 96); ++arpNotes; }
+                if (m.getChannel() == 3 || m.getChannel() == 4) CHECK (m.getNoteNumber() >= 36 && m.getNoteNumber() <= 50);
             }
-        CHECK (arpNotes > 10);
+        CHECK (arpNotes > 10 && mf.getNumTracks() == 9);   // Takt-Spur und acht Kanaele
 
         // Anlernen: zwei Tasten am Eingang, in beliebiger Reihenfolge; eingehende Noten gehen nicht hinaus
         p->learnFirst.store (-1); p->learnSecond.store (-1); p->learnLayer.store (4);

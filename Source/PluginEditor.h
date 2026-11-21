@@ -86,45 +86,61 @@ public:
     void paint (juce::Graphics& g) override;
 };
 
-// Ein Kasten pro Ebene: Name, MIDI-Kanal, Muster, Oktave, "folgt / bleibt", Aus / Auto / An, Lampe fuer gespielte Noten
+// Ein Kasten pro Ebene. Kopfzeile: Name, Mute, Solo (wie in Studio One), Lampe (bei zwei Ausgaengen zwei Punkte).
+// Darunter Zeilen mit Beschriftung links: MIDI-Kanal (Flaeche und Bass: lang und kurz, Akzent: Tupfer und Stich,
+// je mit eigenem Tonumfang), Muster, Tempo (Arp), Legato (Gegenstimme), "folgt / bleibt", Intensitaet, Oktave und Umfang.
 class LayerView : public juce::Component, public juce::SettableTooltipClient
 {
 public:
     LayerView()
     {
-        for (auto* c : std::initializer_list<juce::Component*> { &soloButton, &muteButton, &intensity, &octBox, &rangeButton }) addAndMakeVisible (c);
-        addChildComponent (followButton); addChildComponent (combo1); addChildComponent (combo2);
+        for (auto* c : std::initializer_list<juce::Component*> { &muteButton, &soloButton, &intensity, &octBox, &chanBox[0] }) addAndMakeVisible (c);
+        for (auto* c : std::initializer_list<juce::Component*> { &chanBox[1], &rangeButton, &rangeButton2, &followButton, &legatoButton, &combo1, &combo2 })
+            addChildComponent (c);
     }
     juce::Colour panel, line, accent, text, dim;
-    juce::String title, lines, entry;   // entry: ab wann die Ebene einsetzt
-    int index = 0, channel = 1;
+    juce::String title, entry;          // entry: ab wann die Ebene einsetzt
+    juce::String rowLabel[4];           // Beschriftungen der Zeilen 1 ... 4
+    int index = 0, numLamps = 1;
     bool active = true;
-    float activity = 0.0f;
-    juce::TextButton soloButton, muteButton, followButton, rangeButton;
+    float activity[2] {};
+    juce::TextButton soloButton, muteButton, followButton, rangeButton, rangeButton2, legatoButton;
     juce::Slider intensity;
-    juce::ComboBox combo1, combo2, octBox;
+    juce::ComboBox combo1, combo2, octBox, chanBox[2];
     void paint (juce::Graphics& g) override;
     void resized() override
     {
-        const int w = getWidth() - 24;
-        combo1.setBounds (12, 50, w, 24);
-        if (index == kArpIndex) { combo2.setBounds (12, 80, w / 2 - 3, 24); octBox.setBounds (12 + w / 2 + 3, 80, w - w / 2 - 3, 24); }
-        else if (index < kArpIndex) octBox.setBounds (12, 80, w, 24);
-        else octBox.setBounds (12, getHeight() - 60, w, 24);
-        followButton.setBounds (12, getHeight() - 60, w, 24);
-        intensity.setBounds (12, getHeight() - 32, w, 24);
-        soloButton.setBounds (getWidth() - 76, 6, 21, 20);
-        muteButton.setBounds (getWidth() - 52, 6, 21, 20);
-        rangeButton.setBounds (getWidth() - 12 - 62, 27, 62, 17);
+        const int w = getWidth();
+        const int cx = kLabelW + 14, cw = w - cx - 12;   // Spalte der Bedienelemente
+        auto row = [] (int i) { return 34 + i * 28; };
+        muteButton.setBounds (w - 82, 6, 22, 20);
+        soloButton.setBounds (w - 57, 6, 22, 20);
+        const bool accent = index == stromscore::kAkzent;
+        const int smallW = 44;
+        chanBox[0].setBounds (cx, row (0), accent ? cw - smallW - 4 : cw, 24);
+        chanBox[1].setBounds (cx, row (1), accent ? cw - smallW - 4 : cw, 24);
+        if (accent)
+        {
+            rangeButton.setBounds (w - 12 - smallW, row (0), smallW, 24);
+            rangeButton2.setBounds (w - 12 - smallW, row (1), smallW, 24);
+        }
+        combo2.setBounds (cx, row (1), cw, 24);         // Arp: Tempo
+        legatoButton.setBounds (cx, row (1), 52, 24);   // Gegenstimme
+        combo1.setBounds (cx, row (2), cw, 24);         // Muster
+        followButton.setBounds (12, row (3), w - 24, 24);
+        intensity.setBounds (12, getHeight() - 64, w - 24, 24);
+        const int okW = accent ? w - 24 : 78;
+        octBox.setBounds (12, getHeight() - 34, okW, 24);
+        if (! accent) rangeButton.setBounds (12 + okW + 6, getHeight() - 34, w - 24 - okW - 6, 24);
     }
-    static constexpr int kArpIndex = 2;
+    static constexpr int kLabelW = 46;
 };
 
 // Tonumfang einer Ebene: Ein/Aus, tiefster und hoechster Ton, Vorlagen, Anlernen ueber zwei Tasten am MIDI-Eingang
 class RangePanel : public juce::Component, private juce::Timer
 {
 public:
-    RangePanel (StromscoreProcessor& p, int layerIndex, juce::Colour panel, juce::Colour accent, juce::Colour text, juce::Colour dim);
+    RangePanel (StromscoreProcessor& p, int rangeIndex, juce::Colour panel, juce::Colour accent, juce::Colour text, juce::Colour dim);
     ~RangePanel() override;
     void paint (juce::Graphics& g) override;
     void resized() override;
@@ -237,6 +253,34 @@ public:
         g.drawRoundedRectangle (r.reduced (0.5f), 3.0f, 1.0f);
     }
 
+    // Tooltips: groessere Schrift (15 pt), links ausgerichtet, ausgewogene Zeilen bis 420 Punkte Breite
+    static juce::TextLayout tipLayout (const juce::String& text, juce::Colour colour)
+    {
+        juce::AttributedString s;
+        s.setJustification (juce::Justification::topLeft);
+        s.setWordWrap (juce::AttributedString::byWord);
+        s.append (text, juce::Font (juce::FontOptions (15.0f)), colour);
+        juce::TextLayout tl;
+        tl.createLayoutWithBalancedLineLengths (s, 420.0f);
+        return tl;
+    }
+    juce::Rectangle<int> getTooltipBounds (const juce::String& text, juce::Point<int> pos, juce::Rectangle<int> area) override
+    {
+        const auto tl = tipLayout (text, juce::Colours::black);
+        const int w = (int) std::ceil (tl.getWidth()) + 20, h = (int) std::ceil (tl.getHeight()) + 14;
+        return juce::Rectangle<int> (pos.x > area.getCentreX() ? pos.x - (w + 12) : pos.x + 24,
+                                     pos.y > area.getCentreY() ? pos.y - (h + 6) : pos.y + 6, w, h).constrainedWithin (area);
+    }
+    void drawTooltip (juce::Graphics& g, const juce::String& text, int width, int height) override
+    {
+        const juce::Rectangle<float> r (0.0f, 0.0f, (float) width, (float) height);
+        g.setColour (findColour (juce::TooltipWindow::backgroundColourId));
+        g.fillRoundedRectangle (r, 5.0f);
+        g.setColour (findColour (juce::TooltipWindow::outlineColourId));
+        g.drawRoundedRectangle (r.reduced (0.5f), 5.0f, 1.0f);
+        tipLayout (text, findColour (juce::TooltipWindow::textColourId)).draw (g, r.reduced (10.0f, 7.0f));
+    }
+
     void drawComboBox (juce::Graphics& g, int width, int height, bool, int, int, int, int, juce::ComboBox& box) override
     {
         const juce::Rectangle<float> r (0.0f, 0.0f, (float) width, (float) height);
@@ -274,7 +318,8 @@ private:
     void updateCcButton();
     void showCcMenu();
     void updateMidiLabel();
-    void showRangePanel (int layer);
+    void showRangePanel (int rangeIndex);
+    juce::TextButton& rangeButtonFor (int rangeIndex);
     void updateRangeButtons();
     float subtitleEnd() const;
 
@@ -312,7 +357,8 @@ private:
     std::unique_ptr<APVTS::ButtonAttachment> soloAttachment[stromscore::kNumLayers], muteAttachment[stromscore::kNumLayers];
     std::unique_ptr<APVTS::SliderAttachment> intensityAttachment[stromscore::kNumLayers];
     std::unique_ptr<APVTS::ButtonAttachment> followAttachment[3];
-    std::unique_ptr<APVTS::ComboBoxAttachment> patternAttachment[4], octaveAttachment[stromscore::kNumLayers];
+    std::unique_ptr<APVTS::ComboBoxAttachment> patternAttachment[4], octaveAttachment[stromscore::kNumLayers], channelAttachment[stromscore::kNumOutputs];
+    std::unique_ptr<APVTS::ButtonAttachment> legatoAttachment;
 
     juce::TextButton themeButton, helpButton;
     HelpPanel helpScroll;

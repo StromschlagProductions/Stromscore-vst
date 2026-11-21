@@ -14,14 +14,24 @@
 namespace stromscore
 {
 constexpr int kNumLayers = 5;
-enum Layer { kFlaeche = 0, kBass = 1, kArp = 2, kFarbe = 3, kGegenstimme = 4 };
+enum Layer { kFlaeche = 0, kBass = 1, kArp = 2, kAkzent = 3, kGegenstimme = 4 };
+// Ausgaenge: jede Ebene schickt auf einen oder zwei frei waehlbare MIDI-Kanaele
+// (Flaeche und Bass: lang und kurz, Akzent: Tupfer und Stich)
+constexpr int kNumOutputs = 8;
+enum Output { OutPadLong = 0, OutPadShort, OutBassLong, OutBassShort, OutArp, OutTupfer, OutStich, OutCounter };
+constexpr int kOutputLayer[kNumOutputs] = { kFlaeche, kFlaeche, kBass, kBass, kArp, kAkzent, kAkzent, kGegenstimme };
+// Tonumfang: je Ebene, der Akzent hat zwei (Tupfer und Stich spielen oft auf verschiedenen Instrumenten)
+constexpr int kNumRanges = 6;
+constexpr int kOutputRange[kNumOutputs] = { 0, 0, 1, 1, 2, 3, 5, 4 };
 constexpr int kNumKeys = 12;
 constexpr double kStep = 0.25;          // Raster: Sechzehntel (in Viertelnoten)
 constexpr int kPhraseBars = 8;          // eine Wendung = 8 Takte
 constexpr int kMaxChords = 8;
 
-// Ab welcher Intensitaet eine Ebene im Modus Auto einsetzt (Farbe zusaetzlich ab Unruhe 0,4)
-constexpr float kLayerStart[kNumLayers] = { 0.0f, 0.0f, 0.25f, 0.4f, 0.15f };
+// Ab welcher Intensitaet eine Ebene im Modus Auto einsetzt (Akzent zusaetzlich bei Unruhe ab 0,35)
+constexpr float kLayerStart[kNumLayers] = { 0.0f, 0.0f, 0.25f, 0.25f, 0.15f };
+constexpr float kStichStart = 0.5f;     // der zweite Akzent (Stich) kommt erst bei mehr Intensitaet dazu
+constexpr float kAkzentUnruhe = 0.35f;
 
 // ------------------------------------------------------------------ Akkorde
 enum ChordType { Maj, Min, Maj7, Min7, Dom7, MinMaj7, MinMaj9, Dim7, HalfDim, Sus4, Quartal, Add9, Min9, Aug, Min6, Dom7b9, Sus2, Fifth, kNumChordTypes };
@@ -191,9 +201,11 @@ struct Settings
     int ccDynamics = 1, ccExpression = 11;   // 0 = diesen CC nicht senden
     bool passing = false;       // Durchgangsakkorde: bei viel Intensitaet die Dominante des naechsten Akkords auf dem letzten Schlag       // Abwechslung: 0 = nur die passendste Wendung, 1 = auch entferntere Nachbarn
     int octave[kNumLayers] = { 0, 0, 0, 0, 0 };               // -2 ... +2
-    bool rangeOn[kNumLayers] = {};                            // Tonumfang begrenzen (fuer Orchesterinstrumente)
-    int rangeLo[kNumLayers] = { 0, 0, 0, 0, 0 };              // tiefster spielbarer Ton (MIDI-Nummer)
-    int rangeHi[kNumLayers] = { 127, 127, 127, 127, 127 };    // hoechster spielbarer Ton
+    bool rangeOn[kNumRanges] = {};                            // Tonumfang begrenzen (fuer Orchesterinstrumente); [3] Tupfer, [5] Stich
+    int rangeLo[kNumRanges] = { 0, 0, 0, 0, 0, 0 };           // tiefster spielbarer Ton (MIDI-Nummer)
+    int rangeHi[kNumRanges] = { 127, 127, 127, 127, 127, 127 };   // hoechster spielbarer Ton
+    int channel[kNumOutputs] = { 1, 2, 3, 4, 5, 6, 7, 8 };    // MIDI-Kanal je Ausgang (1 ... 16), doppelte Belegung erlaubt
+    bool legato = true;         // Gegenstimme: Toene binden (minimale Ueberlappung bis zum naechsten Ton)
     bool follow[3] = { true, true, true };                    // Flaeche, Bass, Arp: false = bleibt auf dem Grundakkord
     int padPattern = PadAuto, bassPattern = BassAuto, arpFigure = ArpAuto, arpRate = RateAuto;
     bool custom = false;        // eigene Akkordfolge statt Wendungen
@@ -210,7 +222,7 @@ struct Transport
 
 // velocity 0 = Note aus
 // type 0: Note (velocity 0 = aus), type 1: Controller (note = CC-Nummer, velocity = Wert)
-struct Event { int offset; uint8_t channel; uint8_t note; uint8_t velocity; uint8_t type = 0; };
+struct Event { int offset; uint8_t channel; uint8_t note; uint8_t velocity; uint8_t type = 0; uint8_t out = 0; };
 
 struct EventList
 {
@@ -219,15 +231,15 @@ struct EventList
     int size = 0;
     bool overflow = false;
     void clear() { size = 0; overflow = false; }
-    void add (int offset, int channel, int note, int velocity)
+    void add (int offset, int channel, int note, int velocity, int out = 0)
     {
         if (size >= kCapacity) { overflow = true; return; }
-        events[(size_t) size++] = { offset, (uint8_t) channel, (uint8_t) note, (uint8_t) velocity, 0 };
+        events[(size_t) size++] = { offset, (uint8_t) channel, (uint8_t) note, (uint8_t) velocity, 0, (uint8_t) out };
     }
-    void addCc (int offset, int channel, int controller, int value)
+    void addCc (int offset, int channel, int controller, int value, int out = 0)
     {
         if (size >= kCapacity) { overflow = true; return; }
-        events[(size_t) size++] = { offset, (uint8_t) channel, (uint8_t) controller, (uint8_t) std::clamp (value, 0, 127), 1 };
+        events[(size_t) size++] = { offset, (uint8_t) channel, (uint8_t) controller, (uint8_t) std::clamp (value, 0, 127), 1, (uint8_t) out };
     }
 };
 
@@ -328,7 +340,7 @@ public:
         for (bool b : s.solo) anySolo = anySolo || b;
         if (anySolo ? ! s.solo[layer] : s.mute[layer]) return false;
         const float y = layerY (s, layer);
-        if (layer == kFarbe) return y >= kLayerStart[kFarbe] || s.z >= 0.4f;
+        if (layer == kAkzent) return y >= kLayerStart[kAkzent] || s.z >= kAkzentUnruhe;
         return y >= kLayerStart[layer];
     }
 
@@ -393,7 +405,7 @@ public:
     void allNotesOff (EventList& out, int offset)
     {
         for (int i = 0; i < numActive; ++i)
-            out.add (offset, active[(size_t) i].channel, active[(size_t) i].note, 0);
+            out.add (offset, active[(size_t) i].channel, active[(size_t) i].note, 0, active[(size_t) i].out);
         numActive = 0;
     }
 
@@ -408,7 +420,8 @@ public:
         for (auto& v : s.layerIntensity) v = std::clamp (v, -1.0f, 1.0f);
         s.variety = std::clamp (s.variety, 0.0f, 1.0f);
         for (auto& o : s.octave) o = std::clamp (o, -2, 2);
-        for (int i = 0; i < kNumLayers; ++i)
+        for (auto& c : s.channel) c = std::clamp (c, 1, 16);
+        for (int i = 0; i < kNumRanges; ++i)
         {
             int lo = std::clamp (s.rangeLo[i], 0, 127), hi = std::clamp (s.rangeHi[i], 0, 127);
             if (lo > hi) std::swap (lo, hi);
@@ -467,7 +480,7 @@ public:
 private:
     static constexpr float kKeepRatio = 0.5f;   // so gut muss die laufende Wendung mindestens passen, sonst wird gewechselt
 
-    struct Active { uint8_t channel, note; long long endStep, startStep; };
+    struct Active { uint8_t channel, note, out; long long endStep, startStep; };
 
     // Wo im Takt / in der Phrase / in der Wendung ein Schritt liegt
     struct Pos
@@ -643,7 +656,7 @@ private:
         {
             if (active[(size_t) i].endStep <= step)
             {
-                out.add (offset, active[(size_t) i].channel, active[(size_t) i].note, 0);
+                out.add (offset, active[(size_t) i].channel, active[(size_t) i].note, 0, active[(size_t) i].out);
                 active[(size_t) i] = active[(size_t) --numActive];
             }
             else ++i;
@@ -654,9 +667,9 @@ private:
     {
         for (int i = 0; i < numActive;)
         {
-            if (! layerActive (s, active[(size_t) i].channel - 1))
+            if (! layerActive (s, kOutputLayer[active[(size_t) i].out]))
             {
-                out.add (0, active[(size_t) i].channel, active[(size_t) i].note, 0);
+                out.add (0, active[(size_t) i].channel, active[(size_t) i].note, 0, active[(size_t) i].out);
                 active[(size_t) i] = active[(size_t) --numActive];
             }
             else ++i;
@@ -668,10 +681,10 @@ private:
     {
         for (int i = 0; i < numActive;)
         {
-            const int layer = active[(size_t) i].channel - 1;
-            if (layer == kFlaeche || layer == kBass || layer == kFarbe)
+            const int layer = kOutputLayer[active[(size_t) i].out];
+            if (layer == kFlaeche || layer == kBass || layer == kAkzent)
             {
-                out.add (offset, active[(size_t) i].channel, active[(size_t) i].note, 0);
+                out.add (offset, active[(size_t) i].channel, active[(size_t) i].note, 0, active[(size_t) i].out);
                 active[(size_t) i] = active[(size_t) --numActive];
             }
             else ++i;
@@ -680,11 +693,13 @@ private:
 
     // Tonumfang: Ton um ganze Oktaven in den spielbaren Bereich holen (gleicher Tonname, kein Ton faellt weg).
     // Ist der Bereich enger als eine Oktave und der Tonname passt nicht hinein, nimmt ein Akkordton im Bereich seinen Platz ein.
-    bool rangeOn (int layer) const { return cur != nullptr && cur->rangeOn[layer]; }
-    int fitRange (int layer, int note) const
+    // Alles ist nach Ausgang geschluesselt: Oktave nach Ebene, Tonumfang nach Ebene (Akzent: Tupfer und Stich getrennt).
+    bool rangeOn (int o) const { return cur != nullptr && cur->rangeOn[kOutputRange[o]]; }
+    int octaveOf (int o) const { return cur != nullptr ? cur->octave[kOutputLayer[o]] : 0; }
+    int fitRange (int o, int note) const
     {
-        if (! rangeOn (layer)) return note;
-        const int lo = cur->rangeLo[layer], hi = cur->rangeHi[layer];
+        if (! rangeOn (o)) return note;
+        const int lo = cur->rangeLo[kOutputRange[o]], hi = cur->rangeHi[kOutputRange[o]];
         int n = note;
         while (n < lo) n += 12;
         while (n > hi) n -= 12;
@@ -698,17 +713,17 @@ private:
             }
         return best >= 0 ? best : std::clamp (note, lo, hi);
     }
-    // Klingender Ton einer Ebene: Oktav-Einstellung, dann Tonumfang
-    int sounding (int layer, int note) const
+    // Klingender Ton eines Ausgangs: Oktav-Einstellung, dann Tonumfang
+    int sounding (int o, int note) const
     {
-        if (cur != nullptr) note = fitRange (layer, note + 12 * cur->octave[layer]);
+        if (cur != nullptr) note = fitRange (o, note + 12 * octaveOf (o));
         return std::clamp (note, 0, 127);
     }
     // Eine Gruppe von Toenen (Akkord, Arpeggio) als Ganzes um Oktaven verschieben, so dass moeglichst viele in den Bereich passen
-    int bestShift (int layer, const int* notes, int n) const
+    int bestShift (int o, const int* notes, int n) const
     {
-        if (! rangeOn (layer) || n <= 0) return 0;
-        const int lo = cur->rangeLo[layer] - 12 * cur->octave[layer], hi = cur->rangeHi[layer] - 12 * cur->octave[layer];
+        if (! rangeOn (o) || n <= 0) return 0;
+        const int lo = cur->rangeLo[kOutputRange[o]] - 12 * octaveOf (o), hi = cur->rangeHi[kOutputRange[o]] - 12 * octaveOf (o);
         int best = 0, bestCount = -1;
         for (int sh : { 0, 12, -12, 24, -24, 36, -36, 48, -48 })
         {
@@ -719,37 +734,43 @@ private:
         return best;
     }
     // Verschieben, Ausreisser falten, sortieren, doppelte entfernen; liefert die neue Anzahl
-    int fitGroup (int layer, int* notes, int n) const
+    int fitGroup (int o, int* notes, int n) const
     {
-        if (! rangeOn (layer)) return n;
-        const int sh = bestShift (layer, notes, n);
-        const int oct = 12 * cur->octave[layer];
-        for (int i = 0; i < n; ++i) notes[i] = fitRange (layer, notes[i] + sh + oct) - oct;
+        if (! rangeOn (o)) return n;
+        const int sh = bestShift (o, notes, n);
+        const int oct = 12 * octaveOf (o);
+        for (int i = 0; i < n; ++i) notes[i] = fitRange (o, notes[i] + sh + oct) - oct;
         std::sort (notes, notes + n);
         return (int) (std::unique (notes, notes + n) - notes);
     }
 
-    void noteOn (int layer, int note, int velocity, long long endStep, int offset, EventList& out)
+    // Note anschlagen. Mehrere Ausgaenge duerfen auf demselben Kanal liegen: Trifft ein Ton auf einen schon klingenden
+    // gleichen Ton desselben Kanals, wird er im selben Schritt nur verlaengert, sonst neu angeschlagen. Die Note gehoert
+    // dann dem Ausgang mit dem laengeren Rest, so dass das Ende eines kurzen Tons nie einen langen abschneidet.
+    void noteOn (int o, int note, int velocity, long long endStep, int offset, EventList& out)
     {
-        if (cur != nullptr && ! layerActive (*cur, layer)) return;
-        const int channel = layer + 1;
-        note = sounding (layer, note);
+        if (cur != nullptr && ! layerActive (*cur, kOutputLayer[o])) return;
+        const int channel = cur != nullptr ? cur->channel[o] : o + 1;
+        note = sounding (o, note);
         velocity = std::clamp (velocity, 1, 127);
         for (int i = 0; i < numActive; ++i)
-            if (active[(size_t) i].channel == channel && active[(size_t) i].note == note)
+        {
+            auto& a = active[(size_t) i];
+            if (a.channel != channel || a.note != note) continue;
+            if (a.startStep == nowStep)    // im selben Schritt schon angeschlagen (zusammengefaltet): nur verlaengern
             {
-                if (active[(size_t) i].startStep == nowStep)    // im selben Schritt schon angeschlagen (zusammengefaltet): nur verlaengern
-                {
-                    active[(size_t) i].endStep = std::max (active[(size_t) i].endStep, endStep);
-                    return;
-                }
-                out.add (offset, channel, note, 0);
-                active[(size_t) i] = active[(size_t) --numActive];
-                break;
+                if (endStep > a.endStep) { a.endStep = endStep; a.out = (uint8_t) o; }
+                return;
             }
+            out.add (offset, channel, note, 0, a.out);
+            out.add (offset, channel, note, velocity, o);
+            if (a.out == o || endStep >= a.endStep) { a.endStep = endStep; a.out = (uint8_t) o; }
+            a.startStep = nowStep;
+            return;
+        }
         if (numActive >= kMaxActive) return;
-        out.add (offset, channel, note, velocity);
-        active[(size_t) numActive++] = { (uint8_t) channel, (uint8_t) note, endStep, nowStep };
+        out.add (offset, channel, note, velocity, o);
+        active[(size_t) numActive++] = { (uint8_t) channel, (uint8_t) note, (uint8_t) o, endStep, nowStep };
     }
 
     void updateMask (const Settings& s)
@@ -767,8 +788,8 @@ private:
     static int padLow (const Settings& s)  { return 62 + (int) std::lround (s.x * 6.0f); }   // Flaeche: mittlere Lage
     static int bassLow (const Settings& s) { return 45 + (int) std::lround (s.x * 4.0f); }   // Bass: A2 bis Cis3
 
-    // --- Flaeche
-    void padChord (const Pos& p, const Settings& s, int offset, long long endStep, int velocity, EventList& out)
+    // --- Flaeche (o: lang fuer gehaltene Akkorde, kurz fuer Schlaege, Puls, Staccato und Gated)
+    void padChord (const Pos& p, const Settings& s, int o, int offset, long long endStep, int velocity, EventList& out)
     {
         // Weiter Satz wie im Orchester: Grundton und Quinte unten, Terz und Farbtoene eine Oktave hoeher
         const Chord c = chordFor (p, kFlaeche, s);
@@ -789,55 +810,122 @@ private:
             notes[n++] = root + iv + (low ? 0 : 12);
         }
         if (y > 0.6f) notes[n++] = root + 24;   // Verdopplung oben
-        if (rangeOn (kFlaeche))
+        if (rangeOn (o))
         {
             // Tonumfang: der Akkord rueckt als Ganzes in den Bereich, Ausreisser wandern um Oktaven nach innen
-            n = fitGroup (kFlaeche, notes, n);
-            for (int i = 0; i < n; ++i) noteOn (kFlaeche, notes[i], velocity - (i == 0 ? 0 : 4), endStep, offset, out);
+            n = fitGroup (o, notes, n);
+            for (int i = 0; i < n; ++i) noteOn (o, notes[i], velocity - (i == 0 ? 0 : 4), endStep, offset, out);
             return;
         }
         for (int i = 0; i < n; ++i)
-            noteOn (kFlaeche, notes[i], velocity - (i == 0 ? 0 : (i == voices ? 10 : 4)), endStep, offset, out);
+            noteOn (o, notes[i], velocity - (i == 0 ? 0 : (i == voices ? 10 : 4)), endStep, offset, out);
     }
 
-    // --- Farbe: Grundfarbe (None) und bei Unruhe ein fremder Ton
-    void colour (const Pos& p, const Settings& s, int offset, EventList& out)
+    // Bass: lange Muster (Gehalten, Halbe, Orgelpunkt) gehen auf den Kanal fuer lang, alle anderen auf den fuer kurz
+    static int bassOut (int pattern) { return (pattern == BassHeld || pattern == BassHalf || pattern == BassPedal) ? OutBassLong : OutBassShort; }
+
+    // --- Akzent. Zwei Stimmen, die nur gelegentlich einwerfen und nie stehen bleiben:
+    // Tupfer: einzelne kurze Toene hoch ueber dem Satz (Celesta, Glocken, Pizzicato), auf Zwischenzeiten.
+    // Stich: kurzer Schlag in mittlerer bis tiefer Lage (Klavier-Cluster, Synth-Stab, Quint-Schlag), an den Nahtstellen
+    // der Musik: bei Akkordwechseln, am Ende der Phrase und als Antwort kurz nach einem Tupfer. Wenig Intensitaet:
+    // nur Tupfer; mehr: der Stich kommt dazu und antwortet; viel Intensitaet am Phrasenende: beide zugleich.
+    // Alles haengt nur von der Position ab (kein Zustand), daher nach Spruengen und beim Herausziehen identisch.
+    static int tupferLow (const Settings& s) { return (s.genre == GenrePopRock ? 84 : 79) + (int) std::lround (s.x * 5.0f); }
+    static int stichLow (const Settings&)  { return 50; }
+
+    bool tupferAt (long long k, const Settings& s) const
     {
-        const Chord c = chordFor (p, kFarbe, s);
-        if (layerY (s, kFarbe) >= kLayerStart[kFarbe])
-        {
-            const int ninth = place (s.key + c.root + 14, 74 + (int) std::lround (s.x * 4.0f));
-            noteOn (kFarbe, ninth, (int) (35 + 40 * layerY (s, kFarbe)), p.chordEnd, offset, out);
-        }
+        const float ya = layerY (s, kAkzent);
+        if (ya < kLayerStart[kAkzent]) return false;
+        const long long bar = floorDiv (k, meter.len);
+        const int pos = (int) (k - bar * meter.len);
+        if (pos % 2 != 0 || pos % 8 == 0 || meter.isGroupStart (pos)) return false;   // nur Zwischenzeiten
+        const long long window = bar * 4 + pos / 8;                                   // hoechstens ein Tupfer je halben Takt
+        const int slot = 2 + 2 * (hashInt (601u, window) % 3);
+        if (pos % 8 != slot) return false;
+        const float prob = 0.12f + 0.5f * ya + 0.15f * s.z;
+        return (float) (hashInt (607u, window) % 1000) < prob * 1000.0f;
     }
 
+    void tupfer (const Pos& p, const Settings& s, int offset, long long len, int boost, EventList& out)
+    {
+        const Chord c = chordFor (p, kAkzent, s);
+        const ChordShape& sh = kShapes[c.type];
+        int pick[4]; int n = 0;
+        pick[n++] = 12;                                   // Oktave
+        if (sh.n > 1) pick[n++] = sh.iv[1];               // Terz
+        if (sh.n > 2) pick[n++] = sh.iv[2];               // Quinte
+        if (s.x >= 0.35f && s.z < 0.6f) pick[n++] = 14;   // None, im Hellen
+        const int iv = pick[hashInt (611u, p.k) % n];
+        const float ya = layerY (s, kAkzent);
+        noteOn (OutTupfer, place (s.key + c.root + iv, tupferLow (s)), (int) (45 + 40 * ya) + boost, p.k + len, offset, out);
+    }
+
+    // Unruhe: ein fremder, reibender Ton als kurzer Stachel in der Mitte des Akkords
     void foreignTone (const Pos& p, const Settings& s, int offset, EventList& out)
     {
-        const Chord c = chordFor (p, kFarbe, s);
+        const Chord c = chordFor (p, kAkzent, s);
         const int interval = s.x < 0.5f ? 1 : 6;                          // dunkel: kleine None, hell: uebermaessige Quarte
         const int note = place (s.key + c.root + interval, 79);
-        noteOn (kFarbe, note, (int) (30 + 45 * s.z), p.chordEnd, offset, out);
-        if (s.z >= 0.8f && layerY (s, kFarbe) < 0.5f)                                      // Halbton-Reibung ganz oben
-            noteOn (kFarbe, note + 11, (int) (25 + 30 * s.z), p.chordEnd, offset, out);
+        noteOn (OutTupfer, note, (int) (30 + 45 * s.z), p.k + 3, offset, out);
+        if (s.z >= 0.8f && layerY (s, kAkzent) < 0.5f)                    // Halbton-Reibung ganz oben
+            noteOn (OutTupfer, note + 11, (int) (25 + 30 * s.z), p.k + 3, offset, out);
     }
 
-    // Liegetoene einer Akkordposition (Flaeche gehalten, Bass gehalten, Farbe)
+    void stich (const Pos& p, const Settings& s, int offset, long long len, int boost, EventList& out)
+    {
+        const Chord c = chordFor (p, kAkzent, s);
+        const int top = place (s.key + bassRoot (c), stichLow (s));        // oberster Ton: D3 bis C#4, unter der Gegenstimme
+        int notes[3] = { top - 12, top - 5, top };                        // Quint-Schlag mit Oktave
+        if (s.genre != GenrePopRock && s.z >= 0.5f)
+            notes[1] = top - 12 + (s.x < 0.5f ? 1 : 6);                    // Unruhe: Dissonanz-Stachel statt Quinte
+        int n = 3;
+        if (rangeOn (OutStich)) n = fitGroup (OutStich, notes, n);
+        const float ya = layerY (s, kAkzent);
+        for (int i = 0; i < n; ++i) noteOn (OutStich, notes[i], (int) (68 + 40 * ya) + boost - (i == 0 ? 0 : 6), p.k + len, offset, out);
+    }
+
+    void accents (long long k, const Pos& p, const Settings& s, int offset, EventList& out)
+    {
+        if (! layerActive (s, kAkzent)) return;
+        const float ya = layerY (s, kAkzent);
+        const bool lastBar = p.barInPhrase == phraseBars - 1;
+        const int lastGroup = meter.groupStart[std::max (0, meter.numGroups - 1)];
+        const bool phraseEnd = lastBar && p.pos == lastGroup && lastGroup > 0;    // Schlusspunkt der Phrase
+        const bool both = phraseEnd && ya >= 0.8f;
+
+        if (s.z >= kAkzentUnruhe && k == p.chordStart + (p.chordEnd - p.chordStart) / 2)
+            foreignTone (p, s, offset, out);
+        else if (both || tupferAt (k, s))
+            tupfer (p, s, offset, ya > 0.7f ? 1 : 2, both ? 10 : 0, out);
+
+        if (ya < kStichStart) return;
+        bool hit = both || (phraseEnd && ya >= 0.6f);
+        if (! hit && k == p.chordStart)
+            hit = (float) (hashInt (613u, k) % 1000) < (0.25f + 0.45f * ya) * 1000.0f;
+        if (! hit && ya >= 0.55f && tupferAt (k - 3, s))                       // Antwort auf den Tupfer
+            hit = hashInt (617u, k) % 2 == 0;
+        if (! hit && s.genre == GenrePopRock && p.pos % 8 == 6)                 // Pop-Rock: Stab auf der Zwischenzeit
+            hit = (float) (hashInt (619u, k) % 1000) < (0.05f + 0.2f * ya) * 1000.0f;
+        if (hit) stich (p, s, offset, s.genre == GenrePopRock ? 1 : 2, phraseEnd ? 8 : 0, out);
+    }
+
+    // Liegetoene einer Akkordposition (Flaeche gehalten, Bass gehalten)
     void sustained (const Pos& p, const Settings& s, int offset, EventList& out, bool restart)
     {
         const int pad = choosePad (s);
         const bool padFollow = s.follow[kFlaeche];
         const bool phraseStart = p.k == p.phraseStart;
         if (pad == PadHeld && (padFollow || phraseStart || restart))
-            padChord (p, s, offset, padFollow ? p.chordEnd : p.phraseEnd, (int) (40 + 45 * layerY (s, kFlaeche)), out);
+            padChord (p, s, OutPadLong, offset, padFollow ? p.chordEnd : p.phraseEnd, (int) (40 + 45 * layerY (s, kFlaeche)), out);
 
         const int bp = chooseBass (s, p.phrase);
         if ((bp == BassHeld && (s.follow[kBass] || phraseStart || restart)) || bp == BassPedal)
         {
             const bool pedal = bp == BassPedal;
-            noteOn (kBass, place (s.key + (pedal ? pedalRoot() : bassRoot (chordFor (p, kBass, s))), bassLow (s)),
+            noteOn (OutBassLong, place (s.key + (pedal ? pedalRoot() : bassRoot (chordFor (p, kBass, s))), bassLow (s)),
                     (int) (60 + 35 * layerY (s, kBass)), (s.follow[kBass] && ! pedal) ? p.chordEnd : (pedal ? p.chordEnd : p.phraseEnd), offset, out);
         }
-        colour (p, s, offset, out);
     }
 
     void chase (double ppq, const Settings& s, EventList& out)
@@ -887,20 +975,19 @@ private:
         if (chordStart)
             sustained (p, s, offset, out, restart);
 
-        // Unruhe: fremder Ton in der Mitte des Akkords (das "quietschende" Element)
-        if (z >= 0.35f && layerActive (s, kFarbe) && k == p.chordStart + (p.chordEnd - p.chordStart) / 2)
-            foreignTone (p, s, offset, out);
+        // Akzente: Tupfer und Stich, bei Unruhe der fremde Ton in der Mitte des Akkords
+        accents (k, p, s, offset, out);
 
         // --- Flaeche: Schlaege, Puls oder Staccato
         const int pad = choosePad (s);
         if (pad == PadStabs && p.pos % 4 == 2)
-            padChord (p, s, offset, k + 1, (int) (55 + 40 * yPad) + jitter (k, kFlaeche, 4), out);
+            padChord (p, s, OutPadShort, offset, k + 1, (int) (55 + 40 * yPad) + jitter (k, kFlaeche, 4), out);
         else if (pad == PadPulse && beat)
-            padChord (p, s, offset, k + 3, (int) (50 + 40 * yPad) + (group ? 8 : 0), out);
+            padChord (p, s, OutPadShort, offset, k + 3, (int) (50 + 40 * yPad) + (group ? 8 : 0), out);
         else if (pad == PadStaccato && beat)
-            padChord (p, s, offset, k + 1, (int) (48 + 40 * yPad) + (group ? 6 : 0), out);
+            padChord (p, s, OutPadShort, offset, k + 1, (int) (48 + 40 * yPad) + (group ? 6 : 0), out);
         else if (pad == PadGated && p.pos % 2 == 0)                 // gehackte Achtel wie ein Gate
-            padChord (p, s, offset, k + 1, (int) (46 + 40 * yPad) + (group ? 10 : 0), out);
+            padChord (p, s, OutPadShort, offset, k + 1, (int) (46 + 40 * yPad) + (group ? 10 : 0), out);
 
         // --- Bass
         {
@@ -910,6 +997,7 @@ private:
             int root = place (s.key + (pattern0 (s, phrase) == BassPedal ? pedalRoot() : bassRoot (c)), low);
             const int vel = (int) (58 + 38 * yBass) + (group ? 8 : 0) + jitter (k, kBass, 3);
             const int pattern = pattern0 (s, phrase);
+            const int bo = bassOut (pattern);
             const bool lastEighth = k == p.chordEnd - 2;
             // Chromatische Annaeherung an den naechsten Grundton im letzten Achtel des Akkords
             const bool approach = s.follow[kBass] && (z >= 0.3f || pattern == BassFunk) && lastEighth
@@ -921,18 +1009,18 @@ private:
             }
             switch (pattern)
             {
-                case BassHalf:     if (p.pos % 8 == 0 || approach) noteOn (kBass, root, vel, k + (approach ? 2 : 7), offset, out); break;
-                case BassQuarter:  if (beat || approach) noteOn (kBass, root, vel, k + (approach ? 2 : 3), offset, out); break;
-                case BassEighth:   if (p.pos % 2 == 0) noteOn (kBass, root, vel, k + 2, offset, out); break;
-                case BassPulse:    noteOn (kBass, root, vel - (group ? 0 : 10), k + 1, offset, out); break;
+                case BassHalf:     if (p.pos % 8 == 0 || approach) noteOn (bo, root, vel, k + (approach ? 2 : 7), offset, out); break;
+                case BassQuarter:  if (beat || approach) noteOn (bo, root, vel, k + (approach ? 2 : 3), offset, out); break;
+                case BassEighth:   if (p.pos % 2 == 0) noteOn (bo, root, vel, k + 2, offset, out); break;
+                case BassPulse:    noteOn (bo, root, vel - (group ? 0 : 10), k + 1, offset, out); break;
                 case BassFunk:
                 {
                     const int q = p.pos % 8;
-                    if (approach) noteOn (kBass, root, vel, k + 1, offset, out);
-                    else if (q == 0) noteOn (kBass, root, vel + 6, k + 2, offset, out);
-                    else if (q == 3) noteOn (kBass, root, vel - 6, k + 1, offset, out);
-                    else if (q == 5) noteOn (kBass, root + 7, vel - 8, k + 1, offset, out);
-                    else if (q == 6 && p.pos % 16 == 14) noteOn (kBass, root + 12, vel - 4, k + 1, offset, out);   // kurzer Sprung nur am Taktende
+                    if (approach) noteOn (bo, root, vel, k + 1, offset, out);
+                    else if (q == 0) noteOn (bo, root, vel + 6, k + 2, offset, out);
+                    else if (q == 3) noteOn (bo, root, vel - 6, k + 1, offset, out);
+                    else if (q == 5) noteOn (bo, root + 7, vel - 8, k + 1, offset, out);
+                    else if (q == 6 && p.pos % 16 == 14) noteOn (bo, root + 12, vel - 4, k + 1, offset, out);   // kurzer Sprung nur am Taktende
                     break;
                 }
                 case BassPendulum:
@@ -942,7 +1030,7 @@ private:
                     {
                         const int other = z >= 0.5f ? 1 : 3;                 // Halbton (Unruhe) oder kleine Terz
                         const int n = (p.pos / rate) % 2 == 0 ? root : root + other;
-                        noteOn (kBass, n, vel, k + rate - 1, offset, out);
+                        noteOn (bo, n, vel, k + rate - 1, offset, out);
                     }
                     break;
                 }
@@ -961,43 +1049,43 @@ private:
                             const int steps[4] = { 0, sh.iv[1], sh.iv[2], sh.n > 3 ? sh.iv[3] : 12 };
                             n = root + steps[b % 4];
                         }
-                        noteOn (kBass, n, vel, k + 3, offset, out);
+                        noteOn (bo, n, vel, k + 3, offset, out);
                     }
                     break;
                 case BassAlternating:
                     if (beat || approach)
                     {
                         const bool odd = ((p.pos / 4) % 2) == 1;
-                        noteOn (kBass, approach ? root : (odd ? root - 5 : root), vel - (odd ? 6 : 0), k + 2, offset, out);   // Grundton, Quinte darunter
+                        noteOn (bo, approach ? root : (odd ? root - 5 : root), vel - (odd ? 6 : 0), k + 2, offset, out);   // Grundton, Quinte darunter
                     }
                     break;
                 case BassPedal:   // Orgelpunkt: liegt (in sustained), bei viel Intensitaet zusaetzlich ein Puls auf den Schlaegen
-                    if (yBass > 0.6f && beat && k != p.chordStart) noteOn (kBass, root, vel - 12, k + 1, offset, out);
+                    if (yBass > 0.6f && beat && k != p.chordStart) noteOn (OutBassShort, root, vel - 12, k + 1, offset, out);
                     break;
                 case BassHiNrg:   // Grundton und Oberoktave im Wechsel, sehr aufgewuehlt in Sechzehnteln
                 {
                     const int rate = yBass > 0.75f ? 1 : 2;
                     if (p.pos % rate == 0)
-                        noteOn (kBass, ((p.pos / rate) % 2 == 0) ? root : root + 12, vel - ((p.pos / rate) % 2 == 0 ? 0 : 8), k + rate, offset, out);
+                        noteOn (bo, ((p.pos / rate) % 2 == 0) ? root : root + 12, vel - ((p.pos / rate) % 2 == 0 ? 0 : 8), k + rate, offset, out);
                     break;
                 }
                 case BassGallop:  // Achtel und zwei Sechzehntel
                 {
                     const int q = p.pos % 4;
-                    if (q == 0) noteOn (kBass, root, vel + 4, k + 2, offset, out);
-                    else if (q == 2 || q == 3) noteOn (kBass, root, vel - 8, k + 1, offset, out);
+                    if (q == 0) noteOn (bo, root, vel + 4, k + 2, offset, out);
+                    else if (q == 2 || q == 3) noteOn (bo, root, vel - 8, k + 1, offset, out);
                     break;
                 }
                 case BassHeartbeat:
-                    if (p.pos % 8 == 0) noteOn (kBass, root, vel + 4, k + 1, offset, out);
-                    else if (p.pos % 8 == 2) noteOn (kBass, root, vel - 10, k + 4, offset, out);
+                    if (p.pos % 8 == 0) noteOn (bo, root, vel + 4, k + 1, offset, out);
+                    else if (p.pos % 8 == 2) noteOn (bo, root, vel - 10, k + 4, offset, out);
                     break;
                 case BassArpeggio:
                     if (p.pos % 2 == 0)
                     {
                         const int startIdx = (int) (((p.bar % sh.n) + sh.n) % sh.n);                // Startton wechselt je Takt
                         const int i = (p.pos / 2 + startIdx) % sh.n;
-                        noteOn (kBass, root + sh.iv[i] - (sh.iv[i] > 7 ? 12 : 0), vel, k + 2, offset, out);
+                        noteOn (bo, root + sh.iv[i] - (sh.iv[i] > 7 ? 12 : 0), vel, k + 2, offset, out);
                     }
                     break;
                 default: break;
@@ -1019,13 +1107,13 @@ private:
                 int base = place (s.key + c.root, 55 + (int) std::lround (s.x * 7.0f)) + (fig == ArpGlitter ? 12 : 0);
                 int tones[10]; const int n = std::min (sh.n, 5); int count = 2 * n;
                 for (int i = 0; i < count; ++i) tones[i] = base + sh.iv[i % n] + 12 * (i / n);
-                if (rangeOn (kArp))
+                if (rangeOn (OutArp))
                 {
                     // Tonumfang: die Figur rueckt als Ganzes in den Bereich; die Tonleiter der Figur wird gefaltet und
                     // sortiert, so dass Auf, Ab und Kreisen an den Grenzen umkehren und kein Ton verschluckt wird
-                    const int shift = bestShift (kArp, tones, count);
+                    const int shift = bestShift (OutArp, tones, count);
                     base += shift;
-                    count = fitGroup (kArp, tones, count);
+                    count = fitGroup (OutArp, tones, count);
                 }
                 const long long c0 = rel / rate + (long long) (hashInt (77u, s.follow[kArp] ? p.chordStart : phrase) % 4);
                 int note = base;
@@ -1085,7 +1173,7 @@ private:
                 if (z >= 0.6f && c0 % 8 == 7) note -= 1;                    // Unruhe: chromatischer Durchgang
                 const int vel = (int) ((fig == ArpGlitter ? 40 : 52) + 35 * yArp) + (group ? 6 : 0) + jitter (k, kArp, 6);
                 const long long len = (fig == ArpGlitter || fig == ArpSid || rate == 1) ? 1 : rate;
-                noteOn (kArp, note, vel, k + len, offset, out);
+                noteOn (OutArp, note, vel, k + len, offset, out);
             }
         }
 
@@ -1099,16 +1187,21 @@ private:
 
     void dynamicsCc (long long k, const Pos& p, const Settings& s, int offset, EventList& out)
     {
-        for (int layer = 0; layer < kNumLayers; ++layer)
+        uint32_t sent = 0;   // teilen sich Ebenen einen Kanal, bestimmt die erste Ebene seinen Verlauf
+        for (int o = 0; o < kNumOutputs; ++o)
         {
-            if (! layerActive (s, layer)) { lastCc[layer] = -1; lastExpr[layer] = -1; continue; }
+            const int layer = kOutputLayer[o];
+            const int channel = s.channel[o];
+            if ((sent >> channel) & 1u) continue;
+            if (! layerActive (s, layer)) continue;
+            sent |= 1u << channel;
             const float yl = layerY (s, layer);
             const float base = 50.0f + 40.0f * yl;
             float value = base;
             if (s.genre == GenrePopRock) value += 2.0f * std::sin (3.14159265f * (float) ((k - p.chordStart) % 16) / 16.0f);
             else
             {
-                const bool slow = layer == kGegenstimme || (layer == kFlaeche && choosePad (s) == PadHeld);
+                const bool slow = o == OutCounter || o == OutPadLong || o == OutBassLong;
                 const int arc = slow ? 16 : 8;
                 const float amp = 4.0f + 6.0f * yl + 4.0f * s.z;
                 const float phase = (float) ((k - p.chordStart) % arc) / (float) arc;
@@ -1118,25 +1211,26 @@ private:
             }
             const int v = std::clamp ((int) std::lround (value), 1, 127);
             const int e = std::clamp ((int) std::lround (70.0f + 50.0f * s.y), 1, 127);
-            const int channel = layer + 1;
-            if (s.ccDynamics > 0 && (lastCc[layer] < 0 || std::abs (v - lastCc[layer]) >= 2)) { out.addCc (offset, channel, s.ccDynamics, v); lastCc[layer] = v; }
-            if (s.ccExpression > 0 && (lastExpr[layer] < 0 || std::abs (e - lastExpr[layer]) >= 2)) { out.addCc (offset, channel, s.ccExpression, e); lastExpr[layer] = e; }
+            if (s.ccDynamics > 0 && (lastCc[channel] < 0 || std::abs (v - lastCc[channel]) >= 2)) { out.addCc (offset, channel, s.ccDynamics, v, o); lastCc[channel] = v; }
+            if (s.ccExpression > 0 && (lastExpr[channel] < 0 || std::abs (e - lastExpr[channel]) >= 2)) { out.addCc (offset, channel, s.ccExpression, e, o); lastExpr[channel] = e; }
         }
     }
 
-    // Zielton der Gegenstimme: Akkordton nahe am vorigen Ton, Terz und Septime bevorzugt, nicht der Ton der Farbe
+    // Zielton der Gegenstimme: Akkordton nahe am vorigen Ton, Terz und Septime bevorzugt.
+    // Eigene Lage in der Mitte (D4 bis F#5), getrennt vom Tupfer darueber und vom Stich darunter.
     int counterTarget (const Chord& c, const Settings& s, bool chordStart, long long k) const
     {
         const ChordShape& sh = kShapes[c.type];
-        const int lo = 60 + (int) std::lround (s.x * 4.0f);
-        const int rootPc = (s.key + c.root) % 12, colourPc = (rootPc + 2) % 12;
-        int a = lo, b = lo + 14;
-        if (s.rangeOn[kGegenstimme])
+        const int lo = 62 + (int) std::lround (s.x * 3.0f);
+        const int rootPc = (s.key + c.root) % 12;
+        const int ri = kOutputRange[OutCounter];
+        int a = lo, b = lo + 13;
+        if (s.rangeOn[ri])
         {
             // Tonumfang: nur Toene im spielbaren Bereich (Oktav-Einstellung eingerechnet); liegt die uebliche Lage
             // ausserhalb, sucht die Linie im ganzen Bereich
-            const int rlo = s.rangeLo[kGegenstimme] - 12 * s.octave[kGegenstimme], rhi = s.rangeHi[kGegenstimme] - 12 * s.octave[kGegenstimme];
-            a = std::max (lo, rlo); b = std::min (lo + 14, rhi);
+            const int rlo = s.rangeLo[ri] - 12 * s.octave[kGegenstimme], rhi = s.rangeHi[ri] - 12 * s.octave[kGegenstimme];
+            a = std::max (lo, rlo); b = std::min (lo + 13, rhi);
             int found = 0;
             for (int n = a; n <= b; ++n)
                 for (int i = 0; i < sh.n; ++i) found += (rootPc + sh.iv[i]) % 12 == n % 12 ? 1 : 0;
@@ -1149,7 +1243,7 @@ private:
             const int pc = n % 12;
             bool inChord = false;
             for (int i = 0; i < sh.n; ++i) inChord = inChord || (rootPc + sh.iv[i]) % 12 == pc;
-            if (! inChord || (pc == colourPc && sh.n > 1)) continue;
+            if (! inChord) continue;
             const int d = n - prev;
             float score = (float) std::abs (d);
             if (d == 0 && ! chordStart) score += 3.0f;            // innerhalb des Akkords: weitergehen
@@ -1182,24 +1276,27 @@ private:
             const int nx = fig[0] >= 3 || fig[0] >= sh.n ? base + 12 : base + sh.iv[fig[0]];
             note = nx - 1;
         }
-        noteOn (kGegenstimme, note, (int) (58 + 35 * yc) + (slot % 2 == 0 ? 6 : 0), k + rate, offset, out);
+        noteOn (OutCounter, note, (int) (58 + 35 * yc) + (slot % 2 == 0 ? 6 : 0), k + (s.legato ? rate + 1 : std::max (1, rate - 1)), offset, out);
+        if (s.legato) releaseOthers (OutCounter, note, offset, out);
     }
 
-    // Legato: neuen Ton anschlagen, dann den vorigen derselben Ebene loslassen (Ueberlappung fuer Legato-Patches)
-    void releaseOthers (int layer, int keep, int offset, EventList& out)
+    // Legato: neuen Ton anschlagen, dann den vorigen desselben Ausgangs loslassen (Ueberlappung fuer Legato-Patches)
+    void releaseOthers (int o, int keep, int offset, EventList& out)
     {
-        const int channel = layer + 1;
-        const int keepNote = sounding (layer, keep);
+        const int keepNote = sounding (o, keep);
         for (int i = 0; i < numActive;)
         {
-            if (active[(size_t) i].channel == channel && active[(size_t) i].note != keepNote)
+            if (active[(size_t) i].out == o && active[(size_t) i].note != keepNote)
             {
-                out.add (offset, channel, active[(size_t) i].note, 0);
+                out.add (offset, active[(size_t) i].channel, active[(size_t) i].note, 0, o);
                 active[(size_t) i] = active[(size_t) --numActive];
             }
             else ++i;
         }
     }
+
+    // Ende eines Tons der Gegenstimme relativ zum naechsten: Legato eine Sechzehntel darueber, sonst kurz davor abgesetzt
+    long long tail (long long len) const { return cur != nullptr && cur->legato ? 1 : (len >= 4 ? -1 : 0); }
 
     void counterLine (long long k, const Pos& p, const Settings& s, int offset, bool chordStart, EventList& out)
     {
@@ -1209,8 +1306,8 @@ private:
         const int vel = (int) (50 + 35 * yc);
         if (k == csPendingAt && csPending >= 0)                    // Vorhalt loest sich auf
         {
-            noteOn (kGegenstimme, csPending, vel, csPendingEnd + 1, offset, out);
-            releaseOthers (kGegenstimme, csPending, offset, out);
+            noteOn (OutCounter, csPending, vel, csPendingEnd + tail (csPendingEnd - k), offset, out);
+            releaseOthers (OutCounter, csPending, offset, out);
             csNote = csPending; csPendingAt = -1;
         }
         // Bewegung: ruhig nur bei Akkordwechseln, mittel alle zwei Takte, aufgewuehlt in Halben
@@ -1223,14 +1320,14 @@ private:
         if (s.z >= 0.5f && chordStart && end - k >= 8)               // Unruhe: Vorhalt von oben, loest auf den Zielton auf
         {
             const int sus = target + (s.z >= 0.75f ? 1 : 2);
-            noteOn (kGegenstimme, sus, vel + 6, k + 5, offset, out);
-            releaseOthers (kGegenstimme, sus, offset, out);
+            noteOn (OutCounter, sus, vel + 6, k + 4 + (s.legato ? 1 : 0), offset, out);
+            releaseOthers (OutCounter, sus, offset, out);
             csPending = target; csPendingAt = k + 4; csPendingEnd = end;
             csNote = sus;
             return;
         }
-        noteOn (kGegenstimme, target, vel, end + 1, offset, out);   // eine Sechzehntel laenger: bindet zum naechsten Ton
-        releaseOthers (kGegenstimme, target, offset, out);
+        noteOn (OutCounter, target, vel, end + tail (end - k), offset, out);   // Legato: eine Sechzehntel laenger, bindet zum naechsten Ton
+        releaseOthers (OutCounter, target, offset, out);
         csNote = target;
     }
 
@@ -1245,7 +1342,7 @@ private:
     float curProgress = 0.0f;
     uint32_t chordMask = 0;          // Tonnamen des klingenden Akkords (Ersatz bei sehr engem Tonumfang)
     long long nowStep = -1;
-    int lastCc[kNumLayers] = { -1, -1, -1, -1, -1 }, lastExpr[kNumLayers] = { -1, -1, -1, -1, -1 };
+    int lastCc[17] {}, lastExpr[17] {};   // je MIDI-Kanal (1 ... 16)
     int csNote = -1, csPending = -1;                 // Gegenstimme: letzter Ton, aufzuloesender Vorhalt
     long long csPendingAt = -1, csPendingEnd = 0;
     int phraseBars = kPhraseBars;
@@ -1272,12 +1369,12 @@ public:
         }
         Voice* slot = &voices[0];
         for (auto& v : voices) if (! v.on) { slot = &v; break; }
-        static constexpr float layerGain[kNumLayers] = { 0.04f, 0.07f, 0.04f, 0.03f, 0.06f };
+        static constexpr float outGain[kNumOutputs] = { 0.04f, 0.04f, 0.07f, 0.07f, 0.04f, 0.035f, 0.03f, 0.06f };
         const float freq = 440.0f * std::pow (2.0f, ((float) e.note - 69.0f) / 12.0f);
         *slot = {};
         slot->on = true; slot->channel = e.channel; slot->note = e.note;
         slot->inc = (float) (2.0 * 3.14159265358979 * freq / sampleRate);
-        slot->gain = layerGain[std::clamp ((int) e.channel - 1, 0, kNumLayers - 1)] * (float) e.velocity / 127.0f;
+        slot->gain = outGain[std::clamp ((int) e.out, 0, kNumOutputs - 1)] * (float) e.velocity / 127.0f;
     }
 
     void render (float* l, float* r, int n)

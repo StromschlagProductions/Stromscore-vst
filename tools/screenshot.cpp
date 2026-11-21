@@ -59,8 +59,8 @@ private:
         }
         if (! lit)
         {
-            const float levels[stromscore::kNumLayers] = { 1.0f, 0.0f, 1.0f, 0.0f, 0.0f };
-            for (int i = 0; i < stromscore::kNumLayers; ++i) processor.activity[i].store (levels[i]);
+            const float levels[stromscore::kNumOutputs] = { 1.0f, 0.0f, 0.0f, 1.0f, 1.0f, 1.0f, 0.0f, 0.0f };
+            for (int i = 0; i < stromscore::kNumOutputs; ++i) processor.activity[i].store (levels[i]);
             if (index == 2) clickButton (*editor, "Bearbeiten");   // drittes Bild: eigene Akkordfolge
             if (index == 3) clickButton (*editor, "Umfang3");      // viertes Bild: Fenster fuer den Tonumfang
             lit = true;
