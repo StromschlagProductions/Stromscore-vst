@@ -1,0 +1,98 @@
+cmake_minimum_required(VERSION 3.22)
+# Versionsnummer steht in der Datei VERSION (wird bei jeder Aenderung hochgezaehlt)
+file(STRINGS VERSION STROMSCORE_VERSION LIMIT_COUNT 1)
+set_property(DIRECTORY APPEND PROPERTY CMAKE_CONFIGURE_DEPENDS VERSION)
+project(Stromscore VERSION ${STROMSCORE_VERSION})
+
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+# Laufzeitbibliothek fest einbinden: das Plugin braucht dann kein VC++-Redistributable
+set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")
+
+option(ENGINE_ONLY "Nur die Tests des Notengenerators bauen (ohne JUCE)" OFF)
+include(CTest)
+if(BUILD_TESTING)
+    add_executable(EngineTests Tests/EngineTests.cpp)
+    target_include_directories(EngineTests PRIVATE Source)
+    add_test(NAME Engine COMMAND EngineTests)
+endif()
+if(ENGINE_ONLY)
+    return()
+endif()
+
+set(STROMSCORE_JUCE_PATH "" CACHE PATH "Lokaler JUCE-Ordner (leer = automatisch laden)")
+set(STROMSCORE_FORMATS "VST3" CACHE STRING "Plugin-Formate")
+
+if(STROMSCORE_JUCE_PATH)
+    add_subdirectory(${STROMSCORE_JUCE_PATH} JUCE)
+else()
+    include(FetchContent)
+    FetchContent_Declare(JUCE
+        GIT_REPOSITORY https://github.com/juce-framework/JUCE.git
+        GIT_TAG 8.0.9
+        GIT_SHALLOW TRUE)
+    FetchContent_MakeAvailable(JUCE)
+endif()
+
+juce_add_binary_data(StromscoreAssets SOURCES Assets/logo.png)
+
+# Instrument ohne eigenen Klang (ausser Vorhoeren): erzeugt Noten und gibt sie als MIDI an andere Instrumentenspuren weiter
+juce_add_plugin(Stromscore
+    COMPANY_NAME "Stromschlag Audio"
+    PLUGIN_MANUFACTURER_CODE Strm
+    PLUGIN_CODE Stsc
+    FORMATS ${STROMSCORE_FORMATS}
+    PRODUCT_NAME "Stromscore"
+    IS_SYNTH TRUE
+    NEEDS_MIDI_INPUT TRUE
+    NEEDS_MIDI_OUTPUT TRUE
+    IS_MIDI_EFFECT FALSE
+    VST3_CATEGORIES Instrument Generator
+    COPY_PLUGIN_AFTER_BUILD FALSE)
+
+target_sources(Stromscore PRIVATE
+    Source/PluginProcessor.cpp
+    Source/PluginEditor.cpp)
+
+target_compile_definitions(Stromscore PUBLIC
+    PLUGIN_VERSION_TEXT="${STROMSCORE_VERSION}"
+    JUCE_WEB_BROWSER=0
+    JUCE_USE_CURL=0
+    JUCE_VST3_CAN_REPLACE_VST2=0
+    JUCE_DISPLAY_SPLASH_SCREEN=0)
+
+if(MSVC)
+    target_compile_options(Stromscore PRIVATE /utf-8)
+endif()
+
+target_link_libraries(Stromscore
+    PRIVATE
+        StromscoreAssets
+        juce::juce_audio_utils
+    PUBLIC
+        juce::juce_recommended_config_flags
+        juce::juce_recommended_lto_flags
+        juce::juce_recommended_warning_flags)
+
+if(BUILD_TESTING)
+    juce_add_console_app(ProcessorTests PRODUCT_NAME "Stromscore processor tests")
+    target_sources(ProcessorTests PRIVATE Tests/ProcessorTests.cpp)
+    target_include_directories(ProcessorTests PRIVATE Source $<TARGET_PROPERTY:Stromscore,INCLUDE_DIRECTORIES>)
+    target_compile_definitions(ProcessorTests PRIVATE JUCE_WEB_BROWSER=0 JUCE_USE_CURL=0)
+    if(MSVC)
+        target_compile_options(ProcessorTests PRIVATE /utf-8)
+    endif()
+    target_link_libraries(ProcessorTests PRIVATE Stromscore)
+    add_test(NAME Processor COMMAND ProcessorTests)
+endif()
+
+# Screenshot-Werkzeug fuer README und Homepage (nicht Teil des Standard-Builds): cmake --build build --target StromscoreScreenshot
+juce_add_console_app(StromscoreScreenshot PRODUCT_NAME "Stromscore screenshot")
+target_sources(StromscoreScreenshot PRIVATE tools/screenshot.cpp)
+target_include_directories(StromscoreScreenshot PRIVATE Source $<TARGET_PROPERTY:Stromscore,INCLUDE_DIRECTORIES>)
+target_compile_definitions(StromscoreScreenshot PRIVATE JUCE_WEB_BROWSER=0 JUCE_USE_CURL=0 PLUGIN_VERSION_TEXT="${STROMSCORE_VERSION}")
+if(MSVC)
+    target_compile_options(StromscoreScreenshot PRIVATE /utf-8)
+endif()
+target_link_libraries(StromscoreScreenshot PRIVATE Stromscore)
+set_target_properties(StromscoreScreenshot PROPERTIES EXCLUDE_FROM_ALL TRUE)

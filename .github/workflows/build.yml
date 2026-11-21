@@ -1,0 +1,158 @@
+name: Windows-VST3 bauen
+
+# Windows-Bau mit Regressionstests und pluginval (Strictness 8).
+#   - laeuft bei jedem Push auf main und bei Pull Requests (ausser reinen Doku-Aenderungen)
+#   - von Hand: Actions > "Windows-VST3 bauen" > "Run workflow"
+#   - Release nur mit ausdruecklichem Auftrag auf main: publish-Haken oder "release: Stromscore <VERSION> ..."
+# Beschreibung: docs/CI.md und docs/PUBLISHING.md
+on:
+  push:
+    branches: [main]
+    paths-ignore: ['docs/**', '**.md']
+  pull_request:
+    branches: [main]
+    paths-ignore: ['docs/**', '**.md']
+  workflow_dispatch:
+    inputs:
+      publish:
+        description: "Release mit ZIP veroeffentlichen (nur auf main)"
+        type: boolean
+        default: false
+
+concurrency:
+  group: >-
+    windows-vst3-${{ github.ref }}-${{ (github.event_name == 'workflow_dispatch' && inputs.publish) || startsWith(github.event.head_commit.message, 'release: Stromscore ') }}
+  cancel-in-progress: ${{ github.event_name != 'workflow_dispatch' }}
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: windows-latest
+    timeout-minutes: 40
+    env:
+      RELEASE_COMMIT: ${{ github.event.head_commit.message }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Version lesen
+        shell: pwsh
+        run: |
+          $v = (Get-Content VERSION -TotalCount 1).Trim()
+          if ($v -notmatch '^(0|[1-9][0-9]*)\.[0-9]$') { throw "VERSION muss dem Schema 1.0 ... 1.9, 2.0 ... folgen" }
+          "STROMSCORE_VERSION=$v" >> $env:GITHUB_ENV
+          "ZIP_NAME=Stromscore-v$v-Windows-VST3.zip" >> $env:GITHUB_ENV
+          if (-not (Test-Path "docs/releases/$v.md")) { throw "Release-Hinweise fuer $v fehlen" }
+
+      # Schnell scheitern, bevor die Bauminuten verbraucht werden
+      - name: Release vorab pruefen
+        if: >-
+          (github.event_name == 'workflow_dispatch' && inputs.publish) || (github.event_name == 'push' && startsWith(github.event.head_commit.message, 'release: Stromscore '))
+        shell: pwsh
+        run: |
+          if ("${{ github.ref }}" -ne "refs/heads/main") { Write-Error "Release nur auf main"; exit 1 }
+          if ($env:GITHUB_EVENT_NAME -eq "push") {
+            $first = ($env:RELEASE_COMMIT -split "`n")[0]
+            if (-not $first.StartsWith("release: Stromscore $env:STROMSCORE_VERSION ")) { throw "Release-Auftrag muss zur VERSION passen" }
+          }
+          if (-not (Test-Path "docs/releases/$env:STROMSCORE_VERSION.md")) { Write-Error "docs/releases/$env:STROMSCORE_VERSION.md fehlt"; exit 1 }
+
+      - name: Screenshot-Version vor Veroeffentlichung pruefen
+        if: >-
+          (github.event_name == 'workflow_dispatch' && inputs.publish) || (github.event_name == 'push' && startsWith(github.event.head_commit.message, 'release: Stromscore '))
+        shell: pwsh
+        run: |
+          $v = (Get-Content VERSION -TotalCount 1).Trim()
+          $manifest = Get-Content docs/screenshots.json -Raw | ConvertFrom-Json
+          if ($manifest.version -ne $v) { throw "Screenshots fuer $v mit dem Screenshot-Werkzeug neu erzeugen" }
+          if ($manifest.images.Count -lt 2) { throw "Screenshot-Varianten fehlen" }
+          foreach ($image in $manifest.images) {
+            if ($image -notmatch '^oberflaeche-[a-z]+\.png$' -or -not (Test-Path "docs/$image")) { throw "Screenshot fehlt: $image" }
+          }
+
+      - name: Herstelleridentitaet pruefen
+        shell: pwsh
+        run: |
+          $cmake = Get-Content CMakeLists.txt -Raw
+          if ($cmake -notmatch 'COMPANY_NAME\s+"Stromschlag Audio"') { throw "Hersteller muss Stromschlag Audio sein" }
+          if ($cmake -match '(?i)COMPANY_NAME\s+"[^"]*(Claude|Anthropic)') { throw "Falscher Plugin-Hersteller" }
+
+      - name: Konfigurieren
+        run: cmake -B build -A x64
+
+      - name: Bauen
+        run: cmake --build build --config Release --parallel
+
+      - name: Gebaute VST3-Version pruefen
+        shell: pwsh
+        run: |
+          $bundle = "build/Stromscore_artefacts/Release/VST3/Stromscore.vst3"
+          $metadata = Get-Content "$bundle/Contents/Resources/moduleinfo.json" -Raw
+          $match = [regex]::Match($metadata, '"Version"\s*:\s*"([^"]+)"')
+          $allowed = '^' + [regex]::Escape($env:STROMSCORE_VERSION) + '(\.0){0,2}$'
+          if (-not $match.Success -or $match.Groups[1].Value -notmatch $allowed) { throw "VST3-Metadaten passen nicht zu VERSION" }
+          $native = (Get-Item "$bundle/Contents/x86_64-win/Stromscore.vst3").VersionInfo
+          foreach ($value in @($native.FileVersion, $native.ProductVersion)) {
+            if ($value -notmatch $allowed) { throw "Windows-Binaerversion $value passt nicht zu VERSION" }
+          }
+          Write-Host "VST3 und Windows-Binaerdatei entsprechen $env:STROMSCORE_VERSION"
+
+      - name: Regressionstests
+        run: ctest --test-dir build -C Release --output-on-failure
+
+      - name: Plugin bereitstellen
+        uses: actions/upload-artifact@v4
+        with:
+          name: Stromscore-VST3-Windows
+          path: build/Stromscore_artefacts/Release/VST3
+          if-no-files-found: error
+          retention-days: 14
+
+      - name: Stabilitaetstest (pluginval)
+        timeout-minutes: 12
+        shell: pwsh
+        run: |
+          curl.exe -sSL -o pluginval.zip https://github.com/Tracktion/pluginval/releases/latest/download/pluginval_Windows.zip
+          Expand-Archive pluginval.zip -DestinationPath pluginval
+          $logDir = Join-Path (Get-Location) "pluginval-logs"
+          New-Item -ItemType Directory -Force $logDir | Out-Null
+          $stdout = Join-Path $logDir "stdout.txt"
+          $stderr = Join-Path $logDir "stderr.txt"
+          $bundle = (Resolve-Path "build/Stromscore_artefacts/Release/VST3/Stromscore.vst3").Path
+          $arguments = @("--strictness-level", "8", "--output-dir", ('"' + $logDir + '"'), "--validate", ('"' + $bundle + '"'))
+          # Windows-GUI-Programme muessen explizit abgewartet werden. Ein gestarteter Prozess ist kein Testergebnis.
+          $process = Start-Process -FilePath (Resolve-Path "pluginval/pluginval.exe").Path -ArgumentList $arguments -Wait -PassThru -NoNewWindow -RedirectStandardOutput $stdout -RedirectStandardError $stderr
+          $output = (Get-Content $stdout -Raw -ErrorAction SilentlyContinue) + "`n" + (Get-Content $stderr -Raw -ErrorAction SilentlyContinue)
+          Write-Output $output
+          $reports = Get-ChildItem $logDir -Filter *.txt | ForEach-Object { Get-Content $_.FullName -Raw }
+          $combined = $output + "`n" + ($reports -join "`n")
+          if ($process.ExitCode -ne 0) { throw "pluginval Exitcode $($process.ExitCode)" }
+          if ($combined -match '(?m)(FAILED!!|^\s*\*{3} FAILED|^\s*FAILURE\s*$|!!! Test \d+ failed)') { throw "pluginval meldet fehlgeschlagene Tests" }
+          if ($combined -notmatch '(?m)^SUCCESS\s*$') { throw "pluginval hat keinen vollstaendigen Erfolg gemeldet" }
+
+      - name: pluginval-Protokolle sichern
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: Stromscore-pluginval-logs
+          path: pluginval-logs
+          if-no-files-found: ignore
+          retention-days: 14
+
+      - name: ZIP packen
+        shell: pwsh
+        run: Compress-Archive -Path "build/Stromscore_artefacts/Release/VST3/Stromscore.vst3" -DestinationPath "$env:ZIP_NAME"
+
+      - name: Release mit ZIP erstellen
+        if: >-
+          ((github.event_name == 'workflow_dispatch' && inputs.publish) || (github.event_name == 'push' && startsWith(github.event.head_commit.message, 'release: Stromscore '))) && github.ref == 'refs/heads/main'
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: v${{ env.STROMSCORE_VERSION }}
+          name: Stromscore v${{ env.STROMSCORE_VERSION }}
+          make_latest: true
+          files: |
+            ${{ env.ZIP_NAME }}
+            docs/screenshots.json
+          body_path: docs/releases/${{ env.STROMSCORE_VERSION }}.md
