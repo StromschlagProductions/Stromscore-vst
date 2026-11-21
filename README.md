@@ -22,7 +22,7 @@ klassischer Hörspiele. Daraus ist ein Vorrat an Wendungen entstanden: Akkordfol
 Melodien bekannter Stücke werden nicht nachgebaut. Das Ziel: Szenen so zu untermalen, wie ich es selbst tun würde, und das einfacher
 zu machen.
 
-**Stand 1.1:** Forschungsphase. Bedienung und Klang werden mit jeder Version weiter verfeinert.
+**Stand 1.2:** Forschungsphase. Bedienung und Klang werden mit jeder Version weiter verfeinert.
 
 **⬇ Download (Windows · VST3):** https://github.com/StromschlagProductions/Stromscore-vst/releases/latest
 
@@ -115,7 +115,7 @@ Oben in jedem Kasten stehen der Name, **Mute** und **Solo** in der Reihenfolge v
 (bei Fläche, Bass und Akzent eine je Kanal). Die Beschreibung jeder Ebene steht im Tooltip über ihrem Kasten. Fläche und Bass spielen
 immer, die anderen Ebenen setzen mit der Intensität ein. Der Regler **Intensität** in jedem Kasten verschiebt die Intensität nur für
 diese Ebene: weniger macht sie dünner (beim Bass bis zu langen Tönen), mehr macht sie dichter (beim Bass bis zu durchgehenden Achteln),
-und sie setzt dann auch bei ruhiger Stimmung ein. Ab wann eine Ebene gerade einsetzt, steht im Regler hinter dem Wert. Alle Ebenen sind
+und sie setzt dann auch bei ruhiger Stimmung ein. Ab wann eine Ebene gerade einsetzt, steht im Regler hinter dem Wert: die Intensität im Stimmungsfeld, unter der sie schweigt (beim Akzent zwei Werte, erst Tupfer, dann Stich, etwa „ab 25 / 50 %“). Alle Ebenen sind
 für tongebende Instrumente gedacht, Schlagwerk gehört nicht dazu. Bei Fläche, Bass und Arp bestimmt ein Schalter, ob die Ebene
 **den Akkorden folgt** oder **auf dem Grundakkord bleibt**, etwa für einen durchlaufenden Arp über wechselnden Flächen oder einen Bass auf
 dem Grundton. Auf Auto folgt das Muster der Wendung. Jede Ebene hat außerdem ihre eigene **Oktavlage** (zwei Oktaven tiefer bis zwei
@@ -138,7 +138,7 @@ dazu.
 damit Legato-Patches gebunden spielen; aus setzen sie kurz vor dem nächsten Ton ab.
 
 **Tonumfang:** Orchesterinstrumente spielen nur einen bestimmten Bereich, ein Synth spielt alles. Über **Umfang** neben der Oktave
-(beim Akzent über **Umf.** je Tupfer und Stich) begrenzt du jede Ebene auf den tiefsten und höchsten Ton deines Instruments. Vorlagen
+(beim Akzent je eine eigene Zeile für Tupfer und Stich) begrenzt du jede Ebene auf den tiefsten und höchsten Ton deines Instruments. Vorlagen
 gibt es für übliche Instrumente von Violine bis Klavier; genauer geht es mit **Anlernen**: die tiefste und die höchste spielbare Taste
 deines Patches auf dem Keyboard drücken. Dabei fällt kein Ton weg. Akkorde rücken als Ganzes in den Bereich, einzelne Töne außerhalb
 wandern um Oktaven nach innen, Arpeggios kehren an den Grenzen um und die Gegenstimme sucht ihre Linie im Bereich. Die Oktavlage wirkt
@@ -170,6 +170,7 @@ Danach in der DAW die Plugins neu einlesen.
 - **0.9** – Beschreibung der Gegenstimme gekürzt, damit sie unter Windows vollständig in den Kasten passt.
 - **1.0** – Tonumfang je Ebene für Orchesterinstrumente, mit Vorlagen und Anlernen per Keyboard, ohne dass ein Ton wegfällt. Sieben neue Pop-Rock-Wendungen im Stil der Fernsehmusik um 1980 (27 insgesamt).
 - **1.1** – MIDI-Kanal je Ebene frei wählbar, Fläche und Bass mit getrennten Kanälen für lange und kurze Töne, Farbe wird zum Akzent mit Tupfer und Stich, Gegenstimme als einzige lange Linie mit Legato-Schalter, getrennte Lagen für Akzent und Gegenstimme, aufgeräumte Ebenen-Kästen mit Mute und Solo wie in Studio One, größere Tooltip-Schrift, breiteres Fenster.
+- **1.2** – Akzent-Kasten mit eigener Zeile für den Tonumfang von Tupfer und Stich; Tupfer und Stich zeigen ihren Einsatz getrennt („ab 25 / 50 %“).
 
 Alle Release-Hinweise: `docs/releases/`.
 

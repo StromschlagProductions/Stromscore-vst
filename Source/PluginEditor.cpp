@@ -414,7 +414,7 @@ static juce::AttributedString buildHelp (juce::Colour text, juce::Colour accent,
 
     head ("Die fünf Ebenen");
     body ("Oben in jedem Kasten stehen der Name, M (Mute), S (Solo) wie in Studio One und die Lampe, die bei jedem Ton leuchtet. Bei Fläche, Bass und Akzent sind es zwei Lampen, eine je Kanal. Mute lässt die Ebene schweigen, Solo lässt nur die Solo-Ebenen spielen, auch mehrere gleichzeitig. So kannst du zum Beispiel nur mit dem Bass oder nur mit einer Fläche beginnen. Die Beschreibung jeder Ebene steht im Tooltip über ihrem Kasten.");
-    body ("Fläche und Bass spielen immer, die anderen Ebenen setzen mit der Intensität ein: Arp ab 25 %, Akzent ab 25 % oder bei Unruhe, Gegenstimme ab 15 %. Ab wann eine Ebene gerade einsetzt, steht im Regler INTENSITÄT hinter dem Wert, etwa „ab 25 %“ oder „immer“. Der Regler INTENSITÄT unten in jedem Kasten verschiebt die Intensität nur für diese Ebene. In der Mitte folgt sie dem Feld. Weniger macht sie dünner, beim Bass bis zu langen Tönen. Mehr macht sie dichter, beim Bass bis zu durchgehenden Achteln auf einem Ton; die Ebene setzt dann auch bei ruhiger Stimmung ein. Die übrigen Ebenen bleiben dabei, wie das Feld sie vorgibt. Doppelklick setzt den Regler auf die Mitte.");
+    body ("Fläche und Bass spielen immer, die anderen Ebenen setzen mit der Intensität ein: Arp ab 25 %, Akzent ab 25 % oder bei Unruhe, Gegenstimme ab 15 %. Ab wann eine Ebene gerade einsetzt, steht im Regler INTENSITÄT hinter dem Wert, etwa „ab 25 %“ oder „immer“. Gemeint ist die Intensität im Stimmungsfeld: Darunter schweigt die Ebene. Beim Akzent stehen zwei Werte, erst der Tupfer, dann der Stich, etwa „ab 25 / 50 %“. Der Regler der Ebene verschiebt diese Schwellen. Der Regler INTENSITÄT unten in jedem Kasten verschiebt die Intensität nur für diese Ebene. In der Mitte folgt sie dem Feld. Weniger macht sie dünner, beim Bass bis zu langen Tönen. Mehr macht sie dichter, beim Bass bis zu durchgehenden Achteln auf einem Ton; die Ebene setzt dann auch bei ruhiger Stimmung ein. Die übrigen Ebenen bleiben dabei, wie das Feld sie vorgibt. Doppelklick setzt den Regler auf die Mitte.");
 
     head ("MIDI-Kanäle, lang und kurz");
     body ("Jede Ebene hat ein Auswahlfeld für ihren MIDI-Kanal (1 bis 16). Mehrere Ebenen dürfen sich einen Kanal teilen: Stellst du überall Kanal 1 ein, spielt alles auf einem einzigen Instrument, zum Beispiel einem Klavier. Treffen dabei zwei Ebenen denselben Ton, schneidet keine die andere ab.");
@@ -448,7 +448,7 @@ static juce::AttributedString buildHelp (juce::Colour text, juce::Colour accent,
     body ("Jede Ebene hat ihre eigene Oktavlage: Normal, eine oder zwei Oktaven höher oder tiefer. So passt du die Lage an deine Instrumente an, ohne die Noten zu verändern.");
 
     head ("Tonumfang");
-    body ("Orchesterinstrumente können nur einen bestimmten Bereich spielen, ein Synth spielt alles. Unten in jedem Ebenen-Kasten steht deshalb neben der Oktave „Umfang“, beim Akzent gibt es für Tupfer und Stich je einen kleinen Knopf „Umf.“. Ein Klick öffnet ein kleines Fenster: Dort schaltest du die Begrenzung ein und legst den tiefsten und den höchsten Ton fest. Das mittlere C heißt hier wie in Studio One C3, in Klammern steht die MIDI-Nummer.");
+    body ("Orchesterinstrumente können nur einen bestimmten Bereich spielen, ein Synth spielt alles. Unten in jedem Ebenen-Kasten steht deshalb neben der Oktave „Umfang“, beim Akzent je eine eigene Zeile für Tupfer und Stich. Ein Klick öffnet ein kleines Fenster: Dort schaltest du die Begrenzung ein und legst den tiefsten und den höchsten Ton fest. Das mittlere C heißt hier wie in Studio One C3, in Klammern steht die MIDI-Nummer.");
     body ("Für den Anfang gibt es Vorlagen für übliche Instrumente, von Violine bis Klavier. Genauer geht es mit ANLERNEN: Klicken, dann auf dem Keyboard die tiefste und die höchste Taste drücken, die dein Patch spielen kann. Die Reihenfolge ist egal. Dein Keyboard muss dafür auf die Spur mit Stromscore geleitet sein. Danach steht der Bereich im Knopf, zum Beispiel C3–C6.");
     body ("Es fällt kein Ton weg. Ein Akkord rückt als Ganzes in den Bereich, einzelne Töne außerhalb wandern um ganze Oktaven nach innen. Ein Arpeggio kehrt an den Grenzen um und spielt jeden Schritt weiter. Die Gegenstimme sucht ihre Linie von vornherein im Bereich. Die Oktav-Einstellung wirkt zuerst, der Tonumfang ist die feste Grenze. Ist der Bereich enger als eine Oktave, ersetzen Akkordtöne im Bereich die Töne, die nicht hineinpassen. Auch die herausgezogene MIDI-Datei hält sich an den Tonumfang.");
 
@@ -655,7 +655,7 @@ StromscoreEditor::StromscoreEditor (StromscoreProcessor& p) : AudioProcessorEdit
         }
         else if (i == stromscore::kAkzent)
         {
-            lv.rowLabel[0] = "Tupfer"; lv.rowLabel[1] = "Stich";
+            lv.rowLabel[0] = "Tupfer"; lv.rowLabel[2] = "Stich";
             lv.chanBox[0].setTooltip (u8 ("MIDI-Kanal für den Tupfer: einzelne kurze hohe Töne, etwa Celesta, Glocken oder Pizzicato."));
             lv.chanBox[1].setTooltip (u8 ("MIDI-Kanal für den Stich: kurze Schläge in mittlerer bis tiefer Lage, etwa Klavier oder Synth-Stab. Derselbe Kanal wie beim Tupfer: beide Akzente auf einem Instrument."));
         }
@@ -677,6 +677,8 @@ StromscoreEditor::StromscoreEditor (StromscoreProcessor& p) : AudioProcessorEdit
         lv.rangeButton.setTooltip (u8 ("Tonumfang: auf den spielbaren Bereich des Instruments begrenzen, mit Vorlagen und Anlernen per Keyboard."));
         if (i == stromscore::kAkzent)
         {
+            lv.rangeButton.setTooltip (u8 ("Tonumfang des Tupfers: auf den spielbaren Bereich des Instruments begrenzen, mit Vorlagen und Anlernen per Keyboard."));
+            lv.rangeButton2.setTooltip (u8 ("Tonumfang des Stichs: auf den spielbaren Bereich des Instruments begrenzen, mit Vorlagen und Anlernen per Keyboard."));
             lv.rangeButton2.setVisible (true);
             lv.rangeButton2.setName ("Umfang6");
             lv.rangeButton2.onClick = [this] { showRangePanel (5); };
@@ -808,17 +810,10 @@ void StromscoreEditor::updateRangeButtons()
         int hi = juce::roundToInt (processor.apvts.getRawParameterValue ("hoch" + n)->load());
         if (lo > hi) std::swap (lo, hi);
         const auto range = StromscoreProcessor::noteName (lo) + u8 ("–") + StromscoreProcessor::noteName (hi);
-        const bool small = r == 3 || r == 5;   // Akzent: schmale Knoepfe, der Bereich steht im Tooltip
-        const juce::String text = small ? u8 ("Umf.") : on ? range : juce::String ("Umfang");
+        const juce::String text = on ? range : juce::String ("Umfang");
         auto& b = rangeButtonFor (r);
         if (b.getButtonText() != text) b.setButtonText (text);
         if (b.getToggleState() != on) b.setToggleState (on, juce::dontSendNotification);
-        if (small)
-        {
-            const auto tip = u8 ("Tonumfang ") + (r == 3 ? juce::String ("Tupfer") : juce::String ("Stich")) + ": "
-                           + (on ? range : u8 ("nicht begrenzt")) + u8 (". Klick: begrenzen, mit Vorlagen und Anlernen per Keyboard.");
-            if (b.getTooltip() != tip) b.setTooltip (tip);
-        }
     }
 }
 
@@ -957,8 +952,15 @@ void StromscoreEditor::timerCallback()
         else
         {
             const float t = stromscore::kLayerStart[i] - s.layerIntensity[i];
+            auto pct = [] (float v) { return v <= 0.0f ? juce::String ("immer") : juce::String (juce::roundToInt (v * 100.0f)) + " %"; };
             entry = t <= 0.0f ? juce::String ("immer") : t > 1.0f ? (i == stromscore::kAkzent ? juce::String ("bei Unruhe") : juce::String ("nie"))
-                                                                   : "ab " + juce::String (juce::roundToInt (t * 100.0f)) + " %";
+                                                                   : "ab " + pct (t);
+            if (i == stromscore::kAkzent && t <= 1.0f)   // Akzent: Tupfer und Stich setzen getrennt ein
+            {
+                const float ts = stromscore::kStichStart - s.layerIntensity[i];
+                entry = (t <= 0.0f ? juce::String ("immer") : "ab " + juce::String (juce::roundToInt (t * 100.0f)))
+                      + " / " + (ts > 1.0f ? juce::String ("nie") : ts <= 0.0f ? juce::String ("immer") : juce::String (juce::roundToInt (ts * 100.0f)) + " %");
+            }
         }
         if (lv.entry != entry) { lv.entry = entry; lv.intensity.updateText(); }
         lv.repaint();

@@ -116,13 +116,12 @@ public:
         muteButton.setBounds (w - 82, 6, 22, 20);
         soloButton.setBounds (w - 57, 6, 22, 20);
         const bool accent = index == stromscore::kAkzent;
-        const int smallW = 44;
-        chanBox[0].setBounds (cx, row (0), accent ? cw - smallW - 4 : cw, 24);
-        chanBox[1].setBounds (cx, row (1), accent ? cw - smallW - 4 : cw, 24);
-        if (accent)
+        chanBox[0].setBounds (cx, row (0), cw, 24);
+        chanBox[1].setBounds (cx, row (accent ? 2 : 1), cw, 24);
+        if (accent)   // Akzent: Tupfer und Stich je mit eigener Zeile fuer den Tonumfang darunter
         {
-            rangeButton.setBounds (w - 12 - smallW, row (0), smallW, 24);
-            rangeButton2.setBounds (w - 12 - smallW, row (1), smallW, 24);
+            rangeButton.setBounds (cx, row (1), cw, 24);
+            rangeButton2.setBounds (cx, row (3), cw, 24);
         }
         combo2.setBounds (cx, row (1), cw, 24);         // Arp: Tempo
         legatoButton.setBounds (cx, row (1), 52, 24);   // Gegenstimme
