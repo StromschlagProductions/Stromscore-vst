@@ -23,14 +23,6 @@ Ostinato-Muster folgen.
 
 **⬇ Download (Windows · VST3):** https://github.com/StromschlagProductions/Stromscore-vst/releases/latest
 
-## Warum es dieses Plugin gibt
-
-Für die Musik zu meinen Hörspielen schreibe ich viel selbst. Was dabei oft Zeit kostet, sind nicht die Einfälle, sondern das
-Ausprobieren: eine Fläche, ein Bass, ein Puls darüber, und dann das Ganze noch einmal in einer anderen Spannung. STROMSCORE
-nimmt mir diesen Grundaufbau ab, damit ich mich auf Szene, Stimmung und Feinarbeit konzentrieren kann. Es ist mein Versuch, die
-Art, wie ich selbst untermale, zu automatisieren, ohne dass es nach Baukasten klingt. Die Noten landen auf
-meinen eigenen Instrumenten, so klingt es nach meinem Projekt und nicht nach einem Plugin.
-
 *STROMSCORE soll das eigene Komponieren nicht ersetzen. Es macht Spaß und ist lehrreich, Flächen, Bässe und Figuren selbst zu
 schreiben und zu hören, wie Harmonie, Rhythmus und Dichte zusammenwirken. Ich bin dankbar, dass ich diesen Weg selbst gegangen
 bin, auch wenn er manchmal umständlich war. STROMSCORE soll nur die technische Umsetzung im Alltag einfacher machen.*
