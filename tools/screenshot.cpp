@@ -9,10 +9,16 @@ public:
     {
         output.createDirectory();
         processor.prepareToPlay (48000, 512);
-        // Zustand wie waehrend der Wiedergabe: zweiter Akkord, einige Ebenen leuchten
-        processor.apvts.getParameter ("verlauf")->setValueNotifyingHost (0.62f);
+        // Zustand wie waehrend der Wiedergabe: dunkle, angespannte Lage, zweiter Akkord, einige Ebenen leuchten
+        processor.apvts.getParameter ("faerbung")->setValueNotifyingHost (0.26f);
+        processor.apvts.getParameter ("intensitaet")->setValueNotifyingHost (0.58f);
+        processor.apvts.getParameter ("unruhe")->setValueNotifyingHost (0.45f);
         processor.hostPlaying.store (true);
+        const int w = 4;   // "Agentenfarbe"
+        processor.wendung.store (w);
         processor.chordIndex.store (1);
+        processor.chordRoot.store (stromscore::kWendungen[w].ch[1].root);
+        processor.chordType.store (stromscore::kWendungen[w].ch[1].type);
         startTimer (100);
     }
     int result = 0;
@@ -36,11 +42,11 @@ private:
             auto xml = juce::AudioProcessor::getXmlFromBinary (state.getData(), (int) state.getSize());
             if (! xml) { fail ("Invalid processor state"); return; }
             xml->setAttribute ("theme", index);
-            xml->setAttribute ("uiW", 820);
+            xml->setAttribute ("uiW", StromscoreProcessor::kUiWidth);
             juce::AudioProcessor::copyXmlToBinary (*xml, state);
             processor.setStateInformation (state.getData(), (int) state.getSize());
             editor.reset (processor.createEditor());
-            editor->setSize (820, 420); editor->setVisible (true);
+            editor->setSize (StromscoreProcessor::kUiWidth, StromscoreProcessor::kUiHeight); editor->setVisible (true);
             return;   // Anhaenge und Timer erst auf der echten Message-Loop einschwingen lassen
         }
         if (! lit)

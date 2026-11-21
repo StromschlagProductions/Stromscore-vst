@@ -10,8 +10,8 @@ using namespace stromscore;
 
 struct Abs { long long sample; int channel, note, velocity; };
 
-// Spielt 'seconds' Sekunden ab Position 0 mit fester Blockgroesse und sammelt alle Ereignisse mit absoluter Sampleposition
-static std::vector<Abs> run (const Settings& s, int block, double seconds, double bpm = 120.0, double sr = 48000.0)
+// Spielt 'seconds' Sekunden ab 'startPpq' mit fester Blockgroesse und sammelt alle Ereignisse
+static std::vector<Abs> run (const Settings& s, int block, double seconds, double bpm = 120.0, double sr = 48000.0, double startPpq = 0.0)
 {
     Generator g; g.reset();
     EventList list;
@@ -20,7 +20,7 @@ static std::vector<Abs> run (const Settings& s, int block, double seconds, doubl
     for (long long pos = 0; pos < total; pos += block)
     {
         const int n = (int) std::min<long long> (block, total - pos);
-        Transport t; t.playing = true; t.bpm = bpm; t.sampleRate = sr; t.ppq = (double) pos / (sr * 60.0 / bpm);
+        Transport t; t.playing = true; t.bpm = bpm; t.sampleRate = sr; t.ppq = startPpq + (double) pos / (sr * 60.0 / bpm);
         list.clear();
         g.process (t, s, n, list);
         CHECK (! list.overflow);
@@ -46,179 +46,158 @@ static std::set<int> channelsUsed (const std::vector<Abs>& ev)
     return c;
 }
 
+// Jede Note endet genau einmal, nie doppelt an, nie Ende ohne Anfang
+static void checkBalanced (const std::vector<Abs>& ev)
+{
+    std::map<std::pair<int, int>, int> open;
+    for (const auto& e : ev)
+    {
+        CHECK (e.channel >= 1 && e.channel <= kNumLayers);
+        CHECK (e.note >= 0 && e.note <= 127);
+        auto& o = open[std::make_pair (e.channel, e.note)];
+        if (e.velocity > 0) { CHECK (o == 0); ++o; }
+        else { CHECK (o == 1); --o; }
+    }
+    for (const auto& o : open) CHECK (o.second == 0);
+}
+
+static int countOns (const std::vector<Abs>& ev, int channel = 0)
+{
+    int n = 0;
+    for (const auto& e : ev) if (e.velocity > 0 && (channel == 0 || e.channel == channel)) ++n;
+    return n;
+}
+
 int main()
 {
-    // 1) Ohne Wiedergabe entstehen keine Noten
+    // 1) Gestoppt: keine Noten
     {
         Generator g; g.reset(); EventList l; Settings s;
         Transport t; t.playing = false;
         g.process (t, s, 512, l);
         CHECK (l.size == 0);
-        CHECK (g.chordIndex() == -1);
     }
 
-    // 2) Alle Noten gehoeren zur Tonleiter, in jeder Tonart und jedem Modus; alle Noten werden wieder beendet
-    for (int key = 0; key < kNumKeys; ++key)
-        for (int mode = 0; mode < kNumModes; ++mode)
-        {
-            Settings s; s.key = key; s.mode = mode; s.verlauf = 1.0f;
-            const auto ev = run (s, 512, 20.0);
-            std::map<std::pair<int, int>, int> open;
-            int ons = 0;
-            for (const auto& e : ev)
+    // 2) Ueber das ganze Feld, alle Taktarten und Muster: nichts haengt, nichts doppelt, kein Ueberlauf
+    for (float x : { 0.0f, 0.3f, 0.6f, 1.0f })
+        for (float y : { 0.0f, 0.5f, 1.0f })
+            for (float z : { 0.0f, 0.5f, 1.0f })
             {
-                CHECK (e.channel >= 1 && e.channel <= kNumLayers);
-                CHECK (e.note >= 0 && e.note <= 127);
-                if (e.velocity > 0)
-                {
-                    ++ons;
-                    const int pc = ((e.note - key) % 12 + 12) % 12;
-                    bool inScale = false;
-                    for (int d = 0; d < 7; ++d) inScale |= kScales[mode][d] == pc;
-                    CHECK (inScale);
-                    CHECK (open[std::make_pair (e.channel, e.note)] == 0);   // keine doppelt angeschlagene Note
-                    open[std::make_pair (e.channel, e.note)] = 1;
-                }
-                else open[std::make_pair (e.channel, e.note)] = 0;
+                Settings s; s.x = x; s.y = y; s.z = z; s.key = (int) (x * 11);
+                s.swing = y * 0.5f;
+                for (auto& m : s.layerMode) m = 2;
+                checkBalanced (run (s, 333, 20.0));
             }
-            CHECK (ons > 100);
-            for (const auto& o : open) CHECK (o.second == 0);   // nichts haengt
+    for (int num : { 3, 4, 5, 6, 7 })
+        for (int den : { 4, 8 })
+        {
+            Settings s; s.y = 0.9f; s.meterNum = num; s.meterDen = den;
+            for (auto& m : s.layerMode) m = 2;
+            checkBalanced (run (s, 256, 16.0));
+        }
+    for (int bp = 0; bp < kNumBassPatterns; ++bp)
+        for (int af = 0; af < kNumArpFigures; ++af)
+        {
+            Settings s; s.y = 0.6f; s.z = 0.7f; s.bassPattern = bp; s.arpFigure = af; s.padPattern = (bp + af) % kNumPadPatterns;
+            s.arpRate = af % kNumArpRates;
+            for (auto& m : s.layerMode) m = 2;
+            checkBalanced (run (s, 512, 12.0));
         }
 
-    // 3) Unabhaengig von der Puffergroesse (bis auf Rundung um ein Sample)
+    // 3) Unabhaengig von der Blockgroesse (gleiche Einstellungen, gleiche Noten zur gleichen Zeit)
     {
-        Settings s; s.verlauf = 0.8f; s.variation = 5;
-        const auto a = run (s, 64, 12.0), b = run (s, 512, 12.0), c = run (s, 1000, 12.0);
-        auto same = [] (const std::vector<Abs>& x, const std::vector<Abs>& y)
+        Settings s; s.y = 0.8f; s.z = 0.6f; s.swing = 0.4f; s.variation = 5;
+        for (auto& m : s.layerMode) m = 2;
+        auto a = run (s, 64, 30.0), b = run (s, 1000, 30.0), c = run (s, 4096, 30.0);
+        CHECK (a.size() == b.size() && b.size() == c.size());
+        for (size_t i = 0; i < a.size(); ++i)
         {
-            if (x.size() != y.size()) return false;
-            for (size_t i = 0; i < x.size(); ++i)
-                if (x[i].channel != y[i].channel || x[i].note != y[i].note || x[i].velocity != y[i].velocity
-                    || std::llabs (x[i].sample - y[i].sample) > 1) return false;
-            return true;
-        };
-        CHECK (same (a, b));
-        CHECK (same (a, c));
+            CHECK (a[i].channel == b[i].channel && a[i].note == b[i].note && a[i].velocity == b[i].velocity);
+            CHECK (std::llabs (a[i].sample - b[i].sample) <= 1 && std::llabs (a[i].sample - c[i].sample) <= 1);
+        }
     }
 
-    // 4) VERLAUF bestimmt die Ebenen: 0 % nur Flaeche und Bass, 100 % alle fuenf
+    // 4) Ebenen im Modus Auto setzen mit der Intensitaet ein
     {
-        Settings s; s.verlauf = 0.0f;
-        CHECK (channelsUsed (run (s, 512, 10.0)) == (std::set<int> { 1, 2 }));
-        s.verlauf = 0.3f;
-        CHECK (channelsUsed (run (s, 512, 10.0)) == (std::set<int> { 1, 2, 3 }));
-        s.verlauf = 0.55f;
-        CHECK (channelsUsed (run (s, 512, 10.0)) == (std::set<int> { 1, 2, 3, 4 }));
-        s.verlauf = 1.0f;
-        CHECK (channelsUsed (run (s, 512, 10.0)) == (std::set<int> { 1, 2, 3, 4, 5 }));
+        Settings s; s.z = 0.0f;
+        s.y = 0.0f; CHECK ((channelsUsed (run (s, 512, 20.0)) == std::set<int> { 1, 2 }));
+        s.y = 0.3f; CHECK ((channelsUsed (run (s, 512, 20.0)) == std::set<int> { 1, 2, 3 }));
+        s.y = 0.5f; CHECK ((channelsUsed (run (s, 512, 20.0)) == std::set<int> { 1, 2, 3, 4 }));
+        s.y = 0.9f; CHECK ((channelsUsed (run (s, 512, 20.0)) == std::set<int> { 1, 2, 3, 4, 5 }));
+        s.y = 0.1f; s.z = 0.6f;
+        CHECK (channelsUsed (run (s, 512, 20.0)).count (4) == 1);   // Unruhe holt die Farbe auch bei wenig Intensitaet
     }
 
-    // 5) Mehr VERLAUF = mehr Noten
+    // 5) Mehr Intensitaet = mehr Noten
     {
-        Settings s; s.verlauf = 0.1f;
-        const auto lo = run (s, 512, 16.0);
-        s.verlauf = 0.9f;
-        const auto hi = run (s, 512, 16.0);
-        CHECK (hi.size() > 3 * lo.size());
+        Settings a; a.y = 0.1f; Settings b; b.y = 0.9f;
+        CHECK (countOns (run (b, 512, 20.0)) > 2 * countOns (run (a, 512, 20.0)));
     }
 
-    // 6) Gleiche VARIATION = gleiche Noten, andere VARIATION = andere Fassung
+    // 6) Faerbung waehlt passende Wendungen: dunkel ueberwiegend Moll, hell ueberwiegend Dur
     {
-        Settings s; s.verlauf = 0.8f; s.variation = 3;
-        const auto a = run (s, 512, 8.0), b = run (s, 512, 8.0);
+        int darkMinor = 0, brightMajor = 0;
+        for (int v = 1; v <= 16; ++v)
+            for (long long phrase = 0; phrase < 8; ++phrase)
+            {
+                Settings d; d.x = 0.1f; d.y = 0.4f; d.variation = v;
+                Settings h; h.x = 0.9f; h.y = 0.4f; h.variation = v;
+                if (kShapes[kWendungen[Generator::pick (d, phrase)].ch[0].type].minor) ++darkMinor;
+                if (! kShapes[kWendungen[Generator::pick (h, phrase)].ch[0].type].minor) ++brightMajor;
+            }
+        CHECK (darkMinor >= 120 && brightMajor >= 120);
+    }
+
+    // 7) VARIATION ist reproduzierbar und veraendert spuerbar
+    {
+        Settings s; s.y = 0.7f; s.z = 0.3f; s.x = 0.5f; s.variation = 3;
+        auto a = run (s, 512, 30.0), b = run (s, 512, 30.0);
         CHECK (a.size() == b.size());
-        for (size_t i = 0; i < a.size(); ++i) CHECK (a[i].note == b[i].note && a[i].velocity == b[i].velocity && a[i].sample == b[i].sample);
-        s.variation = 4;
-        const auto c = run (s, 512, 8.0);
-        bool differs = c.size() != a.size();
-        for (size_t i = 0; ! differs && i < a.size(); ++i) differs = a[i].note != c[i].note || a[i].velocity != c[i].velocity;
-        CHECK (differs);
-    }
-
-    // 7) Sprung zurueck (Loop): alles wird beendet, die Flaeche wird mitten im Akkord sofort nachgeholt
-    {
-        Generator g; g.reset(); EventList l; Settings s; s.verlauf = 0.5f;
-        Transport t; t.playing = true; t.bpm = 120; t.sampleRate = 48000;
-        const double spq = 48000.0 * 60.0 / 120.0;
-        double ppq = 0.0;
-        for (int i = 0; i < 200; ++i) { t.ppq = ppq; l.clear(); g.process (t, s, 512, l); ppq += 512.0 / spq; }
-        t.ppq = 3.0;   // zurueck in Takt 1, mitten im ersten Akkord
-        l.clear();
-        { NoAllocations guard; g.process (t, s, 512, l); }
-        int offs = 0, padOns = 0;
-        for (int i = 0; i < l.size; ++i)
+        for (size_t i = 0; i < a.size(); ++i) CHECK (a[i].note == b[i].note && a[i].sample == b[i].sample);
+        int differ = 0;
+        for (int v = 1; v <= 16; ++v)
         {
-            const auto& e = l.events[(size_t) i];
-            if (e.velocity == 0) ++offs;
-            if (e.velocity > 0 && e.channel == 1 && e.offset == 0) ++padOns;
+            Settings o = s; o.variation = v;
+            auto c = run (o, 512, 30.0);
+            if (c.size() != a.size()) { ++differ; continue; }
+            for (size_t i = 0; i < a.size(); ++i) if (c[i].note != a[i].note) { ++differ; break; }
         }
-        CHECK (offs > 0);
-        CHECK (padOns >= 3);
-        CHECK (g.chordIndex() == 0);
+        CHECK (differ >= 8);
     }
 
-    // 8) Start mitten im Akkord: Flaeche sofort da; Stopp beendet alles
+    // 8) Sprung (Loop), Start mitten in der Phrase, Stopp: nichts haengt, keine Speicheranforderung
     {
-        Generator g; g.reset(); EventList l; Settings s;
-        Transport t; t.playing = true; t.bpm = 90; t.sampleRate = 44100; t.ppq = 9.5;   // Takt 3, zweiter Akkord
-        g.process (t, s, 256, l);
-        int padOns = 0;
-        for (int i = 0; i < l.size; ++i) if (l.events[(size_t) i].channel == 1 && l.events[(size_t) i].velocity > 0) ++padOns;
-        CHECK (padOns >= 3);
-        CHECK (g.chordIndex() == 1);
-        l.clear(); t.playing = false;
-        g.process (t, s, 256, l);
-        CHECK (l.size == padOns + 1);   // Flaeche + der Arp-Ton auf der Startposition
-        for (int i = 0; i < l.size; ++i) CHECK (l.events[(size_t) i].velocity == 0);
-    }
-
-    // 9) Kein Speicher im Audio-Pfad, auch bei hohem Tempo und kleinen Bloecken
-    {
-        Generator g; g.reset(); EventList l; Settings s; s.verlauf = 1.0f;
-        Preview p; p.prepare (48000);
-        std::vector<float> L (64), R (64);
-        Transport t; t.playing = true; t.bpm = 240; t.sampleRate = 48000;
-        NoAllocations guard;
-        for (int i = 0; i < 4000; ++i)
+        Generator g; g.reset(); EventList l; Settings s; s.y = 0.5f; s.padPattern = PadHeld;
+        std::map<std::pair<int, int>, int> open;
+        auto feed = [&] (double ppq, bool playing, int n)
         {
-            t.ppq = i * 64.0 / (48000.0 * 60.0 / 240.0);
-            l.clear(); g.process (t, s, 64, l);
-            std::fill (L.begin(), L.end(), 0.0f); std::fill (R.begin(), R.end(), 0.0f);
-            for (int e = 0; e < l.size; ++e) p.handle (l.events[(size_t) e]);
-            p.render (L.data(), R.data(), 64);
-            for (float x : L) CHECK (std::isfinite (x) && std::fabs (x) < 2.0f);
-        }
+            Transport t; t.playing = playing; t.bpm = 120; t.sampleRate = 48000; t.ppq = ppq;
+            l.clear();
+            { NoAllocations guard; g.process (t, s, n, l); }
+            for (int i = 0; i < l.size; ++i)
+            {
+                const auto& e = l.events[(size_t) i];
+                open[std::make_pair ((int) e.channel, (int) e.note)] += e.velocity > 0 ? 1 : -1;
+            }
+        };
+        feed (13.3, true, 512);           // mitten in einem Akkord: Flaeche wird nachgeholt
+        int pads = 0;
+        for (const auto& o : open) if (o.first.first == 1 && o.second > 0) ++pads;
+        CHECK (pads >= 3);
+        for (int i = 1; i < 40; ++i) feed (13.3 + i * 512.0 / 24000.0, true, 512);
+        feed (0.0, true, 512);            // Loop-Sprung
+        feed (8.0, true, 512);            // Sprung genau auf einen Akkordanfang
+        feed (9.0, false, 512);           // Stopp
+        for (const auto& o : open) CHECK (o.second == 0);
     }
 
-    // 10) Negative Position (Vorzaehler) erzeugt keine Noten
+    // 9) Ebenen-Schalter: aus = still, an = auch bei wenig Intensitaet; Ausschalten waehrend des Spielens beendet Noten
     {
-        Generator g; g.reset(); EventList l; Settings s;
-        Transport t; t.playing = true; t.bpm = 120; t.sampleRate = 48000; t.ppq = -2.0;
-        g.process (t, s, 512, l);
-        CHECK (l.size == 0);
-    }
+        Settings s; s.y = 0.0f; s.layerMode[kArp] = 2; s.layerMode[kFlaeche] = 0;
+        const auto used = channelsUsed (run (s, 512, 20.0));
+        CHECK (used.count (3) == 1 && used.count (1) == 0 && used.count (2) == 1);
 
-    // 11) Akkordnamen
-    {
-        char buf[32];
-        chordName (9, 0, 0, buf, 32); CHECK (std::string (buf) == "a-Moll");
-        chordName (9, 0, 5, buf, 32); CHECK (std::string (buf) == "F-Dur");
-        chordName (0, 1, 6, buf, 32); CHECK (std::string (buf) == "h-vermindert");
-    }
-
-    // 12) Ebenen: aus = still und beendet klingende Noten, "an" spielt auch unter der VERLAUF-Schwelle
-    {
-        Settings s; s.verlauf = 0.0f;
-        s.layerMode[kArp] = 2;
-        auto ev = run (s, 512, 20.0);
-        CHECK (channelsUsed (ev).count (3) == 1);              // Arp trotz 0 % VERLAUF
-        s.layerMode[kFlaeche] = 0;
-        ev = run (s, 512, 20.0);
-        CHECK (channelsUsed (ev).count (1) == 0);              // Flaeche aus
-        CHECK (channelsUsed (ev).count (2) == 1);
-
-        // Ebene waehrend des Spielens ausschalten: keine haengenden Noten
-        Generator g; g.reset(); EventList l; Settings a; a.verlauf = 0.5f;
+        Generator g; g.reset(); EventList l; Settings a; a.y = 0.5f;
         std::map<std::pair<int, int>, int> open;
         for (int i = 0; i < 40; ++i)
         {
@@ -226,60 +205,90 @@ int main()
             Transport t; t.playing = true; t.bpm = 120; t.sampleRate = 48000; t.ppq = i * 512.0 / 24000.0;
             l.clear(); g.process (t, a, 512, l);
             for (int e = 0; e < l.size; ++e)
-            {
-                const auto& ev2 = l.events[(size_t) e];
-                open[std::make_pair ((int) ev2.channel, (int) ev2.note)] += ev2.velocity > 0 ? 1 : -1;
-            }
+                open[std::make_pair ((int) l.events[(size_t) e].channel, (int) l.events[(size_t) e].note)] += l.events[(size_t) e].velocity > 0 ? 1 : -1;
         }
-        int flaecheOpen = 0;
-        for (const auto& o : open) if (o.first.first == 1 && o.second != 0) ++flaecheOpen;
-        CHECK (flaecheOpen == 0);
+        for (const auto& o : open) if (o.first.first == 1) CHECK (o.second == 0);
     }
 
-    // 13) "bleibt" (folgt den Akkorden = aus): Bass, Arp und Flaeche bleiben auf dem Grundakkord
+    // 10) "bleibt": Bass bleibt auf dem Grundton, auch wenn die Wendung wechselt
     {
-        Settings s; s.verlauf = 1.0f; s.key = 0; s.mode = 1;
-        s.follow[kBass] = s.follow[kArp] = s.follow[kFlaeche] = false;
-        auto ev = run (s, 512, 40.0);   // 5 Akkorde bei 120 bpm in 4/4 (je 4 s)
-        std::set<int> bassPitchClasses, arpPitchClasses, padPitchClasses;
-        for (const auto& e : ev)
-        {
-            if (e.velocity == 0) continue;
-            if (e.channel == 2) bassPitchClasses.insert (e.note % 12);
-            if (e.channel == 3) arpPitchClasses.insert (e.note % 12);
-            if (e.channel == 1) padPitchClasses.insert (e.note % 12);
-        }
-        CHECK (bassPitchClasses.size() == 1 && *bassPitchClasses.begin() == 0);   // nur C
-        for (int pc : arpPitchClasses) CHECK (pc == 0 || pc == 4 || pc == 7 || pc == 11);   // Cmaj7
-        for (int pc : padPitchClasses) CHECK (pc == 0 || pc == 4 || pc == 7 || pc == 11);
-        // Folgen die Ebenen den Akkorden, kommen weitere Tonhoehen vor
-        s.follow[kBass] = s.follow[kArp] = s.follow[kFlaeche] = true;
-        auto ev2 = run (s, 512, 40.0);
-        std::set<int> bass2;
-        for (const auto& e : ev2) if (e.velocity > 0 && e.channel == 2) bass2.insert (e.note % 12);
-        CHECK (bass2.size() > 1);
+        Settings s; s.key = 0; s.x = 0.85f; s.y = 0.7f; s.z = 0.0f; s.follow[kBass] = false; s.bassPattern = BassEighth;
+        std::set<int> pcs;
+        for (const auto& e : run (s, 512, 60.0)) if (e.velocity > 0 && e.channel == 2) pcs.insert (e.note % 12);
+        CHECK (pcs.size() == 1 && *pcs.begin() == 0);
+        s.follow[kBass] = true;
+        pcs.clear();
+        for (const auto& e : run (s, 512, 60.0)) if (e.velocity > 0 && e.channel == 2) pcs.insert (e.note % 12);
+        CHECK (pcs.size() > 1);
     }
 
-    // 14) Sprung mitten in die Folge: nicht folgende Ebenen klingen sofort, nichts haengt
+    // 11) Unruhe bringt Toene ausserhalb der Akkorde: mehr verschiedene Tonhoehen
     {
-        Generator g; g.reset(); EventList l; Settings s; s.verlauf = 0.4f; s.follow[kFlaeche] = false;
-        std::map<std::pair<int, int>, int> open;
-        auto feed = [&] (double ppq, bool playing)
+        Settings a; a.x = 0.2f; a.y = 0.5f; a.z = 0.0f; a.variation = 2;
+        Settings b = a; b.z = 1.0f;
+        std::set<int> pa, pb;
+        for (const auto& e : run (a, 512, 40.0)) if (e.velocity > 0) pa.insert (e.note % 12);
+        for (const auto& e : run (b, 512, 40.0)) if (e.velocity > 0) pb.insert (e.note % 12);
+        CHECK (pb.size() > pa.size());
+    }
+
+    // 12) Taktarten: Laenge und Betonungsgruppen
+    {
+        auto m = Meter::from (5, 4); CHECK (m.len == 20 && m.numGroups == 4 && m.groupStart[2] == 12);
+        m = Meter::from (7, 8);      CHECK (m.len == 14 && m.numGroups == 3 && m.groupStart[2] == 8);
+        m = Meter::from (6, 8);      CHECK (m.len == 12 && m.numGroups == 2);
+        m = Meter::from (3, 4);      CHECK (m.len == 12 && m.numGroups == 3);
+    }
+
+    // 13) Swing verschiebt die Zwischen-Achtel nach hinten
+    {
+        Settings s; s.y = 0.4f; s.arpRate = RateEighth; s.arpFigure = ArpUp; for (auto& m : s.layerMode) m = 0; s.layerMode[kArp] = 2;
+        auto straight = run (s, 512, 4.0);
+        s.swing = 1.0f;
+        auto swung = run (s, 512, 4.0);
+        long long sumA = 0, sumB = 0;
+        for (const auto& e : straight) if (e.velocity > 0) sumA += e.sample;
+        for (const auto& e : swung) if (e.velocity > 0) sumB += e.sample;
+        CHECK (sumB > sumA);
+    }
+
+    // 14) Vorhoeren ohne Speicheranforderung, Negative Position (Vorzaehler) ohne Noten
+    {
+        Generator g; g.reset(); Preview p; p.prepare (48000); EventList l; Settings s; s.y = 1.0f;
+        std::vector<float> L (64), R (64);
+        for (int b = 0; b < 600; ++b)
         {
-            Transport t; t.playing = playing; t.bpm = 120; t.sampleRate = 48000; t.ppq = ppq;
-            l.clear(); g.process (t, s, 512, l);
-            for (int e = 0; e < l.size; ++e)
-            {
-                const auto& x = l.events[(size_t) e];
-                open[std::make_pair ((int) x.channel, (int) x.note)] += x.velocity > 0 ? 1 : -1;
-            }
-        };
-        feed (16.0, true);   // genau am Anfang des dritten Akkords
-        int pads = 0;
-        for (const auto& o : open) if (o.first.first == 1 && o.second > 0) ++pads;
-        CHECK (pads >= 3);
-        feed (200.0, true); feed (0.0, false);
-        for (const auto& o : open) CHECK (o.second == 0);
+            Transport t; t.playing = true; t.bpm = 140; t.sampleRate = 48000; t.ppq = b * 64.0 / (48000.0 * 60.0 / 140.0);
+            NoAllocations guard;
+            l.clear(); g.process (t, s, 64, l);
+            std::fill (L.begin(), L.end(), 0.0f); std::fill (R.begin(), R.end(), 0.0f);
+            for (int e = 0; e < l.size; ++e) p.handle (l.events[(size_t) e]);
+            p.render (L.data(), R.data(), 64);
+            for (float x : L) CHECK (std::isfinite (x) && std::fabs (x) < 2.0f);
+        }
+        Generator h; h.reset(); EventList m;
+        Transport t; t.playing = true; t.bpm = 120; t.sampleRate = 48000; t.ppq = -2.0;
+        h.process (t, s, 512, m);
+        CHECK (m.size == 0);
+    }
+
+    // 15) Akkordnamen mit deutschen Notennamen
+    {
+        char buf[32];
+        chordName (9, 0, Min, buf, 32);      CHECK (std::string (buf) == "Am");
+        chordName (9, 8, Maj7, buf, 32);     CHECK (std::string (buf) == "Fmaj7");
+        chordName (0, 11, MinMaj7, buf, 32); CHECK (std::string (buf) == "Hm(maj7)");
+        chordName (0, 10, Maj, buf, 32);     CHECK (std::string (buf) == "B");
+        chordName (9, 11, Min, buf, 32);     CHECK (std::string (buf) == "Gism");
+        chordName (9, 11, Maj, buf, 32);     CHECK (std::string (buf) == "As");
+    }
+
+    // 16) Jede Wendung fuellt genau eine Phrase
+    for (const auto& w : kWendungen)
+    {
+        int bars = 0;
+        for (int i = 0; i < w.n; ++i) bars += w.ch[i].bars;
+        CHECK (bars == kPhraseBars);
     }
     return 0;
 }

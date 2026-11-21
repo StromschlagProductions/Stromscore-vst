@@ -6,20 +6,21 @@
 </picture>
 
 VST3-Instrument für Hörspiel-Produktion. STROMSCORE ist als Inspiration gedacht: Es liefert einen Ausgangspunkt, den du auf deinen
-eigenen Instrumenten weiter bearbeitest und veredelst. Dafür erzeugt es nach festen Regeln Musik zur Untermalung und gibt sie als **MIDI** aus:
-ruhige Akkordflächen, Bass, gebrochene Akkorde, einzelne Farbtöne und Akzente. Du wählst Tonart und Modus und regelst mit **VERLAUF**,
-wie viel gleichzeitig passiert. Jede der fünf Ebenen hat ihren eigenen MIDI-Kanal und lässt sich so von einem eigenen Instrument
-spielen. Die Klänge kommen aus deinen eigenen Instrumenten, das Plugin liefert nur die Noten.
+eigenen Instrumenten weiter bearbeitest und veredelst. Es erzeugt Musik zur Untermalung und gibt sie als **MIDI** auf fünf Kanälen aus:
+Fläche, Bass, Arp, Farbe und Akzente. Die Stimmung steuerst du über ein **Stimmungsfeld** mit drei Achsen: Färbung (dunkel bis hell),
+Intensität (ruhig bis aufgewühlt) und Unruhe (sauber bis kratzig). Alle drei lassen sich automatisieren oder mit einem Fader-Controller
+live fahren. So folgt die Musik der Szene, vom Lauern über die Panik bis zur Erlösung.
 
-Es läuft im Takt des Projekts. Gleiche Einstellungen ergeben immer dieselben Noten, auch nach einem Sprung oder bei einem Loop.
+Es läuft im Takt des Projekts, auch in 3/4, 6/8 und ungeraden Takten. Gleiche Einstellungen ergeben immer dieselben Noten, auch nach
+einem Sprung oder bei einem Loop.
 
 **Es verwendet keine KI.** STROMSCORE arbeitet mit festen Regeln, nicht mit trainierten Modellen und nicht mit fremdem Material. Die
-Grundlage ist der Stil, den ich über Jahre für meine Hörspiele entwickelt habe, geprägt von dem, was ich an großen Filmkomponisten
-schätze. Das Ziel: Szenen so zu untermalen, wie ich es selbst tun würde, und das einfacher zu machen. Mit jeder Version fließt
-mehr davon hinein, 0.3 ist noch ein früher Stand.
+Grundlage ist der Stil, den ich über Jahre für meine Hörspiele entwickelt habe, geprägt von großen Filmkomponisten und der Musik
+klassischer Hörspiele. Daraus ist ein Vorrat an Wendungen entstanden: Akkordfolgen, Figuren und Rhythmen, je nach Stimmung gezogen.
+Melodien bekannter Stücke werden nicht nachgebaut. Das Ziel: Szenen so zu untermalen, wie ich es selbst tun würde, und das einfacher
+zu machen.
 
-**Stand 0.3:** früher Test, ob die Noten sauber auf eigene Instrumentenspuren ankommen. Stimmungsverläufe, Stilvorlagen und
-Ostinato-Muster folgen.
+**Stand 0.4:** Forschungsphase. Bedienung und Klang werden mit jeder Version weiter verfeinert.
 
 **⬇ Download (Windows · VST3):** https://github.com/StromschlagProductions/Stromscore-vst/releases/latest
 
@@ -43,37 +44,50 @@ von 50 % bis 300 % vergrößern oder verkleinern.
 
 1. Eine Instrumentenspur mit **Stromscore** anlegen.
 2. Für jede Ebene, die du hören willst, eine eigene Instrumentenspur mit deinem Instrument anlegen.
-3. Bei jeder dieser Spuren als Eingang Stromscore wählen und den passenden MIDI-Kanal einstellen: Fläche 1, Bass 2, Arp 3, Farbe 4, Akzente 5.
+3. Bei jeder dieser Spuren als Eingang Stromscore wählen und den MIDI-Kanal einstellen: Fläche 1, Bass 2, Arp 3, Farbe 4, Akzente 5.
 4. Spuren auf Monitor schalten, Wiedergabe starten.
 
-Zum Weiterarbeiten kannst du die Ausgabe in Studio One direkt als MIDI mitschneiden: Instrumentenspur auf Aufnahme, Eingang Stromscore (Kanal wählen), Wiedergabe starten. Gleiche Einstellungen ergeben immer dieselben Noten.
+Zum Weiterarbeiten nimmst du die Ausgabe auf diesen Spuren als MIDI auf. Ohne eigene Instrumente hilft **VORHÖREN**: ein einfacher
+Testklang direkt aus dem Plugin.
 
-Ohne eigene Instrumente hilft **VORHÖREN**: ein einfacher Testklang direkt aus dem Plugin.
+## Das Stimmungsfeld
 
-## Regler (alle automatisierbar)
+| Achse | Bedienung | Was sie macht |
+|---|---|---|
+| Färbung | Punkt waagerecht ziehen · CC 11 | Links dunkel (Bedrohung, Trauer, Lauern), rechts hell (Wärme, Staunen, Triumph). Bestimmt, welche Wendungen gezogen werden, und die Lage der Stimmen. |
+| Intensität | Punkt senkrecht ziehen · CC 1 | Unten ruhig und dünn, oben aufgewühlt und dicht. Ebenen setzen ein, Bass und Arp werden schneller, die Fläche voller. |
+| Unruhe | Mausrad über dem Feld, Regler UNRUHE · CC 74 | Reibung, Halbtöne, Dissonanz, verschobene Betonungen. Bei wenig Intensität einzelne fremde Töne, bei viel Intensität kratzt der ganze Satz. Sichtbar als Ring um den Punkt. |
+
+Wechsel greifen am nächsten Akkordwechsel. Eine Wendung dauert acht Takte; die Anzeige rechts oben zeigt den klingenden Akkord,
+die Wendung und ihre Akkorde.
+
+**Controller:** Stromscore hört auf seinem MIDI-Eingang auf CC 11, CC 1 und CC 74, passend zu einem Fader-Controller für
+Orchester-Instrumente. Der Stromscore-Spur den Controller als Eingang geben und die Fader-Bewegungen als MIDI-Part aufnehmen. Über den
+CC-Knopf lässt sich die Zuordnung ändern oder abschalten.
+
+## Weitere Regler
 
 | Regler | Was er macht |
 |---|---|
-| TONART | Grundton. Alle Noten bleiben in der gewählten Tonleiter. |
-| MODUS | Moll, Dur, Dorisch, Phrygisch oder Lydisch, mit je einer Folge aus vier Akkorden (jeder Akkord zwei Takte). |
-| VERLAUF | Von ruhig (0 %) bis dicht (100 %). Ebenen im Modus Auto setzen nacheinander ein (Arp ab 25 %, Farbe ab 50 %, Akzente ab 75 %). Der Bass wird lebendiger, der Arp schneller. |
-| VARIATION | 1 bis 16: kleine Abweichungen derselben Einstellung, reproduzierbar. |
+| TONART | Grundton der Tonart. |
+| TAKT | Vom Projekt übernehmen oder fest: 4/4, 3/4, 6/8, 5/4, 7/8, 5/8, 12/8. Ungerade Takte bekommen eigene Betonungsgruppen (z. B. 3+3+2+2 im 5/4). |
+| VARIATION | 16 Kombinationen aus Wendungen und Figuren. Gleiche Nummer, gleiches Ergebnis. |
+| SWING | Verschiebt die Zwischen-Achtel nach hinten, bis zum Triolen-Gefühl. |
 | VORHÖREN | Einfacher Testklang im Plugin. |
 
 ## Die fünf Ebenen
 
-Jede Ebene hat einen Schalter mit drei Stufen: **Aus** (schweigt), **Auto** (setzt bei ihrer VERLAUF-Stufe ein) und **An** (spielt immer).
-Bei Fläche, Bass und Arp bestimmt ein zweiter Schalter, ob die Ebene **den Akkorden folgt** oder **auf dem Grundakkord bleibt**.
-So lassen sich zum Beispiel ein durchlaufender Arpeggio-Ostinato über wechselnden Flächen oder ein Bass auf dem Grundton unter
-wechselnden Akkorden einstellen. Die Ebenen lassen sich frei mischen.
+Jede Ebene hat einen Schalter mit drei Stufen: **Aus** (schweigt), **Auto** (setzt bei ihrer Intensitäts-Stufe ein) und **An** (spielt
+immer). Bei Fläche, Bass und Arp bestimmt ein zweiter Schalter, ob die Ebene **den Akkorden folgt** oder **auf dem Grundakkord bleibt**,
+etwa für einen durchlaufenden Arp über wechselnden Flächen oder einen Bass auf dem Grundton. Auf Auto folgt das Muster der Wendung.
 
-| Ebene | Kanal | Was sie spielt |
-|---|---|---|
-| Fläche | 1 | Gehaltene Akkorde, mit steigendem VERLAUF dichter und lauter |
-| Bass | 2 | Grundton: erst gehalten, dann als Puls, ab 60 % in Achteln |
-| Arp | 3 | Gebrochener Akkord in Achteln, ab 60 % in Sechzehnteln |
-| Farbe | 4 | Ein hoher Ton über dem Akkord |
-| Akzente | 5 | Tiefer Schlag bei jedem Akkordwechsel |
+| Ebene | Kanal | Muster | Auto setzt ein |
+|---|---|---|---|
+| Fläche | 1 | Gehalten, Schläge (kurze Akkorde auf der Zwischenzeit), Puls | immer |
+| Bass | 2 | Gehalten, Halbe, Viertel, Achtel, Puls (Sechzehntel auf einem Ton), Oktaven, Funk, Pendel | immer |
+| Arp | 3 | Aufwärts, Abwärts, Kreisend, Zelle, Riff, Glitzern · Tempo Viertel, Achtel, Sechzehntel | ab 25 % Intensität |
+| Farbe | 4 | Hoher Ton über dem Akkord, bei Unruhe ein fremder, reibender Ton | ab 40 % Intensität oder bei Unruhe |
+| Akzente | 5 | Tiefer Schlag bei Akkordwechseln, sehr aufgewühlt auch auf den Betonungen | ab 70 % Intensität |
 
 ## Installation (Windows)
 
@@ -82,23 +96,26 @@ Danach in der DAW die Plugins neu einlesen.
 
 ## Versionen
 
-- **0.1** – erster Test: Noten-Generator mit fünf MIDI-Kanälen, TONART, MODUS, VERLAUF, VARIATION und VORHÖREN.
-- **0.3** – Ebenen einzeln ein- und ausschaltbar (Aus / Auto / An), Fläche, Bass und Arp wahlweise den Akkorden folgend oder auf dem Grundakkord bleibend. Hängende Töne nach Stopp behoben. Neuer Untertitel „Underscore Inspirator“.
+- **0.1** – erster Test: Noten-Generator mit fünf MIDI-Kanälen.
 - **0.2** – Hinweis zur Herkunft der Musik (keine KI, feste Regeln, Grundlage ist mein eigener Stil) in Hilfe und README.
+- **0.3** – Ebenen einzeln ein- und ausschaltbar (Aus / Auto / An), Fläche, Bass und Arp wahlweise den Akkorden folgend oder auf dem Grundakkord bleibend. Hängende Töne nach Stopp behoben. Neuer Untertitel „Underscore Inspirator“.
+- **0.4** – Stimmungsfeld mit Färbung, Intensität und Unruhe (ersetzt VERLAUF und MODUS), Steuerung per CC 11 / 1 / 74, Vorrat an 22 Wendungen aus Filmmusik und klassischer Hörspielmusik, Muster für Fläche, Bass und Arp, Taktarten inklusive ungerader Takte, Swing, Akkord- und Wendungsanzeige.
 
 Alle Release-Hinweise: `docs/releases/`.
 
 ## Aufbau
 
-- `Source/ScoreEngine.h`: Noten-Generator, reines C++ ohne JUCE. Die Ausgabe hängt nur von der Projektposition und den Einstellungen ab.
-- `Source/PluginProcessor.*`: Plugin-Hülle, MIDI-Ausgabe, Parameter.
-- `Source/PluginEditor.*`: Oberfläche und Hilfe.
+- `Source/ScoreEngine.h`: Noten-Generator mit dem Vorrat an Wendungen, reines C++ ohne JUCE. Die Ausgabe hängt nur von der Projektposition und den Einstellungen ab.
+- `Source/PluginProcessor.*`: Plugin-Hülle, MIDI-Ausgabe, Parameter, Controller-Eingang.
+- `Source/PluginEditor.*`: Oberfläche mit Stimmungsfeld und Hilfe.
 - `Tests/`: Tests für Engine und Plugin. `tools/screenshot.cpp`: erzeugt die Oberflächenbilder aus der echten Oberfläche.
 
 ## Qualität und Prüfung
 
 Bei jeder Änderung baut GitHub das Plugin unter Windows, führt die Regressionstests aus und prüft es mit pluginval (Strictness 8).
-Die Noten-Engine läuft zusätzlich unter Linux mit Speicher- und Fehlerprüfern. Siehe `docs/CI.md`.
+Die Noten-Engine läuft zusätzlich unter Linux mit Speicher- und Fehlerprüfern. Die Tests prüfen unter anderem, dass über das ganze
+Stimmungsfeld, alle Taktarten und alle Muster keine Note hängen bleibt oder doppelt angeschlagen wird und dass das Ergebnis nicht von
+der Puffergröße abhängt. Siehe `docs/CI.md`.
 
 ## Hinweis
 

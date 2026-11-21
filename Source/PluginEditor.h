@@ -33,36 +33,64 @@ public:
     }
 };
 
-// Zeigt die Akkordfolge (vier Akkorde, der aktuelle leuchtet) und den VERLAUF mit den Einsatzpunkten der Ebenen
+// Das Stimmungsfeld: ziehen = Faerbung (waagerecht) und Intensitaet (senkrecht), Mausrad = Unruhe (Ring um den Punkt)
+class MoodPad : public juce::Component, public juce::SettableTooltipClient
+{
+public:
+    juce::Colour panel, line, accent, text, dim;
+    float x = 0.3f, y = 0.3f, z = 0.0f;
+    std::function<void (float, float)> onDrag;
+    std::function<void()> onDragStart, onDragEnd;
+    std::function<void (float)> onWheel;
+    void paint (juce::Graphics& g) override;
+    void mouseDown (const juce::MouseEvent& e) override { if (onDragStart) onDragStart(); move (e); }
+    void mouseDrag (const juce::MouseEvent& e) override { move (e); }
+    void mouseUp (const juce::MouseEvent&) override { if (onDragEnd) onDragEnd(); }
+    void mouseWheelMove (const juce::MouseEvent&, const juce::MouseWheelDetails& w) override { if (onWheel) onWheel (w.deltaY * 0.25f); }
+private:
+    juce::Rectangle<float> area() const { return getLocalBounds().toFloat().reduced (10.0f); }
+    void move (const juce::MouseEvent& e)
+    {
+        const auto a = area();
+        const float nx = juce::jlimit (0.0f, 1.0f, (e.position.x - a.getX()) / a.getWidth());
+        const float ny = juce::jlimit (0.0f, 1.0f, 1.0f - (e.position.y - a.getY()) / a.getHeight());
+        if (onDrag) onDrag (nx, ny);
+    }
+};
+
+// Akkord-Anzeige: aktueller Akkord gross, darunter die Wendung und ihre Akkorde
 class ChordDisplay : public juce::Component, public juce::SettableTooltipClient
 {
 public:
     juce::Colour panel, line, accent, text, dim;
-    juce::String chords[stromscore::kChordsPerCycle];
-    int current = -1;
+    juce::String chord, wendung, meter;
+    juce::String chips[stromscore::kMaxChords];
+    int numChips = 0, current = -1;
     bool playing = false;
-    float verlauf = 0.0f;
     void paint (juce::Graphics& g) override;
 };
 
-// Ein Kasten pro Ebene: Name, MIDI-Kanal, Beschreibung, Schalter, Lampe fuer gespielte Noten
+// Ein Kasten pro Ebene: Name, MIDI-Kanal, Muster, "folgt / bleibt", Aus / Auto / An, Lampe fuer gespielte Noten
 class LayerView : public juce::Component, public juce::SettableTooltipClient
 {
 public:
-    LayerView() { addAndMakeVisible (modeButton); addChildComponent (followButton); }
+    LayerView() { addAndMakeVisible (modeButton); addChildComponent (followButton); addChildComponent (combo1); addChildComponent (combo2); }
     juce::Colour panel, line, accent, text, dim;
     juce::String title, lines;
-    int channel = 1;
-    int mode = 1;   // 0 Aus, 1 Auto, 2 An
-    float start = 0.0f, verlauf = 0.0f, activity = 0.0f;
+    int channel = 1, mode = 1;
+    bool active = true;
+    float activity = 0.0f;
     juce::TextButton modeButton, followButton;
+    juce::ComboBox combo1, combo2;
     void paint (juce::Graphics& g) override;
     void resized() override
     {
-        followButton.setBounds (12, getHeight() - 56, getWidth() - 24, 22);
-        modeButton.setBounds (12, getHeight() - 30, getWidth() - 24, 22);
+        const int w = getWidth() - 24;
+        combo1.setBounds (12, 50, w, 24);
+        combo2.setBounds (12, 80, w, 24);
+        followButton.setBounds (12, getHeight() - 60, w, 24);
+        modeButton.setBounds (12, getHeight() - 32, w, 24);
     }
-    bool isActive() const { return mode == 2 || (mode == 1 && verlauf + 1.0e-4f >= start); }
 };
 
 class StromscoreEditor : public juce::AudioProcessorEditor, private juce::Timer
@@ -80,7 +108,9 @@ private:
     static Theme lightTheme();
     void applyTheme();
     void timerCallback() override;
-    void updateChordNames();
+    void updateModeButton (int layer, int mode);
+    void updateCcButton();
+    void showCcMenu();
 
     static constexpr int kBaseW = StromscoreProcessor::kUiWidth, kBaseH = StromscoreProcessor::kUiHeight;
 
@@ -92,23 +122,27 @@ private:
     bool sizeReady = false;
     juce::Image logo;
 
-    juce::Label keyLabel, modeLabel, variationLabel, verlaufLabel, chordLabel;
-    juce::ComboBox keyBox, modeBox;
-    std::unique_ptr<APVTS::ComboBoxAttachment> keyAttachment, modeAttachment;
-    juce::Slider verlauf, variation;
-    std::unique_ptr<APVTS::SliderAttachment> verlaufAttachment, variationAttachment;
-    juce::TextButton previewButton;
+    MoodPad pad;
+    std::unique_ptr<juce::ParameterAttachment> axisAttachment[3];
+
+    juce::Label padLabel, padValues, unruheLabel, keyLabel, meterLabel, variationLabel, swingLabel, chordLabel;
+    juce::Slider unruhe, variation, swing;
+    std::unique_ptr<APVTS::SliderAttachment> unruheAttachment, variationAttachment, swingAttachment;
+    juce::ComboBox keyBox, meterBox;
+    std::unique_ptr<APVTS::ComboBoxAttachment> keyAttachment, meterAttachment;
+    juce::TextButton ccButton, previewButton;
     std::unique_ptr<APVTS::ButtonAttachment> previewAttachment;
-    std::unique_ptr<juce::ParameterAttachment> modeAttachment_[stromscore::kNumLayers];
-    std::unique_ptr<APVTS::ButtonAttachment> followAttachment[3];
-    void updateModeButton (int layer, int mode);
     ChordDisplay chordDisplay;
+
     LayerView layers[stromscore::kNumLayers];
+    std::unique_ptr<juce::ParameterAttachment> modeAttachment[stromscore::kNumLayers];
+    std::unique_ptr<APVTS::ButtonAttachment> followAttachment[3];
+    std::unique_ptr<APVTS::ComboBoxAttachment> patternAttachment[4];
+
     juce::TextButton themeButton, helpButton;
     HelpPanel helpScroll;
     HelpView helpText;
     juce::TooltipWindow tooltipWindow { this, 400 };
-    int lastKey = -1, lastMode = -1;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (StromscoreEditor)
 };

@@ -90,18 +90,18 @@ int main()
     CHECK (p->acceptsMidi() && p->producesMidi());
 
     // Parameter-IDs
-    for (auto* id : { "key", "mode", "verlauf", "variation", "preview" })
+    for (auto* id : { "key", "faerbung", "intensitaet", "unruhe", "takt", "swing", "variation", "preview", "padPattern", "bassPattern", "arpFigure", "arpRate" })
         CHECK (p->apvts.getParameter (id) != nullptr);
 
     // Bei geringem Verlauf: nur Flaeche und Bass; bei vollem: alle fuenf Kanaele. Jede Note endet, nichts doppelt.
-    setParam (*p, "verlauf", 0.0f);
+    setParam (*p, "intensitaet", 0.0f);
     {
         auto c = play (*p, host, 8, 512);
         CHECK (c.ons > 0 && c.ons == c.offs && ! c.broken);
         CHECK (c.channels.count (1) && c.channels.count (2));
         CHECK (! c.channels.count (3) && ! c.channels.count (4) && ! c.channels.count (5));
     }
-    setParam (*p, "verlauf", 1.0f);
+    setParam (*p, "intensitaet", 1.0f);
     for (int block : { 64, 441, 512, 1024 })
     {
         auto c = play (*p, host, 8, block);
@@ -168,7 +168,7 @@ int main()
 
     // Hängende Töne: Reset des Hosts mitten im Spiel, dann Stopp: alles muss enden (auch ohne Engine-Wissen)
     {
-        setParam (*p, "verlauf", 1.0f);
+        setParam (*p, "intensitaet", 1.0f);
         p->prepareToPlay (48000, 512);
         host.ppq = 0.0; host.playing = true;
         juce::AudioBuffer<float> audio (2, 512); juce::MidiBuffer midi; Counts c;
@@ -188,31 +188,53 @@ int main()
         for (int i = 1; i <= 5; ++i) CHECK (p->apvts.getParameter ("layer" + juce::String (i)) != nullptr);
         for (int i = 1; i <= 3; ++i) CHECK (p->apvts.getParameter ("follow" + juce::String (i)) != nullptr);
         setParam (*p, "layer1", 0.0f); setParam (*p, "layer2", 0.0f); setParam (*p, "layer3", 2.0f);
-        setParam (*p, "verlauf", 0.0f);
+        setParam (*p, "intensitaet", 0.0f);
         auto c = play (*p, host, 8, 512);
         CHECK (c.channels.size() == 1 && c.channels.count (3) == 1);   // nur der Arp
         setParam (*p, "layer1", 1.0f); setParam (*p, "layer2", 1.0f); setParam (*p, "layer3", 1.0f);
-        setParam (*p, "verlauf", 1.0f);
+        setParam (*p, "intensitaet", 1.0f);
     }
 
     // Zustand speichern und laden
     {
-        setParam (*p, "key", 3.0f); setParam (*p, "mode", 2.0f); setParam (*p, "verlauf", 0.62f); setParam (*p, "variation", 7.0f);
-        p->uiTheme.store (1); p->uiWidth.store (900);
+        setParam (*p, "key", 3.0f); setParam (*p, "faerbung", 0.8f); setParam (*p, "intensitaet", 0.62f); setParam (*p, "variation", 7.0f);
+        setParam (*p, "takt", 4.0f); setParam (*p, "bassPattern", 7.0f);
+        p->uiTheme.store (1); p->uiWidth.store (1000); p->ccNumber[1].store (2);
         juce::MemoryBlock state; p->getStateInformation (state);
         auto q = std::make_unique<StromscoreProcessor>();
         q->setStateInformation (state.getData(), (int) state.getSize());
-        CHECK (q->uiTheme.load() == 1 && q->uiWidth.load() == 900);
-        for (auto* id : { "key", "mode", "verlauf", "variation", "preview" })
+        CHECK (q->uiTheme.load() == 1 && q->uiWidth.load() == 1000 && q->ccNumber[1].load() == 2 && q->ccNumber[0].load() == 11);
+        for (auto* id : { "key", "faerbung", "intensitaet", "unruhe", "takt", "variation", "preview", "bassPattern" })
             CHECK (q->apvts.getRawParameterValue (id)->load() == p->apvts.getRawParameterValue (id)->load());
         const char junk[] = "not a state";
         q->setStateInformation (junk, (int) sizeof (junk));
-        CHECK ((int) q->apvts.getRawParameterValue ("mode")->load() == 2);
+        CHECK ((int) q->apvts.getRawParameterValue ("takt")->load() == 4);
     }
 
-    // Texte: Verlauf in Prozent
+    // Controller am Eingang bewegen das Stimmungsfeld (Vorgabe CC 11, 1, 74)
     {
-        auto* v = p->apvts.getParameter ("verlauf");
+        p->ccNumber[1].store (1);
+        p->prepareToPlay (48000, 512);
+        juce::AudioBuffer<float> audio (2, 512); juce::MidiBuffer midi;
+        midi.addEvent (juce::MidiMessage::controllerEvent (1, 11, 127), 0);
+        midi.addEvent (juce::MidiMessage::controllerEvent (1, 1, 0), 10);
+        midi.addEvent (juce::MidiMessage::controllerEvent (1, 74, 64), 20);
+        p->processBlock (audio, midi);
+        CHECK (std::abs (p->apvts.getRawParameterValue ("faerbung")->load() - 1.0f) < 1e-3f);
+        CHECK (std::abs (p->apvts.getRawParameterValue ("intensitaet")->load() - 0.0f) < 1e-3f);
+        CHECK (std::abs (p->apvts.getRawParameterValue ("unruhe")->load() - 64.0f / 127.0f) < 1e-3f);
+        for (const auto meta : midi) CHECK (! meta.getMessage().isController() || meta.getMessage().isAllNotesOff());   // Eingang wird nicht weitergereicht
+        p->ccNumber[0].store (0);   // aus
+        midi.clear(); midi.addEvent (juce::MidiMessage::controllerEvent (1, 11, 0), 0);
+        p->processBlock (audio, midi);
+        CHECK (std::abs (p->apvts.getRawParameterValue ("faerbung")->load() - 1.0f) < 1e-3f);
+        p->ccNumber[0].store (11);
+        setParam (*p, "faerbung", 0.3f); setParam (*p, "unruhe", 0.0f);
+    }
+
+    // Texte: Prozent
+    {
+        auto* v = p->apvts.getParameter ("intensitaet");
         CHECK (std::abs (v->convertFrom0to1 (v->getValueForText ("70 %")) - 0.7f) < 1e-5f);
     }
 
@@ -222,7 +244,7 @@ int main()
         p->uiTheme.store (theme);
         std::unique_ptr<juce::AudioProcessorEditor> editor (p->createEditor());
         CHECK (editor != nullptr);
-        editor->setSize (820, 420);
+        editor->setSize (StromscoreProcessor::kUiWidth, StromscoreProcessor::kUiHeight);
     }
 
     p->setPlayHead (nullptr);
