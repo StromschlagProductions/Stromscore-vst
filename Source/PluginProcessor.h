@@ -58,6 +58,7 @@ public:
     static juce::StringArray driveStartNames();    static constexpr int kDriveFrom[5] = { 0, 4, 8, 16, 32 };
     static juce::StringArray driveBarsNames();     static constexpr int kDriveBars[4] = { 4, 8, 16, 32 };
     static juce::StringArray curveNames();
+    static juce::StringArray stichModeNames();     // Fest, Akkord (ab 1.4)
     // Tonumfang: Notenname wie in Studio One (mittleres C = C3), deutsche Namen; Vorlagen fuer Orchesterinstrumente
     static juce::String noteName (int midiNote);
     struct RangeTemplate { const char* name; int lo, hi; };
@@ -90,6 +91,17 @@ public:
     std::atomic<float> pointX { 0.5f }, pointY { 0.1f };
     // Anlernen des Tonumfangs: die naechsten zwei Tasten am MIDI-Eingang (tiefste und hoechste) werden gemerkt
     std::atomic<int> learnLayer { -1 }, learnFirst { -1 }, learnSecond { -1 };
+    // Anlernen des Stich-Tons: die naechste gedrueckte Taste
+    std::atomic<bool> learnTone { false };
+    std::atomic<int> learnToneNote { -1 };
+    // Durchleiten (ab 1.4): solange ein Fenster fuer Tonumfang oder Stich-Ton offen ist, gehen die Tasten vom Keyboard
+    // auf diese MIDI-Kanaele (Bitmaske, Bit 0 = Kanal 1); 0 = aus. Beim Ausschalten enden alle durchgeleiteten Toene.
+    std::atomic<int> thruMask { 0 };
+    std::atomic<bool> thruWanted { false };   // zuletzt gewaehlt (nur fuer die Sitzung)
+    // Vorhoeren eines einzelnen Tons auf den Kanaelen der Maske (etwa 0,4 Sekunden)
+    void audition (int note, int channelMask) { auditionMaskReq.store (channelMask); auditionNoteReq.store (note); }
+    // Kanaele (Bitmaske) eines Tonumfangs: alle Ausgaenge, die diesen Umfang benutzen
+    int channelMaskForRange (int rangeIndex) const;
 
 private:
     static juce::AudioProcessorValueTreeState::ParameterLayout createLayout();
@@ -98,7 +110,13 @@ private:
     void emit (const stromscore::EventList&, juce::MidiBuffer&, juce::AudioBuffer<float>&, bool preview, bool toMidi = true);
     void publish (const stromscore::Generator&, bool playing);
 
+    void passThrough (const juce::MidiBuffer& incoming, juce::MidiBuffer& out, int numSamples);
+
     stromscore::Generator generator;
+    std::bitset<128> thruSounding[16];
+    int thruActiveMask = 0;
+    std::atomic<int> auditionNoteReq { -1 }, auditionMaskReq { 0 };
+    int auditionNote = -1, auditionMask = 0, auditionLeft = 0;
     // Vorhoeren bei stehender DAW: eigene Uhr, nur Testklang, kein MIDI
     stromscore::Generator previewGenerator;
     stromscore::EventList previewEvents;
@@ -125,6 +143,7 @@ private:
     std::atomic<float>* pHardness = nullptr; std::atomic<float>* pSceneLen = nullptr; std::atomic<float>* pEnding = nullptr; std::atomic<float>* pMotif = nullptr;
     std::atomic<float>* pDrive = nullptr; std::atomic<float>* pDriveX = nullptr; std::atomic<float>* pDriveY = nullptr; std::atomic<float>* pDriveFrom = nullptr;
     std::atomic<float>* pDriveBars = nullptr; std::atomic<float>* pCurve = nullptr;
+    std::atomic<float>* pStichMode = nullptr; std::atomic<float>* pStichNote = nullptr;
     std::atomic<float>* pSlotRoot[stromscore::kMaxChords] {}; std::atomic<float>* pSlotType[stromscore::kMaxChords] {}; std::atomic<float>* pSlotBars[stromscore::kMaxChords] {};
     juce::RangedAudioParameter* axisParam[3] {};
 

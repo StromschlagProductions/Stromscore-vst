@@ -34,13 +34,13 @@ public:
         processor.nextRoot.store (stromscore::kWendungen[w].ch[2].root);
         processor.nextType.store (stromscore::kWendungen[w].ch[2].type);
         processor.chordProgress.store (0.4f);
-        startTimer (100);
+        startTimer (40);
     }
     int result = 0;
 private:
     void timerCallback() override
     {
-        if (index >= 4)
+        if (index >= 5)
         {
             auto* manifest = new juce::DynamicObject();
             manifest->setProperty ("version", PLUGIN_VERSION_TEXT);
@@ -70,12 +70,23 @@ private:
             for (int i = 0; i < stromscore::kNumOutputs; ++i) processor.activity[i].store (levels[i]);
             if (index == 2) clickButton (*editor, "Bearbeiten");   // drittes Bild: eigene Akkordfolge
             if (index == 3) clickButton (*editor, "Umfang3");      // viertes Bild: Fenster fuer den Tonumfang
+            if (index == 4) clickButton (*editor, "Umfang6");      // fuenftes Bild: Fenster fuer den Stich (fest auf einer Taste)
             lit = true;
+            steps = 0;
             return;   // der Editor holt sich die Werte beim naechsten Takt
         }
-        if (index == 3 && ! settled) { settled = true; return; }   // das Fenster oeffnet sich asynchron
+        // Das Fenster oeffnet sich asynchron; ohne Fensterfokus (virtueller Bildschirm) schliesst JUCE es nach 0,2 s wieder.
+        // Darum wird aufgenommen, sobald es da ist.
+        if (index >= 3 && ! hasCallout (*editor) && settleTicks++ < 20) return;
+        if (index <= 1 && steps < 10)   // die Musik faehrt ein Stueck auf B zu: die Spur entsteht
+        {
+            const float f = 0.4f + 0.0225f * (float) steps++;
+            processor.pointX.store (0.26f + (0.72f - 0.26f) * f);
+            processor.pointY.store (0.58f + (0.88f - 0.58f) * f);
+            return;
+        }
         auto image = editor->createComponentSnapshot (editor->getLocalBounds(), true, 2.0f);
-        static const char* names[] = { "oberflaeche-dunkel.png", "oberflaeche-hell.png", "oberflaeche-akkordfolge.png", "oberflaeche-tonumfang.png" };
+        static const char* names[] = { "oberflaeche-dunkel.png", "oberflaeche-hell.png", "oberflaeche-akkordfolge.png", "oberflaeche-tonumfang.png", "oberflaeche-stich.png" };
         auto file = output.getChildFile (names[index]);
         file.deleteFile();
         juce::FileOutputStream stream (file);
@@ -84,8 +95,15 @@ private:
         std::cout << file.getFullPathName() << std::endl;
         images.add (file.getFileName());
         editor.reset();
-        lit = false;
+        lit = false; settleTicks = 0;
         ++index;
+    }
+    static bool hasCallout (juce::Component& c)
+    {
+        if (dynamic_cast<juce::CallOutBox*> (&c) != nullptr && c.isVisible()) return true;
+        for (auto* child : c.getChildren())
+            if (hasCallout (*child)) return true;
+        return false;
     }
     static bool clickButton (juce::Component& c, const char* prefix)
     {
@@ -105,7 +123,9 @@ private:
     std::unique_ptr<juce::AudioProcessorEditor> editor;
     juce::Array<juce::var> images;
     int index = 0;
-    bool lit = false, settled = false;
+    bool lit = false;
+    int settleTicks = 0;
+    int steps = 0;
 };
 
 int main (int argc, char** argv)

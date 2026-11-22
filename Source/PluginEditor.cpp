@@ -10,7 +10,7 @@ const char* kLayerTip[stromscore::kNumLayers] = {
     "Fläche: Akkorde, gehalten oder als kurze Schläge, Puls, Staccato und Gated. Gehaltene Akkorde gehen auf den Kanal für lang, alle kurzen Muster auf den für kurz. Stellst du beide auf denselben Kanal, spielt alles auf einem Instrument.",
     "Bass: Grundton der Akkorde in verschiedenen Mustern. Gehalten, Halbe und Orgelpunkt gehen auf den Kanal für lang, alle anderen Muster auf den für kurz. Stellst du beide auf denselben Kanal, spielt alles auf einem Instrument.",
     "Arp: gebrochene Akkorde und Figuren, auch als Ostinato.",
-    "Akzent: gelegentliche kurze Einwürfe, nie ein stehender Ton. Der Tupfer spielt einzelne hohe Töne auf Zwischenzeiten, etwa für Celesta, Glocken oder Pizzicato. Der Stich ist ein kurzer Schlag in mittlerer bis tiefer Lage an Akkordwechseln und am Ende der Phrase, etwa für Klavier oder einen Synth-Stab. Bei wenig Intensität spielt nur der Tupfer, mit mehr kommt der Stich dazu und antwortet. Bei Unruhe kommt ein fremder, reibender Ton in der Mitte des Akkords hinzu.",
+    "Akzent: gelegentliche kurze Einwürfe, nie ein stehender Ton. Der Tupfer spielt einzelne hohe Töne auf Zwischenzeiten, etwa für Celesta, Glocken oder Pizzicato. Der Stich ist ein einzelner kurzer Schlag an Akkordwechseln und am Ende der Phrase: fest auf einer Taste, etwa für eine Pauke oder große Trommel, oder auf dem Grundton des Akkords, etwa für Klavier oder einen Synth-Stab. Bei wenig Intensität spielt nur der Tupfer, mit mehr kommt der Stich dazu und antwortet. Bei Unruhe kommt ein fremder, reibender Ton in der Mitte des Akkords hinzu.",
     "Gegenstimme: die einzige lange Linie, in mittlerer Lage. Sie geht schrittweise von Akkord zu Akkord, bewegter mit mehr Intensität, bei Unruhe mit Vorhalten. Gedacht für Horn, Cello, Oboe oder ein Lead-Instrument." };
 }
 
@@ -21,10 +21,31 @@ void MoodPad::paint (juce::Graphics& g)
     auto r = getLocalBounds().toFloat();
     g.setColour (panel);
     g.fillRoundedRectangle (r, 8.0f);
+
+    const auto a = r.reduced (10.0f);
+    // Farbzonen: dezente Toenung der vier Ecken, die Mitte bleibt neutral
+    {
+        juce::Graphics::ScopedSaveState save (g);
+        juce::Path clip;
+        clip.addRoundedRectangle (r.reduced (1.0f), 7.0f);
+        g.reduceClipRegion (clip);
+        const float rad = a.getWidth() * 0.78f;
+        const float alpha = panel.getPerceivedBrightness() < 0.5f ? 0.17f : 0.14f;
+        const std::pair<juce::Point<float>, juce::Colour> zones[] = {
+            { a.getTopLeft(), juce::Colour (0xffd24848) },       // Angst
+            { a.getTopRight(), juce::Colour (0xffe9c04a) },      // Triumph
+            { a.getBottomLeft(), juce::Colour (0xff5262d6) },    // Lauern
+            { a.getBottomRight(), juce::Colour (0xfff0923e) } }; // Waerme
+        for (const auto& z0 : zones)
+        {
+            juce::ColourGradient grad (z0.second.withAlpha (alpha), z0.first, z0.second.withAlpha (0.0f), z0.first + juce::Point<float> (rad, 0.0f), true);
+            g.setGradientFill (grad);
+            g.fillEllipse (juce::Rectangle<float> (rad * 2.0f, rad * 2.0f).withCentre (z0.first));
+        }
+    }
     g.setColour (line);
     g.drawRoundedRectangle (r.reduced (0.5f), 8.0f, 1.0f);
 
-    const auto a = r.reduced (10.0f);
     g.setColour (line.withAlpha (0.6f));
     for (int i = 1; i < 4; ++i)
     {
@@ -43,44 +64,80 @@ void MoodPad::paint (juce::Graphics& g)
     g.drawText (u8 ("Ruhe"), ai, juce::Justification::centredBottom);
     g.drawText (u8 ("Wärme"), ai, juce::Justification::bottomRight);
 
-    // Punkt mit Unruhe-Ring: groesser und zittriger mit mehr Unruhe
-    const float px = a.getX() + x * a.getWidth();
-    const float py = a.getBottom() - y * a.getHeight();
+    auto toScreen = [&a] (float fx, float fy) { return juce::Point<float> (a.getX() + fx * a.getWidth(), a.getBottom() - fy * a.getHeight()); };
+
+    // Spur: woher der klingende Punkt kommt, verblasst in gut zwei Sekunden
+    {
+        const auto now = juce::Time::getMillisecondCounter();
+        constexpr float life = 2200.0f;
+        for (int i = 1; i < trailN; ++i)
+        {
+            const auto& p0 = trail[(trailHead - trailN + i - 1 + 2 * kTrail) % kTrail];
+            const auto& p1 = trail[(trailHead - trailN + i + 2 * kTrail) % kTrail];
+            const float age = (float) (now - p1.t);
+            if (age > life) continue;
+            const float f = 1.0f - age / life;
+            g.setColour (accent.withAlpha (0.55f * f));
+            g.drawLine (juce::Line<float> (toScreen (p0.x, p0.y), toScreen (p1.x, p1.y)), 1.0f + 2.0f * f);
+        }
+    }
+
+    const auto pa = toScreen (x, y);
+    const float px = pa.x, py = pa.y;
     // Fahrt: gestrichelter Weg von A nach B, B als Ring
     if (showB)
     {
-        const float bpx = a.getX() + bx * a.getWidth(), bpy = a.getBottom() - by * a.getHeight();
+        const auto pb = toScreen (bx, by);
         juce::Path path, dashed;
         path.startNewSubPath (px, py);
-        path.lineTo (bpx, bpy);
+        path.lineTo (pb);
         const float dashes[] = { 4.0f, 4.0f };
         juce::PathStrokeType (1.3f).createDashedStroke (dashed, path, dashes, 2);
         g.setColour (accent.withAlpha (0.65f));
         g.fillPath (dashed);
         g.setColour (panel);
-        g.fillEllipse (bpx - 8.0f, bpy - 8.0f, 16.0f, 16.0f);
+        g.fillEllipse (pb.x - 8.0f, pb.y - 8.0f, 16.0f, 16.0f);
         g.setColour (accent);
-        g.drawEllipse (bpx - 8.0f, bpy - 8.0f, 16.0f, 16.0f, 2.0f);
+        g.drawEllipse (pb.x - 8.0f, pb.y - 8.0f, 16.0f, 16.0f, 2.0f);
         g.setFont (juce::FontOptions (10.5f, juce::Font::bold));
-        g.drawText ("B", juce::Rectangle<float> (bpx - 8.0f, bpy - 8.0f, 16.0f, 16.0f), juce::Justification::centred);
+        g.drawText ("B", juce::Rectangle<float> (pb.x - 8.0f, pb.y - 8.0f, 16.0f, 16.0f), juce::Justification::centred);
     }
 
+    // Die Unruhe zappelt dort, wo die Musik gerade ist: waehrend einer Fahrt am klingenden Punkt, sonst an A
+    const auto live = showNow ? toScreen (nowX, nowY) : pa;
     const float radius = 9.0f + z * 24.0f;
     const float amp = z * 0.22f;
     const float phase = (float) (juce::Time::getMillisecondCounter() % 100000) * 0.004f * (0.3f + z);
-    juce::Path ring;
-    for (int i = 0; i <= 64; ++i)
+    auto wobble = [&] (float rad, float am, float f1, float f2, float ph)
     {
-        const float t = juce::MathConstants<float>::twoPi * (float) i / 64.0f;
-        const float rr = radius * (1.0f + amp * std::sin (7.0f * t + phase) + amp * 0.5f * std::sin (13.0f * t - 1.7f * phase));
-        const juce::Point<float> p (px + rr * std::cos (t), py + rr * std::sin (t));
-        if (i == 0) ring.startNewSubPath (p); else ring.lineTo (p);
-    }
-    ring.closeSubPath();
+        juce::Path ring;
+        for (int i = 0; i <= 72; ++i)
+        {
+            const float t = juce::MathConstants<float>::twoPi * (float) i / 72.0f;
+            const float rr = rad * (1.0f + am * std::sin (f1 * t + ph) + am * 0.5f * std::sin (f2 * t - 1.7f * ph));
+            const juce::Point<float> p (live.x + rr * std::cos (t), live.y + rr * std::sin (t));
+            if (i == 0) ring.startNewSubPath (p); else ring.lineTo (p);
+        }
+        ring.closeSubPath();
+        return ring;
+    };
+    const auto ring = wobble (radius, amp, 7.0f, 13.0f, phase);
     g.setColour (accent.withAlpha (0.12f + 0.18f * z));
     g.fillPath (ring);
     g.setColour (accent.withAlpha (0.85f));
     g.strokePath (ring, juce::PathStrokeType (1.5f));
+    // Vibrierender Aussenring: ab mittlerer Unruhe, schneller und unruhiger nach oben; im Bereich des Risses rot flackernd
+    if (z > 0.3f)
+    {
+        const float k = (z - 0.3f) / 0.7f;
+        const auto outer = wobble (radius * 1.32f + 3.0f, 0.05f + 0.1f * k, 17.0f, 23.0f, phase * 3.1f);
+        const bool riss = z >= stromscore::kRissStart;
+        const float flicker = riss ? 0.6f + 0.4f * std::sin (phase * 9.0f) : 1.0f;
+        g.setColour ((riss ? juce::Colour (0xffe04848) : accent).withAlpha ((0.25f + 0.45f * k) * flicker));
+        g.strokePath (outer, juce::PathStrokeType (1.0f + k));
+    }
+
+    // Punkt A
     g.setColour (accent);
     g.fillEllipse (px - 6.0f, py - 6.0f, 12.0f, 12.0f);
     if (showB)   // mit Fahrt ist der Punkt A beschriftet
@@ -89,15 +146,38 @@ void MoodPad::paint (juce::Graphics& g)
         g.setFont (juce::FontOptions (9.5f, juce::Font::bold));
         g.drawText ("A", juce::Rectangle<float> (px - 6.0f, py - 6.0f, 12.0f, 12.0f), juce::Justification::centred);
     }
-
     // Wo die Musik gerade ist (waehrend einer Fahrt)
     if (showNow)
     {
-        const float nx = a.getX() + nowX * a.getWidth(), ny = a.getBottom() - nowY * a.getHeight();
         g.setColour (text);
-        g.fillEllipse (nx - 4.5f, ny - 4.5f, 9.0f, 9.0f);
+        g.fillEllipse (live.x - 4.5f, live.y - 4.5f, 9.0f, 9.0f);
         g.setColour (panel);
-        g.drawEllipse (nx - 4.5f, ny - 4.5f, 9.0f, 9.0f, 1.5f);
+        g.drawEllipse (live.x - 4.5f, live.y - 4.5f, 9.0f, 9.0f, 1.5f);
+    }
+
+    // Ebenen-Lichter: fuenf kleine Punkte um den klingenden Punkt, je Ebene eines; hell, solange sie spielt, blitzend bei jedem Ton
+    {
+        const float outer = z > 0.3f ? (radius * 1.32f + 3.0f) * (1.0f + 0.05f + 0.1f * (z - 0.3f) / 0.7f) : radius * (1.0f + amp);
+        const float orbit = outer + 8.0f;
+        for (int i = 0; i < stromscore::kNumLayers; ++i)
+        {
+            const float t = juce::MathConstants<float>::pi * (-0.5f + 0.4f * (float) i);
+            const juce::Point<float> c (live.x + orbit * std::cos (t), live.y + orbit * std::sin (t));
+            const auto dot = juce::Rectangle<float> (6.0f, 6.0f).withCentre (c);
+            if (lightOn[i])
+            {
+                const float f = juce::jlimit (0.0f, 1.0f, lights[i]);
+                g.setColour (panel);
+                g.fillEllipse (dot.expanded (1.5f));
+                g.setColour (accent.withAlpha (0.8f).interpolatedWith (accent.brighter (0.9f), f));
+                g.fillEllipse (dot);
+            }
+            else
+            {
+                g.setColour (dim.withAlpha (0.5f));
+                g.drawEllipse (dot.reduced (0.5f), 1.0f);
+            }
+        }
     }
 
     // Feld-Karte: beim Ueberfahren die naechstgelegenen Wendungen, klein und blass
@@ -154,23 +234,34 @@ void ChordDisplay::paint (juce::Graphics& g)
         g.drawFittedText (u8 ("Hier: ") + candidates, 14, getHeight() - 80, w - 28, 16, juce::Justification::centredLeft, 1, 0.85f);
     }
 
-    // Stimmung live: Faerbung, Intensitaet, Unruhe in Prozent mit schmalem Balken
+    // Stimmung live: Faerbung, Intensitaet, Unruhe in Prozent; die Balken lassen sich ziehen
     {
         const char* names[3] = { "Färbung", "Intensität", "Unruhe" };
-        const float top = (float) getHeight() - 62.0f, labelW = 74.0f, valueW = 42.0f;
         for (int i = 0; i < 3; ++i)
         {
-            const float yy = top + (float) i * 18.0f;
+            const auto bar = this->bar (i);
+            const float yy = bar.getY() - 5.0f;
             g.setColour (dim);
             g.setFont (juce::FontOptions (11.0f));
-            g.drawText (u8 (names[i]), juce::Rectangle<float> (14.0f, yy, labelW, 16.0f), juce::Justification::centredLeft);
-            const juce::Rectangle<float> bar (14.0f + labelW, yy + 6.0f, (float) w - 28.0f - labelW - valueW - 6.0f, 4.0f);
+            g.drawText (u8 (names[i]), juce::Rectangle<float> (14.0f, yy, kBarLabelW, 16.0f), juce::Justification::centredLeft);
+            const float v = juce::jlimit (0.0f, 1.0f, mood[i]);
             g.setColour (line);
-            g.fillRoundedRectangle (bar, 2.0f);
+            g.fillRoundedRectangle (bar, 3.0f);
+            const bool riss = i == 2 && v >= stromscore::kRissStart;
             g.setColour (accent);
-            g.fillRoundedRectangle (bar.withWidth (juce::jmax (4.0f, bar.getWidth() * juce::jlimit (0.0f, 1.0f, mood[i]))), 2.0f);
+            g.fillRoundedRectangle (bar.withWidth (juce::jmax (6.0f, bar.getWidth() * v)), 3.0f);
+            if (i == 2)   // ab hier reisst die Unruhe: kleine Marke
+            {
+                g.setColour (dim);
+                g.fillRect (bar.getX() + bar.getWidth() * stromscore::kRissStart - 0.5f, bar.getY() - 2.0f, 1.0f, bar.getHeight() + 4.0f);
+            }
+            const juce::Point<float> knob (bar.getX() + bar.getWidth() * v, bar.getCentreY());
+            g.setColour (riss ? juce::Colour (0xffe04848) : accent);
+            g.fillEllipse (juce::Rectangle<float> (11.0f, 11.0f).withCentre (knob));
+            g.setColour (panel);
+            g.drawEllipse (juce::Rectangle<float> (11.0f, 11.0f).withCentre (knob), 1.5f);
             g.setColour (text);
-            g.drawText (juce::String (juce::roundToInt (mood[i] * 100.0f)) + " %", juce::Rectangle<float> ((float) w - 14.0f - valueW, yy, valueW, 16.0f),
+            g.drawText (juce::String (juce::roundToInt (v * 100.0f)) + " %", juce::Rectangle<float> ((float) w - 14.0f - kBarValueW, yy, kBarValueW, 16.0f),
                         juce::Justification::centredRight);
         }
     }
@@ -258,6 +349,7 @@ RangePanel::RangePanel (StromscoreProcessor& p, int rangeIndex, juce::Colour pan
         const auto label = StromscoreProcessor::noteName (note) + "  (" + juce::String (note) + ")";
         loBox.addItem (label, note + 1);
         hiBox.addItem (label, note + 1);
+        toneBox.addItem (label, note + 1);
     }
     loAttachment = std::make_unique<juce::AudioProcessorValueTreeState::ComboBoxAttachment> (processor.apvts, "tief" + n, loBox);
     hiAttachment = std::make_unique<juce::AudioProcessorValueTreeState::ComboBoxAttachment> (processor.apvts, "hoch" + n, hiBox);
@@ -267,7 +359,7 @@ RangePanel::RangePanel (StromscoreProcessor& p, int rangeIndex, juce::Colour pan
     addAndMakeVisible (hiBox);
 
     learnButton.setButtonText ("Anlernen");
-    learnButton.setTooltip (u8 ("Danach die tiefste und die höchste spielbare Taste des Instruments auf dem Keyboard drücken (die Reihenfolge ist egal). Das Keyboard muss auf die Spur mit Stromscore geleitet sein."));
+    learnButton.setTooltip (u8 ("Danach die tiefste und die höchste spielbare Taste des Instruments auf dem Keyboard drücken (die Reihenfolge ist egal). Das Keyboard muss auf die Spur mit Stromscore geleitet sein. Mit „Keyboard durchleiten“ hörst du dabei dein Instrument."));
     learnButton.onClick = [this]
     {
         if (processor.learnLayer.load() == layer)
@@ -284,31 +376,129 @@ RangePanel::RangePanel (StromscoreProcessor& p, int rangeIndex, juce::Colour pan
         repaint();
     };
     addAndMakeVisible (learnButton);
-    setSize (300, 214);
+
+    // Durchleiten: nur solange dieses Fenster offen ist
+    thruButton.setClickingTogglesState (true);
+    thruButton.setButtonText ("Keyboard durchleiten");
+    thruButton.setToggleState (processor.thruWanted.load(), juce::dontSendNotification);
+    thruButton.setTooltip (u8 ("Solange dieses Fenster offen ist, gehen die Tasten deines Keyboards auf den MIDI-Kanal dieser Ebene. So hörst du dein eigenes Instrument und findest den spielbaren Bereich oder die Taste des Samples. Beim Schließen des Fensters hört das Durchleiten auf, und alle gehaltenen Töne enden."));
+    thruButton.onClick = [this] { processor.thruWanted.store (thruButton.getToggleState()); updateThru(); };
+    addAndMakeVisible (thruButton);
+
+    if (isStich())
+    {
+        modeFixed.setButtonText ("Fest");
+        modeChord.setButtonText ("Akkord");
+        modeFixed.setTooltip (u8 ("Fest: Der Stich spielt immer dieselbe Taste, unabhängig von Akkord, Oktave und Tonumfang. Für ein perkussives Sample, etwa Pauke oder große Trommel, das in deiner Library auf genau einer Taste liegt."));
+        modeChord.setTooltip (u8 ("Akkord: Der Stich spielt den Grundton des aktuellen Akkords, ein einzelner Ton in tiefer Mittellage. Für Klavier, Synth-Stab oder Pizzicato-Bass."));
+        for (auto* b : { &modeFixed, &modeChord }) { b->setRadioGroupId (91); addAndMakeVisible (b); }
+        modeAttachment = std::make_unique<juce::ParameterAttachment> (*processor.apvts.getParameter ("stichModus"),
+            [this] (float v)
+            {
+                const bool fixed = juce::roundToInt (v) == 0;
+                modeFixed.setToggleState (fixed, juce::dontSendNotification);
+                modeChord.setToggleState (! fixed, juce::dontSendNotification);
+                updateMode();
+            }, nullptr);
+        modeFixed.onClick = [this] { modeAttachment->setValueAsCompleteGesture (0.0f); };
+        modeChord.onClick = [this] { modeAttachment->setValueAsCompleteGesture (1.0f); };
+
+        toneAttachment = std::make_unique<juce::AudioProcessorValueTreeState::ComboBoxAttachment> (processor.apvts, "stichTon", toneBox);
+        toneBox.setTooltip (u8 ("Die Taste, auf der das Sample liegt (mittleres C = C3)."));
+        addAndMakeVisible (toneBox);
+        tonePlay.setButtonText (u8 ("Hören"));
+        tonePlay.setTooltip (u8 ("Schlägt die Taste einmal auf dem Kanal des Stichs an."));
+        tonePlay.onClick = [this]
+        {
+            processor.audition (juce::roundToInt (processor.apvts.getRawParameterValue ("stichTon")->load()), processor.channelMaskForRange (5));
+        };
+        addAndMakeVisible (tonePlay);
+        toneLearn.setButtonText ("Taste anlernen");
+        toneLearn.setTooltip (u8 ("Danach die Taste auf dem Keyboard drücken, auf der das Sample liegt. Mit „Keyboard durchleiten“ hörst du dabei dein Instrument und kannst erst suchen."));
+        toneLearn.onClick = [this]
+        {
+            if (processor.learnTone.load()) { processor.learnTone.store (false); status = {}; }
+            else
+            {
+                processor.learnToneNote.store (-1);
+                processor.learnTone.store (true);
+                status = u8 ("Die Taste des Samples drücken …");
+            }
+            repaint();
+        };
+        addAndMakeVisible (toneLearn);
+        modeAttachment->sendInitialUpdate();
+    }
+    updateMode();
+    updateThru();
     startTimerHz (15);
 }
 
 RangePanel::~RangePanel()
 {
     if (processor.learnLayer.load() == layer) processor.learnLayer.store (-1);
+    processor.learnTone.store (false);
+    processor.thruMask.store (0);   // Fenster zu: Durchleiten aus, gehaltene Toene enden im naechsten Block
+}
+
+bool RangePanel::fixedMode() const
+{
+    return isStich() && juce::roundToInt (processor.apvts.getRawParameterValue ("stichModus")->load()) == 0;
+}
+
+void RangePanel::updateMode()
+{
+    const bool fixed = fixedMode();
+    shownFixed = fixed;
+    for (auto* c : std::initializer_list<juce::Component*> { &onButton, &templateBox, &loBox, &hiBox, &learnButton }) c->setVisible (! fixed);
+    for (auto* c : std::initializer_list<juce::Component*> { &toneBox, &tonePlay, &toneLearn }) c->setVisible (fixed);
+    if (! fixed && processor.learnTone.load()) { processor.learnTone.store (false); status = {}; }
+    if (fixed && processor.learnLayer.load() == layer) { processor.learnLayer.store (-1); status = {}; }
+    setSize (300, fixed ? 226 : 246 + offset());
+    resized();
+    repaint();
+}
+
+void RangePanel::updateThru()
+{
+    processor.thruMask.store (thruButton.getToggleState() ? processor.channelMaskForRange (layer) : 0);
+}
+
+void RangePanel::setParam (const juce::String& id, float v)
+{
+    if (auto* prm = processor.apvts.getParameter (id))
+    {
+        prm->beginChangeGesture();
+        prm->setValueNotifyingHost (prm->convertTo0to1 (v));
+        prm->endChangeGesture();
+    }
 }
 
 void RangePanel::applyRange (int lo, int hi)
 {
     const juce::String n (layer + 1);
     if (lo > hi) std::swap (lo, hi);
-    for (auto [id, v] : { std::pair<juce::String, float> { "tief" + n, (float) lo }, { "hoch" + n, (float) hi }, { "umfang" + n, 1.0f } })
-        if (auto* prm = processor.apvts.getParameter (id))
-        {
-            prm->beginChangeGesture();
-            prm->setValueNotifyingHost (prm->convertTo0to1 (v));
-            prm->endChangeGesture();
-        }
+    setParam ("tief" + n, (float) lo);
+    setParam ("hoch" + n, (float) hi);
+    setParam ("umfang" + n, 1.0f);
     repaint();
 }
 
 void RangePanel::timerCallback()
 {
+    updateThru();   // falls der Kanal der Ebene inzwischen gewechselt hat
+    if (isStich())
+    {
+        toneLearn.setToggleState (processor.learnTone.load(), juce::dontSendNotification);
+        const int t = processor.learnToneNote.load();
+        if (processor.learnTone.load() && t >= 0)
+        {
+            processor.learnTone.store (false);
+            setParam ("stichTon", (float) t);
+            status = u8 ("Angelernt: ") + StromscoreProcessor::noteName (t);
+            repaint();
+        }
+    }
     if (processor.learnLayer.load() != layer) { learnButton.setToggleState (false, juce::dontSendNotification); return; }
     learnButton.setToggleState (true, juce::dontSendNotification);
     const int a = processor.learnFirst.load(), b = processor.learnSecond.load();
@@ -331,29 +521,58 @@ void RangePanel::paint (juce::Graphics& g)
     g.fillAll (panelColour);
     g.setColour (accentColour);
     g.setFont (juce::FontOptions (12.0f, juce::Font::bold));
-    g.drawText (u8 ("TONUMFANG · ") + StromscoreProcessor::rangeName (layer).toUpperCase(), 10, 6, getWidth() - 20, 16, juce::Justification::centredLeft);
+    g.drawText ((isStich() ? u8 ("STICH · TON UND UMFANG") : u8 ("TONUMFANG · ") + StromscoreProcessor::rangeName (layer).toUpperCase()),
+                10, 6, getWidth() - 20, 16, juce::Justification::centredLeft);
     g.setColour (dimColour);
     g.setFont (juce::FontOptions (11.0f));
-    g.drawText (u8 ("Tiefster Ton"), 10, 88, 120, 14, juce::Justification::centredLeft);
-    g.drawText (u8 ("Höchster Ton"), 155, 88, 120, 14, juce::Justification::centredLeft);
-    const juce::String n (layer + 1);
-    const int lo = juce::roundToInt (processor.apvts.getRawParameterValue ("tief" + n)->load());
-    const int hi = juce::roundToInt (processor.apvts.getRawParameterValue ("hoch" + n)->load());
     juce::String hint = status;
-    if (hint.isEmpty())
-        hint = std::abs (hi - lo) < 12 ? u8 ("Enger als eine Oktave: Töne, die nicht hineinpassen, werden durch Akkordtöne im Bereich ersetzt.")
-                                       : u8 ("Töne außerhalb wandern um ganze Oktaven nach innen. Kein Ton fällt weg.");
+    int hintY = 0;
+    if (fixedMode())
+    {
+        g.drawText (u8 ("Taste des Samples"), 10, 64, 200, 14, juce::Justification::centredLeft);
+        if (hint.isEmpty()) hint = u8 ("Der Stich spielt immer diese Taste, unabhängig von Akkord, Oktave und Tonumfang.");
+        hintY = 186;
+    }
+    else
+    {
+        const int o = offset();
+        g.drawText (u8 ("Tiefster Ton"), 10, 88 + o, 120, 14, juce::Justification::centredLeft);
+        g.drawText (u8 ("Höchster Ton"), 155, 88 + o, 120, 14, juce::Justification::centredLeft);
+        const juce::String n (layer + 1);
+        const int lo = juce::roundToInt (processor.apvts.getRawParameterValue ("tief" + n)->load());
+        const int hi = juce::roundToInt (processor.apvts.getRawParameterValue ("hoch" + n)->load());
+        if (hint.isEmpty())
+            hint = std::abs (hi - lo) < 12 ? u8 ("Enger als eine Oktave: Töne, die nicht hineinpassen, werden durch Akkordtöne im Bereich ersetzt.")
+                                           : u8 ("Töne außerhalb wandern um ganze Oktaven nach innen. Kein Ton fällt weg.");
+        hintY = 204 + o;
+    }
     g.setColour (status.isNotEmpty() ? accentColour : dimColour);
-    g.drawFittedText (hint, 10, 172, getWidth() - 20, 34, juce::Justification::topLeft, 2, 0.9f);
+    g.drawFittedText (hint, 10, hintY, getWidth() - 20, 34, juce::Justification::topLeft, 2, 0.9f);
 }
 
 void RangePanel::resized()
 {
-    onButton.setBounds (10, 28, getWidth() - 20, 24);
-    templateBox.setBounds (10, 58, getWidth() - 20, 24);
-    loBox.setBounds (10, 104, 135, 24);
-    hiBox.setBounds (155, 104, getWidth() - 165, 24);
-    learnButton.setBounds (10, 138, getWidth() - 20, 26);
+    const int w = getWidth();
+    if (isStich())
+    {
+        modeFixed.setBounds (10, 28, (w - 26) / 2, 24);
+        modeChord.setBounds (16 + (w - 26) / 2, 28, w - 26 - (w - 26) / 2, 24);
+    }
+    if (fixedMode())
+    {
+        toneBox.setBounds (10, 82, w - 20 - 84, 26);
+        tonePlay.setBounds (w - 10 - 78, 82, 78, 26);
+        toneLearn.setBounds (10, 116, w - 20, 26);
+        thruButton.setBounds (10, 150, w - 20, 26);
+        return;
+    }
+    const int o = offset();
+    onButton.setBounds (10, 28 + o, w - 20, 24);
+    templateBox.setBounds (10, 58 + o, w - 20, 24);
+    loBox.setBounds (10, 104 + o, 135, 24);
+    hiBox.setBounds (155, 104 + o, w - 165, 24);
+    learnButton.setBounds (10, 138 + o, w - 20, 26);
+    thruButton.setBounds (10, 170 + o, w - 20, 26);
 }
 
 // ---------------------------------------------------------------- Eigene Akkordfolge
@@ -411,7 +630,7 @@ static juce::AttributedString buildHelp (juce::Colour text, juce::Colour accent,
     s.append (u8 ("Hilfe · v") + juce::String (PLUGIN_VERSION_TEXT) + "\n\n", juce::Font (juce::FontOptions (17.0f, juce::Font::bold)), accent);
 
     head ("Was das Plugin macht");
-    body ("Es erzeugt Musik für Untermalung in fünf Ebenen und gibt sie als MIDI aus: Fläche, Bass, Arp, Akzent und Gegenstimme, auf bis zu acht frei wählbaren MIDI-Kanälen. Alle Ebenen sind tonal gedacht, für tongebende Instrumente; Schlagwerk gehört nicht dazu. Die Klänge kommen aus deinen eigenen Instrumenten. Die Noten sind als Ausgangspunkt gedacht, den du weiter bearbeitest. Es läuft im Takt des Projekts: Wiedergabe starten, springen oder loopen, und es spielt an der richtigen Stelle weiter. Mit dem Start der Wiedergabe beginnt eine Szene mit Einstieg, Aufbau und auf Wunsch einem Ende. Gleiche Einstellungen ergeben immer dieselben Noten.");
+    body ("Es erzeugt Musik für Untermalung in fünf Ebenen und gibt sie als MIDI aus: Fläche, Bass, Arp, Akzent und Gegenstimme, auf bis zu acht frei wählbaren MIDI-Kanälen. Die Ebenen sind für tongebende Instrumente gedacht; nur der Stich kann auf Wunsch fest auf einer Taste ein perkussives Sample spielen, etwa eine Pauke. Die Klänge kommen aus deinen eigenen Instrumenten. Die Noten sind als Ausgangspunkt gedacht, den du weiter bearbeitest. Es läuft im Takt des Projekts: Wiedergabe starten, springen oder loopen, und es spielt an der richtigen Stelle weiter. Mit dem Start der Wiedergabe beginnt eine Szene mit Einstieg, Aufbau und auf Wunsch einem Ende. Gleiche Einstellungen ergeben immer dieselben Noten.");
 
     head ("Woher die Musik kommt");
     bold ("Es verwendet keine KI. ");
@@ -423,7 +642,9 @@ static juce::AttributedString buildHelp (juce::Colour text, juce::Colour accent,
 
     head ("Das Stimmungsfeld");
     body ("Ziehe den Punkt durch das Feld. Waagerecht ist die FÄRBUNG: links dunkel (Bedrohung, Trauer, Lauern), rechts hell (Wärme, Staunen, Triumph). Senkrecht ist die INTENSITÄT: unten ruhig und dünn, oben aufgewühlt und dicht. Unten in der Mitte liegt RUHE, der neutrale Ausgangspunkt. Färbung, Intensität und Unruhe stehen rechts in der Akkord-Anzeige laufend in Prozent.");
-    body ("Mit dem Mausrad über dem Feld (oder per Controller) änderst du die dritte Achse, die UNRUHE. Sie zeigt sich als Ring um den Punkt: Je größer und zittriger, desto mehr Reibung, Dissonanz, Halbtöne und verschobene Betonungen. Bei wenig Intensität sind es einzelne fremde Töne, bei viel Intensität kratzt der ganze Satz.");
+    body ("Mit dem Mausrad über dem Feld (oder per Controller) änderst du die dritte Achse, die UNRUHE. Sie zeigt sich als Ring um den Punkt: Je größer und zittriger, desto mehr Reibung, Dissonanz, Halbtöne und verschobene Betonungen. Ab mittlerer Unruhe vibriert ein zweiter, äußerer Ring. Bei wenig Intensität sind es einzelne fremde Töne, bei viel Intensität kratzt der ganze Satz.");
+    body ("Ab 80 % Unruhe kommt der RISS dazu, wie die kreischenden Streicher in Herrmanns „Psycho“: kurze, harte Stöße aus zwei Tönen im Halbtonabstand hoch über dem Satz, auf dem Kanal der kurzen Fläche. Dort liegen am besten Staccato- oder Spiccato-Streicher. Bei 80 % kommt er selten und leiser, bis 100 % immer häufiger, lauter und doppelt, ganz oben mit einem dritten Reibungston. Er hängt nur an der Unruhe, so kann auch eine leise Szene einmal wehtun. Im Feld flackert der äußere Ring dann rot. Ist die Fläche stumm, schweigt auch der Riss.");
+    body ("Die Ecken sind dezent eingefärbt: Lauern kalt, Angst rot, Triumph golden, Wärme warm. Eine kurze, verblassende Spur zeigt, woher der Punkt kommt. Die fünf kleinen Lichter am Punkt stehen für die Ebenen (von oben im Uhrzeigersinn Fläche, Bass, Arp, Akzent, Gegenstimme): Sie leuchten, solange die Ebene spielt, und blitzen bei jedem Ton. Die Balken für Färbung, Intensität und Unruhe in der Akkord-Anzeige lassen sich ebenfalls ziehen, der Punkt im Feld folgt.");
     body ("Alle drei Achsen lassen sich automatisieren. So fährst du durch eine Szene: langsam vom Lauern in die Panik und am Ende in die Erlösung.");
 
     head ("Szene: Einstieg, Aufbau und Ende");
@@ -434,7 +655,7 @@ static juce::AttributedString buildHelp (juce::Colour text, juce::Colour accent,
     note ("Rechts in der Leiste FAHRT steht während der Wiedergabe der Stand der Szene: Takt, Einstieg, Aufbau, Fahrt und wie viele Takte bis zum Ende bleiben.");
 
     head ("Fahrt von A nach B");
-    body ("Mit FAHRT wandert die Musik selbst vom Punkt im Feld (A) zu einem Ziel (B). B erscheint als Ring im Stimmungsfeld; gezogen wird jeweils der Punkt, der näher an der Maus liegt. START legt fest, wann die Fahrt beginnt (sofort oder ab Takt 5, 9, 17, 33), DAUER, wie lange sie braucht, KURVE den Verlauf: gleichmäßig, erst langsam und dann schnell, in vier Stufen oder hin und zurück (zur Mitte der Dauer bei B, am Ende wieder bei A). Danach bleibt die Musik am Ziel. Während der Wiedergabe zeigt ein kleiner Punkt, wo die Musik gerade ist; die Werte in der Akkord-Anzeige folgen ihm.");
+    body ("Mit FAHRT wandert die Musik selbst vom Punkt im Feld (A) zu einem Ziel (B). B erscheint als Ring im Stimmungsfeld; gezogen wird jeweils der Punkt, der näher an der Maus liegt. START legt fest, wann die Fahrt beginnt (sofort oder ab Takt 5, 9, 17, 33), DAUER, wie lange sie braucht, KURVE den Verlauf: gleichmäßig, erst langsam und dann schnell, in vier Stufen oder hin und zurück (zur Mitte der Dauer bei B, am Ende wieder bei A). Danach bleibt die Musik am Ziel. Während der Wiedergabe zeigt ein kleiner Punkt, wo die Musik gerade ist; der Unruhe-Ring, die Lichter und die Werte in der Akkord-Anzeige wandern mit ihm.");
     body ("Weil Stromscore das Ziel kennt, bereitet es eine Fahrt nach oben vor: Im Takt vor dem Ziel zieht sich der Bass in der zweiten Hälfte zurück und ein Stich kündigt an, am Ziel setzen Fläche und Bass kräftig neu ein. Von Hand fahren und Automation gehen weiterhin; die Fahrt geht dann vom aktuellen Punkt A aus.");
 
     head ("Trägheit");
@@ -470,7 +691,8 @@ static juce::AttributedString buildHelp (juce::Colour text, juce::Colour accent,
     body ("Fläche und Bass haben zwei Kanäle, LANG und KURZ, denn Orchester-Instrumente brauchen für gehaltene und für kurze Töne verschiedene Patches. Bei der Fläche gehen gehaltene Akkorde auf „Lang“, Schläge, Puls, Staccato und Gated auf „Kurz“. Beim Bass gehen Gehalten, Halbe und Orgelpunkt auf „Lang“, alle anderen Muster auf „Kurz“. Stellst du bei beiden denselben Kanal ein, spielt alles auf einem Instrument.");
 
     head ("Akzent");
-    body ("Der Akzent wirft nur ab und zu etwas ein und bleibt nie stehen. Er hat zwei Stimmen mit eigenem Kanal und eigenem Tonumfang. Der TUPFER spielt einzelne kurze, hohe Töne auf Zwischenzeiten, für Celesta, Glocken, Harfe oder Pizzicato. Der STICH ist ein kurzer Schlag in mittlerer bis tiefer Lage, an Akkordwechseln, am Ende einer Phrase und als Antwort kurz nach einem Tupfer, für Klavier, Synth-Stab oder tiefe Streicher. Bei wenig Intensität spielt nur der Tupfer, ab 50 % kommt der Stich dazu, bei viel Intensität schlagen am Phrasenende beide zugleich. Im Pop-Rock setzt der Stich zusätzlich Stabs auf die Zwischenzeit. Bei Unruhe kommt in der Mitte jedes Akkords ein fremder, reibender Ton hinzu, im Stich ein Dissonanz-Stachel. Gibst du beiden Akzenten denselben Kanal, spielen sie auf einem Instrument.");
+    body ("Der Akzent wirft nur ab und zu etwas ein und bleibt nie stehen. Er hat zwei Stimmen mit eigenem Kanal. Der TUPFER spielt einzelne kurze, hohe Töne auf Zwischenzeiten, für Celesta, Glocken, Harfe oder Pizzicato. Der STICH ist ein einzelner kurzer Schlag an Akkordwechseln, am Ende einer Phrase und als Antwort kurz nach einem Tupfer; er kündigt auch das harte Ende und das Ziel einer Fahrt an und setzt den Schlussschlag. Bei wenig Intensität spielt nur der Tupfer, ab 50 % kommt der Stich dazu, bei viel Intensität schlagen am Phrasenende beide zugleich. Im Pop-Rock setzt der Stich zusätzlich Stabs auf die Zwischenzeit. Bei Unruhe kommt in der Mitte jedes Akkords ein fremder, reibender Ton hinzu. Gibst du beiden Akzenten denselben Kanal, spielen sie auf einem Instrument.");
+    body ("Der Knopf unter dem Kanal des Stichs öffnet ein Fenster mit zwei Arten. FEST (Vorgabe): Der Stich spielt immer dieselbe Taste, unabhängig von Akkord, Oktave und Tonumfang. Das passt für ein perkussives Sample, etwa eine Pauke oder große Trommel, das in deiner Library auf genau einer Taste liegt. Die Taste wählst du aus der Liste oder lernst sie an: „Taste anlernen“ klicken und die Taste auf dem Keyboard drücken. „Hören“ schlägt sie einmal an. AKKORD: Der Stich spielt den Grundton des aktuellen Akkords in tiefer Mittellage, für Klavier, Synth-Stab oder Pizzicato-Bass; dafür gibt es dort auch den Tonumfang. Im Knopf steht, was gilt, etwa „Fest: C1“.");
 
     head ("Muster");
     body ("Fläche: Gehalten, Schläge (kurze Akkorde auf der Zwischenzeit), Puls (auf jedem Schlag), Staccato (kurz auf jedem Schlag) oder Gated (gehackte Achtel). Bass: Gehalten, Halbe, Viertel, Achtel, Puls (durchgehende Sechzehntel auf einem Ton), Funk (synkopiert, mit kurzem Sprung nach oben am Taktende), Pendel (Grundton und kleine Terz, bei Unruhe Halbton), Walking (Akkordtöne in Vierteln, chromatisch zum nächsten Grundton), Wechselbass (Grundton und Quinte im Wechsel), Herzschlag (doppelter Schlag, wie ein Puls), Arpeggio (Akkordtöne in Achteln), Orgelpunkt (liegt auf dem Grundton der Wendung, während die Akkorde darüber wandern), Hi-NRG (Grundton und Oberoktave im Wechsel) oder Galopp (Achtel und zwei Sechzehntel). Arp: Aufwärts, Abwärts, Kreisend (auf und ab), Zelle (kurze, obsessive Figur), Riff, Glitzern (schnell und hoch), Sprünge (weite Dreiklangs-Sprünge), Kaskade (Harfen-Wellen in Dreiergruppen), Oktatonisch (Läufe auf der Halbton-Ganzton-Leiter), Quarten (gestapelte Quarten als Ostinato) oder SID (Dreiklang in Sechzehnteln wie auf dem C64); das Tempo wählst du darunter. Auf Auto folgt das Muster der Wendung.");
@@ -500,6 +722,7 @@ static juce::AttributedString buildHelp (juce::Colour text, juce::Colour accent,
     head ("Tonumfang");
     body ("Orchesterinstrumente können nur einen bestimmten Bereich spielen, ein Synth spielt alles. Unten in jedem Ebenen-Kasten steht deshalb neben der Oktave „Umfang“, beim Akzent je eine eigene Zeile für Tupfer und Stich. Ein Klick öffnet ein kleines Fenster: Dort schaltest du die Begrenzung ein und legst den tiefsten und den höchsten Ton fest. Das mittlere C heißt hier wie in Studio One C3, in Klammern steht die MIDI-Nummer.");
     body ("Für den Anfang gibt es Vorlagen für übliche Instrumente, von Violine bis Klavier. Genauer geht es mit ANLERNEN: Klicken, dann auf dem Keyboard die tiefste und die höchste Taste drücken, die dein Patch spielen kann. Die Reihenfolge ist egal. Dein Keyboard muss dafür auf die Spur mit Stromscore geleitet sein. Danach steht der Bereich im Knopf, zum Beispiel C3–C6.");
+    body ("Damit du dabei dein Instrument hörst, gibt es im Fenster KEYBOARD DURCHLEITEN. Solange das Fenster offen ist, gehen deine Tasten auf den MIDI-Kanal dieser Ebene (bei Fläche und Bass auf beide Kanäle). So suchst du am eigenen Patch, wo der spielbare Bereich beginnt und endet oder auf welcher Taste ein Sample liegt, und lernst es gleich an. Schließt du das Fenster, hört das Durchleiten auf, und alle gehaltenen Töne enden. Außerhalb des Fensters werden eingehende Noten nie weitergereicht.");
     body ("Es fällt kein Ton weg. Ein Akkord rückt als Ganzes in den Bereich, einzelne Töne außerhalb wandern um ganze Oktaven nach innen. Ein Arpeggio kehrt an den Grenzen um und spielt jeden Schritt weiter. Die Gegenstimme sucht ihre Linie von vornherein im Bereich. Die Oktav-Einstellung wirkt zuerst, der Tonumfang ist die feste Grenze. Ist der Bereich enger als eine Oktave, ersetzen Akkordtöne im Bereich die Töne, die nicht hineinpassen. Auch die herausgezogene MIDI-Datei hält sich an den Tonumfang.");
 
     head ("Folgt den Akkorden / bleibt");
@@ -675,6 +898,10 @@ StromscoreEditor::StromscoreEditor (StromscoreProcessor& p) : AudioProcessorEdit
     content.addAndMakeVisible (previewButton);
     previewAttachment = std::make_unique<APVTS::ButtonAttachment> (processor.apvts, "preview", previewButton);
     content.addAndMakeVisible (chordDisplay);
+    // Balken in der Akkord-Anzeige: ziehen wie im Stimmungsfeld
+    chordDisplay.onBarStart = [this] (int axis) { axisAttachment[axis]->beginGesture(); };
+    chordDisplay.onBar = [this] (int axis, float v) { axisAttachment[axis]->setValueAsPartOfGesture (v); };
+    chordDisplay.onBarEnd = [this] (int axis) { axisAttachment[axis]->endGesture(); };
 
     // Ebenen
     static const int firstOut[stromscore::kNumLayers] = { stromscore::OutPadLong, stromscore::OutBassLong, stromscore::OutArp, stromscore::OutTupfer, stromscore::OutCounter };
@@ -707,7 +934,7 @@ StromscoreEditor::StromscoreEditor (StromscoreProcessor& p) : AudioProcessorEdit
         {
             lv.rowLabel[0] = "Tupfer"; lv.rowLabel[2] = "Stich";
             lv.chanBox[0].setTooltip (u8 ("MIDI-Kanal für den Tupfer: einzelne kurze hohe Töne, etwa Celesta, Glocken oder Pizzicato."));
-            lv.chanBox[1].setTooltip (u8 ("MIDI-Kanal für den Stich: kurze Schläge in mittlerer bis tiefer Lage, etwa Klavier oder Synth-Stab. Derselbe Kanal wie beim Tupfer: beide Akzente auf einem Instrument."));
+            lv.chanBox[1].setTooltip (u8 ("MIDI-Kanal für den Stich: ein einzelner kurzer Schlag, etwa Pauke, große Trommel, Klavier oder Synth-Stab. Derselbe Kanal wie beim Tupfer: beide Akzente auf einem Instrument."));
         }
         else
         {
@@ -728,7 +955,7 @@ StromscoreEditor::StromscoreEditor (StromscoreProcessor& p) : AudioProcessorEdit
         if (i == stromscore::kAkzent)
         {
             lv.rangeButton.setTooltip (u8 ("Tonumfang des Tupfers: auf den spielbaren Bereich des Instruments begrenzen, mit Vorlagen und Anlernen per Keyboard."));
-            lv.rangeButton2.setTooltip (u8 ("Tonumfang des Stichs: auf den spielbaren Bereich des Instruments begrenzen, mit Vorlagen und Anlernen per Keyboard."));
+            lv.rangeButton2.setTooltip (u8 ("Ton des Stichs: Fest auf einer Taste (Vorgabe, für ein perkussives Sample) oder Grundton des Akkords mit eigenem Tonumfang. Im Fenster lässt sich die Taste anlernen und anhören."));
             lv.rangeButton2.setVisible (true);
             lv.rangeButton2.setName ("Umfang6");
             lv.rangeButton2.onClick = [this] { showRangePanel (5); };
@@ -890,7 +1117,7 @@ StromscoreEditor::StromscoreEditor (StromscoreProcessor& p) : AudioProcessorEdit
     helpScroll.setVisible (false);
     content.addChildComponent (helpScroll);
 
-    pad.setTooltip (u8 ("Stimmungsfeld: waagerecht die Färbung (dunkel bis hell), senkrecht die Intensität (ruhig bis aufgewühlt), Mausrad: Unruhe (Ring um den Punkt). Automatisierbar, auch per CC."));
+    pad.setTooltip (u8 ("Stimmungsfeld: waagerecht die Färbung (dunkel bis hell), senkrecht die Intensität (ruhig bis aufgewühlt), Mausrad: Unruhe (Ring um den Punkt). Die fünf kleinen Lichter am Punkt zeigen, welche Ebenen gerade spielen. Automatisierbar, auch per CC."));
     changeBox.setTooltip (u8 ("Wann eine neue Wendung einsetzt, wenn du den Punkt deutlich bewegst: am nächsten Schlag, am nächsten Takt, alle 2 oder alle 4 Takte."));
     customButton.setTooltip (u8 ("An: deine eigene Akkordfolge statt der Wendungen. Die Akkorde bleiben fest, Figuren und Muster kommen von der Wendung, die am Punkt im Feld liegt."));
     editButton.setTooltip (u8 ("Eigene Akkordfolge bearbeiten: bis zu acht Akkorde mit Grundton, Art und Länge."));
@@ -899,7 +1126,7 @@ StromscoreEditor::StromscoreEditor (StromscoreProcessor& p) : AudioProcessorEdit
     variation.setTooltip (u8 ("Sechzehn Kombinationen aus Wendungen und Figuren. Gleiche Nummer, gleiches Ergebnis."));
     swing.setTooltip (u8 ("Verschiebt die Zwischen-Achtel nach hinten, bis zum Triolen-Gefühl."));
     previewButton.setTooltip (u8 ("Einfacher Testklang im Plugin. Spielt auch ohne Wiedergabe mit eigener Uhr (nur der Testklang, kein MIDI)."));
-    chordDisplay.setTooltip (u8 ("Der klingende Akkord, darunter die Wendung (acht Takte) oder deine eigene Folge und ihre Akkorde."));
+    chordDisplay.setTooltip (u8 ("Der klingende Akkord, darunter die Wendung (acht Takte) oder deine eigene Folge und ihre Akkorde. Unten Färbung, Intensität und Unruhe: Die Balken lassen sich mit der Maus ziehen. Die Marke bei 80 % Unruhe zeigt, ab wann der Riss einsetzt."));
 
     applyTheme();
     const int savedW = processor.uiWidth.load();
@@ -936,12 +1163,18 @@ void StromscoreEditor::updateRangeButtons()
     for (int r = 0; r < stromscore::kNumRanges; ++r)
     {
         const juce::String n (r + 1);
-        const bool on = processor.apvts.getRawParameterValue ("umfang" + n)->load() >= 0.5f;
+        bool on = processor.apvts.getRawParameterValue ("umfang" + n)->load() >= 0.5f;
         int lo = juce::roundToInt (processor.apvts.getRawParameterValue ("tief" + n)->load());
         int hi = juce::roundToInt (processor.apvts.getRawParameterValue ("hoch" + n)->load());
         if (lo > hi) std::swap (lo, hi);
         const auto range = StromscoreProcessor::noteName (lo) + u8 ("–") + StromscoreProcessor::noteName (hi);
-        const juce::String text = on ? range : juce::String ("Umfang");
+        juce::String text = on ? range : juce::String ("Umfang");
+        if (r == 5)   // Stich: fest auf einer Taste oder Grundton des Akkords
+        {
+            const bool fixed = juce::roundToInt (processor.apvts.getRawParameterValue ("stichModus")->load()) == 0;
+            if (fixed) { text = "Fest: " + StromscoreProcessor::noteName (juce::roundToInt (processor.apvts.getRawParameterValue ("stichTon")->load())); on = true; }
+            else text = on ? "Akkord " + range : u8 ("Akkord · Umfang");
+        }
         auto& b = rangeButtonFor (r);
         if (b.getButtonText() != text) b.setButtonText (text);
         if (b.getToggleState() != on) b.setToggleState (on, juce::dontSendNotification);
@@ -1110,7 +1343,17 @@ void StromscoreEditor::timerCallback()
         if (lv.entry != entry) { lv.entry = entry; lv.intensity.updateText(); }
         lv.repaint();
     }
-    if (pad.z > 0.01f) pad.repaint();   // der Unruhe-Ring zittert
+    // Stimmungsfeld: Spur des klingenden Punkts und Lichter der Ebenen
+    {
+        const bool running = processor.sceneBar.load() >= 0 || processor.wendung.load() >= 0;
+        pad.pushTrail (pad.showNow ? pad.nowX : pad.x, pad.showNow ? pad.nowY : pad.y);
+        for (int i = 0; i < stromscore::kNumLayers; ++i)
+        {
+            pad.lightOn[i] = running && layers[i].active && layers[i].entry != "stumm";
+            pad.lights[i] = std::max (layers[i].activity[0], layers[i].numLamps > 1 ? layers[i].activity[1] : 0.0f);
+        }
+    }
+    pad.repaint();   // Unruhe-Ring, Spur und Lichter bewegen sich
 }
 
 void StromscoreEditor::updateSceneStatus()

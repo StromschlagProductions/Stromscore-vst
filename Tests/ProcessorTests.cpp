@@ -473,6 +473,63 @@ int main()
         setParam (*p, "intensitaet", 0.1f);
     }
 
+    // Stich-Ton und Durchleiten (ab 1.4)
+    {
+        auto st = p->currentSettings();
+        CHECK (st.stichFixed && st.stichNote == 36);                           // Vorgabe: fest auf C1
+        setParam (*p, "stichModus", 1.0f); setParam (*p, "stichTon", 40.0f);
+        st = p->currentSettings();
+        CHECK (! st.stichFixed && st.stichNote == 40);
+        setParam (*p, "stichModus", 0.0f); setParam (*p, "stichTon", 36.0f);
+        CHECK (p->channelMaskForRange (5) == (1 << 6));                         // Stich: Kanal 7
+        CHECK (p->channelMaskForRange (0) == ((1 << 0) | (1 << 1)));            // Flaeche: Kanaele 1 und 2
+
+        FakeHost stopped; stopped.playing = false;
+        p->setPlayHead (&stopped);
+        p->prepareToPlay (48000, 512);
+        juce::AudioBuffer<float> audio (2, 512);
+        auto block = [&] (juce::MidiBuffer& m) { p->processBlock (audio, m); };
+        auto onsOn = [] (const juce::MidiBuffer& m, int ch, int note, bool on)
+        {
+            int n = 0;
+            for (const auto meta : m)
+            {
+                const auto x = meta.getMessage();
+                if (x.getChannel() == ch && x.isNoteOnOrOff() && x.getNoteNumber() == note && x.isNoteOn() == on) ++n;
+            }
+            return n;
+        };
+        // ohne offenes Fenster: nichts wird durchgereicht
+        juce::MidiBuffer m; m.addEvent (juce::MidiMessage::noteOn (1, 50, (juce::uint8) 90), 10);
+        block (m);
+        CHECK (onsOn (m, 7, 50, true) == 0 && onsOn (m, 1, 50, true) == 0);
+        // Fenster offen: die Taste geht auf den Kanal des Stichs, auch bei stehender DAW, und klingt weiter
+        p->thruMask.store (1 << 6);
+        m.clear(); m.addEvent (juce::MidiMessage::noteOn (1, 50, (juce::uint8) 90), 10);
+        block (m);
+        CHECK (onsOn (m, 7, 50, true) == 1);
+        m.clear(); block (m);
+        CHECK (onsOn (m, 7, 50, false) == 0);
+        // Fenster zu: der gehaltene Ton endet
+        p->thruMask.store (0);
+        m.clear(); block (m);
+        CHECK (onsOn (m, 7, 50, false) == 1);
+        // Vorhoeren: ein Ton auf dem Kanal, nach etwa 0,4 Sekunden wieder aus
+        p->audition (36, 1 << 6);
+        m.clear(); block (m);
+        CHECK (onsOn (m, 7, 36, true) == 1);
+        int offs = 0;
+        for (int i = 0; i < 60; ++i) { m.clear(); block (m); offs += onsOn (m, 7, 36, false); }
+        CHECK (offs == 1);
+        // Anlernen des Stich-Tons
+        p->learnToneNote.store (-1); p->learnTone.store (true);
+        m.clear(); m.addEvent (juce::MidiMessage::noteOn (1, 43, (juce::uint8) 90), 0);
+        block (m);
+        CHECK (p->learnToneNote.load() == 43);
+        p->learnTone.store (false);
+        p->setPlayHead (&host);
+    }
+
     // Texte: Prozent
     {
         auto* v = p->apvts.getParameter ("intensitaet");

@@ -32,6 +32,7 @@ constexpr int kMaxChords = 8;
 constexpr float kLayerStart[kNumLayers] = { 0.0f, 0.0f, 0.25f, 0.25f, 0.15f };
 constexpr float kStichStart = 0.5f;     // der zweite Akzent (Stich) kommt erst bei mehr Intensitaet dazu
 constexpr float kAkzentUnruhe = 0.35f;
+constexpr float kRissStart = 0.8f;     // ab hier reisst die Unruhe: kurze Halbton-Stoesse hoch ueber dem Satz (ab 1.4)
 
 // ------------------------------------------------------------------ Akkorde
 enum ChordType { Maj, Min, Maj7, Min7, Dom7, MinMaj7, MinMaj9, Dim7, HalfDim, Sus4, Quartal, Add9, Min9, Aug, Min6, Dom7b9, Sus2, Fifth, kNumChordTypes };
@@ -246,6 +247,11 @@ struct Settings
     int driveFrom = 0;          // Takte nach Szenenstart
     int driveBars = 8;
     int driveCurve = CurveEven;
+
+    // Stich (ab 1.4): immer ein einzelner Ton. Fest: eine frei gewaehlte Taste (perkussives Sample), unabhaengig von
+    // Akkord, Oktave und Tonumfang. Sonst der Grundton des Akkords in der Lage des Stichs.
+    bool stichFixed = false;
+    int stichNote = 36;
 };
 
 struct Transport
@@ -769,11 +775,7 @@ private:
             for (int n : { r, r + 7, r + 12 + (minor ? 3 : 4), r + 19 }) noteOn (OutPadShort, n, v - 6, p.k + 2, offset, out);
         }
         if (muteSoloOk (s, kBass)) noteOn (OutBassShort, place (s.key, bassLow (s)), v, p.k + 2, offset, out);
-        if (muteSoloOk (s, kAkzent))
-        {
-            const int top = place (s.key, stichLow (s));
-            for (int n : { top - 12, top - 5, top }) noteOn (OutStich, n, v, p.k + 2, offset, out);
-        }
+        if (muteSoloOk (s, kAkzent)) noteOn (OutStich, stichTone (s, s.key), v, p.k + 2, offset, out);
         forceOn = false;
     }
 
@@ -1112,7 +1114,7 @@ private:
         const int layer = kOutputLayer[o];
         if (cur != nullptr && ! forceOn && ! on[layer]) return;
         const int channel = cur != nullptr ? cur->channel[o] : o + 1;
-        note = sounding (o, note);
+        note = (o == OutStich && cur != nullptr && cur->stichFixed) ? std::clamp (note, 0, 127) : sounding (o, note);
         if (! forceOn) velocity = (int) std::lround ((float) velocity * gain[layer]) + boost[layer];
         velocity = std::clamp (velocity, 1, 127);
         for (int i = 0; i < numActive; ++i)
@@ -1193,7 +1195,7 @@ private:
 
     // --- Akzent. Zwei Stimmen, die nur gelegentlich einwerfen und nie stehen bleiben:
     // Tupfer: einzelne kurze Toene hoch ueber dem Satz (Celesta, Glocken, Pizzicato), auf Zwischenzeiten.
-    // Stich: kurzer Schlag in mittlerer bis tiefer Lage (Klavier-Cluster, Synth-Stab, Quint-Schlag), an den Nahtstellen
+    // Stich: ein einzelner kurzer Schlag (Pauke, Trommel, Klavier, Synth-Stab), an den Nahtstellen
     // der Musik: bei Akkordwechseln, am Ende der Phrase und als Antwort kurz nach einem Tupfer. Wenig Intensitaet:
     // nur Tupfer; mehr: der Stich kommt dazu und antwortet; viel Intensitaet am Phrasenende: beide zugleich.
     // Alles haengt nur von der Position ab (kein Zustand), daher nach Spruengen und beim Herausziehen identisch.
@@ -1239,17 +1241,35 @@ private:
             noteOn (OutTupfer, note + 11, (int) (25 + 30 * s.z), p.k + 3, offset, out);
     }
 
+    // Stich: ein einzelner Schlag. Fest: die gewaehlte Taste. Akkord: der Grundton (MIDI 50 bis 61, unter der Gegenstimme).
+    static int stichTone (const Settings& s, int pitch) { return s.stichFixed ? std::clamp (s.stichNote, 0, 127) : place (pitch, stichLow (s)); }
     void stich (const Pos& p, const Settings& s, int offset, long long len, int boost, EventList& out)
     {
         const Chord c = chordFor (p, kAkzent, s);
-        const int top = place (s.key + bassRoot (c), stichLow (s));        // oberster Ton: D3 bis C#4, unter der Gegenstimme
-        int notes[3] = { top - 12, top - 5, top };                        // Quint-Schlag mit Oktave
-        if (s.genre != GenrePopRock && s.z >= 0.5f)
-            notes[1] = top - 12 + (s.x < 0.5f ? 1 : 6);                    // Unruhe: Dissonanz-Stachel statt Quinte
-        int n = 3;
-        if (rangeOn (OutStich)) n = fitGroup (OutStich, notes, n);
         const float ya = layerY (s, kAkzent);
-        for (int i = 0; i < n; ++i) noteOn (OutStich, notes[i], (int) (68 + 40 * ya) + boost - (i == 0 ? 0 : 6), p.k + len, offset, out);
+        noteOn (OutStich, stichTone (s, s.key + bassRoot (c)), (int) (68 + 40 * ya) + boost, p.k + len, offset, out);
+    }
+
+    // Riss (ab 1.4): ganz oben in der Unruhe kurze, harte Stoesse aus zwei Toenen im Halbtonabstand hoch ueber dem Satz,
+    // auf dem Kanal der kurzen Flaeche (Staccato-Streicher), wie die Streicher in Herrmanns "Psycho". Er waechst mit der
+    // Unruhe: bei 80 % selten und leiser, bei 100 % haeufig, laut und doppelt; ganz oben kommt ein dritter Reibungston dazu.
+    void riss (long long k, const Pos& p, const Settings& s, int offset, EventList& out)
+    {
+        if (s.z < kRissStart || ! muteSoloOk (s, kFlaeche)) return;
+        const float r = std::clamp ((s.z - kRissStart) / (1.0f - kRissStart), 0.0f, 1.0f);
+        const int half = std::max (2, meter.len / 2);                     // je halben Takt hoechstens ein Riss
+        const long long w = floorDiv (k, half);
+        const int inW = (int) (k - w * half);
+        const int slot = 2 * (hashInt (701u, w) % std::max (1, half / 2));
+        if ((float) (hashInt (709u, w) % 1000) >= (0.2f + 0.6f * r) * 1000.0f) return;
+        const bool second = r >= 0.5f && inW == slot + 1;
+        if (inW != slot && ! second) return;
+        const Chord c = chordFor (p, kFlaeche, s);
+        const int t = place (s.key + c.root + (hashInt (719u, w) % 2 == 0 ? 0 : 7), 84);
+        const int v = (int) (72 + 48 * r) - (second ? 10 : 0);
+        noteOn (OutPadShort, t, v, k + 1, offset, out);
+        noteOn (OutPadShort, t + 1, v, k + 1, offset, out);
+        if (r >= 0.75f) noteOn (OutPadShort, t + 13, v - 8, k + 1, offset, out);
     }
 
     void accents (long long k, const Pos& p, const Settings& s, int offset, EventList& out)
@@ -1386,8 +1406,9 @@ private:
             if (mask != 0) sustained (p, s, offset, out, true, mask);
         }
 
-        // Akzente: Tupfer und Stich, bei Unruhe der fremde Ton in der Mitte des Akkords
+        // Akzente: Tupfer und Stich, bei Unruhe der fremde Ton in der Mitte des Akkords; ganz oben in der Unruhe der Riss
         accents (k, p, s, offset, out);
+        riss (k, p, s, offset, out);
 
         // --- Flaeche: Schlaege, Puls oder Staccato
         const int pad = choosePad (s);

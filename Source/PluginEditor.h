@@ -35,7 +35,8 @@ public:
 
 // Das Stimmungsfeld: ziehen = Faerbung (waagerecht) und Intensitaet (senkrecht), Mausrad = Unruhe (Ring um den Punkt).
 // Mit Fahrt: ein zweiter Punkt B (Ziel), der naeher liegende Punkt wird gezogen; waehrend der Wiedergabe zeigt ein
-// kleiner Punkt, wo die Musik gerade ist.
+// kleiner Punkt, wo die Musik gerade ist, und die Unruhe zappelt dort. Dazu (ab 1.4): Farbzonen in den Ecken, eine
+// verblassende Spur des klingenden Punkts und ein Licht je Ebene am Punkt.
 class MoodPad : public juce::Component, public juce::SettableTooltipClient
 {
 public:
@@ -47,6 +48,20 @@ public:
     std::function<void()> onDragStart, onDragEnd, onDragStartB, onDragEndB;
     std::function<void (float)> onWheel;
     std::function<void (float, float)> onHover;   // Maus ueber dem Feld (ohne Klick): Feld-Karte
+    float lights[stromscore::kNumLayers] {};      // Lampen der Ebenen (0 ... 1)
+    bool lightOn[stromscore::kNumLayers] {};      // Ebene spielt gerade
+    void pushTrail (float tx, float ty)
+    {
+        const auto now = juce::Time::getMillisecondCounter();
+        if (trailN > 0)
+        {
+            const auto& last = trail[(trailHead + kTrail - 1) % kTrail];
+            if (std::abs (last.x - tx) < 0.002f && std::abs (last.y - ty) < 0.002f) return;
+        }
+        trail[trailHead] = { tx, ty, now };
+        trailHead = (trailHead + 1) % kTrail;
+        trailN = std::min (trailN + 1, kTrail);
+    }
     struct HoverItem { juce::String name; float x = 0, y = 0; };
     HoverItem hover[3];
     int numHover = 0;
@@ -75,6 +90,10 @@ public:
     }
     void mouseExit (const juce::MouseEvent&) override { numHover = 0; repaint(); }
     bool dragging = false, draggingB = false;
+    static constexpr int kTrail = 64;
+    struct TrailPoint { float x = 0, y = 0; juce::uint32 t = 0; };
+    TrailPoint trail[kTrail];
+    int trailHead = 0, trailN = 0;
     void mouseWheelMove (const juce::MouseEvent&, const juce::MouseWheelDetails& w) override { if (onWheel) onWheel (w.deltaY * 0.25f); }
 private:
     juce::Rectangle<float> area() const { return getLocalBounds().toFloat().reduced (10.0f); }
@@ -101,7 +120,41 @@ public:
     float progress = 0.0f;     // bis zum naechsten Akkordwechsel
     juce::String candidates;   // Wendungen, die an der aktuellen Stelle in Frage kommen
     float mood[3] {};   // Faerbung, Intensitaet, Unruhe (0..1), live angezeigt
+    // Die drei Balken lassen sich ziehen (ab 1.4): Faerbung, Intensitaet, Unruhe
+    std::function<void (int)> onBarStart, onBarEnd;
+    std::function<void (int, float)> onBar;
     void paint (juce::Graphics& g) override;
+    void mouseDown (const juce::MouseEvent& e) override
+    {
+        dragAxis = -1;
+        for (int i = 0; i < 3; ++i)
+            if (barHit (i).contains (e.position)) dragAxis = i;
+        if (dragAxis < 0) return;
+        if (onBarStart) onBarStart (dragAxis);
+        mouseDrag (e);
+    }
+    void mouseDrag (const juce::MouseEvent& e) override
+    {
+        if (dragAxis < 0 || ! onBar) return;
+        const auto b = bar (dragAxis);
+        onBar (dragAxis, juce::jlimit (0.0f, 1.0f, (e.position.x - b.getX()) / b.getWidth()));
+    }
+    void mouseUp (const juce::MouseEvent&) override { if (dragAxis >= 0 && onBarEnd) onBarEnd (dragAxis); dragAxis = -1; }
+    void mouseMove (const juce::MouseEvent& e) override
+    {
+        bool over = false;
+        for (int i = 0; i < 3; ++i) over = over || barHit (i).contains (e.position);
+        setMouseCursor (over ? juce::MouseCursor::LeftRightResizeCursor : juce::MouseCursor::NormalCursor);
+    }
+    juce::Rectangle<float> bar (int i) const
+    {
+        const float top = (float) getHeight() - 62.0f + (float) i * 18.0f;
+        return { 14.0f + kBarLabelW, top + 5.0f, (float) getWidth() - 28.0f - kBarLabelW - kBarValueW - 10.0f, 6.0f };
+    }
+private:
+    static constexpr float kBarLabelW = 74.0f, kBarValueW = 42.0f;
+    juce::Rectangle<float> barHit (int i) const { return bar (i).expanded (8.0f, 6.0f); }
+    int dragAxis = -1;
 };
 
 // Ein Kasten pro Ebene. Kopfzeile: Name, Mute, Solo (wie in Studio One), Lampe (bei zwei Ausgaengen zwei Punkte).
@@ -154,7 +207,9 @@ public:
     static constexpr int kLabelW = 46;
 };
 
-// Tonumfang einer Ebene: Ein/Aus, tiefster und hoechster Ton, Vorlagen, Anlernen ueber zwei Tasten am MIDI-Eingang
+// Tonumfang einer Ebene: Ein/Aus, tiefster und hoechster Ton, Vorlagen, Anlernen ueber zwei Tasten am MIDI-Eingang.
+// Beim Stich (ab 1.4) zuerst die Wahl: Fest (eine Taste, mit Anlernen und Hoeren) oder Akkord (Grundton, mit Tonumfang).
+// Solange das Fenster offen ist, kann das Keyboard auf die Kanaele dieser Ebene durchgeleitet werden.
 class RangePanel : public juce::Component, private juce::Timer
 {
 public:
@@ -166,14 +221,22 @@ public:
 private:
     void timerCallback() override;
     void applyRange (int lo, int hi);
+    void setParam (const juce::String& id, float value);
+    bool isStich() const { return layer == 5; }
+    bool fixedMode() const;
+    void updateMode();
+    void updateThru();
+    int offset() const { return isStich() ? 30 : 0; }
     StromscoreProcessor& processor;
     int layer;
     juce::Colour panelColour, accentColour, textColour, dimColour;
-    juce::TextButton onButton, learnButton;
-    juce::ComboBox templateBox, loBox, hiBox;
+    juce::TextButton onButton, learnButton, thruButton, modeFixed, modeChord, tonePlay, toneLearn;
+    juce::ComboBox templateBox, loBox, hiBox, toneBox;
     std::unique_ptr<juce::AudioProcessorValueTreeState::ButtonAttachment> onAttachment;
-    std::unique_ptr<juce::AudioProcessorValueTreeState::ComboBoxAttachment> loAttachment, hiAttachment;
+    std::unique_ptr<juce::AudioProcessorValueTreeState::ComboBoxAttachment> loAttachment, hiAttachment, toneAttachment;
+    std::unique_ptr<juce::ParameterAttachment> modeAttachment;
     juce::String status;
+    bool shownFixed = false;
 };
 
 // Feld zum Herausziehen der naechsten Takte als MIDI-Datei; Klick wechselt die Laenge
@@ -271,21 +334,22 @@ public:
         g.drawRoundedRectangle (r.reduced (0.5f), 3.0f, 1.0f);
     }
 
-    // Tooltips: groessere Schrift (15 pt), links ausgerichtet, ausgewogene Zeilen bis 420 Punkte Breite
+    // Tooltips: grosse Schrift (18 pt), links ausgerichtet, ausgewogene Zeilen bis 520 Punkte Breite
     static juce::TextLayout tipLayout (const juce::String& text, juce::Colour colour)
     {
         juce::AttributedString s;
         s.setJustification (juce::Justification::topLeft);
         s.setWordWrap (juce::AttributedString::byWord);
-        s.append (text, juce::Font (juce::FontOptions (15.0f)), colour);
+        s.append (text, juce::Font (juce::FontOptions (18.0f)), colour);
+        s.setLineSpacing (2.0f);
         juce::TextLayout tl;
-        tl.createLayoutWithBalancedLineLengths (s, 420.0f);
+        tl.createLayoutWithBalancedLineLengths (s, 520.0f);
         return tl;
     }
     juce::Rectangle<int> getTooltipBounds (const juce::String& text, juce::Point<int> pos, juce::Rectangle<int> area) override
     {
         const auto tl = tipLayout (text, juce::Colours::black);
-        const int w = (int) std::ceil (tl.getWidth()) + 20, h = (int) std::ceil (tl.getHeight()) + 14;
+        const int w = (int) std::ceil (tl.getWidth()) + 28, h = (int) std::ceil (tl.getHeight()) + 20;
         return juce::Rectangle<int> (pos.x > area.getCentreX() ? pos.x - (w + 12) : pos.x + 24,
                                      pos.y > area.getCentreY() ? pos.y - (h + 6) : pos.y + 6, w, h).constrainedWithin (area);
     }
@@ -296,7 +360,7 @@ public:
         g.fillRoundedRectangle (r, 5.0f);
         g.setColour (findColour (juce::TooltipWindow::outlineColourId));
         g.drawRoundedRectangle (r.reduced (0.5f), 5.0f, 1.0f);
-        tipLayout (text, findColour (juce::TooltipWindow::textColourId)).draw (g, r.reduced (10.0f, 7.0f));
+        tipLayout (text, findColour (juce::TooltipWindow::textColourId)).draw (g, r.reduced (14.0f, 10.0f));
     }
 
     void drawComboBox (juce::Graphics& g, int width, int height, bool, int, int, int, int, juce::ComboBox& box) override

@@ -24,7 +24,7 @@ klassischer Hörspiele. Daraus ist ein Vorrat an Wendungen entstanden: Akkordfol
 Melodien bekannter Stücke werden nicht nachgebaut. Das Ziel: Szenen so zu untermalen, wie ich es selbst tun würde, und das einfacher
 zu machen.
 
-**Stand 1.3:** Forschungsphase. Bedienung und Klang werden mit jeder Version weiter verfeinert.
+**Stand 1.4:** Forschungsphase. Bedienung und Klang werden mit jeder Version weiter verfeinert.
 
 **⬇ Download (Windows · VST3):** https://github.com/StromschlagProductions/Stromscore-vst/releases/latest
 
@@ -40,8 +40,9 @@ bin, auch wenn er manchmal umständlich war. STROMSCORE soll nur die technische 
 |---|---|
 | ![Dunkle Oberfläche](docs/oberflaeche-dunkel.png) | ![Helle Oberfläche](docs/oberflaeche-hell.png) |
 
-Die Bilder zeigen eine laufende Szene in Takt 6: Einstieg mit Bass-Schlag, Aufbau über 8 Takte und eine Fahrt von A nach B, der kleine
-Punkt im Stimmungsfeld zeigt, wo die Musik gerade ist.
+Die Bilder zeigen eine laufende Szene in Takt 6: Einstieg mit Bass-Schlag, Aufbau über 8 Takte und eine Fahrt von A nach B. Der kleine
+Punkt im Stimmungsfeld zeigt, wo die Musik gerade ist; dort zappelt die Unruhe, eine kurze Spur zeigt, woher er kommt, und fünf kleine
+Lichter stehen für die Ebenen, die gerade spielen. Die Ecken des Feldes sind dezent eingefärbt.
 
 Über **Bearbeiten** legst du die eigene Akkordfolge fest:
 
@@ -50,6 +51,10 @@ Punkt im Stimmungsfeld zeigt, wo die Musik gerade ist.
 Über **Umfang** unten in jedem Ebenen-Kasten begrenzt du die Ebene auf den spielbaren Bereich deines Instruments:
 
 ![Tonumfang](docs/oberflaeche-tonumfang.png)
+
+Beim Stich wählst du im selben Fenster, ob er fest auf einer Taste spielt oder dem Akkord folgt:
+
+![Stich](docs/oberflaeche-stich.png)
 
 Der Umschalter oben rechts wechselt den Look, die Wahl wird mit dem Projekt gespeichert. Der **?**-Knopf öffnet die Hilfe, über
 jedem Regler erscheint beim Darüberfahren ein kurzer Hinweis. Die Oberfläche lässt sich am rechten unteren Fensterrand stufenlos
@@ -72,11 +77,18 @@ Testklang direkt aus dem Plugin, auch ohne die Wiedergabe zu starten.
 |---|---|---|
 | Färbung | Punkt waagerecht ziehen · CC 11 | Links dunkel (Bedrohung, Trauer, Lauern), rechts hell (Wärme, Staunen, Triumph). Bestimmt, welche Wendungen gezogen werden, und die Lage der Stimmen. |
 | Intensität | Punkt senkrecht ziehen · CC 1 | Unten ruhig und dünn, oben aufgewühlt und dicht. Ebenen setzen ein, Bass und Arp werden schneller, die Fläche voller. |
-| Unruhe | Mausrad über dem Feld · CC 74 | Reibung, Halbtöne, Dissonanz, verschobene Betonungen. Bei wenig Intensität einzelne fremde Töne, bei viel Intensität kratzt der ganze Satz. Sichtbar als Ring um den Punkt. |
+| Unruhe | Mausrad über dem Feld · CC 74 | Reibung, Halbtöne, Dissonanz, verschobene Betonungen. Bei wenig Intensität einzelne fremde Töne, bei viel Intensität kratzt der ganze Satz. Ab 80 % kommt der Riss dazu. Sichtbar als Ring um den Punkt, ab mittlerer Unruhe mit einem zweiten, vibrierenden Ring. |
 
 Unten in der Mitte liegt **Ruhe**, der neutrale Ausgangspunkt; die Ecken heißen Angst, Triumph, Lauern und Wärme. Färbung,
-Intensität und Unruhe stehen rechts in der Akkord-Anzeige laufend in Prozent. Eine Wendung dauert acht Takte; die Anzeige rechts oben zeigt den klingenden
+Intensität und Unruhe stehen rechts in der Akkord-Anzeige laufend in Prozent. Die drei Balken dort lassen sich auch mit der Maus ziehen,
+der Punkt im Feld folgt; so lässt sich besonders die Unruhe genau einstellen. Eine Wendung dauert acht Takte; die Anzeige rechts oben zeigt den klingenden
 Akkord, die Wendung und ihre Akkorde.
+
+**Der Riss:** Ab 80 % Unruhe kommen kurze, harte Stöße aus zwei Tönen im Halbtonabstand hoch über dem Satz dazu, wie die kreischenden
+Streicher in Bernard Herrmanns *Psycho*. Sie gehen auf den Kanal der kurzen Fläche, wo am besten Staccato- oder Spiccato-Streicher liegen.
+Bei 80 % kommt der Riss selten und leiser, bis 100 % immer häufiger, lauter und doppelt, ganz oben mit einem dritten Reibungston. Er hängt
+nur an der Unruhe, so kann auch eine leise Szene einmal wehtun. Im Feld flackert der äußere Ring dann rot, im Balken markiert ein Strich
+die 80 %.
 
 **Wechsel:** Bewegst du den Punkt deutlich, setzt die neue Wendung am nächsten Wechselpunkt mit ihrem ersten Akkord ein: am nächsten
 Schlag (Vorgabe), am nächsten Takt, alle 2 oder alle 4 Takte. Gehaltene Töne der alten Stimmung enden genau dort, der Arp läuft im Takt
@@ -141,8 +153,8 @@ Oben in jedem Kasten stehen der Name, **Mute** und **Solo** in der Reihenfolge v
 (bei Fläche, Bass und Akzent eine je Kanal). Die Beschreibung jeder Ebene steht im Tooltip über ihrem Kasten. Fläche und Bass spielen
 immer, die anderen Ebenen setzen mit der Intensität ein; mit **Aufbau** kommen alle am Anfang einer Szene nacheinander dazu. Der Regler **Intensität** in jedem Kasten verschiebt die Intensität nur für
 diese Ebene: weniger macht sie dünner (beim Bass bis zu langen Tönen), mehr macht sie dichter (beim Bass bis zu durchgehenden Achteln),
-und sie setzt dann auch bei ruhiger Stimmung ein. Ab wann eine Ebene gerade einsetzt, steht im Regler hinter dem Wert: die Intensität im Stimmungsfeld, unter der sie schweigt (beim Akzent zwei Werte, erst Tupfer, dann Stich, etwa „ab 25 / 50 %“). Alle Ebenen sind
-für tongebende Instrumente gedacht, Schlagwerk gehört nicht dazu. Bei Fläche, Bass und Arp bestimmt ein Schalter, ob die Ebene
+und sie setzt dann auch bei ruhiger Stimmung ein. Ab wann eine Ebene gerade einsetzt, steht im Regler hinter dem Wert: die Intensität im Stimmungsfeld, unter der sie schweigt (beim Akzent zwei Werte, erst Tupfer, dann Stich, etwa „ab 25 / 50 %“). Die Ebenen sind
+für tongebende Instrumente gedacht; nur der Stich kann auf Wunsch fest auf einer Taste ein perkussives Sample spielen. Bei Fläche, Bass und Arp bestimmt ein Schalter, ob die Ebene
 **den Akkorden folgt** oder **auf dem Grundakkord bleibt**, etwa für einen durchlaufenden Arp über wechselnden Flächen oder einen Bass auf
 dem Grundton. Auf Auto folgt das Muster der Wendung. Jede Ebene hat außerdem ihre eigene **Oktavlage** (zwei Oktaven tiefer bis zwei
 Oktaven höher).
@@ -154,11 +166,16 @@ andere ab. Fläche und Bass haben je zwei Kanäle, **Lang** und **Kurz**: gehalt
 Töne und ein Staccato- oder Spiccato-Patch die kurzen. Mit demselben Kanal bei beiden spielt alles auf einem Instrument.
 
 **Akzent:** Er wirft nur ab und zu etwas ein und bleibt nie stehen. Der **Tupfer** spielt einzelne kurze, hohe Töne auf Zwischenzeiten,
-für Celesta, Glocken, Harfe oder Pizzicato. Der **Stich** ist ein kurzer Schlag in mittlerer bis tiefer Lage an Akkordwechseln, am Ende
-der Phrase und als Antwort kurz nach einem Tupfer, für Klavier, Synth-Stab oder tiefe Streicher. Bei wenig Intensität spielt nur der
-Tupfer, ab 50 % kommt der Stich dazu, bei viel Intensität schlagen am Phrasenende beide zugleich. Beide haben eigenen Kanal und eigenen
-Tonumfang und lassen sich auch gemeinsam auf ein Instrument legen. Bei Unruhe kommt ein fremder, reibender Ton in der Mitte des Akkords
-dazu.
+für Celesta, Glocken, Harfe oder Pizzicato. Der **Stich** ist ein einzelner kurzer Schlag an Akkordwechseln, am Ende der Phrase
+und als Antwort kurz nach einem Tupfer; er kündigt auch das harte Ende und das Ziel einer Fahrt an und setzt den Schlussschlag. Bei wenig
+Intensität spielt nur der Tupfer, ab 50 % kommt der Stich dazu, bei viel Intensität schlagen am Phrasenende beide zugleich. Beide haben
+eigenen Kanal und lassen sich auch gemeinsam auf ein Instrument legen. Bei Unruhe kommt ein fremder, reibender Ton in der Mitte des
+Akkords dazu.
+
+Der Stich spielt immer nur einen Ton und kennt zwei Arten. **Fest** (Vorgabe): immer dieselbe Taste, unabhängig von Akkord, Oktave und
+Tonumfang, für ein perkussives Sample wie Pauke oder große Trommel, das in der Library auf genau einer Taste liegt. Die Taste wählst du aus
+der Liste oder lernst sie mit einem Tastendruck an, **Hören** schlägt sie einmal an. **Akkord**: der Grundton des aktuellen Akkords in
+tiefer Mittellage, für Klavier, Synth-Stab oder Pizzicato-Bass, mit eigenem Tonumfang. Im Knopf steht, was gilt, etwa „Fest: C1“.
 
 **Gegenstimme:** die einzige lange Linie, in mittlerer Lage zwischen Tupfer und Stich. Mit **Legato** überlappen die Töne minimal,
 damit Legato-Patches gebunden spielen; ohne setzen sie kurz vor dem nächsten Ton ab. Mit **Motiv** beginnt jede Phrase mit einer kurzen
@@ -168,7 +185,9 @@ höherem Schluss. Die Töne folgen der Harmonie, bei wenig Intensität fallen di
 **Tonumfang:** Orchesterinstrumente spielen nur einen bestimmten Bereich, ein Synth spielt alles. Über **Umfang** neben der Oktave
 (beim Akzent je eine eigene Zeile für Tupfer und Stich) begrenzt du jede Ebene auf den tiefsten und höchsten Ton deines Instruments. Vorlagen
 gibt es für übliche Instrumente von Violine bis Klavier; genauer geht es mit **Anlernen**: die tiefste und die höchste spielbare Taste
-deines Patches auf dem Keyboard drücken. Dabei fällt kein Ton weg. Akkorde rücken als Ganzes in den Bereich, einzelne Töne außerhalb
+deines Patches auf dem Keyboard drücken. Mit **Keyboard durchleiten** gehen deine Tasten, solange das Fenster offen ist, auf den Kanal
+der Ebene: So hörst du dein eigenes Instrument und findest den Bereich oder die Taste eines Samples direkt am Patch. Beim Schließen hört das
+Durchleiten auf, gehaltene Töne enden; sonst reicht Stromscore eingehende Noten nie weiter. Dabei fällt kein Ton weg. Akkorde rücken als Ganzes in den Bereich, einzelne Töne außerhalb
 wandern um Oktaven nach innen, Arpeggios kehren an den Grenzen um und die Gegenstimme sucht ihre Linie im Bereich. Die Oktavlage wirkt
 zuerst, der Tonumfang ist die feste Grenze. Auch die herausgezogene MIDI-Datei hält sich daran. Das mittlere C heißt wie in Studio One C3.
 
@@ -177,7 +196,7 @@ zuerst, der Tonumfang ist die feste Grenze. Auch die herausgezogene MIDI-Datei h
 | Fläche | 1 lang · 2 kurz | Gehalten, Schläge (kurze Akkorde auf der Zwischenzeit), Puls, Staccato, Gated (gehackte Achtel); weit gesetzt wie im Orchester | immer |
 | Bass | 3 lang · 4 kurz | Gehalten, Halbe, Viertel, Achtel, Puls (Sechzehntel auf einem Ton), Funk, Pendel, Walking, Wechselbass, Herzschlag, Arpeggio, Orgelpunkt, Hi-NRG (Grundton und Oberoktave), Galopp | immer |
 | Arp | 5 | Aufwärts, Abwärts, Kreisend, Zelle, Riff, Glitzern, Sprünge, Kaskade, Oktatonisch, Quarten, SID (Dreiklang in Sechzehnteln) · Tempo Viertel, Achtel, Sechzehntel | ab 25 % Intensität |
-| Akzent | 6 Tupfer · 7 Stich | Tupfer: einzelne kurze hohe Töne; Stich: kurze Schläge an den Nahtstellen der Musik; bei Unruhe ein fremder, reibender Ton | Tupfer ab 25 %, Stich ab 50 % Intensität, oder bei Unruhe |
+| Akzent | 6 Tupfer · 7 Stich | Tupfer: einzelne kurze hohe Töne; Stich: ein einzelner Schlag an den Nahtstellen der Musik, fest auf einer Taste oder auf dem Grundton; bei Unruhe ein fremder, reibender Ton | Tupfer ab 25 %, Stich ab 50 % Intensität, oder bei Unruhe |
 | Gegenstimme | 8 | Die einzige lange Linie, schrittweise von Akkord zu Akkord, bewegter mit mehr Intensität, bei Unruhe mit Vorhalten, Legato und Motiv schaltbar; im Pop-Rock eine durchgehende Hook-Linie | ab 15 % Intensität |
 
 ## Installation (Windows)
@@ -200,6 +219,7 @@ Danach in der DAW die Plugins neu einlesen.
 - **1.1** – MIDI-Kanal je Ebene frei wählbar, Fläche und Bass mit getrennten Kanälen für lange und kurze Töne, Farbe wird zum Akzent mit Tupfer und Stich, Gegenstimme als einzige lange Linie mit Legato-Schalter, getrennte Lagen für Akzent und Gegenstimme, aufgeräumte Ebenen-Kästen mit Mute und Solo wie in Studio One, größere Tooltip-Schrift, breiteres Fenster.
 - **1.2** – Akzent-Kasten mit eigener Zeile für den Tonumfang von Tupfer und Stich; Tupfer und Stich zeigen ihren Einsatz getrennt („ab 25 / 50 %“).
 - **1.3** – Szene ab Wiedergabebeginn: Einstieg mit einer Ebene (sieben Arten oder gewürfelt), gestaffelter Aufbau über 4, 8 oder 16 Takte, Härte des Einsatzes, Szenenlänge mit hartem, ausklingendem oder offenem Ende; Fahrt von A nach B mit Vorbereitung des Ziels; Motiv der Gegenstimme; Trägheit gegen Flackern an den Schwellen.
+- **1.4** – Stich als einzelner Schlag, fest auf einer Taste (für perkussive Samples) oder auf dem Grundton des Akkords; Riss ab 80 % Unruhe mit harten Halbton-Stößen hoch über dem Satz; Keyboard durchleiten und Hören beim Einstellen von Tonumfang und Stich; ziehbare Balken für Färbung, Intensität und Unruhe; Stimmungsfeld mit Farbzonen, Spur, Lichtern der Ebenen und vibrierendem Außenring, die Unruhe wandert bei einer Fahrt mit; größere Tooltips.
 
 Alle Release-Hinweise: `docs/releases/`.
 
@@ -215,8 +235,8 @@ Alle Release-Hinweise: `docs/releases/`.
 Bei jeder Änderung baut GitHub das Plugin unter Windows, führt die Regressionstests aus und prüft es mit pluginval (Strictness 8).
 Die Noten-Engine läuft zusätzlich unter Linux mit Speicher- und Fehlerprüfern. Die Tests prüfen unter anderem, dass über das ganze
 Stimmungsfeld, alle Taktarten und alle Muster keine Note hängen bleibt oder doppelt angeschlagen wird und dass das Ergebnis nicht von
-der Puffergröße abhängt, außerdem jeden Einstieg mit der Reihenfolge des Aufbaus, die drei Enden, die Fahrt mit allen Kurven, das Motiv
-und die Trägheit. Siehe `docs/CI.md`.
+der Puffergröße abhängt, außerdem jeden Einstieg mit der Reihenfolge des Aufbaus, die drei Enden, die Fahrt mit allen Kurven, das Motiv,
+die Trägheit, den Stich in beiden Arten, den Riss sowie Durchleiten und Hören. Siehe `docs/CI.md`.
 
 ## Hinweis
 

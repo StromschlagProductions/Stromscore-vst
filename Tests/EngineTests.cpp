@@ -988,5 +988,64 @@ int main()
             g.process (t, s, 512, list);
         }
     }
+    // 47) Stich (ab 1.4): immer nur ein Ton je Schlag. Akkord: Grundton in fester Lage; Fest: immer die gewaehlte Taste,
+    // auch beim harten Schlussschlag, unabhaengig von Oktave und Tonumfang
+    {
+        auto stichHits = [] (const Settings& s)
+        {
+            std::map<long long, std::set<int>> hits;
+            for (const auto& e : run (s, 512, 40.0)) if (e.velocity > 0 && e.out == OutStich) hits[e.sample].insert (e.note);
+            return hits;
+        };
+        for (int genre = 0; genre < kNumGenres; ++genre)
+        {
+            Settings a; a.genre = genre; a.y = 0.9f; a.z = 0.7f;
+            const auto chord = stichHits (a);
+            CHECK (! chord.empty());
+            std::set<int> pcs;
+            for (const auto& h : chord) { CHECK (h.second.size() == 1); for (int n : h.second) { CHECK (n >= 50 && n <= 61); pcs.insert (n % 12); } }
+            CHECK (pcs.size() >= 2);   // folgt den Akkorden
+            Settings f = a; f.stichFixed = true; f.stichNote = 37; f.octave[kAkzent] = 2;
+            f.rangeOn[5] = true; f.rangeLo[5] = 60; f.rangeHi[5] = 72;
+            const auto fixed = stichHits (f);
+            CHECK (fixed.size() == chord.size());
+            for (const auto& h : fixed) CHECK (h.second.size() == 1 && *h.second.begin() == 37);
+        }
+        Settings e; e.scene = true; e.sceneBars = 8; e.ending = EndHard; e.y = 0.9f; e.stichFixed = true; e.stichNote = 41;
+        std::set<int> last;
+        for (const auto& x : run (e, 512, 18.0)) if (x.velocity > 0 && x.out == OutStich) { if (x.sample >= 8 * 96000) last.insert (x.note); }
+        CHECK (last.size() == 1 && *last.begin() == 41);   // Schlussschlag: ein Ton, die gewaehlte Taste
+    }
+
+    // 48) Riss (ab 1.4): erst ab 80 % Unruhe, hoch, kurz, im Halbtonabstand, auf dem Kanal der kurzen Flaeche; waechst mit der Unruhe
+    {
+        auto riss = [] (float z, int& dyads, int& triples, int& ons)
+        {
+            Settings s; s.y = 0.2f; s.x = 0.3f; s.z = z; s.padPattern = PadHeld; s.solo[kFlaeche] = true;
+            std::map<long long, std::set<int>> hits;
+            for (const auto& e : run (s, 512, 40.0)) if (e.velocity > 0 && e.out == OutPadShort) hits[e.sample].insert (e.note);
+            dyads = triples = ons = 0;
+            for (const auto& h : hits)
+            {
+                ons += (int) h.second.size();
+                const int lo = *h.second.begin();
+                CHECK (lo >= 84 && lo <= 95);
+                CHECK (h.second.count (lo + 1) == 1);
+                ++dyads;
+                triples += h.second.size() == 3 ? 1 : 0;
+            }
+        };
+        int d0, t0, o0, d1, t1, o1, d2, t2, o2;
+        riss (0.75f, d0, t0, o0);
+        riss (0.82f, d1, t1, o1);
+        riss (1.0f, d2, t2, o2);
+        CHECK (d0 == 0 && d1 > 0 && d2 > d1 && t1 == 0 && t2 > 0);
+        Settings m; m.z = 1.0f; m.padPattern = PadHeld; m.mute[kFlaeche] = true;
+        for (const auto& e : run (m, 512, 20.0)) CHECK (e.out != OutPadShort);   // stumme Flaeche: kein Riss
+        Settings b; b.z = 0.95f; b.y = 0.5f;
+        const auto ra = run (b, 64, 20.0), rb = run (b, 777, 20.0);
+        checkBalanced (ra);
+        CHECK (ra.size() == rb.size());
+    }
     return 0;
 }

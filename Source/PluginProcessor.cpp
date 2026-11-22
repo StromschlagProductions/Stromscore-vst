@@ -39,6 +39,7 @@ juce::StringArray StromscoreProcessor::sceneLengthNames() { return { "unbegrenzt
 juce::StringArray StromscoreProcessor::endingNames()      { return { "Hart", "Ausklingend", "Offen" }; }
 juce::StringArray StromscoreProcessor::driveStartNames()  { return { "sofort", "ab Takt 5", "ab Takt 9", "ab Takt 17", "ab Takt 33" }; }
 juce::StringArray StromscoreProcessor::driveBarsNames()   { return { "4 Takte", "8 Takte", "16 Takte", "32 Takte" }; }
+juce::StringArray StromscoreProcessor::stichModeNames()   { return { "Fest", "Akkord" }; }
 juce::StringArray StromscoreProcessor::curveNames()       { return { u8 ("Gleichmäßig"), "Erst langsam", "In Stufen", u8 ("Hin und zurück") }; }
 
 juce::String StromscoreProcessor::noteName (int n)
@@ -129,6 +130,9 @@ juce::AudioProcessorValueTreeState::ParameterLayout StromscoreProcessor::createL
     layout.add (std::make_unique<AudioParameterChoice> (ParameterID { "fahrtStart", 1 }, "Fahrt Start", driveStartNames(), 0));
     layout.add (std::make_unique<AudioParameterChoice> (ParameterID { "fahrtTakte", 1 }, "Fahrt Dauer", driveBarsNames(), 1));
     layout.add (std::make_unique<AudioParameterChoice> (ParameterID { "fahrtKurve", 1 }, "Fahrt Kurve", curveNames(), 0));
+    // Stich (ab 1.4): ein einzelner Ton, fest auf einer Taste (Vorgabe, fuer perkussive Samples) oder Grundton des Akkords
+    layout.add (std::make_unique<AudioParameterChoice> (ParameterID { "stichModus", 1 }, "Stich Ton", stichModeNames(), 0));
+    layout.add (std::make_unique<AudioParameterInt> (ParameterID { "stichTon", 1 }, "Stich Taste", 0, 127, 36, noteAttr));
     static constexpr int defRoot[stromscore::kMaxChords] = { 5, 0, 10, 7, 9, 2, 4, 0 };   // F - C - B - G
     for (int i = 0; i < stromscore::kMaxChords; ++i)
     {
@@ -193,6 +197,8 @@ StromscoreProcessor::StromscoreProcessor()
     pDriveFrom = apvts.getRawParameterValue ("fahrtStart");
     pDriveBars = apvts.getRawParameterValue ("fahrtTakte");
     pCurve = apvts.getRawParameterValue ("fahrtKurve");
+    pStichMode = apvts.getRawParameterValue ("stichModus");
+    pStichNote = apvts.getRawParameterValue ("stichTon");
     for (int i = 0; i < stromscore::kMaxChords; ++i)
     {
         const juce::String n (i + 1);
@@ -288,6 +294,8 @@ stromscore::Settings StromscoreProcessor::currentSettings() const
     s.driveFrom = pick (pDriveFrom, kDriveFrom, 5);
     s.driveBars = pick (pDriveBars, kDriveBars, 4);
     s.driveCurve = juce::jlimit (0, stromscore::kNumCurves - 1, juce::roundToInt (pCurve->load()));
+    s.stichFixed = juce::roundToInt (pStichMode->load()) == 0;
+    s.stichNote = juce::jlimit (0, 127, juce::roundToInt (pStichNote->load()));
     return s;
 }
 
@@ -303,6 +311,7 @@ void StromscoreProcessor::handleControllers (const juce::MidiBuffer& incoming)
             if (learnFirst.load() < 0) learnFirst.store (msg.getNoteNumber());
             else if (learnSecond.load() < 0 && msg.getNoteNumber() != learnFirst.load()) learnSecond.store (msg.getNoteNumber());
         }
+        if (msg.isNoteOn() && learnTone.load() && learnToneNote.load() < 0) learnToneNote.store (msg.getNoteNumber());
         if (! msg.isController()) continue;
         for (int a = 0; a < 3; ++a)
         {
@@ -383,7 +392,9 @@ void StromscoreProcessor::processBlock (juce::AudioBuffer<float>& audio, juce::M
     juce::ScopedNoDenormals noDenormals;
     audio.clear();
     handleControllers (midi);
-    midi.clear();   // eingehende Noten werden nicht weitergereicht
+    juce::MidiBuffer thru;
+    passThrough (midi, thru, audio.getNumSamples());   // nur bei offenem Fenster fuer Tonumfang oder Stich-Ton
+    midi.clear();   // sonst werden eingehende Noten nicht weitergereicht
 
     stromscore::Transport t;
     t.sampleRate = currentRate > 0.0 ? currentRate : 48000.0;
@@ -445,6 +456,82 @@ void StromscoreProcessor::processBlock (juce::AudioBuffer<float>& audio, juce::M
     if (! t.playing)
         flushSounding (midi, wasPlaying);
     wasPlaying = t.playing;
+    midi.addEvents (thru, 0, -1, 0);   // durchgeleitete Tasten und Vorhoeren nach dem Aufraeumen, damit sie nicht gleich enden
+}
+
+int StromscoreProcessor::channelMaskForRange (int r) const
+{
+    int mask = 0;
+    for (int o = 0; o < stromscore::kNumOutputs; ++o)
+        if (stromscore::kOutputRange[o] == r)
+            mask |= 1 << juce::jlimit (0, 15, juce::roundToInt (pChannel[o]->load()));
+    return mask;
+}
+
+// Durchleiten und Vorhoeren: eigene Buchfuehrung, getrennt von den Noten der Engine
+void StromscoreProcessor::passThrough (const juce::MidiBuffer& incoming, juce::MidiBuffer& out, int numSamples)
+{
+    auto releaseChannels = [this, &out] (int mask)
+    {
+        for (int ch = 0; ch < 16; ++ch)
+        {
+            if (((mask >> ch) & 1) == 0) continue;
+            for (int n = 0; n < 128; ++n)
+                if (thruSounding[ch].test ((size_t) n)) out.addEvent (juce::MidiMessage::noteOff (ch + 1, n), 0);
+            thruSounding[ch].reset();
+        }
+    };
+    const int mask = thruMask.load() & 0xffff;
+    if (mask != thruActiveMask)   // Fenster zu oder Kanal gewechselt: was noch klingt, endet
+    {
+        releaseChannels (thruActiveMask & ~mask);
+        thruActiveMask = mask;
+    }
+    if (mask != 0)
+        for (const auto meta : incoming)
+        {
+            const auto msg = meta.getMessage();
+            if (! msg.isNoteOnOrOff()) continue;
+            const int n = msg.getNoteNumber();
+            for (int ch = 0; ch < 16; ++ch)
+            {
+                if (((mask >> ch) & 1) == 0) continue;
+                if (msg.isNoteOn())
+                {
+                    if (thruSounding[ch].test ((size_t) n)) out.addEvent (juce::MidiMessage::noteOff (ch + 1, n), meta.samplePosition);
+                    out.addEvent (juce::MidiMessage::noteOn (ch + 1, n, msg.getVelocity()), meta.samplePosition);
+                    thruSounding[ch].set ((size_t) n);
+                }
+                else if (thruSounding[ch].test ((size_t) n))
+                {
+                    out.addEvent (juce::MidiMessage::noteOff (ch + 1, n), meta.samplePosition);
+                    thruSounding[ch].reset ((size_t) n);
+                }
+            }
+        }
+
+    // Vorhoeren: ein Ton, nach etwa 0,4 Sekunden wieder aus
+    auto stopAudition = [this, &out] (int at)
+    {
+        for (int ch = 0; ch < 16; ++ch)
+            if ((auditionMask >> ch) & 1) out.addEvent (juce::MidiMessage::noteOff (ch + 1, auditionNote), at);
+        auditionNote = -1; auditionMask = 0; auditionLeft = 0;
+    };
+    const int req = auditionNoteReq.exchange (-1);
+    if (req >= 0)
+    {
+        if (auditionNote >= 0) stopAudition (0);
+        auditionNote = juce::jlimit (0, 127, req);
+        auditionMask = auditionMaskReq.load() & 0xffff;
+        auditionLeft = juce::roundToInt (0.4 * (currentRate > 0.0 ? currentRate : 48000.0));
+        for (int ch = 0; ch < 16; ++ch)
+            if ((auditionMask >> ch) & 1) out.addEvent (juce::MidiMessage::noteOn (ch + 1, auditionNote, (juce::uint8) 100), 0);
+    }
+    else if (auditionNote >= 0)
+    {
+        if (auditionLeft <= numSamples) stopAudition (juce::jlimit (0, juce::jmax (0, numSamples - 1), auditionLeft));
+        else auditionLeft -= numSamples;
+    }
 }
 
 void StromscoreProcessor::publish (const stromscore::Generator& g, bool playing)
@@ -463,7 +550,9 @@ void StromscoreProcessor::processBlockBypassed (juce::AudioBuffer<float>& audio,
     {
         generator.reset();
         previewGenerator.reset(); previewRunning = false;
-        flushSounding (midi, true);
+        flushSounding (midi, true);   // "Alle Noten aus" beendet auch durchgeleitete Toene
+        for (auto& b : thruSounding) b.reset();
+        thruActiveMask = 0;
         preview.reset();
         wasPlaying = false;
         wasBypassed = true;
