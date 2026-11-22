@@ -1,5 +1,6 @@
 // Render real JUCE editor components; no image retouching. Args: output directory.
 #include "PluginProcessor.h"
+#include "PluginEditor.h"
 #include <iostream>
 #include <cstdlib>
 
@@ -82,7 +83,7 @@ private:
             for (int i = 0; i < stromscore::kNumOutputs; ++i) processor.activity[i].store (levels[i]);
             if (index == 2) clickButton (*editor, "Bearbeiten");   // drittes Bild: eigene Akkordfolge
             if (index == 3) clickButton (*editor, "Umfang3");      // viertes Bild: Fenster fuer den Tonumfang
-            if (index == 5) clickButton (*editor, "CCBereich1");
+            if (index == 5) dynamic_cast<StromscoreEditor*> (editor.get())->showOutputCcRanges();
             if (index == 6) clickButton (*editor, "Wendungsinfo");
             if (index == 4) clickButton (*editor, "Umfang6");      // fuenftes Bild: Fenster fuer den Stich (fest auf einer Taste)
             lit = true;

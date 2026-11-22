@@ -1203,5 +1203,44 @@ int main()
         CHECK (top.size() == 4); int expected = 81;
         for (const auto& voice : top) { CHECK (voice.second == expected); --expected; }
     }
+    // 2.0: retargeting follows the old position at the edit tick, then reaches the new B.
+    // All four curves, including an edit on the return leg; restart between ticks and seeks.
+    for (int curve = 0; curve < kNumCurves; ++curve)
+    {
+        Generator g, reference; Settings s; EventList e, ref;
+        s.drive = true; s.driveBars = 4; s.driveCurve = curve;
+        s.x = 0.2f; s.y = 0.2f; s.driveX = 0.8f; s.driveY = 0.9f;
+        Transport t; t.playing = true; t.bpm = 120; t.sampleRate = 48000;
+        for (int tick = 0; tick <= 64; ++tick)
+        {
+            t.ppq = tick * 0.25; e.clear(); ref.clear();
+            auto old = s;
+            if (tick == 12) { s.driveX = 0.55f; s.driveY = 0.65f; }
+            if (tick == 44 && curve == CurveWave) { s.driveX = 0.95f; s.driveY = 0.95f; }
+            reference.process (t, old, 6000, ref); g.process (t, s, 6000, e);
+            if (tick == 12 || (tick == 44 && curve == CurveWave))
+            {
+                CHECK (std::abs (g.pointX() - reference.pointX()) < 1e-5f);
+                CHECK (std::abs (g.pointY() - reference.pointY()) < 1e-5f);
+            }
+            reference = g;
+            if (tick == 64)
+            {
+                CHECK (g.driveArrived());
+                CHECK (std::abs (g.pointX() - (curve == CurveWave ? 0.2f : 0.55f)) < 1e-5f);
+                CHECK (std::abs (g.pointY() - (curve == CurveWave ? 0.2f : 0.65f)) < 1e-5f);
+            }
+        }
+        // No sixteenth occurs in this small block: the completed generation must still be cleared.
+        s.drive = false; t.ppq = 16.25; e.clear(); g.process (t, s, 64, e);
+        CHECK (! g.driveArrived());
+        s.drive = true; ++s.driveGeneration; t.ppq += 64.0 / 24000; e.clear(); g.process (t, s, 64, e);
+        CHECK (! g.driveArrived() && g.driveGenerationNow() == s.driveGeneration);
+        // DAW jump/loop reconstructs the canonical curve rather than replaying stale retarget history.
+        t.ppq = 0; e.clear(); g.process (t, s, 6000, e);
+        CHECK (! g.driveArrived()); CHECK (std::abs (g.pointX() - s.x) < 1e-5f);
+        t.playing = false; e.clear(); g.process (t, s, 6000, e);
+        CHECK (g.sceneBar() == -1);
+    }
     return 0;
 }

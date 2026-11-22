@@ -600,7 +600,11 @@ int main()
             CHECK (std::abs (p->apvts.getRawParameterValue ("faerbung")->load() - 0.3f) < 1e-3f);   // A bleibt stehen
             CHECK (p->apvts.getRawParameterValue ("fahrtX")->load() > 0.6f);                         // B ist gesetzt
             CHECK (p->apvts.getRawParameterValue ("fahrt")->load() < 0.5f);                          // keine Fahrt
+            pad->showB = true; // left must still select A even when B is closer
+            setParam (*p, "fahrt", 1);
             press (false);
+            CHECK (p->apvts.getRawParameterValue ("fahrt")->load() < 0.5f);
+            CHECK (p->targetSet.load());
             CHECK (p->apvts.getRawParameterValue ("faerbung")->load() > 0.6f);                       // Linksklick: A springt
         }
     }
@@ -760,5 +764,44 @@ int main()
     }
 
     p->setPlayHead (nullptr);
+    // 2.0: target visibility survives an editor reopen and project state roundtrip.
+    {
+        StromscoreProcessor q; q.markTargetSet(); // even the unchanged default B is an explicit target
+        juce::MemoryBlock state; q.getStateInformation (state);
+        StromscoreProcessor restored; restored.setStateInformation (state.getData(), (int) state.getSize());
+        CHECK (restored.targetSet.load()); CHECK (! restored.currentSettings().drive);
+        for (int reopen = 0; reopen < 2; ++reopen)
+        {
+            std::unique_ptr<juce::AudioProcessorEditor> ed (restored.createEditor());
+            int found = 0;
+            std::function<void (juce::Component&)> visit = [&] (juce::Component& c)
+            {
+                if (auto* pad = dynamic_cast<MoodPad*> (&c)) { CHECK (pad->targetPending); ++found; }
+                CHECK (! c.getName().startsWith ("CCBereich"));
+                for (auto* child : c.getChildren()) visit (*child);
+            };
+            visit (*ed); CHECK (found == 1);
+        }
+        CHECK (restored.ccChannelDescription (1).contains (juce::String::fromUTF8 ("Fläche lang")));
+        CHECK (restored.ccChannelDescription (2).contains (juce::String::fromUTF8 ("Fläche kurz")));
+        CHECK (restored.ccChannelDescription (7).contains ("Akzent Stich"));
+        setParam (restored, "kanal2", 0);
+        CHECK (restored.ccChannelDescription (1).contains (juce::String::fromUTF8 ("Fläche kurz")));
+    }
+    // A completed drive must not turn off a fresh activation before the next musical tick.
+    {
+        StromscoreProcessor q; FakeHost h; q.setPlayHead (&h); q.prepareToPlay (48000, 512);
+        setParam (q, "fahrtTakte", 0); setParam (q, "fahrt", 1);
+        juce::AudioBuffer<float> a (2, 512); juce::MidiBuffer m; m.ensureSize (65536);
+        for (int i = 0; i < 760 && ! q.driveArrived.load(); ++i)
+        { h.ppq = i * 512 / 24000.0; m.clear(); q.processBlock (a, m); }
+        CHECK (q.driveArrived.load()); q.serviceDrive(); CHECK (! q.currentSettings().drive);
+        setParam (q, "fahrt", 1); q.serviceDrive(); CHECK (q.currentSettings().drive);
+        h.ppq += 512.0 / 24000.0; m.clear(); q.processBlock (a, m); q.serviceDrive();
+        CHECK (q.currentSettings().drive && ! q.driveArrived.load());
+        q.beginManualPosition(); setParam (q, "faerbung", 0.37f); setParam (q, "intensitaet", 0.42f); q.serviceDrive();
+        CHECK (! q.currentSettings().drive && std::abs (q.currentSettings().x - 0.37f) < 1e-6f);
+        q.setPlayHead (nullptr);
+    }
     return 0;
 }

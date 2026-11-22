@@ -257,6 +257,7 @@ struct Settings
     int ending = EndFade;       // Ende der Szene: hart, ausklingend, offen
     bool motif = false;         // Szenenmotiv in der Gegenstimme
     bool inertia = false;       // Traegheit: Ebenen schalten nur auf Taktgrenzen, mit Abstand zur Schwelle, mindestens 2 Takte
+    uint32_t driveGeneration = 0; // Rising-edge identity, transient (not a host parameter)
     bool drive = false;         // Fahrt von A (x, y) nach B
     float driveX = 0.8f, driveY = 0.85f;
     int driveFrom = 0;          // Takte nach Szenenstart
@@ -372,7 +373,7 @@ struct Meter
 class Generator
 {
 public:
-    void reset() { style = -1; csNote = -1; csPendingAt = -1; chaseStep = -1; lastGenre = -1; resetCc(); resetVoicing(); numActive = 0; running = false; lastPpqEnd = 0.0; phraseIndex = -1; current = -1; wendungStart = 0; still = false; chordBase = 0; drivePrev = driveSeen = driveLatched = driveArrivedNow = false; curRoot = 0; curType = Min; curChord = -1;
+    void reset() { style = -1; csNote = -1; csPendingAt = -1; chaseStep = -1; lastGenre = -1; resetCc(); resetVoicing(); numActive = 0; running = false; lastPpqEnd = 0.0; phraseIndex = -1; current = -1; wendungStart = 0; still = false; chordBase = 0; drivePrev = driveSeen = driveLatched = driveArrivedNow = false; driveTrajectory = false; driveProgressNow = 0; driveGenerationSeen = 0; curRoot = 0; curType = Min; curChord = -1;
                    sceneStep = 0; autoSeed = -1; sceneBarNow = -1; sceneEnded = false; for (int l = 0; l < kNumLayers; ++l) { on[l] = prevOn[l] = hOn[l] = false; } }
 
     uint32_t unavailablePadPitchClasses() const { return unavailablePad; }
@@ -382,6 +383,8 @@ public:
     int sceneEntry() const { return entryInUse; }             // aufgeloester Einstieg
     bool sceneOver() const { return sceneEnded; }
     bool driveArrived() const { return driveArrivedNow; }     // die Fahrt ist bei B angekommen (das Plugin macht B dann zu A)
+    uint32_t driveGenerationNow() const { return driveGenerationSeen; }
+    float driveProgress() const { return driveProgressNow; }
     int driveFromNow() const { return driveLatched ? driveFromLatched : -1; }   // Fahrt, die waehrend der Wiedergabe eingeschaltet wurde: Startbar
     float pointX() const { return curX; }                     // Punkt im Feld, wie er gerade klingt (mit Fahrt)
     float pointY() const { return curY; }
@@ -556,6 +559,13 @@ public:
         s.driveX = std::clamp (s.driveX, 0.0f, 1.0f); s.driveY = std::clamp (s.driveY, 0.0f, 1.0f);
         s.driveFrom = std::clamp (s.driveFrom, 0, 4096); s.driveBars = std::clamp (s.driveBars, 1, 4096);
         s.driveCurve = std::clamp (s.driveCurve, 0, kNumCurves - 1);
+        // Observe off/restart on every audio block, even between sixteenth-note ticks.
+        if (! s.drive || s.driveGeneration != driveGenerationSeen)
+        {
+            drivePrev = driveLatched = driveArrivedNow = driveTrajectory = false;
+            driveProgressNow = 0.0f;
+        }
+        driveGenerationSeen = s.driveGeneration;
         cur = &s;
         meter = Meter::from (s.meterNum, s.meterDen);
         custom = customWendung (s);
@@ -584,6 +594,7 @@ public:
         {
             allNotesOff (out, 0);
             resetVoicing();
+            driveTrajectory = false; // A seek reconstructs the curve at the destination, without old segment history.
             // Szenenstart: Wiedergabebeginn, auf den Taktanfang gerundet. Ein Sprung nach vorn (oder ein Loop, der nicht
             // vor den Start zurueckspringt) laeuft in derselben Szene weiter, ein Sprung davor beginnt eine neue.
             const long long k0 = (long long) std::floor (t.ppq / kStep + 1e-9);
@@ -649,9 +660,41 @@ private:
         {
             if (driveLatched) s.driveFrom = driveFromLatched;
             driveArrivedNow = s.driveBars > 0 && barsNow - (double) s.driveFrom >= (double) s.driveBars;
-            const float a = driveAmount (s, barsNow);
-            s.x = ax + (s.driveX - ax) * a;
-            s.y = ay + (s.driveY - ay) * a;
+            const float amount = driveAmount (s, barsNow);
+            const float progress = (float) std::clamp ((barsNow - s.driveFrom) / s.driveBars, 0.0, 1.0);
+            driveProgressNow = (float) ((barsNow - s.driveFrom) / s.driveBars);
+            const bool returning = s.driveCurve == CurveWave && progress > 0.5f;
+            const float q = returning ? 1.0f - amount : amount;
+            if (! driveTrajectory)
+            {
+                originX = ax; originY = ay;
+                segmentX = returning ? s.driveX : ax; segmentY = returning ? s.driveY : ay;
+                segmentQ = 0; segmentReturn = returning;
+                observedBX = s.driveX; observedBY = s.driveY;
+                segmentTargetX = returning ? originX : s.driveX; segmentTargetY = returning ? originY : s.driveY;
+                driveTrajectory = true;
+            }
+            if (returning != segmentReturn)
+            {
+                segmentX = segmentQ >= 1.0f ? segmentX : segmentTargetX;
+                segmentY = segmentQ >= 1.0f ? segmentY : segmentTargetY; segmentQ = 0;
+                segmentTargetX = originX; segmentTargetY = originY; segmentReturn = returning;
+            }
+            auto fraction = [&] { return std::clamp ((q - segmentQ) / std::max (1.0e-6f, 1.0f - segmentQ), 0.0f, 1.0f); };
+            if (s.driveX != observedBX || s.driveY != observedBY)
+            {
+                if (! returning)
+                {
+                    const float f = fraction();
+                    segmentX += (segmentTargetX - segmentX) * f; segmentY += (segmentTargetY - segmentY) * f;
+                    segmentQ = q; segmentTargetX = s.driveX; segmentTargetY = s.driveY;
+                }
+                observedBX = s.driveX; observedBY = s.driveY;
+            }
+            const float f = fraction();
+            s.x = segmentX + (segmentTargetX - segmentX) * f;
+            s.y = segmentY + (segmentTargetY - segmentY) * f;
+            if (driveArrivedNow) { s.x = returning ? originX : s.driveX; s.y = returning ? originY : s.driveY; }
         }
         else { s.x = ax; s.y = ay; }
         curX = s.x; curY = s.y;
@@ -2006,6 +2049,11 @@ private:
     long long phraseIndex = -1, wendungStart = 0, chaseStep = -1;
     bool still = false;   // Ruhezone: Akkord steht
     bool drivePrev = false, driveSeen = false, driveLatched = false, driveArrivedNow = false;   // Fahrt: Einschalten waehrend der Wiedergabe, Ankunft
+    uint32_t driveGenerationSeen = 0;
+    float driveProgressNow = 0;
+    bool driveTrajectory = false, segmentReturn = false;
+    float originX = 0, originY = 0, segmentX = 0, segmentY = 0, segmentQ = 0;
+    float segmentTargetX = 0, segmentTargetY = 0, observedBX = 0, observedBY = 0;
     int driveFromLatched = 0;
     int chordBase = 0;    // Akkord, ab dem die Folge laeuft (nach der Ruhezone)
     int current = -1, curChord = -1, curRoot = 0, curType = Min, style = -1;

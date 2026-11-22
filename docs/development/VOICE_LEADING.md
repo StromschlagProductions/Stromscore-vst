@@ -1,6 +1,6 @@
-# Stimmführung – Entwicklungsstand auf Basis 1.9
+# STROMSCORE 2.0 – Stimmführung und Bedienkorrekturen
 
-Dieser Branch ist ein **nicht veröffentlichter Teststand**. Basis ist die veröffentlichte Version 1.9, Commit `22be37ee755391f3651d7f5718c2e3d302c722ea`. Keine Änderung an `VERSION`, Plugin-Kennung oder GUI. Keine Änderungen an Phrasierung und Motiventwicklung. Kein Merge und kein Release vor musikalischer Beurteilung.
+Dieser Branch ist ein **nicht veröffentlichter Teststand**. Basis ist die veröffentlichte Version 1.9, Commit `22be37ee755391f3651d7f5718c2e3d302c722ea`. `VERSION` ist jetzt 2.0; die Plugin-Kennung bleibt erhalten. Zusätzlich sind die gesammelten Fahrt- und CC-Bedienkorrekturen enthalten. Keine Änderungen an Phrasierung und Motiventwicklung. Kein Merge und kein Release vor musikalischer Beurteilung.
 
 ## Analyse der bisherigen Engine
 
@@ -97,3 +97,14 @@ Zuerst Fläche allein, dann Fläche und Bass, anschließend das ganze Arrangemen
 Der interne Testklang und geringere Tonbewegung beweisen keine natürliche Orchesterwirkung. **Eine tatsächliche Hörbewertung mit den Ziel-Libraries wurde noch nicht durchgeführt.** Ergebnisse und Gewichtungen sind deshalb ausdrücklich zur musikalischen Beurteilung vorgesehen. Die neue Stimmführung ist eine begrenzte Heuristik, kein vollständiges Modell instrumentenspezifischen Orchestersatzes.
 
 Entwicklungsbuild und 1.9 besitzen dieselbe VST3-Identität: Für den Plugin-A/B-Test die gesicherte stabile Datei jeweils ersetzen, statt beide gleichzeitig als verschiedene Instrumente zu installieren. Für den MIDI-A/B-Test ist kein Austausch nötig. Veröffentlichung erst nach Beurteilung; Phrasierung und Motiventwicklung bleiben spätere Aufgaben.
+
+
+## Fahrt und Bedienung (2.0)
+
+Die drei reproduzierten Fehler aus 1.9 waren: linke Gesten wählten bei sichtbarem B den nächstgelegenen Punkt; die Sichtbarkeit eines ohne Fahrt gesetzten B ging beim Editor-Neuöffnen verloren; ein Neustart vor dem nächsten Sechzehntel konnte durch die alte Ankunftsmeldung wieder ausgeschaltet werden.
+
+Jetzt wählen Maustasten strikt A/B. Eine eigene, nicht als Host-Parameter exponierte Fahrtgeneration trennt neue Starts von alten Audioblockmeldungen. Der Audiopfad beobachtet Ausschalten/Neustart auch zwischen Rasterpunkten. Ziel-Sichtbarkeit wird als zusätzliche Projekteigenschaft gespeichert; alte Projekte ohne diese Eigenschaft werden anhand der Zielparameter/Fahrt migriert. Bestehende Parameter-IDs und Kanalbelegung bleiben erhalten.
+
+Hinfahrten verwenden beim Retargeting einen neuen Kurvenabschnitt ab der Position der bisherigen Kurve am Änderungsrasterpunkt. Die Restdauer bleibt gleich. Bei Rückfahrten bleibt das ursprüngliche A das Ziel. DAW-Sprünge rekonstruieren die kanonische Kurve aus den dann gültigen Parametern; vorherige nicht automatisierte manuelle Ziele bilden keine historische Timeline. Der Export beginnt weiterhin eine frische Szene. Die Fahrt arbeitet wie bisher auf dem musikalischen Sechzehntelraster, nicht mit einer neu eingeführten samplegenauen Bewegungsautomation.
+
+Tests decken alle vier Kurven, Retargeting, Rückfahrt, schnellen Neustart, Seek/Loop, Stopp, manuelle Übernahme, Editor-/Projekt-Wiederherstellung und Kanalzuordnungen einschließlich geteilter Kanäle ab. Die bestehenden Export-, CC-, Notenbesitz-, Legato- und Stimmführungstests laufen zusätzlich.

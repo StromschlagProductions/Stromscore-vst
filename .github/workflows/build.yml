@@ -160,6 +160,16 @@ jobs:
       - name: Installations-ZIP pruefen und Pruefsumme erzeugen
         run: python scripts/validate_release.py "${{ env.ZIP_NAME }}" "${{ env.STROMSCORE_VERSION }}"
 
+      - name: Geprueften Testbuild bereitstellen
+        uses: actions/upload-artifact@v4
+        with:
+          name: Stromscore-${{ env.STROMSCORE_VERSION }}-Testbuild-Windows
+          path: |
+            ${{ env.ZIP_NAME }}
+            ${{ env.ZIP_NAME }}.sha256
+          if-no-files-found: error
+          retention-days: 30
+
       - name: Release mit ZIP erstellen
         if: >-
           ((github.event_name == 'workflow_dispatch' && inputs.publish) || (github.event_name == 'push' && startsWith(github.event.head_commit.message, 'release: Stromscore '))) && github.ref == 'refs/heads/main'
