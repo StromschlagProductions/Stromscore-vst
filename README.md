@@ -24,7 +24,7 @@ klassischer Hörspiele. Daraus ist ein Vorrat an Wendungen entstanden: Akkordfol
 Melodien bekannter Stücke werden nicht nachgebaut. Das Ziel: Szenen so zu untermalen, wie ich es selbst tun würde, und das einfacher
 zu machen.
 
-**Stand 1.4:** Forschungsphase. Bedienung und Klang werden mit jeder Version weiter verfeinert.
+**Stand:** Forschungsphase. Bedienung und Klang werden mit jeder Version weiter verfeinert.
 
 **⬇ Download (Windows · VST3):** https://github.com/StromschlagProductions/Stromscore-vst/releases/latest
 
@@ -205,23 +205,23 @@ Danach in der DAW die Plugins neu einlesen.
 
 ## Versionen
 
-- **0.1** – erster Test: Noten-Generator mit fünf MIDI-Kanälen.
-- **0.2** – Hinweis zur Herkunft der Musik (keine KI, feste Regeln, Grundlage ist mein eigener Stil) in Hilfe und README.
-- **0.3** – Ebenen einzeln ein- und ausschaltbar (Aus / Auto / An), Fläche, Bass und Arp wahlweise den Akkorden folgend oder auf dem Grundakkord bleibend. Hängende Töne nach Stopp behoben. Neuer Untertitel „Underscore Inspirator“.
-- **0.4** – Stimmungsfeld mit Färbung, Intensität und Unruhe (ersetzt VERLAUF und MODUS), Steuerung per CC 11 / 1 / 74, Vorrat an 22 Wendungen aus Filmmusik und klassischer Hörspielmusik, Muster für Fläche, Bass und Arp, Taktarten inklusive ungerader Takte, Swing, Akkord- und Wendungsanzeige.
-- **0.5** – Wechsel schon am nächsten Schlag (wahlweise Takt, 2 oder 4 Takte) mit sauberem Übergang, eigene Akkordfolge mit bis zu acht Akkorden, Oktavlage je Ebene, Fläche und Bass eine Oktave höher, 13 neue Wendungen (35 insgesamt), neue Muster (Staccato, Walking, Wechselbass, Herzschlag, Arpeggio, Sprünge), Oktaven-Bass entfernt, Vorhören auch ohne Wiedergabe, Stimmungsfeld mit „Ruhe“ als Ausgangspunkt, kompaktere Oberfläche.
-- **0.6** – 13 neue Wendungen (48 insgesamt), neue Figuren (Kaskade, Oktatonisch, Quarten) und Bass Orgelpunkt, Akkorde mit eigenem Basston, weiter Satz der Fläche, Solo und Mute je Ebene, Intensität je Ebene, ABWECHSLUNG und Anzeige der passenden Wendungen.
-- **0.7** – Ebene 5 wird zur Gegenstimme, eigene Folge leiht den Stil der Wendung am Punkt im Feld, VARIATION wählt bei eigener Folge die Lage der Fläche, Durchgangsakkorde zuschaltbar, Anzeige, ab wann jede Ebene einsetzt.
-- **0.8** – Genre-Schalter Score / 80er Pop-Rock mit 20 eigenen Wendungen und neuen Mustern (Hi-NRG, Galopp, SID, Gated, Hook-Linie), Dynamik per CC für Orchester-Libraries, Legato der Gegenstimme, MIDI zum Herausziehen, nächster Akkord mit Leiste, Feld-Karte beim Überfahren.
-- **0.9** – Beschreibung der Gegenstimme gekürzt, damit sie unter Windows vollständig in den Kasten passt.
-- **1.0** – Tonumfang je Ebene für Orchesterinstrumente, mit Vorlagen und Anlernen per Keyboard, ohne dass ein Ton wegfällt. Sieben neue Pop-Rock-Wendungen im Stil der Fernsehmusik um 1980 (27 insgesamt).
-- **1.1** – MIDI-Kanal je Ebene frei wählbar, Fläche und Bass mit getrennten Kanälen für lange und kurze Töne, Farbe wird zum Akzent mit Tupfer und Stich, Gegenstimme als einzige lange Linie mit Legato-Schalter, getrennte Lagen für Akzent und Gegenstimme, aufgeräumte Ebenen-Kästen mit Mute und Solo wie in Studio One, größere Tooltip-Schrift, breiteres Fenster.
-- **1.2** – Akzent-Kasten mit eigener Zeile für den Tonumfang von Tupfer und Stich; Tupfer und Stich zeigen ihren Einsatz getrennt („ab 25 / 50 %“).
-- **1.3** – Szene ab Wiedergabebeginn: Einstieg mit einer Ebene (sieben Arten oder gewürfelt), gestaffelter Aufbau über 4, 8 oder 16 Takte, Härte des Einsatzes, Szenenlänge mit hartem, ausklingendem oder offenem Ende; Fahrt von A nach B mit Vorbereitung des Ziels; Motiv der Gegenstimme; Trägheit gegen Flackern an den Schwellen.
-- **1.4** – Stich als einzelner Schlag, fest auf einer Taste (für perkussive Samples) oder auf dem Grundton des Akkords; Riss ab 80 % Unruhe mit harten Halbton-Stößen hoch über dem Satz; Keyboard durchleiten und Hören beim Einstellen von Tonumfang und Stich; ziehbare Balken für Färbung, Intensität und Unruhe; Stimmungsfeld mit Farbzonen, Spur, Lichtern der Ebenen und vibrierendem Außenring, die Unruhe wandert bei einer Fahrt mit; größere Tooltips.
-- **1.5** – Stimmungsfeld wieder schlicht (einfarbig, ohne Spur und Lichter); ab 80 % Unruhe wird der zappelnde Ring im Feld und der Balken in der Akkord-Anzeige rot; Stich-Fenster schaltet zwischen Fest und Akkord jetzt richtig um; Kasten „Akzente“.
-- **1.6** – Ruhezone: Ganz unten im Feld (Intensität unter etwa 10 %) bleibt der Akkord stehen, auch bei Unruhe; erst nach oben läuft die Akkordfolge weiter.
 - **1.7** – Fahrt: Bei der Ankunft wird B zum neuen A und die Fahrt schaltet sich aus; unterwegs ausgeschaltet bleibt die Musik, wo sie gerade ist; eine neu eingeschaltete Fahrt startet mit dem nächsten Takt vom Punkt aus. Akkord- und Tonnamen international mit ♯ und ♭ (B statt H, B♭ statt B).
+- **1.6** – Ruhezone: Ganz unten im Feld (Intensität unter etwa 10 %) bleibt der Akkord stehen, auch bei Unruhe; erst nach oben läuft die Akkordfolge weiter.
+- **1.5** – Stimmungsfeld wieder schlicht (einfarbig, ohne Spur und Lichter); ab 80 % Unruhe wird der zappelnde Ring im Feld und der Balken in der Akkord-Anzeige rot; Stich-Fenster schaltet zwischen Fest und Akkord jetzt richtig um; Kasten „Akzente“.
+- **1.4** – Stich als einzelner Schlag, fest auf einer Taste (für perkussive Samples) oder auf dem Grundton des Akkords; Riss ab 80 % Unruhe mit harten Halbton-Stößen hoch über dem Satz; Keyboard durchleiten und Hören beim Einstellen von Tonumfang und Stich; ziehbare Balken für Färbung, Intensität und Unruhe; Stimmungsfeld mit Farbzonen, Spur, Lichtern der Ebenen und vibrierendem Außenring, die Unruhe wandert bei einer Fahrt mit; größere Tooltips.
+- **1.3** – Szene ab Wiedergabebeginn: Einstieg mit einer Ebene (sieben Arten oder gewürfelt), gestaffelter Aufbau über 4, 8 oder 16 Takte, Härte des Einsatzes, Szenenlänge mit hartem, ausklingendem oder offenem Ende; Fahrt von A nach B mit Vorbereitung des Ziels; Motiv der Gegenstimme; Trägheit gegen Flackern an den Schwellen.
+- **1.2** – Akzent-Kasten mit eigener Zeile für den Tonumfang von Tupfer und Stich; Tupfer und Stich zeigen ihren Einsatz getrennt („ab 25 / 50 %“).
+- **1.1** – MIDI-Kanal je Ebene frei wählbar, Fläche und Bass mit getrennten Kanälen für lange und kurze Töne, Farbe wird zum Akzent mit Tupfer und Stich, Gegenstimme als einzige lange Linie mit Legato-Schalter, getrennte Lagen für Akzent und Gegenstimme, aufgeräumte Ebenen-Kästen mit Mute und Solo wie in Studio One, größere Tooltip-Schrift, breiteres Fenster.
+- **1.0** – Tonumfang je Ebene für Orchesterinstrumente, mit Vorlagen und Anlernen per Keyboard, ohne dass ein Ton wegfällt. Sieben neue Pop-Rock-Wendungen im Stil der Fernsehmusik um 1980 (27 insgesamt).
+- **0.9** – Beschreibung der Gegenstimme gekürzt, damit sie unter Windows vollständig in den Kasten passt.
+- **0.8** – Genre-Schalter Score / 80er Pop-Rock mit 20 eigenen Wendungen und neuen Mustern (Hi-NRG, Galopp, SID, Gated, Hook-Linie), Dynamik per CC für Orchester-Libraries, Legato der Gegenstimme, MIDI zum Herausziehen, nächster Akkord mit Leiste, Feld-Karte beim Überfahren.
+- **0.7** – Ebene 5 wird zur Gegenstimme, eigene Folge leiht den Stil der Wendung am Punkt im Feld, VARIATION wählt bei eigener Folge die Lage der Fläche, Durchgangsakkorde zuschaltbar, Anzeige, ab wann jede Ebene einsetzt.
+- **0.6** – 13 neue Wendungen (48 insgesamt), neue Figuren (Kaskade, Oktatonisch, Quarten) und Bass Orgelpunkt, Akkorde mit eigenem Basston, weiter Satz der Fläche, Solo und Mute je Ebene, Intensität je Ebene, ABWECHSLUNG und Anzeige der passenden Wendungen.
+- **0.5** – Wechsel schon am nächsten Schlag (wahlweise Takt, 2 oder 4 Takte) mit sauberem Übergang, eigene Akkordfolge mit bis zu acht Akkorden, Oktavlage je Ebene, Fläche und Bass eine Oktave höher, 13 neue Wendungen (35 insgesamt), neue Muster (Staccato, Walking, Wechselbass, Herzschlag, Arpeggio, Sprünge), Oktaven-Bass entfernt, Vorhören auch ohne Wiedergabe, Stimmungsfeld mit „Ruhe“ als Ausgangspunkt, kompaktere Oberfläche.
+- **0.4** – Stimmungsfeld mit Färbung, Intensität und Unruhe (ersetzt VERLAUF und MODUS), Steuerung per CC 11 / 1 / 74, Vorrat an 22 Wendungen aus Filmmusik und klassischer Hörspielmusik, Muster für Fläche, Bass und Arp, Taktarten inklusive ungerader Takte, Swing, Akkord- und Wendungsanzeige.
+- **0.3** – Ebenen einzeln ein- und ausschaltbar (Aus / Auto / An), Fläche, Bass und Arp wahlweise den Akkorden folgend oder auf dem Grundakkord bleibend. Hängende Töne nach Stopp behoben. Neuer Untertitel „Underscore Inspirator“.
+- **0.2** – Hinweis zur Herkunft der Musik (keine KI, feste Regeln, Grundlage ist mein eigener Stil) in Hilfe und README.
+- **0.1** – erster Test: Noten-Generator mit fünf MIDI-Kanälen.
 
 Alle Release-Hinweise: `docs/releases/`.
 
