@@ -1,4 +1,5 @@
 #include "PluginProcessor.h"
+#include "PluginEditor.h"
 #include "TestSupport.h"
 #include <map>
 #include <memory>
@@ -564,6 +565,40 @@ int main()
             }
         }
         setParam (*p, "intensitaet", 0.0f);
+    }
+
+    // Rechtsklick im Stimmungsfeld setzt nur das Ziel B (die Fahrt startet nicht); Linksklick bewegt A
+    {
+        setParam (*p, "fahrt", 0.0f);
+        setParam (*p, "faerbung", 0.3f); setParam (*p, "intensitaet", 0.3f);
+        std::unique_ptr<juce::AudioProcessorEditor> editor (p->createEditor());
+        editor->setSize (StromscoreProcessor::kUiWidth, StromscoreProcessor::kUiHeight);
+        MoodPad* pad = nullptr;
+        std::function<void (juce::Component&)> find = [&] (juce::Component& c)
+        {
+            if (auto* m = dynamic_cast<MoodPad*> (&c)) pad = m;
+            for (auto* ch : c.getChildren()) find (*ch);
+        };
+        find (*editor);
+        CHECK (pad != nullptr);
+        if (pad != nullptr)
+        {
+            auto press = [&] (bool right)
+            {
+                const auto mods = right ? juce::ModifierKeys (juce::ModifierKeys::rightButtonModifier) : juce::ModifierKeys (juce::ModifierKeys::leftButtonModifier);
+                const juce::MouseEvent e (juce::Desktop::getInstance().getMainMouseSource(), juce::Point<float> (pad->getWidth() * 0.8f, pad->getHeight() * 0.2f), mods,
+                                          1.0f, 0.0f, 0.0f, 0.0f, 0.0f, pad, pad, juce::Time::getCurrentTime(), juce::Point<float> (pad->getWidth() * 0.8f, pad->getHeight() * 0.2f), juce::Time::getCurrentTime(), 1, false);
+                pad->mouseDown (e);
+                pad->mouseUp (e);
+            };
+            press (true);
+            CHECK (pad->targetPending);
+            CHECK (std::abs (p->apvts.getRawParameterValue ("faerbung")->load() - 0.3f) < 1e-3f);   // A bleibt stehen
+            CHECK (p->apvts.getRawParameterValue ("fahrtX")->load() > 0.6f);                         // B ist gesetzt
+            CHECK (p->apvts.getRawParameterValue ("fahrt")->load() < 0.5f);                          // keine Fahrt
+            press (false);
+            CHECK (p->apvts.getRawParameterValue ("faerbung")->load() > 0.6f);                       // Linksklick: A springt
+        }
     }
 
     // Texte: Prozent

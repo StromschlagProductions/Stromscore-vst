@@ -43,6 +43,8 @@ public:
     juce::Colour panel, line, accent, text, dim;
     float x = 0.3f, y = 0.3f, z = 0.0f;
     bool showB = false, showNow = false;
+    bool targetPending = false;                   // Ziel B per Rechtsklick gesetzt, die Fahrt laeuft noch nicht
+    std::function<void()> onSetTarget;
     float bx = 0.8f, by = 0.85f, nowX = 0.0f, nowY = 0.0f;
     std::function<void (float, float)> onDrag, onDragB;
     std::function<void()> onDragStart, onDragEnd, onDragStartB, onDragEndB;
@@ -57,7 +59,12 @@ public:
         dragging = true; numHover = 0;
         const auto a = area();
         auto dist = [&] (float px, float py) { return e.position.getDistanceFrom ({ a.getX() + px * a.getWidth(), a.getBottom() - py * a.getHeight() }); };
-        draggingB = showB && dist (bx, by) < dist (x, y);
+        if (e.mods.isRightButtonDown())   // rechte Taste: nur das Ziel B setzen, ohne die Fahrt zu starten
+        {
+            draggingB = true;
+            if (onSetTarget) onSetTarget();
+        }
+        else draggingB = showB && dist (bx, by) < dist (x, y);
         if (draggingB) { if (onDragStartB) onDragStartB(); } else if (onDragStart) onDragStart();
         move (e);
     }
@@ -366,6 +373,7 @@ public:
 
 class StromscoreEditor : public juce::AudioProcessorEditor, private juce::Timer
 {
+    bool lastDrive = false;
 public:
     explicit StromscoreEditor (StromscoreProcessor&);
     ~StromscoreEditor() override;

@@ -48,8 +48,8 @@ void MoodPad::paint (juce::Graphics& g)
 
     const auto pa = toScreen (x, y);
     const float px = pa.x, py = pa.y;
-    // Fahrt: gestrichelter Weg von A nach B, B als Ring
-    if (showB)
+    // Fahrt: gestrichelter Weg von A nach B, B als Ring (auch schon, wenn das Ziel nur gesetzt ist)
+    if (showB || targetPending)
     {
         const auto pb = toScreen (bx, by);
         juce::Path path, dashed;
@@ -95,7 +95,7 @@ void MoodPad::paint (juce::Graphics& g)
     // Punkt A
     g.setColour (accent);
     g.fillEllipse (px - 6.0f, py - 6.0f, 12.0f, 12.0f);
-    if (showB)   // mit Fahrt ist der Punkt A beschriftet
+    if (showB || targetPending)   // mit Fahrt oder gesetztem Ziel ist der Punkt A beschriftet
     {
         g.setColour (juce::Colours::black);
         g.setFont (juce::FontOptions (9.5f, juce::Font::bold));
@@ -587,7 +587,7 @@ static juce::AttributedString buildHelp (juce::Colour text, juce::Colour accent,
     note ("Rechts in der Leiste FAHRT steht während der Wiedergabe der Stand der Szene: Takt, Einstieg, Aufbau, Fahrt und wie viele Takte bis zum Ende bleiben.");
 
     head ("Fahrt von A nach B");
-    body ("Mit FAHRT wandert die Musik selbst vom Punkt im Feld (A) zu einem Ziel (B). B erscheint als Ring im Stimmungsfeld; gezogen wird jeweils der Punkt, der näher an der Maus liegt. START legt fest, wann die Fahrt beginnt (sofort oder ab Takt 5, 9, 17, 33), DAUER, wie lange sie braucht, KURVE den Verlauf: gleichmäßig, erst langsam und dann schnell, in vier Stufen oder hin und zurück (zur Mitte der Dauer bei B, am Ende wieder bei A). Kommt die Fahrt bei B an, wird B zum neuen A, und die Fahrt schaltet sich aus: Du bleibst dort und kannst von Hand weiterziehen. Schaltest du sie unterwegs aus, wird die Stelle, an der die Musik gerade ist, zu A; nichts springt zurück. Schaltest du FAHRT während der Wiedergabe wieder ein, geht es mit dem nächsten Takt vom Punkt aus los. START gilt nur, wenn die Wiedergabe mit eingeschalteter Fahrt beginnt. Während der Wiedergabe zeigt ein kleiner Punkt, wo die Musik gerade ist; der Unruhe-Ring und die Werte in der Akkord-Anzeige wandern mit ihm.");
+    body ("Mit FAHRT wandert die Musik selbst vom Punkt im Feld (A) zu einem Ziel (B). B erscheint als Ring im Stimmungsfeld; gezogen wird jeweils der Punkt, der näher an der Maus liegt. Mit der rechten Maustaste setzt du das Ziel B, ohne dass die Fahrt startet: Der Ring erscheint dort, die Musik bleibt bei A, und mit FAHRT geht es los. START legt fest, wann die Fahrt beginnt (sofort oder ab Takt 5, 9, 17, 33), DAUER, wie lange sie braucht, KURVE den Verlauf: gleichmäßig, erst langsam und dann schnell, in vier Stufen oder hin und zurück (zur Mitte der Dauer bei B, am Ende wieder bei A). Kommt die Fahrt bei B an, wird B zum neuen A, und die Fahrt schaltet sich aus: Du bleibst dort und kannst von Hand weiterziehen. Schaltest du sie unterwegs aus, wird die Stelle, an der die Musik gerade ist, zu A; nichts springt zurück. Schaltest du FAHRT während der Wiedergabe wieder ein, geht es mit dem nächsten Takt vom Punkt aus los. START gilt nur, wenn die Wiedergabe mit eingeschalteter Fahrt beginnt. Während der Wiedergabe zeigt ein kleiner Punkt, wo die Musik gerade ist; der Unruhe-Ring und die Werte in der Akkord-Anzeige wandern mit ihm.");
     body ("Weil Stromscore das Ziel kennt, bereitet es eine Fahrt nach oben vor: Im Takt vor dem Ziel zieht sich der Bass in der zweiten Hälfte zurück und ein Stich kündigt an, am Ziel setzen Fläche und Bass kräftig neu ein. Von Hand fahren und Automation gehen weiterhin; die Fahrt geht dann vom aktuellen Punkt A aus.");
 
     head ("Trägheit");
@@ -1002,7 +1002,7 @@ StromscoreEditor::StromscoreEditor (StromscoreProcessor& p) : AudioProcessorEdit
     hardness.setTooltip (u8 ("Wie die Ebenen einsetzen. Unter 50 % weich eingeblendet (ganz links über zwei Takte), über 50 % mit einem kräftigen ersten Anschlag. Gilt auch, wenn eine Ebene mit steigender Intensität dazukommt. Doppelklick: Mitte."));
     lengthBox.setTooltip (u8 ("Länge der Szene ab dem Start der Wiedergabe. Unbegrenzt: die Musik läuft weiter. Mit Länge endet sie nach dieser Zahl von Takten, wie unter „Ende“ eingestellt."));
     endBox.setTooltip (u8 ("Hart: Bis zum Schluss spielen alle Ebenen, im letzten Takt zieht sich der Bass zurück und ein Stich kündigt an, dann ein kurzer, kräftiger Schlag und Stille. Ausklingend: Die Ebenen gehen nacheinander, was zuletzt kam, zuerst; die erste Ebene klingt bis zum Ende. Offen: Die Musik wird zum Schluss noch dichter und bricht dann ohne Schlussschlag ab."));
-    driveButton.setTooltip (u8 ("Fahrt von A nach B: Die Musik wandert selbst vom Punkt im Feld (A) zum Ziel (B). Ziehe B im Stimmungsfeld an seinen Platz (der Punkt, der näher an der Maus liegt, wird gezogen). Führt die Fahrt nach oben, bereitet die Musik das Ziel vor: Der Bass zieht sich zurück, ein Stich kündigt an, am Ziel setzen alle Ebenen kräftig ein. Am Ziel wird B zum neuen A und die Fahrt schaltet sich aus; unterwegs ausgeschaltet bleibt die Musik, wo sie gerade ist."));
+    driveButton.setTooltip (u8 ("Fahrt von A nach B: Die Musik wandert selbst vom Punkt im Feld (A) zum Ziel (B). Ziehe B im Stimmungsfeld an seinen Platz (der Punkt, der näher an der Maus liegt, wird gezogen) oder setze es vorher mit der rechten Maustaste, ohne dass die Fahrt startet. Führt die Fahrt nach oben, bereitet die Musik das Ziel vor: Der Bass zieht sich zurück, ein Stich kündigt an, am Ziel setzen alle Ebenen kräftig ein. Am Ziel wird B zum neuen A und die Fahrt schaltet sich aus; unterwegs ausgeschaltet bleibt die Musik, wo sie gerade ist."));
     startBox.setTooltip (u8 ("Wann die Fahrt beginnt, gezählt ab dem Start der Wiedergabe."));
     durBox.setTooltip (u8 ("Wie lange die Fahrt von A nach B dauert."));
     curveBox.setTooltip (u8 ("Gleichmäßig; erst langsam, dann schnell; in vier Stufen; oder hin und zurück (zur Mitte der Dauer bei B, am Ende wieder bei A)."));
@@ -1012,6 +1012,7 @@ StromscoreEditor::StromscoreEditor (StromscoreProcessor& p) : AudioProcessorEdit
         targetAttachment[a] = std::make_unique<juce::ParameterAttachment> (*processor.apvts.getParameter (a == 0 ? "fahrtX" : "fahrtY"),
             [this, a] (float v) { (a == 0 ? pad.bx : pad.by) = v; pad.repaint(); }, nullptr);
     for (auto& t : targetAttachment) t->sendInitialUpdate();
+    pad.onSetTarget = [this] { pad.targetPending = true; pad.repaint(); };
     pad.onDragStartB = [this] { targetAttachment[0]->beginGesture(); targetAttachment[1]->beginGesture(); };
     pad.onDragB = [this] (float nx, float ny) { targetAttachment[0]->setValueAsPartOfGesture (nx); targetAttachment[1]->setValueAsPartOfGesture (ny); };
     pad.onDragEndB = [this] { targetAttachment[0]->endGesture(); targetAttachment[1]->endGesture(); };
@@ -1220,6 +1221,8 @@ void StromscoreEditor::timerCallback()
         const bool drive = settings.drive;
         const bool running = processor.sceneBar.load() >= 0;
         const bool showNow = drive && running;
+        if (lastDrive && ! drive && pad.targetPending) { pad.targetPending = false; pad.repaint(); }   // angekommen: B ist zu A geworden
+        lastDrive = drive;
         if (pad.showB != drive || pad.showNow != showNow) { pad.showB = drive; pad.showNow = showNow; pad.repaint(); }
         if (showNow && (pad.nowX != processor.pointX.load() || pad.nowY != processor.pointY.load()))
         {
