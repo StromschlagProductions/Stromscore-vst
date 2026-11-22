@@ -73,6 +73,8 @@ private:
             xml->setAttribute ("uiW", StromscoreProcessor::kUiWidth);
             juce::AudioProcessor::copyXmlToBinary (*xml, state);
             processor.setStateInformation (state.getData(), (int) state.getSize());
+            processor.publishedDriveGeneration.store (processor.driveGeneration.load());
+            processor.driveProgress.store (0.625f); // same fixture position as pointX/Y above
             editor.reset (processor.createEditor());
             editor->setSize (StromscoreProcessor::kUiWidth, StromscoreProcessor::kUiHeight); editor->setVisible (true);
             return;   // Anhaenge und Timer erst auf der echten Message-Loop einschwingen lassen
