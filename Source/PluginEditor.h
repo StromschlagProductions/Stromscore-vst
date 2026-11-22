@@ -48,20 +48,6 @@ public:
     std::function<void()> onDragStart, onDragEnd, onDragStartB, onDragEndB;
     std::function<void (float)> onWheel;
     std::function<void (float, float)> onHover;   // Maus ueber dem Feld (ohne Klick): Feld-Karte
-    float lights[stromscore::kNumLayers] {};      // Lampen der Ebenen (0 ... 1)
-    bool lightOn[stromscore::kNumLayers] {};      // Ebene spielt gerade
-    void pushTrail (float tx, float ty)
-    {
-        const auto now = juce::Time::getMillisecondCounter();
-        if (trailN > 0)
-        {
-            const auto& last = trail[(trailHead + kTrail - 1) % kTrail];
-            if (std::abs (last.x - tx) < 0.002f && std::abs (last.y - ty) < 0.002f) return;
-        }
-        trail[trailHead] = { tx, ty, now };
-        trailHead = (trailHead + 1) % kTrail;
-        trailN = std::min (trailN + 1, kTrail);
-    }
     struct HoverItem { juce::String name; float x = 0, y = 0; };
     HoverItem hover[3];
     int numHover = 0;
@@ -90,10 +76,6 @@ public:
     }
     void mouseExit (const juce::MouseEvent&) override { numHover = 0; repaint(); }
     bool dragging = false, draggingB = false;
-    static constexpr int kTrail = 64;
-    struct TrailPoint { float x = 0, y = 0; juce::uint32 t = 0; };
-    TrailPoint trail[kTrail];
-    int trailHead = 0, trailN = 0;
     void mouseWheelMove (const juce::MouseEvent&, const juce::MouseWheelDetails& w) override { if (onWheel) onWheel (w.deltaY * 0.25f); }
 private:
     juce::Rectangle<float> area() const { return getLocalBounds().toFloat().reduced (10.0f); }
@@ -224,7 +206,7 @@ private:
     void setParam (const juce::String& id, float value);
     bool isStich() const { return layer == 5; }
     bool fixedMode() const;
-    void updateMode();
+    void updateMode (bool fixed);
     void updateThru();
     int offset() const { return isStich() ? 30 : 0; }
     StromscoreProcessor& processor;

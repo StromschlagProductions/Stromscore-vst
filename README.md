@@ -41,8 +41,7 @@ bin, auch wenn er manchmal umständlich war. STROMSCORE soll nur die technische 
 | ![Dunkle Oberfläche](docs/oberflaeche-dunkel.png) | ![Helle Oberfläche](docs/oberflaeche-hell.png) |
 
 Die Bilder zeigen eine laufende Szene in Takt 6: Einstieg mit Bass-Schlag, Aufbau über 8 Takte und eine Fahrt von A nach B. Der kleine
-Punkt im Stimmungsfeld zeigt, wo die Musik gerade ist; dort zappelt die Unruhe, eine kurze Spur zeigt, woher er kommt, und fünf kleine
-Lichter stehen für die Ebenen, die gerade spielen. Die Ecken des Feldes sind dezent eingefärbt.
+Punkt im Stimmungsfeld zeigt, wo die Musik gerade ist; dort zappelt die Unruhe.
 
 Über **Bearbeiten** legst du die eigene Akkordfolge fest:
 
@@ -87,8 +86,8 @@ Akkord, die Wendung und ihre Akkorde.
 **Der Riss:** Ab 80 % Unruhe kommen kurze, harte Stöße aus zwei Tönen im Halbtonabstand hoch über dem Satz dazu, wie die kreischenden
 Streicher in Bernard Herrmanns *Psycho*. Sie gehen auf den Kanal der kurzen Fläche, wo am besten Staccato- oder Spiccato-Streicher liegen.
 Bei 80 % kommt der Riss selten und leiser, bis 100 % immer häufiger, lauter und doppelt, ganz oben mit einem dritten Reibungston. Er hängt
-nur an der Unruhe, so kann auch eine leise Szene einmal wehtun. Im Feld flackert der äußere Ring dann rot, im Balken markiert ein Strich
-die 80 %.
+nur an der Unruhe, so kann auch eine leise Szene einmal wehtun. Im Feld wird der zappelnde Unruhe-Ring dann rot und noch wilder, im Balken
+ist der Teil ab 80 % rot.
 
 **Wechsel:** Bewegst du den Punkt deutlich, setzt die neue Wendung am nächsten Wechselpunkt mit ihrem ersten Akkord ein: am nächsten
 Schlag (Vorgabe), am nächsten Takt, alle 2 oder alle 4 Takte. Gehaltene Töne der alten Stimmung enden genau dort, der Arp läuft im Takt
@@ -220,6 +219,7 @@ Danach in der DAW die Plugins neu einlesen.
 - **1.2** – Akzent-Kasten mit eigener Zeile für den Tonumfang von Tupfer und Stich; Tupfer und Stich zeigen ihren Einsatz getrennt („ab 25 / 50 %“).
 - **1.3** – Szene ab Wiedergabebeginn: Einstieg mit einer Ebene (sieben Arten oder gewürfelt), gestaffelter Aufbau über 4, 8 oder 16 Takte, Härte des Einsatzes, Szenenlänge mit hartem, ausklingendem oder offenem Ende; Fahrt von A nach B mit Vorbereitung des Ziels; Motiv der Gegenstimme; Trägheit gegen Flackern an den Schwellen.
 - **1.4** – Stich als einzelner Schlag, fest auf einer Taste (für perkussive Samples) oder auf dem Grundton des Akkords; Riss ab 80 % Unruhe mit harten Halbton-Stößen hoch über dem Satz; Keyboard durchleiten und Hören beim Einstellen von Tonumfang und Stich; ziehbare Balken für Färbung, Intensität und Unruhe; Stimmungsfeld mit Farbzonen, Spur, Lichtern der Ebenen und vibrierendem Außenring, die Unruhe wandert bei einer Fahrt mit; größere Tooltips.
+- **1.5** – Stimmungsfeld wieder schlicht (einfarbig, ohne Spur und Lichter); ab 80 % Unruhe wird der zappelnde Ring im Feld und der Balken in der Akkord-Anzeige rot; Stich-Fenster schaltet zwischen Fest und Akkord jetzt richtig um; Kasten „Akzente“.
 
 Alle Release-Hinweise: `docs/releases/`.
 

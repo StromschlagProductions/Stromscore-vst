@@ -1,6 +1,7 @@
 // Render real JUCE editor components; no image retouching. Args: output directory.
 #include "PluginProcessor.h"
 #include <iostream>
+#include <cstdlib>
 
 class Capture final : private juce::Timer
 {
@@ -78,6 +79,12 @@ private:
         // Das Fenster oeffnet sich asynchron; ohne Fensterfokus (virtueller Bildschirm) schliesst JUCE es nach 0,2 s wieder.
         // Darum wird aufgenommen, sobald es da ist.
         if (index >= 3 && ! hasCallout (*editor) && settleTicks++ < 20) return;
+        if (index == 4 && std::getenv ("STROMSCORE_TOGGLE_TEST") != nullptr && toggles < std::atoi (std::getenv ("STROMSCORE_TOGGLE_TEST")))   // Pruefung: im offenen Stich-Fenster hin und her schalten
+        {
+            clickButton (*editor, (toggles % 2 == 0) ? "Akkord" : "Fest");
+            ++toggles;
+            return;
+        }
         if (index <= 1 && steps < 10)   // die Musik faehrt ein Stueck auf B zu: die Spur entsteht
         {
             const float f = 0.4f + 0.0225f * (float) steps++;
@@ -126,6 +133,7 @@ private:
     bool lit = false;
     int settleTicks = 0;
     int steps = 0;
+    int toggles = 0;
 };
 
 int main (int argc, char** argv)
