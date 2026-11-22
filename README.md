@@ -78,7 +78,7 @@ Testklang direkt aus dem Plugin, auch ohne die Wiedergabe zu starten.
 | Intensität | Punkt senkrecht ziehen · CC 1 | Unten ruhig und dünn, oben aufgewühlt und dicht. Ebenen setzen ein, Bass und Arp werden schneller, die Fläche voller. |
 | Unruhe | Mausrad über dem Feld · CC 74 | Reibung, Halbtöne, Dissonanz, verschobene Betonungen. Bei wenig Intensität einzelne fremde Töne, bei viel Intensität kratzt der ganze Satz. Ab 80 % kommt der Riss dazu. Sichtbar als Ring um den Punkt, ab mittlerer Unruhe mit einem zweiten, vibrierenden Ring. |
 
-Unten in der Mitte liegt **Ruhe**, der neutrale Ausgangspunkt; die Ecken heißen Angst, Triumph, Lauern und Wärme. Färbung,
+Unten in der Mitte liegt **Ruhe**, der neutrale Ausgangspunkt. Ganz unten (Intensität unter etwa 10 %) bleibt der Akkord stehen, auch bei Unruhe; erst nach oben läuft die Akkordfolge weiter; die Ecken heißen Angst, Triumph, Lauern und Wärme. Färbung,
 Intensität und Unruhe stehen rechts in der Akkord-Anzeige laufend in Prozent. Die drei Balken dort lassen sich auch mit der Maus ziehen,
 der Punkt im Feld folgt; so lässt sich besonders die Unruhe genau einstellen. Eine Wendung dauert acht Takte; die Anzeige rechts oben zeigt den klingenden
 Akkord, die Wendung und ihre Akkorde.
@@ -220,6 +220,7 @@ Danach in der DAW die Plugins neu einlesen.
 - **1.3** – Szene ab Wiedergabebeginn: Einstieg mit einer Ebene (sieben Arten oder gewürfelt), gestaffelter Aufbau über 4, 8 oder 16 Takte, Härte des Einsatzes, Szenenlänge mit hartem, ausklingendem oder offenem Ende; Fahrt von A nach B mit Vorbereitung des Ziels; Motiv der Gegenstimme; Trägheit gegen Flackern an den Schwellen.
 - **1.4** – Stich als einzelner Schlag, fest auf einer Taste (für perkussive Samples) oder auf dem Grundton des Akkords; Riss ab 80 % Unruhe mit harten Halbton-Stößen hoch über dem Satz; Keyboard durchleiten und Hören beim Einstellen von Tonumfang und Stich; ziehbare Balken für Färbung, Intensität und Unruhe; Stimmungsfeld mit Farbzonen, Spur, Lichtern der Ebenen und vibrierendem Außenring, die Unruhe wandert bei einer Fahrt mit; größere Tooltips.
 - **1.5** – Stimmungsfeld wieder schlicht (einfarbig, ohne Spur und Lichter); ab 80 % Unruhe wird der zappelnde Ring im Feld und der Balken in der Akkord-Anzeige rot; Stich-Fenster schaltet zwischen Fest und Akkord jetzt richtig um; Kasten „Akzente“.
+- **1.6** – Ruhezone: Ganz unten im Feld (Intensität unter etwa 10 %) bleibt der Akkord stehen, auch bei Unruhe; erst nach oben läuft die Akkordfolge weiter.
 
 Alle Release-Hinweise: `docs/releases/`.
 

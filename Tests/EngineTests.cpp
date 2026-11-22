@@ -1047,5 +1047,25 @@ int main()
         checkBalanced (ra);
         CHECK (ra.size() == rb.size());
     }
+
+    // 49) Ruhezone (ab 1.5): ganz unten im Feld bleibt der Akkord stehen, auch bei Unruhe; darueber laeuft die Folge
+    {
+        auto chords = [] (float y, float z, float y2 = -1.0f)
+        {
+            Settings s; s.y = y; s.x = 0.4f; s.z = z; s.padPattern = PadHeld; s.solo[kFlaeche] = true; s.follow[kFlaeche] = true;
+            std::set<std::set<int>> sets;
+            std::map<long long, std::set<int>> onsets;
+            for (const auto& e : run (s, 512, 60.0)) if (e.velocity > 0 && e.out == OutPadLong) onsets[e.sample].insert (e.note % 12);
+            for (const auto& o : onsets) sets.insert (o.second);
+            (void) y2;
+            return (int) sets.size();
+        };
+        CHECK (chords (0.0f, 0.0f) == 1);
+        CHECK (chords (0.05f, 0.6f) <= 2);   // Unruhe faerbt die Flaeche (Septime), der Akkord bleibt
+        CHECK (chords (0.5f, 0.0f) > 1);
+        // Auf demselben Wendungsplatz, ohne Sprung: jede Note endet genau einmal
+        Settings s; s.y = 0.0f; s.x = 0.4f; s.padPattern = PadHeld; s.follow[kFlaeche] = true;
+        checkBalanced (run (s, 512, 40.0));
+    }
     return 0;
 }

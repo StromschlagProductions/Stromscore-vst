@@ -88,6 +88,8 @@ constexpr int kEntryOrder[kNumEntries][kNumLayers] = {
     { kGegenstimme, kFlaeche, kBass, kArp, kAkzent },   // Gegenstimme
     { kFlaeche, kBass, kArp, kGegenstimme, kAkzent } }; // Alles zugleich (Reihenfolge nur fuers Ausduennen)
 constexpr int kEntryLayer[kNumEntries] = { -1, kFlaeche, kBass, kBass, kArp, kAkzent, kGegenstimme, -1 };
+constexpr float kStillIn = 0.10f;       // ganz unten im Feld (Intensitaet) steht der Akkord
+constexpr float kStillOut = 0.14f;      // erst darueber laeuft die Akkordfolge wieder
 constexpr float kHysteresis = 0.06f;   // Traegheit: so weit unter der Schwelle geht eine Ebene erst wieder aus
 
 // ------------------------------------------------------------------ Vokabular (Wendungen)
@@ -357,7 +359,7 @@ struct Meter
 class Generator
 {
 public:
-    void reset() { style = -1; csNote = -1; csPendingAt = -1; chaseStep = -1; lastGenre = -1; resetCc(); numActive = 0; running = false; lastPpqEnd = 0.0; phraseIndex = -1; current = -1; wendungStart = 0; curRoot = 0; curType = Min; curChord = -1;
+    void reset() { style = -1; csNote = -1; csPendingAt = -1; chaseStep = -1; lastGenre = -1; resetCc(); numActive = 0; running = false; lastPpqEnd = 0.0; phraseIndex = -1; current = -1; wendungStart = 0; still = false; chordBase = 0; curRoot = 0; curType = Min; curChord = -1;
                    sceneStep = 0; autoSeed = -1; sceneBarNow = -1; sceneEnded = false; for (int l = 0; l < kNumLayers; ++l) { on[l] = prevOn[l] = hOn[l] = false; } }
 
     // Fuer die Anzeige: Szene
@@ -877,7 +879,14 @@ private:
         const Wendung& w = W();
         long long cs = std::max (wendungStart, p.phraseStart);
         p.chordIdx = w.n - 1;
-        for (int i = 0; i < w.n; ++i)
+        if (still)   // Ruhezone: der Akkord steht bis zum Ende der Phrase
+        {
+            p.chordIdx = std::min (chordBase, w.n - 1);
+            p.chordStart = cs;
+            p.chordEnd = p.phraseEnd;
+            return p;
+        }
+        for (int i = std::min (chordBase, w.n - 1); i < w.n; ++i)
         {
             const long long ce = cs + (long long) w.ch[i].bars * meter.len;
             if (k < ce || i == w.n - 1) { p.chordIdx = i; break; }
@@ -898,7 +907,7 @@ private:
     void ensurePhrase (long long phrase, const Settings& s)
     {
         if (phrase == phraseIndex) return;
-        current = s.custom ? kCustomWendung : pick (s, phrase);
+        if (! still) { current = s.custom ? kCustomWendung : pick (s, phrase); chordBase = 0; }
         if (s.custom) style = pick (s, phrase);
         phraseIndex = phrase;
         wendungStart = phrase * phraseBars * meter.len;
@@ -916,9 +925,21 @@ private:
     }
 
     // Wechsel auf eine neue Wendung, wenn die laufende nicht mehr zur Lage passt (Hysterese ueber kKeepRatio)
+    // Ruhezone: ganz unten im Feld (Intensitaet) bleibt der Akkord stehen; gewechselt wird nur auf Wechselpunkten
+    bool updateStill (long long k, const Pos& p, const Settings& s)
+    {
+        if (current < 0 || ! isChangePoint (p, s)) return false;
+        const bool want = still ? s.y < kStillOut : s.y < kStillIn;
+        if (want == still) return false;
+        still = want;
+        if (still) chordBase = p.chordIdx;   // der gerade klingende Akkord bleibt
+        wendungStart = k;                    // beim Verlassen laeuft die Folge von diesem Akkord an weiter
+        return true;
+    }
+
     bool maybeSwitch (long long k, const Pos& p, const Settings& s)
     {
-        if (k == p.phraseStart || ! isChangePoint (p, s)) return false;
+        if (still || k == p.phraseStart || ! isChangePoint (p, s)) return false;
         if (current == kCustomWendung)   // eigene Folge: nur der geliehene Stil wechselt, die Akkorde bleiben
         {
             if (style < 0 || weight (wendungAt (genre, style), s) < std::min (kKeepRatio, keepRatio (s)) * bestWeight (s)) style = pick (s, k * 7 + 3);
@@ -1348,6 +1369,12 @@ private:
         ensurePhrase (phrase, s);
         Pos p = locate (k);
         bool restart = k == chaseStep;
+        if (updateStill (k, p, s))
+        {
+            releaseHeld (offset, out);        // gehaltene Toene neu setzen, auf demselben Akkord
+            p = locate (k);
+            restart = true;
+        }
         if (maybeSwitch (k, p, s))
         {
             releaseHeld (offset, out);        // alte Stimmung sauber beenden
@@ -1772,6 +1799,8 @@ private:
     bool running = false, wasCustom = false;
     double lastPpqEnd = 0.0;
     long long phraseIndex = -1, wendungStart = 0, chaseStep = -1;
+    bool still = false;   // Ruhezone: Akkord steht
+    int chordBase = 0;    // Akkord, ab dem die Folge laeuft (nach der Ruhezone)
     int current = -1, curChord = -1, curRoot = 0, curType = Min, style = -1;
     int genre = GenreScore, lastGenre = -1, curNextRoot = 0, curNextType = Min;
     float curProgress = 0.0f;
