@@ -452,7 +452,7 @@ int main()
         CHECK (p->sceneBar.load() == -1);
 
         // Laenge 8 Takte, hartes Ende: in der herausgezogenen Datei nach dem Schlusspunkt kein Ton mehr
-        setParam (*p, "szenenLaenge", 1.0f);
+        setParam (*p, "szenenLaenge", 8.0f);
         setParam (*p, "ende", (float) stromscore::EndHard);
         {
             const auto file = p->renderMidiFile (16);
@@ -543,8 +543,8 @@ int main()
         {
             setParam (*p, "faerbung", 0.2f); setParam (*p, "intensitaet", 0.2f);
             setParam (*p, "fahrtX", 0.8f); setParam (*p, "fahrtY", 0.9f);
-            setParam (*p, "fahrtTakte", 0.0f);   // 4 Takte
-            setParam (*p, "fahrtStart", 0.0f);
+            setParam (*p, "fahrtTakte", 4.0f);   // 4 Takte
+            setParam (*p, "fahrtStart", 1.0f);
             setParam (*p, "fahrt", 1.0f);
             p->reset();
             host.playing = true; host.ppq = 0.0;
@@ -702,7 +702,7 @@ int main()
     }
     // The hard scene ending is present in the file with positive duration at the selected endpoint.
     {
-        StromscoreProcessor q; setParam (q, "szenenLaenge", 1); setParam (q, "ende", 0);
+        StromscoreProcessor q; setParam (q, "szenenLaenge", 8); setParam (q, "ende", 0);
         auto file = q.renderMidiFile (8); auto stream = file.createInputStream(); juce::MidiFile midiFile;
         CHECK (stream != nullptr && midiFile.readFrom (*stream)); int ons = 0, offs = 0;
         for (int track = 0; track < midiFile.getNumTracks(); ++track)
@@ -810,7 +810,7 @@ int main()
     // A completed drive must not turn off a fresh activation before the next musical tick.
     {
         StromscoreProcessor q; FakeHost h; q.setPlayHead (&h); q.prepareToPlay (48000, 512);
-        setParam (q, "fahrtTakte", 0); setParam (q, "fahrt", 1);
+        setParam (q, "fahrtTakte", 4); setParam (q, "fahrt", 1);
         juce::AudioBuffer<float> a (2, 512); juce::MidiBuffer m; m.ensureSize (65536);
         for (int i = 0; i < 760 && ! q.driveArrived.load(); ++i)
         { h.ppq = i * 512 / 24000.0; m.clear(); q.processBlock (a, m); }
@@ -821,6 +821,26 @@ int main()
         q.beginManualPosition(); setParam (q, "faerbung", 0.37f); setParam (q, "intensitaet", 0.42f); q.serviceDrive();
         CHECK (! q.currentSettings().drive && std::abs (q.currentSettings().x - 0.37f) < 1e-6f);
         q.setPlayHead (nullptr);
+    }
+    // 2.1 direct bar parameters, route state and end automation survive project restore.
+    {
+        auto q=std::make_unique<StromscoreProcessor>();auto restored=std::make_unique<StromscoreProcessor>();
+        setParam(*q,"aufbauTakte",5);setParam(*q,"szenenLaenge",21);setParam(*q,"fahrtStart",7);setParam(*q,"fahrtTakte",13);
+        setParam(*q,"wegpunkte",4);setParam(*q,"weg2X",.73f);setParam(*q,"bogen1Y",-.2f);setParam(*q,"szeneBeenden",1);
+        auto s=q->currentSettings();CHECK(s.buildBars==5&&s.sceneBars==21&&s.driveFrom==6&&s.driveBars==13&&s.endRequested);
+        juce::MemoryBlock state;q->getStateInformation(state);restored->setStateInformation(state.getData(),(int)state.getSize());s=restored->currentSettings();CHECK(s.route.count==4&&std::abs(s.route.points[2].x-.73f)<1e-6f&&std::abs(s.route.bends[1].y+.2f)<1e-6f&&s.endRequested);
+        auto file=q->renderMidiFile(8);juce::FileInputStream input(file);juce::MidiFile midiFile;CHECK(midiFile.readFrom(input));int ons=0;for(int tr=0;tr<midiFile.getNumTracks();++tr)for(int n=0;n<midiFile.getTrack(tr)->getNumEvents();++n)if(midiFile.getTrack(tr)->getEventPointer(n)->message.isNoteOn())++ons;CHECK(ons>1);
+        std::unique_ptr<juce::AudioProcessorEditor> ed(q->createEditor());juce::ComboBox* field=nullptr;
+        std::function<void(juce::Component&)> findNumber=[&](juce::Component& c){if(c.getComponentID()=="aufbauTakte")field=dynamic_cast<juce::ComboBox*>(&c);for(auto* child:c.getChildren())findNumber(*child);};findNumber(*ed);CHECK(field!=nullptr);
+        field->setText("7",juce::sendNotificationSync);CHECK(q->currentSettings().buildBars==7);
+        field->setText("ungültig",juce::sendNotificationSync);CHECK(q->currentSettings().buildBars==7);
+        field->setSelectedId(17,juce::sendNotificationSync);CHECK(q->currentSettings().buildBars==16);
+        // Alt edits never move A/B; inserting and dragging is independent of normal conducting.
+        MoodPad pad;pad.setSize(300,300);pad.x=.1f;pad.y=.1f;pad.bx=.9f;pad.by=.9f;pad.showB=true;
+        auto mouse=[&](juce::Point<float> pos,bool drag){juce::MouseEvent ev(juce::Desktop::getInstance().getMainMouseSource(),pos,juce::ModifierKeys(juce::ModifierKeys::altModifier|juce::ModifierKeys::leftButtonModifier),1,0,0,0,0,&pad,&pad,juce::Time::getCurrentTime(),pos,juce::Time::getCurrentTime(),1,false);if(drag)pad.mouseDrag(ev);else pad.mouseDown(ev);};
+        mouse({150,150},false);CHECK(pad.route.count==1);CHECK(pad.x==.1f&&pad.bx==.9f);
+        mouse({150,150},false);mouse({100,120},true);CHECK(pad.route.points[0].x<.5f);
+        pad.routeEditable=false;int count=pad.route.count;mouse({200,100},false);CHECK(pad.route.count==count);
     }
     return 0;
 }

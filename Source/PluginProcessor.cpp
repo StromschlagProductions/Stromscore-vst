@@ -142,16 +142,16 @@ juce::AudioProcessorValueTreeState::ParameterLayout StromscoreProcessor::createL
     layout.add (std::make_unique<AudioParameterBool> (ParameterID { "aufbau", 1 }, "Aufbau", true));
     layout.add (std::make_unique<AudioParameterChoice> (ParameterID { "einstieg", 1 }, "Einstieg", entryNames(), 0));
     layout.add (std::make_unique<AudioParameterInt> (ParameterID { "wurf", 1 }, "Wurf", 0, 9999, 0));
-    layout.add (std::make_unique<AudioParameterChoice> (ParameterID { "aufbauTakte", 1 }, u8 ("Aufbau Länge"), buildNames(), 1));
+    layout.add (std::make_unique<AudioParameterInt> (ParameterID { "aufbauTakte", 1 }, u8("Aufbau Länge"), 1, 4096, 8));
     layout.add (std::make_unique<AudioParameterFloat> (ParameterID { "haerte", 1 }, u8 ("Härte"), NormalisableRange<float> (0.0f, 1.0f), 0.5f, percent()));
-    layout.add (std::make_unique<AudioParameterChoice> (ParameterID { "szenenLaenge", 1 }, u8 ("Szenenlänge"), sceneLengthNames(), 0));
+    layout.add (std::make_unique<AudioParameterInt> (ParameterID { "szenenLaenge", 1 }, u8("Szenenlänge"), 0, 4096, 0));
     layout.add (std::make_unique<AudioParameterChoice> (ParameterID { "ende", 1 }, "Ende", endingNames(), 1));
     layout.add (std::make_unique<AudioParameterBool> (ParameterID { "motiv", 1 }, "Gegenstimme Motiv", true));
     layout.add (std::make_unique<AudioParameterBool> (ParameterID { "fahrt", 1 }, "Fahrt", false));
     layout.add (std::make_unique<AudioParameterFloat> (ParameterID { "fahrtX", 1 }, u8 ("Fahrt Ziel Färbung"), NormalisableRange<float> (0.0f, 1.0f), 0.8f, percent()));
     layout.add (std::make_unique<AudioParameterFloat> (ParameterID { "fahrtY", 1 }, u8 ("Fahrt Ziel Intensität"), NormalisableRange<float> (0.0f, 1.0f), 0.85f, percent()));
-    layout.add (std::make_unique<AudioParameterChoice> (ParameterID { "fahrtStart", 1 }, "Fahrt Start", driveStartNames(), 0));
-    layout.add (std::make_unique<AudioParameterChoice> (ParameterID { "fahrtTakte", 1 }, "Fahrt Dauer", driveBarsNames(), 1));
+    layout.add (std::make_unique<AudioParameterInt> (ParameterID { "fahrtStart", 1 }, u8("Fahrt Start"), 1, 4096, 1));
+    layout.add (std::make_unique<AudioParameterInt> (ParameterID { "fahrtTakte", 1 }, u8("Fahrt Dauer"), 1, 4096, 8));
     layout.add (std::make_unique<AudioParameterChoice> (ParameterID { "fahrtKurve", 1 }, "Fahrt Kurve", curveNames(), 0));
     // Stich (ab 1.4): ein einzelner Ton, fest auf einer Taste (Vorgabe, fuer perkussive Samples) oder Grundton des Akkords
     layout.add (std::make_unique<AudioParameterChoice> (ParameterID { "stichModus", 1 }, "Stich Ton", stichModeNames(), 0));
@@ -164,6 +164,12 @@ juce::AudioProcessorValueTreeState::ParameterLayout StromscoreProcessor::createL
         layout.add (std::make_unique<AudioParameterChoice> (ParameterID { "slotType" + n, 1 }, "Akkord " + n + " Art", slotTypeNames(), 0));
         layout.add (std::make_unique<AudioParameterChoice> (ParameterID { "slotBars" + n, 1 }, "Akkord " + n + u8 (" Länge"), slotBarNames(), i < 4 ? 2 : 0));
     }
+    layout.add (std::make_unique<AudioParameterBool> (ParameterID { "szeneBeenden", 1 }, "Szene beenden", false));
+    layout.add (std::make_unique<AudioParameterInt> (ParameterID { "wegpunkte", 1 }, "Wegpunkte", 0, 4, 0));
+    for (int i=0;i<4;++i) for (auto axis : { "X", "Y" })
+        layout.add (std::make_unique<AudioParameterFloat> (ParameterID { "weg"+String(i)+axis, 1 }, "Wegpunkt "+String(i+1)+axis, NormalisableRange<float>(0,1), .5f));
+    for (int i=0;i<5;++i) for (auto axis : { "X", "Y" })
+        layout.add (std::make_unique<AudioParameterFloat> (ParameterID { "bogen"+String(i)+axis, 1 }, "Bogen "+String(i+1)+axis, NormalisableRange<float>(-1,1), 0));
     return layout;
 }
 
@@ -230,6 +236,10 @@ StromscoreProcessor::StromscoreProcessor()
     pDriveFrom = apvts.getRawParameterValue ("fahrtStart");
     pDriveBars = apvts.getRawParameterValue ("fahrtTakte");
     pCurve = apvts.getRawParameterValue ("fahrtKurve");
+    pEndRequest=apvts.getRawParameterValue("szeneBeenden");pRouteCount=apvts.getRawParameterValue("wegpunkte");
+    for(int i=0;i<4;++i) {pWay[2*i]=apvts.getRawParameterValue("weg"+juce::String(i)+"X");pWay[2*i+1]=apvts.getRawParameterValue("weg"+juce::String(i)+"Y");}
+    for(int i=0;i<5;++i) {pBend[2*i]=apvts.getRawParameterValue("bogen"+juce::String(i)+"X");pBend[2*i+1]=apvts.getRawParameterValue("bogen"+juce::String(i)+"Y");}
+
     pStichMode = apvts.getRawParameterValue ("stichModus");
     pStichNote = apvts.getRawParameterValue ("stichTon");
     for (int i = 0; i < stromscore::kMaxChords; ++i)
@@ -322,22 +332,25 @@ stromscore::Settings StromscoreProcessor::currentSettings() const
         s.customChords[i].type = stromscore::kCustomTypes[juce::jlimit (0, stromscore::kNumCustomTypes - 1, juce::roundToInt (pSlotType[i]->load()))];
         s.customChords[i].bars = juce::roundToInt (pSlotBars[i]->load());
     }
-    auto pick = [] (std::atomic<float>* p, const int* table, int n) { return table[juce::jlimit (0, n - 1, juce::roundToInt (p->load()))]; };
     s.scene = pScene->load() >= 0.5f;
     s.entry = juce::jlimit (0, stromscore::kNumEntries - 1, juce::roundToInt (pEntry->load()));
     s.seed = juce::roundToInt (pSeed->load());
-    s.buildBars = pick (pBuild, kBuildBars, 3);
+    s.buildBars = juce::roundToInt(pBuild->load());
     s.hardness = pHardness->load();
-    s.sceneBars = pick (pSceneLen, kSceneBars, 7);
+    s.sceneBars = juce::roundToInt(pSceneLen->load());
     s.ending = juce::jlimit (0, stromscore::kNumEndings - 1, juce::roundToInt (pEnding->load()));
     s.motif = pMotif->load() >= 0.5f;
     s.inertia = true;   // Traegheit ist im Plugin immer an
     s.drive = pDrive->load() >= 0.5f;
     s.driveGeneration = driveGeneration.load();
     s.driveX = pDriveX->load(); s.driveY = pDriveY->load();
-    s.driveFrom = pick (pDriveFrom, kDriveFrom, 5);
-    s.driveBars = pick (pDriveBars, kDriveBars, 4);
+    s.driveFrom = juce::roundToInt(pDriveFrom->load())-1;
+    s.driveBars = juce::roundToInt(pDriveBars->load());
     s.driveCurve = juce::jlimit (0, stromscore::kNumCurves - 1, juce::roundToInt (pCurve->load()));
+    s.endRequested=pEndRequest->load()>=.5f;
+    s.route.count=juce::roundToInt(pRouteCount->load());
+    for(int i=0;i<4;++i) s.route.points[(size_t)i]={pWay[2*i]->load(),pWay[2*i+1]->load()};
+    for(int i=0;i<5;++i) s.route.bends[(size_t)i]={pBend[2*i]->load(),pBend[2*i+1]->load()};
     s.stichFixed = juce::roundToInt (pStichMode->load()) == 0;
     s.stichNote = juce::jlimit (0, 127, juce::roundToInt (pStichNote->load()));
     return s;
@@ -739,6 +752,7 @@ void StromscoreProcessor::publish (const stromscore::Generator& g, bool playing)
 {
     sceneBar.store (playing ? g.sceneBar() : -1);
     sceneEntry.store (g.sceneEntry());
+    activeSceneSeed.store(g.activeSeed());
     sceneOver.store (playing && g.sceneOver());
     if (playing) { pointX.store (g.pointX()); pointY.store (g.pointY()); }
     publishedDriveGeneration.store (g.driveGenerationNow());
@@ -819,6 +833,7 @@ juce::AudioProcessor* JUCE_CALLTYPE createPluginFilter() { return new Stromscore
 juce::File StromscoreProcessor::renderMidiFile (int bars) const
 {
     auto settings = currentSettings();
+    settings.endRequested=false; // Export starts a fresh scene, not the latched end of live playback.
     const double bpm = hostBpm.load() > 1.0 ? hostBpm.load() : 120.0;
     const double sr = 48000.0;
     const int block = 480;

@@ -21,12 +21,14 @@ public:
         for (auto [id, v] : { std::pair<const char*, float> { "umfang3", 1.0f }, { "tief3", 60.0f }, { "hoch3", 96.0f } })
             if (auto* prm = processor.apvts.getParameter (id)) prm->setValueNotifyingHost (prm->convertTo0to1 (v));
         // Szene: Fahrt nach oben, 32 Takte mit hartem Ende, gerade in Takt 6 (Einstieg Bass-Schlag)
-        for (auto [id, v] : { std::pair<const char*, float> { "fahrt", 1.0f }, { "fahrtX", 0.72f }, { "fahrtY", 0.88f }, { "szenenLaenge", 4.0f }, { "ende", 0.0f } })
+        for (auto [id, v] : { std::pair<const char*, float> { "fahrt", 1.0f }, { "fahrtX", 0.72f }, { "fahrtY", 0.88f }, { "szenenLaenge", 32.0f }, { "ende", 0.0f } })
             if (auto* prm = processor.apvts.getParameter (id)) prm->setValueNotifyingHost (prm->convertTo0to1 (v));
+        for(auto [id,v]:{std::pair<const char*,float>{"wegpunkte",2.f},{"weg0X",.18f},{"weg0Y",.72f},{"weg1X",.58f},{"weg1Y",.45f},{"bogen1X",.07f},{"bogen1Y",.08f}})
+            if(auto* prm=processor.apvts.getParameter(id))prm->setValueNotifyingHost(prm->convertTo0to1(v));
         processor.sceneBar.store (5);
         processor.sceneEntry.store (stromscore::EntryBass);
-        processor.pointX.store (0.26f + (0.72f - 0.26f) * 0.625f);
-        processor.pointY.store (0.58f + (0.88f - 0.58f) * 0.625f);
+        auto point=processor.currentSettings().route.at(.625f,{.26f,.58f},{.72f,.88f});
+        processor.pointX.store(point.x);processor.pointY.store(point.y);
         processor.hostPlaying.store (true);
         const int w = 4;   // "Agentenfarbe"
         processor.wendung.store (w);
@@ -103,9 +105,9 @@ private:
         }
         if (index <= 1 && steps < 10)   // die Musik faehrt ein Stueck auf B zu: die Spur entsteht
         {
-            const float f = 0.4f + 0.0225f * (float) steps++;
-            processor.pointX.store (0.26f + (0.72f - 0.26f) * f);
-            processor.pointY.store (0.58f + (0.88f - 0.58f) * f);
+            const float f = 0.4225f + 0.0225f * (float) steps++;
+            auto p=processor.currentSettings().route.at(f,{.26f,.58f},{.72f,.88f});
+            processor.pointX.store(p.x);processor.pointY.store(p.y);processor.driveProgress.store(f);
             return;
         }
         auto image = editor->createComponentSnapshot (editor->getLocalBounds(), true, 2.0f);

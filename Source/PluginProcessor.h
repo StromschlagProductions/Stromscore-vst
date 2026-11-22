@@ -87,6 +87,7 @@ public:
     std::atomic<int> meterNum { 4 }, meterDen { 4 };
     std::atomic<bool> hostPlaying { false };
     // Szene: Takte seit Szenenstart (-1 = steht), aufgeloester Einstieg, Ende erreicht, klingender Punkt im Feld (mit Fahrt)
+    std::atomic<int> activeSceneSeed { 0 };
     std::atomic<int> sceneBar { -1 }, sceneEntry { 0 };
     std::atomic<bool> sceneOver { false };
     std::atomic<float> pointX { 0.5f }, pointY { 0.1f };
@@ -165,6 +166,8 @@ private:
     std::atomic<float>* pScene = nullptr; std::atomic<float>* pEntry = nullptr; std::atomic<float>* pSeed = nullptr; std::atomic<float>* pBuild = nullptr;
     std::atomic<float>* pHardness = nullptr; std::atomic<float>* pSceneLen = nullptr; std::atomic<float>* pEnding = nullptr; std::atomic<float>* pMotif = nullptr;
     std::atomic<float>* pDrive = nullptr; std::atomic<float>* pDriveX = nullptr; std::atomic<float>* pDriveY = nullptr; std::atomic<float>* pDriveFrom = nullptr;
+    std::atomic<float>* pEndRequest=nullptr; std::atomic<float>* pRouteCount=nullptr;
+    std::atomic<float>* pWay[8] {}; std::atomic<float>* pBend[10] {};
     std::atomic<float>* pDriveBars = nullptr; std::atomic<float>* pCurve = nullptr;
     std::atomic<float>* pStichMode = nullptr; std::atomic<float>* pStichNote = nullptr;
     std::atomic<float>* pSlotRoot[stromscore::kMaxChords] {}; std::atomic<float>* pSlotType[stromscore::kMaxChords] {}; std::atomic<float>* pSlotBars[stromscore::kMaxChords] {};

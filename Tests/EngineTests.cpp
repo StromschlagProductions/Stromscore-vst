@@ -1242,5 +1242,38 @@ int main()
         t.playing = false; e.clear(); g.process (t, s, 6000, e);
         CHECK (g.sceneBar() == -1);
     }
+    // 2.1 routes: endpoints, ordered waypoints, bounded curves and deterministic evaluation.
+    {
+        DrivePath p;p.count=4;p.points={DrivePoint{.1f,.8f},DrivePoint{.7f,.9f},DrivePoint{.3f,.2f},DrivePoint{.8f,.4f}};
+        p.bends[1]={.2f,-.3f};DrivePoint a{.2f,.1f},b{.9f,.9f};
+        CHECK(std::abs(p.at(0,a,b).x-a.x)<1e-6f);CHECK(std::abs(p.at(1,a,b).y-b.y)<1e-5f);
+        float total=0;for(int j=0;j<=p.count;++j)total+=p.length(j,a,b);
+        float distance=0;for(int j=0;j<p.count;++j){distance+=p.length(j,a,b);auto q=p.at(distance/total,a,b);CHECK(std::hypot(q.x-p.points[(size_t)j].x,q.y-p.points[(size_t)j].y)<1e-4f);}
+        for(int j=0;j<=1000;++j){auto q=p.at(j/1000.f,a,b);CHECK(q.x>=0&&q.x<=1&&q.y>=0&&q.y<=1);CHECK(q.x==p.at(j/1000.f,a,b).x);}
+        Settings route;route.drive=true;route.route=p;route.driveBars=5;route.y=.7f;
+        auto small=run(route,64,14),large=run(route,777,14);CHECK(small.size()==large.size());
+        for(size_t j=0;j<small.size();++j)CHECK(small[j].sample==large[j].sample&&small[j].note==large[j].note&&small[j].velocity==large[j].velocity);
+        checkBalanced(small);
+    }
+    // 2.1 arbitrary whole-bar lengths end; manual ending is one-shot and survives a seek.
+    for(int mode=0;mode<3;++mode)
+    {
+        for(int length:{5,7,11,17,21}){Settings s;s.sceneBars=length;s.ending=mode;s.y=.7f;auto ev=run(s,512,length*2.+3);for(auto n:ev)if(n.velocity>0)CHECK(n.sample<=(length*2LL)*48000);checkBalanced(ev);}
+        Generator g;Settings s;s.y=.7f;s.ending=mode;EventList e;Transport t;t.playing=true;t.bpm=120;t.sampleRate=48000;
+        for(int tick=0;tick<96;++tick){t.ppq=tick*.25;s.endRequested=tick==16;e.clear();g.process(t,s,6000,e);if(tick>48){CHECK(g.sceneOver());for(int n=0;n<e.size;++n)CHECK(e.events[(size_t)n].type!=0||e.events[(size_t)n].velocity==0);}}
+        t.ppq=0;e.clear();g.process(t,s,6000,e);CHECK(g.sceneOver());for(int n=0;n<e.size;++n)CHECK(e.events[(size_t)n].type!=0||e.events[(size_t)n].velocity==0);
+        t.playing=false;e.clear();g.process(t,s,6000,e);t.playing=true;t.ppq=0;e.clear();g.process(t,s,6000,e);CHECK(!g.sceneOver());
+    }
+    // New dice rolls are pending until a genuine stop/start; they cannot replace the ongoing opening.
+    {
+        Generator g;Settings s;s.seed=17;EventList e;Transport t;t.playing=true;t.sampleRate=48000;t.bpm=120;
+        g.process(t,s,6000,e);CHECK(g.activeSeed()==17);s.seed=99;t.ppq=.25;e.clear();g.process(t,s,6000,e);CHECK(g.activeSeed()==17);
+        t.playing=false;e.clear();g.process(t,s,6000,e);t.playing=true;t.ppq=0;e.clear();g.process(t,s,6000,e);CHECK(g.activeSeed()==99);
+    }
+    // A fixed deadline can shorten a manually requested fade; that completed manual ending stays latched.
+    {
+        Generator g;Settings s;s.sceneBars=2;s.ending=EndFade;s.y=.7f;Transport t;t.playing=true;t.bpm=120;t.sampleRate=48000;EventList e;
+        for(int tick=0;tick<=40;++tick){t.ppq=tick*.25;s.endRequested=tick==16;e.clear();g.process(t,s,6000,e);}CHECK(g.sceneOver());t.ppq=0;e.clear();g.process(t,s,6000,e);CHECK(g.sceneOver());
+    }
     return 0;
 }

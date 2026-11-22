@@ -1,6 +1,6 @@
 # STROMSCORE – Audio Drama Underscore Inspirator
 
-**Version 2.0:** Weiterentwicklung auf Basis von 1.9. [Analyse, Änderungen und A/B-Prüfung](docs/development/VOICE_LEADING.md). Enthält Stimmführung sowie die gesammelten Fahrt- und Bedienkorrekturen. Phrasierung und Motiventwicklung bleiben unverändert.
+**Version 2.1:** Fahrtrouten mit vier Wegpunkten und Kurvengriffen, frei eingebbare Taktzahlen, automatisierbarer Szenenabschluss und vorbereitendes Neuwürfeln. [Bedienung und Grenzen](docs/releases/2.1.md).
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="docs/logo-dunkel.png">
@@ -144,13 +144,14 @@ MIDI-Datei beginnt immer mit einer Szene.
 
 | Regler | Was er macht |
 |---|---|
-| AUFBAU · 4 / 8 / 16 Takte | Zuerst spielt nur die Ebene des Einstiegs, die anderen folgen nacheinander auf Taktgrenzen, bis nach der eingestellten Zahl von Takten alles da ist. Dabei wird die Musik von dünn zu dicht. Aus: alle Ebenen setzen gleich ein. |
+| AUFBAU · ganze Takte | Zuerst spielt nur die Ebene des Einstiegs, die anderen folgen nacheinander auf Taktgrenzen, bis nach der eingestellten Zahl von Takten alles da ist. Dabei wird die Musik von dünn zu dicht. Aus: alle Ebenen setzen gleich ein. |
 | EINSTIEG | Fläche, schüchtern (ein leiser, vollständig gefärbter Akkord), Bass-Schlag, Puls (kurze Viertel auf dem Grundton, wie ein Ticken), Arpeggio, Akzent (ein Stich oder Tupfer in der Stille), Gegenstimme oder alles zugleich. Danach folgen die verwandten Ebenen, beim Bass zum Beispiel Arpeggio, Fläche, Akzent und Gegenstimme. **Auto** würfelt den Einstieg passend zu Genre und Stimmung, nur aus Ebenen, die gerade spielen können. |
-| NEU WÜRFELN | Ein anderer Einstieg bei Auto und ein anderes Motiv der Gegenstimme. Derselbe Wurf ergibt immer dasselbe und wird mit dem Projekt gespeichert. |
+| NEU WÜRFELN | Ein anderer Einstieg bei Auto und ein anderes Motiv der Gegenstimme für den nächsten Szenenstart. Während einer laufenden Szene wird der neue Wurf vorgemerkt. Derselbe Wurf ergibt immer dasselbe und wird mit dem Projekt gespeichert. |
 | HÄRTE | Wie die Ebenen einsetzen: unter 50 % weich eingeblendet (ganz links über zwei Takte), über 50 % mit kräftigem ersten Anschlag. Gilt auch, wenn eine Ebene mit steigender Intensität dazukommt. |
-| LÄNGE | Unbegrenzt oder 8 bis 64 Takte ab dem Start der Wiedergabe. |
+| LÄNGE | Unbegrenzt (0) oder 1 bis 4096 ganze Takte ab Szenenbeginn. |
+| SZENE BEENDEN | Automatisierbarer Endauslöser, auch bei unbegrenzter Länge. Wirkt am nächsten Sechzehntelraster; ausklingend startet eine zweitäktige Schlussphase. Zurücksetzen allein startet nicht neu. Vor neuem Wiedergabestart ausschalten. |
 | ENDE | **Hart:** alle Ebenen bis zum Schluss, im letzten Takt zieht sich der Bass zurück und ein Stich kündigt an, dann ein kurzer, kräftiger Schlag und Stille. **Ausklingend:** die Ebenen gehen nacheinander, was zuletzt kam, zuerst; die Ebene des Einstiegs klingt bis zum Ende. **Offen:** zum Schluss noch dichter, dann Abbruch ohne Schlussschlag. |
-| FAHRT | Die Musik wandert selbst vom Punkt im Feld (A) zu einem Ziel (B), das als Ring im Stimmungsfeld erscheint und sich dort ziehen lässt. Mit der **rechten Maustaste** setzt du das Ziel vorab, ohne dass die Fahrt startet; ein Linksklick ins Feld springt wie bisher sofort mit A dorthin. **Start** sofort oder ab Takt 5, 9, 17 oder 33, **Dauer** 4 bis 32 Takte, **Kurve** gleichmäßig, erst langsam, in vier Stufen oder hin und zurück. Führt die Fahrt nach oben, zieht sich im Takt vor dem Ziel der Bass zurück, ein Stich kündigt an, und am Ziel setzen Fläche und Bass kräftig neu ein. Kommt die Fahrt bei B an, wird B zum neuen A und die Fahrt schaltet sich aus; schaltest du sie unterwegs aus, wird die Stelle, an der die Musik gerade ist, zu A. Eine während der Wiedergabe eingeschaltete Fahrt startet mit dem nächsten Takt vom Punkt aus; **Start** gilt nur, wenn die Wiedergabe mit eingeschalteter Fahrt beginnt. |
+| FAHRT | Die Musik wandert selbst vom Punkt im Feld (A) zu einem Ziel (B), das als Ring im Stimmungsfeld erscheint und sich dort ziehen lässt. Mit der **rechten Maustaste** setzt du das Ziel vorab, ohne dass die Fahrt startet; ein Linksklick ins Feld springt wie bisher sofort mit A dorthin. **Start** ab einem frei eingebbaren ganzen Takt (1–4096), **Dauer** 1 bis 4096 ganze Takte, **Kurve** gleichmäßig, erst langsam, in vier Stufen oder hin und zurück. Führt die Fahrt nach oben, zieht sich im Takt vor dem Ziel der Bass zurück, ein Stich kündigt an, und am Ziel setzen Fläche und Bass kräftig neu ein. Kommt die Fahrt bei B an, wird B zum neuen A und die Fahrt schaltet sich aus; schaltest du sie unterwegs aus, wird die Stelle, an der die Musik gerade ist, zu A. Eine während der Wiedergabe eingeschaltete Fahrt startet mit dem nächsten Takt vom Punkt aus; **Start** gilt nur, wenn die Wiedergabe mit eingeschalteter Fahrt beginnt. |
 
 **Bedienung ab 2.0:** Linke Maustaste setzt/zieht immer **A**, rechte Maustaste immer **B**, unabhängig davon, welcher Punkt näher liegt. Links übernimmt sofort manuell und beendet eine laufende Fahrt; ebenso die Färbungs-/Intensitätsbalken. Das Mausrad verändert nur Unruhe. Ziel B bleibt auch ohne Fahrt, nach Schließen der Oberfläche und im gespeicherten Projekt sichtbar. Fallen A und B zusammen, steht dort **A/B**. **Rechts-Doppelklick irgendwo ins Feld** blendet B bei ausgeschalteter Fahrt aus; das vorherige Ziel bleibt gespeichert. Ein einzelner Rechtsklick setzt B wieder an die angeklickte Stelle. Fahrt einschalten zeigt das gespeicherte Ziel wieder an. Auch die ausgeblendete Sichtbarkeit wird im Projekt gespeichert.
 
@@ -242,6 +243,8 @@ Danach in der DAW die Plugins neu einlesen.
 
 ## Versionen
 
+- **2.1** – Wegpunkte, Kurvenbahnen, freie Takte, Endschalter und Wurf für nächsten Start. [Release-Hinweise](docs/releases/2.1.md).
+
 - **1.9** – Vollständige Akkordfarben auch leise und ohne CC, CC-Bereiche je Kanal, echte Legato-Überlappung, neun neue Pop-Rock-Wendungen und Wendungsinfo, MIDI-/Export-/Bedienungsfehler behoben. [Release-Hinweise](docs/releases/1.9.md) · [Prüfung und Grenzen](docs/PRUEFUNG-1.9.md).
 
 - **1.8** – Ziel B per Rechtsklick im Stimmungsfeld vorab setzen, ohne dass die Fahrt startet; ein Linksklick springt weiter sofort mit A.
@@ -284,3 +287,16 @@ die Trägheit, den Stich in beiden Arten, den Riss sowie Durchleiten und Hören.
 
 Stromscore wird ohne Gewähr bereitgestellt. Es ist ein Werkzeug für meine eigene Hörspielproduktion unter Windows mit Studio One. Das
 MIDI-Routing hängt vom Host ab; andere Hosts sind nicht getestet. Bei Problemen hilft ein Issue mit kurzer Beschreibung.
+
+## Bedienung ab 2.1
+
+- Bis zu vier zusätzliche Wegpunkte zwischen A und B. Alt-Klick auf die Bahn fügt einen Punkt ein, Alt-Ziehen verschiebt ihn. Alt-Rechtsklick auf einen Wegpunkt öffnet „Wegpunkt entfernen“.
+- Bei gedrücktem Alt erscheinen nahe der Bahn seitlich erreichbare Kurvengriffe. Ziehen biegt die Verbindung. Neue Punkte erhalten die vorhandene Kurvenform beim Einfügen.
+- Routenbearbeitung bei ausgeschalteter Fahrt; die gewohnte A/B-Bedienung und das Ausblenden von B bleiben erhalten. Die Dauer verteilt sich automatisch nach der Bogenlänge der Route. Keine eigene Ankunftszeit pro Wegpunkt in dieser Version.
+- Aufbau, Szenenlänge, Fahrtstart und Fahrtdauer direkt als ganze Takte eingeben (bis 4096). Vorgaben bleiben als schnelle Auswahl. Szenenlänge 0 bedeutet unbegrenzt, Fahrtstart 1 bedeutet erster Takt. Frühere Projektzuordnungen werden auf ausdrücklichen Wunsch nicht migriert.
+- Automatisierbarer Schalter „Szene beenden“ direkt vor der Endart: Hart setzt den Schlussschlag; Offen beendet ohne Schlussschlag; Ausklingend beginnt eine zweitäktige Schlussphase. Auslösung auf dem nächsten musikalischen Sechzehntelraster. Danach bleibt die Szene auch bei zurückgesetztem Schalter still; vor erneutem Wiedergabestart den Schalter ausschalten.
+- Neu würfeln bereitet den nächsten Szenenstart vor. Der laufende Aufbau und sein Motiv behalten den aktiven Wurf. Die Statuszeile zeigt einen vorgemerkten neuen Wurf.
+
+MIDI-Export beginnt weiterhin eine neue Szene mit dem aktuellen Wurf und den aktuellen Routen-/Längeneinstellungen. Der Endschalter aus der Live-Wiedergabe wird für diesen Export zurückgesetzt; die zeitliche DAW-Automation wird nicht nachträglich rekonstruiert. Für einen automatisierten Live-Abschluss den MIDI-Ausgang in der DAW aufnehmen.
+
+Keine Homepage-Karte und keine Aufnahme ins Gesamtbundle. Das Repository und sein Release bleiben privat gemäß der Einstellung des Auftraggebers.

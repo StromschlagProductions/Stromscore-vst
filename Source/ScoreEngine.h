@@ -11,6 +11,7 @@
 #include <cmath>
 #include <cstdint>
 #include "VoiceLeading.h"
+#include "DrivePath.h"
 
 namespace stromscore
 {
@@ -248,6 +249,8 @@ struct Settings
     CustomChord customChords[kMaxChords];
 
     // Dramaturgie (ab 1.3). Vorgaben hier: alles aus, wie vor 1.3; das Plugin schaltet Aufbau, Motiv und Traegheit ein.
+    bool endRequested = false;
+    DrivePath route;
     bool scene = false;         // Aufbau: Ebenen setzen nach dem Einstieg gestaffelt ein
     int entry = EntryAuto;      // womit die Szene beginnt
     int seed = 0;               // Wurf ("Neu wuerfeln"): Einstieg bei Auto und Motiv
@@ -374,7 +377,7 @@ class Generator
 {
 public:
     void reset() { style = -1; csNote = -1; csPendingAt = -1; chaseStep = -1; lastGenre = -1; resetCc(); resetVoicing(); numActive = 0; running = false; lastPpqEnd = 0.0; phraseIndex = -1; current = -1; wendungStart = 0; still = false; chordBase = 0; drivePrev = driveSeen = driveLatched = driveArrivedNow = false; driveTrajectory = false; driveProgressNow = 0; driveGenerationSeen = 0; curRoot = 0; curType = Min; curChord = -1;
-                   sceneStep = 0; autoSeed = -1; sceneBarNow = -1; sceneEnded = false; for (int l = 0; l < kNumLayers; ++l) { on[l] = prevOn[l] = hOn[l] = false; } }
+                   sceneStep = 0; manualEndStep = -1; manualFinished = manualHitSent = false; endWasRequested = false; sceneSeed = 0; autoSeed = -1; sceneBarNow = -1; sceneEnded = false; for (int l = 0; l < kNumLayers; ++l) { on[l] = prevOn[l] = hOn[l] = false; } }
 
     uint32_t unavailablePadPitchClasses() const { return unavailablePad; }
 
@@ -382,6 +385,7 @@ public:
     int sceneBar() const { return sceneBarNow; }              // Takte seit Szenenstart (-1: steht)
     int sceneEntry() const { return entryInUse; }             // aufgeloester Einstieg
     bool sceneOver() const { return sceneEnded; }
+    int activeSeed() const { return sceneSeed; }
     bool driveArrived() const { return driveArrivedNow; }     // die Fahrt ist bei B angekommen (das Plugin macht B dann zu A)
     uint32_t driveGenerationNow() const { return driveGenerationSeen; }
     float driveProgress() const { return driveProgressNow; }
@@ -531,7 +535,12 @@ public:
     void process (const Transport& t, const Settings& sIn, int numSamples, EventList& out)
     {
         Settings s = sIn;
+        if (! running) sceneSeed = s.seed;
+        s.seed = sceneSeed;
         if (s.dynamics != ccWasEnabled) { resetCc(); ccWasEnabled = s.dynamics; }
+        s.route.count=std::clamp(s.route.count,0,4);
+        for(auto& p:s.route.points){p.x=std::isfinite(p.x)?std::clamp(p.x,0.f,1.f):.5f;p.y=std::isfinite(p.y)?std::clamp(p.y,0.f,1.f):.5f;}
+        for(auto& p:s.route.bends){p.x=std::isfinite(p.x)?std::clamp(p.x,-1.f,1.f):0;p.y=std::isfinite(p.y)?std::clamp(p.y,-1.f,1.f):0;}
         s.key = std::clamp (s.key, 0, kNumKeys - 1);
         s.x = std::clamp (s.x, 0.0f, 1.0f); s.y = std::clamp (s.y, 0.0f, 1.0f); s.z = std::clamp (s.z, 0.0f, 1.0f);
         s.swing = std::clamp (s.swing, 0.0f, 1.0f);
@@ -552,7 +561,7 @@ public:
         s.arpFigure = std::clamp (s.arpFigure, 0, kNumArpFigures - 1);
         s.arpRate = std::clamp (s.arpRate, 0, kNumArpRates - 1);
         s.entry = std::clamp (s.entry, 0, kNumEntries - 1);
-        s.buildBars = std::clamp (s.buildBars, 1, 64);
+        s.buildBars = std::clamp (s.buildBars, 1, 4096);
         s.hardness = std::clamp (s.hardness, 0.0f, 1.0f);
         s.sceneBars = std::clamp (s.sceneBars, 0, 4096);
         s.ending = std::clamp (s.ending, 0, kNumEndings - 1);
@@ -598,6 +607,7 @@ public:
             // Szenenstart: Wiedergabebeginn, auf den Taktanfang gerundet. Ein Sprung nach vorn (oder ein Loop, der nicht
             // vor den Start zurueckspringt) laeuft in derselben Szene weiter, ein Sprung davor beginnt eine neue.
             const long long k0 = (long long) std::floor (t.ppq / kStep + 1e-9);
+            if (! running) { manualEndStep = -1; manualFinished = manualHitSent = false; endWasRequested = false; }
             if (! running || k0 < sceneStep) { sceneStep = floorDiv (k0, meter.len) * meter.len; driveLatched = false; drivePrev = false; driveSeen = false; }
             running = true;
             phraseIndex = -1;
@@ -660,6 +670,7 @@ private:
         {
             if (driveLatched) s.driveFrom = driveFromLatched;
             driveArrivedNow = s.driveBars > 0 && barsNow - (double) s.driveFrom >= (double) s.driveBars;
+            const bool routeFresh = ! driveTrajectory;
             const float amount = driveAmount (s, barsNow);
             const float progress = (float) std::clamp ((barsNow - s.driveFrom) / s.driveBars, 0.0, 1.0);
             driveProgressNow = (float) ((barsNow - s.driveFrom) / s.driveBars);
@@ -695,6 +706,21 @@ private:
             s.x = segmentX + (segmentTargetX - segmentX) * f;
             s.y = segmentY + (segmentTargetY - segmentY) * f;
             if (driveArrivedNow) { s.x = returning ? originX : s.driveX; s.y = returning ? originY : s.driveY; }
+            if (s.route.active())
+            {
+                if(routeFresh){routeBX=s.driveX;routeBY=s.driveY;routeCorrection={};routeCorrectionStart=0;}
+                if(returning)routeCorrection={};
+                if(!returning && (routeBX!=s.driveX || routeBY!=s.driveY)){
+                    auto old=s.route.at(amount,{originX,originY},{routeBX,routeBY});
+                    auto next=s.route.at(amount,{originX,originY},{s.driveX,s.driveY});
+                    float fade=std::clamp((1-amount)/std::max(1e-6f,1-routeCorrectionStart),0.f,1.f);
+                    routeCorrection={old.x+routeCorrection.x*fade-next.x,old.y+routeCorrection.y*fade-next.y};
+                    routeCorrectionStart=amount;routeBX=s.driveX;routeBY=s.driveY;
+                }
+                auto p = s.route.at (amount, {originX,originY}, {routeBX,routeBY});
+                float fade=std::clamp((1-amount)/std::max(1e-6f,1-routeCorrectionStart),0.f,1.f);
+                s.x=std::clamp(p.x+routeCorrection.x*fade,0.f,1.f);s.y=std::clamp(p.y+routeCorrection.y*fade,0.f,1.f);
+            }
         }
         else { s.x = ax; s.y = ay; }
         curX = s.x; curY = s.y;
@@ -734,11 +760,16 @@ private:
         const bool building = s.scene && e != EntryAll && bs < L;
         const int first = building ? kEntryLayer[e] : -1;
 
-        const bool hasEnd = s.sceneBars > 0;
-        sceneEndStep = hasEnd ? sceneStep + (long long) s.sceneBars * meter.len : (1LL << 60);
-        const int T = std::clamp (std::min (L, s.sceneBars / 2), 1, 64);   // Takte zum Ausduennen / Steigern vor dem Ende
-        const long long left = hasEnd ? (long long) s.sceneBars - bs : (1LL << 30);   // Takte bis zum Ende, der laufende mitgezaehlt
-        sceneEnded = hasEnd && k >= sceneEndStep;
+        if (s.endRequested && ! endWasRequested && manualEndStep < 0)
+            manualEndStep = k + (s.ending == EndFade ? 2LL * meter.len : 0);
+        endWasRequested = s.endRequested;
+        const bool hasEnd = s.sceneBars > 0 || manualEndStep >= 0;
+        sceneEndStep = s.sceneBars > 0 ? sceneStep + (long long) s.sceneBars * meter.len : (1LL << 60);
+        if (manualEndStep >= 0) sceneEndStep = std::min (sceneEndStep, manualEndStep);
+        const int T = manualEndStep >= 0 ? 2 : std::clamp (std::min (L, s.sceneBars / 2), 1, 64);   // Takte zum Ausduennen / Steigern vor dem Ende
+        const long long left = hasEnd ? (sceneEndStep - k + meter.len - 1) / meter.len : (1LL << 30);   // Takte bis zum Ende, der laufende mitgezaehlt
+        if (manualEndStep >= 0 && k >= sceneEndStep) manualFinished=true;
+        sceneEnded = manualFinished || (hasEnd && k >= sceneEndStep);
 
         // Traegheit: ein nur auf Taktanfaengen, aus erst deutlich unter der Schwelle und nach mindestens zwei Takten
         for (int l = 0; l < kNumLayers; ++l)
@@ -792,7 +823,7 @@ private:
         if (hasEnd && left > 0 && left <= T)
         {
             const float r = (float) (left - 1) / (float) T;   // knapp 1 ... 0 im letzten Takt
-            if (s.ending == EndFade) { dens *= 0.45f + 0.55f * r; for (float& g : gain) g *= std::clamp ((float) (sceneStep + (long long) s.sceneBars * meter.len - k) / (float) (T * meter.len), 0.0f, 1.0f); }
+            if (s.ending == EndFade) { dens *= 0.45f + 0.55f * r; for (float& g : gain) g *= std::clamp ((float) (sceneEndStep - k) / (float) (T * meter.len), 0.0f, 1.0f); }
             if (s.ending == EndOpen) yAdd = 0.3f * (1.0f - r);
         }
 
@@ -1583,8 +1614,9 @@ private:
         updateScene (k, p, s, false, offset, out);
         if (sceneEnded)
         {
-            if (k == sceneEndStep)
+            if (k == sceneEndStep && (manualEndStep < 0 || !manualHitSent))
             {
+                if(manualEndStep>=0)manualHitSent=true;
                 allNotesOff (out, offset);
                 if (s.ending == EndHard) finalHit (p, s, offset, out);
             }
@@ -2054,6 +2086,10 @@ private:
     bool driveTrajectory = false, segmentReturn = false;
     float originX = 0, originY = 0, segmentX = 0, segmentY = 0, segmentQ = 0;
     float segmentTargetX = 0, segmentTargetY = 0, observedBX = 0, observedBY = 0;
+    long long manualEndStep = -1;
+    bool endWasRequested = false, manualFinished=false, manualHitSent=false;
+    int sceneSeed = 0;
+    float routeBX=0,routeBY=0,routeCorrectionStart=0; DrivePoint routeCorrection;
     int driveFromLatched = 0;
     int chordBase = 0;    // Akkord, ab dem die Folge laeuft (nach der Ruhezone)
     int current = -1, curChord = -1, curRoot = 0, curType = Min, style = -1;

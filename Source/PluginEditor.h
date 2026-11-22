@@ -43,6 +43,14 @@ public:
     juce::Colour panel, line, accent, text, dim;
     float x = 0.3f, y = 0.3f, z = 0.0f;
     bool showB = false, showNow = false;
+    stromscore::DrivePath route;
+    bool altHeld=false, routeEditable=true;
+    int selectedBend=-1; juce::Point<float> handleDragOffset;
+    std::function<void(const stromscore::DrivePath&)> onRoute;
+    std::function<bool()> mayEditRoute;
+    bool routeMouseDown(const juce::MouseEvent&);
+    void routeMouseDrag(const juce::MouseEvent&);
+    void modifierKeysChanged(const juce::ModifierKeys& m) override {altHeld=m.isAltDown();repaint();}
     bool targetPending = false;                   // Ziel B per Rechtsklick gesetzt, die Fahrt laeuft noch nicht
     std::function<void()> onSetTarget;
     std::function<bool (float, float)> onHideTarget;
@@ -58,11 +66,13 @@ public:
     void mouseDown (const juce::MouseEvent& e) override
     {
         numHover = 0;
-        if (e.mods.isRightButtonDown() && e.getNumberOfClicks() == 2
+        if(e.mods.isAltDown()) {previousRightClick=false;routeMouseDown(e);return;}
+        if (previousRightClick && e.mods.isRightButtonDown() && e.getNumberOfClicks() == 2
             && onHideTarget && onHideTarget (beforeClickBX, beforeClickBY))
         {
-            dragging = draggingB = false; showB = targetPending = false; repaint(); return;
+            dragging = draggingB = false; previousRightClick=false; showB = targetPending = false; repaint(); return;
         }
+        previousRightClick=e.mods.isRightButtonDown();
         dragging = true;
         if (e.mods.isRightButtonDown())   // rechte Taste: nur das Ziel B setzen, ohne die Fahrt zu starten
         {
@@ -74,9 +84,10 @@ public:
         if (draggingB) { if (onDragStartB) onDragStartB(); } else if (onDragStart) onDragStart();
         move (e);
     }
-    void mouseDrag (const juce::MouseEvent& e) override { if (dragging) move (e); }
+    void mouseDrag (const juce::MouseEvent& e) override { if(routeDrag>=0){routeMouseDrag(e);return;} if (dragging) move (e); }
     void mouseUp (const juce::MouseEvent&) override
     {
+        if(routeDrag>=0){routeDrag=-1;selectedBend=-1;return;}
         if (! dragging) return;
         dragging = false;
         if (draggingB) { if (onDragEndB) onDragEndB(); } else if (onDragEnd) onDragEnd();
@@ -84,7 +95,8 @@ public:
     }
     void mouseMove (const juce::MouseEvent& e) override
     {
-        if (dragging || ! onHover) return;
+        altHeld=e.mods.isAltDown(); repaint();
+        if (dragging || ! onHover || altHeld) return;
         const auto a = area();
         onHover (juce::jlimit (0.0f, 1.0f, (e.position.x - a.getX()) / a.getWidth()), juce::jlimit (0.0f, 1.0f, 1.0f - (e.position.y - a.getY()) / a.getHeight()));
     }
@@ -92,6 +104,8 @@ public:
     bool dragging = false, draggingB = false;
     void mouseWheelMove (const juce::MouseEvent&, const juce::MouseWheelDetails& w) override { if (onWheel) onWheel (w.deltaY * 0.25f); }
 private:
+    int routeDrag=-1; bool bendDrag=false, previousRightClick=false;
+    juce::Point<float> routeDown; stromscore::DrivePoint controlDown;
     float beforeClickBX = 0.8f, beforeClickBY = 0.85f;
     juce::Rectangle<float> area() const { return getLocalBounds().toFloat().reduced (10.0f); }
     void move (const juce::MouseEvent& e)
@@ -445,10 +459,11 @@ private:
 
     // Szene und Fahrt (ab 1.3)
     juce::Label sceneLabel, driveLabel, entryLabel, lengthLabel, endLabel, startLabel, durLabel, curveLabel, sceneStatus;
-    juce::TextButton sceneButton, diceButton, driveButton;
+    juce::TextButton sceneButton, diceButton, driveButton, finishButton;
     juce::ComboBox buildBox, entryBox, lengthBox, endBox, startBox, durBox, curveBox;
     juce::Slider hardness;
-    std::unique_ptr<APVTS::ButtonAttachment> sceneAttachment, driveAttachment, motifAttachment;
+    std::unique_ptr<APVTS::ButtonAttachment> sceneAttachment, driveAttachment, motifAttachment, finishAttachment;
+    std::unique_ptr<juce::ParameterAttachment> numberAttachment[4];
     std::unique_ptr<APVTS::ComboBoxAttachment> buildAttachment, entryAttachment, lengthAttachment, endAttachment, startAttachment, durAttachment, curveAttachment;
     std::unique_ptr<APVTS::SliderAttachment> hardnessAttachment;
     std::unique_ptr<juce::ParameterAttachment> targetAttachment[2];

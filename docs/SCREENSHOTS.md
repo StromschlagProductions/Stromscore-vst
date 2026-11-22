@@ -1,5 +1,7 @@
 # Reproduzierbare Screenshots
 
+Die Aufnahmen ab 2.1 zeigen auch eine Beispielroute mit Wegpunkten und den Endschalter.
+
 Die PNGs werden aus der echten JUCE-Oberfläche erzeugt, einschließlich der aus `VERSION`
 kompilierten Versionsanzeige und einem gesetzten Wiedergabezustand (zweiter Akkord, einzelne
 Ebenen leuchten). Keine nachträglich ersetzten Versionsziffern.

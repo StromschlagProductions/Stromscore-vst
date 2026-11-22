@@ -16,6 +16,64 @@ const char* kLayerTip[stromscore::kNumLayers] = {
 
 // ---------------------------------------------------------------- Stimmungsfeld
 
+static juce::Point<float> routeScreen(const MoodPad& pad, stromscore::DrivePoint p)
+{
+    auto a=pad.getLocalBounds().toFloat().reduced(10.f);
+    return {a.getX()+p.x*a.getWidth(),a.getBottom()-p.y*a.getHeight()};
+}
+static juce::Point<float> routeHandle(const MoodPad& pad,int i)
+{
+    auto a=stromscore::DrivePoint{pad.x,pad.y},b=stromscore::DrivePoint{pad.bx,pad.by};
+    auto c=routeScreen(pad,pad.route.control(i,a,b));
+    auto visible=[&pad](juce::Point<float> p){p.x=juce::jlimit(4.f,std::max(4.f,(float)pad.getWidth()-4),p.x);p.y=juce::jlimit(4.f,std::max(4.f,(float)pad.getHeight()-4),p.y);return p;};
+    if(pad.selectedBend==i)return visible(c+pad.handleDragOffset);
+    float distance=10000.f;
+    for(int k=0;k<=32;++k)distance=std::min(distance,c.getDistanceFrom(routeScreen(pad,pad.route.segment(i,k/32.f,a,b))));
+    if(distance<10.f){auto p=routeScreen(pad,pad.route.anchor(i,a,b)),q=routeScreen(pad,pad.route.anchor(i+1,a,b));auto v=q-p;if(v.getDistanceFromOrigin()<1.f)v={1.f,0.f};float len=std::max(1.f,v.getDistanceFromOrigin());auto offset=juce::Point<float>(-v.y/len*16.f,v.x/len*16.f);if(!pad.getLocalBounds().toFloat().contains(c+offset))offset=-offset;c+=offset;}
+    return visible(c);
+}
+bool MoodPad::routeMouseDown(const juce::MouseEvent& e)
+{
+    altHeld=true;
+    if(!routeEditable || (mayEditRoute&&!mayEditRoute()) || !(showB||targetPending))return true;
+    for(int i=0;i<route.count;++i)if(e.position.getDistanceFrom(routeScreen(*this,route.points[(size_t)i]))<10.f)
+    {
+        if(e.mods.isRightButtonDown())
+        {
+            juce::PopupMenu menu;menu.addItem(1,u8("Wegpunkt entfernen"));
+            menu.showMenuAsync(juce::PopupMenu::Options().withTargetComponent(this),[safe=juce::Component::SafePointer<MoodPad>(this),i](int result){
+                if(!safe || result!=1 || !safe->routeEditable)return;
+                auto& p=*safe;if(i<0||i>=p.route.count||(p.mayEditRoute&&!p.mayEditRoute()))return;for(int j=i;j<p.route.count-1;++j)p.route.points[(size_t)j]=p.route.points[(size_t)j+1];
+                for(int j=i+1;j<p.route.count;++j)p.route.bends[(size_t)j]=p.route.bends[(size_t)j+1];
+                p.route.bends[(size_t)i]={};--p.route.count;if(p.onRoute)p.onRoute(p.route);p.repaint();});
+        }
+        else{routeDrag=i;bendDrag=false;routeMouseDrag(e);}return true;
+    }
+    if(e.mods.isRightButtonDown())return true;
+    stromscore::DrivePoint a{x,y},b{bx,by};
+    for(int i=0;i<=route.count;++i)if(e.position.getDistanceFrom(routeHandle(*this,i))<8.f)
+    {routeDrag=i;bendDrag=true;routeDown=e.position;controlDown=route.control(i,a,b);handleDragOffset=routeHandle(*this,i)-routeScreen(*this,controlDown);selectedBend=i;return true;}
+    int seg=-1;float best=8.f,tBest=0;
+    for(int i=0;i<=route.count;++i)for(int k=1;k<64;++k){float t=k/64.f;float d=e.position.getDistanceFrom(routeScreen(*this,route.segment(i,t,a,b)));if(d<best){best=d;seg=i;tBest=t;}}
+    if(seg<0 || route.count>=4)return true;
+    auto p=route.anchor(seg,a,b),q=route.anchor(seg+1,a,b),c=route.control(seg,a,b),n=route.segment(seg,tBest,a,b);
+    for(int j=route.count;j>seg;--j)route.points[(size_t)j]=route.points[(size_t)j-1];
+    for(int j=route.count+1;j>seg+1;--j)route.bends[(size_t)j]=route.bends[(size_t)j-1];
+    route.points[(size_t)seg]=n;
+    route.bends[(size_t)seg]={p.x+(c.x-p.x)*tBest-(p.x+n.x)*.5f,p.y+(c.y-p.y)*tBest-(p.y+n.y)*.5f};
+    route.bends[(size_t)seg+1]={c.x+(q.x-c.x)*tBest-(n.x+q.x)*.5f,c.y+(q.y-c.y)*tBest-(n.y+q.y)*.5f};
+    ++route.count;if(onRoute)onRoute(route);repaint();return true;
+}
+void MoodPad::routeMouseDrag(const juce::MouseEvent& e)
+{
+    if(!routeEditable || (mayEditRoute&&!mayEditRoute()))return;
+    auto a=area();
+    if(bendDrag){auto p=route.anchor(routeDrag,{x,y},{bx,by}),q=route.anchor(routeDrag+1,{x,y},{bx,by});
+        route.bends[(size_t)routeDrag]={juce::jlimit(0.f,1.f,controlDown.x+(e.position.x-routeDown.x)/a.getWidth())-(p.x+q.x)*.5f,juce::jlimit(0.f,1.f,controlDown.y-(e.position.y-routeDown.y)/a.getHeight())-(p.y+q.y)*.5f};}
+    else route.points[(size_t)routeDrag]={juce::jlimit(0.f,1.f,(e.position.x-a.getX())/a.getWidth()),juce::jlimit(0.f,1.f,(a.getBottom()-e.position.y)/a.getHeight())};
+    if(onRoute)onRoute(route);repaint();
+}
+
 void MoodPad::paint (juce::Graphics& g)
 {
     auto r = getLocalBounds().toFloat();
@@ -54,11 +112,14 @@ void MoodPad::paint (juce::Graphics& g)
         const auto pb = toScreen (bx, by);
         juce::Path path, dashed;
         path.startNewSubPath (px, py);
-        path.lineTo (pb);
+        for(int i=0;i<=route.count;++i){auto c=toScreen(route.control(i,{x,y},{bx,by}).x,route.control(i,{x,y},{bx,by}).y);auto q=route.anchor(i+1,{x,y},{bx,by});path.quadraticTo(c,toScreen(q.x,q.y));}
         const float dashes[] = { 4.0f, 4.0f };
         juce::PathStrokeType (1.3f).createDashedStroke (dashed, path, dashes, 2);
         g.setColour (accent.withAlpha (0.65f));
         g.fillPath (dashed);
+        for(int i=0;i<route.count;++i){auto p=routeScreen(*this,route.points[(size_t)i]);g.setColour(accent);g.fillEllipse(p.x-7,p.y-7,14,14);g.setColour(panel);g.drawText(juce::String(i+1),juce::Rectangle<float>(p.x-7,p.y-7,14,14),juce::Justification::centred);}
+        if(altHeld && routeEditable)for(int i=0;i<=route.count;++i){auto h=routeHandle(*this,i);auto mouse=getMouseXYRelative().toFloat();float near=h.getDistanceFrom(mouse);for(int k=0;k<=16;++k)near=std::min(near,routeScreen(*this,route.segment(i,k/16.f,{x,y},{bx,by})).getDistanceFrom(mouse));if(near<32.f){g.setColour(h.getDistanceFrom(mouse)<8.f?accent:text);g.drawRect(juce::Rectangle<float>(h.x-4,h.y-4,8,8),1.5f);}}
+
         g.setColour (panel);
         g.fillEllipse (pb.x - 8.0f, pb.y - 8.0f, 16.0f, 16.0f);
         g.setColour (accent);
@@ -669,6 +730,9 @@ static juce::AttributedString buildHelp (juce::Colour text, juce::Colour accent,
     bold ("Es verwendet keine KI. ");
     body ("STROMSCORE arbeitet mit festen Regeln, nicht mit trainierten Modellen und nicht mit fremdem Material. Die Grundlage ist der Stil, den Lars Eickstädt über Jahre für seine Hörspiele entwickelt hat, geprägt von großen Filmkomponisten und der Musik klassischer Hörspiele. Daraus ist ein Vorrat an Wendungen entstanden: Akkordfolgen, Figuren und Rhythmen. Je nach Stimmung zieht das Plugin daraus. Melodien bekannter Stücke werden nicht nachgebaut.");
 
+    head ("Neu in 2.1: Routen und Szenenabschluss");
+    body ("Bis zu vier Wegpunkte: Bei ausgeschalteter Fahrt Alt-Klick auf die Bahn zum Einfügen, Alt-Ziehen am Punkt zum Verschieben, Alt-Rechtsklick am Punkt zum Entfernen. Alt nahe der Bahn zeigt versetzte Kurvengriffe; Ziehen biegt den Abschnitt. Links bleibt A, rechts B. Die Gesamtfahrtdauer verteilt sich nach Weglänge. Routenbearbeitung erfolgt bei ausgeschalteter Fahrt.");
+    body ("Aufbau, Länge, Fahrtstart und Dauer erlauben jetzt direkte Eingabe ganzer Takte bis 4096. Länge 0 ist unbegrenzt, Start 1 der erste Takt. Szene beenden ist automatisierbar: hart mit Schlussakzent, offen ohne Akzent, ausklingend mit zwei Takten Schlussphase. Der Befehl wirkt am nächsten Sechzehntelraster. Schalter zurücksetzen allein startet keine neue Szene. Vor erneutem Wiedergabestart ausschalten. Neu würfeln wird erst beim nächsten Szenenstart übernommen; die Statuszeile zeigt den vorgemerkten Wurf. MIDI-Export beginnt eine frische Szene und übernimmt keine bereits ausgelöste Live-Beendigung oder vergangene DAW-Automation.");
     head ("Neu: Wendungsinfo und CC-Bereiche");
     body ("WENDUNGSINFO neben der Akkordanzeige erklärt jede der 48 Score- und 36 Pop-Rock-Wendungen: Akkorde in deiner Tonart, Muster, Instrumentierung und stilistische Bezüge. Die neun neuen Album-Pop-, Gitarren- und Studio-Pop-Wendungen haben eigene rhythmische Gegenstimmen; es werden keine bekannten Melodien kopiert.");
     body ("Oben im Menü MIDI / CC unter „Ausgang: CC-Bereiche …“ stehen die Dynamik- und Ausdrucksbereiche je MIDI-Kanal. Die Kanalnamen zeigen alle zugeordneten Ausgänge, auch Fläche kurz und Akzent Stich. „CC-Ausgabe für alle Kanäle“ schaltet die gesamte Ausgabe ein; die Bereiche gelten jeweils nur für den gewählten Kanal. Beispiel: Dynamik von 100 bis 127, Ausdruck von 60 bis 127. Die ganze Kurve wird relativ in diesen Bereich übersetzt; gleiche Grenzen ergeben einen festen Wert. Geteilte Kanäle teilen immer denselben Bereich und dieselben Controller. Bei vertauschten Grenzen zählt der kleinere Wert als Minimum. Die Grundeinstellung neuer Bereiche ist 60–127. Die Ausgabe bleibt zunächst aus und wird im CC-Menü oder im Bereichsfenster eingeschaltet.");
@@ -692,10 +756,10 @@ static juce::AttributedString buildHelp (juce::Colour text, juce::Colour accent,
     body ("Mit AUFBAU spielt am Anfang nur die Ebene des EINSTIEGS. Die anderen folgen nacheinander auf Taktgrenzen, bis nach 4, 8 oder 16 Takten alles da ist; dabei wird die Musik von dünn zu dicht. Einstiege: Fläche, schüchtern (ein leiser, vollständig gefärbter Akkord), Bass-Schlag (ein tiefer Ton, kräftig gesetzt), Puls (kurze Viertel auf dem Grundton, wie ein Ticken, den ganzen Aufbau lang), Arpeggio, Akzent (ein Stich oder Tupfer in der Stille), Gegenstimme oder alles zugleich. Danach kommen die verwandten Ebenen: Beginnt der Bass, folgt das Arpeggio, dann die Fläche, zuletzt Akzent und Gegenstimme. Gewählt hat immer Vorrang. Auf AUTO würfelt Stromscore den Einstieg, passend zu Genre und Stimmung und nur aus Ebenen, die gerade spielen können. NEU WÜRFELN ergibt einen anderen Einstieg und ein anderes Motiv; derselbe Wurf ergibt immer dasselbe. Die Ebene des Einstiegs spielt im Aufbau auch dann, wenn die Intensität für sie eigentlich zu niedrig ist; danach gelten wieder die normalen Schwellen. Aus: alle Ebenen setzen gleich ein, wie vor Version 1.3.");
     body ("HÄRTE bestimmt, wie eine Ebene einsetzt: unter 50 % weich eingeblendet (ganz links über zwei Takte), über 50 % mit einem kräftigen ersten Anschlag. Das gilt im Aufbau und immer, wenn eine Ebene mit steigender Intensität dazukommt. Ist die Dynamik per CC eingeschaltet, folgt sie mit.");
     body ("Mit LÄNGE endet die Szene nach 8 bis 64 Takten. ENDE wählt, wie: HART spielt bis zum Schluss mit allen Ebenen; im letzten Takt zieht sich der Bass zurück und ein Stich kündigt an, dann kommt ein kurzer, kräftiger Schlag auf dem Grundakkord und danach Stille. AUSKLINGEND lässt die Ebenen nacheinander gehen, was zuletzt kam, zuerst, und die Ebene des Einstiegs klingt bis zum Ende. OFFEN wird zum Schluss noch dichter und bricht dann ohne Schlussschlag ab, die Spannung bleibt stehen. Unbegrenzt: Die Musik läuft weiter.");
-    note ("Rechts in der Leiste FAHRT steht während der Wiedergabe der Stand der Szene: Takt, Einstieg, Aufbau, Fahrt und wie viele Takte bis zum Ende bleiben.");
+    note ("Rechts in der Leiste FAHRT steht während der Wiedergabe der Stand der Szene: Takt, Einstieg, Aufbau, Fahrt und wie viele Takte bis zum Ende bleiben. Ganze Taktzahlen lassen sich direkt eingeben.");
 
     head ("Fahrt von A nach B");
-    body ("Mit FAHRT wandert die Musik selbst vom Punkt im Feld (A) zu einem Ziel (B). B erscheint als Ring im Stimmungsfeld; Links setzt und zieht immer A, rechts immer B. Eine linke Geste oder ein Zug an Färbung/Intensität übernimmt sofort manuell und beendet die Fahrt. Das Mausrad steuert nur Unruhe. B bleibt auch bei ausgeschalteter Fahrt und nach dem Wiederöffnen des Projekts sichtbar. Ein Rechts-Doppelklick irgendwo im Feld blendet B bei ausgeschalteter Fahrt aus und behält das vorherige Ziel; ein einzelner Rechtsklick setzt es wieder, Fahrt einschalten zeigt es wieder an; liegen A und B zusammen, steht dort A/B. Mit der rechten Maustaste setzt du das Ziel B, ohne dass die Fahrt startet: Der Ring erscheint dort, die Musik bleibt bei A, und mit FAHRT geht es los. Während der Hinfahrt lässt sich B rechts ändern: Die aktuelle Position bleibt erhalten, der restliche Weg wird auf die verbleibende Dauer verteilt. Auf der Rückfahrt bleibt das ursprüngliche A das Ziel; ein geändertes B gilt für die nächste Fahrt. Ein DAW-Sprung rekonstruiert die Kurve aus den aktuellen Einstellungen, ohne vorherige manuelle Zieländerungen. Solche Änderungen für wiederholbare Exporte als DAW-Automation aufnehmen. START legt fest, wann die Fahrt beginnt (sofort oder ab Takt 5, 9, 17, 33), DAUER, wie lange sie braucht, KURVE den Verlauf: gleichmäßig, erst langsam und dann schnell, in vier Stufen oder hin und zurück (zur Mitte der Dauer bei B, am Ende wieder bei A). Kommt die Fahrt bei B an, wird B zum neuen A, und die Fahrt schaltet sich aus: Du bleibst dort und kannst von Hand weiterziehen. Schaltest du sie unterwegs aus, wird die Stelle, an der die Musik gerade ist, zu A; nichts springt zurück. Schaltest du FAHRT während der Wiedergabe wieder ein, geht es mit dem nächsten Takt vom Punkt aus los. START gilt nur, wenn die Wiedergabe mit eingeschalteter Fahrt beginnt. Während der Wiedergabe zeigt ein kleiner Punkt, wo die Musik gerade ist; der Unruhe-Ring und die Werte in der Akkord-Anzeige wandern mit ihm.");
+    body ("Mit FAHRT wandert die Musik selbst vom Punkt im Feld (A) zu einem Ziel (B). B erscheint als Ring im Stimmungsfeld; Links setzt und zieht immer A, rechts immer B. Eine linke Geste oder ein Zug an Färbung/Intensität übernimmt sofort manuell und beendet die Fahrt. Das Mausrad steuert nur Unruhe. B bleibt auch bei ausgeschalteter Fahrt und nach dem Wiederöffnen des Projekts sichtbar. Ein Rechts-Doppelklick irgendwo im Feld blendet B bei ausgeschalteter Fahrt aus und behält das vorherige Ziel; ein einzelner Rechtsklick setzt es wieder, Fahrt einschalten zeigt es wieder an; liegen A und B zusammen, steht dort A/B. Mit der rechten Maustaste setzt du das Ziel B, ohne dass die Fahrt startet: Der Ring erscheint dort, die Musik bleibt bei A, und mit FAHRT geht es los. Während der Hinfahrt lässt sich B rechts ändern: Die aktuelle Position bleibt erhalten, der restliche Weg wird auf die verbleibende Dauer verteilt. Auf der Rückfahrt bleibt das ursprüngliche A das Ziel; ein geändertes B gilt für die nächste Fahrt. Ein DAW-Sprung rekonstruiert die Kurve aus den aktuellen Einstellungen, ohne vorherige manuelle Zieländerungen. Solche Änderungen für wiederholbare Exporte als DAW-Automation aufnehmen. START legt den Starttakt fest (frei eingebbar ab Takt 1), DAUER, wie lange sie braucht, KURVE den Verlauf: gleichmäßig, erst langsam und dann schnell, in vier Stufen oder hin und zurück (zur Mitte der Dauer bei B, am Ende wieder bei A). Kommt die Fahrt bei B an, wird B zum neuen A, und die Fahrt schaltet sich aus: Du bleibst dort und kannst von Hand weiterziehen. Schaltest du sie unterwegs aus, wird die Stelle, an der die Musik gerade ist, zu A; nichts springt zurück. Schaltest du FAHRT während der Wiedergabe wieder ein, geht es mit dem nächsten Takt vom Punkt aus los. START gilt nur, wenn die Wiedergabe mit eingeschalteter Fahrt beginnt. Während der Wiedergabe zeigt ein kleiner Punkt, wo die Musik gerade ist; der Unruhe-Ring und die Werte in der Akkord-Anzeige wandern mit ihm.");
     body ("Weil Stromscore das Ziel kennt, bereitet es eine Fahrt nach oben vor: Im Takt vor dem Ziel zieht sich der Bass in der zweiten Hälfte zurück und ein Stich kündigt an, am Ziel setzen Fläche und Bass kräftig neu ein. Von Hand fahren und Automation gehen weiterhin; die Fahrt geht dann vom aktuellen Punkt A aus.");
 
     head ("Trägheit");
@@ -1088,13 +1152,34 @@ StromscoreEditor::StromscoreEditor (StromscoreProcessor& p) : AudioProcessorEdit
         content.addAndMakeVisible (b);
         att = std::make_unique<APVTS::ComboBoxAttachment> (processor.apvts, id, b);
     };
-    box (buildBox, StromscoreProcessor::buildNames(), buildAttachment, "aufbauTakte");
+
     box (entryBox, StromscoreProcessor::entryNames(), entryAttachment, "einstieg");
-    box (lengthBox, StromscoreProcessor::sceneLengthNames(), lengthAttachment, "szenenLaenge");
+
     box (endBox, StromscoreProcessor::endingNames(), endAttachment, "ende");
-    box (startBox, StromscoreProcessor::driveStartNames(), startAttachment, "fahrtStart");
-    box (durBox, StromscoreProcessor::driveBarsNames(), durAttachment, "fahrtTakte");
+
+
     box (curveBox, StromscoreProcessor::curveNames(), curveAttachment, "fahrtKurve");
+    auto number = [this](int i, juce::ComboBox& b, const char* id, bool unlimited, std::initializer_list<int> choices)
+    {
+        content.addAndMakeVisible(b); b.setEditableText(true); b.setComponentID(id);
+        if(unlimited)b.addItem("unbegrenzt",1);
+        for(int n:choices)b.addItem(juce::String(n)+(n==1?" Takt":" Takte"),n+1);
+        numberAttachment[i]=std::make_unique<juce::ParameterAttachment>(*processor.apvts.getParameter(id),[&b,unlimited](float f){int n=juce::roundToInt(f);b.setText(unlimited&&n==0?juce::String("unbegrenzt"):juce::String(n),juce::dontSendNotification);},nullptr);
+        b.onChange=[this,i,&b,unlimited]{auto t=b.getText().trim().replace(" Takte","").replace(" Takt","");
+            if(unlimited&&t=="unbegrenzt"){numberAttachment[i]->setValueAsCompleteGesture(0);return;}
+            if(t.isEmpty()||t.length()>4||!t.containsOnly("0123456789")){numberAttachment[i]->sendInitialUpdate();return;}
+            int n=t.getIntValue();if(n<(unlimited?0:1)||n>4096){numberAttachment[i]->sendInitialUpdate();return;}
+            numberAttachment[i]->setValueAsCompleteGesture((float)n);};
+        b.setTooltip(u8("Ganze Takte direkt eingeben (1–4096) oder Vorgabe wählen. Länge 0 = unbegrenzt; Fahrtstart 1 = erster Takt."));
+        numberAttachment[i]->sendInitialUpdate();
+    };
+    number(0,buildBox,"aufbauTakte",false,{4,8,16});
+    number(1,lengthBox,"szenenLaenge",true,{8,16,24,32,48,64});
+    number(2,startBox,"fahrtStart",false,{1,5,9,17,33});
+    number(3,durBox,"fahrtTakte",false,{4,8,16,32});
+    content.addAndMakeVisible(finishButton);finishButton.setButtonText("Szene beenden");finishButton.setClickingTogglesState(true);
+    finishButton.setTooltip(u8("Automatisierbarer Endauslöser. Hart: Schlussschlag; offen: Abbruch; ausklingend: zwei Takte Schlussphase. Zurücksetzen allein startet nicht neu. Vor einem neuen Szenenstart ausschalten."));
+    finishAttachment=std::make_unique<APVTS::ButtonAttachment>(processor.apvts,"szeneBeenden",finishButton);
     hardness.setSliderStyle (juce::Slider::LinearBar);
     content.addAndMakeVisible (hardness);
     hardnessAttachment = std::make_unique<APVTS::SliderAttachment> (processor.apvts, "haerte", hardness);
@@ -1109,7 +1194,7 @@ StromscoreEditor::StromscoreEditor (StromscoreProcessor& p) : AudioProcessorEdit
     sceneButton.setTooltip (u8 ("Aufbau: Die Szene beginnt mit dem Start der Wiedergabe. Zuerst spielt nur die Ebene des Einstiegs, die anderen folgen nacheinander auf Taktgrenzen, bis nach der eingestellten Zahl von Takten alles da ist. Dabei wird die Musik dichter. Aus: alle Ebenen setzen gleich ein."));
     buildBox.setTooltip (u8 ("Wie lange der Aufbau dauert: 4, 8 oder 16 Takte bis alle Ebenen spielen."));
     entryBox.setTooltip (u8 ("Womit die Szene beginnt: ein leiser Akkord der Fläche, ein Bass-Schlag, ein Puls in Vierteln, das Arpeggio, ein Akzent in der Stille, die Gegenstimme oder alles zugleich. Danach folgen die verwandten Ebenen. Auto würfelt passend zu Genre und Stimmung, nur aus Ebenen, die gerade spielen können."));
-    diceButton.setTooltip (u8 ("Neuer Wurf: ein anderer Einstieg bei Auto und ein anderes Motiv der Gegenstimme. Gleicher Wurf, gleiches Ergebnis; er wird mit dem Projekt gespeichert."));
+    diceButton.setTooltip (u8 ("Neuer Wurf für den nächsten Szenenstart: Einstieg bei Auto und Motiv der Gegenstimme. Die laufende Szene behält ihren Wurf. Vorhören aus/ein oder DAW neu starten. Gleicher Wurf, gleiches Ergebnis; mit Projekt gespeichert."));
     hardness.setTooltip (u8 ("Wie die Ebenen einsetzen. Unter 50 % weich eingeblendet (ganz links über zwei Takte), über 50 % mit einem kräftigen ersten Anschlag. Gilt auch, wenn eine Ebene mit steigender Intensität dazukommt. Doppelklick: Mitte."));
     lengthBox.setTooltip (u8 ("Länge der Szene ab dem Start der Wiedergabe. Unbegrenzt: die Musik läuft weiter. Mit Länge endet sie nach dieser Zahl von Takten, wie unter „Ende“ eingestellt."));
     endBox.setTooltip (u8 ("Hart: Bis zum Schluss spielen alle Ebenen, im letzten Takt zieht sich der Bass zurück und ein Stich kündigt an, dann ein kurzer, kräftiger Schlag und Stille. Ausklingend: Die Ebenen gehen nacheinander, was zuletzt kam, zuerst; die erste Ebene klingt bis zum Ende. Offen: Die Musik wird zum Schluss noch dichter und bricht dann ohne Schlussschlag ab."));
@@ -1117,12 +1202,20 @@ StromscoreEditor::StromscoreEditor (StromscoreProcessor& p) : AudioProcessorEdit
     startBox.setTooltip (u8 ("Wann die Fahrt beginnt, gezählt ab dem Start der Wiedergabe."));
     durBox.setTooltip (u8 ("Wie lange die Fahrt von A nach B dauert."));
     curveBox.setTooltip (u8 ("Gleichmäßig; erst langsam, dann schnell; in vier Stufen; oder hin und zurück (zur Mitte der Dauer bei B, am Ende wieder bei A)."));
-    sceneStatus.setTooltip (u8 ("Stand der Szene: Takt seit dem Start der Wiedergabe, Einstieg, Aufbau, Fahrt und wie viele Takte bis zum Ende bleiben."));
+    sceneStatus.setTooltip (u8 ("Stand der Szene: Takt seit dem Start der Wiedergabe, Einstieg, Aufbau, Fahrt und wie viele Takte bis zum Ende bleiben. Ganze Taktzahlen lassen sich direkt eingeben."));
 
     for (int a = 0; a < 2; ++a)
         targetAttachment[a] = std::make_unique<juce::ParameterAttachment> (*processor.apvts.getParameter (a == 0 ? "fahrtX" : "fahrtY"),
             [this, a] (float v) { (a == 0 ? pad.bx : pad.by) = v; pad.repaint(); }, nullptr);
     for (auto& t : targetAttachment) t->sendInitialUpdate();
+    pad.route=processor.currentSettings().route;
+    pad.mayEditRoute=[this]{return !processor.currentSettings().drive;};
+    pad.onRoute=[this](const stromscore::DrivePath& p){
+        auto set=[this](const juce::String& id,float value){auto* a=processor.apvts.getParameter(id);if(std::abs(a->convertFrom0to1(a->getValue())-value)<1e-6f)return;a->beginChangeGesture();a->setValueNotifyingHost(a->convertTo0to1(value));a->endChangeGesture();};
+        for(int i=0;i<4;++i){set("weg"+juce::String(i)+"X",p.points[(size_t)i].x);set("weg"+juce::String(i)+"Y",p.points[(size_t)i].y);}
+        for(int i=0;i<5;++i){set("bogen"+juce::String(i)+"X",p.bends[(size_t)i].x);set("bogen"+juce::String(i)+"Y",p.bends[(size_t)i].y);}
+        set("wegpunkte",(float)p.count);
+    };
     pad.targetPending = processor.targetSet.load();
     pad.onSetTarget = [this] { processor.markTargetSet(); pad.targetPending = true; pad.repaint(); };
     pad.onHideTarget = [this] (float previousX, float previousY)
@@ -1361,6 +1454,8 @@ void StromscoreEditor::timerCallback()
     }
     {
         const bool drive = settings.drive;
+        pad.routeEditable=!drive;
+        pad.route=settings.route;
         const bool running = processor.sceneBar.load() >= 0;
         const bool showNow = drive && running;
         pad.targetPending = processor.targetSet.load();
@@ -1434,7 +1529,7 @@ void StromscoreEditor::updateSceneStatus()
         t = u8 ("Die Szene beginnt mit dem Start der Wiedergabe");
         if (s.drive) t << u8 (" · rechts Ziel B setzen");
     }
-    else if (processor.sceneOver.load()) t = u8 ("Szene zu Ende (Takt ") + juce::String (s.sceneBars) + u8 (") · neu mit dem nächsten Start");
+    else if (processor.sceneOver.load()) t = s.endRequested ? u8 ("Szene beendet · Endschalter zurücksetzen und Wiedergabe neu starten") : u8("Szene beendet · Wiedergabe neu starten");
     else
     {
         t = "Takt " + juce::String (bar + 1);
@@ -1469,11 +1564,12 @@ void StromscoreEditor::updateSceneStatus()
             default: if (processor.targetSet.load()) t << u8 (" · Ziel B bereit"); break;
         }
     }
+    if(bar>=0 && s.seed!=processor.activeSceneSeed.load()) t << u8(" · neuer Wurf für nächsten Start");
     if (sceneStatus.getText() != t) sceneStatus.setText (t, juce::dontSendNotification);
     const bool drive = s.drive;
-    for (auto* c : std::initializer_list<juce::Component*> { &startBox, &durBox, &curveBox, &startLabel, &durLabel, &curveLabel }) c->setEnabled (drive);
-    endBox.setEnabled (s.sceneBars > 0); endLabel.setEnabled (s.sceneBars > 0);
-    buildBox.setEnabled (s.scene);
+    for (auto* c : std::initializer_list<juce::Component*> { &startBox, &durBox, &curveBox, &startLabel, &durLabel, &curveLabel }) c->setEnabled (true);
+    endBox.setEnabled (true); endLabel.setEnabled (true);
+    buildBox.setEnabled (true);
 }
 
 void StromscoreEditor::applyTheme()
@@ -1664,16 +1760,11 @@ void StromscoreEditor::resized()
     {
         const int y1 = 340, y2 = 381, h = 24;
         sceneLabel.setBounds (22, y1, 58, h);
-        sceneButton.setBounds (80, y1, 70, h);
-        buildBox.setBounds (154, y1, 84, h);
-        entryLabel.setBounds (248, y1, 56, h);
-        entryBox.setBounds (302, y1, 146, h);
-        diceButton.setBounds (452, y1, 86, h);
-        hardness.setBounds (548, y1, 132, h);
-        lengthLabel.setBounds (690, y1, 42, h);
-        lengthBox.setBounds (730, y1, 98, h);
-        endLabel.setBounds (838, y1, 36, h);
-        endBox.setBounds (872, y1, 104, h);
+        sceneButton.setBounds(80,y1,60,h);buildBox.setBounds(144,y1,64,h);
+        entryLabel.setBounds(214,y1,44,h);entryBox.setBounds(256,y1,112,h);
+        diceButton.setBounds(372,y1,82,h);hardness.setBounds(462,y1,110,h);
+        lengthLabel.setBounds(580,y1,36,h);lengthBox.setBounds(616,y1,98,h);
+        finishButton.setBounds(720,y1,132,h);endLabel.setBounds(0,0,0,0);endBox.setBounds(858,y1,118,h);
         driveLabel.setBounds (22, y2, 58, h);
         driveButton.setBounds (80, y2, 70, h);
         startLabel.setBounds (160, y2, 40, h);
