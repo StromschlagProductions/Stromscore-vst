@@ -608,9 +608,11 @@ int main()
             CHECK (std::abs (p->currentSettings().driveY - original.driveY) < 1e-6f);
             CHECK (std::abs (p->currentSettings().x - original.x) < 1e-6f);
             juce::MemoryBlock hiddenState; p->getStateInformation (hiddenState);
-            StromscoreProcessor hidden; hidden.setStateInformation (hiddenState.getData(), (int) hiddenState.getSize());
-            CHECK (! hidden.targetSet.load());
-            CHECK (std::abs (hidden.currentSettings().driveX - original.driveX) < 1e-6f);
+            // Processors contain large fixed MIDI buffers: keep the extra restore instance off Windows' small main stack.
+            auto hidden = std::make_unique<StromscoreProcessor>();
+            hidden->setStateInformation (hiddenState.getData(), (int) hiddenState.getSize());
+            CHECK (! hidden->targetSet.load());
+            CHECK (std::abs (hidden->currentSettings().driveX - original.driveX) < 1e-6f);
             setParam (*p, "fahrt", 1); CHECK (p->targetSet.load());
             press (true, 1, 0.25f); press (true, 2, 0.25f);
             CHECK (p->targetSet.load() && p->currentSettings().drive); // no hiding during a drive
