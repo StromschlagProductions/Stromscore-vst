@@ -35,6 +35,8 @@ jobs:
       RELEASE_COMMIT: ${{ github.event.head_commit.message }}
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Version lesen
         shell: pwsh
@@ -100,6 +102,14 @@ jobs:
 
       - name: Regressionstests
         run: ctest --test-dir build -C Release --output-on-failure
+
+      - name: Stimmfuehrungs-Vergleich sichern
+        uses: actions/upload-artifact@v4
+        with:
+          name: Stromscore-VoiceLeading-Comparisons
+          path: build/voice-leading-comparison
+          if-no-files-found: error
+          retention-days: 30
 
       - name: Plugin bereitstellen
         uses: actions/upload-artifact@v4

@@ -669,7 +669,24 @@ int main()
                     std::set<std::pair<long long, int>> pa, pb;
                     for (const auto& e : a) if (e.velocity > 0 && e.channel == ch) pa.insert ({ e.sample, e.note % 12 });
                     for (const auto& e : b) if (e.velocity > 0 && e.channel == ch) pb.insert ({ e.sample, e.note % 12 });
-                    CHECK (pa == pb);
+                    if (ch != 1) CHECK (pa == pb);
+                    else
+                    {
+                        // Held common tones intentionally have no new attack. Compare sounding harmony, not attacks.
+                        std::set<long long> times;
+                        for (const auto& e : a) times.insert (e.sample);
+                        for (const auto& e : b) times.insert (e.sample);
+                        std::map<std::pair<int,int>, bool> aa, bb; size_t ia = 0, ib = 0;
+                        for (auto t : times)
+                        {
+                            while (ia < a.size() && a[ia].sample <= t) { const auto& e = a[ia++]; if (e.channel == 1) aa[{e.midi,e.note}] = e.velocity > 0; }
+                            while (ib < b.size() && b[ib].sample <= t) { const auto& e = b[ib++]; if (e.channel == 1) bb[{e.midi,e.note}] = e.velocity > 0; }
+                            std::set<int> ca, cb;
+                            for (auto e : aa) if (e.second) ca.insert (e.first.second % 12);
+                            for (auto e : bb) if (e.second) cb.insert (e.first.second % 12);
+                            CHECK (ca == cb);
+                        }
+                    }
                 }
                 CHECK (countOns (a, 3) == countOns (b, 3));
                 CHECK (countOns (b, 3) > 20);

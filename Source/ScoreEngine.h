@@ -10,6 +10,7 @@
 #include <array>
 #include <cmath>
 #include <cstdint>
+#include "VoiceLeading.h"
 
 namespace stromscore
 {
@@ -371,8 +372,10 @@ struct Meter
 class Generator
 {
 public:
-    void reset() { style = -1; csNote = -1; csPendingAt = -1; chaseStep = -1; lastGenre = -1; resetCc(); numActive = 0; running = false; lastPpqEnd = 0.0; phraseIndex = -1; current = -1; wendungStart = 0; still = false; chordBase = 0; drivePrev = driveSeen = driveLatched = driveArrivedNow = false; curRoot = 0; curType = Min; curChord = -1;
+    void reset() { style = -1; csNote = -1; csPendingAt = -1; chaseStep = -1; lastGenre = -1; resetCc(); resetVoicing(); numActive = 0; running = false; lastPpqEnd = 0.0; phraseIndex = -1; current = -1; wendungStart = 0; still = false; chordBase = 0; drivePrev = driveSeen = driveLatched = driveArrivedNow = false; curRoot = 0; curType = Min; curChord = -1;
                    sceneStep = 0; autoSeed = -1; sceneBarNow = -1; sceneEnded = false; for (int l = 0; l < kNumLayers; ++l) { on[l] = prevOn[l] = hOn[l] = false; } }
+
+    uint32_t unavailablePadPitchClasses() const { return unavailablePad; }
 
     // Fuer die Anzeige: Szene
     int sceneBar() const { return sceneBarNow; }              // Takte seit Szenenstart (-1: steht)
@@ -580,6 +583,7 @@ public:
         if (! running || jumped)
         {
             allNotesOff (out, 0);
+            resetVoicing();
             // Szenenstart: Wiedergabebeginn, auf den Taktanfang gerundet. Ein Sprung nach vorn (oder ein Loop, der nicht
             // vor den Start zurueckspringt) laeuft in derselben Szene weiter, ein Sprung davor beginnt eine neue.
             const long long k0 = (long long) std::floor (t.ppq / kStep + 1e-9);
@@ -599,8 +603,9 @@ public:
             if (when < t.ppq - 1e-12) continue;
             const int offset = std::clamp ((int) std::llround ((when - t.ppq) * samplesPerQuarter), 0, numSamples - 1);
             applyDrive (k, s, ax, ay);
-            releaseDue (k, offset, out);
+            releaseDue (k, offset, out, true);
             stepOn (k, offset, s, out);
+            releaseDue (k, offset, out);
         }
         lastPpqEnd = ppqEnd;
         cur = nullptr;
@@ -616,9 +621,7 @@ private:
     {
         long long k, bar, phrase; int pos, barInPhrase;
         int chordIdx; long long chordStart, chordEnd, phraseStart, phraseEnd;
-        int ccLo[2][16] = {}, ccHi[2][16] = {};
-    bool ccRange = false; // false preserves legacy projects; processor supplies explicit channel ranges
-    bool passing = false;   // Durchgangsakkord am Ende des Akkords
+        bool passing = false;   // Durchgangsakkord am Ende des Akkords
     };
 
     static long long floorDiv (long long a, long long b) { return a >= 0 ? a / b : -((-a + b - 1) / b); }
@@ -996,7 +999,7 @@ private:
         {
             Chord tonic = w.ch[0]; tonic.root = current == kCustomWendung ? w.ch[0].root : 0;
             tonic.bass = -1;
-            tonic.type = kShapes[w.ch[0].type].minor ? Min : Maj;
+            if (layer != kFlaeche) tonic.type = kShapes[w.ch[0].type].minor ? Min : Maj; // keep pad colour even when harmony following is disabled
             return tonic;
         }
         return w.ch[p.chordIdx];
@@ -1068,11 +1071,12 @@ private:
         out.add (offset, a.channel, a.note, 0, a.out);
     }
 
-    void releaseDue (long long step, int offset, EventList& out)
+    void releaseDue (long long step, int offset, EventList& out, bool deferPadBoundary = false)
     {
         for (int i = 0; i < numActive;)
         {
-            if (active[(size_t) i].endStep <= step)
+            const auto& claim = active[(size_t) i];
+            if (claim.endStep <= step && ! (deferPadBoundary && claim.endStep == step && claim.out == OutPadLong))
             {
                 removeActive (i, offset, out);
             }
@@ -1094,12 +1098,13 @@ private:
     }
 
     // Beim Wechsel der Wendung: gehaltene Toene der alten Stimmung sofort beenden
-    void releaseHeld (int offset, EventList& out)
+    void releaseHeld (int offset, EventList& out, bool keepPad = false)
     {
         for (int i = 0; i < numActive;)
         {
+            if (keepPad && active[(size_t) i].out == OutPadLong) active[(size_t) i].endStep = std::min (active[(size_t) i].endStep, nowStep);
             const int layer = kOutputLayer[active[(size_t) i].out];
-            if (layer == kFlaeche || layer == kBass || layer == kAkzent)
+            if ((layer == kFlaeche && ! (keepPad && active[(size_t) i].out == OutPadLong)) || layer == kBass || layer == kAkzent)
             {
                 removeActive (i, offset, out);
             }
@@ -1213,18 +1218,19 @@ private:
     static int bassLow (const Settings& s) { return 45 + (int) std::lround (s.x * 4.0f); }   // Bass: A2 bis Cis3
 
     // --- Flaeche (o: lang fuer gehaltene Akkorde, kurz fuer Schlaege, Puls, Staccato und Gated)
-    void padChord (const Pos& p, const Settings& s, int o, int offset, long long endStep, int velocity, EventList& out)
+    voiceleading::ChordVoicing canonicalPad (const Chord& c, const Settings& s, long long start) const
     {
         // Weiter Satz wie im Orchester: Grundton und Quinte unten, Terz und Farbtoene eine Oktave hoeher
-        const Chord c = chordFor (p, kFlaeche, s);
+
         const ChordShape& sh = kShapes[padType (c.type, s.z)];
         const float y = layerY (s, kFlaeche);
         // VARIATION bei eigener Folge: weit, eng oder weit ohne tiefen Grundton
-        const int voicing = current == kCustomWendung ? hashInt (91u, p.chordStart) % 3 : 0;
+        const int voicing = current == kCustomWendung ? hashInt (91u, start) % 3 : 0;
         const int root = voicing == 1 ? place (s.key + c.root, padLow (s) - 5) : place (s.key + c.root, padLow (s) - 12);
         int voices = sh.n;
         // Quiet intensity changes density and velocity, never removes harmonic colours.
-        int notes[6]; int n = 0;
+        voiceleading::ChordVoicing result;
+        auto& notes = result.notes; int& n = result.n;
         for (int i = 0; i < voices; ++i)
         {
             const int iv = sh.iv[i];
@@ -1236,15 +1242,126 @@ private:
         const bool chromaticInnerLine = s.genre == GenrePopRock && current == 31;
         if ((chromaticInnerLine && sh.n == 3) || (! chromaticInnerLine && y > 0.6f))
             notes[n++] = root + 24; // Drahtseil: A–G#–G–F# in one register, not an unrelated octave jump.
-        if (rangeOn (o))
+        voiceleading::sort (result); return result;
+    }
+
+    void resetVoicing() { planValid = false; unavailablePad = 0; }
+
+    // A bounded cyclic plan is a function of the harmonic vocabulary, register and variation.
+    // It has no "last played notes" memory: seek, loop, offline export and block size agree.
+    void prepareVoicingPlan (const Pos& p, const Settings& s)
+    {
+        const int o = OutPadLong, oct = 12 * octaveOf (o);
+        const int lo = rangeOn (o) ? s.rangeLo[0] - oct : std::max (-oct, padLow (s) - 18);
+        const int hi = rangeOn (o) ? s.rangeHi[0] - oct : std::min (127 - oct, padLow (s) + 24);
+        const int blo = s.rangeOn[1] ? s.rangeLo[1] - 12 * s.octave[kBass] : bassLow (s) - 7;
+        const int bhi = s.rangeOn[1] ? s.rangeHi[1] - 12 * s.octave[kBass] : bassLow (s) + 12;
+        voiceleading::ChordVoicing anchors[16] {};
+        Chord chords[16] {}; int bassAnchors[16] {}; uint32_t missing[16] {};
+        int order[16] {}, count = 0;
+        uint64_t key = 1469598103934665603ull;
+        auto mix = [&] (int n) { key ^= (uint64_t) (uint32_t) n; key *= 1099511628211ull; };
+        mix (lo); mix (hi); mix (blo); mix (bhi); mix (current); mix (genre);
+        const auto& w = W(); long long start = std::max (p.phraseStart, wendungStart);
+        for (int i = 0; i < w.n; ++i)
         {
-            // Tonumfang: der Akkord rueckt als Ganzes in den Bereich, Ausreisser wandern um Oktaven nach innen
-            n = fitGroup (o, notes, n);
-            for (int i = 0; i < n; ++i) noteOn (o, notes[i], velocity - (i == 0 ? 0 : 4), endStep, offset, out);
-            return;
+            for (int pass = 0; pass < 2; ++pass)
+            {
+                const int index = i * 2 + pass;
+                Chord c = w.ch[i];
+                if (pass) c = { ((i + 1 < w.n ? w.ch[i+1].root : w.ch[0].root) + 7) % 12, Dom7, 1 };
+                Chord pad = c, bass = c;
+                if (! s.follow[kFlaeche]) { pad = w.ch[0]; pad.root = s.custom ? pad.root : 0; }
+                if (! s.follow[kBass]) { bass = w.ch[0]; bass.root = s.custom ? bass.root : 0; bass.type = kShapes[bass.type].minor ? Min : Maj; bass.bass = -1; }
+                chords[index] = pad; mix (pad.root); mix (pad.type);
+                auto v = canonicalPad (pad, s, start);
+                for (int n = 0; n < v.n; ++n)
+                {
+                    bool available = false;
+                    for (int note = lo; note <= hi; ++note) if ((note % 12 + 12) % 12 == v.notes[n] % 12) available = true;
+                    if (! available) missing[index] |= 1u << (v.notes[n] % 12);
+                }
+                const auto savedMask = chordMask; chordMask = 0;
+                for (int n = 0; n < v.n; ++n) chordMask |= 1u << (v.notes[n] % 12);
+                v.n = fitGroup (o, v.notes, v.n); chordMask = savedMask; voiceleading::sort (v);
+                anchors[index] = v; mix (v.n);
+                for (int n = 0; n < v.n; ++n) mix (v.notes[n]);
+                bassAnchors[index] = place (s.key + bassRoot (bass), bassLow (s)); mix (bassAnchors[index]);
+                mix ((int) missing[index]);
+                if (! pass || (s.passing && s.y >= 0.6f && ! still)) order[count++] = index;
+            }
+            if (i >= chordBase) start += (long long) w.ch[i].bars * meter.len;
         }
-        for (int i = 0; i < n; ++i)
-            noteOn (o, notes[i], velocity - (i == 0 ? 0 : (i == voices ? 10 : 4)), endStep, offset, out);
+        mix (count); for (int i = 0; i < count; ++i) mix (order[i]);
+        if (planValid && planKey == key) return;
+        planValid = true; planKey = key;
+        auto reference = anchors[order[count-1]];
+        int bassReference = bassAnchors[order[count-1]];
+        const bool authored = s.genre == GenrePopRock && current == 31 && ! s.custom;
+        // One warm-up cycle plus the recorded cycle. Fixed bound, no convergence-dependent work.
+        for (int cycle = 0; cycle < 2; ++cycle)
+            for (int j = 0; j < count; ++j)
+            {
+                const int index = order[j], prev = order[(j + count - 1) % count];
+                int seventh = -1, third = -1;
+                if ((chords[prev].type == Dom7 || chords[prev].type == Dom7b9) && (chords[index].root - chords[prev].root + 12) % 12 == 5)
+                { seventh = (s.key + chords[prev].root + 10) % 12; third = (s.key + chords[prev].root + 4) % 12; }
+                reference = authored ? anchors[index] : voiceleading::lead (anchors[index], reference, lo, hi, seventh, third, oct);
+                bassReference = voiceleading::bass (bassAnchors[index], bassReference, blo, bhi);
+                padPlan[index] = reference; bassPlan[index] = bassReference; unavailablePlan[index] = missing[index];
+            }
+    }
+
+    voiceleading::ChordVoicing padVoicing (const Pos& p, const Settings& s, int)
+    {
+        prepareVoicingPlan (p, s);
+        const int index = p.chordIdx * 2 + (p.passing ? 1 : 0);
+        unavailablePad = unavailablePlan[index]; return padPlan[index];
+    }
+
+    void padChord (const Pos& p, const Settings& s, int o, int offset, long long endStep, int velocity, EventList& out)
+    {
+        const auto voiced = padVoicing (p, s, o);
+        const bool saved = extendOnly;
+        if (o == OutPadLong && ! peak) extendOnly = true;
+        const auto chord = chordFor (p, kFlaeche, s);
+        const auto& shape = kShapes[padType (chord.type, s.z)];
+        const int rootPc = (s.key + chord.root) % 12;
+        int roots = 0, authoredRoots = 0, lastRoot = -1;
+        for (int i = 0; i < shape.n; ++i) authoredRoots += shape.iv[i] % 12 == 0;
+        for (int i = 0; i < voiced.n; ++i) if ((voiced.notes[i] % 12 + 12) % 12 == rootPc) { ++roots; lastRoot = i; }
+        bool mainRoot = true;
+        for (int i = 0; i < voiced.n; ++i)
+        {
+            const bool root = (voiced.notes[i] % 12 + 12) % 12 == rootPc;
+            const int reduction = roots > authoredRoots && i == lastRoot ? 10 : root && mainRoot ? 0 : 4;
+            noteOn (o, voiced.notes[i], velocity - reduction, endStep, offset, out);
+            if (root) mainRoot = false;
+        }
+        extendOnly = saved;
+        // Harmonic changes may leave an old colour note whose nominal duration has not ended yet.
+        if (o == OutPadLong)
+            for (int i = 0; i < numActive;)
+            {
+                const auto& a = active[(size_t) i]; bool wanted = false;
+                for (int j = 0; j < voiced.n; ++j) wanted = wanted || a.note == sounding (o, voiced.notes[j]);
+                if (a.out == o && ! wanted) removeActive (i, offset, out); else ++i;
+            }
+    }
+
+    int bassPlacement (const Pos& p, const Settings& s, int anchor, bool pedal)
+    {
+        if (pedal) return anchor;
+        prepareVoicingPlan (p, s);
+        return bassPlan[p.chordIdx * 2 + (p.passing ? 1 : 0)];
+    }
+
+    int nextBassPlacement (const Pos& p, const Settings& s)
+    {
+        prepareVoicingPlan (p, s);
+        const int index = ! p.passing && s.passing && s.y >= 0.6f && ! still
+                        ? p.chordIdx * 2 + 1 : ((p.chordIdx + 1) % W().n) * 2;
+        return bassPlan[index];
     }
 
     // Bass: lange Muster (Gehalten, Halbe, Orgelpunkt) gehen auf den Kanal fuer lang, alle anderen auf den fuer kurz
@@ -1377,7 +1494,7 @@ private:
         if ((mask & 2u) && ((bp == BassHeld && (s.follow[kBass] || phraseStart || restart)) || bp == BassPedal))
         {
             const bool pedal = bp == BassPedal;
-            noteOn (OutBassLong, place (s.key + (pedal ? pedalRoot() : bassRoot (chordFor (p, kBass, s))), bassLow (s)),
+            noteOn (OutBassLong, bassPlacement (p, s, place (s.key + (pedal ? pedalRoot() : bassRoot (chordFor (p, kBass, s))), bassLow (s)), pedal),
                     (int) (60 + 35 * layerY (s, kBass)), (s.follow[kBass] && ! pedal) ? p.chordEnd : (pedal ? p.chordEnd : p.phraseEnd), offset, out);
         }
     }
@@ -1401,19 +1518,20 @@ private:
 
     void stepOn (long long k, int offset, const Settings& s, EventList& out)
     {
+        nowStep = k;
         const long long phrase = phraseOf (k);
         ensurePhrase (phrase, s);
         Pos p = locate (k);
         bool restart = k == chaseStep;
         if (updateStill (k, p, s))
         {
-            releaseHeld (offset, out);        // gehaltene Toene neu setzen, auf demselben Akkord
+            releaseHeld (offset, out, true);  // Flaeche wird zielharmonisch abgeglichen; andere gehaltene Toene neu setzen, auf demselben Akkord
             p = locate (k);
             restart = true;
         }
         if (maybeSwitch (k, p, s))
         {
-            releaseHeld (offset, out);        // alte Stimmung sauber beenden
+            releaseHeld (offset, out, true);  // gemeinsame Flaechentoene am Stimmungswechsel halten
             p = locate (k);
             restart = true;
         }
@@ -1490,7 +1608,7 @@ private:
             const ChordShape& sh = kShapes[c.type];
             const int low = bassLow (s);
             const int pat = pattern0 (s, phrase);
-            int root = place (s.key + ((pat == BassPedal || pat == kPulseTick) ? pedalRoot() : bassRoot (c)), low);
+            int root = bassPlacement (p, s, place (s.key + ((pat == BassPedal || pat == kPulseTick) ? pedalRoot() : bassRoot (c)), low), pat == BassPedal || pat == kPulseTick);
             const int vel = (int) (58 + 38 * yBass) + (group ? 8 : 0) + jitter (k, kBass, 3);
             const int pattern = pattern0 (s, phrase);
             const int bo = bassOut (pattern);
@@ -1500,8 +1618,8 @@ private:
                                   && pattern != BassHeld && pattern != BassWalking && pattern != BassHeartbeat && pattern != kPulseTick;
             if (approach)
             {
-                const int target = place (s.key + nextRoot (p), low);
-                root = target - 1 >= low ? target - 1 : target + 1;
+                const int target = nextBassPlacement (p, s);
+                root = target - 1; // preserve the chromatic approach pitch class; sounding() applies the user range
             }
             switch (bassRest ? -1 : pattern)   // Vorbereiten: in der zweiten Takthaelfte schweigt der Bass
             {
@@ -1538,7 +1656,7 @@ private:
                         int n;
                         if (s.follow[kBass] && k + 4 >= p.chordEnd)         // letzter Schlag: chromatisch zum naechsten Grundton
                         {
-                            const int target = place (s.key + nextRoot (p), low);
+                            const int target = nextBassPlacement (p, s);
                             n = (b % 2 == 0) ? target - 1 : target + 1;
                         }
                         else
@@ -1876,6 +1994,10 @@ private:
         csNote = target;
     }
 
+    voiceleading::ChordVoicing padPlan[16] {};
+    int bassPlan[16] {}; uint32_t unavailablePlan[16] {};
+    uint64_t planKey = 0; bool planValid = false;
+    uint32_t unavailablePad = 0;
     static constexpr int kMaxActive = 192;
     std::array<Active, kMaxActive> active {};
     int numActive = 0;

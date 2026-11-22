@@ -1,5 +1,7 @@
 # STROMSCORE – Audio Drama Underscore Inspirator
 
+**Entwicklungsbranch Stimmführung:** Teststand auf Basis 1.9, keine neue Veröffentlichung. [Analyse, Änderungen und A/B-Prüfung](docs/development/VOICE_LEADING.md). GUI, Phrasierung und Motiventwicklung bleiben unverändert.
+
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="docs/logo-dunkel.png">
   <img src="docs/logo-hell.png" alt="Stromschlag Audio" height="64">

@@ -722,6 +722,43 @@ int main()
         CHECK (c.ons == 2); m.clear(); q.processBlockBypassed (a, m); collect (m, c);
         CHECK (! c.broken && c.ons == c.offs); q.setPlayHead (nullptr);
     }
+    // Voice-leading export equals live DAW playback, including channel CCs and held common notes.
+    {
+        StromscoreProcessor q; FakeHost h; q.setPlayHead (&h); q.prepareToPlay (48000, 512);
+        setParam (q, "aufbau", 0); setParam (q, "key", 0); setParam (q, "intensitaet", 0.4f);
+        setParam (q, "eigeneFolge", 1); setParam (q, "padPattern", stromscore::PadHeld); setParam (q, "dynamikCc", 1);
+        setParam (q, "cc0Lo1", 100); setParam (q, "cc0Hi1", 127);
+        const int roots[4] = { 0, 9, 2, 7 }, types[4] = { 2, 3, 15, 4 };
+        for (int i = 0; i < 4; ++i)
+        {
+            setParam (q, ("slotRoot" + std::to_string (i + 1)).c_str(), (float) roots[i]);
+            setParam (q, ("slotType" + std::to_string (i + 1)).c_str(), (float) types[i]);
+        }
+        for (int i = 2; i <= 5; ++i) setParam (q, ("mute" + std::to_string (i)).c_str(), 1);
+        using Timed = std::tuple<long long, int, int, int, int>;
+        std::vector<Timed> live, exported;
+        auto add = [] (std::vector<Timed>& target, const juce::MidiMessage& m, long long tick)
+        {
+            if (m.isNoteOnOrOff()) target.emplace_back (tick, m.isNoteOn() ? 1 : 0, m.getChannel(), m.getNoteNumber(), m.isNoteOn() ? m.getVelocity() : 0);
+            else if (m.isController() && ! m.isAllNotesOff()) target.emplace_back (tick, 2, m.getChannel(), m.getControllerNumber(), m.getControllerValue());
+        };
+        auto file = q.renderMidiFile (8); auto stream = file.createInputStream(); juce::MidiFile mf;
+        CHECK (stream != nullptr && mf.readFrom (*stream));
+        for (int tr = 0; tr < mf.getNumTracks(); ++tr)
+            for (int i = 0; i < mf.getTrack (tr)->getNumEvents(); ++i)
+            { const auto& m = mf.getTrack (tr)->getEventPointer (i)->message; add (exported, m, (long long) std::llround (m.getTimeStamp())); }
+        juce::AudioBuffer<float> a (2, 512); juce::MidiBuffer m; m.ensureSize (65536);
+        for (int at = 0; at < 768000; at += 512)
+        {
+            h.ppq = at / 24000.0; m.clear(); q.processBlock (a, m);
+            for (const auto meta : m) add (live, meta.getMessage(), (long long) std::llround ((at + meta.samplePosition) / 25.0));
+        }
+        h.playing = false; m.clear(); q.processBlock (a, m);
+        for (const auto meta : m) add (live, meta.getMessage(), 30720);
+        std::sort (live.begin(), live.end()); std::sort (exported.begin(), exported.end());
+        CHECK (! live.empty() && live == exported); q.setPlayHead (nullptr);
+    }
+
     p->setPlayHead (nullptr);
     return 0;
 }
