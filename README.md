@@ -1,6 +1,6 @@
 # STROMSCORE – Audio Drama Underscore Inspirator
 
-**2.0-Testbuild:** Entwicklung auf Basis der veröffentlichten 1.9, noch keine öffentliche Freigabe. [Analyse, Änderungen und A/B-Prüfung](docs/development/VOICE_LEADING.md). Enthält Stimmführung sowie die gesammelten Fahrt- und Bedienkorrekturen. Phrasierung und Motiventwicklung bleiben unverändert.
+**Version 2.0:** Weiterentwicklung auf Basis von 1.9. [Analyse, Änderungen und A/B-Prüfung](docs/development/VOICE_LEADING.md). Enthält Stimmführung sowie die gesammelten Fahrt- und Bedienkorrekturen. Phrasierung und Motiventwicklung bleiben unverändert.
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="docs/logo-dunkel.png">

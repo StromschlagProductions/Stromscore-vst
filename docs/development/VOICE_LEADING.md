@@ -1,6 +1,6 @@
 # STROMSCORE 2.0 – Stimmführung und Bedienkorrekturen
 
-Dieser Branch ist ein **nicht veröffentlichter Teststand**. Basis ist die veröffentlichte Version 1.9, Commit `22be37ee755391f3651d7f5718c2e3d302c722ea`. `VERSION` ist jetzt 2.0; die Plugin-Kennung bleibt erhalten. Zusätzlich sind die gesammelten Fahrt- und CC-Bedienkorrekturen enthalten. Keine Änderungen an Phrasierung und Motiventwicklung. Kein Merge und kein Release vor musikalischer Beurteilung.
+Diese Analyse dokumentiert die Entwicklung von **Version 2.0**, deren Veröffentlichung der Auftraggeber am 22. November 2026 freigegeben hat. Basis ist die veröffentlichte Version 1.9, Commit `22be37ee755391f3651d7f5718c2e3d302c722ea`. `VERSION` ist jetzt 2.0; die Plugin-Kennung bleibt erhalten. Zusätzlich sind die gesammelten Fahrt- und CC-Bedienkorrekturen enthalten. Keine Änderungen an Phrasierung und Motiventwicklung. Die Freigabe ist keine Behauptung einer hier durchgeführten Hörbewertung.
 
 ## Analyse der bisherigen Engine
 
@@ -88,7 +88,7 @@ python tools/compare_voice_leading.py --output /tmp/stromscore-voice-leading
 
 Oder regulär über CMake/CTest; die Ergebnisse liegen in `build/voice-leading-comparison`. Der Windows-Testworkflow hängt sie als **Stromscore-VoiceLeading-Comparisons** an. Die Windows-VST3 liegt als normales Actions-Testartefakt vor, **nicht als Release**.
 
-## Musikalische Beurteilung vor Veröffentlichung
+## Musikalische Beurteilung
 
 Beide MIDI-Fassungen mit **denselben Instrumenten, Artikulationen, Kanälen, Tempo und Mischereinstellungen** importieren. Die Vergleichsdateien verwenden C als Bezugstonart, 120 BPM, 4/4 und die gewohnten Ausgangskanäle. CC-Ausgabe ist in diesen Hörvergleichsdateien aus, um die Satzänderung isoliert beurteilen zu können; ihre technische Gleichheit wird separat getestet.
 
@@ -96,7 +96,7 @@ Zuerst Fläche allein, dann Fläche und Bass, anschließend das ganze Arrangemen
 
 Der interne Testklang und geringere Tonbewegung beweisen keine natürliche Orchesterwirkung. **Eine tatsächliche Hörbewertung mit den Ziel-Libraries wurde noch nicht durchgeführt.** Ergebnisse und Gewichtungen sind deshalb ausdrücklich zur musikalischen Beurteilung vorgesehen. Die neue Stimmführung ist eine begrenzte Heuristik, kein vollständiges Modell instrumentenspezifischen Orchestersatzes.
 
-Entwicklungsbuild und 1.9 besitzen dieselbe VST3-Identität: Für den Plugin-A/B-Test die gesicherte stabile Datei jeweils ersetzen, statt beide gleichzeitig als verschiedene Instrumente zu installieren. Für den MIDI-A/B-Test ist kein Austausch nötig. Veröffentlichung erst nach Beurteilung; Phrasierung und Motiventwicklung bleiben spätere Aufgaben.
+Entwicklungsbuild und 1.9 besitzen dieselbe VST3-Identität: Für den Plugin-A/B-Test die gesicherte stabile Datei jeweils ersetzen, statt beide gleichzeitig als verschiedene Instrumente zu installieren. Für den MIDI-A/B-Test ist kein Austausch nötig. Die Veröffentlichung wurde durch den Auftraggeber freigegeben; Phrasierung und Motiventwicklung bleiben spätere Aufgaben.
 
 
 ## Fahrt und Bedienung (2.0)
