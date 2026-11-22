@@ -276,15 +276,15 @@ int main()
         CHECK (m.size == 0);
     }
 
-    // 15) Akkordnamen mit deutschen Notennamen
+    // 15) Akkordnamen, international (B = H, B\u266d, \u266f)
     {
         char buf[32];
         chordName (9, 0, Min, buf, 32);      CHECK (std::string (buf) == "Am");
         chordName (9, 8, Maj7, buf, 32);     CHECK (std::string (buf) == "Fmaj7");
-        chordName (0, 11, MinMaj7, buf, 32); CHECK (std::string (buf) == "Hm(maj7)");
-        chordName (0, 10, Maj, buf, 32);     CHECK (std::string (buf) == "B");
-        chordName (9, 11, Min, buf, 32);     CHECK (std::string (buf) == "Gism");
-        chordName (9, 11, Maj, buf, 32);     CHECK (std::string (buf) == "As");
+        chordName (0, 11, MinMaj7, buf, 32); CHECK (std::string (buf) == "Bm(maj7)");
+        chordName (0, 10, Maj, buf, 32);     CHECK (std::string (buf) == "B\xe2\x99\xad");
+        chordName (9, 11, Min, buf, 32);     CHECK (std::string (buf) == "G\xe2\x99\xafm");
+        chordName (9, 11, Maj, buf, 32);     CHECK (std::string (buf) == "A\xe2\x99\xad");
     }
 
     // 16) Jede Wendung fuellt genau eine Phrase
@@ -1066,6 +1066,32 @@ int main()
         // Auf demselben Wendungsplatz, ohne Sprung: jede Note endet genau einmal
         Settings s; s.y = 0.0f; s.x = 0.4f; s.padPattern = PadHeld; s.follow[kFlaeche] = true;
         checkBalanced (run (s, 512, 40.0));
+    }
+
+    // 50) Fahrt (ab 1.7): mitten im Spiel eingeschaltet startet sie am naechsten Takt vom Punkt aus; Ankunft wird gemeldet
+    {
+        Generator g; g.reset();
+        EventList list;
+        Settings s; s.x = 0.2f; s.y = 0.2f; s.driveX = 0.8f; s.driveY = 0.9f; s.driveBars = 4; s.driveFrom = 0; s.drive = false;
+        const double sr = 48000.0, bpm = 120.0, barSec = 2.0;
+        double x4 = -1.0, xEnd = -1.0; bool arrivedEarly = false, arrived = false; int arrivedBar = -1;
+        for (long long pos = 0; pos < (long long) (20.0 * barSec * sr); pos += 512)
+        {
+            const double sec = (double) pos / sr;
+            const int bar = (int) (sec / barSec);
+            s.drive = bar >= 3;   // in Takt 4 eingeschaltet
+            Transport t; t.playing = true; t.bpm = bpm; t.sampleRate = sr; t.ppq = sec * bpm / 60.0;
+            list.clear();
+            g.process (t, s, 512, list);
+            if (bar == 3 && x4 < 0.0) x4 = g.pointX();
+            if (bar <= 3) arrivedEarly = arrivedEarly || g.driveArrived();
+            if (g.driveArrived() && ! arrived) { arrived = true; arrivedBar = bar; }
+            xEnd = g.pointX();
+        }
+        CHECK (std::fabs (x4 - 0.2f) < 0.01f);     // bis zum Einschalten und noch im selben Takt steht der Punkt auf A
+        CHECK (! arrivedEarly);
+        CHECK (arrived && arrivedBar >= 7 && arrivedBar <= 9);   // vier Takte nach dem Start im Takt 5
+        CHECK (std::fabs (xEnd - 0.8f) < 0.01f);
     }
     return 0;
 }

@@ -374,7 +374,7 @@ int main()
 
     // Tonumfang: Parameter, Notennamen, Vorlagen, Anlernen per MIDI-Eingang und die herausgezogene Datei
     {
-        CHECK (StromscoreProcessor::noteName (60) == "C3" && StromscoreProcessor::noteName (0) == "C-2" && StromscoreProcessor::noteName (71) == "H3");
+        CHECK (StromscoreProcessor::noteName (60) == "C3" && StromscoreProcessor::noteName (0) == "C-2" && StromscoreProcessor::noteName (71) == "B3");
         CHECK (StromscoreProcessor::rangeTemplates().size() >= 15);
         for (const auto& t : StromscoreProcessor::rangeTemplates()) CHECK (t.lo >= 0 && t.hi <= 127 && t.hi - t.lo >= 12);
         CHECK (p->apvts.getParameter ("tief1")->getCurrentValueAsText() == "C-2");
@@ -528,6 +528,42 @@ int main()
         CHECK (p->learnToneNote.load() == 43);
         p->learnTone.store (false);
         p->setPlayHead (&host);
+    }
+
+    // Fahrt: bei der Ankunft wird B zu A und die Fahrt schaltet sich aus; bei Abbruch unterwegs die aktuelle Position
+    {
+        juce::AudioBuffer<float> audio (2, 512); juce::MidiBuffer midi;
+        auto param = [&] (const char* id) { return p->apvts.getRawParameterValue (id)->load(); };
+        for (int pass = 0; pass < 2; ++pass)
+        {
+            setParam (*p, "faerbung", 0.2f); setParam (*p, "intensitaet", 0.2f);
+            setParam (*p, "fahrtX", 0.8f); setParam (*p, "fahrtY", 0.9f);
+            setParam (*p, "fahrtTakte", 0.0f);   // 4 Takte
+            setParam (*p, "fahrtStart", 0.0f);
+            setParam (*p, "fahrt", 1.0f);
+            p->reset();
+            host.playing = true; host.ppq = 0.0;
+            const int blocks = pass == 0 ? 8 * 188 : 2 * 188 + 100;   // 188 Bloecke = ein Takt bei 120 bpm
+            for (int i = 0; i < blocks; ++i)
+            {
+                audio.clear(); midi.clear(); p->processBlock (audio, midi);
+                host.ppq += 512.0 / 24000.0;
+                p->serviceDrive();
+            }
+            if (pass == 0)
+            {
+                CHECK (param ("fahrt") < 0.5f);                          // angekommen: Fahrt aus
+                CHECK (std::abs (param ("faerbung") - 0.8f) < 0.02f);    // B ist zum neuen A geworden
+                CHECK (std::abs (param ("intensitaet") - 0.9f) < 0.02f);
+            }
+            else
+            {
+                setParam (*p, "fahrt", 0.0f);                           // unterwegs abgebrochen
+                CHECK (param ("faerbung") > 0.3f && param ("faerbung") < 0.75f);
+                CHECK (param ("intensitaet") > 0.3f && param ("intensitaet") < 0.85f);
+            }
+        }
+        setParam (*p, "intensitaet", 0.0f);
     }
 
     // Texte: Prozent

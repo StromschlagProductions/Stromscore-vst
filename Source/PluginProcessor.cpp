@@ -15,7 +15,7 @@ juce::AudioParameterFloatAttributes percent()
 
 juce::StringArray StromscoreProcessor::keyNames()
 {
-    return { "C", "Cis / Des", "D", "Dis / Es", "E", "F", "Fis / Ges", "G", "Gis / As", "A", "Ais / B", "H" };
+    return { "C", u8 ("C♯ / D♭"), "D", u8 ("D♯ / E♭"), "E", "F", u8 ("F♯ / G♭"), "G", u8 ("G♯ / A♭"), "A", u8 ("A♯ / B♭"), "B" };
 }
 juce::StringArray StromscoreProcessor::meterNames()  { return { "Vom Projekt", "4/4", "3/4", "6/8", "5/4", "7/8", "5/8", "12/8" }; }
 juce::StringArray StromscoreProcessor::layerNames()  { return { u8 ("Fläche"), "Bass", "Arp", "Akzent", "Gegenstimme" }; }
@@ -29,7 +29,7 @@ juce::StringArray StromscoreProcessor::bassPatternNames() { return { "Auto", "Ge
 juce::StringArray StromscoreProcessor::arpFigureNames()   { return { "Auto", u8 ("Aufwärts"), u8 ("Abwärts"), "Kreisend", "Zelle", "Riff", "Glitzern", u8 ("Sprünge"), "Kaskade", "Oktatonisch", "Quarten", "SID" }; }
 juce::StringArray StromscoreProcessor::changeNames()      { return { u8 ("Nächster Schlag"), u8 ("Nächster Takt"), "Alle 2 Takte", "Alle 4 Takte" }; }
 juce::StringArray StromscoreProcessor::octaveNames()      { return { u8 ("−2 Okt."), u8 ("−1 Okt."), "Normal", "+1 Okt.", "+2 Okt." }; }
-juce::StringArray StromscoreProcessor::slotRootNames()    { return { "C", "Cis", "D", "Es", "E", "F", "Fis", "G", "As", "A", "B", "H" }; }
+juce::StringArray StromscoreProcessor::slotRootNames()    { return { "C", u8 ("C♯"), "D", u8 ("E♭"), "E", "F", u8 ("F♯"), "G", u8 ("A♭"), "A", u8 ("B♭"), "B" }; }
 juce::StringArray StromscoreProcessor::slotTypeNames()    { return { "Dur", "Moll", "maj7", "m7", "7", "sus4", "sus2", "add9", "m6", "m(maj7)", "m7b5", "dim7", "+" }; }
 juce::StringArray StromscoreProcessor::slotBarNames()     { return { u8 ("–"), "1 Takt", "2 Takte", "3 Takte", "4 Takte" }; }
 juce::StringArray StromscoreProcessor::arpRateNames()     { return { "Auto", "Viertel", "Achtel", "16tel" }; }
@@ -44,9 +44,9 @@ juce::StringArray StromscoreProcessor::curveNames()       { return { u8 ("Gleich
 
 juce::String StromscoreProcessor::noteName (int n)
 {
-    static const char* names[12] = { "C", "Cis", "D", "Dis", "E", "F", "Fis", "G", "Gis", "A", "B", "H" };
+    static const char* names[12] = { "C", "C♯", "D", "D♯", "E", "F", "F♯", "G", "G♯", "A", "A♯", "B" };
     n = juce::jlimit (0, 127, n);
-    return juce::String (names[n % 12]) + juce::String (n / 12 - 2);
+    return juce::String (juce::CharPointer_UTF8 (names[n % 12])) + juce::String (n / 12 - 2);
 }
 
 // Richtwerte fuer den klingenden Tonumfang (MIDI-Nummern); genauer geht es mit "Anlernen" am eigenen Patch
@@ -148,6 +148,8 @@ StromscoreProcessor::StromscoreProcessor()
     : AudioProcessor (BusesProperties().withOutput ("Output", juce::AudioChannelSet::stereo(), true)),
       apvts (*this, nullptr, "STROMSCORE", createLayout())
 {
+    apvts.addParameterListener ("fahrt", this);
+    startTimerHz (20);
     pKey = apvts.getRawParameterValue ("key");
     for (int i = 0; i < 3; ++i) { pAxis[i] = apvts.getRawParameterValue (kAxisIds[i]); axisParam[i] = apvts.getParameter (kAxisIds[i]); }
     pMeter = apvts.getRawParameterValue ("takt");
@@ -534,12 +536,55 @@ void StromscoreProcessor::passThrough (const juce::MidiBuffer& incoming, juce::M
     }
 }
 
+StromscoreProcessor::~StromscoreProcessor()
+{
+    stopTimer();
+    apvts.removeParameterListener ("fahrt", this);
+}
+
+// Fahrt aus (Knopf oder Automation) waehrend die Musik faehrt: die Position des klingenden Punkts wird zu A
+void StromscoreProcessor::parameterChanged (const juce::String&, float value)
+{
+    if (inHandOver || value >= 0.5f || sceneBar.load() < 0) return;
+    handOverPending.store (true);
+    if (juce::MessageManager::getInstance()->isThisTheMessageThread()) serviceDrive();
+}
+
+void StromscoreProcessor::serviceDrive()
+{
+    // Ankunft bei B: B wird zu A, die Fahrt schaltet sich aus
+    if (driveArrived.load() && pDrive->load() >= 0.5f) handOverPending.store (true);
+    if (handOverPending.exchange (false)) handOver();
+}
+
+void StromscoreProcessor::handOver()
+{
+    if (inHandOver) return;
+    inHandOver = true;
+    const float x = pointX.load(), y = pointY.load();
+    auto set = [this] (const char* id, float v)
+    {
+        if (auto* prm = apvts.getParameter (id))
+        {
+            prm->beginChangeGesture();
+            prm->setValueNotifyingHost (prm->convertTo0to1 (v));
+            prm->endChangeGesture();
+        }
+    };
+    set ("faerbung", x);
+    set ("intensitaet", y);
+    if (pDrive->load() >= 0.5f) set ("fahrt", 0.0f);
+    inHandOver = false;
+}
+
 void StromscoreProcessor::publish (const stromscore::Generator& g, bool playing)
 {
     sceneBar.store (playing ? g.sceneBar() : -1);
     sceneEntry.store (g.sceneEntry());
     sceneOver.store (playing && g.sceneOver());
     if (playing) { pointX.store (g.pointX()); pointY.store (g.pointY()); }
+    driveArrived.store (playing && g.driveArrived());
+    driveFromLive.store (playing ? g.driveFromNow() : -1);
 }
 
 void StromscoreProcessor::processBlockBypassed (juce::AudioBuffer<float>& audio, juce::MidiBuffer& midi)

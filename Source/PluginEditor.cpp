@@ -587,7 +587,7 @@ static juce::AttributedString buildHelp (juce::Colour text, juce::Colour accent,
     note ("Rechts in der Leiste FAHRT steht während der Wiedergabe der Stand der Szene: Takt, Einstieg, Aufbau, Fahrt und wie viele Takte bis zum Ende bleiben.");
 
     head ("Fahrt von A nach B");
-    body ("Mit FAHRT wandert die Musik selbst vom Punkt im Feld (A) zu einem Ziel (B). B erscheint als Ring im Stimmungsfeld; gezogen wird jeweils der Punkt, der näher an der Maus liegt. START legt fest, wann die Fahrt beginnt (sofort oder ab Takt 5, 9, 17, 33), DAUER, wie lange sie braucht, KURVE den Verlauf: gleichmäßig, erst langsam und dann schnell, in vier Stufen oder hin und zurück (zur Mitte der Dauer bei B, am Ende wieder bei A). Danach bleibt die Musik am Ziel. Während der Wiedergabe zeigt ein kleiner Punkt, wo die Musik gerade ist; der Unruhe-Ring, die Lichter und die Werte in der Akkord-Anzeige wandern mit ihm.");
+    body ("Mit FAHRT wandert die Musik selbst vom Punkt im Feld (A) zu einem Ziel (B). B erscheint als Ring im Stimmungsfeld; gezogen wird jeweils der Punkt, der näher an der Maus liegt. START legt fest, wann die Fahrt beginnt (sofort oder ab Takt 5, 9, 17, 33), DAUER, wie lange sie braucht, KURVE den Verlauf: gleichmäßig, erst langsam und dann schnell, in vier Stufen oder hin und zurück (zur Mitte der Dauer bei B, am Ende wieder bei A). Kommt die Fahrt bei B an, wird B zum neuen A, und die Fahrt schaltet sich aus: Du bleibst dort und kannst von Hand weiterziehen. Schaltest du sie unterwegs aus, wird die Stelle, an der die Musik gerade ist, zu A; nichts springt zurück. Schaltest du FAHRT während der Wiedergabe wieder ein, geht es mit dem nächsten Takt vom Punkt aus los. START gilt nur, wenn die Wiedergabe mit eingeschalteter Fahrt beginnt. Während der Wiedergabe zeigt ein kleiner Punkt, wo die Musik gerade ist; der Unruhe-Ring und die Werte in der Akkord-Anzeige wandern mit ihm.");
     body ("Weil Stromscore das Ziel kennt, bereitet es eine Fahrt nach oben vor: Im Takt vor dem Ziel zieht sich der Bass in der zweiten Hälfte zurück und ein Stich kündigt an, am Ziel setzen Fläche und Bass kräftig neu ein. Von Hand fahren und Automation gehen weiterhin; die Fahrt geht dann vom aktuellen Punkt A aus.");
 
     head ("Trägheit");
@@ -1002,7 +1002,7 @@ StromscoreEditor::StromscoreEditor (StromscoreProcessor& p) : AudioProcessorEdit
     hardness.setTooltip (u8 ("Wie die Ebenen einsetzen. Unter 50 % weich eingeblendet (ganz links über zwei Takte), über 50 % mit einem kräftigen ersten Anschlag. Gilt auch, wenn eine Ebene mit steigender Intensität dazukommt. Doppelklick: Mitte."));
     lengthBox.setTooltip (u8 ("Länge der Szene ab dem Start der Wiedergabe. Unbegrenzt: die Musik läuft weiter. Mit Länge endet sie nach dieser Zahl von Takten, wie unter „Ende“ eingestellt."));
     endBox.setTooltip (u8 ("Hart: Bis zum Schluss spielen alle Ebenen, im letzten Takt zieht sich der Bass zurück und ein Stich kündigt an, dann ein kurzer, kräftiger Schlag und Stille. Ausklingend: Die Ebenen gehen nacheinander, was zuletzt kam, zuerst; die erste Ebene klingt bis zum Ende. Offen: Die Musik wird zum Schluss noch dichter und bricht dann ohne Schlussschlag ab."));
-    driveButton.setTooltip (u8 ("Fahrt von A nach B: Die Musik wandert selbst vom Punkt im Feld (A) zum Ziel (B). Ziehe B im Stimmungsfeld an seinen Platz (der Punkt, der näher an der Maus liegt, wird gezogen). Führt die Fahrt nach oben, bereitet die Musik das Ziel vor: Der Bass zieht sich zurück, ein Stich kündigt an, am Ziel setzen alle Ebenen kräftig ein."));
+    driveButton.setTooltip (u8 ("Fahrt von A nach B: Die Musik wandert selbst vom Punkt im Feld (A) zum Ziel (B). Ziehe B im Stimmungsfeld an seinen Platz (der Punkt, der näher an der Maus liegt, wird gezogen). Führt die Fahrt nach oben, bereitet die Musik das Ziel vor: Der Bass zieht sich zurück, ein Stich kündigt an, am Ziel setzen alle Ebenen kräftig ein. Am Ziel wird B zum neuen A und die Fahrt schaltet sich aus; unterwegs ausgeschaltet bleibt die Musik, wo sie gerade ist."));
     startBox.setTooltip (u8 ("Wann die Fahrt beginnt, gezählt ab dem Start der Wiedergabe."));
     durBox.setTooltip (u8 ("Wie lange die Fahrt von A nach B dauert."));
     curveBox.setTooltip (u8 ("Gleichmäßig; erst langsam, dann schnell; in vier Stufen; oder hin und zurück (zur Mitte der Dauer bei B, am Ende wieder bei A)."));
@@ -1298,8 +1298,9 @@ void StromscoreEditor::updateSceneStatus()
         if (s.scene && e != stromscore::EntryAll && bar < s.buildBars) t << u8 (" · Aufbau bis Takt ") << s.buildBars;
         if (s.drive)
         {
-            const double since = (double) bar - s.driveFrom;
-            if (since < 0) t << u8 (" · Fahrt ab Takt ") << (s.driveFrom + 1);
+            const int from = processor.driveFromLive.load() >= 0 ? processor.driveFromLive.load() : s.driveFrom;
+            const double since = (double) bar - from;
+            if (since < 0) t << u8 (" · Fahrt ab Takt ") << (from + 1);
             else if (since < s.driveBars) t << u8 (" · Fahrt ") << juce::roundToInt (100.0 * since / s.driveBars) << " %";
         }
         if (s.sceneBars > 0) t << u8 (" · noch ") << (s.sceneBars - bar) << ((s.sceneBars - bar) == 1 ? " Takt" : " Takte");

@@ -123,7 +123,7 @@ MIDI-Datei beginnt immer mit einer Szene.
 | HÄRTE | Wie die Ebenen einsetzen: unter 50 % weich eingeblendet (ganz links über zwei Takte), über 50 % mit kräftigem ersten Anschlag. Gilt auch, wenn eine Ebene mit steigender Intensität dazukommt. |
 | LÄNGE | Unbegrenzt oder 8 bis 64 Takte ab dem Start der Wiedergabe. |
 | ENDE | **Hart:** alle Ebenen bis zum Schluss, im letzten Takt zieht sich der Bass zurück und ein Stich kündigt an, dann ein kurzer, kräftiger Schlag und Stille. **Ausklingend:** die Ebenen gehen nacheinander, was zuletzt kam, zuerst; die Ebene des Einstiegs klingt bis zum Ende. **Offen:** zum Schluss noch dichter, dann Abbruch ohne Schlussschlag. |
-| FAHRT | Die Musik wandert selbst vom Punkt im Feld (A) zu einem Ziel (B), das als Ring im Stimmungsfeld erscheint und sich dort ziehen lässt. **Start** sofort oder ab Takt 5, 9, 17 oder 33, **Dauer** 4 bis 32 Takte, **Kurve** gleichmäßig, erst langsam, in vier Stufen oder hin und zurück. Führt die Fahrt nach oben, zieht sich im Takt vor dem Ziel der Bass zurück, ein Stich kündigt an, und am Ziel setzen Fläche und Bass kräftig neu ein. |
+| FAHRT | Die Musik wandert selbst vom Punkt im Feld (A) zu einem Ziel (B), das als Ring im Stimmungsfeld erscheint und sich dort ziehen lässt. **Start** sofort oder ab Takt 5, 9, 17 oder 33, **Dauer** 4 bis 32 Takte, **Kurve** gleichmäßig, erst langsam, in vier Stufen oder hin und zurück. Führt die Fahrt nach oben, zieht sich im Takt vor dem Ziel der Bass zurück, ein Stich kündigt an, und am Ziel setzen Fläche und Bass kräftig neu ein. Kommt die Fahrt bei B an, wird B zum neuen A und die Fahrt schaltet sich aus; schaltest du sie unterwegs aus, wird die Stelle, an der die Musik gerade ist, zu A. Eine während der Wiedergabe eingeschaltete Fahrt startet mit dem nächsten Takt vom Punkt aus; **Start** gilt nur, wenn die Wiedergabe mit eingeschalteter Fahrt beginnt. |
 
 Rechts in der Leiste steht während der Wiedergabe der Stand: Takt, Einstieg, Aufbau, Fahrt und die Takte bis zum Ende.
 
@@ -221,6 +221,7 @@ Danach in der DAW die Plugins neu einlesen.
 - **1.4** – Stich als einzelner Schlag, fest auf einer Taste (für perkussive Samples) oder auf dem Grundton des Akkords; Riss ab 80 % Unruhe mit harten Halbton-Stößen hoch über dem Satz; Keyboard durchleiten und Hören beim Einstellen von Tonumfang und Stich; ziehbare Balken für Färbung, Intensität und Unruhe; Stimmungsfeld mit Farbzonen, Spur, Lichtern der Ebenen und vibrierendem Außenring, die Unruhe wandert bei einer Fahrt mit; größere Tooltips.
 - **1.5** – Stimmungsfeld wieder schlicht (einfarbig, ohne Spur und Lichter); ab 80 % Unruhe wird der zappelnde Ring im Feld und der Balken in der Akkord-Anzeige rot; Stich-Fenster schaltet zwischen Fest und Akkord jetzt richtig um; Kasten „Akzente“.
 - **1.6** – Ruhezone: Ganz unten im Feld (Intensität unter etwa 10 %) bleibt der Akkord stehen, auch bei Unruhe; erst nach oben läuft die Akkordfolge weiter.
+- **1.7** – Fahrt: Bei der Ankunft wird B zum neuen A und die Fahrt schaltet sich aus; unterwegs ausgeschaltet bleibt die Musik, wo sie gerade ist; eine neu eingeschaltete Fahrt startet mit dem nächsten Takt vom Punkt aus. Akkord- und Tonnamen international mit ♯ und ♭ (B statt H, B♭ statt B).
 
 Alle Release-Hinweise: `docs/releases/`.
 

@@ -294,11 +294,11 @@ inline uint32_t hash3 (uint32_t a, uint32_t b, uint32_t c)
     return h;
 }
 
-// Akkordname (deutsche Notennamen mit H): "Am", "Fmaj7", "Gism(maj7)"
+// Akkordname (internationale Schreibweise, UTF-8 mit \u266d / \u266f): "Am", "Fmaj7", "G\u266fm(maj7)"
 inline void chordName (int key, int root, int type, char* out, int maxLen)
 {
-    static const char* major[12] = { "C", "Des", "D", "Es", "E", "F", "Fis", "G", "As", "A", "B", "H" };
-    static const char* minor[12] = { "C", "Cis", "D", "Es", "E", "F", "Fis", "G", "Gis", "A", "B", "H" };
+    static const char* major[12] = { "C", "D\xe2\x99\xad", "D", "E\xe2\x99\xad", "E", "F", "F\xe2\x99\xaf", "G", "A\xe2\x99\xad", "A", "B\xe2\x99\xad", "B" };
+    static const char* minor[12] = { "C", "C\xe2\x99\xaf", "D", "E\xe2\x99\xad", "E", "F", "F\xe2\x99\xaf", "G", "G\xe2\x99\xaf", "A", "B\xe2\x99\xad", "B" };
     const int pc = ((key + root) % 12 + 12) % 12;
     const bool isMinor = kShapes[std::clamp (type, 0, kNumChordTypes - 1)].minor;
     int p = 0;
@@ -359,13 +359,15 @@ struct Meter
 class Generator
 {
 public:
-    void reset() { style = -1; csNote = -1; csPendingAt = -1; chaseStep = -1; lastGenre = -1; resetCc(); numActive = 0; running = false; lastPpqEnd = 0.0; phraseIndex = -1; current = -1; wendungStart = 0; still = false; chordBase = 0; curRoot = 0; curType = Min; curChord = -1;
+    void reset() { style = -1; csNote = -1; csPendingAt = -1; chaseStep = -1; lastGenre = -1; resetCc(); numActive = 0; running = false; lastPpqEnd = 0.0; phraseIndex = -1; current = -1; wendungStart = 0; still = false; chordBase = 0; drivePrev = driveSeen = driveLatched = driveArrivedNow = false; curRoot = 0; curType = Min; curChord = -1;
                    sceneStep = 0; autoSeed = -1; sceneBarNow = -1; sceneEnded = false; for (int l = 0; l < kNumLayers; ++l) { on[l] = prevOn[l] = hOn[l] = false; } }
 
     // Fuer die Anzeige: Szene
     int sceneBar() const { return sceneBarNow; }              // Takte seit Szenenstart (-1: steht)
     int sceneEntry() const { return entryInUse; }             // aufgeloester Einstieg
     bool sceneOver() const { return sceneEnded; }
+    bool driveArrived() const { return driveArrivedNow; }     // die Fahrt ist bei B angekommen (das Plugin macht B dann zu A)
+    int driveFromNow() const { return driveLatched ? driveFromLatched : -1; }   // Fahrt, die waehrend der Wiedergabe eingeschaltet wurde: Startbar
     float pointX() const { return curX; }                     // Punkt im Feld, wie er gerade klingt (mit Fahrt)
     float pointY() const { return curY; }
     bool layerPlaying (int l) const { return on[std::clamp (l, 0, kNumLayers - 1)]; }
@@ -570,7 +572,7 @@ public:
             // Szenenstart: Wiedergabebeginn, auf den Taktanfang gerundet. Ein Sprung nach vorn (oder ein Loop, der nicht
             // vor den Start zurueckspringt) laeuft in derselben Szene weiter, ein Sprung davor beginnt eine neue.
             const long long k0 = (long long) std::floor (t.ppq / kStep + 1e-9);
-            if (! running || k0 < sceneStep) sceneStep = floorDiv (k0, meter.len) * meter.len;
+            if (! running || k0 < sceneStep) { sceneStep = floorDiv (k0, meter.len) * meter.len; driveLatched = false; drivePrev = false; driveSeen = false; }
             running = true;
             phraseIndex = -1;
             csNote = -1; csPendingAt = -1; resetCc();
@@ -619,9 +621,19 @@ private:
     void applyDrive (long long k, Settings& s, float ax, float ay)
     {
         driveAY = ay;
+        const double barsNow = (double) (k - sceneStep) / (double) meter.len;
+        if (s.drive && ! drivePrev && driveSeen)   // waehrend der Wiedergabe eingeschaltet: ab dem naechsten Takt, vom Punkt aus
+        {
+            driveLatched = true;
+            driveFromLatched = (int) std::ceil (barsNow - 1e-9);
+        }
+        if (! s.drive) { driveLatched = false; driveArrivedNow = false; }
+        drivePrev = s.drive; driveSeen = true;
         if (s.drive)
         {
-            const float a = driveAmount (s, (double) (k - sceneStep) / (double) meter.len);
+            if (driveLatched) s.driveFrom = driveFromLatched;
+            driveArrivedNow = s.driveBars > 0 && barsNow - (double) s.driveFrom >= (double) s.driveBars;
+            const float a = driveAmount (s, barsNow);
             s.x = ax + (s.driveX - ax) * a;
             s.y = ay + (s.driveY - ay) * a;
         }
@@ -1800,6 +1812,8 @@ private:
     double lastPpqEnd = 0.0;
     long long phraseIndex = -1, wendungStart = 0, chaseStep = -1;
     bool still = false;   // Ruhezone: Akkord steht
+    bool drivePrev = false, driveSeen = false, driveLatched = false, driveArrivedNow = false;   // Fahrt: Einschalten waehrend der Wiedergabe, Ankunft
+    int driveFromLatched = 0;
     int chordBase = 0;    // Akkord, ab dem die Folge laeuft (nach der Ruhezone)
     int current = -1, curChord = -1, curRoot = 0, curType = Min, style = -1;
     int genre = GenreScore, lastGenre = -1, curNextRoot = 0, curNextType = Min;

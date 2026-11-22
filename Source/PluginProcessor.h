@@ -3,11 +3,12 @@
 #include "ScoreEngine.h"
 #include <bitset>
 
-class StromscoreProcessor : public juce::AudioProcessor
+class StromscoreProcessor : public juce::AudioProcessor, private juce::AudioProcessorValueTreeState::Listener, private juce::Timer
 {
 public:
     StromscoreProcessor();
-    ~StromscoreProcessor() override = default;
+    ~StromscoreProcessor() override;
+    void serviceDrive();   // Fahrt: Ankunft bei B oder Abbruch -> der klingende Punkt wird zu A (laeuft im Timer, im Test von Hand)
 
     void prepareToPlay (double sampleRate, int samplesPerBlock) override;
     void releaseResources() override { flushPending = true; }
@@ -89,6 +90,9 @@ public:
     std::atomic<int> sceneBar { -1 }, sceneEntry { 0 };
     std::atomic<bool> sceneOver { false };
     std::atomic<float> pointX { 0.5f }, pointY { 0.1f };
+    // Fahrt: bei der Ankunft wird B zu A (die Fahrt schaltet sich aus), beim Abbruch die aktuelle Position
+    std::atomic<bool> driveArrived { false };
+    std::atomic<int> driveFromLive { -1 };
     // Anlernen des Tonumfangs: die naechsten zwei Tasten am MIDI-Eingang (tiefste und hoechste) werden gemerkt
     std::atomic<int> learnLayer { -1 }, learnFirst { -1 }, learnSecond { -1 };
     // Anlernen des Stich-Tons: die naechste gedrueckte Taste
@@ -104,6 +108,11 @@ public:
     int channelMaskForRange (int rangeIndex) const;
 
 private:
+    void parameterChanged (const juce::String& id, float value) override;
+    void timerCallback() override { serviceDrive(); }
+    void handOver();   // aktuelle Position des klingenden Punkts wird zu A, Fahrt aus
+    std::atomic<bool> handOverPending { false };
+    bool inHandOver = false;
     static juce::AudioProcessorValueTreeState::ParameterLayout createLayout();
     void handleControllers (const juce::MidiBuffer& incoming);
     void flushSounding (juce::MidiBuffer&, bool forceAllNotesOff);
