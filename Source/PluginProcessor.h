@@ -96,7 +96,7 @@ public:
     std::atomic<float> driveProgress { 0.0f };
     std::atomic<int> driveOutcome { 0 }; // 1: B, 2: A (return), 3: manual, 4: stopped
     void beginManualPosition();
-    void markTargetSet();
+    void markTargetSet (bool visible = true);
     juce::String ccChannelDescription (int channel) const;
     std::atomic<int> driveFromLive { -1 };
     // Anlernen des Tonumfangs: die naechsten zwei Tasten am MIDI-Eingang (tiefste und hoechste) werden gemerkt

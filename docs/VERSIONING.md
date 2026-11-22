@@ -5,6 +5,8 @@ Jede neue Veröffentlichung erhält die nächste Nummer; nach `.9` folgt die nä
 Vorkommastelle mit `.0`. Es gibt keine öffentliche Major-/Minor-/Patch-Unterscheidung
 und keine Build-Suffixe. Interne Actions-Laufnummern sind nur interne Kennungen.
 
+Ausdrücklich freigegebene Ausnahme für 2.0: Die kleine Bedienergänzung „B per Rechts-Doppelklick ausblenden“ ersetzt den bestehenden Download unter derselben Versionsnummer. Der Tag v2.0 wird nach erfolgreicher Prüfung auf den ergänzten Quellstand gesetzt; ZIP und SHA-256 werden gemeinsam ersetzt.
+
 CMake liest `VERSION` für Plugin-Anzeige und VST3-Metadaten. Der Release-Workflow liest
 dieselbe Datei für Tag, Titel und ZIP-Namen, prüft das Nummernschema und vergleicht die
 gebauten VST3-/Windows-Binärmetadaten mit dieser Version. JUCE-interne Nullen wie

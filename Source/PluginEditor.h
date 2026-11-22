@@ -45,6 +45,7 @@ public:
     bool showB = false, showNow = false;
     bool targetPending = false;                   // Ziel B per Rechtsklick gesetzt, die Fahrt laeuft noch nicht
     std::function<void()> onSetTarget;
+    std::function<bool (float, float)> onHideTarget;
     float bx = 0.8f, by = 0.85f, nowX = 0.0f, nowY = 0.0f;
     std::function<void (float, float)> onDrag, onDragB;
     std::function<void()> onDragStart, onDragEnd, onDragStartB, onDragEndB;
@@ -56,9 +57,16 @@ public:
     void paint (juce::Graphics& g) override;
     void mouseDown (const juce::MouseEvent& e) override
     {
-        dragging = true; numHover = 0;
+        numHover = 0;
+        if (e.mods.isRightButtonDown() && e.getNumberOfClicks() == 2
+            && onHideTarget && onHideTarget (beforeClickBX, beforeClickBY))
+        {
+            dragging = draggingB = false; showB = targetPending = false; repaint(); return;
+        }
+        dragging = true;
         if (e.mods.isRightButtonDown())   // rechte Taste: nur das Ziel B setzen, ohne die Fahrt zu starten
         {
+            beforeClickBX = bx; beforeClickBY = by;
             draggingB = true;
             if (onSetTarget) onSetTarget();
         }
@@ -66,9 +74,10 @@ public:
         if (draggingB) { if (onDragStartB) onDragStartB(); } else if (onDragStart) onDragStart();
         move (e);
     }
-    void mouseDrag (const juce::MouseEvent& e) override { move (e); }
+    void mouseDrag (const juce::MouseEvent& e) override { if (dragging) move (e); }
     void mouseUp (const juce::MouseEvent&) override
     {
+        if (! dragging) return;
         dragging = false;
         if (draggingB) { if (onDragEndB) onDragEndB(); } else if (onDragEnd) onDragEnd();
         draggingB = false;
@@ -83,6 +92,7 @@ public:
     bool dragging = false, draggingB = false;
     void mouseWheelMove (const juce::MouseEvent&, const juce::MouseWheelDetails& w) override { if (onWheel) onWheel (w.deltaY * 0.25f); }
 private:
+    float beforeClickBX = 0.8f, beforeClickBY = 0.85f;
     juce::Rectangle<float> area() const { return getLocalBounds().toFloat().reduced (10.0f); }
     void move (const juce::MouseEvent& e)
     {

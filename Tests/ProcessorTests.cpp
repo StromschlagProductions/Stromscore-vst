@@ -587,11 +587,11 @@ int main()
         CHECK (pad != nullptr);
         if (pad != nullptr)
         {
-            auto press = [&] (bool right)
+            auto press = [&] (bool right, int clicks = 1, float x = 0.8f)
             {
                 const auto mods = right ? juce::ModifierKeys (juce::ModifierKeys::rightButtonModifier) : juce::ModifierKeys (juce::ModifierKeys::leftButtonModifier);
-                const juce::MouseEvent e (juce::Desktop::getInstance().getMainMouseSource(), juce::Point<float> (pad->getWidth() * 0.8f, pad->getHeight() * 0.2f), mods,
-                                          1.0f, 0.0f, 0.0f, 0.0f, 0.0f, pad, pad, juce::Time::getCurrentTime(), juce::Point<float> (pad->getWidth() * 0.8f, pad->getHeight() * 0.2f), juce::Time::getCurrentTime(), 1, false);
+                const juce::MouseEvent e (juce::Desktop::getInstance().getMainMouseSource(), juce::Point<float> (pad->getWidth() * x, pad->getHeight() * 0.2f), mods,
+                                          1.0f, 0.0f, 0.0f, 0.0f, 0.0f, pad, pad, juce::Time::getCurrentTime(), juce::Point<float> (pad->getWidth() * x, pad->getHeight() * 0.2f), juce::Time::getCurrentTime(), clicks, false);
                 pad->mouseDown (e);
                 pad->mouseUp (e);
             };
@@ -600,6 +600,23 @@ int main()
             CHECK (std::abs (p->apvts.getRawParameterValue ("faerbung")->load() - 0.3f) < 1e-3f);   // A bleibt stehen
             CHECK (p->apvts.getRawParameterValue ("fahrtX")->load() > 0.6f);                         // B ist gesetzt
             CHECK (p->apvts.getRawParameterValue ("fahrt")->load() < 0.5f);                          // keine Fahrt
+            const auto original = p->currentSettings();
+            // A real right-double-click consists of two downs/ups; the first must not lose old B.
+            press (true, 1, 0.15f); press (true, 2, 0.15f);
+            CHECK (! p->targetSet.load() && ! pad->targetPending && ! pad->showB);
+            CHECK (std::abs (p->currentSettings().driveX - original.driveX) < 1e-6f);
+            CHECK (std::abs (p->currentSettings().driveY - original.driveY) < 1e-6f);
+            CHECK (std::abs (p->currentSettings().x - original.x) < 1e-6f);
+            juce::MemoryBlock hiddenState; p->getStateInformation (hiddenState);
+            StromscoreProcessor hidden; hidden.setStateInformation (hiddenState.getData(), (int) hiddenState.getSize());
+            CHECK (! hidden.targetSet.load());
+            CHECK (std::abs (hidden.currentSettings().driveX - original.driveX) < 1e-6f);
+            setParam (*p, "fahrt", 1); CHECK (p->targetSet.load());
+            press (true, 1, 0.25f); press (true, 2, 0.25f);
+            CHECK (p->targetSet.load() && p->currentSettings().drive); // no hiding during a drive
+            setParam (*p, "fahrt", 0);
+            press (true, 1, 0.4f); press (true, 2, 0.4f); CHECK (! p->targetSet.load());
+            press (true); CHECK (p->targetSet.load() && pad->targetPending);
             pad->showB = true; // left must still select A even when B is closer
             setParam (*p, "fahrt", 1);
             press (false);

@@ -687,9 +687,9 @@ void StromscoreProcessor::serviceDrive()
     if (handOverPending.load()) { handOver(); handOverPending.store (false); }
 }
 
-void StromscoreProcessor::markTargetSet()
+void StromscoreProcessor::markTargetSet (bool visible)
 {
-    targetSet.store (true);
+    targetSet.store (visible);
     updateHostDisplay (juce::AudioProcessorListener::ChangeDetails{}.withNonParameterStateChanged (true));
 }
 
