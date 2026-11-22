@@ -5,7 +5,7 @@ kompilierten Versionsanzeige und einem gesetzten Wiedergabezustand (zweiter Akko
 Ebenen leuchten). Keine nachträglich ersetzten Versionsziffern.
 
 Am einfachsten über GitHub: Actions > **Screenshots erzeugen** > Run workflow. Der Lauf nimmt beide
-Looks auf und checkt `docs/oberflaeche-dunkel.png`, `docs/oberflaeche-hell.png` und `docs/screenshots.json` ein.
+Looks und die Dialoge auf: eigene Akkordfolge, Tonumfang, Stich, CC-Bereiche und Wendungsinfo (insgesamt sieben PNGs). Dazu kommt `docs/screenshots.json`.
 
 Lokal:
 
@@ -24,5 +24,4 @@ lokale Screenshot-Instanz, keine Plugin-Defaults oder gespeicherten Nutzerprojek
 `docs/screenshots.json` enthält die einkompilierte Version und die erzeugten PNG-Dateien.
 Diesen Eintrag nicht manuell hochsetzen. Vor Veröffentlichung prüft der Workflow die
 Übereinstimmung mit `VERSION` und das Vorhandensein aller aufgeführten Bilder. Das Manifest
-wird als Release-Asset angehängt, damit die Homepage Aufnahmen aus genau dem freigegebenen
-Release-Tag laden kann.
+wird zusammen mit den PNGs als Release-Asset angehängt. Stromscore erhält dadurch keine Homepage-Karte und bleibt vom Gesamtbundle ausgeschlossen.

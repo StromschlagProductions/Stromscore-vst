@@ -3,6 +3,7 @@
 
 namespace
 {
+thread_local const StromscoreProcessor* publishingMidiAxes = nullptr;
 juce::String u8 (const char* s) { return juce::String (juce::CharPointer_UTF8 (s)); }
 
 juce::AudioParameterFloatAttributes percent()
@@ -30,7 +31,7 @@ juce::StringArray StromscoreProcessor::arpFigureNames()   { return { "Auto", u8 
 juce::StringArray StromscoreProcessor::changeNames()      { return { u8 ("Nächster Schlag"), u8 ("Nächster Takt"), "Alle 2 Takte", "Alle 4 Takte" }; }
 juce::StringArray StromscoreProcessor::octaveNames()      { return { u8 ("−2 Okt."), u8 ("−1 Okt."), "Normal", "+1 Okt.", "+2 Okt." }; }
 juce::StringArray StromscoreProcessor::slotRootNames()    { return { "C", u8 ("C♯"), "D", u8 ("E♭"), "E", "F", u8 ("F♯"), "G", u8 ("A♭"), "A", u8 ("B♭"), "B" }; }
-juce::StringArray StromscoreProcessor::slotTypeNames()    { return { "Dur", "Moll", "maj7", "m7", "7", "sus4", "sus2", "add9", "m6", "m(maj7)", "m7b5", "dim7", "+" }; }
+juce::StringArray StromscoreProcessor::slotTypeNames()    { return { "Dur", "Moll", "maj7", "m7", "7", "sus4", "sus2", "add9", "m6", "m(maj7)", "m7b5", "dim7", "+", "m(maj9)", "Quarten", "m9", "7b9", "5" }; }
 juce::StringArray StromscoreProcessor::slotBarNames()     { return { u8 ("–"), "1 Takt", "2 Takte", "3 Takte", "4 Takte" }; }
 juce::StringArray StromscoreProcessor::arpRateNames()     { return { "Auto", "Viertel", "Achtel", "16tel" }; }
 juce::StringArray StromscoreProcessor::entryNames()       { return { "Auto", u8 ("Fläche, schüchtern"), "Bass-Schlag", "Puls", "Arpeggio", "Akzent", "Gegenstimme", "Alles zugleich" }; }
@@ -102,7 +103,19 @@ juce::AudioProcessorValueTreeState::ParameterLayout StromscoreProcessor::createL
         layout.add (std::make_unique<AudioParameterChoice> (ParameterID { "oct" + String (i + 1), 1 },
             layerNames()[i] + " Oktave", octaveNames(), 2));
     const auto noteAttr = AudioParameterIntAttributes()
-        .withStringFromValueFunction ([] (int v, int) { return noteName (v); });
+        .withStringFromValueFunction ([] (int v, int) { return noteName (v); })
+        .withValueFromStringFunction ([] (const String& text)
+        {
+            auto t = text.trim().replace (CharPointer_UTF8 ("♯"), "#").replace (CharPointer_UTF8 ("♭"), "b");
+            if (t.isEmpty()) return 0;
+            const auto letter = CharacterFunctions::toUpperCase (t[0]);
+            const String letters ("C D EF G A B");
+            int pc = letter == 'H' ? 11 : letters.indexOfChar (letter);
+            if (pc < 0 || letter == ' ') return jlimit (0, 127, t.getIntValue());
+            int at = 1;
+            if (t.length() > at && (t[at] == '#' || t[at] == 'b')) { pc += t[at] == '#' ? 1 : -1; ++at; }
+            return jlimit (0, 127, (t.substring (at).getIntValue() + 2) * 12 + pc);
+        });
     for (int i = 0; i < stromscore::kNumRanges; ++i)
     {
         const String n (i + 1);
@@ -110,6 +123,16 @@ juce::AudioProcessorValueTreeState::ParameterLayout StromscoreProcessor::createL
         layout.add (std::make_unique<AudioParameterInt> (ParameterID { "tief" + n, 1 }, rangeName (i) + u8 (" tiefster Ton"), 0, 127, 0, noteAttr));
         layout.add (std::make_unique<AudioParameterInt> (ParameterID { "hoch" + n, 1 }, rangeName (i) + u8 (" höchster Ton"), 0, 127, 127, noteAttr));
     }
+    // Per-channel ranges: sharing a MIDI channel necessarily shares its controllers.
+    for (int ch = 1; ch <= 16; ++ch)
+        for (int kind = 0; kind < 2; ++kind)
+            for (int edge = 0; edge < 2; ++edge)
+            {
+                const String id = "cc" + String (kind) + (edge == 0 ? "Lo" : "Hi") + String (ch);
+                layout.add (std::make_unique<AudioParameterInt> (ParameterID { id, 1 },
+                    "Kanal " + String (ch) + (kind == 0 ? " Dynamik " : " Ausdruck ") + (edge == 0 ? "von" : "bis"),
+                    0, 127, edge == 0 ? 60 : 127));
+            }
     // MIDI-Kanal je Ausgang; Vorgabe 1 ... 8, mehrere Ausgaenge duerfen sich einen Kanal teilen
     for (int i = 0; i < stromscore::kNumOutputs; ++i)
         layout.add (std::make_unique<AudioParameterChoice> (ParameterID { "kanal" + String (i + 1), 1 }, outputNames()[i] + " MIDI-Kanal", channelNames(), i));
@@ -149,9 +172,16 @@ StromscoreProcessor::StromscoreProcessor()
       apvts (*this, nullptr, "STROMSCORE", createLayout())
 {
     apvts.addParameterListener ("fahrt", this);
-    startTimerHz (20);
+    for (int kind = 0; kind < 2; ++kind)
+        for (int edge = 0; edge < 2; ++edge)
+            for (int ch = 0; ch < 16; ++ch)
+                pCcRange[kind][edge][ch] = apvts.getRawParameterValue ("cc" + juce::String (kind) + (edge == 0 ? "Lo" : "Hi") + juce::String (ch + 1));
     pKey = apvts.getRawParameterValue ("key");
-    for (int i = 0; i < 3; ++i) { pAxis[i] = apvts.getRawParameterValue (kAxisIds[i]); axisParam[i] = apvts.getParameter (kAxisIds[i]); }
+    for (int i = 0; i < 3; ++i)
+    {
+        pAxis[i] = apvts.getRawParameterValue (kAxisIds[i]); axisParam[i] = apvts.getParameter (kAxisIds[i]);
+        axisLive[i].store (pAxis[i]->load()); apvts.addParameterListener (kAxisIds[i], this);
+    }
     pMeter = apvts.getRawParameterValue ("takt");
     pSwing = apvts.getRawParameterValue ("swing");
     pVariation = apvts.getRawParameterValue ("variation");
@@ -208,6 +238,7 @@ StromscoreProcessor::StromscoreProcessor()
         pSlotType[i] = apvts.getRawParameterValue ("slotType" + n);
         pSlotBars[i] = apvts.getRawParameterValue ("slotBars" + n);
     }
+    startTimerHz (20);
 }
 
 bool StromscoreProcessor::isBusesLayoutSupported (const BusesLayout& layouts) const
@@ -219,6 +250,7 @@ bool StromscoreProcessor::isBusesLayoutSupported (const BusesLayout& layouts) co
 void StromscoreProcessor::prepareToPlay (double sampleRate, int)
 {
     currentRate = sampleRate;
+    inputBuffer.ensureSize (65536); sliceBuffer.ensureSize (65536); thruBuffer.ensureSize (65536);
     flushPending = true;
     generator.reset();
     previewGenerator.reset(); previewRunning = false;
@@ -227,22 +259,22 @@ void StromscoreProcessor::prepareToPlay (double sampleRate, int)
 
 void StromscoreProcessor::reset()
 {
-    flushPending = true;   // klingende Noten beim naechsten Block beenden (die Engine vergisst sie hier)
-    generator.reset();
-    previewGenerator.reset(); previewRunning = false;
-    preview.reset();
+    // Host/GUI request only: the audio thread owns the generators and preview state.
+    flushPending.store (true);
 }
 
 stromscore::Settings StromscoreProcessor::currentSettings() const
 {
     stromscore::Settings s;
     s.key = juce::roundToInt (pKey->load());
-    s.x = pAxis[0]->load(); s.y = pAxis[1]->load(); s.z = pAxis[2]->load();
+    s.x = axisLive[0].load(); s.y = axisLive[1].load(); s.z = axisLive[2].load();
     static constexpr int nums[] = { 0, 4, 3, 6, 5, 7, 5, 12 };
     static constexpr int dens[] = { 0, 4, 4, 8, 4, 8, 8, 8 };
     const int m = juce::jlimit (0, 7, juce::roundToInt (pMeter->load()));
-    s.meterNum = m == 0 ? hostNum : nums[m];
-    s.meterDen = m == 0 ? hostDen : dens[m];
+    const auto signature = hostMeter.load();
+    s.meterNum = m == 0 ? (int) (signature >> 16) : nums[m];
+    s.meterDen = m == 0 ? (int) (signature & 0xffff) : dens[m];
+    if (s.meterDen != 1 && s.meterDen != 2 && s.meterDen != 4 && s.meterDen != 8 && s.meterDen != 16) s.meterDen = 4;
     s.swing = pSwing->load();
     s.variation = juce::roundToInt (pVariation->load());
     for (int i = 0; i < stromscore::kNumLayers; ++i)
@@ -256,7 +288,15 @@ stromscore::Settings StromscoreProcessor::currentSettings() const
     s.genre = juce::roundToInt (pGenre->load());
     s.dynamics = pDynamics->load() >= 0.5f;
     s.ccDynamics = ccOut[0].load();
+    if (s.ccDynamics < 0 || s.ccDynamics > 119) s.ccDynamics = 0;
     s.ccExpression = ccOut[1].load();
+    if (s.ccExpression < 0 || s.ccExpression > 119) s.ccExpression = 0;
+    if (s.ccDynamics == s.ccExpression) s.ccDynamics = 0; // expression owns a shared controller number
+    s.ccRange = true;
+    for (int kind = 0; kind < 2; ++kind)
+        for (int ch = 0; ch < 16; ++ch)
+        { s.ccLo[kind][ch] = (int) pCcRange[kind][0][ch]->load(); s.ccHi[kind][ch] = (int) pCcRange[kind][1][ch]->load(); }
+    if (handOverPending.load() && pDrive->load() < 0.5f) { s.x = stopX.load(); s.y = stopY.load(); }
     for (int i = 0; i < 3; ++i) s.follow[i] = pFollow[i]->load() >= 0.5f;
     s.padPattern = juce::roundToInt (pPad->load());
     s.bassPattern = juce::roundToInt (pBass->load());
@@ -307,6 +347,7 @@ void StromscoreProcessor::handleControllers (const juce::MidiBuffer& incoming)
     float last[3] = { -1.0f, -1.0f, -1.0f };
     for (const auto meta : incoming)
     {
+        if (meta.numBytes > 3) continue;
         const auto msg = meta.getMessage();
         if (msg.isNoteOn() && learnLayer.load() >= 0)   // Anlernen: erste und zweite gedrueckte Taste
         {
@@ -323,8 +364,26 @@ void StromscoreProcessor::handleControllers (const juce::MidiBuffer& incoming)
         }
     }
     for (int a = 0; a < 3; ++a)
-        if (last[a] >= 0.0f && axisParam[a] != nullptr && std::abs (axisParam[a]->getValue() - last[a]) > 1.0e-4f)
-            axisParam[a]->setValueNotifyingHost (last[a]);
+        if (last[a] >= 0.0f)
+        {
+            axisLive[a].store (last[a]);
+            pendingMidiAxis[a].store (last[a]); // GUI/host publication is deferred; no listener locks in audio processing.
+        }
+}
+
+// Keyboard/audition can use channels outside the generator routing. Reset/bypass must stop them too.
+void StromscoreProcessor::flushAdditionalVoices (juce::MidiBuffer& midi)
+{
+    for (int ch = 0; ch < 16; ++ch)
+    {
+        for (int note = 0; note < 128; ++note)
+            if (thruSounding[ch].test ((size_t) note) && ! sounding[ch].test ((size_t) note))
+                midi.addEvent (juce::MidiMessage::noteOff (ch + 1, note), 0);
+        if (auditionNote >= 0 && ((auditionMask >> ch) & 1) && ! thruSounding[ch].test ((size_t) auditionNote) && ! sounding[ch].test ((size_t) auditionNote))
+            midi.addEvent (juce::MidiMessage::noteOff (ch + 1, auditionNote), 0);
+        thruSounding[ch].reset();
+    }
+    thruActiveMask = 0; auditionNote = -1; auditionMask = 0; auditionLeft = 0;
 }
 
 // Beendet alles, was noch klingt, und schickt zur Sicherheit "Alle Noten aus" (CC 123) auf den benutzten Kanaelen
@@ -392,30 +451,69 @@ void StromscoreProcessor::emit (const stromscore::EventList& list, juce::MidiBuf
 void StromscoreProcessor::processBlock (juce::AudioBuffer<float>& audio, juce::MidiBuffer& midi)
 {
     juce::ScopedNoDenormals noDenormals;
-    audio.clear();
-    handleControllers (midi);
-    juce::MidiBuffer thru;
-    passThrough (midi, thru, audio.getNumSamples());   // nur bei offenem Fenster fuer Tonumfang oder Stich-Ton
-    midi.clear();   // sonst werden eingehende Noten nicht weitergereicht
-
     stromscore::Transport t;
     t.sampleRate = currentRate > 0.0 ? currentRate : 48000.0;
+    t.bpm = hostBpm.load();
     if (auto* head = getPlayHead())
         if (auto pos = head->getPosition())
         {
             t.playing = pos->getIsPlaying();
             if (auto ppq = pos->getPpqPosition()) t.ppq = *ppq; else t.playing = false;
             if (auto bpm = pos->getBpm()) { t.bpm = *bpm; hostBpm = *bpm; }
-            if (auto sig = pos->getTimeSignature()) { hostNum = sig->numerator; hostDen = sig->denominator; }
+            if (auto sig = pos->getTimeSignature()) { hostMeter.store (((unsigned) juce::jlimit (1, 16, sig->numerator) << 16) | (unsigned) sig->denominator); }
         }
-    hostPlaying.store (t.playing);
+    inputBuffer.clear();
+    for (const auto meta : midi) if (meta.numBytes <= 3) inputBuffer.addEvent (meta.data, meta.numBytes, meta.samplePosition);
+    midi.clear();
+    auto it = inputBuffer.cbegin();
+    const auto end = inputBuffer.cend();
+    const int total = audio.getNumSamples();
+    int start = 0;
+    // Bounded chunks protect the fixed engine event list; every incoming event retains its exact sample position.
+    while (start < total)
+    {
+        sliceBuffer.clear();
+        while (it != end && (*it).samplePosition <= start)
+        {
+            const auto meta = *it;
+            sliceBuffer.addEvent (meta.data, meta.numBytes, 0); ++it;
+        }
+        int finish = std::min (total, start + 512);
+        if (it != end && (*it).samplePosition > start) finish = std::min (finish, (*it).samplePosition);
+        auto sliceTransport = t;
+        sliceTransport.ppq += (double) start * t.bpm / (60.0 * t.sampleRate);
+        juce::AudioBuffer<float> view (audio.getArrayOfWritePointers(), audio.getNumChannels(), start, finish - start);
+        processSlice (view, sliceBuffer, sliceTransport);
+        midi.addEvents (sliceBuffer, 0, finish - start, start);
+        start = finish;
+    }
+}
 
+void StromscoreProcessor::processSlice (juce::AudioBuffer<float>& audio, juce::MidiBuffer& midi, const stromscore::Transport& t)
+{
+    audio.clear();
     events.clear();
     if (wasBypassed) { generator.reset(); wasBypassed = false; }
-    if (flushPending) { flushSounding (midi, false); preview.reset(); flushPending = false; }
+    const bool shouldFlush = flushPending.exchange (false);
+    thruBuffer.clear();
+    if (shouldFlush)
+    {
+        flushAdditionalVoices (thruBuffer);
+        generator.reset(); previewGenerator.reset(); previewRunning = false; preview.reset();
+    }
+    handleControllers (midi);
+    passThrough (midi, thruBuffer, audio.getNumSamples());
+    midi.clear();
+    if (shouldFlush) flushSounding (midi, false);
+    hostPlaying.store (t.playing);
     const auto settings = currentSettings();
     meterNum.store (settings.meterNum); meterDen.store (settings.meterDen);
     generator.process (t, settings, audio.getNumSamples(), events);
+    if (events.overflow)
+    {
+        // Never forward a partial list with potentially missing note-offs.
+        events.clear(); generator.reset(); flushSounding (midi, true); preview.reset();
+    }
     publish (generator, t.playing);
     wendung.store (t.playing ? generator.wendung() : -1);
     styleIndex.store (generator.styleWendung());
@@ -434,7 +532,7 @@ void StromscoreProcessor::processBlock (juce::AudioBuffer<float>& audio, juce::M
         if (! previewRunning) { previewGenerator.reset(); preview.reset(); previewPpq = 0.0; previewRunning = true; }
         stromscore::Transport own;
         own.playing = true; own.ppq = previewPpq; own.sampleRate = t.sampleRate;
-        own.bpm = hostBpm > 1.0 ? hostBpm : 120.0;
+        own.bpm = hostBpm.load() > 1.0 ? hostBpm.load() : 120.0;
         previewEvents.clear();
         previewGenerator.process (own, settings, audio.getNumSamples(), previewEvents);
         previewPpq += (double) audio.getNumSamples() / (own.sampleRate * 60.0 / own.bpm);
@@ -458,7 +556,7 @@ void StromscoreProcessor::processBlock (juce::AudioBuffer<float>& audio, juce::M
     if (! t.playing)
         flushSounding (midi, wasPlaying);
     wasPlaying = t.playing;
-    midi.addEvents (thru, 0, -1, 0);   // durchgeleitete Tasten und Vorhoeren nach dem Aufraeumen, damit sie nicht gleich enden
+    midi.addEvents (thruBuffer, 0, -1, 0);   // durchgeleitete Tasten und Vorhoeren nach dem Aufraeumen, damit sie nicht gleich enden
 }
 
 int StromscoreProcessor::channelMaskForRange (int r) const
@@ -492,7 +590,8 @@ void StromscoreProcessor::passThrough (const juce::MidiBuffer& incoming, juce::M
     if (mask != 0)
         for (const auto meta : incoming)
         {
-            const auto msg = meta.getMessage();
+            if (meta.numBytes > 3) continue;
+        const auto msg = meta.getMessage();
             if (! msg.isNoteOnOrOff()) continue;
             const int n = msg.getNoteNumber();
             for (int ch = 0; ch < 16; ++ch)
@@ -529,9 +628,9 @@ void StromscoreProcessor::passThrough (const juce::MidiBuffer& incoming, juce::M
         for (int ch = 0; ch < 16; ++ch)
             if ((auditionMask >> ch) & 1) out.addEvent (juce::MidiMessage::noteOn (ch + 1, auditionNote, (juce::uint8) 100), 0);
     }
-    else if (auditionNote >= 0)
+    if (auditionNote >= 0)
     {
-        if (auditionLeft <= numSamples) stopAudition (juce::jlimit (0, juce::jmax (0, numSamples - 1), auditionLeft));
+        if (auditionLeft < numSamples) stopAudition (juce::jlimit (0, juce::jmax (0, numSamples - 1), auditionLeft));
         else auditionLeft -= numSamples;
     }
 }
@@ -540,28 +639,45 @@ StromscoreProcessor::~StromscoreProcessor()
 {
     stopTimer();
     apvts.removeParameterListener ("fahrt", this);
+    for (auto* id : kAxisIds) apvts.removeParameterListener (id, this);
 }
 
 // Fahrt aus (Knopf oder Automation) waehrend die Musik faehrt: die Position des klingenden Punkts wird zu A
-void StromscoreProcessor::parameterChanged (const juce::String&, float value)
+void StromscoreProcessor::parameterChanged (const juce::String& id, float value)
 {
+    for (int a = 0; a < 3; ++a)
+        if (id == kAxisIds[a])
+        {
+            if (publishingMidiAxes != this) { axisLive[a].store (value); pendingMidiAxis[a].store (-1.0f); }
+            return;
+        }
     if (inHandOver || value >= 0.5f || sceneBar.load() < 0) return;
+    stopX.store (pointX.load()); stopY.store (pointY.load());
     handOverPending.store (true);
     if (juce::MessageManager::getInstance()->isThisTheMessageThread()) serviceDrive();
 }
 
 void StromscoreProcessor::serviceDrive()
 {
+    for (int a = 0; a < 3; ++a)
+    {
+        const float value = pendingMidiAxis[a].exchange (-1.0f);
+        if (value < 0.0f || axisLive[a].load() != value) continue;
+        const auto* previous = publishingMidiAxes; publishingMidiAxes = this;
+        axisParam[a]->setValueNotifyingHost (value);
+        publishingMidiAxes = previous;
+    }
     // Ankunft bei B: B wird zu A, die Fahrt schaltet sich aus
-    if (driveArrived.load() && pDrive->load() >= 0.5f) handOverPending.store (true);
-    if (handOverPending.exchange (false)) handOver();
+    if (driveArrived.load() && pDrive->load() >= 0.5f)
+    { stopX.store (pointX.load()); stopY.store (pointY.load()); handOverPending.store (true); }
+    if (handOverPending.load()) { handOver(); handOverPending.store (false); }
 }
 
 void StromscoreProcessor::handOver()
 {
     if (inHandOver) return;
     inHandOver = true;
-    const float x = pointX.load(), y = pointY.load();
+    const float x = stopX.load(), y = stopY.load();
     auto set = [this] (const char* id, float v)
     {
         if (auto* prm = apvts.getParameter (id))
@@ -595,7 +711,8 @@ void StromscoreProcessor::processBlockBypassed (juce::AudioBuffer<float>& audio,
     {
         generator.reset();
         previewGenerator.reset(); previewRunning = false;
-        flushSounding (midi, true);   // "Alle Noten aus" beendet auch durchgeleitete Toene
+        flushAdditionalVoices (midi);
+        flushSounding (midi, true);
         for (auto& b : thruSounding) b.reset();
         thruActiveMask = 0;
         preview.reset();
@@ -607,6 +724,9 @@ void StromscoreProcessor::processBlockBypassed (juce::AudioBuffer<float>& audio,
 void StromscoreProcessor::getStateInformation (juce::MemoryBlock& destData)
 {
     auto state = apvts.copyState();
+    for (auto child : state)
+        for (int a = 0; a < 3; ++a)
+            if (child.getProperty ("id").toString() == kAxisIds[a]) child.setProperty ("value", axisLive[a].load(), nullptr);
     state.setProperty ("theme", uiTheme.load(), nullptr);
     state.setProperty ("uiW", uiWidth.load(), nullptr);
     state.setProperty ("ccFaerbung", ccNumber[0].load(), nullptr);
@@ -634,7 +754,12 @@ void StromscoreProcessor::setStateInformation (const void* data, int sizeInBytes
             ccOut[0].store (juce::jlimit (0, 127, (int) state.getProperty ("ccDynamik", 1)));
             ccOut[1].store (juce::jlimit (0, 127, (int) state.getProperty ("ccAusdruck", 11)));
             exportBars.store (juce::jlimit (1, 64, (int) state.getProperty ("exportTakte", 8)));
+            inHandOver.store (true);
             apvts.replaceState (state);
+            for (int a = 0; a < 3; ++a) { axisLive[a].store (pAxis[a]->load()); pendingMidiAxis[a].store (-1.0f); }
+            handOverPending.store (false);
+            inHandOver.store (false);
+            flushPending.store (true);
         }
     }
 }
@@ -647,11 +772,14 @@ juce::AudioProcessor* JUCE_CALLTYPE createPluginFilter() { return new Stromscore
 juce::File StromscoreProcessor::renderMidiFile (int bars) const
 {
     auto settings = currentSettings();
-    const double bpm = hostBpm > 1.0 ? hostBpm : 120.0;
+    const double bpm = hostBpm.load() > 1.0 ? hostBpm.load() : 120.0;
     const double sr = 48000.0;
     const int block = 480;
     const auto meter = stromscore::Meter::from (settings.meterNum, settings.meterDen);
-    const double quarters = (double) bars * meter.len * stromscore::kStep;
+    const double requestedQuarters = (double) juce::jlimit (1, 64, bars) * meter.len * stromscore::kStep;
+    const bool finalHitIncluded = settings.sceneBars > 0 && settings.ending == stromscore::EndHard
+        && settings.sceneBars <= bars;
+    const double quarters = requestedQuarters + (finalHitIncluded ? stromscore::kStep * 4.0 : 0.0);
     const double samplesPerQuarter = sr * 60.0 / bpm;
     constexpr int tpq = 960;
 
@@ -709,11 +837,13 @@ juce::File StromscoreProcessor::renderMidiFile (int bars) const
         file.addTrack (seq);
     }
     const auto name = juce::String ("Stromscore ") + (settings.genre == stromscore::GenrePopRock ? "Pop-Rock" : "Score") + " " + juce::String (bars) + " Takte.mid";
-    auto out = juce::File::getSpecialLocation (juce::File::tempDirectory).getChildFile ("Stromscore").getChildFile (name);
+    auto out = juce::File::getSpecialLocation (juce::File::tempDirectory).getChildFile ("Stromscore").getNonexistentChildFile (name.upToLastOccurrenceOf (".mid", false, false), ".mid");
     out.getParentDirectory().createDirectory();
     out.deleteFile();
     if (auto stream = out.createOutputStream())
-        file.writeTo (*stream);
-    return out;
+    {
+        if (file.writeTo (*stream)) { stream->flush(); if (stream->getStatus().wasOk()) return out; }
+    }
+    out.deleteFile(); return {};
 }
 

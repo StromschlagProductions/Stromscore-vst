@@ -3,6 +3,9 @@
 #include "TestSupport.h"
 #include <map>
 #include <memory>
+#include <thread>
+#include <tuple>
+#include <vector>
 
 namespace
 {
@@ -282,6 +285,7 @@ int main()
         midi.addEvent (juce::MidiMessage::controllerEvent (1, 1, 0), 10);
         midi.addEvent (juce::MidiMessage::controllerEvent (1, 74, 64), 20);
         p->processBlock (audio, midi);
+        p->serviceDrive(); // publish MIDI-controlled axes on the message thread
         CHECK (std::abs (p->apvts.getRawParameterValue ("faerbung")->load() - 1.0f) < 1e-3f);
         CHECK (std::abs (p->apvts.getRawParameterValue ("intensitaet")->load() - 0.0f) < 1e-3f);
         CHECK (std::abs (p->apvts.getRawParameterValue ("unruhe")->load() - 64.0f / 127.0f) < 1e-3f);
@@ -616,6 +620,108 @@ int main()
         editor->setSize (StromscoreProcessor::kUiWidth, StromscoreProcessor::kUiHeight);
     }
 
+    // 1.9: MIDI controller positions are independent of host block size.
+    {
+        using Message = std::tuple<long long, int, int, int>;
+        auto render = [] (int block)
+        {
+            StromscoreProcessor q; FakeHost h; q.setPlayHead (&h); q.prepareToPlay (48000, block);
+            setParam (q, "aufbau", 0); setParam (q, "intensitaet", 0.1f);
+            juce::AudioBuffer<float> a (2, block); juce::MidiBuffer m; m.ensureSize (65536);
+            std::vector<Message> messages;
+            const int total = 48000;
+            for (int at = 0; at < total; at += block)
+            {
+                const int n = std::min (block, total - at); a.setSize (2, n, false, false, true); m.clear();
+                if (at <= 6400 && at + n > 6400) m.addEvent (juce::MidiMessage::controllerEvent (1, 1, 127), 6400 - at);
+                h.ppq = at / 24000.0; q.processBlock (a, m);
+                for (const auto meta : m)
+                {
+                    const auto msg = meta.getMessage();
+                    if (msg.isNoteOnOrOff()) messages.emplace_back (at + meta.samplePosition, msg.getChannel(), msg.getNoteNumber(), msg.isNoteOn() ? msg.getVelocity() : 0);
+                }
+            }
+            q.setPlayHead (nullptr); return messages;
+        };
+        CHECK (render (64) == render (512)); CHECK (render (512) == render (8192));
+    }
+    // GUI timer latency must not replace the stopped drive position by old A.
+    {
+        StromscoreProcessor q; FakeHost h; q.setPlayHead (&h); q.prepareToPlay (48000, 512);
+        setParam (q, "faerbung", 0.2f); setParam (q, "intensitaet", 0.2f);
+        setParam (q, "fahrtX", 0.8f); setParam (q, "fahrtY", 0.8f); setParam (q, "fahrt", 1);
+        juce::AudioBuffer<float> a (2, 512); juce::MidiBuffer m; m.ensureSize (65536);
+        for (int i = 0; i < 187; ++i) { h.ppq = i * 512 / 24000.0; m.clear(); q.processBlock (a, m); }
+        const float x = q.pointX.load();
+        std::thread automation ([&] { setParam (q, "fahrt", 0); }); automation.join();
+        h.ppq = 187 * 512 / 24000.0; m.clear(); q.processBlock (a, m); q.serviceDrive();
+        CHECK (std::abs (q.currentSettings().x - x) < 1.0e-6f); q.setPlayHead (nullptr);
+    }
+    // Audition lasts exactly 0.4 seconds, including its first block, for small and large blocks.
+    for (int block : { 512, 8192, 32768 })
+    {
+        StromscoreProcessor q; FakeHost h; h.playing = false; q.setPlayHead (&h); q.prepareToPlay (48000, block);
+        juce::AudioBuffer<float> a (2, block); juce::MidiBuffer m; m.ensureSize (65536); q.audition (60, 1);
+        int ended = -1;
+        for (int at = 0; at < 48000; at += block)
+        { m.clear(); q.processBlock (a, m); for (const auto meta : m) if (meta.getMessage().isNoteOff() && meta.getMessage().getNoteNumber() == 60) ended = at + meta.samplePosition; }
+        CHECK (ended == 19200); q.setPlayHead (nullptr);
+    }
+    // New range parameters survive state roundtrip; note names roundtrip through host text entry.
+    {
+        StromscoreProcessor q, restored; setParam (q, "cc0Lo1", 100); setParam (q, "cc0Hi1", 127); setParam (q, "cc1Lo8", 70);
+        juce::MemoryBlock state; q.getStateInformation (state); restored.setStateInformation (state.getData(), (int) state.getSize());
+        CHECK (restored.currentSettings().ccLo[0][0] == 100); CHECK (restored.currentSettings().ccLo[1][7] == 70);
+        auto* parameter = q.apvts.getParameter ("tief1");
+        for (int note = 0; note < 128; ++note) CHECK (juce::roundToInt (parameter->convertFrom0to1 (parameter->getValueForText (StromscoreProcessor::noteName (note)))) == note);
+        CHECK (juce::roundToInt (parameter->convertFrom0to1 (parameter->getValueForText ("Db3"))) == 61);
+        CHECK (juce::roundToInt (parameter->convertFrom0to1 (parameter->getValueForText ("B3"))) == 71);
+    }
+    // The hard scene ending is present in the file with positive duration at the selected endpoint.
+    {
+        StromscoreProcessor q; setParam (q, "szenenLaenge", 1); setParam (q, "ende", 0);
+        auto file = q.renderMidiFile (8); auto stream = file.createInputStream(); juce::MidiFile midiFile;
+        CHECK (stream != nullptr && midiFile.readFrom (*stream)); int ons = 0, offs = 0;
+        for (int track = 0; track < midiFile.getNumTracks(); ++track)
+        { const auto* seq = midiFile.getTrack (track); for (int e = 0; e < seq->getNumEvents(); ++e)
+          { const auto& msg = seq->getEventPointer (e)->message; if (msg.isNoteOn() && msg.getTimeStamp() == 30720.0) ++ons; if (msg.isNoteOff() && msg.getTimeStamp() > 30720.0) ++offs; } }
+        CHECK (ons > 0 && offs >= ons);
+    }
+    // Large offline host blocks do not overflow or lose note-offs.
+    {
+        StromscoreProcessor q; FakeHost h; h.bpm = 300; q.setPlayHead (&h); q.prepareToPlay (8000, 65536);
+        setParam (q, "aufbau", 0); setParam (q, "intensitaet", 1); setParam (q, "unruhe", 1);
+        setParam (q, "dynamikCc", 1); setParam (q, "padPattern", stromscore::PadGated); setParam (q, "bassPattern", stromscore::BassPulse);
+        juce::AudioBuffer<float> a (2, 65536); juce::MidiBuffer m; m.ensureSize (1000000); Counts counts;
+        q.processBlock (a, m); collect (m, counts); h.playing = false; m.clear(); q.processBlock (a, m); collect (m, counts);
+        std::cout << "Large block: " << counts.ons << " on, " << counts.offs << " off, broken=" << counts.broken << std::endl;
+        CHECK (! counts.broken && counts.ons > 500 && counts.ons == counts.offs); q.setPlayHead (nullptr);
+    }
+
+    // C allocator tracking catches JUCE MidiBuffer malloc/realloc too, beyond operator new.
+    {
+        StromscoreProcessor q; FakeHost h; h.playing = false; q.setPlayHead (&h); q.prepareToPlay (48000, 512);
+        q.thruMask.store (0xffff); juce::AudioBuffer<float> a (2, 512); juce::MidiBuffer m; m.ensureSize (65536);
+        for (int pass = 0; pass < 8; ++pass)
+        {
+            m.clear();
+            for (int note = 48; note < 72; ++note)
+                m.addEvent (pass % 2 == 0 ? juce::MidiMessage::noteOn (1, note, (juce::uint8) 100) : juce::MidiMessage::noteOff (1, note), note);
+            if (pass == 2) q.audition (84, 1);
+            m.addEvent (juce::MidiMessage::controllerEvent (1, 11, pass * 16), 400);
+            { NoCHeap heap; NoAllocations cppHeap; q.processBlock (a, m); }
+        }
+        q.setPlayHead (nullptr);
+    }
+    // Bypass stops keyboard/audition on channel 16 even when generators use only channels 1-8.
+    {
+        StromscoreProcessor q; FakeHost h; h.playing = false; q.setPlayHead (&h); q.prepareToPlay (48000, 512);
+        juce::AudioBuffer<float> a (2, 512); juce::MidiBuffer m; m.ensureSize (65536); Counts c;
+        q.thruMask.store (1 << 15); q.audition (84, 1 << 15);
+        m.addEvent (juce::MidiMessage::noteOn (1, 60, (juce::uint8) 100), 0); q.processBlock (a, m); collect (m, c);
+        CHECK (c.ons == 2); m.clear(); q.processBlockBypassed (a, m); collect (m, c);
+        CHECK (! c.broken && c.ons == c.offs); q.setPlayHead (nullptr);
+    }
     p->setPlayHead (nullptr);
     return 0;
 }

@@ -11,7 +11,7 @@
 3. Screenshots für die Version erzeugen (Workflow **Screenshots erzeugen**), falls sich Oberfläche oder Version geändert haben.
 4. GitHub Actions → **Windows-VST3 bauen** → **Run workflow** auf `main` starten, Option **publish** aktivieren. Ohne ausdrückliche Freigabe entsteht kein öffentliches Release. Für die Version muss `docs/releases/<VERSION>.md` existieren.
 5. Prüfen, ob `/releases/latest` auf ein veröffentlichtes stabiles Release mit Windows-VST3-ZIP zeigt.
-6. Die Stromschlag-Homepage liest dieses Release automatisch (Plugin-Karte mit `data-release-repo="Stromscore-vst"`). Bei GitHub-API-Problemen führt ihr Fallback zur aktuellen Release-Seite.
+6. Stromscore bleibt ausschließlich über die GitHub-Downloadseite erhältlich. Es gibt keine Karte auf der Homepage; die automatische Gesamtbundle-Erkennung schließt `Stromscore-vst` ausdrücklich aus. Diese Platzierung ohne einen neuen Auftrag nicht ändern.
 
 Ein gewöhnlicher Git-Push oder erfolgreicher Build ist **nicht** automatisch eine Freigabe. Ein ausdrücklich gekennzeichneter Release-Commit ist die unten beschriebene alternative Freigabe. Keine automatische öffentliche Veröffentlichung bei jedem Commit.
 

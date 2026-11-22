@@ -112,9 +112,13 @@ private:
     void timerCallback() override { serviceDrive(); }
     void handOver();   // aktuelle Position des klingenden Punkts wird zu A, Fahrt aus
     std::atomic<bool> handOverPending { false };
-    bool inHandOver = false;
+    std::atomic<bool> inHandOver { false };
+    std::atomic<float> stopX { 0.5f }, stopY { 0.1f };
     static juce::AudioProcessorValueTreeState::ParameterLayout createLayout();
+    void processSlice (juce::AudioBuffer<float>&, juce::MidiBuffer&, const stromscore::Transport&);
+    juce::MidiBuffer inputBuffer, sliceBuffer, thruBuffer;
     void handleControllers (const juce::MidiBuffer& incoming);
+    void flushAdditionalVoices (juce::MidiBuffer&);
     void flushSounding (juce::MidiBuffer&, bool forceAllNotesOff);
     void emit (const stromscore::EventList&, juce::MidiBuffer&, juce::AudioBuffer<float>&, bool preview, bool toMidi = true);
     void publish (const stromscore::Generator&, bool playing);
@@ -129,17 +133,21 @@ private:
     // Vorhoeren bei stehender DAW: eigene Uhr, nur Testklang, kein MIDI
     stromscore::Generator previewGenerator;
     stromscore::EventList previewEvents;
-    double previewPpq = 0.0, hostBpm = 120.0;
+    double previewPpq = 0.0;
+    std::atomic<double> hostBpm { 120.0 };
     bool previewRunning = false;
     stromscore::Preview preview;
     stromscore::EventList events;
     bool wasBypassed = false;
     double currentRate = 48000.0;
-    int hostNum = 4, hostDen = 4;
+    std::atomic<unsigned> hostMeter { (4u << 16) | 4u };
     // Was gerade klingt (unabhaengig von der Engine): damit nach Stopp, Reset oder Bypass nie eine Note haengen bleibt
     std::bitset<128> sounding[16];   // je MIDI-Kanal
-    bool flushPending = false, wasPlaying = false;
+    std::atomic<bool> flushPending { false };
+    bool wasPlaying = false;
 
+    std::atomic<float> axisLive[3] { { 0.5f }, { 0.1f }, { 0.0f } };
+    std::atomic<float> pendingMidiAxis[3] { { -1.0f }, { -1.0f }, { -1.0f } };
     std::atomic<float>* pKey = nullptr; std::atomic<float>* pAxis[3] {}; std::atomic<float>* pMeter = nullptr;
     std::atomic<float>* pSwing = nullptr; std::atomic<float>* pVariation = nullptr; std::atomic<float>* pPreview = nullptr;
     std::atomic<float>* pMute[stromscore::kNumLayers] {}; std::atomic<float>* pSolo[stromscore::kNumLayers] {};
@@ -154,6 +162,7 @@ private:
     std::atomic<float>* pDriveBars = nullptr; std::atomic<float>* pCurve = nullptr;
     std::atomic<float>* pStichMode = nullptr; std::atomic<float>* pStichNote = nullptr;
     std::atomic<float>* pSlotRoot[stromscore::kMaxChords] {}; std::atomic<float>* pSlotType[stromscore::kMaxChords] {}; std::atomic<float>* pSlotBars[stromscore::kMaxChords] {};
+    std::atomic<float>* pCcRange[2][2][16] {};
     juce::RangedAudioParameter* axisParam[3] {};
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (StromscoreProcessor)

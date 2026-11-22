@@ -18,3 +18,20 @@ struct NoAllocations {
     ~NoAllocations() { checkingAllocation = false; CHECK (allocations == 0); }
 };
 struct NoDenormals { NoDenormals() { _mm_setcsr (_mm_getcsr() | 0x8040); } };
+
+#if defined(STROMSCORE_TRACK_C_HEAP)
+inline thread_local bool checkingCHeap = false;
+inline thread_local int cHeapCalls = 0;
+extern "C" void* __real_malloc (size_t);
+extern "C" void* __real_realloc (void*, size_t);
+extern "C" void* __real_calloc (size_t, size_t);
+extern "C" void* __wrap_malloc (size_t n) { if (checkingCHeap) ++cHeapCalls; return __real_malloc (n); }
+extern "C" void* __wrap_realloc (void* p, size_t n) { if (checkingCHeap) ++cHeapCalls; return __real_realloc (p, n); }
+extern "C" void* __wrap_calloc (size_t n, size_t m) { if (checkingCHeap) ++cHeapCalls; return __real_calloc (n, m); }
+struct NoCHeap {
+    NoCHeap() { cHeapCalls = 0; checkingCHeap = true; }
+    ~NoCHeap() { checkingCHeap = false; CHECK (cHeapCalls == 0); }
+};
+#else
+using NoCHeap = NoAllocations;
+#endif

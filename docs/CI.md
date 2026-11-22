@@ -5,7 +5,7 @@ Alle Plugin-Repos sind öffentlich, die Actions-Minuten spielen keine Rolle. Des
 | Workflow | Runner | Läuft bei | Inhalt |
 |---|---|---|---|
 | `build.yml` Windows-VST3 bauen | Windows | Push auf `main`, Pull Request, **Run workflow** von Hand (alles außer reinen Doku-Änderungen) | Hersteller-Prüfung, Build, Regressionstests (DSP und Prozessor), pluginval Strictness 8, ZIP als Artefakt |
-| `tests.yml` DSP and memory safety | Linux | Push auf `main` und Pull Request bei Änderungen an `Source/`, `Tests/`, `tools/`, `CMakeLists.txt`, `VERSION` | Noten-Engine mit AddressSanitizer und UndefinedBehaviorSanitizer (ohne JUCE, daher schnell) |
+| `tests.yml` DSP and memory safety | Linux | Push auf `main` und Pull Request bei Änderungen an `Source/`, `Tests/`, `tools/`, `CMakeLists.txt`, `VERSION` | Noten-Engine mit AddressSanitizer/UndefinedBehaviorSanitizer; zusätzlich vollständige JUCE-Prozessortests unter Xvfb mit malloc/realloc/calloc-Überwachung |
 | `screenshots.yml` Screenshots erzeugen | Windows | nur von Hand | Oberflächen-Bilder (Hell und Dunkel) aus der echten JUCE-Oberfläche nach `docs/` |
 
 ## Ablauf
@@ -32,3 +32,9 @@ Verbindliches öffentliches Versionsschema: `docs/VERSIONING.md` (ohne Build-Suf
 ## Expliziter Release-Auftrag per Commit
 
 Neben dem manuellen Workflow kann ein ausdrücklich freigegebener Push auf `main` mit der ersten Commitzeile `release: Stromscore <VERSION> <Beschreibung>` die Veröffentlichung beauftragen. Die Nummer muss exakt zur Datei `VERSION` passen. Normale Pushes veröffentlichen weiterhin nichts. Der Release-Auftrag durchläuft dieselben Versions-, Screenshot-, Build-, Regressionstest- und pluginval-Prüfungen wie der manuelle publish-Lauf. Diese Alternative ermöglicht eine vom Auftraggeber autorisierte Veröffentlichung über den GitHub-Connector ohne zusätzliche Browseranmeldung.
+
+## Zusätzliche Absicherung ab 1.9
+
+Der Linux-Prozessorlauf prüft zusätzlich zu `operator new` die C-Allokatoren `malloc`, `realloc` und `calloc` für vorbereitete MIDI-Durchleitung, Vorhör- und Controller-Blöcke. Die MIDI-Ausgabepuffer werden für diese Echtzeitprüfung vorab reserviert; Hosts bleiben für die Kapazität ihres eigenen MIDI-Puffers verantwortlich.
+
+Vor dem Release prüft `scripts/validate_release.py` die direkt installierbare ZIP-Struktur, unsichere/doppelte Pfade (ohne Beachtung der Groß-/Kleinschreibung), verschachtelte ZIPs, CRC, Windows-AMD64-Binärformat und VST3-Version. Die SHA-256-Datei wird gemeinsam mit Bildern und Dokumentation als Release-Anhang bereitgestellt. Ein fehlgeschlagener Prüfschritt veröffentlicht nichts; ältere Releases bleiben bestehen.

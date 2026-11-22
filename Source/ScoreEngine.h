@@ -1,6 +1,6 @@
 #pragma once
 // Stromscore: regelbasierter Noten-Generator (kein JUCE, echtzeitfest, ohne Speicheranforderung im Audiopfad).
-// Die Ausgabe ist eine reine Funktion der Projektposition und der Einstellungen: gleiche Einstellungen, gleiche Noten.
+// Deterministisch bei gleichem Szenenstart, Wurf, Einstellungen und Steuerungsverlauf; erzeugtes MIDI kann festgehalten werden.
 //
 // Stimmungsfeld: Faerbung (x, dunkel -> hell), Intensitaet (y, ruhig -> aufgewuehlt), Unruhe (z, sauber -> kratzig).
 // Aus dem Feld wird je Phrase eine Wendung aus dem Vokabular gezogen (kWendungen, Grundlage: Stilmittel-Katalog).
@@ -58,7 +58,7 @@ constexpr ChordShape kShapes[kNumChordTypes] = {
     { 3, { 0, 7, 12 }, "5", false } };
 
 // Akkordarten fuer die eigene Folge (Reihenfolge = Auswahlliste in der Oberflaeche)
-constexpr int kCustomTypes[] = { Maj, Min, Maj7, Min7, Dom7, Sus4, Sus2, Add9, Min6, MinMaj7, HalfDim, Dim7, Aug };
+constexpr int kCustomTypes[] = { Maj, Min, Maj7, Min7, Dom7, Sus4, Sus2, Add9, Min6, MinMaj7, HalfDim, Dim7, Aug, MinMaj9, Quartal, Min9, Dom7b9, Fifth };
 constexpr int kNumCustomTypes = (int) (sizeof (kCustomTypes) / sizeof (kCustomTypes[0]));
 
 // ------------------------------------------------------------------ Muster
@@ -110,14 +110,14 @@ constexpr Wendung kWendungen[] = {
     { "Lauern",             0.08f, 0.10f, 0.60f, 1, { { 0, Min, 8 } }, { ArpCircle, ArpCell }, { BassHeld, BassPendulum }, PadHeld },
     { "Trauer",             0.28f, 0.15f, 0.08f, 4, { { 0, Min, 2 }, { 8, Maj, 2 }, { 5, Min, 2 }, { 7, Maj, 2 } }, { ArpDown, ArpCircle }, { BassHeld, BassHalf }, PadHeld },
     { "Agentenfarbe",       0.30f, 0.45f, 0.45f, 3, { { 0, MinMaj9, 4 }, { 5, MinMaj7, 2 }, { 0, MinMaj9, 2 } }, { ArpCell, ArpCircle }, { BassQuarter, BassPendulum }, PadHeld },
-    { "Septakkord-Paare",   0.22f, 0.55f, 0.55f, 4, { { 0, MinMaj7, 2 }, { 5, MinMaj7, 2 }, { 0, MinMaj7, 2 }, { 5, MinMaj7, 2 } }, { ArpCell, ArpUp }, { BassEighth, BassPendulum }, PadHeld },
+    { "Septakkord-Paare",   0.22f, 0.55f, 0.55f, 4, { { 0, Min7, 2 }, { 5, Min7, 2 }, { 0, Min7, 2 }, { 5, Min7, 2 } }, { ArpCell, ArpUp }, { BassEighth, BassPendulum }, PadHeld },
     { "Schiefer Walzer",    0.20f, 0.55f, 0.35f, 4, { { 0, Min, 2 }, { 0, MinMaj7, 2 }, { 5, Min7, 2 }, { 7, Dom7, 2 } }, { ArpCircle, ArpDown }, { BassQuarter, BassHalf }, PadHeld },
     { "Unruhiger Schlaf",   0.25f, 0.35f, 0.40f, 8, { { 0, Min, 1 }, { 8, Maj, 1 }, { 9, Dim7, 1 }, { 8, Maj, 1 }, { 0, Min, 1 }, { 8, Maj, 1 }, { 9, Dim7, 1 }, { 8, Maj, 1 } }, { ArpCircle, ArpCell }, { BassHeld, BassPendulum }, PadHeld },
     { "Moll-Inseln",        0.30f, 0.45f, 0.30f, 4, { { 0, Min, 2 }, { 8, Min, 2 }, { 3, Min, 2 }, { 0, Min, 2 } }, { ArpDown, ArpCircle }, { BassHalf, BassHeld }, PadHeld },
     { "Grusel-Orchester",   0.15f, 0.50f, 0.50f, 4, { { 0, Min, 2 }, { 2, HalfDim, 2 }, { 0, Min, 2 }, { 1, Maj, 2 } }, { ArpDown, ArpCircle }, { BassQuarter, BassPendulum }, PadHeld },
     { "Geisterball",        0.15f, 0.55f, 0.55f, 4, { { 0, Min, 2 }, { 11, Dim7, 2 }, { 0, Min, 2 }, { 5, Min6, 2 } }, { ArpCircle, ArpDown }, { BassAlternating, BassQuarter }, PadStaccato },
     // dunkel und aufgewuehlt: Angst, Panik, Verfolgung
-    { "Terz-Treppe",        0.20f, 0.80f, 0.60f, 4, { { 0, Min, 2 }, { 3, Min, 2 }, { 6, Min, 2 }, { 9, Min, 2 } }, { ArpCell, ArpUp }, { BassPulse, BassEighth }, PadPulse },
+    { "Terz-Treppe",        0.20f, 0.80f, 0.60f, 4, { { 0, Maj, 2 }, { 3, Maj, 2 }, { 6, Maj, 2 }, { 9, Maj, 2 } }, { ArpCell, ArpUp }, { BassPulse, BassEighth }, PadPulse },
     { "Tritonus-Schock",    0.08f, 0.88f, 0.88f, 4, { { 0, Min, 2 }, { 6, Maj, 2 }, { 0, Min, 2 }, { 11, Dim7, 2 } }, { ArpCell, ArpCircle }, { BassPulse, BassPendulum }, PadStabs },
     { "Verfolgung",         0.25f, 0.95f, 0.80f, 8, { { 0, Min, 1 }, { 6, Min, 1 }, { 0, Min, 1 }, { 1, Maj, 1 }, { 0, Min, 1 }, { 6, Maj, 1 }, { 3, Min, 1 }, { 11, Dim7, 1 } }, { ArpCell, ArpUp }, { BassPulse, BassEighth }, PadStabs },
     { "Achse",              0.15f, 0.70f, 0.75f, 4, { { 0, Min6, 2 }, { 6, Min6, 2 }, { 0, Min6, 2 }, { 9, Min7, 2 } }, { ArpOctatonic, ArpCell }, { BassPulse, BassPendulum }, PadStabs },
@@ -139,7 +139,7 @@ constexpr Wendung kWendungen[] = {
     { "Schneelinien",       0.55f, 0.30f, 0.10f, 4, { { 0, Sus2, 2 }, { 10, Add9, 2 }, { 5, Add9, 2 }, { 0, Min7, 2 } }, { ArpCascade, ArpCircle }, { BassPedal, BassHeld }, PadHeld },
     { "Dorischer Schimmer", 0.60f, 0.45f, 0.05f, 4, { { 0, Min7, 2 }, { 2, Min7, 2 }, { 3, Maj7, 2 }, { 5, Maj, 2 } }, { ArpCascade, ArpUp }, { BassQuarter, BassArpeggio }, PadHeld },
     { "Gleiten",            0.60f, 0.35f, 0.25f, 4, { { 0, Maj7, 2 }, { 11, Maj7, 2 }, { 10, Maj7, 2 }, { 9, Maj7, 2 } }, { ArpCircle, ArpDown }, { BassHalf, BassHeld }, PadHeld },
-    { "Offene Quinten",     0.65f, 0.30f, 0.05f, 4, { { 0, Maj7, 2 }, { 2, Min7, 2 }, { 4, Min7, 2 }, { 5, Maj7, 2 } }, { ArpCascade, ArpUp }, { BassHalf, BassArpeggio }, PadHeld },
+    { "Offene Quinten",     0.65f, 0.30f, 0.05f, 4, { { 0, Fifth, 2 }, { 2, Fifth, 2 }, { 4, Fifth, 2 }, { 5, Fifth, 2 } }, { ArpCascade, ArpUp }, { BassHalf, BassArpeggio }, PadHeld },
     { "Bewegter Abschied",  0.60f, 0.35f, 0.15f, 4, { { 0, Maj, 2 }, { 7, Maj, 2 }, { 9, Min, 2 }, { 5, Maj, 2 } }, { ArpUp, ArpDown }, { BassQuarter, BassHalf }, PadHeld },
     { "Sehnsucht",          0.62f, 0.20f, 0.00f, 4, { { 0, Maj, 2 }, { 5, Maj, 2 }, { 5, Min, 2 }, { 0, Maj, 2 } }, { ArpDown, ArpCircle }, { BassHeld, BassHalf }, PadHeld },
     { "Weite",              0.65f, 0.15f, 0.05f, 4, { { 0, Add9, 2 }, { 9, Min7, 2 }, { 5, Maj7, 2 }, { 7, Sus4, 2 } }, { ArpUp, ArpCircle }, { BassHeld, BassHalf }, PadHeld },
@@ -192,7 +192,17 @@ constexpr Wendung kPopWendungen[] = {
     { "Einsamer Planet",    0.40f, 0.20f, 0.10f, 5, { { 0, Min9, 2 }, { 8, Maj7, 2 }, { 10, Sus4, 1 }, { 10, Maj, 1 }, { 0, Min9, 2 } }, { ArpCircle, ArpCascade }, { BassHeld, BassHalf }, PadHeld },
     { "Weltraum-Disco",     0.48f, 0.62f, 0.20f, 5, { { 0, Min9, 2 }, { 5, Dom7, 2 }, { 0, Min9, 2 }, { 3, Maj7, 1 }, { 5, Dom7, 1 } }, { ArpRiff, ArpSid }, { BassHiNrg, BassFunk }, PadGated },
     { "Serenade",           0.72f, 0.45f, 0.05f, 4, { { 0, Maj, 2 }, { 9, Min, 2 }, { 2, Min7, 2 }, { 7, Dom7, 2 } }, { ArpLeaps, ArpUp }, { BassAlternating, BassEighth }, PadStaccato },
-    { "Startfreigabe",      0.78f, 0.75f, 0.15f, 4, { { 0, Maj7, 2 }, { 2, Dom7, 2 }, { 2, Min7, 2 }, { 7, Sus4, 2 } }, { ArpRiff, ArpUp }, { BassHiNrg, BassFunk }, PadStabs } };
+    { "Startfreigabe",      0.78f, 0.75f, 0.15f, 4, { { 0, Maj7, 2 }, { 2, Dom7, 2 }, { 2, Min7, 2 }, { 7, Sus4, 2 } }, { ArpRiff, ArpUp }, { BassHiNrg, BassFunk }, PadStabs },
+    // Original 80s-inspired studies: album-pop language, not transcriptions of songs.
+    { "Tanzflächenlicht", 0.76f, 0.69f, 0.08f, 5, { {0,Maj,2}, {2,Min7,2}, {5,Maj,2}, {7,Sus4,1}, {7,Maj,1} }, {ArpRiff,ArpUp}, {BassFunk,BassArpeggio}, PadStabs },
+    { "Gegenlicht", 0.52f, 0.38f, 0.12f, 4, { {0,Maj7,2}, {10,Maj7,2}, {2,Min7,2}, {7,Sus4,2} }, {ArpCircle,ArpCascade}, {BassFunk,BassHalf}, PadHeld },
+    { "Rückspiegel", 0.36f, 0.18f, 0.06f, 4, { {9,Min9,2}, {9,Min9,2,7}, {2,Dom7,2,6}, {5,Maj7,2} }, {ArpDown,ArpCircle}, {BassHeld,BassHalf}, PadHeld },
+    { "Stahlpuls", 0.34f, 0.83f, 0.22f, 4, { {9,Fifth,2,9}, {5,Fifth,2,9}, {7,Fifth,2,9}, {9,Fifth,2,9} }, {ArpRiff,ArpCell}, {BassEighth,BassPedal}, PadGated },
+    { "Drahtseil", 0.20f, 0.57f, 0.42f, 4, { {9,Min,2,9}, {9,MinMaj7,2,9}, {9,Min7,2,9}, {9,Min6,2,9} }, {ArpDown,ArpCell}, {BassEighth,BassPedal}, PadHeld },
+    { "Sequenzmotor", 0.46f, 0.78f, 0.17f, 4, { {9,Min9,2}, {2,Dom7,2}, {7,Maj7,2}, {0,Maj7,2} }, {ArpSid,ArpRiff}, {BassHiNrg,BassFunk}, PadGated },
+    { "Spiegelpalast", 0.70f, 0.71f, 0.26f, 7, { {0,Maj7,1}, {4,Dom7,1}, {9,Min7,2}, {2,Dom7,1}, {2,Min7,1}, {7,Dom7,1}, {0,Maj7,1} }, {ArpCascade,ArpUp}, {BassArpeggio,BassQuarter}, PadStabs },
+    { "Sonntagmorgen", 0.88f, 0.48f, 0.03f, 4, { {0,Maj,2}, {5,Maj,2}, {9,Min7,2}, {7,Maj,2} }, {ArpRiff,ArpCircle}, {BassFunk,BassAlternating}, PadStabs },
+    { "Licht im Fenster", 0.57f, 0.23f, 0.04f, 4, { {9,Min,2}, {0,Maj,2,7}, {5,Maj7,2}, {4,Dom7,2} }, {ArpCircle,ArpDown}, {BassHeld,BassHalf}, PadHeld } };
 constexpr int kNumPopWendungen = (int) (sizeof (kPopWendungen) / sizeof (kPopWendungen[0]));
 constexpr int kMaxWendungen = 64;
 static_assert (kNumWendungen <= kMaxWendungen && kNumPopWendungen <= kMaxWendungen, "Vorrat zu gross");
@@ -222,6 +232,8 @@ struct Settings
     int genre = GenreScore;     // Vokabular: Score oder 80er Pop-Rock
     bool dynamics = false;      // Dynamik als CC an die Spuren senden
     int ccDynamics = 1, ccExpression = 11;   // 0 = diesen CC nicht senden
+    int ccLo[2][16] = {}, ccHi[2][16] = {};
+    bool ccRange = false; // false preserves legacy projects; processor supplies explicit channel ranges
     bool passing = false;       // Durchgangsakkorde: bei viel Intensitaet die Dominante des naechsten Akkords auf dem letzten Schlag       // Abwechslung: 0 = nur die passendste Wendung, 1 = auch entferntere Nachbarn
     int octave[kNumLayers] = { 0, 0, 0, 0, 0 };               // -2 ... +2
     bool rangeOn[kNumRanges] = {};                            // Tonumfang begrenzen (fuer Orchesterinstrumente); [3] Tupfer, [5] Stich
@@ -330,19 +342,19 @@ struct Meter
 {
     int len = 16;
     int numGroups = 4;
-    int groupStart[16] {};
+    int groupStart[128] {};
 
     static Meter from (int num, int den)
     {
         Meter m;
         num = std::clamp (num, 1, 16);
-        den = (den == 2 || den == 4 || den == 8 || den == 16) ? den : 4;
-        m.len = std::clamp (num * 16 / den, 4, 32);
-        int sizes[16] {}; int n = 0;
+        den = (den == 1 || den == 2 || den == 4 || den == 8 || den == 16) ? den : 4;
+        m.len = std::clamp (num * 16 / den, 1, 256);
+        int sizes[128] {}; int n = 0;
         if (den == 8 && num % 3 == 0)            { for (int i = 0; i < num / 3; ++i) sizes[n++] = 6; }
         else if (den == 8 && num >= 5)           { int rest = m.len; while (rest > 6) { sizes[n++] = 4; rest -= 4; } sizes[n++] = rest; }
         else if (num == 5 && den == 4)           { sizes[n++] = 6; sizes[n++] = 6; sizes[n++] = 4; sizes[n++] = 4; }
-        else { int rest = m.len; while (rest > 0 && n < 16) { const int g = std::min (4, rest); sizes[n++] = g; rest -= g; } }
+        else { int rest = m.len; while (rest > 0 && n < 128) { const int g = std::min (4, rest); sizes[n++] = g; rest -= g; } }
         int pos = 0;
         m.numGroups = 0;
         for (int i = 0; i < n && pos < m.len; ++i) { m.groupStart[m.numGroups++] = pos; pos += sizes[i]; }
@@ -507,14 +519,13 @@ public:
 
     void allNotesOff (EventList& out, int offset)
     {
-        for (int i = 0; i < numActive; ++i)
-            out.add (offset, active[(size_t) i].channel, active[(size_t) i].note, 0, active[(size_t) i].out);
-        numActive = 0;
+        while (numActive > 0) removeActive (numActive - 1, offset, out);
     }
 
     void process (const Transport& t, const Settings& sIn, int numSamples, EventList& out)
     {
         Settings s = sIn;
+        if (s.dynamics != ccWasEnabled) { resetCc(); ccWasEnabled = s.dynamics; }
         s.key = std::clamp (s.key, 0, kNumKeys - 1);
         s.x = std::clamp (s.x, 0.0f, 1.0f); s.y = std::clamp (s.y, 0.0f, 1.0f); s.z = std::clamp (s.z, 0.0f, 1.0f);
         s.swing = std::clamp (s.swing, 0.0f, 1.0f);
@@ -554,7 +565,7 @@ public:
             if (running) releaseHeld (0, out);
         }
 
-        if (! t.playing || t.bpm <= 0.0 || t.sampleRate <= 0.0 || numSamples <= 0)
+        if (! t.playing || ! std::isfinite (t.bpm) || ! std::isfinite (t.sampleRate) || ! std::isfinite (t.ppq) || std::abs (t.ppq) > 1.0e9 || t.bpm <= 0.0 || t.sampleRate <= 0.0 || numSamples <= 0)
         {
             if (running) allNotesOff (out, 0);
             running = false; curChord = -1; cur = nullptr; sceneBarNow = -1;
@@ -605,7 +616,9 @@ private:
     {
         long long k, bar, phrase; int pos, barInPhrase;
         int chordIdx; long long chordStart, chordEnd, phraseStart, phraseEnd;
-        bool passing = false;   // Durchgangsakkord am Ende des Akkords
+        int ccLo[2][16] = {}, ccHi[2][16] = {};
+    bool ccRange = false; // false preserves legacy projects; processor supplies explicit channel ranges
+    bool passing = false;   // Durchgangsakkord am Ende des Akkords
     };
 
     static long long floorDiv (long long a, long long b) { return a >= 0 ? a / b : -((-a + b - 1) / b); }
@@ -720,7 +733,9 @@ private:
             // Haerte: unter der Mitte eingeblendet (ganz weich ueber zwei Takte), ueber der Mitte ein kraeftiger erster Anschlag
             const long long fadeLen = s.hardness < 0.5f ? (long long) std::lround ((0.5f - s.hardness) * 4.0f * (float) meter.len) : 0;
             const long long t = k - entryStep[l];
-            gain[l] = (fadeLen > 0 && t >= 0 && t < fadeLen) ? 0.6f + 0.4f * (float) t / (float) fadeLen : 1.0f;
+            gain[l] = (fadeLen > 0 && t >= 0 && t < fadeLen) ? (float) t / (float) fadeLen : 1.0f;
+            if (! on[l] && exitUntil[l] > exitStep[l])
+                gain[l] *= std::clamp ((float) (exitUntil[l] - k) / (float) (exitUntil[l] - exitStep[l]), 0.0f, 1.0f);
             boost[l] = (t == 0 && s.hardness > 0.5f) ? (int) std::lround ((s.hardness - 0.5f) * 28.0f) : 0;
             if (t == 0 && l == kBass && e == EntryBass && building) boost[l] += 14;   // Bass-Schlag: ein fetter Ton
         }
@@ -731,7 +746,7 @@ private:
         if (hasEnd && left > 0 && left <= T)
         {
             const float r = (float) (left - 1) / (float) T;   // knapp 1 ... 0 im letzten Takt
-            if (s.ending == EndFade) { dens *= 0.45f + 0.55f * r; for (float& g : gain) g *= 0.65f + 0.35f * r; }
+            if (s.ending == EndFade) { dens *= 0.45f + 0.55f * r; for (float& g : gain) g *= std::clamp ((float) (sceneStep + (long long) s.sceneBars * meter.len - k) / (float) (T * meter.len), 0.0f, 1.0f); }
             if (s.ending == EndOpen) yAdd = 0.3f * (1.0f - r);
         }
 
@@ -762,14 +777,14 @@ private:
     // Toene einer Ebene beenden: sofort (until <= k) oder spaetestens bei until
     void cut (int layer, long long k, long long until, int offset, EventList& out)
     {
+        exitStep[layer] = k; exitUntil[layer] = until;
         for (int i = 0; i < numActive;)
         {
             auto& a = active[(size_t) i];
             if (kOutputLayer[a.out] != layer) { ++i; continue; }
             if (until <= k)
             {
-                out.add (offset, a.channel, a.note, 0, a.out);
-                active[(size_t) i] = active[(size_t) --numActive];
+                removeActive (i, offset, out);
                 continue;
             }
             a.endStep = std::min (a.endStep, until);
@@ -996,13 +1011,13 @@ private:
         return bassRoot (p.chordIdx + 1 < w.n ? w.ch[p.chordIdx + 1] : w.ch[0]);
     }
 
-    // Unruhe faerbt die Flaeche: Reibung durch grosse Septime, bei viel Unruhe zusaetzlich die None
+    // Unruhe faerbt einfache Dreiklaenge; explizite Sept-/Nonenqualitaeten bleiben erhalten.
     static int padType (int type, float z)
     {
-        if (z >= 0.75f && (type == Min || type == Min7 || type == MinMaj7 || type == Min9)) return MinMaj9;
+        if (z >= 0.75f && (type == Min || type == MinMaj7)) return MinMaj9;
         if (z >= 0.45f)
         {
-            if (type == Min || type == Min7) return MinMaj7;
+            if (type == Min) return MinMaj7;
             if (type == Maj) return Maj7;
         }
         return type;
@@ -1044,14 +1059,22 @@ private:
         return y < 0.3f ? PadHeld : SW().pad;
     }
 
+    void removeActive (int i, int offset, EventList& out)
+    {
+        const auto a = active[(size_t) i];
+        active[(size_t) i] = active[(size_t) --numActive];
+        for (int j = 0; j < numActive; ++j)
+            if (active[(size_t) j].channel == a.channel && active[(size_t) j].note == a.note) return;
+        out.add (offset, a.channel, a.note, 0, a.out);
+    }
+
     void releaseDue (long long step, int offset, EventList& out)
     {
         for (int i = 0; i < numActive;)
         {
             if (active[(size_t) i].endStep <= step)
             {
-                out.add (offset, active[(size_t) i].channel, active[(size_t) i].note, 0, active[(size_t) i].out);
-                active[(size_t) i] = active[(size_t) --numActive];
+                removeActive (i, offset, out);
             }
             else ++i;
         }
@@ -1062,10 +1085,9 @@ private:
         for (int i = 0; i < numActive;)
         {
             const int l = kOutputLayer[active[(size_t) i].out];
-            if (! muteSoloOk (s, l) || (! s.inertia && ! s.scene && s.sceneBars <= 0 && ! levelOn (s, l)))
+            if (active[(size_t) i].channel != s.channel[active[(size_t) i].out] || ! muteSoloOk (s, l) || (! s.inertia && ! s.scene && s.sceneBars <= 0 && ! levelOn (s, l)))
             {
-                out.add (0, active[(size_t) i].channel, active[(size_t) i].note, 0, active[(size_t) i].out);
-                active[(size_t) i] = active[(size_t) --numActive];
+                removeActive (i, 0, out);
             }
             else ++i;
         }
@@ -1079,8 +1101,7 @@ private:
             const int layer = kOutputLayer[active[(size_t) i].out];
             if (layer == kFlaeche || layer == kBass || layer == kAkzent)
             {
-                out.add (offset, active[(size_t) i].channel, active[(size_t) i].note, 0, active[(size_t) i].out);
-                active[(size_t) i] = active[(size_t) --numActive];
+                removeActive (i, offset, out);
             }
             else ++i;
         }
@@ -1140,34 +1161,40 @@ private:
     }
 
     // Note anschlagen. Mehrere Ausgaenge duerfen auf demselben Kanal liegen: Trifft ein Ton auf einen schon klingenden
-    // gleichen Ton desselben Kanals, wird er im selben Schritt nur verlaengert, sonst neu angeschlagen. Die Note gehoert
-    // dann dem Ausgang mit dem laengeren Rest, so dass das Ende eines kurzen Tons nie einen langen abschneidet.
+    // gleichen Ton desselben Kanals, wird er im selben Schritt nur verlaengert, sonst neu angeschlagen. Jeder Ausgang
+    // behaelt seinen eigenen Anspruch; erst das Ende des letzten Anspruchs beendet die physische MIDI-Note.
     void noteOn (int o, int note, int velocity, long long endStep, int offset, EventList& out)
     {
         const int layer = kOutputLayer[o];
         if (cur != nullptr && ! forceOn && ! on[layer]) return;
         const int channel = cur != nullptr ? cur->channel[o] : o + 1;
         note = (o == OutStich && cur != nullptr && cur->stichFixed) ? std::clamp (note, 0, 127) : sounding (o, note);
-        if (! forceOn) velocity = (int) std::lround ((float) velocity * gain[layer]) + boost[layer];
+        if (! forceOn) velocity = (int) std::lround ((float) velocity * (cur != nullptr && cur->dynamics && cur->ccExpression > 0 ? 1.0f : (0.6f + 0.4f * gain[layer]))) + boost[layer];
         velocity = std::clamp (velocity, 1, 127);
+        int own = -1; bool existing = false, sameStep = false;
         for (int i = 0; i < numActive; ++i)
         {
-            auto& a = active[(size_t) i];
+            const auto& a = active[(size_t) i];
             if (a.channel != channel || a.note != note) continue;
-            if (a.startStep == nowStep || extendOnly)    // im selben Schritt schon angeschlagen (zusammengefaltet): nur verlaengern
-            {
-                if (endStep > a.endStep) { a.endStep = endStep; a.out = (uint8_t) o; }
-                return;
-            }
-            out.add (offset, channel, note, 0, a.out);
-            out.add (offset, channel, note, velocity, o);
-            if (a.out == o || endStep >= a.endStep) { a.endStep = endStep; a.out = (uint8_t) o; }
-            a.startStep = nowStep;
-            return;
+            existing = true; sameStep = sameStep || a.startStep == nowStep;
+            if (a.out == o) own = i;
         }
-        if (numActive >= kMaxActive) return;
-        out.add (offset, channel, note, velocity, o);
-        active[(size_t) numActive++] = { (uint8_t) channel, (uint8_t) note, (uint8_t) o, endStep, nowStep };
+        if (own < 0 && numActive >= kMaxActive) return;
+        if (! existing || (! sameStep && ! extendOnly))
+        {
+            if (existing) out.add (offset, channel, note, 0, o);
+            out.add (offset, channel, note, velocity, o);
+            // One physical attack for all claims at this time.
+            for (int i = 0; i < numActive; ++i)
+                if (active[(size_t) i].channel == channel && active[(size_t) i].note == note) active[(size_t) i].startStep = nowStep;
+        }
+        if (own >= 0)
+        {
+            auto& a = active[(size_t) own];
+            a.endStep = (sameStep || extendOnly) ? std::max (a.endStep, endStep) : endStep;
+            a.startStep = nowStep;
+        }
+        else active[(size_t) numActive++] = { (uint8_t) channel, (uint8_t) note, (uint8_t) o, endStep, nowStep };
     }
 
     void updateMask (const Settings& s)
@@ -1190,18 +1217,13 @@ private:
     {
         // Weiter Satz wie im Orchester: Grundton und Quinte unten, Terz und Farbtoene eine Oktave hoeher
         const Chord c = chordFor (p, kFlaeche, s);
-        if (padShy && o == OutPadLong)   // Einstieg: nur ein stehender Ton, der Grundton in tiefer Lage
-        {
-            noteOn (o, place (s.key + c.root, padLow (s) - 12), velocity - 6, endStep, offset, out);
-            return;
-        }
         const ChordShape& sh = kShapes[padType (c.type, s.z)];
         const float y = layerY (s, kFlaeche);
         // VARIATION bei eigener Folge: weit, eng oder weit ohne tiefen Grundton
         const int voicing = current == kCustomWendung ? hashInt (91u, p.chordStart) % 3 : 0;
         const int root = voicing == 1 ? place (s.key + c.root, padLow (s) - 5) : place (s.key + c.root, padLow (s) - 12);
         int voices = sh.n;
-        if (y < 0.2f) voices = std::min (voices, 3);
+        // Quiet intensity changes density and velocity, never removes harmonic colours.
         int notes[6]; int n = 0;
         for (int i = 0; i < voices; ++i)
         {
@@ -1211,7 +1233,9 @@ private:
             if (voicing == 2 && iv == 0) low = false;
             notes[n++] = root + iv + (low ? 0 : 12);
         }
-        if (y > 0.6f) notes[n++] = root + 24;   // Verdopplung oben
+        const bool chromaticInnerLine = s.genre == GenrePopRock && current == 31;
+        if ((chromaticInnerLine && sh.n == 3) || (! chromaticInnerLine && y > 0.6f))
+            notes[n++] = root + 24; // Drahtseil: A–G#–G–F# in one register, not an unrelated octave jump.
         if (rangeOn (o))
         {
             // Tonumfang: der Akkord rueckt als Ganzes in den Bereich, Ausreisser wandern um Oktaven nach innen
@@ -1656,20 +1680,31 @@ private:
 
     // Dynamik als CC: Grundwert folgt der Intensitaet, darauf atmende Boegen (Grundlage: Dynamikkurven der eigenen Vorlagen,
     // meist zwischen 62 und 75 in Boegen von ein bis drei Vierteln). Pop-Rock fast flach, Score weiter, bei Unruhe mit Akzent.
-    void resetCc() { for (auto& v : lastCc) v = -1; for (auto& v : lastExpr) v = -1; }
+    void resetCc() { lastDynamicsId = lastExpressionId = -1; for (auto& v : lastCc) v = -1; for (auto& v : lastExpr) v = -1; }
+
+    bool outputSounding (int output) const
+    {
+        for (int i = 0; i < numActive; ++i) if (active[(size_t) i].out == output) return true;
+        return false;
+    }
 
     void dynamicsCc (long long k, const Pos& p, const Settings& s, int offset, EventList& out)
     {
+        if (lastDynamicsId != s.ccDynamics || lastExpressionId != s.ccExpression)
+        { resetCc(); lastDynamicsId = s.ccDynamics; lastExpressionId = s.ccExpression; }
         uint32_t sent = 0;   // teilen sich Ebenen einen Kanal, bestimmt die erste Ebene seinen Verlauf
         for (int o = 0; o < kNumOutputs; ++o)
         {
             const int layer = kOutputLayer[o];
             const int channel = s.channel[o];
             if ((sent >> channel) & 1u) continue;
-            if (! on[layer]) continue;
+            if (! on[layer] && ! outputSounding (o)) continue;
             sent |= 1u << channel;
-            const float yl = layerY (s, layer);
-            const float base = (50.0f + 40.0f * yl) * gain[layer];
+            float yl = layerY (s, layer), envelope = gain[layer];
+            for (int other = o + 1; other < kNumOutputs; ++other)
+                if (s.channel[other] == channel && (on[kOutputLayer[other]] || outputSounding (other)))
+                { yl = std::max (yl, layerY (s, kOutputLayer[other])); envelope = std::max (envelope, gain[kOutputLayer[other]]); }
+            const float base = 50.0f + 40.0f * yl;
             float value = base;
             if (s.genre == GenrePopRock) value += 2.0f * std::sin (3.14159265f * (float) ((k - p.chordStart) % 16) / 16.0f);
             else
@@ -1682,10 +1717,17 @@ private:
                 const long long since = k - p.chordStart;
                 if (s.z >= 0.6f && since < 4) value += (amp + 6.0f) * (1.0f - (float) since / 4.0f);   // Sforzato beim Akkordwechsel
             }
-            const int v = std::clamp ((int) std::lround (value), 1, 127);
-            const int e = std::clamp ((int) std::lround (70.0f + 50.0f * s.y), 1, 127);
-            if (s.ccDynamics > 0 && (lastCc[channel] < 0 || std::abs (v - lastCc[channel]) >= 2)) { out.addCc (offset, channel, s.ccDynamics, v, o); lastCc[channel] = v; }
-            if (s.ccExpression > 0 && (lastExpr[channel] < 0 || std::abs (e - lastExpr[channel]) >= 2)) { out.addCc (offset, channel, s.ccExpression, e, o); lastExpr[channel] = e; }
+            auto mapped = [&] (int kind, float unit)
+            {
+                const int lo = std::clamp (std::min (s.ccLo[kind][channel - 1], s.ccHi[kind][channel - 1]), 0, 127);
+                const int hi = std::clamp (std::max (s.ccLo[kind][channel - 1], s.ccHi[kind][channel - 1]), 0, 127);
+                return (float) lo + (float) (hi - lo) * std::clamp (unit, 0.0f, 1.0f);
+            };
+            const int v = std::clamp ((int) std::lround (s.ccRange ? mapped (0, (value - 45.0f) / 45.0f) : value), 0, 127);
+            const float expr = s.ccRange ? mapped (1, yl) : 70.0f + 50.0f * yl;
+            const int e = std::clamp ((int) std::lround (expr * envelope), 0, 127);
+            if (s.ccDynamics > 0 && (lastCc[channel] < 0 || v != lastCc[channel])) { out.addCc (offset, channel, s.ccDynamics, v, o); lastCc[channel] = v; }
+            if (s.ccExpression > 0 && (lastExpr[channel] < 0 || e != lastExpr[channel])) { out.addCc (offset, channel, s.ccExpression, e, o); lastExpr[channel] = e; }
         }
     }
 
@@ -1732,6 +1774,37 @@ private:
     // Pop-Rock: durchgehende, gleichbleibende Hook-Linie aus Akkordtoenen (eine Figur je VARIATION)
     void leadHook (long long k, const Pos& p, const Settings& s, int offset, EventList& out)
     {
+        if (current >= 27 && current < 36 && ! s.custom)
+        {
+            // Each new study has its own two-bar rhythm and contour, with real rests.
+            static constexpr int starts[9][8] = {
+                {0,3,6,10,16,19,23,28}, {0,8,14,20,28,-1,-1,-1}, {0,12,24,-1,-1,-1,-1,-1},
+                {6,10,22,26,-1,-1,-1,-1}, {0,6,12,16,22,28,-1,-1}, {2,6,12,18,22,28,-1,-1},
+                {0,4,10,16,20,26,30,-1}, {2,6,18,22,28,-1,-1,-1}, {0,6,12,22,28,-1,-1,-1} };
+            static constexpr int degrees[9][8] = {
+                {0,1,2,1,0,1,3,2}, {2,2,1,2,1,0,0,0}, {2,1,0,0,0,0,0,0},
+                {0,1,1,2,0,0,0,0}, {2,1,0,2,1,0,0,0}, {0,2,1,0,3,2,0,0},
+                {0,1,2,1,2,3,2,0}, {0,2,1,2,1,0,0,0}, {2,1,0,1,0,0,0,0} };
+            const int id = current - 27;
+            const long long cycle = 2LL * meter.len;
+            const auto local = (k - p.phraseStart) % cycle;
+            const Chord c = chordFor (p, kGegenstimme, s);
+            const auto& sh = kShapes[c.type];
+            for (int i = 0; i < 8 && starts[id][i] >= 0; ++i)
+            {
+                const long long at = (long long) starts[id][i] * cycle / 32;
+                if (local != at) continue;
+                const int deg = degrees[id][i] + ((id == 0 && (k - p.phraseStart) / cycle % 2 && i == 7) ? 1 : 0);
+                int note = place (s.key + c.root, 67) + sh.iv[deg % sh.n] + 12 * (deg / sh.n);
+                if (id == 1 || id == 2 || id == 8) note = counterTarget (c, s, k == p.chordStart, k);
+                long long next = i < 7 && starts[id][i + 1] >= 0 ? (long long) starts[id][i + 1] * cycle / 32 : cycle;
+                const long long len = std::max (1LL, next - at - ((id == 3 || id == 7) ? 2 : 0));
+                noteOn (OutCounter, note, (int) (58 + 35 * layerY (s, kGegenstimme)), k + len + (s.legato ? 1 : 0), offset, out);
+                releaseOthers (OutCounter, note, offset, out); csNote = note;
+                return;
+            }
+            return;
+        }
         static constexpr int figures[6][8] = { { 0, 1, 2, 1, 0, 1, 2, 3 }, { 2, 1, 0, 1, 2, 3, 2, 1 }, { 0, 0, 2, 0, 3, 0, 2, 1 },
                                                { 3, 2, 1, 2, 3, 2, 1, 0 }, { 0, 2, 1, 2, 0, 3, 2, 1 }, { 1, 2, 3, 2, 1, 0, 1, 2 } };
         const float yc = layerY (s, kGegenstimme);
@@ -1753,19 +1826,17 @@ private:
         if (s.legato) releaseOthers (OutCounter, note, offset, out);
     }
 
-    // Legato: neuen Ton anschlagen, dann den vorigen desselben Ausgangs loslassen (Ueberlappung fuer Legato-Patches)
+    // Legato: vorigen Ton desselben Ausgangs erst eine Sechzehntelnote nach dem neuen Anschlag loslassen.
     void releaseOthers (int o, int keep, int offset, EventList& out)
     {
         const int keepNote = sounding (o, keep);
-        for (int i = 0; i < numActive;)
+        for (int i = 0; i < numActive; ++i)
         {
-            if (active[(size_t) i].out == o && active[(size_t) i].note != keepNote)
-            {
-                out.add (offset, active[(size_t) i].channel, active[(size_t) i].note, 0, o);
-                active[(size_t) i] = active[(size_t) --numActive];
-            }
-            else ++i;
+            auto& a = active[(size_t) i];
+            if (a.out == o && a.note != keepNote)
+                a.endStep = std::min (a.endStep, nowStep + (cur != nullptr && cur->legato ? 1 : 0));
         }
+        if (cur == nullptr || ! cur->legato) releaseDue (nowStep, offset, out);
     }
 
     // Ende eines Tons der Gegenstimme relativ zum naechsten: Legato eine Sechzehntel darueber, sonst kurz davor abgesetzt
@@ -1805,7 +1876,7 @@ private:
         csNote = target;
     }
 
-    static constexpr int kMaxActive = 96;
+    static constexpr int kMaxActive = 192;
     std::array<Active, kMaxActive> active {};
     int numActive = 0;
     bool running = false, wasCustom = false;
@@ -1820,6 +1891,9 @@ private:
     float curProgress = 0.0f;
     uint32_t chordMask = 0;          // Tonnamen des klingenden Akkords (Ersatz bei sehr engem Tonumfang)
     long long nowStep = -1;
+    long long exitStep[kNumLayers] {}, exitUntil[kNumLayers] {};
+    bool ccWasEnabled = false;
+    int lastDynamicsId = -1, lastExpressionId = -1;
     int lastCc[17] {}, lastExpr[17] {};   // je MIDI-Kanal (1 ... 16)
     int csNote = -1, csPending = -1;                 // Gegenstimme: letzter Ton, aufzuloesender Vorhalt
     long long csPendingAt = -1, csPendingEnd = 0;

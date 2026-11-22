@@ -825,7 +825,7 @@ int main()
             {
                 int n = 0;
                 for (const auto& x : ev) if (x.velocity > 0 && x.sample < bar) ++n;
-                CHECK (n == 1);
+                CHECK (n >= 3); // even a quiet entry retains the complete harmony
             }
             if (e == EntryPulse)   // Puls: kurze Viertel im ganzen Aufbau
                 for (const auto& x : ev)
@@ -1092,6 +1092,99 @@ int main()
         CHECK (! arrivedEarly);
         CHECK (arrived && arrivedBar >= 7 && arrivedBar <= 9);   // vier Takte nach dem Start im Takt 5
         CHECK (std::fabs (xEnd - 0.8f) < 0.01f);
+    }
+    // 1.9: every explicitly requested chord colour survives quiet and shy entries.
+    for (int type = 0; type < kNumChordTypes; ++type)
+        for (bool shy : { false, true })
+        for (float unrest : { 0.0f, 0.9f })
+    {
+        Settings s; s.key = 0; s.y = 0.05f; s.z = unrest; s.custom = true;
+        s.customChords[0] = { 0, type, 8 }; s.padPattern = PadHeld; s.solo[kFlaeche] = true;
+        s.scene = shy; s.entry = EntryPad;
+        std::set<int> pcs;
+        for (const auto& e : run (s, 512, 0.5)) if (e.velocity > 0) pcs.insert (e.note % 12);
+        for (int i = 0; i < kShapes[type].n; ++i) CHECK (pcs.count (kShapes[type].iv[i] % 12) == 1);
+    }
+    // Shared channel: muting one owner must not end another owner's held C.
+    {
+        Settings s; s.key = 0; s.x = 0.7f; s.y = 0.6f; s.custom = true;
+        s.customChords[0] = { 0, Maj, 4 }; s.padPattern = PadHeld; s.bassPattern = BassHeld;
+        for (int l = 2; l < kNumLayers; ++l) s.mute[l] = true;
+        for (auto& c : s.channel) c = 1; s.octave[kBass] = 1;
+        Generator g; EventList e; Transport t; t.playing = true;
+        g.process (t, s, 480, e);
+        s.mute[kFlaeche] = true; t.ppq = 0.02; e.clear(); g.process (t, s, 480, e);
+        for (int i = 0; i < e.size; ++i) CHECK (! (e.events[i].note == 60 && e.events[i].velocity == 0));
+        t.playing = false; e.clear(); g.process (t, s, 480, e);
+        int offs = 0; for (int i = 0; i < e.size; ++i) offs += e.events[i].note == 60 && e.events[i].velocity == 0;
+        CHECK (offs == 1);
+    }
+    // Exact positive legato overlap, not merely event ordering at one sample.
+    {
+        Settings s; s.y = 0.8f; s.solo[kGegenstimme] = true; s.legato = true;
+        std::map<int, long long> held, changed; int transitions = 0;
+        for (const auto& e : run (s, 512, 20.0))
+        {
+            if (e.velocity > 0)
+            { for (auto old : held) if (old.first != e.note) changed[old.first] = e.sample; held[e.note] = e.sample; }
+            else
+            { if (changed.count (e.note)) { CHECK (e.sample - changed[e.note] == 6000); ++transitions; changed.erase (e.note); } held.erase (e.note); }
+        }
+        CHECK (transitions > 0);
+    }
+    CHECK (Meter::from (9, 4).len == 36); CHECK (Meter::from (1, 8).len == 2);
+    CHECK (Meter::from (16, 1).len == 256); CHECK (Meter::from (16, 2).len == 128); CHECK (Meter::from (1, 16).len == 1);
+    // CC remapping immediately sends the newly selected controller; high ranges retain their floor.
+    {
+        Generator g; EventList e; Settings s; s.dynamics = true; s.ccRange = true;
+        for (int k = 0; k < 2; ++k) for (int c = 0; c < 16; ++c) { s.ccLo[k][c] = 100; s.ccHi[k][c] = 127; }
+        Transport t; t.playing = true; g.process (t, s, 6000, e);
+        s.ccExpression = 21; t.ppq = 0.25; e.clear(); g.process (t, s, 6000, e);
+        int found = 0;
+        for (int i = 0; i < e.size; ++i) if (e.events[i].type == 1)
+        { CHECK (e.events[i].velocity >= 100); found += e.events[i].note == 21; }
+        CHECK (found > 0);
+        s.scene = true; s.hardness = 0; s.entry = EntryAll; g.reset(); t.ppq = 0; e.clear(); g.process (t, s, 6000, e);
+        int silent = 0;
+        for (int i = 0; i < e.size; ++i) if (e.events[i].type == 1)
+        { if (e.events[i].note == 1) CHECK (e.events[i].velocity >= 100); if (e.events[i].note == 21 && e.events[i].velocity == 0) ++silent; }
+        CHECK (silent > 0);
+    }
+    // A one-value range change must not be swallowed by a two-point CC deadband.
+    {
+        Settings s; s.dynamics = true; s.ccRange = true; s.y = 1;
+        for (int kind = 0; kind < 2; ++kind) for (int c = 0; c < 16; ++c) s.ccLo[kind][c] = s.ccHi[kind][c] = 100;
+        Generator g; Transport t; t.playing = true; EventList e; g.process (t, s, 6000, e);
+        for (int kind = 0; kind < 2; ++kind) for (int c = 0; c < 16; ++c) s.ccLo[kind][c] = s.ccHi[kind][c] = 101;
+        t.ppq = 0.25; e.clear(); g.process (t, s, 6000, e);
+        int updates = 0; for (int i = 0; i < e.size; ++i) if (e.events[i].type == 1) { CHECK (e.events[i].velocity == 101); ++updates; }
+        CHECK (updates > 0);
+    }
+    // Every new cue is reachable at its own anchor, has eight bars, and generates a balanced distinct hook.
+    CHECK (kNumWendungen == 48 && kNumPopWendungen == 36);
+    std::set<std::vector<long long>> signatures;
+    for (int i = 27; i < 36; ++i)
+    {
+        const auto& w = kPopWendungen[i]; CHECK (wendungBars (w) == 8);
+        Settings s; s.genre = GenrePopRock; s.x = w.x; s.y = w.y; s.z = w.z; s.variety = 0;
+        CHECK (Generator::pick (s, 0) == i);
+        s.layerIntensity[kGegenstimme] = 0.5f; s.solo[kGegenstimme] = true;
+        const auto notes = run (s, 64, 16.0); checkBalanced (notes);
+        std::vector<long long> signature;
+        for (const auto& e : notes) if (e.velocity > 0) signature.push_back (e.sample * 128 + e.note);
+        CHECK (! signature.empty()); signatures.insert (signature);
+        const auto larger = run (s, 777, 16.0); CHECK (notes.size() == larger.size());
+        for (size_t j = 0; j < notes.size(); ++j) { CHECK (notes[j].sample == larger[j].sample); CHECK (notes[j].note == larger[j].note); CHECK (notes[j].velocity == larger[j].velocity); }
+    }
+    CHECK (signatures.size() == 9);
+    // Drahtseil's chromatic line is actually voiced A-G#-G-F# above its fixed bass.
+    {
+        const auto& w = kPopWendungen[31]; Settings s; s.genre = GenrePopRock; s.key = 0;
+        s.x = w.x; s.y = w.y; s.z = w.z; s.variety = 0; s.padPattern = PadHeld; s.solo[kFlaeche] = true;
+        std::map<long long, int> top;
+        for (const auto& e : run (s, 512, 16.0)) if (e.velocity > 0) top[e.sample] = std::max (top[e.sample], e.note);
+        CHECK (top.size() == 4); int expected = 81;
+        for (const auto& voice : top) { CHECK (voice.second == expected); --expected; }
     }
     return 0;
 }

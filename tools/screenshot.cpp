@@ -41,7 +41,7 @@ public:
 private:
     void timerCallback() override
     {
-        if (index >= 5)
+        if (index >= 7)
         {
             auto* manifest = new juce::DynamicObject();
             manifest->setProperty ("version", PLUGIN_VERSION_TEXT);
@@ -53,6 +53,17 @@ private:
         }
         if (! editor)
         {
+            if (index == 5)
+            {
+                processor.apvts.getParameter ("cc0Lo1")->setValueNotifyingHost (100.0f / 127.0f);
+                processor.apvts.getParameter ("dynamikCc")->setValueNotifyingHost (1.0f);
+            }
+            if (index == 6)
+            {
+                processor.apvts.getParameter ("genre")->setValueNotifyingHost (1.0f);
+                processor.genreInUse.store (stromscore::GenrePopRock); processor.wendung.store (27);
+                processor.chordIndex.store (0); processor.chordRoot.store (0); processor.chordType.store (stromscore::Maj);
+            }
             juce::MemoryBlock state;
             processor.getStateInformation (state);
             auto xml = juce::AudioProcessor::getXmlFromBinary (state.getData(), (int) state.getSize());
@@ -71,6 +82,8 @@ private:
             for (int i = 0; i < stromscore::kNumOutputs; ++i) processor.activity[i].store (levels[i]);
             if (index == 2) clickButton (*editor, "Bearbeiten");   // drittes Bild: eigene Akkordfolge
             if (index == 3) clickButton (*editor, "Umfang3");      // viertes Bild: Fenster fuer den Tonumfang
+            if (index == 5) clickButton (*editor, "CCBereich1");
+            if (index == 6) clickButton (*editor, "Wendungsinfo");
             if (index == 4) clickButton (*editor, "Umfang6");      // fuenftes Bild: Fenster fuer den Stich (fest auf einer Taste)
             lit = true;
             steps = 0;
@@ -93,7 +106,7 @@ private:
             return;
         }
         auto image = editor->createComponentSnapshot (editor->getLocalBounds(), true, 2.0f);
-        static const char* names[] = { "oberflaeche-dunkel.png", "oberflaeche-hell.png", "oberflaeche-akkordfolge.png", "oberflaeche-tonumfang.png", "oberflaeche-stich.png" };
+        static const char* names[] = { "oberflaeche-dunkel.png", "oberflaeche-hell.png", "oberflaeche-akkordfolge.png", "oberflaeche-tonumfang.png", "oberflaeche-stich.png", "oberflaeche-ccbereich.png", "oberflaeche-wendungsinfo.png" };
         auto file = output.getChildFile (names[index]);
         file.deleteFile();
         juce::FileOutputStream stream (file);

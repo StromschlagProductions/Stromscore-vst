@@ -548,6 +548,99 @@ StromscoreEditor::Theme StromscoreEditor::lightTheme()
 
 // ---------------------------------------------------------------- Hilfe
 
+// Compact channel settings; all outputs on one channel share the same physical CC stream.
+class CcRangePanel final : public juce::Component
+{
+public:
+    CcRangePanel (StromscoreProcessor& p, int initial) : processor (p)
+    {
+        setSize (370, 286);
+        addAndMakeVisible (channel); channel.addItemList (StromscoreProcessor::channelNames(), 1);
+        addAndMakeVisible (enabled); enabled.setButtonText (u8 ("CC senden: Dynamik ") + juce::String (p.ccOut[0].load()) + u8 (" · Ausdruck ") + juce::String (p.ccOut[1].load()));
+        enabled.setClickingTogglesState (true);
+        enabledAttachment = std::make_unique<juce::AudioProcessorValueTreeState::ButtonAttachment> (p.apvts, "dynamikCc", enabled);
+        addAndMakeVisible (hint); hint.setText (u8 ("Bereiche gelten gemeinsam für alle Ausgänge auf diesem Kanal. Ausdruck blendet bei weichem Aufbau/Ende bis 0 aus. Die CC-Zuordnung muss zu deinem Instrument passen."), juce::dontSendNotification);
+        hint.setJustificationType (juce::Justification::topLeft); hint.setFont (juce::FontOptions (12.0f));
+        for (int i = 0; i < 4; ++i)
+        {
+            addAndMakeVisible (labels[i]); addAndMakeVisible (values[i]);
+            labels[i].setText (i == 0 ? "Dynamik von" : i == 1 ? "bis" : i == 2 ? "Ausdruck von" : "bis", juce::dontSendNotification);
+            values[i].setSliderStyle (juce::Slider::LinearHorizontal); values[i].setTextBoxStyle (juce::Slider::TextBoxRight, false, 44, 24);
+            values[i].setRange (0, 127, 1);
+        }
+        channel.onChange = [this] { attach(); };
+        channel.setSelectedId (juce::jlimit (1, 16, initial), juce::dontSendNotification); attach();
+    }
+    void paint (juce::Graphics& g) override { g.fillAll (getLookAndFeel().findColour (juce::PopupMenu::backgroundColourId)); }
+    void resized() override
+    {
+        channel.setBounds (14, 12, 342, 26); enabled.setBounds (14, 46, 342, 24);
+        for (int i = 0; i < 4; ++i) { labels[i].setBounds (14, 78 + i * 30, 96, 26); values[i].setBounds (110, 78 + i * 30, 246, 26); }
+        hint.setBounds (14, 204, 342, 74);
+    }
+private:
+    void attach()
+    {
+        for (auto& a : attachments) a.reset();
+        for (int i = 0; i < 4; ++i)
+            attachments[i] = std::make_unique<juce::AudioProcessorValueTreeState::SliderAttachment> (processor.apvts,
+                "cc" + juce::String (i / 2) + (i % 2 == 0 ? "Lo" : "Hi") + juce::String (channel.getSelectedId()), values[i]);
+    }
+    StromscoreProcessor& processor;
+    juce::ComboBox channel;
+    juce::TextButton enabled;
+    juce::Label labels[4], hint;
+    juce::Slider values[4];
+    std::unique_ptr<juce::AudioProcessorValueTreeState::SliderAttachment> attachments[4];
+    std::unique_ptr<juce::AudioProcessorValueTreeState::ButtonAttachment> enabledAttachment;
+};
+
+#include "WendungInfo.h"
+class WendungInfoPanel final : public juce::Component
+{
+public:
+    WendungInfoPanel (int genre, int selected, int key) : tonic (key)
+    {
+        setSize (650, 410); addAndMakeVisible (choices); addAndMakeVisible (details);
+        details.setMultiLine (true); details.setReadOnly (true); details.setScrollbarsShown (true); details.setCaretVisible (false);
+        details.setFont (juce::FontOptions (14.0f));
+        for (int g = 0; g < 2; ++g)
+            for (int i = 0; i < stromscore::wendungCount (g); ++i)
+                choices.addItem (u8 (g == 0 ? "Score · " : "Pop-Rock · ") + u8 (stromscore::wendungAt (g, i).name), 1 + g * 100 + i);
+        choices.onChange = [this] { update(); };
+        choices.setSelectedId (1 + genre * 100 + juce::jlimit (0, stromscore::wendungCount (genre) - 1, selected), juce::dontSendNotification);
+        update();
+    }
+    void paint (juce::Graphics& g) override { g.fillAll (getLookAndFeel().findColour (juce::PopupMenu::backgroundColourId)); }
+    void resized() override { choices.setBounds (14, 12, getWidth() - 28, 28); details.setBounds (14, 50, getWidth() - 28, getHeight() - 64); }
+private:
+    void update()
+    {
+        const int id = choices.getSelectedId() - 1, genre = id / 100, index = id % 100;
+        const auto& w = stromscore::wendungAt (genre, index);
+        const auto& info = genre == 0 ? kScoreInfo[index] : kPopInfo[index];
+        juce::String t = u8 (w.name) + "\n\nHarmonik (aktuelle Tonart):\n";
+        char chord[96];
+        for (int c = 0; c < w.n; ++c)
+        {
+            stromscore::chordName (tonic, w.ch[c].root, w.ch[c].type, chord, 96);
+            t << (c > 0 ? " → " : "") << u8 (chord);
+            if (w.ch[c].bass >= 0) t << " / Bass " << StromscoreProcessor::keyNames()[(tonic + w.ch[c].bass) % 12];
+            t << " (" << w.ch[c].bars << (w.ch[c].bars == 1 ? " Takt)" : " Takte)");
+        }
+        t << "\n\nIdee und Bezug:\n" << u8 (info.idea) << "\n\nInstrumentierung:\n" << u8 (info.instruments);
+        t << "\n\nAuto-Muster:\nFläche: " << StromscoreProcessor::padPatternNames()[w.pad]
+          << "; Bass: " << StromscoreProcessor::bassPatternNames()[w.bass[0]] << " / " << StromscoreProcessor::bassPatternNames()[w.bass[1]]
+          << "; Arp: " << StromscoreProcessor::arpFigureNames()[w.arp[0]] << " / " << StromscoreProcessor::arpFigureNames()[w.arp[1]];
+        t << "\n\nQuelle / Einordnung:\n" << u8 (info.source);
+        t << "\n\nEigene regelbasierte Wendung, keine Transkription eines bestimmten Titels. Instrumente und Artikulationen kommen aus deinen eigenen Patches. Taktart und Tempo folgen deiner Auswahl bzw. dem Projekt; Walzer bitte in 3/4 einrichten. Leise Intensität erhält die Akkordfarben; Tonumfang und Mute/Solo können die tatsächlich spielbare Besetzung begrenzen.";
+        details.setText (t, false);
+    }
+    int tonic;
+    juce::ComboBox choices;
+    juce::TextEditor details;
+};
+
 static juce::AttributedString buildHelp (juce::Colour text, juce::Colour accent, juce::Colour dim)
 {
     juce::AttributedString s;
@@ -562,11 +655,18 @@ static juce::AttributedString buildHelp (juce::Colour text, juce::Colour accent,
     s.append (u8 ("Hilfe · v") + juce::String (PLUGIN_VERSION_TEXT) + "\n\n", juce::Font (juce::FontOptions (17.0f, juce::Font::bold)), accent);
 
     head ("Was das Plugin macht");
-    body ("Es erzeugt Musik für Untermalung in fünf Ebenen und gibt sie als MIDI aus: Fläche, Bass, Arp, Akzent und Gegenstimme, auf bis zu acht frei wählbaren MIDI-Kanälen. Die Ebenen sind für tongebende Instrumente gedacht; nur der Stich kann auf Wunsch fest auf einer Taste ein perkussives Sample spielen, etwa eine Pauke. Die Klänge kommen aus deinen eigenen Instrumenten. Die Noten sind als Ausgangspunkt gedacht, den du weiter bearbeitest. Es läuft im Takt des Projekts: Wiedergabe starten, springen oder loopen, und es spielt an der richtigen Stelle weiter. Mit dem Start der Wiedergabe beginnt eine Szene mit Einstieg, Aufbau und auf Wunsch einem Ende. Gleiche Einstellungen ergeben immer dieselben Noten.");
+    body ("Es erzeugt Musik für Untermalung in fünf Ebenen und gibt sie als MIDI aus: Fläche, Bass, Arp, Akzent und Gegenstimme, auf bis zu acht frei wählbaren MIDI-Kanälen. Die Ebenen sind für tongebende Instrumente gedacht; nur der Stich kann auf Wunsch fest auf einer Taste ein perkussives Sample spielen, etwa eine Pauke. Die Klänge kommen aus deinen eigenen Instrumenten. Die Noten sind als Ausgangspunkt gedacht, den du weiter bearbeitest. Es läuft im Takt des Projekts: Wiedergabe starten, springen oder loopen, und es spielt an der richtigen Stelle weiter. Mit dem Start der Wiedergabe beginnt eine Szene mit Einstieg, Aufbau und auf Wunsch einem Ende. Gleicher Szenenstart, Wurf, Einstellungen und Steuerungsverlauf ergeben dieselben Noten. Für eine feste Fassung die MIDI-Ausgabe aufnehmen.");
 
     head ("Woher die Musik kommt");
     bold ("Es verwendet keine KI. ");
     body ("STROMSCORE arbeitet mit festen Regeln, nicht mit trainierten Modellen und nicht mit fremdem Material. Die Grundlage ist der Stil, den Lars Eickstädt über Jahre für seine Hörspiele entwickelt hat, geprägt von großen Filmkomponisten und der Musik klassischer Hörspiele. Daraus ist ein Vorrat an Wendungen entstanden: Akkordfolgen, Figuren und Rhythmen. Je nach Stimmung zieht das Plugin daraus. Melodien bekannter Stücke werden nicht nachgebaut.");
+
+    head ("Neu: Wendungsinfo und CC-Bereiche");
+    body ("WENDUNGSINFO neben der Akkordanzeige erklärt jede der 48 Score- und 36 Pop-Rock-Wendungen: Akkorde in deiner Tonart, Muster, Instrumentierung und stilistische Bezüge. Die neun neuen Album-Pop-, Gitarren- und Studio-Pop-Wendungen haben eigene rhythmische Gegenstimmen; es werden keine bekannten Melodien kopiert.");
+    body ("CC neben dem Kanal einer Ebene öffnet die Dynamik- und Ausdrucksbereiche je MIDI-Kanal. Beispiel: Dynamik von 100 bis 127, Ausdruck von 60 bis 127. Die ganze Kurve wird relativ in diesen Bereich übersetzt; gleiche Grenzen ergeben einen festen Wert. Geteilte Kanäle teilen immer denselben Bereich und dieselben Controller. Bei vertauschten Grenzen zählt der kleinere Wert als Minimum. Die Grundeinstellung neuer Bereiche ist 60–127. Die Ausgabe bleibt zunächst aus und wird im CC-Menü oder im Bereichsfenster eingeschaltet.");
+    body ("Dynamik (normal CC1) wählt bei vielen Orchesterbibliotheken die Klangstärke, Ausdruck (normal CC11) regelt die Lautstärke. Das ist patchabhängig: CC1 kann auch Vibrato oder Modulation sein. Prüfe die Zuordnung in deinem Instrument. Weiche Ein-/Ausblendungen laufen über Ausdruck bis 0, bewusst auch unterhalb des eingestellten Arbeitsbereichs. Hohe Dynamikbereiche bleiben davon unberührt. Ohne passenden Ausdrucks-CC kann eine bereits gehaltene Note nicht weich einblenden; Velocity allein wirkt nur beim Anschlag.");
+    body ("Bei geringer Intensität bleiben Septimen, Nonen und andere Akkordfarben vollständig erhalten, auch beim schüchternen Flächeneinstieg. Er wird über Lautstärke und Einsatz weich, nicht durch das Weglassen der Harmonik. Enge Tonumfänge können mehrere Akkordtöne auf dieselbe Note falten. Für alle Farben mindestens eine Oktave, bei komplexen Akkorden besser mehr zulassen.");
+    body ("MIDI-Export beginnt eine neue Szene ab Takt 1 mit den aktuellen Einstellungen. Frühere oder zukünftige DAW-Automation wird nicht rekonstruiert. Endet die gewählte Länge genau am harten Szenenende, enthält die Datei zusätzlich den Schlussakkord und seinen kurzen Ausklang (eine Viertelnote Reserve). Der klingende Schluss wird nicht mehr abgeschnitten.");
 
     head ("Einrichten in Studio One");
     body ("1. Lege eine Instrumentenspur mit Stromscore an. 2. Lege für jede Ebene, die du hören willst, eine Instrumentenspur mit deinem Instrument an. 3. Stelle bei jeder dieser Spuren als Eingang Stromscore ein und wähle den MIDI-Kanal. Vorgabe: Fläche lang 1, Fläche kurz 2, Bass lang 3, Bass kurz 4, Arp 5, Akzent Tupfer 6, Akzent Stich 7, Gegenstimme 8. Die Kanäle stellst du in jedem Ebenen-Kasten selbst ein. 4. Schalte die Spuren auf Monitor. Zum Weiterarbeiten nimmst du die Ausgabe einfach auf diesen Spuren auf.");
@@ -581,7 +681,7 @@ static juce::AttributedString buildHelp (juce::Colour text, juce::Colour accent,
 
     head ("Szene: Einstieg, Aufbau und Ende");
     body ("Eine Szene beginnt mit dem Start der Wiedergabe. Springst du während der Wiedergabe nach vorn oder läuft ein Loop, der nicht vor den Start zurückspringt, geht dieselbe Szene weiter. Stoppen und neu starten beginnt eine neue Szene, ebenso ein Sprung vor den Start. Die herausgezogene MIDI-Datei beginnt immer mit einer Szene.");
-    body ("Mit AUFBAU spielt am Anfang nur die Ebene des EINSTIEGS. Die anderen folgen nacheinander auf Taktgrenzen, bis nach 4, 8 oder 16 Takten alles da ist; dabei wird die Musik von dünn zu dicht. Einstiege: Fläche, schüchtern (ein einzelner stehender Ton, der später zum Akkord wird), Bass-Schlag (ein tiefer Ton, kräftig gesetzt), Puls (kurze Viertel auf dem Grundton, wie ein Ticken, den ganzen Aufbau lang), Arpeggio, Akzent (ein Stich oder Tupfer in der Stille), Gegenstimme oder alles zugleich. Danach kommen die verwandten Ebenen: Beginnt der Bass, folgt das Arpeggio, dann die Fläche, zuletzt Akzent und Gegenstimme. Gewählt hat immer Vorrang. Auf AUTO würfelt Stromscore den Einstieg, passend zu Genre und Stimmung und nur aus Ebenen, die gerade spielen können. NEU WÜRFELN ergibt einen anderen Einstieg und ein anderes Motiv; derselbe Wurf ergibt immer dasselbe. Die Ebene des Einstiegs spielt im Aufbau auch dann, wenn die Intensität für sie eigentlich zu niedrig ist; danach gelten wieder die normalen Schwellen. Aus: alle Ebenen setzen gleich ein, wie vor Version 1.3.");
+    body ("Mit AUFBAU spielt am Anfang nur die Ebene des EINSTIEGS. Die anderen folgen nacheinander auf Taktgrenzen, bis nach 4, 8 oder 16 Takten alles da ist; dabei wird die Musik von dünn zu dicht. Einstiege: Fläche, schüchtern (ein leiser, vollständig gefärbter Akkord), Bass-Schlag (ein tiefer Ton, kräftig gesetzt), Puls (kurze Viertel auf dem Grundton, wie ein Ticken, den ganzen Aufbau lang), Arpeggio, Akzent (ein Stich oder Tupfer in der Stille), Gegenstimme oder alles zugleich. Danach kommen die verwandten Ebenen: Beginnt der Bass, folgt das Arpeggio, dann die Fläche, zuletzt Akzent und Gegenstimme. Gewählt hat immer Vorrang. Auf AUTO würfelt Stromscore den Einstieg, passend zu Genre und Stimmung und nur aus Ebenen, die gerade spielen können. NEU WÜRFELN ergibt einen anderen Einstieg und ein anderes Motiv; derselbe Wurf ergibt immer dasselbe. Die Ebene des Einstiegs spielt im Aufbau auch dann, wenn die Intensität für sie eigentlich zu niedrig ist; danach gelten wieder die normalen Schwellen. Aus: alle Ebenen setzen gleich ein, wie vor Version 1.3.");
     body ("HÄRTE bestimmt, wie eine Ebene einsetzt: unter 50 % weich eingeblendet (ganz links über zwei Takte), über 50 % mit einem kräftigen ersten Anschlag. Das gilt im Aufbau und immer, wenn eine Ebene mit steigender Intensität dazukommt. Ist die Dynamik per CC eingeschaltet, folgt sie mit.");
     body ("Mit LÄNGE endet die Szene nach 8 bis 64 Takten. ENDE wählt, wie: HART spielt bis zum Schluss mit allen Ebenen; im letzten Takt zieht sich der Bass zurück und ein Stich kündigt an, dann kommt ein kurzer, kräftiger Schlag auf dem Grundakkord und danach Stille. AUSKLINGEND lässt die Ebenen nacheinander gehen, was zuletzt kam, zuerst, und die Ebene des Einstiegs klingt bis zum Ende. OFFEN wird zum Schluss noch dichter und bricht dann ohne Schlussschlag ab, die Spannung bleibt stehen. Unbegrenzt: Die Musik läuft weiter.");
     note ("Rechts in der Leiste FAHRT steht während der Wiedergabe der Stand der Szene: Takt, Einstieg, Aufbau, Fahrt und wie viele Takte bis zum Ende bleiben.");
@@ -606,7 +706,7 @@ static juce::AttributedString buildHelp (juce::Colour text, juce::Colour accent,
     head ("Wendungen und Akkorde");
     body ("Rechts oben steht der klingende Akkord, darunter die Wendung und ihre Akkorde. Eine Wendung dauert acht Takte. Welche Wendung kommt, hängt vom Punkt im Feld ab: An jeder Stelle kommen die Wendungen in Frage, die dort gut passen. Sie stehen in der Akkord-Anzeige unter „Hier“, die passendste zuerst. Die Akkorde stehen mit deutschen Notennamen (H statt B); ein Schrägstrich zeigt einen eigenen Basston, etwa D/C.");
     body ("VARIATION bestimmt, welcher dieser Kandidaten in welcher Phrase drankommt und welche der bevorzugten Figuren und Bass-Muster er spielt. Die Stimmung bleibt dabei gleich, nur das Arrangement ändert sich; gleiche Nummer, gleiches Ergebnis. ABWECHSLUNG legt fest, wie viele Kandidaten es gibt: ganz links spielt immer nur die passendste Wendung, weiter rechts mischen sich auch entferntere Nachbarn hinein.");
-    body ("Der Vorrat umfasst 48 Wendungen: von Lauern, Trauer, Unruhigem Schlaf und Grusel über Verfolgung, Sog, Achse, Ermittlung, Geheimnis, Wurmloch, Fremde Orte, Synth-Nächte und Funk bis zu Schneelinien, Gleiten, Offenen Quinten, Sehnsucht, Romantik, Terrassen, Erhabenem, Heiterkeit, Western, Abenteuer, Erhebung, Fanfare und Triumph. Im 80er Pop-Rock sind es 27, von Kalter Welle und Feindkontakt über Teufelsgeiger, Vorahnung und Weltraum-Disco bis zu Serenade, Startfreigabe und Stadionhymne.");
+    body ("Der Vorrat umfasst 48 Wendungen: von Lauern, Trauer, Unruhigem Schlaf und Grusel über Verfolgung, Sog, Achse, Ermittlung, Geheimnis, Wurmloch, Fremde Orte, Synth-Nächte und Funk bis zu Schneelinien, Gleiten, Offenen Quinten, Sehnsucht, Romantik, Terrassen, Erhabenem, Heiterkeit, Western, Abenteuer, Erhebung, Fanfare und Triumph. Im 80er Pop-Rock sind es 36, von Kalter Welle und Feindkontakt über Teufelsgeiger, Vorahnung und Weltraum-Disco bis zu Serenade, Startfreigabe und Stadionhymne.");
 
     head ("Eigene Folge");
     body ("Mit EIGENE FOLGE spielt Stromscore deine Akkorde statt der Wendungen. Über „Bearbeiten“ legst du bis zu acht Akkorde fest, jeweils mit Grundton, Art (Dur, Moll, maj7, m7, 7, sus4, sus2, add9, m6, m(maj7), m7b5, dim7, +) und Länge in Takten. Die Grundtöne gelten unabhängig von TONART. Vorgabe ist F – C – B – G mit je 2 Takten. Die Akkorde bleiben fest, alles andere bestimmt weiter das Stimmungsfeld: Die Färbung leiht den Stil der Wendung, die am Punkt im Feld liegt, also ihre Figuren, Bass-Muster und den Rhythmus der Fläche. So spielt deine Folge zum Beispiel mit Funk-Bass und Riff oder mit Walking Bass, je nachdem, wohin du den Punkt ziehst. Welcher Stil gerade gilt, steht in der Akkord-Anzeige. Intensität und Unruhe wirken wie sonst. VARIATION wählt bei eigener Folge außerdem die Lage der Fläche: weit, eng oder ohne tiefen Grundton.");
@@ -639,7 +739,7 @@ static juce::AttributedString buildHelp (juce::Colour text, juce::Colour accent,
     body ("Im Menü des CC-Knopfs schaltest du unter „Ausgabe an die Spuren“ die Dynamik ein. Dann bekommt jeder benutzte Kanal CC 1 (Dynamik) und CC 11 (Ausdruck), wie es Orchester-Libraries erwarten; beide Nummern lassen sich dort ändern oder abschalten. Der Grundwert folgt der Intensität, darauf liegen atmende Bögen von einem bis vier Vierteln, im Score weiter und bei Unruhe mit einem Akzent beim Akkordwechsel, im Pop-Rock fast flach. Das ist getrennt von den Controllern am Eingang: Dein Controller bewegt das Stimmungsfeld, die Ausgabe geht an deine Instrumente. Für Synth-Klänge lässt du die Dynamik besser aus, weil CC 1 dort oft ein Vibrato steuert.");
 
     head ("Gegenstimme");
-    body ("Die fünfte Ebene ist die einzige lange Linie, gedacht für Horn, Cello, Oboe oder ein Lead-Instrument. Sie liegt in der Mitte, zwischen Tupfer und Stich, damit sich nichts überschneidet. Sie geht schrittweise auf Akkordtönen von Akkord zu Akkord und bevorzugt Terz und Septime. In dunkler Färbung neigt sie nach unten, in heller nach oben. Bei wenig Intensität wechselt sie nur mit den Akkorden, bei mehr alle zwei Takte, aufgewühlt in Halben. Bei Unruhe kommt sie mit einem Vorhalt von oben in den Akkord. Mit LEGATO überlappen die Töne minimal, damit Legato-Instrumente sie gebunden spielen; ohne setzen sie kurz vor dem nächsten Ton ab. Sie ist keine fertige Melodie, sondern ein roter Faden für deine eigene.");
+    body ("Die fünfte Ebene ist die einzige lange Linie, gedacht für Horn, Cello, Oboe oder ein Lead-Instrument. Sie liegt in der Mitte, zwischen Tupfer und Stich, damit sich nichts überschneidet. Sie geht schrittweise auf Akkordtönen von Akkord zu Akkord und bevorzugt Terz und Septime. In dunkler Färbung neigt sie nach unten, in heller nach oben. Bei wenig Intensität wechselt sie nur mit den Akkorden, bei mehr alle zwei Takte, aufgewühlt in Halben. Bei Unruhe kommt sie mit einem Vorhalt von oben in den Akkord. Mit LEGATO überlappen die Töne um eine Sechzehntelnote, damit Legato-Instrumente sie gebunden spielen; ohne setzen sie kurz vor dem nächsten Ton ab. Sie ist keine fertige Melodie, sondern ein roter Faden für deine eigene.");
     body ("Mit MOTIV spielt die Gegenstimme am Anfang jeder Phrase eine kurze Figur aus drei bis fünf Tönen, die ersten zwei Takte lang. Die Figur ist gewürfelt (NEU WÜRFELN bei SZENE) und kehrt wieder, im Wechsel der Phrasen abgewandelt: wie zuvor, einen Akkordton höher, mit umgekehrter Richtung, mit höherem Schluss. Die Töne sind Stufen auf den Akkordtönen, so passt sich die Figur jeder Harmonie an. Bei wenig Intensität fallen die letzten Töne weg. Danach geht die ruhige Linie weiter. Im Pop-Rock spielt statt des Motivs die Hook-Linie.");
 
     head ("Durchgänge");
@@ -794,6 +894,9 @@ StromscoreEditor::StromscoreEditor (StromscoreProcessor& p) : AudioProcessorEdit
     customButton.setButtonText ("Eigene Folge");
     content.addAndMakeVisible (customButton);
     customAttachment = std::make_unique<APVTS::ButtonAttachment> (processor.apvts, "eigeneFolge", customButton);
+    infoButton.setButtonText ("Wendungsinfo"); infoButton.setName ("Wendungsinfo");
+    infoButton.setTooltip (u8 ("Alle 48 Score- und 36 Pop-Rock-Wendungen: Harmonik, Muster, Instrumentierung und stilistische Bezüge."));
+    infoButton.onClick = [this] { showWendungInfo(); }; content.addAndMakeVisible (infoButton);
     editButton.setButtonText (u8 ("…"));
     editButton.setName ("Bearbeiten");
     passingButton.setButtonText (u8 ("Durchgänge"));
@@ -874,6 +977,10 @@ StromscoreEditor::StromscoreEditor (StromscoreProcessor& p) : AudioProcessorEdit
             lv.chanBox[0].setTooltip (u8 ("MIDI-Kanal dieser Ebene. Mehrere Ebenen dürfen sich einen Kanal teilen, etwa alles auf Kanal 1 für ein einziges Klavier."));
         }
 
+        lv.ccRangeButton.setButtonText ("CC"); lv.ccRangeButton.setName ("CCBereich" + n);
+        lv.ccRangeButton.setTooltip (u8 ("Dynamik- und Ausdrucksbereich pro MIDI-Kanal, etwa 100–127. Im Fenster kannst du auch den zweiten Ausgang wählen."));
+        lv.ccRangeButton.onClick = [this, i]
+        { showCcRanges (layers[i].chanBox[0].getSelectedId(), layers[i].ccRangeButton); };
         lv.octBox.addItemList (StromscoreProcessor::octaveNames(), 1);
         lv.octBox.setTooltip (u8 ("Oktavlage dieser Ebene."));
         octaveAttachment[i] = std::make_unique<APVTS::ComboBoxAttachment> (processor.apvts, "oct" + n, lv.octBox);
@@ -930,7 +1037,7 @@ StromscoreEditor::StromscoreEditor (StromscoreProcessor& p) : AudioProcessorEdit
     layers[2].rowLabel[1] = "Tempo";
     layers[4].legatoButton.setVisible (true);
     layers[4].legatoButton.setClickingTogglesState (true);
-    layers[4].legatoButton.setTooltip (u8 ("An: jeder Ton klingt bis zum nächsten und überlappt ihn minimal, so spielen Legato-Patches gebunden. Aus: die Töne setzen kurz vor dem nächsten ab."));
+    layers[4].legatoButton.setTooltip (u8 ("An: jeder Ton klingt bis zum nächsten und überlappt ihn um eine Sechzehntelnote, so spielen Legato-Patches gebunden. Aus: die Töne setzen kurz vor dem nächsten ab."));
     legatoAttachment = std::make_unique<APVTS::ButtonAttachment> (processor.apvts, "legato", layers[4].legatoButton);
     layers[4].rowLabel[1] = "Linie";
     layers[4].legatoButton.setButtonText ("Legato");
@@ -997,7 +1104,7 @@ StromscoreEditor::StromscoreEditor (StromscoreProcessor& p) : AudioProcessorEdit
 
     sceneButton.setTooltip (u8 ("Aufbau: Die Szene beginnt mit dem Start der Wiedergabe. Zuerst spielt nur die Ebene des Einstiegs, die anderen folgen nacheinander auf Taktgrenzen, bis nach der eingestellten Zahl von Takten alles da ist. Dabei wird die Musik dichter. Aus: alle Ebenen setzen gleich ein."));
     buildBox.setTooltip (u8 ("Wie lange der Aufbau dauert: 4, 8 oder 16 Takte bis alle Ebenen spielen."));
-    entryBox.setTooltip (u8 ("Womit die Szene beginnt: ein einzelner stehender Ton der Fläche, ein Bass-Schlag, ein Puls in Vierteln, das Arpeggio, ein Akzent in der Stille, die Gegenstimme oder alles zugleich. Danach folgen die verwandten Ebenen. Auto würfelt passend zu Genre und Stimmung, nur aus Ebenen, die gerade spielen können."));
+    entryBox.setTooltip (u8 ("Womit die Szene beginnt: ein leiser Akkord der Fläche, ein Bass-Schlag, ein Puls in Vierteln, das Arpeggio, ein Akzent in der Stille, die Gegenstimme oder alles zugleich. Danach folgen die verwandten Ebenen. Auto würfelt passend zu Genre und Stimmung, nur aus Ebenen, die gerade spielen können."));
     diceButton.setTooltip (u8 ("Neuer Wurf: ein anderer Einstieg bei Auto und ein anderes Motiv der Gegenstimme. Gleicher Wurf, gleiches Ergebnis; er wird mit dem Projekt gespeichert."));
     hardness.setTooltip (u8 ("Wie die Ebenen einsetzen. Unter 50 % weich eingeblendet (ganz links über zwei Takte), über 50 % mit einem kräftigen ersten Anschlag. Gilt auch, wenn eine Ebene mit steigender Intensität dazukommt. Doppelklick: Mitte."));
     lengthBox.setTooltip (u8 ("Länge der Szene ab dem Start der Wiedergabe. Unbegrenzt: die Musik läuft weiter. Mit Länge endet sie nach dieser Zahl von Takten, wie unter „Ende“ eingestellt."));
@@ -1118,8 +1225,24 @@ void StromscoreEditor::updateMidiLabel()
 {
     const int bars = processor.exportBars.load();
     midiDrag.label = "MIDI " + juce::String (bars);
-    midiDrag.setTooltip (u8 ("Auf die DAW ziehen: die nächsten ") + juce::String (bars) + u8 (" Takte als MIDI-Datei, eine Spur je MIDI-Kanal, mit den aktuellen Einstellungen (stumme Ebenen bleiben leer). Klick wechselt die Länge: 8, 16 oder 32 Takte."));
+    midiDrag.setTooltip (u8 ("Auf die DAW ziehen: neue Szene ab Takt 1, ") + juce::String (bars) + u8 (" Takte als MIDI-Datei mit den aktuellen Einstellungen, ohne frühere oder zukünftige Host-Automation. Eine Spur je Kanal; stumme Ebenen bleiben leer. Klick wechselt die Länge: 8, 16 oder 32 Takte."));
     midiDrag.repaint();
+}
+
+void StromscoreEditor::showCcRanges (int channel, juce::Component& anchor)
+{
+    auto panel = std::make_unique<CcRangePanel> (processor, channel);
+    juce::CallOutBox::launchAsynchronously (std::move (panel), content.getLocalArea (&anchor, anchor.getLocalBounds()), &content);
+}
+
+void StromscoreEditor::showWendungInfo()
+{
+    const auto settings = processor.currentSettings();
+    int genre = settings.genre;
+    int index = processor.wendung.load();
+    if (index < 0 || index >= stromscore::wendungCount (genre)) index = stromscore::Generator::pick (settings, 0);
+    auto panel = std::make_unique<WendungInfoPanel> (genre, index, settings.key);
+    juce::CallOutBox::launchAsynchronously (std::move (panel), infoButton.getBounds(), &content);
 }
 
 void StromscoreEditor::showCcMenu()
@@ -1152,8 +1275,10 @@ void StromscoreEditor::showCcMenu()
         for (int cc : outCommon) sub.addItem (5000 + 1000 * o + cc, "CC " + juce::String (cc), true, now == cc);
         menu.addSubMenu (u8 (outName[o]) + " (" + (now > 0 ? "CC " + juce::String (now) : juce::String ("aus")) + ")", sub, dyn);
     }
-    menu.showMenuAsync (juce::PopupMenu::Options().withTargetComponent (&ccButton), [this] (int r)
+    menu.showMenuAsync (juce::PopupMenu::Options().withTargetComponent (&ccButton), [safe = juce::Component::SafePointer<StromscoreEditor> (this)] (int r)
     {
+        if (safe == nullptr) return;
+        auto& processor = safe->processor;
         if (r == 0) return;
         if (r == 9999) { processor.ccNumber[0].store (11); processor.ccNumber[1].store (1); processor.ccNumber[2].store (74); }
         else if (r == 8001)
@@ -1164,7 +1289,7 @@ void StromscoreEditor::showCcMenu()
         else if (r >= 5000 && r < 7000) processor.ccOut[(r - 5000) / 1000].store ((r - 5000) % 1000);
         else { const int a = r / 1000 - 1; if (a >= 0 && a < 3) processor.ccNumber[a].store (r % 1000); }
         processor.updateHostDisplay (juce::AudioProcessorListener::ChangeDetails{}.withNonParameterStateChanged (true));
-        updateCcButton();
+        safe->updateCcButton();
     });
 }
 
@@ -1495,6 +1620,7 @@ void StromscoreEditor::resized()
 
     // Akkord-Anzeige
     chordLabel.setBounds (598, 82, 200, 18);
+    infoButton.setBounds (w - 150, 78, 126, 22);
     chordDisplay.setBounds (598, 102, w - 622, 208);
     slots.setBounds (12, 76, w - 24, 244);
 

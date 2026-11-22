@@ -154,7 +154,7 @@ class LayerView : public juce::Component, public juce::SettableTooltipClient
 public:
     LayerView()
     {
-        for (auto* c : std::initializer_list<juce::Component*> { &muteButton, &soloButton, &intensity, &octBox, &chanBox[0] }) addAndMakeVisible (c);
+        for (auto* c : std::initializer_list<juce::Component*> { &muteButton, &soloButton, &intensity, &octBox, &chanBox[0], &ccRangeButton }) addAndMakeVisible (c);
         for (auto* c : std::initializer_list<juce::Component*> { &chanBox[1], &rangeButton, &rangeButton2, &followButton, &legatoButton, &motifButton, &combo1, &combo2 })
             addChildComponent (c);
     }
@@ -164,7 +164,7 @@ public:
     int index = 0, numLamps = 1;
     bool active = true;
     float activity[2] {};
-    juce::TextButton soloButton, muteButton, followButton, rangeButton, rangeButton2, legatoButton, motifButton;
+    juce::TextButton soloButton, muteButton, followButton, rangeButton, rangeButton2, legatoButton, motifButton, ccRangeButton;
     juce::Slider intensity;
     juce::ComboBox combo1, combo2, octBox, chanBox[2];
     void paint (juce::Graphics& g) override;
@@ -176,7 +176,8 @@ public:
         muteButton.setBounds (w - 82, 6, 22, 20);
         soloButton.setBounds (w - 57, 6, 22, 20);
         const bool accent = index == stromscore::kAkzent;
-        chanBox[0].setBounds (cx, row (0), cw, 24);
+        chanBox[0].setBounds (cx, row (0), cw - 36, 24);
+        ccRangeButton.setBounds (cx + cw - 32, row (0), 32, 24);
         chanBox[1].setBounds (cx, row (accent ? 2 : 1), cw, 24);
         if (accent)   // Akzent: Tupfer und Stich je mit eigener Zeile fuer den Tonumfang darunter
         {
@@ -389,6 +390,8 @@ private:
     void timerCallback() override;
     void updateCcButton();
     void showCcMenu();
+    void showCcRanges (int channel, juce::Component& anchor);
+    void showWendungInfo();
     void updateMidiLabel();
     void showRangePanel (int rangeIndex);
     juce::TextButton& rangeButtonFor (int rangeIndex);
@@ -418,7 +421,7 @@ private:
     std::unique_ptr<APVTS::SliderAttachment> variationAttachment, swingAttachment;
     juce::ComboBox keyBox, meterBox, changeBox;
     std::unique_ptr<APVTS::ComboBoxAttachment> keyAttachment, meterAttachment, changeAttachment;
-    juce::TextButton ccButton, previewButton, customButton, editButton, passingButton, genreScore, genrePop;
+    juce::TextButton infoButton, ccButton, previewButton, customButton, editButton, passingButton, genreScore, genrePop;
     std::unique_ptr<juce::ParameterAttachment> genreAttachment;
     MidiDragBox midiDrag;
     std::unique_ptr<APVTS::ButtonAttachment> previewAttachment, customAttachment, passingAttachment;

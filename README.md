@@ -13,10 +13,9 @@ Intensität (ruhig bis aufgewühlt) und Unruhe (sauber bis kratzig). Alle drei l
 live fahren. So folgt die Musik der Szene, vom Lauern über die Panik bis zur Erlösung.
 
 Es läuft im Takt des Projekts, auch in 3/4, 6/8 und ungeraden Takten. Bewegst du die Stimmung, reagiert die Musik schon am nächsten
-Schlag. Mit dem Start der Wiedergabe beginnt eine **Szene**: Sie setzt mit einer Ebene ein, etwa einem einzelnen stehenden Ton, einem
+Schlag. Mit dem Start der Wiedergabe beginnt eine **Szene**: Sie setzt mit einer Ebene ein, etwa einem leisen Flächenakkord, einem
 Bass-Schlag oder einem Puls, baut sich über einige Takte auf und endet auf Wunsch hart, ausklingend oder offen. Eine **Fahrt** führt die
-Musik selbst von einer Stimmung zur nächsten und bereitet das Ziel vor. Gleiche Einstellungen ergeben immer dieselben Noten, auch nach
-einem Sprung oder bei einem Loop. Wer feste Harmonien braucht, gibt eine **eigene Akkordfolge** vor.
+Musik selbst von einer Stimmung zur nächsten und bereitet das Ziel vor. Gleicher Szenenstart, Wurf, Einstellungen und Steuerungsverlauf ergeben dieselben Noten. Eine fertige Fassung lässt sich als MIDI festhalten. Wer feste Harmonien braucht, gibt eine **eigene Akkordfolge** vor.
 
 **Es verwendet keine KI.** STROMSCORE arbeitet mit festen Regeln, nicht mit trainierten Modellen und nicht mit fremdem Material. Die
 Grundlage ist der Stil, den ich über Jahre für meine Hörspiele entwickelt habe, geprägt von großen Filmkomponisten und der Musik
@@ -100,14 +99,40 @@ zeigt die Akkord-Anzeige unter „Hier“. Fährst du mit der Maus über das Fel
 liegen; rechts oben in der Akkord-Anzeige stehen der nächste Akkord und eine Leiste bis zum Wechsel.
 
 **Genre:** Zwei Knöpfe neben STIMMUNG wählen das Vokabular. **Score** enthält die Wendungen für Filmmusik. **80er Pop-Rock**
-enthält 27 eigene Wendungen mit Powerchord-Riffs, Hi-NRG- und Galopp-Bass, SID-Arpeggios, gehackten Flächen, dunklen Synth-Nächten und
+enthält 36 eigene Wendungen mit Powerchord-Riffs, Hi-NRG- und Galopp-Bass, SID-Arpeggios, gehackten Flächen, dunklen Synth-Nächten und
 Hymnen, dazu Disco-Funk und Fernsehmusik um 1980: Septakkorde über Oktav-Bass, Quintfall-Sequenzen in Moll wie bei einem Teufelsgeiger,
-sehnsüchtige Balladen und eine italienische Serenade. Dort spielt die Gegenstimme eine durchgehende, gleichbleibende Hook-Linie. Alle anderen Funktionen bleiben gleich, auch die
+sehnsüchtige Balladen und eine italienische Serenade. Die neun neuen Studien ergänzen Wang Chungs Album-Pop (auch Dance Hall Days, Everybody Have Fun Tonight, Hypnotize Me und Let’s Go als stilistische Bezüge), Billy Idol/Steve Stevens, Frankie Goes to Hollywood/Trevor Horn sowie Men at Work/Colin Hay. Sie bringen eigene Zweitakt-Hooks mit Pausen und unterschiedlichen Konturen mit. Alle anderen Funktionen bleiben gleich, auch die
 eigene Folge, die dann den Pop-Rock-Stil leiht.
 
 **Controller:** Stromscore hört auf seinem MIDI-Eingang auf CC 11, CC 1 und CC 74, passend zu einem Fader-Controller für
 Orchester-Instrumente. Der Stromscore-Spur den Controller als Eingang geben und die Fader-Bewegungen als MIDI-Part aufnehmen. Über den
 CC-Knopf lässt sich die Zuordnung ändern oder abschalten.
+
+## Wendungsinfo und volle Akkordfarben
+
+**Wendungsinfo** neben der Akkordanzeige erklärt alle 48 Score- und 36 Pop-Rock-Wendungen: die tatsächliche Akkordfolge in deiner Tonart, bevorzugte Muster, Instrumentierung und stilistische Bezüge. Im Fenster kannst du den ganzen Vorrat durchsehen. Die Zuordnungen sind eigene Deutungen des gelieferten Katalogs, keine Transkriptionen oder behaupteten Original-Akkordfolgen der genannten Künstler. Ausführlich: [Wendungsübersicht](docs/WENDUNGEN.md).
+
+![Wendungsinfo](docs/oberflaeche-wendungsinfo.png)
+
+**Auch leise bleiben die Akkordfarben erhalten:** geringe Intensität entfernt keine Septimen oder Nonen mehr. Das gilt auch für den schüchternen Flächeneinstieg und ausdrücklich **bei ausgeschalteter CC-Ausgabe**: Die Farbnoten sind normale MIDI-Noten. Die Intensität steuert Dichte, Spielweise und Anschlagstärke. Ihre Hörbarkeit hängt außerdem vom Patch, dessen Tonumfang, Anschlagsempfindlichkeit und der Abmischung ab. Ein sehr enger Tonumfang kann mehrere Akkordtöne auf dieselbe Note falten. Explizite Mollsept-/Nonenqualitäten werden durch Unruhe nicht in andere Septakkorde umgeschrieben.
+
+Terz-Treppe nutzt jetzt die Dur-Akkorde der Katalogidee, Septakkord-Paare tatsächliche Mollseptakkorde und Offene Quinten terzlose Quintklänge. Vorhandene Projekte können dadurch in diesen Wendungen anders klingen.
+
+## CC-Bereiche je Instrument/Kanal
+
+Der kleine **CC**-Knopf neben dem MIDI-Kanal öffnet einen kompakten Dialog. Wähle dort den Kanal (auch den zweiten Ausgang der Ebene) und setze getrennt **Dynamik von–bis** und **Ausdruck von–bis**. Die Werte werden mit dem Projekt gespeichert und lassen sich automatisieren. Alle Ausgänge auf demselben MIDI-Kanal teilen den Bereich.
+
+![CC-Bereiche](docs/oberflaeche-ccbereich.png)
+
+Beispiel: Dynamik **100–127** hält die ganze aktive Dynamikkurve in diesem Bereich; Ausdruck **60–127** regelt den Lautstärkeverlauf separat. Neue Bereiche starten bei 60–127. Gleiche Grenzen erzeugen einen festen Wert; vertauschte Grenzen werden nach Größe geordnet. Die Ausgabe ist weiterhin standardmäßig ausgeschaltet. Einschalten im Dialog oder im oberen CC-Menü unter „Ausgabe an die Spuren“; dort stehen auch die Controller-Nummern.
+
+CC1 ist laut MIDI-Standard Modulation und wird von vielen, aber nicht allen Orchesterbibliotheken für Dynamik verwendet. CC11 ist Ausdruck. Die Zuordnung muss zum geladenen Patch passen. Bei gleicher Controller-Nummer hat Ausdruck Vorrang; Kanalmodus-Controller 120–127 werden nicht als Dynamik/Ausdruck gesendet.
+
+**Weiche gehaltene Töne benötigen Ausdruck:** Ein-/Ausblendungen laufen über dessen Hüllkurve bis 0, bewusst auch unterhalb des aktiven Arbeitsbereichs. Der eingestellte Dynamikbereich bleibt hoch. Ohne CC-Ausgabe bekommen die Noten eine moderate Anschlagabsenkung; ein bereits gehaltener Ton kann allein über Velocity nicht nachträglich anschwellen. Die vollständigen Akkordnoten werden trotzdem gespielt.
+
+Teilen sich mehrere Ebenen einen Kanal, richtet sich dessen Intensität/Hüllkurve nach dem stärksten noch aktiven Anteil. Eine ausblendende Ebene regelt dadurch keine gleichzeitig weiterlaufende Ebene herunter. Für unabhängige Lautstärkebögen getrennte Kanäle verwenden.
+
+MIDI-Eingangscontroller wirken an ihrer tatsächlichen Sampleposition. Die Anzeige und Host-Parameter werden vom GUI-Timer nachgeführt, damit der Audiopfad dafür keine Host-Benachrichtigungen ausführen muss.
 
 ## Szene und Fahrt
 
@@ -118,7 +143,7 @@ MIDI-Datei beginnt immer mit einer Szene.
 | Regler | Was er macht |
 |---|---|
 | AUFBAU · 4 / 8 / 16 Takte | Zuerst spielt nur die Ebene des Einstiegs, die anderen folgen nacheinander auf Taktgrenzen, bis nach der eingestellten Zahl von Takten alles da ist. Dabei wird die Musik von dünn zu dicht. Aus: alle Ebenen setzen gleich ein. |
-| EINSTIEG | Fläche, schüchtern (ein stehender Ton, der später zum Akkord wird), Bass-Schlag, Puls (kurze Viertel auf dem Grundton, wie ein Ticken), Arpeggio, Akzent (ein Stich oder Tupfer in der Stille), Gegenstimme oder alles zugleich. Danach folgen die verwandten Ebenen, beim Bass zum Beispiel Arpeggio, Fläche, Akzent und Gegenstimme. **Auto** würfelt den Einstieg passend zu Genre und Stimmung, nur aus Ebenen, die gerade spielen können. |
+| EINSTIEG | Fläche, schüchtern (ein leiser, vollständig gefärbter Akkord), Bass-Schlag, Puls (kurze Viertel auf dem Grundton, wie ein Ticken), Arpeggio, Akzent (ein Stich oder Tupfer in der Stille), Gegenstimme oder alles zugleich. Danach folgen die verwandten Ebenen, beim Bass zum Beispiel Arpeggio, Fläche, Akzent und Gegenstimme. **Auto** würfelt den Einstieg passend zu Genre und Stimmung, nur aus Ebenen, die gerade spielen können. |
 | NEU WÜRFELN | Ein anderer Einstieg bei Auto und ein anderes Motiv der Gegenstimme. Derselbe Wurf ergibt immer dasselbe und wird mit dem Projekt gespeichert. |
 | HÄRTE | Wie die Ebenen einsetzen: unter 50 % weich eingeblendet (ganz links über zwei Takte), über 50 % mit kräftigem ersten Anschlag. Gilt auch, wenn eine Ebene mit steigender Intensität dazukommt. |
 | LÄNGE | Unbegrenzt oder 8 bis 64 Takte ab dem Start der Wiedergabe. |
@@ -140,11 +165,15 @@ gehen erst einige Prozent unter ihrer Schwelle wieder aus und bleiben mindestens
 | ABWECHSLUNG | Wie viele passende Wendungen sich abwechseln: ganz links immer nur die passendste, weiter rechts auch entferntere Nachbarn. |
 | SWING | Verschiebt die Zwischen-Achtel nach hinten, bis zum Triolen-Gefühl. |
 | WECHSEL | Wann eine neue Wendung einsetzt: nächster Schlag, nächster Takt, alle 2 oder alle 4 Takte. |
-| EIGENE FOLGE | Spielt deine Akkorde statt der Wendungen. Über **Bearbeiten** bis zu acht Akkorde mit Grundton, Art (Dur, Moll, maj7, m7, 7, sus4, sus2, add9, m6, m(maj7), m7b5, dim7, +) und Länge in Takten. Vorgabe: F – C – B – G mit je 2 Takten. Die Akkorde bleiben fest; die Färbung leiht den Stil der Wendung am Punkt im Feld (Figuren, Bass-Muster, Rhythmus der Fläche), Intensität und Unruhe wirken wie sonst. VARIATION wählt die Lage der Fläche. |
+| EIGENE FOLGE | Spielt deine Akkorde statt der Wendungen. Über **Bearbeiten** bis zu acht Akkorde mit Grundton, Art (Dur, Moll, maj7, m7, 7, sus4, sus2, add9, m6, m(maj7), m7b5, dim7, +, m(maj9), Quarten, m9, 7b9, offene Quinte) und Länge in Takten. Vorgabe: F – C – B – G mit je 2 Takten. Die Akkorde bleiben fest; die Färbung leiht den Stil der Wendung am Punkt im Feld (Figuren, Bass-Muster, Rhythmus der Fläche), Intensität und Unruhe wirken wie sonst. VARIATION wählt die Lage der Fläche. |
 | DURCHGÄNGE | Bei viel Intensität erklingt auf dem letzten Schlag eines Akkords kurz die Dominante des nächsten Akkords. Abschaltbar. |
 | VORHÖREN | Einfacher Testklang im Plugin. Spielt auch bei stehender DAW mit eigener Uhr im Projekttempo, dann nur als Testklang ohne MIDI an die Spuren. |
-| MIDI | Auf die DAW ziehen: die nächsten 8, 16 oder 32 Takte als MIDI-Datei, eine Spur je eingestelltem MIDI-Kanal, mit allen aktuellen Einstellungen. Klick wechselt die Länge. Mit Solo ziehst du einzelne Ebenen heraus. |
+| MIDI | Auf die DAW ziehen: eine neue Szene ab Takt 1 mit 8, 16 oder 32 Takten als MIDI-Datei, eine Spur je eingestelltem MIDI-Kanal, mit allen aktuellen Einstellungen. Klick wechselt die Länge. Mit Solo ziehst du einzelne Ebenen heraus. |
 | Dynamik per CC | Im Menü des CC-Knopfs unter „Ausgabe an die Spuren“: jeder benutzte Kanal bekommt CC 1 (Dynamik) und CC 11 (Ausdruck) für Orchester-Libraries, mit atmenden Bögen nach der Intensität. Nummern änderbar, abschaltbar. Getrennt von den Controllern am Eingang. |
+
+### MIDI-Export
+
+Der Export beginnt eine neue Szene ab Takt 1 mit den aktuellen Einstellungen. Er zeichnet weder vergangene Fahrten noch zukünftige DAW-Automation nach. Für eine vollständige Automationsfassung die MIDI-Ausgänge in der DAW aufnehmen. Am harten Szenenende enthält die Datei jetzt den Schlussakkord mit positiver Notenlänge; dafür kommt eine Viertelnote Reserve hinzu, falls das Szenenende in der gewählten Länge liegt. Exportdateien erhalten eindeutige temporäre Namen.
 
 ## Die fünf Ebenen
 
@@ -176,7 +205,7 @@ Tonumfang, für ein perkussives Sample wie Pauke oder große Trommel, das in der
 der Liste oder lernst sie mit einem Tastendruck an, **Hören** schlägt sie einmal an. **Akkord**: der Grundton des aktuellen Akkords in
 tiefer Mittellage, für Klavier, Synth-Stab oder Pizzicato-Bass, mit eigenem Tonumfang. Im Knopf steht, was gilt, etwa „Fest: C1“.
 
-**Gegenstimme:** die einzige lange Linie, in mittlerer Lage zwischen Tupfer und Stich. Mit **Legato** überlappen die Töne minimal,
+**Gegenstimme:** die einzige lange Linie, in mittlerer Lage zwischen Tupfer und Stich. Mit **Legato** überlappen die Töne um eine Sechzehntelnote,
 damit Legato-Patches gebunden spielen; ohne setzen sie kurz vor dem nächsten Ton ab. Mit **Motiv** beginnt jede Phrase mit einer kurzen
 Figur aus drei bis fünf Tönen, die wiederkehrt und abgewandelt wird: wie zuvor, einen Akkordton höher, mit umgekehrter Richtung, mit
 höherem Schluss. Die Töne folgen der Harmonie, bei wenig Intensität fallen die letzten weg. Welche Figur, bestimmt der Wurf.
@@ -204,6 +233,8 @@ ZIP entpacken, DAW schließen und den vollständigen Ordner `Stromscore.vst3` na
 Danach in der DAW die Plugins neu einlesen.
 
 ## Versionen
+
+- **1.9** – Vollständige Akkordfarben auch leise und ohne CC, CC-Bereiche je Kanal, echte Legato-Überlappung, neun neue Pop-Rock-Wendungen und Wendungsinfo, MIDI-/Export-/Bedienungsfehler behoben. [Release-Hinweise](docs/releases/1.9.md) · [Prüfung und Grenzen](docs/PRUEFUNG-1.9.md).
 
 - **1.8** – Ziel B per Rechtsklick im Stimmungsfeld vorab setzen, ohne dass die Fahrt startet; ein Linksklick springt weiter sofort mit A.
 - **1.7** – Fahrt: Bei der Ankunft wird B zum neuen A und die Fahrt schaltet sich aus; unterwegs ausgeschaltet bleibt die Musik, wo sie gerade ist; eine neu eingeschaltete Fahrt startet mit dem nächsten Takt vom Punkt aus. Akkord- und Tonnamen international mit ♯ und ♭ (B statt H, B♭ statt B).

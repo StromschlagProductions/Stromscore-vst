@@ -140,9 +140,15 @@ jobs:
           if-no-files-found: ignore
           retention-days: 14
 
+      - name: Release-Pruefer testen
+        run: python Tests/ReleaseTests.py
+
       - name: ZIP packen
         shell: pwsh
         run: Compress-Archive -Path "build/Stromscore_artefacts/Release/VST3/Stromscore.vst3" -DestinationPath "$env:ZIP_NAME"
+
+      - name: Installations-ZIP pruefen und Pruefsumme erzeugen
+        run: python scripts/validate_release.py "${{ env.ZIP_NAME }}" "${{ env.STROMSCORE_VERSION }}"
 
       - name: Release mit ZIP erstellen
         if: >-
@@ -154,5 +160,10 @@ jobs:
           make_latest: true
           files: |
             ${{ env.ZIP_NAME }}
+            ${{ env.ZIP_NAME }}.sha256
             docs/screenshots.json
+            docs/oberflaeche-*.png
+            docs/WENDUNGEN.md
+            docs/PRUEFUNG-${{ env.STROMSCORE_VERSION }}.md
+            docs/ORCHESTRIERUNG.md
           body_path: docs/releases/${{ env.STROMSCORE_VERSION }}.md
