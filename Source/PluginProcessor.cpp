@@ -172,6 +172,7 @@ StromscoreProcessor::StromscoreProcessor()
       apvts (*this, nullptr, "STROMSCORE", createLayout())
 {
     apvts.addParameterListener ("fahrt", this);
+    apvts.addParameterListener ("fahrtX", this); apvts.addParameterListener ("fahrtY", this);
     for (int kind = 0; kind < 2; ++kind)
         for (int edge = 0; edge < 2; ++edge)
             for (int ch = 0; ch < 16; ++ch)
@@ -332,6 +333,7 @@ stromscore::Settings StromscoreProcessor::currentSettings() const
     s.motif = pMotif->load() >= 0.5f;
     s.inertia = true;   // Traegheit ist im Plugin immer an
     s.drive = pDrive->load() >= 0.5f;
+    s.driveGeneration = driveGeneration.load();
     s.driveX = pDriveX->load(); s.driveY = pDriveY->load();
     s.driveFrom = pick (pDriveFrom, kDriveFrom, 5);
     s.driveBars = pick (pDriveBars, kDriveBars, 4);
@@ -639,6 +641,7 @@ StromscoreProcessor::~StromscoreProcessor()
 {
     stopTimer();
     apvts.removeParameterListener ("fahrt", this);
+    apvts.removeParameterListener ("fahrtX", this); apvts.removeParameterListener ("fahrtY", this);
     for (auto* id : kAxisIds) apvts.removeParameterListener (id, this);
 }
 
@@ -651,7 +654,15 @@ void StromscoreProcessor::parameterChanged (const juce::String& id, float value)
             if (publishingMidiAxes != this) { axisLive[a].store (value); pendingMidiAxis[a].store (-1.0f); }
             return;
         }
-    if (inHandOver || value >= 0.5f || sceneBar.load() < 0) return;
+    if (id == "fahrtX" || id == "fahrtY") { targetSet.store (true); return; }
+    if (inHandOver) return;
+    if (value >= 0.5f)
+    {
+        driveGeneration.fetch_add (1); driveArrived.store (false); handOverPending.store (false);
+        driveOutcome.store (0); targetSet.store (true); return;
+    }
+    if (sceneBar.load() < 0) return;
+    driveOutcome.store (4);
     stopX.store (pointX.load()); stopY.store (pointY.load());
     handOverPending.store (true);
     if (juce::MessageManager::getInstance()->isThisTheMessageThread()) serviceDrive();
@@ -668,9 +679,40 @@ void StromscoreProcessor::serviceDrive()
         publishingMidiAxes = previous;
     }
     // Ankunft bei B: B wird zu A, die Fahrt schaltet sich aus
-    if (driveArrived.load() && pDrive->load() >= 0.5f)
-    { stopX.store (pointX.load()); stopY.store (pointY.load()); handOverPending.store (true); }
+    if (driveArrived.load() && publishedDriveGeneration.load() == driveGeneration.load() && pDrive->load() >= 0.5f)
+    {
+        driveOutcome.store (juce::roundToInt (pCurve->load()) == stromscore::CurveWave ? 2 : 1);
+        stopX.store (pointX.load()); stopY.store (pointY.load()); handOverPending.store (true);
+    }
     if (handOverPending.load()) { handOver(); handOverPending.store (false); }
+}
+
+void StromscoreProcessor::markTargetSet()
+{
+    targetSet.store (true);
+    updateHostDisplay (juce::AudioProcessorListener::ChangeDetails{}.withNonParameterStateChanged (true));
+}
+
+void StromscoreProcessor::beginManualPosition()
+{
+    inHandOver.store (true);
+    if (pDrive->load() >= 0.5f)
+    {
+        auto* p = apvts.getParameter ("fahrt");
+        p->beginChangeGesture(); p->setValueNotifyingHost (0); p->endChangeGesture();
+        driveOutcome.store (3);
+    }
+    handOverPending.store (false); driveArrived.store (false);
+    inHandOver.store (false);
+}
+
+juce::String StromscoreProcessor::ccChannelDescription (int channel) const
+{
+    juce::StringArray roles;
+    const auto names = outputNames();
+    for (int i = 0; i < stromscore::kNumOutputs; ++i)
+        if (juce::roundToInt (pChannel[i]->load()) + 1 == channel) roles.add (names[i]);
+    return "Kanal " + juce::String (channel) + u8 (" – ") + (roles.isEmpty() ? u8 ("nicht zugeordnet") : roles.joinIntoString (", "));
 }
 
 void StromscoreProcessor::handOver()
@@ -699,7 +741,9 @@ void StromscoreProcessor::publish (const stromscore::Generator& g, bool playing)
     sceneEntry.store (g.sceneEntry());
     sceneOver.store (playing && g.sceneOver());
     if (playing) { pointX.store (g.pointX()); pointY.store (g.pointY()); }
+    publishedDriveGeneration.store (g.driveGenerationNow());
     driveArrived.store (playing && g.driveArrived());
+    driveProgress.store (g.driveProgress());
     driveFromLive.store (playing ? g.driveFromNow() : -1);
 }
 
@@ -735,6 +779,7 @@ void StromscoreProcessor::getStateInformation (juce::MemoryBlock& destData)
     state.setProperty ("ccDynamik", ccOut[0].load(), nullptr);
     state.setProperty ("ccAusdruck", ccOut[1].load(), nullptr);
     state.setProperty ("exportTakte", exportBars.load(), nullptr);
+    state.setProperty ("targetSet", targetSet.load(), nullptr);
     if (auto xml = state.createXml())
         copyXmlToBinary (*xml, destData);
 }
@@ -757,6 +802,8 @@ void StromscoreProcessor::setStateInformation (const void* data, int sizeInBytes
             inHandOver.store (true);
             apvts.replaceState (state);
             for (int a = 0; a < 3; ++a) { axisLive[a].store (pAxis[a]->load()); pendingMidiAxis[a].store (-1.0f); }
+            targetSet.store ((bool) state.getProperty ("targetSet", pDrive->load() >= 0.5f || pDriveX->load() != 0.8f || pDriveY->load() != 0.85f));
+            driveGeneration.fetch_add (1); driveArrived.store (false); driveOutcome.store (0);
             handOverPending.store (false);
             inHandOver.store (false);
             flushPending.store (true);

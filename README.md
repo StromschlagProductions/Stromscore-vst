@@ -1,5 +1,7 @@
 # STROMSCORE – Audio Drama Underscore Inspirator
 
+**Version 2.0:** Weiterentwicklung auf Basis von 1.9. [Analyse, Änderungen und A/B-Prüfung](docs/development/VOICE_LEADING.md). Enthält Stimmführung sowie die gesammelten Fahrt- und Bedienkorrekturen. Phrasierung und Motiventwicklung bleiben unverändert.
+
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="docs/logo-dunkel.png">
   <img src="docs/logo-hell.png" alt="Stromschlag Audio" height="64">
@@ -120,11 +122,11 @@ Terz-Treppe nutzt jetzt die Dur-Akkorde der Katalogidee, Septakkord-Paare tatsä
 
 ## CC-Bereiche je Instrument/Kanal
 
-Der kleine **CC**-Knopf neben dem MIDI-Kanal öffnet einen kompakten Dialog. Wähle dort den Kanal (auch den zweiten Ausgang der Ebene) und setze getrennt **Dynamik von–bis** und **Ausdruck von–bis**. Die Werte werden mit dem Projekt gespeichert und lassen sich automatisieren. Alle Ausgänge auf demselben MIDI-Kanal teilen den Bereich.
+Oben im Menü **MIDI / CC → Ausgang: CC-Bereiche …** öffnest du den gemeinsamen Dialog. Jeder Kanal nennt seine zugeordneten Ausgänge, etwa Fläche lang, Fläche kurz oder Akzent Stich. Wähle dort den Kanal und setze getrennt **Dynamik von–bis** und **Ausdruck von–bis**. Die Werte werden mit dem Projekt gespeichert und lassen sich automatisieren. Alle Ausgänge auf demselben MIDI-Kanal teilen den Bereich.
 
 ![CC-Bereiche](docs/oberflaeche-ccbereich.png)
 
-Beispiel: Dynamik **100–127** hält die ganze aktive Dynamikkurve in diesem Bereich; Ausdruck **60–127** regelt den Lautstärkeverlauf separat. Neue Bereiche starten bei 60–127. Gleiche Grenzen erzeugen einen festen Wert; vertauschte Grenzen werden nach Größe geordnet. Die Ausgabe ist weiterhin standardmäßig ausgeschaltet. Einschalten im Dialog oder im oberen CC-Menü unter „Ausgabe an die Spuren“; dort stehen auch die Controller-Nummern.
+Beispiel: Dynamik **100–127** hält die ganze aktive Dynamikkurve in diesem Bereich; Ausdruck **60–127** regelt den Lautstärkeverlauf separat. Neue Bereiche starten bei 60–127. Gleiche Grenzen erzeugen einen festen Wert; vertauschte Grenzen werden nach Größe geordnet. Die Ausgabe ist weiterhin standardmäßig ausgeschaltet. Der Schalter **CC-Ausgabe für alle Kanäle** im Dialog oder im oberen CC-Menü aktiviert sämtliche Ausgänge; dort stehen auch die Controller-Nummern.
 
 CC1 ist laut MIDI-Standard Modulation und wird von vielen, aber nicht allen Orchesterbibliotheken für Dynamik verwendet. CC11 ist Ausdruck. Die Zuordnung muss zum geladenen Patch passen. Bei gleicher Controller-Nummer hat Ausdruck Vorrang; Kanalmodus-Controller 120–127 werden nicht als Dynamik/Ausdruck gesendet.
 
@@ -149,6 +151,12 @@ MIDI-Datei beginnt immer mit einer Szene.
 | LÄNGE | Unbegrenzt oder 8 bis 64 Takte ab dem Start der Wiedergabe. |
 | ENDE | **Hart:** alle Ebenen bis zum Schluss, im letzten Takt zieht sich der Bass zurück und ein Stich kündigt an, dann ein kurzer, kräftiger Schlag und Stille. **Ausklingend:** die Ebenen gehen nacheinander, was zuletzt kam, zuerst; die Ebene des Einstiegs klingt bis zum Ende. **Offen:** zum Schluss noch dichter, dann Abbruch ohne Schlussschlag. |
 | FAHRT | Die Musik wandert selbst vom Punkt im Feld (A) zu einem Ziel (B), das als Ring im Stimmungsfeld erscheint und sich dort ziehen lässt. Mit der **rechten Maustaste** setzt du das Ziel vorab, ohne dass die Fahrt startet; ein Linksklick ins Feld springt wie bisher sofort mit A dorthin. **Start** sofort oder ab Takt 5, 9, 17 oder 33, **Dauer** 4 bis 32 Takte, **Kurve** gleichmäßig, erst langsam, in vier Stufen oder hin und zurück. Führt die Fahrt nach oben, zieht sich im Takt vor dem Ziel der Bass zurück, ein Stich kündigt an, und am Ziel setzen Fläche und Bass kräftig neu ein. Kommt die Fahrt bei B an, wird B zum neuen A und die Fahrt schaltet sich aus; schaltest du sie unterwegs aus, wird die Stelle, an der die Musik gerade ist, zu A. Eine während der Wiedergabe eingeschaltete Fahrt startet mit dem nächsten Takt vom Punkt aus; **Start** gilt nur, wenn die Wiedergabe mit eingeschalteter Fahrt beginnt. |
+
+**Bedienung ab 2.0:** Linke Maustaste setzt/zieht immer **A**, rechte Maustaste immer **B**, unabhängig davon, welcher Punkt näher liegt. Links übernimmt sofort manuell und beendet eine laufende Fahrt; ebenso die Färbungs-/Intensitätsbalken. Das Mausrad verändert nur Unruhe. Ziel B bleibt auch ohne Fahrt, nach Schließen der Oberfläche und im gespeicherten Projekt sichtbar. Fallen A und B zusammen, steht dort **A/B**.
+
+Während der Hinfahrt kannst du B rechts versetzen: Die Fahrt bleibt am aktuellen Punkt und verteilt den restlichen Weg auf die verbleibende Zeit. Sehr späte große Änderungen können daher schneller verlaufen. Bei **hin und zurück** bleibt während der Rückfahrt das ursprüngliche A das Ziel; ein neu gesetztes B wird für die nächste Fahrt gespeichert. Nach einem DAW-Sprung wird die Kurve mit den aktuellen Parametern an der Zielposition rekonstruiert; die vorherigen manuellen Zieländerungen sind keine aufgezeichnete Automation. Für reproduzierbare Änderungen über mehrere Exporte die Zielparameter in der DAW automatisieren. Der MIDI-Export beginnt wie bisher eine neue Szene mit den aktuellen Einstellungen.
+
+Die Statuszeile unterscheidet Ziel bereit, Fahrt wartet, laufende Fahrt/Rückfahrt, Ankunft und manuelle Übernahme. Bei „hin und zurück“ wird am Ende wieder A übernommen.
 
 Rechts in der Leiste steht während der Wiedergabe der Stand: Takt, Einstieg, Aufbau, Fahrt und die Takte bis zum Ende.
 

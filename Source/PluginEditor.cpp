@@ -110,6 +110,14 @@ void MoodPad::paint (juce::Graphics& g)
         g.drawEllipse (live.x - 4.5f, live.y - 4.5f, 9.0f, 9.0f, 1.5f);
     }
 
+    if ((showB || targetPending) && pa.getDistanceFrom (toScreen (bx, by)) <= 14.0f)
+    {
+        const juce::Rectangle<float> badge (px - 15.0f, py - 9.0f, 30.0f, 18.0f);
+        g.setColour (accent); g.fillRoundedRectangle (badge, 5.0f);
+        g.setColour (juce::Colours::black); g.setFont (juce::FontOptions (11.0f, juce::Font::bold));
+        g.drawText ("A/B", badge, juce::Justification::centred);
+    }
+
     // Feld-Karte: beim Ueberfahren die naechstgelegenen Wendungen, klein und blass
     if (numHover > 0 && ! dragging)
     {
@@ -554,9 +562,9 @@ class CcRangePanel final : public juce::Component
 public:
     CcRangePanel (StromscoreProcessor& p, int initial) : processor (p)
     {
-        setSize (370, 286);
-        addAndMakeVisible (channel); channel.addItemList (StromscoreProcessor::channelNames(), 1);
-        addAndMakeVisible (enabled); enabled.setButtonText (u8 ("CC senden: Dynamik ") + juce::String (p.ccOut[0].load()) + u8 (" · Ausdruck ") + juce::String (p.ccOut[1].load()));
+        setSize (500, 286);
+        addAndMakeVisible (channel); for (int ch = 1; ch <= 16; ++ch) channel.addItem (p.ccChannelDescription (ch), ch);
+        addAndMakeVisible (enabled); enabled.setButtonText (u8 ("CC-Ausgabe für alle Kanäle"));
         enabled.setClickingTogglesState (true);
         enabledAttachment = std::make_unique<juce::AudioProcessorValueTreeState::ButtonAttachment> (p.apvts, "dynamikCc", enabled);
         addAndMakeVisible (hint); hint.setText (u8 ("Bereiche gelten gemeinsam für alle Ausgänge auf diesem Kanal. Ausdruck blendet bei weichem Aufbau/Ende bis 0 aus. Die CC-Zuordnung muss zu deinem Instrument passen."), juce::dontSendNotification);
@@ -574,9 +582,9 @@ public:
     void paint (juce::Graphics& g) override { g.fillAll (getLookAndFeel().findColour (juce::PopupMenu::backgroundColourId)); }
     void resized() override
     {
-        channel.setBounds (14, 12, 342, 26); enabled.setBounds (14, 46, 342, 24);
-        for (int i = 0; i < 4; ++i) { labels[i].setBounds (14, 78 + i * 30, 96, 26); values[i].setBounds (110, 78 + i * 30, 246, 26); }
-        hint.setBounds (14, 204, 342, 74);
+        channel.setBounds (14, 12, 472, 26); enabled.setBounds (14, 46, 472, 24);
+        for (int i = 0; i < 4; ++i) { labels[i].setBounds (14, 78 + i * 30, 96, 26); values[i].setBounds (110, 78 + i * 30, 376, 26); }
+        hint.setBounds (14, 204, 472, 74);
     }
 private:
     void attach()
@@ -663,7 +671,7 @@ static juce::AttributedString buildHelp (juce::Colour text, juce::Colour accent,
 
     head ("Neu: Wendungsinfo und CC-Bereiche");
     body ("WENDUNGSINFO neben der Akkordanzeige erklärt jede der 48 Score- und 36 Pop-Rock-Wendungen: Akkorde in deiner Tonart, Muster, Instrumentierung und stilistische Bezüge. Die neun neuen Album-Pop-, Gitarren- und Studio-Pop-Wendungen haben eigene rhythmische Gegenstimmen; es werden keine bekannten Melodien kopiert.");
-    body ("CC neben dem Kanal einer Ebene öffnet die Dynamik- und Ausdrucksbereiche je MIDI-Kanal. Beispiel: Dynamik von 100 bis 127, Ausdruck von 60 bis 127. Die ganze Kurve wird relativ in diesen Bereich übersetzt; gleiche Grenzen ergeben einen festen Wert. Geteilte Kanäle teilen immer denselben Bereich und dieselben Controller. Bei vertauschten Grenzen zählt der kleinere Wert als Minimum. Die Grundeinstellung neuer Bereiche ist 60–127. Die Ausgabe bleibt zunächst aus und wird im CC-Menü oder im Bereichsfenster eingeschaltet.");
+    body ("Oben im Menü MIDI / CC unter „Ausgang: CC-Bereiche …“ stehen die Dynamik- und Ausdrucksbereiche je MIDI-Kanal. Die Kanalnamen zeigen alle zugeordneten Ausgänge, auch Fläche kurz und Akzent Stich. „CC-Ausgabe für alle Kanäle“ schaltet die gesamte Ausgabe ein; die Bereiche gelten jeweils nur für den gewählten Kanal. Beispiel: Dynamik von 100 bis 127, Ausdruck von 60 bis 127. Die ganze Kurve wird relativ in diesen Bereich übersetzt; gleiche Grenzen ergeben einen festen Wert. Geteilte Kanäle teilen immer denselben Bereich und dieselben Controller. Bei vertauschten Grenzen zählt der kleinere Wert als Minimum. Die Grundeinstellung neuer Bereiche ist 60–127. Die Ausgabe bleibt zunächst aus und wird im CC-Menü oder im Bereichsfenster eingeschaltet.");
     body ("Dynamik (normal CC1) wählt bei vielen Orchesterbibliotheken die Klangstärke, Ausdruck (normal CC11) regelt die Lautstärke. Das ist patchabhängig: CC1 kann auch Vibrato oder Modulation sein. Prüfe die Zuordnung in deinem Instrument. Weiche Ein-/Ausblendungen laufen über Ausdruck bis 0, bewusst auch unterhalb des eingestellten Arbeitsbereichs. Hohe Dynamikbereiche bleiben davon unberührt. Ohne passenden Ausdrucks-CC kann eine bereits gehaltene Note nicht weich einblenden; Velocity allein wirkt nur beim Anschlag.");
     body ("Bei geringer Intensität bleiben Septimen, Nonen und andere Akkordfarben vollständig erhalten, auch beim schüchternen Flächeneinstieg. Er wird über Lautstärke und Einsatz weich, nicht durch das Weglassen der Harmonik. Enge Tonumfänge können mehrere Akkordtöne auf dieselbe Note falten. Für alle Farben mindestens eine Oktave, bei komplexen Akkorden besser mehr zulassen.");
     body ("MIDI-Export beginnt eine neue Szene ab Takt 1 mit den aktuellen Einstellungen. Frühere oder zukünftige DAW-Automation wird nicht rekonstruiert. Endet die gewählte Länge genau am harten Szenenende, enthält die Datei zusätzlich den Schlussakkord und seinen kurzen Ausklang (eine Viertelnote Reserve). Der klingende Schluss wird nicht mehr abgeschnitten.");
@@ -687,7 +695,7 @@ static juce::AttributedString buildHelp (juce::Colour text, juce::Colour accent,
     note ("Rechts in der Leiste FAHRT steht während der Wiedergabe der Stand der Szene: Takt, Einstieg, Aufbau, Fahrt und wie viele Takte bis zum Ende bleiben.");
 
     head ("Fahrt von A nach B");
-    body ("Mit FAHRT wandert die Musik selbst vom Punkt im Feld (A) zu einem Ziel (B). B erscheint als Ring im Stimmungsfeld; gezogen wird jeweils der Punkt, der näher an der Maus liegt. Mit der rechten Maustaste setzt du das Ziel B, ohne dass die Fahrt startet: Der Ring erscheint dort, die Musik bleibt bei A, und mit FAHRT geht es los. START legt fest, wann die Fahrt beginnt (sofort oder ab Takt 5, 9, 17, 33), DAUER, wie lange sie braucht, KURVE den Verlauf: gleichmäßig, erst langsam und dann schnell, in vier Stufen oder hin und zurück (zur Mitte der Dauer bei B, am Ende wieder bei A). Kommt die Fahrt bei B an, wird B zum neuen A, und die Fahrt schaltet sich aus: Du bleibst dort und kannst von Hand weiterziehen. Schaltest du sie unterwegs aus, wird die Stelle, an der die Musik gerade ist, zu A; nichts springt zurück. Schaltest du FAHRT während der Wiedergabe wieder ein, geht es mit dem nächsten Takt vom Punkt aus los. START gilt nur, wenn die Wiedergabe mit eingeschalteter Fahrt beginnt. Während der Wiedergabe zeigt ein kleiner Punkt, wo die Musik gerade ist; der Unruhe-Ring und die Werte in der Akkord-Anzeige wandern mit ihm.");
+    body ("Mit FAHRT wandert die Musik selbst vom Punkt im Feld (A) zu einem Ziel (B). B erscheint als Ring im Stimmungsfeld; Links setzt und zieht immer A, rechts immer B. Eine linke Geste oder ein Zug an Färbung/Intensität übernimmt sofort manuell und beendet die Fahrt. Das Mausrad steuert nur Unruhe. B bleibt auch bei ausgeschalteter Fahrt und nach dem Wiederöffnen des Projekts sichtbar; liegen A und B zusammen, steht dort A/B. Mit der rechten Maustaste setzt du das Ziel B, ohne dass die Fahrt startet: Der Ring erscheint dort, die Musik bleibt bei A, und mit FAHRT geht es los. Während der Hinfahrt lässt sich B rechts ändern: Die aktuelle Position bleibt erhalten, der restliche Weg wird auf die verbleibende Dauer verteilt. Auf der Rückfahrt bleibt das ursprüngliche A das Ziel; ein geändertes B gilt für die nächste Fahrt. Ein DAW-Sprung rekonstruiert die Kurve aus den aktuellen Einstellungen, ohne vorherige manuelle Zieländerungen. Solche Änderungen für wiederholbare Exporte als DAW-Automation aufnehmen. START legt fest, wann die Fahrt beginnt (sofort oder ab Takt 5, 9, 17, 33), DAUER, wie lange sie braucht, KURVE den Verlauf: gleichmäßig, erst langsam und dann schnell, in vier Stufen oder hin und zurück (zur Mitte der Dauer bei B, am Ende wieder bei A). Kommt die Fahrt bei B an, wird B zum neuen A, und die Fahrt schaltet sich aus: Du bleibst dort und kannst von Hand weiterziehen. Schaltest du sie unterwegs aus, wird die Stelle, an der die Musik gerade ist, zu A; nichts springt zurück. Schaltest du FAHRT während der Wiedergabe wieder ein, geht es mit dem nächsten Takt vom Punkt aus los. START gilt nur, wenn die Wiedergabe mit eingeschalteter Fahrt beginnt. Während der Wiedergabe zeigt ein kleiner Punkt, wo die Musik gerade ist; der Unruhe-Ring und die Werte in der Akkord-Anzeige wandern mit ihm.");
     body ("Weil Stromscore das Ziel kennt, bereitet es eine Fahrt nach oben vor: Im Takt vor dem Ziel zieht sich der Bass in der zweiten Hälfte zurück und ein Stich kündigt an, am Ziel setzen Fläche und Bass kräftig neu ein. Von Hand fahren und Automation gehen weiterhin; die Fahrt geht dann vom aktuellen Punkt A aus.");
 
     head ("Trägheit");
@@ -810,7 +818,7 @@ StromscoreEditor::StromscoreEditor (StromscoreProcessor& p) : AudioProcessorEdit
                 (a == 0 ? pad.x : a == 1 ? pad.y : pad.z) = v;
                 pad.repaint();
             }, nullptr);
-    pad.onDragStart = [this] { axisAttachment[0]->beginGesture(); axisAttachment[1]->beginGesture(); };
+    pad.onDragStart = [this] { processor.beginManualPosition(); axisAttachment[0]->beginGesture(); axisAttachment[1]->beginGesture(); };
     pad.onDrag = [this] (float nx, float ny) { axisAttachment[0]->setValueAsPartOfGesture (nx); axisAttachment[1]->setValueAsPartOfGesture (ny); };
     pad.onDragEnd = [this] { axisAttachment[0]->endGesture(); axisAttachment[1]->endGesture(); };
     pad.onWheel = [this] (float dz) { axisAttachment[2]->setValueAsCompleteGesture (juce::jlimit (0.0f, 1.0f, pad.z + dz)); };
@@ -934,7 +942,7 @@ StromscoreEditor::StromscoreEditor (StromscoreProcessor& p) : AudioProcessorEdit
     previewAttachment = std::make_unique<APVTS::ButtonAttachment> (processor.apvts, "preview", previewButton);
     content.addAndMakeVisible (chordDisplay);
     // Balken in der Akkord-Anzeige: ziehen wie im Stimmungsfeld
-    chordDisplay.onBarStart = [this] (int axis) { axisAttachment[axis]->beginGesture(); };
+    chordDisplay.onBarStart = [this] (int axis) { if (axis < 2) processor.beginManualPosition(); axisAttachment[axis]->beginGesture(); };
     chordDisplay.onBar = [this] (int axis, float v) { axisAttachment[axis]->setValueAsPartOfGesture (v); };
     chordDisplay.onBarEnd = [this] (int axis) { axisAttachment[axis]->endGesture(); };
 
@@ -977,10 +985,6 @@ StromscoreEditor::StromscoreEditor (StromscoreProcessor& p) : AudioProcessorEdit
             lv.chanBox[0].setTooltip (u8 ("MIDI-Kanal dieser Ebene. Mehrere Ebenen dürfen sich einen Kanal teilen, etwa alles auf Kanal 1 für ein einziges Klavier."));
         }
 
-        lv.ccRangeButton.setButtonText ("CC"); lv.ccRangeButton.setName ("CCBereich" + n);
-        lv.ccRangeButton.setTooltip (u8 ("Dynamik- und Ausdrucksbereich pro MIDI-Kanal, etwa 100–127. Im Fenster kannst du auch den zweiten Ausgang wählen."));
-        lv.ccRangeButton.onClick = [this, i]
-        { showCcRanges (layers[i].chanBox[0].getSelectedId(), layers[i].ccRangeButton); };
         lv.octBox.addItemList (StromscoreProcessor::octaveNames(), 1);
         lv.octBox.setTooltip (u8 ("Oktavlage dieser Ebene."));
         octaveAttachment[i] = std::make_unique<APVTS::ComboBoxAttachment> (processor.apvts, "oct" + n, lv.octBox);
@@ -1109,7 +1113,7 @@ StromscoreEditor::StromscoreEditor (StromscoreProcessor& p) : AudioProcessorEdit
     hardness.setTooltip (u8 ("Wie die Ebenen einsetzen. Unter 50 % weich eingeblendet (ganz links über zwei Takte), über 50 % mit einem kräftigen ersten Anschlag. Gilt auch, wenn eine Ebene mit steigender Intensität dazukommt. Doppelklick: Mitte."));
     lengthBox.setTooltip (u8 ("Länge der Szene ab dem Start der Wiedergabe. Unbegrenzt: die Musik läuft weiter. Mit Länge endet sie nach dieser Zahl von Takten, wie unter „Ende“ eingestellt."));
     endBox.setTooltip (u8 ("Hart: Bis zum Schluss spielen alle Ebenen, im letzten Takt zieht sich der Bass zurück und ein Stich kündigt an, dann ein kurzer, kräftiger Schlag und Stille. Ausklingend: Die Ebenen gehen nacheinander, was zuletzt kam, zuerst; die erste Ebene klingt bis zum Ende. Offen: Die Musik wird zum Schluss noch dichter und bricht dann ohne Schlussschlag ab."));
-    driveButton.setTooltip (u8 ("Fahrt von A nach B: Die Musik wandert selbst vom Punkt im Feld (A) zum Ziel (B). Ziehe B im Stimmungsfeld an seinen Platz (der Punkt, der näher an der Maus liegt, wird gezogen) oder setze es vorher mit der rechten Maustaste, ohne dass die Fahrt startet. Führt die Fahrt nach oben, bereitet die Musik das Ziel vor: Der Bass zieht sich zurück, ein Stich kündigt an, am Ziel setzen alle Ebenen kräftig ein. Am Ziel wird B zum neuen A und die Fahrt schaltet sich aus; unterwegs ausgeschaltet bleibt die Musik, wo sie gerade ist."));
+    driveButton.setTooltip (u8 ("Fahrt von A nach B: Die Musik wandert selbst vom Punkt im Feld (A) zum Ziel (B). Links setzt/zieht immer A und übernimmt manuell, rechts setzt/zieht immer B, ohne die Fahrt zu starten. B bleibt sichtbar und wird im Projekt gespeichert. Während der Hinfahrt führt ein geändertes B ohne Positionssprung zum neuen Ziel. Führt die Fahrt nach oben, bereitet die Musik das Ziel vor: Der Bass zieht sich zurück, ein Stich kündigt an, am Ziel setzen alle Ebenen kräftig ein. Am Ziel wird B zum neuen A und die Fahrt schaltet sich aus; unterwegs ausgeschaltet bleibt die Musik, wo sie gerade ist."));
     startBox.setTooltip (u8 ("Wann die Fahrt beginnt, gezählt ab dem Start der Wiedergabe."));
     durBox.setTooltip (u8 ("Wie lange die Fahrt von A nach B dauert."));
     curveBox.setTooltip (u8 ("Gleichmäßig; erst langsam, dann schnell; in vier Stufen; oder hin und zurück (zur Mitte der Dauer bei B, am Ende wieder bei A)."));
@@ -1119,7 +1123,8 @@ StromscoreEditor::StromscoreEditor (StromscoreProcessor& p) : AudioProcessorEdit
         targetAttachment[a] = std::make_unique<juce::ParameterAttachment> (*processor.apvts.getParameter (a == 0 ? "fahrtX" : "fahrtY"),
             [this, a] (float v) { (a == 0 ? pad.bx : pad.by) = v; pad.repaint(); }, nullptr);
     for (auto& t : targetAttachment) t->sendInitialUpdate();
-    pad.onSetTarget = [this] { pad.targetPending = true; pad.repaint(); };
+    pad.targetPending = processor.targetSet.load();
+    pad.onSetTarget = [this] { processor.markTargetSet(); pad.targetPending = true; pad.repaint(); };
     pad.onDragStartB = [this] { targetAttachment[0]->beginGesture(); targetAttachment[1]->beginGesture(); };
     pad.onDragB = [this] (float nx, float ny) { targetAttachment[0]->setValueAsPartOfGesture (nx); targetAttachment[1]->setValueAsPartOfGesture (ny); };
     pad.onDragEndB = [this] { targetAttachment[0]->endGesture(); targetAttachment[1]->endGesture(); };
@@ -1180,9 +1185,8 @@ StromscoreEditor::~StromscoreEditor() { stopTimer(); setLookAndFeel (nullptr); }
 
 void StromscoreEditor::updateCcButton()
 {
-    auto txt = [this] (int a) { const int n = processor.ccNumber[a].load(); return n > 0 ? juce::String (n) : juce::String ("aus"); };
-    ccButton.setButtonText ("CC " + txt (0) + u8 (" · ") + txt (1) + u8 (" · ") + txt (2));
-    ccButton.setTooltip (u8 ("MIDI-Controller am Eingang: Färbung, Intensität, Unruhe. Klick zum Ändern."));
+    ccButton.setButtonText ("MIDI / CC");
+    ccButton.setTooltip (u8 ("MIDI-Eingang: Färbung, Intensität, Unruhe. Ausgabe: Controller-Zuordnung und CC-Bereiche je Kanal."));
 }
 
 juce::TextButton& StromscoreEditor::rangeButtonFor (int r)
@@ -1229,6 +1233,8 @@ void StromscoreEditor::updateMidiLabel()
     midiDrag.repaint();
 }
 
+void StromscoreEditor::showOutputCcRanges (int channel) { showCcRanges (channel, ccButton); }
+
 void StromscoreEditor::showCcRanges (int channel, juce::Component& anchor)
 {
     auto panel = std::make_unique<CcRangePanel> (processor, channel);
@@ -1264,7 +1270,8 @@ void StromscoreEditor::showCcMenu()
     menu.addSeparator();
     menu.addSectionHeader (u8 ("Ausgabe an die Spuren"));
     const bool dyn = processor.apvts.getRawParameterValue ("dynamikCc")->load() >= 0.5f;
-    menu.addItem (8001, u8 ("Dynamik per CC senden"), true, dyn);
+    menu.addItem (8001, u8 ("CC-Ausgabe für alle Kanäle"), true, dyn);
+    menu.addItem (8002, u8 ("Ausgang: CC-Bereiche …"));
     const char* outName[2] = { "Dynamik", "Ausdruck" };
     static const int outCommon[] = { 1, 2, 7, 11, 21 };
     for (int o = 0; o < 2; ++o)
@@ -1281,6 +1288,7 @@ void StromscoreEditor::showCcMenu()
         auto& processor = safe->processor;
         if (r == 0) return;
         if (r == 9999) { processor.ccNumber[0].store (11); processor.ccNumber[1].store (1); processor.ccNumber[2].store (74); }
+        else if (r == 8002) { safe->showOutputCcRanges(); return; }
         else if (r == 8001)
         {
             auto* p = processor.apvts.getParameter ("dynamikCc");
@@ -1346,9 +1354,9 @@ void StromscoreEditor::timerCallback()
         const bool drive = settings.drive;
         const bool running = processor.sceneBar.load() >= 0;
         const bool showNow = drive && running;
-        if (lastDrive && ! drive && pad.targetPending) { pad.targetPending = false; pad.repaint(); }   // angekommen: B ist zu A geworden
-        lastDrive = drive;
-        if (pad.showB != drive || pad.showNow != showNow) { pad.showB = drive; pad.showNow = showNow; pad.repaint(); }
+        pad.targetPending = processor.targetSet.load();
+        const bool visible = drive || pad.targetPending;
+        if (pad.showB != visible || pad.showNow != showNow) { pad.showB = visible; pad.showNow = showNow; pad.repaint(); }
         if (showNow && (pad.nowX != processor.pointX.load() || pad.nowY != processor.pointY.load()))
         {
             pad.nowX = processor.pointX.load(); pad.nowY = processor.pointY.load();
@@ -1415,7 +1423,7 @@ void StromscoreEditor::updateSceneStatus()
     if (bar < 0)
     {
         t = u8 ("Die Szene beginnt mit dem Start der Wiedergabe");
-        if (s.drive) t << u8 (" · B im Feld ziehen");
+        if (s.drive) t << u8 (" · rechts Ziel B setzen");
     }
     else if (processor.sceneOver.load()) t = u8 ("Szene zu Ende (Takt ") + juce::String (s.sceneBars) + u8 (") · neu mit dem nächsten Start");
     else
@@ -1424,14 +1432,33 @@ void StromscoreEditor::updateSceneStatus()
         const int e = juce::jlimit (1, stromscore::kNumEntries - 1, processor.sceneEntry.load());
         if (s.scene || s.sceneBars > 0) t << u8 (" · ") << names[e] << (s.entry == stromscore::EntryAuto ? " (Auto)" : "");
         if (s.scene && e != stromscore::EntryAll && bar < s.buildBars) t << u8 (" · Aufbau bis Takt ") << s.buildBars;
-        if (s.drive)
-        {
-            const int from = processor.driveFromLive.load() >= 0 ? processor.driveFromLive.load() : s.driveFrom;
-            const double since = (double) bar - from;
-            if (since < 0) t << u8 (" · Fahrt ab Takt ") << (from + 1);
-            else if (since < s.driveBars) t << u8 (" · Fahrt ") << juce::roundToInt (100.0 * since / s.driveBars) << " %";
-        }
         if (s.sceneBars > 0) t << u8 (" · noch ") << (s.sceneBars - bar) << ((s.sceneBars - bar) == 1 ? " Takt" : " Takte");
+    }
+    if (s.drive)
+    {
+        const float progress = processor.driveProgress.load();
+        if (bar < 0) t << u8 (" · Fahrt bereit");
+        else if (processor.publishedDriveGeneration.load() != processor.driveGeneration.load() || progress < 0)
+        {
+            const int from = processor.driveFromLive.load();
+            t << u8 (" · Fahrt wartet");
+            if (processor.publishedDriveGeneration.load() == processor.driveGeneration.load())
+                t << u8 (" auf Takt ") << ((from >= 0 ? from : s.driveFrom) + 1);
+            else t << u8 (" auf nächsten Takt");
+        }
+        else t << (s.driveCurve == stromscore::CurveWave && progress > 0.5f ? u8 (" · Rückfahrt ") : u8 (" · Fahrt läuft "))
+               << juce::roundToInt (100.0f * juce::jlimit (0.0f, 1.0f, progress)) << " %";
+    }
+    else
+    {
+        switch (processor.driveOutcome.load())
+        {
+            case 1: t << u8 (" · Fahrt angekommen bei B"); break;
+            case 2: t << u8 (" · Fahrt zurück bei A"); break;
+            case 3: t << u8 (" · Manuell übernommen"); break;
+            case 4: t << u8 (" · Fahrt angehalten"); break;
+            default: if (processor.targetSet.load()) t << u8 (" · Ziel B bereit"); break;
+        }
     }
     if (sceneStatus.getText() != t) sceneStatus.setText (t, juce::dontSendNotification);
     const bool drive = s.drive;

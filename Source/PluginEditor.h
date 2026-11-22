@@ -34,7 +34,7 @@ public:
 };
 
 // Das Stimmungsfeld: ziehen = Faerbung (waagerecht) und Intensitaet (senkrecht), Mausrad = Unruhe (Ring um den Punkt).
-// Mit Fahrt: ein zweiter Punkt B (Ziel), der naeher liegende Punkt wird gezogen; waehrend der Wiedergabe zeigt ein
+// Mit Fahrt: ein zweiter Punkt B (Ziel), links wird A, rechts wird B gezogen; waehrend der Wiedergabe zeigt ein
 // kleiner Punkt, wo die Musik gerade ist, und die Unruhe zappelt dort. Dazu (ab 1.4): Farbzonen in den Ecken, eine
 // verblassende Spur des klingenden Punkts und ein Licht je Ebene am Punkt.
 class MoodPad : public juce::Component, public juce::SettableTooltipClient
@@ -57,14 +57,12 @@ public:
     void mouseDown (const juce::MouseEvent& e) override
     {
         dragging = true; numHover = 0;
-        const auto a = area();
-        auto dist = [&] (float px, float py) { return e.position.getDistanceFrom ({ a.getX() + px * a.getWidth(), a.getBottom() - py * a.getHeight() }); };
         if (e.mods.isRightButtonDown())   // rechte Taste: nur das Ziel B setzen, ohne die Fahrt zu starten
         {
             draggingB = true;
             if (onSetTarget) onSetTarget();
         }
-        else draggingB = showB && dist (bx, by) < dist (x, y);
+        else draggingB = false;
         if (draggingB) { if (onDragStartB) onDragStartB(); } else if (onDragStart) onDragStart();
         move (e);
     }
@@ -154,7 +152,7 @@ class LayerView : public juce::Component, public juce::SettableTooltipClient
 public:
     LayerView()
     {
-        for (auto* c : std::initializer_list<juce::Component*> { &muteButton, &soloButton, &intensity, &octBox, &chanBox[0], &ccRangeButton }) addAndMakeVisible (c);
+        for (auto* c : std::initializer_list<juce::Component*> { &muteButton, &soloButton, &intensity, &octBox, &chanBox[0] }) addAndMakeVisible (c);
         for (auto* c : std::initializer_list<juce::Component*> { &chanBox[1], &rangeButton, &rangeButton2, &followButton, &legatoButton, &motifButton, &combo1, &combo2 })
             addChildComponent (c);
     }
@@ -164,7 +162,7 @@ public:
     int index = 0, numLamps = 1;
     bool active = true;
     float activity[2] {};
-    juce::TextButton soloButton, muteButton, followButton, rangeButton, rangeButton2, legatoButton, motifButton, ccRangeButton;
+    juce::TextButton soloButton, muteButton, followButton, rangeButton, rangeButton2, legatoButton, motifButton;
     juce::Slider intensity;
     juce::ComboBox combo1, combo2, octBox, chanBox[2];
     void paint (juce::Graphics& g) override;
@@ -176,8 +174,7 @@ public:
         muteButton.setBounds (w - 82, 6, 22, 20);
         soloButton.setBounds (w - 57, 6, 22, 20);
         const bool accent = index == stromscore::kAkzent;
-        chanBox[0].setBounds (cx, row (0), cw - 36, 24);
-        ccRangeButton.setBounds (cx + cw - 32, row (0), 32, 24);
+        chanBox[0].setBounds (cx, row (0), cw, 24);
         chanBox[1].setBounds (cx, row (accent ? 2 : 1), cw, 24);
         if (accent)   // Akzent: Tupfer und Stich je mit eigener Zeile fuer den Tonumfang darunter
         {
@@ -374,10 +371,10 @@ public:
 
 class StromscoreEditor : public juce::AudioProcessorEditor, private juce::Timer
 {
-    bool lastDrive = false;
 public:
     explicit StromscoreEditor (StromscoreProcessor&);
     ~StromscoreEditor() override;
+    void showOutputCcRanges (int channel = 1);
     void paint (juce::Graphics&) override;
     void resized() override;
 

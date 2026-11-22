@@ -91,7 +91,13 @@ public:
     std::atomic<bool> sceneOver { false };
     std::atomic<float> pointX { 0.5f }, pointY { 0.1f };
     // Fahrt: bei der Ankunft wird B zu A (die Fahrt schaltet sich aus), beim Abbruch die aktuelle Position
-    std::atomic<bool> driveArrived { false };
+    std::atomic<bool> driveArrived { false }, targetSet { false };
+    std::atomic<uint32_t> driveGeneration { 0 }, publishedDriveGeneration { 0 };
+    std::atomic<float> driveProgress { 0.0f };
+    std::atomic<int> driveOutcome { 0 }; // 1: B, 2: A (return), 3: manual, 4: stopped
+    void beginManualPosition();
+    void markTargetSet();
+    juce::String ccChannelDescription (int channel) const;
     std::atomic<int> driveFromLive { -1 };
     // Anlernen des Tonumfangs: die naechsten zwei Tasten am MIDI-Eingang (tiefste und hoechste) werden gemerkt
     std::atomic<int> learnLayer { -1 }, learnFirst { -1 }, learnSecond { -1 };

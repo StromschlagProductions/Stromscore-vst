@@ -600,7 +600,11 @@ int main()
             CHECK (std::abs (p->apvts.getRawParameterValue ("faerbung")->load() - 0.3f) < 1e-3f);   // A bleibt stehen
             CHECK (p->apvts.getRawParameterValue ("fahrtX")->load() > 0.6f);                         // B ist gesetzt
             CHECK (p->apvts.getRawParameterValue ("fahrt")->load() < 0.5f);                          // keine Fahrt
+            pad->showB = true; // left must still select A even when B is closer
+            setParam (*p, "fahrt", 1);
             press (false);
+            CHECK (p->apvts.getRawParameterValue ("fahrt")->load() < 0.5f);
+            CHECK (p->targetSet.load());
             CHECK (p->apvts.getRawParameterValue ("faerbung")->load() > 0.6f);                       // Linksklick: A springt
         }
     }
@@ -722,6 +726,82 @@ int main()
         CHECK (c.ons == 2); m.clear(); q.processBlockBypassed (a, m); collect (m, c);
         CHECK (! c.broken && c.ons == c.offs); q.setPlayHead (nullptr);
     }
+    // Voice-leading export equals live DAW playback, including channel CCs and held common notes.
+    {
+        StromscoreProcessor q; FakeHost h; q.setPlayHead (&h); q.prepareToPlay (48000, 512);
+        setParam (q, "aufbau", 0); setParam (q, "key", 0); setParam (q, "intensitaet", 0.4f);
+        setParam (q, "eigeneFolge", 1); setParam (q, "padPattern", stromscore::PadHeld); setParam (q, "dynamikCc", 1);
+        setParam (q, "cc0Lo1", 100); setParam (q, "cc0Hi1", 127);
+        const int roots[4] = { 0, 9, 2, 7 }, types[4] = { 2, 3, 15, 4 };
+        for (int i = 0; i < 4; ++i)
+        {
+            setParam (q, ("slotRoot" + std::to_string (i + 1)).c_str(), (float) roots[i]);
+            setParam (q, ("slotType" + std::to_string (i + 1)).c_str(), (float) types[i]);
+        }
+        for (int i = 2; i <= 5; ++i) setParam (q, ("mute" + std::to_string (i)).c_str(), 1);
+        using Timed = std::tuple<long long, int, int, int, int>;
+        std::vector<Timed> live, exported;
+        auto add = [] (std::vector<Timed>& target, const juce::MidiMessage& m, long long tick)
+        {
+            if (m.isNoteOnOrOff()) target.emplace_back (tick, m.isNoteOn() ? 1 : 0, m.getChannel(), m.getNoteNumber(), m.isNoteOn() ? m.getVelocity() : 0);
+            else if (m.isController() && ! m.isAllNotesOff()) target.emplace_back (tick, 2, m.getChannel(), m.getControllerNumber(), m.getControllerValue());
+        };
+        auto file = q.renderMidiFile (8); auto stream = file.createInputStream(); juce::MidiFile mf;
+        CHECK (stream != nullptr && mf.readFrom (*stream));
+        for (int tr = 0; tr < mf.getNumTracks(); ++tr)
+            for (int i = 0; i < mf.getTrack (tr)->getNumEvents(); ++i)
+            { const auto& m = mf.getTrack (tr)->getEventPointer (i)->message; add (exported, m, (long long) std::llround (m.getTimeStamp())); }
+        juce::AudioBuffer<float> a (2, 512); juce::MidiBuffer m; m.ensureSize (65536);
+        for (int at = 0; at < 768000; at += 512)
+        {
+            h.ppq = at / 24000.0; m.clear(); q.processBlock (a, m);
+            for (const auto meta : m) add (live, meta.getMessage(), (long long) std::llround ((at + meta.samplePosition) / 25.0));
+        }
+        h.playing = false; m.clear(); q.processBlock (a, m);
+        for (const auto meta : m) add (live, meta.getMessage(), 30720);
+        std::sort (live.begin(), live.end()); std::sort (exported.begin(), exported.end());
+        CHECK (! live.empty() && live == exported); q.setPlayHead (nullptr);
+    }
+
     p->setPlayHead (nullptr);
+    // 2.0: target visibility survives an editor reopen and project state roundtrip.
+    {
+        StromscoreProcessor q; q.markTargetSet(); // even the unchanged default B is an explicit target
+        juce::MemoryBlock state; q.getStateInformation (state);
+        StromscoreProcessor restored; restored.setStateInformation (state.getData(), (int) state.getSize());
+        CHECK (restored.targetSet.load()); CHECK (! restored.currentSettings().drive);
+        for (int reopen = 0; reopen < 2; ++reopen)
+        {
+            std::unique_ptr<juce::AudioProcessorEditor> ed (restored.createEditor());
+            int found = 0;
+            std::function<void (juce::Component&)> visit = [&] (juce::Component& c)
+            {
+                if (auto* pad = dynamic_cast<MoodPad*> (&c)) { CHECK (pad->targetPending); ++found; }
+                CHECK (! c.getName().startsWith ("CCBereich"));
+                for (auto* child : c.getChildren()) visit (*child);
+            };
+            visit (*ed); CHECK (found == 1);
+        }
+        CHECK (restored.ccChannelDescription (1).contains (juce::String::fromUTF8 ("Fläche lang")));
+        CHECK (restored.ccChannelDescription (2).contains (juce::String::fromUTF8 ("Fläche kurz")));
+        CHECK (restored.ccChannelDescription (7).contains ("Akzent Stich"));
+        setParam (restored, "kanal2", 0);
+        CHECK (restored.ccChannelDescription (1).contains (juce::String::fromUTF8 ("Fläche kurz")));
+    }
+    // A completed drive must not turn off a fresh activation before the next musical tick.
+    {
+        StromscoreProcessor q; FakeHost h; q.setPlayHead (&h); q.prepareToPlay (48000, 512);
+        setParam (q, "fahrtTakte", 0); setParam (q, "fahrt", 1);
+        juce::AudioBuffer<float> a (2, 512); juce::MidiBuffer m; m.ensureSize (65536);
+        for (int i = 0; i < 760 && ! q.driveArrived.load(); ++i)
+        { h.ppq = i * 512 / 24000.0; m.clear(); q.processBlock (a, m); }
+        CHECK (q.driveArrived.load()); q.serviceDrive(); CHECK (! q.currentSettings().drive);
+        setParam (q, "fahrt", 1); q.serviceDrive(); CHECK (q.currentSettings().drive);
+        h.ppq += 512.0 / 24000.0; m.clear(); q.processBlock (a, m); q.serviceDrive();
+        CHECK (q.currentSettings().drive && ! q.driveArrived.load());
+        q.beginManualPosition(); setParam (q, "faerbung", 0.37f); setParam (q, "intensitaet", 0.42f); q.serviceDrive();
+        CHECK (! q.currentSettings().drive && std::abs (q.currentSettings().x - 0.37f) < 1e-6f);
+        q.setPlayHead (nullptr);
+    }
     return 0;
 }
