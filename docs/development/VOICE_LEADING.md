@@ -47,7 +47,7 @@ Die vorhandene Szenenregel aus 1.9 bleibt bestehen: Ein neuer Wiedergabestart ka
 
 ### Tonumfang und physikalische Grenzen
 
-Oktavlage und bestehende Tonumfangsgrenzen werden angewendet. Ab zwölf verfügbaren Halbtönen ist jede Tonklasse darstellbar; die Tests prüfen inklusive Nonen und Septimen auch genau solche Oktavfenster.
+Der Oktavregler transponiert den geplanten Satz unverändert um zwölf Halbtöne je Stufe. Er löst keine eigenständige Neuverteilung der Stimmen aus. Bestehende Tonumfangsgrenzen können danach eine Faltung des Satzes erzwingen. Ab zwölf verfügbaren Halbtönen ist jede Tonklasse darstellbar; die Tests prüfen inklusive Nonen und Septimen auch genau solche Oktavfenster.
 
 Ein Fenster C3–E3 kann G und B eines Cmaj7 nicht enthalten. Keine Stimmführung kann gleichzeitig diese Grenze einhalten und die fehlenden Töne spielen. Die bestehende Faltungs-/Ersatzregel für solche unvollständig spielbaren Fenster bleibt begrenzt; zusätzlich liefert `unavailablePadPitchClasses()` die nicht darstellbaren Tonklassen für Tests/Diagnose. Es wird weder heimlich der Tonumfang erweitert noch behauptet, ein solcher Satz sei vollständig.
 

@@ -1306,7 +1306,7 @@ private:
                 int seventh = -1, third = -1;
                 if ((chords[prev].type == Dom7 || chords[prev].type == Dom7b9) && (chords[index].root - chords[prev].root + 12) % 12 == 5)
                 { seventh = (s.key + chords[prev].root + 10) % 12; third = (s.key + chords[prev].root + 4) % 12; }
-                reference = authored ? anchors[index] : voiceleading::lead (anchors[index], reference, lo, hi, seventh, third, oct);
+                reference = authored ? anchors[index] : voiceleading::lead (anchors[index], reference, lo, hi, seventh, third);
                 bassReference = voiceleading::bass (bassAnchors[index], bassReference, blo, bhi);
                 padPlan[index] = reference; bassPlan[index] = bassReference; unavailablePlan[index] = missing[index];
             }

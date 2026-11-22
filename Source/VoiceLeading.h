@@ -36,13 +36,13 @@ inline int nearest (const ChordVoicing& v, int note)
     for (int i = 0; i < v.n; ++i) d = std::min (d, std::abs (note - v.notes[i]));
     return v.n ? d : 0;
 }
-inline int shapeCost (const ChordVoicing& v, const ChordVoicing& anchor, int octaveOffset)
+inline int shapeCost (const ChordVoicing& v, const ChordVoicing& anchor)
 {
     int cost = 0;
     for (int i = 1; i < v.n; ++i)
     {
         const int gap = v.notes[i] - v.notes[i - 1];
-        if (v.notes[i - 1] + octaveOffset < 60 && gap < 3) cost += (v.notes[i - 1] + octaveOffset < 55 ? 64 : 24) * (3 - gap);
+        if (v.notes[i - 1] < 60 && gap < 3) cost += (v.notes[i - 1] < 55 ? 64 : 24) * (3 - gap);
         cost += std::max (0, gap - 16) * 3;
     }
     if (v.n == anchor.n)
@@ -58,7 +58,7 @@ inline int shapeCost (const ChordVoicing& v, const ChordVoicing& anchor, int oct
 // Complete pitch-class membership is a hard constraint. Register, spacing and outer voices
 // are soft costs: this allows inversions without turning every chord into a close-position stack.
 inline ChordVoicing lead (ChordVoicing anchor, ChordVoicing previous, int lo, int hi,
-                          int resolvingSeventh = -1, int resolvingThird = -1, int octaveOffset = 0)
+                          int resolvingSeventh = -1, int resolvingThird = -1)
 {
     sort (anchor); sort (previous);
     if (anchor.n == 0 || previous.n == 0) return anchor;
@@ -106,7 +106,7 @@ inline ChordVoicing lead (ChordVoicing anchor, ChordVoicing previous, int lo, in
     auto cost = [&] (ChordVoicing v)
     {
         sort (v);
-        int score = distance (previous, v) + shapeCost (v, anchor, octaveOffset);
+        int score = distance (previous, v) + shapeCost (v, anchor);
         score += 2 * std::abs (v.notes[v.n - 1] - previous.notes[previous.n - 1]);
         for (int i = 0; i < v.n; ++i) if (contains (previous, v.notes[i])) score -= 48;
         // Contextual dominant resolution, never a global ban on held sevenths/colour notes.
