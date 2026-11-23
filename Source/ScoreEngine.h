@@ -1632,6 +1632,39 @@ private:
         else render (k, offset, p, restart, phrase, s, out);
     }
 
+    bool dialogueArp(long long k,const Pos& p,const Settings& s,int offset,EventList& out)
+    {
+        // Explicit cell + motif, no buildup, four-bar-or-longer 4/4 phrases only.
+        if(s.genre!=GenreScore||!s.motif||s.arpFigure!=ArpCell||s.scene||s.meterNum!=4||s.meterDen!=4
+            ||phraseBars<4||!on[kArp]||!on[kGegenstimme])return false;
+        const auto relative=k-p.phraseStart;const long long window=2LL*meter.len;
+        if(relative>=window)motifMemory.finish();
+        const auto plan=composition::planDialogue(motifMemory,p.phrase-phraseOf(sceneStep),relative,window);
+        if(!plan.reserveArp)return false;
+        if(!plan.answer)return true;
+        const auto chord=chordFor(p,kArp,s);const auto& shape=kShapes[chord.type];
+        const int oct=12*octaveOf(OutArp);
+        const int lo=rangeOn(OutArp)?s.rangeLo[kArp]-oct:60;
+        const int hi=rangeOn(OutArp)?s.rangeHi[kArp]-oct:84;
+        int ladder[128],count=0;
+        for(int pitch=lo;pitch<=hi;++pitch)for(int j=0;j<shape.n;++j)
+            if((pitch%12+12)%12==(s.key+chord.root+shape.iv[j])%12){ladder[count++]=pitch;break;}
+        if(!count)return true; // No harmonic answer possible within the user's range.
+        const int base=composition::adaptMotifPitch(motifMemory.origin-oct,ladder,count);
+        const int notes=plan.answerNotes;
+        for(int i=0;i<notes;++i)
+        {
+            const auto& n=motifMemory.notes[static_cast<size_t>(i)];
+            if(relative!=window+n.at)continue;
+            auto length=std::min<int64_t>(n.length,window-n.at);
+            if(i+1<notes)length=std::min(length,motifMemory.notes[static_cast<size_t>(i+1)].at-n.at);
+            if(length<=0)continue;
+            const int pitch=composition::adaptMotifPitch(base+n.interval,ladder,count);
+            noteOn(OutArp,pitch,n.velocity,k+length,offset,out);
+        }
+        return true;
+    }
+
     void render (long long k, int offset, const Pos& p, bool restart, long long phrase, const Settings& s, EventList& out)
     {
         const Wendung& w = W();
@@ -1780,7 +1813,7 @@ private:
         }
 
         // --- Arp / Figur
-        if (on[kArp])
+        if (on[kArp] && !dialogueArp(k,p,s,offset,out))
         {
             const int fig = chooseArp (s, phrase);
             int rate = s.arpRate == RateQuarter ? 4 : s.arpRate == RateEighth ? 2 : s.arpRate == RateSixteenth ? 1

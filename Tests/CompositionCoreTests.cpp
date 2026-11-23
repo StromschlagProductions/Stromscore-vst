@@ -241,5 +241,11 @@ int main()
         CHECK(length>=1&&variation.notes[static_cast<size_t>(i)].at+length<=32);
         if(i+1<variation.count)CHECK(variation.notes[static_cast<size_t>(i)].at+length<=variation.notes[static_cast<size_t>(i+1)].at);
     }
+    RememberedMotif question;question.observe(60,0,4,0);question.observe(64,8,4,0);question.finish();
+    CHECK(planDialogue(question,0,0,32).reserveArp&&!planDialogue(question,0,0,32).answer);
+    CHECK(planDialogue(question,0,32,32).answer);
+    CHECK(!planDialogue(question,1,32,32).answer);
+    CHECK(planDialogue(question,2,32,32).answer);
+    CHECK(!planDialogue(question,0,64,32).reserveArp);
     std::cout << "Composition core tests passed\n";
 }

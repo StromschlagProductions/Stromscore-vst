@@ -324,3 +324,31 @@ Vergleichsassertionen wurden beibehalten.
 Prüfergebnis: Linux/Xvfb CTest 4/4 einschließlich strengem 40-Takt-Live-/Exportvergleich,
 ASan/UBSan 3/3 und Python-Releaseprüfer 7/7 bestanden. Windows/pluginval und eine
 subjektive Hörabnahme wurden nicht durchgeführt. Kein Push oder Release.
+
+## Erste Frage–Antwort-Koordination
+
+Begrenzter Kontext: Score, Motiv aktiv, explizite Arp-Figur Zelle (ArpCell), Aufbau aus,
+beide Ebenen tatsächlich aktiv, 4/4 und mindestens vier Takte je Phrase. Andere
+Einstellungen behalten ihre bisherigen Verfahren. Die Funktion erfordert keine neue GUI.
+
+`DialoguePlan` reserviert den Arp in den ersten vier Takten. Die Gegenstimme stellt das
+Motiv in den ersten zwei Takten vor. Erst nach diesem Fenster kann der Arp mit den ersten
+maximal drei tatsächlich gespeicherten Tönen antworten, im Fenster der folgenden zwei
+Takte. Die Gegenstimme bleibt dort durch den Motivplan stumm. Ohne vollständige Aufzeichnung
+entsteht keine erfundene Antwort. In den übrigen Takten darf der normale Arp weiterlaufen.
+In den bisherigen Zwischenphrasen ohne Frage wird keine Antwort erzeugt.
+
+Rollen-/Fensterentscheidung liegt im Kern; der MIDI-Adapter übernimmt gespeicherte
+Einsatzabstände und Intervallziele, passt die Töne an aktuelle Akkordtöne und den Arp-Bereich
+an und begrenzt Dauern auf nächsten Einsatz/Fensterende. Ist kein Akkordton im erlaubten
+Bereich vorhanden, bleibt die Antwort aus. Die vorhandene Notenbesitzverwaltung schützt
+auch geteilte MIDI-Kanäle. Der Speicher bleibt das Gedächtnis der Frage, keine Rückkopplung
+der Antwort in die Quelle. Noch keine freie Strategieauswahl oder allgemeine Ebenengrammatik.
+
+Tests prüfen tatsächliche Frage-/Antwort-MIDI-Anschläge, die getrennten Fenster, Tonumfang,
+geteilten Kanal, Blockgrößen, Seek/Loop und Szenenneustart. Der 40-Takt-Live-/Exportvergleich
+enthält einen zusätzlichen Dialogfall. Subjektive musikalische Hörabnahme bleibt offen.
+
+Prüfergebnis: finaler Linux/Xvfb-CTest 4/4, ASan/UBSan 3/3 und Python-Releaseprüfer
+7/7 bestanden. Einschließlich des zusätzlichen Dialogfalls über 40 Takte mit
+Live-/Exportgleichheit. Windows/pluginval und Hörabnahme wurden nicht durchgeführt.

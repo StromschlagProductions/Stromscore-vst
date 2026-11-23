@@ -60,6 +60,16 @@ struct RememberedMotif
     bool recall(int64_t section)const
     {return complete&&section>=introduction+2&&(section-introduction)%2==0;}
 };
+// Role scheduling only; MIDI rendering and catalog rules remain outside this data.
+struct DialoguePlan { bool reserveArp=false, answer=false; int answerNotes=0; int64_t answerBegin=0, answerEnd=0; };
+inline DialoguePlan planDialogue(const RememberedMotif& memory,int64_t section,int64_t relative,int64_t window)
+{
+    DialoguePlan p;p.reserveArp=relative<2*window;p.answerBegin=window;p.answerEnd=2*window;
+    p.answer=memory.complete&&(section==memory.introduction||memory.recall(section))
+        &&relative>=window&&relative<2*window;
+    p.answerNotes=p.answer?std::min(3,memory.count):0;
+    return p;
+}
 inline int adaptMotifPitch(int desired,const int* ladder,int count)
 {
     if(count<=0)return desired;

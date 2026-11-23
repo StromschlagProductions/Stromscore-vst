@@ -1389,5 +1389,33 @@ int main()
         }
         CHECK(changed);
     }
+    // Dialogue uses the actual first question, with disjoint role windows and shared MIDI.
+    {
+        Settings s;s.motif=true;s.y=.7f;s.custom=true;s.customChords[0]={0,Maj7,8};s.arpFigure=ArpCell;
+        s.solo[kArp]=s.solo[kGegenstimme]=true;
+        s.rangeOn[kArp]=s.rangeOn[kGegenstimme]=true;
+        s.rangeLo[kArp]=s.rangeLo[kGegenstimme]=60;s.rangeHi[kArp]=s.rangeHi[kGegenstimme]=83;
+        s.channel[OutArp]=s.channel[OutCounter]=1;
+        auto events=run(s,512,20.);checkBalanced(events);
+        std::vector<std::pair<long long,int>> question,answer;
+        for(auto e:events)if(e.velocity>0)
+        {
+            CHECK(e.note>=60&&e.note<=83);
+            if(e.sample<192000){CHECK(e.out==OutCounter);question.push_back({e.sample,e.note});}
+            if(e.sample>=192000&&e.sample<384000){CHECK(e.out==OutArp);answer.push_back({e.sample-192000,e.note});}
+        }
+        CHECK(question.size()>=3&&answer.size()==3);
+        for(size_t i=0;i<answer.size();++i)CHECK(answer[i]==question[i]);
+        Generator g;EventList list;Transport t;t.playing=true;
+        for(int step=0;step<32;++step){t.ppq=step*.25;list.clear();g.process(t,s,6000,list);}
+        auto answerAt=[&](double ppq){t.ppq=ppq;list.clear();g.process(t,s,6000,list);std::vector<int> pitches;
+            for(int i=0;i<list.size;++i)if(list.events[static_cast<size_t>(i)].velocity&&list.events[static_cast<size_t>(i)].out==OutArp)pitches.push_back(list.events[static_cast<size_t>(i)].note);return pitches;};
+        const auto firstAnswer=answerAt(8);CHECK(!firstAnswer.empty());
+        answerAt(0);CHECK(answerAt(8)==firstAnswer);
+        t.playing=false;answerAt(8);t.playing=true;answerAt(0);CHECK(!g.rememberedMotif().complete);
+
+        const auto large=run(s,8192,20.);CHECK(events.size()==large.size());
+        for(size_t i=0;i<events.size();++i)CHECK(events[i].sample==large[i].sample&&events[i].note==large[i].note&&events[i].velocity==large[i].velocity);
+    }
     return 0;
 }

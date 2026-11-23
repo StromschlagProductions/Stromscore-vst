@@ -746,7 +746,7 @@ int main()
         CHECK (! c.broken && c.ons == c.offs); q.setPlayHead (nullptr);
     }
     // Voice-leading export equals live DAW playback, including channel CCs and held common notes.
-    for(float intensity : {.4f,.7f,.8f})
+    for(float intensity : {.4f,.7f,.8f,.9f})
     {
         StromscoreProcessor q; FakeHost h; q.setPlayHead (&h); q.prepareToPlay (48000, 512);
         setParam (q, "aufbau", 0); setParam (q, "key", 0); setParam (q, "intensitaet", intensity);
@@ -765,6 +765,7 @@ int main()
         for (int i = 2; i <= 5; ++i) setParam (q, ("mute" + std::to_string (i)).c_str(), 1);
         const bool recurrence=intensity>.75f;
         if(recurrence){setParam(q,"mute1",1);setParam(q,"mute5",0);setParam(q,"motiv",1);}
+        if(intensity>.85f){setParam(q,"mute3",0);setParam(q,"arpFigure",stromscore::ArpCell);}
         const int bars=recurrence?40:8;
         using Timed = std::tuple<long long, int, int, int, int>;
         std::vector<Timed> live, exported;
