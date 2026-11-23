@@ -29,6 +29,10 @@ if(BUILD_TESTING)
     target_include_directories(EngineTests PRIVATE Source)
     if(MSVC)
         target_compile_options(EngineTests PRIVATE /utf-8)
+        # The growing single-function regression driver has many bounded EventList/Generator
+        # fixtures. MSVC's 1 MiB default is smaller than Linux's 8 MiB test stack.
+        # This affects only the test executable, never the plugin or its audio thread.
+        target_link_options(EngineTests PRIVATE /STACK:8388608)
     endif()
     add_test(NAME Engine COMMAND EngineTests)
     add_executable(VoiceLeadingTests Tests/VoiceLeadingTests.cpp)
