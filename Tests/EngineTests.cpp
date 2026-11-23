@@ -968,7 +968,7 @@ int main()
         }
     }
 
-    // 45) Szenenmotiv: gleicher Rhythmus in A und A', anderer Wurf, anderes Motiv
+    // 45) Recorded motif returns after a complete intervening phrase.
     {
         auto onsets = [] (int seed, long long fromBar)
         {
@@ -978,7 +978,8 @@ int main()
                 if (x.velocity > 0 && x.sample >= fromBar * 96000 && x.sample < (fromBar + 2) * 96000) o.push_back ({ x.sample - fromBar * 96000, x.note });
             return o;
         };
-        const auto a = onsets (3, 0), a2 = onsets (3, 8);
+        const auto a = onsets (3, 0), a2 = onsets (3, 16);
+        CHECK(onsets(3,8).empty());
         CHECK (a.size() >= 3 && a.size() == a2.size());
         for (size_t i = 0; i < a.size(); ++i) CHECK (a[i].first == a2[i].first);
         bool differs = false;
@@ -1327,6 +1328,41 @@ int main()
         t.playing=false;block(12.5);CHECK(sounding.empty());
         s.seed=93;t.playing=true;block(0);CHECK(g.activeSeed()==93);
         t.playing=false;block(0);CHECK(sounding.empty());
+    }
+    // Actual MIDI attacks, stored identity and recall, not a seed-derived surrogate.
+    {
+        Settings s;s.motif=true;s.y=.7f;s.custom=true;s.customChords[0]={0,Maj7,8};
+        s.solo[kGegenstimme]=true;s.seed=3;
+        auto events=run(s,512,50.);checkBalanced(events);
+        const auto large=run(s,8192,50.);CHECK(events.size()==large.size());
+        for(size_t i=0;i<events.size();++i)CHECK(events[i].sample==large[i].sample&&events[i].note==large[i].note&&events[i].velocity==large[i].velocity);
+        std::vector<std::pair<long long,int>> first,reprise;
+        int gap=0;
+        for(auto e:events)if(e.velocity>0)
+        {
+            if(e.sample<2*96000)first.push_back({e.sample,e.note});
+            if(e.sample>=8*96000&&e.sample<16*96000)++gap;
+            if(e.sample>=16*96000&&e.sample<18*96000)reprise.push_back({e.sample-16*96000,e.note});
+        }
+        CHECK(first.size()>=2&&first==reprise&&gap==0);
+        Generator g;EventList e;Transport t;t.playing=true;
+        for(int tick=0;tick<140;++tick){t.ppq=tick*.25;e.clear();g.process(t,s,6000,e);}
+        const auto memory=g.rememberedMotif();CHECK(memory.complete&&memory.count==static_cast<int>(first.size()));
+        for(int i=0;i<memory.count;++i)CHECK(memory.origin+memory.notes[static_cast<size_t>(i)].interval==first[static_cast<size_t>(i)].second);
+        // Changing variation after capture cannot replace the remembered material.
+        s.variation=16;t.ppq=64;e.clear();g.process(t,s,6000,e);CHECK(g.rememberedMotif().identity==memory.identity);
+        t.ppq=0;e.clear();g.process(t,s,6000,e);CHECK(g.rememberedMotif().identity==memory.identity);
+        t.playing=false;e.clear();g.process(t,s,6000,e);t.playing=true;t.ppq=0;e.clear();g.process(t,s,6000,e);
+        CHECK(!g.rememberedMotif().complete);
+        s.customChords[0].bars=1;
+        std::vector<std::pair<long long,int>> shortA,shortReturn;int shortGap=0;
+        for(const auto& n:run(s,512,8.))if(n.velocity>0)
+        {
+            if(n.sample<96000)shortA.push_back({n.sample,n.note});
+            if(n.sample>=96000&&n.sample<192000)++shortGap;
+            if(n.sample>=192000&&n.sample<288000)shortReturn.push_back({n.sample-192000,n.note});
+        }
+        CHECK(shortA.size()>=2&&shortA==shortReturn&&shortGap==0);
     }
     return 0;
 }

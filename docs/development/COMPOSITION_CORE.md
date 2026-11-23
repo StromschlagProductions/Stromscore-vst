@@ -242,3 +242,58 @@ Python-Releaseprüfer 7/7 bestanden. Seek/Loop wird im eigenen Harmonieablauf oh
 mit Durchgangsdominante sowie am Zeitpunkt innerhalb des Durchgangs geprüft.
 252 temporäre A/B-Renderfälle gegen 4dfb4c3 liefern identische Ereignisprüfsummen.
 Windows/pluginval und Hörabnahme wurden nicht ausgeführt. Keine Veröffentlichung.
+
+## Erste neue Fähigkeit: aufgezeichnete Motivwiederkehr
+
+`RememberedMotif` speichert genau ein tatsächlich ausgegebenes Motiv je Szene,
+maximal fünf Noten. Daten: Anfang relativ zum Phrasenbeginn, Notenlänge, Intervall
+zum ersten physischen MIDI-Ton und ursprüngliche Anschlagabsicht. Eine Inhaltskennung
+wird aus Rhythmus, Dauern und Intervallen gebildet. Sie ist kein Zufallsschlüssel.
+Erst mindestens zwei erfasste Anschläge ergeben ein abgeschlossenes Motiv.
+Die Beobachtung erfolgt nach der Notenausgabe und berücksichtigt nur wirklich erzeugte
+Note-ons des Gegenstimmenausgangs, einschließlich dessen Bereichs-/Oktavabbildung.
+
+Im freien **Score-Modus** verwendet der vorhandene Motivschalter jetzt dieses Verfahren.
+Die Einführung liegt in den ersten zwei Takten einer Phrase, sobald die Gegenstimme
+aktiv ist. Es folgt eine vollständige Phrase ohne Gegenstimmenmotiv und ohne deren
+Ersatzlinie. In der übernächsten Phrase kehrt das gespeicherte Motiv zurück; danach
+wechseln Zwischenphrase und Wiederkehr. Innerhalb der übrigen Takte bleibt die
+Gegenstimme bei aktiviertem Motiv ebenfalls frei. Das ersetzt die bisherige fortlaufende
+A/A'/B/A''-Neuberechnung. Pop-Rock behält vorerst seine Hook-Ausgabe; die Gedächtnisdaten
+im gemeinsamen Kern sind nicht genrespezifisch.
+
+Die Wiederkehr erhält den aufgezeichneten Rhythmus und die Intervallziele. Diese werden
+auf die aktuelle Akkordtonleiter und den zulässigen Bereich abgebildet. Sehr enge Bereiche
+können Intervalle zusammenfallen lassen; die rhythmische Identität bleibt erhalten.
+Weder neue Künstlerregeln noch eine Formgrammatik oder ein neuer Regler wurden ergänzt.
+
+Transportvertrag: Ein vollständiges Szenengedächtnis bleibt bei Seek/Loop erhalten und
+wird nicht aus dem Wurf neu aufgebaut. Die Einführung kann beim Loop ebenfalls aus diesem
+Speicher wiedergegeben werden. Unvollständige Aufzeichnungen werden bei Sprüngen verworfen.
+Stop/Start und ein neuer Szenenbeginn leeren das Gedächtnis. Ein frischer Seek ohne
+vorherige Aufführung kann keine historische Wiederkehr liefern: er darf eine neue
+Einführung erzeugen. Gleichheit gilt bei gleichem Szenengedächtnis und Steuerungsverlauf;
+ein unbekannter vergangener Verlauf wird nicht rekonstruiert. Ein frischer MIDI-Export
+spielt die Szene vollständig von Beginn und erfasst seine Einführung genauso wie live.
+
+Tests vergleichen tatsächliche MIDI-Anschläge der Einführung und der Wiederkehr in
+statischer Harmonik, prüfen eine vollständig anschlagfreie Zwischenphrase, die gespeicherten
+Intervalle gegen die ausgegebenen Noten, Identität trotz Variationsänderung, Seek/Loop,
+Szenenneustart und Blockgrößen. Der Live-/Exportvergleich enthält zusätzlich 24 Takte mit
+aktiver Gegenstimme und Wiederkehr. MIDI-Nachweise ersetzen keine subjektive Hörabnahme
+mit geeigneten Instrumenten.
+
+Nächster möglicher Schritt: eine begrenzte, explizite Wiederkehrvariation, die Motividentität
+und Rhythmusbezug erhält. Diese ist noch nicht implementiert oder beauftragt.
+
+Vor einer erfolgreichen Einführung bleibt außerhalb ihres Zeitfensters die normale
+Gegenstimme verfügbar. So wird ein später Eintritt während des Aufbaus nicht stumm;
+die nächste passende Phrase kann das erste Motiv einführen. Bei sehr kurzen eigenen
+Phrasen wird die Einführung spätestens beim Abschnittswechsel abgeschlossen.
+
+Prüfstand der Motivwiederkehr: Linux/Xvfb CTest 4/4, ASan/UBSan 3/3 und
+Python-Releaseprüfer 7/7 bestanden. Die Motivprüfung umfasst auch eintaktige eigene
+Phrasen und Ereignisgleichheit bei 512/8192 Samples. Im Processor wurde der
+Live-/Exportvergleich zusätzlich über 24 Takte mit aktiver Gegenstimme bestanden.
+README und integrierte Hilfe beschreiben das neue Verhalten des vorhandenen Schalters.
+Windows/pluginval und subjektive Hörabnahme wurden nicht ausgeführt.

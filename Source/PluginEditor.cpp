@@ -812,7 +812,7 @@ static juce::AttributedString buildHelp (juce::Colour text, juce::Colour accent,
 
     head ("Gegenstimme");
     body ("Die fünfte Ebene ist die einzige lange Linie, gedacht für Horn, Cello, Oboe oder ein Lead-Instrument. Sie liegt in der Mitte, zwischen Tupfer und Stich, damit sich nichts überschneidet. Sie geht schrittweise auf Akkordtönen von Akkord zu Akkord und bevorzugt Terz und Septime. In dunkler Färbung neigt sie nach unten, in heller nach oben. Bei wenig Intensität wechselt sie nur mit den Akkorden, bei mehr alle zwei Takte, aufgewühlt in Halben. Bei Unruhe kommt sie mit einem Vorhalt von oben in den Akkord. Mit LEGATO überlappen die Töne um eine Sechzehntelnote, damit Legato-Instrumente sie gebunden spielen; ohne setzen sie kurz vor dem nächsten Ton ab. Sie ist keine fertige Melodie, sondern ein roter Faden für deine eigene.");
-    body ("Mit MOTIV spielt die Gegenstimme am Anfang jeder Phrase eine kurze Figur aus drei bis fünf Tönen, die ersten zwei Takte lang. Die Figur ist gewürfelt (NEU WÜRFELN bei SZENE) und kehrt wieder, im Wechsel der Phrasen abgewandelt: wie zuvor, einen Akkordton höher, mit umgekehrter Richtung, mit höherem Schluss. Die Töne sind Stufen auf den Akkordtönen, so passt sich die Figur jeder Harmonie an. Bei wenig Intensität fallen die letzten Töne weg. Danach geht die ruhige Linie weiter. Im Pop-Rock spielt statt des Motivs die Hook-Linie.");
+    body ("Mit MOTIV merkt sich die Gegenstimme im Score-Modus eine tatsächlich gespielte kurze Figur. Nach einer ganzen Zwischenphrase ohne Gegenstimme kehrt diese Figur wieder; danach wechseln Pause und Wiederkehr. Rhythmus und Intervallkontur stammen aus dem gespeicherten Motiv, die Tonhöhen passen sich Akkord und Tonumfang an. Ein neuer Szenenstart leert das Gedächtnis. Ohne bekannte Vorgeschichte beginnt ein Positionssprung gegebenenfalls eine neue Einführung. Im Pop-Rock bleibt die Hook-Linie erhalten. Aus: die normale Gegenstimme.");
 
     head ("Durchgänge");
     body ("Mit DURCHGÄNGE erklingt bei viel Intensität (ab 60 %) auf dem letzten Schlag eines Akkords kurz die Dominante des nächsten Akkords. Das zieht in den Wechsel hinein. Es gilt für Wendungen und eigene Folge und lässt sich jederzeit abschalten.");
@@ -1112,7 +1112,7 @@ StromscoreEditor::StromscoreEditor (StromscoreProcessor& p) : AudioProcessorEdit
     layers[4].motifButton.setVisible (true);
     layers[4].motifButton.setClickingTogglesState (true);
     layers[4].motifButton.setButtonText ("Motiv");
-    layers[4].motifButton.setTooltip (u8 ("Motiv: am Anfang jeder Phrase spielt die Gegenstimme eine kurze Figur aus drei bis fünf Tönen, gewürfelt mit „Neu würfeln“. Sie kehrt wieder und wird abgewandelt: wie zuvor, einen Akkordton höher, umgekehrt, mit höherem Schluss. Die Töne folgen der Harmonie. Bei wenig Intensität fallen die letzten Töne weg. Aus: nur die ruhige Linie."));
+    layers[4].motifButton.setTooltip (u8 ("Score-Motiv: gespielte Figur merken, eine ganze Phrase pausieren und anschließend wieder aufnehmen. Rhythmus bleibt, Töne folgen Harmonie und Umfang. Neuer Szenenstart leert das Gedächtnis. Pop-Rock: Hook-Linie."));
     motifAttachment = std::make_unique<APVTS::ButtonAttachment> (processor.apvts, "motiv", layers[4].motifButton);
 
     // Szene: Aufbau, Einstieg, Wurf, Haerte, Laenge, Ende

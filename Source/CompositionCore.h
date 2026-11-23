@@ -18,6 +18,40 @@ inline uint32_t randomKey (uint32_t seed, uint32_t configuration, uint32_t revis
     return h;
 }
 struct Range { int low = 0, high = 127; };
+// One actually emitted motif per scene. No RNG reconstruction or dynamic storage.
+struct RememberedMotif
+{
+    struct Note { int64_t at=0, length=1; int interval=0, velocity=64; };
+    std::array<Note,5> notes {};
+    int count=0, origin=0;
+    uint64_t identity=0;
+    int64_t introduction=-1;
+    bool complete=false;
+    void clear(){*this={};}
+    void observe(int pitch,int64_t at,int64_t length,int64_t section,int velocity=64)
+    {
+        if(complete||count==5)return;
+        if(count==0){origin=pitch;introduction=section;}
+        notes[static_cast<size_t>(count++)]={at,length,pitch-origin,velocity};
+    }
+    void finish()
+    {
+        if(complete||count<2)return;
+        identity=1469598103934665603ull;
+        for(int i=0;i<count;++i)for(auto value:{notes[static_cast<size_t>(i)].at,notes[static_cast<size_t>(i)].length,static_cast<int64_t>(notes[static_cast<size_t>(i)].interval)})
+        {identity^=static_cast<uint64_t>(value);identity*=1099511628211ull;}
+        complete=true;
+    }
+    bool recall(int64_t section)const
+    {return complete&&section>=introduction+2&&(section-introduction)%2==0;}
+};
+inline int adaptMotifPitch(int desired,const int* ladder,int count)
+{
+    if(count<=0)return desired;
+    int best=ladder[0];
+    for(int i=1;i<count;++i)if(std::abs(ladder[i]-desired)<std::abs(best-desired))best=ladder[i];
+    return best;
+}
 // Musical transition data; neither MIDI channels nor concrete voice assignments.
 enum class TransitionKind { direct, passingDominant };
 struct ResolutionIntent

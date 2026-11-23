@@ -376,7 +376,7 @@ struct Meter
 class Generator
 {
 public:
-    void reset() { style = -1; csNote = -1; csPendingAt = -1; chaseStep = -1; lastGenre = -1; resetCc(); resetVoicing(); numActive = 0; running = false; lastPpqEnd = 0.0; phraseIndex = -1; current = -1; wendungStart = 0; still = false; chordBase = 0; drivePrev = driveSeen = driveLatched = driveArrivedNow = false; driveTrajectory = false; driveProgressNow = 0; driveGenerationSeen = 0; curRoot = 0; curType = Min; curChord = -1;
+    void reset() { motifMemory.clear(); style = -1; csNote = -1; csPendingAt = -1; chaseStep = -1; lastGenre = -1; resetCc(); resetVoicing(); numActive = 0; running = false; lastPpqEnd = 0.0; phraseIndex = -1; current = -1; wendungStart = 0; still = false; chordBase = 0; drivePrev = driveSeen = driveLatched = driveArrivedNow = false; driveTrajectory = false; driveProgressNow = 0; driveGenerationSeen = 0; curRoot = 0; curType = Min; curChord = -1;
                    sceneStep = 0; manualEndStep = -1; manualFinished = manualHitSent = false; endWasRequested = false; sceneSeed = 0; autoSeed = -1; sceneBarNow = -1; sceneEnded = false; for (int l = 0; l < kNumLayers; ++l) { on[l] = prevOn[l] = hOn[l] = false; } }
 
     uint32_t unavailablePadPitchClasses() const { return unavailablePad; }
@@ -386,6 +386,7 @@ public:
     int sceneEntry() const { return entryInUse; }             // aufgeloester Einstieg
     bool sceneOver() const { return sceneEnded; }
     int activeSeed() const { return sceneSeed; }
+    const composition::RememberedMotif& rememberedMotif() const { return motifMemory; }
     int plannedHarmonySlots() const { return planValid ? harmonicPlan.count : 0; }
     bool driveArrived() const { return driveArrivedNow; }     // die Fahrt ist bei B angekommen (das Plugin macht B dann zu A)
     uint32_t driveGenerationNow() const { return driveGenerationSeen; }
@@ -603,13 +604,14 @@ public:
         if (! running || jumped)
         {
             allNotesOff (out, 0);
+            if(!motifMemory.complete)motifMemory.clear();
             resetVoicing();
             driveTrajectory = false; // A seek reconstructs the curve at the destination, without old segment history.
             // Szenenstart: Wiedergabebeginn, auf den Taktanfang gerundet. Ein Sprung nach vorn (oder ein Loop, der nicht
             // vor den Start zurueckspringt) laeuft in derselben Szene weiter, ein Sprung davor beginnt eine neue.
             const long long k0 = (long long) std::floor (t.ppq / kStep + 1e-9);
             if (! running) { manualEndStep = -1; manualFinished = manualHitSent = false; endWasRequested = false; }
-            if (! running || k0 < sceneStep) { sceneStep = floorDiv (k0, meter.len) * meter.len; driveLatched = false; drivePrev = false; driveSeen = false; }
+            if (! running || k0 < sceneStep) { motifMemory.clear(); sceneStep = floorDiv (k0, meter.len) * meter.len; driveLatched = false; drivePrev = false; driveSeen = false; }
             running = true;
             phraseIndex = -1;
             csNote = -1; csPendingAt = -1; resetCc();
@@ -887,9 +889,7 @@ private:
     }
 
     // ---------------------------------------------------------------- Szenenmotiv
-    // 3 bis 5 Toene aus dem Wurf, am Anfang jeder Phrase in der Gegenstimme (die ersten zwei Takte). Die Toene sind
-    // Stufen auf der Leiter der Akkordtoene, so passt sich das Motiv jeder Harmonie an. Im Wechsel der Phrasen:
-    // A, A' (einen Akkordton hoeher), B (Kontur umgekehrt), A'' (Schluss hoeher). Wenig Intensitaet: letzte Toene fallen weg.
+    // Candidate for the first actual introduction. Later returns use recorded MIDI material.
     struct Motif { int n = 0; int on[5] {}; int deg[5] {}; };
     Motif motifFor (const Settings& s, long long phrase) const
     {
@@ -939,7 +939,31 @@ private:
     {
         const long long span = std::min ((long long) 2 * meter.len, p.phraseEnd - p.phraseStart);
         const long long rel = k - p.phraseStart;
-        if (rel < 0 || rel >= span) return false;
+        const long long section=p.phrase-phraseOf(sceneStep);
+        if(rel>=span||(motifMemory.count&&section!=motifMemory.introduction))motifMemory.finish();
+        // A complete intervening phrase contains no counter motif or fallback line.
+        if(motifMemory.complete)
+        {
+            if((section!=motifMemory.introduction&&!motifMemory.recall(section))||rel<0||rel>=span)return true;
+            const auto& memory=motifMemory;
+            int ladder[16];const int nl=counterLadder(chordFor(p,kGegenstimme,s),s,ladder);
+            // Retain original contour/intervals; nearest available chord tones adapt harmony.
+            const int base=composition::adaptMotifPitch(memory.origin-12*octaveOf(OutCounter),ladder,nl);
+            for(int i=0;i<memory.count;++i)
+            {
+                const auto& n=memory.notes[static_cast<size_t>(i)];if(n.at!=rel)continue;
+                const int note=composition::adaptMotifPitch(base+n.interval,ladder,nl);
+                noteOn(OutCounter,note,n.velocity,
+                    p.phraseStart+n.at+n.length,offset,out);
+                releaseOthers(OutCounter,note,offset,out);csNote=note;csPendingAt=-1;
+            }
+            return true;
+        }
+        // Only an introduction can populate memory. A fresh seek into a later section
+        // cannot fabricate a performance that never happened.
+        if(rel<0||rel>=span)return false; // Before an introduction, retain the ordinary line.
+        if(motifMemory.count&&motifMemory.introduction!=section)motifMemory.clear();
+
         const Motif mo = motifFor (s, p.phrase);
         const float yc = layerY (s, kGegenstimme);
         const int count = yc >= 0.55f ? mo.n : yc >= 0.3f ? std::max (2, mo.n - 1) : std::max (2, mo.n - 2);
@@ -947,13 +971,21 @@ private:
         {
             const long long at = (long long) mo.on[i] * meter.len / 16;
             if (at != rel) continue;
-            long long end = i + 1 < count ? (long long) mo.on[i + 1] * meter.len / 16 : std::max (span, p.chordEnd - p.phraseStart);
+            long long end = i + 1 < count ? (long long) mo.on[i + 1] * meter.len / 16 : span;
             end = std::min (end, p.phraseEnd - p.phraseStart);
             const Chord c = chordFor (p, kGegenstimme, s);
             int ladder[16];
             const int nl = counterLadder (c, s, ladder);
             const int note = ladder[std::clamp (mo.deg[i], 0, nl - 1)];
-            noteOn (OutCounter, note, (int) (56 + 35 * yc) + (i == 0 ? 6 : 0), p.phraseStart + end + tail (end - at), offset, out);
+            const long long length=std::min(span,end+tail(end-at))-at;
+            const int before=out.size;
+            noteOn (OutCounter, note, (int) (56 + 35 * yc) + (i == 0 ? 6 : 0), p.phraseStart + at + length, offset, out);
+            for(int e=before;e<out.size;++e)
+            {
+                const auto& emitted=out.events[static_cast<size_t>(e)];
+                if(emitted.out==OutCounter&&emitted.type==0&&emitted.velocity>0)
+                    motifMemory.observe(emitted.note,at,length,section,static_cast<int>(56+35*yc)+(i==0?6:0));
+            }
             releaseOthers (OutCounter, note, offset, out);
             csNote = note; csPendingAt = -1;
         }
@@ -2034,6 +2066,7 @@ private:
         csNote = target;
     }
 
+    composition::RememberedMotif motifMemory;
     composition::HarmonicPlan harmonicPlan;
     uint64_t planKey = 0; bool planValid = false;
     uint32_t unavailablePad = 0;

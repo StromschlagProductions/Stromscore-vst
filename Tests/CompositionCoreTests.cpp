@@ -222,5 +222,10 @@ int main()
             CHECK(dominantResolution(root,true,root,key).descendingSeventh==-1);
         }
     }
+    RememberedMotif memory;
+    CHECK(!memory.recall(2));memory.observe(60,0,4,0);memory.observe(64,6,8,0);memory.finish();
+    CHECK(memory.complete&&memory.notes[1].interval==4&&!memory.recall(1)&&memory.recall(2));
+    const auto id=memory.identity;memory.observe(90,4,1,3);memory.finish();CHECK(memory.identity==id);
+    memory.clear();CHECK(!memory.complete&&!memory.recall(2));
     std::cout << "Composition core tests passed\n";
 }
