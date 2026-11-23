@@ -84,6 +84,21 @@ if(BUILD_TESTING)
     file(MAKE_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/voice-leading-comparison")
     configure_file(docs/development/VOICE_LEADING.md "${CMAKE_CURRENT_BINARY_DIR}/voice-leading-comparison/README.md" COPYONLY)
     add_test(NAME VoiceLeading COMMAND VoiceLeadingTests "${CMAKE_CURRENT_BINARY_DIR}/voice-leading-comparison")
+    add_executable(DensityProbe tools/density_probe.cpp)
+    target_include_directories(DensityProbe PRIVATE Source)
+    if(MSVC)
+        target_compile_options(DensityProbe PRIVATE /utf-8)
+    endif()
+    if(Python3_Interpreter_FOUND AND GIT_FOUND AND NOT MSVC)
+        execute_process(COMMAND ${GIT_EXECUTABLE} cat-file -e 2f4dd47:Source/ScoreEngine.h
+            WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} RESULT_VARIABLE DENSITY_REFERENCE_STATUS ERROR_QUIET)
+        if(DENSITY_REFERENCE_STATUS EQUAL 0)
+            add_test(NAME DensityComparison COMMAND ${Python3_EXECUTABLE}
+                ${CMAKE_CURRENT_SOURCE_DIR}/scripts/compare_density.py
+                --probe $<TARGET_FILE:DensityProbe> --compiler ${CMAKE_CXX_COMPILER}
+                --output ${CMAKE_CURRENT_BINARY_DIR}/density-comparison)
+        endif()
+    endif()
     add_executable(AccompanimentProbe tools/accompaniment_probe.cpp)
     target_include_directories(AccompanimentProbe PRIVATE Source)
     if(MSVC)

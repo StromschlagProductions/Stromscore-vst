@@ -1025,7 +1025,10 @@ private:
         const long long span=std::min(2LL*meter.len,p.phraseEnd-p.phraseStart);
         const auto yc=layerY(s,kOutputLayer[output]);
         const Motif mo=motifFor(s,p.phrase);
-        const int count=memory?memory->count:yc>=.55f?mo.n:yc>=.3f?std::max(2,mo.n-1):std::max(2,mo.n-2);
+        // Preserve the existing introduced material (tone count/rhythm), independently of restored expression.
+        const float materialBase=(dens<.999f||yAdd>.001f)?std::clamp(curY*dens+yAdd,0.f,1.f):curY;
+        const float materialY=std::clamp(materialBase+s.layerIntensity[kOutputLayer[output]],0.f,1.f);
+        const int count=memory?memory->count:materialY>=.55f?mo.n:materialY>=.3f?std::max(2,mo.n-1):std::max(2,mo.n-2);
         if(i>=count)return n;
         n.at=memory?memory->notes[static_cast<size_t>(i)].at:static_cast<long long>(mo.on[i])*meter.len/16;
         if(n.at<0||n.at>=span)return n;
@@ -1769,11 +1772,11 @@ private:
             }
             return;
         }
-        // Dichte: im Aufbau duenner, zum Ende ausklingend duenner oder offen dichter (Schwellen bleiben beim Feld)
-        if (dens < 0.999f || yAdd > 0.001f)
+        // Density is a separate optional-event mask. EndOpen's explicit energy rise is retained.
+        if (yAdd > 0.001f)
         {
             Settings sb = s;
-            sb.y = std::clamp (s.y * dens + yAdd, 0.0f, 1.0f);
+            sb.y = std::clamp (s.y + yAdd, 0.0f, 1.0f);
             const Settings* saved = cur;
             cur = &sb;
             render (k, offset, p, restart, phrase, sb, out);
@@ -1896,6 +1899,12 @@ private:
         return true;
     }
 
+    bool densityAllows(const Pos& p)const
+    {
+        int group=0;for(int i=1;i<meter.numGroups;++i)if(p.pos>=meter.groupStart[i])group=i;
+        return composition::EventDensity{dens}.allows(group,meter.numGroups);
+    }
+
     void render (long long k, int offset, const Pos& p, bool restart, long long phrase, const Settings& s, EventList& out)
     {
         const Wendung& w = W();
@@ -1924,18 +1933,20 @@ private:
         }
 
         // Akzente: Tupfer und Stich, bei Unruhe der fremde Ton in der Mitte des Akkords; ganz oben in der Unruhe der Riss
-        accents (k, p, s, offset, out);
-        riss (k, p, s, offset, out);
+        const bool optional=densityAllows(p);
+        // Structural cues and complete thematic/answer figures bypass the density mask.
+        if(optional||prepStich||akzentForced)accents(k,p,s,offset,out);
+        if(optional)riss(k,p,s,offset,out);
 
         // --- Flaeche: Schlaege, Puls oder Staccato
         const int pad = choosePad (s);
-        if (pad == PadStabs && p.pos % 4 == 2)
+        if (optional && pad == PadStabs && p.pos % 4 == 2)
             padChord (p, s, OutPadShort, offset, k + 1, (int) (55 + 40 * yPad) + jitter (k, kFlaeche, 4), out);
-        else if (pad == PadPulse && beat)
+        else if (optional && pad == PadPulse && beat)
             padChord (p, s, OutPadShort, offset, k + 3, (int) (50 + 40 * yPad) + (group ? 8 : 0), out);
-        else if (pad == PadStaccato && beat)
+        else if (optional && pad == PadStaccato && beat)
             padChord (p, s, OutPadShort, offset, k + 1, (int) (48 + 40 * yPad) + (group ? 6 : 0), out);
-        else if (pad == PadGated && p.pos % 2 == 0)                 // gehackte Achtel wie ein Gate
+        else if (optional && pad == PadGated && p.pos % 2 == 0)                 // gehackte Achtel wie ein Gate
             padChord (p, s, OutPadShort, offset, k + 1, (int) (46 + 40 * yPad) + (group ? 10 : 0), out);
 
         // --- Bass
@@ -1957,7 +1968,7 @@ private:
                 const int target = nextBassPlacement (p, s);
                 root = target - 1; // preserve the chromatic approach pitch class; sounding() applies the user range
             }
-            switch (bassRest ? -1 : pattern)   // Vorbereiten: in der zweiten Takthaelfte schweigt der Bass
+            switch (bassRest || (!optional && !chordStart) ? -1 : pattern)   // Vorbereiten: in der zweiten Takthaelfte schweigt der Bass
             {
                 case kPulseTick:   if (beat) noteOn (bo, root, vel - (group ? 0 : 8), k + 1, offset, out); break;   // Ticken in Vierteln
                 case BassHalf:     if (p.pos % 8 == 0 || approach) noteOn (bo, root, vel, k + (approach ? 2 : 7), offset, out); break;
@@ -2044,7 +2055,7 @@ private:
         }
 
         // --- Arp / Figur
-        if (on[kArp] && !dialogueArp(k,p,s,offset,out) && !motifWindow(p,s).contains(k))
+        if (on[kArp] && !dialogueArp(k,p,s,offset,out) && !motifWindow(p,s).contains(k) && (optional||chordStart))
         {
             const int fig = chooseArp (s, phrase);
             int rate = s.arpRate == RateQuarter ? 4 : s.arpRate == RateEighth ? 2 : s.arpRate == RateSixteenth ? 1

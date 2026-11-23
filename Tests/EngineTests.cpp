@@ -1637,5 +1637,23 @@ int main()
         for(int i=0;i<events.size;++i){const auto& e=events.events[static_cast<size_t>(i)];arp|=e.out==OutArp&&e.velocity>0;}
         CHECK(arp);
     }
+    // Density and expression are independent, also without Git/reference tooling.
+    for(float intensity:{.3f,.9f})for(int profile=0;profile<3;++profile)
+    {
+        Settings thin;thin.y=intensity;thin.profile=static_cast<composition::ProfileId>(profile);
+        thin.custom=true;thin.customChords[0]={0,Maj7,8};thin.solo[kBass]=true;
+        thin.bassPattern=BassPulse;thin.scene=true;thin.entry=EntryPad;thin.buildBars=8;
+        auto full=thin;full.scene=false;
+        const auto sparse=run(thin,512,2.),dense=run(full,512,2.);
+        int sparseOns=0,denseOns=0;
+        for(const auto& e:dense)denseOns+=e.velocity>0;
+        for(const auto& e:sparse)
+        {
+            sparseOns+=e.velocity>0;bool found=false;
+            for(const auto& d:dense)found|=e.sample==d.sample&&e.out==d.out&&e.note==d.note&&e.velocity==d.velocity;
+            CHECK(found); // Exact surviving velocity, pitch and on/off timing at both energy levels.
+        }
+        CHECK(sparseOns==8&&denseOns==16);checkBalanced(sparse);
+    }
     return 0;
 }

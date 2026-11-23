@@ -306,5 +306,19 @@ int main()
     CHECK(planForeground(true,tracks[1]).foreground);
     CHECK(!planForeground(false,tracks[1]).foreground);
     CHECK(!planForeground(true,longPatch).foreground);
+    // Nested metrical masks preserve strong groups and never introduce random state.
+    for(int groups:{1,3,4,7})
+    {
+        int previous=0;
+        for(float amount:{0.f,.1f,.25f,.45f,.75f,1.f})
+        {
+            EventDensity density{amount};int count=0;
+            for(int g=0;g<groups;++g)count+=density.allows(g,groups);
+            CHECK(count>=previous);previous=count;
+            CHECK(density.allows(0,groups)==(amount>0));
+        }
+        CHECK(previous==groups);
+    }
+    CHECK((EventDensity{.45f}.allows(2,4)&&!EventDensity{.45f}.allows(1,4)));
     std::cout << "Composition core tests passed\n";
 }

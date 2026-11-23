@@ -223,6 +223,19 @@ inline DialoguePlan planDialogue(const MotifUse& use,const MotifCatalog& catalog
     p.answerNotes=p.answer?std::min(3,memory.count):0;
     return p;
 }
+// Density removes optional metrical groups, never changes expression or pitch material.
+struct EventDensity
+{
+    float amount=1.f;
+    bool allows(int group,int groups)const
+    {
+        if(groups<1||group<0||group>=groups)return false;
+        const int keep=std::clamp(static_cast<int>(std::ceil(std::clamp(amount,0.f,1.f)*groups)),0,groups);
+        // In 4/4: beats 1,3,2,4. Nested masks, no RNG, first group retained at any positive density.
+        const int rank=group%2==0?group/2:(groups+1)/2+group/2;
+        return rank<keep;
+    }
+};
 // A bounded role-plan window, independent of MIDI channels and arpeggio figures.
 struct MotifWindow
 {
