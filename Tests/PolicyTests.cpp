@@ -2,6 +2,7 @@
 #include "ScoreEngine.h"
 #include <vector>
 #include <tuple>
+#include <string>
 using namespace stromscore;
 using Notes=std::vector<std::tuple<long long,int,int,int,int,int>>;
 static Notes render(Settings s)
@@ -21,6 +22,14 @@ static int ons(const Notes& notes,int output)
 int main()
 {
     using namespace composition;
+    CHECK(compositionProfiles.size()==3);
+    CHECK(findProfile(ProfileId::neutral)&&std::string(findProfile(ProfileId::neutral)->name)=="Neutral");
+    CHECK(findProfile(ProfileId::johnBarry)&&std::string(findProfile(ProfileId::johnBarry)->name)=="John Barry");
+    CHECK(findProfile(ProfileId::bernardHerrmann)&&std::string(findProfile(ProfileId::bernardHerrmann)->name)=="Bernard Herrmann");
+    CHECK(policyForProfile(ProfileId::neutral)==&neutralFreePolicy);
+    CHECK(!policyForProfile(ProfileId::johnBarry)&&!policyForProfile(ProfileId::bernardHerrmann));
+    CHECK(!findProfile(static_cast<ProfileId>(99))&&!policyForProfile(static_cast<ProfileId>(99)));
+
     TexturePolicy p;CHECK(valid(p));CHECK(autoArpeggioTicks(p,0)==4);
     CHECK(autoArpeggioTicks(p,std::nextafter(.15f,0.f))==4&&autoArpeggioTicks(p,.15f)==2);
     CHECK(autoArpeggioTicks(p,std::nextafter(.5f,0.f))==2&&autoArpeggioTicks(p,.5f)==1);
@@ -35,7 +44,7 @@ int main()
     for(int genre:{GenreScore,GenrePopRock})
     {
         Settings s;s.genre=genre;s.solo[kArp]=true;s.y=.6f;s.arpFigure=ArpUp;
-        auto neutral=render(s);s.policy=neutralFreePolicy;CHECK(render(s)==neutral);
+        auto neutral=render(s);s.policy=*policyForProfile(ProfileId::neutral);CHECK(render(s)==neutral);
         s.policy.texture.arpeggio={.7f,.8f};CHECK(ons(neutral,OutArp)==4*ons(render(s),OutArp));
         for(int rate:{RateQuarter,RateEighth,RateSixteenth})
         {s.arpRate=rate;auto slow=render(s);s.policy={};CHECK(render(s)==slow);s.policy.texture.arpeggio={.7f,.8f};}

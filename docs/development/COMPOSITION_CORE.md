@@ -707,3 +707,63 @@ Abschließender Prüfstand: Linux/Xvfb-CTest 5/5 (einschließlich Processor-/Liv
 ASan/UBSan 4/4 und Python-Paketprüfer 7/7 bestanden. Der Mehrdateien-Build prüft auch die
 C++17-inline-Verknüpfung der neutralen Anzeigeprojektion. Windows/pluginval wurde für diesen
 lokalen Schritt nicht erneut ausgeführt. Keine GUI-Änderung, kein Push, kein Release.
+
+## Stabile Wendungs- und vorbereitete Profilidentitäten
+
+`WendungId.h` gibt jeder der 84 vorhandenen Wendungen einen explizit vergebenen,
+benannten `WendungId`-Enumwert. Score verwendet 1001–1048, Pop/Rock 2001–2036;
+0 ist ungültig, 65535 bezeichnet eine eigene Folge. Diese Werte sind dauerhafte Identitäten,
+keine zur Laufzeit aus Tabellenpositionen berechneten Nummern. Beim Umordnen/Umbenennen
+bleibt die ID beim musikalischen Material; entfernte IDs werden nicht wiedervergeben.
+Jeder Katalogeintrag trägt seine ID selbst. `findWendung` und `wendungIndex` liefern bei
+unbekannten Identitäten keinen fremden Ersatz. Kataloginhalte und Reihenfolge bleiben erhalten.
+
+Zwei positionsabhängige musikalische Sonderfälle wurden überführt: Die geschützte
+Innenlinie von Drahtseil verweist auf `WendungId::popDrahtseil`, die neun Pop-Studien-Hooks
+werden mit `popHookPattern(WendungId)` ausdrücklich ihren bisherigen Rhythmus-/Konturzeilen
+zugeordnet. Die Zahlen innerhalb dieser Hookmuster sind weiterhin Figuren-/Notenpositionen,
+keine Katalogpositionen. Laufzeit-/Anzeigeindizes für Auswahl, Editor und Wendungsinfos
+bleiben bestehen; sie sind keine neuen stabilen Identitäten und wurden nicht umgeordnet.
+
+`CompositionPolicy.h` ergänzt drei explizite `ProfileId`s: Neutral, John Barry und Bernard
+Herrmann. `CompositionProfile` enthält Identität, Anzeigename und optional eine gemeinsame
+`FreeCompositionPolicy`. Nur Neutral besitzt eine spezifizierte Policy. Die Engine initialisiert
+`Settings::policy` jetzt über `policyForProfile(ProfileId::neutral)` und verwendet damit
+weiterhin die bereits angeschlossene neutrale TexturePolicy. Die beiden Künstleridentitäten
+sind vorbereitete, noch nicht musikalisch spezifizierte Einträge: `policyForProfile` liefert
+für sie null, statt neutrales Verhalten als fertigen Künstlerstil auszugeben. Kein GUI-/State-
+Parameter, keine Gewichtungen, keine zweite Engine, keine Künstlerzuordnung zu Wendungen.
+
+Das vollständige Inventar liegt in `WENDUNGEN_INVENTAR.json` und `WENDUNGEN_INVENTAR.md`
+in diesem Verzeichnis. `tools/wendung_inventory.cpp` exportiert die tatsächlichen kompilierten
+Katalog-/Akkorddaten einschließlich vorhandener Beschreibungstexte. Danach erzeugt
+`scripts/build_wendung_inventory.py --exporter <WendungInventory-Binary>` beide Ansichten;
+`--check` prüft bestehende Dateien ohne Schreibzugriff und läuft als CTest, wenn Python
+vorhanden ist. Das Exportprogramm wird mit BUILD_TESTING gebaut, nicht als Pluginbestandteil.
+
+Das Inventar enthält IDs, Originalnamen, Genre und ursprüngliche Position, relative Grund-
+und optionale Basstöne, Akkordtypen/Intervalle, C-Beispiele, Dauern und XYZ. Harmonischer
+Rhythmus trennt Slotanzahl/-dauer von echten Wechseln einschließlich separater zyklischer
+Rückkehrstatistik. Impliziter und expliziter gleicher Basston gelten dabei als gleich.
+Grundtonmerkmale werden ausschließlich aus Tonklassenabständen abgeleitet; das ist keine
+Behauptung über gespielte Register, Stimmführung oder künstlerische Herkunft. Die letzte
+Bewegung beschreibt die zyklische Rückkehr. Vorhandene Stilhinweise werden ausdrücklich
+als unbestätigt exportiert, bestätigte Profilzuordnungen bleiben leer. Es wurden keine neuen
+Wendungen oder Akkordtypen hinzugefügt.
+
+Tests sichern alle 84 ID/Name-Verbindungen, Eindeutigkeit, Lookup, Genrezuordnung,
+Sonderfall-Zuordnung auch bei anderen Tabellenpositionen und die neutrale Profilauflösung.
+Ein separater Quellvergleich bestätigt beide Kataloge nach Entfernung der neuen ID-Felder
+als bytegenau gleich zum Stand 22ccbe7. Temporäre 504 A/B-Vergleiche zu je 80 Sekunden
+gegen 22ccbe7 liefern identische vollständige MIDI-Ereignisströme (beide Genres, 84 Wendungen,
+sechs Szenarien mit manuellen Einstellungen, Szenen-/Motiv-/Antwortkontexten und Transport).
+SHA-256: 58e31798633b28f89313b2bd874e233f0fa54462f52357cc28946226c58cae71.
+Referenzdateien bleiben im temporären Prüfverzeichnis, keine alte Produktionsengine ergänzt.
+
+Abschließender Prüfstand dieses Schritts: Linux/Xvfb-CTest 7/7, ASan/UBSan 6/6 und
+Python-Paketprüfer 7/7 bestanden. Inventaransichten und alle 84 festen numerischen ID/Name-
+Verbindungen sind automatisiert geprüft; neutrale Profilauflösung, bestehende Transport-
+und Live-/Exporttests bestehen unverändert. Windows/pluginval wurde nicht neu ausgeführt.
+Keine GUI-Änderung, kein Push, kein Release. Musikalische Unterschiede bleiben bewusst
+unimplementiert; als nächste kleine Schritte sind nach fachlicher Freigabe ID-basierte
+Wendungspräferenzen und unterschiedliche Daten der vorhandenen TexturePolicy möglich.

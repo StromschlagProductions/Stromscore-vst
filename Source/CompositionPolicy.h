@@ -22,6 +22,26 @@ struct TexturePolicy
 };
 struct FreeCompositionPolicy { TexturePolicy texture; };
 inline constexpr FreeCompositionPolicy neutralFreePolicy {};
+// Identity preparation only: research-dependent artist rules and weights are intentionally absent.
+enum class ProfileId { neutral=0, johnBarry=1, bernardHerrmann=2 };
+struct CompositionProfile
+{
+    ProfileId id;
+    const char* name;
+    const FreeCompositionPolicy* policy; // null means musically unspecified, not a neutral artist imitation.
+};
+inline constexpr std::array<CompositionProfile,3> compositionProfiles {{
+    {ProfileId::neutral,"Neutral",&neutralFreePolicy},
+    {ProfileId::johnBarry,"John Barry",nullptr},
+    {ProfileId::bernardHerrmann,"Bernard Herrmann",nullptr}
+}};
+inline constexpr const CompositionProfile* findProfile(ProfileId id)
+{
+    for(const auto& p:compositionProfiles)if(p.id==id)return &p;
+    return nullptr;
+}
+inline constexpr const FreeCompositionPolicy* policyForProfile(ProfileId id)
+{const auto* p=findProfile(id);return p?p->policy:nullptr;}
 inline bool valid(const TexturePolicy& p)
 {
     auto unit=[](float v){return std::isfinite(v)&&v>=0.f&&v<=1.f;};

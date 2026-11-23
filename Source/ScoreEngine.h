@@ -11,6 +11,7 @@
 #include <cmath>
 #include <cstdint>
 #include "CompositionCore.h"
+#include "WendungId.h"
 #include "DrivePath.h"
 
 namespace stromscore
@@ -101,109 +102,110 @@ struct Wendung
     float x, y, z;              // Platz im Stimmungsfeld
     int n; Chord ch[kMaxChords];
     int arp[2], bass[2], pad;   // bevorzugte Muster (Auto waehlt per VARIATION eines der beiden)
+    WendungId id=WendungId::custom;
 };
 
 // Grundlage: Stilmittel-Katalog. Wurzeln in Halbtoenen ueber dem Grundton, Laengen in Takten (Summe je Wendung = 8).
 constexpr Wendung kWendungen[] = {
     // dunkel und ruhig: Lauern, Trauer, Unheil
-    { "Halbton-Nachbarn",   0.12f, 0.30f, 0.75f, 4, { { 0, Min, 2 }, { 11, Min, 2 }, { 0, Min, 2 }, { 0, MinMaj7, 2 } }, { ArpCircle, ArpCell }, { BassPendulum, BassHeld }, PadHeld },
-    { "Grundton-Teppich",   0.10f, 0.45f, 0.50f, 2, { { 0, Min, 4 }, { 1, Maj, 4 } }, { ArpCircle, ArpDown }, { BassPulse, BassEighth }, PadHeld },
-    { "Lauern",             0.08f, 0.10f, 0.60f, 1, { { 0, Min, 8 } }, { ArpCircle, ArpCell }, { BassHeld, BassPendulum }, PadHeld },
-    { "Trauer",             0.28f, 0.15f, 0.08f, 4, { { 0, Min, 2 }, { 8, Maj, 2 }, { 5, Min, 2 }, { 7, Maj, 2 } }, { ArpDown, ArpCircle }, { BassHeld, BassHalf }, PadHeld },
-    { "Agentenfarbe",       0.30f, 0.45f, 0.45f, 3, { { 0, MinMaj9, 4 }, { 5, MinMaj7, 2 }, { 0, MinMaj9, 2 } }, { ArpCell, ArpCircle }, { BassQuarter, BassPendulum }, PadHeld },
-    { "Septakkord-Paare",   0.22f, 0.55f, 0.55f, 4, { { 0, Min7, 2 }, { 5, Min7, 2 }, { 0, Min7, 2 }, { 5, Min7, 2 } }, { ArpCell, ArpUp }, { BassEighth, BassPendulum }, PadHeld },
-    { "Schiefer Walzer",    0.20f, 0.55f, 0.35f, 4, { { 0, Min, 2 }, { 0, MinMaj7, 2 }, { 5, Min7, 2 }, { 7, Dom7, 2 } }, { ArpCircle, ArpDown }, { BassQuarter, BassHalf }, PadHeld },
-    { "Unruhiger Schlaf",   0.25f, 0.35f, 0.40f, 8, { { 0, Min, 1 }, { 8, Maj, 1 }, { 9, Dim7, 1 }, { 8, Maj, 1 }, { 0, Min, 1 }, { 8, Maj, 1 }, { 9, Dim7, 1 }, { 8, Maj, 1 } }, { ArpCircle, ArpCell }, { BassHeld, BassPendulum }, PadHeld },
-    { "Moll-Inseln",        0.30f, 0.45f, 0.30f, 4, { { 0, Min, 2 }, { 8, Min, 2 }, { 3, Min, 2 }, { 0, Min, 2 } }, { ArpDown, ArpCircle }, { BassHalf, BassHeld }, PadHeld },
-    { "Grusel-Orchester",   0.15f, 0.50f, 0.50f, 4, { { 0, Min, 2 }, { 2, HalfDim, 2 }, { 0, Min, 2 }, { 1, Maj, 2 } }, { ArpDown, ArpCircle }, { BassQuarter, BassPendulum }, PadHeld },
-    { "Geisterball",        0.15f, 0.55f, 0.55f, 4, { { 0, Min, 2 }, { 11, Dim7, 2 }, { 0, Min, 2 }, { 5, Min6, 2 } }, { ArpCircle, ArpDown }, { BassAlternating, BassQuarter }, PadStaccato },
+    { "Halbton-Nachbarn",   0.12f, 0.30f, 0.75f, 4, { { 0, Min, 2 }, { 11, Min, 2 }, { 0, Min, 2 }, { 0, MinMaj7, 2 } }, { ArpCircle, ArpCell }, { BassPendulum, BassHeld }, PadHeld, WendungId::scoreHalbtonNachbarn },
+    { "Grundton-Teppich",   0.10f, 0.45f, 0.50f, 2, { { 0, Min, 4 }, { 1, Maj, 4 } }, { ArpCircle, ArpDown }, { BassPulse, BassEighth }, PadHeld, WendungId::scoreGrundtonTeppich },
+    { "Lauern",             0.08f, 0.10f, 0.60f, 1, { { 0, Min, 8 } }, { ArpCircle, ArpCell }, { BassHeld, BassPendulum }, PadHeld, WendungId::scoreLauern },
+    { "Trauer",             0.28f, 0.15f, 0.08f, 4, { { 0, Min, 2 }, { 8, Maj, 2 }, { 5, Min, 2 }, { 7, Maj, 2 } }, { ArpDown, ArpCircle }, { BassHeld, BassHalf }, PadHeld, WendungId::scoreTrauer },
+    { "Agentenfarbe",       0.30f, 0.45f, 0.45f, 3, { { 0, MinMaj9, 4 }, { 5, MinMaj7, 2 }, { 0, MinMaj9, 2 } }, { ArpCell, ArpCircle }, { BassQuarter, BassPendulum }, PadHeld, WendungId::scoreAgentenfarbe },
+    { "Septakkord-Paare",   0.22f, 0.55f, 0.55f, 4, { { 0, Min7, 2 }, { 5, Min7, 2 }, { 0, Min7, 2 }, { 5, Min7, 2 } }, { ArpCell, ArpUp }, { BassEighth, BassPendulum }, PadHeld, WendungId::scoreSeptakkordPaare },
+    { "Schiefer Walzer",    0.20f, 0.55f, 0.35f, 4, { { 0, Min, 2 }, { 0, MinMaj7, 2 }, { 5, Min7, 2 }, { 7, Dom7, 2 } }, { ArpCircle, ArpDown }, { BassQuarter, BassHalf }, PadHeld, WendungId::scoreSchieferWalzer },
+    { "Unruhiger Schlaf",   0.25f, 0.35f, 0.40f, 8, { { 0, Min, 1 }, { 8, Maj, 1 }, { 9, Dim7, 1 }, { 8, Maj, 1 }, { 0, Min, 1 }, { 8, Maj, 1 }, { 9, Dim7, 1 }, { 8, Maj, 1 } }, { ArpCircle, ArpCell }, { BassHeld, BassPendulum }, PadHeld, WendungId::scoreUnruhigerSchlaf },
+    { "Moll-Inseln",        0.30f, 0.45f, 0.30f, 4, { { 0, Min, 2 }, { 8, Min, 2 }, { 3, Min, 2 }, { 0, Min, 2 } }, { ArpDown, ArpCircle }, { BassHalf, BassHeld }, PadHeld, WendungId::scoreMollInseln },
+    { "Grusel-Orchester",   0.15f, 0.50f, 0.50f, 4, { { 0, Min, 2 }, { 2, HalfDim, 2 }, { 0, Min, 2 }, { 1, Maj, 2 } }, { ArpDown, ArpCircle }, { BassQuarter, BassPendulum }, PadHeld, WendungId::scoreGruselOrchester },
+    { "Geisterball",        0.15f, 0.55f, 0.55f, 4, { { 0, Min, 2 }, { 11, Dim7, 2 }, { 0, Min, 2 }, { 5, Min6, 2 } }, { ArpCircle, ArpDown }, { BassAlternating, BassQuarter }, PadStaccato, WendungId::scoreGeisterball },
     // dunkel und aufgewuehlt: Angst, Panik, Verfolgung
-    { "Terz-Treppe",        0.20f, 0.80f, 0.60f, 4, { { 0, Maj, 2 }, { 3, Maj, 2 }, { 6, Maj, 2 }, { 9, Maj, 2 } }, { ArpCell, ArpUp }, { BassPulse, BassEighth }, PadPulse },
-    { "Tritonus-Schock",    0.08f, 0.88f, 0.88f, 4, { { 0, Min, 2 }, { 6, Maj, 2 }, { 0, Min, 2 }, { 11, Dim7, 2 } }, { ArpCell, ArpCircle }, { BassPulse, BassPendulum }, PadStabs },
-    { "Verfolgung",         0.25f, 0.95f, 0.80f, 8, { { 0, Min, 1 }, { 6, Min, 1 }, { 0, Min, 1 }, { 1, Maj, 1 }, { 0, Min, 1 }, { 6, Maj, 1 }, { 3, Min, 1 }, { 11, Dim7, 1 } }, { ArpCell, ArpUp }, { BassPulse, BassEighth }, PadStabs },
-    { "Achse",              0.15f, 0.70f, 0.75f, 4, { { 0, Min6, 2 }, { 6, Min6, 2 }, { 0, Min6, 2 }, { 9, Min7, 2 } }, { ArpOctatonic, ArpCell }, { BassPulse, BassPendulum }, PadStabs },
-    { "Sog",                0.30f, 0.70f, 0.70f, 8, { { 0, Aug, 1 }, { 11, Aug, 1 }, { 10, Aug, 1 }, { 9, Aug, 1 }, { 8, Aug, 1 }, { 7, Aug, 1 }, { 6, Aug, 1 }, { 5, Aug, 1 } }, { ArpCell, ArpDown }, { BassPulse, BassEighth }, PadPulse },
-    { "Moll-Marsch",        0.32f, 0.75f, 0.20f, 4, { { 0, Min, 2 }, { 5, Min, 2 }, { 8, Maj, 2 }, { 7, Maj, 2 } }, { ArpUp, ArpDown }, { BassEighth, BassQuarter }, PadPulse },
+    { "Terz-Treppe",        0.20f, 0.80f, 0.60f, 4, { { 0, Maj, 2 }, { 3, Maj, 2 }, { 6, Maj, 2 }, { 9, Maj, 2 } }, { ArpCell, ArpUp }, { BassPulse, BassEighth }, PadPulse, WendungId::scoreTerzTreppe },
+    { "Tritonus-Schock",    0.08f, 0.88f, 0.88f, 4, { { 0, Min, 2 }, { 6, Maj, 2 }, { 0, Min, 2 }, { 11, Dim7, 2 } }, { ArpCell, ArpCircle }, { BassPulse, BassPendulum }, PadStabs, WendungId::scoreTritonusSchock },
+    { "Verfolgung",         0.25f, 0.95f, 0.80f, 8, { { 0, Min, 1 }, { 6, Min, 1 }, { 0, Min, 1 }, { 1, Maj, 1 }, { 0, Min, 1 }, { 6, Maj, 1 }, { 3, Min, 1 }, { 11, Dim7, 1 } }, { ArpCell, ArpUp }, { BassPulse, BassEighth }, PadStabs, WendungId::scoreVerfolgung },
+    { "Achse",              0.15f, 0.70f, 0.75f, 4, { { 0, Min6, 2 }, { 6, Min6, 2 }, { 0, Min6, 2 }, { 9, Min7, 2 } }, { ArpOctatonic, ArpCell }, { BassPulse, BassPendulum }, PadStabs, WendungId::scoreAchse },
+    { "Sog",                0.30f, 0.70f, 0.70f, 8, { { 0, Aug, 1 }, { 11, Aug, 1 }, { 10, Aug, 1 }, { 9, Aug, 1 }, { 8, Aug, 1 }, { 7, Aug, 1 }, { 6, Aug, 1 }, { 5, Aug, 1 } }, { ArpCell, ArpDown }, { BassPulse, BassEighth }, PadPulse, WendungId::scoreSog },
+    { "Moll-Marsch",        0.32f, 0.75f, 0.20f, 4, { { 0, Min, 2 }, { 5, Min, 2 }, { 8, Maj, 2 }, { 7, Maj, 2 } }, { ArpUp, ArpDown }, { BassEighth, BassQuarter }, PadPulse, WendungId::scoreMollMarsch },
     // Mitte: Spannung, Ermittlung, Synth-Nacht, Fremde Orte, Geheimnis
-    { "Epische Spannung",   0.45f, 0.60f, 0.15f, 4, { { 0, Min, 2 }, { 8, Maj, 2 }, { 3, Maj, 2 }, { 10, Maj, 2 } }, { ArpUp, ArpCircle }, { BassEighth, BassQuarter }, PadHeld },
-    { "Ermittlung",         0.40f, 0.50f, 0.20f, 4, { { 0, Min6, 2 }, { 5, Min7, 2 }, { 2, HalfDim, 2 }, { 7, Dom7, 2 } }, { ArpDown, ArpRiff }, { BassWalking, BassWalking }, PadStabs },
-    { "Sequenzer-Nacht",    0.30f, 0.50f, 0.20f, 4, { { 0, Min, 2 }, { 8, Maj7, 2 }, { 0, Min, 2 }, { 8, Maj7, 2 } }, { ArpUp, ArpCircle }, { BassHeartbeat, BassHeartbeat }, PadHeld },
-    { "Nacht-Fl\xc3\xa4" "chen", 0.45f, 0.30f, 0.10f, 4, { { 8, Maj7, 2 }, { 5, Min7, 2 }, { 7, Min7, 2 }, { 0, Min7, 2 } }, { ArpCircle, ArpUp }, { BassArpeggio, BassHalf }, PadHeld },
-    { "Synth-Groove",       0.55f, 0.70f, 0.15f, 4, { { 0, Min, 2 }, { 10, Maj, 2 }, { 8, Maj, 2 }, { 10, Maj, 2 } }, { ArpUp, ArpRiff }, { BassFunk, BassArpeggio }, PadStabs },
-    { "Funk-Spannung",      0.50f, 0.65f, 0.25f, 4, { { 0, Min9, 2 }, { 5, Dom7, 2 }, { 0, Min9, 2 }, { 10, Dom7, 2 } }, { ArpRiff, ArpRiff }, { BassFunk, BassFunk }, PadStabs },
-    { "Fremde Orte",        0.30f, 0.50f, 0.45f, 4, { { 0, Dom7b9, 2 }, { 1, Maj, 2 }, { 0, Dom7b9, 2 }, { 5, Min, 2 } }, { ArpRiff, ArpCircle }, { BassPendulum, BassQuarter }, PadHeld },
-    { "Wurmloch",           0.40f, 0.55f, 0.55f, 4, { { 7, Aug, 2 }, { 0, Min, 2 }, { 8, Aug, 2 }, { 1, Min, 2 } }, { ArpCircle, ArpGlitter }, { BassPendulum, BassHeld }, PadHeld },
-    { "Quarten-Ruf",        0.55f, 0.60f, 0.30f, 4, { { 0, Quartal, 2 }, { 10, Add9, 2 }, { 0, Quartal, 2 }, { 5, Sus4, 2 } }, { ArpQuartal, ArpUp }, { BassPedal, BassAlternating }, PadPulse },
-    { "Geheimnis",          0.45f, 0.30f, 0.50f, 4, { { 0, Aug, 2 }, { 2, Aug, 2 }, { 0, Aug, 2 }, { 10, Aug, 2 } }, { ArpCircle, ArpGlitter }, { BassHeld, BassPendulum }, PadHeld },
-    { "Quarten-Weite",      0.60f, 0.45f, 0.45f, 4, { { 0, Quartal, 2 }, { 10, Quartal, 2 }, { 0, Quartal, 2 }, { 6, Maj, 2 } }, { ArpGlitter, ArpCircle }, { BassHeld, BassHalf }, PadHeld },
+    { "Epische Spannung",   0.45f, 0.60f, 0.15f, 4, { { 0, Min, 2 }, { 8, Maj, 2 }, { 3, Maj, 2 }, { 10, Maj, 2 } }, { ArpUp, ArpCircle }, { BassEighth, BassQuarter }, PadHeld, WendungId::scoreEpischeSpannung },
+    { "Ermittlung",         0.40f, 0.50f, 0.20f, 4, { { 0, Min6, 2 }, { 5, Min7, 2 }, { 2, HalfDim, 2 }, { 7, Dom7, 2 } }, { ArpDown, ArpRiff }, { BassWalking, BassWalking }, PadStabs, WendungId::scoreErmittlung },
+    { "Sequenzer-Nacht",    0.30f, 0.50f, 0.20f, 4, { { 0, Min, 2 }, { 8, Maj7, 2 }, { 0, Min, 2 }, { 8, Maj7, 2 } }, { ArpUp, ArpCircle }, { BassHeartbeat, BassHeartbeat }, PadHeld, WendungId::scoreSequenzerNacht },
+    { "Nacht-Fl\xc3\xa4" "chen", 0.45f, 0.30f, 0.10f, 4, { { 8, Maj7, 2 }, { 5, Min7, 2 }, { 7, Min7, 2 }, { 0, Min7, 2 } }, { ArpCircle, ArpUp }, { BassArpeggio, BassHalf }, PadHeld, WendungId::scoreNachtFlachen },
+    { "Synth-Groove",       0.55f, 0.70f, 0.15f, 4, { { 0, Min, 2 }, { 10, Maj, 2 }, { 8, Maj, 2 }, { 10, Maj, 2 } }, { ArpUp, ArpRiff }, { BassFunk, BassArpeggio }, PadStabs, WendungId::scoreSynthGroove },
+    { "Funk-Spannung",      0.50f, 0.65f, 0.25f, 4, { { 0, Min9, 2 }, { 5, Dom7, 2 }, { 0, Min9, 2 }, { 10, Dom7, 2 } }, { ArpRiff, ArpRiff }, { BassFunk, BassFunk }, PadStabs, WendungId::scoreFunkSpannung },
+    { "Fremde Orte",        0.30f, 0.50f, 0.45f, 4, { { 0, Dom7b9, 2 }, { 1, Maj, 2 }, { 0, Dom7b9, 2 }, { 5, Min, 2 } }, { ArpRiff, ArpCircle }, { BassPendulum, BassQuarter }, PadHeld, WendungId::scoreFremdeOrte },
+    { "Wurmloch",           0.40f, 0.55f, 0.55f, 4, { { 7, Aug, 2 }, { 0, Min, 2 }, { 8, Aug, 2 }, { 1, Min, 2 } }, { ArpCircle, ArpGlitter }, { BassPendulum, BassHeld }, PadHeld, WendungId::scoreWurmloch },
+    { "Quarten-Ruf",        0.55f, 0.60f, 0.30f, 4, { { 0, Quartal, 2 }, { 10, Add9, 2 }, { 0, Quartal, 2 }, { 5, Sus4, 2 } }, { ArpQuartal, ArpUp }, { BassPedal, BassAlternating }, PadPulse, WendungId::scoreQuartenRuf },
+    { "Geheimnis",          0.45f, 0.30f, 0.50f, 4, { { 0, Aug, 2 }, { 2, Aug, 2 }, { 0, Aug, 2 }, { 10, Aug, 2 } }, { ArpCircle, ArpGlitter }, { BassHeld, BassPendulum }, PadHeld, WendungId::scoreGeheimnis },
+    { "Quarten-Weite",      0.60f, 0.45f, 0.45f, 4, { { 0, Quartal, 2 }, { 10, Quartal, 2 }, { 0, Quartal, 2 }, { 6, Maj, 2 } }, { ArpGlitter, ArpCircle }, { BassHeld, BassHalf }, PadHeld, WendungId::scoreQuartenWeite },
     // hell und ruhig: Waerme, Staunen, Sehnsucht, Romantik
-    { "Schneelinien",       0.55f, 0.30f, 0.10f, 4, { { 0, Sus2, 2 }, { 10, Add9, 2 }, { 5, Add9, 2 }, { 0, Min7, 2 } }, { ArpCascade, ArpCircle }, { BassPedal, BassHeld }, PadHeld },
-    { "Dorischer Schimmer", 0.60f, 0.45f, 0.05f, 4, { { 0, Min7, 2 }, { 2, Min7, 2 }, { 3, Maj7, 2 }, { 5, Maj, 2 } }, { ArpCascade, ArpUp }, { BassQuarter, BassArpeggio }, PadHeld },
-    { "Gleiten",            0.60f, 0.35f, 0.25f, 4, { { 0, Maj7, 2 }, { 11, Maj7, 2 }, { 10, Maj7, 2 }, { 9, Maj7, 2 } }, { ArpCircle, ArpDown }, { BassHalf, BassHeld }, PadHeld },
-    { "Offene Quinten",     0.65f, 0.30f, 0.05f, 4, { { 0, Fifth, 2 }, { 2, Fifth, 2 }, { 4, Fifth, 2 }, { 5, Fifth, 2 } }, { ArpCascade, ArpUp }, { BassHalf, BassArpeggio }, PadHeld },
-    { "Bewegter Abschied",  0.60f, 0.35f, 0.15f, 4, { { 0, Maj, 2 }, { 7, Maj, 2 }, { 9, Min, 2 }, { 5, Maj, 2 } }, { ArpUp, ArpDown }, { BassQuarter, BassHalf }, PadHeld },
-    { "Sehnsucht",          0.62f, 0.20f, 0.00f, 4, { { 0, Maj, 2 }, { 5, Maj, 2 }, { 5, Min, 2 }, { 0, Maj, 2 } }, { ArpDown, ArpCircle }, { BassHeld, BassHalf }, PadHeld },
-    { "Weite",              0.65f, 0.15f, 0.05f, 4, { { 0, Add9, 2 }, { 9, Min7, 2 }, { 5, Maj7, 2 }, { 7, Sus4, 2 } }, { ArpUp, ArpCircle }, { BassHeld, BassHalf }, PadHeld },
-    { "Erhaben",            0.70f, 0.30f, 0.00f, 5, { { 0, Maj, 2 }, { 5, Maj, 2 }, { 9, Min, 2 }, { 5, Maj, 1 }, { 0, Maj, 1 } }, { ArpUp, ArpCircle }, { BassHalf, BassHeld }, PadHeld },
-    { "Romantik",           0.75f, 0.30f, 0.00f, 4, { { 0, Maj, 2 }, { 9, Min, 2 }, { 4, Min, 2 }, { 5, Maj, 2 } }, { ArpUp, ArpCircle }, { BassHalf, BassQuarter }, PadHeld },
-    { "W\xc3\xa4rme",       0.80f, 0.18f, 0.00f, 4, { { 5, Maj7, 2 }, { 0, Maj7, 2 }, { 5, Maj7, 2 }, { 0, Maj7, 2 } }, { ArpCircle, ArpUp }, { BassHeld, BassHalf }, PadHeld },
-    { "Lydisches Staunen",  0.85f, 0.35f, 0.10f, 4, { { 0, Maj, 2 }, { 2, Maj, 2 }, { 0, Maj7, 2 }, { 2, Maj, 2 } }, { ArpGlitter, ArpUp }, { BassHeld, BassHalf }, PadHeld },
+    { "Schneelinien",       0.55f, 0.30f, 0.10f, 4, { { 0, Sus2, 2 }, { 10, Add9, 2 }, { 5, Add9, 2 }, { 0, Min7, 2 } }, { ArpCascade, ArpCircle }, { BassPedal, BassHeld }, PadHeld, WendungId::scoreSchneelinien },
+    { "Dorischer Schimmer", 0.60f, 0.45f, 0.05f, 4, { { 0, Min7, 2 }, { 2, Min7, 2 }, { 3, Maj7, 2 }, { 5, Maj, 2 } }, { ArpCascade, ArpUp }, { BassQuarter, BassArpeggio }, PadHeld, WendungId::scoreDorischerSchimmer },
+    { "Gleiten",            0.60f, 0.35f, 0.25f, 4, { { 0, Maj7, 2 }, { 11, Maj7, 2 }, { 10, Maj7, 2 }, { 9, Maj7, 2 } }, { ArpCircle, ArpDown }, { BassHalf, BassHeld }, PadHeld, WendungId::scoreGleiten },
+    { "Offene Quinten",     0.65f, 0.30f, 0.05f, 4, { { 0, Fifth, 2 }, { 2, Fifth, 2 }, { 4, Fifth, 2 }, { 5, Fifth, 2 } }, { ArpCascade, ArpUp }, { BassHalf, BassArpeggio }, PadHeld, WendungId::scoreOffeneQuinten },
+    { "Bewegter Abschied",  0.60f, 0.35f, 0.15f, 4, { { 0, Maj, 2 }, { 7, Maj, 2 }, { 9, Min, 2 }, { 5, Maj, 2 } }, { ArpUp, ArpDown }, { BassQuarter, BassHalf }, PadHeld, WendungId::scoreBewegterAbschied },
+    { "Sehnsucht",          0.62f, 0.20f, 0.00f, 4, { { 0, Maj, 2 }, { 5, Maj, 2 }, { 5, Min, 2 }, { 0, Maj, 2 } }, { ArpDown, ArpCircle }, { BassHeld, BassHalf }, PadHeld, WendungId::scoreSehnsucht },
+    { "Weite",              0.65f, 0.15f, 0.05f, 4, { { 0, Add9, 2 }, { 9, Min7, 2 }, { 5, Maj7, 2 }, { 7, Sus4, 2 } }, { ArpUp, ArpCircle }, { BassHeld, BassHalf }, PadHeld, WendungId::scoreWeite },
+    { "Erhaben",            0.70f, 0.30f, 0.00f, 5, { { 0, Maj, 2 }, { 5, Maj, 2 }, { 9, Min, 2 }, { 5, Maj, 1 }, { 0, Maj, 1 } }, { ArpUp, ArpCircle }, { BassHalf, BassHeld }, PadHeld, WendungId::scoreErhaben },
+    { "Romantik",           0.75f, 0.30f, 0.00f, 4, { { 0, Maj, 2 }, { 9, Min, 2 }, { 4, Min, 2 }, { 5, Maj, 2 } }, { ArpUp, ArpCircle }, { BassHalf, BassQuarter }, PadHeld, WendungId::scoreRomantik },
+    { "W\xc3\xa4rme",       0.80f, 0.18f, 0.00f, 4, { { 5, Maj7, 2 }, { 0, Maj7, 2 }, { 5, Maj7, 2 }, { 0, Maj7, 2 } }, { ArpCircle, ArpUp }, { BassHeld, BassHalf }, PadHeld, WendungId::scoreWarme },
+    { "Lydisches Staunen",  0.85f, 0.35f, 0.10f, 4, { { 0, Maj, 2 }, { 2, Maj, 2 }, { 0, Maj7, 2 }, { 2, Maj, 2 } }, { ArpGlitter, ArpUp }, { BassHeld, BassHalf }, PadHeld, WendungId::scoreLydischesStaunen },
     // hell und aufgewuehlt: Aufbruch, Abenteuer, Heiterkeit, Triumph
-    { "Terrassen",          0.80f, 0.40f, 0.10f, 7, { { 0, Maj, 1 }, { 2, Maj, 1, 0 }, { 10, Maj, 1 }, { 0, Maj, 1, 10 }, { 5, Maj, 1 }, { 7, Maj, 1, 5 }, { 0, Maj, 2 } }, { ArpCascade, ArpUp }, { BassHeld, BassHalf }, PadHeld },
-    { "Abenteuer",          0.70f, 0.55f, 0.10f, 4, { { 0, Maj7, 2 }, { 2, Min7, 2 }, { 4, Min7, 2 }, { 7, Dom7, 2 } }, { ArpRiff, ArpUp }, { BassFunk, BassEighth }, PadStabs },
-    { "Terzverwandtschaft", 0.72f, 0.68f, 0.30f, 4, { { 0, Maj, 2 }, { 4, Maj, 2 }, { 8, Maj, 2 }, { 0, Maj, 2 } }, { ArpUp, ArpCircle }, { BassQuarter, BassEighth }, PadHeld },
-    { "Heiter",             0.82f, 0.50f, 0.05f, 4, { { 0, Maj, 2 }, { 5, Maj, 2 }, { 7, Dom7, 2 }, { 0, Maj, 2 } }, { ArpLeaps, ArpUp }, { BassAlternating, BassAlternating }, PadStaccato },
-    { "Western",            0.85f, 0.55f, 0.05f, 4, { { 0, Maj, 2 }, { 5, Maj, 2 }, { 0, Maj, 2 }, { 10, Maj, 2 } }, { ArpLeaps, ArpUp }, { BassAlternating, BassQuarter }, PadHeld },
-    { "Erhebung",           0.75f, 0.70f, 0.15f, 8, { { 0, Maj, 1 }, { 0, Dom7, 1 }, { 10, Maj, 1 }, { 10, Dom7, 1 }, { 8, Maj, 1 }, { 8, Dom7, 1 }, { 1, Maj, 1 }, { 1, Maj, 1 } }, { ArpUp, ArpLeaps }, { BassQuarter, BassEighth }, PadPulse },
-    { "Fanfare",            0.70f, 0.85f, 0.20f, 4, { { 7, Dim7, 2 }, { 0, Fifth, 2 }, { 5, Dim7, 2 }, { 10, Fifth, 2 } }, { ArpLeaps, ArpUp }, { BassEighth, BassPulse }, PadStabs },
-    { "Heldisch",           0.80f, 0.75f, 0.10f, 4, { { 0, Maj, 2 }, { 10, Maj, 2 }, { 5, Maj, 2 }, { 0, Maj, 2 } }, { ArpUp, ArpLeaps }, { BassEighth, BassQuarter }, PadPulse },
-    { "Triumph",            0.88f, 0.92f, 0.05f, 4, { { 0, Maj, 2 }, { 8, Maj, 2 }, { 10, Maj, 2 }, { 0, Maj, 2 } }, { ArpUp, ArpLeaps }, { BassEighth, BassEighth }, PadPulse } };
+    { "Terrassen",          0.80f, 0.40f, 0.10f, 7, { { 0, Maj, 1 }, { 2, Maj, 1, 0 }, { 10, Maj, 1 }, { 0, Maj, 1, 10 }, { 5, Maj, 1 }, { 7, Maj, 1, 5 }, { 0, Maj, 2 } }, { ArpCascade, ArpUp }, { BassHeld, BassHalf }, PadHeld, WendungId::scoreTerrassen },
+    { "Abenteuer",          0.70f, 0.55f, 0.10f, 4, { { 0, Maj7, 2 }, { 2, Min7, 2 }, { 4, Min7, 2 }, { 7, Dom7, 2 } }, { ArpRiff, ArpUp }, { BassFunk, BassEighth }, PadStabs, WendungId::scoreAbenteuer },
+    { "Terzverwandtschaft", 0.72f, 0.68f, 0.30f, 4, { { 0, Maj, 2 }, { 4, Maj, 2 }, { 8, Maj, 2 }, { 0, Maj, 2 } }, { ArpUp, ArpCircle }, { BassQuarter, BassEighth }, PadHeld, WendungId::scoreTerzverwandtschaft },
+    { "Heiter",             0.82f, 0.50f, 0.05f, 4, { { 0, Maj, 2 }, { 5, Maj, 2 }, { 7, Dom7, 2 }, { 0, Maj, 2 } }, { ArpLeaps, ArpUp }, { BassAlternating, BassAlternating }, PadStaccato, WendungId::scoreHeiter },
+    { "Western",            0.85f, 0.55f, 0.05f, 4, { { 0, Maj, 2 }, { 5, Maj, 2 }, { 0, Maj, 2 }, { 10, Maj, 2 } }, { ArpLeaps, ArpUp }, { BassAlternating, BassQuarter }, PadHeld, WendungId::scoreWestern },
+    { "Erhebung",           0.75f, 0.70f, 0.15f, 8, { { 0, Maj, 1 }, { 0, Dom7, 1 }, { 10, Maj, 1 }, { 10, Dom7, 1 }, { 8, Maj, 1 }, { 8, Dom7, 1 }, { 1, Maj, 1 }, { 1, Maj, 1 } }, { ArpUp, ArpLeaps }, { BassQuarter, BassEighth }, PadPulse, WendungId::scoreErhebung },
+    { "Fanfare",            0.70f, 0.85f, 0.20f, 4, { { 7, Dim7, 2 }, { 0, Fifth, 2 }, { 5, Dim7, 2 }, { 10, Fifth, 2 } }, { ArpLeaps, ArpUp }, { BassEighth, BassPulse }, PadStabs, WendungId::scoreFanfare },
+    { "Heldisch",           0.80f, 0.75f, 0.10f, 4, { { 0, Maj, 2 }, { 10, Maj, 2 }, { 5, Maj, 2 }, { 0, Maj, 2 } }, { ArpUp, ArpLeaps }, { BassEighth, BassQuarter }, PadPulse, WendungId::scoreHeldisch },
+    { "Triumph",            0.88f, 0.92f, 0.05f, 4, { { 0, Maj, 2 }, { 8, Maj, 2 }, { 10, Maj, 2 }, { 0, Maj, 2 } }, { ArpUp, ArpLeaps }, { BassEighth, BassEighth }, PadPulse, WendungId::scoreTriumph } };
 constexpr int kNumWendungen = (int) (sizeof (kWendungen) / sizeof (kWendungen[0]));
 
 // 80er Pop-Rock (Genre-Schalter): Grundlage ist der Abschnitt "80er Pop-Rock" im Stilmittel-Katalog.
 constexpr Wendung kPopWendungen[] = {
     // dunkel und ruhig: Nacht, Neon, kalte Welle
-    { "Kalte Welle",        0.12f, 0.45f, 0.45f, 2, { { 0, Min, 4 }, { 1, Maj, 4 } }, { ArpSid, ArpCell }, { BassPulse, BassHiNrg }, PadHeld },
-    { "Neonregen",          0.35f, 0.25f, 0.10f, 4, { { 0, Min, 2 }, { 5, Min, 2 }, { 8, Maj, 2 }, { 10, Maj, 2 } }, { ArpCircle, ArpDown }, { BassHalf, BassEighth }, PadHeld },
-    { "Nachtfahrt",         0.30f, 0.40f, 0.15f, 4, { { 0, Min, 2 }, { 8, Maj, 2 }, { 3, Maj, 2 }, { 10, Maj, 2 } }, { ArpUp, ArpCircle }, { BassEighth, BassPulse }, PadHeld },
-    { "Sequenzer-Fieber",   0.30f, 0.55f, 0.25f, 4, { { 0, Min, 2 }, { 8, Maj7, 2 }, { 0, Min, 2 }, { 8, Maj7, 2 } }, { ArpUp, ArpSid }, { BassHiNrg, BassHeartbeat }, PadHeld },
-    { "Miami-Nacht",        0.45f, 0.35f, 0.10f, 4, { { 8, Maj7, 2 }, { 5, Min7, 2 }, { 7, Min7, 2 }, { 0, Min7, 2 } }, { ArpCircle, ArpSid }, { BassArpeggio, BassHalf }, PadHeld },
+    { "Kalte Welle",        0.12f, 0.45f, 0.45f, 2, { { 0, Min, 4 }, { 1, Maj, 4 } }, { ArpSid, ArpCell }, { BassPulse, BassHiNrg }, PadHeld, WendungId::popKalteWelle },
+    { "Neonregen",          0.35f, 0.25f, 0.10f, 4, { { 0, Min, 2 }, { 5, Min, 2 }, { 8, Maj, 2 }, { 10, Maj, 2 } }, { ArpCircle, ArpDown }, { BassHalf, BassEighth }, PadHeld, WendungId::popNeonregen },
+    { "Nachtfahrt",         0.30f, 0.40f, 0.15f, 4, { { 0, Min, 2 }, { 8, Maj, 2 }, { 3, Maj, 2 }, { 10, Maj, 2 } }, { ArpUp, ArpCircle }, { BassEighth, BassPulse }, PadHeld, WendungId::popNachtfahrt },
+    { "Sequenzer-Fieber",   0.30f, 0.55f, 0.25f, 4, { { 0, Min, 2 }, { 8, Maj7, 2 }, { 0, Min, 2 }, { 8, Maj7, 2 } }, { ArpUp, ArpSid }, { BassHiNrg, BassHeartbeat }, PadHeld, WendungId::popSequenzerFieber },
+    { "Miami-Nacht",        0.45f, 0.35f, 0.10f, 4, { { 8, Maj7, 2 }, { 5, Min7, 2 }, { 7, Min7, 2 }, { 0, Min7, 2 } }, { ArpCircle, ArpSid }, { BassArpeggio, BassHalf }, PadHeld, WendungId::popMiamiNacht },
     // dunkel und aufgewuehlt: Rebellion, Bombast, Jagd
-    { "Kalter Krieg",       0.10f, 0.75f, 0.85f, 4, { { 0, Min, 2 }, { 6, Maj, 2 }, { 0, Min, 2 }, { 11, Dim7, 2 } }, { ArpSid, ArpOctatonic }, { BassHiNrg, BassPulse }, PadStabs },
-    { "Jagd durch L.A.",    0.15f, 0.95f, 0.70f, 8, { { 0, Min, 1 }, { 8, Maj, 1 }, { 10, Maj, 1 }, { 0, Min, 1 }, { 6, Maj, 1 }, { 8, Maj, 1 }, { 10, Maj, 1 }, { 11, Dim7, 1 } }, { ArpSid, ArpCell }, { BassHiNrg, BassPulse }, PadStabs },
-    { "Bombast",            0.20f, 0.90f, 0.55f, 3, { { 0, Min, 4 }, { 8, Maj, 2 }, { 10, Maj, 2 } }, { ArpSid, ArpUp }, { BassHiNrg, BassHiNrg }, PadGated },
-    { "Rebellenschrei",     0.25f, 0.85f, 0.40f, 4, { { 0, Fifth, 2 }, { 10, Fifth, 2 }, { 8, Fifth, 2 }, { 10, Fifth, 2 } }, { ArpRiff, ArpSid }, { BassEighth, BassGallop }, PadStabs },
-    { "Kommando",           0.30f, 0.80f, 0.30f, 4, { { 0, Min, 2 }, { 10, Maj, 2 }, { 8, Maj, 2 }, { 7, Dom7, 2 } }, { ArpSid, ArpUp }, { BassGallop, BassEighth }, PadGated },
-    { "Galopp",             0.40f, 0.85f, 0.35f, 5, { { 0, Min, 2 }, { 7, Dom7, 1 }, { 0, Min, 1 }, { 8, Maj, 2 }, { 7, Dom7, 2 } }, { ArpSid, ArpRiff }, { BassGallop, BassGallop }, PadStabs },
+    { "Kalter Krieg",       0.10f, 0.75f, 0.85f, 4, { { 0, Min, 2 }, { 6, Maj, 2 }, { 0, Min, 2 }, { 11, Dim7, 2 } }, { ArpSid, ArpOctatonic }, { BassHiNrg, BassPulse }, PadStabs, WendungId::popKalterKrieg },
+    { "Jagd durch L.A.",    0.15f, 0.95f, 0.70f, 8, { { 0, Min, 1 }, { 8, Maj, 1 }, { 10, Maj, 1 }, { 0, Min, 1 }, { 6, Maj, 1 }, { 8, Maj, 1 }, { 10, Maj, 1 }, { 11, Dim7, 1 } }, { ArpSid, ArpCell }, { BassHiNrg, BassPulse }, PadStabs, WendungId::popJagdDurchLA },
+    { "Bombast",            0.20f, 0.90f, 0.55f, 3, { { 0, Min, 4 }, { 8, Maj, 2 }, { 10, Maj, 2 } }, { ArpSid, ArpUp }, { BassHiNrg, BassHiNrg }, PadGated, WendungId::popBombast },
+    { "Rebellenschrei",     0.25f, 0.85f, 0.40f, 4, { { 0, Fifth, 2 }, { 10, Fifth, 2 }, { 8, Fifth, 2 }, { 10, Fifth, 2 } }, { ArpRiff, ArpSid }, { BassEighth, BassGallop }, PadStabs, WendungId::popRebellenschrei },
+    { "Kommando",           0.30f, 0.80f, 0.30f, 4, { { 0, Min, 2 }, { 10, Maj, 2 }, { 8, Maj, 2 }, { 7, Dom7, 2 } }, { ArpSid, ArpUp }, { BassGallop, BassEighth }, PadGated, WendungId::popKommando },
+    { "Galopp",             0.40f, 0.85f, 0.35f, 5, { { 0, Min, 2 }, { 7, Dom7, 1 }, { 0, Min, 1 }, { 8, Maj, 2 }, { 7, Dom7, 2 } }, { ArpSid, ArpRiff }, { BassGallop, BassGallop }, PadStabs, WendungId::popGalopp },
     // Mitte: Groove, Glanz
-    { "Dunkler Glanz",      0.45f, 0.65f, 0.25f, 4, { { 0, Min, 2 }, { 5, Maj, 2 }, { 0, Min, 2 }, { 5, Maj, 2 } }, { ArpUp, ArpRiff }, { BassEighth, BassGallop }, PadPulse },
-    { "Synth-Funk",         0.55f, 0.70f, 0.15f, 4, { { 0, Min, 2 }, { 10, Maj, 2 }, { 8, Maj, 2 }, { 10, Maj, 2 } }, { ArpRiff, ArpUp }, { BassFunk, BassGallop }, PadStabs },
-    { "Mosaik",             0.60f, 0.55f, 0.10f, 4, { { 0, Maj, 2 }, { 7, Maj, 2 }, { 9, Min, 2 }, { 5, Maj, 2 } }, { ArpUp, ArpSid }, { BassEighth, BassHiNrg }, PadGated },
+    { "Dunkler Glanz",      0.45f, 0.65f, 0.25f, 4, { { 0, Min, 2 }, { 5, Maj, 2 }, { 0, Min, 2 }, { 5, Maj, 2 } }, { ArpUp, ArpRiff }, { BassEighth, BassGallop }, PadPulse, WendungId::popDunklerGlanz },
+    { "Synth-Funk",         0.55f, 0.70f, 0.15f, 4, { { 0, Min, 2 }, { 10, Maj, 2 }, { 8, Maj, 2 }, { 10, Maj, 2 } }, { ArpRiff, ArpUp }, { BassFunk, BassGallop }, PadStabs, WendungId::popSynthFunk },
+    { "Mosaik",             0.60f, 0.55f, 0.10f, 4, { { 0, Maj, 2 }, { 7, Maj, 2 }, { 9, Min, 2 }, { 5, Maj, 2 } }, { ArpUp, ArpSid }, { BassEighth, BassHiNrg }, PadGated, WendungId::popMosaik },
     // hell: Tanzsaal, Ballade, Hymne
-    { "Tanzsaal",           0.65f, 0.65f, 0.15f, 4, { { 0, Maj, 2 }, { 10, Maj, 2 }, { 5, Maj, 2 }, { 0, Maj, 2 } }, { ArpRiff, ArpUp }, { BassHiNrg, BassEighth }, PadGated },
-    { "Powerballade",       0.70f, 0.30f, 0.05f, 4, { { 0, Maj, 2 }, { 4, Min, 2 }, { 5, Maj, 2 }, { 7, Maj, 2 } }, { ArpCircle, ArpUp }, { BassHalf, BassQuarter }, PadHeld },
-    { "Machtakkorde",       0.70f, 0.80f, 0.30f, 4, { { 0, Fifth, 2 }, { 10, Fifth, 2 }, { 5, Fifth, 2 }, { 0, Fifth, 2 } }, { ArpRiff, ArpLeaps }, { BassEighth, BassGallop }, PadStabs },
-    { "Sunset Strip",       0.80f, 0.45f, 0.05f, 4, { { 0, Add9, 2 }, { 5, Maj, 2, 0 }, { 0, Add9, 2 }, { 7, Sus4, 2 } }, { ArpSid, ArpCascade }, { BassPedal, BassEighth }, PadHeld },
-    { "Sonnenseite",        0.80f, 0.65f, 0.10f, 3, { { 10, Maj, 2 }, { 5, Maj, 2 }, { 0, Maj, 4 } }, { ArpRiff, ArpUp }, { BassEighth, BassAlternating }, PadGated },
-    { "Stadionhymne",       0.85f, 0.90f, 0.10f, 6, { { 0, Maj, 2 }, { 8, Maj, 1 }, { 10, Maj, 1 }, { 0, Maj, 2 }, { 8, Maj, 1 }, { 10, Maj, 1 } }, { ArpUp, ArpLeaps }, { BassEighth, BassHiNrg }, PadPulse },
+    { "Tanzsaal",           0.65f, 0.65f, 0.15f, 4, { { 0, Maj, 2 }, { 10, Maj, 2 }, { 5, Maj, 2 }, { 0, Maj, 2 } }, { ArpRiff, ArpUp }, { BassHiNrg, BassEighth }, PadGated, WendungId::popTanzsaal },
+    { "Powerballade",       0.70f, 0.30f, 0.05f, 4, { { 0, Maj, 2 }, { 4, Min, 2 }, { 5, Maj, 2 }, { 7, Maj, 2 } }, { ArpCircle, ArpUp }, { BassHalf, BassQuarter }, PadHeld, WendungId::popPowerballade },
+    { "Machtakkorde",       0.70f, 0.80f, 0.30f, 4, { { 0, Fifth, 2 }, { 10, Fifth, 2 }, { 5, Fifth, 2 }, { 0, Fifth, 2 } }, { ArpRiff, ArpLeaps }, { BassEighth, BassGallop }, PadStabs, WendungId::popMachtakkorde },
+    { "Sunset Strip",       0.80f, 0.45f, 0.05f, 4, { { 0, Add9, 2 }, { 5, Maj, 2, 0 }, { 0, Add9, 2 }, { 7, Sus4, 2 } }, { ArpSid, ArpCascade }, { BassPedal, BassEighth }, PadHeld, WendungId::popSunsetStrip },
+    { "Sonnenseite",        0.80f, 0.65f, 0.10f, 3, { { 10, Maj, 2 }, { 5, Maj, 2 }, { 0, Maj, 4 } }, { ArpRiff, ArpUp }, { BassEighth, BassAlternating }, PadGated, WendungId::popSonnenseite },
+    { "Stadionhymne",       0.85f, 0.90f, 0.10f, 6, { { 0, Maj, 2 }, { 8, Maj, 1 }, { 10, Maj, 1 }, { 0, Maj, 2 }, { 8, Maj, 1 }, { 10, Maj, 1 } }, { ArpUp, ArpLeaps }, { BassEighth, BassHiNrg }, PadPulse, WendungId::popStadionhymne },
     // Fernseh-Disco-Funk um 1980 (Abschnitt "Weltraum-Disco und Teufelsgeiger" im Katalog)
-    { "Feindkontakt",       0.18f, 0.80f, 0.55f, 4, { { 0, Min7, 2 }, { 1, Maj7, 2 }, { 0, Min7, 2 }, { 6, Dom7, 2 } }, { ArpCell, ArpOctatonic }, { BassFunk, BassPulse }, PadStabs },
-    { "Teufelsgeiger",      0.32f, 0.70f, 0.25f, 8, { { 0, Min, 1 }, { 5, Min, 1 }, { 10, Maj, 1 }, { 3, Maj, 1 }, { 8, Maj, 1 }, { 2, HalfDim, 1 }, { 7, Dom7, 1 }, { 0, Min, 1 } }, { ArpLeaps, ArpCircle }, { BassHiNrg, BassEighth }, PadPulse },
-    { "Vorahnung",          0.38f, 0.45f, 0.45f, 4, { { 0, Min, 2 }, { 1, Maj, 2 }, { 7, Dom7b9, 2 }, { 0, Min, 2 } }, { ArpCircle, ArpCascade }, { BassHeartbeat, BassPulse }, PadHeld },
-    { "Einsamer Planet",    0.40f, 0.20f, 0.10f, 5, { { 0, Min9, 2 }, { 8, Maj7, 2 }, { 10, Sus4, 1 }, { 10, Maj, 1 }, { 0, Min9, 2 } }, { ArpCircle, ArpCascade }, { BassHeld, BassHalf }, PadHeld },
-    { "Weltraum-Disco",     0.48f, 0.62f, 0.20f, 5, { { 0, Min9, 2 }, { 5, Dom7, 2 }, { 0, Min9, 2 }, { 3, Maj7, 1 }, { 5, Dom7, 1 } }, { ArpRiff, ArpSid }, { BassHiNrg, BassFunk }, PadGated },
-    { "Serenade",           0.72f, 0.45f, 0.05f, 4, { { 0, Maj, 2 }, { 9, Min, 2 }, { 2, Min7, 2 }, { 7, Dom7, 2 } }, { ArpLeaps, ArpUp }, { BassAlternating, BassEighth }, PadStaccato },
-    { "Startfreigabe",      0.78f, 0.75f, 0.15f, 4, { { 0, Maj7, 2 }, { 2, Dom7, 2 }, { 2, Min7, 2 }, { 7, Sus4, 2 } }, { ArpRiff, ArpUp }, { BassHiNrg, BassFunk }, PadStabs },
+    { "Feindkontakt",       0.18f, 0.80f, 0.55f, 4, { { 0, Min7, 2 }, { 1, Maj7, 2 }, { 0, Min7, 2 }, { 6, Dom7, 2 } }, { ArpCell, ArpOctatonic }, { BassFunk, BassPulse }, PadStabs, WendungId::popFeindkontakt },
+    { "Teufelsgeiger",      0.32f, 0.70f, 0.25f, 8, { { 0, Min, 1 }, { 5, Min, 1 }, { 10, Maj, 1 }, { 3, Maj, 1 }, { 8, Maj, 1 }, { 2, HalfDim, 1 }, { 7, Dom7, 1 }, { 0, Min, 1 } }, { ArpLeaps, ArpCircle }, { BassHiNrg, BassEighth }, PadPulse, WendungId::popTeufelsgeiger },
+    { "Vorahnung",          0.38f, 0.45f, 0.45f, 4, { { 0, Min, 2 }, { 1, Maj, 2 }, { 7, Dom7b9, 2 }, { 0, Min, 2 } }, { ArpCircle, ArpCascade }, { BassHeartbeat, BassPulse }, PadHeld, WendungId::popVorahnung },
+    { "Einsamer Planet",    0.40f, 0.20f, 0.10f, 5, { { 0, Min9, 2 }, { 8, Maj7, 2 }, { 10, Sus4, 1 }, { 10, Maj, 1 }, { 0, Min9, 2 } }, { ArpCircle, ArpCascade }, { BassHeld, BassHalf }, PadHeld, WendungId::popEinsamerPlanet },
+    { "Weltraum-Disco",     0.48f, 0.62f, 0.20f, 5, { { 0, Min9, 2 }, { 5, Dom7, 2 }, { 0, Min9, 2 }, { 3, Maj7, 1 }, { 5, Dom7, 1 } }, { ArpRiff, ArpSid }, { BassHiNrg, BassFunk }, PadGated, WendungId::popWeltraumDisco },
+    { "Serenade",           0.72f, 0.45f, 0.05f, 4, { { 0, Maj, 2 }, { 9, Min, 2 }, { 2, Min7, 2 }, { 7, Dom7, 2 } }, { ArpLeaps, ArpUp }, { BassAlternating, BassEighth }, PadStaccato, WendungId::popSerenade },
+    { "Startfreigabe",      0.78f, 0.75f, 0.15f, 4, { { 0, Maj7, 2 }, { 2, Dom7, 2 }, { 2, Min7, 2 }, { 7, Sus4, 2 } }, { ArpRiff, ArpUp }, { BassHiNrg, BassFunk }, PadStabs, WendungId::popStartfreigabe },
     // Original 80s-inspired studies: album-pop language, not transcriptions of songs.
-    { "Tanzflächenlicht", 0.76f, 0.69f, 0.08f, 5, { {0,Maj,2}, {2,Min7,2}, {5,Maj,2}, {7,Sus4,1}, {7,Maj,1} }, {ArpRiff,ArpUp}, {BassFunk,BassArpeggio}, PadStabs },
-    { "Gegenlicht", 0.52f, 0.38f, 0.12f, 4, { {0,Maj7,2}, {10,Maj7,2}, {2,Min7,2}, {7,Sus4,2} }, {ArpCircle,ArpCascade}, {BassFunk,BassHalf}, PadHeld },
-    { "Rückspiegel", 0.36f, 0.18f, 0.06f, 4, { {9,Min9,2}, {9,Min9,2,7}, {2,Dom7,2,6}, {5,Maj7,2} }, {ArpDown,ArpCircle}, {BassHeld,BassHalf}, PadHeld },
-    { "Stahlpuls", 0.34f, 0.83f, 0.22f, 4, { {9,Fifth,2,9}, {5,Fifth,2,9}, {7,Fifth,2,9}, {9,Fifth,2,9} }, {ArpRiff,ArpCell}, {BassEighth,BassPedal}, PadGated },
-    { "Drahtseil", 0.20f, 0.57f, 0.42f, 4, { {9,Min,2,9}, {9,MinMaj7,2,9}, {9,Min7,2,9}, {9,Min6,2,9} }, {ArpDown,ArpCell}, {BassEighth,BassPedal}, PadHeld },
-    { "Sequenzmotor", 0.46f, 0.78f, 0.17f, 4, { {9,Min9,2}, {2,Dom7,2}, {7,Maj7,2}, {0,Maj7,2} }, {ArpSid,ArpRiff}, {BassHiNrg,BassFunk}, PadGated },
-    { "Spiegelpalast", 0.70f, 0.71f, 0.26f, 7, { {0,Maj7,1}, {4,Dom7,1}, {9,Min7,2}, {2,Dom7,1}, {2,Min7,1}, {7,Dom7,1}, {0,Maj7,1} }, {ArpCascade,ArpUp}, {BassArpeggio,BassQuarter}, PadStabs },
-    { "Sonntagmorgen", 0.88f, 0.48f, 0.03f, 4, { {0,Maj,2}, {5,Maj,2}, {9,Min7,2}, {7,Maj,2} }, {ArpRiff,ArpCircle}, {BassFunk,BassAlternating}, PadStabs },
-    { "Licht im Fenster", 0.57f, 0.23f, 0.04f, 4, { {9,Min,2}, {0,Maj,2,7}, {5,Maj7,2}, {4,Dom7,2} }, {ArpCircle,ArpDown}, {BassHeld,BassHalf}, PadHeld } };
+    { "Tanzflächenlicht", 0.76f, 0.69f, 0.08f, 5, { {0,Maj,2}, {2,Min7,2}, {5,Maj,2}, {7,Sus4,1}, {7,Maj,1} }, {ArpRiff,ArpUp}, {BassFunk,BassArpeggio}, PadStabs, WendungId::popTanzflachenlicht },
+    { "Gegenlicht", 0.52f, 0.38f, 0.12f, 4, { {0,Maj7,2}, {10,Maj7,2}, {2,Min7,2}, {7,Sus4,2} }, {ArpCircle,ArpCascade}, {BassFunk,BassHalf}, PadHeld, WendungId::popGegenlicht },
+    { "Rückspiegel", 0.36f, 0.18f, 0.06f, 4, { {9,Min9,2}, {9,Min9,2,7}, {2,Dom7,2,6}, {5,Maj7,2} }, {ArpDown,ArpCircle}, {BassHeld,BassHalf}, PadHeld, WendungId::popRuckspiegel },
+    { "Stahlpuls", 0.34f, 0.83f, 0.22f, 4, { {9,Fifth,2,9}, {5,Fifth,2,9}, {7,Fifth,2,9}, {9,Fifth,2,9} }, {ArpRiff,ArpCell}, {BassEighth,BassPedal}, PadGated, WendungId::popStahlpuls },
+    { "Drahtseil", 0.20f, 0.57f, 0.42f, 4, { {9,Min,2,9}, {9,MinMaj7,2,9}, {9,Min7,2,9}, {9,Min6,2,9} }, {ArpDown,ArpCell}, {BassEighth,BassPedal}, PadHeld, WendungId::popDrahtseil },
+    { "Sequenzmotor", 0.46f, 0.78f, 0.17f, 4, { {9,Min9,2}, {2,Dom7,2}, {7,Maj7,2}, {0,Maj7,2} }, {ArpSid,ArpRiff}, {BassHiNrg,BassFunk}, PadGated, WendungId::popSequenzmotor },
+    { "Spiegelpalast", 0.70f, 0.71f, 0.26f, 7, { {0,Maj7,1}, {4,Dom7,1}, {9,Min7,2}, {2,Dom7,1}, {2,Min7,1}, {7,Dom7,1}, {0,Maj7,1} }, {ArpCascade,ArpUp}, {BassArpeggio,BassQuarter}, PadStabs, WendungId::popSpiegelpalast },
+    { "Sonntagmorgen", 0.88f, 0.48f, 0.03f, 4, { {0,Maj,2}, {5,Maj,2}, {9,Min7,2}, {7,Maj,2} }, {ArpRiff,ArpCircle}, {BassFunk,BassAlternating}, PadStabs, WendungId::popSonntagmorgen },
+    { "Licht im Fenster", 0.57f, 0.23f, 0.04f, 4, { {9,Min,2}, {0,Maj,2,7}, {5,Maj7,2}, {4,Dom7,2} }, {ArpCircle,ArpDown}, {BassHeld,BassHalf}, PadHeld, WendungId::popLichtImFenster } };
 constexpr int kNumPopWendungen = (int) (sizeof (kPopWendungen) / sizeof (kPopWendungen[0]));
 constexpr int kMaxWendungen = 64;
 static_assert (kNumWendungen <= kMaxWendungen && kNumPopWendungen <= kMaxWendungen, "Vorrat zu gross");
@@ -213,12 +215,25 @@ inline const Wendung* wendungTable (int genre) { return genre == GenrePopRock ? 
 inline int wendungCount (int genre) { return genre == GenrePopRock ? kNumPopWendungen : kNumWendungen; }
 inline const Wendung& wendungAt (int genre, int i) { return wendungTable (genre)[std::clamp (i, 0, wendungCount (genre) - 1)]; }
 
+// Identity lookup never clamps an unknown ID to unrelated musical material.
+inline int wendungIndex(int genre,WendungId id)
+{
+    for(int i=0;i<wendungCount(genre);++i)if(wendungAt(genre,i).id==id)return i;
+    return -1;
+}
+inline const Wendung* findWendung(WendungId id)
+{
+    for(int genre=0;genre<kNumGenres;++genre)
+    {const int index=wendungIndex(genre,id);if(index>=0)return &wendungAt(genre,index);}
+    return nullptr;
+}
+
 // ------------------------------------------------------------------ Ein- und Ausgabe
 struct CustomChord { int rootAbs = 0; int type = Maj; int bars = 0; };   // bars 0 = Platz leer
 
 struct Settings
 {
-    composition::FreeCompositionPolicy policy {}; // Internal scene policy; no host parameter or preset switch.
+    composition::FreeCompositionPolicy policy = *composition::policyForProfile(composition::ProfileId::neutral); // Internal scene policy; no host parameter or preset switch.
     bool melodyLegato = true, melodyMotif = true;
     bool melody = false; // Explicit foreground opt-in; background is the default.
     int key = 9;                // 0 = C ... 9 = A ... 11 = H
@@ -1417,14 +1432,14 @@ private:
                 intent.root=s.key+pad.root;intent.bassPitchClass=s.key+bassRoot(bass);
                 intent.count=shape.n;for(int n=0;n<shape.n;++n)intent.intervals[static_cast<size_t>(n)]=shape.iv[n];
                 intent.quartal=pad.type==Quartal;
-                intent.protectedLine=s.genre==GenrePopRock&&current==31;
+                intent.protectedLine=s.genre==GenrePopRock&&W().id==WendungId::popDrahtseil;
                 intent.voicing=current==kCustomWendung?hashInt(91u,start)%3:0;
                 intent.padLow=padLow(s);intent.bassLow=bassLow(s);intent.intensity=layerY(s,kFlaeche);
                 slot=composition::buildAnchor(intent,{lo,hi},rangeOn(o));
                 mix(slot.pad.n);for(int n=0;n<slot.pad.n;++n)mix(slot.pad.notes[n]);
                 mix(slot.bass);mix(static_cast<int>(slot.unavailable));
                 slot.enabled = ! pass || (composition::freeTransition(0,s.passing,s.y,still).kind==composition::TransitionKind::passingDominant);
-                slot.preservePad = s.genre == GenrePopRock && current == 31 && ! s.custom;
+                slot.preservePad = s.genre == GenrePopRock && W().id == WendungId::popDrahtseil && ! s.custom;
                 mix(slot.preservePad);
                 if (slot.enabled) order[count++] = index;
             }
@@ -2143,7 +2158,8 @@ private:
     // Pop-Rock: durchgehende, gleichbleibende Hook-Linie aus Akkordtoenen (eine Figur je VARIATION)
     void leadHook (long long k, const Pos& p, const Settings& s, int offset, EventList& out)
     {
-        if (current >= 27 && current < 36 && ! s.custom)
+        const int hook=popHookPattern(W().id);
+        if (hook>=0 && ! s.custom)
         {
             // Each new study has its own two-bar rhythm and contour, with real rests.
             static constexpr int starts[9][8] = {
@@ -2154,7 +2170,7 @@ private:
                 {0,1,2,1,0,1,3,2}, {2,2,1,2,1,0,0,0}, {2,1,0,0,0,0,0,0},
                 {0,1,1,2,0,0,0,0}, {2,1,0,2,1,0,0,0}, {0,2,1,0,3,2,0,0},
                 {0,1,2,1,2,3,2,0}, {0,2,1,2,1,0,0,0}, {2,1,0,1,0,0,0,0} };
-            const int id = current - 27;
+            const int id = hook;
             const long long cycle = 2LL * meter.len;
             const auto local = (k - p.phraseStart) % cycle;
             const Chord c = chordFor (p, kGegenstimme, s);
