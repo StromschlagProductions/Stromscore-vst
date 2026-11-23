@@ -101,6 +101,33 @@ inline bool suitable(const PlayingTrack& t,const RoleNeed& n)
         &&n.polyphony>0&&c.polyphony>=n.polyphony&&n.minDuration>0&&n.maxDuration>=n.minDuration
         &&c.minDuration<=n.minDuration&&c.maxDuration>=n.maxDuration;
 }
+enum class CapabilityOrigin { generatorAssumption };
+struct OutputDescription
+{
+    PlayingTrack track; MidiTarget target;
+    const char* standardUse=nullptr;
+    CapabilityOrigin origin=CapabilityOrigin::generatorAssumption;
+    bool externalPatchKnown=false;
+};
+inline bool validOutputs(const OutputDescription* entries,int count)
+{
+    if(!entries||count!=8)return false; // Current adapter layout, not a musical role limit.
+    for(int i=0;i<count;++i)
+    {
+        const auto& e=entries[i];const auto& c=e.track.instrument;
+        if(!e.standardUse||e.externalPatchKnown||static_cast<unsigned>(e.track.style)>1)return false;
+        if(e.target.output<0||e.target.output>=count||e.target.channel<1||e.target.channel>16
+            ||e.track.id.value<0||c.range.low<0||c.range.high>127||c.range.low>c.range.high
+            ||c.polyphony<1||c.minDuration<1||c.maxDuration<c.minDuration
+            ||!(c.articulations&(1u<<static_cast<unsigned>(e.track.style))))return false;
+        if(e.track.addressing==NoteAddressing::fixedTrigger
+            &&(e.target.fixedNote<0||e.target.fixedNote>127))return false;
+        for(int j=0;j<i;++j)if(entries[j].target.output==e.target.output||entries[j].track.id.value==e.track.id.value)return false;
+    }
+    return true;
+}
+inline int addressedPitch(const OutputDescription& output,int pitchedNote)
+{return output.track.addressing==NoteAddressing::fixedTrigger?output.target.fixedNote:pitchedNote;}
 struct DialogueRoles { TrackId question, response; bool valid=false; };
 inline DialogueRoles assignDialogue(const PlayingTrack* tracks,int count,const RoleNeed& question,const RoleNeed& answer)
 {

@@ -1417,5 +1417,25 @@ int main()
         const auto large=run(s,8192,20.);CHECK(events.size()==large.size());
         for(size_t i=0;i<events.size();++i)CHECK(events[i].sample==large[i].sample&&events[i].note==large[i].note&&events[i].velocity==large[i].velocity);
     }
+    // Complete adapter catalog, independent articulation targets and fixed-key safety.
+    {
+        Settings s;auto catalog=outputCatalog(s);CHECK(composition::validOutputs(catalog.data(),kNumOutputs));
+        for(int i=0;i<kNumOutputs;++i){CHECK(catalog[static_cast<size_t>(i)].target.output==i);CHECK(!catalog[static_cast<size_t>(i)].externalPatchKnown);}
+        CHECK(catalog[OutPadLong].track.style!=catalog[OutPadShort].track.style);
+        CHECK(catalog[OutBassLong].track.style!=catalog[OutBassShort].track.style);
+        composition::RoleNeed held;held.role=composition::MusicalRole::accompaniment;held.maxDuration=64;
+        CHECK(composition::suitable(catalog[OutPadLong].track,held));
+        CHECK(!composition::suitable(catalog[OutPadShort].track,held));
+        s.stichFixed=true;s.stichNote=41;s.octave[kAkzent]=2;s.rangeOn[5]=true;s.rangeLo[5]=80;s.rangeHi[5]=90;
+        catalog=outputCatalog(s);CHECK(composition::validOutputs(catalog.data(),kNumOutputs));
+        CHECK(catalog[OutStich].track.instrument.pitch==composition::PitchBehaviour::unknown);
+        CHECK(catalog[OutStich].track.addressing==composition::NoteAddressing::fixedTrigger);
+        for(int root=0;root<12;++root)CHECK(composition::addressedPitch(catalog[OutStich],root+72)==41);
+        composition::RoleNeed melody;CHECK(!composition::suitable(catalog[OutStich].track,melody));
+        auto invalid=catalog;invalid[1].target.output=0;CHECK(!composition::validOutputs(invalid.data(),kNumOutputs));
+        invalid=catalog;invalid[1].track.id=invalid[0].track.id;CHECK(!composition::validOutputs(invalid.data(),kNumOutputs));
+        s.mute[kAkzent]=true;catalog=outputCatalog(s);CHECK(!catalog[OutStich].track.available&&!catalog[OutTupfer].track.available);
+        s.mute[kAkzent]=false;s.solo[kBass]=true;catalog=outputCatalog(s);CHECK(catalog[OutBassLong].track.available&&!catalog[OutCounter].track.available);
+    }
     return 0;
 }

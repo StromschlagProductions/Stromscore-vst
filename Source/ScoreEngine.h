@@ -273,6 +273,47 @@ struct Settings
     int stichNote = 36;
 };
 
+// The only standard capability definitions for the eight current generator outputs.
+// These describe emitted MIDI, never verified external patch capabilities.
+inline std::array<composition::OutputDescription,kNumOutputs> outputCatalog(const Settings& s)
+{
+    using namespace composition;
+    struct Standard { PlayingStyle style; int voices; int64_t maxDuration; unsigned roles; };
+    const auto accompaniment=roleBit(MusicalRole::accompaniment);
+    const Standard standards[kNumOutputs]={
+        {PlayingStyle::sustained,6,1<<24,accompaniment},
+        {PlayingStyle::detached,9,3,accompaniment},
+        {PlayingStyle::sustained,1,1<<24,accompaniment},
+        {PlayingStyle::detached,1,4,accompaniment},
+        {PlayingStyle::detached,1,32,accompaniment|roleBit(MusicalRole::answer)},
+        {PlayingStyle::detached,4,3,accompaniment},
+        {PlayingStyle::detached,1,2,accompaniment},
+        {PlayingStyle::sustained,2,1<<24,roleBit(MusicalRole::lead)} };
+    const char* uses[kNumOutputs]={"Gehaltene Harmonie","Akkordimpulse und Riss","Bassfundament und Pedal",
+        "Rhythmische Bassfigur","Arpeggio, Figur und Antwort","Farbiger Einwurf","Akzentschlag","Melodielinie, Motiv und Frage"};
+    std::array<OutputDescription,kNumOutputs> result {};
+    bool anySolo=false;for(bool solo:s.solo)anySolo|=solo;
+    for(int o=0;o<kNumOutputs;++o)
+    {
+        auto& entry=result[static_cast<size_t>(o)];auto& track=entry.track;
+        const auto& standard=standards[o];const int layer=kOutputLayer[o],range=kOutputRange[o];
+        entry.standardUse=uses[o];entry.target={o,s.channel[o],s.stichNote};track.id={1000+o};
+        track.style=standard.style;track.roles=standard.roles;
+        track.available=!s.mute[layer]&&(!anySolo||s.solo[layer]);
+        auto& c=track.instrument;c.pitch=PitchBehaviour::pitched;
+        c.articulations=1u<<static_cast<unsigned>(standard.style);
+        c.polyphony=standard.voices;c.maxDuration=standard.maxDuration;
+        c.range=s.rangeOn[range]?Range{s.rangeLo[range],s.rangeHi[range]}:Range{0,127};
+        if(o==OutStich&&s.stichFixed)
+        {
+            track.addressing=NoteAddressing::fixedTrigger;
+            c.pitch=PitchBehaviour::unknown; // A fixed key says nothing about the sample's sound.
+            c.range={s.stichNote,s.stichNote};
+        }
+    }
+    return result;
+}
+
 struct Transport
 {
     bool playing = false;
@@ -1487,7 +1528,7 @@ private:
     }
 
     // Stich: ein einzelner Schlag. Fest: die gewaehlte Taste. Akkord: der Grundton (MIDI 50 bis 61, unter der Gegenstimme).
-    static int stichTone (const Settings& s, int pitch) { return s.stichFixed ? std::clamp (s.stichNote, 0, 127) : place (pitch, stichLow (s)); }
+    static int stichTone (const Settings& s, int pitch) { return composition::addressedPitch(outputCatalog(s)[OutStich], place(pitch,stichLow(s))); }
     void stich (const Pos& p, const Settings& s, int offset, long long len, int boost, EventList& out)
     {
         const Chord c = chordFor (p, kAkzent, s);
@@ -1637,30 +1678,16 @@ private:
         // Explicit cell + motif, no buildup, four-bar-or-longer 4/4 phrases only.
         if(s.genre!=GenreScore||!s.motif||s.arpFigure!=ArpCell||s.scene||s.meterNum!=4||s.meterDen!=4
             ||phraseBars<4||!on[kArp]||!on[kGegenstimme])return false;
-        // Current free-mode binding; IDs are adapter tokens, not musical roles or channels.
-        struct Binding { composition::TrackId track; composition::MidiTarget target; };
-        const Binding bindings[2]={{{100},{OutCounter,s.channel[OutCounter],36}},{{200},{OutArp,s.channel[OutArp],36}}};
-        composition::PlayingTrack tracks[2];
-        tracks[0].id=bindings[0].track;tracks[0].style=composition::PlayingStyle::sustained;
-        tracks[0].roles=composition::roleBit(composition::MusicalRole::lead);
-        tracks[0].instrument.polyphony=2; // Existing one-tick legato overlap.
-        tracks[1].id=bindings[1].track;tracks[1].style=composition::PlayingStyle::detached;
-        tracks[1].roles=composition::roleBit(composition::MusicalRole::answer);
-        for(int i=0;i<2;++i)
-        {
-            auto& track=tracks[i];
-            track.instrument.pitch=composition::PitchBehaviour::pitched;
-            track.instrument.articulations=1u<<static_cast<unsigned>(track.style);
-            const int output=bindings[i].target.output,ri=kOutputRange[output];
-            track.instrument.range=rangeOn(output)?composition::Range{s.rangeLo[ri],s.rangeHi[ri]}:composition::Range{0,127};
-        }
+        const auto catalog=outputCatalog(s);
+        if(!composition::validOutputs(catalog.data(),kNumOutputs))return true;
+        const composition::PlayingTrack tracks[2]={catalog[OutCounter].track,catalog[OutArp].track};
         composition::RoleNeed question;question.polyphony=2;question.range=tracks[0].instrument.range;
         composition::RoleNeed answer;answer.role=composition::MusicalRole::answer;
         answer.style=composition::PlayingStyle::detached;answer.range=tracks[1].instrument.range;
         const auto assignment=composition::assignDialogue(tracks,2,question,answer);
         if(!assignment.valid)return true; // Reserved context, no incompatible fallback.
         int responseOutput=-1;
-        for(const auto& binding:bindings)if(binding.track.value==assignment.response.value)responseOutput=binding.target.output;
+        for(const auto& entry:catalog)if(entry.track.id.value==assignment.response.value)responseOutput=entry.target.output;
         if(responseOutput<0)return true;
         const auto relative=k-p.phraseStart;const long long window=2LL*meter.len;
         if(relative>=window)motifMemory.finish();

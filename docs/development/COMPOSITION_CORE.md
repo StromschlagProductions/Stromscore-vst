@@ -401,3 +401,59 @@ Prüfergebnis: finaler Linux/Xvfb-CTest 4/4 und ASan/UBSan 3/3 bestanden;
 Python-Releaseprüfer 7/7 bestanden. Einschließlich bestehender Dialog-/Bereichs-/Kanalteilungs-,
 Seek-/Loop-/Szenenstart- und Live-/Exportprüfungen. Windows/pluginval und subjektive
 Hörabnahme wurden nicht durchgeführt. Kein Push und kein Release.
+
+## Einheitlicher Katalog der acht bisherigen Ausgabegruppen
+
+`outputCatalog(Settings)` ist nun die gemeinsame Quelle der Standardfähigkeiten und
+MIDI-Bindungen. Der Dialogadapter pflegt keine eigenen Fähigkeiten mehr. Jedes Ziel
+hat eindeutige Ausgabe-/Spur-ID, Standardverwendung, Spielweise, Tonumfang, Polyphonie,
+Tick-Dauerbereich, Rollenfreigaben und Verfügbarkeit. `validOutputs` prüft Vollständigkeit,
+Eindeutigkeit, Kanäle, Bereiche, Dauern und Triggernoten; Kanalteilung ist ausdrücklich erlaubt.
+Alle Einträge sind als Generatorannahme markiert, `externalPatchKnown` ist immer false.
+
+| Ziel | Standardverwendung | Spielweise | angenommene MIDI-Polyphonie | maximale Gate-Dauer (Ticks) |
+|---|---|---|---:|---:|
+| Fläche lang | gehaltener Harmoniesatz | gehalten | 6 | 2^24 |
+| Fläche kurz | Akkordimpulse und Riss | kurz | 9 einschließlich Zusatzstößen | 3 |
+| Bass lang | Fundament, Pedal | gehalten | 1 | 2^24 |
+| Bass kurz | rhythmische Bassfiguren | kurz | 1 | 4 |
+| Arp | Arpeggio, Figur, Dialogantwort | kurz | 1 | 32 |
+| Tupfer | Farbeinwurf/Reibung | kurz | 4 als konservatives Überlappungsbudget | 3 |
+| Stich | Akzentschlag | kurz | 1 | 2 |
+| Gegenstimme | Linie, Motiv, Frage | gehalten | 2 einschließlich Legato | 2^24 |
+
+Minimale Gate-Dauer jeweils ein Tick. Die großen Lang-Dauergrenzen sind konservative
+Modellbudgets für die gegenwärtig unterstützten langen Abläufe, keine Messung einer Library.
+Diese Angaben beschreiben die MIDI-Anforderungen des internen Erzeugers, nicht Klangdauer,
+Release, realistisches Instrumentenregister oder tatsächliche Patch-Polyphonie.
+
+Tonhöhen werden standardmäßig als steuerbar vorausgesetzt. Bei festem Stich gilt dagegen:
+feste Notenadressierung, eingestellte Triggernote als Bereich, Tonhöhenverhalten unbekannt.
+Ein fester Trigger beweist weder einen geräuschhaften noch einen gestimmten Sampleklang.
+Die tatsächliche Stichausgabe verwendet dieselbe Adressierungsfunktion des Katalogmodells;
+Harmonie, Oktave und musikalische Bereichsfaltung verändern die feste Taste nicht.
+Ohne festen Stich bleiben dessen bisherige harmonisch abgeleitete Noten erhalten.
+
+Tonumfänge kommen aus den vorhandenen Bereichseinstellungen, sonst MIDI 0–127.
+Lang und kurz besitzen getrennte Fähigkeitseinträge und MIDI-Ziele, auch wenn sie bisher
+noch dieselbe Bereichseinstellung der Bediengruppe verwenden. Unterschiedliche Patch-
+Fähigkeiten sind dadurch darstellbar, ohne im jetzigen UI zusätzliche Angaben einzuführen.
+`available` bedeutet durch Mute/Solo freigegeben; Szene, Intensität und zeitliche Rollenfenster
+bleiben zusätzliche musikalische Bedingungen. Ein globales Ressourcenbudget eines gemeinsam
+benutzten externen Instruments ist damit noch nicht modelliert.
+
+Tests prüfen alle acht Registrierungen, doppelte Ziel-/Spur-IDs, Lang/Kurz-Eignung,
+Mute/Solo, feste Trigger trotz Oktav-/Bereichseinstellungen und die Ablehnung als Melodie.
+Bestehende physische MIDI-/Trigger-, Transport- und Live-/Exportprüfungen bleiben aktiv.
+
+Danach ist eine eigenständige Hauptmelodie als nächster begrenzter Auftrag sinnvoll:
+zusätzliche Spielspur und neuntes Standardziel auf Basis des gemeinsamen Modells, mit
+zunächst nur einem vorhandenen Motivverfahren. Der Katalog allein komponiert noch keine
+Hauptmelodie; deren Phrasierung und Zusammenspiel mit dem Dialog benötigen eigene Regeln
+und Tests. Eine vollständige Orchestrierungs- oder Artikulationsengine ist dafür keine
+Voraussetzung. In diesem Schritt wurde diese Spur nicht ergänzt.
+
+Prüfergebnis: Linux/Xvfb CTest 4/4, ASan/UBSan 3/3 und Python-Releaseprüfer 7/7 bestanden.
+252 zusätzliche temporäre Vergleichsrenderings gegen 6e8ddd2 ergeben identische
+MIDI-Ereignisprüfsummen. Windows/pluginval und subjektive Hörabnahme wurden nicht ausgeführt.
+Keine neue Melodiespur, GUI, Patch-Erkennung oder Artikulationsengine ergänzt.
