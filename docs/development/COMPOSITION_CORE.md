@@ -649,3 +649,61 @@ viertaktigen Cmaj7-Slots, da die GUI pro Slot höchstens vier Takte erlaubt).
 252 temporäre Vergleichsrenderings aller bisherigen Wendungen in drei Registerkonfigurationen
 liefern ohne aktive Melodie identische MIDI-Ereignisprüfsummen gegenüber 2af484a.
 Kein Windows/pluginval, DAW-Hostlauf oder subjektiver Hörtest durchgeführt.
+
+## Erste neutrale Profil-Steuerstelle: FreeCompositionPolicy
+
+`CompositionPolicy.h` stellt `FreeCompositionPolicy` und einen kleinen `TexturePolicy`-
+Bereich bereit. `TexturePart` bezeichnet die sechs musikalischen Ebenen ohne MIDI-Zielnummern;
+der freie Adapter verwendet dafür seine bestehende Ebenenreihenfolge. Die Policy liegt als
+Wert in `Settings`, sodass dieselben Daten auch in Kopien für Aufbau/Fahrt und Export erhalten
+bleiben. Der Processor erzeugt weiterhin ausschließlich die neutrale Policy; kein neuer
+Host-Parameter, kein Profilwahlschalter und keine GUI-/State-Migration.
+
+Die Engine liest die Daten tatsächlich in `levelOn/levelOff`, `autoEntry`, `updateScene`,
+`updateStill`, `tupferAt`, `accents` und dem Arp-Teil von `render`. Ausgelagert sind:
+
+- Aktivitätsschwellen Harmonie/Bass/Bewegung/Akzente/Dialog/Melodie:
+  0 / 0 / 0,25 / 0,25 / 0,15 / 0,15.
+- Zusätzlicher Akzenteinsatz über Unruhe: 0,35; Stich über Intensität: 0,5.
+- Aktivitätshysterese: 0,06; Mindesthaltezeit: zwei Takte.
+- Harmonische Ruhezone: Eintritt unter 0,10, Verlassen ab 0,14.
+- Automatisches Arp-Tempo: unter 0,15 Viertel, unter 0,5 Achtel, sonst Sechzehntel.
+
+Alle Vergleiche, Grenzgleichheiten und Taktgrenzen bleiben erhalten. Individuelle
+Intensitätsversätze werden wie bisher vor der Schwellenprüfung angewendet. Mute/Solo,
+Melodie-Opt-in und Score-/Pop-Verfügbarkeit sind weiterhin vorrangige Adapterbedingungen.
+Manuelle Arp-Tempi werden wie bisher ausgewertet, anschließend gelten unverändert die
+Sechzehntel-Ausnahmen für Glitter/Sid. Die bisherigen UI-Konstanten für Intensitätsanzeigen
+sind nur noch abgeleitete neutrale Projektionen, keine zweite Definition der Enginewerte.
+
+`valid(TexturePolicy)` prüft endliche, geordnete Schwellen und begrenzte Haltezeiten.
+Ungültige interne Daten werden vor Verarbeitung auf die neutrale Policy zurückgesetzt.
+Dies ist keine externe Profil-Ladeschnittstelle. Die Policy wird für eine Szene gewählt;
+nahtlose Profilwechsel samt Invalidierung sämtlicher Szenenentscheidungen (z. B. Auto-Einstieg)
+sind nicht Bestandteil dieses Schritts.
+
+Weiter fest im Generator stehen u. a. Bass-/Harmonie-Musterwahl, Arp-Figuren einschließlich
+Glitter-/Sid-Ausnahme, Akzentwahrscheinlichkeiten, Riss-Schwelle, Aufbau-/Endkurven,
+Einstiegsgewichte, Wendungsauswahl und deren Hysterese, Stimmführungskosten, Motiv-/Phrasen-
+und Übergaberegeln. Kein neues Dichtebudget, keine automatische Orchestrierung und keine
+musikalische Verhaltensänderung beabsichtigt.
+
+Gezielte `PolicyTests` prüfen die tatsächliche Enginewirkung anderer interner Policywerte:
+Aktivität aller sechs Ebenen, XYZ-Intensitätsversatz, Akzent-/Stich-Einsatz, Ausschalthysterese,
+Mindesthaltezeit, Eintritt/Austritt der Ruhezone und automatische Arp-Raten. Score und Pop/Rock,
+manuelle Raten, Figuren-Ausnahmen, Mute/Solo und ungültige Daten sind berücksichtigt.
+
+Temporärer A/B-Vergleich gegen den vollständigen Quellstand 7b218ad: 504 Renderings zu je
+80 Sekunden (84 Wendungen × sechs Szenarien), einschließlich beider Genres, automatischer
+und manueller Muster/Tempi, Feld-/Mute-Änderungen, Register/Oktaven/Kanalteilung, Aufbau,
+Fahrt, Enden, Motiven, Melodie/Antwort sowie Seek/Loop und unterschiedlichen Blockgrößen.
+Die vollständigen serialisierten Ereignisströme (Sampleposition, Kanal, Note/Controller,
+Wert, Typ und Ausgang) sind bytegenau identisch; nicht nur Notenzahl oder Hörvergleich.
+Gemeinsame SHA-256: 58e31798633b28f89313b2bd874e233f0fa54462f52357cc28946226c58cae71.
+Referenz und Renderer liegen nur im temporären Prüfverzeichnis; keine parallele alte
+Produktionsengine oder Kompatibilitätsschicht wurde ergänzt.
+
+Abschließender Prüfstand: Linux/Xvfb-CTest 5/5 (einschließlich Processor-/Live-/Exporttests),
+ASan/UBSan 4/4 und Python-Paketprüfer 7/7 bestanden. Der Mehrdateien-Build prüft auch die
+C++17-inline-Verknüpfung der neutralen Anzeigeprojektion. Windows/pluginval wurde für diesen
+lokalen Schritt nicht erneut ausgeführt. Keine GUI-Änderung, kein Push, kein Release.

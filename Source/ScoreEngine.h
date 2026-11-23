@@ -31,9 +31,11 @@ constexpr int kPhraseBars = 8;          // eine Wendung = 8 Takte
 constexpr int kMaxChords = 8;
 
 // Ab welcher Intensitaet eine Ebene im Modus Auto einsetzt (Akzent zusaetzlich bei Unruhe ab 0,35)
-constexpr float kLayerStart[kNumLayers] = { 0.0f, 0.0f, 0.25f, 0.25f, 0.15f, 0.15f };
-constexpr float kStichStart = 0.5f;     // der zweite Akzent (Stich) kommt erst bei mehr Intensitaet dazu
-constexpr float kAkzentUnruhe = 0.35f;
+// Neutral UI threshold projections; all engine decisions read Settings::policy.
+inline constexpr auto& kLayerStart = composition::neutralFreePolicy.texture.activityStart;
+static_assert(kNumLayers==static_cast<int>(composition::TexturePart::count));
+constexpr float kStichStart = composition::neutralFreePolicy.texture.stichStart;     // der zweite Akzent (Stich) kommt erst bei mehr Intensitaet dazu
+
 constexpr float kRissStart = 0.8f;     // ab hier reisst die Unruhe: kurze Halbton-Stoesse hoch ueber dem Satz (ab 1.4)
 
 // ------------------------------------------------------------------ Akkorde
@@ -90,9 +92,6 @@ constexpr int kEntryOrder[kNumEntries][kNumLayers] = {
     { kGegenstimme, kFlaeche, kBass, kArp, kAkzent , kMelodie },   // Gegenstimme
     { kFlaeche, kBass, kArp, kGegenstimme, kAkzent , kMelodie } }; // Alles zugleich (Reihenfolge nur fuers Ausduennen)
 constexpr int kEntryLayer[kNumEntries] = { -1, kFlaeche, kBass, kBass, kArp, kAkzent, kGegenstimme, -1 };
-constexpr float kStillIn = 0.10f;       // ganz unten im Feld (Intensitaet) steht der Akkord
-constexpr float kStillOut = 0.14f;      // erst darueber laeuft die Akkordfolge wieder
-constexpr float kHysteresis = 0.06f;   // Traegheit: so weit unter der Schwelle geht eine Ebene erst wieder aus
 
 // ------------------------------------------------------------------ Vokabular (Wendungen)
 struct Chord { int root; int type; int bars; int bass = -1; };   // bass: eigener Basston (Halbtoene ueber dem Grundton der Tonart), -1 = Grundton des Akkords
@@ -219,6 +218,7 @@ struct CustomChord { int rootAbs = 0; int type = Maj; int bars = 0; };   // bars
 
 struct Settings
 {
+    composition::FreeCompositionPolicy policy {}; // Internal scene policy; no host parameter or preset switch.
     bool melodyLegato = true, melodyMotif = true;
     bool melody = false; // Explicit foreground opt-in; background is the default.
     int key = 9;                // 0 = C ... 9 = A ... 11 = H
@@ -460,14 +460,14 @@ public:
     static bool levelOn (const Settings& s, int layer)
     {
         const float y = layerY (s, layer);
-        if (layer == kAkzent) return y >= kLayerStart[kAkzent] || s.z >= kAkzentUnruhe;
-        return y >= kLayerStart[layer];
+        if (layer == kAkzent) return y >= s.policy.texture.start(composition::TexturePart::accents) || s.z >= s.policy.texture.accentUnrest;
+        return y >= s.policy.texture.start(static_cast<composition::TexturePart>(layer));
     }
     static bool levelOff (const Settings& s, int layer)
     {
         const float y = layerY (s, layer);
-        if (layer == kAkzent) return y < kLayerStart[kAkzent] - kHysteresis && s.z < kAkzentUnruhe - kHysteresis;
-        return y < kLayerStart[layer] - kHysteresis;
+        if (layer == kAkzent) return y < s.policy.texture.start(composition::TexturePart::accents) - s.policy.texture.activityHysteresis && s.z < s.policy.texture.accentUnrest - s.policy.texture.activityHysteresis;
+        return y < s.policy.texture.start(static_cast<composition::TexturePart>(layer)) - s.policy.texture.activityHysteresis;
     }
 
     // Einstieg bei Auto: gewuerfelt aus dem Wurf, gewichtet nach Genre und Stimmungsfeld (nur Ebenen, die spielen koennen)
@@ -476,8 +476,8 @@ public:
         const bool pop = s.genre == GenrePopRock;
         auto ok = [&s] (int l) { return muteSoloOk (s, l) && levelOn (s, l); };
         float w[kNumEntries] {};
-        if (ok (kFlaeche)) w[EntryPad] = pop ? 1.0f : 3.0f + (s.z >= kAkzentUnruhe ? 1.0f : 0.0f) + (s.y < 0.3f ? 1.0f : 0.0f);
-        if (ok (kBass)) { w[EntryBass] = 2.0f; w[EntryPulse] = 1.0f + (s.z >= kAkzentUnruhe ? 2.0f : 0.0f); }
+        if (ok (kFlaeche)) w[EntryPad] = pop ? 1.0f : 3.0f + (s.z >= s.policy.texture.accentUnrest ? 1.0f : 0.0f) + (s.y < 0.3f ? 1.0f : 0.0f);
+        if (ok (kBass)) { w[EntryBass] = 2.0f; w[EntryPulse] = 1.0f + (s.z >= s.policy.texture.accentUnrest ? 2.0f : 0.0f); }
         if (ok (kArp)) w[EntryArp] = pop ? 3.0f : 1.0f;
         if (ok (kAkzent)) w[EntryAkzent] = pop ? 0.5f : 1.0f;
         if (ok (kGegenstimme)) w[EntryCounter] = pop ? 0.5f : 1.0f;
@@ -602,6 +602,7 @@ public:
         s.variation = std::clamp (s.variation, 1, 16);
         s.change = std::clamp (s.change, 0, kNumChangeGrids - 1);
         for (auto& v : s.layerIntensity) v = std::clamp (v, -1.0f, 1.0f);
+        if(!composition::valid(s.policy.texture))s.policy=composition::neutralFreePolicy;
         s.variety = std::clamp (s.variety, 0.0f, 1.0f);
         for (auto& o : s.octave) o = std::clamp (o, -2, 2);
         for (auto& c : s.channel) c = std::clamp (c, 1, 16);
@@ -833,7 +834,7 @@ private:
             if (fresh) { hOn[l] = levelOn (s, l); hSince[l] = k; prevOn[l] = false; continue; }
             if (! s.inertia || ! barStart) continue;
             if (! hOn[l] && levelOn (s, l)) { hOn[l] = true; hSince[l] = k; }
-            else if (hOn[l] && levelOff (s, l) && k - hSince[l] >= 2LL * meter.len) hOn[l] = false;
+            else if (hOn[l] && levelOff (s, l) && k - hSince[l] >= static_cast<long long>(s.policy.texture.minimumActiveBars) * meter.len) hOn[l] = false;
         }
 
         int m = 0;
@@ -1120,7 +1121,7 @@ private:
     bool updateStill (long long k, const Pos& p, const Settings& s)
     {
         if (current < 0 || ! isChangePoint (p, s)) return false;
-        const bool want = still ? s.y < kStillOut : s.y < kStillIn;
+        const bool want = still ? s.y < s.policy.texture.stillExit : s.y < s.policy.texture.stillEnter;
         if (want == still) return false;
         still = want;
         if (still) chordBase = p.chordIdx;   // der gerade klingende Akkord bleibt
@@ -1510,7 +1511,7 @@ private:
     bool tupferAt (long long k, const Settings& s) const
     {
         const float ya = layerY (s, kAkzent);
-        if (ya < kLayerStart[kAkzent] && ! akzentForced) return false;
+        if (ya < s.policy.texture.start(composition::TexturePart::accents) && ! akzentForced) return false;
         const long long bar = floorDiv (k, meter.len);
         const int pos = (int) (k - bar * meter.len);
         if (pos % 2 != 0 || pos % 8 == 0 || meter.isGroupStart (pos)) return false;   // nur Zwischenzeiten
@@ -1596,12 +1597,12 @@ private:
         const bool phraseEnd = lastBar && p.pos == lastGroup && lastGroup > 0;    // Schlusspunkt der Phrase
         const bool both = phraseEnd && ya >= 0.8f;
 
-        if (s.z >= kAkzentUnruhe && k == p.chordStart + (p.chordEnd - p.chordStart) / 2)
+        if (s.z >= s.policy.texture.accentUnrest && k == p.chordStart + (p.chordEnd - p.chordStart) / 2)
             foreignTone (p, s, offset, out);
         else if (both || tupferAt (k, s))
             tupfer (p, s, offset, ya > 0.7f ? 1 : 2, both ? 10 : 0, out);
 
-        if (ya < kStichStart) return;
+        if (ya < s.policy.texture.stichStart) return;
         bool hit = both || (phraseEnd && ya >= 0.6f);
         if (! hit && k == p.chordStart)
             hit = (float) (hashInt (613u, k) % 1000) < (0.25f + 0.45f * ya) * 1000.0f;
@@ -1949,7 +1950,7 @@ private:
         {
             const int fig = chooseArp (s, phrase);
             int rate = s.arpRate == RateQuarter ? 4 : s.arpRate == RateEighth ? 2 : s.arpRate == RateSixteenth ? 1
-                     : (yArp < 0.15f ? 4 : yArp < 0.5f ? 2 : 1);
+                     : composition::autoArpeggioTicks(s.policy.texture,yArp);
             if (fig == ArpGlitter || fig == ArpSid) rate = 1;
             const long long rel = k - (s.follow[kArp] ? p.chordStart : p.phraseStart);
             if (rel % rate == 0)
