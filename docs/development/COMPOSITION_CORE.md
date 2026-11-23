@@ -837,3 +837,40 @@ Python-Paketprüfer 7/7 bestanden. Windows/pluginval und subjektive Hörabnahme 
 nicht erneut durchgeführt. Keine neuen Wendungen, Akkordtypen, GUI-Elemente oder
 kompositorischen Verfahren; ausschließlich initiale Auswahlpräferenzen auf bestehenden IDs.
 Kein Push und kein Release.
+
+## GUI-Anbindung der bestehenden Komponistenwahl
+
+Der APVTS-Choice-Parameter `komponist` enthält Neutral, John Barry und Bernard Herrmann;
+Neutral (Index 0) bleibt Vorgabe. Die Namen kommen aus der vorhandenen Profilregistry.
+Der Parameter wurde an die bestehende Parameterliste angehängt. `currentSettings()` bildet
+den Choice-Index auf `Settings::profile` ab; Live, Vorschau und MIDI-Export verwenden damit
+die vorhandene Profilgewichtung. APVTS übernimmt Automation und Projektzustand.
+
+Ein ComboBoxAttachment zeigt die Auswahl im kompakten Menü KOMPONIST oberhalb TONART.
+Die zweite obere Spalte enthält nun fünf Zeilen mit unveränderter horizontaler Position;
+Tonart, Takt, Variation und Swing wurden ausschließlich innerhalb dieser Spalte neu gesetzt.
+Das XYZ-Feld behält exakt seine bisherigen Bounds (24,102,208,208), die Genre-Schalter
+ihre bisherigen Bounds. Die bestehende gleichmäßige UI-Skalierung bleibt unverändert.
+Für Skalierungstests werden geometrische Fließkomma-Maße verwendet: ganzzahlige Pixel-
+Hüllboxen können durch Rundung eine Pixelzeile voneinander abweichen, ohne die 1:1-Geometrie
+zu verändern. Es wurde kein musikalischer Code oder Profilgewicht geändert.
+
+Parameter und Anzeige reagieren sofort. Musikalisch greift die Wahl bei der nächsten
+bereits vorgesehenen automatischen Wendungsauswahl, üblicherweise an der nächsten Phrase;
+eine bestehende Harmonie wird nicht unmittelbar ersetzt. Gehaltene Harmonie/Still-Modus
+kann die nächste Auswahl weiter verzögern. Export beginnt wie bisher eine neue Szene mit
+dem aktuell gewählten Profil. Pop/Rock bleibt trotz gespeicherter Profilwahl ungewichtet.
+Eigene Akkordfolgen bleiben erhalten; ihr geliehener Auto-Begleitstil kann profilabhängig sein.
+Der Tooltip erläutert diese Grenzen, statt eine neue Umschalt-/Neustartregel einzuführen.
+
+Tests prüfen Wahl per Menü und Hostparameter, eindeutigen sichtbaren Namen, State-Restore
+mit Editor-Neuöffnung, tatsächliche profilabhängige Auswahl an bestehenden Phrasengrenzen,
+Live-/Exportgleichheit für beide Künstler und unveränderte Neutral-Vorgaben. Layouttests
+prüfen das unveränderte Quadrat, Genre-Buttons, Position und Überlappungsfreiheit aller
+zehn Labels/Controls der zweiten Spalte sowie mehrere Fenstergrößen.
+
+Validierung: Linux/Xvfb-Gesamttests 8/8, ASan/UBSan-Kerntests 7/7 und
+Python-Paketprüfer 7/7 bestanden. Dunkle und helle Oberfläche sowie der lange
+Profilname Bernard Herrmann wurden anhand gerenderter Screenshots geprüft; keine
+Überlappung oder abgeschnittene Profilbezeichnung festgestellt. Windows/pluginval
+wurden für diesen GUI-Schritt nicht erneut geprüft. Kein Push und kein Release.

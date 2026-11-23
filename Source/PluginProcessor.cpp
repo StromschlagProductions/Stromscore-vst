@@ -14,6 +14,13 @@ juce::AudioParameterFloatAttributes percent()
 }
 }
 
+juce::StringArray StromscoreProcessor::profileNames()
+{
+    juce::StringArray names;
+    for(const auto& profile:stromscore::composition::compositionProfiles)names.add(profile.name);
+    return names;
+}
+
 juce::StringArray StromscoreProcessor::keyNames()
 {
     return { "C", u8 ("C♯ / D♭"), "D", u8 ("D♯ / E♭"), "E", "F", u8 ("F♯ / G♭"), "G", u8 ("G♯ / A♭"), "A", u8 ("A♯ / B♭"), "B" };
@@ -173,6 +180,7 @@ juce::AudioProcessorValueTreeState::ParameterLayout StromscoreProcessor::createL
         layout.add (std::make_unique<AudioParameterFloat> (ParameterID { "weg"+String(i)+axis, 1 }, "Wegpunkt "+String(i+1)+axis, NormalisableRange<float>(0,1), .5f));
     for (int i=0;i<5;++i) for (auto axis : { "X", "Y" })
         layout.add (std::make_unique<AudioParameterFloat> (ParameterID { "bogen"+String(i)+axis, 1 }, "Bogen "+String(i+1)+axis, NormalisableRange<float>(-1,1), 0));
+    layout.add(std::make_unique<AudioParameterChoice>(ParameterID{"komponist",1},"Komponist",profileNames(),0));
     return layout;
 }
 
@@ -186,6 +194,7 @@ StromscoreProcessor::StromscoreProcessor()
         for (int edge = 0; edge < 2; ++edge)
             for (int ch = 0; ch < 16; ++ch)
                 pCcRange[kind][edge][ch] = apvts.getRawParameterValue ("cc" + juce::String (kind) + (edge == 0 ? "Lo" : "Hi") + juce::String (ch + 1));
+    pProfile = apvts.getRawParameterValue ("komponist");
     pKey = apvts.getRawParameterValue ("key");
     for (int i = 0; i < 3; ++i)
     {
@@ -282,6 +291,8 @@ void StromscoreProcessor::reset()
 stromscore::Settings StromscoreProcessor::currentSettings() const
 {
     stromscore::Settings s;
+    const int profile=juce::jlimit(0,static_cast<int>(stromscore::composition::compositionProfiles.size())-1,juce::roundToInt(pProfile->load()));
+    s.profile=stromscore::composition::compositionProfiles[static_cast<size_t>(profile)].id;
     s.key = juce::roundToInt (pKey->load());
     s.x = axisLive[0].load(); s.y = axisLive[1].load(); s.z = axisLive[2].load();
     static constexpr int nums[] = { 0, 4, 3, 6, 5, 7, 5, 12 };

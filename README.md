@@ -328,3 +328,10 @@ ihren Originalintervallen in eine Harmonie und den Gegenstimmenumfang passen; so
 bleibt sie aus. Die Melodie führt währenddessen nicht. Zum gezielten Ausprobieren:
 eigene Folge aus zweimal vier Takten Cmaj7, Intensität etwa 70 %, beide Motivschalter an,
 Melodie aktiv, Aufbau aus. Bei 120 BPM beginnt die erste mögliche Antwort nach 18 Sekunden.
+
+Im aktuellen Entwicklungsstand steht **KOMPONIST** über TONART: Neutral (Vorgabe),
+John Barry und Bernard Herrmann. Die Wahl wird mit dem Projekt gespeichert und steuert
+zunächst ausschließlich die vorhandenen harmonischen Auswahlpräferenzen im Score-Modus.
+Sie wirkt ab der nächsten automatischen Wendungsauswahl; für einen direkten A/B-Vergleich
+mit derselben Variation vom Szenenanfang starten. Pop/Rock bleibt unverändert. Eigene
+Akkorde werden nicht ersetzt, ihr automatischer Begleitstil kann sich jedoch ändern.

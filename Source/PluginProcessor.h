@@ -36,6 +36,7 @@ public:
     void setStateInformation (const void* data, int sizeInBytes) override;
 
     static constexpr int kUiWidth = 1200, kUiHeight = 656;
+    static juce::StringArray profileNames();
     static juce::StringArray keyNames();
     static juce::StringArray meterNames();
     static juce::StringArray layerNames();
@@ -155,6 +156,7 @@ private:
 
     std::atomic<float> axisLive[3] { { 0.5f }, { 0.1f }, { 0.0f } };
     std::atomic<float> pendingMidiAxis[3] { { -1.0f }, { -1.0f }, { -1.0f } };
+    std::atomic<float>* pProfile = nullptr;
     std::atomic<float>* pKey = nullptr; std::atomic<float>* pAxis[3] {}; std::atomic<float>* pMeter = nullptr;
     std::atomic<float>* pSwing = nullptr; std::atomic<float>* pVariation = nullptr; std::atomic<float>* pPreview = nullptr;
     std::atomic<float>* pMute[stromscore::kNumLayers] {}; std::atomic<float>* pSolo[stromscore::kNumLayers] {};

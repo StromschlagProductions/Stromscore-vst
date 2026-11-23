@@ -438,11 +438,11 @@ private:
     juce::Label varietyLabel;
     juce::Slider variety;
     std::unique_ptr<APVTS::SliderAttachment> varietyAttachment;
-    juce::Label padLabel, keyLabel, meterLabel, variationLabel, swingLabel, chordLabel, changeLabel, customLabel;
+    juce::Label padLabel, profileLabel, keyLabel, meterLabel, variationLabel, swingLabel, chordLabel, changeLabel, customLabel;
     juce::Slider variation, swing;
     std::unique_ptr<APVTS::SliderAttachment> variationAttachment, swingAttachment;
-    juce::ComboBox keyBox, meterBox, changeBox;
-    std::unique_ptr<APVTS::ComboBoxAttachment> keyAttachment, meterAttachment, changeAttachment;
+    juce::ComboBox profileBox, keyBox, meterBox, changeBox;
+    std::unique_ptr<APVTS::ComboBoxAttachment> profileAttachment, keyAttachment, meterAttachment, changeAttachment;
     juce::TextButton infoButton, ccButton, previewButton, customButton, editButton, passingButton, genreScore, genrePop;
     std::unique_ptr<juce::ParameterAttachment> genreAttachment;
     MidiDragBox midiDrag;

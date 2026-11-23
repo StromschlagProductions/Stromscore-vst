@@ -867,6 +867,7 @@ StromscoreEditor::StromscoreEditor (StromscoreProcessor& p) : AudioProcessorEdit
         content.addAndMakeVisible (l);
     };
     label (padLabel, u8 ("STIMMUNG"), juce::Justification::centredLeft);
+    label (profileLabel, "KOMPONIST", juce::Justification::centredLeft);
     label (keyLabel, "TONART", juce::Justification::centredLeft);
     label (meterLabel, "TAKT", juce::Justification::centredLeft);
     label (variationLabel, "VARIATION", juce::Justification::centredLeft);
@@ -944,6 +945,12 @@ StromscoreEditor::StromscoreEditor (StromscoreProcessor& p) : AudioProcessorEdit
     content.addAndMakeVisible (swing);
     swingAttachment = std::make_unique<APVTS::SliderAttachment> (processor.apvts, "swing", swing);
 
+    profileBox.addItemList(StromscoreProcessor::profileNames(),1);
+    profileBox.setName("Komponist");profileBox.setComponentID("komponist");
+    profileLabel.setComponentID("komponistLabel");
+    profileBox.setTooltip(u8("Erste harmonische Profilpräferenzen. Score: ab der nächsten automatischen Wendungsauswahl wirksam; bestehende Akkorde werden nicht sofort ersetzt. Pop-Rock bleibt unverändert. Eigene Akkorde bleiben erhalten; ihr geliehener Auto-Stil kann wechseln."));
+    content.addAndMakeVisible(profileBox);
+    profileAttachment=std::make_unique<APVTS::ComboBoxAttachment>(processor.apvts,"komponist",profileBox);
     keyBox.addItemList (StromscoreProcessor::keyNames(), 1);
     meterBox.addItemList (StromscoreProcessor::meterNames(), 1);
     content.addAndMakeVisible (keyBox);
@@ -1612,7 +1619,7 @@ void StromscoreEditor::applyTheme()
     look.setColour (juce::TooltipWindow::textColourId, theme.text);
     look.setColour (juce::TooltipWindow::outlineColourId, theme.accent.withAlpha (0.6f));
 
-    for (auto* l : { &padLabel, &varietyLabel, &keyLabel, &meterLabel, &variationLabel, &swingLabel, &chordLabel, &changeLabel, &customLabel,
+    for (auto* l : { &padLabel, &varietyLabel, &profileLabel, &keyLabel, &meterLabel, &variationLabel, &swingLabel, &chordLabel, &changeLabel, &customLabel,
                      &sceneLabel, &driveLabel, &entryLabel, &lengthLabel, &endLabel, &startLabel, &durLabel, &curveLabel })
         l->setColour (juce::Label::textColourId, theme.dim);
     sceneStatus.setColour (juce::Label::textColourId, theme.text);
@@ -1742,15 +1749,17 @@ void StromscoreEditor::resized()
     genrePop.setBounds (172, 80, 60, 20);
     pad.setBounds (24, 102, 208, 208);
 
-    // Tonart, Takt, Variation, Swing
-    keyLabel.setBounds (256, 82, 140, 18);
-    keyBox.setBounds (256, 102, 142, 26);
-    meterLabel.setBounds (256, 136, 140, 18);
-    meterBox.setBounds (256, 156, 142, 26);
-    variationLabel.setBounds (256, 190, 140, 18);
-    variation.setBounds (256, 210, 142, 26);
-    swingLabel.setBounds (256, 244, 140, 18);
-    swing.setBounds (252, 264, 150, 24);
+    // Compact five-row key column; the mood pad and genre buttons keep their exact bounds.
+    profileLabel.setBounds(256,82,142,18);
+    profileBox.setBounds(256,102,142,24);
+    keyLabel.setBounds(256,128,142,18);
+    keyBox.setBounds(256,148,142,24);
+    meterLabel.setBounds(256,174,142,18);
+    meterBox.setBounds(256,194,142,24);
+    variationLabel.setBounds(256,220,142,18);
+    variation.setBounds(256,240,142,24);
+    swingLabel.setBounds(256,266,142,18);
+    swing.setBounds(252,286,150,24);
 
     // Wechsel, eigene Folge, Vorhoeren
     changeLabel.setBounds (422, 82, 150, 18);

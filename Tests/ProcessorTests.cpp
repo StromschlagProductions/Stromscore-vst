@@ -763,6 +763,8 @@ int main()
         const int durations[4]={1,3,2,2};
         for(int i=0;i<4;++i)setParam(q,("slotBars"+std::to_string(i+1)).c_str(),static_cast<float>(durations[i]));
         for (int i = 2; i <= 5; ++i) setParam (q, ("mute" + std::to_string (i)).c_str(), 1);
+        if(intensity==.8f||intensity==.9f)
+        {setParam(q,"komponist",intensity==.8f?1.f:2.f);setParam(q,"eigeneFolge",0);}
         const bool recurrence=intensity>.75f;
         if(recurrence){setParam(q,"mute1",1);setParam(q,"mute5",0);setParam(q,"motiv",1);}
         if(intensity>.85f){setParam(q,"mute3",0);setParam(q,"arpFigure",stromscore::ArpCell);}
@@ -905,6 +907,64 @@ int main()
             {auto* b=dynamic_cast<juce::Button*>(&c);CHECK(b&&!b->getToggleState());++switches;}
             for(auto* child:c.getChildren())find(*child);};find(*editor);CHECK(switches==2);
 
+    }
+    // Composer choice uses APVTS, persists, and leaves the square mood pad/genre controls untouched.
+    {
+        using stromscore::composition::ProfileId;
+        StromscoreProcessor q;CHECK(q.currentSettings().profile==ProfileId::neutral);
+        CHECK(q.apvts.getParameter("komponist")!=nullptr);
+        std::unique_ptr<juce::AudioProcessorEditor> editor(q.createEditor());
+        juce::ComboBox* profile=nullptr;MoodPad* mood=nullptr;juce::Label* label=nullptr;
+        juce::TextButton *score=nullptr,*pop=nullptr;
+        std::function<void(juce::Component&)> find=[&](juce::Component& c)
+        {
+            if(c.getComponentID()=="komponist")profile=dynamic_cast<juce::ComboBox*>(&c);
+            if(c.getComponentID()=="komponistLabel")label=dynamic_cast<juce::Label*>(&c);
+            if(auto* m=dynamic_cast<MoodPad*>(&c))mood=m;
+            if(auto* b=dynamic_cast<juce::TextButton*>(&c))
+            {if(b->getButtonText()=="Score")score=b;if(b->getButtonText()=="Pop-Rock")pop=b;}
+            for(auto* child:c.getChildren())find(*child);
+        };find(*editor);
+        CHECK(profile&&mood&&label&&score&&pop);
+        CHECK(profile->getNumItems()==3&&profile->getSelectedId()==1&&profile->getText()=="Neutral");
+        CHECK(label->getText()=="KOMPONIST"&&label->getBounds()==juce::Rectangle<int>(256,82,142,18));
+        CHECK(profile->getBounds()==juce::Rectangle<int>(256,102,142,24));
+        CHECK(score->getBounds()==juce::Rectangle<int>(118,80,52,20)&&pop->getBounds()==juce::Rectangle<int>(172,80,60,20));
+        for(int width:{600,900,1200,1800})
+        {editor->setSize(width,width*656/1200);CHECK(mood->getBounds()==juce::Rectangle<int>(24,102,208,208));
+            const auto visible=editor->getLocalArea(mood,mood->getLocalBounds().toFloat());CHECK(std::abs(visible.getWidth()-visible.getHeight())<.0001f);}
+        editor->setSize(1200,656);
+        std::vector<juce::Rectangle<int>> column;
+        for(auto* c:profile->getParentComponent()->getChildren())
+            if(c->isVisible()&&c->getX()>=252&&c->getRight()<=404&&c->getY()>=82&&c->getBottom()<=310)
+                column.push_back(c->getBounds());
+        CHECK(column.size()==10);
+        for(size_t i=0;i<column.size();++i)for(size_t j=0;j<i;++j)CHECK(!column[i].intersects(column[j]));
+        setParam(q,"aufbau",0);setParam(q,"faerbung",.2f);setParam(q,"intensitaet",.45f);setParam(q,"unruhe",.45f);
+        q.prepareToPlay(48000,512);FakeHost host;q.setPlayHead(&host);juce::AudioBuffer<float> audio(2,512);juce::MidiBuffer midi;
+        int phrase=0;
+        for(int item:{2,3,1})
+        {
+            profile->setSelectedId(item,juce::sendNotificationSync);
+            const auto settings=q.currentSettings();CHECK(static_cast<int>(settings.profile)==item-1);
+            CHECK(profile->getText()==StromscoreProcessor::profileNames()[item-1]);
+            host.ppq=phrase*32.;midi.clear();q.processBlock(audio,midi);
+            CHECK(q.wendung.load()==stromscore::Generator::pick(settings,phrase));++phrase;
+        }
+        setParam(q,"komponist",2);CHECK(profile->getSelectedId()==3&&q.currentSettings().profile==ProfileId::bernardHerrmann);
+        juce::MemoryBlock state;q.getStateInformation(state);editor.reset();
+        auto restored=std::make_unique<StromscoreProcessor>();restored->setStateInformation(state.getData(),static_cast<int>(state.getSize()));
+        CHECK(restored->currentSettings().profile==ProfileId::bernardHerrmann);
+        std::unique_ptr<juce::AudioProcessorEditor> reopened(restored->createEditor());profile=nullptr;find(*reopened);
+        CHECK(profile&&profile->getSelectedId()==3&&profile->getText()=="Bernard Herrmann");
+        if(const auto* path=std::getenv("STROMSCORE_GUI_SNAPSHOT"))
+        {
+            reopened->setVisible(true);
+            auto stream=juce::File(juce::String::fromUTF8(path)).createOutputStream();
+            CHECK(stream&&juce::PNGImageFormat().writeImageToStream(
+                reopened->createComponentSnapshot(reopened->getLocalBounds(),true,2.f),*stream));
+        }
+        host.playing=false;midi.clear();q.processBlock(audio,midi);q.setPlayHead(nullptr);
     }
     return 0;
 }
