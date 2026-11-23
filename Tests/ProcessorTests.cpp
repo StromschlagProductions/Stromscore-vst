@@ -746,7 +746,7 @@ int main()
         CHECK (! c.broken && c.ons == c.offs); q.setPlayHead (nullptr);
     }
     // Voice-leading export equals live DAW playback, including channel CCs and held common notes.
-    for(float intensity : {.4f,.7f,.8f,.9f,1.f,.99f})
+    for(float intensity : {.4f,.7f,.8f,.9f,1.f,.99f,.97f})
     {
         StromscoreProcessor q; FakeHost h; q.setPlayHead (&h); q.prepareToPlay (48000, 512);
         setParam (q, "aufbau", 0); setParam (q, "key", 0); setParam (q, "intensitaet", intensity);
@@ -768,6 +768,14 @@ int main()
         if(intensity>.85f){setParam(q,"mute3",0);setParam(q,"arpFigure",stromscore::ArpCell);}
         if(intensity>.95f){setParam(q,"melodie",1);setParam(q,"mute6",0);}
         if(intensity>.98f&&intensity<1.f){setParam(q,"melodieMotiv",0);setParam(q,"melodieLegato",0);}
+        const bool handoff=intensity>.96f&&intensity<.98f;
+        if(handoff)
+        {
+            setParam(q,"wurf",3);setParam(q,"durchgaenge",0);
+            for(int i=1;i<=stromscore::kMaxChords;++i)
+            {setParam(q,("slotRoot"+std::to_string(i)).c_str(),0);setParam(q,("slotType"+std::to_string(i)).c_str(),2);
+                setParam(q,("slotBars"+std::to_string(i)).c_str(),i<=2?4.f:0.f);}
+        }
         const int bars=recurrence?40:8;
         using Timed = std::tuple<long long, int, int, int, int>;
         std::vector<Timed> live, exported;
@@ -790,7 +798,9 @@ int main()
         h.playing = false; m.clear(); q.processBlock (a, m);
         for (const auto meta : m) add (live, meta.getMessage(), bars*3840);
         std::sort (live.begin(), live.end()); std::sort (exported.begin(), exported.end());
-        CHECK (! live.empty() && live == exported); q.setPlayHead (nullptr);
+        CHECK (! live.empty() && live == exported);
+        if(handoff){int answers=0;for(const auto& e:live)if(std::get<1>(e)==1&&std::get<2>(e)==8)++answers;CHECK(answers>=2&&answers<=3);}
+        q.setPlayHead (nullptr);
     }
 
     p->setPlayHead (nullptr);

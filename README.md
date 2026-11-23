@@ -318,3 +318,13 @@ Legato verbindet die Noten bis zum nächsten Einsatz, ohne die monophone Fähigk
 Pausen und Harmoniegrenzen bleiben erhalten. Motiv aus erzeugt harmonische Linien ohne
 gezielte Motivwiederkehr. Aktiv aus erzeugt keine Melodienoten. Beide neuen Schalter sind
 standardmäßig an und werden mit dem Projekt gespeichert.
+
+
+Bei aktiver Melodie und eingeschaltetem **Motiv** in Melodie und Gegenstimme kann
+die Gegenstimme sparsam eine Schlussfigur übernehmen: zwei bis drei Töne nach einer
+Pause, höchstens in jeder vierten Zwischenphrase. Zunächst nur im Score-Modus, 4/4,
+ohne Aufbau und mit mindestens viertaktigen Phrasen. Die gesamte Antwort muss mit
+ihren Originalintervallen in eine Harmonie und den Gegenstimmenumfang passen; sonst
+bleibt sie aus. Die Melodie führt währenddessen nicht. Zum gezielten Ausprobieren:
+eigene Folge aus zweimal vier Takten Cmaj7, Intensität etwa 70 %, beide Motivschalter an,
+Melodie aktiv, Aufbau aus. Bei 120 BPM beginnt die erste mögliche Antwort nach 18 Sekunden.

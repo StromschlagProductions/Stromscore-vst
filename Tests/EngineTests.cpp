@@ -1475,6 +1475,50 @@ int main()
         t.playing=false;at(64);t.playing=true;at(0);CHECK(!g.rememberedMotif(OutMelody).complete);
         s.genre=GenrePopRock;for(auto e:run(s,512,4.))CHECK(e.out!=OutMelody);
     }
+    // Explicit sparse suffix response from actual melody attacks; no concurrent lead.
+    {
+        Settings s;s.melody=true;s.motif=true;s.y=.7f;s.seed=3;s.custom=true;s.customChords[0]={0,Maj7,8};
+        s.solo[kMelodie]=s.solo[kGegenstimme]=true;
+        const auto events=run(s,512,120.);checkBalanced(events);
+        std::vector<std::pair<long long,int>> intro,answer;int leadActive=0,answerActive=0;
+        for(const auto& e:events)
+        {
+            if(e.out==OutMelody){leadActive+=e.velocity>0?1:-1;if(e.velocity>0&&e.sample<192000)intro.push_back({e.sample,e.note});}
+            if(e.out==OutCounter)
+            {
+                answerActive+=e.velocity>0?1:-1;CHECK(answerActive>=0&&answerActive<=1);
+                if(e.velocity>0)answer.push_back({e.sample,e.note});
+                CHECK(e.note>=62&&e.note<=86);const int pc=e.note%12;CHECK(pc==0||pc==4||pc==7||pc==11);
+            }
+            CHECK(!(leadActive&&answerActive));
+        }
+        const int count=std::min(3,static_cast<int>(intro.size())-1);CHECK(count>=2);
+        CHECK(answer.size()==static_cast<size_t>(2*count)); // Sections 1 and 5 only in 120 seconds.
+        for(int group=0;group<2;++group)for(int i=0;i<count;++i)
+        {
+            const auto& n=answer[static_cast<size_t>(group*count+i)];
+            const auto& first=answer[static_cast<size_t>(group*count)];const auto source=static_cast<size_t>(intro.size()-count);
+            CHECK(n.first-first.first==intro[source+static_cast<size_t>(i)].first-intro[source].first);
+            CHECK(n.second-first.second==intro[source+static_cast<size_t>(i)].second-intro[source].second);
+        }
+        CHECK(answer.front().first==18*48000&&answer[static_cast<size_t>(count)].first==82*48000);
+        const auto large=run(s,8192,120.);CHECK(events.size()==large.size());
+        for(size_t i=0;i<events.size();++i)CHECK(events[i].sample==large[i].sample&&events[i].note==large[i].note&&events[i].velocity==large[i].velocity&&events[i].out==large[i].out);
+        Generator g;EventList list;Transport t;t.playing=true;
+        auto at=[&](double ppq){t.ppq=ppq;list.clear();g.process(t,s,6000,list);std::vector<int> pitches;
+            for(int i=0;i<list.size;++i){const auto& e=list.events[static_cast<size_t>(i)];if(e.out==OutCounter&&e.velocity>0)pitches.push_back(e.note);}return pitches;};
+        for(int tick=0;tick<40;++tick)at(tick*.25);
+        const auto identity=g.rememberedMotif(OutMelody).identity;const auto introduction=g.motifUse(OutMelody).introduction;
+        const auto response=at(36);CHECK(!response.empty());
+        CHECK(g.answerUse().reference.value==g.motifUse(OutMelody).reference.value);
+        CHECK(g.answerUse().introduction!=introduction&&g.rememberedMotif().count==0);
+        at(0);CHECK(at(36)==response&&g.rememberedMotif(OutMelody).identity==identity);
+        t.playing=false;at(36);t.playing=true;at(0);CHECK(g.answerUse().reference.value<0);
+        s.melodyMotif=false;for(const auto& e:run(s,512,40.))CHECK(e.out!=OutCounter);
+        s.melodyMotif=true;s.motif=false;for(const auto& e:run(s,512,40.))CHECK(e.out!=OutCounter);
+        s.motif=true;s.rangeOn[kOutputRange[OutCounter]]=true;s.rangeLo[kOutputRange[OutCounter]]=61;s.rangeHi[kOutputRange[OutCounter]]=61;
+        for(const auto& e:run(s,512,40.))CHECK(e.out!=OutCounter);
+    }
     // Both contexts survive foreground changes without adopting or mutating each other's material.
     {
         Settings s;s.motif=true;s.custom=true;s.customChords[0]={0,Maj7,8};s.y=.7f;

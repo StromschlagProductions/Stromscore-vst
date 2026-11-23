@@ -255,6 +255,22 @@ int main()
     CHECK(!planDialogue(question,questionCatalog,1,32,32).answer);
     CHECK(planDialogue(question,questionCatalog,2,32,32).answer);
     CHECK(!planDialogue(question,questionCatalog,0,64,32).reserveResponse);
+    // A handoff needs a role-plan request, playable target and a non-leading sparse phrase.
+    {
+        MotifCatalog motifs;MotifUse lead;for(int i=0;i<4;++i)lead.observe(60+4*i,i*4,4,0);
+        lead.finish(motifs);PlayingTrack target;target.id={5};target.style=PlayingStyle::sustained;
+        target.roles=roleBit(MusicalRole::answer);target.instrument.pitch=PitchBehaviour::pitched;target.instrument.articulations=1;
+        CHECK(!planMelodyHandoff(false,lead,motifs,target,1,16,128).active);
+        CHECK(!planMelodyHandoff(true,lead,motifs,target,0,16,128).active);
+        const auto handoff=planMelodyHandoff(true,lead,motifs,target,1,16,128);
+        CHECK(handoff.active&&handoff.first==1&&handoff.count==3&&handoff.begin==16);
+        CHECK(handoff.reference.material.value==lead.reference.value);
+        CHECK(!planMelodyHandoff(true,lead,motifs,target,3,16,128).active);
+        CHECK(planMelodyHandoff(true,lead,motifs,target,5,16,128).active);
+        target.instrument.pitch=PitchBehaviour::noise;CHECK(!planMelodyHandoff(true,lead,motifs,target,1,16,128).active);
+        target.instrument.pitch=PitchBehaviour::pitched;target.addressing=NoteAddressing::fixedTrigger;
+        CHECK(!planMelodyHandoff(true,lead,motifs,target,1,16,128).active);
+    }
     PlayingTrack tracks[2];tracks[0].id={71};tracks[0].roles=roleBit(MusicalRole::lead);
     tracks[0].style=PlayingStyle::sustained;tracks[0].instrument.polyphony=2;
     tracks[1].id={12};tracks[1].roles=roleBit(MusicalRole::answer);

@@ -188,6 +188,29 @@ inline ForegroundPlan planForeground(bool requested,const PlayingTrack& candidat
     RoleNeed need;need.range=candidate.instrument.range;
     return requested&&suitable(candidate,need)?ForegroundPlan{true,candidate.id}:ForegroundPlan{};
 }
+// Sparse melody-to-dialog handoff. Material selection and timing belong to the role plan.
+struct MotifHandoffPlan
+{
+    bool active=false;
+    MotifReferencePlan reference;
+    int first=0,count=0;
+    int64_t begin=0,end=0;
+};
+inline MotifHandoffPlan planMelodyHandoff(bool requested,const MotifUse& source,
+    const MotifCatalog& catalog,const PlayingTrack& target,int64_t section,int64_t bar,int64_t phrase)
+{
+    MotifHandoffPlan p;
+    RoleNeed need;need.role=MusicalRole::answer;need.range=target.instrument.range;
+    const auto* material=catalog.find(source.reference);
+    if(!requested||!suitable(target,need)||!material||material->count<3||bar<1||phrase<4*bar
+        ||section<source.introduction+1||(section-source.introduction-1)%4!=0)return p;
+    p.count=std::min(3,material->count-1);p.first=material->count-p.count;
+    p.begin=bar; // At least one full bar of silence in the non-leading phrase.
+    const auto& last=material->notes[static_cast<size_t>(material->count-1)];
+    p.end=p.begin+last.at-material->notes[static_cast<size_t>(p.first)].at+last.length;
+    if(p.end>phrase||p.end-p.begin>2*bar)return {};
+    p.reference={source.reference,section};p.active=true;return p;
+}
 // Role scheduling only; MIDI rendering and catalog rules remain outside this data.
 struct DialoguePlan { bool reserveResponse=false, answer=false; int answerNotes=0; uint64_t sourceMotif=0; int64_t answerBegin=0, answerEnd=0; };
 inline DialoguePlan planDialogue(const MotifUse& use,const MotifCatalog& catalog,int64_t section,int64_t relative,int64_t window)

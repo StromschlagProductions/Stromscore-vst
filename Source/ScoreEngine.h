@@ -297,7 +297,7 @@ inline std::array<composition::OutputDescription,kNumOutputs> outputCatalog(cons
         {PlayingStyle::detached,1,32,accompaniment|roleBit(MusicalRole::answer)},
         {PlayingStyle::detached,4,3,accompaniment},
         {PlayingStyle::detached,1,2,accompaniment},
-        {PlayingStyle::sustained,2,1<<24,roleBit(MusicalRole::lead)},
+        {PlayingStyle::sustained,2,1<<24,roleBit(MusicalRole::lead)|roleBit(MusicalRole::answer)},
         {PlayingStyle::sustained,1,1<<24,roleBit(MusicalRole::lead)} };
     const char* uses[kNumOutputs]={"Gehaltene Harmonie","Akkordimpulse und Riss","Bassfundament und Pedal",
         "Rhythmische Bassfigur","Arpeggio, Figur und Antwort","Farbiger Einwurf","Akzentschlag","Melodielinie, Motiv und Frage","Optionale Vordergrundmelodie"};
@@ -439,6 +439,7 @@ public:
     int activeSeed() const { return sceneSeed; }
     const composition::RememberedMotif& rememberedMotif(int output=OutCounter) const { return voice(output).motif.material(motifCatalog); }
     const composition::MotifUse& motifUse(int output)const { return voice(output).motif; }
+    const composition::MotifUse& answerUse()const { return voice(OutCounter).answer; }
     int plannedHarmonySlots() const { return planValid ? harmonicPlan.count : 0; }
     bool driveArrived() const { return driveArrivedNow; }     // die Fahrt ist bei B angekommen (das Plugin macht B dann zu A)
     uint32_t driveGenerationNow() const { return driveGenerationSeen; }
@@ -1691,6 +1692,65 @@ private:
         else render (k, offset, p, restart, phrase, s, out);
     }
 
+    bool melodyHandoff(long long k,const Pos& p,const Settings& s,int offset,EventList& out)
+    {
+        const auto catalog=outputCatalog(s);
+        const auto plan=composition::planMelodyHandoff(
+            s.genre==GenreScore&&s.melody&&s.melodyMotif&&s.motif&&!s.scene
+                &&s.meterNum==4&&s.meterDen==4&&on[kMelodie]&&on[kGegenstimme],
+            voice(OutMelody).motif,motifCatalog,catalog[OutCounter].track,
+            p.phrase-phraseOf(sceneStep),meter.len,p.phraseEnd-p.phraseStart);
+        if(!plan.active)return false;
+        const auto relative=k-p.phraseStart;
+        if(relative<plan.begin||relative>=plan.end||outputSounding(OutMelody))return false;
+        // Preflight the whole response: exact suffix intervals, one harmonic region, no fallback pitches.
+        const auto start=p.phraseStart+plan.begin;
+        const auto region=locate(start);
+        if(start+plan.end-plan.begin>region.chordEnd)return false;
+        const auto& material=*motifCatalog.find(plan.reference.material);
+        const int oct=12*octaveOf(OutCounter);
+        const auto& capability=catalog[OutCounter].track.instrument;
+        const auto chord=chordFor(region,kGegenstimme,s);const auto& shape=kShapes[chord.type];
+        int base=-1;int best=10000;
+        for(int candidate=0;candidate<128;++candidate)
+        {
+            bool valid=true;
+            for(int i=0;i<plan.count;++i)
+            {
+                const int pitch=candidate+material.notes[static_cast<size_t>(plan.first+i)].interval;
+                bool harmonic=false;for(int j=0;j<shape.n;++j)harmonic|=(pitch%12+12)%12==(s.key+chord.root+shape.iv[j])%12;
+                valid&=harmonic&&pitch>=capability.range.low&&pitch<=capability.range.high&&pitch>=0&&pitch<=127;
+            }
+            const int distance=std::abs(candidate-std::clamp(material.origin,62,77));
+            if(valid&&distance<best){best=distance;base=candidate;}
+        }
+        if(base<0)return false;
+        for(auto tick=start;tick<start+plan.end-plan.begin;++tick)
+        {
+            const auto soundingChord=chordFor(locate(tick),kGegenstimme,s);
+            if(soundingChord.root!=chord.root||soundingChord.type!=chord.type)return false;
+        }
+        auto& answer=voice(OutCounter).answer;
+        if(answer.reference.value!=plan.reference.material.value||answer.introduction!=plan.reference.introduction)
+            if(!answer.adopt(plan.reference,motifCatalog))return false;
+        const auto& source=answer.material(motifCatalog);
+        const auto origin=source.notes[static_cast<size_t>(plan.first)].at;
+        for(int i=0;i<plan.count;++i)
+        {
+            const auto& note=source.notes[static_cast<size_t>(plan.first+i)];
+            const auto at=plan.begin+note.at-origin;
+            if(relative!=at)continue;
+            auto length=std::min<int64_t>(note.length,plan.end-at);
+            if(i+1<plan.count)length=std::min(length,source.notes[static_cast<size_t>(plan.first+i+1)].at-note.at);
+            length=composition::articulatedLength(length,length,s.legato);
+            if(length<capability.minDuration||length>capability.maxDuration)return false;
+            // Renderer accepts prevalidated sounding pitches, compensating the adapter octave.
+            cut(kGegenstimme,k,k,offset,out);
+            noteOn(OutCounter,base+note.interval-oct,note.velocity,k+length,offset,out);
+        }
+        return true;
+    }
+
     bool dialogueArp(long long k,const Pos& p,const Settings& s,int offset,EventList& out)
     {
         // Explicit cell + motif, no buildup, four-bar-or-longer 4/4 phrases only.
@@ -1976,7 +2036,7 @@ private:
             const auto foreground=composition::planForeground(s.melody,catalog[OutMelody].track);
             if(foreground.foreground)
             {
-                cut(kGegenstimme,k,k,offset,out);
+                if(!melodyHandoff(k,p,s,offset,out))cut(kGegenstimme,k,k,offset,out);
                 int leadOutput=-1;
                 for(const auto& entry:catalog)if(entry.track.id.value==foreground.lead.value)leadOutput=entry.target.output;
                 if(leadOutput>=0)counterLine(k,p,s,offset,chordStart||enterNow[kMelodie],out,leadOutput);
@@ -2192,7 +2252,7 @@ private:
 
     struct VoiceState
     {
-        composition::MotifUse motif;
+        composition::MotifUse motif,answer;
         int note=-1,pending=-1;
         long long pendingAt=-1,pendingEnd=0;
     };

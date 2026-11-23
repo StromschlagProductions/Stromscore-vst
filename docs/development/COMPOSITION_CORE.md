@@ -594,3 +594,58 @@ Wendungen in drei Registerkonfigurationen und vier statischen Motiv-/Melodie-Kom
 identische MIDI-Ereignisprüfsummen gegenüber bd8aebf. Der Vergleich betrifft unveränderte
 Einstellungen, nicht die absichtlich entkoppelten Stimmenwechsel. Kein Windows/pluginval,
 DAW-Hostlauf oder subjektiver Hörtest.
+
+
+## Erste explizite Melodie–Dialog-Übergabe
+
+`planMelodyHandoff` trifft im gemeinsamen Kern die ausdrückliche Rollenentscheidung.
+Der Plan enthält eine gültige Referenz auf das abgeschlossene, tatsächlich eingeführte
+Melodiemotiv, den eigenen Antwortzeitpunkt und einen Notenausschnitt. Der Adapter
+fordert ihn ausschließlich im freien Score-Kontext mit aktiver Melodie, beiden
+Motivschaltern, verfügbaren Stimmen, 4/4, Aufbau aus und mindestens vier Takten pro
+Phrase an. Ein geeignetes gehaltenes, tonhöhensteuerbares Antwortziel wird über das
+bestehende Fähigkeitsmodell validiert; Gegenstimme erhält dafür auch die Antwortrolle.
+
+Die erste Kandidatenphrase ist Einführung + 1, danach + 5, + 9 usw. Das sind ausschließlich
+Zwischenphrasen des bestehenden Melodiemusters, keine führenden Wiederkehrphrasen.
+Der Einsatz liegt einen Takt nach Beginn dieser Zwischenphrase. Der Plan wählt die letzten
+drei Noten, bei nur drei Ausgangsnoten die letzten zwei; bei weniger als drei Noten entfällt
+die Übergabe. Die vollständige Figur wird nie verdoppelt. Relativer Rhythmus und Intervalle
+bleiben exakt erhalten, die Dauer ist auf höchstens zwei Takte begrenzt.
+
+Der Adapter prüft die ganze Figur vor ihrer Ausgabe. Er sucht eine gemeinsame Transposition
+in den zulässigen klingenden Umfang und verlangt Akkordtöne für sämtliche Noten. Die
+gesamte Antwort muss innerhalb eines Akkordslots mit unveränderter effektiver Harmonie
+liegen, einschließlich etwaiger Durchgangsdominanten. Ohne passende Transposition oder
+bei Harmonie-/Phrasengrenzverletzung entfällt die Antwort. Keine erzwungenen Ersatznoten.
+Die Gates werden an den nächsten Einsatz begrenzt und berücksichtigen den bestehenden
+Legatoschalter ohne polyphone Überlappung. Vor jedem Antwortanschlag werden ältere
+Dialogansprüche beendet. Eine noch klingende Melodie verhindert die Ausgabe.
+
+Die Dialogstimme erhält einen eigenen temporären `answer`-Verwendungszustand via
+`MotifUse::adopt`. Ihr selbst eingeführtes Material, ihr Liniencursor und ihre reguläre
+Wiederkehrphase bleiben erhalten, ebenso der komplette Melodiezustand. Der gemeinsame
+Katalog wird nur gelesen. Der bisherige Gegenstimme–Arp-Dialog bleibt bei aktiver Melodie
+gesperrt; der Arp begleitet normal. Ohne aktive Melodie gilt der bisherige Ablauf. Die
+Vordergrundplanung pausiert die reguläre Gegenstimme wie bisher, außerhalb dieser
+Vordergrundzuweisung besitzt sie weiterhin ihre bisherigen Funktionen.
+
+Die Häufigkeit ist eine Obergrenze: einmal je vier Phrasen nach der Einführung, jeweils nur
+eine kurze Schlussfigur. Im achttaktigen Cmaj7-Prüfkontext bei 120 BPM erklingen Antworten
+bei Sekunde 18 und 82 innerhalb eines 120-Sekunden-Renderings. Andere Harmonien, kürzere
+Akkordslots, enge Register oder ungeeignetes Ausgangsmaterial können Stille ergeben.
+Keine freie Kontrapunktik, Antwortvariation, allgemeine Übergabeverwaltung oder neue GUI.
+Ein nächster kleiner Schritt wäre eine gezielte rhythmische Variation dieser Antwort mit
+weiterhin festem Antwortfenster; hier nicht implementiert.
+
+Prüfstand: vollständiger Linux/Xvfb-CTest 4/4, ASan/UBSan 3/3 und Python-Releaseprüfer
+7/7 bestanden; Linux-VST3 erfolgreich gebaut. Neue Kern-/Engine-Tests prüfen die explizite
+Plananforderung, ungeeignete Instrumente, Referenz auf tatsächlich gespieltes Material,
+exakte Suffixintervalle/-einsätze, zwei sparsame Antworten im 120-Sekunden-Prüffall,
+fehlende Überlagerung, Monophonie, Tonumfang, Akkordtöne, Motivschalter, Seek/Loop,
+Szenenneustart und Blockgrößen. Der Processor-Test prüft zusätzlich eine tatsächlich
+ausgegebene Übergabe auf Kanal 8 und exakte Live-/Exportgleichheit (acht Takte aus zwei
+viertaktigen Cmaj7-Slots, da die GUI pro Slot höchstens vier Takte erlaubt).
+252 temporäre Vergleichsrenderings aller bisherigen Wendungen in drei Registerkonfigurationen
+liefern ohne aktive Melodie identische MIDI-Ereignisprüfsummen gegenüber 2af484a.
+Kein Windows/pluginval, DAW-Hostlauf oder subjektiver Hörtest durchgeführt.
