@@ -4,6 +4,13 @@ file(STRINGS VERSION STROMSCORE_VERSION LIMIT_COUNT 1)
 set_property(DIRECTORY APPEND PROPERTY CMAKE_CONFIGURE_DEPENDS VERSION)
 project(Stromscore VERSION ${STROMSCORE_VERSION})
 
+# Private development artifacts may label the GUI; numeric plugin/release versions stay unchanged.
+set(STROMSCORE_DEVELOPMENT_LABEL "" CACHE STRING "Optional development build label")
+set(STROMSCORE_DISPLAY_VERSION "${STROMSCORE_VERSION}")
+if(STROMSCORE_DEVELOPMENT_LABEL)
+    string(APPEND STROMSCORE_DISPLAY_VERSION " ${STROMSCORE_DEVELOPMENT_LABEL}")
+endif()
+
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 # Laufzeitbibliothek fest einbinden: das Plugin braucht dann kein VC++-Redistributable
@@ -85,7 +92,7 @@ target_sources(Stromscore PRIVATE
     Source/PluginEditor.cpp)
 
 target_compile_definitions(Stromscore PUBLIC
-    PLUGIN_VERSION_TEXT="${STROMSCORE_VERSION}"
+    PLUGIN_VERSION_TEXT="${STROMSCORE_DISPLAY_VERSION}"
     JUCE_WEB_BROWSER=0
     JUCE_USE_CURL=0
     JUCE_VST3_CAN_REPLACE_VST2=0
@@ -124,7 +131,7 @@ endif()
 juce_add_console_app(StromscoreScreenshot PRODUCT_NAME "Stromscore screenshot")
 target_sources(StromscoreScreenshot PRIVATE tools/screenshot.cpp)
 target_include_directories(StromscoreScreenshot PRIVATE Source $<TARGET_PROPERTY:Stromscore,INCLUDE_DIRECTORIES>)
-target_compile_definitions(StromscoreScreenshot PRIVATE JUCE_WEB_BROWSER=0 JUCE_USE_CURL=0 PLUGIN_VERSION_TEXT="${STROMSCORE_VERSION}")
+target_compile_definitions(StromscoreScreenshot PRIVATE JUCE_WEB_BROWSER=0 JUCE_USE_CURL=0 PLUGIN_VERSION_TEXT="${STROMSCORE_DISPLAY_VERSION}")
 if(MSVC)
     target_compile_options(StromscoreScreenshot PRIVATE /utf-8)
 endif()

@@ -1,0 +1,88 @@
+name: STROMSCORE 2.2 DEV Windows x64
+
+on:
+  push:
+    branches: [develop/composition-core-prototype]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+concurrency:
+  group: development-windows-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  testbuild:
+    if: github.ref == 'refs/heads/develop/composition-core-prototype'
+    runs-on: windows-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Entwicklungsstand kennzeichnen
+        shell: pwsh
+        run: |
+          $short = (git rev-parse --short=7 HEAD).Trim()
+          $version = (Get-Content VERSION -TotalCount 1).Trim()
+          if ($version -ne "2.2") { throw "Dieser Testbuild erwartet VERSION 2.2" }
+          "DEV_LABEL=DEV $short" >> $env:GITHUB_ENV
+          "ZIP_NAME=Stromscore-2.2-DEV-$short-Windows-x64-VST3.zip" >> $env:GITHUB_ENV
+          "ARTIFACT_NAME=Stromscore-2.2-DEV-$short-Windows-x64" >> $env:GITHUB_ENV
+          New-Item -ItemType Directory -Force package | Out-Null
+          @("STROMSCORE 2.2 DEVELOPMENT TEST BUILD", "Commit: $env:GITHUB_SHA", "Musical source: 0a4879a", "Branch: $env:GITHUB_REF_NAME", "No release. Same plugin ID as stable: temporarily replace, do not install both.") | Set-Content package/BUILD.txt
+          Copy-Item docs/development/STUDIO_ONE_TESTBUILD.md package/HOERTEST.md
+      - name: Windows x64 konfigurieren
+        shell: pwsh
+        run: cmake -B build -A x64 "-DSTROMSCORE_DEVELOPMENT_LABEL=$env:DEV_LABEL"
+      - name: VST3 und Tests bauen
+        run: cmake --build build --config Release --parallel 2
+      - name: Regressionstests
+        run: ctest --test-dir build -C Release --output-on-failure
+      - name: Paketpruefer testen
+        run: python Tests/ReleaseTests.py
+      - name: Stabilitaetstest (pluginval)
+        timeout-minutes: 12
+        shell: pwsh
+        run: |
+          curl.exe -sSL -o pluginval.zip https://github.com/Tracktion/pluginval/releases/latest/download/pluginval_Windows.zip
+          Expand-Archive pluginval.zip -DestinationPath pluginval
+          $logDir = Join-Path (Get-Location) "pluginval-logs"
+          New-Item -ItemType Directory -Force $logDir | Out-Null
+          $stdout = Join-Path $logDir "stdout.txt"
+          $stderr = Join-Path $logDir "stderr.txt"
+          $bundle = (Resolve-Path "build/Stromscore_artefacts/Release/VST3/Stromscore.vst3").Path
+          $arguments = @("--strictness-level", "8", "--output-dir", ('"' + $logDir + '"'), "--validate", ('"' + $bundle + '"'))
+          # Windows-GUI-Programme muessen explizit abgewartet werden. Ein gestarteter Prozess ist kein Testergebnis.
+          $process = Start-Process -FilePath (Resolve-Path "pluginval/pluginval.exe").Path -ArgumentList $arguments -Wait -PassThru -NoNewWindow -RedirectStandardOutput $stdout -RedirectStandardError $stderr
+          $output = (Get-Content $stdout -Raw -ErrorAction SilentlyContinue) + "`n" + (Get-Content $stderr -Raw -ErrorAction SilentlyContinue)
+          Write-Output $output
+          $reports = Get-ChildItem $logDir -Filter *.txt | ForEach-Object { Get-Content $_.FullName -Raw }
+          $combined = $output + "`n" + ($reports -join "`n")
+          if ($process.ExitCode -ne 0) { throw "pluginval Exitcode $($process.ExitCode)" }
+          if ($combined -match '(?m)(FAILED!!|^\s*\*{3} FAILED|^\s*FAILURE\s*$|!!! Test \d+ failed)') { throw "pluginval meldet fehlgeschlagene Tests" }
+          if ($combined -notmatch '(?m)^SUCCESS\s*$') { throw "pluginval hat keinen vollstaendigen Erfolg gemeldet" }
+
+      - name: pluginval-Protokolle sichern
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: Stromscore-pluginval-logs
+          path: pluginval-logs
+          if-no-files-found: ignore
+          retention-days: 14
+
+      - name: Windows-Paket pruefen
+        shell: pwsh
+        run: |
+          $bundle = "build/Stromscore_artefacts/Release/VST3/Stromscore.vst3"
+          Compress-Archive -Path $bundle -DestinationPath "package/$env:ZIP_NAME"
+          python scripts/validate_release.py "package/$env:ZIP_NAME" 2.2
+          if ($LASTEXITCODE -ne 0) { throw "Paketpruefung fehlgeschlagen" }
+      - name: Geprueften Entwicklungsbuild bereitstellen
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ env.ARTIFACT_NAME }}
+          path: package/
+          if-no-files-found: error
+          retention-days: 30
