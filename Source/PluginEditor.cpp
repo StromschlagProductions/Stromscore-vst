@@ -5,13 +5,14 @@ namespace
 {
 juce::String u8 (const char* s) { return juce::String (juce::CharPointer_UTF8 (s)); }
 
-const char* kLayerTitle[stromscore::kNumLayers] = { "FLÄCHE", "BASS", "ARP", "AKZENTE", "GEGENSTIMME" };
+const char* kLayerTitle[stromscore::kNumLayers] = { "FLÄCHE", "BASS", "ARP", "AKZENTE", "GEGENSTIMME", "MELODIE" };
 const char* kLayerTip[stromscore::kNumLayers] = {
     "Fläche: Akkorde, gehalten oder als kurze Schläge, Puls, Staccato und Gated. Gehaltene Akkorde gehen auf den Kanal für lang, alle kurzen Muster auf den für kurz. Stellst du beide auf denselben Kanal, spielt alles auf einem Instrument.",
     "Bass: Grundton der Akkorde in verschiedenen Mustern. Gehalten, Halbe und Orgelpunkt gehen auf den Kanal für lang, alle anderen Muster auf den für kurz. Stellst du beide auf denselben Kanal, spielt alles auf einem Instrument.",
     "Arp: gebrochene Akkorde und Figuren, auch als Ostinato.",
     "Akzent: gelegentliche kurze Einwürfe, nie ein stehender Ton. Der Tupfer spielt einzelne hohe Töne auf Zwischenzeiten, etwa für Celesta, Glocken oder Pizzicato. Der Stich ist ein einzelner kurzer Schlag an Akkordwechseln und am Ende der Phrase: fest auf einer Taste, etwa für eine Pauke oder große Trommel, oder auf dem Grundton des Akkords, etwa für Klavier oder einen Synth-Stab. Bei wenig Intensität spielt nur der Tupfer, mit mehr kommt der Stich dazu und antwortet. Bei Unruhe kommt ein fremder, reibender Ton in der Mitte des Akkords hinzu.",
-    "Gegenstimme: die einzige lange Linie, in mittlerer Lage. Sie geht schrittweise von Akkord zu Akkord, bewegter mit mehr Intensität, bei Unruhe mit Vorhalten. Gedacht für Horn, Cello, Oboe oder ein Lead-Instrument." };
+    "Gegenstimme: eine begleitende melodische Linie, in mittlerer Lage. Sie geht schrittweise von Akkord zu Akkord, bewegter mit mehr Intensität, bei Unruhe mit Vorhalten. Gedacht für Horn, Cello, Oboe oder ein Lead-Instrument.",
+    "Optionale Vordergrundmelodie. Standardmaessig aus; Dialog pausiert beim Fuehren." };
 }
 
 // ---------------------------------------------------------------- Stimmungsfeld
@@ -811,7 +812,7 @@ static juce::AttributedString buildHelp (juce::Colour text, juce::Colour accent,
     body ("Im Menü des CC-Knopfs schaltest du unter „Ausgabe an die Spuren“ die Dynamik ein. Dann bekommt jeder benutzte Kanal CC 1 (Dynamik) und CC 11 (Ausdruck), wie es Orchester-Libraries erwarten; beide Nummern lassen sich dort ändern oder abschalten. Der Grundwert folgt der Intensität, darauf liegen atmende Bögen von einem bis vier Vierteln, im Score weiter und bei Unruhe mit einem Akzent beim Akkordwechsel, im Pop-Rock fast flach. Das ist getrennt von den Controllern am Eingang: Dein Controller bewegt das Stimmungsfeld, die Ausgabe geht an deine Instrumente. Für Synth-Klänge lässt du die Dynamik besser aus, weil CC 1 dort oft ein Vibrato steuert.");
 
     head ("Gegenstimme");
-    body ("Die fünfte Ebene ist die einzige lange Linie, gedacht für Horn, Cello, Oboe oder ein Lead-Instrument. Sie liegt in der Mitte, zwischen Tupfer und Stich, damit sich nichts überschneidet. Sie geht schrittweise auf Akkordtönen von Akkord zu Akkord und bevorzugt Terz und Septime. In dunkler Färbung neigt sie nach unten, in heller nach oben. Bei wenig Intensität wechselt sie nur mit den Akkorden, bei mehr alle zwei Takte, aufgewühlt in Halben. Bei Unruhe kommt sie mit einem Vorhalt von oben in den Akkord. Mit LEGATO überlappen die Töne um eine Sechzehntelnote, damit Legato-Instrumente sie gebunden spielen; ohne setzen sie kurz vor dem nächsten Ton ab. Sie ist keine fertige Melodie, sondern ein roter Faden für deine eigene.");
+    body ("Die fünfte Ebene ist eine begleitende melodische Linie, gedacht für Horn, Cello, Oboe oder ein Lead-Instrument. Sie liegt in der Mitte, zwischen Tupfer und Stich, damit sich nichts überschneidet. Sie geht schrittweise auf Akkordtönen von Akkord zu Akkord und bevorzugt Terz und Septime. In dunkler Färbung neigt sie nach unten, in heller nach oben. Bei wenig Intensität wechselt sie nur mit den Akkorden, bei mehr alle zwei Takte, aufgewühlt in Halben. Bei Unruhe kommt sie mit einem Vorhalt von oben in den Akkord. Mit LEGATO überlappen die Töne um eine Sechzehntelnote, damit Legato-Instrumente sie gebunden spielen; ohne setzen sie kurz vor dem nächsten Ton ab. Sie ist keine fertige Melodie, sondern ein roter Faden für deine eigene.");
     body ("Mit MOTIV merkt sich die Gegenstimme im Score-Modus eine tatsächlich gespielte kurze Figur. Nach einer ganzen Zwischenphrase ohne Gegenstimme kehrt diese Figur wieder; danach wechseln Pause und Wiederkehr. Rhythmus und Intervallkontur stammen aus dem gespeicherten Motiv, die Tonhöhen passen sich Akkord und Tonumfang an. Ein neuer Szenenstart leert das Gedächtnis. Ohne bekannte Vorgeschichte beginnt ein Positionssprung gegebenenfalls eine neue Einführung. Im Pop-Rock bleibt die Hook-Linie erhalten. Aus: die normale Gegenstimme.");
 
     head ("Durchgänge");
@@ -1011,7 +1012,7 @@ StromscoreEditor::StromscoreEditor (StromscoreProcessor& p) : AudioProcessorEdit
     chordDisplay.onBarEnd = [this] (int axis) { axisAttachment[axis]->endGesture(); };
 
     // Ebenen
-    static const int firstOut[stromscore::kNumLayers] = { stromscore::OutPadLong, stromscore::OutBassLong, stromscore::OutArp, stromscore::OutTupfer, stromscore::OutCounter };
+    static const int firstOut[stromscore::kNumLayers] = { stromscore::OutPadLong, stromscore::OutBassLong, stromscore::OutArp, stromscore::OutTupfer, stromscore::OutCounter, stromscore::OutMelody };
     for (int i = 0; i < stromscore::kNumLayers; ++i)
     {
         auto& lv = layers[i];
@@ -1054,7 +1055,7 @@ StromscoreEditor::StromscoreEditor (StromscoreProcessor& p) : AudioProcessorEdit
         octaveAttachment[i] = std::make_unique<APVTS::ComboBoxAttachment> (processor.apvts, "oct" + n, lv.octBox);
 
         // Tonumfang: je Ebene, beim Akzent getrennt fuer Tupfer und Stich
-        const int r0 = i;
+        const int r0 = i==stromscore::kMelodie?6:i;
         lv.rangeButton.setVisible (true);
         lv.rangeButton.setName ("Umfang" + juce::String (r0 + 1));
         lv.rangeButton.onClick = [this, r0] { showRangePanel (r0); };
@@ -1114,6 +1115,9 @@ StromscoreEditor::StromscoreEditor (StromscoreProcessor& p) : AudioProcessorEdit
     layers[4].motifButton.setButtonText ("Motiv");
     layers[4].motifButton.setTooltip (u8 ("Score-Motiv: gespielte Figur merken, eine ganze Phrase pausieren und anschließend wieder aufnehmen. Rhythmus bleibt, Töne folgen Harmonie und Umfang. Neuer Szenenstart leert das Gedächtnis. Pop-Rock: Hook-Linie."));
     motifAttachment = std::make_unique<APVTS::ButtonAttachment> (processor.apvts, "motiv", layers[4].motifButton);
+    layers[5].motifButton.setVisible(true);layers[5].motifButton.setClickingTogglesState(true);
+    layers[5].rowLabel[1]="Linie";layers[5].motifButton.setButtonText("Aktiv");
+    melodyAttachment=std::make_unique<APVTS::ButtonAttachment>(processor.apvts,"melodie",layers[5].motifButton);
 
     // Szene: Aufbau, Einstieg, Wurf, Haerte, Laenge, Ende
     auto small = [this] (juce::Label& l, const juce::String& t)
@@ -1293,7 +1297,7 @@ void StromscoreEditor::updateCcButton()
 
 juce::TextButton& StromscoreEditor::rangeButtonFor (int r)
 {
-    return r == 5 ? layers[stromscore::kAkzent].rangeButton2 : layers[juce::jlimit (0, stromscore::kNumLayers - 1, r)].rangeButton;
+    return r == 5 ? layers[stromscore::kAkzent].rangeButton2 : layers[r==6?stromscore::kMelodie:juce::jlimit (0, stromscore::kNumLayers - 1, r)].rangeButton;
 }
 
 void StromscoreEditor::showRangePanel (int r)
@@ -1485,7 +1489,7 @@ void StromscoreEditor::timerCallback()
     // Ebenen
     updateRangeButtons();
     const auto& s = settings;
-    static const int firstOut[stromscore::kNumLayers] = { stromscore::OutPadLong, stromscore::OutBassLong, stromscore::OutArp, stromscore::OutTupfer, stromscore::OutCounter };
+    static const int firstOut[stromscore::kNumLayers] = { stromscore::OutPadLong, stromscore::OutBassLong, stromscore::OutArp, stromscore::OutTupfer, stromscore::OutCounter, stromscore::OutMelody };
     for (int i = 0; i < stromscore::kNumLayers; ++i)
     {
         auto& lv = layers[i];
@@ -1495,10 +1499,11 @@ void StromscoreEditor::timerCallback()
             lv.activity[c] = std::max (a, lv.activity[c] * 0.88f);
         }
         lv.active = stromscore::Generator::layerActive (s, i);
-        bool anySolo = false;
-        for (bool b : s.solo) anySolo = anySolo || b;
+        const bool anySolo=stromscore::hasSolo(s);
         juce::String entry;
-        if (anySolo ? ! s.solo[i] : s.mute[i]) entry = "stumm";
+        if(i==stromscore::kMelodie&&!s.melody)entry="aus";
+        else if(i==stromscore::kMelodie&&s.genre!=stromscore::GenreScore)entry="nur Score";
+        else if (anySolo ? ! s.solo[i] : s.mute[i]) entry = "stumm";
         else
         {
             const float t = stromscore::kLayerStart[i] - s.layerIntensity[i];

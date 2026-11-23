@@ -15,23 +15,23 @@
 
 namespace stromscore
 {
-constexpr int kNumLayers = 5;
-enum Layer { kFlaeche = 0, kBass = 1, kArp = 2, kAkzent = 3, kGegenstimme = 4 };
+constexpr int kNumLayers = 6;
+enum Layer { kFlaeche = 0, kBass = 1, kArp = 2, kAkzent = 3, kGegenstimme = 4, kMelodie = 5 };
 // Ausgaenge: jede Ebene schickt auf einen oder zwei frei waehlbare MIDI-Kanaele
 // (Flaeche und Bass: lang und kurz, Akzent: Tupfer und Stich)
-constexpr int kNumOutputs = 8;
-enum Output { OutPadLong = 0, OutPadShort, OutBassLong, OutBassShort, OutArp, OutTupfer, OutStich, OutCounter };
-constexpr int kOutputLayer[kNumOutputs] = { kFlaeche, kFlaeche, kBass, kBass, kArp, kAkzent, kAkzent, kGegenstimme };
+constexpr int kNumOutputs = 9;
+enum Output { OutPadLong = 0, OutPadShort, OutBassLong, OutBassShort, OutArp, OutTupfer, OutStich, OutCounter, OutMelody };
+constexpr int kOutputLayer[kNumOutputs] = { kFlaeche, kFlaeche, kBass, kBass, kArp, kAkzent, kAkzent, kGegenstimme, kMelodie };
 // Tonumfang: je Ebene, der Akzent hat zwei (Tupfer und Stich spielen oft auf verschiedenen Instrumenten)
-constexpr int kNumRanges = 6;
-constexpr int kOutputRange[kNumOutputs] = { 0, 0, 1, 1, 2, 3, 5, 4 };
+constexpr int kNumRanges = 7;
+constexpr int kOutputRange[kNumOutputs] = { 0, 0, 1, 1, 2, 3, 5, 4, 6 };
 constexpr int kNumKeys = 12;
 constexpr double kStep = 0.25;          // Raster: Sechzehntel (in Viertelnoten)
 constexpr int kPhraseBars = 8;          // eine Wendung = 8 Takte
 constexpr int kMaxChords = 8;
 
 // Ab welcher Intensitaet eine Ebene im Modus Auto einsetzt (Akzent zusaetzlich bei Unruhe ab 0,35)
-constexpr float kLayerStart[kNumLayers] = { 0.0f, 0.0f, 0.25f, 0.25f, 0.15f };
+constexpr float kLayerStart[kNumLayers] = { 0.0f, 0.0f, 0.25f, 0.25f, 0.15f, 0.15f };
 constexpr float kStichStart = 0.5f;     // der zweite Akzent (Stich) kommt erst bei mehr Intensitaet dazu
 constexpr float kAkzentUnruhe = 0.35f;
 constexpr float kRissStart = 0.8f;     // ab hier reisst die Unruhe: kurze Halbton-Stoesse hoch ueber dem Satz (ab 1.4)
@@ -81,14 +81,14 @@ enum Ending { EndHard = 0, EndFade, EndOpen, kNumEndings };
 enum Curve { CurveEven = 0, CurveSlow, CurveSteps, CurveWave, kNumCurves };
 // Reihenfolge der Ebenen nach dem Einstieg: verwandte Ebenen folgen zuerst (Bass -> Puls/Arp -> Flaeche ...)
 constexpr int kEntryOrder[kNumEntries][kNumLayers] = {
-    { kFlaeche, kBass, kArp, kGegenstimme, kAkzent },   // Auto (wird vorher aufgeloest)
-    { kFlaeche, kBass, kArp, kGegenstimme, kAkzent },   // Flaeche, schuechtern
-    { kBass, kArp, kFlaeche, kAkzent, kGegenstimme },   // Bass-Schlag
-    { kBass, kFlaeche, kArp, kAkzent, kGegenstimme },   // Puls
-    { kArp, kBass, kFlaeche, kGegenstimme, kAkzent },   // Arpeggio
-    { kAkzent, kFlaeche, kBass, kArp, kGegenstimme },   // Akzent
-    { kGegenstimme, kFlaeche, kBass, kArp, kAkzent },   // Gegenstimme
-    { kFlaeche, kBass, kArp, kGegenstimme, kAkzent } }; // Alles zugleich (Reihenfolge nur fuers Ausduennen)
+    { kFlaeche, kBass, kArp, kGegenstimme, kAkzent , kMelodie },   // Auto (wird vorher aufgeloest)
+    { kFlaeche, kBass, kArp, kGegenstimme, kAkzent , kMelodie },   // Flaeche, schuechtern
+    { kBass, kArp, kFlaeche, kAkzent, kGegenstimme , kMelodie },   // Bass-Schlag
+    { kBass, kFlaeche, kArp, kAkzent, kGegenstimme , kMelodie },   // Puls
+    { kArp, kBass, kFlaeche, kGegenstimme, kAkzent , kMelodie },   // Arpeggio
+    { kAkzent, kFlaeche, kBass, kArp, kGegenstimme , kMelodie },   // Akzent
+    { kGegenstimme, kFlaeche, kBass, kArp, kAkzent , kMelodie },   // Gegenstimme
+    { kFlaeche, kBass, kArp, kGegenstimme, kAkzent , kMelodie } }; // Alles zugleich (Reihenfolge nur fuers Ausduennen)
 constexpr int kEntryLayer[kNumEntries] = { -1, kFlaeche, kBass, kBass, kArp, kAkzent, kGegenstimme, -1 };
 constexpr float kStillIn = 0.10f;       // ganz unten im Feld (Intensitaet) steht der Akkord
 constexpr float kStillOut = 0.14f;      // erst darueber laeuft die Akkordfolge wieder
@@ -219,6 +219,7 @@ struct CustomChord { int rootAbs = 0; int type = Maj; int bars = 0; };   // bars
 
 struct Settings
 {
+    bool melody = false; // Explicit foreground opt-in; background is the default.
     int key = 9;                // 0 = C ... 9 = A ... 11 = H
     float x = 0.3f;             // Faerbung: 0 dunkel ... 1 hell
     float y = 0.3f;             // Intensitaet: 0 ruhig ... 1 aufgewuehlt
@@ -238,10 +239,10 @@ struct Settings
     bool ccRange = false; // false preserves legacy projects; processor supplies explicit channel ranges
     bool passing = false;       // Durchgangsakkorde: bei viel Intensitaet die Dominante des naechsten Akkords auf dem letzten Schlag       // Abwechslung: 0 = nur die passendste Wendung, 1 = auch entferntere Nachbarn
     int octave[kNumLayers] = { 0, 0, 0, 0, 0 };               // -2 ... +2
-    bool rangeOn[kNumRanges] = {};                            // Tonumfang begrenzen (fuer Orchesterinstrumente); [3] Tupfer, [5] Stich
-    int rangeLo[kNumRanges] = { 0, 0, 0, 0, 0, 0 };           // tiefster spielbarer Ton (MIDI-Nummer)
-    int rangeHi[kNumRanges] = { 127, 127, 127, 127, 127, 127 };   // hoechster spielbarer Ton
-    int channel[kNumOutputs] = { 1, 2, 3, 4, 5, 6, 7, 8 };    // MIDI-Kanal je Ausgang (1 ... 16), doppelte Belegung erlaubt
+    bool rangeOn[kNumRanges] = {false,false,false,false,false,false,true};                            // Tonumfang begrenzen (fuer Orchesterinstrumente); [3] Tupfer, [5] Stich
+    int rangeLo[kNumRanges] = { 0, 0, 0, 0, 0, 0, 60 };           // tiefster spielbarer Ton (MIDI-Nummer)
+    int rangeHi[kNumRanges] = { 127, 127, 127, 127, 127, 127, 84 };   // hoechster spielbarer Ton
+    int channel[kNumOutputs] = { 1, 2, 3, 4, 5, 6, 7, 8, 9 };    // MIDI-Kanal je Ausgang (1 ... 16), doppelte Belegung erlaubt
     bool legato = true;         // Gegenstimme: Toene binden (minimale Ueberlappung bis zum naechsten Ton)
     bool follow[3] = { true, true, true };                    // Flaeche, Bass, Arp: false = bleibt auf dem Grundakkord
     int padPattern = PadAuto, bassPattern = BassAuto, arpFigure = ArpAuto, arpRate = RateAuto;
@@ -273,7 +274,14 @@ struct Settings
     int stichNote = 36;
 };
 
-// The only standard capability definitions for the eight current generator outputs.
+inline bool hasSolo(const Settings& s)
+{
+    for(int layer=0;layer<kNumLayers;++layer)
+        if(s.solo[layer]&&(layer!=kMelodie||(s.melody&&s.genre==GenreScore)))return true;
+    return false;
+}
+
+// The only standard capability definitions for the current generator outputs.
 // These describe emitted MIDI, never verified external patch capabilities.
 inline std::array<composition::OutputDescription,kNumOutputs> outputCatalog(const Settings& s)
 {
@@ -288,18 +296,19 @@ inline std::array<composition::OutputDescription,kNumOutputs> outputCatalog(cons
         {PlayingStyle::detached,1,32,accompaniment|roleBit(MusicalRole::answer)},
         {PlayingStyle::detached,4,3,accompaniment},
         {PlayingStyle::detached,1,2,accompaniment},
-        {PlayingStyle::sustained,2,1<<24,roleBit(MusicalRole::lead)} };
+        {PlayingStyle::sustained,2,1<<24,roleBit(MusicalRole::lead)},
+        {PlayingStyle::sustained,1,1<<24,roleBit(MusicalRole::lead)} };
     const char* uses[kNumOutputs]={"Gehaltene Harmonie","Akkordimpulse und Riss","Bassfundament und Pedal",
-        "Rhythmische Bassfigur","Arpeggio, Figur und Antwort","Farbiger Einwurf","Akzentschlag","Melodielinie, Motiv und Frage"};
+        "Rhythmische Bassfigur","Arpeggio, Figur und Antwort","Farbiger Einwurf","Akzentschlag","Melodielinie, Motiv und Frage","Optionale Vordergrundmelodie"};
     std::array<OutputDescription,kNumOutputs> result {};
-    bool anySolo=false;for(bool solo:s.solo)anySolo|=solo;
+    const bool anySolo=hasSolo(s);
     for(int o=0;o<kNumOutputs;++o)
     {
         auto& entry=result[static_cast<size_t>(o)];auto& track=entry.track;
         const auto& standard=standards[o];const int layer=kOutputLayer[o],range=kOutputRange[o];
         entry.standardUse=uses[o];entry.target={o,s.channel[o],s.stichNote};track.id={1000+o};
         track.style=standard.style;track.roles=standard.roles;
-        track.available=!s.mute[layer]&&(!anySolo||s.solo[layer]);
+        track.available=(layer!=kMelodie||(s.melody&&s.genre==GenreScore))&&!s.mute[layer]&&(!anySolo||s.solo[layer]);
         auto& c=track.instrument;c.pitch=PitchBehaviour::pitched;
         c.articulations=1u<<static_cast<unsigned>(standard.style);
         c.polyphony=standard.voices;c.maxDuration=standard.maxDuration;
@@ -440,8 +449,8 @@ public:
     // Ebene nicht stumm (Mute) und nicht durch Solo einer anderen Ebene ausgeschlossen
     static bool muteSoloOk (const Settings& s, int layer)
     {
-        bool anySolo = false;
-        for (bool b : s.solo) anySolo = anySolo || b;
+        if(layer==kMelodie&&(!s.melody||s.genre!=GenreScore))return false;
+        const bool anySolo=hasSolo(s);
         return anySolo ? s.solo[layer] : ! s.mute[layer];
     }
     // Schwelle erreicht (ohne Mute/Solo); levelOff: weit genug darunter, dass die Traegheit loslaesst
@@ -955,14 +964,14 @@ private:
     }
 
     // Leiter der Akkordtoene fuer die Gegenstimme (zwei Oktaven ab ihrer Lage, im Tonumfang)
-    int counterLadder (const Chord& c, const Settings& s, int* out) const
+    int counterLadder (const Chord& c, const Settings& s, int* out, int output=OutCounter) const
     {
         const ChordShape& sh = kShapes[c.type];
         int a = 62 + (int) std::lround (s.x * 3.0f), b = a + 24;
-        const int ri = kOutputRange[OutCounter];
+        const int ri = kOutputRange[output];
         if (s.rangeOn[ri])
         {
-            const int rlo = s.rangeLo[ri] - 12 * s.octave[kGegenstimme], rhi = s.rangeHi[ri] - 12 * s.octave[kGegenstimme];
+            const int rlo = s.rangeLo[ri] - 12 * s.octave[kOutputLayer[output]], rhi = s.rangeHi[ri] - 12 * s.octave[kOutputLayer[output]];
             a = std::max (a, rlo); b = std::min (b, rhi);
             if (b - a < 7) { a = rlo; b = rhi; }
         }
@@ -971,12 +980,13 @@ private:
         for (int m = a; m <= b && n < 16; ++m)
             for (int i = 0; i < sh.n; ++i)
                 if ((rootPc + sh.iv[i]) % 12 == ((m % 12) + 12) % 12) { out[n++] = m; break; }
+        if(n==0&&output==OutMelody)return 0;
         if (n == 0) out[n++] = place (s.key + c.root, a);
         return n;
     }
 
     // Spielt das Motiv, solange der Schritt in seinen zwei Takten liegt (dann true: die normale Linie pausiert)
-    bool motifStep (long long k, const Pos& p, const Settings& s, int offset, EventList& out)
+    bool motifStep (long long k, const Pos& p, const Settings& s, int offset, EventList& out, int output=OutCounter)
     {
         const long long span = std::min ((long long) 2 * meter.len, p.phraseEnd - p.phraseStart);
         const long long rel = k - p.phraseStart;
@@ -987,16 +997,17 @@ private:
         {
             if((section!=motifMemory.introduction&&!motifMemory.recall(section))||rel<0||rel>=span)return true;
             const auto& memory=motifMemory;
-            int ladder[16];const int nl=counterLadder(chordFor(p,kGegenstimme,s),s,ladder);
+            int ladder[16];const int nl=counterLadder(chordFor(p,kOutputLayer[output],s),s,ladder,output);
+            if(nl==0)return true;
             // Retain original contour/intervals; nearest available chord tones adapt harmony.
-            const int base=composition::adaptMotifPitch(memory.origin-12*octaveOf(OutCounter),ladder,nl);
+            const int base=composition::adaptMotifPitch(memory.origin-12*octaveOf(output),ladder,nl);
             for(int i=0;i<memory.count;++i)
             {
                 const auto& n=memory.notes[static_cast<size_t>(i)];if(n.at!=rel)continue;
                 const int note=composition::adaptMotifPitch(base+n.interval,ladder,nl);
-                noteOn(OutCounter,note,n.velocity,
-                    p.phraseStart+n.at+memory.recalledLength(i,section,span),offset,out);
-                releaseOthers(OutCounter,note,offset,out);csNote=note;csPendingAt=-1;
+                noteOn(output,note,n.velocity,
+                    p.phraseStart+n.at+std::min<int64_t>(memory.recalledLength(i,section,span),output==OutMelody?std::min<int64_t>(p.chordEnd-k,i+1<memory.count?memory.notes[static_cast<size_t>(i+1)].at-n.at:span-n.at):span-n.at),offset,out);
+                if(output==OutCounter)releaseOthers(output,note,offset,out);csNote=note;csPendingAt=-1;
             }
             return true;
         }
@@ -1006,7 +1017,7 @@ private:
         if(motifMemory.count&&motifMemory.introduction!=section)motifMemory.clear();
 
         const Motif mo = motifFor (s, p.phrase);
-        const float yc = layerY (s, kGegenstimme);
+        const float yc = layerY (s, kOutputLayer[output]);
         const int count = yc >= 0.55f ? mo.n : yc >= 0.3f ? std::max (2, mo.n - 1) : std::max (2, mo.n - 2);
         for (int i = 0; i < count; ++i)
         {
@@ -1014,20 +1025,22 @@ private:
             if (at != rel) continue;
             long long end = i + 1 < count ? (long long) mo.on[i + 1] * meter.len / 16 : span;
             end = std::min (end, p.phraseEnd - p.phraseStart);
-            const Chord c = chordFor (p, kGegenstimme, s);
+            const Chord c = chordFor (p, kOutputLayer[output], s);
             int ladder[16];
-            const int nl = counterLadder (c, s, ladder);
+            const int nl = counterLadder (c, s, ladder, output);
+            if(nl==0)continue;
             const int note = ladder[std::clamp (mo.deg[i], 0, nl - 1)];
-            const long long length=std::min(span,end+tail(end-at))-at;
+            const long long length=std::min(span,end+(output==OutMelody?0:tail(end-at)))-at;
+            const auto actualLength=output==OutMelody?std::min(length,p.chordEnd-k):length;
             const int before=out.size;
-            noteOn (OutCounter, note, (int) (56 + 35 * yc) + (i == 0 ? 6 : 0), p.phraseStart + at + length, offset, out);
+            noteOn (output, note, (int) (56 + 35 * yc) + (i == 0 ? 6 : 0), p.phraseStart + at + actualLength, offset, out);
             for(int e=before;e<out.size;++e)
             {
                 const auto& emitted=out.events[static_cast<size_t>(e)];
-                if(emitted.out==OutCounter&&emitted.type==0&&emitted.velocity>0)
-                    motifMemory.observe(emitted.note,at,length,section,static_cast<int>(56+35*yc)+(i==0?6:0));
+                if(emitted.out==output&&emitted.type==0&&emitted.velocity>0)
+                    motifMemory.observe(emitted.note,at,actualLength,section,static_cast<int>(56+35*yc)+(i==0?6:0));
             }
-            releaseOthers (OutCounter, note, offset, out);
+            if(output==OutCounter)releaseOthers (output, note, offset, out);
             csNote = note; csPendingAt = -1;
         }
         return true;
@@ -1676,7 +1689,7 @@ private:
     bool dialogueArp(long long k,const Pos& p,const Settings& s,int offset,EventList& out)
     {
         // Explicit cell + motif, no buildup, four-bar-or-longer 4/4 phrases only.
-        if(s.genre!=GenreScore||!s.motif||s.arpFigure!=ArpCell||s.scene||s.meterNum!=4||s.meterDen!=4
+        if(on[kMelodie]||s.genre!=GenreScore||!s.motif||s.arpFigure!=ArpCell||s.scene||s.meterNum!=4||s.meterDen!=4
             ||phraseBars<4||!on[kArp]||!on[kGegenstimme])return false;
         const auto catalog=outputCatalog(s);
         if(!composition::validOutputs(catalog.data(),kNumOutputs))return true;
@@ -1950,7 +1963,20 @@ private:
         }
 
         // --- Gegenstimme: ruhige Linie aus Akkordtoenen, schrittweise gefuehrt
-        counterLine (k, p, s, offset, chordStart || enterNow[kGegenstimme], out);
+        if(on[kMelodie])
+        {
+            const auto catalog=outputCatalog(s);
+            const auto foreground=composition::planForeground(s.melody,catalog[OutMelody].track);
+            if(foreground.foreground)
+            {
+                cut(kGegenstimme,k,k,offset,out);
+                int leadOutput=-1;
+                for(const auto& entry:catalog)if(entry.track.id.value==foreground.lead.value)leadOutput=entry.target.output;
+                if(leadOutput>=0)motifStep(k,p,s,offset,out,leadOutput);
+            }
+            else counterLine(k,p,s,offset,chordStart||enterNow[kGegenstimme],out);
+        }
+        else counterLine (k, p, s, offset, chordStart || enterNow[kGegenstimme], out);
     }
 
     // Dynamik als CC: Grundwert folgt der Intensitaet, darauf atmende Boegen (Grundlage: Dynamikkurven der eigenen Vorlagen,
@@ -2219,7 +2245,7 @@ public:
         }
         Voice* slot = &voices[0];
         for (auto& v : voices) if (! v.on) { slot = &v; break; }
-        static constexpr float outGain[kNumOutputs] = { 0.04f, 0.04f, 0.07f, 0.07f, 0.04f, 0.035f, 0.03f, 0.06f };
+        static constexpr float outGain[kNumOutputs] = { 0.04f, 0.04f, 0.07f, 0.07f, 0.04f, 0.035f, 0.03f, 0.06f, 0.05f };
         const float freq = 440.0f * std::pow (2.0f, ((float) e.note - 69.0f) / 12.0f);
         *slot = {};
         slot->on = true; slot->channel = e.channel; slot->note = e.note;

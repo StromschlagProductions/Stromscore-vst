@@ -830,7 +830,7 @@ int main()
             }
             const int lead = kEntryLayer[e];
             CHECK (firstOn[lead] >= 0 && firstOn[lead] < bar);
-            for (int i = 1; i < kNumLayers; ++i)
+            for (int i = 1; i < kMelodie; ++i)
             {
                 const int l = kEntryOrder[e][i];
                 const long long due = (long long) std::lround (i * 7.0 / 4.0) * bar;   // Platz i von 5, ueber 8 Takte verteilt
@@ -1397,6 +1397,9 @@ int main()
         s.rangeLo[kArp]=s.rangeLo[kGegenstimme]=60;s.rangeHi[kArp]=s.rangeHi[kGegenstimme]=83;
         s.channel[OutArp]=s.channel[OutCounter]=1;
         auto events=run(s,512,20.);checkBalanced(events);
+        auto muted=s;muted.melody=true;muted.mute[kMelodie]=true;const auto mutedEvents=run(muted,512,20.);
+        CHECK(events.size()==mutedEvents.size());
+        for(size_t i=0;i<events.size();++i)CHECK(events[i].sample==mutedEvents[i].sample&&events[i].note==mutedEvents[i].note&&events[i].velocity==mutedEvents[i].velocity);
         std::vector<std::pair<long long,int>> question,answer;
         for(auto e:events)if(e.velocity>0)
         {
@@ -1436,6 +1439,41 @@ int main()
         invalid=catalog;invalid[1].track.id=invalid[0].track.id;CHECK(!composition::validOutputs(invalid.data(),kNumOutputs));
         s.mute[kAkzent]=true;catalog=outputCatalog(s);CHECK(!catalog[OutStich].track.available&&!catalog[OutTupfer].track.available);
         s.mute[kAkzent]=false;s.solo[kBass]=true;catalog=outputCatalog(s);CHECK(catalog[OutBassLong].track.available&&!catalog[OutCounter].track.available);
+    }
+    // Opt-in foreground melody: actual ninth-channel MIDI, mono, recall and background safety.
+    {
+        Settings s;s.custom=true;s.customChords[0]={0,Maj7,8};s.y=.7f;
+        const auto background=run(s,512,16.);
+        for(auto e:background)CHECK(e.out!=OutMelody);
+        s.solo[kMelodie]=true;CHECK(run(s,512,16.).size()==background.size());s.solo[kMelodie]=false;
+        s.melody=true;
+        auto catalog=outputCatalog(s);CHECK(composition::validOutputs(catalog.data(),kNumOutputs));
+        CHECK(catalog[OutMelody].target.channel==9&&catalog[OutMelody].track.instrument.polyphony==1);
+        CHECK(composition::planForeground(true,catalog[OutMelody].track).foreground);
+        const auto events=run(s,512,80.);checkBalanced(events);
+        int active=0;std::vector<std::pair<long long,int>> intro,recall;int pause=0;
+        for(auto e:events)
+        {
+            CHECK(e.out!=OutCounter);
+            if(e.out!=OutMelody)continue;
+            CHECK(e.midi==9&&e.note>=60&&e.note<=84);
+            const int pc=(e.note-s.customChords[0].rootAbs+12)%12;CHECK(pc==0||pc==4||pc==7||pc==11);
+            active+=e.velocity>0?1:-1;CHECK(active>=0&&active<=1);
+            if(e.velocity>0){if(e.sample<192000)intro.push_back({e.sample,e.note});
+                if(e.sample>=16*96000&&e.sample<18*96000)recall.push_back({e.sample-16*96000,e.note});
+                if(e.sample>=8*96000&&e.sample<16*96000)++pause;}
+        }
+        CHECK(active==0&&intro.size()>=2&&intro==recall&&pause==0);
+        const auto large=run(s,8192,80.);CHECK(events.size()==large.size());
+        for(size_t i=0;i<events.size();++i)CHECK(events[i].sample==large[i].sample&&events[i].note==large[i].note&&events[i].velocity==large[i].velocity);
+        Generator g;EventList list;Transport t;t.playing=true;
+        for(int step=0;step<40;++step){t.ppq=step*.25;list.clear();g.process(t,s,6000,list);}
+        const auto identity=g.rememberedMotif().identity;CHECK(g.rememberedMotif().complete);
+        auto at=[&](double ppq){t.ppq=ppq;list.clear();g.process(t,s,6000,list);std::vector<int> pitches;
+            for(int i=0;i<list.size;++i)if(list.events[static_cast<size_t>(i)].out==OutMelody&&list.events[static_cast<size_t>(i)].velocity)pitches.push_back(list.events[static_cast<size_t>(i)].note);return pitches;};
+        const auto reprise=at(64);CHECK(!reprise.empty());at(0);CHECK(at(64)==reprise&&g.rememberedMotif().identity==identity);
+        t.playing=false;at(64);t.playing=true;at(0);CHECK(!g.rememberedMotif().complete);
+        s.genre=GenrePopRock;for(auto e:run(s,512,4.))CHECK(e.out!=OutMelody);
     }
     return 0;
 }

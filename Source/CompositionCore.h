@@ -111,7 +111,7 @@ struct OutputDescription
 };
 inline bool validOutputs(const OutputDescription* entries,int count)
 {
-    if(!entries||count!=8)return false; // Current adapter layout, not a musical role limit.
+    if(!entries||count!=9)return false; // Current adapter layout, not a musical role limit.
     for(int i=0;i<count;++i)
     {
         const auto& e=entries[i];const auto& c=e.track.instrument;
@@ -136,6 +136,13 @@ inline DialogueRoles assignDialogue(const PlayingTrack* tracks,int count,const R
         for(int a=0;a<count;++a)if(tracks[a].id.value!=tracks[q].id.value&&suitable(tracks[a],answer))
             return {tracks[q].id,tracks[a].id,true};
     return {}; // No silent fallback to a patch with incompatible capabilities.
+}
+// Explicit foreground intent: default background leaves existing thematic roles untouched.
+struct ForegroundPlan { bool foreground=false; TrackId lead; };
+inline ForegroundPlan planForeground(bool requested,const PlayingTrack& candidate)
+{
+    RoleNeed need;need.range=candidate.instrument.range;
+    return requested&&suitable(candidate,need)?ForegroundPlan{true,candidate.id}:ForegroundPlan{};
 }
 // Role scheduling only; MIDI rendering and catalog rules remain outside this data.
 struct DialoguePlan { bool reserveResponse=false, answer=false; int answerNotes=0; uint64_t sourceMotif=0; int64_t answerBegin=0, answerEnd=0; };

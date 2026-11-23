@@ -8,8 +8,8 @@
 </picture>
 
 VST3-Instrument für Hörspiel-Produktion. STROMSCORE ist als Inspiration gedacht: Es liefert einen Ausgangspunkt, den du auf deinen
-eigenen Instrumenten weiter bearbeitest und veredelst. Es erzeugt Musik zur Untermalung in fünf Ebenen und gibt sie als **MIDI** aus:
-Fläche, Bass, Arp, Akzent und Gegenstimme, auf bis zu acht frei wählbaren MIDI-Kanälen. Fläche und Bass trennen lange und kurze
+eigenen Instrumenten weiter bearbeitest und veredelst. Es erzeugt Musik zur Untermalung mit fünf bisherigen Ebenen und einer optionalen Melodiespur und gibt sie als **MIDI** aus:
+Fläche, Bass, Arp, Akzent und Gegenstimme sowie eine zuschaltbare Melodie, auf neun frei zuordenbaren MIDI-Ausgabegruppen. Fläche und Bass trennen lange und kurze
 Töne, damit Orchester-Libraries für jede Spielweise das passende Patch bekommen. Die Stimmung steuerst du über ein **Stimmungsfeld** mit drei Achsen: Färbung (dunkel bis hell),
 Intensität (ruhig bis aufgewühlt) und Unruhe (sauber bis kratzig). Alle drei lassen sich automatisieren oder mit einem Fader-Controller
 live fahren. So folgt die Musik der Szene, vom Lauern über die Panik bis zur Erlösung.
@@ -300,3 +300,14 @@ MIDI-Routing hängt vom Host ab; andere Hosts sind nicht getestet. Bei Problemen
 MIDI-Export beginnt weiterhin eine neue Szene mit dem aktuellen Wurf und den aktuellen Routen-/Längeneinstellungen. Der Endschalter aus der Live-Wiedergabe wird für diesen Export zurückgesetzt; die zeitliche DAW-Automation wird nicht nachträglich rekonstruiert. Für einen automatisierten Live-Abschluss den MIDI-Ausgang in der DAW aufnehmen.
 
 Keine Homepage-Karte und keine Aufnahme ins Gesamtbundle. Das Repository und sein Release bleiben privat gemäß der Einstellung des Auftraggebers.
+
+## Entwicklung 2.2: optionale Melodie
+
+Die neue Gruppe **MELODIE** ist standardmäßig aus. **Aktiv** schaltet im Score-Modus eine
+monophone Vordergrundstimme auf dem neunten Standardziel (Kanal 9) zu. Tonumfang, Oktave,
+Intensität, Mute/Solo und Kanal sind unabhängig einstellbar. Sie verwendet dasselbe
+aufgezeichnete Motivmaterial mit Zwischenphrasen, Wiederkehr und rhythmischer Variante.
+Während ihrer Vordergrundzuweisung pausiert die Gegenstimme; der bisherige
+Gegenstimme–Arp-Dialog läuft nicht zusätzlich. Bass, Fläche und Arp bleiben Begleitung.
+Melodie aus erhält den bisherigen Underscoring-Modus. Pop/Rock bleibt unverändert.
+Zum Ausprobieren der Wiederkehr mindestens 32 Takte ab der Einführung spielen lassen.

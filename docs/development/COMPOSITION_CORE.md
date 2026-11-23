@@ -457,3 +457,60 @@ Prüfergebnis: Linux/Xvfb CTest 4/4, ASan/UBSan 3/3 und Python-Releaseprüfer 7/
 252 zusätzliche temporäre Vergleichsrenderings gegen 6e8ddd2 ergeben identische
 MIDI-Ereignisprüfsummen. Windows/pluginval und subjektive Hörabnahme wurden nicht ausgeführt.
 Keine neue Melodiespur, GUI, Patch-Erkennung oder Artikulationsengine ergänzt.
+
+## Optionale eigenständige Melodiespielspur mit Underscoring-Priorität
+
+Neuntes Standardziel `OutMelody`, eigener Kanal (Vorgabe 9), eigene sechste Bediengruppe,
+Mute/Solo, Intensitätsversatz, Oktave und separater Bereich (Vorgabe MIDI 60–84).
+`melodie` ist standardmäßig aus und wird im bestehenden Parameter-/State-System gespeichert.
+Der Score arbeitet dann weiterhin mit den bisherigen acht Zielen. Pop/Rock ignoriert die
+neue Vordergrundaktivierung musikalisch. Keine Künstlerprofile oder allgemeine Orchestrierung.
+
+Der Kern unterscheidet mit `ForegroundPlan` ausdrücklich angeforderten Vordergrund von
+Hintergrund. Er prüft eine geeignete Führungsspielmöglichkeit anhand der Rollen-/Fähigkeitsdaten;
+die konkrete Bindung an Ziel 9 erfolgt im freien Adapter. Der Katalog enthält jetzt neun
+registrierte Ziele; Melodie ist tonhöhensteuerbar, gehalten, monophon und als reine
+Generatorannahme gekennzeichnet. Externe Patch-Fähigkeiten bleiben unbekannt.
+
+Die neue Stimme verwendet exakt das vorhandene Motivverfahren und denselben begrenzten
+Speicher. `motifStep` und die harmonische Tonleiteranpassung nehmen nun das Ziel als Adapter-
+Argument an. Es gibt keinen zweiten unabhängigen Motivgenerator. Einführung (höchstens zwei
+Takte), komplette Zwischenphrase, Wiederkehr und rhythmische Variante bleiben erhalten.
+Das Material ist über seine Inhaltskennung identifizierbar, unabhängig vom Wiedergabeziel.
+Noten der Hauptmelodie überlappen nicht und enden spätestens an der aktuellen Harmoniegrenze.
+Ist kein Akkordton im erlaubten Bereich vorhanden, entfällt der Einsatz.
+
+Solange die aktivierte Melodie ihre Vordergrundrolle tatsächlich übernimmt, werden gehaltene
+Gegenstimmenansprüche beendet und die Gegenstimme pausiert. Der frühere Gegenstimme–Arp-
+Dialog wird bei aktivierter Melodie nicht zusätzlich gestartet; der Arp bleibt normale
+Begleitung. Bass und Harmonie werden nicht verdrängt. Auch innerhalb der Vordergrundzuweisung
+bleibt die Melodie über ganze Zwischenphrasen still. Sie ist kein dauernder Notenstrom und
+kein obligatorisches Zentrum der Musik. Ohne Aktivierung bleiben Bass-/Ostinatomotive und
+bisherige Motivfunktionen erreichbar.
+
+Die neue Karte ergänzt nur Aktivierung und vorhandene Ebenen-/Routingbedienung. Das Fenster
+wird zur Aufnahme der sechsten Karte breiter, die übrigen Gruppen behalten ihre Namen/Größe.
+Der vorhandene VST3-MIDI-Ausgabebus unterstützt bereits 16 Kanäle. Alle relevanten Routing-,
+Aktivitäts-, Controller-, Notenbesitz-, State- und Exportpfade durchlaufen nun neun Ziele;
+ein zweiter MIDI-Bus ist dafür nicht erforderlich.
+
+Prüfstand: finaler Linux/Xvfb-CTest 4/4, ASan/UBSan 3/3 und Python-Releaseprüfer 7/7.
+Die neue Melodie ist als physische MIDI-Ausgabe auf Standardkanal 9 und nach State-Restore
+auf Kanal 15 geprüft. Weitere Tests: monophone Notenbilanz, Akkordtonklassen, Register,
+Einführung/Wiederkehr, Zwischenpause, Blockgrößen, Seek/Loop/Neustart, ausgeschaltete bzw.
+gemutete Melodie ohne Verlust der bisherigen Funktion, Pop/Rock unverändert und 40-Takt-
+Live-/Exportvergleich. Inaktive Melodie erzeugt keine zusätzliche leere MIDI-Exportspur;
+ein Solo-Schalter der deaktivierten Melodie schaltet die Begleitung nicht stumm.
+252 temporäre Vergleichsrenderings ohne Melodie gegen ce0db82 liefern identische
+MIDI-Ereignisprüfsummen.
+
+Linux-VST3 (x86-64) und echtes JUCE-Screenshotwerkzeug erfolgreich gebaut. Die gerenderte
+Oberfläche zeigt alle sechs Karten einschließlich Aktivierung, Kanal und Bereich der Melodie
+vollständig; Bilder liegen nur im temporären Prüfverzeichnis, nicht als Release-Assets.
+Der Processor-Ausgabepfad ist geprüft; ein tatsächlicher DAW-/VST3-Hostlauf, Windows,
+pluginval und eine subjektive Hörabnahme mit Zielinstrumenten wurden nicht durchgeführt.
+
+Verbleibende Grenzen: ein gemeinsames Motivgedächtnis je Szene, die bisher dokumentierten
+Grenzen bei unbekannter Seek-/Automationshistorie und die bestehenden GUI-Exportlängen
+8/16/32 (intern bis 64 Takte). Der nächste kleine musikalische Schritt könnte eine gezielte
+Dialogantwort auf die neue Melodie statt der jetzigen Pause sein. Er ist nicht implementiert.

@@ -279,5 +279,8 @@ int main()
     shortPatch.instrument.articulations=2;shortPatch.instrument.maxDuration=4;
     CHECK(!suitable(shortPatch,chord));
     longPatch.available=false;CHECK(!suitable(longPatch,chord));
+    CHECK(planForeground(true,tracks[1]).foreground);
+    CHECK(!planForeground(false,tracks[1]).foreground);
+    CHECK(!planForeground(true,longPatch).foreground);
     std::cout << "Composition core tests passed\n";
 }

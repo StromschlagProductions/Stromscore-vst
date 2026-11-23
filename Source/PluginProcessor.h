@@ -35,12 +35,12 @@ public:
     void getStateInformation (juce::MemoryBlock& destData) override;
     void setStateInformation (const void* data, int sizeInBytes) override;
 
-    static constexpr int kUiWidth = 1000, kUiHeight = 656;
+    static constexpr int kUiWidth = 1200, kUiHeight = 656;
     static juce::StringArray keyNames();
     static juce::StringArray meterNames();
     static juce::StringArray layerNames();
     static juce::StringArray outputNames();   // die acht Ausgaenge (Flaeche lang / kurz, ...)
-    static juce::String rangeName (int rangeIndex);   // Tonumfang 0 ... 5 (3 = Akzent Tupfer, 5 = Akzent Stich)
+    static juce::String rangeName (int rangeIndex);   // Tonumfang 0 ... 6 (3 = Akzent Tupfer, 5 = Akzent Stich)
     static juce::StringArray channelNames();
     static juce::StringArray padPatternNames();
     static juce::StringArray bassPatternNames();
@@ -164,7 +164,7 @@ private:
     std::atomic<float>* pRangeOn[stromscore::kNumRanges] {}; std::atomic<float>* pRangeLo[stromscore::kNumRanges] {}; std::atomic<float>* pRangeHi[stromscore::kNumRanges] {};
     std::atomic<float>* pChannel[stromscore::kNumOutputs] {}; std::atomic<float>* pLegato = nullptr; std::atomic<float>* pCustom = nullptr;
     std::atomic<float>* pScene = nullptr; std::atomic<float>* pEntry = nullptr; std::atomic<float>* pSeed = nullptr; std::atomic<float>* pBuild = nullptr;
-    std::atomic<float>* pHardness = nullptr; std::atomic<float>* pSceneLen = nullptr; std::atomic<float>* pEnding = nullptr; std::atomic<float>* pMotif = nullptr;
+    std::atomic<float>* pHardness = nullptr; std::atomic<float>* pSceneLen = nullptr; std::atomic<float>* pEnding = nullptr; std::atomic<float>* pMotif = nullptr; std::atomic<float>* pMelody = nullptr;
     std::atomic<float>* pDrive = nullptr; std::atomic<float>* pDriveX = nullptr; std::atomic<float>* pDriveY = nullptr; std::atomic<float>* pDriveFrom = nullptr;
     std::atomic<float>* pEndRequest=nullptr; std::atomic<float>* pRouteCount=nullptr;
     std::atomic<float>* pWay[8] {}; std::atomic<float>* pBend[10] {};

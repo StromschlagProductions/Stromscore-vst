@@ -19,9 +19,9 @@ juce::StringArray StromscoreProcessor::keyNames()
     return { "C", u8 ("C♯ / D♭"), "D", u8 ("D♯ / E♭"), "E", "F", u8 ("F♯ / G♭"), "G", u8 ("G♯ / A♭"), "A", u8 ("A♯ / B♭"), "B" };
 }
 juce::StringArray StromscoreProcessor::meterNames()  { return { "Vom Projekt", "4/4", "3/4", "6/8", "5/4", "7/8", "5/8", "12/8" }; }
-juce::StringArray StromscoreProcessor::layerNames()  { return { u8 ("Fläche"), "Bass", "Arp", "Akzent", "Gegenstimme" }; }
-juce::StringArray StromscoreProcessor::outputNames() { return { u8 ("Fläche lang"), u8 ("Fläche kurz"), "Bass lang", "Bass kurz", "Arp", "Akzent Tupfer", "Akzent Stich", "Gegenstimme" }; }
-juce::String StromscoreProcessor::rangeName (int r) { return r == 3 ? juce::String ("Akzent Tupfer") : r == 5 ? juce::String ("Akzent Stich") : layerNames()[juce::jlimit (0, 4, r)]; }
+juce::StringArray StromscoreProcessor::layerNames()  { return { u8 ("Fläche"), "Bass", "Arp", "Akzent", "Gegenstimme", "Melodie" }; }
+juce::StringArray StromscoreProcessor::outputNames() { return { u8 ("Fläche lang"), u8 ("Fläche kurz"), "Bass lang", "Bass kurz", "Arp", "Akzent Tupfer", "Akzent Stich", "Gegenstimme", "Melodie" }; }
+juce::String StromscoreProcessor::rangeName (int r) { return r == 6 ? juce::String("Melodie") : r == 3 ? juce::String ("Akzent Tupfer") : r == 5 ? juce::String ("Akzent Stich") : layerNames()[juce::jlimit (0, 4, r)]; }
 juce::StringArray StromscoreProcessor::channelNames() { juce::StringArray a; for (int i = 1; i <= 16; ++i) a.add ("Kanal " + juce::String (i)); return a; }
 juce::StringArray StromscoreProcessor::padPatternNames()  { return { "Auto", "Gehalten", u8 ("Schläge"), "Puls", "Staccato", "Gated" }; }
 juce::StringArray StromscoreProcessor::genreNames()       { return { "Score", "80er Pop-Rock" }; }
@@ -119,9 +119,9 @@ juce::AudioProcessorValueTreeState::ParameterLayout StromscoreProcessor::createL
     for (int i = 0; i < stromscore::kNumRanges; ++i)
     {
         const String n (i + 1);
-        layout.add (std::make_unique<AudioParameterBool> (ParameterID { "umfang" + n, 1 }, rangeName (i) + " Tonumfang", false));
-        layout.add (std::make_unique<AudioParameterInt> (ParameterID { "tief" + n, 1 }, rangeName (i) + u8 (" tiefster Ton"), 0, 127, 0, noteAttr));
-        layout.add (std::make_unique<AudioParameterInt> (ParameterID { "hoch" + n, 1 }, rangeName (i) + u8 (" höchster Ton"), 0, 127, 127, noteAttr));
+        layout.add (std::make_unique<AudioParameterBool> (ParameterID { "umfang" + n, 1 }, rangeName (i) + " Tonumfang", i==6));
+        layout.add (std::make_unique<AudioParameterInt> (ParameterID { "tief" + n, 1 }, rangeName (i) + u8 (" tiefster Ton"), 0, 127, i==6?60:0, noteAttr));
+        layout.add (std::make_unique<AudioParameterInt> (ParameterID { "hoch" + n, 1 }, rangeName (i) + u8 (" höchster Ton"), 0, 127, i==6?84:127, noteAttr));
     }
     // Per-channel ranges: sharing a MIDI channel necessarily shares its controllers.
     for (int ch = 1; ch <= 16; ++ch)
@@ -146,6 +146,7 @@ juce::AudioProcessorValueTreeState::ParameterLayout StromscoreProcessor::createL
     layout.add (std::make_unique<AudioParameterFloat> (ParameterID { "haerte", 1 }, u8 ("Härte"), NormalisableRange<float> (0.0f, 1.0f), 0.5f, percent()));
     layout.add (std::make_unique<AudioParameterInt> (ParameterID { "szenenLaenge", 1 }, u8("Szenenlänge"), 0, 4096, 0));
     layout.add (std::make_unique<AudioParameterChoice> (ParameterID { "ende", 1 }, "Ende", endingNames(), 1));
+    layout.add(std::make_unique<AudioParameterBool>(ParameterID{"melodie",1},"Melodie aktiv",false));
     layout.add (std::make_unique<AudioParameterBool> (ParameterID { "motiv", 1 }, "Gegenstimme Motiv", true));
     layout.add (std::make_unique<AudioParameterBool> (ParameterID { "fahrt", 1 }, "Fahrt", false));
     layout.add (std::make_unique<AudioParameterFloat> (ParameterID { "fahrtX", 1 }, u8 ("Fahrt Ziel Färbung"), NormalisableRange<float> (0.0f, 1.0f), 0.8f, percent()));
@@ -230,6 +231,7 @@ StromscoreProcessor::StromscoreProcessor()
     pSceneLen = apvts.getRawParameterValue ("szenenLaenge");
     pEnding = apvts.getRawParameterValue ("ende");
     pMotif = apvts.getRawParameterValue ("motiv");
+    pMelody=apvts.getRawParameterValue("melodie");
     pDrive = apvts.getRawParameterValue ("fahrt");
     pDriveX = apvts.getRawParameterValue ("fahrtX");
     pDriveY = apvts.getRawParameterValue ("fahrtY");
@@ -318,6 +320,7 @@ stromscore::Settings StromscoreProcessor::currentSettings() const
         s.octave[i] = juce::roundToInt (pOctave[i]->load()) - 2;
     for (int i = 0; i < stromscore::kNumOutputs; ++i)
         s.channel[i] = juce::jlimit (1, 16, juce::roundToInt (pChannel[i]->load()) + 1);
+    s.melody=pMelody->load()>=.5f;
     s.legato = pLegato->load() >= 0.5f;
     for (int i = 0; i < stromscore::kNumRanges; ++i)
     {
@@ -890,7 +893,7 @@ juce::File StromscoreProcessor::renderMidiFile (int bars) const
     {
         juce::StringArray names;
         for (int o = 0; o < stromscore::kNumOutputs; ++o)
-            if (settings.channel[o] == ch + 1) names.add (outputNames()[o]);
+            if (settings.channel[o] == ch + 1 && (o!=stromscore::OutMelody || (settings.melody&&settings.genre==stromscore::GenreScore))) names.add (outputNames()[o]);
         if (names.isEmpty()) continue;
         juce::MidiMessageSequence seq;
         seq.addEvent (juce::MidiMessage::textMetaEvent (3, names.joinIntoString (" + ") + " (Kanal " + juce::String (ch + 1) + ")"));
