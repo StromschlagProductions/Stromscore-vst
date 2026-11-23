@@ -10,7 +10,7 @@
 #include <array>
 #include <cmath>
 #include <cstdint>
-#include "VoiceLeading.h"
+#include "CompositionCore.h"
 #include "DrivePath.h"
 
 namespace stromscore
@@ -386,6 +386,7 @@ public:
     int sceneEntry() const { return entryInUse; }             // aufgeloester Einstieg
     bool sceneOver() const { return sceneEnded; }
     int activeSeed() const { return sceneSeed; }
+    int plannedHarmonySlots() const { return planValid ? harmonicPlan.count : 0; }
     bool driveArrived() const { return driveArrivedNow; }     // die Fahrt ist bei B angekommen (das Plugin macht B dann zu A)
     uint32_t driveGenerationNow() const { return driveGenerationSeen; }
     float driveProgress() const { return driveProgressNow; }
@@ -1330,8 +1331,10 @@ private:
         const int hi = rangeOn (o) ? s.rangeHi[0] - oct : std::min (127 - oct, padLow (s) + 24);
         const int blo = s.rangeOn[1] ? s.rangeLo[1] - 12 * s.octave[kBass] : bassLow (s) - 7;
         const int bhi = s.rangeOn[1] ? s.rangeHi[1] - 12 * s.octave[kBass] : bassLow (s) + 12;
-        voiceleading::ChordVoicing anchors[16] {};
-        Chord chords[16] {}; int bassAnchors[16] {}; uint32_t missing[16] {};
+        composition::HarmonicRequest request;
+        request.padRange = { lo, hi }; request.bassRange = { blo, bhi };
+        request.count = W().n * 2;
+        Chord chords[16] {};
         int order[16] {}, count = 0;
         uint64_t key = 1469598103934665603ull;
         auto mix = [&] (int n) { key ^= (uint64_t) (uint32_t) n; key *= 1099511628211ull; };
@@ -1342,6 +1345,7 @@ private:
             for (int pass = 0; pass < 2; ++pass)
             {
                 const int index = i * 2 + pass;
+                auto& slot = request.slots[static_cast<size_t> (index)];
                 Chord c = w.ch[i];
                 if (pass) c = { ((i + 1 < w.n ? w.ch[i+1].root : w.ch[0].root) + 7) % 12, Dom7, 1 };
                 Chord pad = c, bass = c;
@@ -1353,44 +1357,44 @@ private:
                 {
                     bool available = false;
                     for (int note = lo; note <= hi; ++note) if ((note % 12 + 12) % 12 == v.notes[n] % 12) available = true;
-                    if (! available) missing[index] |= 1u << (v.notes[n] % 12);
+                    if (! available) slot.unavailable |= 1u << (v.notes[n] % 12);
                 }
                 const auto savedMask = chordMask; chordMask = 0;
                 for (int n = 0; n < v.n; ++n) chordMask |= 1u << (v.notes[n] % 12);
                 v.n = fitGroup (o, v.notes, v.n); chordMask = savedMask; voiceleading::sort (v);
-                anchors[index] = v; mix (v.n);
+                slot.pad = v; mix (v.n);
                 for (int n = 0; n < v.n; ++n) mix (v.notes[n]);
-                bassAnchors[index] = place (s.key + bassRoot (bass), bassLow (s)); mix (bassAnchors[index]);
-                mix ((int) missing[index]);
-                if (! pass || (s.passing && s.y >= 0.6f && ! still)) order[count++] = index;
+                slot.bass = place (s.key + bassRoot (bass), bassLow (s)); mix (slot.bass);
+                mix ((int) slot.unavailable);
+                slot.enabled = ! pass || (s.passing && s.y >= 0.6f && ! still);
+                slot.preservePad = s.genre == GenrePopRock && current == 31 && ! s.custom;
+                mix(slot.preservePad);
+                if (slot.enabled) order[count++] = index;
             }
             if (i >= chordBase) start += (long long) w.ch[i].bars * meter.len;
         }
         mix (count); for (int i = 0; i < count; ++i) mix (order[i]);
         if (planValid && planKey == key) return;
-        planValid = true; planKey = key;
-        auto reference = anchors[order[count-1]];
-        int bassReference = bassAnchors[order[count-1]];
-        const bool authored = s.genre == GenrePopRock && current == 31 && ! s.custom;
-        // One warm-up cycle plus the recorded cycle. Fixed bound, no convergence-dependent work.
-        for (int cycle = 0; cycle < 2; ++cycle)
-            for (int j = 0; j < count; ++j)
+        // Adapter supplies harmonic resolution intent; core owns the whole bounded plan.
+        for (int j = 0; j < count; ++j)
+        {
+            const int index = order[j], prev = order[(j + count - 1) % count];
+            if ((chords[prev].type == Dom7 || chords[prev].type == Dom7b9)
+                && (chords[index].root - chords[prev].root + 12) % 12 == 5)
             {
-                const int index = order[j], prev = order[(j + count - 1) % count];
-                int seventh = -1, third = -1;
-                if ((chords[prev].type == Dom7 || chords[prev].type == Dom7b9) && (chords[index].root - chords[prev].root + 12) % 12 == 5)
-                { seventh = (s.key + chords[prev].root + 10) % 12; third = (s.key + chords[prev].root + 4) % 12; }
-                reference = authored ? anchors[index] : voiceleading::lead (anchors[index], reference, lo, hi, seventh, third);
-                bassReference = voiceleading::bass (bassAnchors[index], bassReference, blo, bhi);
-                padPlan[index] = reference; bassPlan[index] = bassReference; unavailablePlan[index] = missing[index];
+                request.slots[static_cast<size_t> (index)].resolvingSeventh = (s.key + chords[prev].root + 10) % 12;
+                request.slots[static_cast<size_t> (index)].resolvingThird = (s.key + chords[prev].root + 4) % 12;
             }
+        }
+        harmonicPlan = composition::planHarmony(request);
+        planValid = harmonicPlan.valid; planKey = key;
     }
 
     voiceleading::ChordVoicing padVoicing (const Pos& p, const Settings& s, int)
     {
         prepareVoicingPlan (p, s);
         const int index = p.chordIdx * 2 + (p.passing ? 1 : 0);
-        unavailablePad = unavailablePlan[index]; return padPlan[index];
+        unavailablePad = harmonicPlan.slots[static_cast<size_t> (index)].unavailable; return harmonicPlan.slots[static_cast<size_t> (index)].pad;
     }
 
     void padChord (const Pos& p, const Settings& s, int o, int offset, long long endStep, int velocity, EventList& out)
@@ -1427,7 +1431,7 @@ private:
     {
         if (pedal) return anchor;
         prepareVoicingPlan (p, s);
-        return bassPlan[p.chordIdx * 2 + (p.passing ? 1 : 0)];
+        return harmonicPlan.slots[static_cast<size_t> (p.chordIdx * 2 + (p.passing ? 1 : 0))].bass;
     }
 
     int nextBassPlacement (const Pos& p, const Settings& s)
@@ -1435,7 +1439,7 @@ private:
         prepareVoicingPlan (p, s);
         const int index = ! p.passing && s.passing && s.y >= 0.6f && ! still
                         ? p.chordIdx * 2 + 1 : ((p.chordIdx + 1) % W().n) * 2;
-        return bassPlan[index];
+        return harmonicPlan.slots[static_cast<size_t> (index)].bass;
     }
 
     // Bass: lange Muster (Gehalten, Halbe, Orgelpunkt) gehen auf den Kanal fuer lang, alle anderen auf den fuer kurz
@@ -2069,8 +2073,7 @@ private:
         csNote = target;
     }
 
-    voiceleading::ChordVoicing padPlan[16] {};
-    int bassPlan[16] {}; uint32_t unavailablePlan[16] {};
+    composition::HarmonicPlan harmonicPlan;
     uint64_t planKey = 0; bool planValid = false;
     uint32_t unavailablePad = 0;
     static constexpr int kMaxActive = 192;

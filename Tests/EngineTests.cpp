@@ -1275,5 +1275,56 @@ int main()
         Generator g;Settings s;s.sceneBars=2;s.ending=EndFade;s.y=.7f;Transport t;t.playing=true;t.bpm=120;t.sampleRate=48000;EventList e;
         for(int tick=0;tick<=40;++tick){t.ppq=tick*.25;s.endRequested=tick==16;e.clear();g.process(t,s,6000,e);}CHECK(g.sceneOver());t.ppq=0;e.clear();g.process(t,s,6000,e);CHECK(g.sceneOver());
     }
+    // 2.2: every catalog anchor enters the shared harmonic planner, then physical MIDI.
+    for (int genre : {GenreScore, GenrePopRock})
+        for (int index = 0; index < wendungCount(genre); ++index)
+        {
+            const auto& w = wendungAt(genre,index);
+            Settings s; s.genre=genre; s.x=w.x; s.y=w.y; s.z=w.z; s.variety=0;
+            s.padPattern=PadHeld; s.bassPattern=BassHeld;
+            Generator g; Transport t; t.playing=true; EventList e;
+            { NoAllocations guard; g.process(t,s,512,e); }
+            CHECK(!e.overflow && g.plannedHarmonySlots() == 2 * w.n);
+            const auto small=run(s,512,16.1), large=run(s,8192,16.1);
+            checkBalanced(small); checkBalanced(large); CHECK(small.size()==large.size());
+            for(size_t i=0;i<small.size();++i)
+            {
+                CHECK(small[i].sample==large[i].sample && small[i].midi==large[i].midi);
+                CHECK(small[i].note==large[i].note && small[i].velocity==large[i].velocity);
+            }
+        }
+    // Shared core plan invalidation, canonical seek/loop and scene restart; one MIDI channel.
+    {
+        Settings s; s.custom=true; s.customChords[0]={0,Maj7,2};s.customChords[1]={5,Min9,2};
+        s.y=.55f;s.padPattern=PadHeld;s.bassPattern=BassHeld;
+        s.mute[kArp]=s.mute[kAkzent]=s.mute[kGegenstimme]=true;
+        for(auto& ch:s.channel)ch=1;
+        s.rangeOn[0]=s.rangeOn[1]=true;s.rangeLo[0]=60;s.rangeHi[0]=83;s.rangeLo[1]=36;s.rangeHi[1]=59;
+        Generator g;EventList e;Transport t;t.playing=true;
+        std::set<int> sounding;
+        auto block=[&](double ppq)
+        {
+            t.ppq=ppq;e.clear();{NoAllocations guard;g.process(t,s,512,e);}CHECK(!e.overflow);
+            for(int i=0;i<e.size;++i)
+            {
+                const auto& n=e.events[(size_t)i];if(n.type!=0)continue;
+                CHECK(n.channel==1);
+                if(n.velocity){CHECK(sounding.insert(n.note).second);CHECK((n.note>=s.rangeLo[0]&&n.note<=s.rangeHi[0])||(n.note>=s.rangeLo[1]&&n.note<=s.rangeHi[1]));}
+                else CHECK(sounding.erase(n.note)==1);
+            }
+            return sounding;
+        };
+        const auto initial=block(0);CHECK(!initial.empty()&&g.plannedHarmonySlots()==4);
+        const auto seek=block(12.5);CHECK(!seek.empty());
+        CHECK(block(0)==initial);CHECK(block(12.5)==seek);
+        // Changed harmonic/register inputs must not reuse the previous cached plan.
+        s.customChords[1]={2,Dom7b9,2};s.rangeLo[0]=72;s.rangeHi[0]=95;
+        block(0); // Re-enter through a real seek so held notes are reconstructed.
+        const auto changed=block(12.5);CHECK(changed!=seek);
+        for(int note:changed)CHECK(note<60||note>=72);
+        t.playing=false;block(12.5);CHECK(sounding.empty());
+        s.seed=93;t.playing=true;block(0);CHECK(g.activeSeed()==93);
+        t.playing=false;block(0);CHECK(sounding.empty());
+    }
     return 0;
 }

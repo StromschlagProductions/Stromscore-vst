@@ -42,6 +42,6 @@ jobs:
       - name: Konfigurieren
         run: cmake -S . -B build -DCMAKE_BUILD_TYPE=Release
       - name: Prozessor und Engine bauen
-        run: cmake --build build --target ProcessorTests EngineTests VoiceLeadingTests --parallel 2
+        run: cmake --build build --target ProcessorTests EngineTests VoiceLeadingTests CompositionCoreTests --parallel 2
       - name: MIDI-, GUI- und C-Heap-Regressionen
         run: xvfb-run -a ctest --test-dir build --output-on-failure

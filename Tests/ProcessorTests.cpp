@@ -842,5 +842,31 @@ int main()
         mouse({150,150},false);mouse({100,120},true);CHECK(pad.route.points[0].x<.5f);
         pad.routeEditable=false;int count=pad.route.count;mouse({200,100},false);CHECK(pad.route.count==count);
     }
+    // 2.2 free-mode -> shared harmony plan -> processor MIDI on a shared channel.
+    {
+        auto q=std::make_unique<StromscoreProcessor>();FakeHost h;q->setPlayHead(&h);
+        setParam(*q,"aufbau",0);setParam(*q,"intensitaet",.55f);setParam(*q,"eigeneFolge",1);
+        setParam(*q,"padPattern",stromscore::PadHeld);setParam(*q,"bassPattern",stromscore::BassHeld);
+        for(int i=3;i<=5;++i)setParam(*q,("mute"+std::to_string(i)).c_str(),1);
+        for(int i=1;i<=8;++i)setParam(*q,("kanal"+std::to_string(i)).c_str(),0);
+        setParam(*q,"umfang1",1);setParam(*q,"tief1",60);setParam(*q,"hoch1",83);
+        setParam(*q,"umfang2",1);setParam(*q,"tief2",36);setParam(*q,"hoch2",59);
+        q->prepareToPlay(48000,512);juce::AudioBuffer<float> a(2,512);juce::MidiBuffer m;m.ensureSize(65536);
+        Counts ledger;std::map<int,int> initial;
+        for(double ppq:{0.,4.,12.5,0.,12.5})
+        {
+            h.ppq=ppq;m.clear();{NoAllocations guard;q->processBlock(a,m);}collect(m,ledger);
+            CHECK(!ledger.broken);
+            std::map<int,int> now;
+            for(const auto& n:ledger.open)if(n.second){CHECK(n.first.first==1);now[n.first.second]=n.second;}
+            CHECK(!now.empty());
+            if(ppq<.01){if(initial.empty())initial=now;else CHECK(now==initial);}
+            for(const auto& n:now)CHECK((n.first>=36&&n.first<=59)||(n.first>=60&&n.first<=83));
+        }
+        h.playing=false;m.clear();q->processBlock(a,m);collect(m,ledger);
+        CHECK(!ledger.broken&&ledger.ons==ledger.offs);
+        for(const auto& n:ledger.open)CHECK(n.second==0);
+        q->setPlayHead(nullptr);
+    }
     return 0;
 }
