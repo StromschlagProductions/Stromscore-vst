@@ -1475,5 +1475,40 @@ int main()
         t.playing=false;at(64);t.playing=true;at(0);CHECK(!g.rememberedMotif().complete);
         s.genre=GenrePopRock;for(auto e:run(s,512,4.))CHECK(e.out!=OutMelody);
     }
+    // Melody switches are independent of counter controls; line mode never records a theme.
+    {
+        Settings s;s.melody=true;s.solo[kMelodie]=true;s.y=.7f;s.custom=true;s.customChords[0]={0,Maj7,8};
+        for(bool motif:{false,true})
+        {
+            s.melodyMotif=motif;s.melodyLegato=true;
+            const auto bound=run(s,512,40.);checkBalanced(bound);
+            auto independent=s;independent.legato=false;independent.motif=!s.motif;
+            const auto same=run(independent,512,40.);CHECK(bound.size()==same.size());
+            for(size_t i=0;i<bound.size();++i)CHECK(bound[i].sample==same[i].sample&&bound[i].note==same[i].note&&bound[i].velocity==same[i].velocity);
+            s.melodyLegato=false;const auto detached=run(s,512,40.);checkBalanced(detached);
+            CHECK(bound.size()==detached.size());bool different=false;
+            for(size_t i=0;i<bound.size();++i)
+            {
+                CHECK(bound[i].note==detached[i].note&&bound[i].velocity==detached[i].velocity);
+                if(bound[i].velocity>0)CHECK(bound[i].sample==detached[i].sample);
+                else different|=bound[i].sample!=detached[i].sample;
+            }
+            CHECK(different);
+            const auto large=run(s,8192,40.);CHECK(large.size()==detached.size());
+            for(size_t i=0;i<large.size();++i)CHECK(large[i].sample==detached[i].sample&&large[i].note==detached[i].note&&large[i].velocity==detached[i].velocity);
+            Generator transportGenerator;EventList transportEvents;Transport transport;transport.playing=true;
+            auto at=[&](double ppq){transport.ppq=ppq;transportEvents.clear();transportGenerator.process(transport,s,6000,transportEvents);
+                std::vector<std::pair<int,int>> notes;for(int i=0;i<transportEvents.size;++i){const auto& e=transportEvents.events[static_cast<size_t>(i)];
+                    if(e.out==OutMelody&&e.velocity>0)notes.push_back({e.note,e.velocity});}return notes;};
+            const auto start=at(0);CHECK(!start.empty());const auto seek=at(64);CHECK(!seek.empty());
+            CHECK(at(0)==start&&at(64)==seek);
+            transport.playing=false;at(64);transport.playing=true;CHECK(at(0)==start);
+        }
+        s.melodyMotif=false;Generator g;EventList events;Transport t;t.playing=true;
+        int ons=0;
+        for(int step=0;step<1100;++step){t.ppq=step*.25;events.clear();g.process(t,s,6000,events);for(int i=0;i<events.size;++i)ons+=events.events[static_cast<size_t>(i)].velocity>0;}
+        CHECK(ons>10&&g.rememberedMotif().count==0);
+        s.melody=false;for(auto e:run(s,512,4.))CHECK(e.out!=OutMelody);
+    }
     return 0;
 }

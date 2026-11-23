@@ -746,7 +746,7 @@ int main()
         CHECK (! c.broken && c.ons == c.offs); q.setPlayHead (nullptr);
     }
     // Voice-leading export equals live DAW playback, including channel CCs and held common notes.
-    for(float intensity : {.4f,.7f,.8f,.9f,1.f})
+    for(float intensity : {.4f,.7f,.8f,.9f,1.f,.99f})
     {
         StromscoreProcessor q; FakeHost h; q.setPlayHead (&h); q.prepareToPlay (48000, 512);
         setParam (q, "aufbau", 0); setParam (q, "key", 0); setParam (q, "intensitaet", intensity);
@@ -767,6 +767,7 @@ int main()
         if(recurrence){setParam(q,"mute1",1);setParam(q,"mute5",0);setParam(q,"motiv",1);}
         if(intensity>.85f){setParam(q,"mute3",0);setParam(q,"arpFigure",stromscore::ArpCell);}
         if(intensity>.95f){setParam(q,"melodie",1);setParam(q,"mute6",0);}
+        if(intensity>.98f&&intensity<1.f){setParam(q,"melodieMotiv",0);setParam(q,"melodieLegato",0);}
         const int bars=recurrence?40:8;
         using Timed = std::tuple<long long, int, int, int, int>;
         std::vector<Timed> live, exported;
@@ -880,15 +881,20 @@ int main()
     }
     {
         auto q=std::make_unique<StromscoreProcessor>();CHECK(!q->currentSettings().melody);
-        setParam(*q,"melodie",1);setParam(*q,"kanal9",14);setParam(*q,"tief7",65);setParam(*q,"hoch7",81);
+        setParam(*q,"melodie",1);setParam(*q,"melodieLegato",0);setParam(*q,"melodieMotiv",0);setParam(*q,"kanal9",14);setParam(*q,"tief7",65);setParam(*q,"hoch7",81);
         juce::MemoryBlock state;q->getStateInformation(state);
         auto restored=std::make_unique<StromscoreProcessor>();restored->setStateInformation(state.getData(),static_cast<int>(state.getSize()));
-        auto s=restored->currentSettings();CHECK(s.melody&&s.channel[stromscore::OutMelody]==15&&s.rangeLo[6]==65&&s.rangeHi[6]==81);
+        auto s=restored->currentSettings();CHECK(s.melody&&!s.melodyLegato&&!s.melodyMotif&&s.legato&&s.motif&&s.channel[stromscore::OutMelody]==15&&s.rangeLo[6]==65&&s.rangeHi[6]==81);
         setParam(*restored,"aufbau",0);setParam(*restored,"intensitaet",.7f);setParam(*restored,"solo6",1);
         FakeHost melodyHost;restored->setPlayHead(&melodyHost);
         const auto notes=play(*restored,melodyHost,4,512);CHECK(notes.channels.count(15)&&!notes.broken&&notes.ons==notes.offs);
         restored->setPlayHead(nullptr);
         std::unique_ptr<juce::AudioProcessorEditor> editor(restored->createEditor());CHECK(editor!=nullptr);
+        int switches=0;std::function<void(juce::Component&)> find=[&](juce::Component& c)
+        {if(c.getComponentID()=="melodieLegato"||c.getComponentID()=="melodieMotiv")
+            {auto* b=dynamic_cast<juce::Button*>(&c);CHECK(b&&!b->getToggleState());++switches;}
+            for(auto* child:c.getChildren())find(*child);};find(*editor);CHECK(switches==2);
+
     }
     return 0;
 }

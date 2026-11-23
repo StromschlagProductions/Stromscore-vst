@@ -514,3 +514,40 @@ Verbleibende Grenzen: ein gemeinsames Motivgedächtnis je Szene, die bisher doku
 Grenzen bei unbekannter Seek-/Automationshistorie und die bestehenden GUI-Exportlängen
 8/16/32 (intern bis 64 Takte). Der nächste kleine musikalische Schritt könnte eine gezielte
 Dialogantwort auf die neue Melodie statt der jetzigen Pause sein. Er ist nicht implementiert.
+
+
+## Unabhängige Melodie-Phrasierung und Motivwahl
+
+`melodieLegato` und `melodieMotiv` sind eigene automatisierbare Bool-Parameter mit
+Vorgabe an; Settings, State und GUI verwenden dieselben Werte. Die alten Schalter
+`legato` und `motiv` steuern weiterhin nur die Gegenstimme. Die Aktivierung bleibt separat.
+Die Melodie verwendet die gemeinsame harmonische Linienfunktion: Motiv an delegiert
+an `motifStep`, Motiv aus bildet Akkordtonlinien ohne Lesen oder Schreiben des Motivspeichers.
+Keine zweite Motiv-Engine.
+
+Legato bedeutet im derzeit monophonen Generator-Fähigkeitsmodell aneinandergrenzende
+Notengates, keine überlappenden Note-ons oder Bibliotheks-Legatoartikulation. Getrennte
+Artikulation kürzt die verfügbare Gatezeit um eine Sechzehntel, soweit mindestens eine
+Sechzehntel verbleibt. Aufgezeichnete Pausen, Variationskürzungen, nächste Einsätze und
+Akkordgrenzen werden respektiert. Externe Patch-Artikulationen bleiben unbekannt.
+
+**Bekannte Kopplung, in diesem Schritt bewusst nicht geändert:** Es gibt pro Generator
+weiterhin genau ein `RememberedMotif`, das Gegenstimme und Melodie gemeinsam nutzen.
+Auch der Liniencursor `csNote` ist gemeinsam. Die Vordergrundplanung verhindert
+gleichzeitige konkurrierende Motivschreiber, aber beim späteren Wechsel kann eine Stimme
+Material, Rhythmus und Einführungsposition der anderen übernehmen. Motiv aus löscht das
+Gedächtnis nicht; beim erneuten Einschalten kann gespeichertes Material wiederkehren.
+Das ist keine vollständige musikalische Unabhängigkeit der beiden Stimmen.
+
+Kleine vorgeschlagene Lösung: zwei explizite musikalische Materialkontexte (Melodie und
+Dialog), jeweils Instanzen derselben vorhandenen Speicherklasse und derselben Funktionen,
+mit getrenntem Liniencursor. Ein Materialtransfer müsste ausdrücklich geplant werden.
+Kontexte gehören zu musikalischen Aufgaben, nicht zu MIDI-Zielnummern. Kein neuer
+Motivgenerator, kein allgemeiner Motivpool; hier nur dokumentiert, nicht implementiert.
+
+Prüfstand dieses Schritts: Linux/Xvfb CTest 4/4, ASan/UBSan 3/3 und
+Python-Releaseprüfer 7/7 bestanden. Neue Tests prüfen getrennte Schalter, Gateunterschiede
+bei unveränderten Anschlägen/Tonhöhen, leeres Motivgedächtnis im reinen Linienmodus,
+Blockgrößen, Seek/Loop/Neustart, State-Restore, GUI-Bindungen und Live-/Exportgleichheit
+auch ohne Motiv und ohne Legato. Linux-VST3 und Screenshotwerkzeug gebaut; echte
+GUI-Renderings visuell geprüft. Kein DAW-Hostlauf, Windows/pluginval oder Hörtest.

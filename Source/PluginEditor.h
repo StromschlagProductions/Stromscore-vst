@@ -208,7 +208,7 @@ public:
         combo2.setBounds (cx, row (1), cw, 24);         // Arp: Tempo
         legatoButton.setBounds (cx, row (1), cw / 2 - 2, 24);                 // Gegenstimme: Legato und Motiv
         motifButton.setBounds (cx + cw / 2 + 2, row (1), cw - cw / 2 - 2, 24);
-        if(index==stromscore::kMelodie)motifButton.setBounds(cx,row(1),cw,24);
+
         combo1.setBounds (cx, row (2), cw, 24);         // Muster
         followButton.setBounds (12, row (3), w - 24, 24);
         intensity.setBounds (12, getHeight() - 64, w - 24, 24);
@@ -452,7 +452,8 @@ private:
     ChordDisplay chordDisplay;
 
     LayerView layers[stromscore::kNumLayers];
-    std::unique_ptr<APVTS::ButtonAttachment> melodyAttachment;
+    juce::TextButton melodyEnabledButton;
+    std::unique_ptr<APVTS::ButtonAttachment> melodyAttachment, melodyLegatoAttachment, melodyMotifAttachment;
     std::unique_ptr<APVTS::ButtonAttachment> soloAttachment[stromscore::kNumLayers], muteAttachment[stromscore::kNumLayers];
     std::unique_ptr<APVTS::SliderAttachment> intensityAttachment[stromscore::kNumLayers];
     std::unique_ptr<APVTS::ButtonAttachment> followAttachment[3];

@@ -219,6 +219,7 @@ struct CustomChord { int rootAbs = 0; int type = Maj; int bars = 0; };   // bars
 
 struct Settings
 {
+    bool melodyLegato = true, melodyMotif = true;
     bool melody = false; // Explicit foreground opt-in; background is the default.
     int key = 9;                // 0 = C ... 9 = A ... 11 = H
     float x = 0.3f;             // Faerbung: 0 dunkel ... 1 hell
@@ -1005,8 +1006,10 @@ private:
             {
                 const auto& n=memory.notes[static_cast<size_t>(i)];if(n.at!=rel)continue;
                 const int note=composition::adaptMotifPitch(base+n.interval,ladder,nl);
-                noteOn(output,note,n.velocity,
-                    p.phraseStart+n.at+std::min<int64_t>(memory.recalledLength(i,section,span),output==OutMelody?std::min<int64_t>(p.chordEnd-k,i+1<memory.count?memory.notes[static_cast<size_t>(i+1)].at-n.at:span-n.at):span-n.at),offset,out);
+                auto duration=std::min<int64_t>(memory.recalledLength(i,section,span),span-n.at);
+                if(output==OutMelody)duration=composition::articulatedLength(duration,
+                    std::min<int64_t>(p.chordEnd-k,i+1<memory.count?memory.notes[static_cast<size_t>(i+1)].at-n.at:span-n.at),s.melodyLegato);
+                noteOn(output,note,n.velocity,p.phraseStart+n.at+duration,offset,out);
                 if(output==OutCounter)releaseOthers(output,note,offset,out);csNote=note;csPendingAt=-1;
             }
             return true;
@@ -1031,7 +1034,7 @@ private:
             if(nl==0)continue;
             const int note = ladder[std::clamp (mo.deg[i], 0, nl - 1)];
             const long long length=std::min(span,end+(output==OutMelody?0:tail(end-at)))-at;
-            const auto actualLength=output==OutMelody?std::min(length,p.chordEnd-k):length;
+            const auto actualLength=output==OutMelody?composition::articulatedLength(length,std::min(length,p.chordEnd-k),s.melodyLegato):length;
             const int before=out.size;
             noteOn (output, note, (int) (56 + 35 * yc) + (i == 0 ? 6 : 0), p.phraseStart + at + actualLength, offset, out);
             for(int e=before;e<out.size;++e)
@@ -1972,7 +1975,7 @@ private:
                 cut(kGegenstimme,k,k,offset,out);
                 int leadOutput=-1;
                 for(const auto& entry:catalog)if(entry.track.id.value==foreground.lead.value)leadOutput=entry.target.output;
-                if(leadOutput>=0)motifStep(k,p,s,offset,out,leadOutput);
+                if(leadOutput>=0)counterLine(k,p,s,offset,chordStart||enterNow[kMelodie],out,leadOutput);
             }
             else counterLine(k,p,s,offset,chordStart||enterNow[kGegenstimme],out);
         }
@@ -2034,18 +2037,18 @@ private:
 
     // Zielton der Gegenstimme: Akkordton nahe am vorigen Ton, Terz und Septime bevorzugt.
     // Eigene Lage in der Mitte (D4 bis F#5), getrennt vom Tupfer darueber und vom Stich darunter.
-    int counterTarget (const Chord& c, const Settings& s, bool chordStart, long long k) const
+    int counterTarget (const Chord& c, const Settings& s, bool chordStart, long long k, int output=OutCounter) const
     {
         const ChordShape& sh = kShapes[c.type];
         const int lo = 62 + (int) std::lround (s.x * 3.0f);
         const int rootPc = (s.key + c.root) % 12;
-        const int ri = kOutputRange[OutCounter];
+        const int ri = kOutputRange[output];
         int a = lo, b = lo + 13;
         if (s.rangeOn[ri])
         {
             // Tonumfang: nur Toene im spielbaren Bereich (Oktav-Einstellung eingerechnet); liegt die uebliche Lage
             // ausserhalb, sucht die Linie im ganzen Bereich
-            const int rlo = s.rangeLo[ri] - 12 * s.octave[kGegenstimme], rhi = s.rangeHi[ri] - 12 * s.octave[kGegenstimme];
+            const int rlo = s.rangeLo[ri] - 12 * s.octave[kOutputLayer[output]], rhi = s.rangeHi[ri] - 12 * s.octave[kOutputLayer[output]];
             a = std::max (lo, rlo); b = std::min (lo + 13, rhi);
             int found = 0;
             for (int n = a; n <= b; ++n)
@@ -2143,14 +2146,14 @@ private:
     // Ende eines Tons der Gegenstimme relativ zum naechsten: Legato eine Sechzehntel darueber, sonst kurz davor abgesetzt
     long long tail (long long len) const { return cur != nullptr && cur->legato ? 1 : (len >= 4 ? -1 : 0); }
 
-    void counterLine (long long k, const Pos& p, const Settings& s, int offset, bool chordStart, EventList& out)
+    void counterLine (long long k, const Pos& p, const Settings& s, int offset, bool chordStart, EventList& out, int output=OutCounter)
     {
-        if (! on[kGegenstimme]) { csNote = -1; csPendingAt = -1; return; }
-        if (s.genre == GenrePopRock) { leadHook (k, p, s, offset, out); return; }
-        if (s.motif && motifStep (k, p, s, offset, out)) return;
-        const float yc = layerY (s, kGegenstimme);
+        if (! on[kOutputLayer[output]]) { csNote = -1; csPendingAt = -1; return; }
+        if (output==OutCounter && s.genre == GenrePopRock) { leadHook (k, p, s, offset, out); return; }
+        if ((output==OutMelody?s.melodyMotif:s.motif) && motifStep (k, p, s, offset, out,output)) return;
+        const float yc = layerY (s, kOutputLayer[output]);
         const int vel = (int) (50 + 35 * yc);
-        if (k == csPendingAt && csPending >= 0)                    // Vorhalt loest sich auf
+        if (output==OutCounter && k == csPendingAt && csPending >= 0)                    // Vorhalt loest sich auf
         {
             noteOn (OutCounter, csPending, vel, csPendingEnd + tail (csPendingEnd - k), offset, out);
             releaseOthers (OutCounter, csPending, offset, out);
@@ -2160,10 +2163,10 @@ private:
         const long long rate = yc < 0.4f ? 0 : yc < 0.7f ? 2LL * meter.len : std::max (4LL, (long long) meter.len / 2);
         const bool move = chordStart || (rate > 0 && k > p.chordStart && (k - p.chordStart) % rate == 0 && p.chordEnd - k >= 4);
         if (! move) return;
-        const Chord c = chordFor (p, kGegenstimme, s);
+        const Chord c = chordFor (p, kOutputLayer[output], s);
         const long long end = rate > 0 ? std::min (p.chordEnd, k + rate) : p.chordEnd;
-        const int target = counterTarget (c, s, chordStart, k);
-        if (s.z >= 0.5f && chordStart && end - k >= 8)               // Unruhe: Vorhalt von oben, loest auf den Zielton auf
+        const int target = counterTarget (c, s, chordStart, k,output);
+        if (output==OutCounter && s.z >= 0.5f && chordStart && end - k >= 8)               // Unruhe: Vorhalt von oben, loest auf den Zielton auf
         {
             const int sus = target + (s.z >= 0.75f ? 1 : 2);
             noteOn (OutCounter, sus, vel + 6, k + 4 + (s.legato ? 1 : 0), offset, out);
@@ -2171,6 +2174,12 @@ private:
             csPending = target; csPendingAt = k + 4; csPendingEnd = end;
             csNote = sus;
             return;
+        }
+        if(output==OutMelody)
+        {
+            int ladder[16];if(counterLadder(c,s,ladder,output)==0)return;
+            const auto duration=composition::articulatedLength(end-k,end-k,s.melodyLegato);
+            noteOn(output,target,vel,k+duration,offset,out);csNote=target;csPendingAt=-1;return;
         }
         noteOn (OutCounter, target, vel, end + tail (end - k), offset, out);   // Legato: eine Sechzehntel laenger, bindet zum naechsten Ton
         releaseOthers (OutCounter, target, offset, out);

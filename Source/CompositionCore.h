@@ -154,6 +154,11 @@ inline DialoguePlan planDialogue(const RememberedMotif& memory,int64_t section,i
     p.answerNotes=p.answer?std::min(3,memory.count):0;
     return p;
 }
+// Bound phrasing for a monophonic target: touching gates, never overlapping claims.
+inline int64_t articulatedLength(int64_t recorded,int64_t available,bool legato)
+{
+    return std::max<int64_t>(1,std::min(recorded,std::max<int64_t>(1,available-(legato?0:1))));
+}
 inline int adaptMotifPitch(int desired,const int* ladder,int count)
 {
     if(count<=0)return desired;

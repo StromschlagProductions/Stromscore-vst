@@ -146,6 +146,8 @@ juce::AudioProcessorValueTreeState::ParameterLayout StromscoreProcessor::createL
     layout.add (std::make_unique<AudioParameterFloat> (ParameterID { "haerte", 1 }, u8 ("Härte"), NormalisableRange<float> (0.0f, 1.0f), 0.5f, percent()));
     layout.add (std::make_unique<AudioParameterInt> (ParameterID { "szenenLaenge", 1 }, u8("Szenenlänge"), 0, 4096, 0));
     layout.add (std::make_unique<AudioParameterChoice> (ParameterID { "ende", 1 }, "Ende", endingNames(), 1));
+    layout.add(std::make_unique<AudioParameterBool>(ParameterID{"melodieLegato",1},"Melodie Legato",true));
+    layout.add(std::make_unique<AudioParameterBool>(ParameterID{"melodieMotiv",1},"Melodie Motiv",true));
     layout.add(std::make_unique<AudioParameterBool>(ParameterID{"melodie",1},"Melodie aktiv",false));
     layout.add (std::make_unique<AudioParameterBool> (ParameterID { "motiv", 1 }, "Gegenstimme Motiv", true));
     layout.add (std::make_unique<AudioParameterBool> (ParameterID { "fahrt", 1 }, "Fahrt", false));
@@ -232,6 +234,7 @@ StromscoreProcessor::StromscoreProcessor()
     pEnding = apvts.getRawParameterValue ("ende");
     pMotif = apvts.getRawParameterValue ("motiv");
     pMelody=apvts.getRawParameterValue("melodie");
+    pMelodyLegato=apvts.getRawParameterValue("melodieLegato");pMelodyMotif=apvts.getRawParameterValue("melodieMotiv");
     pDrive = apvts.getRawParameterValue ("fahrt");
     pDriveX = apvts.getRawParameterValue ("fahrtX");
     pDriveY = apvts.getRawParameterValue ("fahrtY");
@@ -321,6 +324,7 @@ stromscore::Settings StromscoreProcessor::currentSettings() const
     for (int i = 0; i < stromscore::kNumOutputs; ++i)
         s.channel[i] = juce::jlimit (1, 16, juce::roundToInt (pChannel[i]->load()) + 1);
     s.melody=pMelody->load()>=.5f;
+    s.melodyLegato=pMelodyLegato->load()>=.5f;s.melodyMotif=pMelodyMotif->load()>=.5f;
     s.legato = pLegato->load() >= 0.5f;
     for (int i = 0; i < stromscore::kNumRanges; ++i)
     {

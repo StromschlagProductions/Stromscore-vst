@@ -1115,9 +1115,18 @@ StromscoreEditor::StromscoreEditor (StromscoreProcessor& p) : AudioProcessorEdit
     layers[4].motifButton.setButtonText ("Motiv");
     layers[4].motifButton.setTooltip (u8 ("Score-Motiv: gespielte Figur merken, eine ganze Phrase pausieren und anschließend wieder aufnehmen. Rhythmus bleibt, Töne folgen Harmonie und Umfang. Neuer Szenenstart leert das Gedächtnis. Pop-Rock: Hook-Linie."));
     motifAttachment = std::make_unique<APVTS::ButtonAttachment> (processor.apvts, "motiv", layers[4].motifButton);
-    layers[5].motifButton.setVisible(true);layers[5].motifButton.setClickingTogglesState(true);
-    layers[5].rowLabel[1]="Linie";layers[5].motifButton.setButtonText("Aktiv");
-    melodyAttachment=std::make_unique<APVTS::ButtonAttachment>(processor.apvts,"melodie",layers[5].motifButton);
+    auto& melody=layers[stromscore::kMelodie];
+    melody.rowLabel[1]="Linie";
+    melody.legatoButton.setVisible(true);melody.legatoButton.setClickingTogglesState(true);melody.legatoButton.setButtonText("Legato");
+    melody.motifButton.setVisible(true);melody.motifButton.setClickingTogglesState(true);melody.motifButton.setButtonText("Motiv");
+    melody.legatoButton.setComponentID("melodieLegato");melody.motifButton.setComponentID("melodieMotiv");
+    melody.legatoButton.setTooltip(u8("Eigene Melodie-Phrasierung: gebundene Gates bei Legato, sonst kurze Abstaende. Monophones Ziel: keine zusaetzlichen Notenueberlappungen."));
+    melody.motifButton.setTooltip(u8("An: gespeichertes Motiv mit Wiederkehr und Variation. Aus: harmonische Linie ohne gezielte Motivwiederkehr."));
+    melodyEnabledButton.setComponentID("melodie");
+    melodyEnabledButton.setButtonText("Aktiv");melodyEnabledButton.setClickingTogglesState(true);melody.addAndMakeVisible(melodyEnabledButton);
+    melodyAttachment=std::make_unique<APVTS::ButtonAttachment>(processor.apvts,"melodie",melodyEnabledButton);
+    melodyLegatoAttachment=std::make_unique<APVTS::ButtonAttachment>(processor.apvts,"melodieLegato",melody.legatoButton);
+    melodyMotifAttachment=std::make_unique<APVTS::ButtonAttachment>(processor.apvts,"melodieMotiv",melody.motifButton);
 
     // Szene: Aufbau, Einstieg, Wurf, Haerte, Laenge, Ende
     auto small = [this] (juce::Label& l, const juce::String& t)
@@ -1784,6 +1793,7 @@ void StromscoreEditor::resized()
     // Ebenen
     for (int i = 0; i < stromscore::kNumLayers; ++i)
         layers[i].setBounds (12 + i * 197, 424, 188, kBaseH - 436);
+    melodyEnabledButton.setBounds(12,90,164,24);
     if (slots.isVisible()) slots.toFront (false);
     helpScroll.toFront (false);
 }

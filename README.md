@@ -311,3 +311,10 @@ Während ihrer Vordergrundzuweisung pausiert die Gegenstimme; der bisherige
 Gegenstimme–Arp-Dialog läuft nicht zusätzlich. Bass, Fläche und Arp bleiben Begleitung.
 Melodie aus erhält den bisherigen Underscoring-Modus. Pop/Rock bleibt unverändert.
 Zum Ausprobieren der Wiederkehr mindestens 32 Takte ab der Einführung spielen lassen.
+
+Die Melodie besitzt eigene Schalter **Legato** und **Motiv**, unabhängig von der Gegenstimme.
+Legato verbindet die Noten bis zum nächsten Einsatz, ohne die monophone Fähigkeit zu
+überschreiten; ausgeschaltet bleiben die Noten nach Möglichkeit eine Sechzehntel getrennt.
+Pausen und Harmoniegrenzen bleiben erhalten. Motiv aus erzeugt harmonische Linien ohne
+gezielte Motivwiederkehr. Aktiv aus erzeugt keine Melodienoten. Beide neuen Schalter sind
+standardmäßig an und werden mit dem Projekt gespeichert.
