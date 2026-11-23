@@ -1010,66 +1010,134 @@ private:
         return n;
     }
 
-    // Spielt das Motiv, solange der Schritt in seinen zwei Takten liegt (dann true: die normale Linie pausiert)
+    struct PlannedMotifNote
+    {
+        long long at=0,length=0;int pitch=0,velocity=0;
+        bool valid=false;
+    };
+    struct PlayableHandoff { composition::MotifHandoffPlan plan; int base=-1; };
+    // One note calculation shared by the existing performance and accompaniment preflight.
+    // The caller supplies the harmony at that note's onset; no memory or MIDI is modified.
+    PlannedMotifNote planMotifNote(int i,const Pos& p,const Settings& s,int output,
+        const composition::RememberedMotif* memory,bool varied)const
+    {
+        PlannedMotifNote n;
+        const long long span=std::min(2LL*meter.len,p.phraseEnd-p.phraseStart);
+        const auto yc=layerY(s,kOutputLayer[output]);
+        const Motif mo=motifFor(s,p.phrase);
+        const int count=memory?memory->count:yc>=.55f?mo.n:yc>=.3f?std::max(2,mo.n-1):std::max(2,mo.n-2);
+        if(i>=count)return n;
+        n.at=memory?memory->notes[static_cast<size_t>(i)].at:static_cast<long long>(mo.on[i])*meter.len/16;
+        if(n.at<0||n.at>=span)return n;
+        int ladder[16];const int nl=counterLadder(chordFor(p,kOutputLayer[output],s),s,ladder,output);
+        if(!nl)return n;
+        if(memory)
+        {
+            const auto& recorded=memory->notes[static_cast<size_t>(i)];
+            const int base=composition::adaptMotifPitch(memory->origin-12*octaveOf(output),ladder,nl);
+            n.pitch=composition::adaptMotifPitch(base+recorded.interval,ladder,nl);
+            n.velocity=recorded.velocity;
+            n.length=std::min<int64_t>(memory->recalledLength(i,varied,span),span-n.at);
+            if(output==OutMelody)n.length=composition::articulatedLength(n.length,
+                std::min<int64_t>(p.chordEnd-(p.phraseStart+n.at),i+1<count?memory->notes[static_cast<size_t>(i+1)].at-n.at:span-n.at),s.melodyLegato);
+        }
+        else
+        {
+            auto end=i+1<count?static_cast<long long>(mo.on[i+1])*meter.len/16:span;
+            end=std::min(end,p.phraseEnd-p.phraseStart);
+            n.pitch=ladder[std::clamp(mo.deg[i],0,nl-1)];n.velocity=static_cast<int>(56+35*yc)+(i==0?6:0);
+            n.length=std::min(span,end+(output==OutMelody?0:tail(end-n.at)))-n.at;
+            if(output==OutMelody)n.length=composition::articulatedLength(n.length,
+                std::min(n.length,p.chordEnd-(p.phraseStart+n.at)),s.melodyLegato);
+        }
+        n.valid=true;return n;
+    }
+
+    // A short phrase reservation exists only for the selected, active motif voice.
+    // Preview current settings, not hypothetical future automation or a fabricated past performance.
+    composition::MotifWindow primaryMotifWindow(const Pos& p,const Settings& s)const
+    {
+        const int output=on[kMelodie]?OutMelody:OutCounter;
+        if(!on[kOutputLayer[output]]||!(output==OutMelody?s.melodyMotif:s.motif))return {};
+        const auto catalog=outputCatalog(s);
+        composition::RoleNeed need;need.range=catalog[output].track.instrument.range;
+        if(!composition::suitable(catalog[output].track,need))return {};
+        const auto& use=voice(output).motif;
+        auto memory=use.material(motifCatalog);
+        const auto section=p.phrase-phraseOf(sceneStep);
+        // motifStep publishes this same finished draft when entering a later phrase.
+        if(memory.count&&section!=use.introduction)memory.finish();
+        const bool complete=memory.complete;
+        if(complete&&section!=use.introduction
+            &&!(section>=use.introduction+2&&(section-use.introduction)%2==0))return {};
+        const bool varied=complete&&section>=use.introduction+2&&(section-use.introduction)%4==0;
+        const auto mo=motifFor(s,p.phrase);int count=0,future=0;long long begin=p.phraseEnd,end=p.phraseStart;
+        for(int i=0;i<(complete?memory.count:mo.n);++i)
+        {
+            const auto at=complete?memory.notes[static_cast<size_t>(i)].at:static_cast<long long>(mo.on[i])*meter.len/16;
+            if(at<0||at>=std::min(2LL*meter.len,p.phraseEnd-p.phraseStart))continue;
+            const auto note=planMotifNote(i,locate(p.phraseStart+at),s,output,complete?&memory:nullptr,varied);
+            if(!note.valid)continue;
+            const auto& c=catalog[output].track.instrument;
+            if(note.length<c.minDuration||note.length>c.maxDuration)continue;
+            ++count;if(p.phraseStart+note.at>=p.k)++future;begin=std::min(begin,p.phraseStart+note.at);
+            end=std::max(end,p.phraseStart+note.at+note.length);
+        }
+        // A seek after the last onset must not reserve a performance that never happened.
+        if(!future&&!outputSounding(output))return {};
+        return composition::reserveMotifWindow(catalog[output].track.id,count,begin,end);
+    }
+
+    composition::MotifWindow motifWindow(const Pos& p,const Settings& s)const
+    {
+        if(s.genre!=GenreScore||s.arpFigure!=ArpAuto)return {};
+        // Shared physical notes can alter motif recording/retriggers. Preserve that routing verbatim.
+        for(int o=0;o<kNumOutputs;++o)if(o!=OutArp&&s.channel[o]==s.channel[OutArp])return {};
+        const auto primary=primaryMotifWindow(p,s);
+        if(primary.contains(p.k))return primary;
+        const auto response=playableMelodyHandoff(p.k,p,s);
+        if(response.plan.active)
+        {
+            const auto& material=*motifCatalog.find(response.plan.reference.material);
+            const auto& last=material.notes[static_cast<size_t>(material.count-1)];
+            const auto end=response.plan.end-(!s.legato&&last.length>1?1:0);
+            return composition::reserveMotifWindow(outputCatalog(s)[OutCounter].track.id,response.plan.count,
+                p.phraseStart+response.plan.begin,p.phraseStart+end);
+        }
+        return {};
+    }
+
+    // Existing motif timing, publication and recurrence remain unchanged.
     bool motifStep (long long k, const Pos& p, const Settings& s, int offset, EventList& out, int output=OutCounter)
     {
         auto& state=voice(output);auto& use=state.motif;
-        const long long span = std::min ((long long) 2 * meter.len, p.phraseEnd - p.phraseStart);
-        const long long rel = k - p.phraseStart;
+        const long long span=std::min(2LL*meter.len,p.phraseEnd-p.phraseStart),rel=k-p.phraseStart;
         const long long section=p.phrase-phraseOf(sceneStep);
         if(rel>=span||(use.material(motifCatalog).count&&section!=use.introduction))use.finish(motifCatalog);
-        // A complete intervening phrase contains no counter motif or fallback line.
-        if(use.material(motifCatalog).complete)
+        const auto& memory=use.material(motifCatalog);const bool complete=memory.complete;
+        if(complete)
         {
             if((section!=use.introduction&&!use.recall(section,motifCatalog))||rel<0||rel>=span)return true;
-            const auto& memory=use.material(motifCatalog);
-            int ladder[16];const int nl=counterLadder(chordFor(p,kOutputLayer[output],s),s,ladder,output);
-            if(nl==0)return true;
-            // Retain original contour/intervals; nearest available chord tones adapt harmony.
-            const int base=composition::adaptMotifPitch(memory.origin-12*octaveOf(output),ladder,nl);
-            for(int i=0;i<memory.count;++i)
-            {
-                const auto& n=memory.notes[static_cast<size_t>(i)];if(n.at!=rel)continue;
-                const int note=composition::adaptMotifPitch(base+n.interval,ladder,nl);
-                auto duration=std::min<int64_t>(memory.recalledLength(i,use.varied(section,motifCatalog),span),span-n.at);
-                if(output==OutMelody)duration=composition::articulatedLength(duration,
-                    std::min<int64_t>(p.chordEnd-k,i+1<memory.count?memory.notes[static_cast<size_t>(i+1)].at-n.at:span-n.at),s.melodyLegato);
-                noteOn(output,note,n.velocity,p.phraseStart+n.at+duration,offset,out);
-                if(output==OutCounter)releaseOthers(output,note,offset,out);state.note=note;state.pendingAt=-1;
-            }
-            return true;
         }
-        // Only an introduction can populate memory. A fresh seek into a later section
-        // cannot fabricate a performance that never happened.
-        if(rel<0||rel>=span)return false; // Before an introduction, retain the ordinary line.
-        if(use.material(motifCatalog).count&&use.introduction!=section)use.clear();
-
-        const Motif mo = motifFor (s, p.phrase);
-        const float yc = layerY (s, kOutputLayer[output]);
-        const int count = yc >= 0.55f ? mo.n : yc >= 0.3f ? std::max (2, mo.n - 1) : std::max (2, mo.n - 2);
-        for (int i = 0; i < count; ++i)
+        else
         {
-            const long long at = (long long) mo.on[i] * meter.len / 16;
-            if (at != rel) continue;
-            long long end = i + 1 < count ? (long long) mo.on[i + 1] * meter.len / 16 : span;
-            end = std::min (end, p.phraseEnd - p.phraseStart);
-            const Chord c = chordFor (p, kOutputLayer[output], s);
-            int ladder[16];
-            const int nl = counterLadder (c, s, ladder, output);
-            if(nl==0)continue;
-            const int note = ladder[std::clamp (mo.deg[i], 0, nl - 1)];
-            const long long length=std::min(span,end+(output==OutMelody?0:tail(end-at)))-at;
-            const auto actualLength=output==OutMelody?composition::articulatedLength(length,std::min(length,p.chordEnd-k),s.melodyLegato):length;
+            if(rel<0||rel>=span)return false;
+            if(memory.count&&use.introduction!=section)use.clear();
+        }
+        for(int i=0;i<5;++i)
+        {
+            const auto note=planMotifNote(i,p,s,output,complete?&memory:nullptr,use.varied(section,motifCatalog));
+            if(!note.valid||note.at!=rel)continue;
             const int before=out.size;
-            noteOn (output, note, (int) (56 + 35 * yc) + (i == 0 ? 6 : 0), p.phraseStart + at + actualLength, offset, out);
-            for(int e=before;e<out.size;++e)
+            noteOn(output,note.pitch,note.velocity,p.phraseStart+note.at+note.length,offset,out);
+            if(!complete)for(int e=before;e<out.size;++e)
             {
                 const auto& emitted=out.events[static_cast<size_t>(e)];
                 if(emitted.out==output&&emitted.type==0&&emitted.velocity>0)
-                    use.observe(emitted.note,at,actualLength,section,static_cast<int>(56+35*yc)+(i==0?6:0));
+                    use.observe(emitted.note,note.at,note.length,section,note.velocity);
             }
-            if(output==OutCounter)releaseOthers (output, note, offset, out);
-            state.note = note; state.pendingAt = -1;
+            if(output==OutCounter)releaseOthers(output,note.pitch,offset,out);
+            state.note=note.pitch;state.pendingAt=-1;
         }
         return true;
     }
@@ -1714,7 +1782,7 @@ private:
         else render (k, offset, p, restart, phrase, s, out);
     }
 
-    bool melodyHandoff(long long k,const Pos& p,const Settings& s,int offset,EventList& out)
+    PlayableHandoff playableMelodyHandoff(long long k,const Pos& p,const Settings& s)const
     {
         const auto catalog=outputCatalog(s);
         const auto plan=composition::planMelodyHandoff(
@@ -1722,15 +1790,14 @@ private:
                 &&s.meterNum==4&&s.meterDen==4&&on[kMelodie]&&on[kGegenstimme],
             voice(OutMelody).motif,motifCatalog,catalog[OutCounter].track,
             p.phrase-phraseOf(sceneStep),meter.len,p.phraseEnd-p.phraseStart);
-        if(!plan.active)return false;
+        if(!plan.active)return {};
         const auto relative=k-p.phraseStart;
-        if(relative<plan.begin||relative>=plan.end||outputSounding(OutMelody))return false;
+        if(relative<plan.begin||relative>=plan.end||outputSounding(OutMelody))return {};
         // Preflight the whole response: exact suffix intervals, one harmonic region, no fallback pitches.
         const auto start=p.phraseStart+plan.begin;
         const auto region=locate(start);
-        if(start+plan.end-plan.begin>region.chordEnd)return false;
+        if(start+plan.end-plan.begin>region.chordEnd)return {};
         const auto& material=*motifCatalog.find(plan.reference.material);
-        const int oct=12*octaveOf(OutCounter);
         const auto& capability=catalog[OutCounter].track.instrument;
         const auto chord=chordFor(region,kGegenstimme,s);const auto& shape=kShapes[chord.type];
         int base=-1;int best=10000;
@@ -1746,12 +1813,22 @@ private:
             const int distance=std::abs(candidate-std::clamp(material.origin,62,77));
             if(valid&&distance<best){best=distance;base=candidate;}
         }
-        if(base<0)return false;
+        if(base<0)return {};
         for(auto tick=start;tick<start+plan.end-plan.begin;++tick)
         {
             const auto soundingChord=chordFor(locate(tick),kGegenstimme,s);
-            if(soundingChord.root!=chord.root||soundingChord.type!=chord.type)return false;
+            if(soundingChord.root!=chord.root||soundingChord.type!=chord.type)return {};
         }
+        return {plan,base};
+    }
+
+    bool melodyHandoff(long long k,const Pos& p,const Settings& s,int offset,EventList& out)
+    {
+        const auto playable=playableMelodyHandoff(k,p,s);
+        const auto& plan=playable.plan;if(!plan.active)return false;
+        const int base=playable.base,oct=12*octaveOf(OutCounter);
+        const auto relative=k-p.phraseStart;
+        const auto capability=outputCatalog(s)[OutCounter].track.instrument;
         auto& answer=voice(OutCounter).answer;
         if(answer.reference.value!=plan.reference.material.value||answer.introduction!=plan.reference.introduction)
             if(!answer.adopt(plan.reference,motifCatalog))return false;
@@ -1967,7 +2044,7 @@ private:
         }
 
         // --- Arp / Figur
-        if (on[kArp] && !dialogueArp(k,p,s,offset,out))
+        if (on[kArp] && !dialogueArp(k,p,s,offset,out) && !motifWindow(p,s).contains(k))
         {
             const int fig = chooseArp (s, phrase);
             int rate = s.arpRate == RateQuarter ? 4 : s.arpRate == RateEighth ? 2 : s.arpRate == RateSixteenth ? 1

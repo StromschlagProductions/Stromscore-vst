@@ -746,7 +746,7 @@ int main()
         CHECK (! c.broken && c.ons == c.offs); q.setPlayHead (nullptr);
     }
     // Voice-leading export equals live DAW playback, including channel CCs and held common notes.
-    for(float intensity : {.4f,.7f,.8f,.9f,1.f,.99f,.97f})
+    for(float intensity : {.4f,.7f,.8f,.9f,1.f,.99f,.97f,.96f,.95f})
     {
         StromscoreProcessor q; FakeHost h; q.setPlayHead (&h); q.prepareToPlay (48000, 512);
         setParam (q, "aufbau", 0); setParam (q, "key", 0); setParam (q, "intensitaet", intensity);
@@ -770,6 +770,8 @@ int main()
         if(intensity>.85f){setParam(q,"mute3",0);setParam(q,"arpFigure",stromscore::ArpCell);}
         if(intensity>.95f){setParam(q,"melodie",1);setParam(q,"mute6",0);}
         if(intensity>.98f&&intensity<1.f){setParam(q,"melodieMotiv",0);setParam(q,"melodieLegato",0);}
+        // Exercise auto-arpeggio reservations for dialog and foreground melody, too.
+        if(intensity==.95f||intensity==.96f){setParam(q,"mute3",0);setParam(q,"arpFigure",stromscore::ArpAuto);}
         const bool handoff=intensity>.96f&&intensity<.98f;
         if(handoff)
         {

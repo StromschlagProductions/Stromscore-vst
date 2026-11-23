@@ -1600,5 +1600,42 @@ int main()
         CHECK(ons>10&&g.rememberedMotif(OutMelody).count==0);
         s.melody=false;for(auto e:run(s,512,4.))CHECK(e.out!=OutMelody);
     }
+    // Bounded motif/accompaniment coordination, independent of baseline Git availability.
+    {
+        using composition::reserveMotifWindow;
+        CHECK(!reserveMotifWindow({8},0,0,32).contains(0));
+        const auto window=reserveMotifWindow({8},3,16,32);
+        CHECK(!window.contains(15)&&window.contains(16)&&window.contains(31)&&!window.contains(32));
+        for(int profile=0;profile<3;++profile)for(bool melody:{false,true})
+        {
+            Settings s;s.profile=static_cast<composition::ProfileId>(profile);s.y=.7f;s.key=0;
+            s.motif=true;s.melody=melody;s.seed=3;s.custom=true;s.customChords[0]={0,Maj7,8};s.mute[kFlaeche]=true;
+            // Sharing with an UNUSED muted output disables coordination without changing any sounding routing.
+            auto bypass=s;bypass.channel[OutPadShort]=s.channel[OutArp];
+            const auto actual=run(s,512,96.),control=run(bypass,512,96.);
+            using Note=std::tuple<long long,int,int,int>;
+            std::vector<Note> actualOther,controlOther;std::set<Note> actualArp,controlArp;
+            for(const auto& e:actual)
+                if(e.out==OutArp){if(e.velocity>0)actualArp.emplace(e.sample,e.note,e.velocity,e.midi);}
+                else actualOther.emplace_back(e.sample,e.note,e.velocity,e.out);
+            for(const auto& e:control)
+                if(e.out==OutArp){if(e.velocity>0)controlArp.emplace(e.sample,e.note,e.velocity,e.midi);}
+                else controlOther.emplace_back(e.sample,e.note,e.velocity,e.out);
+            CHECK(actualOther==controlOther&&actualArp.size()<controlArp.size());checkBalanced(actual);
+            for(const auto& note:actualArp)CHECK(controlArp.count(note));
+            // Every attack in the intervening motif-free phrase survives exactly.
+            for(const auto& note:controlArp)
+                if(std::get<0>(note)>=(melody?24:16)*48000&&std::get<0>(note)<32*48000)CHECK(actualArp.count(note));
+            const auto large=run(s,8192,96.);CHECK(actual.size()==large.size());
+            for(size_t i=0;i<actual.size();++i)
+                CHECK(actual[i].sample==large[i].sample&&actual[i].out==large[i].out&&actual[i].note==large[i].note&&actual[i].velocity==large[i].velocity);
+        }
+        // A fresh seek after the final introduction onset reserves no invented past notes.
+        Settings s;s.melody=true;s.motif=true;s.seed=3;s.y=.7f;s.custom=true;s.customChords[0]={0,Maj7,8};
+        Generator g;EventList events;Transport t;t.playing=true;t.ppq=7.75;
+        g.process(t,s,6000,events);bool arp=false;
+        for(int i=0;i<events.size;++i){const auto& e=events.events[static_cast<size_t>(i)];arp|=e.out==OutArp&&e.velocity>0;}
+        CHECK(arp);
+    }
     return 0;
 }

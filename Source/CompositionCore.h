@@ -223,6 +223,15 @@ inline DialoguePlan planDialogue(const MotifUse& use,const MotifCatalog& catalog
     p.answerNotes=p.answer?std::min(3,memory.count):0;
     return p;
 }
+// A bounded role-plan window, independent of MIDI channels and arpeggio figures.
+struct MotifWindow
+{
+    TrackId owner;
+    int64_t begin=0,end=0;
+    bool contains(int64_t tick)const{return owner.value>=0&&tick>=begin&&tick<end;}
+};
+inline MotifWindow reserveMotifWindow(TrackId owner,int notes,int64_t begin,int64_t end)
+{return owner.value>=0&&notes>=2&&begin>=0&&end>begin?MotifWindow{owner,begin,end}:MotifWindow{};}
 // Bound phrasing for a monophonic target: touching gates, never overlapping claims.
 inline int64_t articulatedLength(int64_t recorded,int64_t available,bool legato)
 {
