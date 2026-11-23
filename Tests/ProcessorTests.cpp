@@ -757,6 +757,9 @@ int main()
             setParam (q, ("slotRoot" + std::to_string (i + 1)).c_str(), (float) roots[i]);
             setParam (q, ("slotType" + std::to_string (i + 1)).c_str(), (float) types[i]);
         }
+        // Nonuniform harmonic durations must agree between live MIDI and file export.
+        const int durations[4]={1,3,2,2};
+        for(int i=0;i<4;++i)setParam(q,("slotBars"+std::to_string(i+1)).c_str(),static_cast<float>(durations[i]));
         for (int i = 2; i <= 5; ++i) setParam (q, ("mute" + std::to_string (i)).c_str(), 1);
         using Timed = std::tuple<long long, int, int, int, int>;
         std::vector<Timed> live, exported;

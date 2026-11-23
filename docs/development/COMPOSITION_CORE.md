@@ -157,3 +157,41 @@ Linux, GCC 14.2, JUCE 8.0.9:
 Der vollständige Processor-Lauf enthält auch die vorhandenen Live-/Export-, State-, CC-,
 GUI- und Allokationsprüfungen. Windows, pluginval und eine musikalische Hörabnahme wurden
 in diesem Integrationsschritt nicht ausgeführt. Es wurde kein Release erstellt.
+
+## Zweiter Integrationsschritt: Absicht, Akkordzeit und Anker
+
+`ChordIntent` beschreibt Tonmaterial als Intervalle, unabhängigen Bassbezug,
+Register-/Voicingabsicht und eine geschützte Linie ohne Kenntnis von Katalogindizes.
+`buildAnchor` übernimmt nun Spreizung, Zusatzoktave und Tonumfangsfaltung samt
+Diagnose fehlender Tonklassen. `canonicalPad` im Generator ist entfernt. Der Generator
+übersetzt die vorhandenen Akkordqualitäten, Follow-Einstellungen und Variationsentscheidungen
+in diese Absicht; neue Künstlerregeln wurden nicht eingeführt.
+
+`ChordTimeline` beschreibt bis zu acht Akkordplätze mit individuellen Dauern, Anfang,
+Ende, Einstieg an einem Akkordplatz und gehaltenem Akkord. Die Zeitbasis sind ganzzahlige
+musikalische Ticks; die bestehende Taktgruppierung bestimmt deren Anzahl je Takt.
+`locateChord` wird tatsächlich vom laufenden Generator verwendet und bestimmt die
+Akkordgrenzen einschließlich des bis zur Phrasengrenze gehaltenen letzten Akkords.
+Die bestehende Auswahl und zeitliche Abspaltung einer Durchgangsdominante verbleiben
+im Adapter. Ein neues Übergangsmodell ist damit noch nicht implementiert.
+
+Der neue Pfad gilt für alle 84 Wendungen und eigene Folgen. Ein Profil kann später
+anderes Tonmaterial, andere Ankerabsichten und andere Zeitpläne liefern. Die aktuelle
+Katalogübersetzung bleibt getrennt von diesen allgemeinen Kerndaten.
+
+Zusätzliche Prüfungen: erwartete breite/enge Anker, leise Farbnoten, geschützte Linie,
+fehlende Tonklassen bei engem Umfang sowie nicht gleich lange Plätze und exakte Grenzen
+bei unterschiedlichen Taktlängen. Der Processor-Live-/Exportvergleich prüft jetzt eine
+1/3/2/2-Taktfolge. Bestehende 84-Anker-, Transport-, Bereichs- und Notenbesitztests bleiben aktiv.
+
+Der nächste sinnvolle Schritt ist, die bisher im Adapter gewählten Übergänge samt
+harmonischer Auflösungsabsicht als explizite Übergangsdaten zu modellieren. Neue
+musikalische Übergangsverfahren oder Künstlerzuordnungen bleiben gesonderte Aufgaben.
+
+Prüfergebnis dieses zweiten Schritts: Linux/Xvfb CTest 4/4, ASan/UBSan 3/3,
+Python-Releaseprüfer 7/7 bestanden. Ein zusätzlicher temporärer A/B-Renderer gegen
+Commit 0f5370c erzeugte für 252 Fälle (84 Wendungsanker, Durchgangsakkorde aktiv,
+drei Bereichseinstellungen, je acht Takte) identische MIDI-Ereignisprüfsummen.
+Dies ist eine begrenzte technische Verhaltensprüfung, keine allgemeine
+Kompatibilitätsanforderung oder musikalische Hörabnahme. Windows/pluginval wurden
+auch in diesem Schritt nicht ausgeführt.

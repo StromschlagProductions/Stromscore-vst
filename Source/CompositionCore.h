@@ -78,6 +78,95 @@ inline HarmonicPlan planHarmony (const HarmonicRequest& r)
     result.count = r.count; result.valid = true;
     return result;
 }
+// Harmonic intent contains pitch material, not a catalog quality/index.
+struct ChordIntent
+{
+    int root = 0, bassPitchClass = 0, count = 0;
+    std::array<int, 5> intervals {};
+    bool quartal = false, protectedLine = false;
+    int voicing = 0, padLow = 62, bassLow = 45;
+    float intensity = 0;
+};
+inline int placePitch (int note, int low)
+{ while(note<low)note+=12; while(note>=low+12)note-=12; return note; }
+inline HarmonicSlot buildAnchor (const ChordIntent& in, Range range, bool constrain)
+{
+    HarmonicSlot out; out.preservePad=in.protectedLine;
+    if(in.count<1||in.count>5||range.low < -128||range.high>255||range.low>range.high
+        ||in.root<0||in.root>23||in.voicing<0||in.voicing>2)return out;
+    const int root=placePitch(in.root,in.padLow-(in.voicing==1?5:12));
+    for(int i=0;i<in.count;++i)
+    {
+        const int iv=in.intervals[static_cast<size_t>(i)];
+        bool low=iv==0||iv==7||(iv==5&&in.quartal)||iv>=12;
+        if(in.voicing==1)low=true;
+        if(in.voicing==2&&iv==0)low=false;
+        out.pad.notes[out.pad.n++]=root+iv+(low?0:12);
+    }
+    if((in.protectedLine&&in.count==3)||(!in.protectedLine&&in.intensity>.6f))out.pad.notes[out.pad.n++]=root+24;
+    voiceleading::sort(out.pad);
+    uint32_t mask=0;
+    for(int i=0;i<out.pad.n;++i)
+    {
+        const int pc=(out.pad.notes[i]%12+12)%12;mask|=1u<<pc;
+        bool found=false;
+        for(int n=range.low;n<=range.high;++n)if((n%12+12)%12==pc)found=true;
+        if(!found)out.unavailable|=1u<<pc;
+    }
+    if(constrain)
+    {
+        int shift=0,best=-1;
+        for(int sh:{0,12,-12,24,-24,36,-36,48,-48})
+        {
+            int count=0;for(int i=0;i<out.pad.n;++i)count+=out.pad.notes[i]+sh>=range.low&&out.pad.notes[i]+sh<=range.high;
+            if(count>best){best=count;shift=sh;}
+        }
+        for(int i=0;i<out.pad.n;++i)
+        {
+            const int original=out.pad.notes[i]+shift;
+            int n=original;while(n<range.low)n+=12;while(n>range.high)n-=12;
+            if(n<range.low)
+            {
+                int chosen=-1000,distance=1000;
+                for(int m=range.low;m<=range.high;++m)if((mask>>((m%12+12)%12))&1u)
+                {
+                    const int d=std::min(std::abs(m-n),std::abs(m-(n+12)));
+                    if(d<distance){distance=d;chosen=m;}
+                }
+                n=chosen!=-1000?chosen:std::clamp(original,range.low,range.high);
+            }
+            out.pad.notes[i]=n;
+        }
+        voiceleading::sort(out.pad);
+        out.pad.n=static_cast<int>(std::unique(out.pad.notes,out.pad.notes+out.pad.n)-out.pad.notes);
+    }
+    out.bass=placePitch(in.bassPitchClass,in.bassLow);
+    return out;
+}
+// Integer musical ticks, independent of audio sample rate. An adapter defines ticks/bar.
+struct ChordTimeline
+{
+    std::array<int64_t,8> durations {};
+    int count=0, first=0;
+    int64_t begin=0,end=0;
+    bool held=false;
+};
+struct ChordPosition { int index=0; int64_t begin=0,end=0; };
+inline ChordPosition locateChord (const ChordTimeline& t,int64_t at)
+{
+    ChordPosition p;
+    if(t.count<1||t.count>8)return p;
+    p.index=std::clamp(t.first,0,t.count-1);p.begin=t.begin;p.end=t.end;
+    if(t.held)return p;
+    for(int i=p.index;i<t.count;++i)
+    {
+        p.index=i;
+        if(at<p.begin+t.durations[static_cast<size_t>(i)]||i==t.count-1)break;
+        p.begin+=t.durations[static_cast<size_t>(i)];
+    }
+    p.end=p.index==t.count-1?t.end:std::min(t.end,p.begin+t.durations[static_cast<size_t>(p.index)]);
+    return p;
+}
 struct Harmony { int root = 0; int count = 4; std::array<int, 5> intervals { 0, 4, 7, 11, 0 }; };
 struct Request
 {

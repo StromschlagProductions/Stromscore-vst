@@ -172,5 +172,31 @@ int main()
     CHECK(hp.slots[2].pad.notes[0]==-7&&hp.slots[2].unavailable==(1u<<11));
     hr.count=17;CHECK(!planHarmony(hr).valid);hr.count=3;
     hr.slots[0].pad.n=7;CHECK(!planHarmony(hr).valid);
+    // Intent -> anchor: colour tones, spread/close voicings and range folding.
+    ChordIntent intent;intent.root=0;intent.count=4;intent.intervals={0,4,7,11,0};
+    HarmonicSlot anchor;{NoAllocations guard;anchor=buildAnchor(intent,{0,127},false);}
+    CHECK(anchor.pad.n==4&&anchor.pad.notes[0]==60&&anchor.pad.notes[3]==83);
+    auto narrow=buildAnchor(intent,{60,65},true);CHECK(narrow.unavailable&(1u<<11));
+    for(int i=0;i<narrow.pad.n;++i)CHECK(narrow.pad.notes[i]>=60&&narrow.pad.notes[i]<=65);
+    intent.voicing=1;auto close=buildAnchor(intent,{0,127},false);
+    CHECK(close.pad.notes[3]-close.pad.notes[0]==11);
+    intent.count=3;intent.intervals={0,3,7,0,0};intent.protectedLine=true;
+    CHECK(buildAnchor(intent,{0,127},false).pad.n==4);
+    // Nonuniform durations, exact boundaries, truncated last chord and held harmony.
+    for(int ticksPerBar:{10,12,14,16,24})
+    {
+        ChordTimeline timeline;timeline.count=4;timeline.begin=100;timeline.end=100+8*ticksPerBar;
+        timeline.durations={ticksPerBar,3*ticksPerBar,2*ticksPerBar,2*ticksPerBar};
+        int offset=0;
+        for(int i=0;i<4;++i)
+        {
+            auto p=locateChord(timeline,100+offset);
+            CHECK(p.index==i&&p.begin==100+offset);
+            CHECK(locateChord(timeline,p.end-1).index==i);
+            offset+=static_cast<int>(timeline.durations[static_cast<size_t>(i)]);
+        }
+        timeline.first=2;timeline.held=true;
+        CHECK(locateChord(timeline,timeline.end-1).index==2);
+    }
     std::cout << "Composition core tests passed\n";
 }

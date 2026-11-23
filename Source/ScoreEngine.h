@@ -982,24 +982,13 @@ private:
         p.phraseStart = p.phrase * phraseBars * meter.len;
         p.phraseEnd = p.phraseStart + (long long) phraseBars * meter.len;
         const Wendung& w = W();
-        long long cs = std::max (wendungStart, p.phraseStart);
-        p.chordIdx = w.n - 1;
-        if (still)   // Ruhezone: der Akkord steht bis zum Ende der Phrase
-        {
-            p.chordIdx = std::min (chordBase, w.n - 1);
-            p.chordStart = cs;
-            p.chordEnd = p.phraseEnd;
-            return p;
-        }
-        for (int i = std::min (chordBase, w.n - 1); i < w.n; ++i)
-        {
-            const long long ce = cs + (long long) w.ch[i].bars * meter.len;
-            if (k < ce || i == w.n - 1) { p.chordIdx = i; break; }
-            cs = ce;
-        }
-        p.chordStart = cs;
-        p.chordEnd = std::min (p.phraseEnd, cs + (long long) w.ch[p.chordIdx].bars * meter.len);
-        if (p.chordIdx == w.n - 1) p.chordEnd = p.phraseEnd;   // letzter Akkord haelt bis zur Phrasengrenze
+        composition::ChordTimeline timeline;
+        timeline.count=w.n;timeline.first=chordBase;timeline.held=still;
+        timeline.begin=std::max(wendungStart,p.phraseStart);timeline.end=p.phraseEnd;
+        for(int i=0;i<w.n;++i)timeline.durations[static_cast<size_t>(i)]=static_cast<int64_t>(w.ch[i].bars)*meter.len;
+        const auto position=composition::locateChord(timeline,k);
+        p.chordIdx=position.index;p.chordStart=position.begin;p.chordEnd=position.end;
+        if(still)return p;
         if (cur != nullptr && cur->passing && cur->y >= 0.6f && p.chordEnd - p.chordStart >= meter.len)
         {
             const long long ps = p.chordEnd - (meter.len - meter.groupStart[std::max (0, meter.numGroups - 1)]);   // letzte Betonungsgruppe
@@ -1293,33 +1282,6 @@ private:
     static int bassLow (const Settings& s) { return 45 + (int) std::lround (s.x * 4.0f); }   // Bass: A2 bis Cis3
 
     // --- Flaeche (o: lang fuer gehaltene Akkorde, kurz fuer Schlaege, Puls, Staccato und Gated)
-    voiceleading::ChordVoicing canonicalPad (const Chord& c, const Settings& s, long long start) const
-    {
-        // Weiter Satz wie im Orchester: Grundton und Quinte unten, Terz und Farbtoene eine Oktave hoeher
-
-        const ChordShape& sh = kShapes[padType (c.type, s.z)];
-        const float y = layerY (s, kFlaeche);
-        // VARIATION bei eigener Folge: weit, eng oder weit ohne tiefen Grundton
-        const int voicing = current == kCustomWendung ? hashInt (91u, start) % 3 : 0;
-        const int root = voicing == 1 ? place (s.key + c.root, padLow (s) - 5) : place (s.key + c.root, padLow (s) - 12);
-        int voices = sh.n;
-        // Quiet intensity changes density and velocity, never removes harmonic colours.
-        voiceleading::ChordVoicing result;
-        auto& notes = result.notes; int& n = result.n;
-        for (int i = 0; i < voices; ++i)
-        {
-            const int iv = sh.iv[i];
-            bool low = iv == 0 || iv == 7 || (iv == 5 && c.type == Quartal) || iv >= 12;
-            if (voicing == 1) low = true;
-            if (voicing == 2 && iv == 0) low = false;
-            notes[n++] = root + iv + (low ? 0 : 12);
-        }
-        const bool chromaticInnerLine = s.genre == GenrePopRock && current == 31;
-        if ((chromaticInnerLine && sh.n == 3) || (! chromaticInnerLine && y > 0.6f))
-            notes[n++] = root + 24; // Drahtseil: A–G#–G–F# in one register, not an unrelated octave jump.
-        voiceleading::sort (result); return result;
-    }
-
     void resetVoicing() { planValid = false; unavailablePad = 0; }
 
     // A bounded cyclic plan is a function of the harmonic vocabulary, register and variation.
@@ -1352,20 +1314,17 @@ private:
                 if (! s.follow[kFlaeche]) { pad = w.ch[0]; pad.root = s.custom ? pad.root : 0; }
                 if (! s.follow[kBass]) { bass = w.ch[0]; bass.root = s.custom ? bass.root : 0; bass.type = kShapes[bass.type].minor ? Min : Maj; bass.bass = -1; }
                 chords[index] = pad; mix (pad.root); mix (pad.type);
-                auto v = canonicalPad (pad, s, start);
-                for (int n = 0; n < v.n; ++n)
-                {
-                    bool available = false;
-                    for (int note = lo; note <= hi; ++note) if ((note % 12 + 12) % 12 == v.notes[n] % 12) available = true;
-                    if (! available) slot.unavailable |= 1u << (v.notes[n] % 12);
-                }
-                const auto savedMask = chordMask; chordMask = 0;
-                for (int n = 0; n < v.n; ++n) chordMask |= 1u << (v.notes[n] % 12);
-                v.n = fitGroup (o, v.notes, v.n); chordMask = savedMask; voiceleading::sort (v);
-                slot.pad = v; mix (v.n);
-                for (int n = 0; n < v.n; ++n) mix (v.notes[n]);
-                slot.bass = place (s.key + bassRoot (bass), bassLow (s)); mix (slot.bass);
-                mix ((int) slot.unavailable);
+                const auto& shape=kShapes[padType(pad.type,s.z)];
+                composition::ChordIntent intent;
+                intent.root=s.key+pad.root;intent.bassPitchClass=s.key+bassRoot(bass);
+                intent.count=shape.n;for(int n=0;n<shape.n;++n)intent.intervals[static_cast<size_t>(n)]=shape.iv[n];
+                intent.quartal=pad.type==Quartal;
+                intent.protectedLine=s.genre==GenrePopRock&&current==31;
+                intent.voicing=current==kCustomWendung?hashInt(91u,start)%3:0;
+                intent.padLow=padLow(s);intent.bassLow=bassLow(s);intent.intensity=layerY(s,kFlaeche);
+                slot=composition::buildAnchor(intent,{lo,hi},rangeOn(o));
+                mix(slot.pad.n);for(int n=0;n<slot.pad.n;++n)mix(slot.pad.notes[n]);
+                mix(slot.bass);mix(static_cast<int>(slot.unavailable));
                 slot.enabled = ! pass || (s.passing && s.y >= 0.6f && ! still);
                 slot.preservePad = s.genre == GenrePopRock && current == 31 && ! s.custom;
                 mix(slot.preservePad);
