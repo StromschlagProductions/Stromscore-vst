@@ -767,3 +767,73 @@ und Live-/Exporttests bestehen unverändert. Windows/pluginval wurde nicht neu a
 Keine GUI-Änderung, kein Push, kein Release. Musikalische Unterschiede bleiben bewusst
 unimplementiert; als nächste kleine Schritte sind nach fachlicher Freigabe ID-basierte
 Wendungspräferenzen und unterschiedliche Daten der vorhandenen TexturePolicy möglich.
+
+## Erste harmonische Profilpräferenzen
+
+`Settings::profile` reicht die drei vorhandenen Identitäten direkt an die bestehende
+Wendungsauswahl weiter. Vorgabe und Processor/GUI bleiben Neutral. John Barry und Bernard
+Herrmann sind nun im Kern für diesen begrenzten harmonischen Ausschnitt verwendbar;
+ihr Registry-Status ist `harmonySelectionOnly`. Die frühere Null-Policy-Vorbereitung wird
+hier durch dieselbe neutrale TexturePolicy ergänzt. Es wurden keine eigenen Engines,
+Host-Parameter, GUI-Schalter oder profilabhängigen Textur-/Motiv-/Rollenverfahren ergänzt.
+
+`HarmonicPreferences.h` enthält für alle 48 Score-IDs explizite Barry-/Herrmann-Faktoren
+zwischen 1,0 und 1,8. Neutral sowie sämtliche 36 Pop/Rock-IDs haben Faktor 1. Die Gewichte
+sind erste, revidierbare Arbeitshypothesen aus den musikalischen Ausgangspunkten des
+Auftraggebers, keine abschließenden Künstlerzuordnungen oder authentischen Werkmodelle.
+Alle Wendungen bleiben zugelassen. Die sechs ausdrücklich genannten Barry-Kandidaten und
+acht Herrmann-Kandidaten erhalten jeweils 1,8; ergänzende moderate Präferenzen berücksichtigen
+Pendel, Zusatztöne, Farbklänge und warme/lyrische Bereiche. Barry ist nicht an niedrige
+Intensität gebunden: unter anderem wird auch Moll-Marsch 1017 bevorzugt. Herrmann wird nicht
+an hohe Unruhe gebunden: unter anderem bleiben Gleiten 1031 und warme Kandidaten bevorzugt.
+
+Die Reihenfolge ist entscheidend: `Generator::weight` und `bestWeight` bleiben reine
+XYZ-Passung. `pick` bestimmt wie bisher mit `keepRatio(variety)` den zulässigen Bereich,
+setzt außenliegende Gewichte auf null und multipliziert erst die zugelassenen Gewichte
+mit der ID-Präferenz. `candidates` verwendet denselben bisherigen Zulassungsbereich und
+sortiert darin nach dem Produkt. Wendungswechsel/Hysterese verwenden weiter die reine
+XYZ-Passung. Kein Profil verschiebt Feldkoordinaten oder hebt die Variety-Grenze auf.
+Bei einem einzigen Kandidaten bleibt die Auswahl gleich; auch identische relative
+Präferenzen für alle Kandidaten führen korrekt zur gleichen Auswahl. Ein nachträgliches
+Erzwingen von Profilunterschieden außerhalb des Bereichs findet nicht statt.
+
+Der bisherige Zufallszugriff mit Variation und Phrasen-/Wechselsalt bleibt unverändert.
+Es wurde kein zusätzlicher Profil- oder Wurf-Salt eingeführt. Der Wurf beeinflusst weiterhin
+seine bisherigen Aufgaben (z. B. Motiv-/Einstiegsentscheidungen), nicht neu die Harmoniewahl.
+Gleiche Einstellungen, Szenenposition und Verlauf bleiben deterministisch. Die interne
+Profilwahl wird für die Szene getroffen; eine GUI-/State-Schnittstelle und nahtlose
+Profilwechsel in laufenden Szenen sind hier nicht implementiert.
+
+Die kleine, reproduzierbare Auswertung `HARMONIC_PROFILE_SELECTION.md` stammt aus
+`HarmonicProfileTests --report`. Acht XYZ-Positionen, 4096 tatsächliche Auswahlaufrufe je
+Profil und Position, identische Variation/Wurf/Salt-Folge, Variety 0,5. Die Auswertung nennt
+alle zugelassenen IDs und die wirklichen Häufigkeiten, nicht nur theoretische Gewichte.
+Alle zugelassenen Wendungen wurden in jedem Prüfbereich von jedem Profil ausgewählt.
+Ein Prüfbereich bleibt bewusst identisch: bei XYZ 0,5/0,6/0,2 tragen alle fünf Kandidaten
+für beide Künstler Faktor 1. Die anderen Bereiche zeigen tatsächliche Unterschiede.
+
+Die Engine verarbeitet die Identität auch bei eigenen Akkordfolgen: deren Harmonie bleibt
+unverändert, der schon bisher geliehene automatische Begleitstil kann aus der profilabhängig
+ausgewählten Wendung stammen. Allgemein sind Begleitmuster bereits im vorhandenen Wendungs-
+Datensatz gekoppelt: eine andere gewählte Wendung kann andere Auto-Muster mitbringen.
+Rhythmikalgorithmen und Musterinhalte wurden nicht verändert. Für einen isolierten
+harmonischen Hörvergleich manuelle, identische Pad-/Bass-/Arp-Muster verwenden. Eine
+Entkopplung dieser bestehenden Kopplung wäre ein eigener Architekturauftrag und wurde
+nicht vorweggenommen. Die frühen Profile sind intern testbar, noch nicht in der GUI wählbar.
+
+Verifikation: 504 vollständige neutrale MIDI-A/B-Vergleiche zu je 80 Sekunden gegen b89b8ef
+sind bytegenau identisch (SHA-256 58e31798633b28f89313b2bd874e233f0fa54462f52357cc28946226c58cae71).
+Für alle 36 Pop/Rock-Wendungen wurden außerdem sechs Szenarien unter allen drei Profilen
+vollständig verglichen: 216 Renderings je Profil, ebenfalls bytegenau identisch
+(SHA-256 d6b52a5edb3a6fca90e3203f5ce2cf6e35698ecb4c9548ec96e70a1eb37f9fc5).
+Die automatisierten Tests prüfen positive/eindeutige ID-Präferenzen, tatsächlich unterschiedliche
+Auswahlverteilungen, dieselbe XYZ-Zulassung, Variety 0/0,5/1, Vielfalt, Determinismus,
+Profilweitergabe an den Generator sowie Score–Pop/Rock–Score im selben Generator und
+unveränderte eigene Akkorde. Das Auswahlprotokoll zeigt je Profil insgesamt 40 verschiedene
+Wendungen über die acht repräsentativen Positionen; lokal jeweils alle 3–9 zulässigen Kandidaten.
+
+Abschließender Prüfstand: vollständiger Linux/Xvfb-CTest 8/8, ASan/UBSan 7/7 und
+Python-Paketprüfer 7/7 bestanden. Windows/pluginval und subjektive Hörabnahme wurden
+nicht erneut durchgeführt. Keine neuen Wendungen, Akkordtypen, GUI-Elemente oder
+kompositorischen Verfahren; ausschließlich initiale Auswahlpräferenzen auf bestehenden IDs.
+Kein Push und kein Release.

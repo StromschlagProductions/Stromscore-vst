@@ -22,18 +22,19 @@ struct TexturePolicy
 };
 struct FreeCompositionPolicy { TexturePolicy texture; };
 inline constexpr FreeCompositionPolicy neutralFreePolicy {};
-// Identity preparation only: research-dependent artist rules and weights are intentionally absent.
+// Artist identities currently provide only initial harmonic preferences; all texture data stay neutral.
 enum class ProfileId { neutral=0, johnBarry=1, bernardHerrmann=2 };
 struct CompositionProfile
 {
     ProfileId id;
     const char* name;
-    const FreeCompositionPolicy* policy; // null means musically unspecified, not a neutral artist imitation.
+    const FreeCompositionPolicy* policy;
+    bool harmonySelectionOnly=false;
 };
 inline constexpr std::array<CompositionProfile,3> compositionProfiles {{
     {ProfileId::neutral,"Neutral",&neutralFreePolicy},
-    {ProfileId::johnBarry,"John Barry",nullptr},
-    {ProfileId::bernardHerrmann,"Bernard Herrmann",nullptr}
+    {ProfileId::johnBarry,"John Barry",&neutralFreePolicy,true},
+    {ProfileId::bernardHerrmann,"Bernard Herrmann",&neutralFreePolicy,true}
 }};
 inline constexpr const CompositionProfile* findProfile(ProfileId id)
 {

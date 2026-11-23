@@ -12,6 +12,7 @@
 #include <cstdint>
 #include "CompositionCore.h"
 #include "WendungId.h"
+#include "HarmonicPreferences.h"
 #include "DrivePath.h"
 
 namespace stromscore
@@ -233,6 +234,7 @@ struct CustomChord { int rootAbs = 0; int type = Maj; int bars = 0; };   // bars
 
 struct Settings
 {
+    composition::ProfileId profile=composition::ProfileId::neutral; // Internal selection, no GUI/host parameter.
     composition::FreeCompositionPolicy policy = *composition::policyForProfile(composition::ProfileId::neutral); // Internal scene policy; no host parameter or preset switch.
     bool melodyLegato = true, melodyMotif = true;
     bool melody = false; // Explicit foreground opt-in; background is the default.
@@ -546,14 +548,15 @@ public:
     static int candidates (const Settings& s, int* out, int maxOut)
     {
         const Wendung* tbl = wendungTable (s.genre); const int count = wendungCount (s.genre);
-        float w[kMaxWendungen]; float best = 0.0f;
-        for (int i = 0; i < count; ++i) { w[i] = weight (tbl[i], s); best = std::max (best, w[i]); }
+        float w[kMaxWendungen],xyz[kMaxWendungen]; float best = 0.0f;
+        for (int i = 0; i < count; ++i) { xyz[i] = weight (tbl[i], s); best = std::max (best, xyz[i]);
+            w[i]=xyz[i]*composition::harmonicPreference(s.profile,tbl[i].id); }
         const float r = keepRatio (s);
         int n = 0;
         if (maxOut <= 0) return 0;
         for (int i = 0; i < count; ++i)
         {
-            if (w[i] < r * best - 1e-9f) continue;
+            if (xyz[i] < r * best - 1e-9f) continue;
             int j;
             if (n < maxOut) j = n++;
             else if (w[out[maxOut - 1]] < w[i]) j = maxOut - 1;   // ersetzt den schwaechsten
@@ -589,7 +592,9 @@ public:
             if (w[i] > best) { best = w[i]; bestIdx = i; }
         }
         const float ratio = keepRatio (s);
-        for (int i = 0; i < count; ++i) { if (w[i] < ratio * best) w[i] = 0.0f; total += w[i]; }
+        for (int i = 0; i < count; ++i) { if (w[i] < ratio * best) w[i] = 0.0f;
+            else w[i] *= composition::harmonicPreference(s.profile,tbl[i].id);
+            total += w[i]; }
         if (total <= 0.0f) return bestIdx;
         const float r = (float) (hash3 ((uint32_t) s.variation, (uint32_t) salt, 911u) % 100000u) / 100000.0f * total;
         float acc = 0.0f;
@@ -617,6 +622,7 @@ public:
         s.variation = std::clamp (s.variation, 1, 16);
         s.change = std::clamp (s.change, 0, kNumChangeGrids - 1);
         for (auto& v : s.layerIntensity) v = std::clamp (v, -1.0f, 1.0f);
+        if(!composition::findProfile(s.profile))s.profile=composition::ProfileId::neutral;
         if(!composition::valid(s.policy.texture))s.policy=composition::neutralFreePolicy;
         s.variety = std::clamp (s.variety, 0.0f, 1.0f);
         for (auto& o : s.octave) o = std::clamp (o, -2, 2);

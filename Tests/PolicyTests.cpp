@@ -27,7 +27,8 @@ int main()
     CHECK(findProfile(ProfileId::johnBarry)&&std::string(findProfile(ProfileId::johnBarry)->name)=="John Barry");
     CHECK(findProfile(ProfileId::bernardHerrmann)&&std::string(findProfile(ProfileId::bernardHerrmann)->name)=="Bernard Herrmann");
     CHECK(policyForProfile(ProfileId::neutral)==&neutralFreePolicy);
-    CHECK(!policyForProfile(ProfileId::johnBarry)&&!policyForProfile(ProfileId::bernardHerrmann));
+    CHECK(policyForProfile(ProfileId::johnBarry)==&neutralFreePolicy&&policyForProfile(ProfileId::bernardHerrmann)==&neutralFreePolicy);
+    CHECK(findProfile(ProfileId::johnBarry)->harmonySelectionOnly&&findProfile(ProfileId::bernardHerrmann)->harmonySelectionOnly);
     CHECK(!findProfile(static_cast<ProfileId>(99))&&!policyForProfile(static_cast<ProfileId>(99)));
 
     TexturePolicy p;CHECK(valid(p));CHECK(autoArpeggioTicks(p,0)==4);
