@@ -865,13 +865,14 @@ juce::File StromscoreProcessor::renderMidiFile (int bars) const
             tracks[ch].addEvent (m);
         }
     };
-    for (double ppq = 0.0; ppq < quarters - 1e-9; ppq += block / samplesPerQuarter)
+    const auto totalSamples = static_cast<int64_t>(std::ceil(quarters * samplesPerQuarter));
+    for (int64_t at = 0; at < totalSamples; at += block)
     {
-        t.ppq = ppq;
-        const int n = (int) std::min ((double) block, std::ceil ((quarters - ppq) * samplesPerQuarter));
+        t.ppq = static_cast<double>(at) / samplesPerQuarter;
+        const int n = static_cast<int>(std::min<int64_t>(block,totalSamples-at));
         events->clear();
         gen.process (t, settings, std::max (1, n), *events);
-        collect (ppq);
+        collect (t.ppq);
     }
     stromscore::Transport stop;
     events->clear();

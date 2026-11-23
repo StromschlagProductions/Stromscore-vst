@@ -297,3 +297,30 @@ Phrasen und Ereignisgleichheit bei 512/8192 Samples. Im Processor wurde der
 Live-/Exportvergleich zusätzlich über 24 Takte mit aktiver Gegenstimme bestanden.
 README und integrierte Hilfe beschreiben das neue Verhalten des vorhandenen Schalters.
 Windows/pluginval und subjektive Hörabnahme wurden nicht ausgeführt.
+
+## Kontrollierte rhythmische Wiederkehrvariation
+
+Die erste Wiederkehr bleibt unverändert. Bei der zweiten wird die längste gespeicherte
+Note halbiert (mindestens ein Tick, bei Gleichstand die früheste). Danach wechseln
+unveränderte und variierte Wiederkehr. Einsatzzeiten, Intervallziele, Speicherinhalt und
+Motivkennung bleiben gleich. Die artikulierte Variante begrenzt zusätzlich alle Dauern
+auf den nächsten Einsatz bzw. das Fensterende und hat daher keine Legatoüberlappungen.
+Die unveränderte Wiederkehr behält das vorhandene Legato. Bei ausschließlich eintickigen
+Noten ist keine weitere Verkürzung möglich; dann bleibt die Figur unverändert.
+Die Wahl folgt der Abschnittsposition relativ zur tatsächlichen Einführung, keinem
+laufenden Zufallszähler. Seek/Loop verwenden daher dieselbe Variante bei gleichem
+Szenengedächtnis. Keine zusätzlichen Parameter oder Künstlerprofile.
+
+Kernprüfungen belegen Identität, Unterschied und zulässige Dauern ohne Überschneidung.
+Ein MIDI-Test vergleicht Einsatzzeiten, Tonhöhen und tatsächlich ausgegebene Dauern
+zwischen erster und zweiter Wiederkehr. Der Live-/Exportvergleich läuft über 40 Takte,
+sodass auch die variierte Wiederkehr enthalten ist.
+
+Der 40-Takt-Vergleich deckte zusätzlich eine Abweichung des Offline-Zeitrasters auf.
+Der Export verwendet nun einen ganzzahligen Samplezähler statt aufaddierter PPQ-Werte.
+Dies verhindert kumulierte Gleitkommadrift über lange Abläufe. Die musikalischen
+Vergleichsassertionen wurden beibehalten.
+
+Prüfergebnis: Linux/Xvfb CTest 4/4 einschließlich strengem 40-Takt-Live-/Exportvergleich,
+ASan/UBSan 3/3 und Python-Releaseprüfer 7/7 bestanden. Windows/pluginval und eine
+subjektive Hörabnahme wurden nicht durchgeführt. Kein Push oder Release.

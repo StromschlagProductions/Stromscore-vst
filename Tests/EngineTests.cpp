@@ -5,6 +5,7 @@
 #include <map>
 #include <set>
 #include <string>
+#include <tuple>
 
 using namespace stromscore;
 
@@ -1363,6 +1364,30 @@ int main()
             if(n.sample>=192000&&n.sample<288000)shortReturn.push_back({n.sample-192000,n.note});
         }
         CHECK(shortA.size()>=2&&shortA==shortReturn&&shortGap==0);
+    }
+    // Physical MIDI durations differ on the second return, while attacks/pitches agree.
+    {
+        Settings s;s.motif=true;s.y=.7f;s.custom=true;s.customChords[0]={0,Maj7,8};s.solo[kGegenstimme]=true;
+        const auto events=run(s,512,80.);checkBalanced(events);
+        std::map<int,long long> active;
+        std::vector<std::tuple<long long,int,long long>> plain,variant;
+        for(const auto& e:events)
+        {
+            if(e.velocity>0)active[e.note]=e.sample;
+            else
+            {
+                auto at=active.at(e.note);active.erase(e.note);
+                if(at>=16*96000&&at<18*96000)plain.emplace_back(at-16*96000,e.note,e.sample-at);
+                if(at>=32*96000&&at<34*96000)variant.emplace_back(at-32*96000,e.note,e.sample-at);
+            }
+        }
+        CHECK(plain.size()>=2&&plain.size()==variant.size());bool changed=false;
+        for(size_t i=0;i<plain.size();++i)
+        {
+            CHECK(std::get<0>(plain[i])==std::get<0>(variant[i])&&std::get<1>(plain[i])==std::get<1>(variant[i]));
+            changed|=std::get<2>(plain[i])!=std::get<2>(variant[i]);
+        }
+        CHECK(changed);
     }
     return 0;
 }

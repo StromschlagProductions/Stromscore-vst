@@ -42,6 +42,21 @@ struct RememberedMotif
         {identity^=static_cast<uint64_t>(value);identity*=1099511628211ull;}
         complete=true;
     }
+    bool varied(int64_t section)const
+    {return recall(section)&&(section-introduction)%4==0;}
+    int64_t recalledLength(int index,int64_t section,int64_t phraseEnd)const
+    {
+        if(index<0||index>=count)return 0;
+        const auto& n=notes[static_cast<size_t>(index)];
+        auto length=std::max<int64_t>(1,std::min(n.length,phraseEnd-n.at));
+        if(!varied(section))return length;
+        int chosen=0;
+        for(int i=1;i<count;++i)if(notes[static_cast<size_t>(i)].length>notes[static_cast<size_t>(chosen)].length)chosen=i;
+        if(index==chosen)length=std::max<int64_t>(1,length/2);
+        // The articulated variant has no legato overlaps, even for recorded legato.
+        if(index+1<count)length=std::max<int64_t>(1,std::min(length,notes[static_cast<size_t>(index+1)].at-n.at));
+        return length;
+    }
     bool recall(int64_t section)const
     {return complete&&section>=introduction+2&&(section-introduction)%2==0;}
 };

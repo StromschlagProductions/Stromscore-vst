@@ -954,7 +954,7 @@ private:
                 const auto& n=memory.notes[static_cast<size_t>(i)];if(n.at!=rel)continue;
                 const int note=composition::adaptMotifPitch(base+n.interval,ladder,nl);
                 noteOn(OutCounter,note,n.velocity,
-                    p.phraseStart+n.at+n.length,offset,out);
+                    p.phraseStart+n.at+memory.recalledLength(i,section,span),offset,out);
                 releaseOthers(OutCounter,note,offset,out);csNote=note;csPendingAt=-1;
             }
             return true;

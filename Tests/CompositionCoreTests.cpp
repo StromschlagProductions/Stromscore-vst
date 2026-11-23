@@ -227,5 +227,19 @@ int main()
     CHECK(memory.complete&&memory.notes[1].interval==4&&!memory.recall(1)&&memory.recall(2));
     const auto id=memory.identity;memory.observe(90,4,1,3);memory.finish();CHECK(memory.identity==id);
     memory.clear();CHECK(!memory.complete&&!memory.recall(2));
+    RememberedMotif variation;
+    variation.observe(60,0,9,0);variation.observe(64,8,12,0);variation.finish();
+    const auto originalIdentity=variation.identity;
+    CHECK(!variation.varied(2)&&variation.varied(4)&&!variation.varied(6));
+    CHECK(variation.recalledLength(1,2,32)==12);
+    CHECK(variation.recalledLength(1,4,32)==6);
+    CHECK(variation.recalledLength(0,4,32)<=8);
+    CHECK(variation.identity==originalIdentity&&variation.notes[1].interval==4);
+    for(int section:{4,8,12})for(int i=0;i<variation.count;++i)
+    {
+        auto length=variation.recalledLength(i,section,32);
+        CHECK(length>=1&&variation.notes[static_cast<size_t>(i)].at+length<=32);
+        if(i+1<variation.count)CHECK(variation.notes[static_cast<size_t>(i)].at+length<=variation.notes[static_cast<size_t>(i+1)].at);
+    }
     std::cout << "Composition core tests passed\n";
 }

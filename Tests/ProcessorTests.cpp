@@ -765,7 +765,7 @@ int main()
         for (int i = 2; i <= 5; ++i) setParam (q, ("mute" + std::to_string (i)).c_str(), 1);
         const bool recurrence=intensity>.75f;
         if(recurrence){setParam(q,"mute1",1);setParam(q,"mute5",0);setParam(q,"motiv",1);}
-        const int bars=recurrence?24:8;
+        const int bars=recurrence?40:8;
         using Timed = std::tuple<long long, int, int, int, int>;
         std::vector<Timed> live, exported;
         auto add = [] (std::vector<Timed>& target, const juce::MidiMessage& m, long long tick)

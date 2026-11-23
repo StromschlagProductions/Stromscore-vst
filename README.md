@@ -215,7 +215,7 @@ der Liste oder lernst sie mit einem Tastendruck an, **Hören** schlägt sie einm
 tiefer Mittellage, für Klavier, Synth-Stab oder Pizzicato-Bass, mit eigenem Tonumfang. Im Knopf steht, was gilt, etwa „Fest: C1“.
 
 **Gegenstimme:** die einzige lange Linie, in mittlerer Lage zwischen Tupfer und Stich. Mit **Legato** überlappen die Töne um eine Sechzehntelnote,
-damit Legato-Patches gebunden spielen; ohne setzen sie kurz vor dem nächsten Ton ab. Mit **Motiv** merkt sich der Score-Modus eine tatsächlich gespielte kurze Figur. Nach einer vollständigen Zwischenphrase ohne Gegenstimme kehrt sie aus dem Speicher zurück. Danach wechseln Pause und Wiederkehr. Rhythmus und Intervallziele bleiben erhalten; die Töne passen sich Harmonie und Umfang an. Ein Szenenneustart leert das Gedächtnis. Im Pop-Rock bleibt die Hook-Linie erhalten.
+damit Legato-Patches gebunden spielen; ohne setzen sie kurz vor dem nächsten Ton ab. Mit **Motiv** merkt sich der Score-Modus eine tatsächlich gespielte kurze Figur. Nach einer vollständigen Zwischenphrase ohne Gegenstimme kehrt sie aus dem Speicher zurück. Danach wechseln Pause und Wiederkehr. Rhythmus und Intervallziele bleiben erhalten; die Töne passen sich Harmonie und Umfang an. Bei jeder zweiten Wiederkehr wird die längste Note gezielt verkürzt; Einsatzzeiten und Tonfolge bleiben erhalten. Die andere Wiederkehr bleibt unverändert. Ein Szenenneustart leert das Gedächtnis. Im Pop-Rock bleibt die Hook-Linie erhalten.
 
 **Tonumfang:** Orchesterinstrumente spielen nur einen bestimmten Bereich, ein Synth spielt alles. Über **Umfang** neben der Oktave
 (beim Akzent je eine eigene Zeile für Tupfer und Stich) begrenzt du jede Ebene auf den tiefsten und höchsten Ton deines Instruments. Vorlagen
