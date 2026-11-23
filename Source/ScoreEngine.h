@@ -427,7 +427,7 @@ struct Meter
 class Generator
 {
 public:
-    void reset() { motifMemory.clear(); style = -1; csNote = -1; csPendingAt = -1; chaseStep = -1; lastGenre = -1; resetCc(); resetVoicing(); numActive = 0; running = false; lastPpqEnd = 0.0; phraseIndex = -1; current = -1; wendungStart = 0; still = false; chordBase = 0; drivePrev = driveSeen = driveLatched = driveArrivedNow = false; driveTrajectory = false; driveProgressNow = 0; driveGenerationSeen = 0; curRoot = 0; curType = Min; curChord = -1;
+    void reset() { motifCatalog.clear(); voices={}; style = -1; chaseStep = -1; lastGenre = -1; resetCc(); resetVoicing(); numActive = 0; running = false; lastPpqEnd = 0.0; phraseIndex = -1; current = -1; wendungStart = 0; still = false; chordBase = 0; drivePrev = driveSeen = driveLatched = driveArrivedNow = false; driveTrajectory = false; driveProgressNow = 0; driveGenerationSeen = 0; curRoot = 0; curType = Min; curChord = -1;
                    sceneStep = 0; manualEndStep = -1; manualFinished = manualHitSent = false; endWasRequested = false; sceneSeed = 0; autoSeed = -1; sceneBarNow = -1; sceneEnded = false; for (int l = 0; l < kNumLayers; ++l) { on[l] = prevOn[l] = hOn[l] = false; } }
 
     uint32_t unavailablePadPitchClasses() const { return unavailablePad; }
@@ -437,7 +437,8 @@ public:
     int sceneEntry() const { return entryInUse; }             // aufgeloester Einstieg
     bool sceneOver() const { return sceneEnded; }
     int activeSeed() const { return sceneSeed; }
-    const composition::RememberedMotif& rememberedMotif() const { return motifMemory; }
+    const composition::RememberedMotif& rememberedMotif(int output=OutCounter) const { return voice(output).motif.material(motifCatalog); }
+    const composition::MotifUse& motifUse(int output)const { return voice(output).motif; }
     int plannedHarmonySlots() const { return planValid ? harmonicPlan.count : 0; }
     bool driveArrived() const { return driveArrivedNow; }     // die Fahrt ist bei B angekommen (das Plugin macht B dann zu A)
     uint32_t driveGenerationNow() const { return driveGenerationSeen; }
@@ -655,17 +656,17 @@ public:
         if (! running || jumped)
         {
             allNotesOff (out, 0);
-            if(!motifMemory.complete)motifMemory.clear();
+            for(auto& state:voices)if(!state.motif.material(motifCatalog).complete)state.motif.clear();
             resetVoicing();
             driveTrajectory = false; // A seek reconstructs the curve at the destination, without old segment history.
             // Szenenstart: Wiedergabebeginn, auf den Taktanfang gerundet. Ein Sprung nach vorn (oder ein Loop, der nicht
             // vor den Start zurueckspringt) laeuft in derselben Szene weiter, ein Sprung davor beginnt eine neue.
             const long long k0 = (long long) std::floor (t.ppq / kStep + 1e-9);
             if (! running) { manualEndStep = -1; manualFinished = manualHitSent = false; endWasRequested = false; }
-            if (! running || k0 < sceneStep) { motifMemory.clear(); sceneStep = floorDiv (k0, meter.len) * meter.len; driveLatched = false; drivePrev = false; driveSeen = false; }
+            if (! running || k0 < sceneStep) { motifCatalog.clear(); voices={}; sceneStep = floorDiv (k0, meter.len) * meter.len; driveLatched = false; drivePrev = false; driveSeen = false; }
             running = true;
             phraseIndex = -1;
-            csNote = -1; csPendingAt = -1; resetCc();
+            for(auto& state:voices){state.note=-1;state.pendingAt=-1;} resetCc();
             applyDrive (k0, s, ax, ay);
             chase (t.ppq, s, out);
         }
@@ -989,15 +990,16 @@ private:
     // Spielt das Motiv, solange der Schritt in seinen zwei Takten liegt (dann true: die normale Linie pausiert)
     bool motifStep (long long k, const Pos& p, const Settings& s, int offset, EventList& out, int output=OutCounter)
     {
+        auto& state=voice(output);auto& use=state.motif;
         const long long span = std::min ((long long) 2 * meter.len, p.phraseEnd - p.phraseStart);
         const long long rel = k - p.phraseStart;
         const long long section=p.phrase-phraseOf(sceneStep);
-        if(rel>=span||(motifMemory.count&&section!=motifMemory.introduction))motifMemory.finish();
+        if(rel>=span||(use.material(motifCatalog).count&&section!=use.introduction))use.finish(motifCatalog);
         // A complete intervening phrase contains no counter motif or fallback line.
-        if(motifMemory.complete)
+        if(use.material(motifCatalog).complete)
         {
-            if((section!=motifMemory.introduction&&!motifMemory.recall(section))||rel<0||rel>=span)return true;
-            const auto& memory=motifMemory;
+            if((section!=use.introduction&&!use.recall(section,motifCatalog))||rel<0||rel>=span)return true;
+            const auto& memory=use.material(motifCatalog);
             int ladder[16];const int nl=counterLadder(chordFor(p,kOutputLayer[output],s),s,ladder,output);
             if(nl==0)return true;
             // Retain original contour/intervals; nearest available chord tones adapt harmony.
@@ -1006,18 +1008,18 @@ private:
             {
                 const auto& n=memory.notes[static_cast<size_t>(i)];if(n.at!=rel)continue;
                 const int note=composition::adaptMotifPitch(base+n.interval,ladder,nl);
-                auto duration=std::min<int64_t>(memory.recalledLength(i,section,span),span-n.at);
+                auto duration=std::min<int64_t>(memory.recalledLength(i,use.varied(section,motifCatalog),span),span-n.at);
                 if(output==OutMelody)duration=composition::articulatedLength(duration,
                     std::min<int64_t>(p.chordEnd-k,i+1<memory.count?memory.notes[static_cast<size_t>(i+1)].at-n.at:span-n.at),s.melodyLegato);
                 noteOn(output,note,n.velocity,p.phraseStart+n.at+duration,offset,out);
-                if(output==OutCounter)releaseOthers(output,note,offset,out);csNote=note;csPendingAt=-1;
+                if(output==OutCounter)releaseOthers(output,note,offset,out);state.note=note;state.pendingAt=-1;
             }
             return true;
         }
         // Only an introduction can populate memory. A fresh seek into a later section
         // cannot fabricate a performance that never happened.
         if(rel<0||rel>=span)return false; // Before an introduction, retain the ordinary line.
-        if(motifMemory.count&&motifMemory.introduction!=section)motifMemory.clear();
+        if(use.material(motifCatalog).count&&use.introduction!=section)use.clear();
 
         const Motif mo = motifFor (s, p.phrase);
         const float yc = layerY (s, kOutputLayer[output]);
@@ -1041,10 +1043,10 @@ private:
             {
                 const auto& emitted=out.events[static_cast<size_t>(e)];
                 if(emitted.out==output&&emitted.type==0&&emitted.velocity>0)
-                    motifMemory.observe(emitted.note,at,actualLength,section,static_cast<int>(56+35*yc)+(i==0?6:0));
+                    use.observe(emitted.note,at,actualLength,section,static_cast<int>(56+35*yc)+(i==0?6:0));
             }
             if(output==OutCounter)releaseOthers (output, note, offset, out);
-            csNote = note; csPendingAt = -1;
+            state.note = note; state.pendingAt = -1;
         }
         return true;
     }
@@ -1706,8 +1708,10 @@ private:
         for(const auto& entry:catalog)if(entry.track.id.value==assignment.response.value)responseOutput=entry.target.output;
         if(responseOutput<0)return true;
         const auto relative=k-p.phraseStart;const long long window=2LL*meter.len;
-        if(relative>=window)motifMemory.finish();
-        const auto plan=composition::planDialogue(motifMemory,p.phrase-phraseOf(sceneStep),relative,window);
+        auto& use=voice(OutCounter).motif;
+        if(relative>=window)use.finish(motifCatalog);
+        const auto& motifMemory=use.material(motifCatalog);
+        const auto plan=composition::planDialogue(use,motifCatalog,p.phrase-phraseOf(sceneStep),relative,window);
         if(!plan.reserveResponse)return false;
         if(!plan.answer)return true;
         const auto chord=chordFor(p,kArp,s);const auto& shape=kShapes[chord.type];
@@ -2055,7 +2059,7 @@ private:
                 for (int i = 0; i < sh.n; ++i) found += (rootPc + sh.iv[i]) % 12 == n % 12 ? 1 : 0;
             if (found < 2) { a = rlo; b = rhi; }
         }
-        const int prev = csNote >= 0 ? csNote : (a + b) / 2;
+        const int prev = voice(output).note >= 0 ? voice(output).note : (a + b) / 2;
         int best = -1; float bestScore = 1e9f;
         for (int n = a; n <= b; ++n)
         {
@@ -2104,7 +2108,7 @@ private:
                 long long next = i < 7 && starts[id][i + 1] >= 0 ? (long long) starts[id][i + 1] * cycle / 32 : cycle;
                 const long long len = std::max (1LL, next - at - ((id == 3 || id == 7) ? 2 : 0));
                 noteOn (OutCounter, note, (int) (58 + 35 * layerY (s, kGegenstimme)), k + len + (s.legato ? 1 : 0), offset, out);
-                releaseOthers (OutCounter, note, offset, out); csNote = note;
+                releaseOthers (OutCounter, note, offset, out); voice(OutCounter).note = note;
                 return;
             }
             return;
@@ -2148,16 +2152,16 @@ private:
 
     void counterLine (long long k, const Pos& p, const Settings& s, int offset, bool chordStart, EventList& out, int output=OutCounter)
     {
-        if (! on[kOutputLayer[output]]) { csNote = -1; csPendingAt = -1; return; }
+        if (! on[kOutputLayer[output]]) { voice(output).note = -1; voice(output).pendingAt = -1; return; }
         if (output==OutCounter && s.genre == GenrePopRock) { leadHook (k, p, s, offset, out); return; }
         if ((output==OutMelody?s.melodyMotif:s.motif) && motifStep (k, p, s, offset, out,output)) return;
         const float yc = layerY (s, kOutputLayer[output]);
         const int vel = (int) (50 + 35 * yc);
-        if (output==OutCounter && k == csPendingAt && csPending >= 0)                    // Vorhalt loest sich auf
+        if (output==OutCounter && k == voice(output).pendingAt && voice(output).pending >= 0)                    // Vorhalt loest sich auf
         {
-            noteOn (OutCounter, csPending, vel, csPendingEnd + tail (csPendingEnd - k), offset, out);
-            releaseOthers (OutCounter, csPending, offset, out);
-            csNote = csPending; csPendingAt = -1;
+            noteOn (OutCounter, voice(output).pending, vel, voice(output).pendingEnd + tail (voice(output).pendingEnd - k), offset, out);
+            releaseOthers (OutCounter, voice(output).pending, offset, out);
+            voice(output).note = voice(output).pending; voice(output).pendingAt = -1;
         }
         // Bewegung: ruhig nur bei Akkordwechseln, mittel alle zwei Takte, aufgewuehlt in Halben
         const long long rate = yc < 0.4f ? 0 : yc < 0.7f ? 2LL * meter.len : std::max (4LL, (long long) meter.len / 2);
@@ -2171,22 +2175,31 @@ private:
             const int sus = target + (s.z >= 0.75f ? 1 : 2);
             noteOn (OutCounter, sus, vel + 6, k + 4 + (s.legato ? 1 : 0), offset, out);
             releaseOthers (OutCounter, sus, offset, out);
-            csPending = target; csPendingAt = k + 4; csPendingEnd = end;
-            csNote = sus;
+            voice(output).pending = target; voice(output).pendingAt = k + 4; voice(output).pendingEnd = end;
+            voice(output).note = sus;
             return;
         }
         if(output==OutMelody)
         {
             int ladder[16];if(counterLadder(c,s,ladder,output)==0)return;
             const auto duration=composition::articulatedLength(end-k,end-k,s.melodyLegato);
-            noteOn(output,target,vel,k+duration,offset,out);csNote=target;csPendingAt=-1;return;
+            noteOn(output,target,vel,k+duration,offset,out);voice(output).note=target;voice(output).pendingAt=-1;return;
         }
         noteOn (OutCounter, target, vel, end + tail (end - k), offset, out);   // Legato: eine Sechzehntel laenger, bindet zum naechsten Ton
         releaseOthers (OutCounter, target, offset, out);
-        csNote = target;
+        voice(output).note = target;
     }
 
-    composition::RememberedMotif motifMemory;
+    struct VoiceState
+    {
+        composition::MotifUse motif;
+        int note=-1,pending=-1;
+        long long pendingAt=-1,pendingEnd=0;
+    };
+    std::array<VoiceState,2> voices {};
+    composition::MotifCatalog motifCatalog;
+    VoiceState& voice(int output){return voices[output==OutMelody?1u:0u];}
+    const VoiceState& voice(int output)const{return voices[output==OutMelody?1u:0u];}
     composition::HarmonicPlan harmonicPlan;
     uint64_t planKey = 0; bool planValid = false;
     uint32_t unavailablePad = 0;
@@ -2218,8 +2231,6 @@ private:
     bool ccWasEnabled = false;
     int lastDynamicsId = -1, lastExpressionId = -1;
     int lastCc[17] {}, lastExpr[17] {};   // je MIDI-Kanal (1 ... 16)
-    int csNote = -1, csPending = -1;                 // Gegenstimme: letzter Ton, aufzuloesender Vorhalt
-    long long csPendingAt = -1, csPendingEnd = 0;
     int phraseBars = kPhraseBars;
     // Szene
     long long sceneStep = 0, sceneEndStep = 1LL << 60, autoSeed = -1;

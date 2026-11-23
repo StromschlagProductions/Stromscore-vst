@@ -18,20 +18,19 @@ inline uint32_t randomKey (uint32_t seed, uint32_t configuration, uint32_t revis
     return h;
 }
 struct Range { int low = 0, high = 127; };
-// One actually emitted motif per scene. No RNG reconstruction or dynamic storage.
+// Actually emitted musical material; no voice, timeline or MIDI destination.
 struct RememberedMotif
 {
     struct Note { int64_t at=0, length=1; int interval=0, velocity=64; };
     std::array<Note,5> notes {};
     int count=0, origin=0;
     uint64_t identity=0;
-    int64_t introduction=-1;
     bool complete=false;
     void clear(){*this={};}
-    void observe(int pitch,int64_t at,int64_t length,int64_t section,int velocity=64)
+    void observe(int pitch,int64_t at,int64_t length,int velocity=64)
     {
         if(complete||count==5)return;
-        if(count==0){origin=pitch;introduction=section;}
+        if(count==0)origin=pitch;
         notes[static_cast<size_t>(count++)]={at,length,pitch-origin,velocity};
     }
     void finish()
@@ -42,23 +41,68 @@ struct RememberedMotif
         {identity^=static_cast<uint64_t>(value);identity*=1099511628211ull;}
         complete=true;
     }
-    bool varied(int64_t section)const
-    {return recall(section)&&(section-introduction)%4==0;}
-    int64_t recalledLength(int index,int64_t section,int64_t phraseEnd)const
+    int64_t recalledLength(int index,bool variation,int64_t phraseEnd)const
     {
         if(index<0||index>=count)return 0;
         const auto& n=notes[static_cast<size_t>(index)];
         auto length=std::max<int64_t>(1,std::min(n.length,phraseEnd-n.at));
-        if(!varied(section))return length;
+        if(!variation)return length;
         int chosen=0;
         for(int i=1;i<count;++i)if(notes[static_cast<size_t>(i)].length>notes[static_cast<size_t>(chosen)].length)chosen=i;
         if(index==chosen)length=std::max<int64_t>(1,length/2);
-        // The articulated variant has no legato overlaps, even for recorded legato.
         if(index+1<count)length=std::max<int64_t>(1,std::min(length,notes[static_cast<size_t>(index+1)].at-n.at));
         return length;
     }
-    bool recall(int64_t section)const
-    {return complete&&section>=introduction+2&&(section-introduction)%2==0;}
+};
+struct MotifRef { int value=-1; };
+// Bounded scene catalog. Published material is immutable until the whole scene resets.
+struct MotifCatalog
+{
+private:
+    std::array<RememberedMotif,2> materials {};
+    int count=0;
+public:
+    const RememberedMotif* find(MotifRef ref)const
+    {return ref.value>=0&&ref.value<count?&materials[static_cast<size_t>(ref.value)]:nullptr;}
+    MotifRef publish(const RememberedMotif& material)
+    {
+        if(!material.complete||count==static_cast<int>(materials.size()))return {};
+        materials[static_cast<size_t>(count)]=material;return {count++};
+    }
+    void clear(){*this={};}
+};
+// A future role plan must explicitly request adoption; never inferred from catalog contents.
+struct MotifReferencePlan { MotifRef material; int64_t introduction=-1; };
+struct MotifUse
+{
+    RememberedMotif draft;
+    MotifRef reference;
+    int64_t introduction=-1;
+    void clear(){*this={};}
+    const RememberedMotif& material(const MotifCatalog& catalog)const
+    {const auto* published=catalog.find(reference);return published?*published:draft;}
+    void observe(int pitch,int64_t at,int64_t length,int64_t section,int velocity=64)
+    {
+        if(reference.value>=0)return;
+        if(draft.count==0)introduction=section;
+        draft.observe(pitch,at,length,velocity);
+    }
+    void finish(MotifCatalog& catalog)
+    {
+        if(reference.value>=0)return;
+        draft.finish();if(!draft.complete)return;
+        reference=catalog.publish(draft);
+        if(reference.value>=0)draft.clear();
+    }
+    bool adopt(const MotifReferencePlan& plan,const MotifCatalog& catalog)
+    {
+        if(plan.introduction<0||!catalog.find(plan.material))return false;
+        clear();reference=plan.material;introduction=plan.introduction;return true;
+    }
+    bool recall(int64_t section,const MotifCatalog& catalog)const
+    {return material(catalog).complete&&section>=introduction+2&&(section-introduction)%2==0;}
+    bool varied(int64_t section,const MotifCatalog& catalog)const
+    {return recall(section,catalog)&&(section-introduction)%4==0;}
 };
 // A role, a playing style, an instrument and a destination are distinct concepts.
 enum class MusicalRole { lead, accompaniment, answer };
@@ -146,10 +190,11 @@ inline ForegroundPlan planForeground(bool requested,const PlayingTrack& candidat
 }
 // Role scheduling only; MIDI rendering and catalog rules remain outside this data.
 struct DialoguePlan { bool reserveResponse=false, answer=false; int answerNotes=0; uint64_t sourceMotif=0; int64_t answerBegin=0, answerEnd=0; };
-inline DialoguePlan planDialogue(const RememberedMotif& memory,int64_t section,int64_t relative,int64_t window)
+inline DialoguePlan planDialogue(const MotifUse& use,const MotifCatalog& catalog,int64_t section,int64_t relative,int64_t window)
 {
+    const auto& memory=use.material(catalog);
     DialoguePlan p;p.sourceMotif=memory.identity;p.reserveResponse=relative<2*window;p.answerBegin=window;p.answerEnd=2*window;
-    p.answer=memory.complete&&(section==memory.introduction||memory.recall(section))
+    p.answer=memory.complete&&(section==use.introduction||use.recall(section,catalog))
         &&relative>=window&&relative<2*window;
     p.answerNotes=p.answer?std::min(3,memory.count):0;
     return p;

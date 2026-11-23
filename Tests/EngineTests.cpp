@@ -1468,12 +1468,58 @@ int main()
         for(size_t i=0;i<events.size();++i)CHECK(events[i].sample==large[i].sample&&events[i].note==large[i].note&&events[i].velocity==large[i].velocity);
         Generator g;EventList list;Transport t;t.playing=true;
         for(int step=0;step<40;++step){t.ppq=step*.25;list.clear();g.process(t,s,6000,list);}
-        const auto identity=g.rememberedMotif().identity;CHECK(g.rememberedMotif().complete);
+        const auto identity=g.rememberedMotif(OutMelody).identity;CHECK(g.rememberedMotif(OutMelody).complete);
         auto at=[&](double ppq){t.ppq=ppq;list.clear();g.process(t,s,6000,list);std::vector<int> pitches;
             for(int i=0;i<list.size;++i)if(list.events[static_cast<size_t>(i)].out==OutMelody&&list.events[static_cast<size_t>(i)].velocity)pitches.push_back(list.events[static_cast<size_t>(i)].note);return pitches;};
-        const auto reprise=at(64);CHECK(!reprise.empty());at(0);CHECK(at(64)==reprise&&g.rememberedMotif().identity==identity);
-        t.playing=false;at(64);t.playing=true;at(0);CHECK(!g.rememberedMotif().complete);
+        const auto reprise=at(64);CHECK(!reprise.empty());at(0);CHECK(at(64)==reprise&&g.rememberedMotif(OutMelody).identity==identity);
+        t.playing=false;at(64);t.playing=true;at(0);CHECK(!g.rememberedMotif(OutMelody).complete);
         s.genre=GenrePopRock;for(auto e:run(s,512,4.))CHECK(e.out!=OutMelody);
+    }
+    // Both contexts survive foreground changes without adopting or mutating each other's material.
+    {
+        Settings s;s.motif=true;s.custom=true;s.customChords[0]={0,Maj7,8};s.y=.7f;
+        Generator g;EventList events;Transport t;t.playing=true;
+        auto step=[&](int tick){t.ppq=tick*.25;events.clear();g.process(t,s,6000,events);};
+        for(int tick=0;tick<128;++tick)step(tick);
+        const auto dialog=g.rememberedMotif();const auto dialogUse=g.motifUse(OutCounter);
+        CHECK(dialog.complete&&!g.rememberedMotif(OutMelody).complete);
+        s.melody=true;s.melodyLegato=false;step(128);
+        CHECK(g.motifUse(OutMelody).introduction!=dialogUse.introduction);
+        CHECK(!g.rememberedMotif(OutMelody).complete); // A new performed introduction, not catalog adoption.
+        for(int tick=129;tick<168;++tick)step(tick);
+        const auto melody=g.rememberedMotif(OutMelody);const auto melodyUse=g.motifUse(OutMelody);
+        CHECK(melody.complete&&melody.identity!=dialog.identity);
+        CHECK(melodyUse.reference.value!=dialogUse.reference.value);
+        CHECK(g.rememberedMotif().identity==dialog.identity&&g.motifUse(OutCounter).introduction==dialogUse.introduction);
+        s.melodyMotif=false;
+        for(int tick=168;tick<192;++tick)step(tick);
+        CHECK(g.rememberedMotif().identity==dialog.identity&&g.rememberedMotif(OutMelody).identity==melody.identity);
+        s.melody=false;s.motif=false;
+        for(int tick=192;tick<224;++tick){step(tick);for(int i=0;i<events.size;++i)CHECK(events.events[static_cast<size_t>(i)].out!=OutMelody);}
+        CHECK(g.motifUse(OutMelody).reference.value==melodyUse.reference.value);
+        CHECK(g.motifUse(OutMelody).introduction==melodyUse.introduction);
+        s.motif=true;step(256);CHECK(g.rememberedMotif().identity==dialog.identity);
+        step(0);step(256);CHECK(g.rememberedMotif().identity==dialog.identity&&g.rememberedMotif(OutMelody).identity==melody.identity);
+        t.playing=false;step(256);t.playing=true;step(0);
+        CHECK(!g.rememberedMotif().complete&&g.rememberedMotif(OutMelody).count==0);
+    }
+    // A previously sounding dialog line must not choose the new melody's first line pitch.
+    {
+        auto melodyAfter=[&](bool silentDialog)
+        {
+            Settings s;s.y=.7f;s.custom=true;s.customChords[0]={0,Maj7,8};
+            s.mute[kGegenstimme]=silentDialog;s.melodyMotif=false;
+            Generator g;Transport t;t.playing=true;EventList events;std::vector<std::pair<int,int>> result;
+            for(int tick=0;tick<160;++tick)
+            {
+                if(tick==128)s.melody=true;
+                t.ppq=tick*.25;events.clear();g.process(t,s,6000,events);
+                for(int i=0;i<events.size;++i){const auto& e=events.events[static_cast<size_t>(i)];
+                    if(e.out==OutMelody&&e.velocity>0)result.push_back({tick,e.note});}
+            }
+            return result;
+        };
+        const auto withDialog=melodyAfter(false);CHECK(!withDialog.empty()&&withDialog==melodyAfter(true));
     }
     // Melody switches are independent of counter controls; line mode never records a theme.
     {
@@ -1507,7 +1553,7 @@ int main()
         s.melodyMotif=false;Generator g;EventList events;Transport t;t.playing=true;
         int ons=0;
         for(int step=0;step<1100;++step){t.ppq=step*.25;events.clear();g.process(t,s,6000,events);for(int i=0;i<events.size;++i)ons+=events.events[static_cast<size_t>(i)].velocity>0;}
-        CHECK(ons>10&&g.rememberedMotif().count==0);
+        CHECK(ons>10&&g.rememberedMotif(OutMelody).count==0);
         s.melody=false;for(auto e:run(s,512,4.))CHECK(e.out!=OutMelody);
     }
     return 0;

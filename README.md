@@ -305,8 +305,8 @@ Keine Homepage-Karte und keine Aufnahme ins Gesamtbundle. Das Repository und sei
 
 Die neue Gruppe **MELODIE** ist standardmäßig aus. **Aktiv** schaltet im Score-Modus eine
 monophone Vordergrundstimme auf dem neunten Standardziel (Kanal 9) zu. Tonumfang, Oktave,
-Intensität, Mute/Solo und Kanal sind unabhängig einstellbar. Sie verwendet dasselbe
-aufgezeichnete Motivmaterial mit Zwischenphrasen, Wiederkehr und rhythmischer Variante.
+Intensität, Mute/Solo und Kanal sind unabhängig einstellbar. Sie verwendet die gemeinsamen
+Motivfunktionen mit eigenem aufgezeichnetem Material, Zwischenphrasen, Wiederkehr und rhythmischer Variante.
 Während ihrer Vordergrundzuweisung pausiert die Gegenstimme; der bisherige
 Gegenstimme–Arp-Dialog läuft nicht zusätzlich. Bass, Fläche und Arp bleiben Begleitung.
 Melodie aus erhält den bisherigen Underscoring-Modus. Pop/Rock bleibt unverändert.

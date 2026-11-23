@@ -222,31 +222,39 @@ int main()
             CHECK(dominantResolution(root,true,root,key).descendingSeventh==-1);
         }
     }
-    RememberedMotif memory;
-    CHECK(!memory.recall(2));memory.observe(60,0,4,0);memory.observe(64,6,8,0);memory.finish();
-    CHECK(memory.complete&&memory.notes[1].interval==4&&!memory.recall(1)&&memory.recall(2));
-    const auto id=memory.identity;memory.observe(90,4,1,3);memory.finish();CHECK(memory.identity==id);
-    memory.clear();CHECK(!memory.complete&&!memory.recall(2));
-    RememberedMotif variation;
-    variation.observe(60,0,9,0);variation.observe(64,8,12,0);variation.finish();
-    const auto originalIdentity=variation.identity;
-    CHECK(!variation.varied(2)&&variation.varied(4)&&!variation.varied(6));
-    CHECK(variation.recalledLength(1,2,32)==12);
-    CHECK(variation.recalledLength(1,4,32)==6);
-    CHECK(variation.recalledLength(0,4,32)<=8);
+    MotifCatalog catalog;MotifUse use;
+    CHECK(!use.recall(2,catalog));use.observe(60,0,4,0);use.observe(64,6,8,0);use.finish(catalog);
+    const auto& memory=use.material(catalog);
+    CHECK(memory.complete&&memory.notes[1].interval==4&&!use.recall(1,catalog)&&use.recall(2,catalog));
+    const auto id=memory.identity;use.observe(90,4,1,3);use.finish(catalog);CHECK(use.material(catalog).identity==id);
+    use.clear();CHECK(!use.material(catalog).complete&&!use.recall(2,catalog));
+    MotifUse variationUse;variationUse.observe(60,0,9,0);variationUse.observe(64,8,12,0);variationUse.finish(catalog);
+    const auto& variation=variationUse.material(catalog);const auto originalIdentity=variation.identity;
+    CHECK(!variationUse.varied(2,catalog)&&variationUse.varied(4,catalog)&&!variationUse.varied(6,catalog));
+    CHECK(variation.recalledLength(1,false,32)==12);
+    CHECK(variation.recalledLength(1,true,32)==6);
+    CHECK(variation.recalledLength(0,true,32)<=8);
     CHECK(variation.identity==originalIdentity&&variation.notes[1].interval==4);
     for(int section:{4,8,12})for(int i=0;i<variation.count;++i)
     {
-        auto length=variation.recalledLength(i,section,32);
+        auto length=variation.recalledLength(i,variationUse.varied(section,catalog),32);
         CHECK(length>=1&&variation.notes[static_cast<size_t>(i)].at+length<=32);
         if(i+1<variation.count)CHECK(variation.notes[static_cast<size_t>(i)].at+length<=variation.notes[static_cast<size_t>(i+1)].at);
     }
-    RememberedMotif question;question.observe(60,0,4,0);question.observe(64,8,4,0);question.finish();
-    CHECK(planDialogue(question,0,0,32).reserveResponse&&!planDialogue(question,0,0,32).answer);
-    CHECK(planDialogue(question,0,32,32).answer);
-    CHECK(!planDialogue(question,1,32,32).answer);
-    CHECK(planDialogue(question,2,32,32).answer);
-    CHECK(!planDialogue(question,0,64,32).reserveResponse);
+    // Explicit material references share notes, never the timeline or variation phase.
+    MotifUse other;CHECK(!other.material(catalog).complete);
+    CHECK(!other.adopt({{99},0},catalog));
+    CHECK(other.adopt({variationUse.reference,1},catalog));
+    CHECK(&other.material(catalog)==&variationUse.material(catalog));
+    CHECK(variationUse.varied(4,catalog)&&!other.recall(4,catalog));
+    CHECK(other.recall(3,catalog)&&!variationUse.recall(3,catalog));
+    other.clear();CHECK(variationUse.material(catalog).identity==originalIdentity&&variationUse.recall(2,catalog));
+    MotifCatalog questionCatalog;MotifUse question;question.observe(60,0,4,0);question.observe(64,8,4,0);question.finish(questionCatalog);
+    CHECK(planDialogue(question,questionCatalog,0,0,32).reserveResponse&&!planDialogue(question,questionCatalog,0,0,32).answer);
+    CHECK(planDialogue(question,questionCatalog,0,32,32).answer);
+    CHECK(!planDialogue(question,questionCatalog,1,32,32).answer);
+    CHECK(planDialogue(question,questionCatalog,2,32,32).answer);
+    CHECK(!planDialogue(question,questionCatalog,0,64,32).reserveResponse);
     PlayingTrack tracks[2];tracks[0].id={71};tracks[0].roles=roleBit(MusicalRole::lead);
     tracks[0].style=PlayingStyle::sustained;tracks[0].instrument.polyphony=2;
     tracks[1].id={12};tracks[1].roles=roleBit(MusicalRole::answer);

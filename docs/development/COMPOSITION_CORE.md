@@ -472,8 +472,8 @@ die konkrete Bindung an Ziel 9 erfolgt im freien Adapter. Der Katalog enthält j
 registrierte Ziele; Melodie ist tonhöhensteuerbar, gehalten, monophon und als reine
 Generatorannahme gekennzeichnet. Externe Patch-Fähigkeiten bleiben unbekannt.
 
-Die neue Stimme verwendet exakt das vorhandene Motivverfahren und denselben begrenzten
-Speicher. `motifStep` und die harmonische Tonleiteranpassung nehmen nun das Ziel als Adapter-
+Die neue Stimme verwendet exakt das vorhandene Motivverfahren. Seit der unten
+beschriebenen Trennung sind Materialkatalog und Verwendungszustände getrennt. `motifStep` und die harmonische Tonleiteranpassung nehmen nun das Ziel als Adapter-
 Argument an. Es gibt keinen zweiten unabhängigen Motivgenerator. Einführung (höchstens zwei
 Takte), komplette Zwischenphrase, Wiederkehr und rhythmische Variante bleiben erhalten.
 Das Material ist über seine Inhaltskennung identifizierbar, unabhängig vom Wiedergabeziel.
@@ -510,8 +510,8 @@ vollständig; Bilder liegen nur im temporären Prüfverzeichnis, nicht als Relea
 Der Processor-Ausgabepfad ist geprüft; ein tatsächlicher DAW-/VST3-Hostlauf, Windows,
 pluginval und eine subjektive Hörabnahme mit Zielinstrumenten wurden nicht durchgeführt.
 
-Verbleibende Grenzen: ein gemeinsames Motivgedächtnis je Szene, die bisher dokumentierten
-Grenzen bei unbekannter Seek-/Automationshistorie und die bestehenden GUI-Exportlängen
+Verbleibende Grenzen dieses damaligen Stands: das inzwischen aufgetrennte Motivgedächtnis
+(siehe unten), die bisher dokumentierten Grenzen bei unbekannter Seek-/Automationshistorie und die bestehenden GUI-Exportlängen
 8/16/32 (intern bis 64 Takte). Der nächste kleine musikalische Schritt könnte eine gezielte
 Dialogantwort auf die neue Melodie statt der jetzigen Pause sein. Er ist nicht implementiert.
 
@@ -531,19 +531,8 @@ Artikulation kürzt die verfügbare Gatezeit um eine Sechzehntel, soweit mindest
 Sechzehntel verbleibt. Aufgezeichnete Pausen, Variationskürzungen, nächste Einsätze und
 Akkordgrenzen werden respektiert. Externe Patch-Artikulationen bleiben unbekannt.
 
-**Bekannte Kopplung, in diesem Schritt bewusst nicht geändert:** Es gibt pro Generator
-weiterhin genau ein `RememberedMotif`, das Gegenstimme und Melodie gemeinsam nutzen.
-Auch der Liniencursor `csNote` ist gemeinsam. Die Vordergrundplanung verhindert
-gleichzeitige konkurrierende Motivschreiber, aber beim späteren Wechsel kann eine Stimme
-Material, Rhythmus und Einführungsposition der anderen übernehmen. Motiv aus löscht das
-Gedächtnis nicht; beim erneuten Einschalten kann gespeichertes Material wiederkehren.
-Das ist keine vollständige musikalische Unabhängigkeit der beiden Stimmen.
-
-Kleine vorgeschlagene Lösung: zwei explizite musikalische Materialkontexte (Melodie und
-Dialog), jeweils Instanzen derselben vorhandenen Speicherklasse und derselben Funktionen,
-mit getrenntem Liniencursor. Ein Materialtransfer müsste ausdrücklich geplant werden.
-Kontexte gehören zu musikalischen Aufgaben, nicht zu MIDI-Zielnummern. Kein neuer
-Motivgenerator, kein allgemeiner Motivpool; hier nur dokumentiert, nicht implementiert.
+Die in bd8aebf dokumentierte Kopplung des gemeinsamen Motivgedächtnisses und
+Liniencursors wurde im folgenden Architektur-Schritt beseitigt (siehe unten).
 
 Prüfstand dieses Schritts: Linux/Xvfb CTest 4/4, ASan/UBSan 3/3 und
 Python-Releaseprüfer 7/7 bestanden. Neue Tests prüfen getrennte Schalter, Gateunterschiede
@@ -551,3 +540,57 @@ bei unveränderten Anschlägen/Tonhöhen, leeres Motivgedächtnis im reinen Lini
 Blockgrößen, Seek/Loop/Neustart, State-Restore, GUI-Bindungen und Live-/Exportgleichheit
 auch ohne Motiv und ohne Legato. Linux-VST3 und Screenshotwerkzeug gebaut; echte
 GUI-Renderings visuell geprüft. Kein DAW-Hostlauf, Windows/pluginval oder Hörtest.
+
+
+## Gemeinsames Material, unabhängige Stimmenzustände
+
+`RememberedMotif` beschreibt ausschließlich tatsächlich gespielte Noten: relativer
+Einsatz, Dauer, Intervall, Ursprungston und Anschlagstärke. Die Inhaltskennung entsteht
+weiterhin aus Intervallen, Einsätzen und Dauern. Einführungszeitpunkt und Wiederkehrphase
+sind keine Eigenschaften des Materials mehr. Die gemeinsame Variationsfunktion erzeugt
+eine Wiedergabevariante, ohne das Originalmaterial zu verändern.
+
+Der szenenlokale `MotifCatalog` hält höchstens zwei abgeschlossene, unveränderliche Motive
+(ein selbst eingeführtes Motiv pro der beiden derzeitigen Stimmen). Keine Heap-Allokation,
+Verdrängung oder automatische Materialwahl. Unvollständiges Material wird nicht registriert;
+bei voller Kapazität wird eine Veröffentlichung ausdrücklich abgelehnt. Identische Inhalte
+dürfen getrennte Referenzen haben; es gibt keine automatische Zusammenlegung/Übernahme.
+
+Jede Stimme besitzt einen `MotifUse`: eigenen Aufnahmeentwurf, optionale Katalogreferenz
+und eigenen Einführungszeitpunkt. Wiederkehr und jede zweite variierte Wiederkehr werden
+deterministisch aus Szenenphrase und diesem eigenen Zeitpunkt berechnet; es gibt keinen
+geteilten veränderlichen Wiederkehrzähler. Der Adapter hält zwei getrennte `VoiceState`s
+für Dialog/Gegenstimme und Melodie, einschließlich letztem Linienton und Vorhaltszustand.
+Die Zuordnung auf die beiden bestehenden Ausgänge ist allein Aufgabe des Adapters.
+
+Motiv aus umgeht nur die Motivverwendung dieser Stimme. Aufnahmen, Referenzen und Material
+der anderen Stimme werden nicht verändert. Bereits vorhandenes eigenes Material bleibt
+für späteres Wiedereinschalten erhalten. Die Vordergrundplanung bleibt unverändert: aktive
+Melodie pausiert die Gegenstimme; es gibt keine neu aktivierte simultane Doppelmelodie.
+Der bestehende Gegenstimme–Arp-Dialog liest ausschließlich den Dialogkontext.
+
+Eine künftige Rollenplanung kann mit `MotifReferencePlan` eine Materialreferenz und einen
+eigenen Einführungszeitpunkt ausdrücklich anfordern. `MotifUse::adopt` validiert die
+Referenz; mehrere Verwendungen können dasselbe unveränderliche Material referenzieren,
+ohne einen Verwendungszustand zu teilen. Dieser Vorbereitungspfad ist im Kern getestet,
+aber wird vom freien Adapter nicht aufgerufen. Keine neue Übergabe-, Frage–Antwort- oder
+Orchestrierungsfunktion aktiviert. Die spätere Rollenplanung muss weiterhin passende
+Spielweisen, Register und Instrumentenfähigkeiten prüfen, bevor sie eine Übergabe rendert.
+
+Szenenneustart leert Katalog und beide Zustände zusammen. Seek/Loop innerhalb einer Szene
+behalten abgeschlossene eigene Motive, verwerfen wie bisher unvollständige Aufnahmen und
+rekonstruieren die Liniencursor. Die vorhandene Grenze bleibt: ein frischer Einstieg kann
+keine niemals gespielte Motivhistorie erfinden; Live-Automation wird im Export nicht
+nachträglich rekonstruiert.
+
+Prüfstand: vollständiger Linux/Xvfb-CTest 4/4, ASan/UBSan 3/3 und Python-Releaseprüfer
+7/7 bestanden; Linux-VST3 gebaut. Neue Tests: getrennte Einführungs-/Wiederkehr-/
+Variationsphasen bei gemeinsamer Materialreferenz, ungültige Referenz, keine implizite
+Übernahme, zwei tatsächlich eingeführte Motive beim Vordergrundwechsel, unabhängige
+Motivschalter und Liniencursor sowie gemeinsamer Szenenreset und Seek/Loop. Bestehende
+Transport-, Register-, Notenbilanz- und Live-/Exporttests bestehen weiter.
+Zusätzlich liefern 1008 temporäre 40-Sekunden-Vergleichsrenderings aller bestehenden
+Wendungen in drei Registerkonfigurationen und vier statischen Motiv-/Melodie-Kombinationen
+identische MIDI-Ereignisprüfsummen gegenüber bd8aebf. Der Vergleich betrifft unveränderte
+Einstellungen, nicht die absichtlich entkoppelten Stimmenwechsel. Kein Windows/pluginval,
+DAW-Hostlauf oder subjektiver Hörtest.
