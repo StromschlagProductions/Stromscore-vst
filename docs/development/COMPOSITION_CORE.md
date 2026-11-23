@@ -195,3 +195,50 @@ drei Bereichseinstellungen, je acht Takte) identische MIDI-Ereignisprüfsummen.
 Dies ist eine begrenzte technische Verhaltensprüfung, keine allgemeine
 Kompatibilitätsanforderung oder musikalische Hörabnahme. Windows/pluginval wurden
 auch in diesem Schritt nicht ausgeführt.
+
+## Dritter Integrationsschritt: Übergang und Auflösungsabsicht
+
+`TransitionIntent` trennt direkten Wechsel und die bisherige Durchgangsdominante,
+Zielgrundton und Annäherungsgrundton. `freeTransition` ist die vorhandene Strategie
+(aktivierter Schalter, Intensität ab 0,6, keine gehaltene Harmonie). Sie ist ein
+Erzeuger von Absichten; spätere Strategien können dieselben Daten liefern.
+`TransitionPlacement` beschreibt das musikalische Zeitfenster in der letzten
+Betonungsgruppe eines mindestens einen Takt langen Akkords. Die bisherigen
+Schwellen-, Grundton- und Zeitfensterregeln im Generator sind dadurch ersetzt.
+
+`ResolutionIntent` beschreibt die nach unten aufzulösende Septime und die nach oben
+aufzulösende Terz als Tonklassen. `dominantResolution` erzeugt diese Absicht für die
+bestehende Dominantbewegung zur Quinte darunter. Der Adapter liefert nur Akkordfakten;
+der Voicing-Solver übersetzt die Absicht weiterhin in seine vorhandenen weichen Kosten.
+MIDI-Erzeugung und Notenbesitz entscheiden nicht über diese harmonische Absicht.
+
+Katalogwahl/Wechselraster, Follow-Vorrang und die melodischen Vorhalte der Gegenstimme
+sind nicht neu gestaltet. Es gibt keinen allgemeinen Übergangsgraphen und keine neuen
+musikalischen Übergangstechniken. Der Kern kennt weiterhin keine Künstlerzuordnung.
+
+Neue Tests prüfen Schwellwerte, deaktivierte/liegende Harmonik, kurze Akkorde,
+Zeitfenster bei verschiedenen Taktlängen und Auflösungsabsichten in allen Tonarten.
+Der bestehende Live-/Exportvergleich wird sowohl ohne als auch mit Durchgangsakkorden
+bei ungleich langen Akkordplätzen ausgeführt.
+
+Standort: Der produktiv angebundene Kern enthält nun begrenzte harmonische Planung,
+Ankerbildung, Akkordzeitdaten sowie die bisherigen Übergangs-/Auflösungsabsichten.
+Das ist ein geprüfter harmonischer Teilkern, keine fertige allgemeine Kompositionsengine.
+Form, Motivmodell/-gedächtnis, Rhythmus-/Phrasenplanung, Ebenenkoordination und ein
+allgemeiner Artikulationsadapter fehlen weiterhin im neuen Kern; bestehende Verfahren
+liegen dafür noch im Generator. Der synthetische Renderer ist nicht der vollständige
+Renderer des freien Modus.
+
+Eine neue hörbare Fähigkeit muss nicht auf den Abschluss aller Umbauten warten.
+Als nächsten ausdrücklich beauftragten Funktionsschritt bietet sich eine kleine,
+deterministische Motivwiederaufnahme nach einer definierten Pause an. Dafür wären
+minimale Motividentität, begrenztes Gedächtnis und die Anbindung an die Gegenstimme
+Bestandteil genau dieses Funktionsschritts. Eine vollständige Formgrammatik oder die
+Künstlerforschung sind dafür keine Voraussetzung. Dies ist ein Vorschlag, noch kein
+Implementierungsauftrag; dieser Commit implementiert keine Motivneuerung.
+
+Prüfergebnis des dritten Schritts: finaler Linux/Xvfb-CTest 4/4, ASan/UBSan 3/3,
+Python-Releaseprüfer 7/7 bestanden. Seek/Loop wird im eigenen Harmonieablauf ohne und
+mit Durchgangsdominante sowie am Zeitpunkt innerhalb des Durchgangs geprüft.
+252 temporäre A/B-Renderfälle gegen 4dfb4c3 liefern identische Ereignisprüfsummen.
+Windows/pluginval und Hörabnahme wurden nicht ausgeführt. Keine Veröffentlichung.

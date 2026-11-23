@@ -198,5 +198,29 @@ int main()
         timeline.first=2;timeline.held=true;
         CHECK(locateChord(timeline,timeline.end-1).index==2);
     }
+    // Existing transition strategy: threshold, held harmony and final beat group.
+    CHECK(freeTransition(0,true,.599f).kind==TransitionKind::direct);
+    CHECK(freeTransition(0,true,.6f,true).kind==TransitionKind::direct);
+    CHECK(freeTransition(0,false,1.f).kind==TransitionKind::direct);
+    for(int root=0;root<12;++root)
+    {
+        const auto intent=freeTransition(root,true,.6f);
+        CHECK(intent.kind==TransitionKind::passingDominant&&intent.targetRoot==root);
+        CHECK(intent.approachRoot==(root+7)%12);
+        for(int bar:{10,12,14,16,24})
+        {
+            const auto placed=placeTransition(intent,100,100+3*bar,bar,bar-4);
+            CHECK(placed.present&&placed.begin==100+3*bar-4&&placed.end==100+3*bar);
+            CHECK(!placeTransition(intent,100,100+bar-1,bar,bar-4).present);
+        }
+        for(int key=0;key<12;++key)
+        {
+            const auto resolution=dominantResolution(intent.approachRoot,true,root,key);
+            CHECK(resolution.descendingSeventh==(key+intent.approachRoot+10)%12);
+            CHECK(resolution.ascendingThird==(key+intent.approachRoot+4)%12);
+            CHECK(dominantResolution(intent.approachRoot,false,root,key).ascendingThird==-1);
+            CHECK(dominantResolution(root,true,root,key).descendingSeventh==-1);
+        }
+    }
     std::cout << "Composition core tests passed\n";
 }

@@ -989,11 +989,16 @@ private:
         const auto position=composition::locateChord(timeline,k);
         p.chordIdx=position.index;p.chordStart=position.begin;p.chordEnd=position.end;
         if(still)return p;
-        if (cur != nullptr && cur->passing && cur->y >= 0.6f && p.chordEnd - p.chordStart >= meter.len)
+        if (cur != nullptr)
         {
-            const long long ps = p.chordEnd - (meter.len - meter.groupStart[std::max (0, meter.numGroups - 1)]);   // letzte Betonungsgruppe
-            if (k >= ps) { p.chordStart = ps; p.passing = true; }
-            else p.chordEnd = ps;
+            const auto intent=composition::freeTransition(nextChordRoot(p),cur->passing,cur->y);
+            const auto transition=composition::placeTransition(intent,p.chordStart,p.chordEnd,
+                meter.len,meter.groupStart[std::max(0,meter.numGroups-1)]);
+            if(transition.present)
+            {
+                if(k>=transition.begin){p.chordStart=transition.begin;p.passing=true;}
+                else p.chordEnd=transition.begin;
+            }
         }
         return p;
     }
@@ -1058,7 +1063,7 @@ private:
     {
         const Wendung& w = W();
         if (p.passing && (layer > kArp || s.follow[layer]))
-            return Chord { (nextChordRoot (p) + 7) % 12, Dom7, 1 };
+            return Chord { composition::freeTransition(nextChordRoot(p),true,1.f).approachRoot, Dom7, 1 };
         if (layer <= kArp && ! s.follow[layer])
         {
             Chord tonic = w.ch[0]; tonic.root = current == kCustomWendung ? w.ch[0].root : 0;
@@ -1309,7 +1314,7 @@ private:
                 const int index = i * 2 + pass;
                 auto& slot = request.slots[static_cast<size_t> (index)];
                 Chord c = w.ch[i];
-                if (pass) c = { ((i + 1 < w.n ? w.ch[i+1].root : w.ch[0].root) + 7) % 12, Dom7, 1 };
+                if (pass) c = { composition::freeTransition(i+1<w.n?w.ch[i+1].root:w.ch[0].root,true,1.f).approachRoot, Dom7, 1 };
                 Chord pad = c, bass = c;
                 if (! s.follow[kFlaeche]) { pad = w.ch[0]; pad.root = s.custom ? pad.root : 0; }
                 if (! s.follow[kBass]) { bass = w.ch[0]; bass.root = s.custom ? bass.root : 0; bass.type = kShapes[bass.type].minor ? Min : Maj; bass.bass = -1; }
@@ -1325,7 +1330,7 @@ private:
                 slot=composition::buildAnchor(intent,{lo,hi},rangeOn(o));
                 mix(slot.pad.n);for(int n=0;n<slot.pad.n;++n)mix(slot.pad.notes[n]);
                 mix(slot.bass);mix(static_cast<int>(slot.unavailable));
-                slot.enabled = ! pass || (s.passing && s.y >= 0.6f && ! still);
+                slot.enabled = ! pass || (composition::freeTransition(0,s.passing,s.y,still).kind==composition::TransitionKind::passingDominant);
                 slot.preservePad = s.genre == GenrePopRock && current == 31 && ! s.custom;
                 mix(slot.preservePad);
                 if (slot.enabled) order[count++] = index;
@@ -1334,16 +1339,13 @@ private:
         }
         mix (count); for (int i = 0; i < count; ++i) mix (order[i]);
         if (planValid && planKey == key) return;
-        // Adapter supplies harmonic resolution intent; core owns the whole bounded plan.
+        // Adapter supplies chord facts; core derives the existing resolution intent.
         for (int j = 0; j < count; ++j)
         {
             const int index = order[j], prev = order[(j + count - 1) % count];
-            if ((chords[prev].type == Dom7 || chords[prev].type == Dom7b9)
-                && (chords[index].root - chords[prev].root + 12) % 12 == 5)
-            {
-                request.slots[static_cast<size_t> (index)].resolvingSeventh = (s.key + chords[prev].root + 10) % 12;
-                request.slots[static_cast<size_t> (index)].resolvingThird = (s.key + chords[prev].root + 4) % 12;
-            }
+            request.slots[static_cast<size_t>(index)].resolution=composition::dominantResolution(
+                chords[prev].root,chords[prev].type==Dom7||chords[prev].type==Dom7b9,
+                chords[index].root,s.key);
         }
         harmonicPlan = composition::planHarmony(request);
         planValid = harmonicPlan.valid; planKey = key;
@@ -1396,7 +1398,7 @@ private:
     int nextBassPlacement (const Pos& p, const Settings& s)
     {
         prepareVoicingPlan (p, s);
-        const int index = ! p.passing && s.passing && s.y >= 0.6f && ! still
+        const int index = !p.passing && composition::freeTransition(0,s.passing,s.y,still).kind==composition::TransitionKind::passingDominant
                         ? p.chordIdx * 2 + 1 : ((p.chordIdx + 1) % W().n) * 2;
         return harmonicPlan.slots[static_cast<size_t> (index)].bass;
     }
@@ -1602,7 +1604,7 @@ private:
     {
         const Wendung& w = W();
         curChord = p.chordIdx; curRoot = w.ch[p.chordIdx].root; curType = w.ch[p.chordIdx].type;
-        if (p.passing && s.follow[kFlaeche]) { curRoot = (nextChordRoot (p) + 7) % 12; curType = Dom7; }
+        if (p.passing && s.follow[kFlaeche]) { curRoot = composition::freeTransition(nextChordRoot(p),true,1.f).approachRoot; curType = Dom7; }
         nowStep = k; updateMask (s);
         {
             const Chord& nc = p.chordIdx + 1 < w.n ? w.ch[p.chordIdx + 1] : w.ch[0];

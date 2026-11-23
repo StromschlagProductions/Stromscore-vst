@@ -18,13 +18,44 @@ inline uint32_t randomKey (uint32_t seed, uint32_t configuration, uint32_t revis
     return h;
 }
 struct Range { int low = 0, high = 127; };
+// Musical transition data; neither MIDI channels nor concrete voice assignments.
+enum class TransitionKind { direct, passingDominant };
+struct ResolutionIntent
+{
+    int descendingSeventh = -1; // prefer a downward step from this pitch class
+    int ascendingThird = -1;    // prefer an upward semitone from this pitch class
+};
+struct TransitionIntent
+{
+    TransitionKind kind = TransitionKind::direct;
+    int targetRoot = 0, approachRoot = 0;
+};
+// Existing free-mode strategy. Other strategies may produce the same intent types.
+inline TransitionIntent freeTransition (int targetRoot, bool enabled, float intensity, bool held = false)
+{
+    return { enabled && intensity >= .6f && !held ? TransitionKind::passingDominant : TransitionKind::direct,
+             targetRoot, (targetRoot + 7) % 12 };
+}
+struct TransitionPlacement { bool present = false; int64_t begin = 0, end = 0; };
+inline TransitionPlacement placeTransition (const TransitionIntent& intent, int64_t begin,
+                                           int64_t end, int ticksPerBar, int lastGroup)
+{
+    if(intent.kind!=TransitionKind::passingDominant || ticksPerBar<=0 || lastGroup<0
+        || lastGroup>=ticksPerBar || end-begin<ticksPerBar)return {};
+    return {true,end-(ticksPerBar-lastGroup),end};
+}
+inline ResolutionIntent dominantResolution (int sourceRoot, bool sourceDominant, int targetRoot, int key)
+{
+    if(!sourceDominant || (targetRoot-sourceRoot+12)%12!=5)return {};
+    return {(key+sourceRoot+10)%12,(key+sourceRoot+4)%12};
+}
 // Prepared musical anchors, independent of Wendung tables and MIDI scheduling.
 // Pitches/ranges are before the user's octave offset; negative pitches are valid here.
 struct HarmonicSlot
 {
     voiceleading::ChordVoicing pad;
     int bass = 48;
-    int resolvingSeventh = -1, resolvingThird = -1;
+    ResolutionIntent resolution;
     uint32_t unavailable = 0;
     bool enabled = true, preservePad = false;
 };
@@ -56,8 +87,8 @@ inline HarmonicPlan planHarmony (const HarmonicRequest& r)
     {
         const auto& slot = r.slots[static_cast<size_t> (i)];
         if (slot.pad.n < 0 || slot.pad.n > 6 || slot.bass < -128 || slot.bass > 255
-            || slot.resolvingSeventh < -1 || slot.resolvingSeventh > 11
-            || slot.resolvingThird < -1 || slot.resolvingThird > 11) return result;
+            || slot.resolution.descendingSeventh < -1 || slot.resolution.descendingSeventh > 11
+            || slot.resolution.ascendingThird < -1 || slot.resolution.ascendingThird > 11) return result;
         for (int n = 0; n < slot.pad.n; ++n)
             if (slot.pad.notes[static_cast<size_t> (n)] < -128 || slot.pad.notes[static_cast<size_t> (n)] > 255) return result;
         if (slot.enabled) last = i;
@@ -71,7 +102,7 @@ inline HarmonicPlan planHarmony (const HarmonicRequest& r)
             const auto& in = r.slots[static_cast<size_t> (i)];
             if (! in.enabled) continue;
             previous = in.preservePad ? in.pad : voiceleading::lead(in.pad, previous,
-                r.padRange.low, r.padRange.high, in.resolvingSeventh, in.resolvingThird);
+                r.padRange.low, r.padRange.high, in.resolution.descendingSeventh, in.resolution.ascendingThird);
             previousBass = voiceleading::bass(in.bass, previousBass, r.bassRange.low, r.bassRange.high);
             result.slots[static_cast<size_t> (i)] = { previous, previousBass, in.unavailable };
         }

@@ -1294,9 +1294,10 @@ int main()
             }
         }
     // Shared core plan invalidation, canonical seek/loop and scene restart; one MIDI channel.
+    for(bool passing:{false,true})
     {
         Settings s; s.custom=true; s.customChords[0]={0,Maj7,2};s.customChords[1]={5,Min9,2};
-        s.y=.55f;s.padPattern=PadHeld;s.bassPattern=BassHeld;
+        s.y=passing?.75f:.55f;s.passing=passing;s.padPattern=PadHeld;s.bassPattern=BassHeld;
         s.mute[kArp]=s.mute[kAkzent]=s.mute[kGegenstimme]=true;
         for(auto& ch:s.channel)ch=1;
         s.rangeOn[0]=s.rangeOn[1]=true;s.rangeLo[0]=60;s.rangeHi[0]=83;s.rangeLo[1]=36;s.rangeHi[1]=59;
@@ -1317,6 +1318,7 @@ int main()
         const auto initial=block(0);CHECK(!initial.empty()&&g.plannedHarmonySlots()==4);
         const auto seek=block(12.5);CHECK(!seek.empty());
         CHECK(block(0)==initial);CHECK(block(12.5)==seek);
+        const auto approach=block(15.5);CHECK(block(0)==initial);CHECK(block(15.5)==approach);
         // Changed harmonic/register inputs must not reuse the previous cached plan.
         s.customChords[1]={2,Dom7b9,2};s.rangeLo[0]=72;s.rangeHi[0]=95;
         block(0); // Re-enter through a real seek so held notes are reconstructed.

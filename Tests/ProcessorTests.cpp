@@ -746,9 +746,11 @@ int main()
         CHECK (! c.broken && c.ons == c.offs); q.setPlayHead (nullptr);
     }
     // Voice-leading export equals live DAW playback, including channel CCs and held common notes.
+    for(float intensity : {.4f,.7f})
     {
         StromscoreProcessor q; FakeHost h; q.setPlayHead (&h); q.prepareToPlay (48000, 512);
-        setParam (q, "aufbau", 0); setParam (q, "key", 0); setParam (q, "intensitaet", 0.4f);
+        setParam (q, "aufbau", 0); setParam (q, "key", 0); setParam (q, "intensitaet", intensity);
+        setParam(q,"durchgaenge",intensity>=.6f?1.f:0.f);
         setParam (q, "eigeneFolge", 1); setParam (q, "padPattern", stromscore::PadHeld); setParam (q, "dynamikCc", 1);
         setParam (q, "cc0Lo1", 100); setParam (q, "cc0Hi1", 127);
         const int roots[4] = { 0, 9, 2, 7 }, types[4] = { 2, 3, 15, 4 };
