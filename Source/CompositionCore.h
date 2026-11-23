@@ -60,11 +60,61 @@ struct RememberedMotif
     bool recall(int64_t section)const
     {return complete&&section>=introduction+2&&(section-introduction)%2==0;}
 };
+// A role, a playing style, an instrument and a destination are distinct concepts.
+enum class MusicalRole { lead, accompaniment, answer };
+enum class PlayingStyle { sustained, detached };
+enum class PitchBehaviour { unknown, pitched, noise };
+enum class NoteAddressing { pitchedNotes, fixedTrigger };
+struct TrackId { int value=-1; };
+struct MidiTarget { int output=-1, channel=1, fixedNote=36; }; // Not part of role selection.
+struct InstrumentCapabilities
+{
+    PitchBehaviour pitch=PitchBehaviour::unknown;
+    unsigned articulations=0; // Bit 0 sustained, bit 1 detached; unknown is not all-capable.
+    Range range {0,127}; int polyphony=1;
+    int64_t minDuration=1,maxDuration=32; // Musical ticks, not patch release time.
+};
+struct PlayingTrack
+{
+    TrackId id; InstrumentCapabilities instrument;
+    PlayingStyle style=PlayingStyle::detached;
+    NoteAddressing addressing=NoteAddressing::pitchedNotes;
+    unsigned roles=0; bool available=true;
+};
+inline unsigned roleBit(MusicalRole r){return 1u<<static_cast<unsigned>(r);}
+struct RoleNeed
+{
+    MusicalRole role=MusicalRole::lead; PlayingStyle style=PlayingStyle::sustained;
+    PitchBehaviour pitch=PitchBehaviour::pitched; NoteAddressing addressing=NoteAddressing::pitchedNotes; Range range {0,127};
+    int polyphony=1; int64_t minDuration=1,maxDuration=32;
+};
+inline bool suitable(const PlayingTrack& t,const RoleNeed& n)
+{
+    const auto& c=t.instrument;
+    if(static_cast<unsigned>(n.role)>2||static_cast<unsigned>(n.style)>1)return false;
+    if(c.range.low<0||c.range.high>127||c.range.low>c.range.high||c.polyphony<1
+        ||c.minDuration<1||c.maxDuration<c.minDuration)return false;
+    return t.available&&t.id.value>=0&&(t.roles&roleBit(n.role))&&t.style==n.style&&n.pitch!=PitchBehaviour::unknown&&c.pitch==n.pitch&&t.addressing==n.addressing
+        &&(c.articulations&(1u<<static_cast<unsigned>(n.style)))
+        &&n.range.low>=0&&n.range.high<=127&&n.range.low<=n.range.high
+        &&c.range.low<=n.range.low&&c.range.high>=n.range.high
+        &&n.polyphony>0&&c.polyphony>=n.polyphony&&n.minDuration>0&&n.maxDuration>=n.minDuration
+        &&c.minDuration<=n.minDuration&&c.maxDuration>=n.maxDuration;
+}
+struct DialogueRoles { TrackId question, response; bool valid=false; };
+inline DialogueRoles assignDialogue(const PlayingTrack* tracks,int count,const RoleNeed& question,const RoleNeed& answer)
+{
+    if(count<0||count>16)return {}; // Bounded candidate batch, not an output-layout definition.
+    for(int q=0;q<count;++q)if(suitable(tracks[q],question))
+        for(int a=0;a<count;++a)if(tracks[a].id.value!=tracks[q].id.value&&suitable(tracks[a],answer))
+            return {tracks[q].id,tracks[a].id,true};
+    return {}; // No silent fallback to a patch with incompatible capabilities.
+}
 // Role scheduling only; MIDI rendering and catalog rules remain outside this data.
-struct DialoguePlan { bool reserveArp=false, answer=false; int answerNotes=0; int64_t answerBegin=0, answerEnd=0; };
+struct DialoguePlan { bool reserveResponse=false, answer=false; int answerNotes=0; uint64_t sourceMotif=0; int64_t answerBegin=0, answerEnd=0; };
 inline DialoguePlan planDialogue(const RememberedMotif& memory,int64_t section,int64_t relative,int64_t window)
 {
-    DialoguePlan p;p.reserveArp=relative<2*window;p.answerBegin=window;p.answerEnd=2*window;
+    DialoguePlan p;p.sourceMotif=memory.identity;p.reserveResponse=relative<2*window;p.answerBegin=window;p.answerEnd=2*window;
     p.answer=memory.complete&&(section==memory.introduction||memory.recall(section))
         &&relative>=window&&relative<2*window;
     p.answerNotes=p.answer?std::min(3,memory.count):0;

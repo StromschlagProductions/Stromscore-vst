@@ -242,10 +242,42 @@ int main()
         if(i+1<variation.count)CHECK(variation.notes[static_cast<size_t>(i)].at+length<=variation.notes[static_cast<size_t>(i+1)].at);
     }
     RememberedMotif question;question.observe(60,0,4,0);question.observe(64,8,4,0);question.finish();
-    CHECK(planDialogue(question,0,0,32).reserveArp&&!planDialogue(question,0,0,32).answer);
+    CHECK(planDialogue(question,0,0,32).reserveResponse&&!planDialogue(question,0,0,32).answer);
     CHECK(planDialogue(question,0,32,32).answer);
     CHECK(!planDialogue(question,1,32,32).answer);
     CHECK(planDialogue(question,2,32,32).answer);
-    CHECK(!planDialogue(question,0,64,32).reserveArp);
+    CHECK(!planDialogue(question,0,64,32).reserveResponse);
+    PlayingTrack tracks[2];tracks[0].id={71};tracks[0].roles=roleBit(MusicalRole::lead);
+    tracks[0].style=PlayingStyle::sustained;tracks[0].instrument.polyphony=2;
+    tracks[1].id={12};tracks[1].roles=roleBit(MusicalRole::answer);
+    for(auto& track:tracks){track.instrument.pitch=PitchBehaviour::pitched;track.instrument.articulations=1u<<static_cast<unsigned>(track.style);}
+    RoleNeed q;q.polyphony=2;RoleNeed a;a.role=MusicalRole::answer;a.style=PlayingStyle::detached;
+    CHECK(assignDialogue(tracks,2,q,a).valid);
+    CHECK(assignDialogue(tracks,2,q,a).response.value==12);
+    std::swap(tracks[0],tracks[1]);CHECK(assignDialogue(tracks,2,q,a).question.value==71);
+    for(auto pitch:{PitchBehaviour::noise,PitchBehaviour::unknown})
+    {tracks[0].instrument.pitch=pitch;CHECK(!assignDialogue(tracks,2,q,a).valid);}
+    tracks[0].instrument.pitch=PitchBehaviour::pitched;
+    tracks[0].instrument.maxDuration=2;CHECK(!assignDialogue(tracks,2,q,a).valid);
+    tracks[0].instrument.maxDuration=32;tracks[0].style=PlayingStyle::sustained;CHECK(!assignDialogue(tracks,2,q,a).valid);
+    tracks[0].style=PlayingStyle::detached;tracks[0].instrument.range={60,72};CHECK(!assignDialogue(tracks,2,q,a).valid);
+    a.range={60,72};CHECK(assignDialogue(tracks,2,q,a).valid);
+    tracks[1].instrument.polyphony=1;CHECK(!assignDialogue(tracks,2,q,a).valid);
+    tracks[1].instrument.polyphony=2;
+    tracks[0].addressing=NoteAddressing::fixedTrigger;CHECK(!assignDialogue(tracks,2,q,a).valid);
+    tracks[0].addressing=NoteAddressing::pitchedNotes;
+    tracks[0].instrument.articulations=0;CHECK(!assignDialogue(tracks,2,q,a).valid);
+    tracks[0].instrument.articulations=2;CHECK(assignDialogue(tracks,2,q,a).valid);
+    // Two patches/styles for one musical task: a short-only patch cannot sustain.
+    tracks[0].style=PlayingStyle::sustained;CHECK(!suitable(tracks[0],q));
+    PlayingTrack longPatch;longPatch.id={501};longPatch.roles=roleBit(MusicalRole::accompaniment);
+    longPatch.style=PlayingStyle::sustained;longPatch.instrument.pitch=PitchBehaviour::pitched;
+    longPatch.instrument.articulations=1;longPatch.instrument.polyphony=6;longPatch.instrument.maxDuration=128;
+    RoleNeed chord;chord.role=MusicalRole::accompaniment;chord.polyphony=4;chord.maxDuration=64;
+    CHECK(suitable(longPatch,chord));
+    auto shortPatch=longPatch;shortPatch.id={502};shortPatch.style=PlayingStyle::detached;
+    shortPatch.instrument.articulations=2;shortPatch.instrument.maxDuration=4;
+    CHECK(!suitable(shortPatch,chord));
+    longPatch.available=false;CHECK(!suitable(longPatch,chord));
     std::cout << "Composition core tests passed\n";
 }

@@ -1637,15 +1637,40 @@ private:
         // Explicit cell + motif, no buildup, four-bar-or-longer 4/4 phrases only.
         if(s.genre!=GenreScore||!s.motif||s.arpFigure!=ArpCell||s.scene||s.meterNum!=4||s.meterDen!=4
             ||phraseBars<4||!on[kArp]||!on[kGegenstimme])return false;
+        // Current free-mode binding; IDs are adapter tokens, not musical roles or channels.
+        struct Binding { composition::TrackId track; composition::MidiTarget target; };
+        const Binding bindings[2]={{{100},{OutCounter,s.channel[OutCounter],36}},{{200},{OutArp,s.channel[OutArp],36}}};
+        composition::PlayingTrack tracks[2];
+        tracks[0].id=bindings[0].track;tracks[0].style=composition::PlayingStyle::sustained;
+        tracks[0].roles=composition::roleBit(composition::MusicalRole::lead);
+        tracks[0].instrument.polyphony=2; // Existing one-tick legato overlap.
+        tracks[1].id=bindings[1].track;tracks[1].style=composition::PlayingStyle::detached;
+        tracks[1].roles=composition::roleBit(composition::MusicalRole::answer);
+        for(int i=0;i<2;++i)
+        {
+            auto& track=tracks[i];
+            track.instrument.pitch=composition::PitchBehaviour::pitched;
+            track.instrument.articulations=1u<<static_cast<unsigned>(track.style);
+            const int output=bindings[i].target.output,ri=kOutputRange[output];
+            track.instrument.range=rangeOn(output)?composition::Range{s.rangeLo[ri],s.rangeHi[ri]}:composition::Range{0,127};
+        }
+        composition::RoleNeed question;question.polyphony=2;question.range=tracks[0].instrument.range;
+        composition::RoleNeed answer;answer.role=composition::MusicalRole::answer;
+        answer.style=composition::PlayingStyle::detached;answer.range=tracks[1].instrument.range;
+        const auto assignment=composition::assignDialogue(tracks,2,question,answer);
+        if(!assignment.valid)return true; // Reserved context, no incompatible fallback.
+        int responseOutput=-1;
+        for(const auto& binding:bindings)if(binding.track.value==assignment.response.value)responseOutput=binding.target.output;
+        if(responseOutput<0)return true;
         const auto relative=k-p.phraseStart;const long long window=2LL*meter.len;
         if(relative>=window)motifMemory.finish();
         const auto plan=composition::planDialogue(motifMemory,p.phrase-phraseOf(sceneStep),relative,window);
-        if(!plan.reserveArp)return false;
+        if(!plan.reserveResponse)return false;
         if(!plan.answer)return true;
         const auto chord=chordFor(p,kArp,s);const auto& shape=kShapes[chord.type];
-        const int oct=12*octaveOf(OutArp);
-        const int lo=rangeOn(OutArp)?s.rangeLo[kArp]-oct:60;
-        const int hi=rangeOn(OutArp)?s.rangeHi[kArp]-oct:84;
+        const int oct=12*octaveOf(responseOutput);
+        const int lo=rangeOn(responseOutput)?s.rangeLo[kArp]-oct:60;
+        const int hi=rangeOn(responseOutput)?s.rangeHi[kArp]-oct:84;
         int ladder[128],count=0;
         for(int pitch=lo;pitch<=hi;++pitch)for(int j=0;j<shape.n;++j)
             if((pitch%12+12)%12==(s.key+chord.root+shape.iv[j])%12){ladder[count++]=pitch;break;}
@@ -1660,7 +1685,7 @@ private:
             if(i+1<notes)length=std::min(length,motifMemory.notes[static_cast<size_t>(i+1)].at-n.at);
             if(length<=0)continue;
             const int pitch=composition::adaptMotifPitch(base+n.interval,ladder,count);
-            noteOn(OutArp,pitch,n.velocity,k+length,offset,out);
+            noteOn(responseOutput,pitch,n.velocity,k+length,offset,out);
         }
         return true;
     }

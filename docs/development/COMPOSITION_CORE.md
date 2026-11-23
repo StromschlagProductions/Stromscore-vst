@@ -352,3 +352,52 @@ enthält einen zusätzlichen Dialogfall. Subjektive musikalische Hörabnahme ble
 Prüfergebnis: finaler Linux/Xvfb-CTest 4/4, ASan/UBSan 3/3 und Python-Releaseprüfer
 7/7 bestanden. Einschließlich des zusätzlichen Dialogfalls über 40 Takte mit
 Live-/Exportgleichheit. Windows/pluginval und Hörabnahme wurden nicht durchgeführt.
+
+## Rollen, Spielweisen, Instrumente und MIDI-Ziele
+
+`MusicalRole` beschreibt zunächst Führung, Begleitung und Antwort. `RoleNeed` enthält
+benötigte Spielweise, Tonhöhenverhalten, Bereich, Polyphonie und minimale/maximale
+Notendauer in musikalischen Ticks. `PlayingTrack` benennt eine verfügbare Spielmöglichkeit
+mit einer opaken ID und expliziten Instrumentenfähigkeiten. `MidiTarget` und die
+Bindung im Generator sind davon getrennt. Rollenwahl enthält keine MIDI-Kanalnummer.
+
+Tonhöhenverhalten unterscheidet unbekannt, tonhöhensteuerbar und geräuschhaft.
+Unabhängig davon unterscheidet die Notenadressierung freie Tonhöhen und feste Trigger.
+Ein tonales Einzelsample kann damit ebenfalls ein fester Trigger sein; geräuschhaft ist
+nicht gleichbedeutend mit atonaler Musik. Unbekannte Fähigkeiten werden nicht als
+universell geeignet behandelt. Lang/kurz sind getrennte Spielweisen mit expliziten
+Fähigkeitsbits; ein Instrument mit ausschließlich kurzer Spielweise wird nicht für
+gehaltene Figuren ausgewählt. Fehlende Dauern, Polyphonie oder Bereichseignung führen
+zu keiner Zuweisung statt zu einem stillen Ersatzpatch.
+
+`assignDialogue` wählt unterschiedliche geeignete Spur-IDs für Frage und Antwort.
+`DialoguePlan` reserviert nun eine Antwortspur statt eines Arp-Ausgangs und referenziert
+über `sourceMotif` die inhaltliche Motivkennung. Das Motivgedächtnis enthält weiterhin
+keine Ausgänge/Kanäle; sein Speicherort bleibt vorerst der Generator, noch kein
+mehrstimmiger Motivkatalog. Der aktuelle Adapter bindet die gewählten IDs an die bisherigen
+Gegenstimmen-/Arp-Ausgänge und damit an die vorhandenen MIDI-Kanalparameter.
+Keine neue frei konfigurierbare Spurverwaltung oder Umbelegung im UI wurde eingeführt.
+
+Wichtig: Ohne Patch-Konfiguration beschreibt der Adapter nur die bisherigen Annahmen
+seiner Erzeuger: tonhöhensteuerbare Gegenstimme mit Legatoüberlappung und tonhöhensteuerbare
+kurze Antwort. Er kann die tatsächlichen Fähigkeiten einer externen Library nicht erkennen.
+Die vorhandenen Lang-/Kurz-Ausgänge von Fläche/Bass bleiben unverändert. Das Modell erlaubt,
+sie später als getrennte Spielmöglichkeiten mit unterschiedlichen Instrumentenfähigkeiten
+zu registrieren; sie werden in diesem kleinen Schritt nicht zu Dialogkandidaten gemacht.
+Der feste Stich bleibt ebenfalls außerhalb der melodischen Kandidaten.
+
+Tests: opake/neugeordnete IDs ohne MIDI-Abhängigkeit, ungeeignete Tonhöhen-/Triggerarten,
+Polyphonie, Bereiche, Dauern und Artikulationen. Die vorhandenen MIDI-Dialog-, Transport-
+und Live-/Exporttests bleiben aktiv. Die sechs künftigen Bediengruppen und neun Standardziele
+sind beschlossen, werden hier aber weder im UI noch als feste musikalische Grenze umgesetzt.
+
+Später ergänzen: vom Nutzer beziehungsweise Patchadapter deklarierte Fähigkeiten,
+mehrere Spielmöglichkeiten pro Instrument und bedarfsgerechte Registrierung der bisherigen
+Lang-/Kurz-Ziele. Keyswitches, Library-spezifisches Legato, Releasezeiten und Controller-
+Semantik sind nicht implementiert. Nächster kleiner Schritt: die bestehenden Ausgänge
+in einem einheitlichen, validierten Fähigkeitskatalog des Adapters beschreiben.
+
+Prüfergebnis: finaler Linux/Xvfb-CTest 4/4 und ASan/UBSan 3/3 bestanden;
+Python-Releaseprüfer 7/7 bestanden. Einschließlich bestehender Dialog-/Bereichs-/Kanalteilungs-,
+Seek-/Loop-/Szenenstart- und Live-/Exportprüfungen. Windows/pluginval und subjektive
+Hörabnahme wurden nicht durchgeführt. Kein Push und kein Release.
