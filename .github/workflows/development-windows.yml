@@ -30,8 +30,9 @@ jobs:
           "ZIP_NAME=Stromscore-2.2-DEV-$short-Windows-x64-VST3.zip" >> $env:GITHUB_ENV
           "ARTIFACT_NAME=Stromscore-2.2-DEV-$short-Windows-x64" >> $env:GITHUB_ENV
           New-Item -ItemType Directory -Force package | Out-Null
-          @("STROMSCORE 2.2 DEVELOPMENT TEST BUILD", "Commit: $env:GITHUB_SHA", "Musical source: 0a4879a", "Branch: $env:GITHUB_REF_NAME", "No release. Same plugin ID as stable: temporarily replace, do not install both.") | Set-Content package/BUILD.txt
+          @("STROMSCORE 2.2 DEVELOPMENT TEST BUILD", "Commit: $env:GITHUB_SHA", "Source: $env:GITHUB_SHA (see MUSICAL_TIME_BASE.md for migration review)", "Branch: $env:GITHUB_REF_NAME", "No release. Same plugin ID as stable: temporarily replace, do not install both.") | Set-Content package/BUILD.txt
           Copy-Item docs/development/STUDIO_ONE_TESTBUILD.md package/HOERTEST.md
+          Copy-Item docs/development/MUSICAL_TIME_BASE.md package/MUSICAL_TIME_BASE.md
       - name: Windows x64 konfigurieren
         shell: pwsh
         run: cmake -B build -A x64 "-DSTROMSCORE_DEVELOPMENT_LABEL=$env:DEV_LABEL"
