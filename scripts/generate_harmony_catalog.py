@@ -47,7 +47,8 @@ def _validate(data):
   p=f'sources[{i}]';obj(s,['id','text','verification'],p);text(s['id'],p);text(s['text'],p);text(s['verification'],p);require(s['id'] not in sources,p,'duplicate source');sources[s['id']]=s
  templates={};symbols=set();require(type(cat['templates'])is list and len(cat['templates'])>0,'templates','nonempty array required')
  for i,t in enumerate(cat['templates']):
-  p=f'templates[{i}]';obj(t,['id','symbol','name','xyz','genres','tonality','source_ref','chords'],p)
+  p=f'templates[{i}]';obj(t,['id','symbol','name','xyz','genres','tonality','source_ref','chords','coloration'],p)
+  require(t['coloration'] in ('flexible','protected'),p+'.coloration','flexible or protected required')
   integer(t['id'],1,0xffffffff,p+'.id');require(t['id']!=65535,p,'reserved custom ID');require(t['id'] not in templates,p,'duplicate stable ID');identifier(t['symbol'],p+'.symbol');require(t['symbol'] not in symbols and t['symbol'] not in ('custom','invalid'),p,'duplicate/reserved symbol');symbols.add(t['symbol']);text(t['name'],p+'.name')
   sequence(t['xyz'],p+'.xyz');require(len(t['xyz'])==3,p,'three static coordinates required')
   for v in t['xyz']:number(v,p+'.xyz');require(0<=v<=1,p,'XYZ outside unit cube')
@@ -70,11 +71,11 @@ def _validate(data):
  for t in templates.values():require(all(t['id'] in cat['pools'][g] for g in t['genres']),t['symbol'],'genre suitability and published pools disagree')
  arr=data['arrangements.json'];obj(arr,['schema_version','recipes','bindings'],'arrangements');recipes={}
  for r in arr['recipes']:
-  obj(r,['id','arp','bass','pad','hook','coloration'],'recipe');text(r['id'],'recipe.id');require(r['id'] not in recipes,'recipe','duplicate recipe')
+  obj(r,['id','arp','bass','pad','hook'],'recipe');text(r['id'],'recipe.id');require(r['id'] not in recipes,'recipe','duplicate recipe')
   require(type(r['arp'])is list and len(r['arp'])==2 and all(v in ARP[1:] for v in r['arp']),'recipe','two concrete existing arp choices required')
   require(type(r['bass'])is list and len(r['bass'])==2 and all(v in BASS[1:] for v in r['bass']),'recipe','two concrete existing bass choices required');require(r['pad'] in PAD[1:],'recipe','concrete pad pattern required')
   if r['hook'] is not None:integer(r['hook'],0,8,'recipe.hook')
-  require(r['coloration']=='free','recipe.coloration','only unchanged free coloration is supported in this stage');recipes[r['id']]=r
+  recipes[r['id']]=r
  bindings={}
  for r in arr['bindings']:
   obj(r,['template_id','recipe'],'binding');require(type(r['template_id'])is int and r['template_id'] in templates,'binding','unknown template');require(r['template_id'] not in bindings,'binding','duplicate default binding');require(r['recipe'] in recipes,'binding','unknown recipe');bindings[r['template_id']]=r['recipe']
@@ -122,7 +123,7 @@ def emit(data):
  pure=banner+'#include "HarmonyTypes.h"\nnamespace stromscore {\ninline constexpr std::array<HarmonyTemplate,'+str(len(ts))+'> harmonyTemplates {{\n'
  for t in ts:
   chords=','.join('{'+','.join([str(c['root']),c['type'],str(c['bars']),'-1' if c['bass']is None else str(c['bass'])])+'}' for c in t['chords'])
-  pure+='{WendungId::'+t['symbol']+','+string(t['name'])+','+','.join(flt(v) for v in t['xyz'])+','+str(len(t['chords']))+',{{'+chords+'}},{'+str(t['tonality']['center_pc'])+',composition::Mode::'+t['tonality']['mode']+'},'+str(sum(1 if g=='score' else 2 for g in t['genres']))+','+string(t['source_ref'])+'},\n'
+  pure+='{WendungId::'+t['symbol']+','+string(t['name'])+','+','.join(flt(v) for v in t['xyz'])+','+str(len(t['chords']))+',{{'+chords+'}},{'+str(t['tonality']['center_pc'])+',composition::Mode::'+t['tonality']['mode']+'},'+str(sum(1 if g=='score' else 2 for g in t['genres']))+','+string(t['source_ref'])+',ChordColoration::'+('flexible' if t['coloration']=='flexible' else 'protectedColor')+'},\n'
  pure+='}};\ninline constexpr int harmonyIndex(WendungId id){\n int lo=0,hi=static_cast<int>(harmonyTemplates.size());while(lo<hi){int mid=lo+(hi-lo)/2;if(static_cast<uint32_t>(harmonyTemplates[mid].id)<static_cast<uint32_t>(id))lo=mid+1;else hi=mid;}return lo<static_cast<int>(harmonyTemplates.size())&&harmonyTemplates[lo].id==id?lo:-1;\n}\ninline constexpr const HarmonyTemplate* findHarmonyTemplate(WendungId id){int i=harmonyIndex(id);return i<0?nullptr:&harmonyTemplates[i];}\n}\n';out['Source/HarmonyCatalog.generated.h']=pure
  arr=banner+'#include "ArrangementTypes.h"\n#include "HarmonyCatalog.generated.h"\nnamespace stromscore {\ninline constexpr std::array<ArrangementRecipe,'+str(len(ts))+'> defaultArrangements {{\n'
  for t in ts:

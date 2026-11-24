@@ -45,8 +45,8 @@
   "duplicate_policy": "warning only; preserve IDs, entry phase and independent strategies",
   "source_sha256": {
     "chord_types.json": "90b1883ea6e857dfe6d20fb17534dd1b406739dd4ce634ff3bd94e9eac3954df",
-    "catalog.json": "721988f5d87d45afa61ac35bde491f9ca9db51ec77c9db7c4b8f288391d0e48d",
-    "arrangements.json": "76ea0b7221782c7d4a96e72a08440c97662fbc4508049e64c3ba6f7c8a50db93",
+    "catalog.json": "c49ad8926d6435af2de75877bda98bdc626a4a420efa7015bf60bf96c7739e04",
+    "arrangements.json": "c7bee504caa7b02bc9ef2241ff6db06413176dca051ef11e365e65bb62330313",
     "profiles.json": "6905877e8b9ac5a7b0fa7207b924f93604be35bc5200812c55ba4a97fe050c4e",
     "notes.json": "fce17ca15aaaae22f9c39d79985b771074dbdbb119f1fbcd958c1ba81ac469ba"
   }

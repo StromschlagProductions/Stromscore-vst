@@ -31,11 +31,20 @@ class HarmonyDataTests(unittest.TestCase):
    lambda d:d['profiles.json']['profiles'][1]['weights'][0].update(factor=0),lambda d:d['profiles.json']['profiles'][1]['weights'][0].update(factor=float('inf')),
    lambda d:d['profiles.json']['profiles'][1]['weights'].append(copy.deepcopy(d['profiles.json']['profiles'][1]['weights'][0])),
    lambda d:d['profiles.json']['profiles'][1].update(id=0),lambda d:d['arrangements.json']['recipes'][0].update(arp=['ArpUnknown','ArpUp']),
-   lambda d:d['arrangements.json']['recipes'][0].update(coloration='literal'),lambda d:d['arrangements.json']['bindings'][0].update(recipe='unknown'),
+   lambda d:d['catalog.json']['templates'][0].update(coloration='literal'),lambda d:d['arrangements.json']['bindings'][0].update(recipe='unknown'),
    lambda d:d['chord_types.json']['types'][0].update(intervals=[0,4,99]),lambda d:d['chord_types.json']['types'][0].update(intervals=[0,4,4]),
    lambda d:d['chord_types.json']['types'][0].update(intervals=[0,2,4,5,7,9]),lambda d:d['chord_types.json']['types'][0].update(value=True),lambda d:d['chord_types.json']['types'][0].update(intervals=[0,3,7])]
   for i,mutation in enumerate(mutations):
    with self.subTest(case=i):self.rejected(mutation)
+ def test_coloration_is_a_validated_harmonic_fact(self):
+  self.assertTrue(all(t['coloration']=='flexible' for t in self.original['catalog.json']['templates']))
+  d=copy.deepcopy(self.original);d['catalog.json']['templates'][0]['coloration']='protected'
+  m=gen.validate(d);self.assertEqual(m['templates'][1001]['coloration'],'protected')
+  outputs=gen.emit(d);self.assertIn('ChordColoration::protectedColor',outputs['Source/HarmonyCatalog.generated.h'])
+  self.assertEqual(outputs['Source/HarmonyStrategies.generated.h'],gen.emit(self.original)['Source/HarmonyStrategies.generated.h'])
+  self.rejected(lambda d:d['catalog.json']['templates'][0].pop('coloration'))
+  self.rejected(lambda d:d['catalog.json']['templates'][0].update(coloration=True))
+  self.rejected(lambda d:d['arrangements.json']['recipes'][0].update(coloration='protected'))
  def test_nonchord_slash_bass_is_valid(self):
   d=copy.deepcopy(self.original);t=d['catalog.json']['templates'][0];t['chords']=[{'root':10,'type':'Maj','bars':8,'bass':0}];t['tonality']={'center_pc':0,'mode':'mixolydian'}
   gen.validate(d)

@@ -10,11 +10,12 @@ struct Wendung
 {
     const char* name;float x,y,z;int n;Chord ch[kMaxChords];
     int arp[2],bass[2],pad;WendungId id=WendungId::custom;
+    ChordColoration coloration=ChordColoration::flexible;
 };
 inline constexpr Wendung playbackTemplate(int index)
 {
     const auto& h=harmonyTemplates[index];const auto& recipe=defaultArrangements[index];
-    Wendung w{};w.name=h.name;w.x=h.x;w.y=h.y;w.z=h.z;w.n=h.count;w.id=h.id;
+    Wendung w{};w.name=h.name;w.x=h.x;w.y=h.y;w.z=h.z;w.n=h.count;w.id=h.id;w.coloration=h.coloration;
     for(int i=0;i<h.count;++i)w.ch[i]=h.chords[static_cast<size_t>(i)];
     for(int i=0;i<2;++i){w.arp[i]=recipe.arp[i];w.bass[i]=recipe.bass[i];}w.pad=recipe.pad;return w;
 }

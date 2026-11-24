@@ -12,8 +12,7 @@
         "BassHeld"
       ],
       "pad": "PadHeld",
-      "hook": null,
-      "coloration": "free"
+      "hook": null
     },
     {
       "id": "neutral_1002",
@@ -26,8 +25,7 @@
         "BassEighth"
       ],
       "pad": "PadHeld",
-      "hook": null,
-      "coloration": "free"
+      "hook": null
     },
     {
       "id": "neutral_1003",
@@ -40,8 +38,7 @@
         "BassPendulum"
       ],
       "pad": "PadHeld",
-      "hook": null,
-      "coloration": "free"
+      "hook": null
     },
     {
       "id": "neutral_1004",
@@ -54,8 +51,7 @@
         "BassHalf"
       ],
       "pad": "PadHeld",
-      "hook": null,
-      "coloration": "free"
+      "hook": null
     },
     {
       "id": "neutral_1005",
@@ -68,8 +64,7 @@
         "BassPendulum"
       ],
       "pad": "PadHeld",
-      "hook": null,
-      "coloration": "free"
+      "hook": null
     },
     {
       "id": "neutral_1006",
@@ -82,8 +77,7 @@
         "BassPendulum"
       ],
       "pad": "PadHeld",
-      "hook": null,
-      "coloration": "free"
+      "hook": null
     },
     {
       "id": "neutral_1007",
@@ -96,8 +90,7 @@
         "BassHalf"
       ],
       "pad": "PadHeld",
-      "hook": null,
-      "coloration": "free"
+      "hook": null
     },
     {
       "id": "neutral_1009",
@@ -110,8 +103,7 @@
         "BassHeld"
       ],
       "pad": "PadHeld",
-      "hook": null,
-      "coloration": "free"
+      "hook": null
     },
     {
       "id": "neutral_1010",
@@ -124,8 +116,7 @@
         "BassPendulum"
       ],
       "pad": "PadHeld",
-      "hook": null,
-      "coloration": "free"
+      "hook": null
     },
     {
       "id": "neutral_1011",
@@ -138,8 +129,7 @@
         "BassQuarter"
       ],
       "pad": "PadStaccato",
-      "hook": null,
-      "coloration": "free"
+      "hook": null
     },
     {
       "id": "neutral_1012",
@@ -152,8 +142,7 @@
         "BassEighth"
       ],
       "pad": "PadPulse",
-      "hook": null,
-      "coloration": "free"
+      "hook": null
     },
     {
       "id": "neutral_1013",
@@ -166,8 +155,7 @@
         "BassPendulum"
       ],
       "pad": "PadStabs",
-      "hook": null,
-      "coloration": "free"
+      "hook": null
     },
     {
       "id": "neutral_1014",
@@ -180,8 +168,7 @@
         "BassEighth"
       ],
       "pad": "PadStabs",
-      "hook": null,
-      "coloration": "free"
+      "hook": null
     },
     {
       "id": "neutral_1015",
@@ -194,8 +181,7 @@
         "BassPendulum"
       ],
       "pad": "PadStabs",
-      "hook": null,
-      "coloration": "free"
+      "hook": null
     },
     {
       "id": "neutral_1016",
@@ -208,8 +194,7 @@
         "BassEighth"
       ],
       "pad": "PadPulse",
-      "hook": null,
-      "coloration": "free"
+      "hook": null
     },
     {
       "id": "neutral_1017",
@@ -222,8 +207,7 @@
         "BassQuarter"
       ],
       "pad": "PadPulse",
-      "hook": null,
-      "coloration": "free"
+      "hook": null
     },
     {
       "id": "neutral_1018",
@@ -236,8 +220,7 @@
         "BassQuarter"
       ],
       "pad": "PadHeld",
-      "hook": null,
-      "coloration": "free"
+      "hook": null
     },
     {
       "id": "neutral_1019",
@@ -250,8 +233,7 @@
         "BassWalking"
       ],
       "pad": "PadStabs",
-      "hook": null,
-      "coloration": "free"
+      "hook": null
     },
     {
       "id": "neutral_1020",
@@ -264,8 +246,7 @@
         "BassHeartbeat"
       ],
       "pad": "PadHeld",
-      "hook": null,
-      "coloration": "free"
+      "hook": null
     },
     {
       "id": "neutral_1021",
@@ -278,8 +259,7 @@
         "BassHalf"
       ],
       "pad": "PadHeld",
-      "hook": null,
-      "coloration": "free"
+      "hook": null
     },
     {
       "id": "neutral_1022",
@@ -292,8 +272,7 @@
         "BassArpeggio"
       ],
       "pad": "PadStabs",
-      "hook": null,
-      "coloration": "free"
+      "hook": null
     },
     {
       "id": "neutral_1023",
@@ -306,8 +285,7 @@
         "BassFunk"
       ],
       "pad": "PadStabs",
-      "hook": null,
-      "coloration": "free"
+      "hook": null
     },
     {
       "id": "neutral_1024",
@@ -320,8 +298,7 @@
         "BassQuarter"
       ],
       "pad": "PadHeld",
-      "hook": null,
-      "coloration": "free"
+      "hook": null
     },
     {
       "id": "neutral_1025",
@@ -334,8 +311,7 @@
         "BassHeld"
       ],
       "pad": "PadHeld",
-      "hook": null,
-      "coloration": "free"
+      "hook": null
     },
     {
       "id": "neutral_1026",
@@ -348,8 +324,7 @@
         "BassAlternating"
       ],
       "pad": "PadPulse",
-      "hook": null,
-      "coloration": "free"
+      "hook": null
     },
     {
       "id": "neutral_1027",
@@ -362,8 +337,7 @@
         "BassPendulum"
       ],
       "pad": "PadHeld",
-      "hook": null,
-      "coloration": "free"
+      "hook": null
     },
     {
       "id": "neutral_1028",
@@ -376,8 +350,7 @@
         "BassHalf"
       ],
       "pad": "PadHeld",
-      "hook": null,
-      "coloration": "free"
+      "hook": null
     },
     {
       "id": "neutral_1029",
@@ -390,8 +363,7 @@
         "BassHeld"
       ],
       "pad": "PadHeld",
-      "hook": null,
-      "coloration": "free"
+      "hook": null
     },
     {
       "id": "neutral_1030",
@@ -404,8 +376,7 @@
         "BassArpeggio"
       ],
       "pad": "PadHeld",
-      "hook": null,
-      "coloration": "free"
+      "hook": null
     },
     {
       "id": "neutral_1031",
@@ -418,8 +389,7 @@
         "BassHeld"
       ],
       "pad": "PadHeld",
-      "hook": null,
-      "coloration": "free"
+      "hook": null
     },
     {
       "id": "neutral_1032",
@@ -432,8 +402,7 @@
         "BassArpeggio"
       ],
       "pad": "PadHeld",
-      "hook": null,
-      "coloration": "free"
+      "hook": null
     },
     {
       "id": "neutral_1033",
@@ -446,8 +415,7 @@
         "BassHalf"
       ],
       "pad": "PadHeld",
-      "hook": null,
-      "coloration": "free"
+      "hook": null
     },
     {
       "id": "neutral_1035",
@@ -460,8 +428,7 @@
         "BassHalf"
       ],
       "pad": "PadHeld",
-      "hook": null,
-      "coloration": "free"
+      "hook": null
     },
     {
       "id": "neutral_1036",
@@ -474,8 +441,7 @@
         "BassHeld"
       ],
       "pad": "PadHeld",
-      "hook": null,
-      "coloration": "free"
+      "hook": null
     },
     {
       "id": "neutral_1037",
@@ -488,8 +454,7 @@
         "BassQuarter"
       ],
       "pad": "PadHeld",
-      "hook": null,
-      "coloration": "free"
+      "hook": null
     },
     {
       "id": "neutral_1038",
@@ -502,8 +467,7 @@
         "BassHalf"
       ],
       "pad": "PadHeld",
-      "hook": null,
-      "coloration": "free"
+      "hook": null
     },
     {
       "id": "neutral_1039",
@@ -516,8 +480,7 @@
         "BassHalf"
       ],
       "pad": "PadHeld",
-      "hook": null,
-      "coloration": "free"
+      "hook": null
     },
     {
       "id": "neutral_1040",
@@ -530,8 +493,7 @@
         "BassHalf"
       ],
       "pad": "PadHeld",
-      "hook": null,
-      "coloration": "free"
+      "hook": null
     },
     {
       "id": "neutral_1041",
@@ -544,8 +506,7 @@
         "BassEighth"
       ],
       "pad": "PadStabs",
-      "hook": null,
-      "coloration": "free"
+      "hook": null
     },
     {
       "id": "neutral_1042",
@@ -558,8 +519,7 @@
         "BassEighth"
       ],
       "pad": "PadHeld",
-      "hook": null,
-      "coloration": "free"
+      "hook": null
     },
     {
       "id": "neutral_1043",
@@ -572,8 +532,7 @@
         "BassAlternating"
       ],
       "pad": "PadStaccato",
-      "hook": null,
-      "coloration": "free"
+      "hook": null
     },
     {
       "id": "neutral_1044",
@@ -586,8 +545,7 @@
         "BassQuarter"
       ],
       "pad": "PadHeld",
-      "hook": null,
-      "coloration": "free"
+      "hook": null
     },
     {
       "id": "neutral_1045",
@@ -600,8 +558,7 @@
         "BassEighth"
       ],
       "pad": "PadPulse",
-      "hook": null,
-      "coloration": "free"
+      "hook": null
     },
     {
       "id": "neutral_1046",
@@ -614,8 +571,7 @@
         "BassPulse"
       ],
       "pad": "PadStabs",
-      "hook": null,
-      "coloration": "free"
+      "hook": null
     },
     {
       "id": "neutral_1047",
@@ -628,8 +584,7 @@
         "BassQuarter"
       ],
       "pad": "PadPulse",
-      "hook": null,
-      "coloration": "free"
+      "hook": null
     },
     {
       "id": "neutral_1048",
@@ -642,8 +597,7 @@
         "BassEighth"
       ],
       "pad": "PadPulse",
-      "hook": null,
-      "coloration": "free"
+      "hook": null
     },
     {
       "id": "neutral_2001",
@@ -656,8 +610,7 @@
         "BassHiNrg"
       ],
       "pad": "PadHeld",
-      "hook": null,
-      "coloration": "free"
+      "hook": null
     },
     {
       "id": "neutral_2002",
@@ -670,8 +623,7 @@
         "BassEighth"
       ],
       "pad": "PadHeld",
-      "hook": null,
-      "coloration": "free"
+      "hook": null
     },
     {
       "id": "neutral_2003",
@@ -684,8 +636,7 @@
         "BassPulse"
       ],
       "pad": "PadHeld",
-      "hook": null,
-      "coloration": "free"
+      "hook": null
     },
     {
       "id": "neutral_2004",
@@ -698,8 +649,7 @@
         "BassHeartbeat"
       ],
       "pad": "PadHeld",
-      "hook": null,
-      "coloration": "free"
+      "hook": null
     },
     {
       "id": "neutral_2005",
@@ -712,8 +662,7 @@
         "BassHalf"
       ],
       "pad": "PadHeld",
-      "hook": null,
-      "coloration": "free"
+      "hook": null
     },
     {
       "id": "neutral_2006",
@@ -726,8 +675,7 @@
         "BassPulse"
       ],
       "pad": "PadStabs",
-      "hook": null,
-      "coloration": "free"
+      "hook": null
     },
     {
       "id": "neutral_2007",
@@ -740,8 +688,7 @@
         "BassPulse"
       ],
       "pad": "PadStabs",
-      "hook": null,
-      "coloration": "free"
+      "hook": null
     },
     {
       "id": "neutral_2008",
@@ -754,8 +701,7 @@
         "BassHiNrg"
       ],
       "pad": "PadGated",
-      "hook": null,
-      "coloration": "free"
+      "hook": null
     },
     {
       "id": "neutral_2009",
@@ -768,8 +714,7 @@
         "BassGallop"
       ],
       "pad": "PadStabs",
-      "hook": null,
-      "coloration": "free"
+      "hook": null
     },
     {
       "id": "neutral_2010",
@@ -782,8 +727,7 @@
         "BassEighth"
       ],
       "pad": "PadGated",
-      "hook": null,
-      "coloration": "free"
+      "hook": null
     },
     {
       "id": "neutral_2011",
@@ -796,8 +740,7 @@
         "BassGallop"
       ],
       "pad": "PadStabs",
-      "hook": null,
-      "coloration": "free"
+      "hook": null
     },
     {
       "id": "neutral_2012",
@@ -810,8 +753,7 @@
         "BassGallop"
       ],
       "pad": "PadPulse",
-      "hook": null,
-      "coloration": "free"
+      "hook": null
     },
     {
       "id": "neutral_2013",
@@ -824,8 +766,7 @@
         "BassGallop"
       ],
       "pad": "PadStabs",
-      "hook": null,
-      "coloration": "free"
+      "hook": null
     },
     {
       "id": "neutral_2014",
@@ -838,8 +779,7 @@
         "BassHiNrg"
       ],
       "pad": "PadGated",
-      "hook": null,
-      "coloration": "free"
+      "hook": null
     },
     {
       "id": "neutral_2015",
@@ -852,8 +792,7 @@
         "BassEighth"
       ],
       "pad": "PadGated",
-      "hook": null,
-      "coloration": "free"
+      "hook": null
     },
     {
       "id": "neutral_2016",
@@ -866,8 +805,7 @@
         "BassQuarter"
       ],
       "pad": "PadHeld",
-      "hook": null,
-      "coloration": "free"
+      "hook": null
     },
     {
       "id": "neutral_2017",
@@ -880,8 +818,7 @@
         "BassGallop"
       ],
       "pad": "PadStabs",
-      "hook": null,
-      "coloration": "free"
+      "hook": null
     },
     {
       "id": "neutral_2018",
@@ -894,8 +831,7 @@
         "BassEighth"
       ],
       "pad": "PadHeld",
-      "hook": null,
-      "coloration": "free"
+      "hook": null
     },
     {
       "id": "neutral_2019",
@@ -908,8 +844,7 @@
         "BassAlternating"
       ],
       "pad": "PadGated",
-      "hook": null,
-      "coloration": "free"
+      "hook": null
     },
     {
       "id": "neutral_2020",
@@ -922,8 +857,7 @@
         "BassHiNrg"
       ],
       "pad": "PadPulse",
-      "hook": null,
-      "coloration": "free"
+      "hook": null
     },
     {
       "id": "neutral_2021",
@@ -936,8 +870,7 @@
         "BassPulse"
       ],
       "pad": "PadStabs",
-      "hook": null,
-      "coloration": "free"
+      "hook": null
     },
     {
       "id": "neutral_2022",
@@ -950,8 +883,7 @@
         "BassEighth"
       ],
       "pad": "PadPulse",
-      "hook": null,
-      "coloration": "free"
+      "hook": null
     },
     {
       "id": "neutral_2023",
@@ -964,8 +896,7 @@
         "BassPulse"
       ],
       "pad": "PadHeld",
-      "hook": null,
-      "coloration": "free"
+      "hook": null
     },
     {
       "id": "neutral_2024",
@@ -978,8 +909,7 @@
         "BassHalf"
       ],
       "pad": "PadHeld",
-      "hook": null,
-      "coloration": "free"
+      "hook": null
     },
     {
       "id": "neutral_2025",
@@ -992,8 +922,7 @@
         "BassFunk"
       ],
       "pad": "PadGated",
-      "hook": null,
-      "coloration": "free"
+      "hook": null
     },
     {
       "id": "neutral_2026",
@@ -1006,8 +935,7 @@
         "BassEighth"
       ],
       "pad": "PadStaccato",
-      "hook": null,
-      "coloration": "free"
+      "hook": null
     },
     {
       "id": "neutral_2027",
@@ -1020,8 +948,7 @@
         "BassFunk"
       ],
       "pad": "PadStabs",
-      "hook": null,
-      "coloration": "free"
+      "hook": null
     },
     {
       "id": "neutral_2028",
@@ -1034,8 +961,7 @@
         "BassArpeggio"
       ],
       "pad": "PadStabs",
-      "hook": 0,
-      "coloration": "free"
+      "hook": 0
     },
     {
       "id": "neutral_2029",
@@ -1048,8 +974,7 @@
         "BassHalf"
       ],
       "pad": "PadHeld",
-      "hook": 1,
-      "coloration": "free"
+      "hook": 1
     },
     {
       "id": "neutral_2030",
@@ -1062,8 +987,7 @@
         "BassHalf"
       ],
       "pad": "PadHeld",
-      "hook": 2,
-      "coloration": "free"
+      "hook": 2
     },
     {
       "id": "neutral_2031",
@@ -1076,8 +1000,7 @@
         "BassPedal"
       ],
       "pad": "PadGated",
-      "hook": 3,
-      "coloration": "free"
+      "hook": 3
     },
     {
       "id": "neutral_2032",
@@ -1090,8 +1013,7 @@
         "BassPedal"
       ],
       "pad": "PadHeld",
-      "hook": 4,
-      "coloration": "free"
+      "hook": 4
     },
     {
       "id": "neutral_2033",
@@ -1104,8 +1026,7 @@
         "BassFunk"
       ],
       "pad": "PadGated",
-      "hook": 5,
-      "coloration": "free"
+      "hook": 5
     },
     {
       "id": "neutral_2034",
@@ -1118,8 +1039,7 @@
         "BassQuarter"
       ],
       "pad": "PadStabs",
-      "hook": 6,
-      "coloration": "free"
+      "hook": 6
     },
     {
       "id": "neutral_2035",
@@ -1132,8 +1052,7 @@
         "BassAlternating"
       ],
       "pad": "PadStabs",
-      "hook": 7,
-      "coloration": "free"
+      "hook": 7
     },
     {
       "id": "neutral_2036",
@@ -1146,8 +1065,7 @@
         "BassHalf"
       ],
       "pad": "PadHeld",
-      "hook": 8,
-      "coloration": "free"
+      "hook": 8
     }
   ],
   "bindings": [

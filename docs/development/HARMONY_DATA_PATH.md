@@ -3,6 +3,8 @@
 Ausgangspunkt: `2322d6b`, Entwicklungsbranch `develop/composition-core-prototype`.
 Keine neuen Wendungen, Akkordtypen, Profile oder musikalischen Auswahlregeln.
 
+Die anschließende Erweiterung um flexible/geschützte Vorlagenfarben ist in `CHORD_COLORATION.md` dokumentiert. Die nachfolgenden ursprünglichen Nachweise beziehen sich auf den ersten Datenpfadschritt.
+
 ## Datenhoheit und Trennung
 
 `data/harmony/` ist die einzige bearbeitete Quelle des ausgelieferten Katalogs:
@@ -44,7 +46,7 @@ Alle Laufzeitdaten sind unveränderlich und statisch. Keine Dateioperationen, Va
 
 ## Bestehende Grenzen und nächste kleine Schritte
 
-1. **Vorlagengetreue Akkordfarbe:** Die bestehende automatische Färbung (`padType`) darf weiterhin abhängig von Unruhe Akkordqualitäten verändern. Der Datenpfad unterstützt deshalb zunächst ausdrücklich nur das unveränderte Rezept `coloration: free`; `literal` wird abgewiesen. Vor einem musikalisch verbindlichen Import eine kleine, getestete Strategie für unveränderte bzw. erlaubte Akkordfarben anschließen. Sie muss auch Bassanker, Moduserkennung und charakteristische Sus-/Quintklänge konsistent behandeln.
+1. **Vorlagengetreue Akkordfarbe:** Der anschließend umgesetzte Schritt `CHORD_COLORATION.md` ersetzt den früheren Rezeptplatzhalter durch eine validierte Eigenschaft an der harmonischen Vorlage. Flexible Farben bleiben unverändert; geschützte Farben verhindern automatische Erweiterungen und Zwischenharmonien. Dieser Folgeschritt ist abgeschlossen.
 2. **H01/H11/H19 einzeln importieren:** Nach diesem Farbschutz benötigen diese drei Vorlagen weder neue Akkordtypen noch kürzere Slots: H01 = C(2), Bb(2), F/A(2), Csus2(1), C(1); H11 = Cm7(2), F/C(2), Cm7(2), F/A(1), Bb(1); H19 = C5(6), Ab5(1), Bb5(1). Mixolydisch bzw. dorisch lassen sich explizit validieren; die Quintfolge erlaubt allein keine eindeutige Mollterzannahme. Für jeden Import stabile neue ID, geprüfte Quelle, statische vorläufige XYZ-Anker und beide Follow-Zustände prüfen. Kein automatischer Import von Tempo-, Bassrhythmus-, Motiv- oder Dramaturgieanweisungen aus der Untersuchung.
 3. **Weitere Vokabulare separat prüfen:** H01/H11/H19 sind hier nur Voraussetzungenbeschreibungen, keine ausgelieferten Einträge. Halbtaktwechsel, mehr als acht Slots, neue Akkordtypen sowie dynamische XYZ-Verläufe werden weiterhin ausdrücklich abgewiesen und benötigen unabhängige Engine-/Schema-Schritte.
 4. **Verbleibende bestehende Sonderstrategie:** Drei bereits vorhandene Drahtseil-ID-Prüfungen im Generator bleiben zum Schutz des musikalischen Verhaltens bestehen. Vorlagenübergreifende Verallgemeinerung dieser Schutzregel ist ein späterer kleiner Strategieschritt; sie wurde nicht in harmonische Fakten oder neue Künstlerlogik eingebaut. Die bisher ID-basierte Hook-Zuordnung ist bereits in gemeinsame Rezeptdaten überführt.

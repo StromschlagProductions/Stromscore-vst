@@ -20,8 +20,8 @@ int main(int argc,char** argv)
    std::cout<<'\n'<<info.idea<<'\n'<<info.instruments<<'\n'<<info.source<<'\n';
   }return 0;
  }
- if(argc!=6)return 2;
- Settings s;s.genre=std::atoi(argv[1]);const int index=std::atoi(argv[2]),profile=std::atoi(argv[3]),block=std::atoi(argv[4]),route=std::atoi(argv[5]);
+ if(argc!=6&&argc!=7)return 2;
+ Settings s;s.passing=argc==7&&std::atoi(argv[6])!=0;s.genre=std::atoi(argv[1]);const int index=std::atoi(argv[2]),profile=std::atoi(argv[3]),block=std::atoi(argv[4]),route=std::atoi(argv[5]);
  const auto w=wendungAt(s.genre,index);s.x=w.x;s.y=w.y;s.z=w.z;s.variety=0;s.profile=static_cast<composition::ProfileId>(profile);s.melody=true;s.swing=index%2?.3f:0.f;s.dynamics=true;
  bool found=false;for(int v=1;v<=16;++v){s.variation=v;if(Generator::pick(s,0)==index){found=true;break;}}if(!found)return 3;
  Generator g;EventList es;const double bpm=index%3==0?90:index%3==1?120:173;

@@ -895,7 +895,7 @@ private:
         const auto position=composition::locateChord(timeline,at);
         const auto& chord=w.ch[position.index];
         const int next=position.index+1<w.n?w.ch[position.index+1].root:w.ch[0].root;
-        const auto intent=composition::freeTransition(next,s.passing,s.y,still);
+        const auto intent=composition::freeTransition(next,allowsPassingHarmony(s),s.y,still);
         const auto placement=composition::placeTransition(intent,position.begin,position.end,meter.len,meter.groupStart[std::max(0,meter.numGroups-1)]);
         if(placement.present&&at>=placement.begin)return {{intent.approachRoot,Dom7,1},placement.end};
         return {chord,placement.present?placement.begin:position.end};
@@ -1224,7 +1224,7 @@ private:
         if(still)return p;
         if (cur != nullptr)
         {
-            const auto intent=composition::freeTransition(nextChordRoot(p),cur->passing,cur->y);
+            const auto intent=composition::freeTransition(nextChordRoot(p),allowsPassingHarmony(*cur),cur->y);
             const auto transition=composition::placeTransition(intent,p.chordStart,p.chordEnd,
                 meter.len,meter.groupStart[std::max(0,meter.numGroups-1)]);
             if(transition.present)
@@ -1305,7 +1305,7 @@ private:
         {
             Chord tonic = w.ch[0]; tonic.root = current == kCustomWendung ? w.ch[0].root : 0;
             tonic.bass = -1;
-            if (layer != kFlaeche) tonic.type = kShapes[w.ch[0].type].minor ? Min : Maj; // keep pad colour even when harmony following is disabled
+            if (layer != kFlaeche && !(layer==kArp&&protectedColoration())) tonic.type = kShapes[w.ch[0].type].minor ? Min : Maj; // keep pad colour even when harmony following is disabled
             return tonic;
         }
         return w.ch[p.chordIdx];
@@ -1320,16 +1320,15 @@ private:
         return bassRoot (p.chordIdx + 1 < w.n ? w.ch[p.chordIdx + 1] : w.ch[0]);
     }
 
+    bool protectedColoration()const {return W().coloration==ChordColoration::protectedColor;}
+    bool allowsPassingHarmony(const Settings& s)const {return s.passing&&!protectedColoration();}
+    // Tonal decorations without a planned resolution must not change a protected accompaniment.
+    bool authoredPitch(const Chord& c,int pitch,const Settings& s)const
+    {for(int i=0;i<kShapes[c.type].n;++i)if(composition::pitchBit(pitch)==composition::pitchBit(s.key+c.root+kShapes[c.type].iv[i]))return true;return false;}
     // Unruhe faerbt einfache Dreiklaenge; explizite Sept-/Nonenqualitaeten bleiben erhalten.
-    static int padType (int type, float z)
+    int padType (int type, float z) const
     {
-        if (z >= 0.75f && (type == Min || type == MinMaj7)) return MinMaj9;
-        if (z >= 0.45f)
-        {
-            if (type == Min) return MinMaj7;
-            if (type == Maj) return Maj7;
-        }
-        return type;
+        return coloredChordType(type,z,W().coloration);
     }
 
     static int place (int note, int low)
@@ -1488,6 +1487,7 @@ private:
         while (n < lo) n += 12;
         while (n > hi) n -= 12;
         if (n >= lo) return n;
+        if(protectedColoration())return note; // Unavailable pitch classes are omitted, never substituted.
         int best = -1, bestD = 1000;
         for (int m = lo; m <= hi; ++m)
             if ((chordMask >> (m % 12)) & 1)
@@ -1536,6 +1536,11 @@ private:
         const int layer = kOutputLayer[o];
         if (cur != nullptr && ! forceOn && ! on[layer]) return;
         const int channel = cur != nullptr ? cur->channel[o] : o + 1;
+        if(protectedColoration()&&cur!=nullptr&&!(o==OutStich&&cur->stichFixed))
+        {
+            const int physical=fitRange(o,note+12*octaveOf(o));
+            if(physical<0||physical>127||(rangeOn(o)&&(physical<cur->rangeLo[kOutputRange[o]]||physical>cur->rangeHi[kOutputRange[o]])))return;
+        }
         note = (o == OutStich && cur != nullptr && cur->stichFixed) ? std::clamp (note, 0, 127) : sounding (o, note);
         if (! forceOn) velocity = (int) std::lround ((float) velocity * (cur != nullptr && cur->dynamics && cur->ccExpression > 0 ? 1.0f : (0.6f + 0.4f * gain[layer]))) + boost[layer];
         velocity = std::clamp (velocity, 1, 127);
@@ -1648,14 +1653,14 @@ private:
                 composition::ChordIntent intent;
                 intent.root=s.key+pad.root;intent.bassPitchClass=s.key+bassRoot(bass);
                 intent.count=shape.n;for(int n=0;n<shape.n;++n)intent.intervals[static_cast<size_t>(n)]=shape.iv[n];
-                intent.quartal=pad.type==Quartal;
+                intent.quartal=pad.type==Quartal;intent.preservePitchClasses=protectedColoration();
                 intent.protectedLine=s.genre==GenrePopRock&&W().id==WendungId::popDrahtseil;
                 intent.voicing=current==kCustomWendung?hashInt(91u,start)%3:0;
                 intent.padLow=padLow(s);intent.bassLow=bassLow(s);intent.intensity=layerY(s,kFlaeche);
                 slot=composition::buildAnchor(intent,{lo,hi},rangeOn(o));
                 mix(slot.pad.n);for(int n=0;n<slot.pad.n;++n)mix(slot.pad.notes[n]);
                 mix(slot.bass);mix(static_cast<int>(slot.unavailable));
-                slot.enabled = ! pass || (composition::freeTransition(0,s.passing,s.y,still).kind==composition::TransitionKind::passingDominant);
+                slot.enabled = ! pass || (composition::freeTransition(0,allowsPassingHarmony(s),s.y,still).kind==composition::TransitionKind::passingDominant);
                 slot.preservePad = s.genre == GenrePopRock && W().id == WendungId::popDrahtseil && ! s.custom;
                 mix(slot.preservePad);
                 if (slot.enabled) order[count++] = index;
@@ -1796,7 +1801,7 @@ private:
     int nextBassPlacement (const Pos& p, const Settings& s)
     {
         prepareVoicingPlan (p, s);
-        const int index = !p.passing && composition::freeTransition(0,s.passing,s.y,still).kind==composition::TransitionKind::passingDominant
+        const int index = !p.passing && composition::freeTransition(0,allowsPassingHarmony(s),s.y,still).kind==composition::TransitionKind::passingDominant
                         ? p.chordIdx * 2 + 1 : ((p.chordIdx + 1) % W().n) * 2;
         return harmonicPlan.slots[static_cast<size_t> (index)].bass;
     }
@@ -1835,7 +1840,7 @@ private:
         pick[n++] = 12;                                   // Oktave
         if (sh.n > 1) pick[n++] = sh.iv[1];               // Terz
         if (sh.n > 2) pick[n++] = sh.iv[2];               // Quinte
-        if (s.x >= 0.35f && s.z < 0.6f) pick[n++] = 14;   // None, im Hellen
+        if (s.x >= 0.35f && s.z < 0.6f && (!protectedColoration()||authoredPitch(c,s.key+c.root+14,s))) pick[n++] = 14;   // None, im Hellen
         const int iv = pick[hashInt (611u, p.k) % n];
         const float ya = layerY (s, kAkzent);
         noteOn (OutTupfer, place (s.key + c.root + iv, tupferLow (s)), (int) (45 + 40 * ya) + boost, p.k + len, offset, out);
@@ -1847,6 +1852,7 @@ private:
         const Chord c = chordFor (p, kAkzent, s);
         const int interval = s.x < 0.5f ? 1 : 6;                          // dunkel: kleine None, hell: uebermaessige Quarte
         const int note = place (s.key + c.root + interval, 79);
+        if(protectedColoration())return; // No resolution is planned for this foreign-tone accent.
         noteOn (OutTupfer, note, (int) (30 + 45 * s.z), p.k + 3, offset, out);
         if (s.z >= 0.8f && layerY (s, kAkzent) < 0.5f)                    // Halbton-Reibung ganz oben
             noteOn (OutTupfer, note + 11, (int) (25 + 30 * s.z), p.k + 3, offset, out);
@@ -1866,7 +1872,7 @@ private:
     // Unruhe: bei 80 % selten und leiser, bei 100 % haeufig, laut und doppelt; ganz oben kommt ein dritter Reibungston dazu.
     void riss (long long k, const Pos& p, const Settings& s, int offset, EventList& out)
     {
-        if (s.z < kRissStart || ! muteSoloOk (s, kFlaeche)) return;
+        if (protectedColoration() || s.z < kRissStart || ! muteSoloOk (s, kFlaeche)) return;
         const float r = std::clamp ((s.z - kRissStart) / (1.0f - kRissStart), 0.0f, 1.0f);
         const int half = std::max (2, meter.len / 2);                     // je halben Takt hoechstens ein Riss
         const long long w = floorDiv (k, half);
@@ -2243,6 +2249,7 @@ private:
                 default:         note = tones[c0 % count]; break;       // Aufwaerts, Glitzern
             }
             if (z >= 0.6f && c0 % 8 == 7) note -= 1;                    // Unruhe: chromatischer Durchgang
+            if(protectedColoration()&&!authoredPitch(c,note,s))note=tones[c0%count];
             const int vel = (int) ((fig == ArpGlitter ? 40 : 52) + 35 * yArp) + (group ? 6 : 0) + jitter (sourceStep, kArp, 6);
             const long long len = onset?onset->length:(fig == ArpGlitter || fig == ArpSid || rate == 1) ? 1 : rate;
             noteOn (OutArp, note, vel, k + len, offset, out);

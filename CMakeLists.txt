@@ -32,6 +32,19 @@ add_custom_target(ValidateHarmonyData ALL
     COMMAND ${Python3_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/scripts/generate_harmony_catalog.py --check
     COMMENT "Checking validated static harmony data")
 if(BUILD_TESTING)
+    file(GLOB HARMONY_FIXTURE_HEADERS CONFIGURE_DEPENDS Source/*.h)
+    set_property(DIRECTORY APPEND PROPERTY CMAKE_CONFIGURE_DEPENDS ${HARMONY_FIXTURE_HEADERS} Tests/HarmonyColorationFixtures.py)
+    execute_process(COMMAND ${Python3_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/Tests/HarmonyColorationFixtures.py ${CMAKE_CURRENT_BINARY_DIR}/coloration-fixture
+        RESULT_VARIABLE COLORATION_FIXTURE_RESULT)
+    if(NOT COLORATION_FIXTURE_RESULT EQUAL 0)
+        message(FATAL_ERROR "Could not prepare validated synthetic coloration fixtures")
+    endif()
+    add_executable(HarmonyColorationTests Tests/HarmonyColorationTests.cpp)
+    target_include_directories(HarmonyColorationTests PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/coloration-fixture/Source)
+    if(MSVC)
+        target_compile_options(HarmonyColorationTests PRIVATE /utf-8)
+    endif()
+    add_test(NAME HarmonyColoration COMMAND HarmonyColorationTests ${CMAKE_CURRENT_BINARY_DIR}/coloration-examples.csv)
     add_executable(HarmonyCatalogTests Tests/HarmonyCatalogTests.cpp)
     target_include_directories(HarmonyCatalogTests PRIVATE Source)
     if(MSVC)
@@ -214,7 +227,7 @@ if(BUILD_TESTING)
     endif()
     if(Python3_Interpreter_FOUND AND GIT_FOUND AND NOT MSVC)
         add_test(NAME HarmonyDataRegression COMMAND ${Python3_EXECUTABLE}
-            ${CMAKE_CURRENT_SOURCE_DIR}/scripts/compare_harmony_data.py --probe $<TARGET_FILE:HarmonyDataProbe>
+            ${CMAKE_CURRENT_SOURCE_DIR}/scripts/compare_harmony_data.py --baseline 1a58273 --with-passing --probe $<TARGET_FILE:HarmonyDataProbe>
             --compiler ${CMAKE_CXX_COMPILER} --output ${CMAKE_CURRENT_BINARY_DIR}/harmony-data-regression)
     endif()
     add_test(NAME WendungTransitions COMMAND TransitionTests)

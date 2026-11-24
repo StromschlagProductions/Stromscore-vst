@@ -581,7 +581,7 @@ struct ChordIntent
 {
     int root = 0, bassPitchClass = 0, count = 0;
     std::array<int, 5> intervals {};
-    bool quartal = false, protectedLine = false;
+    bool quartal = false, protectedLine = false, preservePitchClasses = false;
     int voicing = 0, padLow = 62, bassLow = 45;
     float intensity = 0;
 };
@@ -619,12 +619,14 @@ inline HarmonicSlot buildAnchor (const ChordIntent& in, Range range, bool constr
             int count=0;for(int i=0;i<out.pad.n;++i)count+=out.pad.notes[i]+sh>=range.low&&out.pad.notes[i]+sh<=range.high;
             if(count>best){best=count;shift=sh;}
         }
+        int written=0;
         for(int i=0;i<out.pad.n;++i)
         {
             const int original=out.pad.notes[i]+shift;
             int n=original;while(n<range.low)n+=12;while(n>range.high)n-=12;
             if(n<range.low)
             {
+                if(in.preservePitchClasses)continue; // Never repair an unavailable authored class with a substitute.
                 int chosen=-1000,distance=1000;
                 for(int m=range.low;m<=range.high;++m)if((mask>>((m%12+12)%12))&1u)
                 {
@@ -633,8 +635,9 @@ inline HarmonicSlot buildAnchor (const ChordIntent& in, Range range, bool constr
                 }
                 n=chosen!=-1000?chosen:std::clamp(original,range.low,range.high);
             }
-            out.pad.notes[i]=n;
+            out.pad.notes[written++]=n;
         }
+        out.pad.n=written;
         voiceleading::sort(out.pad);
         out.pad.n=static_cast<int>(std::unique(out.pad.notes,out.pad.notes+out.pad.n)-out.pad.notes);
     }
