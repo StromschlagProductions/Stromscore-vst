@@ -24,7 +24,11 @@ int main(int argc,char** argv)
     if(scenario==11){s.mute[kFlaeche]=s.mute[kBass]=s.mute[kArp]=s.mute[kAkzent]=true;}
     if(scenario==12)s.melody=true;
     if(scenario==15)s.hardness=0;
-    Generator g;EventList events;constexpr long long sr=48000,total=48*sr,bar=96000;
+
+#ifdef POP_HOOK_REGRESSION
+ s.policy.popHooks.enabled=false;
+#endif
+ Generator g;EventList events;constexpr long long sr=48000,total=48*sr,bar=96000;
     auto emit=[&](long long at){for(int i=0;i<events.size;++i){auto e=events.events[static_cast<size_t>(i)];
         std::cout<<at+e.offset<<','<<int(e.channel)<<','<<int(e.note)<<','<<int(e.velocity)<<','<<int(e.type)<<','<<int(e.out)<<'\n';}};
     for(long long pos=0;pos<total;)

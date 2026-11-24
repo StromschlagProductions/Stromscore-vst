@@ -25,7 +25,11 @@ int main(int argc,char** argv)
     if(scenario==14)s.custom=false;
     if(scenario==15){s.melodyMotif=false;s.motif=false;}
     if(argc==5){s.seed=std::atoi(argv[4]);s.variation=1+s.seed%16;}
-    Generator g;EventList events;
+
+#ifdef POP_HOOK_REGRESSION
+ s.policy.popHooks.enabled=false;
+#endif
+ Generator g;EventList events;
     constexpr long long sr=48000,total=96*sr;
     auto emit=[&](long long at){for(int i=0;i<events.size;++i){auto e=events.events[static_cast<size_t>(i)];std::cout<<at+e.offset<<','<<int(e.channel)<<','<<int(e.note)<<','<<int(e.velocity)<<','<<int(e.type)<<','<<int(e.out)<<'\n';}};
     for(long long pos=0;pos<total;)

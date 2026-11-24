@@ -463,7 +463,7 @@ public:
     composition::MotifOccurrence inspectMotifOccurrence(long long tick,Settings settings,int output=OutCounter)const
     {
         auto snapshot=*this;snapshot.cur=&settings;
-        if(settings.genre!=GenreScore||!on[kOutputLayer[output]]||!(output==OutMelody?settings.melodyMotif:settings.motif)
+        if((settings.genre!=GenreScore&&!snapshot.phrasedHook(settings))||!on[kOutputLayer[output]]||(settings.genre==GenreScore&&!(output==OutMelody?settings.melodyMotif:settings.motif))
             ||(output==OutCounter&&on[kMelodie]))return {};
         return snapshot.motifOccurrence(tick,snapshot.locate(tick),settings,output);
     }
@@ -619,6 +619,7 @@ public:
 
     void process (const Transport& t, const Settings& sIn, int numSamples, EventList& out)
     {
+        captureRead=0;
         Settings s = sIn;
         if (! running) sceneSeed = s.seed;
         s.seed = sceneSeed;
@@ -633,7 +634,7 @@ public:
         s.change = std::clamp (s.change, 0, kNumChangeGrids - 1);
         for (auto& v : s.layerIntensity) v = std::clamp (v, -1.0f, 1.0f);
         if(!composition::findProfile(s.profile))s.profile=composition::ProfileId::neutral;
-        if(!composition::valid(s.policy.texture)||!composition::valid(s.policy.motif))s.policy=composition::neutralFreePolicy;
+        if(!composition::valid(s.policy.texture)||!composition::valid(s.policy.motif)||!composition::valid(s.policy.popHooks.recurrence))s.policy=composition::neutralFreePolicy;
         s.variety = std::clamp (s.variety, 0.0f, 1.0f);
         for (auto& o : s.octave) o = std::clamp (o, -2, 2);
         for (auto& c : s.channel) c = std::clamp (c, 1, 16);
@@ -718,6 +719,7 @@ public:
             const int offset = std::clamp ((int) std::llround ((when - t.ppq) * samplesPerQuarter), 0, numSamples - 1);
             applyDrive (k, s, ax, ay);
             releaseDue (k, offset, out, true);
+            capturePerformance(t.ppq,when,samplesPerQuarter,s,out);
             stepOn (k, offset, s, out);
             releaseDue (k, offset, out);
         }
@@ -1060,32 +1062,61 @@ private:
         if(placement.present&&at>=placement.begin)return {{intent.approachRoot,Dom7,1},placement.end};
         return {chord,placement.present?placement.begin:position.end};
     }
+    bool phrasedHook(const Settings& s)const
+    {
+        const int index=popHookPattern(W().id);
+        if(s.genre!=GenrePopRock||!s.policy.popHooks.enabled)return false;
+        if(s.custom?!s.policy.popHooks.phrasedCustom:(index<0||!s.policy.popHooks.phrased[static_cast<size_t>(index)]))return false;
+        for(int o=0;o<kNumOutputs;++o)if(o!=OutCounter&&s.channel[o]==s.channel[OutCounter])return false;
+        return true;
+    }
+    composition::RememberedMotif performanceMaterial(int output,const Settings& s)const
+    {
+        auto material=voice(output).motif.material(motifCatalog);
+        if(s.genre!=GenrePopRock||material.timeScale==1)return material;
+        const auto origin=voice(output).motif.originTick/material.timeScale;
+        Settings recorded=s;recorded.swing=voice(output).captureSwing;
+        auto stepAt=[&](int64_t at)
+        {
+            const auto estimate=static_cast<long long>(std::llround(static_cast<double>(at)/material.timeScale));
+            auto best=estimate;double distance=1e20;
+            for(auto n=estimate-2;n<=estimate+2;++n){const double d=std::abs((n+swingDelay(origin+n,recorded))*material.timeScale-at);if(d<distance){best=n;distance=d;}}
+            return best;
+        };
+        for(int i=0;i<material.count;++i){auto& n=material.notes[i];const auto start=stepAt(n.at),end=stepAt(n.at+n.length);n.at=start;n.length=std::max<int64_t>(1,end-start);}
+        material.cycleLength/=material.timeScale;material.timeScale=1;
+        for(int i=0;i<material.count;++i)material.notes[i].length=std::max<int64_t>(1,std::min(material.notes[i].length,material.cycleLength-material.notes[i].at));
+        return material;
+    }
     composition::MotifOccurrence motifOccurrence(long long k,const Pos& p,const Settings& s,int output)
     {
-        auto& state=voice(output);const auto& use=state.motif;auto memory=use.material(motifCatalog);
+        auto& state=voice(output);const auto& use=state.motif;auto memory=performanceMaterial(output,s);
+        const auto& policy=s.genre==GenrePopRock?s.policy.popHooks.recurrence:s.policy.motif;
+        const auto origin=s.genre==GenrePopRock?use.originTick/240:use.originTick;
         const auto section=p.phrase-phraseOf(sceneStep);
         if(memory.count&&(k-p.phraseStart>=std::min(2LL*meter.len,p.phraseEnd-p.phraseStart)||section!=use.introduction))memory.finish();
         if(!memory.complete)return {true,true,false,p.phraseStart,p.phraseStart+std::min(2LL*meter.len,p.phraseEnd-p.phraseStart),0,0};
-        const int64_t window=static_cast<int64_t>(s.policy.motif.windowBars)*meter.len;
-        if(k<use.originTick)return {};
-        const auto epoch=(k-use.originTick)/window;
+        const int64_t window=static_cast<int64_t>(policy.windowBars)*meter.len;
+        if(k<origin)return {};
+        const auto epoch=(k-origin)/window;
         int64_t span=0;for(int i=0;i<memory.count;++i)span=std::max(span,memory.notes[static_cast<size_t>(i)].at+memory.notes[static_cast<size_t>(i)].length);
-        if(epoch==0)return {true,true,false,use.originTick,use.originTick+span,0,0};
-        if(state.recurrenceEpoch==epoch&&state.recurrenceIdentity==memory.identity&&state.recurrenceOrigin==use.originTick&&state.recurrenceWindow==window)return state.recurrencePlan.end<=motifAvailableUntil(s,kOutputLayer[output])?state.recurrencePlan:composition::MotifOccurrence{};
-        state.recurrenceEpoch=epoch;state.recurrenceIdentity=memory.identity;state.recurrenceOrigin=use.originTick;state.recurrenceWindow=window;state.recurrencePlan={};
-        const auto slot=composition::recurrenceSlot(s.policy.motif,epoch,layerY(s,kOutputLayer[output]),s.z);
+        if(epoch==0)return {true,true,false,origin,origin+span,0,0};
+        if(state.recurrenceEpoch==epoch&&state.recurrenceIdentity==memory.identity&&state.recurrenceOrigin==origin&&state.recurrenceWindow==window)return state.recurrencePlan.end<=motifAvailableUntil(s,kOutputLayer[output])?state.recurrencePlan:composition::MotifOccurrence{};
+        state.recurrenceEpoch=epoch;state.recurrenceIdentity=memory.identity;state.recurrenceOrigin=origin;state.recurrenceWindow=window;state.recurrencePlan={};
+        const auto slot=composition::recurrenceSlot(policy,epoch,layerY(s,kOutputLayer[output]),s.z);
         if(!slot.eligible)return {};
-        const int64_t begin=use.originTick+epoch*window,end=std::min(begin+window,motifAvailableUntil(s,kOutputLayer[output]));
+        const int64_t begin=origin+epoch*window,end=std::min(begin+window,motifAvailableUntil(s,kOutputLayer[output]));
         const bool dialogue=output==OutCounter&&!on[kMelodie]&&s.genre==GenreScore&&s.arpFigure==ArpCell&&!s.scene
             &&s.meterNum==4&&s.meterDen==4&&on[kArp]&&on[kGegenstimme]&&phraseBars>=4;
         const int64_t response=dialogue?2LL*meter.len:0;
         const auto catalog=outputCatalog(s);const auto& capability=catalog[output].track.instrument;
         auto attempt=[&](composition::MotifVariation variation)
         {
-        const auto figure=composition::deriveMotif(memory,variation,s.policy.motif.sequenceSemitones);
+        const auto figure=composition::deriveMotif(memory,variation,policy.sequenceSemitones);
         if(!figure.count)return composition::MotifOccurrence{};
-        const int64_t last=end-figure.span-static_cast<int64_t>(s.policy.motif.minimumSilentBars)*meter.len-response;
-        std::array<composition::MotifPlacement,32> candidates {};int count=0;
+        const int64_t last=end-figure.span-static_cast<int64_t>(policy.minimumSilentBars)*meter.len-response;
+        std::array<composition::MotifPlacement,32> candidates {};
+        std::array<composition::MotifFigure,32> realizations {};int count=0;
         auto add=[&](int64_t at)
         {
             if(at<begin||at>last||count==32)return;
@@ -1107,20 +1138,33 @@ private:
                 }
                 if(tick<finish||!allowed[i])return;
             }
-            int base=-1,cost=10000;
+            int base=-1,cost=10000;auto realization=figure;
             for(int candidate=0;candidate<128;++candidate)
             {
-                bool fits=true;
+                bool fits=true;auto adjusted=figure;int adjustment=0;
                 for(int i=0;i<figure.count;++i)
                 {
-                    const int pitch=candidate+figure.notes[static_cast<size_t>(i)].interval;
-                    if(pitch<capability.range.low||pitch>capability.range.high||pitch<0||pitch>127
-                        ||!(allowed[i]&(1u<<((pitch%12+12)%12)))){fits=false;break;}
+                    int pitch=candidate+figure.notes[static_cast<size_t>(i)].interval;
+                    if(pitch<capability.range.low||pitch>capability.range.high||pitch<0||pitch>127){fits=false;break;}
+                    if(!(allowed[i]&(1u<<((pitch%12+12)%12))))
+                    {
+                        int adapted=-1;
+                        if(policy.adaptChordTones&&variation==composition::MotifVariation::original)
+                            for(int d=1;d<=12&&adapted<0;++d)for(int q:{pitch-d,pitch+d})
+                                if(adapted<0&&q>=capability.range.low&&q<=capability.range.high&&q>=0&&q<=127&&(allowed[i]&(1u<<(q%12))))adapted=q;
+                        if(adapted<0){fits=false;break;}
+                        adjustment+=std::abs(adapted-pitch);pitch=adapted;
+                    }
+                    adjusted.notes[static_cast<size_t>(i)].interval=pitch-candidate;
                 }
-                const int distance=std::abs(candidate-memory.origin);
-                if(fits&&distance<cost){base=candidate;cost=distance;}
+                const int distance=std::abs(candidate-memory.origin)+adjustment;
+                if(fits&&distance<cost){base=candidate;cost=distance;realization=adjusted;}
             }
-            if(base>=0)candidates[static_cast<size_t>(count++)]={at,base,cost};
+            if(base>=0){
+                if(policy.adaptChordTones&&variation==composition::MotifVariation::original)
+                    for(int i=0;i+1<realization.count;++i)if(realization.notes[i].interval==realization.notes[i+1].interval)
+                        realization.notes[i].length=std::min(realization.notes[i].length,realization.notes[i+1].at-realization.notes[i].at);
+                realizations[static_cast<size_t>(count)]=realization;candidates[static_cast<size_t>(count++)]={at,base,cost};}
         };
         for(int64_t at=begin;at<=last;)
         {
@@ -1128,11 +1172,11 @@ private:
             const auto middle=at+std::max<int64_t>(0,(std::min<int64_t>(h.end,end)-at-figure.span)/2/meter.len)*meter.len;
             add(middle);if(h.end<=at)break;at=h.end;
         }
-        auto result=composition::planRecurrence(s.policy.motif,slot,begin,end,figure.span,meter.len,candidates.data(),count,response);
-        if(result.active){result.figure=figure;result.varied=variation==composition::MotifVariation::rhythm;}
+        auto result=composition::planRecurrence(policy,slot,begin,end,figure.span,meter.len,candidates.data(),count,response);
+        if(result.active){for(int i=0;i<count;++i)if(candidates[i].begin==result.begin&&candidates[i].base==result.base){result.figure=realizations[i];break;}result.varied=variation==composition::MotifVariation::rhythm;}
         return result;
         };
-        const auto variation=composition::motifVariation(s.policy.motif,slot.ordinal);
+        const auto variation=composition::motifVariation(policy,slot.ordinal);
         state.recurrencePlan=attempt(variation);
         if(!state.recurrencePlan.active&&variation!=composition::MotifVariation::original)
             state.recurrencePlan=attempt(composition::MotifVariation::original);
@@ -1192,11 +1236,12 @@ private:
     composition::MotifWindow primaryMotifWindow(const Pos& p,const Settings& s)
     {
         const int output=on[kMelodie]?OutMelody:OutCounter;
-        if(!on[kOutputLayer[output]]||!(output==OutMelody?s.melodyMotif:s.motif))return {};
+        if(!on[kOutputLayer[output]]||(s.genre==GenreScore&&!(output==OutMelody?s.melodyMotif:s.motif)))return {};
+        if(s.genre==GenrePopRock&&(!phrasedHook(s)||!voice(output).motif.material(motifCatalog).complete))return {};
         const auto catalog=outputCatalog(s);composition::RoleNeed need;need.range=catalog[output].track.instrument.range;
         if(!composition::suitable(catalog[output].track,need))return {};
         const auto occurrence=motifOccurrence(p.k,p,s,output);if(!occurrence.active)return {};
-        auto memory=voice(output).motif.material(motifCatalog);
+        auto memory=performanceMaterial(output,s);
         if(memory.count&&p.phrase-phraseOf(sceneStep)!=voice(output).motif.introduction)memory.finish();
         const bool complete=memory.complete;const auto mo=motifFor(s,p.phrase);
         int count=0,future=0;int64_t begin=occurrence.end,end=occurrence.begin;
@@ -1216,7 +1261,7 @@ private:
 
     composition::MotifWindow motifWindow(const Pos& p,const Settings& s)
     {
-        if(s.genre!=GenreScore||s.arpFigure!=ArpAuto)return {};
+        if((s.genre!=GenreScore&&!phrasedHook(s))||s.arpFigure!=ArpAuto)return {};
         // Shared physical notes can alter motif recording/retriggers. Preserve that routing verbatim.
         for(int o=0;o<kNumOutputs;++o)if(o!=OutArp&&s.channel[o]==s.channel[OutArp])return {};
         const auto primary=primaryMotifWindow(p,s);
@@ -1240,7 +1285,7 @@ private:
         const long long span=std::min(2LL*meter.len,p.phraseEnd-p.phraseStart),rel=k-p.phraseStart;
         const long long section=p.phrase-phraseOf(sceneStep);
         if(rel>=span||(use.material(motifCatalog).count&&section!=use.introduction))use.finish(motifCatalog);
-        const auto& memory=use.material(motifCatalog);const bool complete=memory.complete;
+        const auto memory=performanceMaterial(output,s);const bool complete=memory.complete;
         if(complete)
         {
             const auto occurrence=motifOccurrence(k,p,s,output);
@@ -1258,7 +1303,8 @@ private:
             const auto note=planMotifNote(i,local,s,output,complete?&memory:nullptr,occurrence.varied,&occurrence);
             if(!note.valid||note.at!=k-local.phraseStart)continue;
             const int before=out.size;
-            noteOn(output,note.pitch,note.velocity,local.phraseStart+note.at+note.length,offset,out);
+            const bool savedForce=forceOn;if(s.genre==GenrePopRock)forceOn=true;
+            noteOn(output,note.pitch,note.velocity,local.phraseStart+note.at+note.length,offset,out);forceOn=savedForce;
             if(!complete)for(int e=before;e<out.size;++e)
             {
                 const auto& emitted=out.events[static_cast<size_t>(e)];
@@ -1979,10 +2025,10 @@ private:
 
     void chaseMotif(long long k,const Pos& p,const Settings& s,EventList& out,bool inclusive)
     {
-        if(s.genre!=GenreScore)return;
+        if(s.genre!=GenreScore&&!phrasedHook(s))return;
         const int output=on[kMelodie]?OutMelody:OutCounter;
-        const auto& memory=voice(output).motif.material(motifCatalog);
-        if(on[kOutputLayer[output]]&&(output==OutMelody?s.melodyMotif:s.motif)&&memory.complete)
+        const auto memory=performanceMaterial(output,s);
+        if(on[kOutputLayer[output]]&&(s.genre==GenrePopRock||(output==OutMelody?s.melodyMotif:s.motif))&&memory.complete)
         {
             const auto occurrence=motifOccurrence(k,p,s,output);
             if(occurrence.active&&k>=occurrence.begin&&k<occurrence.end)
@@ -1993,7 +2039,7 @@ private:
                     const auto n=planMotifNote(i,local,s,output,&memory,occurrence.varied,&occurrence);
                     const auto begin=occurrence.begin+n.at,end=begin+n.length;
                     if(n.valid&&(begin<k||(inclusive&&begin==k))&&k<end)
-                    {noteOn(output,n.pitch,n.velocity,end,0,out);voice(output).note=n.pitch;}
+                    {const bool saved=forceOn;if(s.genre==GenrePopRock)forceOn=true;noteOn(output,n.pitch,n.velocity,end,0,out);forceOn=saved;voice(output).note=n.pitch;}
                 }
             }
         }
@@ -2478,16 +2524,17 @@ private:
     {
         if(s.genre!=GenrePopRock)return;
         auto& state=voice(OutCounter);
-        if(!state.capture.active)return;
+        if(!state.capture.active){captureRead=out.size;return;}
         bool ambiguous=state.captureChannel!=s.channel[OutCounter];
         for(int o=0;o<kNumOutputs;++o)if(o!=OutCounter&&s.channel[o]==s.channel[OutCounter])ambiguous=true;
         if(ambiguous){state.capture.clear();state.motif.clear();return;}
-        for(int i=0;i<out.size;++i)
+        for(int i=captureRead;i<out.size;++i)
         {
             const auto& e=out.events[static_cast<size_t>(i)];
             if(e.type==0&&e.channel==s.channel[OutCounter])
                 state.capture.event(state.motif,e.note,e.velocity,static_cast<int64_t>(std::llround((ppq+e.offset/samplesPerQuarter)*960.)));
         }
+        captureRead=out.size;
         state.capture.finish(state.motif,motifCatalog,static_cast<int64_t>(std::llround(end*960.)));
     }
     void armHookCapture(long long k,const Pos& p,const Settings& s)
@@ -2498,7 +2545,7 @@ private:
         for(int o=0;o<kNumOutputs;++o)if(o!=OutCounter&&s.channel[o]==s.channel[OutCounter])return;
         const bool special=popHookPattern(W().id)>=0&&!s.custom;
         const auto cycle=special?2LL*meter.len:8LL*(layerY(s,kGegenstimme)<.45f?4:2);
-        if((k-p.phraseStart)%cycle==0){state.captureChannel=s.channel[OutCounter];state.capture.start(state.motif,k*240,cycle*240,240);}
+        if((k-p.phraseStart)%cycle==0){state.captureSwing=s.swing;state.captureChannel=s.channel[OutCounter];state.capture.start(state.motif,k*240,cycle*240,240);}
     }
     // Pop-Rock: durchgehende, gleichbleibende Hook-Linie aus Akkordtoenen (eine Figur je VARIATION)
     void leadHook (long long k, const Pos& p, const Settings& s, int offset, EventList& out)
@@ -2633,7 +2680,11 @@ private:
     void counterLine (long long k, const Pos& p, const Settings& s, int offset, bool chordStart, EventList& out, int output=OutCounter)
     {
         if (! on[kOutputLayer[output]]) { voice(output).note = -1; voice(output).pendingAt = -1; return; }
-        if (output==OutCounter && s.genre == GenrePopRock) { leadHook (k, p, s, offset, out); return; }
+        if (output==OutCounter && s.genre == GenrePopRock)
+        {
+            if(phrasedHook(s)&&voice(output).motif.material(motifCatalog).complete){motifStep(k,p,s,offset,out,output);return;}
+            leadHook(k,p,s,offset,out);return;
+        }
         if ((output==OutMelody?s.melodyMotif:s.motif) && motifStep (k, p, s, offset, out,output)) return;
         if(output==OutCounter&&freePhraseStep(k,p,s,offset,out))return;
         const float yc = layerY (s, kOutputLayer[output]);
@@ -2674,13 +2725,14 @@ private:
     struct VoiceState
     {
         composition::MotifUse motif,answer;
-        composition::MotifCapture capture; int captureChannel=0;
+        composition::MotifCapture capture; int captureChannel=0;float captureSwing=0;
         int64_t recurrenceEpoch=-1,recurrenceOrigin=0,recurrenceWindow=0;uint64_t recurrenceIdentity=0;
         composition::MotifOccurrence recurrencePlan;
         int note=-1,pending=-1;
         long long pendingAt=-1,pendingEnd=0;
     };
     std::array<VoiceState,2> voices {};
+    int captureRead=0;
     composition::MotifCatalog motifCatalog;
     VoiceState& voice(int output){return voices[output==OutMelody?1u:0u];}
     const VoiceState& voice(int output)const{return voices[output==OutMelody?1u:0u];}

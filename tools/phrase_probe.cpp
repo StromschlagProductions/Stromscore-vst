@@ -36,7 +36,11 @@ int main(int argc,char** argv)
     if(scenario==26)s.sceneBars=6;
     if(scenario==27)s.legato=false;
     if(scenario==28){s.customChords[0].bars=1;s.customChords[1]={5,Min7,2};s.customChords[2]={0,Maj7,5};}
-    Generator g;EventList events;constexpr long long total=48*48000,bar=96000;
+
+#ifdef POP_HOOK_REGRESSION
+ s.policy.popHooks.enabled=false;
+#endif
+ Generator g;EventList events;constexpr long long total=48*48000,bar=96000;
     long long previousBegin=-1,previousEnd=-1;
     auto emit=[&](long long at){for(int i=0;i<events.size;++i){auto e=events.events[static_cast<size_t>(i)];
         std::cout<<at+e.offset<<','<<int(e.channel)<<','<<int(e.note)<<','<<int(e.velocity)<<','<<int(e.type)<<','<<int(e.out)<<'\n';}};

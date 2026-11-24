@@ -40,7 +40,11 @@ int main(int argc,char** argv)
 #ifdef VARIATION_DIAGNOSTICS
     if(argc==5){const int requested=std::atoi(argv[4]);if(requested>=0&&requested<=4)s.policy.motif.variations.fill(static_cast<composition::MotifVariation>(requested));}
 #endif
-    Generator g;EventList events;constexpr long long bar=96000,total=128*bar;
+
+#ifdef POP_HOOK_REGRESSION
+ s.policy.popHooks.enabled=false;
+#endif
+ Generator g;EventList events;constexpr long long bar=96000,total=128*bar;
     std::set<std::pair<int,uint64_t>> published;
     std::set<std::tuple<int,int64_t,int64_t,int64_t>> occurrences;
     auto emit=[&](long long at){for(int i=0;i<events.size;++i){auto e=events.events[static_cast<size_t>(i)];

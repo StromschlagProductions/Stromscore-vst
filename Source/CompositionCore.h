@@ -69,7 +69,7 @@ struct MotifFigure
 inline MotifFigure deriveMotif(const RememberedMotif& source,MotifVariation variation,int sequenceSemitones=7)
 {
     MotifFigure figure;figure.sourceIdentity=source.identity;figure.variation=variation;
-    if(source.timeScale!=1||!source.complete||source.count<2||source.count>5||static_cast<int>(variation)<0||static_cast<int>(variation)>4)return figure;
+    if(source.timeScale!=1||!source.complete||source.count<2||source.count>8||static_cast<int>(variation)<0||static_cast<int>(variation)>4)return figure;
     int first=0,count=source.count;
     if(variation==MotifVariation::fragment){count=std::min(3,count-1);if(count<2)return figure;first=source.count-count;}
     if(variation==MotifVariation::sequence){if(sequenceSemitones==0||std::abs(sequenceSemitones)>12)return figure;count=2;}

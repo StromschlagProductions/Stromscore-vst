@@ -33,7 +33,7 @@ Events render (S s, int blocks, int total, double start = 0)
     return all;
 }
 Events current (stromscore::Settings s,int block,int total,double start=0)
-{return render<stromscore::Generator,stromscore::Settings,stromscore::EventList,stromscore::Transport>(s,block,total,start);}
+{s.policy.popHooks.enabled=false;return render<stromscore::Generator,stromscore::Settings,stromscore::EventList,stromscore::Transport>(s,block,total,start);}
 std::set<int> pitches (const Events& events,long long at,int channel=1)
 {
     std::set<int> held;

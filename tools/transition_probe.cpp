@@ -23,7 +23,11 @@ int main(int argc,char** argv)
     // Pin the pre-development rhythm-only policy for this historical regression fixture.
     for(size_t i=0;i<s.policy.motif.variations.size();++i)s.policy.motif.variations[i]=i%2?composition::MotifVariation::rhythm:composition::MotifVariation::original;
 #endif
-    Generator g;EventList events;constexpr long long bar=96000,total=128*bar;
+
+#ifdef POP_HOOK_REGRESSION
+ s.policy.popHooks.enabled=false;
+#endif
+ Generator g;EventList events;constexpr long long bar=96000,total=128*bar;
     int last=-1000,previousRoot=0,previousType=0;long long lastTick=-1;
     auto emit=[&](long long at){for(int i=0;i<events.size;++i){const auto& e=events.events[static_cast<size_t>(i)];
         std::cout<<at+e.offset<<','<<int(e.channel)<<','<<int(e.note)<<','<<int(e.velocity)<<','<<int(e.type)<<','<<int(e.out)<<'\n';}};

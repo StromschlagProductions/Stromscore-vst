@@ -26,6 +26,7 @@ struct MotifRecurrencePolicy
     // Bounded horizon matches the stock harmonic planning window; recurrence need not start there.
     static constexpr int windowBars=8;
     int minimumSilentBars=2;
+    bool adaptChordTones=false;
     float sparseBelow=.4f,unrestEngages=.5f;
     std::array<MotifVariation,8> variations {{MotifVariation::original,MotifVariation::rhythm,
         MotifVariation::original,MotifVariation::fragment,MotifVariation::original,MotifVariation::sequence,
@@ -43,7 +44,14 @@ inline bool valid(const MotifRecurrencePolicy& p)
     for(const auto& steps:{p.sparseSteps,p.normalSteps})for(int n:steps)if(n<1||n>2)return false;
     return true;
 }
-struct FreeCompositionPolicy { TexturePolicy texture; MotifRecurrencePolicy motif; };
+struct HookPolicy
+{
+    bool enabled=true,phrasedCustom=false;
+    // Neutral role assignment: dance/motor studies remain continuous, melodic studies phrase.
+    std::array<bool,9> phrased {{false,true,true,false,false,false,true,true,true}};
+    MotifRecurrencePolicy recurrence=[] {MotifRecurrencePolicy p;p.adaptChordTones=true;for(auto& v:p.variations)v=MotifVariation::original;p.variations[5]=MotifVariation::sequence;return p;}();
+};
+struct FreeCompositionPolicy { TexturePolicy texture; MotifRecurrencePolicy motif; HookPolicy popHooks; };
 inline constexpr FreeCompositionPolicy neutralFreePolicy {};
 // Artist identities currently provide only initial harmonic preferences; all texture data stay neutral.
 enum class ProfileId { neutral=0, johnBarry=1, bernardHerrmann=2 };
