@@ -446,6 +446,38 @@ inline HarmonicPlan planHarmony (const HarmonicRequest& r)
     result.count = r.count; result.valid = true;
     return result;
 }
+// An entry is realised once from the preceding performance, without replanning the vocabulary.
+struct HarmonicEntry
+{
+    voiceleading::ChordVoicing pad;
+    int bass = 0;
+    bool hasBass = false;
+    ResolutionIntent resolution;
+};
+inline HarmonicPlan::Slot leadEntry(HarmonicPlan::Slot target,const HarmonicEntry& previous,
+                                    Range padRange,Range bassRange,const HarmonicPlan::Slot* following=nullptr)
+{
+    auto candidate=target;
+    candidate.pad=voiceleading::lead(target.pad,previous.pad,padRange.low,padRange.high,
+        previous.resolution.descendingSeventh,previous.resolution.ascendingThird);
+    if(previous.hasBass)candidate.bass=voiceleading::bass(target.bass+128,previous.bass+128,
+        bassRange.low+128,bassRange.high+128)-128;
+    if(following)
+    {
+        auto cost=[&](const voiceleading::ChordVoicing& v)
+        {
+            int result=voiceleading::distance(previous.pad,v)+voiceleading::distance(v,following->pad)
+                +voiceleading::shapeCost(v,target.pad);
+            for(int i=0;i<v.n;++i)if(voiceleading::contains(previous.pad,v.notes[i]))result-=8;
+            return result;
+        };
+        if(cost(candidate.pad)>=cost(target.pad))candidate.pad=target.pad;
+        if(previous.hasBass&&voiceleading::motion(previous.bass,candidate.bass)+voiceleading::motion(candidate.bass,following->bass)
+            +2*std::abs(candidate.bass-target.bass)>=voiceleading::motion(previous.bass,target.bass)
+            +voiceleading::motion(target.bass,following->bass))candidate.bass=target.bass;
+    }
+    return candidate;
+}
 // Harmonic intent contains pitch material, not a catalog quality/index.
 struct ChordIntent
 {

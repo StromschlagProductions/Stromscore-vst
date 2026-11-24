@@ -1,0 +1,1230 @@
+{
+  "baseline": "be09fea",
+  "bars_per_case": 128,
+  "cases_per_profile": 13,
+  "profiles": [
+    "Neutral",
+    "John Barry",
+    "Bernard Herrmann"
+  ],
+  "sample_rate": 48000,
+  "bpm": 120,
+  "block_sizes": [
+    127,
+    512,
+    8192
+  ],
+  "summary": [
+    {
+      "profile": 0,
+      "case": "stationary-dark",
+      "transitions": 15,
+      "changed_entries": 3,
+      "movement_before": 378,
+      "movement_after": 324,
+      "common_before": 7,
+      "common_after": 15,
+      "widths_before": [
+        19,
+        24
+      ],
+      "widths_after": [
+        19,
+        23,
+        24,
+        25
+      ],
+      "before_sha256": "8e83244af7ec69163f59b7e74e7fe23934ea99f5424becaf37c346be45e3e504",
+      "after_sha256": "c65e2900340f4f6cb1da20004f88d1075a772abd2b70552eea0930106a4cf105"
+    },
+    {
+      "profile": 0,
+      "case": "stationary-bright",
+      "transitions": 14,
+      "changed_entries": 6,
+      "movement_before": 273,
+      "movement_after": 154,
+      "common_before": 4,
+      "common_after": 15,
+      "widths_before": [
+        12,
+        16,
+        17,
+        19,
+        20,
+        21
+      ],
+      "widths_after": [
+        12,
+        15,
+        16,
+        19,
+        20,
+        21
+      ],
+      "before_sha256": "a41c38c48926e0200f39e61cf7ba60d53dc15afda0fe41e4812d6547400ec9ba",
+      "after_sha256": "39a1e0917e862bc148ba693d87bf172fbe541da5288bab87aef1e6fb2e459e94"
+    },
+    {
+      "profile": 0,
+      "case": "stationary-restless",
+      "transitions": 13,
+      "changed_entries": 2,
+      "movement_before": 204,
+      "movement_after": 186,
+      "common_before": 12,
+      "common_after": 14,
+      "widths_before": [
+        21,
+        23,
+        24
+      ],
+      "widths_after": [
+        21,
+        23,
+        24,
+        25
+      ],
+      "before_sha256": "c6efec4dfa4426c9d9c154eb888d45c69505126066867acd4b2ea67227038f50",
+      "after_sha256": "3724d3399328086a3efe83b8dd604ca0330eb7796905d01fdda4026d1cbbe8ef"
+    },
+    {
+      "profile": 0,
+      "case": "stationary-lyrical",
+      "transitions": 15,
+      "changed_entries": 4,
+      "movement_before": 269,
+      "movement_after": 221,
+      "common_before": 11,
+      "common_after": 15,
+      "widths_before": [
+        12,
+        16,
+        19,
+        20,
+        21,
+        22
+      ],
+      "widths_after": [
+        12,
+        15,
+        16,
+        17,
+        19,
+        20,
+        21,
+        22,
+        23
+      ],
+      "before_sha256": "e125e74c42c360725498e34b17d463987d80532ce870dfa3ecb98fb189b367fd",
+      "after_sha256": "1f13b3dfc7a6fab92cbbb90b12a05ddfe8509b48481914f7a4a40db25e7a725d"
+    },
+    {
+      "profile": 0,
+      "case": "dark-bright",
+      "transitions": 15,
+      "changed_entries": 2,
+      "movement_before": 284,
+      "movement_after": 245,
+      "common_before": 8,
+      "common_after": 13,
+      "widths_before": [
+        15,
+        16,
+        17,
+        20,
+        22,
+        23,
+        25
+      ],
+      "widths_after": [
+        15,
+        16,
+        17,
+        20,
+        22,
+        23,
+        25
+      ],
+      "before_sha256": "f0a359e92f8b5a038d88d84b1360a4ade1218c22808d45ab6f17dea393ed9a10",
+      "after_sha256": "a3cb0c8cef459ddb6b0f005d3b672cee911c3151598c16784ae8ac5c9e1bf1b2"
+    },
+    {
+      "profile": 0,
+      "case": "chromatic-field",
+      "transitions": 11,
+      "changed_entries": 1,
+      "movement_before": 229,
+      "movement_after": 224,
+      "common_before": 9,
+      "common_after": 9,
+      "widths_before": [
+        21,
+        23,
+        24
+      ],
+      "widths_after": [
+        21,
+        23,
+        24
+      ],
+      "before_sha256": "e8789f16169a934ce368f8b16a9d0a52df4d7948cfb91de6727222a92b146aee",
+      "after_sha256": "2edf7db9ef17f4ccbd714b9f78daf489dba547f8e8c599fce837b9c15932af1f"
+    },
+    {
+      "profile": 0,
+      "case": "tritone-field",
+      "transitions": 15,
+      "changed_entries": 2,
+      "movement_before": 338,
+      "movement_after": 324,
+      "common_before": 10,
+      "common_after": 11,
+      "widths_before": [
+        15,
+        16,
+        20,
+        21,
+        24
+      ],
+      "widths_after": [
+        15,
+        16,
+        20,
+        21,
+        24,
+        31
+      ],
+      "before_sha256": "55e5daf315fb11a0ce65ff4dadddfdb0da8247e12fc6ab06b550b8c85f5aeff5",
+      "after_sha256": "b40c2b4f26df92beab1d6b35e8f24a4601f1147117a98e803ecda934edd87cc6"
+    },
+    {
+      "profile": 0,
+      "case": "pop",
+      "transitions": 15,
+      "changed_entries": 0,
+      "movement_before": 334,
+      "movement_after": 334,
+      "common_before": 6,
+      "common_after": 6,
+      "widths_before": [
+        19,
+        24,
+        29
+      ],
+      "widths_after": [
+        19,
+        24,
+        29
+      ],
+      "before_sha256": "79edde6f84c37f29f336184c3461f5bc55025ee16054b0b67372b61a99ceb4b9",
+      "after_sha256": "79edde6f84c37f29f336184c3461f5bc55025ee16054b0b67372b61a99ceb4b9"
+    },
+    {
+      "profile": 0,
+      "case": "custom",
+      "transitions": 0,
+      "changed_entries": 0,
+      "movement_before": 0,
+      "movement_after": 0,
+      "common_before": 0,
+      "common_after": 0,
+      "widths_before": [],
+      "widths_after": [],
+      "before_sha256": "d5f525c6788cfb55f0538fc072d47b235b88d7b9af2fa4566a34c12be19845bd",
+      "after_sha256": "d5f525c6788cfb55f0538fc072d47b235b88d7b9af2fa4566a34c12be19845bd"
+    },
+    {
+      "profile": 0,
+      "case": "muted-pad",
+      "transitions": 15,
+      "changed_entries": 0,
+      "movement_before": 0,
+      "movement_after": 0,
+      "common_before": 0,
+      "common_after": 0,
+      "widths_before": [],
+      "widths_after": [],
+      "before_sha256": "e924d14788a4e1026c30872dd5745c0ef159601c2b9fadf722805a1544a143ba",
+      "after_sha256": "e924d14788a4e1026c30872dd5745c0ef159601c2b9fadf722805a1544a143ba"
+    },
+    {
+      "profile": 0,
+      "case": "short-pad-walking-bass",
+      "transitions": 15,
+      "changed_entries": 3,
+      "movement_before": 378,
+      "movement_after": 324,
+      "common_before": 7,
+      "common_after": 15,
+      "widths_before": [
+        19,
+        24
+      ],
+      "widths_after": [
+        19,
+        23,
+        24,
+        25
+      ],
+      "before_sha256": "8c3ce6e83cdf88cc571844bff11d7a9f0c42370b53fa124f4853cb3651bf4007",
+      "after_sha256": "e045405336d27d797ff090db4e6438784836b5abc7e0366e8eb44bc71f934b8f"
+    },
+    {
+      "profile": 0,
+      "case": "pedal",
+      "transitions": 15,
+      "changed_entries": 3,
+      "movement_before": 378,
+      "movement_after": 324,
+      "common_before": 7,
+      "common_after": 15,
+      "widths_before": [
+        19,
+        24
+      ],
+      "widths_after": [
+        19,
+        23,
+        24,
+        25
+      ],
+      "before_sha256": "0c3b0e71a62ceacbfcb774d7e439f922a1273db9f25eb1763bdbe71540b6a743",
+      "after_sha256": "502d9e09c1078309d4b06fd9413c2917a54a1bc3aa1f2ca7b8c4fab110cac9b8"
+    },
+    {
+      "profile": 0,
+      "case": "XY-drive",
+      "transitions": 13,
+      "changed_entries": 3,
+      "movement_before": 183,
+      "movement_after": 140,
+      "common_before": 22,
+      "common_after": 26,
+      "widths_before": [
+        19,
+        24,
+        27
+      ],
+      "widths_after": [
+        20,
+        24,
+        27
+      ],
+      "before_sha256": "13d09a0523e71e1c40a39eccb3fa5fd435b40e382e3a059c4d07f2886ee96714",
+      "after_sha256": "bd2ba4ed7b9172588caeee2af020a751df40dafee05c10dfc3e0cf174dcea2c7"
+    },
+    {
+      "profile": 1,
+      "case": "stationary-dark",
+      "transitions": 14,
+      "changed_entries": 3,
+      "movement_before": 333,
+      "movement_after": 284,
+      "common_before": 11,
+      "common_after": 17,
+      "widths_before": [
+        19,
+        24
+      ],
+      "widths_after": [
+        19,
+        23,
+        24,
+        25,
+        29
+      ],
+      "before_sha256": "70d10e628eaa39cfa3c827a8673937f0efe1ff6d34a7a9d5ec11d850d83e804d",
+      "after_sha256": "d001979e8d126a5eac7b0cd1f9286bd5b198953ce19a4d32c5e12ee143d1c714"
+    },
+    {
+      "profile": 1,
+      "case": "stationary-bright",
+      "transitions": 15,
+      "changed_entries": 6,
+      "movement_before": 256,
+      "movement_after": 149,
+      "common_before": 7,
+      "common_after": 19,
+      "widths_before": [
+        12,
+        16,
+        17,
+        19,
+        20,
+        21
+      ],
+      "widths_after": [
+        12,
+        15,
+        16,
+        19,
+        21
+      ],
+      "before_sha256": "dd7fb6851e4531520037f5e12b18fda5f7f6a5d38beb4c114b0f90c709e98493",
+      "after_sha256": "d1d065033933906998765c3fd82cc5723b251a6ef5b03c445f879bcde66d3323"
+    },
+    {
+      "profile": 1,
+      "case": "stationary-restless",
+      "transitions": 13,
+      "changed_entries": 2,
+      "movement_before": 204,
+      "movement_after": 186,
+      "common_before": 12,
+      "common_after": 14,
+      "widths_before": [
+        21,
+        23,
+        24
+      ],
+      "widths_after": [
+        21,
+        23,
+        24,
+        25
+      ],
+      "before_sha256": "c6efec4dfa4426c9d9c154eb888d45c69505126066867acd4b2ea67227038f50",
+      "after_sha256": "3724d3399328086a3efe83b8dd604ca0330eb7796905d01fdda4026d1cbbe8ef"
+    },
+    {
+      "profile": 1,
+      "case": "stationary-lyrical",
+      "transitions": 15,
+      "changed_entries": 5,
+      "movement_before": 290,
+      "movement_after": 215,
+      "common_before": 7,
+      "common_after": 15,
+      "widths_before": [
+        12,
+        16,
+        19,
+        20,
+        21,
+        22
+      ],
+      "widths_after": [
+        12,
+        15,
+        16,
+        17,
+        19,
+        20,
+        21,
+        22,
+        23
+      ],
+      "before_sha256": "8bf0b6c7552e40e7e087d0923a8bdcc33d53f6d0e1efc09f9669779d93d25b12",
+      "after_sha256": "ce87772f5089ae63adf3ea219886c8f00ef0902a6e065a8d12dfa6bf5d2ba1df"
+    },
+    {
+      "profile": 1,
+      "case": "dark-bright",
+      "transitions": 15,
+      "changed_entries": 2,
+      "movement_before": 303,
+      "movement_after": 271,
+      "common_before": 8,
+      "common_after": 11,
+      "widths_before": [
+        15,
+        16,
+        17,
+        19,
+        20,
+        21,
+        23,
+        25
+      ],
+      "widths_after": [
+        15,
+        16,
+        17,
+        19,
+        20,
+        21,
+        23,
+        25
+      ],
+      "before_sha256": "08243f6cea6efa5f39651a7164d7c93930e84e94e3ced254bf4a42db6a4b647f",
+      "after_sha256": "e01292f95c0437e2f591cf14ff55d16e4ac03793909245488d6197c1a63ac445"
+    },
+    {
+      "profile": 1,
+      "case": "chromatic-field",
+      "transitions": 11,
+      "changed_entries": 1,
+      "movement_before": 216,
+      "movement_after": 211,
+      "common_before": 9,
+      "common_after": 9,
+      "widths_before": [
+        21,
+        23,
+        24
+      ],
+      "widths_after": [
+        21,
+        23,
+        24
+      ],
+      "before_sha256": "5fab339d2164d2ab16ea317e01827e8aa34212d86573678ef9d18290b46532d9",
+      "after_sha256": "8d5fe6a3b93551c00a2dc9feb2e5ca8b39cc0109156e647f82e99e51f18cc334"
+    },
+    {
+      "profile": 1,
+      "case": "tritone-field",
+      "transitions": 15,
+      "changed_entries": 3,
+      "movement_before": 292,
+      "movement_after": 264,
+      "common_before": 14,
+      "common_after": 17,
+      "widths_before": [
+        15,
+        16,
+        19,
+        20,
+        22,
+        24
+      ],
+      "widths_after": [
+        15,
+        16,
+        22,
+        24,
+        31
+      ],
+      "before_sha256": "9120cf354d3f636403195e42cdcd174b5c2d574b0c9b94c18807d1a7ff81267e",
+      "after_sha256": "9d5613d1d99ec037797f9f32cf15d512259e53b878a613fe39d213ff5bd43dfa"
+    },
+    {
+      "profile": 1,
+      "case": "pop",
+      "transitions": 15,
+      "changed_entries": 0,
+      "movement_before": 334,
+      "movement_after": 334,
+      "common_before": 6,
+      "common_after": 6,
+      "widths_before": [
+        19,
+        24,
+        29
+      ],
+      "widths_after": [
+        19,
+        24,
+        29
+      ],
+      "before_sha256": "79edde6f84c37f29f336184c3461f5bc55025ee16054b0b67372b61a99ceb4b9",
+      "after_sha256": "79edde6f84c37f29f336184c3461f5bc55025ee16054b0b67372b61a99ceb4b9"
+    },
+    {
+      "profile": 1,
+      "case": "custom",
+      "transitions": 0,
+      "changed_entries": 0,
+      "movement_before": 0,
+      "movement_after": 0,
+      "common_before": 0,
+      "common_after": 0,
+      "widths_before": [],
+      "widths_after": [],
+      "before_sha256": "bfee297f3f92f879552f669c0b31f0aaec4b5e6dbdf8ee21b8ccd0a6d1465b0f",
+      "after_sha256": "bfee297f3f92f879552f669c0b31f0aaec4b5e6dbdf8ee21b8ccd0a6d1465b0f"
+    },
+    {
+      "profile": 1,
+      "case": "muted-pad",
+      "transitions": 14,
+      "changed_entries": 0,
+      "movement_before": 0,
+      "movement_after": 0,
+      "common_before": 0,
+      "common_after": 0,
+      "widths_before": [],
+      "widths_after": [],
+      "before_sha256": "7ab9b5d9014a3dba25646f593f5924e59e5457b35716c4785e45b19f83dc1f52",
+      "after_sha256": "7ab9b5d9014a3dba25646f593f5924e59e5457b35716c4785e45b19f83dc1f52"
+    },
+    {
+      "profile": 1,
+      "case": "short-pad-walking-bass",
+      "transitions": 14,
+      "changed_entries": 3,
+      "movement_before": 333,
+      "movement_after": 284,
+      "common_before": 11,
+      "common_after": 17,
+      "widths_before": [
+        19,
+        24
+      ],
+      "widths_after": [
+        19,
+        23,
+        24,
+        25,
+        29
+      ],
+      "before_sha256": "b64fb78cc08439c1165cd4620748793ae8c71e3edf7180972e01ec13ee7a446c",
+      "after_sha256": "ff56436a3a493ee83fcfe77405b429949dfe28a8618c37e28abfc10a16d94fac"
+    },
+    {
+      "profile": 1,
+      "case": "pedal",
+      "transitions": 14,
+      "changed_entries": 3,
+      "movement_before": 333,
+      "movement_after": 284,
+      "common_before": 11,
+      "common_after": 17,
+      "widths_before": [
+        19,
+        24
+      ],
+      "widths_after": [
+        19,
+        23,
+        24,
+        25,
+        29
+      ],
+      "before_sha256": "b005da5c3dceed7cd915420a56a166ed2f7d800941e472856423c4e8acf7b109",
+      "after_sha256": "8a0878d22ac8ae3fc77031814db8f41249286be56b71805d2da76baf97a95031"
+    },
+    {
+      "profile": 1,
+      "case": "XY-drive",
+      "transitions": 13,
+      "changed_entries": 3,
+      "movement_before": 183,
+      "movement_after": 140,
+      "common_before": 22,
+      "common_after": 26,
+      "widths_before": [
+        19,
+        24,
+        27
+      ],
+      "widths_after": [
+        20,
+        24,
+        27
+      ],
+      "before_sha256": "13d09a0523e71e1c40a39eccb3fa5fd435b40e382e3a059c4d07f2886ee96714",
+      "after_sha256": "bd2ba4ed7b9172588caeee2af020a751df40dafee05c10dfc3e0cf174dcea2c7"
+    },
+    {
+      "profile": 2,
+      "case": "stationary-dark",
+      "transitions": 14,
+      "changed_entries": 3,
+      "movement_before": 333,
+      "movement_after": 284,
+      "common_before": 11,
+      "common_after": 17,
+      "widths_before": [
+        19,
+        24
+      ],
+      "widths_after": [
+        19,
+        23,
+        24,
+        25,
+        29
+      ],
+      "before_sha256": "70d10e628eaa39cfa3c827a8673937f0efe1ff6d34a7a9d5ec11d850d83e804d",
+      "after_sha256": "d001979e8d126a5eac7b0cd1f9286bd5b198953ce19a4d32c5e12ee143d1c714"
+    },
+    {
+      "profile": 2,
+      "case": "stationary-bright",
+      "transitions": 15,
+      "changed_entries": 7,
+      "movement_before": 274,
+      "movement_after": 154,
+      "common_before": 8,
+      "common_after": 20,
+      "widths_before": [
+        12,
+        16,
+        17,
+        19,
+        20,
+        21
+      ],
+      "widths_after": [
+        12,
+        15,
+        16,
+        19,
+        20,
+        21
+      ],
+      "before_sha256": "4fcc208e25d09f416024e73dd0c5e34a76f5e38333edfee72af4383ad84e4c3c",
+      "after_sha256": "6d4cee804e86ff3e5102d12c5c223e8d632ed8e953fda264219abb3ba809b91c"
+    },
+    {
+      "profile": 2,
+      "case": "stationary-restless",
+      "transitions": 13,
+      "changed_entries": 2,
+      "movement_before": 208,
+      "movement_after": 190,
+      "common_before": 12,
+      "common_after": 14,
+      "widths_before": [
+        20,
+        21,
+        23,
+        24
+      ],
+      "widths_after": [
+        20,
+        21,
+        23,
+        24,
+        25
+      ],
+      "before_sha256": "a399f33ef73472283a8b9e046dc516ee89f24dda5d2ea38d4835ee08e2a1e165",
+      "after_sha256": "4ade835cc09fb1daf901e13efd725608074051b45e506dff37e7fd28b87a9cf1"
+    },
+    {
+      "profile": 2,
+      "case": "stationary-lyrical",
+      "transitions": 14,
+      "changed_entries": 6,
+      "movement_before": 222,
+      "movement_after": 144,
+      "common_before": 10,
+      "common_after": 18,
+      "widths_before": [
+        16,
+        19,
+        20,
+        22
+      ],
+      "widths_after": [
+        15,
+        16,
+        17,
+        19,
+        22,
+        23
+      ],
+      "before_sha256": "b1b232cef6cb7bc75ae2f80015c25acbefcea42f19d212de1892f088d923e0f2",
+      "after_sha256": "feaaabe764278254790bd81681b5fd4964c3a620acc223523a16bb6eb4154796"
+    },
+    {
+      "profile": 2,
+      "case": "dark-bright",
+      "transitions": 15,
+      "changed_entries": 2,
+      "movement_before": 288,
+      "movement_after": 261,
+      "common_before": 9,
+      "common_after": 14,
+      "widths_before": [
+        15,
+        16,
+        17,
+        20,
+        22,
+        23,
+        25
+      ],
+      "widths_after": [
+        15,
+        16,
+        17,
+        20,
+        22,
+        23,
+        25
+      ],
+      "before_sha256": "fe535085e512df9e3d6740aba5ba1d30caac6ba06383df7cb50a4ac83b58eee4",
+      "after_sha256": "68f1bc08b83a359fcaeeb936063fecec81bd7c1f0b8cc96f9877e331b2b67e7a"
+    },
+    {
+      "profile": 2,
+      "case": "chromatic-field",
+      "transitions": 12,
+      "changed_entries": 2,
+      "movement_before": 302,
+      "movement_after": 282,
+      "common_before": 9,
+      "common_after": 9,
+      "widths_before": [
+        20,
+        21,
+        23,
+        24
+      ],
+      "widths_after": [
+        20,
+        21,
+        23,
+        24
+      ],
+      "before_sha256": "814375c454dd40a34b9f28f30f056518c6380fdc53742f931fabbadb37004fd5",
+      "after_sha256": "bdb275e6a6aac1adf8c277f73724c2f3ea245e53884607fefdf7e67ad4b66601"
+    },
+    {
+      "profile": 2,
+      "case": "tritone-field",
+      "transitions": 15,
+      "changed_entries": 2,
+      "movement_before": 325,
+      "movement_after": 311,
+      "common_before": 11,
+      "common_after": 12,
+      "widths_before": [
+        15,
+        16,
+        20,
+        21,
+        24,
+        28
+      ],
+      "widths_after": [
+        15,
+        16,
+        20,
+        21,
+        24,
+        28,
+        31
+      ],
+      "before_sha256": "31b41637a5cb26caa2f8df48474da449e4de8a71fb3a83d62561c21dd8e5592e",
+      "after_sha256": "9417a8ed0dd945c69c47e2c585b7e37c1672ffc53fa9fa9fa6da37f36949c322"
+    },
+    {
+      "profile": 2,
+      "case": "pop",
+      "transitions": 15,
+      "changed_entries": 0,
+      "movement_before": 334,
+      "movement_after": 334,
+      "common_before": 6,
+      "common_after": 6,
+      "widths_before": [
+        19,
+        24,
+        29
+      ],
+      "widths_after": [
+        19,
+        24,
+        29
+      ],
+      "before_sha256": "79edde6f84c37f29f336184c3461f5bc55025ee16054b0b67372b61a99ceb4b9",
+      "after_sha256": "79edde6f84c37f29f336184c3461f5bc55025ee16054b0b67372b61a99ceb4b9"
+    },
+    {
+      "profile": 2,
+      "case": "custom",
+      "transitions": 0,
+      "changed_entries": 0,
+      "movement_before": 0,
+      "movement_after": 0,
+      "common_before": 0,
+      "common_after": 0,
+      "widths_before": [],
+      "widths_after": [],
+      "before_sha256": "bfee297f3f92f879552f669c0b31f0aaec4b5e6dbdf8ee21b8ccd0a6d1465b0f",
+      "after_sha256": "bfee297f3f92f879552f669c0b31f0aaec4b5e6dbdf8ee21b8ccd0a6d1465b0f"
+    },
+    {
+      "profile": 2,
+      "case": "muted-pad",
+      "transitions": 14,
+      "changed_entries": 0,
+      "movement_before": 0,
+      "movement_after": 0,
+      "common_before": 0,
+      "common_after": 0,
+      "widths_before": [],
+      "widths_after": [],
+      "before_sha256": "7ab9b5d9014a3dba25646f593f5924e59e5457b35716c4785e45b19f83dc1f52",
+      "after_sha256": "7ab9b5d9014a3dba25646f593f5924e59e5457b35716c4785e45b19f83dc1f52"
+    },
+    {
+      "profile": 2,
+      "case": "short-pad-walking-bass",
+      "transitions": 14,
+      "changed_entries": 3,
+      "movement_before": 333,
+      "movement_after": 284,
+      "common_before": 11,
+      "common_after": 17,
+      "widths_before": [
+        19,
+        24
+      ],
+      "widths_after": [
+        19,
+        23,
+        24,
+        25,
+        29
+      ],
+      "before_sha256": "b64fb78cc08439c1165cd4620748793ae8c71e3edf7180972e01ec13ee7a446c",
+      "after_sha256": "ff56436a3a493ee83fcfe77405b429949dfe28a8618c37e28abfc10a16d94fac"
+    },
+    {
+      "profile": 2,
+      "case": "pedal",
+      "transitions": 14,
+      "changed_entries": 3,
+      "movement_before": 333,
+      "movement_after": 284,
+      "common_before": 11,
+      "common_after": 17,
+      "widths_before": [
+        19,
+        24
+      ],
+      "widths_after": [
+        19,
+        23,
+        24,
+        25,
+        29
+      ],
+      "before_sha256": "b005da5c3dceed7cd915420a56a166ed2f7d800941e472856423c4e8acf7b109",
+      "after_sha256": "8a0878d22ac8ae3fc77031814db8f41249286be56b71805d2da76baf97a95031"
+    },
+    {
+      "profile": 2,
+      "case": "XY-drive",
+      "transitions": 13,
+      "changed_entries": 3,
+      "movement_before": 183,
+      "movement_after": 140,
+      "common_before": 22,
+      "common_after": 26,
+      "widths_before": [
+        19,
+        24,
+        27
+      ],
+      "widths_after": [
+        20,
+        24,
+        27
+      ],
+      "before_sha256": "b92650fbbaadd9addf6bdfed77da91710cf5fb3d1143c3b96159b47863a6a1b6",
+      "after_sha256": "36292769e983788fa4055717cb3ca798175dec7a6fb5cd9dae87e2d2a40e4216"
+    }
+  ],
+  "examples": [
+    {
+      "profile": 0,
+      "case": "stationary-bright",
+      "bar": 40.0,
+      "target_index": 42,
+      "root": 0,
+      "quality": 0,
+      "source_root": 7,
+      "source_quality": 4,
+      "root_motion_class": 5,
+      "previous": [
+        62,
+        65,
+        79,
+        83
+      ],
+      "baseline_previous": [
+        62,
+        65,
+        79,
+        83
+      ],
+      "baseline": [
+        55,
+        72,
+        76
+      ],
+      "new": [
+        60,
+        64,
+        79
+      ],
+      "common_before": [],
+      "common_after": [
+        79
+      ],
+      "movement_before": 41,
+      "movement_after": 10,
+      "ordered_semitones_before": null,
+      "ordered_semitones_after": null,
+      "baseline_bass_previous": [
+        55
+      ],
+      "bass_previous": [
+        55
+      ],
+      "bass_baseline": [
+        48
+      ],
+      "bass_new": [
+        48
+      ],
+      "bass_semitones_before": -7,
+      "bass_semitones_after": -7,
+      "common_rearticulated": 0,
+      "entry_end_bar": 42.0,
+      "exit_baseline": [
+        57,
+        72,
+        77
+      ],
+      "exit_new": [
+        57,
+        72,
+        77
+      ],
+      "exit_movement_before": 6,
+      "exit_movement_after": 24
+    },
+    {
+      "profile": 0,
+      "case": "stationary-bright",
+      "bar": 112.0,
+      "target_index": 30,
+      "root": 0,
+      "quality": 2,
+      "source_root": 0,
+      "source_quality": 0,
+      "root_motion_class": 0,
+      "previous": [
+        60,
+        67,
+        76
+      ],
+      "baseline_previous": [
+        60,
+        67,
+        76
+      ],
+      "baseline": [
+        59,
+        64,
+        72,
+        79
+      ],
+      "new": [
+        60,
+        67,
+        71,
+        76
+      ],
+      "common_before": [],
+      "common_after": [
+        60,
+        67,
+        76
+      ],
+      "movement_before": 18,
+      "movement_after": 4,
+      "ordered_semitones_before": null,
+      "ordered_semitones_after": null,
+      "baseline_bass_previous": [
+        48
+      ],
+      "bass_previous": [
+        48
+      ],
+      "bass_baseline": [
+        60
+      ],
+      "bass_new": [
+        48
+      ],
+      "bass_semitones_before": 12,
+      "bass_semitones_after": 0,
+      "common_rearticulated": 0,
+      "entry_end_bar": 114.0,
+      "exit_baseline": [
+        59,
+        66,
+        75,
+        82
+      ],
+      "exit_new": [
+        59,
+        66,
+        75,
+        82
+      ],
+      "exit_movement_before": 16,
+      "exit_movement_after": 16
+    },
+    {
+      "profile": 0,
+      "case": "stationary-lyrical",
+      "bar": 88.0,
+      "target_index": 39,
+      "root": 0,
+      "quality": 0,
+      "source_root": 6,
+      "source_quality": 0,
+      "root_motion_class": 6,
+      "previous": [
+        66,
+        73,
+        82
+      ],
+      "baseline_previous": [
+        66,
+        73,
+        82
+      ],
+      "baseline": [
+        60,
+        67,
+        76
+      ],
+      "new": [
+        64,
+        72,
+        79
+      ],
+      "common_before": [],
+      "common_after": [],
+      "movement_before": 20,
+      "movement_after": 12,
+      "ordered_semitones_before": [
+        -6,
+        -6,
+        -6
+      ],
+      "ordered_semitones_after": [
+        -2,
+        -1,
+        -3
+      ],
+      "baseline_bass_previous": [
+        54
+      ],
+      "bass_previous": [
+        54
+      ],
+      "bass_baseline": [
+        48
+      ],
+      "bass_new": [
+        48
+      ],
+      "bass_semitones_before": -6,
+      "bass_semitones_after": -6,
+      "common_rearticulated": 0,
+      "entry_end_bar": 89.0,
+      "exit_baseline": [
+        62,
+        69,
+        78
+      ],
+      "exit_new": [
+        62,
+        69,
+        78
+      ],
+      "exit_movement_before": 12,
+      "exit_movement_after": 12
+    },
+    {
+      "profile": 0,
+      "case": "stationary-restless",
+      "bar": 8.0,
+      "target_index": 11,
+      "root": 0,
+      "quality": 0,
+      "source_root": 11,
+      "source_quality": 7,
+      "root_motion_class": 1,
+      "previous": [
+        59,
+        71,
+        74,
+        77,
+        80
+      ],
+      "baseline_previous": [
+        59,
+        71,
+        74,
+        77,
+        80
+      ],
+      "baseline": [
+        60,
+        64,
+        72,
+        79,
+        83
+      ],
+      "new": [
+        60,
+        64,
+        72,
+        79,
+        83
+      ],
+      "common_before": [],
+      "common_after": [],
+      "movement_before": 18,
+      "movement_after": 18,
+      "ordered_semitones_before": [
+        1,
+        -7,
+        -2,
+        2,
+        3
+      ],
+      "ordered_semitones_after": [
+        1,
+        -7,
+        -2,
+        2,
+        3
+      ],
+      "baseline_bass_previous": [
+        47
+      ],
+      "bass_previous": [
+        47
+      ],
+      "bass_baseline": [
+        48
+      ],
+      "bass_new": [
+        48
+      ],
+      "bass_semitones_before": 1,
+      "bass_semitones_after": 1,
+      "common_rearticulated": 0,
+      "entry_end_bar": 10.0,
+      "exit_baseline": [
+        51,
+        58,
+        63,
+        74,
+        79
+      ],
+      "exit_new": [
+        51,
+        58,
+        63,
+        74,
+        79
+      ],
+      "exit_movement_before": 23,
+      "exit_movement_after": 23
+    }
+  ]
+}

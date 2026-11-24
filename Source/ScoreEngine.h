@@ -444,7 +444,7 @@ struct Meter
 class Generator
 {
 public:
-    void reset() { motifCatalog.clear(); voices={}; style = -1; chaseStep = -1; lastGenre = -1; resetCc(); resetVoicing(); numActive = 0; running = false; lastPpqEnd = 0.0; phraseIndex = -1; current = -1; wendungStart = 0; still = false; chordBase = 0; drivePrev = driveSeen = driveLatched = driveArrivedNow = false; driveTrajectory = false; driveProgressNow = 0; driveGenerationSeen = 0; curRoot = 0; curType = Min; curChord = -1;
+    void reset() { harmonicChase=false; clearHarmonicEntries(); motifCatalog.clear(); voices={}; style = -1; chaseStep = -1; lastGenre = -1; resetCc(); resetVoicing(); numActive = 0; running = false; lastPpqEnd = 0.0; phraseIndex = -1; current = -1; wendungStart = 0; still = false; chordBase = 0; drivePrev = driveSeen = driveLatched = driveArrivedNow = false; driveTrajectory = false; driveProgressNow = 0; driveGenerationSeen = 0; curRoot = 0; curType = Min; curChord = -1;
                    sceneStep = 0; manualEndStep = -1; manualFinished = manualHitSent = false; endWasRequested = false; sceneSeed = 0; autoSeed = -1; sceneBarNow = -1; sceneEnded = false; for (int l = 0; l < kNumLayers; ++l) { on[l] = prevOn[l] = hOn[l] = false; } }
 
     uint32_t unavailablePadPitchClasses() const { return unavailablePad; }
@@ -691,17 +691,19 @@ public:
             allNotesOff (out, 0);
             for(auto& state:voices)if(!state.motif.material(motifCatalog).complete)state.motif.clear();
             resetVoicing();
+            heardHarmony={}; harmonicChase=true;
             driveTrajectory = false; // A seek reconstructs the curve at the destination, without old segment history.
             // Szenenstart: Wiedergabebeginn, auf den Taktanfang gerundet. Ein Sprung nach vorn (oder ein Loop, der nicht
             // vor den Start zurueckspringt) laeuft in derselben Szene weiter, ein Sprung davor beginnt eine neue.
             const long long k0 = (long long) std::floor (t.ppq / kStep + 1e-9);
             if (! running) { manualEndStep = -1; manualFinished = manualHitSent = false; endWasRequested = false; }
-            if (! running || k0 < sceneStep) { motifCatalog.clear(); voices={}; sceneStep = floorDiv (k0, meter.len) * meter.len; driveLatched = false; drivePrev = false; driveSeen = false; }
+            if (! running || k0 < sceneStep) { clearHarmonicEntries(); motifCatalog.clear(); voices={}; sceneStep = floorDiv (k0, meter.len) * meter.len; driveLatched = false; drivePrev = false; driveSeen = false; }
             running = true;
             phraseIndex = -1;
             for(auto& state:voices){state.note=-1;state.pendingAt=-1;} resetCc();
             applyDrive (k0, s, ax, ay);
             chase (t.ppq, s, out);
+            harmonicChase=false;
         }
 
         const long long firstStep = (long long) std::floor (t.ppq / kStep) - 1;
@@ -1300,7 +1302,9 @@ private:
     void ensurePhrase (long long phrase, const Settings& s)
     {
         if (phrase == phraseIndex) return;
+        const int previous=current;
         if (! still) { current = s.custom ? kCustomWendung : pick (s, phrase); chordBase = 0; }
+        rememberHarmonicEntry(phrase * phraseBars * meter.len,previous,s);
         if (s.custom) style = pick (s, phrase);
         phraseIndex = phrase;
         wendungStart = phrase * phraseBars * meter.len;
@@ -1340,7 +1344,9 @@ private:
         }
         if (s.custom) return false;
         if (weight (wendungAt (genre, current), s) >= std::min (kKeepRatio, keepRatio (s)) * bestWeight (s)) return false;
+        const int previous=current;
         current = pick (s, k * 7 + 3);
+        rememberHarmonicEntry(k,previous,s);
         wendungStart = k;
         return true;
     }
@@ -1563,6 +1569,7 @@ private:
             a.startStep = nowStep;
         }
         else active[(size_t) numActive++] = { (uint8_t) channel, (uint8_t) note, (uint8_t) o, endStep, nowStep };
+        if(o==OutBassLong||o==OutBassShort)heardHarmony.bass=note;
     }
 
     void updateMask (const Settings& s)
@@ -1581,10 +1588,35 @@ private:
     static int bassLow (const Settings& s) { return 45 + (int) std::lround (s.x * 4.0f); }   // Bass: A2 bis Cis3
 
     // --- Flaeche (o: lang fuer gehaltene Akkorde, kurz fuer Schlaege, Puls, Staccato und Gated)
-    void resetVoicing() { planValid = false; unavailablePad = 0; }
+    void resetVoicing() { planValid = false; entryVoicingValid=false; unavailablePad = 0; }
 
-    // A bounded cyclic plan is a function of the harmonic vocabulary, register and variation.
-    // It has no "last played notes" memory: seek, loop, offline export and block size agree.
+    struct HeardHarmony
+    {
+        voiceleading::ChordVoicing pad;
+        int bass=-1,root=0,type=Min;
+    } heardHarmony;
+    // Small scene-local ledger for revisiting the last 64 performed boundaries.
+    struct HarmonicEntryRecord { long long begin=-1;int target=-1;HeardHarmony heard; };
+    std::array<HarmonicEntryRecord,64> harmonicEntries {};
+    unsigned harmonicEntryNext=0;
+    bool harmonicChase=false;
+    void clearHarmonicEntries()
+    {heardHarmony={};harmonicEntries={};harmonicEntryNext=0;}
+    void rememberHarmonicEntry(long long begin,int previous,const Settings& s)
+    {
+        if(harmonicChase||s.genre!=GenreScore||s.custom||previous<0||previous==current)return;
+        for(const auto& entry:harmonicEntries)if(entry.begin==begin&&entry.target==current)return;
+        harmonicEntries[harmonicEntryNext++%harmonicEntries.size()]={begin,current,heardHarmony};
+        planValid=false;
+    }
+    const HarmonicEntryRecord* harmonicEntryAt(const Pos& p,const Settings& s)const
+    {
+        if(s.genre!=GenreScore||s.custom)return nullptr;
+        const auto begin=std::max(p.phraseStart,wendungStart);
+        for(const auto& entry:harmonicEntries)if(entry.begin==begin&&entry.target==current)return &entry;
+        return nullptr;
+    }
+    // The ordinary cyclic plan is unchanged. Only the entry chord can use performed context.
     void prepareVoicingPlan (const Pos& p, const Settings& s)
     {
         const int o = OutPadLong, oct = 12 * octaveOf (o);
@@ -1600,6 +1632,11 @@ private:
         uint64_t key = 1469598103934665603ull;
         auto mix = [&] (int n) { key ^= (uint64_t) (uint32_t) n; key *= 1099511628211ull; };
         mix (lo); mix (hi); mix (blo); mix (bhi); mix (current); mix (genre);
+        const auto* entry=harmonicEntryAt(p,s);
+        if(entry){mix(static_cast<int>(entry->begin));mix(static_cast<int>(entry->begin>>32));
+            mix(entry->heard.pad.n);for(int i=0;i<entry->heard.pad.n;++i)mix(entry->heard.pad.notes[i]);
+            mix(entry->heard.bass);mix(entry->heard.root);mix(entry->heard.type);}
+
         const auto& w = W(); long long start = std::max (p.phraseStart, wendungStart);
         for (int i = 0; i < w.n; ++i)
         {
@@ -1642,6 +1679,25 @@ private:
                 chords[index].root,s.key);
         }
         harmonicPlan = composition::planHarmony(request);
+        entryVoicingValid=false;
+        if(entry&&harmonicPlan.valid)
+        {
+            composition::HarmonicEntry previous;
+            previous.pad=entry->heard.pad;
+            for(int i=0;i<previous.pad.n;++i)previous.pad.notes[i]-=oct;
+            previous.hasBass=entry->heard.bass>=0;
+            previous.bass=entry->heard.bass-12*s.octave[kBass];
+            const int index=chordBase*2;
+            const auto chord=chords[index];
+            previous.resolution=composition::dominantResolution(entry->heard.root,
+                entry->heard.type==Dom7||entry->heard.type==Dom7b9,s.key+chord.root,0);
+            const composition::HarmonicPlan::Slot* following=nullptr;
+            for(int next=index+1;next<request.count;++next)if(request.slots[static_cast<size_t>(next)].enabled)
+                {following=&harmonicPlan.slots[static_cast<size_t>(next)];break;}
+            entryVoicing=composition::leadEntry(
+                harmonicPlan.slots[static_cast<size_t>(index)],previous,{lo,hi},{blo,bhi},following);
+            entryVoicingValid=true;
+        }
         planValid = harmonicPlan.valid; planKey = key;
     }
 
@@ -1649,7 +1705,7 @@ private:
     {
         prepareVoicingPlan (p, s);
         const int index = p.chordIdx * 2 + (p.passing ? 1 : 0);
-        unavailablePad = harmonicPlan.slots[static_cast<size_t> (index)].unavailable; return harmonicPlan.slots[static_cast<size_t> (index)].pad;
+        unavailablePad = harmonicPlan.slots[static_cast<size_t> (index)].unavailable; return entryVoicingValid&&index==chordBase*2?entryVoicing.pad:harmonicPlan.slots[static_cast<size_t> (index)].pad;
     }
 
     void padChord (const Pos& p, const Settings& s, int o, int offset, long long endStep, int velocity, EventList& out)
@@ -1680,13 +1736,22 @@ private:
                 for (int j = 0; j < voiced.n; ++j) wanted = wanted || a.note == sounding (o, voiced.notes[j]);
                 if (a.out == o && ! wanted) removeActive (i, offset, out); else ++i;
             }
+        if(on[kFlaeche])
+        {
+            voiceleading::ChordVoicing played;
+            for(int i=0;i<numActive&&played.n<6;++i)if(active[static_cast<size_t>(i)].out==o)
+                played.notes[played.n++]=active[static_cast<size_t>(i)].note;
+            if(played.n){voiceleading::sort(played);heardHarmony.pad=played;
+                heardHarmony.root=(s.key+chord.root)%12;heardHarmony.type=chord.type;}
+        }
     }
 
     int bassPlacement (const Pos& p, const Settings& s, int anchor, bool pedal)
     {
         if (pedal) return anchor;
         prepareVoicingPlan (p, s);
-        return harmonicPlan.slots[static_cast<size_t> (p.chordIdx * 2 + (p.passing ? 1 : 0))].bass;
+        const int index=p.chordIdx*2+(p.passing?1:0);
+        return entryVoicingValid&&index==chordBase*2?entryVoicing.bass:harmonicPlan.slots[static_cast<size_t>(index)].bass;
     }
 
     int nextBassPlacement (const Pos& p, const Settings& s)
@@ -2577,6 +2642,7 @@ private:
     VoiceState& voice(int output){return voices[output==OutMelody?1u:0u];}
     const VoiceState& voice(int output)const{return voices[output==OutMelody?1u:0u];}
     composition::HarmonicPlan harmonicPlan;
+    composition::HarmonicPlan::Slot entryVoicing; bool entryVoicingValid=false;
     uint64_t planKey = 0; bool planValid = false;
     uint32_t unavailablePad = 0;
     static constexpr int kMaxActive = 192;
