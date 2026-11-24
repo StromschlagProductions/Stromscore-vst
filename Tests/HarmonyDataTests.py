@@ -27,7 +27,7 @@ class HarmonyDataTests(unittest.TestCase):
     result=(dest/'ScoreEngine.h').read_bytes();outputs.append(result)
     self.assertIn(b'inline WendungId importTestId=',result)
     self.assertIn(b'if(importTestId!=WendungId::invalid)return false;',result)
-    self.assertEqual(snapshot['ScoreEngine.h'],engine.replace(b'\n',ending))
+    self.assertEqual((root/'Source/ScoreEngine.h').read_bytes(),headers['ScoreEngine.h'])
    self.assertEqual(*outputs)
  def test_bad_definitions(self):
   mutations=[lambda d:d['catalog.json']['templates'].append(copy.deepcopy(d['catalog.json']['templates'][0])),
