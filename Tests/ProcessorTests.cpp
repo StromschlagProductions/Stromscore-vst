@@ -775,6 +775,7 @@ int main()
         const bool handoff=intensity>.96f&&intensity<.98f;
         if(handoff)
         {
+            setParam(q,"arpFigure",stromscore::ArpAuto);
             setParam(q,"wurf",3);setParam(q,"durchgaenge",0);
             for(int i=1;i<=stromscore::kMaxChords;++i)
             {setParam(q,("slotRoot"+std::to_string(i)).c_str(),0);setParam(q,("slotType"+std::to_string(i)).c_str(),2);
@@ -791,7 +792,8 @@ int main()
             setParam(q,"motiv",0);setParam(q,"melodie",0);setParam(q,"mute3",0);setParam(q,"arpFigure",stromscore::ArpAuto);
             if(intensity==.91f){setParam(q,"aufbau",1);setParam(q,"einstieg",stromscore::EntryCounter);setParam(q,"szenenLaenge",16);}
         }
-        const int bars=recurrence?40:8;
+        // The existing plugin export is capped at 64 bars; the core comparison covers 128.
+        const int bars=(intensity==.8f||intensity==.9f||handoff)?64:recurrence?40:8;
         using Timed = std::tuple<long long, int, int, int, int>;
         std::vector<Timed> live, exported;
         auto add = [] (std::vector<Timed>& target, const juce::MidiMessage& m, long long tick)
@@ -814,7 +816,7 @@ int main()
         for (const auto meta : m) add (live, meta.getMessage(), bars*3840);
         std::sort (live.begin(), live.end()); std::sort (exported.begin(), exported.end());
         CHECK (! live.empty() && live == exported);
-        if(handoff){int answers=0;for(const auto& e:live)if(std::get<1>(e)==1&&std::get<2>(e)==8)++answers;CHECK(answers>=2&&answers<=3);}
+        if(handoff){int answers=0;for(const auto& e:live)if(std::get<1>(e)==1&&std::get<2>(e)==8)++answers;CHECK(answers==6);}
         q.setPlayHead (nullptr);
     }
 

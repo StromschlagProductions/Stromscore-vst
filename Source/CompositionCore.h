@@ -73,19 +73,19 @@ public:
     void clear(){*this={};}
 };
 // A future role plan must explicitly request adoption; never inferred from catalog contents.
-struct MotifReferencePlan { MotifRef material; int64_t introduction=-1; };
+struct MotifReferencePlan { MotifRef material; int64_t introduction=-1,originTick=0; };
 struct MotifUse
 {
     RememberedMotif draft;
     MotifRef reference;
-    int64_t introduction=-1;
+    int64_t introduction=-1,originTick=0;
     void clear(){*this={};}
     const RememberedMotif& material(const MotifCatalog& catalog)const
     {const auto* published=catalog.find(reference);return published?*published:draft;}
-    void observe(int pitch,int64_t at,int64_t length,int64_t section,int velocity=64)
+    void observe(int pitch,int64_t at,int64_t length,int64_t section,int velocity=64,int64_t absoluteBegin=0)
     {
         if(reference.value>=0)return;
-        if(draft.count==0)introduction=section;
+        if(draft.count==0){introduction=section;originTick=absoluteBegin;}
         draft.observe(pitch,at,length,velocity);
     }
     void finish(MotifCatalog& catalog)
@@ -98,13 +98,54 @@ struct MotifUse
     bool adopt(const MotifReferencePlan& plan,const MotifCatalog& catalog)
     {
         if(plan.introduction<0||!catalog.find(plan.material))return false;
-        clear();reference=plan.material;introduction=plan.introduction;return true;
+        clear();reference=plan.material;introduction=plan.introduction;originTick=plan.originTick;return true;
     }
-    bool recall(int64_t section,const MotifCatalog& catalog)const
-    {return material(catalog).complete&&section>=introduction+2&&(section-introduction)%2==0;}
-    bool varied(int64_t section,const MotifCatalog& catalog)const
-    {return recall(section,catalog)&&(section-introduction)%4==0;}
 };
+struct RecurrenceSlot { bool eligible=false;int64_t ordinal=0;int preceding=0;bool lateAllowed=false; };
+inline RecurrenceSlot recurrenceSlot(const MotifRecurrencePolicy& policy,int64_t epoch,float energy,float unrest)
+{
+    if(!valid(policy)||epoch<1)return {};
+    const auto& steps=energy<policy.sparseBelow&&unrest<policy.unrestEngages?policy.sparseSteps:policy.normalSteps;
+    const int cycle=steps[0]+steps[1]+steps[2];const auto rounds=(epoch-1)/cycle;
+    const int position=static_cast<int>((epoch-1)%cycle)+1;int total=0;
+    auto eligible=[&](int64_t e)
+    {
+        if(e<1)return false;const int phase=static_cast<int>((e-1)%cycle)+1;int sum=0;
+        for(int n:steps){sum+=n;if(sum==phase)return true;}return false;
+    };
+    for(int i=0;i<3;++i)
+    {
+        total+=steps[static_cast<size_t>(i)];
+        if(total==position)return {true,rounds*3+i+1,steps[static_cast<size_t>(i)],eligible(epoch-1)&&eligible(epoch-2)};
+    }
+    return {};
+}
+struct MotifOccurrence
+{
+    bool active=false,introduction=false,varied=false;
+    int64_t begin=0,end=0,ordinal=0;int base=0;
+};
+struct MotifPlacement { int64_t begin=0;int base=0,cost=0; };
+inline MotifOccurrence planRecurrence(const MotifRecurrencePolicy& policy,const RecurrenceSlot& slot,
+    int64_t begin,int64_t end,int64_t span,int64_t bar,
+    const MotifPlacement* candidates,int count,int64_t responseReserve=0)
+{
+    if(!slot.eligible||!valid(policy)||bar<1||span<1||count<0||count>32||!candidates)return {};
+    const auto last=end-span-policy.minimumSilentBars*bar-responseReserve;
+    if(last<begin)return {};
+    // Interior entries finish a run of opportunities; after a quiet slot prefer an early return.
+    const auto preferred=slot.preceding>1||!slot.lateAllowed||slot.ordinal%2?begin:last;
+    int best=-1;int64_t cost=std::numeric_limits<int64_t>::max();
+    for(int i=0;i<count;++i)
+    {
+        const auto& c=candidates[i];if(c.begin<begin||c.begin>last)continue;
+        const auto score=c.cost+std::abs(c.begin-preferred)*(slot.preceding>1?24:4)/bar;
+        if(score<cost){best=i;cost=score;}
+    }
+    if(best<0)return {};
+    const auto& c=candidates[best];
+    return {true,false,slot.ordinal%2==0,c.begin,c.begin+span,slot.ordinal,c.base};
+}
 // A role, a playing style, an instrument and a destination are distinct concepts.
 enum class MusicalRole { lead, accompaniment, answer };
 enum class PlayingStyle { sustained, detached };
@@ -198,30 +239,29 @@ struct MotifHandoffPlan
     int64_t begin=0,end=0;
 };
 inline MotifHandoffPlan planMelodyHandoff(bool requested,const MotifUse& source,
-    const MotifCatalog& catalog,const PlayingTrack& target,int64_t section,int64_t bar,int64_t phrase)
+    const MotifCatalog& catalog,const PlayingTrack& target,int64_t epoch,int64_t bar,int64_t window,
+    const MotifRecurrencePolicy& policy,float energy,float unrest,bool leading)
 {
-    MotifHandoffPlan p;
-    RoleNeed need;need.role=MusicalRole::answer;need.range=target.instrument.range;
+    MotifHandoffPlan p;RoleNeed need;need.role=MusicalRole::answer;need.range=target.instrument.range;
     const auto* material=catalog.find(source.reference);
-    if(!requested||!suitable(target,need)||!material||material->count<3||bar<1||phrase<4*bar
-        ||section<source.introduction+1||(section-source.introduction-1)%4!=0)return p;
-    p.count=std::min(3,material->count-1);p.first=material->count-p.count;
-    p.begin=bar; // At least one full bar of silence in the non-leading phrase.
+    if(!requested||leading||!suitable(target,need)||!material||material->count<3||bar<1||window<4*bar||epoch<1)return p;
+    const auto group=(epoch-1)/4;int64_t quiet=-1;
+    for(int i=1;i<=4;++i)if(!recurrenceSlot(policy,group*4+i,energy,unrest).eligible){quiet=group*4+i;break;}
+    if(epoch!=quiet)return p;
+    p.count=std::min(3,material->count-1);p.first=material->count-p.count;p.begin=bar;
     const auto& last=material->notes[static_cast<size_t>(material->count-1)];
     p.end=p.begin+last.at-material->notes[static_cast<size_t>(p.first)].at+last.length;
-    if(p.end>phrase||p.end-p.begin>2*bar)return {};
-    p.reference={source.reference,section};p.active=true;return p;
+    if(p.end>window||p.end-p.begin>2*bar)return {};
+    p.reference={source.reference,source.introduction+epoch,source.originTick+epoch*window};p.active=true;return p;
 }
-// Role scheduling only; MIDI rendering and catalog rules remain outside this data.
-struct DialoguePlan { bool reserveResponse=false, answer=false; int answerNotes=0; uint64_t sourceMotif=0; int64_t answerBegin=0, answerEnd=0; };
-inline DialoguePlan planDialogue(const MotifUse& use,const MotifCatalog& catalog,int64_t section,int64_t relative,int64_t window)
+struct DialoguePlan { bool reserveResponse=false,answer=false;int answerNotes=0;uint64_t sourceMotif=0;int64_t answerBegin=0,answerEnd=0; };
+inline DialoguePlan planDialogue(const MotifUse& use,const MotifCatalog& catalog,const MotifOccurrence& question,int64_t at,int64_t window)
 {
-    const auto& memory=use.material(catalog);
-    DialoguePlan p;p.sourceMotif=memory.identity;p.reserveResponse=relative<2*window;p.answerBegin=window;p.answerEnd=2*window;
-    p.answer=memory.complete&&(section==use.introduction||use.recall(section,catalog))
-        &&relative>=window&&relative<2*window;
-    p.answerNotes=p.answer?std::min(3,memory.count):0;
-    return p;
+    const auto& memory=use.material(catalog);DialoguePlan p;p.sourceMotif=memory.identity;
+    p.answerBegin=question.begin+window;p.answerEnd=question.begin+2*window;
+    p.reserveResponse=question.active&&at>=question.begin&&at<p.answerEnd;
+    p.answer=memory.complete&&p.reserveResponse&&at>=p.answerBegin;
+    p.answerNotes=p.answer?std::min(3,memory.count):0;return p;
 }
 // A bounded free-line thought over an actual harmonic region, not a fixed bar grammar.
 enum class PhraseEnding { open, settled };

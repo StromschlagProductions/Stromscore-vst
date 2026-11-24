@@ -460,6 +460,13 @@ public:
     // Offline/read-only inspection: reconstruct the same plan without changing performance state.
     composition::LinePhrasePlan inspectFreePhrase(long long tick,Settings settings)const
     {auto snapshot=*this;snapshot.cur=&settings;return snapshot.freeLinePhrase(snapshot.locate(tick),settings);}
+    composition::MotifOccurrence inspectMotifOccurrence(long long tick,Settings settings,int output=OutCounter)const
+    {
+        auto snapshot=*this;snapshot.cur=&settings;
+        if(settings.genre!=GenreScore||!on[kOutputLayer[output]]||!(output==OutMelody?settings.melodyMotif:settings.motif)
+            ||(output==OutCounter&&on[kMelodie]))return {};
+        return snapshot.motifOccurrence(tick,snapshot.locate(tick),settings,output);
+    }
     int plannedHarmonySlots() const { return planValid ? harmonicPlan.count : 0; }
     bool driveArrived() const { return driveArrivedNow; }     // die Fahrt ist bei B angekommen (das Plugin macht B dann zu A)
     uint32_t driveGenerationNow() const { return driveGenerationSeen; }
@@ -626,7 +633,7 @@ public:
         s.change = std::clamp (s.change, 0, kNumChangeGrids - 1);
         for (auto& v : s.layerIntensity) v = std::clamp (v, -1.0f, 1.0f);
         if(!composition::findProfile(s.profile))s.profile=composition::ProfileId::neutral;
-        if(!composition::valid(s.policy.texture))s.policy=composition::neutralFreePolicy;
+        if(!composition::valid(s.policy.texture)||!composition::valid(s.policy.motif))s.policy=composition::neutralFreePolicy;
         s.variety = std::clamp (s.variety, 0.0f, 1.0f);
         for (auto& o : s.octave) o = std::clamp (o, -2, 2);
         for (auto& c : s.channel) c = std::clamp (c, 1, 16);
@@ -1018,14 +1025,111 @@ private:
         long long at=0,length=0;int pitch=0,velocity=0;
         bool valid=false;
     };
-    struct PlayableHandoff { composition::MotifHandoffPlan plan; int base=-1; };
+    struct PlayableHandoff { composition::MotifHandoffPlan plan; int base=-1;int64_t origin=0; };
+    int64_t motifAvailableUntil(const Settings& s,int layer)const
+    {
+        int64_t end=sceneEndStep;
+        if(s.ending==EndFade&&(s.sceneBars>0||manualEndStep>=0))
+        {
+            int slots=0;const int index=orderIndex(s,entryInUse,layer,slots);
+            const int tailBars=manualEndStep>=0?2:std::clamp(std::min(s.buildBars,s.sceneBars/2),1,64);
+            if(index>0)end-=slotBar(index,slots,tailBars)*meter.len;
+        }
+        return end;
+    }
+    struct MotifHarmony { Chord chord;long long end=0; };
+    // Canonical harmonic lookup across repeated custom cycles, independent of the live cursor.
+    MotifHarmony motifHarmonyAt(long long at,const Settings& s)const
+    {
+        const auto& w=W();const long long length=static_cast<long long>(phraseBars)*meter.len;
+        const long long begin=floorDiv(at,length)*length;
+        composition::ChordTimeline timeline;timeline.count=w.n;timeline.begin=begin;timeline.end=begin+length;
+        timeline.first=still?chordBase:0;timeline.held=still;
+        for(int i=0;i<w.n;++i)timeline.durations[static_cast<size_t>(i)]=static_cast<int64_t>(w.ch[i].bars)*meter.len;
+        const auto position=composition::locateChord(timeline,at);
+        const auto& chord=w.ch[position.index];
+        const int next=position.index+1<w.n?w.ch[position.index+1].root:w.ch[0].root;
+        const auto intent=composition::freeTransition(next,s.passing,s.y,still);
+        const auto placement=composition::placeTransition(intent,position.begin,position.end,meter.len,meter.groupStart[std::max(0,meter.numGroups-1)]);
+        if(placement.present&&at>=placement.begin)return {{intent.approachRoot,Dom7,1},placement.end};
+        return {chord,placement.present?placement.begin:position.end};
+    }
+    composition::MotifOccurrence motifOccurrence(long long k,const Pos& p,const Settings& s,int output)
+    {
+        auto& state=voice(output);const auto& use=state.motif;auto memory=use.material(motifCatalog);
+        const auto section=p.phrase-phraseOf(sceneStep);
+        if(memory.count&&(k-p.phraseStart>=std::min(2LL*meter.len,p.phraseEnd-p.phraseStart)||section!=use.introduction))memory.finish();
+        if(!memory.complete)return {true,true,false,p.phraseStart,p.phraseStart+std::min(2LL*meter.len,p.phraseEnd-p.phraseStart),0,0};
+        const int64_t window=static_cast<int64_t>(s.policy.motif.windowBars)*meter.len;
+        if(k<use.originTick)return {};
+        const auto epoch=(k-use.originTick)/window;
+        int64_t span=0;for(int i=0;i<memory.count;++i)span=std::max(span,memory.notes[static_cast<size_t>(i)].at+memory.notes[static_cast<size_t>(i)].length);
+        if(epoch==0)return {true,true,false,use.originTick,use.originTick+span,0,0};
+        if(state.recurrenceEpoch==epoch&&state.recurrenceIdentity==memory.identity&&state.recurrenceOrigin==use.originTick&&state.recurrenceWindow==window)return state.recurrencePlan.end<=motifAvailableUntil(s,kOutputLayer[output])?state.recurrencePlan:composition::MotifOccurrence{};
+        state.recurrenceEpoch=epoch;state.recurrenceIdentity=memory.identity;state.recurrenceOrigin=use.originTick;state.recurrenceWindow=window;state.recurrencePlan={};
+        const auto slot=composition::recurrenceSlot(s.policy.motif,epoch,layerY(s,kOutputLayer[output]),s.z);
+        if(!slot.eligible)return {};
+        const int64_t begin=use.originTick+epoch*window,end=std::min(begin+window,motifAvailableUntil(s,kOutputLayer[output]));
+        const bool dialogue=output==OutCounter&&!on[kMelodie]&&s.genre==GenreScore&&s.arpFigure==ArpCell&&!s.scene
+            &&s.meterNum==4&&s.meterDen==4&&on[kArp]&&on[kGegenstimme]&&phraseBars>=4;
+        const int64_t response=dialogue?2LL*meter.len:0;
+        const int64_t last=end-span-static_cast<int64_t>(s.policy.motif.minimumSilentBars)*meter.len-response;
+        const auto catalog=outputCatalog(s);const auto& capability=catalog[output].track.instrument;
+        std::array<composition::MotifPlacement,32> candidates {};int count=0;
+        auto add=[&](int64_t at)
+        {
+            if(at<begin||at>last||count==32)return;
+            for(int i=0;i<count;++i)if(candidates[static_cast<size_t>(i)].begin==at)return;
+            unsigned allowed[5] {};
+            for(int i=0;i<memory.count;++i)
+            {
+                const auto& n=memory.notes[static_cast<size_t>(i)];allowed[i]=0xfffu;
+                auto tick=at+n.at;
+                const auto harmonicLength=output==OutCounter&&i+1<memory.count
+                    ?std::min(n.length,memory.notes[static_cast<size_t>(i+1)].at-n.at):n.length;
+                const auto finish=tick+harmonicLength;
+                if(n.length<capability.minDuration||n.length>capability.maxDuration)return;
+                for(int step=0;tick<finish&&step<32;++step)
+                {
+                    const auto h=motifHarmonyAt(tick,s);unsigned mask=0;const auto& shape=kShapes[h.chord.type];
+                    for(int j=0;j<shape.n;++j)mask|=1u<<((s.key+h.chord.root+shape.iv[j])%12);
+                    allowed[i]&=mask;if(h.end<=tick)return;tick=std::min<int64_t>(finish,h.end);
+                }
+                if(tick<finish||!allowed[i])return;
+            }
+            int base=-1,cost=10000;
+            for(int candidate=0;candidate<128;++candidate)
+            {
+                bool fits=true;
+                for(int i=0;i<memory.count;++i)
+                {
+                    const int pitch=candidate+memory.notes[static_cast<size_t>(i)].interval;
+                    if(pitch<capability.range.low||pitch>capability.range.high||pitch<0||pitch>127
+                        ||!(allowed[i]&(1u<<((pitch%12+12)%12)))){fits=false;break;}
+                }
+                const int distance=std::abs(candidate-memory.origin);
+                if(fits&&distance<cost){base=candidate;cost=distance;}
+            }
+            if(base>=0)candidates[static_cast<size_t>(count++)]={at,base,cost};
+        };
+        for(int64_t at=begin;at<=last;)
+        {
+            const auto h=motifHarmonyAt(at,s);add(at);
+            // A held harmonic field also offers its interior, rather than only its first bar.
+            const auto middle=at+std::max<int64_t>(0,(std::min<int64_t>(h.end,end)-at-span)/2/meter.len)*meter.len;
+            add(middle);if(h.end<=at)break;at=h.end;
+        }
+        state.recurrencePlan=composition::planRecurrence(s.policy.motif,slot,begin,end,span,meter.len,candidates.data(),count,response);
+        return state.recurrencePlan;
+    }
+
     // One note calculation shared by the existing performance and accompaniment preflight.
     // The caller supplies the harmony at that note's onset; no memory or MIDI is modified.
     PlannedMotifNote planMotifNote(int i,const Pos& p,const Settings& s,int output,
-        const composition::RememberedMotif* memory,bool varied)const
+        const composition::RememberedMotif* memory,bool varied,const composition::MotifOccurrence* occurrence=nullptr)const
     {
         PlannedMotifNote n;
-        const long long span=std::min(2LL*meter.len,p.phraseEnd-p.phraseStart);
+        const long long span=memory?p.phraseEnd-p.phraseStart:std::min(2LL*meter.len,p.phraseEnd-p.phraseStart);
         const auto yc=layerY(s,kOutputLayer[output]);
         const Motif mo=motifFor(s,p.phrase);
         // Preserve the existing introduced material (tone count/rhythm), independently of restored expression.
@@ -1035,17 +1139,19 @@ private:
         if(i>=count)return n;
         n.at=memory?memory->notes[static_cast<size_t>(i)].at:static_cast<long long>(mo.on[i])*meter.len/16;
         if(n.at<0||n.at>=span)return n;
-        int ladder[16];const int nl=counterLadder(chordFor(p,kOutputLayer[output],s),s,ladder,output);
+        int ladder[16] {};const bool exact=memory&&occurrence&&!occurrence->introduction;
+        const int nl=exact?1:counterLadder(chordFor(p,kOutputLayer[output],s),s,ladder,output);
         if(!nl)return n;
         if(memory)
         {
             const auto& recorded=memory->notes[static_cast<size_t>(i)];
             const int base=composition::adaptMotifPitch(memory->origin-12*octaveOf(output),ladder,nl);
-            n.pitch=composition::adaptMotifPitch(base+recorded.interval,ladder,nl);
+            n.pitch=occurrence&&!occurrence->introduction?occurrence->base+recorded.interval-12*octaveOf(output)
+                :composition::adaptMotifPitch(base+recorded.interval,ladder,nl);
             n.velocity=recorded.velocity;
             n.length=std::min<int64_t>(memory->recalledLength(i,varied,span),span-n.at);
             if(output==OutMelody)n.length=composition::articulatedLength(n.length,
-                std::min<int64_t>(p.chordEnd-(p.phraseStart+n.at),i+1<count?memory->notes[static_cast<size_t>(i+1)].at-n.at:span-n.at),s.melodyLegato);
+                std::min<int64_t>(exact?span-n.at:p.chordEnd-(p.phraseStart+n.at),i+1<count?memory->notes[static_cast<size_t>(i+1)].at-n.at:span-n.at),s.melodyLegato);
         }
         else
         {
@@ -1056,45 +1162,42 @@ private:
             if(output==OutMelody)n.length=composition::articulatedLength(n.length,
                 std::min(n.length,p.chordEnd-(p.phraseStart+n.at)),s.melodyLegato);
         }
+        if(exact)
+        {
+            const int actual=n.pitch+12*octaveOf(output),ri=kOutputRange[output];
+            if(actual<0||actual>127||(s.rangeOn[ri]&&(actual<s.rangeLo[ri]||actual>s.rangeHi[ri])))return {};
+        }
         n.valid=true;return n;
     }
 
     // A short phrase reservation exists only for the selected, active motif voice.
     // Preview current settings, not hypothetical future automation or a fabricated past performance.
-    composition::MotifWindow primaryMotifWindow(const Pos& p,const Settings& s)const
+    composition::MotifWindow primaryMotifWindow(const Pos& p,const Settings& s)
     {
         const int output=on[kMelodie]?OutMelody:OutCounter;
         if(!on[kOutputLayer[output]]||!(output==OutMelody?s.melodyMotif:s.motif))return {};
-        const auto catalog=outputCatalog(s);
-        composition::RoleNeed need;need.range=catalog[output].track.instrument.range;
+        const auto catalog=outputCatalog(s);composition::RoleNeed need;need.range=catalog[output].track.instrument.range;
         if(!composition::suitable(catalog[output].track,need))return {};
-        const auto& use=voice(output).motif;
-        auto memory=use.material(motifCatalog);
-        const auto section=p.phrase-phraseOf(sceneStep);
-        // motifStep publishes this same finished draft when entering a later phrase.
-        if(memory.count&&section!=use.introduction)memory.finish();
-        const bool complete=memory.complete;
-        if(complete&&section!=use.introduction
-            &&!(section>=use.introduction+2&&(section-use.introduction)%2==0))return {};
-        const bool varied=complete&&section>=use.introduction+2&&(section-use.introduction)%4==0;
-        const auto mo=motifFor(s,p.phrase);int count=0,future=0;long long begin=p.phraseEnd,end=p.phraseStart;
+        const auto occurrence=motifOccurrence(p.k,p,s,output);if(!occurrence.active)return {};
+        auto memory=voice(output).motif.material(motifCatalog);
+        if(memory.count&&p.phrase-phraseOf(sceneStep)!=voice(output).motif.introduction)memory.finish();
+        const bool complete=memory.complete;const auto mo=motifFor(s,p.phrase);
+        int count=0,future=0;int64_t begin=occurrence.end,end=occurrence.begin;
         for(int i=0;i<(complete?memory.count:mo.n);++i)
         {
             const auto at=complete?memory.notes[static_cast<size_t>(i)].at:static_cast<long long>(mo.on[i])*meter.len/16;
-            if(at<0||at>=std::min(2LL*meter.len,p.phraseEnd-p.phraseStart))continue;
-            const auto note=planMotifNote(i,locate(p.phraseStart+at),s,output,complete?&memory:nullptr,varied);
+            auto local=locate(occurrence.begin+at);local.phraseStart=occurrence.begin;local.phraseEnd=occurrence.end;
+            const auto note=planMotifNote(i,local,s,output,complete?&memory:nullptr,occurrence.varied,&occurrence);
             if(!note.valid)continue;
-            const auto& c=catalog[output].track.instrument;
-            if(note.length<c.minDuration||note.length>c.maxDuration)continue;
-            ++count;if(p.phraseStart+note.at>=p.k)++future;begin=std::min(begin,p.phraseStart+note.at);
-            end=std::max(end,p.phraseStart+note.at+note.length);
+            const auto& c=catalog[output].track.instrument;if(note.length<c.minDuration||note.length>c.maxDuration)continue;
+            ++count;if(occurrence.begin+note.at>=p.k)++future;
+            begin=std::min<int64_t>(begin,occurrence.begin+note.at);end=std::max<int64_t>(end,occurrence.begin+note.at+note.length);
         }
-        // A seek after the last onset must not reserve a performance that never happened.
         if(!future&&!outputSounding(output))return {};
         return composition::reserveMotifWindow(catalog[output].track.id,count,begin,end);
     }
 
-    composition::MotifWindow motifWindow(const Pos& p,const Settings& s)const
+    composition::MotifWindow motifWindow(const Pos& p,const Settings& s)
     {
         if(s.genre!=GenreScore||s.arpFigure!=ArpAuto)return {};
         // Shared physical notes can alter motif recording/retriggers. Preserve that routing verbatim.
@@ -1108,12 +1211,12 @@ private:
             const auto& last=material.notes[static_cast<size_t>(material.count-1)];
             const auto end=response.plan.end-(!s.legato&&last.length>1?1:0);
             return composition::reserveMotifWindow(outputCatalog(s)[OutCounter].track.id,response.plan.count,
-                p.phraseStart+response.plan.begin,p.phraseStart+end);
+                response.origin+response.plan.begin,response.origin+end);
         }
         return {};
     }
 
-    // Existing motif timing, publication and recurrence remain unchanged.
+    // Material recording/rendering is shared; complete returns follow the coordinated occurrence plan.
     bool motifStep (long long k, const Pos& p, const Settings& s, int offset, EventList& out, int output=OutCounter)
     {
         auto& state=voice(output);auto& use=state.motif;
@@ -1123,24 +1226,27 @@ private:
         const auto& memory=use.material(motifCatalog);const bool complete=memory.complete;
         if(complete)
         {
-            if((section!=use.introduction&&!use.recall(section,motifCatalog))||rel<0||rel>=span)return true;
+            const auto occurrence=motifOccurrence(k,p,s,output);
+            if(!occurrence.active||k<occurrence.begin||k>=occurrence.end)return true;
         }
         else
         {
             if(rel<0||rel>=span)return false;
             if(memory.count&&use.introduction!=section)use.clear();
         }
+        const auto occurrence=motifOccurrence(k,p,s,output);
+        auto local=p;if(complete){local.phraseStart=occurrence.begin;local.phraseEnd=occurrence.end;}
         for(int i=0;i<5;++i)
         {
-            const auto note=planMotifNote(i,p,s,output,complete?&memory:nullptr,use.varied(section,motifCatalog));
-            if(!note.valid||note.at!=rel)continue;
+            const auto note=planMotifNote(i,local,s,output,complete?&memory:nullptr,occurrence.varied,&occurrence);
+            if(!note.valid||note.at!=k-local.phraseStart)continue;
             const int before=out.size;
-            noteOn(output,note.pitch,note.velocity,p.phraseStart+note.at+note.length,offset,out);
+            noteOn(output,note.pitch,note.velocity,local.phraseStart+note.at+note.length,offset,out);
             if(!complete)for(int e=before;e<out.size;++e)
             {
                 const auto& emitted=out.events[static_cast<size_t>(e)];
                 if(emitted.out==output&&emitted.type==0&&emitted.velocity>0)
-                    use.observe(emitted.note,note.at,note.length,section,note.velocity);
+                    use.observe(emitted.note,note.at,note.length,section,note.velocity,p.phraseStart);
             }
             if(output==OutCounter)releaseOthers(output,note.pitch,offset,out);
             state.note=note.pitch;state.pendingAt=-1;
@@ -1741,7 +1847,9 @@ private:
             sustained (p, s, 0, out, true);
         else
             chaseStep = k;   // genau am Akkordanfang: der normale Schritt schlaegt an, auch die stehenden Ebenen
-        freePhraseStep(k,p,s,0,out,true,ppq>static_cast<double>(k)*kStep+1e-9);
+        const bool inclusive=ppq>static_cast<double>(k)*kStep+1e-9;
+        freePhraseStep(k,p,s,0,out,true,inclusive);
+        chaseMotif(k,p,s,out,inclusive);
     }
 
     void stepOn (long long k, int offset, const Settings& s, EventList& out)
@@ -1789,24 +1897,53 @@ private:
         else render (k, offset, p, restart, phrase, s, out);
     }
 
-    PlayableHandoff playableMelodyHandoff(long long k,const Pos& p,const Settings& s)const
+    void chaseMotif(long long k,const Pos& p,const Settings& s,EventList& out,bool inclusive)
+    {
+        if(s.genre!=GenreScore)return;
+        const int output=on[kMelodie]?OutMelody:OutCounter;
+        const auto& memory=voice(output).motif.material(motifCatalog);
+        if(on[kOutputLayer[output]]&&(output==OutMelody?s.melodyMotif:s.motif)&&memory.complete)
+        {
+            const auto occurrence=motifOccurrence(k,p,s,output);
+            if(occurrence.active&&k>=occurrence.begin&&k<occurrence.end)
+            {
+                auto local=p;local.phraseStart=occurrence.begin;local.phraseEnd=occurrence.end;
+                for(int i=0;i<memory.count;++i)
+                {
+                    const auto n=planMotifNote(i,local,s,output,&memory,occurrence.varied,&occurrence);
+                    const auto begin=occurrence.begin+n.at,end=begin+n.length;
+                    if(n.valid&&(begin<k||(inclusive&&begin==k))&&k<end)
+                    {noteOn(output,n.pitch,n.velocity,end,0,out);voice(output).note=n.pitch;}
+                }
+            }
+        }
+        if(on[kMelodie])melodyHandoff(k,p,s,0,out,true,inclusive);
+        else if(on[kArp])dialogueArp(k,p,s,0,out,true,inclusive);
+    }
+
+    PlayableHandoff playableMelodyHandoff(long long k,const Pos& p,const Settings& s)
     {
         const auto catalog=outputCatalog(s);
+        const auto& source=voice(OutMelody).motif;
+        const auto window=static_cast<int64_t>(s.policy.motif.windowBars)*meter.len;
+        const auto epoch=k>=source.originTick?(k-source.originTick)/window:-1;
+        const auto origin=source.originTick+epoch*window;
+        const auto leading=motifOccurrence(k,p,s,OutMelody);
         const auto plan=composition::planMelodyHandoff(
             s.genre==GenreScore&&s.melody&&s.melodyMotif&&s.motif&&!s.scene
-                &&s.meterNum==4&&s.meterDen==4&&on[kMelodie]&&on[kGegenstimme],
-            voice(OutMelody).motif,motifCatalog,catalog[OutCounter].track,
-            p.phrase-phraseOf(sceneStep),meter.len,p.phraseEnd-p.phraseStart);
-        if(!plan.active)return {};
-        const auto relative=k-p.phraseStart;
+                &&s.meterNum==4&&s.meterDen==4&&on[kMelodie]&&on[kGegenstimme]&&phraseBars>=4,
+            source,motifCatalog,catalog[OutCounter].track,epoch,meter.len,window,s.policy.motif,
+            layerY(s,kMelodie),s.z,leading.active);
+        if(!plan.active||origin+plan.end>motifAvailableUntil(s,kGegenstimme))return {};
+        const auto relative=k-origin;
         if(relative<plan.begin||relative>=plan.end||outputSounding(OutMelody))return {};
         // Preflight the whole response: exact suffix intervals, one harmonic region, no fallback pitches.
-        const auto start=p.phraseStart+plan.begin;
-        const auto region=locate(start);
-        if(start+plan.end-plan.begin>region.chordEnd)return {};
+        const auto start=origin+plan.begin;
+        const auto region=motifHarmonyAt(start,s);
+        if(start+plan.end-plan.begin>region.end)return {};
         const auto& material=*motifCatalog.find(plan.reference.material);
         const auto& capability=catalog[OutCounter].track.instrument;
-        const auto chord=chordFor(region,kGegenstimme,s);const auto& shape=kShapes[chord.type];
+        const auto chord=region.chord;const auto& shape=kShapes[chord.type];
         int base=-1;int best=10000;
         for(int candidate=0;candidate<128;++candidate)
         {
@@ -1823,18 +1960,18 @@ private:
         if(base<0)return {};
         for(auto tick=start;tick<start+plan.end-plan.begin;++tick)
         {
-            const auto soundingChord=chordFor(locate(tick),kGegenstimme,s);
+            const auto soundingChord=motifHarmonyAt(tick,s).chord;
             if(soundingChord.root!=chord.root||soundingChord.type!=chord.type)return {};
         }
-        return {plan,base};
+        return {plan,base,origin};
     }
 
-    bool melodyHandoff(long long k,const Pos& p,const Settings& s,int offset,EventList& out)
+    bool melodyHandoff(long long k,const Pos& p,const Settings& s,int offset,EventList& out,bool chase=false,bool inclusive=false)
     {
         const auto playable=playableMelodyHandoff(k,p,s);
         const auto& plan=playable.plan;if(!plan.active)return false;
         const int base=playable.base,oct=12*octaveOf(OutCounter);
-        const auto relative=k-p.phraseStart;
+        const auto relative=k-playable.origin;
         const auto capability=outputCatalog(s)[OutCounter].track.instrument;
         auto& answer=voice(OutCounter).answer;
         if(answer.reference.value!=plan.reference.material.value||answer.introduction!=plan.reference.introduction)
@@ -1845,19 +1982,19 @@ private:
         {
             const auto& note=source.notes[static_cast<size_t>(plan.first+i)];
             const auto at=plan.begin+note.at-origin;
-            if(relative!=at)continue;
             auto length=std::min<int64_t>(note.length,plan.end-at);
             if(i+1<plan.count)length=std::min(length,source.notes[static_cast<size_t>(plan.first+i+1)].at-note.at);
             length=composition::articulatedLength(length,length,s.legato);
             if(length<capability.minDuration||length>capability.maxDuration)return false;
+            if(chase?!((at<relative||(inclusive&&at==relative))&&relative<at+length):relative!=at)continue;
             // Renderer accepts prevalidated sounding pitches, compensating the adapter octave.
             cut(kGegenstimme,k,k,offset,out);
-            noteOn(OutCounter,base+note.interval-oct,note.velocity,k+length,offset,out);
+            noteOn(OutCounter,base+note.interval-oct,note.velocity,playable.origin+at+length,offset,out);
         }
         return true;
     }
 
-    bool dialogueArp(long long k,const Pos& p,const Settings& s,int offset,EventList& out)
+    bool dialogueArp(long long k,const Pos& p,const Settings& s,int offset,EventList& out,bool chase=false,bool inclusive=false)
     {
         // Explicit cell + motif, no buildup, four-bar-or-longer 4/4 phrases only.
         if(on[kMelodie]||s.genre!=GenreScore||!s.motif||s.arpFigure!=ArpCell||s.scene||s.meterNum!=4||s.meterDen!=4
@@ -1873,11 +2010,14 @@ private:
         int responseOutput=-1;
         for(const auto& entry:catalog)if(entry.track.id.value==assignment.response.value)responseOutput=entry.target.output;
         if(responseOutput<0)return true;
-        const auto relative=k-p.phraseStart;const long long window=2LL*meter.len;
+        const long long window=2LL*meter.len;
         auto& use=voice(OutCounter).motif;
-        if(relative>=window)use.finish(motifCatalog);
+        auto occurrence=motifOccurrence(k,p,s,OutCounter);
+        if(k>=occurrence.begin+window)use.finish(motifCatalog);
+        occurrence=motifOccurrence(k,p,s,OutCounter);
         const auto& motifMemory=use.material(motifCatalog);
-        const auto plan=composition::planDialogue(use,motifCatalog,p.phrase-phraseOf(sceneStep),relative,window);
+        if(!motifMemory.complete&&k>=occurrence.begin+window)return false;
+        const auto plan=composition::planDialogue(use,motifCatalog,occurrence,k,window);
         if(!plan.reserveResponse)return false;
         if(!plan.answer)return true;
         const auto chord=chordFor(p,kArp,s);const auto& shape=kShapes[chord.type];
@@ -1893,12 +2033,13 @@ private:
         for(int i=0;i<notes;++i)
         {
             const auto& n=motifMemory.notes[static_cast<size_t>(i)];
-            if(relative!=window+n.at)continue;
             auto length=std::min<int64_t>(n.length,window-n.at);
             if(i+1<notes)length=std::min(length,motifMemory.notes[static_cast<size_t>(i+1)].at-n.at);
             if(length<=0)continue;
+            const auto begin=plan.answerBegin+n.at;
+            if(chase?!((begin<k||(inclusive&&begin==k))&&k<begin+length):k!=begin)continue;
             const int pitch=composition::adaptMotifPitch(base+n.interval,ladder,count);
-            noteOn(responseOutput,pitch,n.velocity,k+length,offset,out);
+            noteOn(responseOutput,pitch,n.velocity,begin+length,offset,out);
         }
         return true;
     }
@@ -2426,6 +2567,8 @@ private:
     struct VoiceState
     {
         composition::MotifUse motif,answer;
+        int64_t recurrenceEpoch=-1,recurrenceOrigin=0,recurrenceWindow=0;uint64_t recurrenceIdentity=0;
+        composition::MotifOccurrence recurrencePlan;
         int note=-1,pending=-1;
         long long pendingAt=-1,pendingEnd=0;
     };

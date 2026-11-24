@@ -222,54 +222,53 @@ int main()
             CHECK(dominantResolution(root,true,root,key).descendingSeventh==-1);
         }
     }
-    MotifCatalog catalog;MotifUse use;
-    CHECK(!use.recall(2,catalog));use.observe(60,0,4,0);use.observe(64,6,8,0);use.finish(catalog);
-    const auto& memory=use.material(catalog);
-    CHECK(memory.complete&&memory.notes[1].interval==4&&!use.recall(1,catalog)&&use.recall(2,catalog));
+    MotifRecurrencePolicy policy;CHECK(valid(policy));
+    CHECK(recurrenceSlot(policy,1,.7f,0).eligible&&!recurrenceSlot(policy,2,.7f,0).eligible);
+    CHECK(recurrenceSlot(policy,3,.7f,0).ordinal==2&&recurrenceSlot(policy,4,.7f,0).eligible);
+    CHECK(!recurrenceSlot(policy,1,.2f,0).eligible&&recurrenceSlot(policy,2,.2f,0).eligible);
+    auto invalid=policy;invalid.minimumSilentBars=0;CHECK(!valid(invalid));
+    MotifCatalog catalog;MotifUse use;use.observe(60,0,4,0);use.observe(64,6,8,0);use.finish(catalog);
+    const auto& memory=use.material(catalog);CHECK(memory.complete&&memory.notes[1].interval==4);
     const auto id=memory.identity;use.observe(90,4,1,3);use.finish(catalog);CHECK(use.material(catalog).identity==id);
-    use.clear();CHECK(!use.material(catalog).complete&&!use.recall(2,catalog));
+    use.clear();CHECK(!use.material(catalog).complete);
     MotifUse variationUse;variationUse.observe(60,0,9,0);variationUse.observe(64,8,12,0);variationUse.finish(catalog);
     const auto& variation=variationUse.material(catalog);const auto originalIdentity=variation.identity;
-    CHECK(!variationUse.varied(2,catalog)&&variationUse.varied(4,catalog)&&!variationUse.varied(6,catalog));
-    CHECK(variation.recalledLength(1,false,32)==12);
-    CHECK(variation.recalledLength(1,true,32)==6);
-    CHECK(variation.recalledLength(0,true,32)<=8);
-    CHECK(variation.identity==originalIdentity&&variation.notes[1].interval==4);
-    for(int section:{4,8,12})for(int i=0;i<variation.count;++i)
-    {
-        auto length=variation.recalledLength(i,variationUse.varied(section,catalog),32);
-        CHECK(length>=1&&variation.notes[static_cast<size_t>(i)].at+length<=32);
-        if(i+1<variation.count)CHECK(variation.notes[static_cast<size_t>(i)].at+length<=variation.notes[static_cast<size_t>(i+1)].at);
-    }
-    // Explicit material references share notes, never the timeline or variation phase.
-    MotifUse other;CHECK(!other.material(catalog).complete);
-    CHECK(!other.adopt({{99},0},catalog));
-    CHECK(other.adopt({variationUse.reference,1},catalog));
-    CHECK(&other.material(catalog)==&variationUse.material(catalog));
-    CHECK(variationUse.varied(4,catalog)&&!other.recall(4,catalog));
-    CHECK(other.recall(3,catalog)&&!variationUse.recall(3,catalog));
-    other.clear();CHECK(variationUse.material(catalog).identity==originalIdentity&&variationUse.recall(2,catalog));
+    CHECK(variation.recalledLength(1,false,32)==12&&variation.recalledLength(1,true,32)==6);
+    CHECK(variation.recalledLength(0,true,32)<=8&&variation.identity==originalIdentity);
+    MotifPlacement places[2]={{128,60,0},{192,60,0}};
+    const auto plain=planRecurrence(policy,recurrenceSlot(policy,1,.7f,0),128,256,32,16,places,2);
+    CHECK(plain.active&&!plain.varied&&plain.begin==128);
+    const auto changed=planRecurrence(policy,recurrenceSlot(policy,3,.7f,0),128,256,32,16,places,2);
+    CHECK(changed.active&&changed.varied&&changed.begin==128);
+    const auto interior=planRecurrence(policy,recurrenceSlot(policy,5,.7f,0),128,256,32,16,places,2);
+    CHECK(interior.active&&interior.begin==192&&interior.end==224);
+    auto moreRest=policy;moreRest.minimumSilentBars=4;
+    CHECK(planRecurrence(moreRest,recurrenceSlot(moreRest,5,.7f,0),128,256,32,16,places,2).begin==128);
+    auto restrained=policy;restrained.sparseBelow=.8f;
+    CHECK(!recurrenceSlot(restrained,1,.7f,0).eligible);
+    restrained.unrestEngages=.1f;CHECK(recurrenceSlot(restrained,1,.7f,.2f).eligible);
+
+    CHECK(!planRecurrence(policy,{},128,256,32,16,places,2).active);
+    MotifUse other;CHECK(other.adopt({variationUse.reference,1,128},catalog));
+    CHECK(&other.material(catalog)==&variationUse.material(catalog)&&other.originTick!=variationUse.originTick);
+    other.clear();CHECK(variationUse.material(catalog).identity==originalIdentity);
     MotifCatalog questionCatalog;MotifUse question;question.observe(60,0,4,0);question.observe(64,8,4,0);question.finish(questionCatalog);
-    CHECK(planDialogue(question,questionCatalog,0,0,32).reserveResponse&&!planDialogue(question,questionCatalog,0,0,32).answer);
-    CHECK(planDialogue(question,questionCatalog,0,32,32).answer);
-    CHECK(!planDialogue(question,questionCatalog,1,32,32).answer);
-    CHECK(planDialogue(question,questionCatalog,2,32,32).answer);
-    CHECK(!planDialogue(question,questionCatalog,0,64,32).reserveResponse);
-    // A handoff needs a role-plan request, playable target and a non-leading sparse phrase.
+    MotifOccurrence questionOccurrence{true,true,false,0,32,0,0};
+    CHECK(planDialogue(question,questionCatalog,questionOccurrence,0,32).reserveResponse);
+    CHECK(planDialogue(question,questionCatalog,questionOccurrence,32,32).answer);
+    CHECK(!planDialogue(question,questionCatalog,{},32,32).answer);
+    CHECK(!planDialogue(question,questionCatalog,questionOccurrence,64,32).reserveResponse);
     {
         MotifCatalog motifs;MotifUse lead;for(int i=0;i<4;++i)lead.observe(60+4*i,i*4,4,0);
         lead.finish(motifs);PlayingTrack target;target.id={5};target.style=PlayingStyle::sustained;
         target.roles=roleBit(MusicalRole::answer);target.instrument.pitch=PitchBehaviour::pitched;target.instrument.articulations=1;
-        CHECK(!planMelodyHandoff(false,lead,motifs,target,1,16,128).active);
-        CHECK(!planMelodyHandoff(true,lead,motifs,target,0,16,128).active);
-        const auto handoff=planMelodyHandoff(true,lead,motifs,target,1,16,128);
-        CHECK(handoff.active&&handoff.first==1&&handoff.count==3&&handoff.begin==16);
-        CHECK(handoff.reference.material.value==lead.reference.value);
-        CHECK(!planMelodyHandoff(true,lead,motifs,target,3,16,128).active);
-        CHECK(planMelodyHandoff(true,lead,motifs,target,5,16,128).active);
-        target.instrument.pitch=PitchBehaviour::noise;CHECK(!planMelodyHandoff(true,lead,motifs,target,1,16,128).active);
-        target.instrument.pitch=PitchBehaviour::pitched;target.addressing=NoteAddressing::fixedTrigger;
-        CHECK(!planMelodyHandoff(true,lead,motifs,target,1,16,128).active);
+        auto handoff=[&](bool requested,int epoch,bool leading=false){return planMelodyHandoff(requested,lead,motifs,target,epoch,16,128,policy,.7f,0,leading);};
+        CHECK(!handoff(false,2).active&&!handoff(true,0).active&&!handoff(true,2,true).active);
+        const auto plan=handoff(true,2);CHECK(plan.active&&plan.first==1&&plan.count==3&&plan.begin==16);
+        CHECK(plan.reference.material.value==lead.reference.value);
+        CHECK(!handoff(true,3).active&&handoff(true,6).active);
+        target.instrument.pitch=PitchBehaviour::noise;CHECK(!handoff(true,2).active);
+        target.instrument.pitch=PitchBehaviour::pitched;target.addressing=NoteAddressing::fixedTrigger;CHECK(!handoff(true,2).active);
     }
     PlayingTrack tracks[2];tracks[0].id={71};tracks[0].roles=roleBit(MusicalRole::lead);
     tracks[0].style=PlayingStyle::sustained;tracks[0].instrument.polyphony=2;

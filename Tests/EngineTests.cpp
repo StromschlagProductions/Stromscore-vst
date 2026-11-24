@@ -970,11 +970,12 @@ int main()
         }
     }
 
-    // 45) Recorded motif returns after a complete intervening phrase.
+    // 45) A configured sparse cadence preserves actual recorded material and seed variety.
     {
         auto onsets = [] (int seed, long long fromBar)
         {
             Settings s; s.motif = true; s.seed = seed; s.solo[kGegenstimme] = true; s.y = 0.6f; s.x = 0.3f;
+            s.key=0;s.custom=true;s.customChords[0]={0,Maj7,8};s.policy.motif.normalSteps={2,2,2};
             std::vector<std::pair<long long, int>> o;
             for (const auto& x : run (s, 512, 40.0))
                 if (x.velocity > 0 && x.sample >= fromBar * 96000 && x.sample < (fromBar + 2) * 96000) o.push_back ({ x.sample - fromBar * 96000, x.note });
@@ -1333,7 +1334,7 @@ int main()
     }
     // Actual MIDI attacks, stored identity and recall, not a seed-derived surrogate.
     {
-        Settings s;s.motif=true;s.y=.7f;s.custom=true;s.customChords[0]={0,Maj7,8};
+        Settings s;s.policy.motif.normalSteps={2,2,2};s.policy.motif.sparseSteps={2,2,2};s.motif=true;s.y=.7f;s.custom=true;s.customChords[0]={0,Maj7,8};
         s.solo[kGegenstimme]=true;s.seed=3;
         auto events=run(s,512,50.);checkBalanced(events);
         const auto large=run(s,8192,50.);CHECK(events.size()==large.size());
@@ -1358,17 +1359,17 @@ int main()
         CHECK(!g.rememberedMotif().complete);
         s.customChords[0].bars=1;
         std::vector<std::pair<long long,int>> shortA,shortReturn;int shortGap=0;
-        for(const auto& n:run(s,512,8.))if(n.velocity>0)
+        for(const auto& n:run(s,512,36.))if(n.velocity>0)
         {
             if(n.sample<96000)shortA.push_back({n.sample,n.note});
             if(n.sample>=96000&&n.sample<192000)++shortGap;
-            if(n.sample>=192000&&n.sample<288000)shortReturn.push_back({n.sample-192000,n.note});
+            if(n.sample>=1536000&&n.sample<1632000)shortReturn.push_back({n.sample-1536000,n.note});
         }
         CHECK(shortA.size()>=2&&shortA==shortReturn&&shortGap==0);
     }
     // Physical MIDI durations differ on the second return, while attacks/pitches agree.
     {
-        Settings s;s.motif=true;s.y=.7f;s.custom=true;s.customChords[0]={0,Maj7,8};s.solo[kGegenstimme]=true;
+        Settings s;s.policy.motif.normalSteps={2,2,2};s.policy.motif.sparseSteps={2,2,2};s.motif=true;s.y=.7f;s.custom=true;s.customChords[0]={0,Maj7,8};s.solo[kGegenstimme]=true;
         const auto events=run(s,512,80.);checkBalanced(events);
         std::map<int,long long> active;
         std::vector<std::tuple<long long,int,long long>> plain,variant;
@@ -1392,7 +1393,7 @@ int main()
     }
     // Dialogue uses the actual first question, with disjoint role windows and shared MIDI.
     {
-        Settings s;s.motif=true;s.y=.7f;s.custom=true;s.customChords[0]={0,Maj7,8};s.arpFigure=ArpCell;
+        Settings s;s.policy.motif.normalSteps={2,2,2};s.policy.motif.sparseSteps={2,2,2};s.motif=true;s.y=.7f;s.custom=true;s.customChords[0]={0,Maj7,8};s.arpFigure=ArpCell;
         s.solo[kArp]=s.solo[kGegenstimme]=true;
         s.rangeOn[kArp]=s.rangeOn[kGegenstimme]=true;
         s.rangeLo[kArp]=s.rangeLo[kGegenstimme]=60;s.rangeHi[kArp]=s.rangeHi[kGegenstimme]=83;
@@ -1423,7 +1424,7 @@ int main()
     }
     // Complete adapter catalog, independent articulation targets and fixed-key safety.
     {
-        Settings s;auto catalog=outputCatalog(s);CHECK(composition::validOutputs(catalog.data(),kNumOutputs));
+        Settings s;s.policy.motif.normalSteps={2,2,2};s.policy.motif.sparseSteps={2,2,2};auto catalog=outputCatalog(s);CHECK(composition::validOutputs(catalog.data(),kNumOutputs));
         for(int i=0;i<kNumOutputs;++i){CHECK(catalog[static_cast<size_t>(i)].target.output==i);CHECK(!catalog[static_cast<size_t>(i)].externalPatchKnown);}
         CHECK(catalog[OutPadLong].track.style!=catalog[OutPadShort].track.style);
         CHECK(catalog[OutBassLong].track.style!=catalog[OutBassShort].track.style);
@@ -1443,7 +1444,7 @@ int main()
     }
     // Opt-in foreground melody: actual ninth-channel MIDI, mono, recall and background safety.
     {
-        Settings s;s.custom=true;s.customChords[0]={0,Maj7,8};s.y=.7f;
+        Settings s;s.policy.motif.normalSteps={2,2,2};s.policy.motif.sparseSteps={2,2,2};s.custom=true;s.customChords[0]={0,Maj7,8};s.y=.7f;
         const auto background=run(s,512,16.);
         for(auto e:background)CHECK(e.out!=OutMelody);
         s.solo[kMelodie]=true;CHECK(run(s,512,16.).size()==background.size());s.solo[kMelodie]=false;
@@ -1478,7 +1479,7 @@ int main()
     }
     // Explicit sparse suffix response from actual melody attacks; no concurrent lead.
     {
-        Settings s;s.melody=true;s.motif=true;s.y=.7f;s.seed=3;s.custom=true;s.customChords[0]={0,Maj7,8};
+        Settings s;s.policy.motif.normalSteps={2,2,2};s.policy.motif.sparseSteps={2,2,2};s.melody=true;s.motif=true;s.y=.7f;s.seed=3;s.custom=true;s.customChords[0]={0,Maj7,8};
         s.solo[kMelodie]=s.solo[kGegenstimme]=true;
         const auto events=run(s,512,120.);checkBalanced(events);
         std::vector<std::pair<long long,int>> intro,answer;int leadActive=0,answerActive=0;
@@ -1522,7 +1523,7 @@ int main()
     }
     // Both contexts survive foreground changes without adopting or mutating each other's material.
     {
-        Settings s;s.motif=true;s.custom=true;s.customChords[0]={0,Maj7,8};s.y=.7f;
+        Settings s;s.policy.motif.normalSteps={2,2,2};s.policy.motif.sparseSteps={2,2,2};s.motif=true;s.custom=true;s.customChords[0]={0,Maj7,8};s.y=.7f;
         Generator g;EventList events;Transport t;t.playing=true;
         auto step=[&](int tick){t.ppq=tick*.25;events.clear();g.process(t,s,6000,events);};
         for(int tick=0;tick<128;++tick)step(tick);
@@ -1552,7 +1553,7 @@ int main()
     {
         auto melodyAfter=[&](bool silentDialog)
         {
-            Settings s;s.y=.7f;s.custom=true;s.customChords[0]={0,Maj7,8};
+            Settings s;s.policy.motif.normalSteps={2,2,2};s.policy.motif.sparseSteps={2,2,2};s.y=.7f;s.custom=true;s.customChords[0]={0,Maj7,8};
             s.mute[kGegenstimme]=silentDialog;s.melodyMotif=false;
             Generator g;Transport t;t.playing=true;EventList events;std::vector<std::pair<int,int>> result;
             for(int tick=0;tick<160;++tick)
@@ -1568,7 +1569,7 @@ int main()
     }
     // Melody switches are independent of counter controls; line mode never records a theme.
     {
-        Settings s;s.melody=true;s.solo[kMelodie]=true;s.y=.7f;s.custom=true;s.customChords[0]={0,Maj7,8};
+        Settings s;s.policy.motif.normalSteps={2,2,2};s.policy.motif.sparseSteps={2,2,2};s.melody=true;s.solo[kMelodie]=true;s.y=.7f;s.custom=true;s.customChords[0]={0,Maj7,8};
         for(bool motif:{false,true})
         {
             s.melodyMotif=motif;s.melodyLegato=true;
@@ -1609,7 +1610,7 @@ int main()
         CHECK(!window.contains(15)&&window.contains(16)&&window.contains(31)&&!window.contains(32));
         for(int profile=0;profile<3;++profile)for(bool melody:{false,true})
         {
-            Settings s;s.profile=static_cast<composition::ProfileId>(profile);s.y=.7f;s.key=0;
+            Settings s;s.policy.motif.normalSteps={2,2,2};s.policy.motif.sparseSteps={2,2,2};s.profile=static_cast<composition::ProfileId>(profile);s.y=.7f;s.key=0;
             s.motif=true;s.melody=melody;s.seed=3;s.custom=true;s.customChords[0]={0,Maj7,8};s.mute[kFlaeche]=true;
             // Sharing with an UNUSED muted output disables coordination without changing any sounding routing.
             auto bypass=s;bypass.channel[OutPadShort]=s.channel[OutArp];
@@ -1632,7 +1633,7 @@ int main()
                 CHECK(actual[i].sample==large[i].sample&&actual[i].out==large[i].out&&actual[i].note==large[i].note&&actual[i].velocity==large[i].velocity);
         }
         // A fresh seek after the final introduction onset reserves no invented past notes.
-        Settings s;s.melody=true;s.motif=true;s.seed=3;s.y=.7f;s.custom=true;s.customChords[0]={0,Maj7,8};
+        Settings s;s.policy.motif.normalSteps={2,2,2};s.policy.motif.sparseSteps={2,2,2};s.melody=true;s.motif=true;s.seed=3;s.y=.7f;s.custom=true;s.customChords[0]={0,Maj7,8};
         Generator g;EventList events;Transport t;t.playing=true;t.ppq=7.75;
         g.process(t,s,6000,events);bool arp=false;
         for(int i=0;i<events.size;++i){const auto& e=events.events[static_cast<size_t>(i)];arp|=e.out==OutArp&&e.velocity>0;}
@@ -1680,6 +1681,59 @@ int main()
         for(int i=0;i<events.size;++i)CHECK(events.events[static_cast<size_t>(i)].velocity==0);
         s.motif=true;g.process(t,s,6000,events);CHECK(!g.inspectFreePhrase(0,s).valid);
         s.motif=false;s.genre=GenrePopRock;g.process(t,s,6000,events);CHECK(!g.inspectFreePhrase(0,s).valid);
+    }
+    // Default policy: actual recorded material, varying gaps and independent, allocation-free scheduling.
+    {
+        Settings s;s.key=0;s.motif=true;s.y=.7f;s.seed=3;s.custom=true;s.customChords[0]={0,Maj7,8};
+        s.solo[kGegenstimme]=true;
+        Generator g;EventList events;Transport t;t.playing=true;
+        std::set<long long> starts;uint64_t identity=0;
+        for(int tick=0;tick<128*16;++tick)
+        {
+            t.ppq=tick*.25;events.clear();{NoAllocations guard;g.process(t,s,6000,events);}
+            const auto& memory=g.rememberedMotif();
+            if(memory.complete){if(!identity)identity=memory.identity;CHECK(memory.identity==identity);}
+            const auto planned=g.inspectMotifOccurrence(tick,s);
+            for(int i=0;i<events.size;++i)
+            {
+                const auto& e=events.events[static_cast<size_t>(i)];if(e.velocity<=0||e.out!=OutCounter)continue;
+                CHECK(planned.active);starts.insert(planned.begin);
+                if(!planned.introduction)
+                {
+                    bool matched=false;
+                    for(int n=0;n<memory.count;++n){const auto& note=memory.notes[static_cast<size_t>(n)];matched|=tick==planned.begin+note.at&&e.note==planned.base+note.interval;}
+                    CHECK(matched);
+                }
+            }
+        }
+        CHECK(identity!=0&&starts.size()>8&&starts.size()<17);std::set<long long> gaps;
+        for(auto it=std::next(starts.begin());it!=starts.end();++it){auto previous=std::prev(it);CHECK(*it-*previous>=4*16);gaps.insert(*it-*previous);}
+        CHECK(gaps.size()>=3);
+        t.ppq=32.25;events.clear();g.process(t,s,6000,events);bool chased=false;
+        for(int i=0;i<events.size;++i){const auto& e=events.events[static_cast<size_t>(i)];chased|=e.out==OutCounter&&e.velocity>0;}
+        CHECK(chased&&g.rememberedMotif().identity==identity);
+        t.ppq=38.25;events.clear();g.process(t,s,6000,events);
+        bool tailReleased=false;
+        for(int tick=154;tick<=160;++tick)
+        {
+            t.ppq=tick*.25;events.clear();g.process(t,s,6000,events);
+            for(int i=0;i<events.size;++i){const auto& e=events.events[static_cast<size_t>(i)];if(e.out==OutCounter&&e.velocity==0){CHECK(tick==160);tailReleased=true;}}
+        }
+        CHECK(tailReleased);
+        s.solo[kArp]=true;s.arpFigure=ArpCell;t.ppq=0;events.clear();g.process(t,s,6000,events);
+        t.ppq=40.25;events.clear();g.process(t,s,6000,events);chased=false;
+        for(int i=0;i<events.size;++i){const auto& e=events.events[static_cast<size_t>(i)];chased|=e.out==OutArp&&e.velocity>0;}
+        CHECK(chased&&g.rememberedMotif().identity==identity);
+        Settings lead=s;lead.melody=true;lead.solo[kMelodie]=true;lead.arpFigure=ArpAuto;
+        Generator duet;Transport clock;clock.playing=true;
+        for(int tick=0;tick<40;++tick){clock.ppq=tick*.25;events.clear();duet.process(clock,lead,6000,events);}
+        const auto source=duet.rememberedMotif(OutMelody);CHECK(source.complete&&source.count>=3);
+        clock.ppq=68.25;events.clear();duet.process(clock,lead,6000,events);chased=false;
+        const int first=source.count-std::min(3,source.count-1);
+        for(int i=0;i<events.size;++i){const auto& e=events.events[static_cast<size_t>(i)];chased|=e.out==OutCounter&&e.velocity>0&&e.note==source.origin+source.notes[static_cast<size_t>(first)].interval;}
+        CHECK(chased&&duet.rememberedMotif(OutMelody).identity==source.identity);
+        CHECK(duet.answerUse().reference.value==duet.motifUse(OutMelody).reference.value);
+        CHECK(!duet.rememberedMotif(OutCounter).complete);
     }
     return 0;
 }

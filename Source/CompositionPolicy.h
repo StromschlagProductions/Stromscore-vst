@@ -20,7 +20,23 @@ struct TexturePolicy
     } arpeggio;
     float start(TexturePart part)const { return activityStart[static_cast<size_t>(part)]; }
 };
-struct FreeCompositionPolicy { TexturePolicy texture; };
+struct MotifRecurrencePolicy
+{
+    // Bounded horizon matches the stock harmonic planning window; recurrence need not start there.
+    static constexpr int windowBars=8;
+    int minimumSilentBars=2;
+    float sparseBelow=.4f,unrestEngages=.5f;
+    std::array<int,3> sparseSteps {{2,2,2}},normalSteps {{1,2,1}};
+};
+inline bool valid(const MotifRecurrencePolicy& p)
+{
+    if(p.minimumSilentBars<1||p.minimumSilentBars>p.windowBars-2
+        ||!std::isfinite(p.sparseBelow)||p.sparseBelow<0||p.sparseBelow>1
+        ||!std::isfinite(p.unrestEngages)||p.unrestEngages<0||p.unrestEngages>1)return false;
+    for(const auto& steps:{p.sparseSteps,p.normalSteps})for(int n:steps)if(n<1||n>2)return false;
+    return true;
+}
+struct FreeCompositionPolicy { TexturePolicy texture; MotifRecurrencePolicy motif; };
 inline constexpr FreeCompositionPolicy neutralFreePolicy {};
 // Artist identities currently provide only initial harmonic preferences; all texture data stay neutral.
 enum class ProfileId { neutral=0, johnBarry=1, bernardHerrmann=2 };

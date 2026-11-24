@@ -84,6 +84,22 @@ if(BUILD_TESTING)
     file(MAKE_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/voice-leading-comparison")
     configure_file(docs/development/VOICE_LEADING.md "${CMAKE_CURRENT_BINARY_DIR}/voice-leading-comparison/README.md" COPYONLY)
     add_test(NAME VoiceLeading COMMAND VoiceLeadingTests "${CMAKE_CURRENT_BINARY_DIR}/voice-leading-comparison")
+    add_executable(RecurrenceProbe tools/recurrence_probe.cpp)
+    target_include_directories(RecurrenceProbe PRIVATE Source)
+    target_compile_definitions(RecurrenceProbe PRIVATE RECURRENCE_DIAGNOSTICS=1)
+    if(MSVC)
+        target_compile_options(RecurrenceProbe PRIVATE /utf-8)
+    endif()
+    if(Python3_Interpreter_FOUND AND GIT_FOUND AND NOT MSVC)
+        execute_process(COMMAND ${GIT_EXECUTABLE} cat-file -e 920d388:Source/ScoreEngine.h
+            WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} RESULT_VARIABLE RECURRENCE_REFERENCE_STATUS ERROR_QUIET)
+        if(RECURRENCE_REFERENCE_STATUS EQUAL 0)
+            add_test(NAME RecurrenceComparison COMMAND ${Python3_EXECUTABLE}
+                ${CMAKE_CURRENT_SOURCE_DIR}/scripts/compare_recurrence.py
+                --probe $<TARGET_FILE:RecurrenceProbe> --compiler ${CMAKE_CXX_COMPILER}
+                --output ${CMAKE_CURRENT_BINARY_DIR}/recurrence-comparison)
+        endif()
+    endif()
     add_executable(PhraseProbe tools/phrase_probe.cpp)
     target_include_directories(PhraseProbe PRIVATE Source)
     target_compile_definitions(PhraseProbe PRIVATE PHRASE_DIAGNOSTICS=1)

@@ -47,7 +47,10 @@ with tempfile.TemporaryDirectory(prefix='stromscore-density-') as temp:
             assert not spans(after)-spans(control),(name,'remaining note pitch/velocity/duration changed by density')
             old=ons(b);new=ons(after);full=ons(control)
             # No density at all: complete MIDI must remain byte-identical, including intentional open-end energy.
-            if case in [0,6,7,8,16,17]:assert ar==br==cr,(name,'undiluted regression')
+            if case in [0,6,7,8,16,17]:
+                assert ar==cr,(name,'undiluted density control')
+                if case==8:assert ar==br,(name,'Pop regression')
+                else:assert [e for e in b if e[0]<16*48000]==[e for e in after if e[0]<16*48000],(name,'undiluted introduction changed')
             if case in [1,3,4,5,9,10,13,14,18]:assert len(new)<len(full),(name,'density mask unused')
             oldkeys={key(e):e for e in old};newkeys={key(e):e for e in new}
             removed=[e for e in old if key(e) not in newkeys]

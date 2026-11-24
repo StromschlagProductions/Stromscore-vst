@@ -293,6 +293,7 @@ stromscore::Settings StromscoreProcessor::currentSettings() const
     stromscore::Settings s;
     const int profile=juce::jlimit(0,static_cast<int>(stromscore::composition::compositionProfiles.size())-1,juce::roundToInt(pProfile->load()));
     s.profile=stromscore::composition::compositionProfiles[static_cast<size_t>(profile)].id;
+    s.policy=*stromscore::composition::policyForProfile(s.profile);
     s.key = juce::roundToInt (pKey->load());
     s.x = axisLive[0].load(); s.y = axisLive[1].load(); s.z = axisLive[2].load();
     static constexpr int nums[] = { 0, 4, 3, 6, 5, 7, 5, 12 };

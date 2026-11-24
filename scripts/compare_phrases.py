@@ -45,8 +45,11 @@ with tempfile.TemporaryDirectory(prefix='stromscore-phrases-') as temp:
             br,b,bh,_=run(before,case,profile)
             ar,after,ah,plans=run(a.probe,case,profile)
             assert bh==ah,(name,'harmonic plan or motif identity changed')
-            assert sorted(e for e in b if e[5]!=7)==sorted(e for e in after if e[5]!=7),(name,'other layer/coordination/density changed')
-            if case in [8,10,11,12,13,14,19,23,24,25]:assert ar==br,(name,'protected context changed')
+            thematic=case in [10,12,13]
+            protected={4,7,8} if thematic else {7}
+            assert sorted(e for e in b if e[5] not in protected)==sorted(e for e in after if e[5] not in protected),(name,'other layer/coordination/density changed')
+            if thematic:assert [e for e in b if e[0]<16*48000]==[e for e in after if e[0]<16*48000],(name,'motif introduction changed')
+            if case in [8,11,14,19,23,24,25]:assert ar==br,(name,'protected context changed')
             old,new=ons(b),ons(after)
             if old:assert new,(name,'counter voice vanished')
             note_spans=spans(after)
