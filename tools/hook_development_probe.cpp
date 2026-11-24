@@ -20,6 +20,10 @@ int main(int argc,char** argv)
  if(scenario==7)s.policy.popHooks.phrasedCustom=true;
  if(argc>4)s.policy.popHooks.enabled=std::atoi(argv[4])!=0;
 #endif
+
+#ifdef BASS_REGRESSION_CONTROL
+ s.policy.bass.enabled=false;
+#endif
  Generator g;EventList es;std::set<long long> seen;bool published=false;
  const long long bar=std::llround(48000*60/bpm*4),total=static_cast<long long>(128*48000*60/bpm*4);
  auto emit=[&](long long at){for(int i=0;i<es.size;++i){auto e=es.events[i];std::cout<<at+e.offset<<','<<int(e.channel)<<','<<int(e.note)<<','<<int(e.velocity)<<','<<int(e.type)<<','<<int(e.out)<<'\n';}};

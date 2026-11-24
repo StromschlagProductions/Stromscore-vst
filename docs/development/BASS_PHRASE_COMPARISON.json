@@ -1,0 +1,5248 @@
+{
+  "baseline": "888ff82",
+  "bars": 128,
+  "plans": 87,
+  "passing_tones": 87,
+  "results": [
+    {
+      "case": "2015-auto-follow",
+      "bpm": 90,
+      "plans": 0,
+      "planned_attacks": 0,
+      "melodic_attack_fraction": 0.0,
+      "passing_tones": 0,
+      "note_ons_before": 1024,
+      "note_ons_after": 1024,
+      "intervals_before": {
+        "0": 365,
+        "2": 6,
+        "7": 6,
+        "5": 16,
+        "12": 610,
+        "14": 10,
+        "17": 10
+      },
+      "intervals_after": {
+        "0": 365,
+        "2": 6,
+        "7": 6,
+        "5": 16,
+        "12": 610,
+        "14": 10,
+        "17": 10
+      },
+      "register_before": [
+        46,
+        65
+      ],
+      "register_after": [
+        46,
+        65
+      ],
+      "before_sha256": "2d2f3c8a5ae48614ec42e4240f299004764286eda53a26caf33ffe91c37143b0",
+      "after_sha256": "2d2f3c8a5ae48614ec42e4240f299004764286eda53a26caf33ffe91c37143b0"
+    },
+    {
+      "case": "2015-auto-follow",
+      "bpm": 120,
+      "plans": 0,
+      "planned_attacks": 0,
+      "melodic_attack_fraction": 0.0,
+      "passing_tones": 0,
+      "note_ons_before": 1024,
+      "note_ons_after": 1024,
+      "intervals_before": {
+        "0": 365,
+        "2": 6,
+        "7": 6,
+        "5": 16,
+        "12": 610,
+        "14": 10,
+        "17": 10
+      },
+      "intervals_after": {
+        "0": 365,
+        "2": 6,
+        "7": 6,
+        "5": 16,
+        "12": 610,
+        "14": 10,
+        "17": 10
+      },
+      "register_before": [
+        46,
+        65
+      ],
+      "register_after": [
+        46,
+        65
+      ],
+      "before_sha256": "4559845aef91aabeab070327c9c3081644b86101bde3c899ed378703494b99c4",
+      "after_sha256": "4559845aef91aabeab070327c9c3081644b86101bde3c899ed378703494b99c4"
+    },
+    {
+      "case": "2015-auto-follow",
+      "bpm": 173,
+      "plans": 0,
+      "planned_attacks": 0,
+      "melodic_attack_fraction": 0.0,
+      "passing_tones": 0,
+      "note_ons_before": 1024,
+      "note_ons_after": 1024,
+      "intervals_before": {
+        "0": 365,
+        "2": 6,
+        "7": 6,
+        "5": 16,
+        "12": 610,
+        "14": 10,
+        "17": 10
+      },
+      "intervals_after": {
+        "0": 365,
+        "2": 6,
+        "7": 6,
+        "5": 16,
+        "12": 610,
+        "14": 10,
+        "17": 10
+      },
+      "register_before": [
+        46,
+        65
+      ],
+      "register_after": [
+        46,
+        65
+      ],
+      "before_sha256": "34af5bdae05fd3b5ee1785776df1184a7dc941f4656fd23e656adfb30d3e1536",
+      "after_sha256": "34af5bdae05fd3b5ee1785776df1184a7dc941f4656fd23e656adfb30d3e1536"
+    },
+    {
+      "case": "2019-auto-follow",
+      "bpm": 90,
+      "plans": 0,
+      "planned_attacks": 0,
+      "melodic_attack_fraction": 0.0,
+      "passing_tones": 0,
+      "note_ons_before": 832,
+      "note_ons_after": 832,
+      "intervals_before": {
+        "5": 184,
+        "12": 6,
+        "0": 616,
+        "3": 5,
+        "7": 10,
+        "2": 10
+      },
+      "intervals_after": {
+        "5": 184,
+        "12": 6,
+        "0": 616,
+        "3": 5,
+        "7": 10,
+        "2": 10
+      },
+      "register_before": [
+        41,
+        53
+      ],
+      "register_after": [
+        41,
+        53
+      ],
+      "before_sha256": "ca3e045eba7615722e55608c1cf5ffe561acb46f26f7ba052849b1bcb6a480f9",
+      "after_sha256": "ca3e045eba7615722e55608c1cf5ffe561acb46f26f7ba052849b1bcb6a480f9"
+    },
+    {
+      "case": "2019-auto-follow",
+      "bpm": 120,
+      "plans": 0,
+      "planned_attacks": 0,
+      "melodic_attack_fraction": 0.0,
+      "passing_tones": 0,
+      "note_ons_before": 832,
+      "note_ons_after": 832,
+      "intervals_before": {
+        "5": 184,
+        "12": 6,
+        "0": 616,
+        "3": 5,
+        "7": 10,
+        "2": 10
+      },
+      "intervals_after": {
+        "5": 184,
+        "12": 6,
+        "0": 616,
+        "3": 5,
+        "7": 10,
+        "2": 10
+      },
+      "register_before": [
+        41,
+        53
+      ],
+      "register_after": [
+        41,
+        53
+      ],
+      "before_sha256": "3a766f96ff4eab003cb95a10c163e9fad19989cd94400bc63c957a6b120facf1",
+      "after_sha256": "3a766f96ff4eab003cb95a10c163e9fad19989cd94400bc63c957a6b120facf1"
+    },
+    {
+      "case": "2019-auto-follow",
+      "bpm": 173,
+      "plans": 0,
+      "planned_attacks": 0,
+      "melodic_attack_fraction": 0.0,
+      "passing_tones": 0,
+      "note_ons_before": 832,
+      "note_ons_after": 832,
+      "intervals_before": {
+        "5": 184,
+        "12": 6,
+        "0": 616,
+        "3": 5,
+        "7": 10,
+        "2": 10
+      },
+      "intervals_after": {
+        "5": 184,
+        "12": 6,
+        "0": 616,
+        "3": 5,
+        "7": 10,
+        "2": 10
+      },
+      "register_before": [
+        41,
+        53
+      ],
+      "register_after": [
+        41,
+        53
+      ],
+      "before_sha256": "fceb498daeab1ec2ee20e4c85c83c9b7edc5fa75b698e04f075a80d2b71c8332",
+      "after_sha256": "fceb498daeab1ec2ee20e4c85c83c9b7edc5fa75b698e04f075a80d2b71c8332"
+    },
+    {
+      "case": "2012-auto-follow",
+      "bpm": 90,
+      "plans": 0,
+      "planned_attacks": 0,
+      "melodic_attack_fraction": 0.0,
+      "passing_tones": 0,
+      "note_ons_before": 1216,
+      "note_ons_after": 1216,
+      "intervals_before": {
+        "0": 1152,
+        "5": 63
+      },
+      "intervals_after": {
+        "0": 1152,
+        "5": 63
+      },
+      "register_before": [
+        48,
+        53
+      ],
+      "register_after": [
+        48,
+        53
+      ],
+      "before_sha256": "b288f4ce777608f2b0bc18f2bc8fb6f846489988a2da7395a950c53d7242743d",
+      "after_sha256": "b288f4ce777608f2b0bc18f2bc8fb6f846489988a2da7395a950c53d7242743d"
+    },
+    {
+      "case": "2012-auto-follow",
+      "bpm": 120,
+      "plans": 0,
+      "planned_attacks": 0,
+      "melodic_attack_fraction": 0.0,
+      "passing_tones": 0,
+      "note_ons_before": 1216,
+      "note_ons_after": 1216,
+      "intervals_before": {
+        "0": 1152,
+        "5": 63
+      },
+      "intervals_after": {
+        "0": 1152,
+        "5": 63
+      },
+      "register_before": [
+        48,
+        53
+      ],
+      "register_after": [
+        48,
+        53
+      ],
+      "before_sha256": "12d4ee0a94f5c9020a1e65d3708fd7b2903ab428a560023f5b0c84dec0b557b6",
+      "after_sha256": "12d4ee0a94f5c9020a1e65d3708fd7b2903ab428a560023f5b0c84dec0b557b6"
+    },
+    {
+      "case": "2012-auto-follow",
+      "bpm": 173,
+      "plans": 0,
+      "planned_attacks": 0,
+      "melodic_attack_fraction": 0.0,
+      "passing_tones": 0,
+      "note_ons_before": 1216,
+      "note_ons_after": 1216,
+      "intervals_before": {
+        "0": 1152,
+        "5": 63
+      },
+      "intervals_after": {
+        "0": 1152,
+        "5": 63
+      },
+      "register_before": [
+        48,
+        53
+      ],
+      "register_after": [
+        48,
+        53
+      ],
+      "before_sha256": "0d2032f4398566c7342fae61e05f64c11057a1ebfc8aa4c2d8460152b468d332",
+      "after_sha256": "0d2032f4398566c7342fae61e05f64c11057a1ebfc8aa4c2d8460152b468d332"
+    },
+    {
+      "case": "2025-auto-follow",
+      "bpm": 90,
+      "plans": 5,
+      "planned_attacks": 126,
+      "melodic_attack_fraction": 0.1290983606557377,
+      "passing_tones": 5,
+      "note_ons_before": 976,
+      "note_ons_after": 976,
+      "intervals_before": {
+        "0": 96,
+        "7": 154,
+        "5": 24,
+        "12": 608,
+        "3": 6,
+        "1": 29,
+        "13": 12,
+        "6": 6,
+        "17": 20,
+        "9": 10,
+        "10": 10
+      },
+      "intervals_after": {
+        "0": 158,
+        "7": 100,
+        "5": 17,
+        "12": 600,
+        "3": 8,
+        "1": 19,
+        "13": 9,
+        "2": 15,
+        "4": 5,
+        "17": 20,
+        "9": 10,
+        "10": 10,
+        "6": 4
+      },
+      "register_before": [
+        47,
+        65
+      ],
+      "register_after": [
+        47,
+        65
+      ],
+      "before_sha256": "24ff5f9cbcd7dd588c8c4cac123c1fd93fc90625107d052194ef4fa9554776a6",
+      "after_sha256": "fed600bf3d9715373459bb33c024ae2f1cea1ac64cb5b3d68c8deb53a11ff862"
+    },
+    {
+      "case": "2025-auto-follow",
+      "bpm": 120,
+      "plans": 5,
+      "planned_attacks": 126,
+      "melodic_attack_fraction": 0.1290983606557377,
+      "passing_tones": 5,
+      "note_ons_before": 976,
+      "note_ons_after": 976,
+      "intervals_before": {
+        "0": 96,
+        "7": 154,
+        "5": 24,
+        "12": 608,
+        "3": 6,
+        "1": 29,
+        "13": 12,
+        "6": 6,
+        "17": 20,
+        "9": 10,
+        "10": 10
+      },
+      "intervals_after": {
+        "0": 158,
+        "7": 100,
+        "5": 17,
+        "12": 600,
+        "3": 8,
+        "1": 19,
+        "13": 9,
+        "2": 15,
+        "4": 5,
+        "17": 20,
+        "9": 10,
+        "10": 10,
+        "6": 4
+      },
+      "register_before": [
+        47,
+        65
+      ],
+      "register_after": [
+        47,
+        65
+      ],
+      "before_sha256": "197668532d16d49256d29d3877f904c0e864aac8b098fad43711e066932bf828",
+      "after_sha256": "5a094d1d950d7407c55927a29d8b80d686f9e16b718c78411ce2f1983e388cd5"
+    },
+    {
+      "case": "2025-auto-follow",
+      "bpm": 173,
+      "plans": 5,
+      "planned_attacks": 126,
+      "melodic_attack_fraction": 0.1290983606557377,
+      "passing_tones": 5,
+      "note_ons_before": 976,
+      "note_ons_after": 976,
+      "intervals_before": {
+        "0": 96,
+        "7": 154,
+        "5": 24,
+        "12": 608,
+        "3": 6,
+        "1": 29,
+        "13": 12,
+        "6": 6,
+        "17": 20,
+        "9": 10,
+        "10": 10
+      },
+      "intervals_after": {
+        "0": 158,
+        "7": 100,
+        "5": 17,
+        "12": 600,
+        "3": 8,
+        "1": 19,
+        "13": 9,
+        "2": 15,
+        "4": 5,
+        "17": 20,
+        "9": 10,
+        "10": 10,
+        "6": 4
+      },
+      "register_before": [
+        47,
+        65
+      ],
+      "register_after": [
+        47,
+        65
+      ],
+      "before_sha256": "afa9b8557ef3151a5fa09886e3a258d048746a07ce8d22e6a02cb2aa8f3a42a1",
+      "after_sha256": "7210d22547d1900b5a659b7559daa699f74ed1235d5b5f95422f38d6a23c43d6"
+    },
+    {
+      "case": "2030-auto-follow",
+      "bpm": 90,
+      "plans": 0,
+      "planned_attacks": 0,
+      "melodic_attack_fraction": 0.0,
+      "passing_tones": 0,
+      "note_ons_before": 136,
+      "note_ons_after": 136,
+      "intervals_before": {
+        "0": 72,
+        "2": 16,
+        "1": 32,
+        "4": 15
+      },
+      "intervals_after": {
+        "0": 72,
+        "2": 16,
+        "1": 32,
+        "4": 15
+      },
+      "register_before": [
+        53,
+        57
+      ],
+      "register_after": [
+        53,
+        57
+      ],
+      "before_sha256": "127d2315f7421e62a82e33a775582026430d725b064fb8d018f8c56c85e3d30a",
+      "after_sha256": "127d2315f7421e62a82e33a775582026430d725b064fb8d018f8c56c85e3d30a"
+    },
+    {
+      "case": "2030-auto-follow",
+      "bpm": 120,
+      "plans": 0,
+      "planned_attacks": 0,
+      "melodic_attack_fraction": 0.0,
+      "passing_tones": 0,
+      "note_ons_before": 136,
+      "note_ons_after": 136,
+      "intervals_before": {
+        "0": 72,
+        "2": 16,
+        "1": 32,
+        "4": 15
+      },
+      "intervals_after": {
+        "0": 72,
+        "2": 16,
+        "1": 32,
+        "4": 15
+      },
+      "register_before": [
+        53,
+        57
+      ],
+      "register_after": [
+        53,
+        57
+      ],
+      "before_sha256": "bc288933cb9efa4364380a2469384b1579cd0d3fa578a0dd938e9f2d1b0480d7",
+      "after_sha256": "bc288933cb9efa4364380a2469384b1579cd0d3fa578a0dd938e9f2d1b0480d7"
+    },
+    {
+      "case": "2030-auto-follow",
+      "bpm": 173,
+      "plans": 0,
+      "planned_attacks": 0,
+      "melodic_attack_fraction": 0.0,
+      "passing_tones": 0,
+      "note_ons_before": 136,
+      "note_ons_after": 136,
+      "intervals_before": {
+        "0": 72,
+        "2": 16,
+        "1": 32,
+        "4": 15
+      },
+      "intervals_after": {
+        "0": 72,
+        "2": 16,
+        "1": 32,
+        "4": 15
+      },
+      "register_before": [
+        53,
+        57
+      ],
+      "register_after": [
+        53,
+        57
+      ],
+      "before_sha256": "b251ccebb541676e12d98eab91760b2239781c464e4b2885a9d7bade60028a30",
+      "after_sha256": "b251ccebb541676e12d98eab91760b2239781c464e4b2885a9d7bade60028a30"
+    },
+    {
+      "case": "2031-auto-follow",
+      "bpm": 90,
+      "plans": 0,
+      "planned_attacks": 0,
+      "melodic_attack_fraction": 0.0,
+      "passing_tones": 0,
+      "note_ons_before": 1024,
+      "note_ons_after": 1024,
+      "intervals_before": {
+        "0": 1023
+      },
+      "intervals_after": {
+        "0": 1023
+      },
+      "register_before": [
+        57,
+        57
+      ],
+      "register_after": [
+        57,
+        57
+      ],
+      "before_sha256": "d80b563f23b70b0052f704f8000ddeaaa0965f966e36c5e1d21babe7b406f6a7",
+      "after_sha256": "d80b563f23b70b0052f704f8000ddeaaa0965f966e36c5e1d21babe7b406f6a7"
+    },
+    {
+      "case": "2031-auto-follow",
+      "bpm": 120,
+      "plans": 0,
+      "planned_attacks": 0,
+      "melodic_attack_fraction": 0.0,
+      "passing_tones": 0,
+      "note_ons_before": 1024,
+      "note_ons_after": 1024,
+      "intervals_before": {
+        "0": 1023
+      },
+      "intervals_after": {
+        "0": 1023
+      },
+      "register_before": [
+        57,
+        57
+      ],
+      "register_after": [
+        57,
+        57
+      ],
+      "before_sha256": "e9d7c63882c84c22b88c6a9a5e5779576d33db382e52a451520bd024bc7b402a",
+      "after_sha256": "e9d7c63882c84c22b88c6a9a5e5779576d33db382e52a451520bd024bc7b402a"
+    },
+    {
+      "case": "2031-auto-follow",
+      "bpm": 173,
+      "plans": 0,
+      "planned_attacks": 0,
+      "melodic_attack_fraction": 0.0,
+      "passing_tones": 0,
+      "note_ons_before": 1024,
+      "note_ons_after": 1024,
+      "intervals_before": {
+        "0": 1023
+      },
+      "intervals_after": {
+        "0": 1023
+      },
+      "register_before": [
+        57,
+        57
+      ],
+      "register_after": [
+        57,
+        57
+      ],
+      "before_sha256": "a631a038c21e427215c2598754acb827159e8ab01dec14959fbb3ff592e7ebec",
+      "after_sha256": "a631a038c21e427215c2598754acb827159e8ab01dec14959fbb3ff592e7ebec"
+    },
+    {
+      "case": "2032-auto-follow",
+      "bpm": 90,
+      "plans": 0,
+      "planned_attacks": 0,
+      "melodic_attack_fraction": 0.0,
+      "passing_tones": 0,
+      "note_ons_before": 664,
+      "note_ons_after": 664,
+      "intervals_before": {
+        "0": 583,
+        "1": 80
+      },
+      "intervals_after": {
+        "0": 583,
+        "1": 80
+      },
+      "register_before": [
+        56,
+        57
+      ],
+      "register_after": [
+        56,
+        57
+      ],
+      "before_sha256": "9f75797619a8ed15cc03c52a3fc2949b7015d003a1888a08466e796ec2c12461",
+      "after_sha256": "9f75797619a8ed15cc03c52a3fc2949b7015d003a1888a08466e796ec2c12461"
+    },
+    {
+      "case": "2032-auto-follow",
+      "bpm": 120,
+      "plans": 0,
+      "planned_attacks": 0,
+      "melodic_attack_fraction": 0.0,
+      "passing_tones": 0,
+      "note_ons_before": 664,
+      "note_ons_after": 664,
+      "intervals_before": {
+        "0": 583,
+        "1": 80
+      },
+      "intervals_after": {
+        "0": 583,
+        "1": 80
+      },
+      "register_before": [
+        56,
+        57
+      ],
+      "register_after": [
+        56,
+        57
+      ],
+      "before_sha256": "0cbe26129397b155837b0335d5b5873db475d171f2dd6c7687aa6cb7cff20dc7",
+      "after_sha256": "0cbe26129397b155837b0335d5b5873db475d171f2dd6c7687aa6cb7cff20dc7"
+    },
+    {
+      "case": "2032-auto-follow",
+      "bpm": 173,
+      "plans": 0,
+      "planned_attacks": 0,
+      "melodic_attack_fraction": 0.0,
+      "passing_tones": 0,
+      "note_ons_before": 664,
+      "note_ons_after": 664,
+      "intervals_before": {
+        "0": 583,
+        "1": 80
+      },
+      "intervals_after": {
+        "0": 583,
+        "1": 80
+      },
+      "register_before": [
+        56,
+        57
+      ],
+      "register_after": [
+        56,
+        57
+      ],
+      "before_sha256": "0b85ba2ed285224116ee69a6e9674398e4dee77b4ccca809b12805b764930408",
+      "after_sha256": "0b85ba2ed285224116ee69a6e9674398e4dee77b4ccca809b12805b764930408"
+    },
+    {
+      "case": "2035-auto-follow",
+      "bpm": 90,
+      "plans": 6,
+      "planned_attacks": 168,
+      "melodic_attack_fraction": 0.22340425531914893,
+      "passing_tones": 6,
+      "note_ons_before": 752,
+      "note_ons_after": 752,
+      "intervals_before": {
+        "5": 208,
+        "2": 6,
+        "9": 6,
+        "3": 16,
+        "10": 15,
+        "0": 160,
+        "7": 240,
+        "12": 40,
+        "15": 10,
+        "1": 40,
+        "4": 10
+      },
+      "intervals_after": {
+        "5": 202,
+        "2": 20,
+        "9": 6,
+        "3": 16,
+        "10": 11,
+        "4": 24,
+        "0": 236,
+        "7": 168,
+        "12": 28,
+        "1": 32,
+        "15": 8
+      },
+      "register_before": [
+        48,
+        72
+      ],
+      "register_after": [
+        48,
+        72
+      ],
+      "before_sha256": "9ca7704b3644bd9e24b622004c45f118c01bb0d103fca27c3a5fc4dac330a4b1",
+      "after_sha256": "975325cd3a5f5126546435c8bac51601b92dabf371a85a74e2326fa189bc2124"
+    },
+    {
+      "case": "2035-auto-follow",
+      "bpm": 120,
+      "plans": 6,
+      "planned_attacks": 168,
+      "melodic_attack_fraction": 0.22340425531914893,
+      "passing_tones": 6,
+      "note_ons_before": 752,
+      "note_ons_after": 752,
+      "intervals_before": {
+        "5": 208,
+        "2": 6,
+        "9": 6,
+        "3": 16,
+        "10": 15,
+        "0": 160,
+        "7": 240,
+        "12": 40,
+        "15": 10,
+        "1": 40,
+        "4": 10
+      },
+      "intervals_after": {
+        "5": 202,
+        "2": 20,
+        "9": 6,
+        "3": 16,
+        "10": 11,
+        "4": 24,
+        "0": 236,
+        "7": 168,
+        "12": 28,
+        "1": 32,
+        "15": 8
+      },
+      "register_before": [
+        48,
+        72
+      ],
+      "register_after": [
+        48,
+        72
+      ],
+      "before_sha256": "60c4caa2549128416a741dd140f3d727006b66deac2e823bc124e59fcb2dd4bd",
+      "after_sha256": "7d221b0ce2b9747b47b9c3b6521fd144ece1a5420c3f9bb4482c39db6995a9c8"
+    },
+    {
+      "case": "2035-auto-follow",
+      "bpm": 173,
+      "plans": 6,
+      "planned_attacks": 168,
+      "melodic_attack_fraction": 0.22340425531914893,
+      "passing_tones": 6,
+      "note_ons_before": 752,
+      "note_ons_after": 752,
+      "intervals_before": {
+        "5": 208,
+        "2": 6,
+        "9": 6,
+        "3": 16,
+        "10": 15,
+        "0": 160,
+        "7": 240,
+        "12": 40,
+        "15": 10,
+        "1": 40,
+        "4": 10
+      },
+      "intervals_after": {
+        "5": 202,
+        "2": 20,
+        "9": 6,
+        "3": 16,
+        "10": 11,
+        "4": 24,
+        "0": 236,
+        "7": 168,
+        "12": 28,
+        "1": 32,
+        "15": 8
+      },
+      "register_before": [
+        48,
+        72
+      ],
+      "register_after": [
+        48,
+        72
+      ],
+      "before_sha256": "353683a2f521d5610fe7226aae3f2967a358ff847a3da4c47139e8108072cc3b",
+      "after_sha256": "35ba42129848733cdcd15f333c5a2a6af746e9a247265c1cb760abfa4aab6af6"
+    },
+    {
+      "case": "2013-auto-follow",
+      "bpm": 90,
+      "plans": 6,
+      "planned_attacks": 168,
+      "melodic_attack_fraction": 0.14788732394366197,
+      "passing_tones": 6,
+      "note_ons_before": 1136,
+      "note_ons_after": 1136,
+      "intervals_before": {
+        "0": 712,
+        "2": 23,
+        "7": 240,
+        "5": 40,
+        "12": 40,
+        "10": 20,
+        "1": 40,
+        "6": 20
+      },
+      "intervals_after": {
+        "0": 790,
+        "2": 45,
+        "1": 30,
+        "3": 2,
+        "4": 16,
+        "7": 168,
+        "5": 28,
+        "12": 28,
+        "6": 12,
+        "10": 16
+      },
+      "register_before": [
+        43,
+        60
+      ],
+      "register_after": [
+        43,
+        60
+      ],
+      "before_sha256": "3b121aeaedc9a8d3f98680c12e3817d70b5a7056189ccb21468f75c41274d875",
+      "after_sha256": "777070d14a309e7b233f30cdac7c50e98024332f8d01633416e0ed0355c1cc5b"
+    },
+    {
+      "case": "2013-auto-follow",
+      "bpm": 120,
+      "plans": 6,
+      "planned_attacks": 168,
+      "melodic_attack_fraction": 0.14788732394366197,
+      "passing_tones": 6,
+      "note_ons_before": 1136,
+      "note_ons_after": 1136,
+      "intervals_before": {
+        "0": 712,
+        "2": 23,
+        "7": 240,
+        "5": 40,
+        "12": 40,
+        "10": 20,
+        "1": 40,
+        "6": 20
+      },
+      "intervals_after": {
+        "0": 790,
+        "2": 45,
+        "1": 30,
+        "3": 2,
+        "4": 16,
+        "7": 168,
+        "5": 28,
+        "12": 28,
+        "6": 12,
+        "10": 16
+      },
+      "register_before": [
+        43,
+        60
+      ],
+      "register_after": [
+        43,
+        60
+      ],
+      "before_sha256": "07186df8a58eacfad31742555efb2bc0287286373b55589f7decdc5726e8b21b",
+      "after_sha256": "bf535de86909c4acf5225c54d0ad18a9c60ff9b8c6e3ab1b72a97e6848ec20c2"
+    },
+    {
+      "case": "2013-auto-follow",
+      "bpm": 173,
+      "plans": 6,
+      "planned_attacks": 168,
+      "melodic_attack_fraction": 0.14788732394366197,
+      "passing_tones": 6,
+      "note_ons_before": 1136,
+      "note_ons_after": 1136,
+      "intervals_before": {
+        "0": 712,
+        "2": 23,
+        "7": 240,
+        "5": 40,
+        "12": 40,
+        "10": 20,
+        "1": 40,
+        "6": 20
+      },
+      "intervals_after": {
+        "0": 790,
+        "2": 45,
+        "1": 30,
+        "3": 2,
+        "4": 16,
+        "7": 168,
+        "5": 28,
+        "12": 28,
+        "6": 12,
+        "10": 16
+      },
+      "register_before": [
+        43,
+        60
+      ],
+      "register_after": [
+        43,
+        60
+      ],
+      "before_sha256": "9ab90d250018845a955d085f08331f273715526b08098a31ed2c589a912a21e6",
+      "after_sha256": "c66cf841751f3cb8038f921cb25431f62d0943b0e6c70c3d5c1ec4c38dc8e95c"
+    },
+    {
+      "case": "2028-auto-follow",
+      "bpm": 90,
+      "plans": 6,
+      "planned_attacks": 140,
+      "melodic_attack_fraction": 0.1483050847457627,
+      "passing_tones": 6,
+      "note_ons_before": 944,
+      "note_ons_after": 944,
+      "intervals_before": {
+        "4": 93,
+        "3": 96,
+        "7": 325,
+        "0": 178,
+        "2": 44,
+        "9": 19,
+        "5": 63,
+        "1": 49,
+        "14": 1,
+        "12": 30,
+        "6": 20,
+        "8": 13,
+        "15": 10,
+        "11": 2
+      },
+      "intervals_after": {
+        "4": 99,
+        "3": 102,
+        "7": 265,
+        "0": 248,
+        "2": 62,
+        "9": 19,
+        "5": 53,
+        "1": 37,
+        "14": 1,
+        "12": 22,
+        "6": 14,
+        "8": 9,
+        "15": 10,
+        "11": 2
+      },
+      "register_before": [
+        47,
+        65
+      ],
+      "register_after": [
+        47,
+        65
+      ],
+      "before_sha256": "4dcc28ac08aa53c51d9b1aab6c97673b19b65c363fe0742bf2b4f1621c2edef9",
+      "after_sha256": "776741a785e9650e0e39ee0faef7017eb9c3e5dacc6a9bb19ddec9688e958231"
+    },
+    {
+      "case": "2028-auto-follow",
+      "bpm": 120,
+      "plans": 6,
+      "planned_attacks": 140,
+      "melodic_attack_fraction": 0.1483050847457627,
+      "passing_tones": 6,
+      "note_ons_before": 944,
+      "note_ons_after": 944,
+      "intervals_before": {
+        "4": 93,
+        "3": 96,
+        "7": 325,
+        "0": 178,
+        "2": 44,
+        "9": 19,
+        "5": 63,
+        "1": 49,
+        "14": 1,
+        "12": 30,
+        "6": 20,
+        "8": 13,
+        "15": 10,
+        "11": 2
+      },
+      "intervals_after": {
+        "4": 99,
+        "3": 102,
+        "7": 265,
+        "0": 248,
+        "2": 62,
+        "9": 19,
+        "5": 53,
+        "1": 37,
+        "14": 1,
+        "12": 22,
+        "6": 14,
+        "8": 9,
+        "15": 10,
+        "11": 2
+      },
+      "register_before": [
+        47,
+        65
+      ],
+      "register_after": [
+        47,
+        65
+      ],
+      "before_sha256": "2ccc576c46433786e4b927f813629c6e750c4fc37761bbc439bfe28756ec8115",
+      "after_sha256": "1af57aba0de1caf6ecc371e584ee8d00e490e88cf063d70dad1f5aec3b90299b"
+    },
+    {
+      "case": "2028-auto-follow",
+      "bpm": 173,
+      "plans": 6,
+      "planned_attacks": 140,
+      "melodic_attack_fraction": 0.1483050847457627,
+      "passing_tones": 6,
+      "note_ons_before": 944,
+      "note_ons_after": 944,
+      "intervals_before": {
+        "4": 93,
+        "3": 96,
+        "7": 325,
+        "0": 178,
+        "2": 44,
+        "9": 19,
+        "5": 63,
+        "1": 49,
+        "14": 1,
+        "12": 30,
+        "6": 20,
+        "8": 13,
+        "15": 10,
+        "11": 2
+      },
+      "intervals_after": {
+        "4": 99,
+        "3": 102,
+        "7": 265,
+        "0": 248,
+        "2": 62,
+        "9": 19,
+        "5": 53,
+        "1": 37,
+        "14": 1,
+        "12": 22,
+        "6": 14,
+        "8": 9,
+        "15": 10,
+        "11": 2
+      },
+      "register_before": [
+        47,
+        65
+      ],
+      "register_after": [
+        47,
+        65
+      ],
+      "before_sha256": "497aceaa0739b3c669c523a2cc2c4a6663ab0ed708c9392c26f2af0910cbcc9f",
+      "after_sha256": "b6e87f429a0f700fd99b14f876d06c7eab5edcee7145e33ee32fef26c544a9c5"
+    },
+    {
+      "case": "2021-auto-follow",
+      "bpm": 90,
+      "plans": 0,
+      "planned_attacks": 0,
+      "melodic_attack_fraction": 0.0,
+      "passing_tones": 0,
+      "note_ons_before": 1328,
+      "note_ons_after": 1328,
+      "intervals_before": {
+        "0": 868,
+        "1": 52,
+        "2": 22,
+        "5": 52,
+        "6": 11,
+        "7": 262,
+        "12": 40,
+        "9": 10,
+        "14": 10
+      },
+      "intervals_after": {
+        "0": 868,
+        "1": 52,
+        "2": 22,
+        "5": 52,
+        "6": 11,
+        "7": 262,
+        "12": 40,
+        "9": 10,
+        "14": 10
+      },
+      "register_before": [
+        47,
+        66
+      ],
+      "register_after": [
+        47,
+        66
+      ],
+      "before_sha256": "3755375d986153e5165c377eb964c722a774cb7db6e44e838dae5d0d40185277",
+      "after_sha256": "3755375d986153e5165c377eb964c722a774cb7db6e44e838dae5d0d40185277"
+    },
+    {
+      "case": "2021-auto-follow",
+      "bpm": 120,
+      "plans": 0,
+      "planned_attacks": 0,
+      "melodic_attack_fraction": 0.0,
+      "passing_tones": 0,
+      "note_ons_before": 1328,
+      "note_ons_after": 1328,
+      "intervals_before": {
+        "0": 868,
+        "1": 52,
+        "2": 22,
+        "5": 52,
+        "6": 11,
+        "7": 262,
+        "12": 40,
+        "9": 10,
+        "14": 10
+      },
+      "intervals_after": {
+        "0": 868,
+        "1": 52,
+        "2": 22,
+        "5": 52,
+        "6": 11,
+        "7": 262,
+        "12": 40,
+        "9": 10,
+        "14": 10
+      },
+      "register_before": [
+        47,
+        66
+      ],
+      "register_after": [
+        47,
+        66
+      ],
+      "before_sha256": "93813b489b516b6f0b5e338f40e97710e1ad6bcc39f868542ca56fb0167890dd",
+      "after_sha256": "93813b489b516b6f0b5e338f40e97710e1ad6bcc39f868542ca56fb0167890dd"
+    },
+    {
+      "case": "2021-auto-follow",
+      "bpm": 173,
+      "plans": 0,
+      "planned_attacks": 0,
+      "melodic_attack_fraction": 0.0,
+      "passing_tones": 0,
+      "note_ons_before": 1328,
+      "note_ons_after": 1328,
+      "intervals_before": {
+        "0": 868,
+        "1": 52,
+        "2": 22,
+        "5": 52,
+        "6": 11,
+        "7": 262,
+        "12": 40,
+        "9": 10,
+        "14": 10
+      },
+      "intervals_after": {
+        "0": 868,
+        "1": 52,
+        "2": 22,
+        "5": 52,
+        "6": 11,
+        "7": 262,
+        "12": 40,
+        "9": 10,
+        "14": 10
+      },
+      "register_before": [
+        47,
+        66
+      ],
+      "register_after": [
+        47,
+        66
+      ],
+      "before_sha256": "b4de1e75cb043df26c0e1ad0584ebccce213a722cd2aeb617324b2fc33d2d1da",
+      "after_sha256": "b4de1e75cb043df26c0e1ad0584ebccce213a722cd2aeb617324b2fc33d2d1da"
+    },
+    {
+      "case": "2015-follow-off",
+      "bpm": 90,
+      "plans": 0,
+      "planned_attacks": 0,
+      "melodic_attack_fraction": 0.0,
+      "passing_tones": 0,
+      "note_ons_before": 1024,
+      "note_ons_after": 1024,
+      "intervals_before": {
+        "0": 383,
+        "12": 640
+      },
+      "intervals_after": {
+        "0": 383,
+        "12": 640
+      },
+      "register_before": [
+        48,
+        60
+      ],
+      "register_after": [
+        48,
+        60
+      ],
+      "before_sha256": "978309b74c258dc5ef04f5cd76f78e17bff80f9e95cd203595634962d1b58960",
+      "after_sha256": "978309b74c258dc5ef04f5cd76f78e17bff80f9e95cd203595634962d1b58960"
+    },
+    {
+      "case": "2015-follow-off",
+      "bpm": 120,
+      "plans": 0,
+      "planned_attacks": 0,
+      "melodic_attack_fraction": 0.0,
+      "passing_tones": 0,
+      "note_ons_before": 1024,
+      "note_ons_after": 1024,
+      "intervals_before": {
+        "0": 383,
+        "12": 640
+      },
+      "intervals_after": {
+        "0": 383,
+        "12": 640
+      },
+      "register_before": [
+        48,
+        60
+      ],
+      "register_after": [
+        48,
+        60
+      ],
+      "before_sha256": "6fae0d5d5fd9e29eb1af16e8b59c901e2c94d865515bf2e8c348a7e0cb9fe9fb",
+      "after_sha256": "6fae0d5d5fd9e29eb1af16e8b59c901e2c94d865515bf2e8c348a7e0cb9fe9fb"
+    },
+    {
+      "case": "2015-follow-off",
+      "bpm": 173,
+      "plans": 0,
+      "planned_attacks": 0,
+      "melodic_attack_fraction": 0.0,
+      "passing_tones": 0,
+      "note_ons_before": 1024,
+      "note_ons_after": 1024,
+      "intervals_before": {
+        "0": 383,
+        "12": 640
+      },
+      "intervals_after": {
+        "0": 383,
+        "12": 640
+      },
+      "register_before": [
+        48,
+        60
+      ],
+      "register_after": [
+        48,
+        60
+      ],
+      "before_sha256": "8eb81dd78d445e3c5d490b66e2b3f84071d85f6c9b4a1ae923468010c7bfb4ba",
+      "after_sha256": "8eb81dd78d445e3c5d490b66e2b3f84071d85f6c9b4a1ae923468010c7bfb4ba"
+    },
+    {
+      "case": "2019-follow-off",
+      "bpm": 90,
+      "plans": 0,
+      "planned_attacks": 0,
+      "melodic_attack_fraction": 0.0,
+      "passing_tones": 0,
+      "note_ons_before": 832,
+      "note_ons_after": 832,
+      "intervals_before": {
+        "5": 191,
+        "0": 640
+      },
+      "intervals_after": {
+        "5": 191,
+        "0": 640
+      },
+      "register_before": [
+        43,
+        48
+      ],
+      "register_after": [
+        43,
+        48
+      ],
+      "before_sha256": "703870d6f0b912f722a42696511a5d673dd32d3412633e62304115f56ecf475e",
+      "after_sha256": "703870d6f0b912f722a42696511a5d673dd32d3412633e62304115f56ecf475e"
+    },
+    {
+      "case": "2019-follow-off",
+      "bpm": 120,
+      "plans": 0,
+      "planned_attacks": 0,
+      "melodic_attack_fraction": 0.0,
+      "passing_tones": 0,
+      "note_ons_before": 832,
+      "note_ons_after": 832,
+      "intervals_before": {
+        "5": 191,
+        "0": 640
+      },
+      "intervals_after": {
+        "5": 191,
+        "0": 640
+      },
+      "register_before": [
+        43,
+        48
+      ],
+      "register_after": [
+        43,
+        48
+      ],
+      "before_sha256": "b620c93338ac35fbbf342bf3ac6f0d0c804f1d2f26329d24fba04d0494c81054",
+      "after_sha256": "b620c93338ac35fbbf342bf3ac6f0d0c804f1d2f26329d24fba04d0494c81054"
+    },
+    {
+      "case": "2019-follow-off",
+      "bpm": 173,
+      "plans": 0,
+      "planned_attacks": 0,
+      "melodic_attack_fraction": 0.0,
+      "passing_tones": 0,
+      "note_ons_before": 832,
+      "note_ons_after": 832,
+      "intervals_before": {
+        "5": 191,
+        "0": 640
+      },
+      "intervals_after": {
+        "5": 191,
+        "0": 640
+      },
+      "register_before": [
+        43,
+        48
+      ],
+      "register_after": [
+        43,
+        48
+      ],
+      "before_sha256": "be66033304b7371d2d5d3435fc26342e435b52dd403452f625cbae1b339bf80b",
+      "after_sha256": "be66033304b7371d2d5d3435fc26342e435b52dd403452f625cbae1b339bf80b"
+    },
+    {
+      "case": "2012-follow-off",
+      "bpm": 90,
+      "plans": 0,
+      "planned_attacks": 0,
+      "melodic_attack_fraction": 0.0,
+      "passing_tones": 0,
+      "note_ons_before": 1216,
+      "note_ons_after": 1216,
+      "intervals_before": {
+        "0": 1215
+      },
+      "intervals_after": {
+        "0": 1215
+      },
+      "register_before": [
+        48,
+        48
+      ],
+      "register_after": [
+        48,
+        48
+      ],
+      "before_sha256": "dd9a7de52e80496f1b0c0ca301dc5903850401d460ae3c4ee86304eb2c870748",
+      "after_sha256": "dd9a7de52e80496f1b0c0ca301dc5903850401d460ae3c4ee86304eb2c870748"
+    },
+    {
+      "case": "2012-follow-off",
+      "bpm": 120,
+      "plans": 0,
+      "planned_attacks": 0,
+      "melodic_attack_fraction": 0.0,
+      "passing_tones": 0,
+      "note_ons_before": 1216,
+      "note_ons_after": 1216,
+      "intervals_before": {
+        "0": 1215
+      },
+      "intervals_after": {
+        "0": 1215
+      },
+      "register_before": [
+        48,
+        48
+      ],
+      "register_after": [
+        48,
+        48
+      ],
+      "before_sha256": "5c100843bcc2fe87fe2e30d9ef6f08708e08b98ee8c5263a883216c20d9ea841",
+      "after_sha256": "5c100843bcc2fe87fe2e30d9ef6f08708e08b98ee8c5263a883216c20d9ea841"
+    },
+    {
+      "case": "2012-follow-off",
+      "bpm": 173,
+      "plans": 0,
+      "planned_attacks": 0,
+      "melodic_attack_fraction": 0.0,
+      "passing_tones": 0,
+      "note_ons_before": 1216,
+      "note_ons_after": 1216,
+      "intervals_before": {
+        "0": 1215
+      },
+      "intervals_after": {
+        "0": 1215
+      },
+      "register_before": [
+        48,
+        48
+      ],
+      "register_after": [
+        48,
+        48
+      ],
+      "before_sha256": "5a123b866d4ab225040d86de7686a2720b538b1e3f682bcfd0a7bf50ad574c1f",
+      "after_sha256": "5a123b866d4ab225040d86de7686a2720b538b1e3f682bcfd0a7bf50ad574c1f"
+    },
+    {
+      "case": "2025-follow-off",
+      "bpm": 90,
+      "plans": 0,
+      "planned_attacks": 0,
+      "melodic_attack_fraction": 0.0,
+      "passing_tones": 0,
+      "note_ons_before": 976,
+      "note_ons_after": 976,
+      "intervals_before": {
+        "0": 96,
+        "7": 144,
+        "5": 48,
+        "12": 687
+      },
+      "intervals_after": {
+        "0": 96,
+        "7": 144,
+        "5": 48,
+        "12": 687
+      },
+      "register_before": [
+        48,
+        60
+      ],
+      "register_after": [
+        48,
+        60
+      ],
+      "before_sha256": "b76ace35bfb119ffa36c50c9f6ec1ca23b747f126dac6e8b01b49758e8daf502",
+      "after_sha256": "b76ace35bfb119ffa36c50c9f6ec1ca23b747f126dac6e8b01b49758e8daf502"
+    },
+    {
+      "case": "2025-follow-off",
+      "bpm": 120,
+      "plans": 0,
+      "planned_attacks": 0,
+      "melodic_attack_fraction": 0.0,
+      "passing_tones": 0,
+      "note_ons_before": 976,
+      "note_ons_after": 976,
+      "intervals_before": {
+        "0": 96,
+        "7": 144,
+        "5": 48,
+        "12": 687
+      },
+      "intervals_after": {
+        "0": 96,
+        "7": 144,
+        "5": 48,
+        "12": 687
+      },
+      "register_before": [
+        48,
+        60
+      ],
+      "register_after": [
+        48,
+        60
+      ],
+      "before_sha256": "16c5712e452b5a3fed589a3cce0c7abef9cd069f738a06c86d11fb7b67ddc920",
+      "after_sha256": "16c5712e452b5a3fed589a3cce0c7abef9cd069f738a06c86d11fb7b67ddc920"
+    },
+    {
+      "case": "2025-follow-off",
+      "bpm": 173,
+      "plans": 0,
+      "planned_attacks": 0,
+      "melodic_attack_fraction": 0.0,
+      "passing_tones": 0,
+      "note_ons_before": 976,
+      "note_ons_after": 976,
+      "intervals_before": {
+        "0": 96,
+        "7": 144,
+        "5": 48,
+        "12": 687
+      },
+      "intervals_after": {
+        "0": 96,
+        "7": 144,
+        "5": 48,
+        "12": 687
+      },
+      "register_before": [
+        48,
+        60
+      ],
+      "register_after": [
+        48,
+        60
+      ],
+      "before_sha256": "32afef26cd337593ff926cd02ad8ed913ca0ef71f4806811a38477b439ccad3a",
+      "after_sha256": "32afef26cd337593ff926cd02ad8ed913ca0ef71f4806811a38477b439ccad3a"
+    },
+    {
+      "case": "2030-follow-off",
+      "bpm": 90,
+      "plans": 0,
+      "planned_attacks": 0,
+      "melodic_attack_fraction": 0.0,
+      "passing_tones": 0,
+      "note_ons_before": 106,
+      "note_ons_after": 106,
+      "intervals_before": {
+        "0": 105
+      },
+      "intervals_after": {
+        "0": 105
+      },
+      "register_before": [
+        48,
+        48
+      ],
+      "register_after": [
+        48,
+        48
+      ],
+      "before_sha256": "0ce1014be525e2db152f7517550283ca83b1b833bb792125e25068d7c5ad029e",
+      "after_sha256": "0ce1014be525e2db152f7517550283ca83b1b833bb792125e25068d7c5ad029e"
+    },
+    {
+      "case": "2030-follow-off",
+      "bpm": 120,
+      "plans": 0,
+      "planned_attacks": 0,
+      "melodic_attack_fraction": 0.0,
+      "passing_tones": 0,
+      "note_ons_before": 106,
+      "note_ons_after": 106,
+      "intervals_before": {
+        "0": 105
+      },
+      "intervals_after": {
+        "0": 105
+      },
+      "register_before": [
+        48,
+        48
+      ],
+      "register_after": [
+        48,
+        48
+      ],
+      "before_sha256": "f3bab0083f0a1c95f0fc69ee71fa509af101116ccec0361bdab1601ee1b0d4a5",
+      "after_sha256": "f3bab0083f0a1c95f0fc69ee71fa509af101116ccec0361bdab1601ee1b0d4a5"
+    },
+    {
+      "case": "2030-follow-off",
+      "bpm": 173,
+      "plans": 0,
+      "planned_attacks": 0,
+      "melodic_attack_fraction": 0.0,
+      "passing_tones": 0,
+      "note_ons_before": 106,
+      "note_ons_after": 106,
+      "intervals_before": {
+        "0": 105
+      },
+      "intervals_after": {
+        "0": 105
+      },
+      "register_before": [
+        48,
+        48
+      ],
+      "register_after": [
+        48,
+        48
+      ],
+      "before_sha256": "a42ffe091082cb53ef796eec3e6d7bd42074e35265ee8a9352fe98fd2f065003",
+      "after_sha256": "a42ffe091082cb53ef796eec3e6d7bd42074e35265ee8a9352fe98fd2f065003"
+    },
+    {
+      "case": "2031-follow-off",
+      "bpm": 90,
+      "plans": 0,
+      "planned_attacks": 0,
+      "melodic_attack_fraction": 0.0,
+      "passing_tones": 0,
+      "note_ons_before": 1024,
+      "note_ons_after": 1024,
+      "intervals_before": {
+        "0": 1023
+      },
+      "intervals_after": {
+        "0": 1023
+      },
+      "register_before": [
+        48,
+        48
+      ],
+      "register_after": [
+        48,
+        48
+      ],
+      "before_sha256": "8893e3f31460b67b21dc8de39be6681dea371b96b7c8b3fb8ee41a39d8211b6c",
+      "after_sha256": "8893e3f31460b67b21dc8de39be6681dea371b96b7c8b3fb8ee41a39d8211b6c"
+    },
+    {
+      "case": "2031-follow-off",
+      "bpm": 120,
+      "plans": 0,
+      "planned_attacks": 0,
+      "melodic_attack_fraction": 0.0,
+      "passing_tones": 0,
+      "note_ons_before": 1024,
+      "note_ons_after": 1024,
+      "intervals_before": {
+        "0": 1023
+      },
+      "intervals_after": {
+        "0": 1023
+      },
+      "register_before": [
+        48,
+        48
+      ],
+      "register_after": [
+        48,
+        48
+      ],
+      "before_sha256": "6ba2601ba44ac23e6ff24f58a3a7f27d43e85d44b5b8b7bf6d1b5ae59adb104b",
+      "after_sha256": "6ba2601ba44ac23e6ff24f58a3a7f27d43e85d44b5b8b7bf6d1b5ae59adb104b"
+    },
+    {
+      "case": "2031-follow-off",
+      "bpm": 173,
+      "plans": 0,
+      "planned_attacks": 0,
+      "melodic_attack_fraction": 0.0,
+      "passing_tones": 0,
+      "note_ons_before": 1024,
+      "note_ons_after": 1024,
+      "intervals_before": {
+        "0": 1023
+      },
+      "intervals_after": {
+        "0": 1023
+      },
+      "register_before": [
+        48,
+        48
+      ],
+      "register_after": [
+        48,
+        48
+      ],
+      "before_sha256": "91461760deef7353956a6f9eb96d9ba63c908b931cbe79ac90d4feb29085c601",
+      "after_sha256": "91461760deef7353956a6f9eb96d9ba63c908b931cbe79ac90d4feb29085c601"
+    },
+    {
+      "case": "2032-follow-off",
+      "bpm": 90,
+      "plans": 0,
+      "planned_attacks": 0,
+      "melodic_attack_fraction": 0.0,
+      "passing_tones": 0,
+      "note_ons_before": 664,
+      "note_ons_after": 664,
+      "intervals_before": {
+        "0": 657,
+        "9": 6
+      },
+      "intervals_after": {
+        "0": 657,
+        "9": 6
+      },
+      "register_before": [
+        48,
+        57
+      ],
+      "register_after": [
+        48,
+        57
+      ],
+      "before_sha256": "819f1b3844976b1dc0c90ceb4cd0c500cb7cb6bb3338cf61e5f75874ffe7f496",
+      "after_sha256": "819f1b3844976b1dc0c90ceb4cd0c500cb7cb6bb3338cf61e5f75874ffe7f496"
+    },
+    {
+      "case": "2032-follow-off",
+      "bpm": 120,
+      "plans": 0,
+      "planned_attacks": 0,
+      "melodic_attack_fraction": 0.0,
+      "passing_tones": 0,
+      "note_ons_before": 664,
+      "note_ons_after": 664,
+      "intervals_before": {
+        "0": 657,
+        "9": 6
+      },
+      "intervals_after": {
+        "0": 657,
+        "9": 6
+      },
+      "register_before": [
+        48,
+        57
+      ],
+      "register_after": [
+        48,
+        57
+      ],
+      "before_sha256": "eb09d0591179a88078355767663943b7b7d92f1e543c2799be16d3404c9fe19b",
+      "after_sha256": "eb09d0591179a88078355767663943b7b7d92f1e543c2799be16d3404c9fe19b"
+    },
+    {
+      "case": "2032-follow-off",
+      "bpm": 173,
+      "plans": 0,
+      "planned_attacks": 0,
+      "melodic_attack_fraction": 0.0,
+      "passing_tones": 0,
+      "note_ons_before": 664,
+      "note_ons_after": 664,
+      "intervals_before": {
+        "0": 657,
+        "9": 6
+      },
+      "intervals_after": {
+        "0": 657,
+        "9": 6
+      },
+      "register_before": [
+        48,
+        57
+      ],
+      "register_after": [
+        48,
+        57
+      ],
+      "before_sha256": "c0116d210a33fb66d22131aec9d4305074e2d163401c99587c2b55485206ff83",
+      "after_sha256": "c0116d210a33fb66d22131aec9d4305074e2d163401c99587c2b55485206ff83"
+    },
+    {
+      "case": "manual-funk",
+      "bpm": 90,
+      "plans": 0,
+      "planned_attacks": 0,
+      "melodic_attack_fraction": 0.0,
+      "passing_tones": 0,
+      "note_ons_before": 896,
+      "note_ons_after": 896,
+      "intervals_before": {
+        "0": 256,
+        "7": 384,
+        "5": 64,
+        "12": 48,
+        "3": 16,
+        "1": 79,
+        "13": 32,
+        "6": 16
+      },
+      "intervals_after": {
+        "0": 256,
+        "7": 384,
+        "5": 64,
+        "12": 48,
+        "3": 16,
+        "1": 79,
+        "13": 32,
+        "6": 16
+      },
+      "register_before": [
+        47,
+        65
+      ],
+      "register_after": [
+        47,
+        65
+      ],
+      "before_sha256": "e792644da7ad2fc950e1b4e8f7ebfb3a753074c6f77fd3a1e92837d01cb9914f",
+      "after_sha256": "e792644da7ad2fc950e1b4e8f7ebfb3a753074c6f77fd3a1e92837d01cb9914f"
+    },
+    {
+      "case": "manual-funk",
+      "bpm": 120,
+      "plans": 0,
+      "planned_attacks": 0,
+      "melodic_attack_fraction": 0.0,
+      "passing_tones": 0,
+      "note_ons_before": 896,
+      "note_ons_after": 896,
+      "intervals_before": {
+        "0": 256,
+        "7": 384,
+        "5": 64,
+        "12": 48,
+        "3": 16,
+        "1": 79,
+        "13": 32,
+        "6": 16
+      },
+      "intervals_after": {
+        "0": 256,
+        "7": 384,
+        "5": 64,
+        "12": 48,
+        "3": 16,
+        "1": 79,
+        "13": 32,
+        "6": 16
+      },
+      "register_before": [
+        47,
+        65
+      ],
+      "register_after": [
+        47,
+        65
+      ],
+      "before_sha256": "8a63052f5de948951a8d1e2bae7fce22344ac1771c6f982484a4a9bedf96a570",
+      "after_sha256": "8a63052f5de948951a8d1e2bae7fce22344ac1771c6f982484a4a9bedf96a570"
+    },
+    {
+      "case": "manual-funk",
+      "bpm": 173,
+      "plans": 0,
+      "planned_attacks": 0,
+      "melodic_attack_fraction": 0.0,
+      "passing_tones": 0,
+      "note_ons_before": 896,
+      "note_ons_after": 896,
+      "intervals_before": {
+        "0": 256,
+        "7": 384,
+        "5": 64,
+        "12": 48,
+        "3": 16,
+        "1": 79,
+        "13": 32,
+        "6": 16
+      },
+      "intervals_after": {
+        "0": 256,
+        "7": 384,
+        "5": 64,
+        "12": 48,
+        "3": 16,
+        "1": 79,
+        "13": 32,
+        "6": 16
+      },
+      "register_before": [
+        47,
+        65
+      ],
+      "register_after": [
+        47,
+        65
+      ],
+      "before_sha256": "e7f2f26692eea30571b8baf0469222535d3b7fea81674ee7a5a1935e5a80886a",
+      "after_sha256": "e7f2f26692eea30571b8baf0469222535d3b7fea81674ee7a5a1935e5a80886a"
+    },
+    {
+      "case": "pedal",
+      "bpm": 90,
+      "plans": 0,
+      "planned_attacks": 0,
+      "melodic_attack_fraction": 0.0,
+      "passing_tones": 0,
+      "note_ons_before": 512,
+      "note_ons_after": 512,
+      "intervals_before": {
+        "0": 511
+      },
+      "intervals_after": {
+        "0": 511
+      },
+      "register_before": [
+        57,
+        57
+      ],
+      "register_after": [
+        57,
+        57
+      ],
+      "before_sha256": "1cc14dfeeebb96efe924fa1046672235f3aeabaaa2bc1c73deb9ca5fcb1777b3",
+      "after_sha256": "1cc14dfeeebb96efe924fa1046672235f3aeabaaa2bc1c73deb9ca5fcb1777b3"
+    },
+    {
+      "case": "pedal",
+      "bpm": 120,
+      "plans": 0,
+      "planned_attacks": 0,
+      "melodic_attack_fraction": 0.0,
+      "passing_tones": 0,
+      "note_ons_before": 512,
+      "note_ons_after": 512,
+      "intervals_before": {
+        "0": 511
+      },
+      "intervals_after": {
+        "0": 511
+      },
+      "register_before": [
+        57,
+        57
+      ],
+      "register_after": [
+        57,
+        57
+      ],
+      "before_sha256": "f365e09d17bcc16845a0a71621d84e344817ef27ccc7c6a48a929920b3d43eff",
+      "after_sha256": "f365e09d17bcc16845a0a71621d84e344817ef27ccc7c6a48a929920b3d43eff"
+    },
+    {
+      "case": "pedal",
+      "bpm": 173,
+      "plans": 0,
+      "planned_attacks": 0,
+      "melodic_attack_fraction": 0.0,
+      "passing_tones": 0,
+      "note_ons_before": 512,
+      "note_ons_after": 512,
+      "intervals_before": {
+        "0": 511
+      },
+      "intervals_after": {
+        "0": 511
+      },
+      "register_before": [
+        57,
+        57
+      ],
+      "register_after": [
+        57,
+        57
+      ],
+      "before_sha256": "df6e14e9f225258a670cb85558955529e9d76f892e310bb1129c911d2437b53f",
+      "after_sha256": "df6e14e9f225258a670cb85558955529e9d76f892e310bb1129c911d2437b53f"
+    },
+    {
+      "case": "high-simple",
+      "bpm": 90,
+      "plans": 0,
+      "planned_attacks": 0,
+      "melodic_attack_fraction": 0.0,
+      "passing_tones": 0,
+      "note_ons_before": 1024,
+      "note_ons_after": 1024,
+      "intervals_before": {
+        "0": 928,
+        "4": 32,
+        "2": 63
+      },
+      "intervals_after": {
+        "0": 928,
+        "4": 32,
+        "2": 63
+      },
+      "register_before": [
+        56,
+        60
+      ],
+      "register_after": [
+        56,
+        60
+      ],
+      "before_sha256": "3a0b044240ef69bd9ac3a7839d086142adbdebdd2dd0d16b6f55963aad7c3503",
+      "after_sha256": "3a0b044240ef69bd9ac3a7839d086142adbdebdd2dd0d16b6f55963aad7c3503"
+    },
+    {
+      "case": "high-simple",
+      "bpm": 120,
+      "plans": 0,
+      "planned_attacks": 0,
+      "melodic_attack_fraction": 0.0,
+      "passing_tones": 0,
+      "note_ons_before": 1024,
+      "note_ons_after": 1024,
+      "intervals_before": {
+        "0": 928,
+        "4": 32,
+        "2": 63
+      },
+      "intervals_after": {
+        "0": 928,
+        "4": 32,
+        "2": 63
+      },
+      "register_before": [
+        56,
+        60
+      ],
+      "register_after": [
+        56,
+        60
+      ],
+      "before_sha256": "bda8079fb4e2278c02027384ac975ca3d8efb25a2a28f5d314495077526a7746",
+      "after_sha256": "bda8079fb4e2278c02027384ac975ca3d8efb25a2a28f5d314495077526a7746"
+    },
+    {
+      "case": "high-simple",
+      "bpm": 173,
+      "plans": 0,
+      "planned_attacks": 0,
+      "melodic_attack_fraction": 0.0,
+      "passing_tones": 0,
+      "note_ons_before": 1024,
+      "note_ons_after": 1024,
+      "intervals_before": {
+        "0": 928,
+        "4": 32,
+        "2": 63
+      },
+      "intervals_after": {
+        "0": 928,
+        "4": 32,
+        "2": 63
+      },
+      "register_before": [
+        56,
+        60
+      ],
+      "register_after": [
+        56,
+        60
+      ],
+      "before_sha256": "9188db61bdc855309e2fe7067ca71b36ac8ebb6986fe23aa5abb13bcdacd4ec2",
+      "after_sha256": "9188db61bdc855309e2fe7067ca71b36ac8ebb6986fe23aa5abb13bcdacd4ec2"
+    },
+    {
+      "case": "manual-eighth",
+      "bpm": 90,
+      "plans": 0,
+      "planned_attacks": 0,
+      "melodic_attack_fraction": 0.0,
+      "passing_tones": 0,
+      "note_ons_before": 1024,
+      "note_ons_after": 1024,
+      "intervals_before": {
+        "0": 944,
+        "5": 47,
+        "3": 16,
+        "2": 16
+      },
+      "intervals_after": {
+        "0": 944,
+        "5": 47,
+        "3": 16,
+        "2": 16
+      },
+      "register_before": [
+        48,
+        53
+      ],
+      "register_after": [
+        48,
+        53
+      ],
+      "before_sha256": "ea0eadadfe8b8a0cdbe91d51570893d193face4a7d7a614cc05866f89e20decc",
+      "after_sha256": "ea0eadadfe8b8a0cdbe91d51570893d193face4a7d7a614cc05866f89e20decc"
+    },
+    {
+      "case": "manual-eighth",
+      "bpm": 120,
+      "plans": 0,
+      "planned_attacks": 0,
+      "melodic_attack_fraction": 0.0,
+      "passing_tones": 0,
+      "note_ons_before": 1024,
+      "note_ons_after": 1024,
+      "intervals_before": {
+        "0": 944,
+        "5": 47,
+        "3": 16,
+        "2": 16
+      },
+      "intervals_after": {
+        "0": 944,
+        "5": 47,
+        "3": 16,
+        "2": 16
+      },
+      "register_before": [
+        48,
+        53
+      ],
+      "register_after": [
+        48,
+        53
+      ],
+      "before_sha256": "b6eb6b2390514d85047df9d0dc79ded5afa5d06e630ce19b3fae0db4737ad375",
+      "after_sha256": "b6eb6b2390514d85047df9d0dc79ded5afa5d06e630ce19b3fae0db4737ad375"
+    },
+    {
+      "case": "manual-eighth",
+      "bpm": 173,
+      "plans": 0,
+      "planned_attacks": 0,
+      "melodic_attack_fraction": 0.0,
+      "passing_tones": 0,
+      "note_ons_before": 1024,
+      "note_ons_after": 1024,
+      "intervals_before": {
+        "0": 944,
+        "5": 47,
+        "3": 16,
+        "2": 16
+      },
+      "intervals_after": {
+        "0": 944,
+        "5": 47,
+        "3": 16,
+        "2": 16
+      },
+      "register_before": [
+        48,
+        53
+      ],
+      "register_after": [
+        48,
+        53
+      ],
+      "before_sha256": "bd3776175280408e634e5dd01f82631adcb8a5523b17a0cce108bc62fea177f8",
+      "after_sha256": "bd3776175280408e634e5dd01f82631adcb8a5523b17a0cce108bc62fea177f8"
+    },
+    {
+      "case": "narrow",
+      "bpm": 90,
+      "plans": 0,
+      "planned_attacks": 0,
+      "melodic_attack_fraction": 0.0,
+      "passing_tones": 0,
+      "note_ons_before": 976,
+      "note_ons_after": 976,
+      "intervals_before": {
+        "0": 943,
+        "1": 32
+      },
+      "intervals_after": {
+        "0": 943,
+        "1": 32
+      },
+      "register_before": [
+        48,
+        49
+      ],
+      "register_after": [
+        48,
+        49
+      ],
+      "before_sha256": "227ebd521104f06bb4d78c113213ef661cc69f12507fb0022190a3f9c59a2e96",
+      "after_sha256": "227ebd521104f06bb4d78c113213ef661cc69f12507fb0022190a3f9c59a2e96"
+    },
+    {
+      "case": "narrow",
+      "bpm": 120,
+      "plans": 0,
+      "planned_attacks": 0,
+      "melodic_attack_fraction": 0.0,
+      "passing_tones": 0,
+      "note_ons_before": 976,
+      "note_ons_after": 976,
+      "intervals_before": {
+        "0": 943,
+        "1": 32
+      },
+      "intervals_after": {
+        "0": 943,
+        "1": 32
+      },
+      "register_before": [
+        48,
+        49
+      ],
+      "register_after": [
+        48,
+        49
+      ],
+      "before_sha256": "593a3f14b58256d77f97b376c4ffeeac4536b8ec416a0cf119684d5f3fce15d1",
+      "after_sha256": "593a3f14b58256d77f97b376c4ffeeac4536b8ec416a0cf119684d5f3fce15d1"
+    },
+    {
+      "case": "narrow",
+      "bpm": 173,
+      "plans": 0,
+      "planned_attacks": 0,
+      "melodic_attack_fraction": 0.0,
+      "passing_tones": 0,
+      "note_ons_before": 976,
+      "note_ons_after": 976,
+      "intervals_before": {
+        "0": 943,
+        "1": 32
+      },
+      "intervals_after": {
+        "0": 943,
+        "1": 32
+      },
+      "register_before": [
+        48,
+        49
+      ],
+      "register_after": [
+        48,
+        49
+      ],
+      "before_sha256": "ed31b552c8358f269450bc6e448fc0bed530e69e317aecd1c112d6eb8019569b",
+      "after_sha256": "ed31b552c8358f269450bc6e448fc0bed530e69e317aecd1c112d6eb8019569b"
+    },
+    {
+      "case": "buildup",
+      "bpm": 90,
+      "plans": 0,
+      "planned_attacks": 0,
+      "melodic_attack_fraction": 0.0,
+      "passing_tones": 0,
+      "note_ons_before": 931,
+      "note_ons_after": 931,
+      "intervals_before": {
+        "5": 22,
+        "3": 6,
+        "2": 1,
+        "0": 82,
+        "7": 133,
+        "13": 11,
+        "1": 25,
+        "12": 605,
+        "17": 20,
+        "9": 10,
+        "10": 10,
+        "6": 5
+      },
+      "intervals_after": {
+        "5": 22,
+        "3": 6,
+        "2": 1,
+        "0": 82,
+        "7": 133,
+        "13": 11,
+        "1": 25,
+        "12": 605,
+        "17": 20,
+        "9": 10,
+        "10": 10,
+        "6": 5
+      },
+      "register_before": [
+        47,
+        65
+      ],
+      "register_after": [
+        47,
+        65
+      ],
+      "before_sha256": "4b8dc3608087ad1ef9dd2dd0a4ccafc2811d15627564fe90f20e029c14787e21",
+      "after_sha256": "4b8dc3608087ad1ef9dd2dd0a4ccafc2811d15627564fe90f20e029c14787e21"
+    },
+    {
+      "case": "buildup",
+      "bpm": 120,
+      "plans": 0,
+      "planned_attacks": 0,
+      "melodic_attack_fraction": 0.0,
+      "passing_tones": 0,
+      "note_ons_before": 931,
+      "note_ons_after": 931,
+      "intervals_before": {
+        "5": 22,
+        "3": 6,
+        "2": 1,
+        "0": 82,
+        "7": 133,
+        "13": 11,
+        "1": 25,
+        "12": 605,
+        "17": 20,
+        "9": 10,
+        "10": 10,
+        "6": 5
+      },
+      "intervals_after": {
+        "5": 22,
+        "3": 6,
+        "2": 1,
+        "0": 82,
+        "7": 133,
+        "13": 11,
+        "1": 25,
+        "12": 605,
+        "17": 20,
+        "9": 10,
+        "10": 10,
+        "6": 5
+      },
+      "register_before": [
+        47,
+        65
+      ],
+      "register_after": [
+        47,
+        65
+      ],
+      "before_sha256": "268b3650d4ba5c1664eb3095c4342e648a18f1f7cbc477608fbff8c3ddde0a5b",
+      "after_sha256": "268b3650d4ba5c1664eb3095c4342e648a18f1f7cbc477608fbff8c3ddde0a5b"
+    },
+    {
+      "case": "buildup",
+      "bpm": 173,
+      "plans": 0,
+      "planned_attacks": 0,
+      "melodic_attack_fraction": 0.0,
+      "passing_tones": 0,
+      "note_ons_before": 931,
+      "note_ons_after": 931,
+      "intervals_before": {
+        "5": 22,
+        "3": 6,
+        "2": 1,
+        "0": 82,
+        "7": 133,
+        "13": 11,
+        "1": 25,
+        "12": 605,
+        "17": 20,
+        "9": 10,
+        "10": 10,
+        "6": 5
+      },
+      "intervals_after": {
+        "5": 22,
+        "3": 6,
+        "2": 1,
+        "0": 82,
+        "7": 133,
+        "13": 11,
+        "1": 25,
+        "12": 605,
+        "17": 20,
+        "9": 10,
+        "10": 10,
+        "6": 5
+      },
+      "register_before": [
+        47,
+        65
+      ],
+      "register_after": [
+        47,
+        65
+      ],
+      "before_sha256": "0276464cf4d7dc9d7721cc3b753eae2e2ee01efb584981e63f9482cac9f23702",
+      "after_sha256": "0276464cf4d7dc9d7721cc3b753eae2e2ee01efb584981e63f9482cac9f23702"
+    },
+    {
+      "case": "shared-channel",
+      "bpm": 90,
+      "plans": 0,
+      "planned_attacks": 0,
+      "melodic_attack_fraction": 0.0,
+      "passing_tones": 0,
+      "note_ons_before": 976,
+      "note_ons_after": 976,
+      "intervals_before": {
+        "0": 96,
+        "7": 154,
+        "5": 24,
+        "12": 608,
+        "3": 6,
+        "1": 29,
+        "13": 12,
+        "6": 6,
+        "17": 20,
+        "9": 10,
+        "10": 10
+      },
+      "intervals_after": {
+        "0": 96,
+        "7": 154,
+        "5": 24,
+        "12": 608,
+        "3": 6,
+        "1": 29,
+        "13": 12,
+        "6": 6,
+        "17": 20,
+        "9": 10,
+        "10": 10
+      },
+      "register_before": [
+        47,
+        65
+      ],
+      "register_after": [
+        47,
+        65
+      ],
+      "before_sha256": "ee737d8a0d84e0c7908d5f2d508d576dbb1074b103c9da1d906c749c55a48877",
+      "after_sha256": "ee737d8a0d84e0c7908d5f2d508d576dbb1074b103c9da1d906c749c55a48877"
+    },
+    {
+      "case": "shared-channel",
+      "bpm": 120,
+      "plans": 0,
+      "planned_attacks": 0,
+      "melodic_attack_fraction": 0.0,
+      "passing_tones": 0,
+      "note_ons_before": 976,
+      "note_ons_after": 976,
+      "intervals_before": {
+        "0": 96,
+        "7": 154,
+        "5": 24,
+        "12": 608,
+        "3": 6,
+        "1": 29,
+        "13": 12,
+        "6": 6,
+        "17": 20,
+        "9": 10,
+        "10": 10
+      },
+      "intervals_after": {
+        "0": 96,
+        "7": 154,
+        "5": 24,
+        "12": 608,
+        "3": 6,
+        "1": 29,
+        "13": 12,
+        "6": 6,
+        "17": 20,
+        "9": 10,
+        "10": 10
+      },
+      "register_before": [
+        47,
+        65
+      ],
+      "register_after": [
+        47,
+        65
+      ],
+      "before_sha256": "96d0ebf3d2e25f4f1d88f98b8c8a2b1cf985cae462c2bf5cde74916b0f70dcbe",
+      "after_sha256": "96d0ebf3d2e25f4f1d88f98b8c8a2b1cf985cae462c2bf5cde74916b0f70dcbe"
+    },
+    {
+      "case": "shared-channel",
+      "bpm": 173,
+      "plans": 0,
+      "planned_attacks": 0,
+      "melodic_attack_fraction": 0.0,
+      "passing_tones": 0,
+      "note_ons_before": 976,
+      "note_ons_after": 976,
+      "intervals_before": {
+        "0": 96,
+        "7": 154,
+        "5": 24,
+        "12": 608,
+        "3": 6,
+        "1": 29,
+        "13": 12,
+        "6": 6,
+        "17": 20,
+        "9": 10,
+        "10": 10
+      },
+      "intervals_after": {
+        "0": 96,
+        "7": 154,
+        "5": 24,
+        "12": 608,
+        "3": 6,
+        "1": 29,
+        "13": 12,
+        "6": 6,
+        "17": 20,
+        "9": 10,
+        "10": 10
+      },
+      "register_before": [
+        47,
+        65
+      ],
+      "register_after": [
+        47,
+        65
+      ],
+      "before_sha256": "a5ed7612353f60e1c3a33652a44fb06a45f77ce4597374be2922b4611357f869",
+      "after_sha256": "a5ed7612353f60e1c3a33652a44fb06a45f77ce4597374be2922b4611357f869"
+    },
+    {
+      "case": "manual-held",
+      "bpm": 90,
+      "plans": 0,
+      "planned_attacks": 0,
+      "melodic_attack_fraction": 0.0,
+      "passing_tones": 0,
+      "note_ons_before": 80,
+      "note_ons_after": 80,
+      "intervals_before": {
+        "5": 47,
+        "3": 16,
+        "2": 16
+      },
+      "intervals_after": {
+        "5": 47,
+        "3": 16,
+        "2": 16
+      },
+      "register_before": [
+        48,
+        53
+      ],
+      "register_after": [
+        48,
+        53
+      ],
+      "before_sha256": "ff3de59e04d43c4d4f157229def167610643ae4d00cd452c35c95ba24d651a68",
+      "after_sha256": "ff3de59e04d43c4d4f157229def167610643ae4d00cd452c35c95ba24d651a68"
+    },
+    {
+      "case": "manual-held",
+      "bpm": 120,
+      "plans": 0,
+      "planned_attacks": 0,
+      "melodic_attack_fraction": 0.0,
+      "passing_tones": 0,
+      "note_ons_before": 80,
+      "note_ons_after": 80,
+      "intervals_before": {
+        "5": 47,
+        "3": 16,
+        "2": 16
+      },
+      "intervals_after": {
+        "5": 47,
+        "3": 16,
+        "2": 16
+      },
+      "register_before": [
+        48,
+        53
+      ],
+      "register_after": [
+        48,
+        53
+      ],
+      "before_sha256": "a9d5ca6891d6ab45f92a96729f071e702289990b709b0d5bb65cf9243027283e",
+      "after_sha256": "a9d5ca6891d6ab45f92a96729f071e702289990b709b0d5bb65cf9243027283e"
+    },
+    {
+      "case": "manual-held",
+      "bpm": 173,
+      "plans": 0,
+      "planned_attacks": 0,
+      "melodic_attack_fraction": 0.0,
+      "passing_tones": 0,
+      "note_ons_before": 80,
+      "note_ons_after": 80,
+      "intervals_before": {
+        "5": 47,
+        "3": 16,
+        "2": 16
+      },
+      "intervals_after": {
+        "5": 47,
+        "3": 16,
+        "2": 16
+      },
+      "register_before": [
+        48,
+        53
+      ],
+      "register_after": [
+        48,
+        53
+      ],
+      "before_sha256": "00ef853ec3f1756d7494c43034e0fa205907f00c2c118e81d163d7ceb0f7a663",
+      "after_sha256": "00ef853ec3f1756d7494c43034e0fa205907f00c2c118e81d163d7ceb0f7a663"
+    },
+    {
+      "case": "passing-chords",
+      "bpm": 90,
+      "plans": 0,
+      "planned_attacks": 0,
+      "melodic_attack_fraction": 0.0,
+      "passing_tones": 0,
+      "note_ons_before": 1006,
+      "note_ons_after": 1006,
+      "intervals_before": {
+        "0": 66,
+        "7": 150,
+        "5": 24,
+        "12": 568,
+        "1": 65,
+        "3": 30,
+        "9": 12,
+        "15": 22,
+        "4": 18,
+        "10": 20,
+        "19": 20,
+        "14": 10
+      },
+      "intervals_after": {
+        "0": 66,
+        "7": 150,
+        "5": 24,
+        "12": 568,
+        "1": 65,
+        "3": 30,
+        "9": 12,
+        "15": 22,
+        "4": 18,
+        "10": 20,
+        "19": 20,
+        "14": 10
+      },
+      "register_before": [
+        45,
+        67
+      ],
+      "register_after": [
+        45,
+        67
+      ],
+      "before_sha256": "04f201e2c316d84b4540d39b435bef01d81c41995cf049c5c0d5b2beefb3d8ac",
+      "after_sha256": "04f201e2c316d84b4540d39b435bef01d81c41995cf049c5c0d5b2beefb3d8ac"
+    },
+    {
+      "case": "passing-chords",
+      "bpm": 120,
+      "plans": 0,
+      "planned_attacks": 0,
+      "melodic_attack_fraction": 0.0,
+      "passing_tones": 0,
+      "note_ons_before": 1006,
+      "note_ons_after": 1006,
+      "intervals_before": {
+        "0": 66,
+        "7": 150,
+        "5": 24,
+        "12": 568,
+        "1": 65,
+        "3": 30,
+        "9": 12,
+        "15": 22,
+        "4": 18,
+        "10": 20,
+        "19": 20,
+        "14": 10
+      },
+      "intervals_after": {
+        "0": 66,
+        "7": 150,
+        "5": 24,
+        "12": 568,
+        "1": 65,
+        "3": 30,
+        "9": 12,
+        "15": 22,
+        "4": 18,
+        "10": 20,
+        "19": 20,
+        "14": 10
+      },
+      "register_before": [
+        45,
+        67
+      ],
+      "register_after": [
+        45,
+        67
+      ],
+      "before_sha256": "db37cf9cfa0eb37c393519fb8c3e642617cce852c6e6fb7fd0ff20647a2a8689",
+      "after_sha256": "db37cf9cfa0eb37c393519fb8c3e642617cce852c6e6fb7fd0ff20647a2a8689"
+    },
+    {
+      "case": "passing-chords",
+      "bpm": 173,
+      "plans": 0,
+      "planned_attacks": 0,
+      "melodic_attack_fraction": 0.0,
+      "passing_tones": 0,
+      "note_ons_before": 1006,
+      "note_ons_after": 1006,
+      "intervals_before": {
+        "0": 66,
+        "7": 150,
+        "5": 24,
+        "12": 568,
+        "1": 65,
+        "3": 30,
+        "9": 12,
+        "15": 22,
+        "4": 18,
+        "10": 20,
+        "19": 20,
+        "14": 10
+      },
+      "intervals_after": {
+        "0": 66,
+        "7": 150,
+        "5": 24,
+        "12": 568,
+        "1": 65,
+        "3": 30,
+        "9": 12,
+        "15": 22,
+        "4": 18,
+        "10": 20,
+        "19": 20,
+        "14": 10
+      },
+      "register_before": [
+        45,
+        67
+      ],
+      "register_after": [
+        45,
+        67
+      ],
+      "before_sha256": "ed8ab41386d9bb7daf1ea722ef995f4243799f77ad9d03ed9ec2cd4581e3372c",
+      "after_sha256": "ed8ab41386d9bb7daf1ea722ef995f4243799f77ad9d03ed9ec2cd4581e3372c"
+    },
+    {
+      "case": "live-intensity-latch",
+      "bpm": 90,
+      "plans": 6,
+      "planned_attacks": 147,
+      "melodic_attack_fraction": 0.15441176470588236,
+      "passing_tones": 6,
+      "note_ons_before": 955,
+      "note_ons_after": 952,
+      "intervals_before": {
+        "12": 439,
+        "7": 214,
+        "17": 14,
+        "9": 7,
+        "10": 7,
+        "0": 160,
+        "5": 37,
+        "1": 42,
+        "6": 9,
+        "13": 17,
+        "3": 8
+      },
+      "intervals_after": {
+        "12": 431,
+        "7": 160,
+        "17": 14,
+        "9": 7,
+        "10": 7,
+        "0": 216,
+        "3": 12,
+        "2": 18,
+        "4": 6,
+        "5": 27,
+        "1": 32,
+        "6": 6,
+        "13": 15
+      },
+      "register_before": [
+        47,
+        65
+      ],
+      "register_after": [
+        47,
+        65
+      ],
+      "before_sha256": "d8d3f120b051d3a74be488e3620761804fabfcf890eecf5fa9c3d4cc34c28703",
+      "after_sha256": "e1df702c0e9e597d09ba8631691e260f5f2725971cbdaef73918d9caae6ac064"
+    },
+    {
+      "case": "live-intensity-latch",
+      "bpm": 120,
+      "plans": 6,
+      "planned_attacks": 147,
+      "melodic_attack_fraction": 0.15441176470588236,
+      "passing_tones": 6,
+      "note_ons_before": 955,
+      "note_ons_after": 952,
+      "intervals_before": {
+        "12": 439,
+        "7": 214,
+        "17": 14,
+        "9": 7,
+        "10": 7,
+        "0": 160,
+        "5": 37,
+        "1": 42,
+        "6": 9,
+        "13": 17,
+        "3": 8
+      },
+      "intervals_after": {
+        "12": 431,
+        "7": 160,
+        "17": 14,
+        "9": 7,
+        "10": 7,
+        "0": 216,
+        "3": 12,
+        "2": 18,
+        "4": 6,
+        "5": 27,
+        "1": 32,
+        "6": 6,
+        "13": 15
+      },
+      "register_before": [
+        47,
+        65
+      ],
+      "register_after": [
+        47,
+        65
+      ],
+      "before_sha256": "444f38f36b551795a4e7a9a516fde4bb7ce1aad07dfb8537f36b355938cf7bc8",
+      "after_sha256": "3123113a249f60c957224189b1417d5d48cb969eef7413ec8718c73f96148d0f"
+    },
+    {
+      "case": "live-intensity-latch",
+      "bpm": 173,
+      "plans": 6,
+      "planned_attacks": 147,
+      "melodic_attack_fraction": 0.15441176470588236,
+      "passing_tones": 6,
+      "note_ons_before": 955,
+      "note_ons_after": 952,
+      "intervals_before": {
+        "12": 440,
+        "7": 214,
+        "17": 14,
+        "9": 7,
+        "10": 7,
+        "0": 160,
+        "5": 36,
+        "8": 1,
+        "3": 10,
+        "1": 40,
+        "6": 9,
+        "13": 16
+      },
+      "intervals_after": {
+        "12": 432,
+        "7": 160,
+        "17": 14,
+        "9": 7,
+        "10": 7,
+        "0": 216,
+        "3": 14,
+        "2": 18,
+        "4": 6,
+        "8": 1,
+        "5": 26,
+        "1": 30,
+        "6": 6,
+        "13": 14
+      },
+      "register_before": [
+        45,
+        65
+      ],
+      "register_after": [
+        45,
+        65
+      ],
+      "before_sha256": "249557b10da2095ebf3e1f572232080304ee07eb66f087706625a9193e65518f",
+      "after_sha256": "391e0bf96886d1aa11a7d768e4d13f180dac3051a664e78ae1b72b539d83f8d8"
+    },
+    {
+      "case": "manual-pulse",
+      "bpm": 90,
+      "plans": 0,
+      "planned_attacks": 0,
+      "melodic_attack_fraction": 0.0,
+      "passing_tones": 0,
+      "note_ons_before": 2048,
+      "note_ons_after": 2048,
+      "intervals_before": {
+        "0": 1968,
+        "5": 47,
+        "3": 16,
+        "2": 16
+      },
+      "intervals_after": {
+        "0": 1968,
+        "5": 47,
+        "3": 16,
+        "2": 16
+      },
+      "register_before": [
+        48,
+        53
+      ],
+      "register_after": [
+        48,
+        53
+      ],
+      "before_sha256": "49d450a4587df189bc3b6576c864316f59982b260741227a23deb48caa4f89cc",
+      "after_sha256": "49d450a4587df189bc3b6576c864316f59982b260741227a23deb48caa4f89cc"
+    },
+    {
+      "case": "manual-pulse",
+      "bpm": 120,
+      "plans": 0,
+      "planned_attacks": 0,
+      "melodic_attack_fraction": 0.0,
+      "passing_tones": 0,
+      "note_ons_before": 2048,
+      "note_ons_after": 2048,
+      "intervals_before": {
+        "0": 1968,
+        "5": 47,
+        "3": 16,
+        "2": 16
+      },
+      "intervals_after": {
+        "0": 1968,
+        "5": 47,
+        "3": 16,
+        "2": 16
+      },
+      "register_before": [
+        48,
+        53
+      ],
+      "register_after": [
+        48,
+        53
+      ],
+      "before_sha256": "94d74e78583e1a4d86a9c839f7ec607ba75ad5dc3622c519444e56ff5c2587f0",
+      "after_sha256": "94d74e78583e1a4d86a9c839f7ec607ba75ad5dc3622c519444e56ff5c2587f0"
+    },
+    {
+      "case": "manual-pulse",
+      "bpm": 173,
+      "plans": 0,
+      "planned_attacks": 0,
+      "melodic_attack_fraction": 0.0,
+      "passing_tones": 0,
+      "note_ons_before": 2048,
+      "note_ons_after": 2048,
+      "intervals_before": {
+        "0": 1968,
+        "5": 47,
+        "3": 16,
+        "2": 16
+      },
+      "intervals_after": {
+        "0": 1968,
+        "5": 47,
+        "3": 16,
+        "2": 16
+      },
+      "register_before": [
+        48,
+        53
+      ],
+      "register_after": [
+        48,
+        53
+      ],
+      "before_sha256": "8e65417374bc8285ad039d05abd4fdd8d24286d4a1aff3982d68f0b3e7581ef1",
+      "after_sha256": "8e65417374bc8285ad039d05abd4fdd8d24286d4a1aff3982d68f0b3e7581ef1"
+    },
+    {
+      "case": "score-control",
+      "bpm": 90,
+      "plans": 0,
+      "planned_attacks": 0,
+      "melodic_attack_fraction": 0.0,
+      "passing_tones": 0,
+      "note_ons_before": 896,
+      "note_ons_after": 896,
+      "intervals_before": {
+        "0": 256,
+        "7": 384,
+        "5": 64,
+        "12": 64,
+        "3": 16,
+        "1": 63,
+        "13": 16,
+        "10": 16,
+        "6": 16
+      },
+      "intervals_after": {
+        "0": 256,
+        "7": 384,
+        "5": 64,
+        "12": 64,
+        "3": 16,
+        "1": 63,
+        "13": 16,
+        "10": 16,
+        "6": 16
+      },
+      "register_before": [
+        45,
+        65
+      ],
+      "register_after": [
+        45,
+        65
+      ],
+      "before_sha256": "175d5a3c75641ae0bea78f1360a24c880db9288038ca5fcabeff1449e9f35c12",
+      "after_sha256": "175d5a3c75641ae0bea78f1360a24c880db9288038ca5fcabeff1449e9f35c12"
+    },
+    {
+      "case": "score-control",
+      "bpm": 120,
+      "plans": 0,
+      "planned_attacks": 0,
+      "melodic_attack_fraction": 0.0,
+      "passing_tones": 0,
+      "note_ons_before": 896,
+      "note_ons_after": 896,
+      "intervals_before": {
+        "0": 256,
+        "7": 384,
+        "5": 64,
+        "12": 64,
+        "3": 16,
+        "1": 63,
+        "13": 16,
+        "10": 16,
+        "6": 16
+      },
+      "intervals_after": {
+        "0": 256,
+        "7": 384,
+        "5": 64,
+        "12": 64,
+        "3": 16,
+        "1": 63,
+        "13": 16,
+        "10": 16,
+        "6": 16
+      },
+      "register_before": [
+        45,
+        65
+      ],
+      "register_after": [
+        45,
+        65
+      ],
+      "before_sha256": "6f67fbd0ae077f0f2a4783ffd6efa02f652dd4a398b4485a2f0375bebca1a529",
+      "after_sha256": "6f67fbd0ae077f0f2a4783ffd6efa02f652dd4a398b4485a2f0375bebca1a529"
+    },
+    {
+      "case": "score-control",
+      "bpm": 173,
+      "plans": 0,
+      "planned_attacks": 0,
+      "melodic_attack_fraction": 0.0,
+      "passing_tones": 0,
+      "note_ons_before": 896,
+      "note_ons_after": 896,
+      "intervals_before": {
+        "0": 256,
+        "7": 384,
+        "5": 64,
+        "12": 64,
+        "3": 16,
+        "1": 63,
+        "13": 16,
+        "10": 16,
+        "6": 16
+      },
+      "intervals_after": {
+        "0": 256,
+        "7": 384,
+        "5": 64,
+        "12": 64,
+        "3": 16,
+        "1": 63,
+        "13": 16,
+        "10": 16,
+        "6": 16
+      },
+      "register_before": [
+        45,
+        65
+      ],
+      "register_after": [
+        45,
+        65
+      ],
+      "before_sha256": "6891f1bc72aaa1fbe0bfde1d528e2f3e8351f148f21d50533ea3feff801777b6",
+      "after_sha256": "6891f1bc72aaa1fbe0bfde1d528e2f3e8351f148f21d50533ea3feff801777b6"
+    }
+  ],
+  "examples": [
+    {
+      "case": "2025-auto-follow",
+      "plan": [
+        64,
+        96,
+        112,
+        21,
+        64,
+        48,
+        2,
+        6,
+        0,
+        1,
+        -1,
+        67,
+        48,
+        1,
+        -6,
+        0,
+        0,
+        -1,
+        69,
+        51,
+        1,
+        -8,
+        0,
+        0,
+        -1,
+        72,
+        51,
+        2,
+        6,
+        0,
+        0,
+        -1,
+        75,
+        51,
+        1,
+        -6,
+        0,
+        0,
+        -1,
+        77,
+        51,
+        1,
+        -8,
+        0,
+        0,
+        -1,
+        78,
+        51,
+        1,
+        -4,
+        0,
+        0,
+        -1,
+        80,
+        51,
+        2,
+        6,
+        0,
+        0,
+        -1,
+        83,
+        51,
+        1,
+        -6,
+        0,
+        0,
+        -1,
+        85,
+        51,
+        1,
+        -8,
+        0,
+        0,
+        -1,
+        88,
+        51,
+        2,
+        6,
+        0,
+        0,
+        -1,
+        91,
+        51,
+        1,
+        -6,
+        0,
+        0,
+        -1,
+        93,
+        51,
+        1,
+        -8,
+        0,
+        0,
+        -1,
+        94,
+        51,
+        1,
+        0,
+        0,
+        0,
+        -1,
+        96,
+        51,
+        2,
+        6,
+        0,
+        1,
+        -1,
+        99,
+        53,
+        1,
+        -6,
+        1,
+        0,
+        16,
+        101,
+        55,
+        1,
+        -8,
+        0,
+        0,
+        -1,
+        104,
+        51,
+        2,
+        6,
+        0,
+        0,
+        -1,
+        107,
+        51,
+        1,
+        -6,
+        0,
+        0,
+        -1,
+        109,
+        51,
+        1,
+        -8,
+        0,
+        0,
+        -1,
+        110,
+        51,
+        1,
+        0,
+        0,
+        0,
+        -1
+      ],
+      "actual_ons": [
+        [
+          384000,
+          4,
+          48,
+          96,
+          0,
+          3
+        ],
+        [
+          402599,
+          4,
+          48,
+          76,
+          0,
+          3
+        ],
+        [
+          414599,
+          4,
+          51,
+          73,
+          0,
+          3
+        ],
+        [
+          432000,
+          4,
+          51,
+          96,
+          0,
+          3
+        ],
+        [
+          450599,
+          4,
+          51,
+          74,
+          0,
+          3
+        ],
+        [
+          462599,
+          4,
+          51,
+          70,
+          0,
+          3
+        ],
+        [
+          469201,
+          4,
+          51,
+          78,
+          0,
+          3
+        ],
+        [
+          480000,
+          4,
+          51,
+          92,
+          0,
+          3
+        ],
+        [
+          498599,
+          4,
+          51,
+          76,
+          0,
+          3
+        ],
+        [
+          510599,
+          4,
+          51,
+          71,
+          0,
+          3
+        ],
+        [
+          528000,
+          4,
+          51,
+          94,
+          0,
+          3
+        ],
+        [
+          546599,
+          4,
+          51,
+          73,
+          0,
+          3
+        ],
+        [
+          558599,
+          4,
+          51,
+          76,
+          0,
+          3
+        ],
+        [
+          565201,
+          4,
+          51,
+          84,
+          0,
+          3
+        ],
+        [
+          576000,
+          4,
+          51,
+          92,
+          0,
+          3
+        ],
+        [
+          594599,
+          4,
+          53,
+          72,
+          0,
+          3
+        ],
+        [
+          606599,
+          4,
+          55,
+          75,
+          0,
+          3
+        ],
+        [
+          624000,
+          4,
+          51,
+          95,
+          0,
+          3
+        ],
+        [
+          642599,
+          4,
+          51,
+          76,
+          0,
+          3
+        ],
+        [
+          654599,
+          4,
+          51,
+          75,
+          0,
+          3
+        ],
+        [
+          661201,
+          4,
+          51,
+          83,
+          0,
+          3
+        ]
+      ]
+    },
+    {
+      "case": "2035-auto-follow",
+      "plan": [
+        128,
+        160,
+        192,
+        28,
+        128,
+        60,
+        2,
+        6,
+        0,
+        1,
+        -1,
+        131,
+        62,
+        1,
+        -6,
+        1,
+        0,
+        2,
+        133,
+        64,
+        1,
+        -8,
+        0,
+        0,
+        -1,
+        136,
+        60,
+        2,
+        6,
+        0,
+        0,
+        -1,
+        139,
+        60,
+        1,
+        -6,
+        0,
+        0,
+        -1,
+        141,
+        60,
+        1,
+        -8,
+        0,
+        0,
+        -1,
+        142,
+        60,
+        1,
+        -4,
+        0,
+        0,
+        -1,
+        144,
+        60,
+        2,
+        6,
+        0,
+        0,
+        -1,
+        147,
+        55,
+        1,
+        -6,
+        0,
+        0,
+        -1,
+        149,
+        55,
+        1,
+        -8,
+        0,
+        0,
+        -1,
+        152,
+        55,
+        2,
+        6,
+        0,
+        0,
+        -1,
+        155,
+        55,
+        1,
+        -6,
+        0,
+        0,
+        -1,
+        157,
+        55,
+        1,
+        -8,
+        0,
+        0,
+        -1,
+        158,
+        55,
+        1,
+        0,
+        0,
+        0,
+        -1,
+        160,
+        53,
+        2,
+        6,
+        0,
+        1,
+        -1,
+        163,
+        53,
+        1,
+        -6,
+        0,
+        0,
+        -1,
+        165,
+        57,
+        1,
+        -8,
+        0,
+        0,
+        -1,
+        168,
+        53,
+        2,
+        6,
+        0,
+        0,
+        -1,
+        171,
+        53,
+        1,
+        -6,
+        0,
+        0,
+        -1,
+        173,
+        53,
+        1,
+        -8,
+        0,
+        0,
+        -1,
+        174,
+        53,
+        1,
+        -4,
+        0,
+        0,
+        -1,
+        176,
+        53,
+        2,
+        6,
+        0,
+        0,
+        -1,
+        179,
+        53,
+        1,
+        -6,
+        0,
+        0,
+        -1,
+        181,
+        53,
+        1,
+        -8,
+        0,
+        0,
+        -1,
+        184,
+        53,
+        2,
+        6,
+        0,
+        0,
+        -1,
+        187,
+        53,
+        1,
+        -6,
+        0,
+        0,
+        -1,
+        189,
+        53,
+        1,
+        -8,
+        0,
+        0,
+        -1,
+        190,
+        53,
+        1,
+        0,
+        0,
+        0,
+        -1
+      ],
+      "actual_ons": [
+        [
+          768000,
+          4,
+          60,
+          88,
+          0,
+          3
+        ],
+        [
+          786599,
+          4,
+          62,
+          72,
+          0,
+          3
+        ],
+        [
+          798599,
+          4,
+          64,
+          65,
+          0,
+          3
+        ],
+        [
+          816000,
+          4,
+          60,
+          90,
+          0,
+          3
+        ],
+        [
+          834599,
+          4,
+          60,
+          70,
+          0,
+          3
+        ],
+        [
+          846599,
+          4,
+          60,
+          69,
+          0,
+          3
+        ],
+        [
+          853201,
+          4,
+          60,
+          71,
+          0,
+          3
+        ],
+        [
+          864000,
+          4,
+          60,
+          88,
+          0,
+          3
+        ],
+        [
+          882599,
+          4,
+          55,
+          70,
+          0,
+          3
+        ],
+        [
+          894599,
+          4,
+          55,
+          68,
+          0,
+          3
+        ],
+        [
+          912000,
+          4,
+          55,
+          93,
+          0,
+          3
+        ],
+        [
+          930599,
+          4,
+          55,
+          67,
+          0,
+          3
+        ],
+        [
+          942599,
+          4,
+          55,
+          69,
+          0,
+          3
+        ],
+        [
+          949201,
+          4,
+          55,
+          73,
+          0,
+          3
+        ],
+        [
+          960000,
+          4,
+          53,
+          92,
+          0,
+          3
+        ],
+        [
+          978599,
+          4,
+          53,
+          67,
+          0,
+          3
+        ],
+        [
+          990599,
+          4,
+          57,
+          71,
+          0,
+          3
+        ],
+        [
+          1008000,
+          4,
+          53,
+          91,
+          0,
+          3
+        ],
+        [
+          1026599,
+          4,
+          53,
+          69,
+          0,
+          3
+        ],
+        [
+          1038599,
+          4,
+          53,
+          68,
+          0,
+          3
+        ],
+        [
+          1045201,
+          4,
+          53,
+          70,
+          0,
+          3
+        ],
+        [
+          1056000,
+          4,
+          53,
+          90,
+          0,
+          3
+        ],
+        [
+          1074599,
+          4,
+          53,
+          72,
+          0,
+          3
+        ],
+        [
+          1086599,
+          4,
+          53,
+          67,
+          0,
+          3
+        ],
+        [
+          1104000,
+          4,
+          53,
+          91,
+          0,
+          3
+        ],
+        [
+          1122599,
+          4,
+          53,
+          71,
+          0,
+          3
+        ],
+        [
+          1134599,
+          4,
+          53,
+          67,
+          0,
+          3
+        ],
+        [
+          1141201,
+          4,
+          53,
+          78,
+          0,
+          3
+        ]
+      ]
+    },
+    {
+      "case": "2013-auto-follow",
+      "plan": [
+        128,
+        160,
+        192,
+        28,
+        128,
+        48,
+        2,
+        6,
+        0,
+        1,
+        -1,
+        131,
+        50,
+        1,
+        -6,
+        1,
+        0,
+        2,
+        133,
+        51,
+        1,
+        -8,
+        0,
+        0,
+        -1,
+        136,
+        48,
+        2,
+        6,
+        0,
+        0,
+        -1,
+        139,
+        48,
+        1,
+        -6,
+        0,
+        0,
+        -1,
+        141,
+        48,
+        1,
+        -8,
+        0,
+        0,
+        -1,
+        142,
+        48,
+        1,
+        -4,
+        0,
+        0,
+        -1,
+        144,
+        48,
+        2,
+        6,
+        0,
+        0,
+        -1,
+        147,
+        48,
+        1,
+        -6,
+        0,
+        0,
+        -1,
+        149,
+        48,
+        1,
+        -8,
+        0,
+        0,
+        -1,
+        152,
+        48,
+        2,
+        6,
+        0,
+        0,
+        -1,
+        155,
+        48,
+        1,
+        -6,
+        0,
+        0,
+        -1,
+        157,
+        48,
+        1,
+        -8,
+        0,
+        0,
+        -1,
+        158,
+        48,
+        1,
+        0,
+        0,
+        0,
+        -1,
+        160,
+        46,
+        2,
+        6,
+        0,
+        1,
+        -1,
+        163,
+        46,
+        1,
+        -6,
+        0,
+        0,
+        -1,
+        165,
+        50,
+        1,
+        -8,
+        0,
+        0,
+        -1,
+        168,
+        46,
+        2,
+        6,
+        0,
+        0,
+        -1,
+        171,
+        46,
+        1,
+        -6,
+        0,
+        0,
+        -1,
+        173,
+        46,
+        1,
+        -8,
+        0,
+        0,
+        -1,
+        174,
+        46,
+        1,
+        -4,
+        0,
+        0,
+        -1,
+        176,
+        46,
+        2,
+        6,
+        0,
+        0,
+        -1,
+        179,
+        46,
+        1,
+        -6,
+        0,
+        0,
+        -1,
+        181,
+        46,
+        1,
+        -8,
+        0,
+        0,
+        -1,
+        184,
+        46,
+        2,
+        6,
+        0,
+        0,
+        -1,
+        187,
+        46,
+        1,
+        -6,
+        0,
+        0,
+        -1,
+        189,
+        46,
+        1,
+        -8,
+        0,
+        0,
+        -1,
+        190,
+        46,
+        1,
+        0,
+        0,
+        0,
+        -1
+      ],
+      "actual_ons": [
+        [
+          768000,
+          4,
+          48,
+          96,
+          0,
+          3
+        ],
+        [
+          786000,
+          4,
+          50,
+          80,
+          0,
+          3
+        ],
+        [
+          798000,
+          4,
+          51,
+          73,
+          0,
+          3
+        ],
+        [
+          816000,
+          4,
+          48,
+          98,
+          0,
+          3
+        ],
+        [
+          834000,
+          4,
+          48,
+          78,
+          0,
+          3
+        ],
+        [
+          846000,
+          4,
+          48,
+          77,
+          0,
+          3
+        ],
+        [
+          852000,
+          4,
+          48,
+          79,
+          0,
+          3
+        ],
+        [
+          864000,
+          4,
+          48,
+          96,
+          0,
+          3
+        ],
+        [
+          882000,
+          4,
+          48,
+          78,
+          0,
+          3
+        ],
+        [
+          894000,
+          4,
+          48,
+          76,
+          0,
+          3
+        ],
+        [
+          912000,
+          4,
+          48,
+          101,
+          0,
+          3
+        ],
+        [
+          930000,
+          4,
+          48,
+          75,
+          0,
+          3
+        ],
+        [
+          942000,
+          4,
+          48,
+          77,
+          0,
+          3
+        ],
+        [
+          948000,
+          4,
+          48,
+          81,
+          0,
+          3
+        ],
+        [
+          960000,
+          4,
+          46,
+          100,
+          0,
+          3
+        ],
+        [
+          978000,
+          4,
+          46,
+          75,
+          0,
+          3
+        ],
+        [
+          990000,
+          4,
+          50,
+          79,
+          0,
+          3
+        ],
+        [
+          1008000,
+          4,
+          46,
+          99,
+          0,
+          3
+        ],
+        [
+          1026000,
+          4,
+          46,
+          77,
+          0,
+          3
+        ],
+        [
+          1038000,
+          4,
+          46,
+          76,
+          0,
+          3
+        ],
+        [
+          1044000,
+          4,
+          46,
+          78,
+          0,
+          3
+        ],
+        [
+          1056000,
+          4,
+          46,
+          98,
+          0,
+          3
+        ],
+        [
+          1074000,
+          4,
+          46,
+          80,
+          0,
+          3
+        ],
+        [
+          1086000,
+          4,
+          46,
+          75,
+          0,
+          3
+        ],
+        [
+          1104000,
+          4,
+          46,
+          99,
+          0,
+          3
+        ],
+        [
+          1122000,
+          4,
+          46,
+          79,
+          0,
+          3
+        ],
+        [
+          1134000,
+          4,
+          46,
+          75,
+          0,
+          3
+        ],
+        [
+          1140000,
+          4,
+          46,
+          86,
+          0,
+          3
+        ]
+      ]
+    },
+    {
+      "case": "2028-auto-follow",
+      "plan": [
+        128,
+        160,
+        192,
+        28,
+        128,
+        48,
+        2,
+        6,
+        0,
+        1,
+        -1,
+        131,
+        50,
+        1,
+        -6,
+        1,
+        0,
+        2,
+        133,
+        52,
+        1,
+        -8,
+        0,
+        0,
+        -1,
+        136,
+        48,
+        2,
+        6,
+        0,
+        0,
+        -1,
+        139,
+        48,
+        1,
+        -6,
+        0,
+        0,
+        -1,
+        141,
+        48,
+        1,
+        -8,
+        0,
+        0,
+        -1,
+        142,
+        48,
+        1,
+        -4,
+        0,
+        0,
+        -1,
+        144,
+        48,
+        2,
+        6,
+        0,
+        0,
+        -1,
+        147,
+        48,
+        1,
+        -6,
+        0,
+        0,
+        -1,
+        149,
+        48,
+        1,
+        -8,
+        0,
+        0,
+        -1,
+        152,
+        48,
+        2,
+        6,
+        0,
+        0,
+        -1,
+        155,
+        48,
+        1,
+        -6,
+        0,
+        0,
+        -1,
+        157,
+        48,
+        1,
+        -8,
+        0,
+        0,
+        -1,
+        158,
+        48,
+        1,
+        0,
+        0,
+        0,
+        -1,
+        160,
+        50,
+        2,
+        6,
+        0,
+        1,
+        -1,
+        163,
+        50,
+        1,
+        -6,
+        0,
+        0,
+        -1,
+        165,
+        53,
+        1,
+        -8,
+        0,
+        0,
+        -1,
+        168,
+        50,
+        2,
+        6,
+        0,
+        0,
+        -1,
+        171,
+        50,
+        1,
+        -6,
+        0,
+        0,
+        -1,
+        173,
+        50,
+        1,
+        -8,
+        0,
+        0,
+        -1,
+        174,
+        50,
+        1,
+        -4,
+        0,
+        0,
+        -1,
+        176,
+        50,
+        2,
+        6,
+        0,
+        0,
+        -1,
+        179,
+        50,
+        1,
+        -6,
+        0,
+        0,
+        -1,
+        181,
+        50,
+        1,
+        -8,
+        0,
+        0,
+        -1,
+        184,
+        50,
+        2,
+        6,
+        0,
+        0,
+        -1,
+        187,
+        50,
+        1,
+        -6,
+        0,
+        0,
+        -1,
+        189,
+        50,
+        1,
+        -8,
+        0,
+        0,
+        -1,
+        190,
+        50,
+        1,
+        0,
+        0,
+        0,
+        -1
+      ],
+      "actual_ons": [
+        [
+          768000,
+          4,
+          48,
+          96,
+          0,
+          3
+        ],
+        [
+          786599,
+          4,
+          50,
+          80,
+          0,
+          3
+        ],
+        [
+          798599,
+          4,
+          52,
+          73,
+          0,
+          3
+        ],
+        [
+          816000,
+          4,
+          48,
+          98,
+          0,
+          3
+        ],
+        [
+          834599,
+          4,
+          48,
+          78,
+          0,
+          3
+        ],
+        [
+          846599,
+          4,
+          48,
+          77,
+          0,
+          3
+        ],
+        [
+          853201,
+          4,
+          48,
+          79,
+          0,
+          3
+        ],
+        [
+          864000,
+          4,
+          48,
+          96,
+          0,
+          3
+        ],
+        [
+          882599,
+          4,
+          48,
+          78,
+          0,
+          3
+        ],
+        [
+          894599,
+          4,
+          48,
+          76,
+          0,
+          3
+        ],
+        [
+          912000,
+          4,
+          48,
+          101,
+          0,
+          3
+        ],
+        [
+          930599,
+          4,
+          48,
+          75,
+          0,
+          3
+        ],
+        [
+          942599,
+          4,
+          48,
+          77,
+          0,
+          3
+        ],
+        [
+          949201,
+          4,
+          48,
+          81,
+          0,
+          3
+        ],
+        [
+          960000,
+          4,
+          50,
+          100,
+          0,
+          3
+        ],
+        [
+          978599,
+          4,
+          50,
+          75,
+          0,
+          3
+        ],
+        [
+          990599,
+          4,
+          53,
+          79,
+          0,
+          3
+        ],
+        [
+          1008000,
+          4,
+          50,
+          99,
+          0,
+          3
+        ],
+        [
+          1026599,
+          4,
+          50,
+          77,
+          0,
+          3
+        ],
+        [
+          1038599,
+          4,
+          50,
+          76,
+          0,
+          3
+        ],
+        [
+          1045201,
+          4,
+          50,
+          78,
+          0,
+          3
+        ],
+        [
+          1056000,
+          4,
+          50,
+          98,
+          0,
+          3
+        ],
+        [
+          1074599,
+          4,
+          50,
+          80,
+          0,
+          3
+        ],
+        [
+          1086599,
+          4,
+          50,
+          75,
+          0,
+          3
+        ],
+        [
+          1104000,
+          4,
+          50,
+          99,
+          0,
+          3
+        ],
+        [
+          1122599,
+          4,
+          50,
+          79,
+          0,
+          3
+        ],
+        [
+          1134599,
+          4,
+          50,
+          75,
+          0,
+          3
+        ],
+        [
+          1141201,
+          4,
+          50,
+          86,
+          0,
+          3
+        ]
+      ]
+    },
+    {
+      "case": "live-intensity-latch",
+      "plan": [
+        128,
+        160,
+        192,
+        28,
+        128,
+        48,
+        2,
+        6,
+        0,
+        1,
+        -1,
+        131,
+        48,
+        1,
+        -6,
+        0,
+        0,
+        -1,
+        133,
+        51,
+        1,
+        -8,
+        0,
+        0,
+        -1,
+        136,
+        51,
+        2,
+        6,
+        0,
+        0,
+        -1,
+        139,
+        51,
+        1,
+        -6,
+        0,
+        0,
+        -1,
+        141,
+        51,
+        1,
+        -8,
+        0,
+        0,
+        -1,
+        142,
+        51,
+        1,
+        -4,
+        0,
+        0,
+        -1,
+        144,
+        51,
+        2,
+        6,
+        0,
+        0,
+        -1,
+        147,
+        51,
+        1,
+        -6,
+        0,
+        0,
+        -1,
+        149,
+        51,
+        1,
+        -8,
+        0,
+        0,
+        -1,
+        152,
+        51,
+        2,
+        6,
+        0,
+        0,
+        -1,
+        155,
+        51,
+        1,
+        -6,
+        0,
+        0,
+        -1,
+        157,
+        51,
+        1,
+        -8,
+        0,
+        0,
+        -1,
+        158,
+        51,
+        1,
+        0,
+        0,
+        0,
+        -1,
+        160,
+        53,
+        2,
+        6,
+        0,
+        1,
+        -1,
+        163,
+        55,
+        1,
+        -6,
+        1,
+        0,
+        16,
+        165,
+        57,
+        1,
+        -8,
+        0,
+        0,
+        -1,
+        168,
+        53,
+        2,
+        6,
+        0,
+        0,
+        -1,
+        171,
+        53,
+        1,
+        -6,
+        0,
+        0,
+        -1,
+        173,
+        53,
+        1,
+        -8,
+        0,
+        0,
+        -1,
+        174,
+        53,
+        1,
+        -4,
+        0,
+        0,
+        -1,
+        176,
+        53,
+        2,
+        6,
+        0,
+        0,
+        -1,
+        179,
+        53,
+        1,
+        -6,
+        0,
+        0,
+        -1,
+        181,
+        53,
+        1,
+        -8,
+        0,
+        0,
+        -1,
+        184,
+        53,
+        2,
+        6,
+        0,
+        0,
+        -1,
+        187,
+        53,
+        1,
+        -6,
+        0,
+        0,
+        -1,
+        189,
+        53,
+        1,
+        -8,
+        0,
+        0,
+        -1,
+        190,
+        53,
+        1,
+        0,
+        0,
+        0,
+        -1
+      ],
+      "actual_ons": [
+        [
+          768000,
+          4,
+          48,
+          95,
+          0,
+          3
+        ],
+        [
+          786599,
+          4,
+          48,
+          75,
+          0,
+          3
+        ],
+        [
+          798599,
+          4,
+          51,
+          70,
+          0,
+          3
+        ],
+        [
+          816000,
+          4,
+          51,
+          98,
+          0,
+          3
+        ],
+        [
+          834599,
+          4,
+          51,
+          75,
+          0,
+          3
+        ],
+        [
+          846599,
+          4,
+          51,
+          73,
+          0,
+          3
+        ],
+        [
+          853201,
+          4,
+          51,
+          76,
+          0,
+          3
+        ],
+        [
+          864000,
+          4,
+          51,
+          109,
+          0,
+          3
+        ],
+        [
+          882599,
+          4,
+          51,
+          91,
+          0,
+          3
+        ],
+        [
+          894599,
+          4,
+          51,
+          88,
+          0,
+          3
+        ],
+        [
+          912000,
+          4,
+          51,
+          109,
+          0,
+          3
+        ],
+        [
+          930599,
+          4,
+          51,
+          86,
+          0,
+          3
+        ],
+        [
+          942599,
+          4,
+          51,
+          84,
+          0,
+          3
+        ],
+        [
+          949201,
+          4,
+          51,
+          97,
+          0,
+          3
+        ],
+        [
+          960000,
+          4,
+          53,
+          107,
+          0,
+          3
+        ],
+        [
+          978599,
+          4,
+          55,
+          88,
+          0,
+          3
+        ],
+        [
+          990599,
+          4,
+          57,
+          83,
+          0,
+          3
+        ],
+        [
+          1008000,
+          4,
+          53,
+          106,
+          0,
+          3
+        ],
+        [
+          1026599,
+          4,
+          53,
+          89,
+          0,
+          3
+        ],
+        [
+          1038599,
+          4,
+          53,
+          88,
+          0,
+          3
+        ],
+        [
+          1045201,
+          4,
+          53,
+          90,
+          0,
+          3
+        ],
+        [
+          1056000,
+          4,
+          53,
+          108,
+          0,
+          3
+        ],
+        [
+          1074599,
+          4,
+          53,
+          87,
+          0,
+          3
+        ],
+        [
+          1086599,
+          4,
+          53,
+          86,
+          0,
+          3
+        ],
+        [
+          1104000,
+          4,
+          53,
+          108,
+          0,
+          3
+        ],
+        [
+          1122599,
+          4,
+          53,
+          91,
+          0,
+          3
+        ],
+        [
+          1134599,
+          4,
+          53,
+          87,
+          0,
+          3
+        ],
+        [
+          1141201,
+          4,
+          53,
+          92,
+          0,
+          3
+        ]
+      ]
+    }
+  ]
+}

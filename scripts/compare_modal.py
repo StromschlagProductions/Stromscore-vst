@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+from reference_headers import header_snapshot
 import argparse,collections,hashlib,json,pathlib,struct,subprocess,tempfile
 p=argparse.ArgumentParser();p.add_argument('--probe',required=True);p.add_argument('--compiler',default='c++');p.add_argument('--output',required=True);a=p.parse_args();root=pathlib.Path(__file__).resolve().parents[1];out=pathlib.Path(a.output);out.mkdir(parents=True,exist_ok=True)
 def run(exe,case,bpm,block=512,control=False):
@@ -19,10 +20,7 @@ def write_midi(path,es,bpm):
 rows=[];examples=[];passing_count=0
 with tempfile.TemporaryDirectory() as tmp:
  tmp=pathlib.Path(tmp)
- for f in (root/'Source').glob('*.h'):
-  # The new header is not used by the pinned source; don't require it in old Git.
-  if f.name=='ModalContext.h':continue
-  (tmp/f.name).write_bytes(subprocess.check_output(['git','show','1fa718f:Source/'+f.name],cwd=root))
+ for name,data in header_snapshot(root,'1fa718f').items():(tmp/name).write_bytes(data)
  old=tmp/'before';subprocess.run([a.compiler,'-std=c++17','-O2','-DHOOK_DIAGNOSTICS=1','-I',str(tmp),str(root/'tools/hook_development_probe.cpp'),'-o',str(old)],check=True)
  for case in range(8):
   for bpm in (90,120,173):

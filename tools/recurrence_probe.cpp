@@ -44,6 +44,10 @@ int main(int argc,char** argv)
 #ifdef POP_HOOK_REGRESSION
  s.policy.popHooks.enabled=false;
 #endif
+
+#ifdef BASS_REGRESSION_CONTROL
+ s.policy.bass.enabled=false;
+#endif
  Generator g;EventList events;constexpr long long bar=96000,total=128*bar;
     std::set<std::pair<int,uint64_t>> published;
     std::set<std::tuple<int,int64_t,int64_t,int64_t>> occurrences;

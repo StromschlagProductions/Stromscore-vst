@@ -28,6 +28,10 @@ int main(int argc,char** argv)
 #ifdef POP_HOOK_REGRESSION
  s.policy.popHooks.enabled=false;
 #endif
+
+#ifdef BASS_REGRESSION_CONTROL
+ s.policy.bass.enabled=false;
+#endif
  Generator g;EventList events;constexpr long long sr=48000,total=48*sr,bar=96000;
     auto emit=[&](long long at){for(int i=0;i<events.size;++i){auto e=events.events[static_cast<size_t>(i)];
         std::cout<<at+e.offset<<','<<int(e.channel)<<','<<int(e.note)<<','<<int(e.velocity)<<','<<int(e.type)<<','<<int(e.out)<<'\n';}};

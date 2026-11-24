@@ -11,6 +11,7 @@
 #include <cmath>
 #include <cstdint>
 #include "CompositionCore.h"
+#include "BassPhrase.h"
 #include "WendungId.h"
 #include "HarmonicPreferences.h"
 #include "DrivePath.h"
@@ -444,7 +445,7 @@ struct Meter
 class Generator
 {
 public:
-    void reset() { harmonicChase=false; clearHarmonicEntries(); motifCatalog.clear(); voices={}; style = -1; chaseStep = -1; lastGenre = -1; resetCc(); resetVoicing(); numActive = 0; running = false; lastPpqEnd = 0.0; phraseIndex = -1; current = -1; wendungStart = 0; still = false; chordBase = 0; drivePrev = driveSeen = driveLatched = driveArrivedNow = false; driveTrajectory = false; driveProgressNow = 0; driveGenerationSeen = 0; curRoot = 0; curType = Min; curChord = -1;
+    void reset() { bassPhrase={};bassPairStart=-1;harmonicChase=false; clearHarmonicEntries(); motifCatalog.clear(); voices={}; style = -1; chaseStep = -1; lastGenre = -1; resetCc(); resetVoicing(); numActive = 0; running = false; lastPpqEnd = 0.0; phraseIndex = -1; current = -1; wendungStart = 0; still = false; chordBase = 0; drivePrev = driveSeen = driveLatched = driveArrivedNow = false; driveTrajectory = false; driveProgressNow = 0; driveGenerationSeen = 0; curRoot = 0; curType = Min; curChord = -1;
                    sceneStep = 0; manualEndStep = -1; manualFinished = manualHitSent = false; endWasRequested = false; sceneSeed = 0; autoSeed = -1; sceneBarNow = -1; sceneEnded = false; for (int l = 0; l < kNumLayers; ++l) { on[l] = prevOn[l] = hOn[l] = false; } }
 
     uint32_t unavailablePadPitchClasses() const { return unavailablePad; }
@@ -467,6 +468,7 @@ public:
             ||(output==OutCounter&&on[kMelodie]))return {};
         return snapshot.motifOccurrence(tick,snapshot.locate(tick),settings,output);
     }
+    composition::BassPhrasePlan inspectBassPhrase()const{return bassPhrase;}
     int plannedHarmonySlots() const { return planValid ? harmonicPlan.count : 0; }
     bool driveArrived() const { return driveArrivedNow; }     // die Fahrt ist bei B angekommen (das Plugin macht B dann zu A)
     uint32_t driveGenerationNow() const { return driveGenerationSeen; }
@@ -634,7 +636,7 @@ public:
         s.change = std::clamp (s.change, 0, kNumChangeGrids - 1);
         for (auto& v : s.layerIntensity) v = std::clamp (v, -1.0f, 1.0f);
         if(!composition::findProfile(s.profile))s.profile=composition::ProfileId::neutral;
-        if(!composition::valid(s.policy.texture)||!composition::valid(s.policy.motif)||!composition::valid(s.policy.popHooks.recurrence)||!composition::valid(s.policy.passing))s.policy=composition::neutralFreePolicy;
+        if(!composition::valid(s.policy.texture)||!composition::valid(s.policy.motif)||!composition::valid(s.policy.popHooks.recurrence)||!composition::valid(s.policy.passing)||!composition::valid(s.policy.bass))s.policy=composition::neutralFreePolicy;
         s.variety = std::clamp (s.variety, 0.0f, 1.0f);
         for (auto& o : s.octave) o = std::clamp (o, -2, 2);
         for (auto& c : s.channel) c = std::clamp (c, 1, 16);
@@ -701,7 +703,7 @@ public:
             // vor den Start zurueckspringt) laeuft in derselben Szene weiter, ein Sprung davor beginnt eine neue.
             const long long k0 = (long long) std::floor (t.ppq / kStep + 1e-9);
             if (! running) { manualEndStep = -1; manualFinished = manualHitSent = false; endWasRequested = false; }
-            if (! running || k0 < sceneStep) { clearHarmonicEntries(); motifCatalog.clear(); voices={}; sceneStep = floorDiv (k0, meter.len) * meter.len; driveLatched = false; drivePrev = false; driveSeen = false; }
+            if (! running || k0 < sceneStep) { bassPhrase={};bassPairStart=-1;clearHarmonicEntries(); motifCatalog.clear(); voices={}; sceneStep = floorDiv (k0, meter.len) * meter.len; driveLatched = false; drivePrev = false; driveSeen = false; }
             running = true;
             phraseIndex = -1;
             for(auto& state:voices){state.note=-1;state.pendingAt=-1;} resetCc();
@@ -1505,7 +1507,7 @@ private:
         if (s.arpFigure != ArpAuto) return s.arpFigure;
         return SW().arp[hashInt (31u, phrase) % 2];
     }
-    int chooseBass (const Settings& s, long long phrase) const
+    int rawBassPattern (const Settings& s, long long phrase) const
     {
         if (bassOverride >= 0) return bassOverride;   // Einstieg: Bass-Schlag (gehalten) oder Puls
         if (s.bassPattern != BassAuto) return s.bassPattern;
@@ -1516,6 +1518,34 @@ private:
         if (y < 0.3f && pref != BassHeld && pref != BassPedal) pref = BassHalf;   // ausduennen
         if (y > 0.8f && (pref == BassHeld || pref == BassHalf || pref == BassQuarter || pref == BassPedal)) return BassEighth;
         return pref;
+    }
+    bool melodicBassAllowed(const Settings& s)const
+    {
+        if(s.genre!=GenrePopRock||!on[kBass]||s.scene||s.sceneBars>0||manualEndStep>=0||!s.policy.bass.enabled||!s.follow[kBass]||s.bassPattern!=BassAuto||bassOverride>=0||s.passing||still||s.meterNum!=4||s.meterDen!=4)return false;
+        for(int o=0;o<kNumOutputs;++o)if(o!=OutBassShort&&s.channel[o]==s.channel[OutBassShort])return false;
+        return true;
+    }
+    int chooseBass(const Settings& s,long long phrase)const
+    {return melodicBassAllowed(s)&&bassPhrase.valid&&nowStep>=bassPhrase.begin&&nowStep<bassPhrase.end?BassFunk:rawBassPattern(s,phrase);}
+    void prepareBassPhrase(const Pos& p,const Settings& s)
+    {
+        if(!melodicBassAllowed(s)){bassPhrase.valid=false;bassPairStart=-1;return;}
+        const auto& w=W();const int first=(p.chordIdx/2)*2;
+        if(first+1>=w.n||wendungStart>p.phraseStart){bassPhrase.valid=false;bassPairStart=-1;return;}
+        long long begin=p.phraseStart;for(int i=0;i<first;++i)begin+=static_cast<long long>(w.ch[i].bars)*meter.len;
+        auto signature=static_cast<uint64_t>(current+2)*1000003u+static_cast<unsigned>(s.key+12*s.octave[kBass]+32)
+            +static_cast<uint64_t>(s.rangeOn[kBass]?s.rangeLo[kBass]+256*s.rangeHi[kBass]+1:0)*65537u;
+        for(int value:{s.policy.bass.opportunityEvery,s.policy.bass.maxLeap,static_cast<int>(s.policy.passing.mode),s.policy.passing.tonicOffset}){signature^=static_cast<uint32_t>(value);signature*=1099511628211ull;}
+        for(int i=0;i<w.n;++i)for(int value:{w.ch[i].root,w.ch[i].type,w.ch[i].bass,w.ch[i].bars}){signature^=static_cast<uint32_t>(value);signature*=1099511628211ull;}
+        if(bassPairStart==begin&&bassPhraseKey==signature)return;
+        bassPairStart=begin;bassPhraseKey=signature;bassPhrase={};
+        if(rawBassPattern(s,p.phrase)!=BassFunk||(p.phrase+first/2)%s.policy.bass.opportunityEvery!=(s.policy.bass.opportunityEvery>1?1:0))return;
+        prepareVoicingPlan(p,s);composition::BassPhraseRequest r;r.begin=begin;r.middle=begin+static_cast<long long>(w.ch[first].bars)*meter.len;
+        r.end=r.middle+static_cast<long long>(w.ch[first+1].bars)*meter.len;r.modal=modalContextFor(s);r.maxLeap=s.policy.bass.maxLeap;
+        for(int j=0;j<2;++j){const auto c=w.ch[first+j];r.bass[j]=harmonicPlan.slots[(first+j)*2].bass+12*s.octave[kBass];r.root[j]=(s.key+c.root)%12;for(int n=0;n<kShapes[c.type].n;++n)r.chords[j]|=composition::pitchBit(s.key+c.root+kShapes[c.type].iv[n]);}
+        r.range=s.rangeOn[kBass]?composition::Range{s.rangeLo[kBass],s.rangeHi[kBass]}:composition::Range{std::max(0,std::min(r.bass[0],r.bass[1])-7),std::min(127,std::max(r.bass[0],r.bass[1])+12)};
+        const auto c=outputCatalog(s)[OutBassShort].track.instrument;r.minDuration=static_cast<int>(c.minDuration);r.maxDuration=static_cast<int>(c.maxDuration);
+        bassPhrase=composition::planBassPhrase(r);
     }
     int pattern0 (const Settings& s, long long phrase) const { return chooseBass (s, phrase); }
 
@@ -2004,10 +2034,15 @@ private:
         nowStep = k; updateMask (s);
         updateScene (k, p, s, true, 0, out);
         if (sceneEnded) return;
+        prepareBassPhrase(p,s);
         if (ppq > (double) p.chordStart * kStep + 1e-9)
             sustained (p, s, 0, out, true);
         else
             chaseStep = k;   // genau am Akkordanfang: der normale Schritt schlaegt an, auch die stehenden Ebenen
+        if(on[kBass]&&bassPhrase.valid)
+            for(int i=0;i<bassPhrase.count;++i){const auto& note=bassPhrase.notes[i];if(note.at*kStep<ppq&&ppq<(note.at+note.length)*kStep)
+                {const int position=static_cast<int>(note.at%meter.len);const int velocity=static_cast<int>(58+38*layerY(s,kBass))+(meter.isGroupStart(position)?8:0)+jitter(note.at,kBass,3)+note.accent;
+                 noteOn(OutBassShort,note.pitch-12*s.octave[kBass],velocity,note.at+note.length,0,out);}}
         const bool inclusive=ppq>static_cast<double>(k)*kStep+1e-9;
         freePhraseStep(k,p,s,0,out,true,inclusive);
         chaseMotif(k,p,s,out,inclusive);
@@ -2213,6 +2248,7 @@ private:
 
     void render (long long k, int offset, const Pos& p, bool restart, long long phrase, const Settings& s, EventList& out)
     {
+        prepareBassPhrase(p,s);
         const Wendung& w = W();
         curChord = p.chordIdx; curRoot = w.ch[p.chordIdx].root; curType = w.ch[p.chordIdx].type;
         if (p.passing && s.follow[kFlaeche]) { curRoot = composition::freeTransition(nextChordRoot(p),true,1.f).approachRoot; curType = Dom7; }
@@ -2283,12 +2319,14 @@ private:
                 case BassPulse:    noteOn (bo, root, vel - (group ? 0 : 10), k + 1, offset, out); break;
                 case BassFunk:
                 {
-                    const int q = p.pos % 8;
-                    if (approach) noteOn (bo, root, vel, k + 1, offset, out);
-                    else if (q == 0) noteOn (bo, root, vel + 6, k + 2, offset, out);
-                    else if (q == 3) noteOn (bo, root, vel - 6, k + 1, offset, out);
-                    else if (q == 5) noteOn (bo, root + 7, vel - 8, k + 1, offset, out);
-                    else if (q == 6 && p.pos % 16 == 14) noteOn (bo, root + 12, vel - 4, k + 1, offset, out);   // kurzer Sprung nur am Taktende
+                    auto hit=composition::funkBassAttack(p.pos,approach);
+                    if(hit.active)
+                    {
+                        int pitch=root+hit.interval,length=hit.duration;
+                        if(melodicBassAllowed(s)&&bassPhrase.valid)for(int i=0;i<bassPhrase.count;++i)if(bassPhrase.notes[i].at==k)
+                            {pitch=bassPhrase.notes[i].pitch-12*s.octave[kBass];length=bassPhrase.notes[i].length;break;}
+                        noteOn(bo,pitch,vel+hit.accent,k+length,offset,out);
+                    }
                     break;
                 }
                 case BassPendulum:
@@ -2771,6 +2809,7 @@ private:
     composition::MotifCatalog motifCatalog;
     VoiceState& voice(int output){return voices[output==OutMelody?1u:0u];}
     const VoiceState& voice(int output)const{return voices[output==OutMelody?1u:0u];}
+    composition::BassPhrasePlan bassPhrase;long long bassPairStart=-1;uint64_t bassPhraseKey=0;
     composition::HarmonicPlan harmonicPlan;
     composition::HarmonicPlan::Slot entryVoicing; bool entryVoicingValid=false;
     uint64_t planKey = 0; bool planValid = false;
