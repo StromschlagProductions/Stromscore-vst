@@ -12,6 +12,7 @@
 #include <cstdint>
 #include <optional>
 #include "CompositionCore.h"
+#include "MusicalExecution.h"
 #include "BassPhrase.h"
 #include "WendungId.h"
 #include "HarmonicPreferences.h"
@@ -278,7 +279,7 @@ struct Meter
 class Generator
 {
 public:
-    void reset() { bassPhrase={};bassPairStart.reset();harmonicChase=false; clearHarmonicEntries(); motifCatalog.clear(); voices={}; style = -1; chaseStep = -1; lastGenre = -1; resetCc(); resetVoicing(); numActive = 0; running = false; lastPpqEnd = 0.0; phraseIndex = -1; current = -1; wendungTime = musicaltime::fromGridStep(0); still = false; chordBase = 0; drivePrev = driveSeen = driveLatched = driveArrivedNow = false; driveTrajectory = false; driveProgressNow = 0; driveGenerationSeen = 0; curRoot = 0; curType = Min; curChord = -1;
+    void reset() { preparedTime.reset();dispatchIdentity=0;nowTime={};currentPerformanceQuarter=0;currentTiming=execution::Timing::nominal;bassPhrase={};bassPairStart.reset();harmonicChase=false; clearHarmonicEntries(); motifCatalog.clear(); voices={}; style = -1; chaseStep = -1; lastGenre = -1; resetCc(); resetVoicing(); numActive = 0; running = false; lastPpqEnd = 0.0; phraseIndex = -1; current = -1; wendungTime = musicaltime::fromGridStep(0); still = false; chordBase = 0; drivePrev = driveSeen = driveLatched = driveArrivedNow = false; driveTrajectory = false; driveProgressNow = 0; driveGenerationSeen = 0; curRoot = 0; curType = Min; curChord = -1;
                    sceneTime=musicaltime::fromGridStep(0); manualEndTime.reset(); manualFinished = manualHitSent = false; endWasRequested = false; sceneSeed = 0; autoSeed = -1; sceneBarNow = -1; sceneEnded = false; for (int l = 0; l < kNumLayers; ++l) { on[l] = prevOn[l] = hOn[l] = false; } }
 
     uint32_t unavailablePadPitchClasses() const { return unavailablePad; }
@@ -520,6 +521,7 @@ public:
         if (s.custom != wasCustom || bars != phraseBars || s.genre != lastGenre)   // Umschalten, neue Laenge oder anderes Genre: neue Phrase
         {
             if(s.genre!=lastGenre){motifCatalog.clear();for(auto& state:voices){state.motif.clear();state.answer.clear();state.capture.clear();state.recurrenceEpoch=-1;}}
+            preparedTime.reset();
             phraseIndex = -1; wasCustom = s.custom; phraseBars = bars; style = -1;
             genre = s.genre; lastGenre = s.genre;
             if (running) releaseHeld (0, out);
@@ -554,23 +556,63 @@ public:
             running = true;
             phraseIndex = -1;
             for(auto& state:voices){state.note=-1;state.pendingAt.reset();} resetCc();
+            preparedTime.reset();currentPerformanceQuarter=t.ppq;++dispatchIdentity;
+            nowTime=execution::floorTime(t.ppq);currentTiming=execution::Timing::nominal;
             applyDrive (k0, s, ax, ay);
             chase (t.ppq, s, out);
             harmonicChase=false;
         }
 
-        const long long firstStep = (long long) std::floor (t.ppq / kStep) - 1;
-        for (long long k = std::max (0LL, firstStep); ; ++k)
+        // Three independent event sources: nominal planning/boundaries, groove events,
+        // and exact active-note deadlines. A musical subdivision is a source, never the clock.
+        const auto start=std::max(musicaltime::Tick{},execution::floorTime(t.ppq));
+        if(current<0)ensurePhrase(phraseOf(start),s);
+        auto pulse=std::max(musicaltime::Tick{},execution::atOrAfter(start-musicaltime::sixteenth,musicaltime::sixteenth));
+        auto control=execution::atOrAfter(start,musicaltime::sixteenth);
+        auto boundary=nextBoundary(start,s);
+        for(;;)
         {
-            const double when = ((double) k + swingDelay (k, s)) * kStep;
-            if (when >= ppqEnd - 1e-12) break;
-            if (when < t.ppq - 1e-12) continue;
-            const int offset = std::clamp ((int) std::llround ((when - t.ppq) * samplesPerQuarter), 0, numSamples - 1);
-            applyDrive (k, s, ax, ay);
-            releaseDue (k, offset, out, true);
+            while(execution::quarters(pulse,execution::Timing::groove,s.swing)<t.ppq-1e-12)pulse+=musicaltime::sixteenth;
+            while(musicaltime::toQuarters(control)<t.ppq-1e-12)control+=musicaltime::sixteenth;
+            while(musicaltime::toQuarters(boundary)<t.ppq-1e-12)boundary=nextBoundary(boundary+musicaltime::Tick{1},s);
+            const auto nominal=std::min(control,boundary);
+            auto event=execution::first({nominal,execution::Timing::nominal,execution::Kind::planning,true},
+                {pulse,execution::Timing::groove,execution::Kind::rhythm,true},s.swing);
+            auto release=nextRelease();
+            // A changed controller or seek may leave a deadline just before the block.
+            const double releaseQuarter=execution::when(release,s.swing);
+            const double when=std::max(t.ppq,std::min(execution::when(event,s.swing),releaseQuarter));
+            if(when>=ppqEnd-1e-12)break;
+            const bool planning=execution::coincides(musicaltime::toQuarters(nominal),when);
+            const bool rhythm=execution::coincides(execution::quarters(pulse,execution::Timing::groove,s.swing),when);
+            const int offset=std::clamp(static_cast<int>(std::llround((when-t.ppq)*samplesPerQuarter)),0,numSamples-1);
+            beginDispatch(when);
             capturePerformance(t.ppq,when,samplesPerQuarter,s,out);
-            stepOn (k, offset, s, out);
-            releaseDue (k, offset, out);
+            releaseAt(when,offset,out,planning);
+            capturePerformance(t.ppq,when,samplesPerQuarter,s,out);
+            if(planning)
+            {
+                currentTiming=execution::Timing::nominal;nowTime=nominal;
+                applyDrive(floorDiv(nominal.value,musicaltime::ticksPerGridStep),s,ax,ay);
+                prepareAt(nominal,offset,s,out);preparedTime=nominal;
+                if(control==nominal)control+=musicaltime::sixteenth;
+                boundary=nextBoundary(nominal+musicaltime::Tick{1},s);
+            }
+            // Shared pad claims survive until simultaneous rhythm claims have been added.
+            if(!rhythm)releaseAt(when,offset,out);
+            capturePerformance(t.ppq,when,samplesPerQuarter,s,out);
+            if(rhythm)
+            {
+                currentTiming=execution::Timing::groove;nowTime=pulse;
+                const auto ordinal=floorDiv(pulse.value,musicaltime::ticksPerGridStep);
+                applyDrive(ordinal,s,ax,ay);
+                if(!preparedTime||*preparedTime!=pulse)
+                {const auto saved=currentTiming;currentTiming=execution::Timing::nominal;prepareAt(pulse,offset,s,out);currentTiming=saved;preparedTime=pulse;}
+                if(!sceneEnded)renderRhythmAt(pulse,offset,s,out);
+                pulse+=musicaltime::sixteenth;
+            }
+            releaseAt(when,offset,out);
+            capturePerformance(t.ppq,when,samplesPerQuarter,s,out);
         }
         capturePerformance(t.ppq,ppqEnd,samplesPerQuarter,s,out);
         lastPpqEnd = ppqEnd;
@@ -580,12 +622,13 @@ public:
 private:
     static constexpr float kKeepRatio = 0.5f;   // so gut muss die laufende Wendung mindestens passen, sonst wird gewechselt
 
-    struct Active { uint8_t channel, note, out; musicaltime::Tick endTime, startTime; };
+    struct Active { uint8_t channel, note, out; musicaltime::Tick endTime;execution::Timing timing=execution::Timing::nominal;uint64_t attack=0; };
 
     // Wo im Takt / in der Phrase / in der Wendung ein Schritt liegt
     struct Pos
     {
-        long long k, bar, phrase; int pos, barInPhrase;
+        musicaltime::Tick time{};
+        long long k, bar, phrase; int pos, barInPhrase; // Dimensionless pattern/metric ordinals.
         int chordIdx; musicaltime::Tick chordStartTime{},chordEndTime{},phraseStartTime{},phraseEndTime{};
         bool passing = false;   // Durchgangsakkord am Ende des Akkords
     };
@@ -697,11 +740,12 @@ private:
     }
 
     // Was klingt jetzt: Traegheit, Aufbau, Ausduennen, Ende. Setzt on[], gain[], boost[] und die Sonderfaelle des Einstiegs.
-    void updateScene (long long k, const Pos& p, const Settings& s, bool fresh, int offset, EventList& out)
+    void updateScene (musicaltime::Tick time, const Pos& p, const Settings& s, bool fresh, int offset, EventList& out)
     {
-        const auto time=musicaltime::fromGridStep(k),barDuration=musicaltime::fromGridStep(meter.len);
+        const auto barDuration=musicaltime::fromGridStep(meter.len);
+        const auto k=p.k;
         const long long bs = barsSince (k);
-        const bool barStart = p.pos == 0;
+        const bool barStart = time % musicaltime::fromGridStep(meter.len) == musicaltime::Tick{};
         sceneBarNow = (int) std::clamp (bs, 0LL, 1LL << 30);
         const long long autoKey = ((long long) s.seed << 12) ^ ((long long) s.variation << 2) ^ (long long) s.genre;
         if (fresh || autoKey != autoSeed) { autoValue = autoEntry (s); autoSeed = autoKey; }
@@ -817,7 +861,7 @@ private:
                 removeActive (i, offset, out);
                 continue;
             }
-            a.endTime = std::min (a.endTime, until);
+            limitClaim(a,until,execution::Timing::nominal);
             ++i;
         }
     }
@@ -1238,9 +1282,11 @@ private:
     {return floorDiv(time.value,musicaltime::fromGridStep(static_cast<int64_t>(meter.len)*phraseBars).value);}
     long long phraseOf (long long k) const { return floorDiv (floorDiv (k, meter.len), phraseBars); }
 
-    Pos locate (long long k) const
+    Pos locate(long long patternOrdinal)const{return locate(musicaltime::fromGridStep(patternOrdinal));}
+    Pos locate (musicaltime::Tick time) const
     {
-        Pos p;
+        Pos p;p.time=time;
+        const auto k=floorDiv(time.value,musicaltime::ticksPerGridStep);
         p.k = k;
         p.bar = floorDiv (k, meter.len);
         p.pos = (int) (k - p.bar * meter.len);
@@ -1253,7 +1299,7 @@ private:
         timeline.count=w.n;timeline.first=chordBase;timeline.held=still;
         timeline.begin=std::max(wendungTime,p.phraseStartTime);timeline.end=p.phraseEndTime;
         for(int i=0;i<w.n;++i)timeline.durations[static_cast<size_t>(i)]=musicaltime::fromGridStep(static_cast<int64_t>(w.ch[i].bars)*meter.len);
-        const auto position=composition::locateChord(timeline,musicaltime::fromGridStep(k));
+        const auto position=composition::locateChord(timeline,time);
         p.chordIdx=position.index;p.chordStartTime=position.begin;p.chordEndTime=position.end;
         if(still)return p;
         if (cur != nullptr)
@@ -1263,7 +1309,7 @@ private:
                 musicaltime::fromGridStep(meter.len),musicaltime::fromGridStep(meter.groupStart[std::max(0,meter.numGroups-1)]));
             if(transition.present)
             {
-                if(musicaltime::fromGridStep(k)>=transition.begin){p.chordStartTime = transition.begin;p.passing=true;}
+                if(time>=transition.begin){p.chordStartTime = transition.begin;p.passing=true;}
                 else p.chordEndTime = transition.begin;
             }
         }
@@ -1283,6 +1329,7 @@ private:
 
     bool isChangePoint (const Pos& p, const Settings& s) const
     {
+        if(p.time!=musicaltime::fromGridStep(p.k))return false;
         switch (s.change)
         {
             case ChangeBeat:  return meter.isGroupStart (p.pos);
@@ -1467,17 +1514,25 @@ private:
         out.add (offset, a.channel, a.note, 0, a.out);
     }
 
-    void releaseDue (long long step, int offset, EventList& out, bool deferPadBoundary = false)
+    double performed(musicaltime::Tick time,execution::Timing timing)const
+    {return execution::quarters(time,timing,cur?cur->swing:0.f);}
+    void limitClaim(Active& claim,musicaltime::Tick end,execution::Timing timing)
+    {if(performed(end,timing)<performed(claim.endTime,claim.timing)){claim.endTime=end;claim.timing=timing;}}
+    void releaseAt(double quarter,int offset,EventList& out,bool deferPadBoundary=false)
     {
-        for (int i = 0; i < numActive;)
+        for(int i=0;i<numActive;)
         {
-            const auto& claim = active[(size_t) i];
-            if (claim.endTime <= musicaltime::fromGridStep(step) && ! (deferPadBoundary && claim.endTime == musicaltime::fromGridStep(step) && claim.out == OutPadLong))
-            {
-                removeActive (i, offset, out);
-            }
+            const auto& claim=active[static_cast<size_t>(i)];const double due=performed(claim.endTime,claim.timing);
+            if(due<=quarter+1e-12&&!(deferPadBoundary&&claim.out==OutPadLong&&execution::coincides(due,quarter)))removeActive(i,offset,out);
             else ++i;
         }
+    }
+    execution::Candidate nextRelease()const
+    {
+        execution::Candidate result;
+        for(int i=0;i<numActive;++i){const auto& a=active[static_cast<size_t>(i)];
+            result=execution::first(result,{a.endTime,a.timing,execution::Kind::release,true},cur?cur->swing:0.f);}
+        return result;
     }
 
     void releaseSilencedLayers (const Settings& s, EventList& out)
@@ -1498,7 +1553,7 @@ private:
     {
         for (int i = 0; i < numActive;)
         {
-            if (keepPad && active[(size_t) i].out == OutPadLong) active[(size_t) i].endTime = std::min (active[(size_t) i].endTime, musicaltime::fromGridStep(nowStep));
+            if (keepPad && active[(size_t) i].out == OutPadLong) limitClaim(active[static_cast<size_t>(i)],nowTime,execution::Timing::nominal);
             const int layer = kOutputLayer[active[(size_t) i].out];
             if ((layer == kFlaeche && ! (keepPad && active[(size_t) i].out == OutPadLong)) || layer == kBass || layer == kAkzent)
             {
@@ -1585,7 +1640,7 @@ private:
         {
             const auto& a = active[(size_t) i];
             if (a.channel != channel || a.note != note) continue;
-            existing = true; sameStep = sameStep || a.startTime == musicaltime::fromGridStep(nowStep);
+            existing = true; sameStep = sameStep || a.attack == dispatchIdentity;
             if (a.out == o) own = i;
         }
         if (own < 0 && numActive >= kMaxActive) return;
@@ -1595,15 +1650,16 @@ private:
             out.add (offset, channel, note, velocity, o);
             // One physical attack for all claims at this time.
             for (int i = 0; i < numActive; ++i)
-                if (active[(size_t) i].channel == channel && active[(size_t) i].note == note) active[(size_t) i].startTime = musicaltime::fromGridStep(nowStep);
+                if (active[(size_t) i].channel == channel && active[(size_t) i].note == note) active[(size_t) i].attack = dispatchIdentity;
         }
         if (own >= 0)
         {
             auto& a = active[(size_t) own];
-            a.endTime = (sameStep || extendOnly) ? std::max (a.endTime, endTime) : endTime;
-            a.startTime = musicaltime::fromGridStep(nowStep);
+            if(!(sameStep||extendOnly)||performed(endTime,currentTiming)>performed(a.endTime,a.timing))
+                {a.endTime=endTime;a.timing=currentTiming;}
+            a.attack = dispatchIdentity;
         }
-        else active[(size_t) numActive++] = { (uint8_t) channel, (uint8_t) note, (uint8_t) o, endTime, musicaltime::fromGridStep(nowStep) };
+        else active[(size_t) numActive++] = { (uint8_t) channel, (uint8_t) note, (uint8_t) o, endTime, currentTiming, dispatchIdentity };
         if(o==OutBassLong||o==OutBassShort)heardHarmony.bass=note;
     }
 
@@ -1742,7 +1798,7 @@ private:
     voiceleading::ChordVoicing padVoicing (const Pos& p, const Settings& s, int output)
     {
         prepareVoicingPlan (p, s);
-        dispositionAt=musicaltime::fromGridStep(nowStep);
+        dispositionAt=nowTime;
         const int index = p.chordIdx * 2 + (p.passing ? 1 : 0);
         unavailablePad = harmonicPlan.slots[static_cast<size_t> (index)].unavailable;
         const auto original=entryVoicingValid&&index==chordBase*2?entryVoicing.pad:harmonicPlan.slots[static_cast<size_t> (index)].pad;
@@ -1970,7 +2026,7 @@ private:
     {
         const int pad = choosePad (s);
         const bool padFollow = s.follow[kFlaeche];
-        const bool phraseStart = musicaltime::fromGridStep(p.k) == p.phraseStartTime;
+        const bool phraseStart = p.time == p.phraseStartTime;
         if ((mask & 1u) && pad == PadHeld && (padFollow || phraseStart || restart))
             padChord (p, s, OutPadLong, offset, padFollow ? p.chordEndTime : p.phraseEndTime, (int) (40 + 45 * layerY (s, kFlaeche)), out);
 
@@ -1983,24 +2039,51 @@ private:
         }
     }
 
+    void beginDispatch(double quarter)
+    {if(!execution::coincides(quarter,currentPerformanceQuarter))++dispatchIdentity;currentPerformanceQuarter=quarter;}
+    // Harmonic/metric/scene boundaries are queried from musical time, not inferred from
+    // the next rhythmic pulse. In particular odd-meter boundaries remain unswung.
+    musicaltime::Tick nextBoundary(musicaltime::Tick at,const Settings&)const
+    {
+        const auto p=locate(at);const auto bar=musicaltime::fromGridStep(meter.len);
+        auto best=p.phraseEndTime;
+        auto consider=[&](musicaltime::Tick time){if(time>=at&&time<best)best=time;};
+        consider(p.chordStartTime);consider(p.chordEndTime);consider(p.phraseStartTime);
+        const auto barBegin=bar*floorDiv(at.value,bar.value);
+        consider(barBegin);consider(barBegin+bar);
+        for(int i=0;i<meter.numGroups;++i)consider(barBegin+musicaltime::fromGridStep(meter.groupStart[i]));
+        if(sceneEndTime)consider(*sceneEndTime);if(manualEndTime)consider(*manualEndTime);
+        return best;
+    }
+    void renderRhythmAt(musicaltime::Tick time,int offset,const Settings& s,EventList& out)
+    {
+        const auto p=locate(time);const auto ordinal=p.k;nowTime=time;nowStep=ordinal;
+        if(yAdd>.001f){auto raised=s;raised.y=std::clamp(s.y+yAdd,0.f,1.f);const auto* saved=cur;cur=&raised;
+            render(ordinal,offset,p,false,p.phrase,raised,out,false);cur=saved;}
+        else render(ordinal,offset,p,false,p.phrase,s,out,false);
+    }
+
     void chase (double ppq, const Settings& s, EventList& out)
     {
         if (ppq < 0.0) return;
-        const long long k = (long long) std::floor (ppq / kStep + 1e-9);
-        ensurePhrase (phraseOf (k), s);
-        const Pos p = locate (k);
-        curChord = p.chordIdx;
-        curRoot = W().ch[p.chordIdx].root; curType = W().ch[p.chordIdx].type;
+        const auto actual=execution::floorTime(ppq);
+        ensurePhrase(phraseOf(actual),s);
+        const Pos structural=locate(actual);
+        const auto source=execution::nominalAt(ppq,execution::Timing::groove,s.swing);
+        const Pos p=locate(source);const auto k=p.k;nowTime=actual;
+        curChord = structural.chordIdx;
+        curRoot = W().ch[structural.chordIdx].root; curType = W().ch[structural.chordIdx].type;
         nowStep = k; updateMask (s);
-        updateScene (k, p, s, true, 0, out);
+        updateScene (actual, structural, s, true, 0, out);
         if (sceneEnded) return;
         prepareBassPhrase(p,s);
-        if (ppq > (double) gridChordStart(p) * kStep + 1e-9)
-            sustained (p, s, 0, out, true);
+        if (ppq > musicaltime::toQuarters(structural.chordStartTime) + 1e-9)
+            sustained (structural, s, 0, out, true);
         else
             chaseStep = k;   // genau am Akkordanfang: der normale Schritt schlaegt an, auch die stehenden Ebenen
+        currentTiming=execution::Timing::groove;nowTime=source;
         if(on[kBass]&&bassPhrase.valid)
-            for(int i=0;i<bassPhrase.count;++i){const auto& note=bassPhrase.notes[i];if(musicaltime::toQuarters(note.at)<ppq&&ppq<musicaltime::toQuarters(note.at+note.length))
+            for(int i=0;i<bassPhrase.count;++i){const auto& note=bassPhrase.notes[i];if(execution::sounding(note.at,note.at+note.length,currentTiming,s.swing,ppq))
                 {const auto eventIndex=musicaltime::toExactGridStep(note.at);const int position=static_cast<int>(eventIndex%meter.len);const int velocity=static_cast<int>(58+38*layerY(s,kBass))+(meter.isGroupStart(position)?8:0)+jitter(eventIndex,kBass,3)+note.accent;
                  noteOn(OutBassShort,note.pitch-12*s.octave[kBass],velocity,note.at+note.length,0,out);}}
         const auto rhythm=movementRhythm(p,s);
@@ -2011,36 +2094,37 @@ private:
             if((beginStep+swingDelay(beginStep,s))*kStep<ppq&&ppq<(endStep+swingDelay(endStep,s))*kStep)
                 playArpeggio(beginStep,0,locate(beginStep),p.phrase,s,out);
         }
-        const bool inclusive=ppq>static_cast<double>(k)*kStep+1e-9;
+        const bool inclusive=ppq>execution::quarters(musicaltime::fromGridStep(k),currentTiming,s.swing)+1e-9;
         freePhraseStep(k,p,s,0,out,true,inclusive);
         chaseMotif(k,p,s,out,inclusive);
     }
 
-    void stepOn (long long k, int offset, const Settings& s, EventList& out)
+    void prepareAt (musicaltime::Tick time, int offset, const Settings& s, EventList& out)
     {
-        nowStep = k;
+        const auto k=floorDiv(time.value,musicaltime::ticksPerGridStep);
+        nowTime=time;nowStep = k;
         const long long phrase = phraseOf (k);
         ensurePhrase (phrase, s);
-        Pos p = locate (k);
+        Pos p = locate(time);
         bool restart = k == chaseStep;
         if (updateStill (k, p, s))
         {
             releaseHeld (offset, out, true);  // Flaeche wird zielharmonisch abgeglichen; andere gehaltene Toene neu setzen, auf demselben Akkord
-            p = locate (k);
+            p = locate(time);
             restart = true;
         }
         if (maybeSwitch (k, p, s))
         {
             releaseHeld (offset, out, true);  // gemeinsame Flaechentoene am Stimmungswechsel halten
-            p = locate (k);
+            p = locate(time);
             restart = true;
         }
         chaseStep = -1;
         nowStep = k;
-        updateScene (k, p, s, false, offset, out);
+        updateScene (time, p, s, false, offset, out);
         if (sceneEnded)
         {
-            if (sceneEndTime && musicaltime::fromGridStep(k)==*sceneEndTime && (!manualEndTime || !manualHitSent))
+            if (sceneEndTime && time==*sceneEndTime && (!manualEndTime || !manualHitSent))
             {
                 if(manualEndTime.has_value())manualHitSent=true;
                 allNotesOff (out, offset);
@@ -2055,10 +2139,10 @@ private:
             sb.y = std::clamp (s.y + yAdd, 0.0f, 1.0f);
             const Settings* saved = cur;
             cur = &sb;
-            render (k, offset, p, restart, phrase, sb, out);
+            render (k, offset, p, restart, phrase, sb, out, true);
             cur = saved;
         }
-        else render (k, offset, p, restart, phrase, s, out);
+        else render (k, offset, p, restart, phrase, s, out, true);
     }
 
     void chaseMotif(long long k,const Pos& p,const Settings& s,EventList& out,bool inclusive)
@@ -2077,7 +2161,7 @@ private:
                 {
                     const auto n=planMotifNote(i,local,s,output,&memory,occurrence.varied,&occurrence);
                     const auto begin=occurrence.begin+n.at,end=begin+n.length;
-                    if(n.valid&&(begin<time||(inclusive&&begin==time))&&time<end)
+                    if(n.valid&&execution::sounding(begin,end,execution::Timing::groove,s.swing,currentPerformanceQuarter))
                     {const bool saved=forceOn;if(s.genre==GenrePopRock)forceOn=true;noteOn(output,n.pitch,n.velocity,end,0,out);forceOn=saved;voice(output).note=n.pitch;}
                 }
             }
@@ -2153,7 +2237,7 @@ private:
             if(i+1<plan.count)length=std::min(length,source.notes[static_cast<size_t>(plan.first+i+1)].at-note.at);
             length=composition::articulatedLength(length,length,s.legato);
             if(length<capability.minDuration||length>capability.maxDuration)return false;
-            if(chase?!((at<relative||(inclusive&&at==relative))&&relative<at+length):relative!=at)continue;
+            if(chase?!execution::sounding(playable.origin+at,playable.origin+at+length,execution::Timing::groove,s.swing,currentPerformanceQuarter):relative!=at)continue;
             // Renderer accepts prevalidated sounding pitches, compensating the adapter octave.
             cut(kGegenstimme,k,k,offset,out);
             noteOn(OutCounter,base+note.interval-oct,note.velocity,playable.origin+at+length,offset,out);
@@ -2205,7 +2289,7 @@ private:
             if(i+1<notes)length=std::min(length,motifMemory.notes[static_cast<size_t>(i+1)].at-n.at);
             if(length<=musicaltime::Tick{})continue;
             const auto begin=plan.answerBegin+n.at;
-            if(chase?!((begin<time||(inclusive&&begin==time))&&time<begin+length):time!=begin)continue;
+            if(chase?!execution::sounding(begin,begin+length,execution::Timing::groove,s.swing,currentPerformanceQuarter):time!=begin)continue;
             const int pitch=composition::adaptMotifPitch(base+n.interval,ladder,count);
             noteOn(responseOutput,pitch,n.velocity,begin+length,offset,out);
         }
@@ -2309,7 +2393,7 @@ private:
         return composition::EventDensity{dens}.allows(group,meter.numGroups);
     }
 
-    void render (long long k, int offset, const Pos& p, bool restart, long long phrase, const Settings& s, EventList& out)
+    void render (long long k, int offset, const Pos& p, bool restart, long long phrase, const Settings& s, EventList& out, bool structural=false)
     {
         prepareBassPhrase(p,s);
         const Wendung& w = W();
@@ -2321,21 +2405,23 @@ private:
             curNextRoot = nc.root; curNextType = nc.type;
             curProgress = gridChordEnd(p) > gridChordStart(p) ? (float) (k - gridChordStart(p)) / (float) (gridChordEnd(p) - gridChordStart(p)) : 0.0f;
         }
-        if (s.dynamics) dynamicsCc (k, p, s, offset, out);
-        const bool chordStart = k == gridChordStart(p);
+        const bool chordStart = p.time == p.chordStartTime;
+        if (s.dynamics&&(!structural||chordStart||padGrow||peak||enterNow[kFlaeche]||enterNow[kBass])) dynamicsCc (k, p, s, offset, out);
         const bool beat = p.pos % 4 == 0;
         const bool group = meter.isGroupStart (p.pos);
         const float z = s.z;
         const float yPad = layerY (s, kFlaeche), yBass = layerY (s, kBass);
 
-        if (chordStart)
+        if (structural&&chordStart)
             sustained (p, s, offset, out, restart, bassRest ? 1u : 3u);
-        else if (padGrow || peak || enterNow[kFlaeche] || enterNow[kBass])   // Ebene setzt mitten im Akkord ein
+        else if (structural&&(padGrow || peak || enterNow[kFlaeche] || enterNow[kBass]))   // Ebene setzt mitten im Akkord ein
         {
             unsigned mask = (enterNow[kFlaeche] || peak ? 1u : 0u) | (enterNow[kBass] || peak ? 2u : 0u);
             if (padGrow && ! peak) { extendOnly = true; sustained (p, s, offset, out, true, 1u); extendOnly = false; }
             if (mask != 0) sustained (p, s, offset, out, true, mask);
         }
+
+        if(structural)return;
 
         // Akzente: Tupfer und Stich, bei Unruhe der fremde Ton in der Mitte des Akkords; ganz oben in der Unruhe der Riss
         const bool optional=densityAllows(p);
@@ -2667,9 +2753,9 @@ private:
         {
             auto& a = active[(size_t) i];
             if (a.out == o && a.note != keepNote)
-                a.endTime = std::min (a.endTime, musicaltime::fromGridStep(nowStep + (cur != nullptr && cur->legato ? 1 : 0)));
+                limitClaim(a,nowTime+(cur!=nullptr&&cur->legato?musicaltime::sixteenth:musicaltime::Tick{}),currentTiming);
         }
-        if (cur == nullptr || ! cur->legato) releaseDue (nowStep, offset, out);
+        if (cur == nullptr || ! cur->legato) releaseAt(currentPerformanceQuarter, offset, out);
     }
 
     // Ende eines Tons der Gegenstimme relativ zum naechsten: Legato eine Sechzehntel darueber, sonst kurz davor abgesetzt
@@ -2727,7 +2813,7 @@ private:
         for(int i=0;i<plan.count;++i)
         {
             const auto& n=plan.notes[static_cast<size_t>(i)];
-            if(chase? !((n.begin<time||(inclusive&&n.begin==time))&&time<n.end):n.begin!=time)continue;
+            if(chase?!execution::sounding(n.begin,n.end,execution::Timing::groove,s.swing,currentPerformanceQuarter):n.begin!=time)continue;
             noteOn(OutCounter,n.pitch,static_cast<int>(50+35*layerY(s,kGegenstimme))+(i==0&&s.z>=.5f?6:0),n.end,offset,out);
             if(!chase)releaseOthers(OutCounter,n.pitch,offset,out);
             voice(OutCounter).note=n.pitch;
@@ -2827,7 +2913,12 @@ private:
     int genre = GenreScore, lastGenre = -1, curNextRoot = 0, curNextType = Min;
     float curProgress = 0.0f;
     uint32_t chordMask = 0;          // Tonnamen des klingenden Akkords (Ersatz bei sehr engem Tonumfang)
-    long long nowStep = -1;
+    long long nowStep = -1; // Existing pattern/random ordinal, no longer a scheduler clock.
+    musicaltime::Tick nowTime{};
+    execution::Timing currentTiming=execution::Timing::nominal;
+    double currentPerformanceQuarter=0;
+    uint64_t dispatchIdentity=0;
+    std::optional<musicaltime::Tick> preparedTime;
     musicaltime::Tick exitStep[kNumLayers] {}, exitUntil[kNumLayers] {};
     bool ccWasEnabled = false;
     int lastDynamicsId = -1, lastExpressionId = -1;

@@ -34,6 +34,8 @@ int main(int argc,char** argv)
  {
   const int scenario=std::atoi(argv[19]);s.motif=false;s.melody=false;s.passing=false;
   if(scenario==1){s.scene=true;s.inertia=true;s.sceneBars=24;s.buildBars=4;s.entry=EntryAuto;s.ending=EndFade;s.hardness=.25f;}
+  if(scenario==3){importTestId=WendungId::invalid;s.custom=true;s.customChords[0]={0,Maj,1};s.customChords[1]={5,Min,1};
+   s.padPattern=PadHeld;s.bassPattern=BassHeld;s.y=.8f;s.z=0;s.solo[kFlaeche]=s.solo[kBass]=true;}
   if(scenario==2){s.bassPattern=BassFunk;s.arpFigure=ArpCircle;s.arpRate=RateEighth;s.channel[OutArp]=s.channel[OutPadLong];}
  }
  const double barQuarters=Meter::from(s.meterNum,s.meterDen).len*kStep;

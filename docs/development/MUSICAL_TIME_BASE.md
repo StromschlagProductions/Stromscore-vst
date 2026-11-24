@@ -273,3 +273,96 @@ Keine neuen Heap-Allokationen, Dateizugriffe oder Katalogvalidierungen im Audiot
 39/39 Gesamttests im vollständigen Lauf bestanden. 1213 vollständige Vorher-/Nachher-Renderings sind bytegleich zu `cb25399`; 1977 zusätzliche Blockgrößenvergleiche bestanden. Fallparameter und Prüfsummen: `MUSICAL_TIME_1B3_REGRESSION.json`. Wie bisher gilt nur für verschiedene Blockgrößen bei nicht ganzzahligen Samplepositionen höchstens ein Sample Rundungsspielraum, bei identischer Ereignisfolge und sonst identischen MIDI-Daten; der Vorher-/Nachher-Bytevergleich selbst hat keine Toleranz. Enthalten sind weiterhin alle 87 produktiven Wendungen, vorhandenen Profile, alle 80 unterstützten Taktarten und die 4096-Takt-Langzeitfälle sowie die oben beschriebenen 96 zusätzlichen Planungsfälle. Keine musikalische Fehlerkorrektur oder daraus resultierende MIDI-Abweichung war erforderlich.
 
 ASan/UBSan für MusicalTime, MotifTime, BassPhrase, RhythmPlan, PlanningTime, CompositionCore und Engine ohne Befund (`detect_leaks=0`, keine LeakSanitizer-Aussage). 7/7 Paketprüf-Fixtures bestanden. Der echte Processor-Gesamttest einschließlich aller 216 Live-/SMF-Fälle in 4/4, 3/8, 5/8 und 7/8 ist bestanden; der Großblocktest meldet 872 Note-ons, 872 Note-offs und keine Notenverwaltungsfehler. Linux-x64-VST3 gebaut; ELF, Bundle und Versionsmetadaten 2.2 geprüft. Kein Windows-/pluginval-Lauf, kein Push und kein Release.
+
+## Teil 2a – Ereignisdispatcher, Swing-Domänen, Notenenden und Chase
+
+Basis `17b15a4`, Branch `develop/composition-core-prototype`. Der beauftragte Teil 2 wird in zwei fachlich zusammenhängende Teile gegliedert:
+
+1. **Dieser Commit:** den gemeinsamen Dispatcher, nominale Strukturereignisse, rhythmische Performance, reale Notenansprüche und den Chase vorhandener Pläne gemeinsam umstellen.
+2. **Noch offen, Teil 2b:** die schrittbezogenen Mustererzeuger und sämtliche Planungs-/Kontrollaufrufe vollständig auf eigenständige PPQ-Ereignispläne umstellen. Insbesondere geplante Notenanfänge müssen unabhängig von den bisherigen Sechzehntelaufrufen registriert werden.
+
+Die Teilung hält die eng gekoppelten Ausführungs-, Freigabe- und Chase-Komponenten zusammen. Sie vermeidet, zugleich sämtliche vorhandenen Begleitmuster und deren musikalische Indizes umzuschreiben. **Teil 2 insgesamt ist damit ausdrücklich noch nicht abgeschlossen.**
+
+### Neuer gemeinsamer Ausführungspfad
+
+`MusicalExecution.h` beschreibt eine maßgebliche musikalische Tickposition und ihre Ausführungsdomäne:
+
+- `Timing::nominal`: Harmonie-, Takt-, Phrasen-/Szenengrenzen und deren gehaltene Stimmen. Ihre Performanceposition entspricht exakt der musikalischen Position.
+- `Timing::groove`: dafür vorgesehene rhythmische Noten und ihre Enden. Erst bei Ausführung/Chase wird aus dem nominalen Tick die bisherige Double-Swing-Performanceposition und daraus der Sampleoffset berechnet.
+
+`Generator::process()` führt drei Ereignisquellen zusammen: nominale Vorbereitung/Strukturgrenzen, rhythmische Einsätze und die früheste aktive Notenfrist. Der frühere äußere `for(k++ ...)`-Schritt-Scheduler sowie `stepOn()` und `releaseDue(step)` sind entfernt. Notenenden benötigen keinen zufällig passenden Aufruf eines rhythmischen Musters mehr. Harmonie-/Metrik-/Szenengrenzen werden zusätzlich direkt aus der musikalischen Zeitleiste abgefragt, auch wenn zu diesem Zeitpunkt kein rhythmischer Anschlag ausgeführt wird.
+
+`prepareAt(Tick)` und `renderRhythmAt(Tick)` teilen sich dieselben bestehenden musikalischen Entscheidungen; es gibt keine zweite Kompositions-Engine. Die strukturelle Ausgabe und rhythmische Ausgabe sind getrennt. Dynamik-CCs vor gehaltenen strukturellen Einsätzen werden nominal veröffentlicht; die sonstige bisherige Performance-Expression bleibt bei den rhythmischen Aufrufen. Das verhindert, dass ein vorgezogener gehaltener Akkord seine notwendige Expression erst beim späteren Swing-Anschlag erhält.
+
+Der Dispatcher besitzt weiterhin eine **240-PPQ-Kontroll-/Musterquelle** für die noch nicht migrierten Erzeuger. Diese ist nicht mehr die einzige Ausführungsuhr: Ein Notenende oder eine strukturelle Grenze bei z. B. Tick 37 wird unabhängig davon ausgeführt. Die Quelle und die alten Musteradapter sind jedoch eine echte verbleibende Kopplung für Teil 2b; sie werden nicht als vollständige Rasterunabhängigkeit ausgegeben.
+
+### Eine Zeitbasis, zwei musikalische Ausführungsdomänen
+
+Ein aktiver Notenanspruch speichert genau eine musikalische `endTime` plus die Domäne, in der dieses Ende ausgeführt wird. Es gibt keine parallele gespeicherte Raster-/PPQ-/Samplefrist. Die aktuelle Performance-PPQ ist eine Host-/Ausgabegrenze, keine zweite musikalische Uhr.
+
+`limitClaim()` vergleicht bei geteilten Kanälen die tatsächlich wirksamen Fristen. Nominale Szenenschnitte dürfen eine geswingte Note rechtzeitig beenden. Gehaltene nominale Stimmen übernehmen nicht versehentlich das Swing-Ende einer rhythmischen Stimme. Eine dimensionlose `attack`-Identität fasst physische Angriffe am selben Ausführungszeitpunkt zusammen; zwei verschiedene Zeitpunkte mit demselben früheren Musterindex gelten nicht mehr fälschlich als gleichzeitiger Anschlag.
+
+Swing wird nicht auf PPQ gerundet. Auf den vorhandenen Sechzehnteln bleibt die bisherige Abbildung `(cell + delay) * .25` mit `.333/.667` exakt erhalten. Zwischen diesen Positionen ist die Performanceabbildung stückweise linear und streng monoton. `nominalAt()` invertiert sie für den Planungs-/Chase-Lookup. Der Lookup verwendet Tickpositionen; die endgültige Gateprüfung verwendet weiterhin die ungerundete Performanceposition.
+
+### Reihenfolge gleichzeitig auftretender Ereignisse
+
+Innerhalb eines gemeinsamen Performancezeitpunkts gilt:
+
+1. Abgelaufene Ansprüche freigeben; genau gleichzeitig endende lange Flächentöne vorläufig zurückstellen.
+2. Nominalen Kontext vorbereiten: Harmonie-/Szenenzustand, notwendige Controller und gehaltene Stimmen aktualisieren. Gemeinsame Akkordtöne können ihre Ansprüche verlängern.
+3. Gleichzeitig anstehende rhythmische Einsätze ausführen. Gemeinsame MIDI-Töne erhalten innerhalb desselben Ausführungszeitpunkts nur einen physischen Angriff.
+4. Nicht verlängerte Flächenansprüche und sonstige fällige Ansprüche vollständig freigeben.
+
+Ohne gleichzeitig anstehenden rhythmischen Einsatz wird die abschließende Flächenfreigabe unmittelbar nach dem Strukturereignis vorgenommen. Für reine Fristereignisse ist keine zusätzliche musikalische Erzeugung erforderlich. Diese Reihenfolge schützt sowohl gemeinsame Akkordtöne als auch die vorhandene Kanal-/Notenbesitzverwaltung.
+
+### Gezielte Verhaltenskorrekturen
+
+**Swingverschobene strukturelle Grenzen:** Bei 3/8, 5/8 oder 7/8 liegt jeder zweite Taktbeginn auf einer zuvor verzögerten Sechzehntelphase. Der alte Scheduler verschob dort auch den Akkordwechsel und die gehaltenen Stimmen. Sie werden jetzt nominal ausgeführt; rhythmische Figuren behalten ihren vorgesehenen Swing.
+
+Für gerichtete Beispiele mit bestehenden eigenen Akkorden C-Dur → F-Moll, 120 BPM und Swing .5 ergibt sich beim ersten Akkordwechsel:
+
+| Takt | Bisheriger Bass-/Akkordeinsatz, Sample | Nominaler neuer Einsatz, Sample | Korrektur |
+| --- | ---: | ---: | ---: |
+| 3/8 | 38001 | 36000 | 2001 Samples früher |
+| 5/8 | 62001 | 60000 | 2001 Samples früher |
+| 7/8 | 86001 | 84000 | 2001 Samples früher |
+| 6/8 | 72000 | 72000 | Unverändert |
+
+Diese Beispiele werden als `held-*-8-before.mid` / `held-*-8-after.mid` im Ausgabeverzeichnis von `compare_execution_time.py` erzeugt. Es werden keine neuen Katalogeinträge oder musikalischen Regeln eingeführt.
+
+**Vorzeitiger Chase eines geswingten Motivtons:** Der alte Chase konnte nach dem nominalen Beginn, aber noch vor dem tatsächlichen Swing-Anschlag bereits den neuen Motivton ausgeben. Für vorhandene Motiv-, freie Linien-, Bassphrasen- und Antwortpläne erfolgt die Prüfung nun gegen tatsächlichen Performancebeginn und tatsächliches Performanceende. Vor dem verzögerten Anschlag bleibt gegebenenfalls der vorherige Ton hörbar; nach dem Anschlag wird der neue Ton rekonstruiert. Das gespeicherte Motiv bleibt unverändert.
+
+**Nicht rastergebundene Fristen und Szenenenden:** Die Ausführung einer fälligen Note bzw. eines bereits bekannten Szenenendes zwischen zwei bisherigen Sechzehnteln wird nicht mehr bis zum nächsten Musteraufruf verschoben. Die regulären Benutzerparameter erzeugen in diesem Schritt weiterhin keine neuen feineren musikalischen Muster.
+
+### Tests dieses Teils
+
+`ExecutionTests` erhält ausschließlich in einer offline kopierten Test-Headerfassung Friend-Zugriff. Damit werden tatsächliche `Generator`-Notenansprüche mit nicht rastergebundenen Enden und ein Szenenende bei Tick 37 eingespeist. Die Tests prüfen echte MIDI-Freigaben, geteilte Kanäle mit verschiedenen Ausführungsdomänen, Blockgrößen 127/512/8192 und vollständige Notenbilanzen. Die produktive Plugin-API enthält diesen Zugriff nicht.
+
+Weitere Tests prüfen die unveränderte Swingabbildung an bestehenden Musterplätzen, Monotonie und Inversion, Ereignispriorität, gehaltene Akkordwechsel in allen 80 unterstützten Taktarten bei Swing .3/1 sowie wiederholten Chase vor und nach einem tatsächlich eingeführten verzögerten Motivton. Vorhandene Engine-, Motiv-, Bass-, Linien-, Transport-, Loop- und Echtzeittests bleiben aktiv.
+
+`compare_execution_time.py` ersetzt für diesen Commit den unveränderten Bytevergleich als CTest-Einstieg durch eine streng klassifizierte Auswertung: Ohne Swing sowie in unverändert erwarteten linearen metrischen Kontexten müssen vollständige MIDI-Bytes gleich bleiben. Auch in den zugelassenen Swing-/Chase-Korrekturkontexten müssen sämtliche Ereignisdaten und Ereignisanzahlen erhalten bleiben; Zeitänderungen werden mit Prüfsummen, Anzahl, Sampleverschiebung und Beispielen einzeln protokolliert. Die zusätzliche gerichtete Prüfung kontrolliert alte Swing-Einsätze und neue nominale Bass-/Akkordgrenzen ausdrücklich anhand ihrer tatsächlichen Samples.
+
+### Ausdrücklicher Rest für Teil 2b
+
+**Die musikalische Planung und Ereigniserzeugung sind noch nicht vollständig vom alten Ausführungsraster entkoppelt.** Der Dispatcher, die unabhängigen nominalen Grenzen und die reale Fristverwaltung sind umgestellt. Es verbleiben:
+
+- die 240-PPQ-Vorbereitung und daran angeschlossene alte Musteraufrufe; Notenanfänge beliebig fein aufgelöster Planergebnisse werden noch nicht allgemein als eigene Quellen angemeldet;
+- `Meter::len/groupStart`, `Pos::k/pos`, `nowStep` als bisherige Muster-/Zufallsindizes sowie `gridChord*` / `gridPhrase*` und einzelne Step-Überladungen als Adapter der Erzeuger;
+- rhythmische Einsatzprädikate und manche Notendauern in den unmittelbar gerenderten Bass-, Arpeggio-, Akzent- und Hook-Funktionen;
+- ein ausdrücklicher Revisions-/Invalidierungsvertrag für Parameteränderungen zwischen nominaler Vorbereitung und verzögerter Ausführung;
+- die vollständige Rekonstruktion durchlaufender, nicht als eigenständiger zeitlicher Linienplan vorliegender Begleit-/Hook-Muster beim Chase. Der Chase vorhandener Pläne ist korrigiert; es wird keine allgemeine neue Replay-Engine vorgetäuscht;
+- die bereits bekannte fehlende Vorgeschichte der harmonischen Übergangsstimmführung bei kaltem Seek. Diese musikalische Zustandsgrenze ist nicht durch den neuen Ausführungsdispatcher behoben.
+
+Die verbleibenden Mustererzeuger, ihre PPQ-Planungsaufrufe und ihre Chase-Rekonstruktion sollten gemeinsam migriert werden. Ein bloßes Umbenennen ihrer Schrittindizes würde diese Abhängigkeiten verdecken. In diesem Commit wird dieser zweite Umbau nicht zusätzlich begonnen. Keine GUI-Änderung, keine Künstlerprofile, keine neue harmonische oder motivische Funktion, kein Push und kein Release.
+
+Die bisherige Transport-Sprungerkennung mit einer Toleranz von .05 Viertelnoten bleibt in diesem ersten Teil erhalten. Sehr kleine Positionsdiskontinuitäten sind damit noch nicht allgemein als eigenständige Transportereignisse modelliert. Auch dies gehört zum abschließenden Transport-/Aufrufvertrag in Teil 2b.
+
+### Abschlussprüfung Teil 2a
+
+40/40 Gesamttests im vollständigen Lauf bestanden. Die Ausführungsmatrix gegen `17b15a4` enthält 1217 vollständige Vorher-/Nachher-Renderings: 1119 sind bytegleich; 98 enthalten ausschließlich Zeitkorrekturen. Sämtliche MIDI-Ereignisdaten einschließlich Noten, Velocities, Zielen und Ereignisanzahlen bleiben in dieser Matrix gleich. Insgesamt werden 5040 geänderte Zeitstempel dokumentiert; sie liegen 555 bis 2668 Samples früher. Die gerichteten Beispiele und die vier zusätzlichen Referenzfälle sind enthalten. Details, Prüfsummen und Einzelbeispiele: `MUSICAL_EXECUTION_2A_REGRESSION.json`.
+
+Alle 1985 Blockgrößenvergleiche bestanden. Wie bisher gilt bei nicht ganzzahligen Samplepositionen höchstens ein Sample Rundungsspielraum zwischen verschiedenen Blockgrößen, bei identischer Ereignisfolge und sonst identischen MIDI-Daten. Die unverändert erwarteten Vorher-/Nachher-Kontexte werden ohne Toleranz byteweise verglichen. Die separate Chase-Prüfung weist die Korrektur des vorzeitig ausgegebenen Motivtons ausdrücklich nach; sie wird nicht als bloße Zeitverschiebung aller denkbaren Chase-Situationen verallgemeinert.
+
+ASan/UBSan für Execution, MusicalTime, MotifTime, BassPhrase, RhythmPlan, PlanningTime, CompositionCore und Engine ohne Befund (`detect_leaks=0`, keine LeakSanitizer-Aussage). 7/7 Paketprüf-Fixtures bestanden. Der echte Processor-Gesamttest einschließlich 216 Live-/SMF-Vergleichen und geschlossenen Großblock-Notenbilanzen bestanden. Linux-x64-VST3 gebaut; ELF, Bundle und Versionsmetadaten 2.2 geprüft. Keine GUI-/Profiländerungen, kein Windows-/pluginval-Lauf, kein Push und kein Release.
+
+Keine neuen Heap-Allokationen oder Dateioperationen im Audiothread. Der geprüfte Linux-x64-`Generator` wächst durch Domänen-/Angriffsmetadaten der bestehenden festen Notenansprüche und den Dispatcherzustand von 15768 auf 17352 Byte; `Settings` bleibt bei 1080 Byte. Die Ausführung iteriert über fällige Ereignisse und die vorhandenen musikalischen Musterquellen, nicht über jedes einzelne PPQ-Tick.
