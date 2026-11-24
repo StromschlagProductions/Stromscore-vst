@@ -113,10 +113,43 @@ static int testProtectedCatalogExport()
     std::cout<<"Protected actual processor live/export: "<<cases<<" cases passed\n";return 0;
 }
 
+// Real 39-entry plugin path: the exact new anchors select each imported template.
+static void testImportedCatalogExport()
+{
+    using namespace stromscore;int cases=0;
+    for(unsigned id:{2037u,2038u,2039u})for(int key:{0,5,11})for(bool follow:{false,true})for(int profile=0;profile<3;++profile)
+    {
+        const auto* h=findHarmonyTemplate(static_cast<WendungId>(id));CHECK(h);
+        StromscoreProcessor q;FakeHost host;q.setPlayHead(&host);q.prepareToPlay(48000,512);
+        setParam(q,"genre",1);setParam(q,"komponist",static_cast<float>(profile));setParam(q,"key",static_cast<float>(key));
+        setParam(q,"faerbung",h->x);setParam(q,"intensitaet",h->y);setParam(q,"unruhe",h->z);setParam(q,"abwechslung",0);
+        setParam(q,"durchgaenge",1);for(int i=1;i<=3;++i)setParam(q,("follow"+std::to_string(i)).c_str(),follow?1.f:0.f);
+        using Timed=std::tuple<long long,int,int,int,int>;std::vector<Timed> live,exported;
+        auto add=[](std::vector<Timed>& target,const juce::MidiMessage& m,long long tick)
+        {if(m.isNoteOnOrOff())target.emplace_back(tick,m.isNoteOn()?1:0,m.getChannel(),m.getNoteNumber(),m.isNoteOn()?m.getVelocity():0);
+         else if(m.isController()&&!m.isAllNotesOff())target.emplace_back(tick,2,m.getChannel(),m.getControllerNumber(),m.getControllerValue());};
+        auto file=q.renderMidiFile(8);auto stream=file.createInputStream();juce::MidiFile midi;CHECK(stream&&midi.readFrom(*stream));
+        for(int tr=0;tr<midi.getNumTracks();++tr)for(int i=0;i<midi.getTrack(tr)->getNumEvents();++i)
+        {const auto& m=midi.getTrack(tr)->getEventPointer(i)->message;add(exported,m,std::llround(m.getTimeStamp()));}
+        juce::AudioBuffer<float> audio(2,512);juce::MidiBuffer messages;messages.ensureSize(65536);Counts ledger;
+        for(int at=0;at<8*96000;at+=512)
+        {
+            host.ppq=at/24000.;messages.clear();{NoCHeap cHeap;NoAllocations cppHeap;q.processBlock(audio,messages);}collect(messages,ledger);
+            CHECK(q.wendung.load()==wendungIndex(GenrePopRock,static_cast<WendungId>(id)));
+            for(auto m:messages)add(live,m.getMessage(),std::llround((at+m.samplePosition)/25.));
+        }
+        host.playing=false;messages.clear();q.processBlock(audio,messages);collect(messages,ledger);for(auto m:messages)add(live,m.getMessage(),8*3840);
+        std::sort(live.begin(),live.end());std::sort(exported.begin(),exported.end());CHECK(!live.empty()&&live==exported);CHECK(!ledger.broken&&ledger.ons==ledger.offs);
+        file.deleteFile();++cases;
+    }
+    std::cout<<"Imported catalog real processor live/export: "<<cases<<" cases passed\n";
+}
+
 int main(int argc,char** argv)
 {
     juce::ScopedJuceInitialiser_GUI init;
     if(argc==2&&std::string(argv[1])=="--protected-catalog")return testProtectedCatalogExport();
+    testImportedCatalogExport();
     auto p = std::make_unique<StromscoreProcessor>();
     FakeHost host;
     p->setPlayHead (&host);

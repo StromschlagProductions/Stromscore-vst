@@ -115,6 +115,6 @@ int main(int argc,char** argv)
   CHECK(identity&&passes>0&&passes==resolutions);std::cout<<"Protected modal hook: "<<passes<<" checked passing tones, "<<resolutions<<" actual resolutions in 128 bars\n";
  }
  // The production presets remain flexible; every protected fixture comes through generated validated data.
- for(const auto& h:harmonyTemplates)if(static_cast<uint32_t>(h.id)<3000)CHECK(h.coloration==ChordColoration::flexible);
+ for(const auto& h:harmonyTemplates)if(static_cast<uint32_t>(h.id)<=2036)CHECK(h.coloration==ChordColoration::flexible);
  std::cout<<"Coloration tests passed: "<<matrix<<" full 8-bar matrix renders; "<<applied<<" open realizations, "<<reduced<<" reductions\n";
 }

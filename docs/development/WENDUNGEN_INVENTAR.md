@@ -1,4 +1,4 @@
-# Wendungsinventar – 84 vorhandene Studien
+# Wendungsinventar – 87 vorhandene Studien
 
 Generiert aus dem kompilierten Quellkatalog. IDs bleiben bei ihrem Material; Reihenfolge und Inhalte sind erhalten.
 
@@ -678,3 +678,27 @@ Der letzte Weg ist die zyklische Rückkehr; ±6 ist richtungsmehrdeutig. Künstl
 - Wechseltempo: 4 Slots / 8 Takte; mittlere Slotdauer 2 Takte; Dauerbereich 2–2 Takte. Echte Wechsel innerhalb der Phrase: 3 (0.375 pro Takt, ohne Rückkehr).
 - Grundtonbewegungen in Halbtönen: +3, +5, -1, +5 (Rückkehr). Merkmale: Halbtonschritt, kleine Terz, Quart-/Quintbeziehung.
 - **Unbestätigter bestehender Stilhinweis:** Men at Work / Colin Hay: nachdenkliche, liedhafte Seite. Eigene Am–C/G–Fmaj7–E7-Folge mit fallendem A–G–F–E-Bass in C und schrittweiser Gegenstimme mit Pausen.. Keine bestätigte Profilzuordnung.
+
+## 2037 – WC-H01 – Mixolydischer Kreis mit Sus-Auflösung
+
+- Katalog: Pop/Rock, Position 37; XYZ: [0.75, 0.5, 0.3].
+- Akkordfolge: C [Maj; 2 T.] (Bass-PC 0) → B♭ [Maj; 2 T.] (Bass-PC 10) → F [Maj; 2 T.] (Bass-PC 9) → Csus2 [Sus2; 1 T.] (Bass-PC 0) → C [Maj; 1 T.] (Bass-PC 0).
+- Wechseltempo: 5 Slots / 8 Takte; mittlere Slotdauer 1.6 Takte; Dauerbereich 1–2 Takte. Echte Wechsel innerhalb der Phrase: 4 (0.5 pro Takt, ohne Rückkehr).
+- Grundtonbewegungen in Halbtönen: -2, -5, -5, +0, +0 (Rückkehr). Merkmale: gleicher Grundton, Ganztonschritt, Quart-/Quintbeziehung.
+- **Unbestätigter bestehender Stilhinweis:** WC-H01 – Mixolydischer Kreis mit Sus-Auflösung. Geschützte harmonische Vorlage; keine profilspezifische Rhythmus-, Motiv- oder Instrumentierungsstrategie.. Keine bestätigte Profilzuordnung.
+
+## 2038 – WC-H11 – Dorische Wendung
+
+- Katalog: Pop/Rock, Position 38; XYZ: [0.4, 0.5, 0.3].
+- Akkordfolge: Cm7 [Min7; 2 T.] (Bass-PC 0) → F [Maj; 2 T.] (Bass-PC 0) → Cm7 [Min7; 2 T.] (Bass-PC 0) → F [Maj; 1 T.] (Bass-PC 9) → B♭ [Maj; 1 T.] (Bass-PC 10).
+- Wechseltempo: 5 Slots / 8 Takte; mittlere Slotdauer 1.6 Takte; Dauerbereich 1–2 Takte. Echte Wechsel innerhalb der Phrase: 4 (0.5 pro Takt, ohne Rückkehr).
+- Grundtonbewegungen in Halbtönen: +5, -5, +5, +5, +2 (Rückkehr). Merkmale: Ganztonschritt, Quart-/Quintbeziehung.
+- **Unbestätigter bestehender Stilhinweis:** WC-H11 – Dorische Wendung. Geschützte harmonische Vorlage; keine profilspezifische Rhythmus-, Motiv- oder Instrumentierungsstrategie.. Keine bestätigte Profilzuordnung.
+
+## 2039 – WC-H19 – Dunkle Quint-Maschine
+
+- Katalog: Pop/Rock, Position 39; XYZ: [0.15, 0.9, 0.2].
+- Akkordfolge: C5 [Fifth; 6 T.] (Bass-PC 0) → A♭5 [Fifth; 1 T.] (Bass-PC 8) → B♭5 [Fifth; 1 T.] (Bass-PC 10).
+- Wechseltempo: 3 Slots / 8 Takte; mittlere Slotdauer 2.67 Takte; Dauerbereich 1–6 Takte. Echte Wechsel innerhalb der Phrase: 2 (0.25 pro Takt, ohne Rückkehr).
+- Grundtonbewegungen in Halbtönen: -4, +2, +2 (Rückkehr). Merkmale: Ganztonschritt, große Terz.
+- **Unbestätigter bestehender Stilhinweis:** WC-H19 – Dunkle Quint-Maschine. Geschützte harmonische Vorlage; keine profilspezifische Rhythmus-, Motiv- oder Instrumentierungsstrategie.. Keine bestätigte Profilzuordnung.

@@ -35,6 +35,21 @@
       "id": "catalog_reference_7",
       "text": "https://rockcellarmagazine.com/colin-hay-man-still-at-work-interview-2/",
       "verification": "unconfirmed_style_hints"
+    },
+    {
+      "id": "WC-H01",
+      "text": "Nutzervorgabe „Erster validierter Import neuen harmonischen Vokabulars“, 24.11.2026, WC-H01. Aus der Wang-Chung-Vokabularprüfung; eigenständige Vorlage, keine Transkription oder exklusive Künstlerzuordnung.",
+      "verification": "user_specified_template"
+    },
+    {
+      "id": "WC-H11",
+      "text": "Nutzervorgabe „Erster validierter Import neuen harmonischen Vokabulars“, 24.11.2026, WC-H11. Aus der Wang-Chung-Vokabularprüfung; eigenständige Vorlage, keine Transkription oder exklusive Künstlerzuordnung.",
+      "verification": "user_specified_template"
+    },
+    {
+      "id": "WC-H19",
+      "text": "Nutzervorgabe „Erster validierter Import neuen harmonischen Vokabulars“, 24.11.2026, WC-H19. Aus der Wang-Chung-Vokabularprüfung; eigenständige Vorlage, keine Transkription oder exklusive Künstlerzuordnung.",
+      "verification": "user_specified_template"
     }
   ],
   "templates": [
@@ -3979,6 +3994,147 @@
         }
       ],
       "coloration": "flexible"
+    },
+    {
+      "id": 2037,
+      "symbol": "popWcH01",
+      "name": "WC-H01 – Mixolydischer Kreis mit Sus-Auflösung",
+      "xyz": [
+        0.75,
+        0.5,
+        0.3
+      ],
+      "genres": [
+        "pop_rock"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "mixolydian"
+      },
+      "source_ref": "WC-H01",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Maj",
+          "bars": 2,
+          "bass": 0
+        },
+        {
+          "root": 10,
+          "type": "Maj",
+          "bars": 2,
+          "bass": 10
+        },
+        {
+          "root": 5,
+          "type": "Maj",
+          "bars": 2,
+          "bass": 9
+        },
+        {
+          "root": 0,
+          "type": "Sus2",
+          "bars": 1,
+          "bass": 0
+        },
+        {
+          "root": 0,
+          "type": "Maj",
+          "bars": 1,
+          "bass": 0
+        }
+      ],
+      "coloration": "protected"
+    },
+    {
+      "id": 2038,
+      "symbol": "popWcH11",
+      "name": "WC-H11 – Dorische Wendung",
+      "xyz": [
+        0.4,
+        0.5,
+        0.3
+      ],
+      "genres": [
+        "pop_rock"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "dorian"
+      },
+      "source_ref": "WC-H11",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Min7",
+          "bars": 2,
+          "bass": 0
+        },
+        {
+          "root": 5,
+          "type": "Maj",
+          "bars": 2,
+          "bass": 0
+        },
+        {
+          "root": 0,
+          "type": "Min7",
+          "bars": 2,
+          "bass": 0
+        },
+        {
+          "root": 5,
+          "type": "Maj",
+          "bars": 1,
+          "bass": 9
+        },
+        {
+          "root": 10,
+          "type": "Maj",
+          "bars": 1,
+          "bass": 10
+        }
+      ],
+      "coloration": "protected"
+    },
+    {
+      "id": 2039,
+      "symbol": "popWcH19",
+      "name": "WC-H19 – Dunkle Quint-Maschine",
+      "xyz": [
+        0.15,
+        0.9,
+        0.2
+      ],
+      "genres": [
+        "pop_rock"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "WC-H19",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Fifth",
+          "bars": 6,
+          "bass": 0
+        },
+        {
+          "root": 8,
+          "type": "Fifth",
+          "bars": 1,
+          "bass": 8
+        },
+        {
+          "root": 10,
+          "type": "Fifth",
+          "bars": 1,
+          "bass": 10
+        }
+      ],
+      "coloration": "protected"
     }
   ],
   "pools": {
@@ -4068,7 +4224,10 @@
       2033,
       2034,
       2035,
-      2036
+      2036,
+      2037,
+      2038,
+      2039
     ]
   }
 }

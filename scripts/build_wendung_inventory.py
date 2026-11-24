@@ -10,7 +10,7 @@ TARGET = ROOT / 'docs/development'
 
 def inventory(exporter):
     entries = json.loads(subprocess.check_output([str(exporter)], encoding='utf-8'))
-    assert len(entries) == 84 and len({e['id'] for e in entries}) == 84
+    assert len(entries) == 87 and len({e['id'] for e in entries}) == 87
     for entry in entries:
         chords = entry['chords']
         total = sum(c['bars'] for c in chords)
@@ -65,7 +65,7 @@ def inventory(exporter):
 
 
 def readable(data):
-    lines = ['# Wendungsinventar – 84 vorhandene Studien', '',
+    lines = ['# Wendungsinventar – 87 vorhandene Studien', '',
              'Generiert aus dem kompilierten Quellkatalog. IDs bleiben bei ihrem Material; Reihenfolge und Inhalte sind erhalten.', '',
              'Akkordbeispiele stehen in C; Wurzeln und optionale Basstöne sind relativ zur gewählten Tonart. Dauern sind Takte.',
              'Mittlere Slotdauer und echte Akkordwechsel sind getrennt: wiederholte gleiche Akkorde zählen nicht als Wechsel.',
@@ -106,7 +106,7 @@ def main():
                 raise SystemExit(f'{path}: inventory differs; regenerate with the compiled exporter')
         else:
             path.write_text(content, encoding='utf-8')
-    print('84 unique entries; generated inventories agree with compiled catalog.' if args.check else 'Generated both inventories.')
+    print('87 unique entries; generated inventories agree with compiled catalog.' if args.check else 'Generated both inventories.')
 
 
 if __name__ == '__main__':

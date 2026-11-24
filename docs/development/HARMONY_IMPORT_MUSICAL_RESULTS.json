@@ -1,0 +1,3656 @@
+{
+  "matrix_renders": 1296,
+  "samples": [
+    {
+      "id": 2037,
+      "z": 0.95,
+      "y": 0.65,
+      "manual": 0,
+      "outputs_pitch_classes": {
+        "0": [
+          0,
+          2,
+          4,
+          5,
+          7,
+          9,
+          10
+        ],
+        "6": [
+          0,
+          9,
+          10
+        ],
+        "3": [
+          0,
+          8,
+          9,
+          10,
+          11
+        ],
+        "4": [
+          0,
+          2,
+          4,
+          5,
+          7,
+          9,
+          10
+        ],
+        "5": [
+          0,
+          5,
+          7
+        ]
+      },
+      "melodic_nonchord_attacks": {},
+      "slot_boundaries": [
+        {
+          "bar": 0,
+          "root": 0,
+          "type": "Maj",
+          "bass": 0,
+          "expected_mask": 145,
+          "actual_sounding_classes": {
+            "pad": [
+              0,
+              4,
+              7
+            ],
+            "arp": [
+              0,
+              4,
+              7
+            ],
+            "bass": [
+              0,
+              9
+            ],
+            "dialog": [],
+            "melody": []
+          },
+          "expected_sounding_mask": 145
+        },
+        {
+          "bar": 2,
+          "root": 10,
+          "type": "Maj",
+          "bass": 10,
+          "expected_mask": 1060,
+          "actual_sounding_classes": {
+            "pad": [
+              2,
+              5,
+              10
+            ],
+            "arp": [
+              2,
+              5,
+              10
+            ],
+            "bass": [
+              8,
+              10
+            ],
+            "dialog": [],
+            "melody": []
+          },
+          "expected_sounding_mask": 1060
+        },
+        {
+          "bar": 4,
+          "root": 5,
+          "type": "Maj",
+          "bass": 9,
+          "expected_mask": 545,
+          "actual_sounding_classes": {
+            "pad": [
+              0,
+              5,
+              9
+            ],
+            "arp": [
+              0,
+              5,
+              9
+            ],
+            "bass": [
+              9,
+              11
+            ],
+            "dialog": [],
+            "melody": []
+          },
+          "expected_sounding_mask": 545
+        },
+        {
+          "bar": 6,
+          "root": 0,
+          "type": "Sus2",
+          "bass": 0,
+          "expected_mask": 133,
+          "actual_sounding_classes": {
+            "pad": [
+              0,
+              2,
+              7
+            ],
+            "arp": [
+              0,
+              2,
+              7
+            ],
+            "bass": [
+              0,
+              11
+            ],
+            "dialog": [],
+            "melody": []
+          },
+          "expected_sounding_mask": 133
+        },
+        {
+          "bar": 7,
+          "root": 0,
+          "type": "Maj",
+          "bass": 0,
+          "expected_mask": 145,
+          "actual_sounding_classes": {
+            "pad": [
+              0,
+              4,
+              7
+            ],
+            "arp": [
+              0,
+              4,
+              7
+            ],
+            "bass": [
+              0,
+              11
+            ],
+            "dialog": [],
+            "melody": []
+          },
+          "expected_sounding_mask": 145
+        }
+      ],
+      "events": 402
+    },
+    {
+      "id": 2037,
+      "z": 0.95,
+      "y": 0.65,
+      "manual": 1,
+      "outputs_pitch_classes": {
+        "0": [
+          0,
+          2,
+          4,
+          5,
+          7,
+          9,
+          10
+        ],
+        "2": [
+          0,
+          9,
+          10
+        ],
+        "6": [
+          0,
+          9,
+          10
+        ],
+        "4": [
+          0,
+          2,
+          4,
+          5,
+          7,
+          9,
+          10
+        ],
+        "5": [
+          0,
+          5,
+          7
+        ]
+      },
+      "melodic_nonchord_attacks": {},
+      "slot_boundaries": [
+        {
+          "bar": 0,
+          "root": 0,
+          "type": "Maj",
+          "bass": 0,
+          "expected_mask": 145,
+          "actual_sounding_classes": {
+            "pad": [
+              0,
+              4,
+              7
+            ],
+            "arp": [
+              0,
+              4,
+              7
+            ],
+            "bass": [
+              0
+            ],
+            "dialog": [],
+            "melody": []
+          },
+          "expected_sounding_mask": 145
+        },
+        {
+          "bar": 2,
+          "root": 10,
+          "type": "Maj",
+          "bass": 10,
+          "expected_mask": 1060,
+          "actual_sounding_classes": {
+            "pad": [
+              2,
+              5,
+              10
+            ],
+            "arp": [
+              2,
+              5,
+              10
+            ],
+            "bass": [
+              10
+            ],
+            "dialog": [],
+            "melody": []
+          },
+          "expected_sounding_mask": 1060
+        },
+        {
+          "bar": 4,
+          "root": 5,
+          "type": "Maj",
+          "bass": 9,
+          "expected_mask": 545,
+          "actual_sounding_classes": {
+            "pad": [
+              0,
+              5,
+              9
+            ],
+            "arp": [
+              0,
+              5,
+              9
+            ],
+            "bass": [
+              9
+            ],
+            "dialog": [],
+            "melody": []
+          },
+          "expected_sounding_mask": 545
+        },
+        {
+          "bar": 6,
+          "root": 0,
+          "type": "Sus2",
+          "bass": 0,
+          "expected_mask": 133,
+          "actual_sounding_classes": {
+            "pad": [
+              0,
+              2,
+              7
+            ],
+            "arp": [
+              0,
+              2,
+              7
+            ],
+            "bass": [
+              0
+            ],
+            "dialog": [],
+            "melody": []
+          },
+          "expected_sounding_mask": 133
+        },
+        {
+          "bar": 7,
+          "root": 0,
+          "type": "Maj",
+          "bass": 0,
+          "expected_mask": 145,
+          "actual_sounding_classes": {
+            "pad": [
+              0,
+              4,
+              7
+            ],
+            "arp": [
+              0,
+              4,
+              7
+            ],
+            "bass": [
+              0
+            ],
+            "dialog": [],
+            "melody": []
+          },
+          "expected_sounding_mask": 145
+        }
+      ],
+      "events": 210
+    },
+    {
+      "id": 2037,
+      "bars": 128,
+      "melody": 0,
+      "dialog": 0,
+      "outputs_pitch_classes": {
+        "0": [
+          0,
+          2,
+          4,
+          5,
+          7,
+          9,
+          10
+        ],
+        "6": [
+          0,
+          9,
+          10
+        ],
+        "3": [
+          0,
+          8,
+          9,
+          10,
+          11
+        ],
+        "4": [
+          0,
+          2,
+          4,
+          5,
+          7,
+          9,
+          10
+        ],
+        "5": [
+          0,
+          2,
+          4,
+          5,
+          7,
+          9,
+          10
+        ],
+        "2": [
+          0,
+          9,
+          10
+        ]
+      },
+      "melodic_nonchord_attacks": {},
+      "slot_boundaries": [
+        {
+          "bar": 0,
+          "root": 0,
+          "type": "Maj",
+          "bass": 0,
+          "expected_mask": 145,
+          "actual_sounding_classes": {
+            "pad": [
+              0,
+              4,
+              7
+            ],
+            "arp": [
+              0,
+              4,
+              7
+            ],
+            "bass": [
+              0,
+              9
+            ],
+            "dialog": [],
+            "melody": []
+          },
+          "expected_sounding_mask": 145
+        },
+        {
+          "bar": 2,
+          "root": 10,
+          "type": "Maj",
+          "bass": 10,
+          "expected_mask": 1060,
+          "actual_sounding_classes": {
+            "pad": [
+              2,
+              5,
+              10
+            ],
+            "arp": [
+              2,
+              5,
+              10
+            ],
+            "bass": [
+              8,
+              10
+            ],
+            "dialog": [],
+            "melody": []
+          },
+          "expected_sounding_mask": 1060
+        },
+        {
+          "bar": 4,
+          "root": 5,
+          "type": "Maj",
+          "bass": 9,
+          "expected_mask": 545,
+          "actual_sounding_classes": {
+            "pad": [
+              0,
+              5,
+              9
+            ],
+            "arp": [
+              0,
+              5,
+              9
+            ],
+            "bass": [
+              9,
+              11
+            ],
+            "dialog": [],
+            "melody": []
+          },
+          "expected_sounding_mask": 545
+        },
+        {
+          "bar": 6,
+          "root": 0,
+          "type": "Sus2",
+          "bass": 0,
+          "expected_mask": 133,
+          "actual_sounding_classes": {
+            "pad": [
+              0,
+              2,
+              7
+            ],
+            "arp": [
+              0,
+              2,
+              7
+            ],
+            "bass": [
+              0,
+              11
+            ],
+            "dialog": [],
+            "melody": []
+          },
+          "expected_sounding_mask": 133
+        },
+        {
+          "bar": 7,
+          "root": 0,
+          "type": "Maj",
+          "bass": 0,
+          "expected_mask": 145,
+          "actual_sounding_classes": {
+            "pad": [
+              0,
+              4,
+              7
+            ],
+            "arp": [
+              0,
+              4,
+              7
+            ],
+            "bass": [
+              0,
+              11
+            ],
+            "dialog": [],
+            "melody": []
+          },
+          "expected_sounding_mask": 145
+        }
+      ],
+      "events": 5220
+    },
+    {
+      "id": 2037,
+      "bars": 128,
+      "melody": 0,
+      "dialog": 1,
+      "outputs_pitch_classes": {
+        "0": [
+          0,
+          2,
+          4,
+          5,
+          7,
+          9,
+          10
+        ],
+        "6": [
+          0,
+          9,
+          10
+        ],
+        "3": [
+          0,
+          8,
+          9,
+          10,
+          11
+        ],
+        "4": [
+          0,
+          2,
+          4,
+          5,
+          7,
+          9,
+          10
+        ],
+        "7": [
+          0,
+          2,
+          4,
+          5,
+          7,
+          9,
+          10
+        ],
+        "5": [
+          0,
+          2,
+          4,
+          5,
+          7,
+          9,
+          10
+        ],
+        "2": [
+          0,
+          9,
+          10
+        ]
+      },
+      "melodic_nonchord_attacks": {},
+      "slot_boundaries": [
+        {
+          "bar": 0,
+          "root": 0,
+          "type": "Maj",
+          "bass": 0,
+          "expected_mask": 145,
+          "actual_sounding_classes": {
+            "pad": [
+              0,
+              4,
+              7
+            ],
+            "arp": [
+              0,
+              4,
+              7
+            ],
+            "bass": [
+              0,
+              9
+            ],
+            "dialog": [
+              0,
+              4,
+              7
+            ],
+            "melody": []
+          },
+          "expected_sounding_mask": 145
+        },
+        {
+          "bar": 2,
+          "root": 10,
+          "type": "Maj",
+          "bass": 10,
+          "expected_mask": 1060,
+          "actual_sounding_classes": {
+            "pad": [
+              2,
+              5,
+              10
+            ],
+            "arp": [
+              2,
+              5,
+              10
+            ],
+            "bass": [
+              8,
+              10
+            ],
+            "dialog": [
+              2,
+              4,
+              5,
+              10
+            ],
+            "melody": []
+          },
+          "expected_sounding_mask": 1060
+        },
+        {
+          "bar": 4,
+          "root": 5,
+          "type": "Maj",
+          "bass": 9,
+          "expected_mask": 545,
+          "actual_sounding_classes": {
+            "pad": [
+              0,
+              5,
+              9
+            ],
+            "arp": [
+              0,
+              5,
+              9
+            ],
+            "bass": [
+              9,
+              11
+            ],
+            "dialog": [
+              0,
+              2,
+              5,
+              9
+            ],
+            "melody": []
+          },
+          "expected_sounding_mask": 545
+        },
+        {
+          "bar": 6,
+          "root": 0,
+          "type": "Sus2",
+          "bass": 0,
+          "expected_mask": 133,
+          "actual_sounding_classes": {
+            "pad": [
+              0,
+              2,
+              7
+            ],
+            "arp": [
+              0,
+              2,
+              7
+            ],
+            "bass": [
+              0,
+              11
+            ],
+            "dialog": [
+              0,
+              2,
+              7,
+              9
+            ],
+            "melody": []
+          },
+          "expected_sounding_mask": 133
+        },
+        {
+          "bar": 7,
+          "root": 0,
+          "type": "Maj",
+          "bass": 0,
+          "expected_mask": 145,
+          "actual_sounding_classes": {
+            "pad": [
+              0,
+              4,
+              7
+            ],
+            "arp": [
+              0,
+              4,
+              7
+            ],
+            "bass": [
+              0,
+              11
+            ],
+            "dialog": [
+              0,
+              2,
+              4,
+              7
+            ],
+            "melody": []
+          },
+          "expected_sounding_mask": 145
+        }
+      ],
+      "events": 7268
+    },
+    {
+      "id": 2037,
+      "bars": 128,
+      "melody": 1,
+      "dialog": 0,
+      "outputs_pitch_classes": {
+        "0": [
+          0,
+          2,
+          4,
+          5,
+          7,
+          9,
+          10
+        ],
+        "6": [
+          0,
+          9,
+          10
+        ],
+        "3": [
+          0,
+          8,
+          9,
+          10,
+          11
+        ],
+        "4": [
+          0,
+          2,
+          4,
+          5,
+          7,
+          9,
+          10
+        ],
+        "5": [
+          0,
+          2,
+          4,
+          5,
+          7,
+          9,
+          10
+        ],
+        "2": [
+          0,
+          9,
+          10
+        ]
+      },
+      "melodic_nonchord_attacks": {},
+      "slot_boundaries": [
+        {
+          "bar": 0,
+          "root": 0,
+          "type": "Maj",
+          "bass": 0,
+          "expected_mask": 145,
+          "actual_sounding_classes": {
+            "pad": [
+              0,
+              4,
+              7
+            ],
+            "arp": [
+              0,
+              4,
+              7
+            ],
+            "bass": [
+              0,
+              9
+            ],
+            "dialog": [],
+            "melody": []
+          },
+          "expected_sounding_mask": 145
+        },
+        {
+          "bar": 2,
+          "root": 10,
+          "type": "Maj",
+          "bass": 10,
+          "expected_mask": 1060,
+          "actual_sounding_classes": {
+            "pad": [
+              2,
+              5,
+              10
+            ],
+            "arp": [
+              2,
+              5,
+              10
+            ],
+            "bass": [
+              8,
+              10
+            ],
+            "dialog": [],
+            "melody": []
+          },
+          "expected_sounding_mask": 1060
+        },
+        {
+          "bar": 4,
+          "root": 5,
+          "type": "Maj",
+          "bass": 9,
+          "expected_mask": 545,
+          "actual_sounding_classes": {
+            "pad": [
+              0,
+              5,
+              9
+            ],
+            "arp": [
+              0,
+              5,
+              9
+            ],
+            "bass": [
+              9,
+              11
+            ],
+            "dialog": [],
+            "melody": []
+          },
+          "expected_sounding_mask": 545
+        },
+        {
+          "bar": 6,
+          "root": 0,
+          "type": "Sus2",
+          "bass": 0,
+          "expected_mask": 133,
+          "actual_sounding_classes": {
+            "pad": [
+              0,
+              2,
+              7
+            ],
+            "arp": [
+              0,
+              2,
+              7
+            ],
+            "bass": [
+              0,
+              11
+            ],
+            "dialog": [],
+            "melody": []
+          },
+          "expected_sounding_mask": 133
+        },
+        {
+          "bar": 7,
+          "root": 0,
+          "type": "Maj",
+          "bass": 0,
+          "expected_mask": 145,
+          "actual_sounding_classes": {
+            "pad": [
+              0,
+              4,
+              7
+            ],
+            "arp": [
+              0,
+              4,
+              7
+            ],
+            "bass": [
+              0,
+              11
+            ],
+            "dialog": [],
+            "melody": []
+          },
+          "expected_sounding_mask": 145
+        }
+      ],
+      "events": 5220
+    },
+    {
+      "id": 2037,
+      "bars": 128,
+      "melody": 1,
+      "dialog": 1,
+      "outputs_pitch_classes": {
+        "0": [
+          0,
+          2,
+          4,
+          5,
+          7,
+          9,
+          10
+        ],
+        "6": [
+          0,
+          9,
+          10
+        ],
+        "3": [
+          0,
+          8,
+          9,
+          10,
+          11
+        ],
+        "4": [
+          0,
+          2,
+          4,
+          5,
+          7,
+          9,
+          10
+        ],
+        "7": [
+          0,
+          2,
+          4,
+          5,
+          7,
+          9,
+          10
+        ],
+        "5": [
+          0,
+          2,
+          4,
+          5,
+          7,
+          9,
+          10
+        ],
+        "2": [
+          0,
+          9,
+          10
+        ]
+      },
+      "melodic_nonchord_attacks": {},
+      "slot_boundaries": [
+        {
+          "bar": 0,
+          "root": 0,
+          "type": "Maj",
+          "bass": 0,
+          "expected_mask": 145,
+          "actual_sounding_classes": {
+            "pad": [
+              0,
+              4,
+              7
+            ],
+            "arp": [
+              0,
+              4,
+              7
+            ],
+            "bass": [
+              0,
+              9
+            ],
+            "dialog": [
+              0,
+              4,
+              7
+            ],
+            "melody": []
+          },
+          "expected_sounding_mask": 145
+        },
+        {
+          "bar": 2,
+          "root": 10,
+          "type": "Maj",
+          "bass": 10,
+          "expected_mask": 1060,
+          "actual_sounding_classes": {
+            "pad": [
+              2,
+              5,
+              10
+            ],
+            "arp": [
+              2,
+              5,
+              10
+            ],
+            "bass": [
+              8,
+              10
+            ],
+            "dialog": [
+              2,
+              4,
+              5,
+              10
+            ],
+            "melody": []
+          },
+          "expected_sounding_mask": 1060
+        },
+        {
+          "bar": 4,
+          "root": 5,
+          "type": "Maj",
+          "bass": 9,
+          "expected_mask": 545,
+          "actual_sounding_classes": {
+            "pad": [
+              0,
+              5,
+              9
+            ],
+            "arp": [
+              0,
+              5,
+              9
+            ],
+            "bass": [
+              9,
+              11
+            ],
+            "dialog": [
+              0,
+              2,
+              5,
+              9
+            ],
+            "melody": []
+          },
+          "expected_sounding_mask": 545
+        },
+        {
+          "bar": 6,
+          "root": 0,
+          "type": "Sus2",
+          "bass": 0,
+          "expected_mask": 133,
+          "actual_sounding_classes": {
+            "pad": [
+              0,
+              2,
+              7
+            ],
+            "arp": [
+              0,
+              2,
+              7
+            ],
+            "bass": [
+              0,
+              11
+            ],
+            "dialog": [
+              0,
+              2,
+              7,
+              9
+            ],
+            "melody": []
+          },
+          "expected_sounding_mask": 133
+        },
+        {
+          "bar": 7,
+          "root": 0,
+          "type": "Maj",
+          "bass": 0,
+          "expected_mask": 145,
+          "actual_sounding_classes": {
+            "pad": [
+              0,
+              4,
+              7
+            ],
+            "arp": [
+              0,
+              4,
+              7
+            ],
+            "bass": [
+              0,
+              11
+            ],
+            "dialog": [
+              0,
+              2,
+              4,
+              7
+            ],
+            "melody": []
+          },
+          "expected_sounding_mask": 145
+        }
+      ],
+      "events": 7268
+    },
+    {
+      "id": 2037,
+      "bars": 32,
+      "z": 0.95,
+      "y": 0.8,
+      "melody": 1,
+      "dialog": 1,
+      "outputs_pitch_classes": {
+        "0": [
+          0,
+          2,
+          4,
+          5,
+          7,
+          9,
+          10
+        ],
+        "6": [
+          0,
+          9,
+          10
+        ],
+        "3": [
+          0,
+          8,
+          9,
+          10,
+          11
+        ],
+        "4": [
+          0,
+          2,
+          4,
+          5,
+          7,
+          9,
+          10
+        ],
+        "7": [
+          0,
+          4,
+          5,
+          7,
+          9,
+          10,
+          11
+        ],
+        "5": [
+          0,
+          2,
+          4,
+          5,
+          7,
+          9,
+          10
+        ],
+        "2": [
+          0,
+          9,
+          10
+        ]
+      },
+      "melodic_nonchord_attacks": {
+        "7": 32
+      },
+      "slot_boundaries": [
+        {
+          "bar": 0,
+          "root": 0,
+          "type": "Maj",
+          "bass": 0,
+          "expected_mask": 145,
+          "actual_sounding_classes": {
+            "pad": [
+              0,
+              4,
+              7
+            ],
+            "arp": [
+              0,
+              4,
+              7
+            ],
+            "bass": [
+              0,
+              9
+            ],
+            "dialog": [
+              0,
+              7,
+              11
+            ],
+            "melody": []
+          },
+          "expected_sounding_mask": 145
+        },
+        {
+          "bar": 2,
+          "root": 10,
+          "type": "Maj",
+          "bass": 10,
+          "expected_mask": 1060,
+          "actual_sounding_classes": {
+            "pad": [
+              2,
+              5,
+              10
+            ],
+            "arp": [
+              2,
+              5,
+              10
+            ],
+            "bass": [
+              8,
+              10
+            ],
+            "dialog": [
+              5,
+              9,
+              10,
+              11
+            ],
+            "melody": []
+          },
+          "expected_sounding_mask": 1060
+        },
+        {
+          "bar": 4,
+          "root": 5,
+          "type": "Maj",
+          "bass": 9,
+          "expected_mask": 545,
+          "actual_sounding_classes": {
+            "pad": [
+              0,
+              5,
+              9
+            ],
+            "arp": [
+              0,
+              5,
+              9
+            ],
+            "bass": [
+              9,
+              11
+            ],
+            "dialog": [
+              0,
+              4,
+              5,
+              9
+            ],
+            "melody": []
+          },
+          "expected_sounding_mask": 545
+        },
+        {
+          "bar": 6,
+          "root": 0,
+          "type": "Sus2",
+          "bass": 0,
+          "expected_mask": 133,
+          "actual_sounding_classes": {
+            "pad": [
+              0,
+              2,
+              7
+            ],
+            "arp": [
+              0,
+              2,
+              7
+            ],
+            "bass": [
+              0,
+              11
+            ],
+            "dialog": [
+              0,
+              4,
+              7,
+              11
+            ],
+            "melody": []
+          },
+          "expected_sounding_mask": 133
+        },
+        {
+          "bar": 7,
+          "root": 0,
+          "type": "Maj",
+          "bass": 0,
+          "expected_mask": 145,
+          "actual_sounding_classes": {
+            "pad": [
+              0,
+              4,
+              7
+            ],
+            "arp": [
+              0,
+              4,
+              7
+            ],
+            "bass": [
+              0,
+              11
+            ],
+            "dialog": [
+              0,
+              7,
+              11
+            ],
+            "melody": []
+          },
+          "expected_sounding_mask": 145
+        }
+      ],
+      "events": 1898
+    },
+    {
+      "id": 2038,
+      "z": 0.95,
+      "y": 0.65,
+      "manual": 0,
+      "outputs_pitch_classes": {
+        "0": [
+          0,
+          2,
+          3,
+          5,
+          7,
+          9,
+          10
+        ],
+        "6": [
+          0,
+          9,
+          10
+        ],
+        "3": [
+          0,
+          8,
+          9,
+          10,
+          11
+        ],
+        "4": [
+          0,
+          2,
+          3,
+          5,
+          7,
+          9,
+          10
+        ],
+        "5": [
+          0
+        ]
+      },
+      "melodic_nonchord_attacks": {},
+      "slot_boundaries": [
+        {
+          "bar": 0,
+          "root": 0,
+          "type": "Min7",
+          "bass": 0,
+          "expected_mask": 1161,
+          "actual_sounding_classes": {
+            "pad": [
+              0,
+              3,
+              7,
+              10
+            ],
+            "arp": [
+              0,
+              3,
+              7,
+              10
+            ],
+            "bass": [
+              0,
+              11
+            ],
+            "dialog": [],
+            "melody": []
+          },
+          "expected_sounding_mask": 1161
+        },
+        {
+          "bar": 2,
+          "root": 5,
+          "type": "Maj",
+          "bass": 0,
+          "expected_mask": 545,
+          "actual_sounding_classes": {
+            "pad": [
+              0,
+              5,
+              9
+            ],
+            "arp": [
+              0,
+              5,
+              9
+            ],
+            "bass": [
+              0,
+              11
+            ],
+            "dialog": [],
+            "melody": []
+          },
+          "expected_sounding_mask": 545
+        },
+        {
+          "bar": 4,
+          "root": 0,
+          "type": "Min7",
+          "bass": 0,
+          "expected_mask": 1161,
+          "actual_sounding_classes": {
+            "pad": [
+              0,
+              3,
+              7,
+              10
+            ],
+            "arp": [
+              0,
+              3,
+              7,
+              10
+            ],
+            "bass": [
+              0,
+              8
+            ],
+            "dialog": [],
+            "melody": []
+          },
+          "expected_sounding_mask": 1161
+        },
+        {
+          "bar": 6,
+          "root": 5,
+          "type": "Maj",
+          "bass": 9,
+          "expected_mask": 545,
+          "actual_sounding_classes": {
+            "pad": [
+              0,
+              5,
+              9
+            ],
+            "arp": [
+              0,
+              5,
+              9
+            ],
+            "bass": [
+              9
+            ],
+            "dialog": [],
+            "melody": []
+          },
+          "expected_sounding_mask": 545
+        },
+        {
+          "bar": 7,
+          "root": 10,
+          "type": "Maj",
+          "bass": 10,
+          "expected_mask": 1060,
+          "actual_sounding_classes": {
+            "pad": [
+              2,
+              5,
+              10
+            ],
+            "arp": [
+              2,
+              5,
+              10
+            ],
+            "bass": [
+              10,
+              11
+            ],
+            "dialog": [],
+            "melody": []
+          },
+          "expected_sounding_mask": 1060
+        }
+      ],
+      "events": 408
+    },
+    {
+      "id": 2038,
+      "z": 0.95,
+      "y": 0.65,
+      "manual": 1,
+      "outputs_pitch_classes": {
+        "0": [
+          0,
+          2,
+          3,
+          5,
+          7,
+          9,
+          10
+        ],
+        "2": [
+          0,
+          9,
+          10
+        ],
+        "6": [
+          0,
+          9,
+          10
+        ],
+        "4": [
+          0,
+          2,
+          3,
+          5,
+          7,
+          9,
+          10
+        ],
+        "5": [
+          0
+        ]
+      },
+      "melodic_nonchord_attacks": {},
+      "slot_boundaries": [
+        {
+          "bar": 0,
+          "root": 0,
+          "type": "Min7",
+          "bass": 0,
+          "expected_mask": 1161,
+          "actual_sounding_classes": {
+            "pad": [
+              0,
+              3,
+              7,
+              10
+            ],
+            "arp": [
+              0,
+              3,
+              7,
+              10
+            ],
+            "bass": [
+              0
+            ],
+            "dialog": [],
+            "melody": []
+          },
+          "expected_sounding_mask": 1161
+        },
+        {
+          "bar": 2,
+          "root": 5,
+          "type": "Maj",
+          "bass": 0,
+          "expected_mask": 545,
+          "actual_sounding_classes": {
+            "pad": [
+              0,
+              5,
+              9
+            ],
+            "arp": [
+              0,
+              5,
+              9
+            ],
+            "bass": [
+              0
+            ],
+            "dialog": [],
+            "melody": []
+          },
+          "expected_sounding_mask": 545
+        },
+        {
+          "bar": 4,
+          "root": 0,
+          "type": "Min7",
+          "bass": 0,
+          "expected_mask": 1161,
+          "actual_sounding_classes": {
+            "pad": [
+              0,
+              3,
+              7,
+              10
+            ],
+            "arp": [
+              0,
+              3,
+              7,
+              10
+            ],
+            "bass": [
+              0
+            ],
+            "dialog": [],
+            "melody": []
+          },
+          "expected_sounding_mask": 1161
+        },
+        {
+          "bar": 6,
+          "root": 5,
+          "type": "Maj",
+          "bass": 9,
+          "expected_mask": 545,
+          "actual_sounding_classes": {
+            "pad": [
+              0,
+              5,
+              9
+            ],
+            "arp": [
+              0,
+              5,
+              9
+            ],
+            "bass": [
+              9
+            ],
+            "dialog": [],
+            "melody": []
+          },
+          "expected_sounding_mask": 545
+        },
+        {
+          "bar": 7,
+          "root": 10,
+          "type": "Maj",
+          "bass": 10,
+          "expected_mask": 1060,
+          "actual_sounding_classes": {
+            "pad": [
+              2,
+              5,
+              10
+            ],
+            "arp": [
+              2,
+              5,
+              10
+            ],
+            "bass": [
+              10
+            ],
+            "dialog": [],
+            "melody": []
+          },
+          "expected_sounding_mask": 1060
+        }
+      ],
+      "events": 216
+    },
+    {
+      "id": 2038,
+      "bars": 128,
+      "melody": 0,
+      "dialog": 0,
+      "outputs_pitch_classes": {
+        "0": [
+          0,
+          2,
+          3,
+          5,
+          7,
+          9,
+          10
+        ],
+        "6": [
+          0,
+          9,
+          10
+        ],
+        "3": [
+          0,
+          8,
+          9,
+          10,
+          11
+        ],
+        "4": [
+          0,
+          2,
+          3,
+          5,
+          7,
+          9,
+          10
+        ],
+        "5": [
+          0,
+          2,
+          3,
+          5,
+          7,
+          9,
+          10
+        ],
+        "2": [
+          0,
+          9,
+          10
+        ]
+      },
+      "melodic_nonchord_attacks": {},
+      "slot_boundaries": [
+        {
+          "bar": 0,
+          "root": 0,
+          "type": "Min7",
+          "bass": 0,
+          "expected_mask": 1161,
+          "actual_sounding_classes": {
+            "pad": [
+              0,
+              3,
+              7,
+              10
+            ],
+            "arp": [
+              0,
+              3,
+              7,
+              10
+            ],
+            "bass": [
+              0,
+              11
+            ],
+            "dialog": [],
+            "melody": []
+          },
+          "expected_sounding_mask": 1161
+        },
+        {
+          "bar": 2,
+          "root": 5,
+          "type": "Maj",
+          "bass": 0,
+          "expected_mask": 545,
+          "actual_sounding_classes": {
+            "pad": [
+              0,
+              5,
+              9
+            ],
+            "arp": [
+              0,
+              5,
+              9
+            ],
+            "bass": [
+              0,
+              11
+            ],
+            "dialog": [],
+            "melody": []
+          },
+          "expected_sounding_mask": 545
+        },
+        {
+          "bar": 4,
+          "root": 0,
+          "type": "Min7",
+          "bass": 0,
+          "expected_mask": 1161,
+          "actual_sounding_classes": {
+            "pad": [
+              0,
+              3,
+              7,
+              10
+            ],
+            "arp": [
+              0,
+              3,
+              7,
+              10
+            ],
+            "bass": [
+              0,
+              8
+            ],
+            "dialog": [],
+            "melody": []
+          },
+          "expected_sounding_mask": 1161
+        },
+        {
+          "bar": 6,
+          "root": 5,
+          "type": "Maj",
+          "bass": 9,
+          "expected_mask": 545,
+          "actual_sounding_classes": {
+            "pad": [
+              0,
+              5,
+              9
+            ],
+            "arp": [
+              0,
+              5,
+              9
+            ],
+            "bass": [
+              9
+            ],
+            "dialog": [],
+            "melody": []
+          },
+          "expected_sounding_mask": 545
+        },
+        {
+          "bar": 7,
+          "root": 10,
+          "type": "Maj",
+          "bass": 10,
+          "expected_mask": 1060,
+          "actual_sounding_classes": {
+            "pad": [
+              2,
+              5,
+              10
+            ],
+            "arp": [
+              2,
+              5,
+              10
+            ],
+            "bass": [
+              10,
+              11
+            ],
+            "dialog": [],
+            "melody": []
+          },
+          "expected_sounding_mask": 1060
+        }
+      ],
+      "events": 5374
+    },
+    {
+      "id": 2038,
+      "bars": 128,
+      "melody": 0,
+      "dialog": 1,
+      "outputs_pitch_classes": {
+        "0": [
+          0,
+          2,
+          3,
+          5,
+          7,
+          9,
+          10
+        ],
+        "6": [
+          0,
+          9,
+          10
+        ],
+        "3": [
+          0,
+          8,
+          9,
+          10,
+          11
+        ],
+        "4": [
+          0,
+          2,
+          3,
+          5,
+          7,
+          9,
+          10
+        ],
+        "7": [
+          0,
+          2,
+          3,
+          5,
+          7,
+          9,
+          10
+        ],
+        "5": [
+          0,
+          2,
+          3,
+          5,
+          7,
+          9,
+          10
+        ],
+        "2": [
+          0,
+          9,
+          10
+        ]
+      },
+      "melodic_nonchord_attacks": {},
+      "slot_boundaries": [
+        {
+          "bar": 0,
+          "root": 0,
+          "type": "Min7",
+          "bass": 0,
+          "expected_mask": 1161,
+          "actual_sounding_classes": {
+            "pad": [
+              0,
+              3,
+              7,
+              10
+            ],
+            "arp": [
+              0,
+              3,
+              7,
+              10
+            ],
+            "bass": [
+              0,
+              11
+            ],
+            "dialog": [
+              0,
+              3,
+              7
+            ],
+            "melody": []
+          },
+          "expected_sounding_mask": 1161
+        },
+        {
+          "bar": 2,
+          "root": 5,
+          "type": "Maj",
+          "bass": 0,
+          "expected_mask": 545,
+          "actual_sounding_classes": {
+            "pad": [
+              0,
+              5,
+              9
+            ],
+            "arp": [
+              0,
+              5,
+              9
+            ],
+            "bass": [
+              0,
+              11
+            ],
+            "dialog": [
+              0,
+              3,
+              5,
+              9
+            ],
+            "melody": []
+          },
+          "expected_sounding_mask": 545
+        },
+        {
+          "bar": 4,
+          "root": 0,
+          "type": "Min7",
+          "bass": 0,
+          "expected_mask": 1161,
+          "actual_sounding_classes": {
+            "pad": [
+              0,
+              3,
+              7,
+              10
+            ],
+            "arp": [
+              0,
+              3,
+              7,
+              10
+            ],
+            "bass": [
+              0,
+              8
+            ],
+            "dialog": [
+              0,
+              3,
+              7,
+              9
+            ],
+            "melody": []
+          },
+          "expected_sounding_mask": 1161
+        },
+        {
+          "bar": 6,
+          "root": 5,
+          "type": "Maj",
+          "bass": 9,
+          "expected_mask": 545,
+          "actual_sounding_classes": {
+            "pad": [
+              0,
+              5,
+              9
+            ],
+            "arp": [
+              0,
+              5,
+              9
+            ],
+            "bass": [
+              9
+            ],
+            "dialog": [
+              0,
+              3,
+              5,
+              9
+            ],
+            "melody": []
+          },
+          "expected_sounding_mask": 545
+        },
+        {
+          "bar": 7,
+          "root": 10,
+          "type": "Maj",
+          "bass": 10,
+          "expected_mask": 1060,
+          "actual_sounding_classes": {
+            "pad": [
+              2,
+              5,
+              10
+            ],
+            "arp": [
+              2,
+              5,
+              10
+            ],
+            "bass": [
+              10,
+              11
+            ],
+            "dialog": [
+              2,
+              5,
+              9,
+              10
+            ],
+            "melody": []
+          },
+          "expected_sounding_mask": 1060
+        }
+      ],
+      "events": 7422
+    },
+    {
+      "id": 2038,
+      "bars": 128,
+      "melody": 1,
+      "dialog": 0,
+      "outputs_pitch_classes": {
+        "0": [
+          0,
+          2,
+          3,
+          5,
+          7,
+          9,
+          10
+        ],
+        "6": [
+          0,
+          9,
+          10
+        ],
+        "3": [
+          0,
+          8,
+          9,
+          10,
+          11
+        ],
+        "4": [
+          0,
+          2,
+          3,
+          5,
+          7,
+          9,
+          10
+        ],
+        "5": [
+          0,
+          2,
+          3,
+          5,
+          7,
+          9,
+          10
+        ],
+        "2": [
+          0,
+          9,
+          10
+        ]
+      },
+      "melodic_nonchord_attacks": {},
+      "slot_boundaries": [
+        {
+          "bar": 0,
+          "root": 0,
+          "type": "Min7",
+          "bass": 0,
+          "expected_mask": 1161,
+          "actual_sounding_classes": {
+            "pad": [
+              0,
+              3,
+              7,
+              10
+            ],
+            "arp": [
+              0,
+              3,
+              7,
+              10
+            ],
+            "bass": [
+              0,
+              11
+            ],
+            "dialog": [],
+            "melody": []
+          },
+          "expected_sounding_mask": 1161
+        },
+        {
+          "bar": 2,
+          "root": 5,
+          "type": "Maj",
+          "bass": 0,
+          "expected_mask": 545,
+          "actual_sounding_classes": {
+            "pad": [
+              0,
+              5,
+              9
+            ],
+            "arp": [
+              0,
+              5,
+              9
+            ],
+            "bass": [
+              0,
+              11
+            ],
+            "dialog": [],
+            "melody": []
+          },
+          "expected_sounding_mask": 545
+        },
+        {
+          "bar": 4,
+          "root": 0,
+          "type": "Min7",
+          "bass": 0,
+          "expected_mask": 1161,
+          "actual_sounding_classes": {
+            "pad": [
+              0,
+              3,
+              7,
+              10
+            ],
+            "arp": [
+              0,
+              3,
+              7,
+              10
+            ],
+            "bass": [
+              0,
+              8
+            ],
+            "dialog": [],
+            "melody": []
+          },
+          "expected_sounding_mask": 1161
+        },
+        {
+          "bar": 6,
+          "root": 5,
+          "type": "Maj",
+          "bass": 9,
+          "expected_mask": 545,
+          "actual_sounding_classes": {
+            "pad": [
+              0,
+              5,
+              9
+            ],
+            "arp": [
+              0,
+              5,
+              9
+            ],
+            "bass": [
+              9
+            ],
+            "dialog": [],
+            "melody": []
+          },
+          "expected_sounding_mask": 545
+        },
+        {
+          "bar": 7,
+          "root": 10,
+          "type": "Maj",
+          "bass": 10,
+          "expected_mask": 1060,
+          "actual_sounding_classes": {
+            "pad": [
+              2,
+              5,
+              10
+            ],
+            "arp": [
+              2,
+              5,
+              10
+            ],
+            "bass": [
+              10,
+              11
+            ],
+            "dialog": [],
+            "melody": []
+          },
+          "expected_sounding_mask": 1060
+        }
+      ],
+      "events": 5374
+    },
+    {
+      "id": 2038,
+      "bars": 128,
+      "melody": 1,
+      "dialog": 1,
+      "outputs_pitch_classes": {
+        "0": [
+          0,
+          2,
+          3,
+          5,
+          7,
+          9,
+          10
+        ],
+        "6": [
+          0,
+          9,
+          10
+        ],
+        "3": [
+          0,
+          8,
+          9,
+          10,
+          11
+        ],
+        "4": [
+          0,
+          2,
+          3,
+          5,
+          7,
+          9,
+          10
+        ],
+        "7": [
+          0,
+          2,
+          3,
+          5,
+          7,
+          9,
+          10
+        ],
+        "5": [
+          0,
+          2,
+          3,
+          5,
+          7,
+          9,
+          10
+        ],
+        "2": [
+          0,
+          9,
+          10
+        ]
+      },
+      "melodic_nonchord_attacks": {},
+      "slot_boundaries": [
+        {
+          "bar": 0,
+          "root": 0,
+          "type": "Min7",
+          "bass": 0,
+          "expected_mask": 1161,
+          "actual_sounding_classes": {
+            "pad": [
+              0,
+              3,
+              7,
+              10
+            ],
+            "arp": [
+              0,
+              3,
+              7,
+              10
+            ],
+            "bass": [
+              0,
+              11
+            ],
+            "dialog": [
+              0,
+              3,
+              7
+            ],
+            "melody": []
+          },
+          "expected_sounding_mask": 1161
+        },
+        {
+          "bar": 2,
+          "root": 5,
+          "type": "Maj",
+          "bass": 0,
+          "expected_mask": 545,
+          "actual_sounding_classes": {
+            "pad": [
+              0,
+              5,
+              9
+            ],
+            "arp": [
+              0,
+              5,
+              9
+            ],
+            "bass": [
+              0,
+              11
+            ],
+            "dialog": [
+              0,
+              3,
+              5,
+              9
+            ],
+            "melody": []
+          },
+          "expected_sounding_mask": 545
+        },
+        {
+          "bar": 4,
+          "root": 0,
+          "type": "Min7",
+          "bass": 0,
+          "expected_mask": 1161,
+          "actual_sounding_classes": {
+            "pad": [
+              0,
+              3,
+              7,
+              10
+            ],
+            "arp": [
+              0,
+              3,
+              7,
+              10
+            ],
+            "bass": [
+              0,
+              8
+            ],
+            "dialog": [
+              0,
+              3,
+              7,
+              9
+            ],
+            "melody": []
+          },
+          "expected_sounding_mask": 1161
+        },
+        {
+          "bar": 6,
+          "root": 5,
+          "type": "Maj",
+          "bass": 9,
+          "expected_mask": 545,
+          "actual_sounding_classes": {
+            "pad": [
+              0,
+              5,
+              9
+            ],
+            "arp": [
+              0,
+              5,
+              9
+            ],
+            "bass": [
+              9
+            ],
+            "dialog": [
+              0,
+              3,
+              5,
+              9
+            ],
+            "melody": []
+          },
+          "expected_sounding_mask": 545
+        },
+        {
+          "bar": 7,
+          "root": 10,
+          "type": "Maj",
+          "bass": 10,
+          "expected_mask": 1060,
+          "actual_sounding_classes": {
+            "pad": [
+              2,
+              5,
+              10
+            ],
+            "arp": [
+              2,
+              5,
+              10
+            ],
+            "bass": [
+              10,
+              11
+            ],
+            "dialog": [
+              2,
+              5,
+              9,
+              10
+            ],
+            "melody": []
+          },
+          "expected_sounding_mask": 1060
+        }
+      ],
+      "events": 7422
+    },
+    {
+      "id": 2038,
+      "bars": 32,
+      "z": 0.95,
+      "y": 0.8,
+      "melody": 1,
+      "dialog": 1,
+      "outputs_pitch_classes": {
+        "0": [
+          0,
+          2,
+          3,
+          5,
+          7,
+          9,
+          10
+        ],
+        "6": [
+          0,
+          9,
+          10
+        ],
+        "3": [
+          0,
+          8,
+          9,
+          10,
+          11
+        ],
+        "4": [
+          0,
+          2,
+          3,
+          5,
+          7,
+          9,
+          10
+        ],
+        "7": [
+          0,
+          4,
+          5,
+          7,
+          9,
+          10,
+          11
+        ],
+        "5": [
+          0,
+          2,
+          3,
+          5,
+          7,
+          9
+        ],
+        "2": [
+          0,
+          9,
+          10
+        ]
+      },
+      "melodic_nonchord_attacks": {
+        "7": 32
+      },
+      "slot_boundaries": [
+        {
+          "bar": 0,
+          "root": 0,
+          "type": "Min7",
+          "bass": 0,
+          "expected_mask": 1161,
+          "actual_sounding_classes": {
+            "pad": [
+              0,
+              3,
+              7,
+              10
+            ],
+            "arp": [
+              0,
+              3,
+              7,
+              10
+            ],
+            "bass": [
+              0,
+              11
+            ],
+            "dialog": [
+              0,
+              7,
+              11
+            ],
+            "melody": []
+          },
+          "expected_sounding_mask": 1161
+        },
+        {
+          "bar": 2,
+          "root": 5,
+          "type": "Maj",
+          "bass": 0,
+          "expected_mask": 545,
+          "actual_sounding_classes": {
+            "pad": [
+              0,
+              5,
+              9
+            ],
+            "arp": [
+              0,
+              5,
+              9
+            ],
+            "bass": [
+              0,
+              11
+            ],
+            "dialog": [
+              0,
+              4,
+              5,
+              11
+            ],
+            "melody": []
+          },
+          "expected_sounding_mask": 545
+        },
+        {
+          "bar": 4,
+          "root": 0,
+          "type": "Min7",
+          "bass": 0,
+          "expected_mask": 1161,
+          "actual_sounding_classes": {
+            "pad": [
+              0,
+              3,
+              7,
+              10
+            ],
+            "arp": [
+              0,
+              3,
+              7,
+              10
+            ],
+            "bass": [
+              0,
+              8
+            ],
+            "dialog": [
+              0,
+              4,
+              7,
+              11
+            ],
+            "melody": []
+          },
+          "expected_sounding_mask": 1161
+        },
+        {
+          "bar": 6,
+          "root": 5,
+          "type": "Maj",
+          "bass": 9,
+          "expected_mask": 545,
+          "actual_sounding_classes": {
+            "pad": [
+              0,
+              5,
+              9
+            ],
+            "arp": [
+              0,
+              5,
+              9
+            ],
+            "bass": [
+              9
+            ],
+            "dialog": [
+              0,
+              4,
+              5,
+              11
+            ],
+            "melody": []
+          },
+          "expected_sounding_mask": 545
+        },
+        {
+          "bar": 7,
+          "root": 10,
+          "type": "Maj",
+          "bass": 10,
+          "expected_mask": 1060,
+          "actual_sounding_classes": {
+            "pad": [
+              2,
+              5,
+              10
+            ],
+            "arp": [
+              2,
+              5,
+              10
+            ],
+            "bass": [
+              10,
+              11
+            ],
+            "dialog": [
+              4,
+              5,
+              9,
+              10
+            ],
+            "melody": []
+          },
+          "expected_sounding_mask": 1060
+        }
+      ],
+      "events": 1940
+    },
+    {
+      "id": 2039,
+      "z": 0.95,
+      "y": 0.65,
+      "manual": 0,
+      "outputs_pitch_classes": {
+        "0": [
+          0,
+          3,
+          5,
+          7,
+          8,
+          10
+        ],
+        "6": [
+          0,
+          8,
+          10
+        ],
+        "3": [
+          0,
+          7,
+          8,
+          9,
+          10,
+          11
+        ],
+        "4": [
+          0,
+          3,
+          5,
+          7,
+          8,
+          10
+        ],
+        "5": [
+          0,
+          8
+        ]
+      },
+      "melodic_nonchord_attacks": {},
+      "slot_boundaries": [
+        {
+          "bar": 0,
+          "root": 0,
+          "type": "Fifth",
+          "bass": 0,
+          "expected_mask": 129,
+          "actual_sounding_classes": {
+            "pad": [
+              0,
+              7
+            ],
+            "arp": [
+              0,
+              7
+            ],
+            "bass": [
+              0,
+              7
+            ],
+            "dialog": [],
+            "melody": []
+          },
+          "expected_sounding_mask": 129
+        },
+        {
+          "bar": 6,
+          "root": 8,
+          "type": "Fifth",
+          "bass": 8,
+          "expected_mask": 264,
+          "actual_sounding_classes": {
+            "pad": [
+              3,
+              8
+            ],
+            "arp": [
+              3,
+              8
+            ],
+            "bass": [
+              8,
+              9
+            ],
+            "dialog": [],
+            "melody": []
+          },
+          "expected_sounding_mask": 264
+        },
+        {
+          "bar": 7,
+          "root": 10,
+          "type": "Fifth",
+          "bass": 10,
+          "expected_mask": 1056,
+          "actual_sounding_classes": {
+            "pad": [
+              5,
+              10
+            ],
+            "arp": [
+              5,
+              10
+            ],
+            "bass": [
+              10,
+              11
+            ],
+            "dialog": [],
+            "melody": []
+          },
+          "expected_sounding_mask": 1056
+        }
+      ],
+      "events": 388
+    },
+    {
+      "id": 2039,
+      "z": 0.95,
+      "y": 0.65,
+      "manual": 1,
+      "outputs_pitch_classes": {
+        "0": [
+          0,
+          3,
+          5,
+          7,
+          8,
+          10
+        ],
+        "2": [
+          0,
+          8,
+          10
+        ],
+        "6": [
+          0,
+          8,
+          10
+        ],
+        "4": [
+          0,
+          3,
+          5,
+          7,
+          8,
+          10
+        ],
+        "5": [
+          0,
+          8
+        ]
+      },
+      "melodic_nonchord_attacks": {},
+      "slot_boundaries": [
+        {
+          "bar": 0,
+          "root": 0,
+          "type": "Fifth",
+          "bass": 0,
+          "expected_mask": 129,
+          "actual_sounding_classes": {
+            "pad": [
+              0,
+              7
+            ],
+            "arp": [
+              0,
+              7
+            ],
+            "bass": [
+              0
+            ],
+            "dialog": [],
+            "melody": []
+          },
+          "expected_sounding_mask": 129
+        },
+        {
+          "bar": 6,
+          "root": 8,
+          "type": "Fifth",
+          "bass": 8,
+          "expected_mask": 264,
+          "actual_sounding_classes": {
+            "pad": [
+              3,
+              8
+            ],
+            "arp": [
+              3,
+              8
+            ],
+            "bass": [
+              8
+            ],
+            "dialog": [],
+            "melody": []
+          },
+          "expected_sounding_mask": 264
+        },
+        {
+          "bar": 7,
+          "root": 10,
+          "type": "Fifth",
+          "bass": 10,
+          "expected_mask": 1056,
+          "actual_sounding_classes": {
+            "pad": [
+              5,
+              10
+            ],
+            "arp": [
+              5,
+              10
+            ],
+            "bass": [
+              10
+            ],
+            "dialog": [],
+            "melody": []
+          },
+          "expected_sounding_mask": 1056
+        }
+      ],
+      "events": 196
+    },
+    {
+      "id": 2039,
+      "bars": 128,
+      "melody": 0,
+      "dialog": 0,
+      "outputs_pitch_classes": {
+        "0": [
+          0,
+          3,
+          5,
+          7,
+          8,
+          10
+        ],
+        "6": [
+          0,
+          8,
+          10
+        ],
+        "3": [
+          0,
+          8,
+          10
+        ],
+        "4": [
+          0,
+          3,
+          5,
+          7,
+          8,
+          10
+        ],
+        "5": [
+          0,
+          3,
+          5,
+          7,
+          8,
+          10
+        ]
+      },
+      "melodic_nonchord_attacks": {},
+      "slot_boundaries": [
+        {
+          "bar": 0,
+          "root": 0,
+          "type": "Fifth",
+          "bass": 0,
+          "expected_mask": 129,
+          "actual_sounding_classes": {
+            "pad": [
+              0,
+              7
+            ],
+            "arp": [
+              0,
+              7
+            ],
+            "bass": [
+              0
+            ],
+            "dialog": [],
+            "melody": []
+          },
+          "expected_sounding_mask": 129
+        },
+        {
+          "bar": 6,
+          "root": 8,
+          "type": "Fifth",
+          "bass": 8,
+          "expected_mask": 264,
+          "actual_sounding_classes": {
+            "pad": [
+              3,
+              8
+            ],
+            "arp": [
+              3,
+              8
+            ],
+            "bass": [
+              8
+            ],
+            "dialog": [],
+            "melody": []
+          },
+          "expected_sounding_mask": 264
+        },
+        {
+          "bar": 7,
+          "root": 10,
+          "type": "Fifth",
+          "bass": 10,
+          "expected_mask": 1056,
+          "actual_sounding_classes": {
+            "pad": [
+              5,
+              10
+            ],
+            "arp": [
+              5,
+              10
+            ],
+            "bass": [
+              10
+            ],
+            "dialog": [],
+            "melody": []
+          },
+          "expected_sounding_mask": 1056
+        }
+      ],
+      "events": 7054
+    },
+    {
+      "id": 2039,
+      "bars": 128,
+      "melody": 0,
+      "dialog": 1,
+      "outputs_pitch_classes": {
+        "0": [
+          0,
+          3,
+          5,
+          7,
+          8,
+          10
+        ],
+        "6": [
+          0,
+          8,
+          10
+        ],
+        "3": [
+          0,
+          8,
+          10
+        ],
+        "4": [
+          0,
+          3,
+          5,
+          7,
+          8,
+          10
+        ],
+        "7": [
+          0,
+          3,
+          5,
+          7,
+          8,
+          10
+        ],
+        "5": [
+          0,
+          3,
+          5,
+          7,
+          8,
+          10
+        ]
+      },
+      "melodic_nonchord_attacks": {},
+      "slot_boundaries": [
+        {
+          "bar": 0,
+          "root": 0,
+          "type": "Fifth",
+          "bass": 0,
+          "expected_mask": 129,
+          "actual_sounding_classes": {
+            "pad": [
+              0,
+              7
+            ],
+            "arp": [
+              0,
+              7
+            ],
+            "bass": [
+              0
+            ],
+            "dialog": [
+              0,
+              7
+            ],
+            "melody": []
+          },
+          "expected_sounding_mask": 129
+        },
+        {
+          "bar": 6,
+          "root": 8,
+          "type": "Fifth",
+          "bass": 8,
+          "expected_mask": 264,
+          "actual_sounding_classes": {
+            "pad": [
+              3,
+              8
+            ],
+            "arp": [
+              3,
+              8
+            ],
+            "bass": [
+              8
+            ],
+            "dialog": [
+              3,
+              7,
+              8
+            ],
+            "melody": []
+          },
+          "expected_sounding_mask": 264
+        },
+        {
+          "bar": 7,
+          "root": 10,
+          "type": "Fifth",
+          "bass": 10,
+          "expected_mask": 1056,
+          "actual_sounding_classes": {
+            "pad": [
+              5,
+              10
+            ],
+            "arp": [
+              5,
+              10
+            ],
+            "bass": [
+              10
+            ],
+            "dialog": [
+              3,
+              5,
+              10
+            ],
+            "melody": []
+          },
+          "expected_sounding_mask": 1056
+        }
+      ],
+      "events": 9102
+    },
+    {
+      "id": 2039,
+      "bars": 128,
+      "melody": 1,
+      "dialog": 0,
+      "outputs_pitch_classes": {
+        "0": [
+          0,
+          3,
+          5,
+          7,
+          8,
+          10
+        ],
+        "6": [
+          0,
+          8,
+          10
+        ],
+        "3": [
+          0,
+          8,
+          10
+        ],
+        "4": [
+          0,
+          3,
+          5,
+          7,
+          8,
+          10
+        ],
+        "5": [
+          0,
+          3,
+          5,
+          7,
+          8,
+          10
+        ]
+      },
+      "melodic_nonchord_attacks": {},
+      "slot_boundaries": [
+        {
+          "bar": 0,
+          "root": 0,
+          "type": "Fifth",
+          "bass": 0,
+          "expected_mask": 129,
+          "actual_sounding_classes": {
+            "pad": [
+              0,
+              7
+            ],
+            "arp": [
+              0,
+              7
+            ],
+            "bass": [
+              0
+            ],
+            "dialog": [],
+            "melody": []
+          },
+          "expected_sounding_mask": 129
+        },
+        {
+          "bar": 6,
+          "root": 8,
+          "type": "Fifth",
+          "bass": 8,
+          "expected_mask": 264,
+          "actual_sounding_classes": {
+            "pad": [
+              3,
+              8
+            ],
+            "arp": [
+              3,
+              8
+            ],
+            "bass": [
+              8
+            ],
+            "dialog": [],
+            "melody": []
+          },
+          "expected_sounding_mask": 264
+        },
+        {
+          "bar": 7,
+          "root": 10,
+          "type": "Fifth",
+          "bass": 10,
+          "expected_mask": 1056,
+          "actual_sounding_classes": {
+            "pad": [
+              5,
+              10
+            ],
+            "arp": [
+              5,
+              10
+            ],
+            "bass": [
+              10
+            ],
+            "dialog": [],
+            "melody": []
+          },
+          "expected_sounding_mask": 1056
+        }
+      ],
+      "events": 7054
+    },
+    {
+      "id": 2039,
+      "bars": 128,
+      "melody": 1,
+      "dialog": 1,
+      "outputs_pitch_classes": {
+        "0": [
+          0,
+          3,
+          5,
+          7,
+          8,
+          10
+        ],
+        "6": [
+          0,
+          8,
+          10
+        ],
+        "3": [
+          0,
+          8,
+          10
+        ],
+        "4": [
+          0,
+          3,
+          5,
+          7,
+          8,
+          10
+        ],
+        "7": [
+          0,
+          3,
+          5,
+          7,
+          8,
+          10
+        ],
+        "5": [
+          0,
+          3,
+          5,
+          7,
+          8,
+          10
+        ]
+      },
+      "melodic_nonchord_attacks": {},
+      "slot_boundaries": [
+        {
+          "bar": 0,
+          "root": 0,
+          "type": "Fifth",
+          "bass": 0,
+          "expected_mask": 129,
+          "actual_sounding_classes": {
+            "pad": [
+              0,
+              7
+            ],
+            "arp": [
+              0,
+              7
+            ],
+            "bass": [
+              0
+            ],
+            "dialog": [
+              0,
+              7
+            ],
+            "melody": []
+          },
+          "expected_sounding_mask": 129
+        },
+        {
+          "bar": 6,
+          "root": 8,
+          "type": "Fifth",
+          "bass": 8,
+          "expected_mask": 264,
+          "actual_sounding_classes": {
+            "pad": [
+              3,
+              8
+            ],
+            "arp": [
+              3,
+              8
+            ],
+            "bass": [
+              8
+            ],
+            "dialog": [
+              3,
+              7,
+              8
+            ],
+            "melody": []
+          },
+          "expected_sounding_mask": 264
+        },
+        {
+          "bar": 7,
+          "root": 10,
+          "type": "Fifth",
+          "bass": 10,
+          "expected_mask": 1056,
+          "actual_sounding_classes": {
+            "pad": [
+              5,
+              10
+            ],
+            "arp": [
+              5,
+              10
+            ],
+            "bass": [
+              10
+            ],
+            "dialog": [
+              3,
+              5,
+              10
+            ],
+            "melody": []
+          },
+          "expected_sounding_mask": 1056
+        }
+      ],
+      "events": 9102
+    },
+    {
+      "id": 2039,
+      "bars": 32,
+      "z": 0.95,
+      "y": 0.8,
+      "melody": 1,
+      "dialog": 1,
+      "outputs_pitch_classes": {
+        "0": [
+          0,
+          3,
+          5,
+          7,
+          8,
+          10
+        ],
+        "6": [
+          0,
+          8,
+          10
+        ],
+        "3": [
+          0,
+          7,
+          8,
+          9,
+          10,
+          11
+        ],
+        "4": [
+          0,
+          3,
+          5,
+          7,
+          8,
+          10
+        ],
+        "7": [
+          0,
+          7,
+          8,
+          9,
+          10,
+          11
+        ],
+        "5": [
+          0,
+          3,
+          5,
+          7,
+          8,
+          10
+        ],
+        "2": [
+          0,
+          8,
+          10
+        ]
+      },
+      "melodic_nonchord_attacks": {
+        "7": 32
+      },
+      "slot_boundaries": [
+        {
+          "bar": 0,
+          "root": 0,
+          "type": "Fifth",
+          "bass": 0,
+          "expected_mask": 129,
+          "actual_sounding_classes": {
+            "pad": [
+              0,
+              7
+            ],
+            "arp": [
+              0,
+              7
+            ],
+            "bass": [
+              0,
+              7
+            ],
+            "dialog": [
+              0,
+              11
+            ],
+            "melody": []
+          },
+          "expected_sounding_mask": 129
+        },
+        {
+          "bar": 6,
+          "root": 8,
+          "type": "Fifth",
+          "bass": 8,
+          "expected_mask": 264,
+          "actual_sounding_classes": {
+            "pad": [
+              3,
+              8
+            ],
+            "arp": [
+              3,
+              8
+            ],
+            "bass": [
+              8,
+              9
+            ],
+            "dialog": [
+              7,
+              8,
+              11
+            ],
+            "melody": []
+          },
+          "expected_sounding_mask": 264
+        },
+        {
+          "bar": 7,
+          "root": 10,
+          "type": "Fifth",
+          "bass": 10,
+          "expected_mask": 1056,
+          "actual_sounding_classes": {
+            "pad": [
+              5,
+              10
+            ],
+            "arp": [
+              5,
+              10
+            ],
+            "bass": [
+              10,
+              11
+            ],
+            "dialog": [
+              7,
+              9,
+              10
+            ],
+            "melody": []
+          },
+          "expected_sounding_mask": 1056
+        }
+      ],
+      "events": 1872
+    }
+  ]
+}

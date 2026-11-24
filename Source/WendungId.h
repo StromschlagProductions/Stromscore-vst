@@ -87,6 +87,9 @@ enum class WendungId : uint32_t { invalid=0,
     popSpiegelpalast=2034u,
     popSonntagmorgen=2035u,
     popLichtImFenster=2036u,
+    popWcH01=2037u,
+    popWcH11=2038u,
+    popWcH19=2039u,
     custom=65535u
 };
 }

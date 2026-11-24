@@ -2,7 +2,7 @@
 #pragma once
 #include "HarmonyTypes.h"
 namespace stromscore {
-inline constexpr std::array<HarmonyTemplate,84> harmonyTemplates {{
+inline constexpr std::array<HarmonyTemplate,87> harmonyTemplates {{
 {WendungId::scoreHalbtonNachbarn,"Halbton-Nachbarn",0.12f,0.3f,0.75f,4,{{{0,Min,2,-1},{11,Min,2,-1},{0,Min,2,-1},{0,MinMaj7,2,-1}}},{0,composition::Mode::automatic},1,"catalog_reference_1",ChordColoration::flexible},
 {WendungId::scoreGrundtonTeppich,"Grundton-Teppich",0.1f,0.45f,0.5f,2,{{{0,Min,4,-1},{1,Maj,4,-1}}},{0,composition::Mode::automatic},1,"catalog_reference_1",ChordColoration::flexible},
 {WendungId::scoreLauern,"Lauern",0.08f,0.1f,0.6f,1,{{{0,Min,8,-1}}},{0,composition::Mode::automatic},1,"catalog_reference_1",ChordColoration::flexible},
@@ -87,6 +87,9 @@ inline constexpr std::array<HarmonyTemplate,84> harmonyTemplates {{
 {WendungId::popSpiegelpalast,"Spiegelpalast",0.7f,0.71f,0.26f,7,{{{0,Maj7,1,-1},{4,Dom7,1,-1},{9,Min7,2,-1},{2,Dom7,1,-1},{2,Min7,1,-1},{7,Dom7,1,-1},{0,Maj7,1,-1}}},{0,composition::Mode::automatic},2,"catalog_reference_6",ChordColoration::flexible},
 {WendungId::popSonntagmorgen,"Sonntagmorgen",0.88f,0.48f,0.03f,4,{{{0,Maj,2,-1},{5,Maj,2,-1},{9,Min7,2,-1},{7,Maj,2,-1}}},{0,composition::Mode::automatic},2,"catalog_reference_7",ChordColoration::flexible},
 {WendungId::popLichtImFenster,"Licht im Fenster",0.57f,0.23f,0.04f,4,{{{9,Min,2,-1},{0,Maj,2,7},{5,Maj7,2,-1},{4,Dom7,2,-1}}},{0,composition::Mode::automatic},2,"catalog_reference_7",ChordColoration::flexible},
+{WendungId::popWcH01,"WC-H01 – Mixolydischer Kreis mit Sus-Auflösung",0.75f,0.5f,0.3f,5,{{{0,Maj,2,0},{10,Maj,2,10},{5,Maj,2,9},{0,Sus2,1,0},{0,Maj,1,0}}},{0,composition::Mode::mixolydian},2,"WC-H01",ChordColoration::protectedColor},
+{WendungId::popWcH11,"WC-H11 – Dorische Wendung",0.4f,0.5f,0.3f,5,{{{0,Min7,2,0},{5,Maj,2,0},{0,Min7,2,0},{5,Maj,1,9},{10,Maj,1,10}}},{0,composition::Mode::dorian},2,"WC-H11",ChordColoration::protectedColor},
+{WendungId::popWcH19,"WC-H19 – Dunkle Quint-Maschine",0.15f,0.9f,0.2f,3,{{{0,Fifth,6,0},{8,Fifth,1,8},{10,Fifth,1,10}}},{0,composition::Mode::automatic},2,"WC-H19",ChordColoration::protectedColor},
 }};
 inline constexpr int harmonyIndex(WendungId id){
  int lo=0,hi=static_cast<int>(harmonyTemplates.size());while(lo<hi){int mid=lo+(hi-lo)/2;if(static_cast<uint32_t>(harmonyTemplates[mid].id)<static_cast<uint32_t>(id))lo=mid+1;else hi=mid;}return lo<static_cast<int>(harmonyTemplates.size())&&harmonyTemplates[lo].id==id?lo:-1;

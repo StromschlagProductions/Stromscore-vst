@@ -1066,6 +1066,19 @@
       ],
       "pad": "PadHeld",
       "hook": 8
+    },
+    {
+      "id": "neutral_harmony_import",
+      "arp": [
+        "ArpUp",
+        "ArpCircle"
+      ],
+      "bass": [
+        "BassHeld",
+        "BassQuarter"
+      ],
+      "pad": "PadHeld",
+      "hook": null
     }
   ],
   "bindings": [
@@ -1404,6 +1417,18 @@
     {
       "template_id": 2036,
       "recipe": "neutral_2036"
+    },
+    {
+      "template_id": 2037,
+      "recipe": "neutral_harmony_import"
+    },
+    {
+      "template_id": 2038,
+      "recipe": "neutral_harmony_import"
+    },
+    {
+      "template_id": 2039,
+      "recipe": "neutral_harmony_import"
     }
   ]
 }

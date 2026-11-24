@@ -9,8 +9,8 @@ class HarmonyDataTests(unittest.TestCase):
   data=copy.deepcopy(self.original);mutate(data)
   with self.assertRaises(gen.ValidationError):gen.validate(data)
  def test_existing_and_reproducible(self):
-  m=gen.validate(self.original);self.assertEqual(len(m['templates']),84);self.assertEqual(len(m['profiles']),3)
-  self.assertEqual(set(m['templates']),set(range(1001,1049))|set(range(2001,2037)))
+  m=gen.validate(self.original);self.assertEqual(len(m['templates']),87);self.assertEqual(len(m['profiles']),3)
+  self.assertEqual(set(m['templates']),set(range(1001,1049))|set(range(2001,2040)))
   self.assertIn([1047,2015,2019],m['duplicate_groups'])
   for path,content in gen.emit(self.original).items():self.assertEqual((root/path).read_text(encoding='utf-8'),content)
  def test_bad_definitions(self):
@@ -37,7 +37,7 @@ class HarmonyDataTests(unittest.TestCase):
   for i,mutation in enumerate(mutations):
    with self.subTest(case=i):self.rejected(mutation)
  def test_coloration_is_a_validated_harmonic_fact(self):
-  self.assertTrue(all(t['coloration']=='flexible' for t in self.original['catalog.json']['templates']))
+  self.assertTrue(all(t['coloration']==('flexible' if t['id']<=2036 else 'protected') for t in self.original['catalog.json']['templates']))
   d=copy.deepcopy(self.original);d['catalog.json']['templates'][0]['coloration']='protected'
   m=gen.validate(d);self.assertEqual(m['templates'][1001]['coloration'],'protected')
   outputs=gen.emit(d);self.assertIn('ChordColoration::protectedColor',outputs['Source/HarmonyCatalog.generated.h'])
@@ -65,7 +65,7 @@ class HarmonyDataTests(unittest.TestCase):
    t=copy.deepcopy(cat['templates'][0]);t.update(id=3000+i,symbol='synthetic'+str(i),name='Synthetic '+str(i),xyz=[.5,.5,.5],genres=['score'],chords=[{'root':0,'type':'Maj','bars':8,'bass':None}],tonality={'center_pc':0,'mode':'mixolydian'});cat['templates'].append(t);cat['pools']['score'].append(t['id']);d['arrangements.json']['bindings'].append({'template_id':t['id'],'recipe':binding});d['notes.json']['entries'].append({'template_id':t['id'],'idea':'Synthetic test only','instruments':'Independent'})
   cat['templates'][0]['genres'].append('pop_rock');cat['pools']['pop_rock'].append(1001)
   for i in range(3,40):d['profiles.json']['profiles'].append({'id':i,'symbol':'testProfile'+str(i),'name':'Test '+str(i),'harmony_selection_only':True,'weights':[{'template_id':3000,'factor':2}]})
-  m=gen.validate(d);self.assertEqual(len(m['templates']),1284);self.assertEqual(len(m['profiles']),40);self.assertTrue(any(len(g)>=1200 for g in m['duplicate_groups']))
+  m=gen.validate(d);self.assertEqual(len(m['templates']),1287);self.assertEqual(len(m['profiles']),40);self.assertTrue(any(len(g)>=1200 for g in m['duplicate_groups']))
   with tempfile.TemporaryDirectory() as tmp:
    p=pathlib.Path(tmp);source=p/'Source';source.mkdir()
    for f in (root/'Source').glob('*.h'):shutil.copyfile(f,source/f.name)
@@ -75,7 +75,7 @@ class HarmonyDataTests(unittest.TestCase):
 #include <memory>
 using namespace stromscore;
 int main(){static_assert(kMaxWendungen==1248);static_assert(kCustomWendung>=kMaxWendungen);
-CHECK(harmonyTemplates.size()==1284);CHECK(composition::compositionProfiles.size()==40);
+CHECK(harmonyTemplates.size()==1287);CHECK(composition::compositionProfiles.size()==40);
 CHECK(findHarmonyTemplate(static_cast<WendungId>(3000))->tonality.mode==composition::Mode::mixolydian);
 CHECK(wendungIndex(GenrePopRock,WendungId::scoreHalbtonNachbarn)>=0);
 CHECK(composition::harmonicPreference(static_cast<composition::ProfileId>(39),static_cast<WendungId>(3000))==2.f);

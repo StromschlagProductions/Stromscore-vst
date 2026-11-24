@@ -3,7 +3,7 @@
 #include "ArrangementTypes.h"
 #include "HarmonyCatalog.generated.h"
 namespace stromscore {
-inline constexpr std::array<ArrangementRecipe,84> defaultArrangements {{
+inline constexpr std::array<ArrangementRecipe,87> defaultArrangements {{
 {{ArpCircle,ArpCell},{BassPendulum,BassHeld},PadHeld,-1},
 {{ArpCircle,ArpDown},{BassPulse,BassEighth},PadHeld,-1},
 {{ArpCircle,ArpCell},{BassHeld,BassPendulum},PadHeld,-1},
@@ -88,8 +88,11 @@ inline constexpr std::array<ArrangementRecipe,84> defaultArrangements {{
 {{ArpCascade,ArpUp},{BassArpeggio,BassQuarter},PadStabs,6},
 {{ArpRiff,ArpCircle},{BassFunk,BassAlternating},PadStabs,7},
 {{ArpCircle,ArpDown},{BassHeld,BassHalf},PadHeld,8},
+{{ArpUp,ArpCircle},{BassHeld,BassQuarter},PadHeld,-1},
+{{ArpUp,ArpCircle},{BassHeld,BassQuarter},PadHeld,-1},
+{{ArpUp,ArpCircle},{BassHeld,BassQuarter},PadHeld,-1},
 }};
 inline constexpr int popHookPattern(WendungId id){int i=harmonyIndex(id);return i<0?-1:defaultArrangements[i].hook;}
 inline constexpr std::array<int,48> kWendungenIndices {{0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47}};
-inline constexpr std::array<int,36> kPopWendungenIndices {{48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83}};
+inline constexpr std::array<int,39> kPopWendungenIndices {{48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86}};
 }

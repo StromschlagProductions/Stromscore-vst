@@ -5,7 +5,7 @@
 #include <array>
 namespace stromscore::composition {
 struct TemplatePreference {WendungId id;std::array<float,3> weights;};
-inline constexpr std::array<TemplatePreference,84> templatePreferences {{
+inline constexpr std::array<TemplatePreference,87> templatePreferences {{
 {WendungId::scoreHalbtonNachbarn,{{1.0f,1.0f,1.8f}}},
 {WendungId::scoreGrundtonTeppich,{{1.0f,1.4f,1.3f}}},
 {WendungId::scoreLauern,{{1.0f,1.3f,1.8f}}},
@@ -90,6 +90,9 @@ inline constexpr std::array<TemplatePreference,84> templatePreferences {{
 {WendungId::popSpiegelpalast,{{1.0f,1.0f,1.0f}}},
 {WendungId::popSonntagmorgen,{{1.0f,1.0f,1.0f}}},
 {WendungId::popLichtImFenster,{{1.0f,1.0f,1.0f}}},
+{WendungId::popWcH01,{{1.0f,1.0f,1.0f}}},
+{WendungId::popWcH11,{{1.0f,1.0f,1.0f}}},
+{WendungId::popWcH19,{{1.0f,1.0f,1.0f}}},
 }};
 inline constexpr float harmonicPreference(ProfileId p,WendungId id){int index=static_cast<int>(p);if(index<0||index>=static_cast<int>(profileIdentities.size()))return 1.f;int lo=0,hi=static_cast<int>(templatePreferences.size());while(lo<hi){int mid=lo+(hi-lo)/2;if(static_cast<uint32_t>(templatePreferences[mid].id)<static_cast<uint32_t>(id))lo=mid+1;else hi=mid;}return lo<static_cast<int>(templatePreferences.size())&&templatePreferences[lo].id==id?templatePreferences[lo].weights[index]:1.f;}
 }

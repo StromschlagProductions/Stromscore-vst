@@ -10561,6 +10561,380 @@
         "source": "https://rockcellarmagazine.com/colin-hay-man-still-at-work-interview-2/"
       },
       "confirmed_profile_assignments": []
+    },
+    {
+      "id": 2037,
+      "catalog": "pop_rock",
+      "catalog_index": 36,
+      "name": "WC-H01 – Mixolydischer Kreis mit Sus-Auflösung",
+      "xyz": [
+        0.75,
+        0.5,
+        0.3
+      ],
+      "chords": [
+        {
+          "root_pc_relative_to_key": 0,
+          "type": "Maj",
+          "bars": 2,
+          "bass_pc_relative_to_key": 0,
+          "example_in_c": "C",
+          "intervals": [
+            0,
+            4,
+            7
+          ]
+        },
+        {
+          "root_pc_relative_to_key": 10,
+          "type": "Maj",
+          "bars": 2,
+          "bass_pc_relative_to_key": 10,
+          "example_in_c": "B♭",
+          "intervals": [
+            0,
+            4,
+            7
+          ]
+        },
+        {
+          "root_pc_relative_to_key": 5,
+          "type": "Maj",
+          "bars": 2,
+          "bass_pc_relative_to_key": 9,
+          "example_in_c": "F",
+          "intervals": [
+            0,
+            4,
+            7
+          ]
+        },
+        {
+          "root_pc_relative_to_key": 0,
+          "type": "Sus2",
+          "bars": 1,
+          "bass_pc_relative_to_key": 0,
+          "example_in_c": "Csus2",
+          "intervals": [
+            0,
+            2,
+            7
+          ]
+        },
+        {
+          "root_pc_relative_to_key": 0,
+          "type": "Maj",
+          "bars": 1,
+          "bass_pc_relative_to_key": 0,
+          "example_in_c": "C",
+          "intervals": [
+            0,
+            4,
+            7
+          ]
+        }
+      ],
+      "harmonic_rhythm": {
+        "total_bars": 8,
+        "slot_count": 5,
+        "mean_slot_bars": 1.6,
+        "min_slot_bars": 1,
+        "max_slot_bars": 2,
+        "actual_changes_within_phrase": 4,
+        "actual_changes_including_cycle": 4,
+        "actual_changes_including_cycle_per_bar": 0.5,
+        "actual_changes_within_phrase_per_bar": 0.5
+      },
+      "root_movements": [
+        {
+          "from_slot": 0,
+          "to_slot": 1,
+          "cycle_boundary": false,
+          "ascending_semitones_mod12": 10,
+          "shortest_semitones": -2,
+          "tritone_direction_ambiguous": false
+        },
+        {
+          "from_slot": 1,
+          "to_slot": 2,
+          "cycle_boundary": false,
+          "ascending_semitones_mod12": 7,
+          "shortest_semitones": -5,
+          "tritone_direction_ambiguous": false
+        },
+        {
+          "from_slot": 2,
+          "to_slot": 3,
+          "cycle_boundary": false,
+          "ascending_semitones_mod12": 7,
+          "shortest_semitones": -5,
+          "tritone_direction_ambiguous": false
+        },
+        {
+          "from_slot": 3,
+          "to_slot": 4,
+          "cycle_boundary": false,
+          "ascending_semitones_mod12": 0,
+          "shortest_semitones": 0,
+          "tritone_direction_ambiguous": false
+        },
+        {
+          "from_slot": 4,
+          "to_slot": 0,
+          "cycle_boundary": true,
+          "ascending_semitones_mod12": 0,
+          "shortest_semitones": 0,
+          "tritone_direction_ambiguous": false
+        }
+      ],
+      "root_movement_features": [
+        "repeated_root",
+        "whole_tone",
+        "fourth_or_fifth"
+      ],
+      "existing_style_hint": {
+        "status": "unverified",
+        "text": "WC-H01 – Mixolydischer Kreis mit Sus-Auflösung. Geschützte harmonische Vorlage; keine profilspezifische Rhythmus-, Motiv- oder Instrumentierungsstrategie.",
+        "description": "WC-H01 – Mixolydischer Kreis mit Sus-Auflösung. Geschützte harmonische Vorlage; keine profilspezifische Rhythmus-, Motiv- oder Instrumentierungsstrategie.",
+        "source": "Nutzervorgabe „Erster validierter Import neuen harmonischen Vokabulars“, 24.11.2026, WC-H01. Aus der Wang-Chung-Vokabularprüfung; eigenständige Vorlage, keine Transkription oder exklusive Künstlerzuordnung."
+      },
+      "confirmed_profile_assignments": []
+    },
+    {
+      "id": 2038,
+      "catalog": "pop_rock",
+      "catalog_index": 37,
+      "name": "WC-H11 – Dorische Wendung",
+      "xyz": [
+        0.4,
+        0.5,
+        0.3
+      ],
+      "chords": [
+        {
+          "root_pc_relative_to_key": 0,
+          "type": "Min7",
+          "bars": 2,
+          "bass_pc_relative_to_key": 0,
+          "example_in_c": "Cm7",
+          "intervals": [
+            0,
+            3,
+            7,
+            10
+          ]
+        },
+        {
+          "root_pc_relative_to_key": 5,
+          "type": "Maj",
+          "bars": 2,
+          "bass_pc_relative_to_key": 0,
+          "example_in_c": "F",
+          "intervals": [
+            0,
+            4,
+            7
+          ]
+        },
+        {
+          "root_pc_relative_to_key": 0,
+          "type": "Min7",
+          "bars": 2,
+          "bass_pc_relative_to_key": 0,
+          "example_in_c": "Cm7",
+          "intervals": [
+            0,
+            3,
+            7,
+            10
+          ]
+        },
+        {
+          "root_pc_relative_to_key": 5,
+          "type": "Maj",
+          "bars": 1,
+          "bass_pc_relative_to_key": 9,
+          "example_in_c": "F",
+          "intervals": [
+            0,
+            4,
+            7
+          ]
+        },
+        {
+          "root_pc_relative_to_key": 10,
+          "type": "Maj",
+          "bars": 1,
+          "bass_pc_relative_to_key": 10,
+          "example_in_c": "B♭",
+          "intervals": [
+            0,
+            4,
+            7
+          ]
+        }
+      ],
+      "harmonic_rhythm": {
+        "total_bars": 8,
+        "slot_count": 5,
+        "mean_slot_bars": 1.6,
+        "min_slot_bars": 1,
+        "max_slot_bars": 2,
+        "actual_changes_within_phrase": 4,
+        "actual_changes_including_cycle": 5,
+        "actual_changes_including_cycle_per_bar": 0.625,
+        "actual_changes_within_phrase_per_bar": 0.5
+      },
+      "root_movements": [
+        {
+          "from_slot": 0,
+          "to_slot": 1,
+          "cycle_boundary": false,
+          "ascending_semitones_mod12": 5,
+          "shortest_semitones": 5,
+          "tritone_direction_ambiguous": false
+        },
+        {
+          "from_slot": 1,
+          "to_slot": 2,
+          "cycle_boundary": false,
+          "ascending_semitones_mod12": 7,
+          "shortest_semitones": -5,
+          "tritone_direction_ambiguous": false
+        },
+        {
+          "from_slot": 2,
+          "to_slot": 3,
+          "cycle_boundary": false,
+          "ascending_semitones_mod12": 5,
+          "shortest_semitones": 5,
+          "tritone_direction_ambiguous": false
+        },
+        {
+          "from_slot": 3,
+          "to_slot": 4,
+          "cycle_boundary": false,
+          "ascending_semitones_mod12": 5,
+          "shortest_semitones": 5,
+          "tritone_direction_ambiguous": false
+        },
+        {
+          "from_slot": 4,
+          "to_slot": 0,
+          "cycle_boundary": true,
+          "ascending_semitones_mod12": 2,
+          "shortest_semitones": 2,
+          "tritone_direction_ambiguous": false
+        }
+      ],
+      "root_movement_features": [
+        "whole_tone",
+        "fourth_or_fifth"
+      ],
+      "existing_style_hint": {
+        "status": "unverified",
+        "text": "WC-H11 – Dorische Wendung. Geschützte harmonische Vorlage; keine profilspezifische Rhythmus-, Motiv- oder Instrumentierungsstrategie.",
+        "description": "WC-H11 – Dorische Wendung. Geschützte harmonische Vorlage; keine profilspezifische Rhythmus-, Motiv- oder Instrumentierungsstrategie.",
+        "source": "Nutzervorgabe „Erster validierter Import neuen harmonischen Vokabulars“, 24.11.2026, WC-H11. Aus der Wang-Chung-Vokabularprüfung; eigenständige Vorlage, keine Transkription oder exklusive Künstlerzuordnung."
+      },
+      "confirmed_profile_assignments": []
+    },
+    {
+      "id": 2039,
+      "catalog": "pop_rock",
+      "catalog_index": 38,
+      "name": "WC-H19 – Dunkle Quint-Maschine",
+      "xyz": [
+        0.15,
+        0.9,
+        0.2
+      ],
+      "chords": [
+        {
+          "root_pc_relative_to_key": 0,
+          "type": "Fifth",
+          "bars": 6,
+          "bass_pc_relative_to_key": 0,
+          "example_in_c": "C5",
+          "intervals": [
+            0,
+            7,
+            12
+          ]
+        },
+        {
+          "root_pc_relative_to_key": 8,
+          "type": "Fifth",
+          "bars": 1,
+          "bass_pc_relative_to_key": 8,
+          "example_in_c": "A♭5",
+          "intervals": [
+            0,
+            7,
+            12
+          ]
+        },
+        {
+          "root_pc_relative_to_key": 10,
+          "type": "Fifth",
+          "bars": 1,
+          "bass_pc_relative_to_key": 10,
+          "example_in_c": "B♭5",
+          "intervals": [
+            0,
+            7,
+            12
+          ]
+        }
+      ],
+      "harmonic_rhythm": {
+        "total_bars": 8,
+        "slot_count": 3,
+        "mean_slot_bars": 2.6666666666666665,
+        "min_slot_bars": 1,
+        "max_slot_bars": 6,
+        "actual_changes_within_phrase": 2,
+        "actual_changes_including_cycle": 3,
+        "actual_changes_including_cycle_per_bar": 0.375,
+        "actual_changes_within_phrase_per_bar": 0.25
+      },
+      "root_movements": [
+        {
+          "from_slot": 0,
+          "to_slot": 1,
+          "cycle_boundary": false,
+          "ascending_semitones_mod12": 8,
+          "shortest_semitones": -4,
+          "tritone_direction_ambiguous": false
+        },
+        {
+          "from_slot": 1,
+          "to_slot": 2,
+          "cycle_boundary": false,
+          "ascending_semitones_mod12": 2,
+          "shortest_semitones": 2,
+          "tritone_direction_ambiguous": false
+        },
+        {
+          "from_slot": 2,
+          "to_slot": 0,
+          "cycle_boundary": true,
+          "ascending_semitones_mod12": 2,
+          "shortest_semitones": 2,
+          "tritone_direction_ambiguous": false
+        }
+      ],
+      "root_movement_features": [
+        "whole_tone",
+        "major_third"
+      ],
+      "existing_style_hint": {
+        "status": "unverified",
+        "text": "WC-H19 – Dunkle Quint-Maschine. Geschützte harmonische Vorlage; keine profilspezifische Rhythmus-, Motiv- oder Instrumentierungsstrategie.",
+        "description": "WC-H19 – Dunkle Quint-Maschine. Geschützte harmonische Vorlage; keine profilspezifische Rhythmus-, Motiv- oder Instrumentierungsstrategie.",
+        "source": "Nutzervorgabe „Erster validierter Import neuen harmonischen Vokabulars“, 24.11.2026, WC-H19. Aus der Wang-Chung-Vokabularprüfung; eigenständige Vorlage, keine Transkription oder exklusive Künstlerzuordnung."
+      },
+      "confirmed_profile_assignments": []
     }
   ]
 }

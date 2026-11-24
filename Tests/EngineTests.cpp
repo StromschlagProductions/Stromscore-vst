@@ -1182,7 +1182,7 @@ int main()
         CHECK (updates > 0);
     }
     // Every new cue is reachable at its own anchor, has eight bars, and generates a balanced distinct hook.
-    CHECK (kNumWendungen == 48 && kNumPopWendungen == 36);
+    CHECK (kNumWendungen == 48 && kNumPopWendungen == 39);
     std::set<std::vector<long long>> signatures;
     for (int i = 27; i < 36; ++i)
     {

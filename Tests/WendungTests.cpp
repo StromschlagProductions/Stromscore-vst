@@ -94,8 +94,11 @@ int main()
         {WendungId::popSpiegelpalast,2034,"Spiegelpalast"},
         {WendungId::popSonntagmorgen,2035,"Sonntagmorgen"},
         {WendungId::popLichtImFenster,2036,"Licht im Fenster"},
+        {WendungId::popWcH01,2037,"WC-H01 – Mixolydischer Kreis mit Sus-Auflösung"},
+        {WendungId::popWcH11,2038,"WC-H11 – Dorische Wendung"},
+        {WendungId::popWcH19,2039,"WC-H19 – Dunkle Quint-Maschine"},
     };
-    CHECK(std::size(expected)==84);std::set<unsigned> seen;
+    CHECK(std::size(expected)==87);std::set<unsigned> seen;
     for(const auto& entry:expected)
     {
         CHECK(static_cast<unsigned>(entry.id)==entry.number);

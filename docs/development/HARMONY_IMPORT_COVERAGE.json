@@ -1,0 +1,1769 @@
+{
+  "grid": [
+    21,
+    21,
+    21
+  ],
+  "variety": [
+    0,
+    0.25,
+    0.5,
+    0.75,
+    1
+  ],
+  "sizes": [
+    36,
+    39
+  ],
+  "summary": {
+    "before": {
+      "0.0": {
+        "points": 9261,
+        "mean_candidates": 1.0100421120829284,
+        "min_candidates": 1,
+        "single_candidate_points": 9168,
+        "mean_families": 1.0100421120829284,
+        "mean_nearest_weighted_distance": 0.2562898869305151,
+        "max_nearest_weighted_distance": 0.82293682,
+        "mean_nearest_absolute_distance": 0.3097235265529316,
+        "max_nearest_absolute_distance": 0.943080065,
+        "mean_selected_absolute_distance": 0.31483080381629813,
+        "max_selected_absolute_distance": 1.0359536669175895
+      },
+      "0.25": {
+        "points": 9261,
+        "mean_candidates": 1.8314436885865457,
+        "min_candidates": 1,
+        "single_candidate_points": 4762,
+        "mean_families": 1.8275564193931542,
+        "mean_nearest_weighted_distance": 0.2562898869305151,
+        "max_nearest_weighted_distance": 0.82293682,
+        "mean_nearest_absolute_distance": 0.3097235265529316,
+        "max_nearest_absolute_distance": 0.943080065,
+        "mean_selected_absolute_distance": 0.32155804832935625,
+        "max_selected_absolute_distance": 1.0048382954485762
+      },
+      "0.5": {
+        "points": 9261,
+        "mean_candidates": 3.063168124392614,
+        "min_candidates": 1,
+        "single_candidate_points": 2510,
+        "mean_families": 3.041248245329878,
+        "mean_nearest_weighted_distance": 0.2562898869305151,
+        "max_nearest_weighted_distance": 0.82293682,
+        "mean_nearest_absolute_distance": 0.3097235265529316,
+        "max_nearest_absolute_distance": 0.943080065,
+        "mean_selected_absolute_distance": 0.33183915368568134,
+        "max_selected_absolute_distance": 1.0259142264341594
+      },
+      "0.75": {
+        "points": 9261,
+        "mean_candidates": 4.931972789115647,
+        "min_candidates": 1,
+        "single_candidate_points": 1353,
+        "mean_families": 4.865457294028722,
+        "mean_nearest_weighted_distance": 0.2562898869305151,
+        "max_nearest_weighted_distance": 0.82293682,
+        "mean_nearest_absolute_distance": 0.3097235265529316,
+        "max_nearest_absolute_distance": 0.943080065,
+        "mean_selected_absolute_distance": 0.34583685261124725,
+        "max_selected_absolute_distance": 1.0700467279516348
+      },
+      "1.0": {
+        "points": 9261,
+        "mean_candidates": 8.677032717849045,
+        "min_candidates": 1,
+        "single_candidate_points": 429,
+        "mean_families": 8.481265522081848,
+        "mean_nearest_weighted_distance": 0.2562898869305151,
+        "max_nearest_weighted_distance": 0.82293682,
+        "mean_nearest_absolute_distance": 0.3097235265529316,
+        "max_nearest_absolute_distance": 0.943080065,
+        "mean_selected_absolute_distance": 0.364486002175267,
+        "max_selected_absolute_distance": 1.1280514172678477
+      }
+    },
+    "after": {
+      "0.0": {
+        "points": 9261,
+        "mean_candidates": 1.0100421120829284,
+        "min_candidates": 1,
+        "single_candidate_points": 9168,
+        "mean_families": 1.0100421120829284,
+        "mean_nearest_weighted_distance": 0.24174440722423066,
+        "max_nearest_weighted_distance": 0.70611613,
+        "mean_nearest_absolute_distance": 0.2964068601239715,
+        "max_nearest_absolute_distance": 0.895823634,
+        "mean_selected_absolute_distance": 0.29987008008414845,
+        "max_selected_absolute_distance": 0.8958236433584459
+      },
+      "0.25": {
+        "points": 9261,
+        "mean_candidates": 1.7338300399524889,
+        "min_candidates": 1,
+        "single_candidate_points": 5440,
+        "mean_families": 1.7304826692581794,
+        "mean_nearest_weighted_distance": 0.24174440722423066,
+        "max_nearest_weighted_distance": 0.70611613,
+        "mean_nearest_absolute_distance": 0.2964068601239715,
+        "max_nearest_absolute_distance": 0.895823634,
+        "mean_selected_absolute_distance": 0.305951130488571,
+        "max_selected_absolute_distance": 0.8958236433584459
+      },
+      "0.5": {
+        "points": 9261,
+        "mean_candidates": 2.9121045243494224,
+        "min_candidates": 1,
+        "single_candidate_points": 3267,
+        "mean_families": 2.8945038332793436,
+        "mean_nearest_weighted_distance": 0.24174440722423066,
+        "max_nearest_weighted_distance": 0.70611613,
+        "mean_nearest_absolute_distance": 0.2964068601239715,
+        "max_nearest_absolute_distance": 0.895823634,
+        "mean_selected_absolute_distance": 0.3171738663798918,
+        "max_selected_absolute_distance": 0.8958236433584459
+      },
+      "0.75": {
+        "points": 9261,
+        "mean_candidates": 4.775618183781449,
+        "min_candidates": 1,
+        "single_candidate_points": 1789,
+        "mean_families": 4.7262714609653385,
+        "mean_nearest_weighted_distance": 0.24174440722423066,
+        "max_nearest_weighted_distance": 0.70611613,
+        "mean_nearest_absolute_distance": 0.2964068601239715,
+        "max_nearest_absolute_distance": 0.895823634,
+        "mean_selected_absolute_distance": 0.33461150183403565,
+        "max_selected_absolute_distance": 0.8958236433584459
+      },
+      "1.0": {
+        "points": 9261,
+        "mean_candidates": 8.697872799913617,
+        "min_candidates": 1,
+        "single_candidate_points": 420,
+        "mean_families": 8.557391210452435,
+        "mean_nearest_weighted_distance": 0.24174440722423066,
+        "max_nearest_weighted_distance": 0.70611613,
+        "mean_nearest_absolute_distance": 0.2964068601239715,
+        "max_nearest_absolute_distance": 0.895823634,
+        "mean_selected_absolute_distance": 0.36059011443436884,
+        "max_selected_absolute_distance": 0.8958236433584459
+      }
+    }
+  },
+  "points_with_displaced_old_candidates": {
+    "0": 1937,
+    "0.25": 1733,
+    "0.5": 1648,
+    "0.75": 1565,
+    "1": 1597
+  },
+  "corners": [
+    {
+      "catalog": "before",
+      "xyz": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "variety": 0.0,
+      "candidates": 1,
+      "pick_candidates": 1,
+      "families": 1,
+      "distance": 0.384421658,
+      "euclidean": 0.406939815,
+      "selected": 2030,
+      "ids": [
+        2030
+      ],
+      "selected_absolute_distance": 0.4069397989875161
+    },
+    {
+      "catalog": "before",
+      "xyz": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "variety": 0.25,
+      "candidates": 2,
+      "pick_candidates": 2,
+      "families": 2,
+      "distance": 0.384421658,
+      "euclidean": 0.406939815,
+      "selected": 2002,
+      "ids": [
+        2030,
+        2002
+      ],
+      "selected_absolute_distance": 0.44158804331639234
+    },
+    {
+      "catalog": "before",
+      "xyz": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "variety": 0.5,
+      "candidates": 2,
+      "pick_candidates": 2,
+      "families": 2,
+      "distance": 0.384421658,
+      "euclidean": 0.406939815,
+      "selected": 2002,
+      "ids": [
+        2030,
+        2002
+      ],
+      "selected_absolute_distance": 0.44158804331639234
+    },
+    {
+      "catalog": "before",
+      "xyz": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "variety": 0.75,
+      "candidates": 4,
+      "pick_candidates": 4,
+      "families": 4,
+      "distance": 0.384421658,
+      "euclidean": 0.406939815,
+      "selected": 2003,
+      "ids": [
+        2030,
+        2002,
+        2003,
+        2024
+      ],
+      "selected_absolute_distance": 0.5220153254455275
+    },
+    {
+      "catalog": "before",
+      "xyz": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "variety": 1.0,
+      "candidates": 4,
+      "pick_candidates": 4,
+      "families": 4,
+      "distance": 0.384421658,
+      "euclidean": 0.406939815,
+      "selected": 2003,
+      "ids": [
+        2030,
+        2002,
+        2003,
+        2024
+      ],
+      "selected_absolute_distance": 0.5220153254455275
+    },
+    {
+      "catalog": "before",
+      "xyz": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "variety": 0.0,
+      "candidates": 1,
+      "pick_candidates": 1,
+      "families": 1,
+      "distance": 0.547745375,
+      "euclidean": 0.720694111,
+      "selected": 2006,
+      "ids": [
+        2006
+      ],
+      "selected_absolute_distance": 0.7713624310270756
+    },
+    {
+      "catalog": "before",
+      "xyz": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "variety": 0.25,
+      "candidates": 2,
+      "pick_candidates": 2,
+      "families": 2,
+      "distance": 0.547745375,
+      "euclidean": 0.720694111,
+      "selected": 2001,
+      "ids": [
+        2006,
+        2001
+      ],
+      "selected_absolute_distance": 0.7206941098690901
+    },
+    {
+      "catalog": "before",
+      "xyz": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "variety": 0.5,
+      "candidates": 2,
+      "pick_candidates": 2,
+      "families": 2,
+      "distance": 0.547745375,
+      "euclidean": 0.720694111,
+      "selected": 2001,
+      "ids": [
+        2006,
+        2001
+      ],
+      "selected_absolute_distance": 0.7206941098690901
+    },
+    {
+      "catalog": "before",
+      "xyz": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "variety": 0.75,
+      "candidates": 2,
+      "pick_candidates": 2,
+      "families": 2,
+      "distance": 0.547745375,
+      "euclidean": 0.720694111,
+      "selected": 2001,
+      "ids": [
+        2006,
+        2001
+      ],
+      "selected_absolute_distance": 0.7206941098690901
+    },
+    {
+      "catalog": "before",
+      "xyz": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "variety": 1.0,
+      "candidates": 2,
+      "pick_candidates": 2,
+      "families": 2,
+      "distance": 0.547745375,
+      "euclidean": 0.720694111,
+      "selected": 2001,
+      "ids": [
+        2006,
+        2001
+      ],
+      "selected_absolute_distance": 0.7206941098690901
+    },
+    {
+      "catalog": "before",
+      "xyz": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "variety": 0.0,
+      "candidates": 1,
+      "pick_candidates": 1,
+      "families": 1,
+      "distance": 0.400920198,
+      "euclidean": 0.439203834,
+      "selected": 2031,
+      "ids": [
+        2031
+      ],
+      "selected_absolute_distance": 0.43920382511995504
+    },
+    {
+      "catalog": "before",
+      "xyz": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "variety": 0.25,
+      "candidates": 2,
+      "pick_candidates": 2,
+      "families": 2,
+      "distance": 0.400920198,
+      "euclidean": 0.439203834,
+      "selected": 2010,
+      "ids": [
+        2031,
+        2010
+      ],
+      "selected_absolute_distance": 0.4690415759823429
+    },
+    {
+      "catalog": "before",
+      "xyz": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "variety": 0.5,
+      "candidates": 4,
+      "pick_candidates": 4,
+      "families": 4,
+      "distance": 0.400920198,
+      "euclidean": 0.439203834,
+      "selected": 2010,
+      "ids": [
+        2031,
+        2010,
+        2009,
+        2022
+      ],
+      "selected_absolute_distance": 0.4690415759823429
+    },
+    {
+      "catalog": "before",
+      "xyz": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "variety": 0.75,
+      "candidates": 4,
+      "pick_candidates": 4,
+      "families": 4,
+      "distance": 0.400920198,
+      "euclidean": 0.439203834,
+      "selected": 2010,
+      "ids": [
+        2031,
+        2010,
+        2009,
+        2022
+      ],
+      "selected_absolute_distance": 0.4690415759823429
+    },
+    {
+      "catalog": "before",
+      "xyz": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "variety": 1.0,
+      "candidates": 10,
+      "pick_candidates": 10,
+      "families": 10,
+      "distance": 0.400920198,
+      "euclidean": 0.439203834,
+      "selected": 2010,
+      "ids": [
+        2031,
+        2010,
+        2009,
+        2022,
+        2004,
+        2008,
+        2032,
+        2021,
+        2011,
+        2033
+      ],
+      "selected_absolute_distance": 0.4690415759823429
+    },
+    {
+      "catalog": "before",
+      "xyz": [
+        0.0,
+        1.0,
+        1.0
+      ],
+      "variety": 0.0,
+      "candidates": 1,
+      "pick_candidates": 1,
+      "families": 1,
+      "distance": 0.234574073,
+      "euclidean": 0.308220689,
+      "selected": 2006,
+      "ids": [
+        2006
+      ],
+      "selected_absolute_distance": 0.3082207001484488
+    },
+    {
+      "catalog": "before",
+      "xyz": [
+        0.0,
+        1.0,
+        1.0
+      ],
+      "variety": 0.25,
+      "candidates": 1,
+      "pick_candidates": 1,
+      "families": 1,
+      "distance": 0.234574073,
+      "euclidean": 0.308220689,
+      "selected": 2006,
+      "ids": [
+        2006
+      ],
+      "selected_absolute_distance": 0.3082207001484488
+    },
+    {
+      "catalog": "before",
+      "xyz": [
+        0.0,
+        1.0,
+        1.0
+      ],
+      "variety": 0.5,
+      "candidates": 2,
+      "pick_candidates": 2,
+      "families": 2,
+      "distance": 0.234574073,
+      "euclidean": 0.308220689,
+      "selected": 2006,
+      "ids": [
+        2006,
+        2007
+      ],
+      "selected_absolute_distance": 0.3082207001484488
+    },
+    {
+      "catalog": "before",
+      "xyz": [
+        0.0,
+        1.0,
+        1.0
+      ],
+      "variety": 0.75,
+      "candidates": 2,
+      "pick_candidates": 2,
+      "families": 2,
+      "distance": 0.234574073,
+      "euclidean": 0.308220689,
+      "selected": 2006,
+      "ids": [
+        2006,
+        2007
+      ],
+      "selected_absolute_distance": 0.3082207001484488
+    },
+    {
+      "catalog": "before",
+      "xyz": [
+        0.0,
+        1.0,
+        1.0
+      ],
+      "variety": 1.0,
+      "candidates": 2,
+      "pick_candidates": 2,
+      "families": 2,
+      "distance": 0.234574073,
+      "euclidean": 0.308220689,
+      "selected": 2006,
+      "ids": [
+        2006,
+        2007
+      ],
+      "selected_absolute_distance": 0.3082207001484488
+    },
+    {
+      "catalog": "before",
+      "xyz": [
+        1.0,
+        0.0,
+        0.0
+      ],
+      "variety": 0.0,
+      "candidates": 1,
+      "pick_candidates": 1,
+      "families": 1,
+      "distance": 0.357591941,
+      "euclidean": 0.427200204,
+      "selected": 2035,
+      "ids": [
+        2035
+      ],
+      "selected_absolute_distance": 0.4956813492557492
+    },
+    {
+      "catalog": "before",
+      "xyz": [
+        1.0,
+        0.0,
+        0.0
+      ],
+      "variety": 0.25,
+      "candidates": 2,
+      "pick_candidates": 2,
+      "families": 2,
+      "distance": 0.357591941,
+      "euclidean": 0.427200204,
+      "selected": 2016,
+      "ids": [
+        2035,
+        2016
+      ],
+      "selected_absolute_distance": 0.4272001872658766
+    },
+    {
+      "catalog": "before",
+      "xyz": [
+        1.0,
+        0.0,
+        0.0
+      ],
+      "variety": 0.5,
+      "candidates": 3,
+      "pick_candidates": 3,
+      "families": 3,
+      "distance": 0.357591941,
+      "euclidean": 0.427200204,
+      "selected": 2018,
+      "ids": [
+        2035,
+        2016,
+        2018
+      ],
+      "selected_absolute_distance": 0.4949747468305833
+    },
+    {
+      "catalog": "before",
+      "xyz": [
+        1.0,
+        0.0,
+        0.0
+      ],
+      "variety": 0.75,
+      "candidates": 3,
+      "pick_candidates": 3,
+      "families": 3,
+      "distance": 0.357591941,
+      "euclidean": 0.427200204,
+      "selected": 2018,
+      "ids": [
+        2035,
+        2016,
+        2018
+      ],
+      "selected_absolute_distance": 0.4949747468305833
+    },
+    {
+      "catalog": "before",
+      "xyz": [
+        1.0,
+        0.0,
+        0.0
+      ],
+      "variety": 1.0,
+      "candidates": 5,
+      "pick_candidates": 5,
+      "families": 5,
+      "distance": 0.357591941,
+      "euclidean": 0.427200204,
+      "selected": 2018,
+      "ids": [
+        2035,
+        2016,
+        2018,
+        2026,
+        2036
+      ],
+      "selected_absolute_distance": 0.4949747468305833
+    },
+    {
+      "catalog": "before",
+      "xyz": [
+        1.0,
+        0.0,
+        1.0
+      ],
+      "variety": 0.0,
+      "candidates": 1,
+      "pick_candidates": 1,
+      "families": 1,
+      "distance": 0.82293682,
+      "euclidean": 0.943080065,
+      "selected": 2023,
+      "ids": [
+        2023
+      ],
+      "selected_absolute_distance": 0.9430800602281866
+    },
+    {
+      "catalog": "before",
+      "xyz": [
+        1.0,
+        0.0,
+        1.0
+      ],
+      "variety": 0.25,
+      "candidates": 2,
+      "pick_candidates": 2,
+      "families": 2,
+      "distance": 0.82293682,
+      "euclidean": 0.943080065,
+      "selected": 2023,
+      "ids": [
+        2023,
+        2034
+      ],
+      "selected_absolute_distance": 0.9430800602281866
+    },
+    {
+      "catalog": "before",
+      "xyz": [
+        1.0,
+        0.0,
+        1.0
+      ],
+      "variety": 0.5,
+      "candidates": 2,
+      "pick_candidates": 2,
+      "families": 2,
+      "distance": 0.82293682,
+      "euclidean": 0.943080065,
+      "selected": 2023,
+      "ids": [
+        2023,
+        2034
+      ],
+      "selected_absolute_distance": 0.9430800602281866
+    },
+    {
+      "catalog": "before",
+      "xyz": [
+        1.0,
+        0.0,
+        1.0
+      ],
+      "variety": 0.75,
+      "candidates": 5,
+      "pick_candidates": 5,
+      "families": 5,
+      "distance": 0.82293682,
+      "euclidean": 0.943080065,
+      "selected": 2018,
+      "ids": [
+        2023,
+        2034,
+        2016,
+        2018,
+        2017
+      ],
+      "selected_absolute_distance": 1.0700467279516348
+    },
+    {
+      "catalog": "before",
+      "xyz": [
+        1.0,
+        0.0,
+        1.0
+      ],
+      "variety": 1.0,
+      "candidates": 8,
+      "pick_candidates": 8,
+      "families": 8,
+      "distance": 0.82293682,
+      "euclidean": 0.943080065,
+      "selected": 2019,
+      "ids": [
+        2023,
+        2034,
+        2016,
+        2018,
+        2017,
+        2035,
+        2026,
+        2019
+      ],
+      "selected_absolute_distance": 1.1280514172678477
+    },
+    {
+      "catalog": "before",
+      "xyz": [
+        1.0,
+        1.0,
+        0.0
+      ],
+      "variety": 0.0,
+      "candidates": 1,
+      "pick_candidates": 1,
+      "families": 1,
+      "distance": 0.183847751,
+      "euclidean": 0.206155276,
+      "selected": 2020,
+      "ids": [
+        2020
+      ],
+      "selected_absolute_distance": 0.20615528128088303
+    },
+    {
+      "catalog": "before",
+      "xyz": [
+        1.0,
+        1.0,
+        0.0
+      ],
+      "variety": 0.25,
+      "candidates": 1,
+      "pick_candidates": 1,
+      "families": 1,
+      "distance": 0.183847751,
+      "euclidean": 0.206155276,
+      "selected": 2020,
+      "ids": [
+        2020
+      ],
+      "selected_absolute_distance": 0.20615528128088303
+    },
+    {
+      "catalog": "before",
+      "xyz": [
+        1.0,
+        1.0,
+        0.0
+      ],
+      "variety": 0.5,
+      "candidates": 1,
+      "pick_candidates": 1,
+      "families": 1,
+      "distance": 0.183847751,
+      "euclidean": 0.206155276,
+      "selected": 2020,
+      "ids": [
+        2020
+      ],
+      "selected_absolute_distance": 0.20615528128088303
+    },
+    {
+      "catalog": "before",
+      "xyz": [
+        1.0,
+        1.0,
+        0.0
+      ],
+      "variety": 0.75,
+      "candidates": 1,
+      "pick_candidates": 1,
+      "families": 1,
+      "distance": 0.183847751,
+      "euclidean": 0.206155276,
+      "selected": 2020,
+      "ids": [
+        2020
+      ],
+      "selected_absolute_distance": 0.20615528128088303
+    },
+    {
+      "catalog": "before",
+      "xyz": [
+        1.0,
+        1.0,
+        0.0
+      ],
+      "variety": 1.0,
+      "candidates": 4,
+      "pick_candidates": 4,
+      "families": 4,
+      "distance": 0.183847751,
+      "euclidean": 0.206155276,
+      "selected": 2020,
+      "ids": [
+        2020,
+        2027,
+        2019,
+        2028
+      ],
+      "selected_absolute_distance": 0.20615528128088303
+    },
+    {
+      "catalog": "before",
+      "xyz": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "variety": 0.0,
+      "candidates": 1,
+      "pick_candidates": 1,
+      "families": 1,
+      "distance": 0.650538234,
+      "euclidean": 0.787400778,
+      "selected": 2017,
+      "ids": [
+        2017
+      ],
+      "selected_absolute_distance": 0.787400787401181
+    },
+    {
+      "catalog": "before",
+      "xyz": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "variety": 0.25,
+      "candidates": 1,
+      "pick_candidates": 1,
+      "families": 1,
+      "distance": 0.650538234,
+      "euclidean": 0.787400778,
+      "selected": 2017,
+      "ids": [
+        2017
+      ],
+      "selected_absolute_distance": 0.787400787401181
+    },
+    {
+      "catalog": "before",
+      "xyz": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "variety": 0.5,
+      "candidates": 1,
+      "pick_candidates": 1,
+      "families": 1,
+      "distance": 0.650538234,
+      "euclidean": 0.787400778,
+      "selected": 2017,
+      "ids": [
+        2017
+      ],
+      "selected_absolute_distance": 0.787400787401181
+    },
+    {
+      "catalog": "before",
+      "xyz": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "variety": 0.75,
+      "candidates": 1,
+      "pick_candidates": 1,
+      "families": 1,
+      "distance": 0.650538234,
+      "euclidean": 0.787400778,
+      "selected": 2017,
+      "ids": [
+        2017
+      ],
+      "selected_absolute_distance": 0.787400787401181
+    },
+    {
+      "catalog": "before",
+      "xyz": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "variety": 1.0,
+      "candidates": 2,
+      "pick_candidates": 2,
+      "families": 2,
+      "distance": 0.650538234,
+      "euclidean": 0.787400778,
+      "selected": 2017,
+      "ids": [
+        2017,
+        2034
+      ],
+      "selected_absolute_distance": 0.787400787401181
+    },
+    {
+      "catalog": "after",
+      "xyz": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "variety": 0.0,
+      "candidates": 1,
+      "pick_candidates": 1,
+      "families": 1,
+      "distance": 0.384421658,
+      "euclidean": 0.406939815,
+      "selected": 2030,
+      "ids": [
+        2030
+      ],
+      "selected_absolute_distance": 0.4069397989875161
+    },
+    {
+      "catalog": "after",
+      "xyz": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "variety": 0.25,
+      "candidates": 2,
+      "pick_candidates": 2,
+      "families": 2,
+      "distance": 0.384421658,
+      "euclidean": 0.406939815,
+      "selected": 2002,
+      "ids": [
+        2030,
+        2002
+      ],
+      "selected_absolute_distance": 0.44158804331639234
+    },
+    {
+      "catalog": "after",
+      "xyz": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "variety": 0.5,
+      "candidates": 2,
+      "pick_candidates": 2,
+      "families": 2,
+      "distance": 0.384421658,
+      "euclidean": 0.406939815,
+      "selected": 2002,
+      "ids": [
+        2030,
+        2002
+      ],
+      "selected_absolute_distance": 0.44158804331639234
+    },
+    {
+      "catalog": "after",
+      "xyz": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "variety": 0.75,
+      "candidates": 4,
+      "pick_candidates": 4,
+      "families": 4,
+      "distance": 0.384421658,
+      "euclidean": 0.406939815,
+      "selected": 2003,
+      "ids": [
+        2030,
+        2002,
+        2003,
+        2024
+      ],
+      "selected_absolute_distance": 0.5220153254455275
+    },
+    {
+      "catalog": "after",
+      "xyz": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "variety": 1.0,
+      "candidates": 4,
+      "pick_candidates": 4,
+      "families": 4,
+      "distance": 0.384421658,
+      "euclidean": 0.406939815,
+      "selected": 2003,
+      "ids": [
+        2030,
+        2002,
+        2003,
+        2024
+      ],
+      "selected_absolute_distance": 0.5220153254455275
+    },
+    {
+      "catalog": "after",
+      "xyz": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "variety": 0.0,
+      "candidates": 1,
+      "pick_candidates": 1,
+      "families": 1,
+      "distance": 0.547745375,
+      "euclidean": 0.720694111,
+      "selected": 2006,
+      "ids": [
+        2006
+      ],
+      "selected_absolute_distance": 0.7713624310270756
+    },
+    {
+      "catalog": "after",
+      "xyz": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "variety": 0.25,
+      "candidates": 2,
+      "pick_candidates": 2,
+      "families": 2,
+      "distance": 0.547745375,
+      "euclidean": 0.720694111,
+      "selected": 2001,
+      "ids": [
+        2006,
+        2001
+      ],
+      "selected_absolute_distance": 0.7206941098690901
+    },
+    {
+      "catalog": "after",
+      "xyz": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "variety": 0.5,
+      "candidates": 2,
+      "pick_candidates": 2,
+      "families": 2,
+      "distance": 0.547745375,
+      "euclidean": 0.720694111,
+      "selected": 2001,
+      "ids": [
+        2006,
+        2001
+      ],
+      "selected_absolute_distance": 0.7206941098690901
+    },
+    {
+      "catalog": "after",
+      "xyz": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "variety": 0.75,
+      "candidates": 2,
+      "pick_candidates": 2,
+      "families": 2,
+      "distance": 0.547745375,
+      "euclidean": 0.720694111,
+      "selected": 2001,
+      "ids": [
+        2006,
+        2001
+      ],
+      "selected_absolute_distance": 0.7206941098690901
+    },
+    {
+      "catalog": "after",
+      "xyz": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "variety": 1.0,
+      "candidates": 2,
+      "pick_candidates": 2,
+      "families": 2,
+      "distance": 0.547745375,
+      "euclidean": 0.720694111,
+      "selected": 2001,
+      "ids": [
+        2006,
+        2001
+      ],
+      "selected_absolute_distance": 0.7206941098690901
+    },
+    {
+      "catalog": "after",
+      "xyz": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "variety": 0.0,
+      "candidates": 1,
+      "pick_candidates": 1,
+      "families": 1,
+      "distance": 0.230217299,
+      "euclidean": 0.269258255,
+      "selected": 2039,
+      "ids": [
+        2039
+      ],
+      "selected_absolute_distance": 0.26925824035672524
+    },
+    {
+      "catalog": "after",
+      "xyz": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "variety": 0.25,
+      "candidates": 1,
+      "pick_candidates": 1,
+      "families": 1,
+      "distance": 0.230217299,
+      "euclidean": 0.269258255,
+      "selected": 2039,
+      "ids": [
+        2039
+      ],
+      "selected_absolute_distance": 0.26925824035672524
+    },
+    {
+      "catalog": "after",
+      "xyz": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "variety": 0.5,
+      "candidates": 1,
+      "pick_candidates": 1,
+      "families": 1,
+      "distance": 0.230217299,
+      "euclidean": 0.269258255,
+      "selected": 2039,
+      "ids": [
+        2039
+      ],
+      "selected_absolute_distance": 0.26925824035672524
+    },
+    {
+      "catalog": "after",
+      "xyz": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "variety": 0.75,
+      "candidates": 1,
+      "pick_candidates": 1,
+      "families": 1,
+      "distance": 0.230217299,
+      "euclidean": 0.269258255,
+      "selected": 2039,
+      "ids": [
+        2039
+      ],
+      "selected_absolute_distance": 0.26925824035672524
+    },
+    {
+      "catalog": "after",
+      "xyz": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "variety": 1.0,
+      "candidates": 1,
+      "pick_candidates": 1,
+      "families": 1,
+      "distance": 0.230217299,
+      "euclidean": 0.269258255,
+      "selected": 2039,
+      "ids": [
+        2039
+      ],
+      "selected_absolute_distance": 0.26925824035672524
+    },
+    {
+      "catalog": "after",
+      "xyz": [
+        0.0,
+        1.0,
+        1.0
+      ],
+      "variety": 0.0,
+      "candidates": 1,
+      "pick_candidates": 1,
+      "families": 1,
+      "distance": 0.234574073,
+      "euclidean": 0.308220689,
+      "selected": 2006,
+      "ids": [
+        2006
+      ],
+      "selected_absolute_distance": 0.3082207001484488
+    },
+    {
+      "catalog": "after",
+      "xyz": [
+        0.0,
+        1.0,
+        1.0
+      ],
+      "variety": 0.25,
+      "candidates": 1,
+      "pick_candidates": 1,
+      "families": 1,
+      "distance": 0.234574073,
+      "euclidean": 0.308220689,
+      "selected": 2006,
+      "ids": [
+        2006
+      ],
+      "selected_absolute_distance": 0.3082207001484488
+    },
+    {
+      "catalog": "after",
+      "xyz": [
+        0.0,
+        1.0,
+        1.0
+      ],
+      "variety": 0.5,
+      "candidates": 2,
+      "pick_candidates": 2,
+      "families": 2,
+      "distance": 0.234574073,
+      "euclidean": 0.308220689,
+      "selected": 2006,
+      "ids": [
+        2006,
+        2007
+      ],
+      "selected_absolute_distance": 0.3082207001484488
+    },
+    {
+      "catalog": "after",
+      "xyz": [
+        0.0,
+        1.0,
+        1.0
+      ],
+      "variety": 0.75,
+      "candidates": 2,
+      "pick_candidates": 2,
+      "families": 2,
+      "distance": 0.234574073,
+      "euclidean": 0.308220689,
+      "selected": 2006,
+      "ids": [
+        2006,
+        2007
+      ],
+      "selected_absolute_distance": 0.3082207001484488
+    },
+    {
+      "catalog": "after",
+      "xyz": [
+        0.0,
+        1.0,
+        1.0
+      ],
+      "variety": 1.0,
+      "candidates": 2,
+      "pick_candidates": 2,
+      "families": 2,
+      "distance": 0.234574073,
+      "euclidean": 0.308220689,
+      "selected": 2006,
+      "ids": [
+        2006,
+        2007
+      ],
+      "selected_absolute_distance": 0.3082207001484488
+    },
+    {
+      "catalog": "after",
+      "xyz": [
+        1.0,
+        0.0,
+        0.0
+      ],
+      "variety": 0.0,
+      "candidates": 1,
+      "pick_candidates": 1,
+      "families": 1,
+      "distance": 0.357591941,
+      "euclidean": 0.427200204,
+      "selected": 2035,
+      "ids": [
+        2035
+      ],
+      "selected_absolute_distance": 0.4956813492557492
+    },
+    {
+      "catalog": "after",
+      "xyz": [
+        1.0,
+        0.0,
+        0.0
+      ],
+      "variety": 0.25,
+      "candidates": 2,
+      "pick_candidates": 2,
+      "families": 2,
+      "distance": 0.357591941,
+      "euclidean": 0.427200204,
+      "selected": 2016,
+      "ids": [
+        2035,
+        2016
+      ],
+      "selected_absolute_distance": 0.4272001872658766
+    },
+    {
+      "catalog": "after",
+      "xyz": [
+        1.0,
+        0.0,
+        0.0
+      ],
+      "variety": 0.5,
+      "candidates": 3,
+      "pick_candidates": 3,
+      "families": 3,
+      "distance": 0.357591941,
+      "euclidean": 0.427200204,
+      "selected": 2018,
+      "ids": [
+        2035,
+        2016,
+        2018
+      ],
+      "selected_absolute_distance": 0.4949747468305833
+    },
+    {
+      "catalog": "after",
+      "xyz": [
+        1.0,
+        0.0,
+        0.0
+      ],
+      "variety": 0.75,
+      "candidates": 3,
+      "pick_candidates": 3,
+      "families": 3,
+      "distance": 0.357591941,
+      "euclidean": 0.427200204,
+      "selected": 2018,
+      "ids": [
+        2035,
+        2016,
+        2018
+      ],
+      "selected_absolute_distance": 0.4949747468305833
+    },
+    {
+      "catalog": "after",
+      "xyz": [
+        1.0,
+        0.0,
+        0.0
+      ],
+      "variety": 1.0,
+      "candidates": 5,
+      "pick_candidates": 5,
+      "families": 5,
+      "distance": 0.357591941,
+      "euclidean": 0.427200204,
+      "selected": 2018,
+      "ids": [
+        2035,
+        2016,
+        2018,
+        2026,
+        2036
+      ],
+      "selected_absolute_distance": 0.4949747468305833
+    },
+    {
+      "catalog": "after",
+      "xyz": [
+        1.0,
+        0.0,
+        1.0
+      ],
+      "variety": 0.0,
+      "candidates": 1,
+      "pick_candidates": 1,
+      "families": 1,
+      "distance": 0.70611613,
+      "euclidean": 0.895823634,
+      "selected": 2037,
+      "ids": [
+        2037
+      ],
+      "selected_absolute_distance": 0.8958236433584459
+    },
+    {
+      "catalog": "after",
+      "xyz": [
+        1.0,
+        0.0,
+        1.0
+      ],
+      "variety": 0.25,
+      "candidates": 1,
+      "pick_candidates": 1,
+      "families": 1,
+      "distance": 0.70611613,
+      "euclidean": 0.895823634,
+      "selected": 2037,
+      "ids": [
+        2037
+      ],
+      "selected_absolute_distance": 0.8958236433584459
+    },
+    {
+      "catalog": "after",
+      "xyz": [
+        1.0,
+        0.0,
+        1.0
+      ],
+      "variety": 0.5,
+      "candidates": 1,
+      "pick_candidates": 1,
+      "families": 1,
+      "distance": 0.70611613,
+      "euclidean": 0.895823634,
+      "selected": 2037,
+      "ids": [
+        2037
+      ],
+      "selected_absolute_distance": 0.8958236433584459
+    },
+    {
+      "catalog": "after",
+      "xyz": [
+        1.0,
+        0.0,
+        1.0
+      ],
+      "variety": 0.75,
+      "candidates": 1,
+      "pick_candidates": 1,
+      "families": 1,
+      "distance": 0.70611613,
+      "euclidean": 0.895823634,
+      "selected": 2037,
+      "ids": [
+        2037
+      ],
+      "selected_absolute_distance": 0.8958236433584459
+    },
+    {
+      "catalog": "after",
+      "xyz": [
+        1.0,
+        0.0,
+        1.0
+      ],
+      "variety": 1.0,
+      "candidates": 1,
+      "pick_candidates": 1,
+      "families": 1,
+      "distance": 0.70611613,
+      "euclidean": 0.895823634,
+      "selected": 2037,
+      "ids": [
+        2037
+      ],
+      "selected_absolute_distance": 0.8958236433584459
+    },
+    {
+      "catalog": "after",
+      "xyz": [
+        1.0,
+        1.0,
+        0.0
+      ],
+      "variety": 0.0,
+      "candidates": 1,
+      "pick_candidates": 1,
+      "families": 1,
+      "distance": 0.183847751,
+      "euclidean": 0.206155276,
+      "selected": 2020,
+      "ids": [
+        2020
+      ],
+      "selected_absolute_distance": 0.20615528128088303
+    },
+    {
+      "catalog": "after",
+      "xyz": [
+        1.0,
+        1.0,
+        0.0
+      ],
+      "variety": 0.25,
+      "candidates": 1,
+      "pick_candidates": 1,
+      "families": 1,
+      "distance": 0.183847751,
+      "euclidean": 0.206155276,
+      "selected": 2020,
+      "ids": [
+        2020
+      ],
+      "selected_absolute_distance": 0.20615528128088303
+    },
+    {
+      "catalog": "after",
+      "xyz": [
+        1.0,
+        1.0,
+        0.0
+      ],
+      "variety": 0.5,
+      "candidates": 1,
+      "pick_candidates": 1,
+      "families": 1,
+      "distance": 0.183847751,
+      "euclidean": 0.206155276,
+      "selected": 2020,
+      "ids": [
+        2020
+      ],
+      "selected_absolute_distance": 0.20615528128088303
+    },
+    {
+      "catalog": "after",
+      "xyz": [
+        1.0,
+        1.0,
+        0.0
+      ],
+      "variety": 0.75,
+      "candidates": 1,
+      "pick_candidates": 1,
+      "families": 1,
+      "distance": 0.183847751,
+      "euclidean": 0.206155276,
+      "selected": 2020,
+      "ids": [
+        2020
+      ],
+      "selected_absolute_distance": 0.20615528128088303
+    },
+    {
+      "catalog": "after",
+      "xyz": [
+        1.0,
+        1.0,
+        0.0
+      ],
+      "variety": 1.0,
+      "candidates": 4,
+      "pick_candidates": 4,
+      "families": 4,
+      "distance": 0.183847751,
+      "euclidean": 0.206155276,
+      "selected": 2020,
+      "ids": [
+        2020,
+        2027,
+        2019,
+        2028
+      ],
+      "selected_absolute_distance": 0.20615528128088303
+    },
+    {
+      "catalog": "after",
+      "xyz": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "variety": 0.0,
+      "candidates": 1,
+      "pick_candidates": 1,
+      "families": 1,
+      "distance": 0.650538234,
+      "euclidean": 0.787400778,
+      "selected": 2017,
+      "ids": [
+        2017
+      ],
+      "selected_absolute_distance": 0.787400787401181
+    },
+    {
+      "catalog": "after",
+      "xyz": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "variety": 0.25,
+      "candidates": 1,
+      "pick_candidates": 1,
+      "families": 1,
+      "distance": 0.650538234,
+      "euclidean": 0.787400778,
+      "selected": 2017,
+      "ids": [
+        2017
+      ],
+      "selected_absolute_distance": 0.787400787401181
+    },
+    {
+      "catalog": "after",
+      "xyz": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "variety": 0.5,
+      "candidates": 1,
+      "pick_candidates": 1,
+      "families": 1,
+      "distance": 0.650538234,
+      "euclidean": 0.787400778,
+      "selected": 2017,
+      "ids": [
+        2017
+      ],
+      "selected_absolute_distance": 0.787400787401181
+    },
+    {
+      "catalog": "after",
+      "xyz": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "variety": 0.75,
+      "candidates": 1,
+      "pick_candidates": 1,
+      "families": 1,
+      "distance": 0.650538234,
+      "euclidean": 0.787400778,
+      "selected": 2017,
+      "ids": [
+        2017
+      ],
+      "selected_absolute_distance": 0.787400787401181
+    },
+    {
+      "catalog": "after",
+      "xyz": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "variety": 1.0,
+      "candidates": 3,
+      "pick_candidates": 3,
+      "families": 3,
+      "distance": 0.650538234,
+      "euclidean": 0.787400778,
+      "selected": 2017,
+      "ids": [
+        2017,
+        2034,
+        2037
+      ],
+      "selected_absolute_distance": 0.787400787401181
+    }
+  ]
+}
