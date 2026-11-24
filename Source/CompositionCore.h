@@ -223,6 +223,64 @@ inline DialoguePlan planDialogue(const MotifUse& use,const MotifCatalog& catalog
     p.answerNotes=p.answer?std::min(3,memory.count):0;
     return p;
 }
+// A bounded free-line thought over an actual harmonic region, not a fixed bar grammar.
+enum class PhraseEnding { open, settled };
+struct LinePhraseRequest
+{
+    int64_t begin=0,end=0,pulse=4;
+    std::array<int,16> pitches {};int count=0,goalPitchClass=0,notes=3;
+    bool descending=true,legato=true;int initialNeighbour=0;
+    Range range;PhraseEnding ending=PhraseEnding::open;
+};
+struct LinePhrasePlan
+{
+    struct Note { int64_t begin=0,end=0;int pitch=0; };
+    std::array<Note,5> notes {};int count=0,goal=0;
+    int64_t begin=0,end=0,arrival=0,breath=0;
+    PhraseEnding ending=PhraseEnding::open;
+    bool valid=false;
+};
+inline LinePhrasePlan planLinePhrase(const LinePhraseRequest& r)
+{
+    LinePhrasePlan p;
+    if(r.count<3||r.count>16||r.pulse<1||r.begin<0||r.end-r.begin<4*r.pulse
+        ||r.notes<2||r.notes>4||r.goalPitchClass<0||r.goalPitchClass>11)return p;
+    int goal=-1,best=10000;const int centre=(r.pitches[0]+r.pitches[static_cast<size_t>(r.count-1)])/2;
+    for(int i=0;i<r.count;++i)
+    {
+        const int pitch=r.pitches[static_cast<size_t>(i)];
+        if(pitch<r.range.low||pitch>r.range.high||(i&&pitch<=r.pitches[static_cast<size_t>(i-1)]))return {};
+        if((pitch%12+12)%12==r.goalPitchClass&&(std::abs(pitch-centre)<best
+            ||(!r.descending&&std::abs(pitch-centre)==best)))
+        {goal=i;best=std::abs(pitch-centre);}
+    }
+    if(goal<0)return p;
+    int start=std::clamp(goal+(r.descending?3:-3),0,r.count-1);
+    if(std::abs(start-goal)<2)start=std::clamp(goal+(r.descending?-3:3),0,r.count-1);
+    if(start==goal)return p;
+    p.begin=r.begin;p.end=r.end;p.breath=r.end-r.pulse;p.arrival=p.breath-r.pulse;
+    p.goal=r.pitches[static_cast<size_t>(goal)];p.ending=r.ending;
+    auto begin=r.begin;
+    const int neighbour=r.pitches[static_cast<size_t>(start)]+r.initialNeighbour;
+    if(r.initialNeighbour>0&&p.arrival-begin>=3*r.pulse&&neighbour>=r.range.low&&neighbour<=r.range.high)
+    {p.notes[static_cast<size_t>(p.count++)]={begin,begin+r.pulse+(r.legato?1:-1),neighbour};begin+=r.pulse;}
+    p.arrival=begin+((p.arrival-begin)/r.pulse)*r.pulse;
+    const int count=std::min({r.notes,std::abs(goal-start)+1,static_cast<int>(1+(p.arrival-begin)/r.pulse)});
+    for(int i=0;i<count;++i)
+    {
+        const auto at=begin+((p.arrival-begin)*i/(count-1)/r.pulse)*r.pulse;
+        const int index=i==count-2&&count>=3?goal+(start>goal?1:-1):start+(goal-start)*i/(count-1);
+        p.notes[static_cast<size_t>(p.count++)]={at,0,r.pitches[static_cast<size_t>(index)]};
+    }
+    for(int i=(begin>r.begin?1:0);i<p.count;++i)
+    {
+        auto& n=p.notes[static_cast<size_t>(i)];
+        const auto next=i+1<p.count?p.notes[static_cast<size_t>(i+1)].begin:p.breath;
+        n.end=i+1==p.count?p.breath:std::max(n.begin+1,next+(r.legato?1:-1));
+    }
+    p.valid=true;return p;
+}
+
 // Density removes optional metrical groups, never changes expression or pitch material.
 struct EventDensity
 {

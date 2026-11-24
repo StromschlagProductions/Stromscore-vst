@@ -12,6 +12,7 @@
 #include <string>
 #include <numeric>
 #include <chrono>
+#include <tuple>
 
 struct E { long long sample; int channel,note,velocity,type; };
 using Events = std::vector<E>;
@@ -216,9 +217,13 @@ int main(int argc,char**argv)
             const int bassPcs[4]={9,7,5,4};
             for(int c=0;c<4;++c) { const auto notes=pitches(dev,c*192000LL,3); CHECK(notes.size()==1); CHECK(*notes.begin()%12==bassPcs[c]); }
         }
-        // Arp/accent/counter streams remain byte-for-byte identical for static comparisons.
-        Events otherA,otherB;for(auto e:dev)if(e.channel!=1&&e.channel!=2&&e.channel!=3&&e.channel!=4)otherA.push_back(e);
-        for(auto e:ref)if(e.channel!=1&&e.channel!=2&&e.channel!=3&&e.channel!=4)otherB.push_back(e);same(otherA,otherB);
+        // Arp/accent streams remain identical; free Score counterphrases intentionally evolve after 2.2.
+        Events otherA,otherB;for(auto e:dev)if(e.channel!=1&&e.channel!=2&&e.channel!=3&&e.channel!=4&&(e.channel!=8||s.genre==GenrePopRock))otherA.push_back(e);
+        for(auto e:ref)if(e.channel!=1&&e.channel!=2&&e.channel!=3&&e.channel!=4&&(e.channel!=8||s.genre==GenrePopRock))otherB.push_back(e);
+        // Fewer counter claims can reorder simultaneous releases in the compact active-note array.
+        // Keep exact events/times, independent of that irrelevant cross-channel ordering.
+        auto order=[](const E& a,const E& b){return std::tie(a.sample,a.channel,a.note,a.velocity,a.type)<std::tie(b.sample,b.channel,b.note,b.velocity,b.type);};
+        std::sort(otherA.begin(),otherA.end(),order);std::sort(otherB.begin(),otherB.end(),order);same(otherA,otherB);
     }
     CHECK(newRetriggers<oldRetriggers);CHECK(newMove<=oldMove);
     std::cout<<"Common-note reattacks: "<<oldRetriggers<<" -> "<<newRetriggers<<"; bidirectional displacement: "<<oldMove<<" -> "<<newMove<<" semitones\n";

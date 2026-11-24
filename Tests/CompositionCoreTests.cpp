@@ -320,5 +320,26 @@ int main()
         CHECK(previous==groups);
     }
     CHECK((EventDensity{.45f}.allows(2,4)&&!EventDensity{.45f}.allows(1,4)));
+    // A target-directed free thought follows harmonic-region lengths, with an explicit rest.
+    {
+        LinePhraseRequest r;r.count=6;r.pitches={60,64,67,71,72,76};r.goalPitchClass=0;r.notes=4;
+        for(int duration:{16,32,48,80,128})
+        {
+            r.end=duration;auto phrase=planLinePhrase(r);CHECK(phrase.valid&&phrase.goal==72);
+            CHECK(phrase.arrival==duration-8&&phrase.breath==duration-4);
+            CHECK(phrase.notes[static_cast<size_t>(phrase.count-1)].pitch==phrase.goal);
+            CHECK(phrase.notes[static_cast<size_t>(phrase.count-1)].end==phrase.breath);
+            for(int i=0;i<phrase.count;++i)
+            {
+                const auto& n=phrase.notes[static_cast<size_t>(i)];CHECK(n.end>n.begin&&n.end<=phrase.breath);
+                if(i)CHECK(n.begin>phrase.notes[static_cast<size_t>(i-1)].begin);
+            }
+        }
+        r.initialNeighbour=1;r.end=80;CHECK(planLinePhrase(r).count==5);
+        r.legato=false;const auto detached=planLinePhrase(r);
+        for(int i=1;i<detached.count;++i)CHECK(detached.notes[static_cast<size_t>(i-1)].end<detached.notes[static_cast<size_t>(i)].begin);
+        r.goalPitchClass=9;CHECK(!planLinePhrase(r).valid);
+        r.goalPitchClass=0;r.count=2;CHECK(!planLinePhrase(r).valid);
+    }
     std::cout << "Composition core tests passed\n";
 }

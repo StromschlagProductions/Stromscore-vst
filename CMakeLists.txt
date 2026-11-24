@@ -84,6 +84,22 @@ if(BUILD_TESTING)
     file(MAKE_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/voice-leading-comparison")
     configure_file(docs/development/VOICE_LEADING.md "${CMAKE_CURRENT_BINARY_DIR}/voice-leading-comparison/README.md" COPYONLY)
     add_test(NAME VoiceLeading COMMAND VoiceLeadingTests "${CMAKE_CURRENT_BINARY_DIR}/voice-leading-comparison")
+    add_executable(PhraseProbe tools/phrase_probe.cpp)
+    target_include_directories(PhraseProbe PRIVATE Source)
+    target_compile_definitions(PhraseProbe PRIVATE PHRASE_DIAGNOSTICS=1)
+    if(MSVC)
+        target_compile_options(PhraseProbe PRIVATE /utf-8)
+    endif()
+    if(Python3_Interpreter_FOUND AND GIT_FOUND AND NOT MSVC)
+        execute_process(COMMAND ${GIT_EXECUTABLE} cat-file -e 0cc30c2:Source/ScoreEngine.h
+            WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} RESULT_VARIABLE PHRASE_REFERENCE_STATUS ERROR_QUIET)
+        if(PHRASE_REFERENCE_STATUS EQUAL 0)
+            add_test(NAME PhraseComparison COMMAND ${Python3_EXECUTABLE}
+                ${CMAKE_CURRENT_SOURCE_DIR}/scripts/compare_phrases.py
+                --probe $<TARGET_FILE:PhraseProbe> --compiler ${CMAKE_CXX_COMPILER}
+                --output ${CMAKE_CURRENT_BINARY_DIR}/phrase-comparison)
+        endif()
+    endif()
     add_executable(DensityProbe tools/density_probe.cpp)
     target_include_directories(DensityProbe PRIVATE Source)
     if(MSVC)

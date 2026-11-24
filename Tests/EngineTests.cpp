@@ -477,6 +477,7 @@ int main()
         }
     {   // mehr Intensitaet = bewegter
         Settings a; a.y = 0.3f; a.solo[kGegenstimme] = true;
+        a.key=0;a.x=.2f;a.custom=true;a.customChords[0]={0,Maj7,8}; // Hold harmony fixed when testing movement.
         Settings b = a; b.y = 0.9f;
         CHECK (countOns (run (b, 512, 30.0), 5) > countOns (run (a, 512, 30.0), 5));
     }
@@ -1654,6 +1655,31 @@ int main()
             CHECK(found); // Exact surviving velocity, pitch and on/off timing at both energy levels.
         }
         CHECK(sparseOns==8&&denseOns==16);checkBalanced(sparse);
+    }
+    // Free score counterphrases reach their declared target and leave a real breath.
+    {
+        Settings s;s.key=0;s.x=.2f;s.y=.8f;s.custom=true;s.customChords[0]={0,Maj7,8};
+        s.motif=false;s.solo[kGegenstimme]=true;
+        Generator g;EventList events;Transport t;t.playing=true;g.process(t,s,6000,events);
+        const auto plan=g.inspectFreePhrase(0,s);CHECK(plan.valid&&plan.goal==72&&plan.breath==124);
+        const auto performance=run(s,512,16.);checkBalanced(performance);
+        std::vector<int> pitches;int active=0;
+        for(const auto& e:performance)
+        {
+            active+=e.velocity>0?1:-1;CHECK(active>=0&&active<=2);
+            if(e.velocity>0)pitches.push_back(e.note);
+            if(e.sample>=plan.breath*6000)CHECK(active==0);
+        }
+        CHECK(pitches.size()==static_cast<size_t>(plan.count)&&pitches.back()==plan.goal);
+        CHECK(pitches[pitches.size()-2]!=pitches.back());
+        // Within the same scene a seek chases the planned sounding note, not a new local decision.
+        t.ppq=4.;events.clear();g.process(t,s,6000,events);bool chased=false;
+        for(int i=0;i<events.size;++i){const auto& e=events.events[static_cast<size_t>(i)];chased|=e.out==OutCounter&&e.velocity>0&&e.note==plan.notes[0].pitch;}
+        CHECK(chased);
+        t.ppq=31.25;events.clear();g.process(t,s,6000,events);
+        for(int i=0;i<events.size;++i)CHECK(events.events[static_cast<size_t>(i)].velocity==0);
+        s.motif=true;g.process(t,s,6000,events);CHECK(!g.inspectFreePhrase(0,s).valid);
+        s.motif=false;s.genre=GenrePopRock;g.process(t,s,6000,events);CHECK(!g.inspectFreePhrase(0,s).valid);
     }
     return 0;
 }

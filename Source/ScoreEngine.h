@@ -457,6 +457,9 @@ public:
     const composition::RememberedMotif& rememberedMotif(int output=OutCounter) const { return voice(output).motif.material(motifCatalog); }
     const composition::MotifUse& motifUse(int output)const { return voice(output).motif; }
     const composition::MotifUse& answerUse()const { return voice(OutCounter).answer; }
+    // Offline/read-only inspection: reconstruct the same plan without changing performance state.
+    composition::LinePhrasePlan inspectFreePhrase(long long tick,Settings settings)const
+    {auto snapshot=*this;snapshot.cur=&settings;return snapshot.freeLinePhrase(snapshot.locate(tick),settings);}
     int plannedHarmonySlots() const { return planValid ? harmonicPlan.count : 0; }
     bool driveArrived() const { return driveArrivedNow; }     // die Fahrt ist bei B angekommen (das Plugin macht B dann zu A)
     uint32_t driveGenerationNow() const { return driveGenerationSeen; }
@@ -1738,6 +1741,7 @@ private:
             sustained (p, s, 0, out, true);
         else
             chaseStep = k;   // genau am Akkordanfang: der normale Schritt schlaegt an, auch die stehenden Ebenen
+        freePhraseStep(k,p,s,0,out,true,ppq>static_cast<double>(k)*kStep+1e-9);
     }
 
     void stepOn (long long k, int offset, const Settings& s, EventList& out)
@@ -2321,11 +2325,69 @@ private:
     // Ende eines Tons der Gegenstimme relativ zum naechsten: Legato eine Sechzehntel darueber, sonst kurz davor abgesetzt
     long long tail (long long len) const { return cur != nullptr && cur->legato ? 1 : (len >= 4 ? -1 : 0); }
 
+    composition::LinePhrasePlan freeLinePhrase(const Pos& p,const Settings& s)const
+    {
+        if(s.genre!=GenreScore||s.motif||on[kMelodie]||!on[kGegenstimme])return {};
+        composition::LinePhraseRequest request;
+        request.begin=std::max({p.chordStart,p.phraseStart,sceneStep,wendungStart});
+        request.end=std::min({p.chordEnd,p.phraseEnd,sceneEndStep});
+        if(s.ending==EndFade&&(s.sceneBars>0||manualEndStep>=0))
+        {
+            int slots=0;const int index=orderIndex(s,entryInUse,kGegenstimme,slots);
+            const int tailBars=manualEndStep>=0?2:std::clamp(std::min(s.buildBars,s.sceneBars/2),1,64);
+            if(index>0)request.end=std::min<int64_t>(request.end,sceneEndStep-slotBar(index,slots,tailBars)*meter.len);
+        }
+        if(s.scene&&entryInUse!=EntryAll)
+        {
+            int slots=0;const int index=orderIndex(s,entryInUse,kGegenstimme,slots);
+            if(index>=0)request.begin=std::max<int64_t>(request.begin,sceneStep+slotBar(index,slots,s.buildBars)*meter.len);
+        }
+        request.pulse=meter.numGroups>1?meter.groupStart[1]:std::min(4,meter.len);
+        const auto catalog=outputCatalog(s);composition::RoleNeed need;
+        need.range=catalog[OutCounter].track.instrument.range;
+        if(!composition::suitable(catalog[OutCounter].track,need))return {};
+        const auto chord=chordFor(p,kGegenstimme,s);const auto& shape=kShapes[chord.type];
+        int ladder[16];const int count=counterLadder(chord,s,ladder);
+        const int low=62+static_cast<int>(std::lround(s.x*3.f));
+        for(int i=0;i<count;++i)if(ladder[i]>=low&&ladder[i]<=low+13)
+            request.pitches[static_cast<size_t>(request.count++)]=ladder[i];
+        if(request.count<3){request.count=count;for(int i=0;i<count;++i)request.pitches[static_cast<size_t>(i)]=ladder[i];}
+        const int oct=12*octaveOf(OutCounter);
+        request.range={std::max(-oct,catalog[OutCounter].track.instrument.range.low-oct),
+            std::min(127-oct,catalog[OutCounter].track.instrument.range.high-oct)};
+        request.ending=request.end==p.phraseEnd&&chord.root==0
+            ?composition::PhraseEnding::settled:composition::PhraseEnding::open;
+        int interval=request.ending==composition::PhraseEnding::settled?(s.x>.6f?shape.iv[1]:0)
+            :s.z>=.5f&&shape.n>3?shape.iv[3]:shape.iv[std::min(s.x>.6f?2:1,shape.n-1)];
+        request.goalPitchClass=(s.key+chord.root+interval)%12;
+        request.descending=s.x<.5f;request.notes=layerY(s,kGegenstimme)>=.7f?4:3;
+        request.legato=s.legato;request.initialNeighbour=s.z>=.75f?1:s.z>=.5f?2:0;
+        return composition::planLinePhrase(request);
+    }
+
+    bool freePhraseStep(long long k,const Pos& p,const Settings& s,int offset,EventList& out,
+        bool chase=false,bool inclusive=false)
+    {
+        const auto plan=freeLinePhrase(p,s);if(!plan.valid)return false;
+        voice(OutCounter).pendingAt=-1;
+        if(k>=plan.breath){cut(kGegenstimme,k,k,offset,out);return true;}
+        for(int i=0;i<plan.count;++i)
+        {
+            const auto& n=plan.notes[static_cast<size_t>(i)];
+            if(chase? !((n.begin<k||(inclusive&&n.begin==k))&&k<n.end):n.begin!=k)continue;
+            noteOn(OutCounter,n.pitch,static_cast<int>(50+35*layerY(s,kGegenstimme))+(i==0&&s.z>=.5f?6:0),n.end,offset,out);
+            if(!chase)releaseOthers(OutCounter,n.pitch,offset,out);
+            voice(OutCounter).note=n.pitch;
+        }
+        return true;
+    }
+
     void counterLine (long long k, const Pos& p, const Settings& s, int offset, bool chordStart, EventList& out, int output=OutCounter)
     {
         if (! on[kOutputLayer[output]]) { voice(output).note = -1; voice(output).pendingAt = -1; return; }
         if (output==OutCounter && s.genre == GenrePopRock) { leadHook (k, p, s, offset, out); return; }
         if ((output==OutMelody?s.melodyMotif:s.motif) && motifStep (k, p, s, offset, out,output)) return;
+        if(output==OutCounter&&freePhraseStep(k,p,s,offset,out))return;
         const float yc = layerY (s, kOutputLayer[output]);
         const int vel = (int) (50 + 35 * yc);
         if (output==OutCounter && k == voice(output).pendingAt && voice(output).pending >= 0)                    // Vorhalt loest sich auf

@@ -746,7 +746,7 @@ int main()
         CHECK (! c.broken && c.ons == c.offs); q.setPlayHead (nullptr);
     }
     // Voice-leading export equals live DAW playback, including channel CCs and held common notes.
-    for(float intensity : {.4f,.7f,.8f,.9f,1.f,.99f,.97f,.96f,.95f,.94f,.93f})
+    for(float intensity : {.4f,.7f,.8f,.9f,1.f,.99f,.97f,.96f,.95f,.94f,.93f,.92f,.91f})
     {
         StromscoreProcessor q; FakeHost h; q.setPlayHead (&h); q.prepareToPlay (48000, 512);
         setParam (q, "aufbau", 0); setParam (q, "key", 0); setParam (q, "intensitaet", intensity);
@@ -785,6 +785,11 @@ int main()
             setParam(q,"mute1",0);setParam(q,"mute2",0);setParam(q,"mute3",0);setParam(q,"mute4",0);
             setParam(q,"arpFigure",stromscore::ArpAuto);setParam(q,"szenenLaenge",16);
             if(intensity==.94f){setParam(q,"aufbau",1);setParam(q,"einstieg",stromscore::EntryCounter);}
+        }
+        if(intensity==.92f||intensity==.91f)
+        {
+            setParam(q,"motiv",0);setParam(q,"melodie",0);setParam(q,"mute3",0);setParam(q,"arpFigure",stromscore::ArpAuto);
+            if(intensity==.91f){setParam(q,"aufbau",1);setParam(q,"einstieg",stromscore::EntryCounter);setParam(q,"szenenLaenge",16);}
         }
         const int bars=recurrence?40:8;
         using Timed = std::tuple<long long, int, int, int, int>;
