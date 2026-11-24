@@ -31,6 +31,7 @@ int main(int argc,char** argv)
 
 #ifdef BASS_REGRESSION_CONTROL
  s.policy.bass.enabled=false;
+ s.policy.rhythm.enabled=false;
 #endif
  Generator g;EventList events;constexpr long long sr=48000,total=48*sr,bar=96000;
     auto emit=[&](long long at){for(int i=0;i<events.size;++i){auto e=events.events[static_cast<size_t>(i)];

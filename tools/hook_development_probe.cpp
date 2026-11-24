@@ -23,6 +23,7 @@ int main(int argc,char** argv)
 
 #ifdef BASS_REGRESSION_CONTROL
  s.policy.bass.enabled=false;
+ s.policy.rhythm.enabled=false;
 #endif
  Generator g;EventList es;std::set<long long> seen;bool published=false;
  const long long bar=std::llround(48000*60/bpm*4),total=static_cast<long long>(128*48000*60/bpm*4);

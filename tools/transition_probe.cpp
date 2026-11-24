@@ -30,6 +30,7 @@ int main(int argc,char** argv)
 
 #ifdef BASS_REGRESSION_CONTROL
  s.policy.bass.enabled=false;
+ s.policy.rhythm.enabled=false;
 #endif
  Generator g;EventList events;constexpr long long bar=96000,total=128*bar;
     int last=-1000,previousRoot=0,previousType=0;long long lastTick=-1;

@@ -13,6 +13,7 @@ int main(int argc,char** argv)
 
 #ifdef BASS_REGRESSION_CONTROL
  s.policy.bass.enabled=false;
+ s.policy.rhythm.enabled=false;
 #endif
  Generator g;EventList es;const int block=std::atoi(argv[4]);constexpr int total=16*96000;
  auto emit=[&](int at){for(int i=0;i<es.size;++i){auto e=es.events[i];std::cout<<at+e.offset<<','<<int(e.channel)<<','<<int(e.note)<<','<<int(e.velocity)<<','<<int(e.type)<<','<<int(e.out)<<'\n';}};

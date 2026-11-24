@@ -469,6 +469,8 @@ public:
         return snapshot.motifOccurrence(tick,snapshot.locate(tick),settings,output);
     }
     composition::BassPhrasePlan inspectBassPhrase()const{return bassPhrase;}
+    composition::RhythmPlan inspectMovementRhythm(long long tick,const Settings& s)const
+    {auto snapshot=*this;snapshot.cur=&s;return snapshot.movementRhythm(snapshot.locate(tick),s);}
     int plannedHarmonySlots() const { return planValid ? harmonicPlan.count : 0; }
     bool driveArrived() const { return driveArrivedNow; }     // die Fahrt ist bei B angekommen (das Plugin macht B dann zu A)
     uint32_t driveGenerationNow() const { return driveGenerationSeen; }
@@ -636,7 +638,7 @@ public:
         s.change = std::clamp (s.change, 0, kNumChangeGrids - 1);
         for (auto& v : s.layerIntensity) v = std::clamp (v, -1.0f, 1.0f);
         if(!composition::findProfile(s.profile))s.profile=composition::ProfileId::neutral;
-        if(!composition::valid(s.policy.texture)||!composition::valid(s.policy.motif)||!composition::valid(s.policy.popHooks.recurrence)||!composition::valid(s.policy.passing)||!composition::valid(s.policy.bass))s.policy=composition::neutralFreePolicy;
+        if(!composition::valid(s.policy.texture)||!composition::valid(s.policy.motif)||!composition::valid(s.policy.popHooks.recurrence)||!composition::valid(s.policy.passing)||!composition::valid(s.policy.bass)||!composition::valid(s.policy.rhythm))s.policy=composition::neutralFreePolicy;
         s.variety = std::clamp (s.variety, 0.0f, 1.0f);
         for (auto& o : s.octave) o = std::clamp (o, -2, 2);
         for (auto& c : s.channel) c = std::clamp (c, 1, 16);
@@ -1549,6 +1551,35 @@ private:
     }
     int pattern0 (const Settings& s, long long phrase) const { return chooseBass (s, phrase); }
 
+    composition::RhythmPlan movementRhythm(const Pos& p,const Settings& s)const
+    {
+        // Explicitly protect manual patterns, thematic contexts, scene density and shared routing.
+        if(s.genre!=GenrePopRock||!s.policy.rhythm.enabled||s.bassPattern!=BassAuto||s.arpFigure!=ArpAuto
+            ||s.arpRate!=RateAuto||!on[kBass]||!on[kArp]||s.scene||s.sceneBars>0||manualEndStep>=0||s.endRequested
+            ||still||bassRest||bassOverride>=0||dens<1.f||s.meterNum!=4||s.meterDen!=4||s.passing
+            ||on[kMelodie]||(on[kGegenstimme]&&phrasedHook(s)))return {};
+        for(int o=0;o<kNumOutputs;++o)
+            if((o!=OutArp&&s.channel[o]==s.channel[OutArp])
+                ||(o!=OutBassShort&&s.channel[o]==s.channel[OutBassShort]))return {};
+        const int fig=chooseArp(s,p.phrase);
+        if(fig!=ArpUp&&fig!=ArpDown&&fig!=ArpCircle&&fig!=ArpCascade)return {};
+        if(composition::autoArpeggioTicks(s.policy.texture,layerY(s,kArp))!=2)return {};
+        const int pattern=chooseBass(s,p.phrase);
+        composition::RhythmPlanRequest request;request.bar=p.bar;request.movement=0x5555;
+        for(int pos=0;pos<16;++pos)
+        {
+            bool attack=false;
+            if(pattern==BassEighth)attack=pos%2==0;
+            else if(pattern==BassHiNrg)attack=pos%(layerY(s,kBass)>.75f?1:2)==0;
+            else if(pattern==BassFunk)attack=composition::funkBassAttack(pos,false).active;
+            else return {};
+            if(attack)request.reference|=static_cast<uint16_t>(1u<<pos);
+        }
+        const auto cap=outputCatalog(s)[OutArp].track.instrument;
+        request.minDuration=static_cast<int>(cap.minDuration);request.maxDuration=static_cast<int>(cap.maxDuration);
+        return composition::planRhythmicInterlock(request,s.policy.rhythm);
+    }
+
     int choosePad (const Settings& s) const
     {
         if (padShy) return PadHeld;                   // Einstieg: ein stehender Ton
@@ -2043,6 +2074,13 @@ private:
             for(int i=0;i<bassPhrase.count;++i){const auto& note=bassPhrase.notes[i];if(note.at*kStep<ppq&&ppq<(note.at+note.length)*kStep)
                 {const int position=static_cast<int>(note.at%meter.len);const int velocity=static_cast<int>(58+38*layerY(s,kBass))+(meter.isGroupStart(position)?8:0)+jitter(note.at,kBass,3)+note.accent;
                  noteOn(OutBassShort,note.pitch-12*s.octave[kBass],velocity,note.at+note.length,0,out);}}
+        const auto rhythm=movementRhythm(p,s);
+        if(rhythm.active)for(int i=0;i<rhythm.count;++i)
+        {
+            const auto& n=rhythm.notes[i];const auto begin=k-p.pos+n.at;
+            if((begin+swingDelay(begin,s))*kStep<ppq&&ppq<(begin+n.length+swingDelay(begin+n.length,s))*kStep)
+                playArpeggio(begin,0,locate(begin),p.phrase,s,out);
+        }
         const bool inclusive=ppq>static_cast<double>(k)*kStep+1e-9;
         freePhraseStep(k,p,s,0,out,true,inclusive);
         chaseMotif(k,p,s,out,inclusive);
@@ -2240,6 +2278,95 @@ private:
         return true;
     }
 
+    void playArpeggio(long long k,int offset,const Pos& p,long long phrase,const Settings& s,EventList& out)
+    {
+        const bool group=meter.isGroupStart(p.pos);const float z=s.z,yArp=layerY(s,kArp);
+        const int fig = chooseArp (s, phrase);
+        int rate = s.arpRate == RateQuarter ? 4 : s.arpRate == RateEighth ? 2 : s.arpRate == RateSixteenth ? 1
+                 : composition::autoArpeggioTicks(s.policy.texture,yArp);
+        if (fig == ArpGlitter || fig == ArpSid) rate = 1;
+        const long long rel = k - (s.follow[kArp] ? p.chordStart : p.phraseStart);
+        const auto rhythm=movementRhythm(p,s);
+        const auto* onset=rhythm.active?rhythm.at(p.pos):nullptr;
+        const auto sourceStep=onset?k+onset->source-p.pos:k;
+        const auto sourceRel=rel+(sourceStep-k);
+        if (rhythm.active?onset!=nullptr:rel%rate==0)
+        {
+            const Chord c = chordFor (p, kArp, s);
+            const ChordShape& sh = kShapes[c.type];
+            int base = place (s.key + c.root, 55 + (int) std::lround (s.x * 7.0f)) + (fig == ArpGlitter ? 12 : 0);
+            int tones[10]; const int n = std::min (sh.n, 5); int count = 2 * n;
+            for (int i = 0; i < count; ++i) tones[i] = base + sh.iv[i % n] + 12 * (i / n);
+            if (rangeOn (OutArp))
+            {
+                // Tonumfang: die Figur rueckt als Ganzes in den Bereich; die Tonleiter der Figur wird gefaltet und
+                // sortiert, so dass Auf, Ab und Kreisen an den Grenzen umkehren und kein Ton verschluckt wird
+                const int shift = bestShift (OutArp, tones, count);
+                base += shift;
+                count = fitGroup (OutArp, tones, count);
+            }
+            const long long c0 = sourceRel / rate + (long long) (hashInt (77u, s.follow[kArp] ? p.chordStart : phrase) % 4);
+            int note = base;
+            switch (fig)
+            {
+                case ArpDown:    note = tones[count - 1 - (int) (c0 % count)]; break;
+                case ArpCircle:  { const int period = std::max (1, 2 * count - 2); const int q = (int) (c0 % period); note = tones[q < count ? q : period - q]; break; }
+                case ArpCell:
+                {
+                    static constexpr int cell[4] = { 0, 1, 0, 2 };
+                    const int q = cell[c0 % 4];
+                    note = (q == 1 && z >= 0.5f) ? base + 1 : tones[q];   // bei Unruhe: Halbton-Nachbar statt Terz
+                    break;
+                }
+                case ArpRiff:
+                {
+                    static constexpr int dark[8] = { 0, 3, 5, 7, 10, 7, 5, 3 };
+                    static constexpr int bright[8] = { 0, 2, 4, 7, 9, 7, 4, 2 };
+                    static constexpr int exotic[8] = { 0, 1, 4, 5, 7, 8, 5, 4 };   // phrygisch-dominant
+                    const int* r = c.type == Dom7b9 ? exotic : sh.minor ? dark : bright;
+                    note = base + r[c0 % 8];
+                    break;
+                }
+                case ArpLeaps:
+                {
+                    const int leaps[6] = { 0, 7, 12, sh.iv[1] + 12, 12, 7 };   // Dreiklangs-Spruenge
+                    note = base + leaps[c0 % 6];
+                    break;
+                }
+                case ArpCascade:   // Harfen-Kaskade: Dreiergruppen, die stufenweise steigen und von vorn beginnen
+                {
+                    const int g = (int) ((c0 / 3) % n), j = (int) (c0 % 3);
+                    note = tones[std::min (count - 1, g + j)];
+                    break;
+                }
+                case ArpOctatonic: // Halbton-Ganzton-Leiter auf und ab
+                {
+                    static constexpr int scale[8] = { 0, 1, 3, 4, 6, 7, 9, 10 };
+                    const int q = (int) (c0 % 14);
+                    const int idx = q < 8 ? q : 14 - q;
+                    note = base + (idx < 8 ? scale[idx] : 12);
+                    break;
+                }
+                case ArpSid:       // SID-Arpeggio: Dreiklang in Sechzehnteln, eine Oktave hoeher, wie ein Akkord auf einem Kanal
+                {
+                    note = base + 12 + sh.iv[(int) (c0 % std::min (3, sh.n))];
+                    break;
+                }
+                case ArpQuartal:   // gestapelte Quarten als Ostinato
+                {
+                    static constexpr int fourths[6] = { 0, 5, 10, 15, 10, 5 };
+                    note = base + fourths[c0 % 6];
+                    break;
+                }
+                default:         note = tones[c0 % count]; break;       // Aufwaerts, Glitzern
+            }
+            if (z >= 0.6f && c0 % 8 == 7) note -= 1;                    // Unruhe: chromatischer Durchgang
+            const int vel = (int) ((fig == ArpGlitter ? 40 : 52) + 35 * yArp) + (group ? 6 : 0) + jitter (sourceStep, kArp, 6);
+            const long long len = onset?onset->length:(fig == ArpGlitter || fig == ArpSid || rate == 1) ? 1 : rate;
+            noteOn (OutArp, note, vel, k + len, offset, out);
+        }
+    }
+
     bool densityAllows(const Pos& p)const
     {
         int group=0;for(int i=1;i<meter.numGroups;++i)if(p.pos>=meter.groupStart[i])group=i;
@@ -2263,7 +2390,7 @@ private:
         const bool beat = p.pos % 4 == 0;
         const bool group = meter.isGroupStart (p.pos);
         const float z = s.z;
-        const float yPad = layerY (s, kFlaeche), yBass = layerY (s, kBass), yArp = layerY (s, kArp);
+        const float yPad = layerY (s, kFlaeche), yBass = layerY (s, kBass);
 
         if (chordStart)
             sustained (p, s, offset, out, restart, bassRest ? 1u : 3u);
@@ -2398,90 +2525,9 @@ private:
             }
         }
 
-        // --- Arp / Figur
+        // --- Arp / Figur: motif/answer reservations retain priority over accompaniment.
         if (on[kArp] && !dialogueArp(k,p,s,offset,out) && !motifWindow(p,s).contains(k) && (optional||chordStart))
-        {
-            const int fig = chooseArp (s, phrase);
-            int rate = s.arpRate == RateQuarter ? 4 : s.arpRate == RateEighth ? 2 : s.arpRate == RateSixteenth ? 1
-                     : composition::autoArpeggioTicks(s.policy.texture,yArp);
-            if (fig == ArpGlitter || fig == ArpSid) rate = 1;
-            const long long rel = k - (s.follow[kArp] ? p.chordStart : p.phraseStart);
-            if (rel % rate == 0)
-            {
-                const Chord c = chordFor (p, kArp, s);
-                const ChordShape& sh = kShapes[c.type];
-                int base = place (s.key + c.root, 55 + (int) std::lround (s.x * 7.0f)) + (fig == ArpGlitter ? 12 : 0);
-                int tones[10]; const int n = std::min (sh.n, 5); int count = 2 * n;
-                for (int i = 0; i < count; ++i) tones[i] = base + sh.iv[i % n] + 12 * (i / n);
-                if (rangeOn (OutArp))
-                {
-                    // Tonumfang: die Figur rueckt als Ganzes in den Bereich; die Tonleiter der Figur wird gefaltet und
-                    // sortiert, so dass Auf, Ab und Kreisen an den Grenzen umkehren und kein Ton verschluckt wird
-                    const int shift = bestShift (OutArp, tones, count);
-                    base += shift;
-                    count = fitGroup (OutArp, tones, count);
-                }
-                const long long c0 = rel / rate + (long long) (hashInt (77u, s.follow[kArp] ? p.chordStart : phrase) % 4);
-                int note = base;
-                switch (fig)
-                {
-                    case ArpDown:    note = tones[count - 1 - (int) (c0 % count)]; break;
-                    case ArpCircle:  { const int period = std::max (1, 2 * count - 2); const int q = (int) (c0 % period); note = tones[q < count ? q : period - q]; break; }
-                    case ArpCell:
-                    {
-                        static constexpr int cell[4] = { 0, 1, 0, 2 };
-                        const int q = cell[c0 % 4];
-                        note = (q == 1 && z >= 0.5f) ? base + 1 : tones[q];   // bei Unruhe: Halbton-Nachbar statt Terz
-                        break;
-                    }
-                    case ArpRiff:
-                    {
-                        static constexpr int dark[8] = { 0, 3, 5, 7, 10, 7, 5, 3 };
-                        static constexpr int bright[8] = { 0, 2, 4, 7, 9, 7, 4, 2 };
-                        static constexpr int exotic[8] = { 0, 1, 4, 5, 7, 8, 5, 4 };   // phrygisch-dominant
-                        const int* r = c.type == Dom7b9 ? exotic : sh.minor ? dark : bright;
-                        note = base + r[c0 % 8];
-                        break;
-                    }
-                    case ArpLeaps:
-                    {
-                        const int leaps[6] = { 0, 7, 12, sh.iv[1] + 12, 12, 7 };   // Dreiklangs-Spruenge
-                        note = base + leaps[c0 % 6];
-                        break;
-                    }
-                    case ArpCascade:   // Harfen-Kaskade: Dreiergruppen, die stufenweise steigen und von vorn beginnen
-                    {
-                        const int g = (int) ((c0 / 3) % n), j = (int) (c0 % 3);
-                        note = tones[std::min (count - 1, g + j)];
-                        break;
-                    }
-                    case ArpOctatonic: // Halbton-Ganzton-Leiter auf und ab
-                    {
-                        static constexpr int scale[8] = { 0, 1, 3, 4, 6, 7, 9, 10 };
-                        const int q = (int) (c0 % 14);
-                        const int idx = q < 8 ? q : 14 - q;
-                        note = base + (idx < 8 ? scale[idx] : 12);
-                        break;
-                    }
-                    case ArpSid:       // SID-Arpeggio: Dreiklang in Sechzehnteln, eine Oktave hoeher, wie ein Akkord auf einem Kanal
-                    {
-                        note = base + 12 + sh.iv[(int) (c0 % std::min (3, sh.n))];
-                        break;
-                    }
-                    case ArpQuartal:   // gestapelte Quarten als Ostinato
-                    {
-                        static constexpr int fourths[6] = { 0, 5, 10, 15, 10, 5 };
-                        note = base + fourths[c0 % 6];
-                        break;
-                    }
-                    default:         note = tones[c0 % count]; break;       // Aufwaerts, Glitzern
-                }
-                if (z >= 0.6f && c0 % 8 == 7) note -= 1;                    // Unruhe: chromatischer Durchgang
-                const int vel = (int) ((fig == ArpGlitter ? 40 : 52) + 35 * yArp) + (group ? 6 : 0) + jitter (k, kArp, 6);
-                const long long len = (fig == ArpGlitter || fig == ArpSid || rate == 1) ? 1 : rate;
-                noteOn (OutArp, note, vel, k + len, offset, out);
-            }
-        }
+            playArpeggio(k,offset,p,phrase,s,out);
 
         // --- Gegenstimme: ruhige Linie aus Akkordtoenen, schrittweise gefuehrt
         if(on[kMelodie])
