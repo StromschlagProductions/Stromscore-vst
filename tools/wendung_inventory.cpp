@@ -18,8 +18,7 @@ static void quote(const char* value)
 int main()
 {
     using namespace stromscore;
-    const char* types[]={"Maj","Min","Maj7","Min7","Dom7","MinMaj7","MinMaj9","Dim7","HalfDim","Sus4","Quartal","Add9","Min9","Aug","Min6","Dom7b9","Sus2","Fifth"};
-    static_assert(std::size(types)==kNumChordTypes);
+    const auto& types=kChordTypeNames;
     std::cout<<std::setprecision(6)<<'[';bool first=true;
     for(int genre=0;genre<kNumGenres;++genre)for(int index=0;index<wendungCount(genre);++index)
     {

@@ -38,11 +38,12 @@ struct ChordDispositionResult
     voiceleading::ChordVoicing notes;
     uint16_t chordMask=0,required=0,omitted=0;
     ChordDisposition disposition;
-    bool applied=false,bassCoversRoot=false;
+    bool applied=false,bassCoversRoot=false,insufficientVoices=false;
 };
 inline ChordDispositionResult realizeChord(const ChordDispositionRequest& r,const ChordDispositionPolicy& policy)
 {
     ChordDispositionResult result;result.notes=r.original;result.chordMask=r.chordMask;result.required=r.required;result.disposition=r.disposition;
+    if(r.polyphony<2){result.notes={};result.insufficientVoices=true;return result;}
     if(!policy.enabled||!valid(policy)||r.original.n<2||r.original.n>6||r.polyphony<2||r.low>r.high||r.low< -128||r.high>255||r.root<0||r.root>11)return result;
     if(dispositionMask(r.original)!=r.chordMask)return result; // No repairing an unavailable harmonic colour with a substitute pitch.
     auto anchor=r.original;voiceleading::sort(anchor);
@@ -60,7 +61,7 @@ inline ChordDispositionResult realizeChord(const ChordDispositionRequest& r,cons
             if((needed&bit)&&!(seen&bit)){reduced.notes[reduced.n++]=anchor.notes[i];seen|=bit;}}
         anchor=reduced;
     }
-    if(anchor.n>r.polyphony)return result;
+    if(anchor.n>r.polyphony){result.notes={};result.insufficientVoices=true;return result;}
     auto acceptable=[&](const voiceleading::ChordVoicing& v)
     {
         if(v.n!=anchor.n||dispositionMask(v)!=needed||(dispositionMask(v)&r.required)!=r.required)return false;
@@ -87,7 +88,7 @@ inline ChordDispositionResult realizeChord(const ChordDispositionRequest& r,cons
     consider(anchor);
     // Drop/lift one voice by an octave; never invent a new pitch class or transpose the chord.
     for(int i=0;i<anchor.n;++i)for(int shift:{-12,12}){auto candidate=anchor;candidate.notes[i]+=shift;consider(candidate);}
-    if(!best.n)return result;
+    if(!best.n){if(result.notes.n>r.polyphony){result.notes={};result.insufficientVoices=true;}return result;}
     result.notes=best;result.omitted=r.chordMask&~needed;result.applied=true;return result;
 }
 }

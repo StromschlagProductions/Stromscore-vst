@@ -45,6 +45,13 @@ class HarmonyDataTests(unittest.TestCase):
   self.rejected(lambda d:d['catalog.json']['templates'][0].pop('coloration'))
   self.rejected(lambda d:d['catalog.json']['templates'][0].update(coloration=True))
   self.rejected(lambda d:d['arrangements.json']['recipes'][0].update(coloration='protected'))
+ def test_extensible_chord_registry(self):
+  d=copy.deepcopy(self.original);types=d['chord_types.json']['types'];types.append({'id':'SyntheticStack','value':len(types),'suffix':'test','minor':False,'intervals':[0,7,14,21]})
+  d['catalog.json']['templates'][0]['chords'][0]['type']='SyntheticStack';gen.validate(d)
+  self.assertIn('SyntheticStack',gen.emit(d)['Source/ChordTypes.generated.h'])
+  for iv in ([0],[0,1,2,3,4,5],[0,4,24]):
+   bad=copy.deepcopy(d);bad['chord_types.json']['types'][-1]['intervals']=iv
+   with self.assertRaises(gen.ValidationError):gen.validate(bad)
  def test_nonchord_slash_bass_is_valid(self):
   d=copy.deepcopy(self.original);t=d['catalog.json']['templates'][0];t['chords']=[{'root':10,'type':'Maj','bars':8,'bass':0}];t['tonality']={'center_pc':0,'mode':'mixolydian'}
   gen.validate(d)

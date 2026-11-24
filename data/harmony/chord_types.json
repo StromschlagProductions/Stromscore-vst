@@ -213,6 +213,116 @@
         7,
         12
       ]
+    },
+    {
+      "id": "Major6",
+      "value": 18,
+      "suffix": "6",
+      "minor": false,
+      "intervals": [
+        0,
+        4,
+        7,
+        9
+      ]
+    },
+    {
+      "id": "MinorAdd9",
+      "value": 19,
+      "suffix": "m(add9)",
+      "minor": true,
+      "intervals": [
+        0,
+        3,
+        7,
+        14
+      ]
+    },
+    {
+      "id": "Major9",
+      "value": 20,
+      "suffix": "maj9",
+      "minor": false,
+      "intervals": [
+        0,
+        4,
+        7,
+        11,
+        14
+      ]
+    },
+    {
+      "id": "Dominant9",
+      "value": 21,
+      "suffix": "9",
+      "minor": false,
+      "intervals": [
+        0,
+        4,
+        7,
+        10,
+        14
+      ]
+    },
+    {
+      "id": "Dominant7Sus4",
+      "value": 22,
+      "suffix": "7sus4",
+      "minor": false,
+      "intervals": [
+        0,
+        5,
+        7,
+        10
+      ]
+    },
+    {
+      "id": "DiminishedTriad",
+      "value": 23,
+      "suffix": "dim",
+      "minor": true,
+      "intervals": [
+        0,
+        3,
+        6
+      ]
+    },
+    {
+      "id": "Major7Sharp5",
+      "value": 24,
+      "suffix": "maj7#5",
+      "minor": false,
+      "intervals": [
+        0,
+        4,
+        8,
+        11
+      ]
+    },
+    {
+      "id": "Major7Sharp11",
+      "value": 25,
+      "suffix": "maj7#11",
+      "minor": false,
+      "intervals": [
+        0,
+        4,
+        7,
+        11,
+        18
+      ]
+    },
+    {
+      "id": "Major7Sus2",
+      "value": 26,
+      "suffix": "maj7sus2",
+      "minor": false,
+      "intervals": [
+        0,
+        2,
+        7,
+        11
+      ]
     }
   ],
   "custom_choice_order": [

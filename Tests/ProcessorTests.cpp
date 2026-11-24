@@ -114,12 +114,13 @@ static int testProtectedCatalogExport()
 }
 
 // Real 39-entry plugin path: the exact new anchors select each imported template.
-static void testImportedCatalogExport()
+static void testImportedCatalogExport(bool extended=false)
 {
     using namespace stromscore;int cases=0;
-    for(unsigned id:{2037u,2038u,2039u})for(int key:{0,5,11})for(bool follow:{false,true})for(int profile=0;profile<3;++profile)
+    for(unsigned id:extended?std::vector<unsigned>{2001,2002,2003,2004,2005,2006,2007,2008,2009}:std::vector<unsigned>{2037,2038,2039})for(int key:{0,5,11})for(bool follow:{false,true})for(int profile=0;profile<3;++profile)
     {
         const auto* h=findHarmonyTemplate(static_cast<WendungId>(id));CHECK(h);
+        if(extended)CHECK(h->chords[0].type==18+static_cast<int>(id)-2001);
         StromscoreProcessor q;FakeHost host;q.setPlayHead(&host);q.prepareToPlay(48000,512);
         setParam(q,"genre",1);setParam(q,"komponist",static_cast<float>(profile));setParam(q,"key",static_cast<float>(key));
         setParam(q,"faerbung",h->x);setParam(q,"intensitaet",h->y);setParam(q,"unruhe",h->z);setParam(q,"abwechslung",0);
@@ -149,6 +150,7 @@ int main(int argc,char** argv)
 {
     juce::ScopedJuceInitialiser_GUI init;
     if(argc==2&&std::string(argv[1])=="--protected-catalog")return testProtectedCatalogExport();
+    if(argc==2&&std::string(argv[1])=="--extended-chords"){testImportedCatalogExport(true);return 0;}
     testImportedCatalogExport();
     auto p = std::make_unique<StromscoreProcessor>();
     FakeHost host;

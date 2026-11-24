@@ -6,7 +6,7 @@ def create(destination):
  d=gen.load(root/'data/harmony');cat=d['catalog.json'];arr=d['arrangements.json'];base=cat['templates'][0]
  # Equal distances permit the full real XYZ range while test profiles select a fixture explicitly.
  for t in cat['templates']:t['xyz']=[.5,.5,.5]
- for i,kind in enumerate(gen.ENGINE_TYPES):
+ for i,kind in enumerate(t['id'] for t in d['chord_types.json']['types']):
   for protected in (False,True):
    case=i*2+int(protected);id=3000+case;t=copy.deepcopy(base)
    t.update(id=id,symbol='colorationFixture'+str(case),name='Synthetic '+kind,xyz=[.5,.5,.5],genres=['score','pop_rock'],coloration='protected' if protected else 'flexible',tonality={'center_pc':0,'mode':'automatic'})
@@ -21,7 +21,7 @@ def create(destination):
  cat['templates'].append(modal);cat['pools']['pop_rock'].append(3100)
  binding=next(b['recipe'] for b in arr['bindings'] if b['template_id']==2035);arr['bindings'].append({'template_id':3100,'recipe':binding})
  d['notes.json']['entries'].append({'template_id':3100,'idea':'Synthetic modal test only','instruments':'Independent'})
- d['profiles.json']['profiles'].append({'id':39,'symbol':'protectedModalTest','name':'Synthetic modal','harmony_selection_only':True,'weights':[{'template_id':3100,'factor':1e12}]})
+ d['profiles.json']['profiles'].append({'id':3+2*len(d['chord_types.json']['types']),'symbol':'protectedModalTest','name':'Synthetic modal','harmony_selection_only':True,'weights':[{'template_id':3100,'factor':1e12}]})
  gen.validate(d);destination=pathlib.Path(destination);source=destination/'Source';source.mkdir(parents=True,exist_ok=True)
  for f in (root/'Source').glob('*.h'):shutil.copyfile(f,source/f.name)
  for name,content in gen.emit(d).items():target=destination/name;target.parent.mkdir(parents=True,exist_ok=True);target.write_text(content,encoding='utf-8')

@@ -9,7 +9,7 @@ int main(int argc,char** argv)
  if(argc==2)
  {
   std::cout<<std::setprecision(9);
-  for(int t=0;t<kNumChordTypes;++t){auto sh=kShapes[t];std::cout<<"S,"<<t<<','<<sh.n<<','<<sh.suffix<<','<<sh.minor;for(int j=0;j<sh.n;++j)std::cout<<','<<sh.iv[j];std::cout<<'\n';}
+  for(int t=0;t<std::min(static_cast<int>(kNumChordTypes),18);++t){auto sh=kShapes[t];std::cout<<"S,"<<t<<','<<sh.n<<','<<sh.suffix<<','<<sh.minor;for(int j=0;j<sh.n;++j)std::cout<<','<<sh.iv[j];std::cout<<'\n';}
   for(int genre=0;genre<2;++genre)for(int i=0;i<wendungCount(genre);++i)
   {
    const auto& w=wendungAt(genre,i);const auto& info=genre?kPopInfo[i]:kScoreInfo[i];std::cout<<"W,"<<genre<<','<<i<<','<<static_cast<unsigned>(w.id)<<','<<w.name<<','<<w.x<<','<<w.y<<','<<w.z<<','<<w.n;

@@ -99,7 +99,7 @@ int main(int argc,char** argv)
  }
  // Checked modal passing tones remain possible and resolve; the stored original stays immutable.
  {
-  Settings a;a.genre=GenrePopRock;a.profile=static_cast<composition::ProfileId>(39);a.x=.85f;a.y=.75f;a.z=.35f;a.variety=0;a.solo[kGegenstimme]=true;
+  Settings a;a.genre=GenrePopRock;a.profile=static_cast<composition::ProfileId>(3+2*kNumChordTypes);a.x=.85f;a.y=.75f;a.z=.35f;a.variety=0;a.solo[kGegenstimme]=true;
   auto g=std::make_unique<Generator>();Transport t;t.playing=true;EventList es;int passes=0,resolutions=0;uint64_t identity=0;long long targetAt=-1;int target=-1;
   for(int tick=0;tick<128*16;++tick)
   {
