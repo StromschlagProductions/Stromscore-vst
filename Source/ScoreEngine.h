@@ -1075,20 +1075,24 @@ private:
         const bool dialogue=output==OutCounter&&!on[kMelodie]&&s.genre==GenreScore&&s.arpFigure==ArpCell&&!s.scene
             &&s.meterNum==4&&s.meterDen==4&&on[kArp]&&on[kGegenstimme]&&phraseBars>=4;
         const int64_t response=dialogue?2LL*meter.len:0;
-        const int64_t last=end-span-static_cast<int64_t>(s.policy.motif.minimumSilentBars)*meter.len-response;
         const auto catalog=outputCatalog(s);const auto& capability=catalog[output].track.instrument;
+        auto attempt=[&](composition::MotifVariation variation)
+        {
+        const auto figure=composition::deriveMotif(memory,variation,s.policy.motif.sequenceSemitones);
+        if(!figure.count)return composition::MotifOccurrence{};
+        const int64_t last=end-figure.span-static_cast<int64_t>(s.policy.motif.minimumSilentBars)*meter.len-response;
         std::array<composition::MotifPlacement,32> candidates {};int count=0;
         auto add=[&](int64_t at)
         {
             if(at<begin||at>last||count==32)return;
             for(int i=0;i<count;++i)if(candidates[static_cast<size_t>(i)].begin==at)return;
-            unsigned allowed[5] {};
-            for(int i=0;i<memory.count;++i)
+            unsigned allowed[10] {};
+            for(int i=0;i<figure.count;++i)
             {
-                const auto& n=memory.notes[static_cast<size_t>(i)];allowed[i]=0xfffu;
+                const auto& n=figure.notes[static_cast<size_t>(i)];allowed[i]=0xfffu;
                 auto tick=at+n.at;
-                const auto harmonicLength=output==OutCounter&&i+1<memory.count
-                    ?std::min(n.length,memory.notes[static_cast<size_t>(i+1)].at-n.at):n.length;
+                const auto harmonicLength=output==OutCounter&&i+1<figure.count
+                    ?std::min(n.length,figure.notes[static_cast<size_t>(i+1)].at-n.at):n.length;
                 const auto finish=tick+harmonicLength;
                 if(n.length<capability.minDuration||n.length>capability.maxDuration)return;
                 for(int step=0;tick<finish&&step<32;++step)
@@ -1103,9 +1107,9 @@ private:
             for(int candidate=0;candidate<128;++candidate)
             {
                 bool fits=true;
-                for(int i=0;i<memory.count;++i)
+                for(int i=0;i<figure.count;++i)
                 {
-                    const int pitch=candidate+memory.notes[static_cast<size_t>(i)].interval;
+                    const int pitch=candidate+figure.notes[static_cast<size_t>(i)].interval;
                     if(pitch<capability.range.low||pitch>capability.range.high||pitch<0||pitch>127
                         ||!(allowed[i]&(1u<<((pitch%12+12)%12)))){fits=false;break;}
                 }
@@ -1117,11 +1121,17 @@ private:
         for(int64_t at=begin;at<=last;)
         {
             const auto h=motifHarmonyAt(at,s);add(at);
-            // A held harmonic field also offers its interior, rather than only its first bar.
-            const auto middle=at+std::max<int64_t>(0,(std::min<int64_t>(h.end,end)-at-span)/2/meter.len)*meter.len;
+            const auto middle=at+std::max<int64_t>(0,(std::min<int64_t>(h.end,end)-at-figure.span)/2/meter.len)*meter.len;
             add(middle);if(h.end<=at)break;at=h.end;
         }
-        state.recurrencePlan=composition::planRecurrence(s.policy.motif,slot,begin,end,span,meter.len,candidates.data(),count,response);
+        auto result=composition::planRecurrence(s.policy.motif,slot,begin,end,figure.span,meter.len,candidates.data(),count,response);
+        if(result.active){result.figure=figure;result.varied=variation==composition::MotifVariation::rhythm;}
+        return result;
+        };
+        const auto variation=composition::motifVariation(s.policy.motif,slot.ordinal);
+        state.recurrencePlan=attempt(variation);
+        if(!state.recurrencePlan.active&&variation!=composition::MotifVariation::original)
+            state.recurrencePlan=attempt(composition::MotifVariation::original);
         return state.recurrencePlan;
     }
 
@@ -1137,23 +1147,24 @@ private:
         // Preserve the existing introduced material (tone count/rhythm), independently of restored expression.
         const float materialBase=(dens<.999f||yAdd>.001f)?std::clamp(curY*dens+yAdd,0.f,1.f):curY;
         const float materialY=std::clamp(materialBase+s.layerIntensity[kOutputLayer[output]],0.f,1.f);
-        const int count=memory?memory->count:materialY>=.55f?mo.n:materialY>=.3f?std::max(2,mo.n-1):std::max(2,mo.n-2);
+        const auto* figure=occurrence&&occurrence->figure.count?&occurrence->figure:nullptr;
+        const int count=figure?figure->count:memory?memory->count:materialY>=.55f?mo.n:materialY>=.3f?std::max(2,mo.n-1):std::max(2,mo.n-2);
         if(i>=count)return n;
-        n.at=memory?memory->notes[static_cast<size_t>(i)].at:static_cast<long long>(mo.on[i])*meter.len/16;
+        n.at=figure?figure->notes[static_cast<size_t>(i)].at:memory?memory->notes[static_cast<size_t>(i)].at:static_cast<long long>(mo.on[i])*meter.len/16;
         if(n.at<0||n.at>=span)return n;
         int ladder[16] {};const bool exact=memory&&occurrence&&!occurrence->introduction;
         const int nl=exact?1:counterLadder(chordFor(p,kOutputLayer[output],s),s,ladder,output);
         if(!nl)return n;
         if(memory)
         {
-            const auto& recorded=memory->notes[static_cast<size_t>(i)];
+            const auto& recorded=figure?figure->notes[static_cast<size_t>(i)]:memory->notes[static_cast<size_t>(i)];
             const int base=composition::adaptMotifPitch(memory->origin-12*octaveOf(output),ladder,nl);
             n.pitch=occurrence&&!occurrence->introduction?occurrence->base+recorded.interval-12*octaveOf(output)
                 :composition::adaptMotifPitch(base+recorded.interval,ladder,nl);
             n.velocity=recorded.velocity;
-            n.length=std::min<int64_t>(memory->recalledLength(i,varied,span),span-n.at);
+            n.length=std::min<int64_t>(figure?recorded.length:memory->recalledLength(i,varied,span),span-n.at);
             if(output==OutMelody)n.length=composition::articulatedLength(n.length,
-                std::min<int64_t>(exact?span-n.at:p.chordEnd-(p.phraseStart+n.at),i+1<count?memory->notes[static_cast<size_t>(i+1)].at-n.at:span-n.at),s.melodyLegato);
+                std::min<int64_t>(exact?span-n.at:p.chordEnd-(p.phraseStart+n.at),i+1<count?(figure?figure->notes[static_cast<size_t>(i+1)].at:memory->notes[static_cast<size_t>(i+1)].at)-n.at:span-n.at),s.melodyLegato);
         }
         else
         {
@@ -1185,9 +1196,9 @@ private:
         if(memory.count&&p.phrase-phraseOf(sceneStep)!=voice(output).motif.introduction)memory.finish();
         const bool complete=memory.complete;const auto mo=motifFor(s,p.phrase);
         int count=0,future=0;int64_t begin=occurrence.end,end=occurrence.begin;
-        for(int i=0;i<(complete?memory.count:mo.n);++i)
+        for(int i=0;i<(occurrence.figure.count?occurrence.figure.count:complete?memory.count:mo.n);++i)
         {
-            const auto at=complete?memory.notes[static_cast<size_t>(i)].at:static_cast<long long>(mo.on[i])*meter.len/16;
+            const auto at=occurrence.figure.count?occurrence.figure.notes[static_cast<size_t>(i)].at:complete?memory.notes[static_cast<size_t>(i)].at:static_cast<long long>(mo.on[i])*meter.len/16;
             auto local=locate(occurrence.begin+at);local.phraseStart=occurrence.begin;local.phraseEnd=occurrence.end;
             const auto note=planMotifNote(i,local,s,output,complete?&memory:nullptr,occurrence.varied,&occurrence);
             if(!note.valid)continue;
@@ -1238,7 +1249,7 @@ private:
         }
         const auto occurrence=motifOccurrence(k,p,s,output);
         auto local=p;if(complete){local.phraseStart=occurrence.begin;local.phraseEnd=occurrence.end;}
-        for(int i=0;i<5;++i)
+        for(int i=0;i<(occurrence.figure.count?occurrence.figure.count:5);++i)
         {
             const auto note=planMotifNote(i,local,s,output,complete?&memory:nullptr,occurrence.varied,&occurrence);
             if(!note.valid||note.at!=k-local.phraseStart)continue;
@@ -1973,7 +1984,7 @@ private:
             if(occurrence.active&&k>=occurrence.begin&&k<occurrence.end)
             {
                 auto local=p;local.phraseStart=occurrence.begin;local.phraseEnd=occurrence.end;
-                for(int i=0;i<memory.count;++i)
+                for(int i=0;i<(occurrence.figure.count?occurrence.figure.count:memory.count);++i)
                 {
                     const auto n=planMotifNote(i,local,s,output,&memory,occurrence.varied,&occurrence);
                     const auto begin=occurrence.begin+n.at,end=begin+n.length;

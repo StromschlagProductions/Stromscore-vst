@@ -55,6 +55,60 @@ struct RememberedMotif
         return length;
     }
 };
+// A performance figure always derives from immutable published source material.
+struct MotifFigure
+{
+    std::array<RememberedMotif::Note,10> notes {};
+    uint64_t sourceIdentity=0;
+    int count=0;
+    int64_t span=0;
+    MotifVariation variation=MotifVariation::original;
+};
+inline MotifFigure deriveMotif(const RememberedMotif& source,MotifVariation variation,int sequenceSemitones=7)
+{
+    MotifFigure figure;figure.sourceIdentity=source.identity;figure.variation=variation;
+    if(!source.complete||source.count<2||source.count>5||static_cast<int>(variation)<0||static_cast<int>(variation)>4)return figure;
+    int first=0,count=source.count;
+    if(variation==MotifVariation::fragment){count=std::min(3,count-1);if(count<2)return figure;first=source.count-count;}
+    if(variation==MotifVariation::sequence){if(sequenceSemitones==0||std::abs(sequenceSemitones)>12)return figure;count=2;}
+    const auto origin=first?source.notes[static_cast<size_t>(first)].at:0;
+    int64_t originalSpan=0;
+    for(int i=0;i<source.count;++i)originalSpan=std::max(originalSpan,source.notes[i].at+source.notes[i].length);
+    for(int i=0;i<count;++i)
+    {
+        auto n=source.notes[static_cast<size_t>(first+i)];n.at-=origin;
+        if(n.at<0||n.length<1||n.at>4096||n.length>4096)return {};
+        if(variation==MotifVariation::rhythm)n.length=source.recalledLength(first+i,true,originalSpan);
+        if(variation==MotifVariation::augmentation){n.at*=2;n.length*=2;}
+        figure.notes[static_cast<size_t>(figure.count++)]=n;
+    }
+    if(variation==MotifVariation::sequence)
+    {
+        const auto period=source.count>2?source.notes[2].at:source.notes[1].at+source.notes[1].length;
+        if(period<=source.notes[1].at)return {};
+        for(int i=0;i<2;++i){auto n=figure.notes[static_cast<size_t>(i)];n.at+=period;n.interval+=sequenceSemitones;figure.notes[static_cast<size_t>(figure.count++)]=n;}
+    }
+    for(int i=0;i<figure.count;++i)
+    {
+        auto& n=figure.notes[static_cast<size_t>(i)];
+        if(i+1<figure.count)
+        {
+            const auto gap=figure.notes[static_cast<size_t>(i+1)].at-n.at;
+            if(gap<1)return {};
+            if(variation!=MotifVariation::original)n.length=std::min(n.length,gap);
+        }
+        figure.span=std::max(figure.span,n.at+n.length);
+    }
+    if(variation!=MotifVariation::original&&figure.count==source.count)
+    {
+        bool unchanged=true;
+        for(int i=0;i<figure.count;++i){const auto& a=figure.notes[i];const auto& b=source.notes[i];unchanged&=a.at==b.at&&a.length==b.length&&a.interval==b.interval;}
+        if(unchanged)return {};
+    }
+    return figure;
+}
+inline MotifVariation motifVariation(const MotifRecurrencePolicy& policy,int64_t ordinal)
+{return ordinal>0?policy.variations[static_cast<size_t>((ordinal-1)%policy.variations.size())]:MotifVariation::original;}
 struct MotifRef { int value=-1; };
 // Bounded scene catalog. Published material is immutable until the whole scene resets.
 struct MotifCatalog
@@ -124,6 +178,7 @@ struct MotifOccurrence
 {
     bool active=false,introduction=false,varied=false;
     int64_t begin=0,end=0,ordinal=0;int base=0;
+    MotifFigure figure;
 };
 struct MotifPlacement { int64_t begin=0;int base=0,cost=0; };
 inline MotifOccurrence planRecurrence(const MotifRecurrencePolicy& policy,const RecurrenceSlot& slot,
@@ -258,7 +313,7 @@ struct DialoguePlan { bool reserveResponse=false,answer=false;int answerNotes=0;
 inline DialoguePlan planDialogue(const MotifUse& use,const MotifCatalog& catalog,const MotifOccurrence& question,int64_t at,int64_t window)
 {
     const auto& memory=use.material(catalog);DialoguePlan p;p.sourceMotif=memory.identity;
-    p.answerBegin=question.begin+window;p.answerEnd=question.begin+2*window;
+    p.answerBegin=std::max(question.end,question.begin+window);p.answerEnd=p.answerBegin+window;
     p.reserveResponse=question.active&&at>=question.begin&&at<p.answerEnd;
     p.answer=memory.complete&&p.reserveResponse&&at>=p.answerBegin;
     p.answerNotes=p.answer?std::min(3,memory.count):0;return p;

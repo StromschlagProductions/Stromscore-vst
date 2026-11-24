@@ -6,7 +6,7 @@
 using namespace stromscore;
 int main(int argc,char** argv)
 {
-    if(argc!=4)return 2;
+    if(argc<4||argc>5)return 2;
     const int scenario=std::atoi(argv[1]),profile=std::atoi(argv[2]),block=std::atoi(argv[3]);
     Settings s;s.profile=static_cast<composition::ProfileId>(profile);s.key=0;s.x=.3f;s.y=.7f;s.z=0;s.motif=true;s.seed=3;
     s.custom=true;s.customChords[0]={0,Maj7,8};s.mute[kFlaeche]=s.mute[kBass]=s.mute[kAkzent]=true;
@@ -33,6 +33,13 @@ int main(int argc,char** argv)
     if(scenario==23){s.scene=true;s.entry=EntryCounter;s.sceneBars=61;}
     if(scenario==24){s.y=.25f;s.z=.8f;}
     if(scenario==25){s.y=.25f;s.layerIntensity[kGegenstimme]=.5f;}
+#if defined(RECURRENCE_DIAGNOSTICS) && !defined(VARIATION_DIAGNOSTICS)
+    // Pin the pre-development rhythm-only policy for this historical regression fixture.
+    for(size_t i=0;i<s.policy.motif.variations.size();++i)s.policy.motif.variations[i]=i%2?composition::MotifVariation::rhythm:composition::MotifVariation::original;
+#endif
+#ifdef VARIATION_DIAGNOSTICS
+    if(argc==5){const int requested=std::atoi(argv[4]);if(requested>=0&&requested<=4)s.policy.motif.variations.fill(static_cast<composition::MotifVariation>(requested));}
+#endif
     Generator g;EventList events;constexpr long long bar=96000,total=128*bar;
     std::set<std::pair<int,uint64_t>> published;
     std::set<std::tuple<int,int64_t,int64_t,int64_t>> occurrences;
@@ -73,7 +80,14 @@ int main(int argc,char** argv)
                 const long long tick=static_cast<long long>((t.ppq+n/24000.)*4)-1;
                 const auto plan=g.inspectMotifOccurrence(tick,s,o);
                 if(plan.active&&occurrences.insert({o,plan.begin,plan.end,plan.ordinal}).second)
+                {
                     std::cerr<<"O,"<<o<<','<<plan.begin<<','<<plan.end<<','<<plan.ordinal<<','<<plan.varied<<','<<plan.introduction<<','<<plan.base<<'\n';
+#ifdef VARIATION_DIAGNOSTICS
+                    std::cerr<<"V,"<<o<<','<<plan.begin<<','<<plan.end<<','<<plan.ordinal<<','<<plan.introduction<<','<<plan.base<<','<<static_cast<int>(plan.figure.variation)<<','<<plan.figure.sourceIdentity<<','<<plan.figure.count;
+                    for(int i=0;i<plan.figure.count;++i){const auto& n=plan.figure.notes[static_cast<size_t>(i)];std::cerr<<','<<n.at<<','<<n.length<<','<<n.interval;}
+                    std::cerr<<'\n';
+#endif
+                }
 #endif
             }
         }

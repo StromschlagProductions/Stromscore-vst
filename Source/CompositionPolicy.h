@@ -20,12 +20,17 @@ struct TexturePolicy
     } arpeggio;
     float start(TexturePart part)const { return activityStart[static_cast<size_t>(part)]; }
 };
+enum class MotifVariation { original, rhythm, fragment, sequence, augmentation };
 struct MotifRecurrencePolicy
 {
     // Bounded horizon matches the stock harmonic planning window; recurrence need not start there.
     static constexpr int windowBars=8;
     int minimumSilentBars=2;
     float sparseBelow=.4f,unrestEngages=.5f;
+    std::array<MotifVariation,8> variations {{MotifVariation::original,MotifVariation::rhythm,
+        MotifVariation::original,MotifVariation::fragment,MotifVariation::original,MotifVariation::sequence,
+        MotifVariation::original,MotifVariation::augmentation}};
+    int sequenceSemitones=7;
     std::array<int,3> sparseSteps {{2,2,2}},normalSteps {{1,2,1}};
 };
 inline bool valid(const MotifRecurrencePolicy& p)
@@ -33,6 +38,8 @@ inline bool valid(const MotifRecurrencePolicy& p)
     if(p.minimumSilentBars<1||p.minimumSilentBars>p.windowBars-2
         ||!std::isfinite(p.sparseBelow)||p.sparseBelow<0||p.sparseBelow>1
         ||!std::isfinite(p.unrestEngages)||p.unrestEngages<0||p.unrestEngages>1)return false;
+    if(p.sequenceSemitones==0||p.sequenceSemitones< -12||p.sequenceSemitones>12)return false;
+    for(auto v:p.variations)if(static_cast<int>(v)<0||static_cast<int>(v)>4)return false;
     for(const auto& steps:{p.sparseSteps,p.normalSteps})for(int n:steps)if(n<1||n>2)return false;
     return true;
 }

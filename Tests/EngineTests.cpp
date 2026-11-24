@@ -1701,7 +1701,7 @@ int main()
                 if(!planned.introduction)
                 {
                     bool matched=false;
-                    for(int n=0;n<memory.count;++n){const auto& note=memory.notes[static_cast<size_t>(n)];matched|=tick==planned.begin+note.at&&e.note==planned.base+note.interval;}
+                    for(int n=0;n<planned.figure.count;++n){const auto& note=planned.figure.notes[static_cast<size_t>(n)];matched|=tick==planned.begin+note.at&&e.note==planned.base+note.interval;}
                     CHECK(matched);
                 }
             }

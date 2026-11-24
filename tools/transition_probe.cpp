@@ -19,6 +19,10 @@ int main(int argc,char** argv)
     if(scenario==10)s.padPattern=PadGated,s.bassPattern=BassWalking;
     if(scenario==11)s.bassPattern=BassPedal;
     if(scenario==12){s.drive=true;s.driveX=.9f;s.driveY=.8f;s.driveFrom=0;s.driveBars=64;}
+#if defined(ENTRY_DIAGNOSTICS) && !defined(VARIATION_DIAGNOSTICS)
+    // Pin the pre-development rhythm-only policy for this historical regression fixture.
+    for(size_t i=0;i<s.policy.motif.variations.size();++i)s.policy.motif.variations[i]=i%2?composition::MotifVariation::rhythm:composition::MotifVariation::original;
+#endif
     Generator g;EventList events;constexpr long long bar=96000,total=128*bar;
     int last=-1000,previousRoot=0,previousType=0;long long lastTick=-1;
     auto emit=[&](long long at){for(int i=0;i<events.size;++i){const auto& e=events.events[static_cast<size_t>(i)];
