@@ -12,7 +12,7 @@ def prepare(destination,revision=None,historical=False,explicit=False):
   def trim(m):return m[1]+'36'+m[2]+','.join(m[3].split(',')[:36])+m[4]
   s,count=re.subn(pattern,trim,s);assert count==1;headers[name]=s.encode()
  if explicit:
-  name='ScoreEngine.h';s=headers[name].decode();s=s.replace('namespace stromscore\n{','namespace stromscore\n{\ninline WendungId importTestId=WendungId::invalid;',1)
+  name='ScoreEngine.h';s=headers[name].decode().replace('\r\n','\n');s=s.replace('namespace stromscore\n{','namespace stromscore\n{\ninline WendungId importTestId=WendungId::invalid;',1)
   needle='static int pick (const Settings& s, long long salt)\n    {';assert needle in s
   s=s.replace(needle,needle+'\n        if(importTestId!=WendungId::invalid)return wendungIndex(s.genre,importTestId);',1)
   needle='bool maybeSwitch (long long k, const Pos& p, const Settings& s)\n    {'

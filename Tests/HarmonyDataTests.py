@@ -13,6 +13,22 @@ class HarmonyDataTests(unittest.TestCase):
   self.assertEqual(set(m['templates']),set(range(1001,1049))|set(range(2001,2040)))
   self.assertIn([1047,2015,2019],m['duplicate_groups'])
   for path,content in gen.emit(self.original).items():self.assertEqual((root/path).read_text(encoding='utf-8'),content)
+ def test_import_fixture_accepts_windows_line_endings(self):
+  from unittest.mock import patch
+  import HarmonyImportFixtures as fixtures
+  headers=fixtures.header_snapshot(root,None)
+  engine=headers['ScoreEngine.h'].replace(b'\r\n',b'\n')
+  with tempfile.TemporaryDirectory() as tmp:
+   outputs=[]
+   for ending in (b'\n',b'\r\n'):
+    snapshot=dict(headers);snapshot['ScoreEngine.h']=engine.replace(b'\n',ending)
+    with patch.object(fixtures,'header_snapshot',return_value=snapshot):
+     dest=pathlib.Path(tmp)/str(len(outputs));fixtures.prepare(dest,explicit=True)
+    result=(dest/'ScoreEngine.h').read_bytes();outputs.append(result)
+    self.assertIn(b'inline WendungId importTestId=',result)
+    self.assertIn(b'if(importTestId!=WendungId::invalid)return false;',result)
+    self.assertEqual(snapshot['ScoreEngine.h'],engine.replace(b'\n',ending))
+   self.assertEqual(*outputs)
  def test_bad_definitions(self):
   mutations=[lambda d:d['catalog.json']['templates'].append(copy.deepcopy(d['catalog.json']['templates'][0])),
    lambda d:d['catalog.json']['templates'][0].update(id=65535),lambda d:d['catalog.json']['templates'][0].update(symbol='class'),
