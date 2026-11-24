@@ -457,6 +457,9 @@ if(BUILD_TESTING)
     target_compile_definitions(ProcessorTests PRIVATE JUCE_WEB_BROWSER=0 JUCE_USE_CURL=0)
     if(MSVC)
         target_compile_options(ProcessorTests PRIVATE /utf-8)
+        # This single-function test driver holds many processor fixtures on the stack.
+        # Match EngineTests/Linux; this does not change the plugin or its audio thread.
+        target_link_options(ProcessorTests PRIVATE /STACK:8388608)
     endif()
     target_link_libraries(ProcessorTests PRIVATE Stromscore)
     if(CMAKE_SYSTEM_NAME STREQUAL "Linux")
