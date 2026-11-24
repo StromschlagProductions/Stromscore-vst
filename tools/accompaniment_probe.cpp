@@ -33,6 +33,7 @@ int main(int argc,char** argv)
 #ifdef BASS_REGRESSION_CONTROL
  s.policy.bass.enabled=false;
  s.policy.rhythm.enabled=false;
+ s.policy.chords.enabled=false;
 #endif
  Generator g;EventList events;
     constexpr long long sr=48000,total=96*sr;

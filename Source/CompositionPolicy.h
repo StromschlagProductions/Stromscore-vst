@@ -1,6 +1,7 @@
 #pragma once
 #include "ModalContext.h"
 #include "RhythmPlan.h"
+#include "ChordDisposition.h"
 #include <array>
 #include <cmath>
 #include <cstddef>
@@ -55,7 +56,7 @@ struct HookPolicy
 };
 struct BassPhrasePolicy { bool enabled=true;int opportunityEvery=3,maxLeap=7; };
 inline bool valid(const BassPhrasePolicy& p){return p.opportunityEvery>=1&&p.opportunityEvery<=64&&p.maxLeap>=3&&p.maxLeap<=12;}
-struct FreeCompositionPolicy { TexturePolicy texture; MotifRecurrencePolicy motif; HookPolicy popHooks; PassingPolicy passing; BassPhrasePolicy bass; RhythmCoordinationPolicy rhythm; };
+struct FreeCompositionPolicy { TexturePolicy texture; MotifRecurrencePolicy motif; HookPolicy popHooks; PassingPolicy passing; BassPhrasePolicy bass; RhythmCoordinationPolicy rhythm; ChordDispositionPolicy chords; };
 inline constexpr FreeCompositionPolicy neutralFreePolicy {};
 // Artist identities currently provide only initial harmonic preferences; all texture data stay neutral.
 enum class ProfileId { neutral=0, johnBarry=1, bernardHerrmann=2 };

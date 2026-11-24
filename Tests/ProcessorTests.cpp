@@ -746,10 +746,10 @@ int main()
         CHECK (! c.broken && c.ons == c.offs); q.setPlayHead (nullptr);
     }
     // Voice-leading export equals live DAW playback, including channel CCs and held common notes.
-    for(float intensity : {.4f,.7f,.8f,.9f,1.f,.99f,.97f,.96f,.95f,.94f,.93f,.92f,.91f,.89f,.88f,.87f,.86f,.85f,.84f})
+    for(float intensity : {.4f,.7f,.8f,.9f,1.f,.99f,.97f,.96f,.95f,.94f,.93f,.92f,.91f,.89f,.88f,.87f,.86f,.85f,.84f,.83f})
     {
         StromscoreProcessor q; FakeHost h; q.setPlayHead (&h); q.prepareToPlay (48000, 512);
-        if(intensity==.89f||intensity==.88f||intensity==.87f||intensity==.86f||intensity==.85f||intensity==.84f)setParam(q,"genre",1);
+        if(intensity==.89f||intensity==.88f||intensity==.87f||intensity==.86f||intensity==.85f||intensity==.84f||intensity==.83f)setParam(q,"genre",1);
         setParam (q, "aufbau", 0); setParam (q, "key", 0); setParam (q, "intensitaet", intensity);
         setParam(q,"durchgaenge",intensity>=.6f?1.f:0.f);
         setParam (q, "eigeneFolge", 1); setParam (q, "padPattern", stromscore::PadHeld); setParam (q, "dynamikCc", 1);
@@ -795,6 +795,21 @@ int main()
             for(int v=1;v<=16;++v)if((stromscore::hash3(v,0,31)&1)==1&&(stromscore::hash3(v,0,47)&1)==0)
                 {setParam(q,"variation",static_cast<float>(v));break;}
         }
+        // Automatic held pad disposition; lean Maj7 retains E/B with a stable C bass.
+        if(intensity==.83f)
+        {
+            setParam(q,"faerbung",.52f);setParam(q,"intensitaet",.38f);setParam(q,"unruhe",.12f);
+            setParam(q,"abwechslung",0);setParam(q,"durchgaenge",0);setParam(q,"padPattern",stromscore::PadAuto);
+            setParam(q,"bassPattern",stromscore::BassHeld);setParam(q,"arpFigure",stromscore::ArpAuto);
+            setParam(q,"mute1",0);setParam(q,"mute2",0);setParam(q,"mute3",0);setParam(q,"mute5",1);
+            const int chordRoots[]={0,5,0,7},chordTypes[]={stromscore::Maj7,stromscore::Min9,stromscore::Sus4,stromscore::Add9};
+            for(int i=0;i<4;++i)
+            {
+                setParam(q,("slotRoot"+std::to_string(i+1)).c_str(),static_cast<float>(chordRoots[i]));
+                setParam(q,("slotType"+std::to_string(i+1)).c_str(),static_cast<float>(chordTypes[i]));
+                setParam(q,("slotBars"+std::to_string(i+1)).c_str(),2);
+            }
+        }
         const bool handoff=intensity>.96f&&intensity<.98f;
         if(handoff)
         {
@@ -816,7 +831,7 @@ int main()
             if(intensity==.91f){setParam(q,"aufbau",1);setParam(q,"einstieg",stromscore::EntryCounter);setParam(q,"szenenLaenge",16);}
         }
         // The existing plugin export is capped at 64 bars; the core comparison covers 128.
-        const int bars=(intensity==.8f||intensity==.9f||intensity==.87f||intensity==.86f||intensity==.85f||intensity==.84f||handoff)?64:recurrence?40:8;
+        const int bars=(intensity==.8f||intensity==.9f||intensity==.87f||intensity==.86f||intensity==.85f||intensity==.84f||intensity==.83f||handoff)?64:recurrence?40:8;
         using Timed = std::tuple<long long, int, int, int, int>;
         std::vector<Timed> live, exported;
         auto add = [] (std::vector<Timed>& target, const juce::MidiMessage& m, long long tick)
@@ -839,6 +854,14 @@ int main()
         for (const auto meta : m) add (live, meta.getMessage(), bars*3840);
         std::sort (live.begin(), live.end()); std::sort (exported.begin(), exported.end());
         CHECK (! live.empty() && live == exported);
+        if(intensity==.83f)
+        {
+            bool active[128] {};
+            for(const auto& e:live)if(std::get<0>(e)<=16*3840+1&&std::get<2>(e)==1&&std::get<1>(e)!=2)
+                active[std::get<3>(e)]=std::get<1>(e)==1;
+            unsigned mask=0;for(int n=0;n<128;++n)if(active[n])mask|=1u<<(n%12);
+            CHECK(mask==((1u<<4)|(1u<<11)));
+        }
         if(intensity==.84f)
         {
             bool shifted=false,oldSlot=false;

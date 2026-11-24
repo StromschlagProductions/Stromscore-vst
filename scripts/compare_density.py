@@ -35,7 +35,9 @@ with tempfile.TemporaryDirectory(prefix='stromscore-density-') as temp:
                 assert b'composition::EventDensity{dens}' in data
                 data=data.replace(b'composition::EventDensity{dens}',b'composition::EventDensity{1.f}')
             (dest/name).write_bytes(data)
-        subprocess.run([a.compiler,'-std=c++17','-O1','-I',str(dest),str(root/'tools/density_probe.cpp'),'-o',str(temp/f'{folder}-probe')],check=True)
+        # The scientific control changes only density, keeping the probe's feature controls identical.
+        flags=['-DBASS_REGRESSION_CONTROL=1'] if revision is None else []
+        subprocess.run([a.compiler,'-std=c++17','-O1',*flags,'-I',str(dest),str(root/'tools/density_probe.cpp'),'-o',str(temp/f'{folder}-probe')],check=True)
     for profile in range(3):
         for case,name in enumerate(names):
             br,b,bh=run(temp/'before-probe',case,profile)

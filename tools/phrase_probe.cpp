@@ -44,6 +44,7 @@ int main(int argc,char** argv)
 #ifdef BASS_REGRESSION_CONTROL
  s.policy.bass.enabled=false;
  s.policy.rhythm.enabled=false;
+ s.policy.chords.enabled=false;
 #endif
  Generator g;EventList events;constexpr long long total=48*48000,bar=96000;
     long long previousBegin=-1,previousEnd=-1;

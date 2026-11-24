@@ -37,6 +37,7 @@ int main(int argc,char** argv)
  if(scenario==63)s.passing=true;
  if(scenario==64){s.layerIntensity[kArp]=-.3f;}
 #ifdef RHYTHM_DIAGNOSTICS
+ s.policy.chords.enabled=false;
  if(scenario==58)s.policy.rhythm.everyBars=1;
  if(argc>4)s.policy.rhythm.enabled=std::atoi(argv[4])!=0;
 #endif

@@ -471,6 +471,8 @@ public:
     composition::BassPhrasePlan inspectBassPhrase()const{return bassPhrase;}
     composition::RhythmPlan inspectMovementRhythm(long long tick,const Settings& s)const
     {auto snapshot=*this;snapshot.cur=&s;return snapshot.movementRhythm(snapshot.locate(tick),s);}
+    composition::ChordDispositionResult inspectChordDisposition()const{return lastDisposition;}
+    long long inspectChordDispositionStep()const{return dispositionAt;}
     int plannedHarmonySlots() const { return planValid ? harmonicPlan.count : 0; }
     bool driveArrived() const { return driveArrivedNow; }     // die Fahrt ist bei B angekommen (das Plugin macht B dann zu A)
     uint32_t driveGenerationNow() const { return driveGenerationSeen; }
@@ -638,7 +640,7 @@ public:
         s.change = std::clamp (s.change, 0, kNumChangeGrids - 1);
         for (auto& v : s.layerIntensity) v = std::clamp (v, -1.0f, 1.0f);
         if(!composition::findProfile(s.profile))s.profile=composition::ProfileId::neutral;
-        if(!composition::valid(s.policy.texture)||!composition::valid(s.policy.motif)||!composition::valid(s.policy.popHooks.recurrence)||!composition::valid(s.policy.passing)||!composition::valid(s.policy.bass)||!composition::valid(s.policy.rhythm))s.policy=composition::neutralFreePolicy;
+        if(!composition::valid(s.policy.texture)||!composition::valid(s.policy.motif)||!composition::valid(s.policy.popHooks.recurrence)||!composition::valid(s.policy.passing)||!composition::valid(s.policy.bass)||!composition::valid(s.policy.rhythm)||!composition::valid(s.policy.chords))s.policy=composition::neutralFreePolicy;
         s.variety = std::clamp (s.variety, 0.0f, 1.0f);
         for (auto& o : s.octave) o = std::clamp (o, -2, 2);
         for (auto& c : s.channel) c = std::clamp (c, 1, 16);
@@ -1745,7 +1747,7 @@ private:
     static int bassLow (const Settings& s) { return 45 + (int) std::lround (s.x * 4.0f); }   // Bass: A2 bis Cis3
 
     // --- Flaeche (o: lang fuer gehaltene Akkorde, kurz fuer Schlaege, Puls, Staccato und Gated)
-    void resetVoicing() { planValid = false; entryVoicingValid=false; unavailablePad = 0; }
+    void resetVoicing() { dispositionValid=false; planValid = false; entryVoicingValid=false; unavailablePad = 0; }
 
     struct HeardHarmony
     {
@@ -1858,11 +1860,56 @@ private:
         planValid = harmonicPlan.valid; planKey = key;
     }
 
-    voiceleading::ChordVoicing padVoicing (const Pos& p, const Settings& s, int)
+    voiceleading::ChordVoicing padVoicing (const Pos& p, const Settings& s, int output)
     {
         prepareVoicingPlan (p, s);
+        dispositionAt=nowStep;
         const int index = p.chordIdx * 2 + (p.passing ? 1 : 0);
-        unavailablePad = harmonicPlan.slots[static_cast<size_t> (index)].unavailable; return entryVoicingValid&&index==chordBase*2?entryVoicing.pad:harmonicPlan.slots[static_cast<size_t> (index)].pad;
+        unavailablePad = harmonicPlan.slots[static_cast<size_t> (index)].unavailable;
+        const auto original=entryVoicingValid&&index==chordBase*2?entryVoicing.pad:harmonicPlan.slots[static_cast<size_t> (index)].pad;
+        lastDisposition={};lastDisposition.notes=original;
+        if(s.genre!=GenrePopRock||!s.policy.chords.enabled||s.padPattern!=PadAuto||!on[kFlaeche]||s.scene||s.sceneBars>0
+            ||manualEndStep>=0||s.endRequested||s.passing||still||padShy||peak||padGrow||W().id==WendungId::popDrahtseil)return original;
+        for(int o=0;o<kNumOutputs;++o)if(o!=output&&s.channel[o]==s.channel[output])return original;
+        const auto cap=outputCatalog(s)[output].track.instrument;
+        const int oct=12*s.octave[kFlaeche];
+        const int lo=s.rangeOn[0]?s.rangeLo[0]-oct:std::max(-oct,padLow(s)-18);
+        const int hi=s.rangeOn[0]?s.rangeHi[0]-oct:std::min(127-oct,padLow(s)+24);
+        const auto mode=s.policy.chords.cycle[static_cast<size_t>((p.phrase+s.variation-1)%s.policy.chords.cycle.size())];
+        uint64_t signature=planKey;auto mix=[&](int n){signature^=static_cast<uint32_t>(n);signature*=1099511628211ull;};
+        mix(static_cast<int>(mode.population));mix(static_cast<int>(mode.spacing));mix(s.policy.chords.minimumOpenSpan);mix(s.policy.chords.maximumOpenSpan);mix(cap.polyphony);
+        // Root support is admitted only for an unchanged, sustained bass tone.
+        const int bp=chooseBass(s,p.phrase);const bool stableBass=on[kBass]&&(bp==BassHeld||bp==BassPedal)&&!bassRest;
+        mix(stableBass);mix(s.follow[kBass]);mix(bp);mix(s.key);
+        if(!dispositionValid||dispositionKey!=signature)
+        {
+            auto previous=harmonicPlan.slots[static_cast<size_t>((W().n-1)*2)].pad;
+            for(int cycle=0;cycle<2;++cycle)for(int i=0;i<W().n;++i)
+            {
+                composition::ChordDispositionRequest request;request.original=harmonicPlan.slots[static_cast<size_t>(i*2)].pad;
+                request.previous=previous;request.low=lo;request.high=hi;request.polyphony=cap.polyphony;request.disposition=mode;
+                auto chord=W().ch[i];if(!s.follow[kFlaeche]){chord=W().ch[0];chord.root=s.custom?chord.root:0;}
+                const auto& shape=kShapes[padType(chord.type,s.z)];request.root=(s.key+chord.root)%12;
+                for(int n=0;n<shape.n;++n){const int iv=shape.iv[n]%12;const auto bit=static_cast<uint16_t>(1u<<((request.root+iv)%12));request.chordMask|=bit;
+                    if(iv!=0&&iv!=7)request.required|=bit;}
+                if(chord.type==Quartal||chord.type==Fifth)request.required=request.chordMask;
+                if(stableBass)request.bass=bp==BassPedal?place(s.key+pedalRoot(),bassLow(s))
+                    :harmonicPlan.slots[static_cast<size_t>(i*2)].bass;
+                if(request.bass>=0)
+                {
+                    const int physical=request.bass+12*s.octave[kBass];
+                    if(physical<0||physical>127||(s.rangeOn[1]&&(physical<s.rangeLo[1]||physical>s.rangeHi[1])))request.bass=-1;
+                }
+                const int previousIndex=(i+W().n-1)%W().n;
+                auto prior=W().ch[previousIndex];if(!s.follow[kFlaeche]){prior=W().ch[0];prior.root=s.custom?prior.root:0;}
+                const auto resolution=composition::dominantResolution(prior.root,prior.type==Dom7||prior.type==Dom7b9,chord.root,s.key);
+                request.descendingSeventh=resolution.descendingSeventh;request.ascendingThird=resolution.ascendingThird;
+                dispositionSlots[static_cast<size_t>(i)]=composition::realizeChord(request,s.policy.chords);
+                previous=dispositionSlots[static_cast<size_t>(i)].notes;
+            }
+            dispositionKey=signature;dispositionValid=true;
+        }
+        lastDisposition=dispositionSlots[static_cast<size_t>(p.chordIdx)];return lastDisposition.notes;
     }
 
     void padChord (const Pos& p, const Settings& s, int o, int offset, long long endStep, int velocity, EventList& out)
@@ -2856,6 +2903,9 @@ private:
     VoiceState& voice(int output){return voices[output==OutMelody?1u:0u];}
     const VoiceState& voice(int output)const{return voices[output==OutMelody?1u:0u];}
     composition::BassPhrasePlan bassPhrase;long long bassPairStart=-1;uint64_t bassPhraseKey=0;
+    std::array<composition::ChordDispositionResult,8> dispositionSlots {};
+    composition::ChordDispositionResult lastDisposition;
+    uint64_t dispositionKey=0;bool dispositionValid=false;long long dispositionAt=-1;
     composition::HarmonicPlan harmonicPlan;
     composition::HarmonicPlan::Slot entryVoicing; bool entryVoicingValid=false;
     uint64_t planKey = 0; bool planValid = false;
