@@ -34,5 +34,21 @@ int main()
   timeline.count=2;timeline.durations={Tick{bar.value/4},Tick{7*bar.value/4}};timeline.end=timeline.begin+Tick{2*bar.value};
   auto boundary=timeline.begin+timeline.durations[0];CHECK(composition::locateChord(timeline,boundary-Tick{1}).index==0);CHECK(composition::locateChord(timeline,boundary).index==1);
  }
+ for(int num:{3,5,7})
+ {
+  Settings settings;settings.genre=GenrePopRock;settings.x=.75f;settings.y=.5f;settings.z=.3f;settings.variety=0;
+  settings.meterNum=num;settings.meterDen=8;settings.motif=true;
+  Generator gen;Transport host;host.playing=true;EventList notes;const int length=Meter::from(num,8).len;
+  for(int cycle=0;cycle<2;++cycle)for(int k=0;k<16*length;++k)
+  {
+   host.ppq=k*.25;notes.clear();{NoAllocations guard;gen.process(host,settings,6000,notes);}
+   const auto state=gen.inspectTiming(k,settings);const auto bar=barLength(num,8);
+   CHECK(state.scene==Tick{});CHECK(state.phraseBegin==Tick{(k/(8*length))*8*bar.value});
+   CHECK(state.phraseEnd-state.phraseBegin==Tick{8*bar.value});CHECK(state.chordBegin<=fromGridStep(k)&&fromGridStep(k)<state.chordEnd);
+   CHECK(!state.sceneEnd&&!state.manualEnd);
+  }
+  settings.sceneBars=8;host.ppq=0;notes.clear();gen.process(host,settings,6000,notes);
+  CHECK(gen.inspectTiming(0,settings).sceneEnd==std::optional<Tick>{Tick{8*barLength(num,8).value}});
+ }
  std::cout<<"Musical time units, all supported meters, 1M-step drift and allocation tests passed\n";
 }

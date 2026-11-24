@@ -104,3 +104,43 @@ Damit ist der ursprüngliche Auftrag **nicht als vollständige Planungsmigration
 ### Abschlussprüfung Teil 1b.1
 
 37/37 Gesamttests bestanden. 1117 vollständige Vorher-/Nachher-Renderings bytegleich zu `9745fbe`, einschließlich aller 87 produktiven Wendungen und aller vorhandenen Profile. 1785 zusätzliche Blockgrößenvergleiche bestanden; Prüfparameter und Prüfsummen in `MUSICAL_TIME_1B_REGRESSION.json`. Langzeitfälle umfassen 4096 Takte, weitere Fälle alle 80 unterstützten Taktarten und explizit 3/8, 5/8, 7/8. Tatsächlicher Processor: vorhandene 54 Live-/SMF-Fälle plus je 54 für die drei zusätzlichen Achtel-Taktarten bestanden; Notenbilanzen geschlossen. ASan/UBSan für MusicalTime, CompositionCore und Engine ohne Befund. 7/7 Paketprüf-Fixtures bestanden. Linux-VST3 erfolgreich gebaut und Bundle-/ELF-/Versionsmetadaten geprüft. Kein Windows-/pluginval-Lauf, kein Push und kein Release.
+
+## Teil 1b.2a – globale Szenen-/Wendungszeiten und Adapterfenster
+
+Ausgangspunkt `c85d888`. Dieser Auftrag wird erneut geteilt: Der zusammenhängende erste Teil betrifft **gespeicherte absolute Szenen-/Wendungspositionen und die Akkord-/Phrasenfenster des Adapters**. Motivspeicherung, Wiederkehr und Varianten werden hier ausdrücklich noch nicht umgestellt.
+
+### Migriert
+
+- `Generator::Pos` speichert `chordStartTime`, `chordEndTime`, `phraseStartTime`, `phraseEndTime` als gemeinsame 64-Bit-`Tick`-Werte in 960 PPQ. Aus der harmonischen Zeitleiste werden Akkordgrenzen unmittelbar als Tick übernommen. Temporäre lokale Phrasenfenster für die Wiedergabe geplanter Motivfiguren werden ebenfalls als Tick gespeichert; ihre noch rasterbasierten Eingaben werden ausdrücklich konvertiert.
+- `sceneTime` ist der absolute Szenenbeginn, `wendungTime` der Beginn des laufenden harmonischen Abschnitts, jeweils in derselben Einheit.
+- `sceneEndTime` und `manualEndTime` sind optionale Tick-Werte. Ein nicht angefordertes Ende ist **kein** riesiger oder negativer musikalischer Zeitstempel mehr. Die bisherigen Werte `-1` bzw. `1LL<<60` werden nur bei der Übergabe an noch nicht migrierte Rasterverbraucher rekonstruiert; sie werden nicht mit 240 multipliziert.
+- Die gemeinsame harmonische Zeitleiste aus Teil 1b.1 bleibt die einzige harmonische Positionsberechnung. Keine zusätzliche Phrasen-/Harmonie-Engine und keine neuen Einsatzpositionen.
+
+### Zeitpositionen und diskrete Indizes
+
+`phraseIndex`, `Pos::phrase`, `bar`, `barInPhrase`, Slotnummern, Stimmen-/Ausgangsnummern sowie Muster- und Zufallsschlüssel bleiben diskrete Indizes. Beispielsweise ist die Nummer der achten Phrase nicht deren PPQ-Zeitpunkt. `Pos::k`, `nowStep` und metrische Rasterphasen gehören weiterhin zur alten Scheduler-/Musterseite. Deren heutige Sechzehntelstruktur wird durch diese Migration nicht verändert.
+
+Explizite `gridChordStart/End`, `gridPhraseStart/End`, `sceneGrid`, `wendungGrid`, `manualEndGrid` und `sceneEndGrid` begrenzen die Rückgabe an noch rasterbasierte Verbraucher. Sie sind nicht implizite Operatoren des Zeittyps, und es gibt keine zweite gespeicherte Rasterkopie dieser migrierten Felder. Die bereits dokumentierte Exaktheits-Voraussetzung von `toExactGridStep()` gilt weiter. Diese Brücken müssen mit den nachfolgenden Verbrauchermigrationen wieder entfallen.
+
+### Noch nicht migriert / Architekturprobleme
+
+- `RememberedMotif`, `MotifUse`, normalisierte Notenfiguren, Wiederkehrphasen und -fenster, Varianten sowie musikalische Frage-/Antwortpläne verwenden noch ihre bisherigen Einheiten. Tatsächliche Pop-Aufnahmen besitzen weiterhin ihre schon vorhandenen 960-PPQ-Werte und `timeScale=240`; Score-/normalisierte Daten verwenden Rasterwerte. **Diese Einheitenmischung ist nicht behoben.**
+- Die zeitliche Historie gehörter Wendungsübergänge (`HarmonicEntryRecord::begin`) ist noch rasterbasiert und enthält auch bestehende hashrelevante Eingaben. Szeneneinstiegs-/Ausstiegsmarkierungen der Ebenen, Drive-Abschnitte und weitere Hilfszustände bleiben ebenfalls im Raster.
+- Bass- und Linienpläne, Atempausen, rhythmische Reservierungen und der Scheduler einschließlich Swing bleiben in diesem Schritt unverändert. Sie konsumieren die migrierten Grenzen über die expliziten Rasterbrücken.
+- Bestehende Aufrufer-/Inspektionsfunktionen für Motive und Linien akzeptieren weiterhin Rasterindizes, teilweise noch mit historisch `tick` benannten Parametern. Auch diese APIs sind noch nicht vollständig einheitlich typisiert.
+- Einige Ableitungen werden noch auf der Rasterseite gerechnet und danach als Tick gespeichert. Das schafft eindeutige Zustandsdaten, ersetzt aber noch nicht sämtliche zeitliche Rechnung durch PPQ-Rechnung.
+- Die optionalen Endwerte benötigen geringfügig mehr festen Objektspeicher als die früheren Sentinel-Ganzzahlen; `std::optional<Tick>` benötigt keinen Heap. Die vier Adaptergrenzen ersetzen gleich breite 64-Bit-Felder. Inspektion und Test-Snapshots kopieren den Generator nur außerhalb der Audioverarbeitung.
+
+Eine vollständige Motivmigration im selben Commit würde Identitätshashes, gespeicherte Rhythmen, Herkunftsreferenzen, Wiederkehrzähler und Grenzen der Transformationen gleichzeitig berühren. Es reicht nicht, Zahlenwerte zu skalieren: Mindestdauern und die bisherigen 4096-Grenzen sowie beide Bedeutungen von `timeScale` müssten mitmigriert und Identitäten ausdrücklich kanonisiert werden. Dies bleibt ein separater Teil. Dieser Commit wird daher **nicht als vollständiger Abschluss von Teil 1b.2** ausgewiesen.
+
+### Prüfungen dieses Teils
+
+Die gezielte Inspektion prüft bei 3/8, 5/8 und 7/8 tatsächliche gespeicherte Szenen-/Phrasen-/Akkordzeiten in 960 PPQ, mehrfachen Rücksprung, zwei Phrasen, exakte enthaltene Grenzen und optionale Szenenenden. Die bestehenden Motiv-, Varianten- und Antworttests bleiben aktiv und sichern unverändertes Verhalten ihrer noch nicht migrierten Daten.
+
+Die vollständige Zeitregression verwendet `c85d888` als Basis und prüft weiterhin alle 87 produktiven Wendungen und vorhandenen Profile, Taktarten, Tempi, Swing, Seek/Loop, verschiedene Blockgrößen und 4096-Takt-Läufe. Die tatsächlichen Live-/SMF-Tests für 3/8, 5/8 und 7/8 bleiben Teil des Processor-Gesamttests. Es werden keine neuen musikalischen Regeln, GUI- oder Profiländerungen eingeführt.
+
+Nächster abzugrenzender Teil ist die gemeinsame Motivdatenrepräsentation einschließlich Identitätsnormalisierung und ihrer zeitlichen Verwendung. Alternativ kann zunächst die restliche globale Übergangshistorie isoliert migriert werden. **Keiner dieser Folgeschritte wird hier eigenständig begonnen.**
+
+### Abschlussprüfung Teil 1b.2a
+
+37/37 Gesamttests bestanden. 1117 vollständige Vorher-/Nachher-Renderings bytegleich zu `c85d888`; 1785 zusätzliche Blockgrößenvergleiche bestanden. Details und Prüfsummen: `MUSICAL_TIME_1B2_REGRESSION.json`. Die Abdeckung umfasst alle 87 produktiven Wendungen, sämtliche vorhandenen Profile, alle 80 unterstützten Taktarten, insbesondere 3/8, 5/8 und 7/8, sowie 4096-Takt-Langzeitfälle. Die tatsächlichen 216 Processor-Live-/SMF-Fälle und der bestehende Processor-Gesamttest sind bestanden. ASan/UBSan für MusicalTime, CompositionCore und Engine ohne Befund. 7/7 Paketprüf-Fixtures bestanden. Linux-VST3 erfolgreich gebaut; Bundle-/ELF-/Versionsmetadaten geprüft. Kein Windows-/pluginval-Lauf, kein Push und kein Release.

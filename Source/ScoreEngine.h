@@ -10,6 +10,7 @@
 #include <array>
 #include <cmath>
 #include <cstdint>
+#include <optional>
 #include "CompositionCore.h"
 #include "BassPhrase.h"
 #include "WendungId.h"
@@ -277,8 +278,8 @@ struct Meter
 class Generator
 {
 public:
-    void reset() { bassPhrase={};bassPairStart=-1;harmonicChase=false; clearHarmonicEntries(); motifCatalog.clear(); voices={}; style = -1; chaseStep = -1; lastGenre = -1; resetCc(); resetVoicing(); numActive = 0; running = false; lastPpqEnd = 0.0; phraseIndex = -1; current = -1; wendungStart = 0; still = false; chordBase = 0; drivePrev = driveSeen = driveLatched = driveArrivedNow = false; driveTrajectory = false; driveProgressNow = 0; driveGenerationSeen = 0; curRoot = 0; curType = Min; curChord = -1;
-                   sceneStep = 0; manualEndStep = -1; manualFinished = manualHitSent = false; endWasRequested = false; sceneSeed = 0; autoSeed = -1; sceneBarNow = -1; sceneEnded = false; for (int l = 0; l < kNumLayers; ++l) { on[l] = prevOn[l] = hOn[l] = false; } }
+    void reset() { bassPhrase={};bassPairStart=-1;harmonicChase=false; clearHarmonicEntries(); motifCatalog.clear(); voices={}; style = -1; chaseStep = -1; lastGenre = -1; resetCc(); resetVoicing(); numActive = 0; running = false; lastPpqEnd = 0.0; phraseIndex = -1; current = -1; wendungTime = musicaltime::fromGridStep(0); still = false; chordBase = 0; drivePrev = driveSeen = driveLatched = driveArrivedNow = false; driveTrajectory = false; driveProgressNow = 0; driveGenerationSeen = 0; curRoot = 0; curType = Min; curChord = -1;
+                   sceneTime=musicaltime::fromGridStep(0); manualEndTime.reset(); manualFinished = manualHitSent = false; endWasRequested = false; sceneSeed = 0; autoSeed = -1; sceneBarNow = -1; sceneEnded = false; for (int l = 0; l < kNumLayers; ++l) { on[l] = prevOn[l] = hOn[l] = false; } }
 
     uint32_t unavailablePadPitchClasses() const { return unavailablePad; }
 
@@ -305,6 +306,16 @@ public:
     {auto snapshot=*this;snapshot.cur=&s;return snapshot.movementRhythm(snapshot.locate(tick),s);}
     composition::ChordDispositionResult inspectChordDisposition()const{return lastDisposition;}
     long long inspectChordDispositionStep()const{return dispositionAt;}
+    struct TimingSnapshot
+    {
+        musicaltime::Tick scene,section,phraseBegin,phraseEnd,chordBegin,chordEnd;
+        std::optional<musicaltime::Tick> sceneEnd,manualEnd;
+    };
+    TimingSnapshot inspectTiming(long long gridStep,const Settings& settings)const
+    {
+        auto copy=*this;copy.cur=&settings;const auto p=copy.locate(gridStep);
+        return {sceneTime,wendungTime,p.phraseStartTime,p.phraseEndTime,p.chordStartTime,p.chordEndTime,sceneEndTime,manualEndTime};
+    }
     int plannedHarmonySlots() const { return planValid ? harmonicPlan.count : 0; }
     bool driveArrived() const { return driveArrivedNow; }     // die Fahrt ist bei B angekommen (das Plugin macht B dann zu A)
     uint32_t driveGenerationNow() const { return driveGenerationSeen; }
@@ -538,8 +549,8 @@ public:
             // Szenenstart: Wiedergabebeginn, auf den Taktanfang gerundet. Ein Sprung nach vorn (oder ein Loop, der nicht
             // vor den Start zurueckspringt) laeuft in derselben Szene weiter, ein Sprung davor beginnt eine neue.
             const long long k0 = (long long) std::floor (t.ppq / kStep + 1e-9);
-            if (! running) { manualEndStep = -1; manualFinished = manualHitSent = false; endWasRequested = false; }
-            if (! running || k0 < sceneStep) { bassPhrase={};bassPairStart=-1;clearHarmonicEntries(); motifCatalog.clear(); voices={}; sceneStep = floorDiv (k0, meter.len) * meter.len; driveLatched = false; drivePrev = false; driveSeen = false; }
+            if (! running) { manualEndTime.reset(); manualFinished = manualHitSent = false; endWasRequested = false; }
+            if (! running || k0 < sceneGrid()) { bassPhrase={};bassPairStart=-1;clearHarmonicEntries(); motifCatalog.clear(); voices={}; sceneTime=musicaltime::fromGridStep(floorDiv (k0, meter.len) * meter.len); driveLatched = false; drivePrev = false; driveSeen = false; }
             running = true;
             phraseIndex = -1;
             for(auto& state:voices){state.note=-1;state.pendingAt=-1;} resetCc();
@@ -575,10 +586,19 @@ private:
     struct Pos
     {
         long long k, bar, phrase; int pos, barInPhrase;
-        int chordIdx; long long chordStart, chordEnd, phraseStart, phraseEnd;
+        int chordIdx; musicaltime::Tick chordStartTime{},chordEndTime{},phraseStartTime{},phraseEndTime{};
         bool passing = false;   // Durchgangsakkord am Ende des Akkords
     };
 
+    static long long gridChordStart(const Pos& p){return musicaltime::toExactGridStep(p.chordStartTime);}
+    static long long gridChordEnd(const Pos& p){return musicaltime::toExactGridStep(p.chordEndTime);}
+    static long long gridPhraseStart(const Pos& p){return musicaltime::toExactGridStep(p.phraseStartTime);}
+    static long long gridPhraseEnd(const Pos& p){return musicaltime::toExactGridStep(p.phraseEndTime);}
+
+    long long wendungGrid()const{return musicaltime::toExactGridStep(wendungTime);}
+    long long sceneGrid()const{return musicaltime::toExactGridStep(sceneTime);}
+    long long manualEndGrid()const{return manualEndTime?musicaltime::toExactGridStep(*manualEndTime):-1;}
+    long long sceneEndGrid()const{return sceneEndTime?musicaltime::toExactGridStep(*sceneEndTime):(1LL<<60);}
     static long long floorDiv (long long a, long long b) { return a >= 0 ? a / b : -((-a + b - 1) / b); }
 
     const Wendung& W() const { return current == kCustomWendung ? custom : wendungAt (genre, current); }
@@ -586,13 +606,13 @@ private:
     // ---------------------------------------------------------------- Dramaturgie
     static constexpr int kPulseTick = 100;   // Bass-Muster nur fuer den Puls-Einstieg: kurze Viertel auf dem Orgelpunkt
 
-    long long barsSince (long long k) const { return floorDiv (k - sceneStep, meter.len); }
+    long long barsSince (long long k) const { return floorDiv (k - sceneGrid(), meter.len); }
 
     // Fahrt: der klingende Punkt wandert von A (Punkt im Feld) nach B
     void applyDrive (long long k, Settings& s, float ax, float ay)
     {
         driveAY = ay;
-        const double barsNow = (double) (k - sceneStep) / (double) meter.len;
+        const double barsNow = (double) (k - sceneGrid()) / (double) meter.len;
         if (s.drive && ! drivePrev && driveSeen)   // waehrend der Wiedergabe eingeschaltet: ab dem naechsten Takt, vom Punkt aus
         {
             driveLatched = true;
@@ -694,16 +714,16 @@ private:
         const bool building = s.scene && e != EntryAll && bs < L;
         const int first = building ? kEntryLayer[e] : -1;
 
-        if (s.endRequested && ! endWasRequested && manualEndStep < 0)
-            manualEndStep = k + (s.ending == EndFade ? 2LL * meter.len : 0);
+        if (s.endRequested && ! endWasRequested && manualEndGrid() < 0)
+            manualEndTime=musicaltime::fromGridStep(k + (s.ending == EndFade ? 2LL * meter.len : 0));
         endWasRequested = s.endRequested;
-        const bool hasEnd = s.sceneBars > 0 || manualEndStep >= 0;
-        sceneEndStep = s.sceneBars > 0 ? sceneStep + (long long) s.sceneBars * meter.len : (1LL << 60);
-        if (manualEndStep >= 0) sceneEndStep = std::min (sceneEndStep, manualEndStep);
-        const int T = manualEndStep >= 0 ? 2 : std::clamp (std::min (L, s.sceneBars / 2), 1, 64);   // Takte zum Ausduennen / Steigern vor dem Ende
-        const long long left = hasEnd ? (sceneEndStep - k + meter.len - 1) / meter.len : (1LL << 30);   // Takte bis zum Ende, der laufende mitgezaehlt
-        if (manualEndStep >= 0 && k >= sceneEndStep) manualFinished=true;
-        sceneEnded = manualFinished || (hasEnd && k >= sceneEndStep);
+        const bool hasEnd = s.sceneBars > 0 || manualEndGrid() >= 0;
+        sceneEndTime=s.sceneBars>0?std::optional<musicaltime::Tick>{sceneTime+musicaltime::fromGridStep((long long)s.sceneBars*meter.len)}:std::nullopt;
+        if (manualEndGrid() >= 0) sceneEndTime=musicaltime::fromGridStep(std::min (sceneEndGrid(), manualEndGrid()));
+        const int T = manualEndGrid() >= 0 ? 2 : std::clamp (std::min (L, s.sceneBars / 2), 1, 64);   // Takte zum Ausduennen / Steigern vor dem Ende
+        const long long left = hasEnd ? (sceneEndGrid() - k + meter.len - 1) / meter.len : (1LL << 30);   // Takte bis zum Ende, der laufende mitgezaehlt
+        if (manualEndGrid() >= 0 && k >= sceneEndGrid()) manualFinished=true;
+        sceneEnded = manualFinished || (hasEnd && k >= sceneEndGrid());
 
         // Traegheit: ein nur auf Taktanfaengen, aus erst deutlich unter der Schwelle und nach mindestens zwei Takten
         for (int l = 0; l < kNumLayers; ++l)
@@ -757,7 +777,7 @@ private:
         if (hasEnd && left > 0 && left <= T)
         {
             const float r = (float) (left - 1) / (float) T;   // knapp 1 ... 0 im letzten Takt
-            if (s.ending == EndFade) { dens *= 0.45f + 0.55f * r; for (float& g : gain) g *= std::clamp ((float) (sceneEndStep - k) / (float) (T * meter.len), 0.0f, 1.0f); }
+            if (s.ending == EndFade) { dens *= 0.45f + 0.55f * r; for (float& g : gain) g *= std::clamp ((float) (sceneEndGrid() - k) / (float) (T * meter.len), 0.0f, 1.0f); }
             if (s.ending == EndOpen) yAdd = 0.3f * (1.0f - r);
         }
 
@@ -830,7 +850,7 @@ private:
         const uint32_t h = hash3 ((uint32_t) s.seed, (uint32_t) s.variation, 1409u);
         const int* r = rhythms[h % 7];
         const int* c = contours[(h / 7) % 6];
-        const int q = (int) (((phrase - phraseOf (sceneStep)) % 4 + 4) % 4);
+        const int q = (int) (((phrase - phraseOf (sceneGrid())) % 4 + 4) % 4);
         Motif mo;
         mo.n = r[0];
         int d = 1 + (int) ((h / 42) % 3) + (q == 1 ? 1 : q == 2 ? 2 : 0);
@@ -874,11 +894,11 @@ private:
     struct PlayableHandoff { composition::MotifHandoffPlan plan; int base=-1;int64_t origin=0; };
     int64_t motifAvailableUntil(const Settings& s,int layer)const
     {
-        int64_t end=sceneEndStep;
-        if(s.ending==EndFade&&(s.sceneBars>0||manualEndStep>=0))
+        int64_t end=sceneEndGrid();
+        if(s.ending==EndFade&&(s.sceneBars>0||manualEndGrid()>=0))
         {
             int slots=0;const int index=orderIndex(s,entryInUse,layer,slots);
-            const int tailBars=manualEndStep>=0?2:std::clamp(std::min(s.buildBars,s.sceneBars/2),1,64);
+            const int tailBars=manualEndGrid()>=0?2:std::clamp(std::min(s.buildBars,s.sceneBars/2),1,64);
             if(index>0)end-=slotBar(index,slots,tailBars)*meter.len;
         }
         return end;
@@ -968,9 +988,9 @@ private:
         auto& state=voice(output);const auto& use=state.motif;auto memory=performanceMaterial(output,s);
         const auto& policy=s.genre==GenrePopRock?s.policy.popHooks.recurrence:s.policy.motif;
         const auto origin=s.genre==GenrePopRock?use.originTick/musicaltime::ticksPerGridStep:use.originTick;
-        const auto section=p.phrase-phraseOf(sceneStep);
-        if(memory.count&&(k-p.phraseStart>=std::min(2LL*meter.len,p.phraseEnd-p.phraseStart)||section!=use.introduction))memory.finish();
-        if(!memory.complete)return {true,true,false,p.phraseStart,p.phraseStart+std::min(2LL*meter.len,p.phraseEnd-p.phraseStart),0,0};
+        const auto section=p.phrase-phraseOf(sceneGrid());
+        if(memory.count&&(k-gridPhraseStart(p)>=std::min(2LL*meter.len,gridPhraseEnd(p)-gridPhraseStart(p))||section!=use.introduction))memory.finish();
+        if(!memory.complete)return {true,true,false,gridPhraseStart(p),gridPhraseStart(p)+std::min(2LL*meter.len,gridPhraseEnd(p)-gridPhraseStart(p)),0,0};
         const int64_t window=static_cast<int64_t>(policy.windowBars)*meter.len;
         if(k<origin)return {};
         const auto epoch=(k-origin)/window;
@@ -1065,7 +1085,7 @@ private:
         const composition::RememberedMotif* memory,bool varied,const composition::MotifOccurrence* occurrence=nullptr)const
     {
         PlannedMotifNote n;
-        const long long span=memory?p.phraseEnd-p.phraseStart:std::min(2LL*meter.len,p.phraseEnd-p.phraseStart);
+        const long long span=memory?gridPhraseEnd(p)-gridPhraseStart(p):std::min(2LL*meter.len,gridPhraseEnd(p)-gridPhraseStart(p));
         const auto yc=layerY(s,kOutputLayer[output]);
         const Motif mo=motifFor(s,p.phrase);
         // Preserve the existing introduced material (tone count/rhythm), independently of restored expression.
@@ -1088,16 +1108,16 @@ private:
             n.velocity=recorded.velocity;
             n.length=std::min<int64_t>(figure?recorded.length:memory->recalledLength(i,varied,span),span-n.at);
             if(output==OutMelody)n.length=composition::articulatedLength(n.length,
-                std::min<int64_t>(exact?span-n.at:p.chordEnd-(p.phraseStart+n.at),i+1<count?(figure?figure->notes[static_cast<size_t>(i+1)].at:memory->notes[static_cast<size_t>(i+1)].at)-n.at:span-n.at),s.melodyLegato);
+                std::min<int64_t>(exact?span-n.at:gridChordEnd(p)-(gridPhraseStart(p)+n.at),i+1<count?(figure?figure->notes[static_cast<size_t>(i+1)].at:memory->notes[static_cast<size_t>(i+1)].at)-n.at:span-n.at),s.melodyLegato);
         }
         else
         {
             auto end=i+1<count?static_cast<long long>(mo.on[i+1])*meter.len/16:span;
-            end=std::min(end,p.phraseEnd-p.phraseStart);
+            end=std::min(end,gridPhraseEnd(p)-gridPhraseStart(p));
             n.pitch=ladder[std::clamp(mo.deg[i],0,nl-1)];n.velocity=static_cast<int>(56+35*yc)+(i==0?6:0);
             n.length=std::min(span,end+(output==OutMelody?0:tail(end-n.at)))-n.at;
             if(output==OutMelody)n.length=composition::articulatedLength(n.length,
-                std::min(n.length,p.chordEnd-(p.phraseStart+n.at)),s.melodyLegato);
+                std::min(n.length,gridChordEnd(p)-(gridPhraseStart(p)+n.at)),s.melodyLegato);
         }
         if(exact)
         {
@@ -1118,13 +1138,13 @@ private:
         if(!composition::suitable(catalog[output].track,need))return {};
         const auto occurrence=motifOccurrence(p.k,p,s,output);if(!occurrence.active)return {};
         auto memory=performanceMaterial(output,s);
-        if(memory.count&&p.phrase-phraseOf(sceneStep)!=voice(output).motif.introduction)memory.finish();
+        if(memory.count&&p.phrase-phraseOf(sceneGrid())!=voice(output).motif.introduction)memory.finish();
         const bool complete=memory.complete;const auto mo=motifFor(s,p.phrase);
         int count=0,future=0;int64_t begin=occurrence.end,end=occurrence.begin;
         for(int i=0;i<(occurrence.figure.count?occurrence.figure.count:complete?memory.count:mo.n);++i)
         {
             const auto at=occurrence.figure.count?occurrence.figure.notes[static_cast<size_t>(i)].at:complete?memory.notes[static_cast<size_t>(i)].at:static_cast<long long>(mo.on[i])*meter.len/16;
-            auto local=locate(occurrence.begin+at);local.phraseStart=occurrence.begin;local.phraseEnd=occurrence.end;
+            auto local=locate(occurrence.begin+at);local.phraseStartTime = musicaltime::fromGridStep(occurrence.begin);local.phraseEndTime = musicaltime::fromGridStep(occurrence.end);
             const auto note=planMotifNote(i,local,s,output,complete?&memory:nullptr,occurrence.varied,&occurrence);
             if(!note.valid)continue;
             const auto& c=catalog[output].track.instrument;if(note.length<c.minDuration||note.length>c.maxDuration)continue;
@@ -1158,8 +1178,8 @@ private:
     bool motifStep (long long k, const Pos& p, const Settings& s, int offset, EventList& out, int output=OutCounter)
     {
         auto& state=voice(output);auto& use=state.motif;
-        const long long span=std::min(2LL*meter.len,p.phraseEnd-p.phraseStart),rel=k-p.phraseStart;
-        const long long section=p.phrase-phraseOf(sceneStep);
+        const long long span=std::min(2LL*meter.len,gridPhraseEnd(p)-gridPhraseStart(p)),rel=k-gridPhraseStart(p);
+        const long long section=p.phrase-phraseOf(sceneGrid());
         if(rel>=span||(use.material(motifCatalog).count&&section!=use.introduction))use.finish(motifCatalog);
         const auto memory=performanceMaterial(output,s);const bool complete=memory.complete;
         if(complete)
@@ -1173,19 +1193,19 @@ private:
             if(memory.count&&use.introduction!=section)use.clear();
         }
         const auto occurrence=motifOccurrence(k,p,s,output);
-        auto local=p;if(complete){local.phraseStart=occurrence.begin;local.phraseEnd=occurrence.end;}
+        auto local=p;if(complete){local.phraseStartTime = musicaltime::fromGridStep(occurrence.begin);local.phraseEndTime = musicaltime::fromGridStep(occurrence.end);}
         for(int i=0;i<(occurrence.figure.count?occurrence.figure.count:5);++i)
         {
             const auto note=planMotifNote(i,local,s,output,complete?&memory:nullptr,occurrence.varied,&occurrence);
-            if(!note.valid||note.at!=k-local.phraseStart)continue;
+            if(!note.valid||note.at!=k-gridPhraseStart(local))continue;
             const int before=out.size;
             const bool savedForce=forceOn;if(s.genre==GenrePopRock)forceOn=true;
-            noteOn(output,note.pitch,note.velocity,local.phraseStart+note.at+note.length,offset,out);forceOn=savedForce;
+            noteOn(output,note.pitch,note.velocity,gridPhraseStart(local)+note.at+note.length,offset,out);forceOn=savedForce;
             if(!complete)for(int e=before;e<out.size;++e)
             {
                 const auto& emitted=out.events[static_cast<size_t>(e)];
                 if(emitted.out==output&&emitted.type==0&&emitted.velocity>0)
-                    use.observe(emitted.note,note.at,note.length,section,note.velocity,p.phraseStart);
+                    use.observe(emitted.note,note.at,note.length,section,note.velocity,gridPhraseStart(p));
             }
             if(output==OutCounter)releaseOthers(output,note.pitch,offset,out);
             state.note=note.pitch;state.pendingAt=-1;
@@ -1212,25 +1232,25 @@ private:
         p.pos = (int) (k - p.bar * meter.len);
         p.phrase = floorDiv (p.bar, phraseBars);
         p.barInPhrase = (int) (p.bar - p.phrase * phraseBars);
-        p.phraseStart = p.phrase * phraseBars * meter.len;
-        p.phraseEnd = p.phraseStart + (long long) phraseBars * meter.len;
+        p.phraseStartTime = musicaltime::fromGridStep(p.phrase * phraseBars * meter.len);
+        p.phraseEndTime = musicaltime::fromGridStep(gridPhraseStart(p) + (long long) phraseBars * meter.len);
         const Wendung& w = W();
         composition::ChordTimeline timeline;
         timeline.count=w.n;timeline.first=chordBase;timeline.held=still;
-        timeline.begin=musicaltime::fromGridStep(std::max(wendungStart,p.phraseStart));timeline.end=musicaltime::fromGridStep(p.phraseEnd);
+        timeline.begin=musicaltime::fromGridStep(std::max(wendungGrid(),gridPhraseStart(p)));timeline.end=p.phraseEndTime;
         for(int i=0;i<w.n;++i)timeline.durations[static_cast<size_t>(i)]=musicaltime::fromGridStep(static_cast<int64_t>(w.ch[i].bars)*meter.len);
         const auto position=composition::locateChord(timeline,musicaltime::fromGridStep(k));
-        p.chordIdx=position.index;p.chordStart=musicaltime::toExactGridStep(position.begin);p.chordEnd=musicaltime::toExactGridStep(position.end);
+        p.chordIdx=position.index;p.chordStartTime=position.begin;p.chordEndTime=position.end;
         if(still)return p;
         if (cur != nullptr)
         {
             const auto intent=composition::freeTransition(nextChordRoot(p),allowsPassingHarmony(*cur),cur->y);
-            const auto transition=composition::placeTransition(intent,musicaltime::fromGridStep(p.chordStart),musicaltime::fromGridStep(p.chordEnd),
+            const auto transition=composition::placeTransition(intent,musicaltime::fromGridStep(gridChordStart(p)),musicaltime::fromGridStep(gridChordEnd(p)),
                 musicaltime::fromGridStep(meter.len),musicaltime::fromGridStep(meter.groupStart[std::max(0,meter.numGroups-1)]));
             if(transition.present)
             {
-                if(musicaltime::fromGridStep(k)>=transition.begin){p.chordStart=musicaltime::toExactGridStep(transition.begin);p.passing=true;}
-                else p.chordEnd=musicaltime::toExactGridStep(transition.begin);
+                if(musicaltime::fromGridStep(k)>=transition.begin){p.chordStartTime = musicaltime::fromGridStep(musicaltime::toExactGridStep(transition.begin));p.passing=true;}
+                else p.chordEndTime = musicaltime::fromGridStep(musicaltime::toExactGridStep(transition.begin));
             }
         }
         return p;
@@ -1244,7 +1264,7 @@ private:
         rememberHarmonicEntry(phrase * phraseBars * meter.len,previous,s);
         if (s.custom) style = pick (s, phrase);
         phraseIndex = phrase;
-        wendungStart = phrase * phraseBars * meter.len;
+        wendungTime = musicaltime::fromGridStep(phrase * phraseBars * meter.len);
     }
 
     bool isChangePoint (const Pos& p, const Settings& s) const
@@ -1267,13 +1287,13 @@ private:
         if (want == still) return false;
         still = want;
         if (still) chordBase = p.chordIdx;   // der gerade klingende Akkord bleibt
-        wendungStart = k;                    // beim Verlassen laeuft die Folge von diesem Akkord an weiter
+        wendungTime = musicaltime::fromGridStep(k);                    // beim Verlassen laeuft die Folge von diesem Akkord an weiter
         return true;
     }
 
     bool maybeSwitch (long long k, const Pos& p, const Settings& s)
     {
-        if (still || k == p.phraseStart || ! isChangePoint (p, s)) return false;
+        if (still || k == gridPhraseStart(p) || ! isChangePoint (p, s)) return false;
         if (current == kCustomWendung)   // eigene Folge: nur der geliehene Stil wechselt, die Akkorde bleiben
         {
             if (style < 0 || weight (wendungAt (genre, style), s) < std::min (kKeepRatio, keepRatio (s)) * bestWeight (s)) style = pick (s, k * 7 + 3);
@@ -1284,7 +1304,7 @@ private:
         const int previous=current;
         current = pick (s, k * 7 + 3);
         rememberHarmonicEntry(k,previous,s);
-        wendungStart = k;
+        wendungTime = musicaltime::fromGridStep(k);
         return true;
     }
 
@@ -1359,7 +1379,7 @@ private:
     }
     bool melodicBassAllowed(const Settings& s)const
     {
-        if(s.genre!=GenrePopRock||!on[kBass]||s.scene||s.sceneBars>0||manualEndStep>=0||!s.policy.bass.enabled||!s.follow[kBass]||s.bassPattern!=BassAuto||bassOverride>=0||s.passing||still||s.meterNum!=4||s.meterDen!=4)return false;
+        if(s.genre!=GenrePopRock||!on[kBass]||s.scene||s.sceneBars>0||manualEndGrid()>=0||!s.policy.bass.enabled||!s.follow[kBass]||s.bassPattern!=BassAuto||bassOverride>=0||s.passing||still||s.meterNum!=4||s.meterDen!=4)return false;
         for(int o=0;o<kNumOutputs;++o)if(o!=OutBassShort&&s.channel[o]==s.channel[OutBassShort])return false;
         return true;
     }
@@ -1369,8 +1389,8 @@ private:
     {
         if(!melodicBassAllowed(s)){bassPhrase.valid=false;bassPairStart=-1;return;}
         const auto& w=W();const int first=(p.chordIdx/2)*2;
-        if(first+1>=w.n||wendungStart>p.phraseStart){bassPhrase.valid=false;bassPairStart=-1;return;}
-        long long begin=p.phraseStart;for(int i=0;i<first;++i)begin+=static_cast<long long>(w.ch[i].bars)*meter.len;
+        if(first+1>=w.n||wendungGrid()>gridPhraseStart(p)){bassPhrase.valid=false;bassPairStart=-1;return;}
+        long long begin=gridPhraseStart(p);for(int i=0;i<first;++i)begin+=static_cast<long long>(w.ch[i].bars)*meter.len;
         auto signature=static_cast<uint64_t>(current+2)*1000003u+static_cast<unsigned>(s.key+12*s.octave[kBass]+32)
             +static_cast<uint64_t>(s.rangeOn[kBass]?s.rangeLo[kBass]+256*s.rangeHi[kBass]+1:0)*65537u;
         for(int value:{s.policy.bass.opportunityEvery,s.policy.bass.maxLeap,static_cast<int>(s.policy.passing.mode),s.policy.passing.tonicOffset}){signature^=static_cast<uint32_t>(value);signature*=1099511628211ull;}
@@ -1391,7 +1411,7 @@ private:
     {
         // Explicitly protect manual patterns, thematic contexts, scene density and shared routing.
         if(s.genre!=GenrePopRock||!s.policy.rhythm.enabled||s.bassPattern!=BassAuto||s.arpFigure!=ArpAuto
-            ||s.arpRate!=RateAuto||!on[kBass]||!on[kArp]||s.scene||s.sceneBars>0||manualEndStep>=0||s.endRequested
+            ||s.arpRate!=RateAuto||!on[kBass]||!on[kArp]||s.scene||s.sceneBars>0||manualEndGrid()>=0||s.endRequested
             ||still||bassRest||bassOverride>=0||dens<1.f||s.meterNum!=4||s.meterDen!=4||s.passing
             ||on[kMelodie]||(on[kGegenstimme]&&phrasedHook(s)))return {};
         for(int o=0;o<kNumOutputs;++o)
@@ -1611,7 +1631,7 @@ private:
     const HarmonicEntryRecord* harmonicEntryAt(const Pos& p,const Settings& s)const
     {
         if(s.genre!=GenreScore||s.custom)return nullptr;
-        const auto begin=std::max(p.phraseStart,wendungStart);
+        const auto begin=std::max(gridPhraseStart(p),wendungGrid());
         for(const auto& entry:harmonicEntries)if(entry.begin==begin&&entry.target==current)return &entry;
         return nullptr;
     }
@@ -1636,7 +1656,7 @@ private:
             mix(entry->heard.pad.n);for(int i=0;i<entry->heard.pad.n;++i)mix(entry->heard.pad.notes[i]);
             mix(entry->heard.bass);mix(entry->heard.root);mix(entry->heard.type);}
 
-        const auto& w = W(); long long start = std::max (p.phraseStart, wendungStart);
+        const auto& w = W(); long long start = std::max (gridPhraseStart(p), wendungGrid());
         for (int i = 0; i < w.n; ++i)
         {
             for (int pass = 0; pass < 2; ++pass)
@@ -1709,7 +1729,7 @@ private:
         const auto original=entryVoicingValid&&index==chordBase*2?entryVoicing.pad:harmonicPlan.slots[static_cast<size_t> (index)].pad;
         lastDisposition={};lastDisposition.notes=original;
         if(s.genre!=GenrePopRock||!s.policy.chords.enabled||s.padPattern!=PadAuto||!on[kFlaeche]||s.scene||s.sceneBars>0
-            ||manualEndStep>=0||s.endRequested||s.passing||still||padShy||peak||padGrow||W().id==WendungId::popDrahtseil)return original;
+            ||manualEndGrid()>=0||s.endRequested||s.passing||still||padShy||peak||padGrow||W().id==WendungId::popDrahtseil)return original;
         for(int o=0;o<kNumOutputs;++o)if(o!=output&&s.channel[o]==s.channel[output])return original;
         const auto cap=outputCatalog(s)[output].track.instrument;
         const int oct=12*s.octave[kFlaeche];
@@ -1908,14 +1928,14 @@ private:
         const bool phraseEnd = lastBar && p.pos == lastGroup && lastGroup > 0;    // Schlusspunkt der Phrase
         const bool both = phraseEnd && ya >= 0.8f;
 
-        if (s.z >= s.policy.texture.accentUnrest && k == p.chordStart + (p.chordEnd - p.chordStart) / 2)
+        if (s.z >= s.policy.texture.accentUnrest && k == gridChordStart(p) + (gridChordEnd(p) - gridChordStart(p)) / 2)
             foreignTone (p, s, offset, out);
         else if (both || tupferAt (k, s))
             tupfer (p, s, offset, ya > 0.7f ? 1 : 2, both ? 10 : 0, out);
 
         if (ya < s.policy.texture.stichStart) return;
         bool hit = both || (phraseEnd && ya >= 0.6f);
-        if (! hit && k == p.chordStart)
+        if (! hit && k == gridChordStart(p))
             hit = (float) (hashInt (613u, k) % 1000) < (0.25f + 0.45f * ya) * 1000.0f;
         if (! hit && ya >= 0.55f && tupferAt (k - 3, s))                       // Antwort auf den Tupfer
             hit = hashInt (617u, k) % 2 == 0;
@@ -1929,16 +1949,16 @@ private:
     {
         const int pad = choosePad (s);
         const bool padFollow = s.follow[kFlaeche];
-        const bool phraseStart = p.k == p.phraseStart;
+        const bool phraseStart = p.k == gridPhraseStart(p);
         if ((mask & 1u) && pad == PadHeld && (padFollow || phraseStart || restart))
-            padChord (p, s, OutPadLong, offset, padFollow ? p.chordEnd : p.phraseEnd, (int) (40 + 45 * layerY (s, kFlaeche)), out);
+            padChord (p, s, OutPadLong, offset, padFollow ? gridChordEnd(p) : gridPhraseEnd(p), (int) (40 + 45 * layerY (s, kFlaeche)), out);
 
         const int bp = chooseBass (s, p.phrase);
         if ((mask & 2u) && ((bp == BassHeld && (s.follow[kBass] || phraseStart || restart)) || bp == BassPedal))
         {
             const bool pedal = bp == BassPedal;
             noteOn (OutBassLong, bassPlacement (p, s, place (s.key + (pedal ? pedalRoot() : bassRoot (chordFor (p, kBass, s))), bassLow (s)), pedal),
-                    (int) (60 + 35 * layerY (s, kBass)), (s.follow[kBass] && ! pedal) ? p.chordEnd : (pedal ? p.chordEnd : p.phraseEnd), offset, out);
+                    (int) (60 + 35 * layerY (s, kBass)), (s.follow[kBass] && ! pedal) ? gridChordEnd(p) : (pedal ? gridChordEnd(p) : gridPhraseEnd(p)), offset, out);
         }
     }
 
@@ -1954,7 +1974,7 @@ private:
         updateScene (k, p, s, true, 0, out);
         if (sceneEnded) return;
         prepareBassPhrase(p,s);
-        if (ppq > (double) p.chordStart * kStep + 1e-9)
+        if (ppq > (double) gridChordStart(p) * kStep + 1e-9)
             sustained (p, s, 0, out, true);
         else
             chaseStep = k;   // genau am Akkordanfang: der normale Schritt schlaegt an, auch die stehenden Ebenen
@@ -1998,9 +2018,9 @@ private:
         updateScene (k, p, s, false, offset, out);
         if (sceneEnded)
         {
-            if (k == sceneEndStep && (manualEndStep < 0 || !manualHitSent))
+            if (k == sceneEndGrid() && (manualEndGrid() < 0 || !manualHitSent))
             {
-                if(manualEndStep>=0)manualHitSent=true;
+                if(manualEndGrid()>=0)manualHitSent=true;
                 allNotesOff (out, offset);
                 if (s.ending == EndHard) finalHit (p, s, offset, out);
             }
@@ -2029,7 +2049,7 @@ private:
             const auto occurrence=motifOccurrence(k,p,s,output);
             if(occurrence.active&&k>=occurrence.begin&&k<occurrence.end)
             {
-                auto local=p;local.phraseStart=occurrence.begin;local.phraseEnd=occurrence.end;
+                auto local=p;local.phraseStartTime = musicaltime::fromGridStep(occurrence.begin);local.phraseEndTime = musicaltime::fromGridStep(occurrence.end);
                 for(int i=0;i<(occurrence.figure.count?occurrence.figure.count:memory.count);++i)
                 {
                     const auto n=planMotifNote(i,local,s,output,&memory,occurrence.varied,&occurrence);
@@ -2173,7 +2193,7 @@ private:
         int rate = s.arpRate == RateQuarter ? 4 : s.arpRate == RateEighth ? 2 : s.arpRate == RateSixteenth ? 1
                  : composition::autoArpeggioTicks(s.policy.texture,yArp);
         if (fig == ArpGlitter || fig == ArpSid) rate = 1;
-        const long long rel = k - (s.follow[kArp] ? p.chordStart : p.phraseStart);
+        const long long rel = k - (s.follow[kArp] ? gridChordStart(p) : gridPhraseStart(p));
         const auto rhythm=movementRhythm(p,s);
         const auto* onset=rhythm.active?rhythm.at(p.pos):nullptr;
         const auto sourceStep=onset?k+onset->source-p.pos:k;
@@ -2193,7 +2213,7 @@ private:
                 base += shift;
                 count = fitGroup (OutArp, tones, count);
             }
-            const long long c0 = sourceRel / rate + (long long) (hashInt (77u, s.follow[kArp] ? p.chordStart : phrase) % 4);
+            const long long c0 = sourceRel / rate + (long long) (hashInt (77u, s.follow[kArp] ? gridChordStart(p) : phrase) % 4);
             int note = base;
             switch (fig)
             {
@@ -2272,10 +2292,10 @@ private:
         {
             const Chord& nc = p.chordIdx + 1 < w.n ? w.ch[p.chordIdx + 1] : w.ch[0];
             curNextRoot = nc.root; curNextType = nc.type;
-            curProgress = p.chordEnd > p.chordStart ? (float) (k - p.chordStart) / (float) (p.chordEnd - p.chordStart) : 0.0f;
+            curProgress = gridChordEnd(p) > gridChordStart(p) ? (float) (k - gridChordStart(p)) / (float) (gridChordEnd(p) - gridChordStart(p)) : 0.0f;
         }
         if (s.dynamics) dynamicsCc (k, p, s, offset, out);
-        const bool chordStart = k == p.chordStart;
+        const bool chordStart = k == gridChordStart(p);
         const bool beat = p.pos % 4 == 0;
         const bool group = meter.isGroupStart (p.pos);
         const float z = s.z;
@@ -2317,7 +2337,7 @@ private:
             const int vel = (int) (58 + 38 * yBass) + (group ? 8 : 0) + jitter (k, kBass, 3);
             const int pattern = pattern0 (s, phrase);
             const int bo = bassOut (pattern);
-            const bool lastEighth = k == p.chordEnd - 2;
+            const bool lastEighth = k == gridChordEnd(p) - 2;
             // Chromatische Annaeherung an den naechsten Grundton im letzten Achtel des Akkords
             const bool approach = s.follow[kBass] && (z >= 0.3f || pattern == BassFunk) && lastEighth
                                   && pattern != BassHeld && pattern != BassWalking && pattern != BassHeartbeat && pattern != kPulseTick;
@@ -2359,9 +2379,9 @@ private:
                 case BassWalking:
                     if (beat)
                     {
-                        const int b = (int) ((k - p.chordStart) / 4);
+                        const int b = (int) ((k - gridChordStart(p)) / 4);
                         int n;
-                        if (s.follow[kBass] && k + 4 >= p.chordEnd)         // letzter Schlag: chromatisch zum naechsten Grundton
+                        if (s.follow[kBass] && k + 4 >= gridChordEnd(p))         // letzter Schlag: chromatisch zum naechsten Grundton
                         {
                             const int target = nextBassPlacement (p, s);
                             n = (b % 2 == 0) ? target - 1 : target + 1;
@@ -2382,7 +2402,7 @@ private:
                     }
                     break;
                 case BassPedal:   // Orgelpunkt: liegt (in sustained), bei viel Intensitaet zusaetzlich ein Puls auf den Schlaegen
-                    if (yBass > 0.6f && beat && k != p.chordStart) noteOn (OutBassShort, root, vel - 12, k + 1, offset, out);
+                    if (yBass > 0.6f && beat && k != gridChordStart(p)) noteOn (OutBassShort, root, vel - 12, k + 1, offset, out);
                     break;
                 case BassHiNrg:   // Grundton und Oberoktave im Wechsel, sehr aufgewuehlt in Sechzehnteln
                 {
@@ -2463,15 +2483,15 @@ private:
                 { yl = std::max (yl, layerY (s, kOutputLayer[other])); envelope = std::max (envelope, gain[kOutputLayer[other]]); }
             const float base = 50.0f + 40.0f * yl;
             float value = base;
-            if (s.genre == GenrePopRock) value += 2.0f * std::sin (3.14159265f * (float) ((k - p.chordStart) % 16) / 16.0f);
+            if (s.genre == GenrePopRock) value += 2.0f * std::sin (3.14159265f * (float) ((k - gridChordStart(p)) % 16) / 16.0f);
             else
             {
                 const bool slow = o == OutCounter || o == OutPadLong || o == OutBassLong;
                 const int arc = slow ? 16 : 8;
                 const float amp = 4.0f + 6.0f * yl + 4.0f * s.z;
-                const float phase = (float) ((k - p.chordStart) % arc) / (float) arc;
+                const float phase = (float) ((k - gridChordStart(p)) % arc) / (float) arc;
                 value += -0.5f * amp + amp * std::sin (3.14159265f * phase);
-                const long long since = k - p.chordStart;
+                const long long since = k - gridChordStart(p);
                 if (s.z >= 0.6f && since < 4) value += (amp + 6.0f) * (1.0f - (float) since / 4.0f);   // Sforzato beim Akkordwechsel
             }
             auto mapped = [&] (int kind, float unit)
@@ -2553,7 +2573,7 @@ private:
         for(int o=0;o<kNumOutputs;++o)if(o!=OutCounter&&s.channel[o]==s.channel[OutCounter])return;
         const bool special=popHookPattern(W().id)>=0&&!s.custom;
         const auto cycle=special?2LL*meter.len:8LL*(layerY(s,kGegenstimme)<.45f?4:2);
-        if((k-p.phraseStart)%cycle==0){state.captureSwing=s.swing;state.captureChannel=s.channel[OutCounter];state.capture.start(state.motif,musicaltime::fromGridStep(k).value,musicaltime::fromGridStep(cycle).value,musicaltime::ticksPerGridStep);}
+        if((k-gridPhraseStart(p))%cycle==0){state.captureSwing=s.swing;state.captureChannel=s.channel[OutCounter];state.capture.start(state.motif,musicaltime::fromGridStep(k).value,musicaltime::fromGridStep(cycle).value,musicaltime::ticksPerGridStep);}
     }
     // Pop-Rock: durchgehende, gleichbleibende Hook-Linie aus Akkordtoenen (eine Figur je VARIATION)
     void leadHook (long long k, const Pos& p, const Settings& s, int offset, EventList& out)
@@ -2573,16 +2593,16 @@ private:
                 {0,1,2,1,2,3,2,0}, {0,2,1,2,1,0,0,0}, {2,1,0,1,0,0,0,0} };
             const int id = hook;
             const long long cycle = 2LL * meter.len;
-            const auto local = (k - p.phraseStart) % cycle;
+            const auto local = (k - gridPhraseStart(p)) % cycle;
             const Chord c = chordFor (p, kGegenstimme, s);
             const auto& sh = kShapes[c.type];
             for (int i = 0; i < 8 && starts[id][i] >= 0; ++i)
             {
                 const long long at = (long long) starts[id][i] * cycle / 32;
                 if (local != at) continue;
-                const int deg = degrees[id][i] + ((id == 0 && (k - p.phraseStart) / cycle % 2 && i == 7) ? 1 : 0);
+                const int deg = degrees[id][i] + ((id == 0 && (k - gridPhraseStart(p)) / cycle % 2 && i == 7) ? 1 : 0);
                 int note = place (s.key + c.root, 67) + sh.iv[deg % sh.n] + 12 * (deg / sh.n);
-                if (id == 1 || id == 2 || id == 8) note = counterTarget (c, s, k == p.chordStart, k);
+                if (id == 1 || id == 2 || id == 8) note = counterTarget (c, s, k == gridChordStart(p), k);
                 long long next = i < 7 && starts[id][i + 1] >= 0 ? (long long) starts[id][i + 1] * cycle / 32 : cycle;
                 const long long len = std::max (1LL, next - at - ((id == 3 || id == 7) ? 2 : 0));
                 noteOn (OutCounter, note, (int) (58 + 35 * layerY (s, kGegenstimme)), k + len + (s.legato ? 1 : 0), offset, out);
@@ -2595,8 +2615,8 @@ private:
                                                { 3, 2, 1, 2, 3, 2, 1, 0 }, { 0, 2, 1, 2, 0, 3, 2, 1 }, { 1, 2, 3, 2, 1, 0, 1, 2 } };
         const float yc = layerY (s, kGegenstimme);
         const int rate = yc < 0.45f ? 4 : 2;
-        if ((k - p.phraseStart) % rate != 0) return;
-        const int slot = (int) (((k - p.phraseStart) / rate) % 8);
+        if ((k - gridPhraseStart(p)) % rate != 0) return;
+        const int slot = (int) (((k - gridPhraseStart(p)) / rate) % 8);
         const int* fig = figures[hash3 ((uint32_t) s.variation, 17u, 523u) % 6];
         const Chord c = chordFor (p, kGegenstimme, s);
         const ChordShape& sh = kShapes[c.type];
@@ -2632,18 +2652,18 @@ private:
     {
         if(s.genre!=GenreScore||s.motif||on[kMelodie]||!on[kGegenstimme])return {};
         composition::LinePhraseRequest request;
-        request.begin=std::max({p.chordStart,p.phraseStart,sceneStep,wendungStart});
-        request.end=std::min({p.chordEnd,p.phraseEnd,sceneEndStep});
-        if(s.ending==EndFade&&(s.sceneBars>0||manualEndStep>=0))
+        request.begin=std::max({gridChordStart(p),gridPhraseStart(p),sceneGrid(),wendungGrid()});
+        request.end=std::min({gridChordEnd(p),gridPhraseEnd(p),sceneEndGrid()});
+        if(s.ending==EndFade&&(s.sceneBars>0||manualEndGrid()>=0))
         {
             int slots=0;const int index=orderIndex(s,entryInUse,kGegenstimme,slots);
-            const int tailBars=manualEndStep>=0?2:std::clamp(std::min(s.buildBars,s.sceneBars/2),1,64);
-            if(index>0)request.end=std::min<int64_t>(request.end,sceneEndStep-slotBar(index,slots,tailBars)*meter.len);
+            const int tailBars=manualEndGrid()>=0?2:std::clamp(std::min(s.buildBars,s.sceneBars/2),1,64);
+            if(index>0)request.end=std::min<int64_t>(request.end,sceneEndGrid()-slotBar(index,slots,tailBars)*meter.len);
         }
         if(s.scene&&entryInUse!=EntryAll)
         {
             int slots=0;const int index=orderIndex(s,entryInUse,kGegenstimme,slots);
-            if(index>=0)request.begin=std::max<int64_t>(request.begin,sceneStep+slotBar(index,slots,s.buildBars)*meter.len);
+            if(index>=0)request.begin=std::max<int64_t>(request.begin,sceneGrid()+slotBar(index,slots,s.buildBars)*meter.len);
         }
         request.pulse=meter.numGroups>1?meter.groupStart[1]:std::min(4,meter.len);
         const auto catalog=outputCatalog(s);composition::RoleNeed need;
@@ -2658,7 +2678,7 @@ private:
         const int oct=12*octaveOf(OutCounter);
         request.range={std::max(-oct,catalog[OutCounter].track.instrument.range.low-oct),
             std::min(127-oct,catalog[OutCounter].track.instrument.range.high-oct)};
-        request.ending=request.end==p.phraseEnd&&chord.root==0
+        request.ending=request.end==gridPhraseEnd(p)&&chord.root==0
             ?composition::PhraseEnding::settled:composition::PhraseEnding::open;
         int interval=request.ending==composition::PhraseEnding::settled?(s.x>.6f?shape.iv[1]:0)
             :s.z>=.5f&&shape.n>3?shape.iv[3]:shape.iv[std::min(s.x>.6f?2:1,shape.n-1)];
@@ -2705,10 +2725,10 @@ private:
         }
         // Bewegung: ruhig nur bei Akkordwechseln, mittel alle zwei Takte, aufgewuehlt in Halben
         const long long rate = yc < 0.4f ? 0 : yc < 0.7f ? 2LL * meter.len : std::max (4LL, (long long) meter.len / 2);
-        const bool move = chordStart || (rate > 0 && k > p.chordStart && (k - p.chordStart) % rate == 0 && p.chordEnd - k >= 4);
+        const bool move = chordStart || (rate > 0 && k > gridChordStart(p) && (k - gridChordStart(p)) % rate == 0 && gridChordEnd(p) - k >= 4);
         if (! move) return;
         const Chord c = chordFor (p, kOutputLayer[output], s);
-        const long long end = rate > 0 ? std::min (p.chordEnd, k + rate) : p.chordEnd;
+        const long long end = rate > 0 ? std::min (gridChordEnd(p), k + rate) : gridChordEnd(p);
         const int target = counterTarget (c, s, chordStart, k,output);
         if (output==OutCounter && s.z >= 0.5f && chordStart && end - k >= 8)               // Unruhe: Vorhalt von oben, loest auf den Zielton auf
         {
@@ -2757,7 +2777,8 @@ private:
     int numActive = 0;
     bool running = false, wasCustom = false;
     double lastPpqEnd = 0.0;
-    long long phraseIndex = -1, wendungStart = 0, chaseStep = -1;
+    long long phraseIndex = -1, chaseStep = -1;
+    musicaltime::Tick wendungTime{};
     bool still = false;   // Ruhezone: Akkord steht
     bool drivePrev = false, driveSeen = false, driveLatched = false, driveArrivedNow = false;   // Fahrt: Einschalten waehrend der Wiedergabe, Ankunft
     uint32_t driveGenerationSeen = 0;
@@ -2765,7 +2786,7 @@ private:
     bool driveTrajectory = false, segmentReturn = false;
     float originX = 0, originY = 0, segmentX = 0, segmentY = 0, segmentQ = 0;
     float segmentTargetX = 0, segmentTargetY = 0, observedBX = 0, observedBY = 0;
-    long long manualEndStep = -1;
+    std::optional<musicaltime::Tick> manualEndTime;
     bool endWasRequested = false, manualFinished=false, manualHitSent=false;
     int sceneSeed = 0;
     float routeBX=0,routeBY=0,routeCorrectionStart=0; DrivePoint routeCorrection;
@@ -2782,7 +2803,9 @@ private:
     int lastCc[17] {}, lastExpr[17] {};   // je MIDI-Kanal (1 ... 16)
     int phraseBars = kPhraseBars;
     // Szene
-    long long sceneStep = 0, sceneEndStep = 1LL << 60, autoSeed = -1;
+    musicaltime::Tick sceneTime{};
+    std::optional<musicaltime::Tick> sceneEndTime;
+    long long autoSeed = -1;
     int autoValue = EntryPad, entryInUse = EntryPad, sceneBarNow = -1, bassOverride = -1;
     bool sceneEnded = false, padShy = false, padGrow = false, akzentForced = false, bassRest = false, prepStich = false, peak = false;
     bool forceOn = false, extendOnly = false;

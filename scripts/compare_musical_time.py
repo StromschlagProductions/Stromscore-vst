@@ -12,7 +12,7 @@ for id,meter,bpm,swing in itertools.product((1005,1008,1034,2015,2035,2037,2038,
 for id,num,den in itertools.product((1005,2035),range(1,17),(1,2,4,8,16)):cases.append((id,0,0,(num,den),120,.3,32,True))
 for id in (1005,2035,2037):cases.append((id,0,0,(3,8),173,.3,4096,True))
 with tempfile.TemporaryDirectory() as tmp:
- tmp=pathlib.Path(tmp);prepare(tmp/'headers',revision='9745fbe',explicit=True);exe=tmp/'baseline';subprocess.run([a.compiler,'-std=c++17','-O2','-I',str(tmp/'headers'),str(root/'tools/harmony_import_probe.cpp'),'-o',str(exe)],check=True)
+ tmp=pathlib.Path(tmp);prepare(tmp/'headers',revision='c85d888',explicit=True);exe=tmp/'baseline';subprocess.run([a.compiler,'-std=c++17','-O2','-I',str(tmp/'headers'),str(root/'tools/harmony_import_probe.cpp'),'-o',str(exe)],check=True)
  for id,profile,route,meter,bpm,swing,bars,blocks in cases:
   t=byid[id];args=list(map(str,[id,0,*t['xyz'],1,0,1,1,bars,512,bpm,route,profile,swing,0 if id<2000 else 1,*meter]))
   before=subprocess.check_output([str(exe)]+args);after=subprocess.check_output([a.probe]+args);assert before==after,(id,profile,route,meter,bpm,swing,'MIDI changed')
@@ -23,4 +23,4 @@ with tempfile.TemporaryDirectory() as tmp:
     assert len(other)==len(reference) and all(x[1:]==y[1:] and abs(x[0]-y[0])<=1 for x,y in zip(other,reference)),(id,meter,bpm,block,'block')
     blockchecks+=1
   rows.append({'id':id,'profile':profile,'route':route,'meter':meter,'bpm':bpm,'swing':swing,'bars':bars,'sha256':hashlib.sha256(after).hexdigest()})
-(out/'regression.json').write_text(json.dumps({'baseline':'9745fbe','comparisons':len(rows),'block_comparisons':blockchecks,'results':rows},indent=2)+'\n');print(len(rows),'byte-identical before/after renders;',blockchecks,'alternate-block comparisons')
+(out/'regression.json').write_text(json.dumps({'baseline':'c85d888','comparisons':len(rows),'block_comparisons':blockchecks,'results':rows},indent=2)+'\n');print(len(rows),'byte-identical before/after renders;',blockchecks,'alternate-block comparisons')
