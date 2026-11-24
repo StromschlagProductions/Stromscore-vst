@@ -1,3 +1,4 @@
+#include "TimeDiagnostics.h"
 #include "ScoreEngine.h"
 #include <cstdlib>
 #include <iostream>
@@ -52,7 +53,7 @@ int main(int argc,char** argv)
   {
    const auto tick=static_cast<long long>(std::floor((t.ppq+es.events[i].offset*bpm/(48000.*60))*4+1e-4));
    const auto begin=(tick/16)*16;if(!seen.insert(begin).second)continue;const auto plan=g.inspectMovementRhythm(tick,s);
-   if(plan.active){std::cerr<<"R,"<<begin<<','<<plan.reference<<','<<plan.original<<','<<plan.coordinated<<','<<plan.count;for(int j=0;j<plan.count;++j){auto p=plan.notes[j];std::cerr<<','<<p.at<<','<<p.source<<','<<p.length;}const auto bass=g.inspectBassPhrase();std::cerr<<','<<int(bass.valid&&bass.begin<=begin&&bass.end>=begin+16)<<'\n';}
+   if(plan.active){std::cerr<<"R,"<<begin<<','<<plan.reference<<','<<plan.original<<','<<plan.coordinated<<','<<plan.count;for(int j=0;j<plan.count;++j){auto p=plan.notes[j];std::cerr<<','<<diagnosticTime(p.at)<<','<<diagnosticTime(p.source)<<','<<diagnosticTime(p.length);}const auto bass=g.inspectBassPhrase();std::cerr<<','<<int(bass.valid&&diagnosticTime(bass.begin)<=begin&&diagnosticTime(bass.end)>=begin+16)<<'\n';}
   }
 #endif
   at+=n;

@@ -1,3 +1,4 @@
+#include "TimeDiagnostics.h"
 #include "ScoreEngine.h"
 #include <cstdlib>
 #include <iostream>
@@ -70,11 +71,11 @@ int main(int argc,char** argv)
 #ifdef PHRASE_DIAGNOSTICS
             const long long tick=static_cast<long long>((t.ppq+n/24000.)*4)-1;
             const auto plan=g.inspectFreePhrase(tick,s);
-            if(plan.valid&&(plan.begin!=previousBegin||plan.end!=previousEnd))
+            if(plan.valid&&(diagnosticTime(plan.begin)!=previousBegin||diagnosticTime(plan.end)!=previousEnd))
             {
-                std::cerr<<"P,"<<plan.begin<<','<<plan.end<<','<<plan.goal<<','<<plan.arrival<<','<<plan.breath<<','<<int(plan.ending)<<','<<plan.count;
-                for(int i=0;i<plan.count;++i){const auto& note=plan.notes[static_cast<size_t>(i)];std::cerr<<','<<note.begin<<','<<note.end<<','<<note.pitch;}std::cerr<<'\n';
-                previousBegin=plan.begin;previousEnd=plan.end;
+                std::cerr<<"P,"<<diagnosticTime(plan.begin)<<','<<diagnosticTime(plan.end)<<','<<plan.goal<<','<<diagnosticTime(plan.arrival)<<','<<diagnosticTime(plan.breath)<<','<<int(plan.ending)<<','<<plan.count;
+                for(int i=0;i<plan.count;++i){const auto& note=plan.notes[static_cast<size_t>(i)];std::cerr<<','<<diagnosticTime(note.begin)<<','<<diagnosticTime(note.end)<<','<<note.pitch;}std::cerr<<'\n';
+                previousBegin=diagnosticTime(plan.begin);previousEnd=diagnosticTime(plan.end);
             }
 #endif
         }

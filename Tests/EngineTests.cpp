@@ -1428,7 +1428,7 @@ int main()
         for(int i=0;i<kNumOutputs;++i){CHECK(catalog[static_cast<size_t>(i)].target.output==i);CHECK(!catalog[static_cast<size_t>(i)].externalPatchKnown);}
         CHECK(catalog[OutPadLong].track.style!=catalog[OutPadShort].track.style);
         CHECK(catalog[OutBassLong].track.style!=catalog[OutBassShort].track.style);
-        composition::RoleNeed held;held.role=composition::MusicalRole::accompaniment;held.maxDuration=64;
+        composition::RoleNeed held;held.role=composition::MusicalRole::accompaniment;held.maxDuration=musicaltime::fromGridStep(64);
         CHECK(composition::suitable(catalog[OutPadLong].track,held));
         CHECK(!composition::suitable(catalog[OutPadShort].track,held));
         s.stichFixed=true;s.stichNote=41;s.octave[kAkzent]=2;s.rangeOn[5]=true;s.rangeLo[5]=80;s.rangeHi[5]=90;
@@ -1662,14 +1662,14 @@ int main()
         Settings s;s.key=0;s.x=.2f;s.y=.8f;s.custom=true;s.customChords[0]={0,Maj7,8};
         s.motif=false;s.solo[kGegenstimme]=true;
         Generator g;EventList events;Transport t;t.playing=true;g.process(t,s,6000,events);
-        const auto plan=g.inspectFreePhrase(0,s);CHECK(plan.valid&&plan.goal==72&&plan.breath==124);
+        const auto plan=g.inspectFreePhrase(0,s);CHECK(plan.valid&&plan.goal==72&&plan.breath==musicaltime::fromGridStep(124));
         const auto performance=run(s,512,16.);checkBalanced(performance);
         std::vector<int> pitches;int active=0;
         for(const auto& e:performance)
         {
             active+=e.velocity>0?1:-1;CHECK(active>=0&&active<=2);
             if(e.velocity>0)pitches.push_back(e.note);
-            if(e.sample>=plan.breath*6000)CHECK(active==0);
+            if(e.sample>=plan.breath.value*25)CHECK(active==0);
         }
         CHECK(pitches.size()==static_cast<size_t>(plan.count)&&pitches.back()==plan.goal);
         CHECK(pitches[pitches.size()-2]!=pitches.back());

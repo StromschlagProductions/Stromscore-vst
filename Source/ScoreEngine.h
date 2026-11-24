@@ -138,18 +138,18 @@ inline bool hasSolo(const Settings& s)
 inline std::array<composition::OutputDescription,kNumOutputs> outputCatalog(const Settings& s)
 {
     using namespace composition;
-    struct Standard { PlayingStyle style; int voices; int64_t maxDuration; unsigned roles; };
+    struct Standard { PlayingStyle style; int voices; musicaltime::Tick maxDuration; unsigned roles; };
     const auto accompaniment=roleBit(MusicalRole::accompaniment);
     const Standard standards[kNumOutputs]={
-        {PlayingStyle::sustained,6,1<<24,accompaniment},
-        {PlayingStyle::detached,9,3,accompaniment},
-        {PlayingStyle::sustained,1,1<<24,accompaniment},
-        {PlayingStyle::detached,1,4,accompaniment},
-        {PlayingStyle::detached,1,32,accompaniment|roleBit(MusicalRole::answer)},
-        {PlayingStyle::detached,4,3,accompaniment},
-        {PlayingStyle::detached,1,2,accompaniment},
-        {PlayingStyle::sustained,2,1<<24,roleBit(MusicalRole::lead)|roleBit(MusicalRole::answer)},
-        {PlayingStyle::sustained,1,1<<24,roleBit(MusicalRole::lead)} };
+        {PlayingStyle::sustained,6,musicaltime::sixteenth*(1<<24),accompaniment},
+        {PlayingStyle::detached,9,musicaltime::sixteenth*(3),accompaniment},
+        {PlayingStyle::sustained,1,musicaltime::sixteenth*(1<<24),accompaniment},
+        {PlayingStyle::detached,1,musicaltime::sixteenth*(4),accompaniment},
+        {PlayingStyle::detached,1,musicaltime::sixteenth*(32),accompaniment|roleBit(MusicalRole::answer)},
+        {PlayingStyle::detached,4,musicaltime::sixteenth*(3),accompaniment},
+        {PlayingStyle::detached,1,musicaltime::sixteenth*(2),accompaniment},
+        {PlayingStyle::sustained,2,musicaltime::sixteenth*(1<<24),roleBit(MusicalRole::lead)|roleBit(MusicalRole::answer)},
+        {PlayingStyle::sustained,1,musicaltime::sixteenth*(1<<24),roleBit(MusicalRole::lead)} };
     const char* uses[kNumOutputs]={"Gehaltene Harmonie","Akkordimpulse und Riss","Bassfundament und Pedal",
         "Rhythmische Bassfigur","Arpeggio, Figur und Antwort","Farbiger Einwurf","Akzentschlag","Melodielinie, Motiv und Frage","Optionale Vordergrundmelodie"};
     std::array<OutputDescription,kNumOutputs> result {};
@@ -278,7 +278,7 @@ struct Meter
 class Generator
 {
 public:
-    void reset() { bassPhrase={};bassPairStart=-1;harmonicChase=false; clearHarmonicEntries(); motifCatalog.clear(); voices={}; style = -1; chaseStep = -1; lastGenre = -1; resetCc(); resetVoicing(); numActive = 0; running = false; lastPpqEnd = 0.0; phraseIndex = -1; current = -1; wendungTime = musicaltime::fromGridStep(0); still = false; chordBase = 0; drivePrev = driveSeen = driveLatched = driveArrivedNow = false; driveTrajectory = false; driveProgressNow = 0; driveGenerationSeen = 0; curRoot = 0; curType = Min; curChord = -1;
+    void reset() { bassPhrase={};bassPairStart.reset();harmonicChase=false; clearHarmonicEntries(); motifCatalog.clear(); voices={}; style = -1; chaseStep = -1; lastGenre = -1; resetCc(); resetVoicing(); numActive = 0; running = false; lastPpqEnd = 0.0; phraseIndex = -1; current = -1; wendungTime = musicaltime::fromGridStep(0); still = false; chordBase = 0; drivePrev = driveSeen = driveLatched = driveArrivedNow = false; driveTrajectory = false; driveProgressNow = 0; driveGenerationSeen = 0; curRoot = 0; curType = Min; curChord = -1;
                    sceneTime=musicaltime::fromGridStep(0); manualEndTime.reset(); manualFinished = manualHitSent = false; endWasRequested = false; sceneSeed = 0; autoSeed = -1; sceneBarNow = -1; sceneEnded = false; for (int l = 0; l < kNumLayers; ++l) { on[l] = prevOn[l] = hOn[l] = false; } }
 
     uint32_t unavailablePadPitchClasses() const { return unavailablePad; }
@@ -305,7 +305,7 @@ public:
     composition::RhythmPlan inspectMovementRhythm(long long tick,const Settings& s)const
     {auto snapshot=*this;snapshot.cur=&s;return snapshot.movementRhythm(snapshot.locate(tick),s);}
     composition::ChordDispositionResult inspectChordDisposition()const{return lastDisposition;}
-    long long inspectChordDispositionStep()const{return dispositionAt;}
+    std::optional<musicaltime::Tick> inspectChordDispositionTime()const{return dispositionAt;}
     struct TimingSnapshot
     {
         musicaltime::Tick scene,section,phraseBegin,phraseEnd,chordBegin,chordEnd;
@@ -550,10 +550,10 @@ public:
             // vor den Start zurueckspringt) laeuft in derselben Szene weiter, ein Sprung davor beginnt eine neue.
             const long long k0 = (long long) std::floor (t.ppq / kStep + 1e-9);
             if (! running) { manualEndTime.reset(); manualFinished = manualHitSent = false; endWasRequested = false; }
-            if (! running || k0 < sceneGrid()) { bassPhrase={};bassPairStart=-1;clearHarmonicEntries(); motifCatalog.clear(); voices={}; sceneTime=musicaltime::fromGridStep(floorDiv (k0, meter.len) * meter.len); driveLatched = false; drivePrev = false; driveSeen = false; }
+            if (! running || musicaltime::fromGridStep(k0)<sceneTime) { bassPhrase={};bassPairStart.reset();clearHarmonicEntries(); motifCatalog.clear(); voices={}; sceneTime=musicaltime::fromGridStep(floorDiv (k0, meter.len) * meter.len); driveLatched = false; drivePrev = false; driveSeen = false; }
             running = true;
             phraseIndex = -1;
-            for(auto& state:voices){state.note=-1;state.pendingAt=-1;} resetCc();
+            for(auto& state:voices){state.note=-1;state.pendingAt.reset();} resetCc();
             applyDrive (k0, s, ax, ay);
             chase (t.ppq, s, out);
             harmonicChase=false;
@@ -595,10 +595,6 @@ private:
     static long long gridPhraseStart(const Pos& p){return musicaltime::toExactGridStep(p.phraseStartTime);}
     static long long gridPhraseEnd(const Pos& p){return musicaltime::toExactGridStep(p.phraseEndTime);}
 
-    long long wendungGrid()const{return musicaltime::toExactGridStep(wendungTime);}
-    long long sceneGrid()const{return musicaltime::toExactGridStep(sceneTime);}
-    long long manualEndGrid()const{return manualEndTime?musicaltime::toExactGridStep(*manualEndTime):-1;}
-    long long sceneEndGrid()const{return sceneEndTime?musicaltime::toExactGridStep(*sceneEndTime):(1LL<<60);}
     static long long floorDiv (long long a, long long b) { return a >= 0 ? a / b : -((-a + b - 1) / b); }
 
     const Wendung& W() const { return current == kCustomWendung ? custom : wendungAt (genre, current); }
@@ -606,13 +602,13 @@ private:
     // ---------------------------------------------------------------- Dramaturgie
     static constexpr int kPulseTick = 100;   // Bass-Muster nur fuer den Puls-Einstieg: kurze Viertel auf dem Orgelpunkt
 
-    long long barsSince (long long k) const { return floorDiv (k - sceneGrid(), meter.len); }
+    long long barsSince (long long k) const { return floorDiv((musicaltime::fromGridStep(k)-sceneTime).value,musicaltime::fromGridStep(meter.len).value); }
 
     // Fahrt: der klingende Punkt wandert von A (Punkt im Feld) nach B
     void applyDrive (long long k, Settings& s, float ax, float ay)
     {
         driveAY = ay;
-        const double barsNow = (double) (k - sceneGrid()) / (double) meter.len;
+        const double barsNow=static_cast<double>((musicaltime::fromGridStep(k)-sceneTime).value)/static_cast<double>(musicaltime::fromGridStep(meter.len).value);
         if (s.drive && ! drivePrev && driveSeen)   // waehrend der Wiedergabe eingeschaltet: ab dem naechsten Takt, vom Punkt aus
         {
             driveLatched = true;
@@ -703,6 +699,7 @@ private:
     // Was klingt jetzt: Traegheit, Aufbau, Ausduennen, Ende. Setzt on[], gain[], boost[] und die Sonderfaelle des Einstiegs.
     void updateScene (long long k, const Pos& p, const Settings& s, bool fresh, int offset, EventList& out)
     {
+        const auto time=musicaltime::fromGridStep(k),barDuration=musicaltime::fromGridStep(meter.len);
         const long long bs = barsSince (k);
         const bool barStart = p.pos == 0;
         sceneBarNow = (int) std::clamp (bs, 0LL, 1LL << 30);
@@ -714,24 +711,24 @@ private:
         const bool building = s.scene && e != EntryAll && bs < L;
         const int first = building ? kEntryLayer[e] : -1;
 
-        if (s.endRequested && ! endWasRequested && manualEndGrid() < 0)
-            manualEndTime=musicaltime::fromGridStep(k + (s.ending == EndFade ? 2LL * meter.len : 0));
+        if (s.endRequested && ! endWasRequested && !manualEndTime)
+            manualEndTime=time+(s.ending==EndFade?2*barDuration:musicaltime::Tick{});
         endWasRequested = s.endRequested;
-        const bool hasEnd = s.sceneBars > 0 || manualEndGrid() >= 0;
-        sceneEndTime=s.sceneBars>0?std::optional<musicaltime::Tick>{sceneTime+musicaltime::fromGridStep((long long)s.sceneBars*meter.len)}:std::nullopt;
-        if (manualEndGrid() >= 0) sceneEndTime=musicaltime::fromGridStep(std::min (sceneEndGrid(), manualEndGrid()));
-        const int T = manualEndGrid() >= 0 ? 2 : std::clamp (std::min (L, s.sceneBars / 2), 1, 64);   // Takte zum Ausduennen / Steigern vor dem Ende
-        const long long left = hasEnd ? (sceneEndGrid() - k + meter.len - 1) / meter.len : (1LL << 30);   // Takte bis zum Ende, der laufende mitgezaehlt
-        if (manualEndGrid() >= 0 && k >= sceneEndGrid()) manualFinished=true;
-        sceneEnded = manualFinished || (hasEnd && k >= sceneEndGrid());
+        const bool hasEnd = s.sceneBars > 0 || manualEndTime.has_value();
+        sceneEndTime=s.sceneBars>0?std::optional<musicaltime::Tick>{sceneTime+barDuration*s.sceneBars}:std::nullopt;
+        if (manualEndTime.has_value()) sceneEndTime=std::min(sceneEndTime.value_or(*manualEndTime),*manualEndTime);
+        const int T = manualEndTime.has_value() ? 2 : std::clamp (std::min (L, s.sceneBars / 2), 1, 64);   // Takte zum Ausduennen / Steigern vor dem Ende
+        const long long left = hasEnd ? (*sceneEndTime-time+barDuration-musicaltime::Tick{1})/barDuration : (1LL << 30);   // Takte bis zum Ende, der laufende mitgezaehlt
+        if (manualEndTime.has_value() && time >= *sceneEndTime) manualFinished=true;
+        sceneEnded = manualFinished || (hasEnd && time >= *sceneEndTime);
 
         // Traegheit: ein nur auf Taktanfaengen, aus erst deutlich unter der Schwelle und nach mindestens zwei Takten
         for (int l = 0; l < kNumLayers; ++l)
         {
-            if (fresh) { hOn[l] = levelOn (s, l); hSince[l] = k; prevOn[l] = false; continue; }
+            if (fresh) { hOn[l] = levelOn (s, l); hSince[l] = time; prevOn[l] = false; continue; }
             if (! s.inertia || ! barStart) continue;
-            if (! hOn[l] && levelOn (s, l)) { hOn[l] = true; hSince[l] = k; }
-            else if (hOn[l] && levelOff (s, l) && k - hSince[l] >= static_cast<long long>(s.policy.texture.minimumActiveBars) * meter.len) hOn[l] = false;
+            if (! hOn[l] && levelOn (s, l)) { hOn[l] = true; hSince[l] = time; }
+            else if (hOn[l] && levelOff (s, l) && time - hSince[l] >= barDuration*s.policy.texture.minimumActiveBars) hOn[l] = false;
         }
 
         int m = 0;
@@ -756,19 +753,19 @@ private:
             if (on[l] && ! prevOn[l])
             {
                 enterNow[l] = ! fresh && special;
-                entryStep[l] = (s.scene || (s.inertia && ! fresh)) ? k : -(1LL << 50);
+                entryTime[l] = (s.scene || (s.inertia && ! fresh)) ? std::optional<musicaltime::Tick>{time} : std::nullopt;
             }
-            if (! on[l] && prevOn[l] && ! fresh && special) cut (l, k, thinned[l] ? k + meter.len : k, offset, out);
+            if (! on[l] && prevOn[l] && ! fresh && special) cut (l, time, thinned[l] ? time + barDuration : time, offset, out);
             prevOn[l] = on[l];
 
             // Haerte: unter der Mitte eingeblendet (ganz weich ueber zwei Takte), ueber der Mitte ein kraeftiger erster Anschlag
-            const long long fadeLen = s.hardness < 0.5f ? (long long) std::lround ((0.5f - s.hardness) * 4.0f * (float) meter.len) : 0;
-            const long long t = k - entryStep[l];
-            gain[l] = (fadeLen > 0 && t >= 0 && t < fadeLen) ? (float) t / (float) fadeLen : 1.0f;
+            const auto fadeLen=musicaltime::fromGridStep(s.hardness<.5f?static_cast<int64_t>(std::lround((.5f-s.hardness)*4.f*static_cast<float>(meter.len))):0);
+            const auto t=entryTime[l]?time-*entryTime[l]:musicaltime::Tick{};
+            gain[l] = (entryTime[l] && fadeLen > musicaltime::Tick{} && t >= musicaltime::Tick{} && t < fadeLen) ? static_cast<float>(t.value) / static_cast<float>(fadeLen.value) : 1.0f;
             if (! on[l] && exitUntil[l] > exitStep[l])
-                gain[l] *= std::clamp ((float) (exitUntil[l] - k) / (float) (exitUntil[l] - exitStep[l]), 0.0f, 1.0f);
-            boost[l] = (t == 0 && s.hardness > 0.5f) ? (int) std::lround ((s.hardness - 0.5f) * 28.0f) : 0;
-            if (t == 0 && l == kBass && e == EntryBass && building) boost[l] += 14;   // Bass-Schlag: ein fetter Ton
+                gain[l] *= std::clamp (static_cast<float>((exitUntil[l]-time).value) / static_cast<float>((exitUntil[l]-exitStep[l]).value), 0.0f, 1.0f);
+            boost[l] = (entryTime[l] && t == musicaltime::Tick{} && s.hardness > 0.5f) ? (int) std::lround ((s.hardness - 0.5f) * 28.0f) : 0;
+            if (entryTime[l] && t == musicaltime::Tick{} && l == kBass && e == EntryBass && building) boost[l] += 14;   // Bass-Schlag: ein fetter Ton
         }
 
         // Dichte waechst im Aufbau; zum Ende hin duennt sie aus (ausklingend) oder steigt weiter (offen)
@@ -777,7 +774,7 @@ private:
         if (hasEnd && left > 0 && left <= T)
         {
             const float r = (float) (left - 1) / (float) T;   // knapp 1 ... 0 im letzten Takt
-            if (s.ending == EndFade) { dens *= 0.45f + 0.55f * r; for (float& g : gain) g *= std::clamp ((float) (sceneEndGrid() - k) / (float) (T * meter.len), 0.0f, 1.0f); }
+            if (s.ending == EndFade) { dens *= 0.45f + 0.55f * r; for (float& g : gain) g *= std::clamp (static_cast<float>((*sceneEndTime-time).value)/static_cast<float>((barDuration*T).value), 0.0f, 1.0f); }
             if (s.ending == EndOpen) yAdd = 0.3f * (1.0f - r);
         }
 
@@ -802,23 +799,25 @@ private:
         const int lastGroup = meter.groupStart[std::max (0, meter.numGroups - 1)];
         bassRest = prep && p.pos >= meter.len / 2;
         prepStich = prep && lastGroup > 0 && p.pos == lastGroup;
-        if (prep && ! fresh && p.pos == meter.len / 2) cut (kBass, k, k, offset, out);
+        if (prep && ! fresh && p.pos == meter.len / 2) cut (kBass, time, time, offset, out);
     }
 
     // Toene einer Ebene beenden: sofort (until <= k) oder spaetestens bei until
-    void cut (int layer, long long k, long long until, int offset, EventList& out)
+    void cut(int layer,long long step,long long untilStep,int offset,EventList& out)
+    {cut(layer,musicaltime::fromGridStep(step),musicaltime::fromGridStep(untilStep),offset,out);}
+    void cut (int layer, musicaltime::Tick time, musicaltime::Tick until, int offset, EventList& out)
     {
-        exitStep[layer] = k; exitUntil[layer] = until;
+        exitStep[layer] = time; exitUntil[layer] = until;
         for (int i = 0; i < numActive;)
         {
             auto& a = active[(size_t) i];
             if (kOutputLayer[a.out] != layer) { ++i; continue; }
-            if (until <= k)
+            if (until <= time)
             {
                 removeActive (i, offset, out);
                 continue;
             }
-            a.endTime = std::min (a.endTime, musicaltime::fromGridStep(until));
+            a.endTime = std::min (a.endTime, until);
             ++i;
         }
     }
@@ -850,7 +849,7 @@ private:
         const uint32_t h = hash3 ((uint32_t) s.seed, (uint32_t) s.variation, 1409u);
         const int* r = rhythms[h % 7];
         const int* c = contours[(h / 7) % 6];
-        const int q = (int) (((phrase - phraseOf (sceneGrid())) % 4 + 4) % 4);
+        const int q = (int) (((phrase - phraseOf(sceneTime)) % 4 + 4) % 4);
         Motif mo;
         mo.n = r[0];
         int d = 1 + (int) ((h / 42) % 3) + (q == 1 ? 1 : q == 2 ? 2 : 0);
@@ -977,8 +976,8 @@ private:
             composition::PassingRequest request;request.context=context;request.chordMask=mask;request.root=s.key+h.chord.root;request.bassPitchClass=s.key+bassRoot(h.chord);
             request.source=occurrence.base+source.interval;request.target=occurrence.base+target.interval;
             request.low=capabilities.range.low;request.high=capabilities.range.high;request.sourceAt=sourceAt;request.targetAt=targetAt;
-            request.harmonyBegin=sourceAt;request.harmonyEnd=h.end;request.minDuration=musicaltime::fromGridStep(capabilities.minDuration);
-            request.maxDuration=std::min(policy.maxDuration,musicaltime::fromGridStep(capabilities.maxDuration));
+            request.harmonyBegin=sourceAt;request.harmonyEnd=h.end;request.minDuration=capabilities.minDuration;
+            request.maxDuration=std::min(policy.maxDuration,capabilities.maxDuration);
             const auto passing=composition::planPassingTone(request);if(!passing.valid)continue;
             for(int j=figure.count;j>i+1;--j)figure.notes[j]=figure.notes[j-1];
             figure.notes[i].length=std::min(figure.notes[i].length,passing.begin-sourceAt);
@@ -1028,7 +1027,7 @@ private:
                 const auto harmonicLength=output==OutCounter&&i+1<figure.count
                     ?std::min(n.length,figure.notes[static_cast<size_t>(i+1)].at-n.at):n.length;
                 const auto finish=tick+harmonicLength;
-                if(n.length<musicaltime::fromGridStep(capability.minDuration)||n.length>musicaltime::fromGridStep(capability.maxDuration))return;
+                if(n.length<capability.minDuration||n.length>capability.maxDuration)return;
                 for(int step=0;tick<finish&&step<32;++step)
                 {
                     const auto h=motifHarmonyAt(tick,s);unsigned mask=0;const auto& shape=kShapes[h.chord.type];
@@ -1159,7 +1158,7 @@ private:
             auto local=locate(musicaltime::toExactGridStep(occurrence.begin+at));local.phraseStartTime = occurrence.begin;local.phraseEndTime = occurrence.end;
             const auto note=planMotifNote(i,local,s,output,complete?&memory:nullptr,occurrence.varied,&occurrence);
             if(!note.valid)continue;
-            const auto& c=catalog[output].track.instrument;if(note.length<musicaltime::fromGridStep(c.minDuration)||note.length>musicaltime::fromGridStep(c.maxDuration))continue;
+            const auto& c=catalog[output].track.instrument;if(note.length<c.minDuration||note.length>c.maxDuration)continue;
             ++count;if(occurrence.begin+note.at>=musicaltime::fromGridStep(p.k))++future;
             begin=std::min(begin,occurrence.begin+note.at);end=std::max(end,occurrence.begin+note.at+note.length);
         }
@@ -1221,7 +1220,7 @@ private:
                     use.observe(emitted.note,note.at,note.length,section,note.velocity,p.phraseStartTime);
             }
             if(output==OutCounter)releaseOthers(output,note.pitch,offset,out);
-            state.note=note.pitch;state.pendingAt=-1;
+            state.note=note.pitch;state.pendingAt.reset();
         }
         return true;
     }
@@ -1260,7 +1259,7 @@ private:
         if (cur != nullptr)
         {
             const auto intent=composition::freeTransition(nextChordRoot(p),allowsPassingHarmony(*cur),cur->y);
-            const auto transition=composition::placeTransition(intent,musicaltime::fromGridStep(gridChordStart(p)),musicaltime::fromGridStep(gridChordEnd(p)),
+            const auto transition=composition::placeTransition(intent,p.chordStartTime,p.chordEndTime,
                 musicaltime::fromGridStep(meter.len),musicaltime::fromGridStep(meter.groupStart[std::max(0,meter.numGroups-1)]));
             if(transition.present)
             {
@@ -1394,18 +1393,18 @@ private:
     }
     bool melodicBassAllowed(const Settings& s)const
     {
-        if(s.genre!=GenrePopRock||!on[kBass]||s.scene||s.sceneBars>0||manualEndGrid()>=0||!s.policy.bass.enabled||!s.follow[kBass]||s.bassPattern!=BassAuto||bassOverride>=0||s.passing||still||s.meterNum!=4||s.meterDen!=4)return false;
+        if(s.genre!=GenrePopRock||!on[kBass]||s.scene||s.sceneBars>0||manualEndTime||!s.policy.bass.enabled||!s.follow[kBass]||s.bassPattern!=BassAuto||bassOverride>=0||s.passing||still||s.meterNum!=4||s.meterDen!=4)return false;
         for(int o=0;o<kNumOutputs;++o)if(o!=OutBassShort&&s.channel[o]==s.channel[OutBassShort])return false;
         return true;
     }
     int chooseBass(const Settings& s,long long phrase)const
-    {return melodicBassAllowed(s)&&bassPhrase.valid&&nowStep>=bassPhrase.begin&&nowStep<bassPhrase.end?BassFunk:rawBassPattern(s,phrase);}
+    {return melodicBassAllowed(s)&&bassPhrase.valid&&musicaltime::fromGridStep(nowStep)>=bassPhrase.begin&&musicaltime::fromGridStep(nowStep)<bassPhrase.end?BassFunk:rawBassPattern(s,phrase);}
     void prepareBassPhrase(const Pos& p,const Settings& s)
     {
-        if(!melodicBassAllowed(s)){bassPhrase.valid=false;bassPairStart=-1;return;}
+        if(!melodicBassAllowed(s)){bassPhrase.valid=false;bassPairStart.reset();return;}
         const auto& w=W();const int first=(p.chordIdx/2)*2;
-        if(first+1>=w.n||wendungGrid()>gridPhraseStart(p)){bassPhrase.valid=false;bassPairStart=-1;return;}
-        long long begin=gridPhraseStart(p);for(int i=0;i<first;++i)begin+=static_cast<long long>(w.ch[i].bars)*meter.len;
+        if(first+1>=w.n||wendungTime>p.phraseStartTime){bassPhrase.valid=false;bassPairStart.reset();return;}
+        auto begin=p.phraseStartTime;for(int i=0;i<first;++i)begin+=musicaltime::fromGridStep(static_cast<int64_t>(w.ch[i].bars)*meter.len);
         auto signature=static_cast<uint64_t>(current+2)*1000003u+static_cast<unsigned>(s.key+12*s.octave[kBass]+32)
             +static_cast<uint64_t>(s.rangeOn[kBass]?s.rangeLo[kBass]+256*s.rangeHi[kBass]+1:0)*65537u;
         for(int value:{s.policy.bass.opportunityEvery,s.policy.bass.maxLeap,static_cast<int>(s.policy.passing.mode),s.policy.passing.tonicOffset}){signature^=static_cast<uint32_t>(value);signature*=1099511628211ull;}
@@ -1413,11 +1412,11 @@ private:
         if(bassPairStart==begin&&bassPhraseKey==signature)return;
         bassPairStart=begin;bassPhraseKey=signature;bassPhrase={};
         if(rawBassPattern(s,p.phrase)!=BassFunk||(p.phrase+first/2)%s.policy.bass.opportunityEvery!=(s.policy.bass.opportunityEvery>1?1:0))return;
-        prepareVoicingPlan(p,s);composition::BassPhraseRequest r;r.begin=begin;r.middle=begin+static_cast<long long>(w.ch[first].bars)*meter.len;
-        r.end=r.middle+static_cast<long long>(w.ch[first+1].bars)*meter.len;r.modal=modalContextFor(s);r.maxLeap=s.policy.bass.maxLeap;
+        prepareVoicingPlan(p,s);composition::BassPhraseRequest r;r.begin=begin;r.middle=begin+musicaltime::fromGridStep(static_cast<int64_t>(w.ch[first].bars)*meter.len);
+        r.end=r.middle+musicaltime::fromGridStep(static_cast<int64_t>(w.ch[first+1].bars)*meter.len);r.barDuration=musicaltime::fromGridStep(meter.len);r.modal=modalContextFor(s);r.maxLeap=s.policy.bass.maxLeap;
         for(int j=0;j<2;++j){const auto c=w.ch[first+j];r.bass[j]=harmonicPlan.slots[(first+j)*2].bass+12*s.octave[kBass];r.root[j]=(s.key+c.root)%12;for(int n=0;n<kShapes[c.type].n;++n)r.chords[j]|=composition::pitchBit(s.key+c.root+kShapes[c.type].iv[n]);}
         r.range=s.rangeOn[kBass]?composition::Range{s.rangeLo[kBass],s.rangeHi[kBass]}:composition::Range{std::max(0,std::min(r.bass[0],r.bass[1])-7),std::min(127,std::max(r.bass[0],r.bass[1])+12)};
-        const auto c=outputCatalog(s)[OutBassShort].track.instrument;r.minDuration=static_cast<int>(c.minDuration);r.maxDuration=static_cast<int>(c.maxDuration);
+        const auto c=outputCatalog(s)[OutBassShort].track.instrument;r.minDuration=c.minDuration;r.maxDuration=c.maxDuration;
         bassPhrase=composition::planBassPhrase(r);
     }
     int pattern0 (const Settings& s, long long phrase) const { return chooseBass (s, phrase); }
@@ -1426,7 +1425,7 @@ private:
     {
         // Explicitly protect manual patterns, thematic contexts, scene density and shared routing.
         if(s.genre!=GenrePopRock||!s.policy.rhythm.enabled||s.bassPattern!=BassAuto||s.arpFigure!=ArpAuto
-            ||s.arpRate!=RateAuto||!on[kBass]||!on[kArp]||s.scene||s.sceneBars>0||manualEndGrid()>=0||s.endRequested
+            ||s.arpRate!=RateAuto||!on[kBass]||!on[kArp]||s.scene||s.sceneBars>0||manualEndTime.has_value()||s.endRequested
             ||still||bassRest||bassOverride>=0||dens<1.f||s.meterNum!=4||s.meterDen!=4||s.passing
             ||on[kMelodie]||(on[kGegenstimme]&&phrasedHook(s)))return {};
         for(int o=0;o<kNumOutputs;++o)
@@ -1434,7 +1433,7 @@ private:
                 ||(o!=OutBassShort&&s.channel[o]==s.channel[OutBassShort]))return {};
         const int fig=chooseArp(s,p.phrase);
         if(fig!=ArpUp&&fig!=ArpDown&&fig!=ArpCircle&&fig!=ArpCascade)return {};
-        if(composition::autoArpeggioTicks(s.policy.texture,layerY(s,kArp))!=2)return {};
+        if(composition::autoArpeggioDuration(s.policy.texture,layerY(s,kArp))!=2*musicaltime::sixteenth)return {};
         const int pattern=chooseBass(s,p.phrase);
         composition::RhythmPlanRequest request;request.bar=p.bar;request.movement=0x5555;
         for(int pos=0;pos<16;++pos)
@@ -1447,7 +1446,7 @@ private:
             if(attack)request.reference|=static_cast<uint16_t>(1u<<pos);
         }
         const auto cap=outputCatalog(s)[OutArp].track.instrument;
-        request.minDuration=static_cast<int>(cap.minDuration);request.maxDuration=static_cast<int>(cap.maxDuration);
+        request.minDuration=cap.minDuration;request.maxDuration=cap.maxDuration;
         return composition::planRhythmicInterlock(request,s.policy.rhythm);
     }
 
@@ -1676,7 +1675,7 @@ private:
             mix(entry->heard.pad.n);for(int i=0;i<entry->heard.pad.n;++i)mix(entry->heard.pad.notes[i]);
             mix(entry->heard.bass);mix(entry->heard.root);mix(entry->heard.type);}
 
-        const auto& w = W(); long long start = std::max (gridPhraseStart(p), wendungGrid());
+        const auto& w = W(); auto start = std::max(p.phraseStartTime,wendungTime);
         for (int i = 0; i < w.n; ++i)
         {
             for (int pass = 0; pass < 2; ++pass)
@@ -1695,7 +1694,7 @@ private:
                 intent.count=shape.n;for(int n=0;n<shape.n;++n)intent.intervals[static_cast<size_t>(n)]=shape.iv[n];
                 intent.quartal=pad.type==Quartal;intent.preservePitchClasses=protectedColoration();
                 intent.protectedLine=s.genre==GenrePopRock&&W().id==WendungId::popDrahtseil;
-                intent.voicing=current==kCustomWendung?hashInt(91u,start)%3:0;
+                intent.voicing=current==kCustomWendung?hashInt(91u,musicaltime::toExactGridStep(start))%3:0;
                 intent.padLow=padLow(s);intent.bassLow=bassLow(s);intent.intensity=layerY(s,kFlaeche);
                 slot=composition::buildAnchor(intent,{lo,hi},rangeOn(o));
                 mix(slot.pad.n);for(int n=0;n<slot.pad.n;++n)mix(slot.pad.notes[n]);
@@ -1705,7 +1704,7 @@ private:
                 mix(slot.preservePad);
                 if (slot.enabled) order[count++] = index;
             }
-            if (i >= chordBase) start += (long long) w.ch[i].bars * meter.len;
+            if (i >= chordBase) start += musicaltime::fromGridStep(static_cast<int64_t>(w.ch[i].bars)*meter.len);
         }
         mix (count); for (int i = 0; i < count; ++i) mix (order[i]);
         if (planValid && planKey == key) return;
@@ -1743,13 +1742,13 @@ private:
     voiceleading::ChordVoicing padVoicing (const Pos& p, const Settings& s, int output)
     {
         prepareVoicingPlan (p, s);
-        dispositionAt=nowStep;
+        dispositionAt=musicaltime::fromGridStep(nowStep);
         const int index = p.chordIdx * 2 + (p.passing ? 1 : 0);
         unavailablePad = harmonicPlan.slots[static_cast<size_t> (index)].unavailable;
         const auto original=entryVoicingValid&&index==chordBase*2?entryVoicing.pad:harmonicPlan.slots[static_cast<size_t> (index)].pad;
         lastDisposition={};lastDisposition.notes=original;
         if(s.genre!=GenrePopRock||!s.policy.chords.enabled||s.padPattern!=PadAuto||!on[kFlaeche]||s.scene||s.sceneBars>0
-            ||manualEndGrid()>=0||s.endRequested||s.passing||still||padShy||peak||padGrow||W().id==WendungId::popDrahtseil)return original;
+            ||manualEndTime.has_value()||s.endRequested||s.passing||still||padShy||peak||padGrow||W().id==WendungId::popDrahtseil)return original;
         for(int o=0;o<kNumOutputs;++o)if(o!=output&&s.channel[o]==s.channel[output])return original;
         const auto cap=outputCatalog(s)[output].track.instrument;
         const int oct=12*s.octave[kFlaeche];
@@ -1792,7 +1791,9 @@ private:
         lastDisposition=dispositionSlots[static_cast<size_t>(p.chordIdx)];return lastDisposition.notes;
     }
 
-    void padChord (const Pos& p, const Settings& s, int o, int offset, long long endStep, int velocity, EventList& out)
+    void padChord(const Pos& p,const Settings& s,int o,int offset,long long endStep,int velocity,EventList& out)
+    {padChord(p,s,o,offset,musicaltime::fromGridStep(endStep),velocity,out);}
+    void padChord (const Pos& p, const Settings& s, int o, int offset, musicaltime::Tick endTime, int velocity, EventList& out)
     {
         const auto voiced = padVoicing (p, s, o);
         const bool saved = extendOnly;
@@ -1808,7 +1809,7 @@ private:
         {
             const bool root = (voiced.notes[i] % 12 + 12) % 12 == rootPc;
             const int reduction = roots > authoredRoots && i == lastRoot ? 10 : root && mainRoot ? 0 : 4;
-            noteOn (o, voiced.notes[i], velocity - reduction, endStep, offset, out);
+            noteOn (o, voiced.notes[i], velocity - reduction, endTime, offset, out);
             if (root) mainRoot = false;
         }
         extendOnly = saved;
@@ -1937,7 +1938,7 @@ private:
             return;
         }
         if (! on[kAkzent]) return;
-        if (akzentForced && k == entryStep[kAkzent])   // Einstieg mit dem Akzent: ein Stich (hart) oder Tupfer (weich) in der Stille
+        if (akzentForced && entryTime[kAkzent] && musicaltime::fromGridStep(k) == *entryTime[kAkzent])   // Einstieg mit dem Akzent: ein Stich (hart) oder Tupfer (weich) in der Stille
         {
             if (cur->hardness >= 0.5f) stich (p, s, offset, 2, 8, out); else tupfer (p, s, offset, 2, 6, out);
             return;
@@ -1969,16 +1970,16 @@ private:
     {
         const int pad = choosePad (s);
         const bool padFollow = s.follow[kFlaeche];
-        const bool phraseStart = p.k == gridPhraseStart(p);
+        const bool phraseStart = musicaltime::fromGridStep(p.k) == p.phraseStartTime;
         if ((mask & 1u) && pad == PadHeld && (padFollow || phraseStart || restart))
-            padChord (p, s, OutPadLong, offset, padFollow ? gridChordEnd(p) : gridPhraseEnd(p), (int) (40 + 45 * layerY (s, kFlaeche)), out);
+            padChord (p, s, OutPadLong, offset, padFollow ? p.chordEndTime : p.phraseEndTime, (int) (40 + 45 * layerY (s, kFlaeche)), out);
 
         const int bp = chooseBass (s, p.phrase);
         if ((mask & 2u) && ((bp == BassHeld && (s.follow[kBass] || phraseStart || restart)) || bp == BassPedal))
         {
             const bool pedal = bp == BassPedal;
             noteOn (OutBassLong, bassPlacement (p, s, place (s.key + (pedal ? pedalRoot() : bassRoot (chordFor (p, kBass, s))), bassLow (s)), pedal),
-                    (int) (60 + 35 * layerY (s, kBass)), (s.follow[kBass] && ! pedal) ? gridChordEnd(p) : (pedal ? gridChordEnd(p) : gridPhraseEnd(p)), offset, out);
+                    (int) (60 + 35 * layerY (s, kBass)), (s.follow[kBass] && ! pedal) ? p.chordEndTime : (pedal ? p.chordEndTime : p.phraseEndTime), offset, out);
         }
     }
 
@@ -1999,15 +2000,16 @@ private:
         else
             chaseStep = k;   // genau am Akkordanfang: der normale Schritt schlaegt an, auch die stehenden Ebenen
         if(on[kBass]&&bassPhrase.valid)
-            for(int i=0;i<bassPhrase.count;++i){const auto& note=bassPhrase.notes[i];if(note.at*kStep<ppq&&ppq<(note.at+note.length)*kStep)
-                {const int position=static_cast<int>(note.at%meter.len);const int velocity=static_cast<int>(58+38*layerY(s,kBass))+(meter.isGroupStart(position)?8:0)+jitter(note.at,kBass,3)+note.accent;
+            for(int i=0;i<bassPhrase.count;++i){const auto& note=bassPhrase.notes[i];if(musicaltime::toQuarters(note.at)<ppq&&ppq<musicaltime::toQuarters(note.at+note.length))
+                {const auto eventIndex=musicaltime::toExactGridStep(note.at);const int position=static_cast<int>(eventIndex%meter.len);const int velocity=static_cast<int>(58+38*layerY(s,kBass))+(meter.isGroupStart(position)?8:0)+jitter(eventIndex,kBass,3)+note.accent;
                  noteOn(OutBassShort,note.pitch-12*s.octave[kBass],velocity,note.at+note.length,0,out);}}
         const auto rhythm=movementRhythm(p,s);
         if(rhythm.active)for(int i=0;i<rhythm.count;++i)
         {
-            const auto& n=rhythm.notes[i];const auto begin=k-p.pos+n.at;
-            if((begin+swingDelay(begin,s))*kStep<ppq&&ppq<(begin+n.length+swingDelay(begin+n.length,s))*kStep)
-                playArpeggio(begin,0,locate(begin),p.phrase,s,out);
+            const auto& n=rhythm.notes[i];const auto begin=musicaltime::fromGridStep(k-p.pos)+n.at;
+            const auto beginStep=musicaltime::toExactGridStep(begin),endStep=musicaltime::toExactGridStep(begin+n.length);
+            if((beginStep+swingDelay(beginStep,s))*kStep<ppq&&ppq<(endStep+swingDelay(endStep,s))*kStep)
+                playArpeggio(beginStep,0,locate(beginStep),p.phrase,s,out);
         }
         const bool inclusive=ppq>static_cast<double>(k)*kStep+1e-9;
         freePhraseStep(k,p,s,0,out,true,inclusive);
@@ -2038,9 +2040,9 @@ private:
         updateScene (k, p, s, false, offset, out);
         if (sceneEnded)
         {
-            if (k == sceneEndGrid() && (manualEndGrid() < 0 || !manualHitSent))
+            if (sceneEndTime && musicaltime::fromGridStep(k)==*sceneEndTime && (!manualEndTime || !manualHitSent))
             {
-                if(manualEndGrid()>=0)manualHitSent=true;
+                if(manualEndTime.has_value())manualHitSent=true;
                 allNotesOff (out, offset);
                 if (s.ending == EndHard) finalHit (p, s, offset, out);
             }
@@ -2150,7 +2152,7 @@ private:
             auto length=std::min(note.length,plan.end-at);
             if(i+1<plan.count)length=std::min(length,source.notes[static_cast<size_t>(plan.first+i+1)].at-note.at);
             length=composition::articulatedLength(length,length,s.legato);
-            if(length<musicaltime::fromGridStep(capability.minDuration)||length>musicaltime::fromGridStep(capability.maxDuration))return false;
+            if(length<capability.minDuration||length>capability.maxDuration)return false;
             if(chase?!((at<relative||(inclusive&&at==relative))&&relative<at+length):relative!=at)continue;
             // Renderer accepts prevalidated sounding pitches, compensating the adapter octave.
             cut(kGegenstimme,k,k,offset,out);
@@ -2215,12 +2217,13 @@ private:
         const bool group=meter.isGroupStart(p.pos);const float z=s.z,yArp=layerY(s,kArp);
         const int fig = chooseArp (s, phrase);
         int rate = s.arpRate == RateQuarter ? 4 : s.arpRate == RateEighth ? 2 : s.arpRate == RateSixteenth ? 1
-                 : composition::autoArpeggioTicks(s.policy.texture,yArp);
+                 : musicaltime::toExactGridStep(composition::autoArpeggioDuration(s.policy.texture,yArp));
         if (fig == ArpGlitter || fig == ArpSid) rate = 1;
         const long long rel = k - (s.follow[kArp] ? gridChordStart(p) : gridPhraseStart(p));
         const auto rhythm=movementRhythm(p,s);
-        const auto* onset=rhythm.active?rhythm.at(p.pos):nullptr;
-        const auto sourceStep=onset?k+onset->source-p.pos:k;
+        const auto* onset=rhythm.active?rhythm.at(musicaltime::fromGridStep(p.pos)):nullptr;
+        const auto sourceTime=onset?musicaltime::fromGridStep(k-p.pos)+onset->source:musicaltime::fromGridStep(k);
+        const auto sourceStep=musicaltime::toExactGridStep(sourceTime);
         const auto sourceRel=rel+(sourceStep-k);
         if (rhythm.active?onset!=nullptr:rel%rate==0)
         {
@@ -2295,8 +2298,8 @@ private:
             if (z >= 0.6f && c0 % 8 == 7) note -= 1;                    // Unruhe: chromatischer Durchgang
             if(protectedColoration()&&!authoredPitch(c,note,s))note=tones[c0%count];
             const int vel = (int) ((fig == ArpGlitter ? 40 : 52) + 35 * yArp) + (group ? 6 : 0) + jitter (sourceStep, kArp, 6);
-            const long long len = onset?onset->length:(fig == ArpGlitter || fig == ArpSid || rate == 1) ? 1 : rate;
-            noteOn (OutArp, note, vel, k + len, offset, out);
+            const auto len = onset?onset->length:musicaltime::fromGridStep((fig == ArpGlitter || fig == ArpSid || rate == 1) ? 1 : rate);
+            noteOn (OutArp, note, vel, musicaltime::fromGridStep(k) + len, offset, out);
         }
     }
 
@@ -2382,10 +2385,10 @@ private:
                     auto hit=composition::funkBassAttack(p.pos,approach);
                     if(hit.active)
                     {
-                        int pitch=root+hit.interval,length=hit.duration;
-                        if(melodicBassAllowed(s)&&bassPhrase.valid)for(int i=0;i<bassPhrase.count;++i)if(bassPhrase.notes[i].at==k)
+                        int pitch=root+hit.interval;auto length=hit.duration;
+                        if(melodicBassAllowed(s)&&bassPhrase.valid)for(int i=0;i<bassPhrase.count;++i)if(bassPhrase.notes[i].at==musicaltime::fromGridStep(k))
                             {pitch=bassPhrase.notes[i].pitch-12*s.octave[kBass];length=bassPhrase.notes[i].length;break;}
-                        noteOn(bo,pitch,vel+hit.accent,k+length,offset,out);
+                        noteOn(bo,pitch,vel+hit.accent,musicaltime::fromGridStep(k)+length,offset,out);
                     }
                     break;
                 }
@@ -2670,26 +2673,28 @@ private:
     }
 
     // Ende eines Tons der Gegenstimme relativ zum naechsten: Legato eine Sechzehntel darueber, sonst kurz davor abgesetzt
-    long long tail (long long len) const { return cur != nullptr && cur->legato ? 1 : (len >= 4 ? -1 : 0); }
+    musicaltime::Tick tail(musicaltime::Tick len)const
+    {return cur!=nullptr&&cur->legato?musicaltime::sixteenth:(len>=musicaltime::quarter?-1*musicaltime::sixteenth:musicaltime::Tick{});}
 
     composition::LinePhrasePlan freeLinePhrase(const Pos& p,const Settings& s)const
     {
         if(s.genre!=GenreScore||s.motif||on[kMelodie]||!on[kGegenstimme])return {};
         composition::LinePhraseRequest request;
-        request.begin=std::max({gridChordStart(p),gridPhraseStart(p),sceneGrid(),wendungGrid()});
-        request.end=std::min({gridChordEnd(p),gridPhraseEnd(p),sceneEndGrid()});
-        if(s.ending==EndFade&&(s.sceneBars>0||manualEndGrid()>=0))
+        request.begin=std::max({p.chordStartTime,p.phraseStartTime,sceneTime,wendungTime});
+        request.end=std::min(p.chordEndTime,p.phraseEndTime);
+        if(sceneEndTime)request.end=std::min(request.end,*sceneEndTime);
+        if(s.ending==EndFade&&(s.sceneBars>0||manualEndTime))
         {
             int slots=0;const int index=orderIndex(s,entryInUse,kGegenstimme,slots);
-            const int tailBars=manualEndGrid()>=0?2:std::clamp(std::min(s.buildBars,s.sceneBars/2),1,64);
-            if(index>0)request.end=std::min<int64_t>(request.end,sceneEndGrid()-slotBar(index,slots,tailBars)*meter.len);
+            const int tailBars=manualEndTime?2:std::clamp(std::min(s.buildBars,s.sceneBars/2),1,64);
+            if(index>0)request.end=std::min(request.end,*sceneEndTime-musicaltime::fromGridStep(slotBar(index,slots,tailBars)*meter.len));
         }
         if(s.scene&&entryInUse!=EntryAll)
         {
             int slots=0;const int index=orderIndex(s,entryInUse,kGegenstimme,slots);
-            if(index>=0)request.begin=std::max<int64_t>(request.begin,sceneGrid()+slotBar(index,slots,s.buildBars)*meter.len);
+            if(index>=0)request.begin=std::max(request.begin,sceneTime+musicaltime::fromGridStep(slotBar(index,slots,s.buildBars)*meter.len));
         }
-        request.pulse=meter.numGroups>1?meter.groupStart[1]:std::min(4,meter.len);
+        request.pulse=musicaltime::fromGridStep(meter.numGroups>1?meter.groupStart[1]:std::min(4,meter.len));
         const auto catalog=outputCatalog(s);composition::RoleNeed need;
         need.range=catalog[OutCounter].track.instrument.range;
         if(!composition::suitable(catalog[OutCounter].track,need))return {};
@@ -2702,7 +2707,7 @@ private:
         const int oct=12*octaveOf(OutCounter);
         request.range={std::max(-oct,catalog[OutCounter].track.instrument.range.low-oct),
             std::min(127-oct,catalog[OutCounter].track.instrument.range.high-oct)};
-        request.ending=request.end==gridPhraseEnd(p)&&chord.root==0
+        request.ending=request.end==p.phraseEndTime&&chord.root==0
             ?composition::PhraseEnding::settled:composition::PhraseEnding::open;
         int interval=request.ending==composition::PhraseEnding::settled?(s.x>.6f?shape.iv[1]:0)
             :s.z>=.5f&&shape.n>3?shape.iv[3]:shape.iv[std::min(s.x>.6f?2:1,shape.n-1)];
@@ -2715,13 +2720,14 @@ private:
     bool freePhraseStep(long long k,const Pos& p,const Settings& s,int offset,EventList& out,
         bool chase=false,bool inclusive=false)
     {
+        const auto time=musicaltime::fromGridStep(k);
         const auto plan=freeLinePhrase(p,s);if(!plan.valid)return false;
-        voice(OutCounter).pendingAt=-1;
-        if(k>=plan.breath){cut(kGegenstimme,k,k,offset,out);return true;}
+        voice(OutCounter).pendingAt.reset();
+        if(time>=plan.breath){cut(kGegenstimme,time,time,offset,out);return true;}
         for(int i=0;i<plan.count;++i)
         {
             const auto& n=plan.notes[static_cast<size_t>(i)];
-            if(chase? !((n.begin<k||(inclusive&&n.begin==k))&&k<n.end):n.begin!=k)continue;
+            if(chase? !((n.begin<time||(inclusive&&n.begin==time))&&time<n.end):n.begin!=time)continue;
             noteOn(OutCounter,n.pitch,static_cast<int>(50+35*layerY(s,kGegenstimme))+(i==0&&s.z>=.5f?6:0),n.end,offset,out);
             if(!chase)releaseOthers(OutCounter,n.pitch,offset,out);
             voice(OutCounter).note=n.pitch;
@@ -2731,7 +2737,8 @@ private:
 
     void counterLine (long long k, const Pos& p, const Settings& s, int offset, bool chordStart, EventList& out, int output=OutCounter)
     {
-        if (! on[kOutputLayer[output]]) { voice(output).note = -1; voice(output).pendingAt = -1; return; }
+        const auto time=musicaltime::fromGridStep(k);
+        if (! on[kOutputLayer[output]]) { voice(output).note = -1; voice(output).pendingAt.reset(); return; }
         if (output==OutCounter && s.genre == GenrePopRock)
         {
             if(phrasedHook(s)&&voice(output).motif.material(motifCatalog).complete){motifStep(k,p,s,offset,out,output);return;}
@@ -2741,35 +2748,35 @@ private:
         if(output==OutCounter&&freePhraseStep(k,p,s,offset,out))return;
         const float yc = layerY (s, kOutputLayer[output]);
         const int vel = (int) (50 + 35 * yc);
-        if (output==OutCounter && k == voice(output).pendingAt && voice(output).pending >= 0)                    // Vorhalt loest sich auf
+        if (output==OutCounter && voice(output).pendingAt && time == *voice(output).pendingAt && voice(output).pending >= 0)                    // Vorhalt loest sich auf
         {
-            noteOn (OutCounter, voice(output).pending, vel, voice(output).pendingEnd + tail (voice(output).pendingEnd - k), offset, out);
+            noteOn (OutCounter, voice(output).pending, vel, voice(output).pendingEnd + tail (voice(output).pendingEnd - time), offset, out);
             releaseOthers (OutCounter, voice(output).pending, offset, out);
-            voice(output).note = voice(output).pending; voice(output).pendingAt = -1;
+            voice(output).note = voice(output).pending; voice(output).pendingAt.reset();
         }
         // Bewegung: ruhig nur bei Akkordwechseln, mittel alle zwei Takte, aufgewuehlt in Halben
-        const long long rate = yc < 0.4f ? 0 : yc < 0.7f ? 2LL * meter.len : std::max (4LL, (long long) meter.len / 2);
-        const bool move = chordStart || (rate > 0 && k > gridChordStart(p) && (k - gridChordStart(p)) % rate == 0 && gridChordEnd(p) - k >= 4);
+        const auto rate = musicaltime::fromGridStep(yc < 0.4f ? 0 : yc < 0.7f ? 2LL * meter.len : std::max (4LL, (long long) meter.len / 2));
+        const bool move = chordStart || (rate > musicaltime::Tick{} && time > p.chordStartTime && (time - p.chordStartTime) % rate == musicaltime::Tick{} && p.chordEndTime - time >= musicaltime::quarter);
         if (! move) return;
         const Chord c = chordFor (p, kOutputLayer[output], s);
-        const long long end = rate > 0 ? std::min (gridChordEnd(p), k + rate) : gridChordEnd(p);
+        const auto end = rate > musicaltime::Tick{} ? std::min (p.chordEndTime, time + rate) : p.chordEndTime;
         const int target = counterTarget (c, s, chordStart, k,output);
-        if (output==OutCounter && s.z >= 0.5f && chordStart && end - k >= 8)               // Unruhe: Vorhalt von oben, loest auf den Zielton auf
+        if (output==OutCounter && s.z >= 0.5f && chordStart && end - time >= 2*musicaltime::quarter)               // Unruhe: Vorhalt von oben, loest auf den Zielton auf
         {
             const int sus = target + (s.z >= 0.75f ? 1 : 2);
-            noteOn (OutCounter, sus, vel + 6, k + 4 + (s.legato ? 1 : 0), offset, out);
+            noteOn (OutCounter, sus, vel + 6, time + musicaltime::quarter + (s.legato ? musicaltime::sixteenth : musicaltime::Tick{}), offset, out);
             releaseOthers (OutCounter, sus, offset, out);
-            voice(output).pending = target; voice(output).pendingAt = k + 4; voice(output).pendingEnd = end;
+            voice(output).pending = target; voice(output).pendingAt = time + musicaltime::quarter; voice(output).pendingEnd = end;
             voice(output).note = sus;
             return;
         }
         if(output==OutMelody)
         {
             int ladder[16];if(counterLadder(c,s,ladder,output)==0)return;
-            const auto duration=composition::articulatedLength(musicaltime::fromGridStep(end-k),musicaltime::fromGridStep(end-k),s.melodyLegato);
-            noteOn(output,target,vel,musicaltime::fromGridStep(k)+duration,offset,out);voice(output).note=target;voice(output).pendingAt=-1;return;
+            const auto duration=composition::articulatedLength(end-time,end-time,s.melodyLegato);
+            noteOn(output,target,vel,musicaltime::fromGridStep(k)+duration,offset,out);voice(output).note=target;voice(output).pendingAt.reset();return;
         }
-        noteOn (OutCounter, target, vel, end + tail (end - k), offset, out);   // Legato: eine Sechzehntel laenger, bindet zum naechsten Ton
+        noteOn (OutCounter, target, vel, end + tail(end-time), offset, out);   // Legato: eine Sechzehntel laenger, bindet zum naechsten Ton
         releaseOthers (OutCounter, target, offset, out);
         voice(output).note = target;
     }
@@ -2781,17 +2788,17 @@ private:
         int64_t recurrenceEpoch=-1;musicaltime::Tick recurrenceOrigin{},recurrenceWindow{};uint64_t recurrenceIdentity=0;
         composition::MotifOccurrence recurrencePlan;
         int note=-1,pending=-1;
-        long long pendingAt=-1,pendingEnd=0;
+        std::optional<musicaltime::Tick> pendingAt;musicaltime::Tick pendingEnd{};
     };
     std::array<VoiceState,2> voices {};
     int captureRead=0;
     composition::MotifCatalog motifCatalog;
     VoiceState& voice(int output){return voices[output==OutMelody?1u:0u];}
     const VoiceState& voice(int output)const{return voices[output==OutMelody?1u:0u];}
-    composition::BassPhrasePlan bassPhrase;long long bassPairStart=-1;uint64_t bassPhraseKey=0;
+    composition::BassPhrasePlan bassPhrase;std::optional<musicaltime::Tick> bassPairStart;uint64_t bassPhraseKey=0;
     std::array<composition::ChordDispositionResult,8> dispositionSlots {};
     composition::ChordDispositionResult lastDisposition;
-    uint64_t dispositionKey=0;bool dispositionValid=false;long long dispositionAt=-1;
+    uint64_t dispositionKey=0;bool dispositionValid=false;std::optional<musicaltime::Tick> dispositionAt;
     composition::HarmonicPlan harmonicPlan;
     composition::HarmonicPlan::Slot entryVoicing; bool entryVoicingValid=false;
     uint64_t planKey = 0; bool planValid = false;
@@ -2821,7 +2828,7 @@ private:
     float curProgress = 0.0f;
     uint32_t chordMask = 0;          // Tonnamen des klingenden Akkords (Ersatz bei sehr engem Tonumfang)
     long long nowStep = -1;
-    long long exitStep[kNumLayers] {}, exitUntil[kNumLayers] {};
+    musicaltime::Tick exitStep[kNumLayers] {}, exitUntil[kNumLayers] {};
     bool ccWasEnabled = false;
     int lastDynamicsId = -1, lastExpressionId = -1;
     int lastCc[17] {}, lastExpr[17] {};   // je MIDI-Kanal (1 ... 16)
@@ -2834,7 +2841,8 @@ private:
     bool sceneEnded = false, padShy = false, padGrow = false, akzentForced = false, bassRest = false, prepStich = false, peak = false;
     bool forceOn = false, extendOnly = false;
     bool on[kNumLayers] {}, prevOn[kNumLayers] {}, hOn[kNumLayers] {}, enterNow[kNumLayers] {}, thinned[kNumLayers] {};
-    long long hSince[kNumLayers] {}, entryStep[kNumLayers] { -(1LL << 50), -(1LL << 50), -(1LL << 50), -(1LL << 50), -(1LL << 50) };
+    musicaltime::Tick hSince[kNumLayers] {};
+    std::optional<musicaltime::Tick> entryTime[kNumLayers] {};
     float gain[kNumLayers] { 1.0f, 1.0f, 1.0f, 1.0f, 1.0f };
     int boost[kNumLayers] {};
     float dens = 1.0f, yAdd = 0.0f, curX = 0.0f, curY = 0.0f, driveAY = 0.0f;

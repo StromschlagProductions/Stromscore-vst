@@ -1,3 +1,4 @@
+#include "TimeDiagnostics.h"
 #include "ScoreEngine.h"
 #include <cstdlib>
 #include <iostream>
@@ -34,9 +35,9 @@ int main(int argc,char** argv)
   Transport t;t.playing=true;t.bpm=bpm;t.ppq=at*bpm/(48000.*60);int n=static_cast<int>(std::min<long long>({block,total-at,bar-at%bar}));es.clear();g.process(t,s,n,es);if(es.overflow)return 3;emit(at);
 #ifdef BASS_DIAGNOSTICS
   auto p=g.inspectBassPhrase();bool played=false;
-  for(int i=0;i<es.size;++i){auto e=es.events[i];if(e.out==OutBassShort&&e.velocity&&!e.type){const auto tick=(t.ppq+e.offset*bpm/(48000.*60))*4;played|=p.valid&&tick>=p.begin-.001&&tick<p.end;}}
-  if(played&&seen.insert(p.begin).second){std::cerr<<"P,"<<p.begin<<','<<p.middle<<','<<p.end<<','<<p.count;
-    for(int i=0;i<p.count;++i){auto n=p.notes[i];std::cerr<<','<<n.at<<','<<n.pitch<<','<<n.length<<','<<n.accent<<','<<n.passing<<','<<n.anchor<<','<<n.resolution;}std::cerr<<'\n';}
+  for(int i=0;i<es.size;++i){auto e=es.events[i];if(e.out==OutBassShort&&e.velocity&&!e.type){const auto tick=(t.ppq+e.offset*bpm/(48000.*60))*4;played|=p.valid&&tick>=diagnosticTime(p.begin)-.001&&tick<diagnosticTime(p.end);}}
+  if(played&&seen.insert(diagnosticTime(p.begin)).second){std::cerr<<"P,"<<diagnosticTime(p.begin)<<','<<diagnosticTime(p.middle)<<','<<diagnosticTime(p.end)<<','<<p.count;
+    for(int i=0;i<p.count;++i){auto n=p.notes[i];std::cerr<<','<<diagnosticTime(n.at)<<','<<n.pitch<<','<<diagnosticTime(n.length)<<','<<n.accent<<','<<n.passing<<','<<n.anchor<<','<<n.resolution;}std::cerr<<'\n';}
 #endif
   at+=n;
  }

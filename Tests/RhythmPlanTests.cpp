@@ -5,6 +5,7 @@
 #include <vector>
 #include <tuple>
 using namespace stromscore;using namespace stromscore::composition;
+static constexpr auto T(int64_t n){return musicaltime::fromGridStep(n);}
 int main()
 {
  RhythmCoordinationPolicy policy;CHECK(valid(policy));policy.everyBars=0;CHECK(!valid(policy));policy={};
@@ -13,8 +14,8 @@ int main()
   RhythmPlanRequest r;r.reference=reference;r.movement=0x5555;r.bar=1;
   RhythmPlan p;{NoAllocations guard;p=planRhythmicInterlock(r,policy);}CHECK(p.active&&p.count==8);
   CHECK((p.coordinated&0x1111)==0x1111);
-  for(int i=0;i<p.count;++i){auto n=p.notes[i];CHECK(n.at==n.source||n.at==n.source+1);if(n.at!=n.source)CHECK(n.source%4==2&&!(reference&(1u<<n.at)));CHECK(n.length>=1&&n.at+n.length<=16);if(i+1<p.count)CHECK(n.at+n.length<=p.notes[i+1].at);}
-  r.bar=0;CHECK(!planRhythmicInterlock(r,policy).active);r.bar=1;r.minDuration=2;CHECK(!planRhythmicInterlock(r,policy).active);
+  for(int i=0;i<p.count;++i){auto n=p.notes[i];CHECK(n.at==n.source||n.at==n.source+T(1));if(n.at!=n.source)CHECK((n.source/T(1))%4==2&&!(reference&(1u<<(n.at/T(1)))));CHECK(n.length>=T(1)&&n.at+n.length<=T(16));if(i+1<p.count)CHECK(n.at+n.length<=p.notes[i+1].at);}
+  r.bar=0;CHECK(!planRhythmicInterlock(r,policy).active);r.bar=1;r.minDuration=T(2);CHECK(!planRhythmicInterlock(r,policy).active);
  }
  RhythmPlanRequest r;r.reference=0xffff;r.movement=0x5555;r.bar=1;CHECK(!planRhythmicInterlock(r,policy).active);
  r.reference=0x5555;r.movement=0xffff;CHECK(!planRhythmicInterlock(r,policy).active);
@@ -23,7 +24,7 @@ int main()
  for(int v=1;v<=16;++v)if((hash3(v,0,31)&1)==1&&(hash3(v,0,47)&1)==0){s.variation=v;break;}
  auto generator=std::make_unique<Generator>();auto& g=*generator;Transport t;t.playing=true;EventList es;int pitch=-1,velocity=-1;RhythmPlan observed;
  for(int k=0;k<32;++k){t.ppq=k*.25;es.clear();{NoAllocations guard;g.process(t,s,6000,es);}if(k==23){observed=g.inspectMovementRhythm(k,s);for(int i=0;i<es.size;++i)if(es.events[i].out==OutArp&&es.events[i].velocity){pitch=es.events[i].note;velocity=es.events[i].velocity;}}}
- CHECK(observed.active&&observed.at(23%16)&&pitch>=0);
+ CHECK(observed.active&&observed.at(T(23%16))&&pitch>=0);
  for(int pass=0;pass<3;++pass)
  {
   if(pass==2)g.reset();t.ppq=23.25*.25;es.clear();g.process(t,s,1000,es);bool held=false;

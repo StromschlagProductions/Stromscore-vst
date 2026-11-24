@@ -31,9 +31,9 @@ int main()
     CHECK(findProfile(ProfileId::johnBarry)->harmonySelectionOnly&&findProfile(ProfileId::bernardHerrmann)->harmonySelectionOnly);
     CHECK(!findProfile(static_cast<ProfileId>(99))&&!policyForProfile(static_cast<ProfileId>(99)));
 
-    TexturePolicy p;CHECK(valid(p));CHECK(autoArpeggioTicks(p,0)==4);
-    CHECK(autoArpeggioTicks(p,std::nextafter(.15f,0.f))==4&&autoArpeggioTicks(p,.15f)==2);
-    CHECK(autoArpeggioTicks(p,std::nextafter(.5f,0.f))==2&&autoArpeggioTicks(p,.5f)==1);
+    TexturePolicy p;CHECK(valid(p));CHECK(autoArpeggioDuration(p,0)==stromscore::musicaltime::fromGridStep(4));
+    CHECK(autoArpeggioDuration(p,std::nextafter(.15f,0.f))==stromscore::musicaltime::fromGridStep(4)&&autoArpeggioDuration(p,.15f)==stromscore::musicaltime::fromGridStep(2));
+    CHECK(autoArpeggioDuration(p,std::nextafter(.5f,0.f))==stromscore::musicaltime::fromGridStep(2)&&autoArpeggioDuration(p,.5f)==stromscore::musicaltime::fromGridStep(1));
     p.arpeggio.eighthBelow=.1f;CHECK(!valid(p));p={};p.minimumActiveBars=-1;CHECK(!valid(p));
     p={};p.activityStart[0]=NAN;CHECK(!valid(p));
     for(int part=0;part<kNumLayers;++part)

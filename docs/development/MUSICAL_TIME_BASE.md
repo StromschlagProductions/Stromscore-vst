@@ -207,3 +207,69 @@ Alle 38 Gesamttests bestanden: 36 im Gesamtlauf und die zwei historischen Hook-/
 1117 vollständige Renderings sind bytegleich zur Basis `7496c47`; 1785 Blockgrößenvergleiche bestanden. Vollständige Fallliste/Prüfsummen: `MUSICAL_TIME_1B2B_REGRESSION.json`. Die bisherigen Renderings bei nicht ganzzahligen Samplepositionen erlauben wie zuvor höchstens einen Sample Unterschied zwischen Blockgrößen, bei unveränderter Ereignisfolge und sämtlichen übrigen MIDI-Daten. Die identischen Vorher-/Nachher-Konfigurationen werden ohne Toleranz byteweise verglichen. Alle 87 produktiven Wendungen, alle vorhandenen Profile, sämtliche 80 unterstützten Taktarten und die bestehenden 4096-Takt-Langzeitfälle sind enthalten. Es war keine musikalische Verhaltenskorrektur erforderlich.
 
 ASan/UBSan für MusicalTime, MotifTime, CompositionCore und Engine bestanden (`detect_leaks=0`, keine LeakSanitizer-Aussage). 7/7 Paketprüf-Fixtures bestanden. Der echte Processor-Gesamttest einschließlich 216 Live-/SMF-Fällen in 4/4, 3/8, 5/8 und 7/8 ist bestanden; der Großblocktest meldet 872 Note-ons, 872 Note-offs und keine Notenverwaltungsfehler. Linux-x64-VST3 gebaut, ELF/Bundle und Versionsmetadaten 2.2 geprüft. Kein Windows-/pluginval-Lauf, kein Push, kein Release.
+
+## Teil 1b.3 – Bass, freie Linien, Rhythmus und Instrumentendauern
+
+Basis `cb25399`, Branch `develop/composition-core-prototype`. Dieser Teil vervollständigt die angeforderte **Datenmigration der musikalischen Planer und ihrer unmittelbar zugehörigen Verbraucher**. Er führt keine neue musikalische Strategie ein und beginnt die Scheduler-/Swing-Entkopplung aus Teil 2 nicht.
+
+### Migrierte Daten und Verbraucher
+
+| Bereich | Musikalische Zeitwerte in 960 PPQ | Weiterhin dimensionslos |
+| --- | --- | --- |
+| Bass | `BassAttack::duration`; `BassPhraseRequest::begin/middle/end/barDuration/minDuration/maxDuration`; `BassPhrasePlan`-Grenzen, Notenanfänge und -längen | Funk-Musterplatz, Tonhöhenintervalle, Noten-/Akkordindex, Auflösungsreferenz |
+| Freie Linien | `LinePhraseRequest::begin/end/pulse`; `LinePhrasePlan::begin/end/arrival/breath`, alle Notenanfänge/-enden | Tonleiterindex, Zieltonklasse, Anzahl der Phrasentöne, Konturentscheidung |
+| Rhythmische Verzahnung | `RhythmPlanRequest::subdivision/minDuration/maxDuration`; `RhythmPlan::Onset::at/source/length` | `bar` ist eine Taktnummer; Referenz-/Bewegungs-/Ergebnismasken und ihre 16 Musterplätze sind keine Zeitstempel |
+| Instrumente / Rollen | `InstrumentCapabilities` und `RoleNeed::minDuration/maxDuration`; der gemeinsame MIDI-Zielkatalog liefert direkt Tick-Dauern | Polyphonie, Artikulationsbits, MIDI-Ziel und Rolle |
+| Hilfszustände | Basspaar-Anfang, Vorhaltsbeginn/-ende, gespeicherter Besetzungszeitpunkt, Hysterese-Beginn, Szeneneintritt und Ausklanggrenzen | Cache-/Zufallsschlüssel, Szenen-/Aufbautaktzahl, Drive-Generation und normalisierter Drive-Fortschritt |
+| Neutrale Texture-Policy | `autoArpeggioDuration()` liefert eine musikalische Tick-Dauer | Aktivitätsschwellen, Hysterese-Taktanzahl und Musterwahl |
+
+Absolute Positionen sind unter anderem Bassnotenanfänge, Phrasengrenzen, Atempausenbeginn und Vorhaltszeiten. `RhythmPlan::Onset::at/source` sind dagegen **relative Positionen innerhalb eines Musterzyklus**; `length`, `pulse`, `subdivision` und Instrumentengrenzen sind Dauern. Alle verwenden den gemeinsamen starken `Tick`-Typ, ohne implizite Ganzzahlkonvertierung. Bar-/Muster-/Notennummern werden nicht durch numerisches Skalieren als Zeitstempel ausgegeben.
+
+Die bestehenden musikalischen Konstanten bleiben erhalten: eine Sechzehntelnote = 240 PPQ, eine Viertelnote = 960 PPQ. `musicaltime::sixteenth/quarter` benennen diese Dauern ausdrücklich. Der Bass-Funkplan behält seine vorhandenen Einsatzplätze und seine bisherige 4/4-Eignungsprüfung. Die Linienplanung behält das bestehende Legato-/Absetzmaß von einer Sechzehntelnote und dieselbe Phrasenkontur. Bei 3/8, 5/8 und 7/8 wird keine bislang ungeeignete Bassstrategie neu freigeschaltet.
+
+### Entfernte Rasterbrücken
+
+- Bass- und Linienplaner nehmen ihre harmonischen und globalen Abschnittsgrenzen direkt als Tick entgegen. Ihr Ergebnis wird einschließlich Notenenden unmittelbar an die Tick-basierte Notenverwaltung übergeben.
+- Der Bassplan ruft die gemeinsame Durchgangstonplanung ohne die bisherigen Raster→Tick-Konvertierungen auf. Motiv-, Bass-, Linien- und Instrumenten-Dauerprüfungen teilen jetzt dieselbe Einheit.
+- Instrumentengrenzen werden nicht mehr an jedem Motiv-/Rhythmus-/Bassverbraucher mit 240 multipliziert. Auch die Standardbelegung aller neun Ziele enthält bereits musikalische Tick-Dauern.
+- Die rhythmische Verzahnung erzeugt Tick-Einsätze und -Dauern aus dimensionslosen Bitmasken und einer ausdrücklich benannten Unterteilungsdauer. Ihre Suche `RhythmPlan::at()` erwartet einen Tick-Offset.
+- `bassPairStart`, `pendingAt` und der gespeicherte Besetzungszeitpunkt verwenden optionale Tick-Positionen statt negativer Raster-Sentinels. `pendingEnd`, Hysterese- und Ausklangzeiten verwenden Tick. Ein fehlender Szeneneintritt wird als fehlender optionaler Zeitpunkt dargestellt, statt als extrem weit zurückliegender Rasterwert.
+- `sceneGrid()`, `wendungGrid()`, `manualEndGrid()` und `sceneEndGrid()` sind entfernt. Szenenenden und Anwesenheitsprüfungen verwenden die bestehenden optionalen Tick-Werte direkt. Der harmonische Übergangsaufruf in `locate()` verliert ebenfalls seinen unnötigen Tick→Raster→Tick-Umweg.
+- Gehaltene Harmonie und Bass geben ihre harmonischen Notenenden direkt als Tick weiter. `noteOn`, `cut` und `padChord` besitzen weiterhin ausdrücklich begrenzte Aufrufe von der noch rasterbasierten Ausführungsseite; dort wird einmal konvertiert. Es werden keine parallelen gespeicherten Rasterkopien der migrierten Planungszeiten geführt.
+
+Die Zustandsmigration verändert weder die Ausdünnungsentscheidung noch Anschlagsstärken, harmonisches Material, Motive, Rollenpriorität oder Komponistengewichte. Instrumentengrenzen bleiben dokumentierte Standardannahmen des Generators; die tatsächlichen Fähigkeiten eines extern geladenen Patches werden dadurch nicht bekannt.
+
+### Arbeitet danach die gesamte musikalische Planung unabhängig vom Ausführungsraster?
+
+**Nein, noch nicht der gesamte Generator.** Die Daten und Schnittstellen der zusammenhängenden Harmonie-, Motiv-, Bass-, freien Linien-, Antwort- und rhythmischen Einsatzplaner sind nun PPQ-basiert. Die reinen Planer können passende nicht rastergebundene Tick-Grenzen darstellen. Daraus folgt aber noch keine unabhängige produktive Ereignisplanung: Der Adapter ruft sie weiterhin aus dem alten Sechzehntel-Scheduler auf und leitet an mehreren Stellen Metrik, Musterfortschritt und Ereignisauslösung aus dessen Schrittindex ab.
+
+Die vorhandenen Sechzehntel-Funkfiguren und Bitmasken bleiben musikalisches Vokabular; ihre Rasterung ist nicht automatisch ein fehlerhafter Zeittyp. Entscheidend ist die noch bestehende Kopplung ihrer Realisierung und Veröffentlichung an `k/nowStep`, `Pos::pos` und den Scheduler. Neue feinere Einsätze werden in diesem Teil ausdrücklich nicht erzeugt.
+
+### In Teil 2 aufzulösende Abhängigkeiten
+
+1. **Ausführungsuhr und Eintritt in die Planung:** `process`, `stepOn`, `chase`, `locate(step)` und die read-only Inspektionsaufrufe arbeiten noch mit Scheduler-Schritten. `Meter::len/groupStart` beschreibt weiterhin dessen Raster. Tick-basierte musikalische Positionen und metrische Gruppen müssen ohne Rückrechnung in alte Ausführungsschritte bereitgestellt werden.
+2. **Ereigniserzeugung und Notenenden:** Zahlreiche unmittelbar gerenderte Begleit-/Akzent-/Hook-Muster entscheiden ihre Einsätze noch über `p.pos`, `% rate`, `gridChord*` und `gridPhrase*`. Auch die verbleibenden Step-Aufrufe von `noteOn/cut/padChord`, `releaseDue` und `releaseOthers` müssen an einen gemeinsamen Tick-Ereignispfad angeschlossen werden. Die gespeicherten Notenansprüche sind schon Tick-basiert; ihre Veröffentlichung wird noch nur an Ausführungsschritten geprüft.
+3. **Swing getrennt behandeln:** Die bisherigen Double-Swing-Positionen und die Abbildung auf Samples dürfen nicht beiläufig auf PPQ gerundet werden. Rhythmische Performanceverschiebung und nominale Harmonieposition benötigen getrennte Behandlung. Die vorhandene Pop-Aufbereitung invertiert die aufgezeichnete Swing-Performance weiterhin anhand der bisherigen Musterplätze; sie speichert dabei ausschließlich PPQ-Daten.
+4. **Seek/Loop und konkurrierende Noten:** Der Chase der rhythmischen Verzahnung konvertiert ihre Tick-Einsätze noch ausdrücklich an die bestehende Swing-/Arpeggio-Ausführungsschnittstelle. Der Bass-Chase benötigt den bisherigen diskreten Ereignisindex noch für metrische Akzente und deterministischen Jitter. Freigabe alter Ansprüche, Harmonieänderung, gehaltene gemeinsame Töne und neue Note-ons benötigen eine klar definierte gemeinsame Ereignisreihenfolge auch zwischen alten Rasterpositionen.
+5. **Muster- und Zufallsindizes erhalten:** Arpeggio-Tonfolge, Jitter und manche Akkordlagen nutzen bisher aus Rasterpositionen abgeleitete Schlüssel. Diese dürfen nicht durch einen bloßen Wechsel von 1 auf 240 verändert werden. Bei der neuen Ereignisplanung sind ausdrücklich definierte Ereignis-/Musterordnungen erforderlich; derzeit verbleiben dafür exakte Tick→Schritt-Grenzen.
+6. **Taktbezogene Vorlagen und vorhandener Prüfpfad:** Die bereits dokumentierte Abrundung normalisierter Motivvorlagen auf die bisherige musikalische Rasterung bleibt erhalten. Eine spätere feinere Realisierung ist eine gesondert zu prüfende Verhaltensänderung. Der bestehende zusätzliche `Compiler/Plan`-Prüfpfad speichert kompilierte Ausgabe in Samples; das ist eine Ausgabedarstellung, keine zweite musikalische PPQ-Uhr. Seine Rolle gegenüber dem produktiven Ereignispfad sollte in Teil 2 geklärt werden.
+
+Die bestehende Einschränkung der harmonischen Übergangsstimmführung bei kaltem Seek bleibt unverändert. Keine neue Form-, Artikulations- oder Orchestrierungsengine und kein weiterer eigenständig begonnener Entwicklungsschritt.
+
+### Gezielt ergänzte Nachweise
+
+`PlanningTimeTests` prüft die starken Zeittypen, eine Bassphrase ab einer großen nicht rastergebundenen Position, Akkordgrenzen, Tonvorrat und Instrumenten-Dauergrenzen einschließlich Abweichungen von genau einem Tick. In 3/8, 5/8 und 7/8 werden freie Linien mit passenden PPQ-Pulsen sowie relative rhythmische Einsätze mit einer nicht an 240 gebundenen Unterteilungsdauer geprüft. Die bisherigen Eignungsgrenzen der Bassstrategie bleiben ausdrücklich geschützt.
+
+Die tatsächlichen Achtel-Takt-Renderings prüfen beide Genres und Follow-Zustände, Swing, Szenenaufbau/-ende, geteilte MIDI-Kanäle, vollständige physische Note-Off-Bilanzen und die Blockgrößen 127/512/8192. Die bestehenden Bass-, Linien-, Rhythmus-, Transport- und Processor-Tests bleiben erhalten. Historische Diagnose-Probes konvertieren ausschließlich ihre Berichtseinheit, damit ihre bisherigen Noten-/Rhythmusanalysen vergleichbar bleiben; solche Konvertierungen sind keine Laufzeit-Speicheradapter.
+
+Die Zeitregression gegen `cb25399` ergänzt den bisherigen 1117-Fall-Katalog um 96 gezielte Vorher-/Nachher-Fälle für freie Linien, Szenenaufbau/-ende sowie manuelle Figuren und geteilte Ansprüche. Auch diese kreuzen 4/4, 3/8, 5/8, 7/8, beide Genres, beide Bass-Follow-Zustände und Swing. Ihre zusätzlichen Blockvergleiche ersetzen keine strikten MIDI-Vorher-/Nachher-Bytevergleiche.
+
+### Echtzeit- und Speicherverhalten
+
+Keine neuen Heap-Allokationen, Dateizugriffe oder Katalogvalidierungen im Audiothread. Die vorhandenen `NoAllocations`-Wächter bleiben auch in den neuen tatsächlichen Renderings aktiv. Auf dem geprüften Linux-x64-Build ergeben sich folgende festen Objektgrößen (Byte, vorher → nachher): `Generator` 15176 → 15768, `Settings` 1080 → 1080, `BassPhraseRequest` 88 → 104, `BassPhrasePlan` 2088 → 2600, `LinePhrasePlan` 168 → 168, `RhythmPlan` 208 → 400, `InstrumentCapabilities` 40 → 40, `RoleNeed` 48 → 48. Der Mehrbedarf stammt aus bisher 32-Bit-breiten Bass-/Rhythmusdauern und aus der ausdrücklichen Abwesenheitsdarstellung optionaler Zeitpunkte; er ist fest begrenzt. Die rhythmischen Schleifen iterieren weiterhin über Musterplätze bzw. dieselben musikalischen Sechzehntel, nicht über jedes der 960 PPQ-Ticks.
+
+### Abschlussprüfung Teil 1b.3
+
+39/39 Gesamttests im vollständigen Lauf bestanden. 1213 vollständige Vorher-/Nachher-Renderings sind bytegleich zu `cb25399`; 1977 zusätzliche Blockgrößenvergleiche bestanden. Fallparameter und Prüfsummen: `MUSICAL_TIME_1B3_REGRESSION.json`. Wie bisher gilt nur für verschiedene Blockgrößen bei nicht ganzzahligen Samplepositionen höchstens ein Sample Rundungsspielraum, bei identischer Ereignisfolge und sonst identischen MIDI-Daten; der Vorher-/Nachher-Bytevergleich selbst hat keine Toleranz. Enthalten sind weiterhin alle 87 produktiven Wendungen, vorhandenen Profile, alle 80 unterstützten Taktarten und die 4096-Takt-Langzeitfälle sowie die oben beschriebenen 96 zusätzlichen Planungsfälle. Keine musikalische Fehlerkorrektur oder daraus resultierende MIDI-Abweichung war erforderlich.
+
+ASan/UBSan für MusicalTime, MotifTime, BassPhrase, RhythmPlan, PlanningTime, CompositionCore und Engine ohne Befund (`detect_leaks=0`, keine LeakSanitizer-Aussage). 7/7 Paketprüf-Fixtures bestanden. Der echte Processor-Gesamttest einschließlich aller 216 Live-/SMF-Fälle in 4/4, 3/8, 5/8 und 7/8 ist bestanden; der Großblocktest meldet 872 Note-ons, 872 Note-offs und keine Notenverwaltungsfehler. Linux-x64-VST3 gebaut; ELF, Bundle und Versionsmetadaten 2.2 geprüft. Kein Windows-/pluginval-Lauf, kein Push und kein Release.

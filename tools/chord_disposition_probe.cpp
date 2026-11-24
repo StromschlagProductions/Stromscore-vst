@@ -1,3 +1,4 @@
+#include "TimeDiagnostics.h"
 #include "ScoreEngine.h"
 #include <cstdlib>
 #include <iostream>
@@ -42,7 +43,7 @@ int main(int argc,char** argv)
  {
   t.ppq=at*bpm/(48000.*60);const auto next=static_cast<long long>(std::ceil((std::floor(t.ppq/4)+1)*bar-1e-7));const int n=static_cast<int>(std::min<long long>({block,total-at,std::max(1LL,next-at)}));es.clear();g.process(t,s,n,es);if(es.overflow)return 3;emit(at);
 #ifdef DISPOSITION_DIAGNOSTICS
-  const auto d=g.inspectChordDisposition();const auto tick=g.inspectChordDispositionStep();
+  const auto d=g.inspectChordDisposition();const auto tick=diagnosticDispositionStep(g,0);
   bool played=false;for(int i=0;i<es.size;++i)if(es.events[i].out<2&&es.events[i].velocity&&!es.events[i].type)
       played|=static_cast<long long>(std::llround((t.ppq+es.events[i].offset*bpm/(48000.*60))*4))==tick;
   if(played&&d.applied&&seen.insert(tick).second)

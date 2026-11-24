@@ -21,14 +21,21 @@ int main(int argc,char** argv)
    for(int i=0;i<n;++i)std::cout<<','<<static_cast<unsigned>(wendungAt(s.genre,ids[i]).id);std::cout<<'\n';
   }return 0;
  }
- if(argc!=16&&argc!=17&&argc!=19)return 2;
+ if(argc!=16&&argc!=17&&argc!=19&&argc!=20)return 2;
  importTestId=static_cast<WendungId>(std::atoi(argv[1]));Settings s;s.genre=GenrePopRock;s.key=std::atoi(argv[2]);s.x=std::atof(argv[3]);s.y=std::atof(argv[4]);s.z=std::atof(argv[5]);
  s.follow[0]=s.follow[1]=s.follow[2]=std::atoi(argv[6])!=0;
  if(std::atoi(argv[7])){s.padPattern=PadHeld;s.bassPattern=BassHeld;s.arpFigure=ArpCircle;s.arpRate=RateEighth;}
  s.melody=std::atoi(argv[8])!=0;s.mute[kGegenstimme]=std::atoi(argv[9])==0;
  const int bars=std::atoi(argv[10]),block=std::atoi(argv[11]);const double bpm=std::atof(argv[12]);const bool route=std::atoi(argv[13])!=0;
  s.profile=static_cast<composition::ProfileId>(std::atoi(argv[14]));s.swing=std::atof(argv[15]);s.variety=0;s.passing=true;s.motif=true;if(argc>=17)s.genre=std::atoi(argv[16]);
- if(argc==19){s.meterNum=std::atoi(argv[17]);s.meterDen=std::atoi(argv[18]);}
+ if(argc>=19){s.meterNum=std::atoi(argv[17]);s.meterDen=std::atoi(argv[18]);}
+ // Dedicated time-planning regression controls, only in this offline probe.
+ if(argc==20)
+ {
+  const int scenario=std::atoi(argv[19]);s.motif=false;s.melody=false;s.passing=false;
+  if(scenario==1){s.scene=true;s.inertia=true;s.sceneBars=24;s.buildBars=4;s.entry=EntryAuto;s.ending=EndFade;s.hardness=.25f;}
+  if(scenario==2){s.bassPattern=BassFunk;s.arpFigure=ArpCircle;s.arpRate=RateEighth;s.channel[OutArp]=s.channel[OutPadLong];}
+ }
  const double barQuarters=Meter::from(s.meterNum,s.meterDen).len*kStep;
  Generator g;Transport t;t.bpm=bpm;t.playing=true;EventList events;const double spq=48000.*60./bpm;
  const long long end=std::llround(bars*barQuarters*spq),segment=end/4;

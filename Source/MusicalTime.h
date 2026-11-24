@@ -17,6 +17,7 @@ struct Tick
     friend constexpr Tick operator*(int64_t n,Tick a){return a*n;}
     friend constexpr Tick operator/(Tick a,int64_t n){return {a.value/n};}
     friend constexpr int64_t operator/(Tick a,Tick b){return a.value/b.value;}
+    friend constexpr Tick operator%(Tick a,Tick period){return {a.value%period.value};}
     Tick& operator-=(Tick b){value-=b.value;return *this;}
     Tick& operator*=(int64_t n){value*=n;return *this;}
     friend constexpr bool operator>(Tick a,Tick b){return b<a;}
@@ -27,6 +28,8 @@ struct Tick
     friend constexpr bool operator==(Tick a,Tick b){return a.value==b.value;}
     friend constexpr bool operator!=(Tick a,Tick b){return !(a==b);}
 };
+inline constexpr Tick sixteenth{ticksPerQuarter/4};
+inline constexpr Tick quarter{ticksPerQuarter};
 // Caller bounds: |gridStep| <= 4e9 (existing host transport limit), comfortably within int64.
 inline constexpr Tick fromGridStep(int64_t gridStep){return {gridStep*ticksPerGridStep};}
 // Temporary, explicit boundary to the still grid-based planner/scheduler.

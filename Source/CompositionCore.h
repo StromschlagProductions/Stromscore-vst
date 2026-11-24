@@ -10,7 +10,7 @@ namespace stromscore::composition
 {
 // Motif positions, relative offsets and durations use the shared 960-PPQ Tick.
 using musicaltime::Tick;
-inline constexpr Tick motifQuantum=musicaltime::fromGridStep(1); // Existing performance articulation/rhythm quantum.
+inline constexpr Tick motifQuantum=musicaltime::sixteenth; // Existing performance articulation/rhythm quantum.
 enum class Role { pad, bass };
 enum class RandomDomain : uint32_t { harmony = 1, motif, rhythm, accent };
 inline uint32_t randomKey (uint32_t seed, uint32_t configuration, uint32_t revision,
@@ -270,7 +270,7 @@ struct InstrumentCapabilities
     PitchBehaviour pitch=PitchBehaviour::unknown;
     unsigned articulations=0; // Bit 0 sustained, bit 1 detached; unknown is not all-capable.
     Range range {0,127}; int polyphony=1;
-    int64_t minDuration=1,maxDuration=32; // Legacy sixteenth-note capability bounds; convert at the motif boundary.
+    Tick minDuration=musicaltime::sixteenth,maxDuration=32*musicaltime::sixteenth;
 };
 struct PlayingTrack
 {
@@ -284,19 +284,19 @@ struct RoleNeed
 {
     MusicalRole role=MusicalRole::lead; PlayingStyle style=PlayingStyle::sustained;
     PitchBehaviour pitch=PitchBehaviour::pitched; NoteAddressing addressing=NoteAddressing::pitchedNotes; Range range {0,127};
-    int polyphony=1; int64_t minDuration=1,maxDuration=32;
+    int polyphony=1; Tick minDuration=musicaltime::sixteenth,maxDuration=32*musicaltime::sixteenth;
 };
 inline bool suitable(const PlayingTrack& t,const RoleNeed& n)
 {
     const auto& c=t.instrument;
     if(static_cast<unsigned>(n.role)>2||static_cast<unsigned>(n.style)>1)return false;
     if(c.range.low<0||c.range.high>127||c.range.low>c.range.high||c.polyphony<1
-        ||c.minDuration<1||c.maxDuration<c.minDuration)return false;
+        ||c.minDuration<Tick{1}||c.maxDuration<c.minDuration)return false;
     return t.available&&t.id.value>=0&&(t.roles&roleBit(n.role))&&t.style==n.style&&n.pitch!=PitchBehaviour::unknown&&c.pitch==n.pitch&&t.addressing==n.addressing
         &&(c.articulations&(1u<<static_cast<unsigned>(n.style)))
         &&n.range.low>=0&&n.range.high<=127&&n.range.low<=n.range.high
         &&c.range.low<=n.range.low&&c.range.high>=n.range.high
-        &&n.polyphony>0&&c.polyphony>=n.polyphony&&n.minDuration>0&&n.maxDuration>=n.minDuration
+        &&n.polyphony>0&&c.polyphony>=n.polyphony&&n.minDuration>Tick{}&&n.maxDuration>=n.minDuration
         &&c.minDuration<=n.minDuration&&c.maxDuration>=n.maxDuration;
 }
 enum class CapabilityOrigin { generatorAssumption };
@@ -316,7 +316,7 @@ inline bool validOutputs(const OutputDescription* entries,int count)
         if(!e.standardUse||e.externalPatchKnown||static_cast<unsigned>(e.track.style)>1)return false;
         if(e.target.output<0||e.target.output>=count||e.target.channel<1||e.target.channel>16
             ||e.track.id.value<0||c.range.low<0||c.range.high>127||c.range.low>c.range.high
-            ||c.polyphony<1||c.minDuration<1||c.maxDuration<c.minDuration
+            ||c.polyphony<1||c.minDuration<Tick{1}||c.maxDuration<c.minDuration
             ||!(c.articulations&(1u<<static_cast<unsigned>(e.track.style))))return false;
         if(e.track.addressing==NoteAddressing::fixedTrigger
             &&(e.target.fixedNote<0||e.target.fixedNote>127))return false;
@@ -379,23 +379,23 @@ inline DialoguePlan planDialogue(const MotifUse& use,const MotifCatalog& catalog
 enum class PhraseEnding { open, settled };
 struct LinePhraseRequest
 {
-    int64_t begin=0,end=0,pulse=4;
+    Tick begin{},end{},pulse=musicaltime::quarter;
     std::array<int,16> pitches {};int count=0,goalPitchClass=0,notes=3;
     bool descending=true,legato=true;int initialNeighbour=0;
     Range range;PhraseEnding ending=PhraseEnding::open;
 };
 struct LinePhrasePlan
 {
-    struct Note { int64_t begin=0,end=0;int pitch=0; };
+    struct Note { Tick begin{},end{};int pitch=0; };
     std::array<Note,5> notes {};int count=0,goal=0;
-    int64_t begin=0,end=0,arrival=0,breath=0;
+    Tick begin{},end{},arrival{},breath{};
     PhraseEnding ending=PhraseEnding::open;
     bool valid=false;
 };
 inline LinePhrasePlan planLinePhrase(const LinePhraseRequest& r)
 {
     LinePhrasePlan p;
-    if(r.count<3||r.count>16||r.pulse<1||r.begin<0||r.end-r.begin<4*r.pulse
+    if(r.count<3||r.count>16||r.pulse<Tick{1}||r.begin<Tick{}||r.end-r.begin<4*r.pulse
         ||r.notes<2||r.notes>4||r.goalPitchClass<0||r.goalPitchClass>11)return p;
     int goal=-1,best=10000;const int centre=(r.pitches[0]+r.pitches[static_cast<size_t>(r.count-1)])/2;
     for(int i=0;i<r.count;++i)
@@ -415,20 +415,20 @@ inline LinePhrasePlan planLinePhrase(const LinePhraseRequest& r)
     auto begin=r.begin;
     const int neighbour=r.pitches[static_cast<size_t>(start)]+r.initialNeighbour;
     if(r.initialNeighbour>0&&p.arrival-begin>=3*r.pulse&&neighbour>=r.range.low&&neighbour<=r.range.high)
-    {p.notes[static_cast<size_t>(p.count++)]={begin,begin+r.pulse+(r.legato?1:-1),neighbour};begin+=r.pulse;}
+    {p.notes[static_cast<size_t>(p.count++)]={begin,begin+r.pulse+(r.legato?musicaltime::sixteenth:-1*musicaltime::sixteenth),neighbour};begin+=r.pulse;}
     p.arrival=begin+((p.arrival-begin)/r.pulse)*r.pulse;
     const int count=std::min({r.notes,std::abs(goal-start)+1,static_cast<int>(1+(p.arrival-begin)/r.pulse)});
     for(int i=0;i<count;++i)
     {
         const auto at=begin+((p.arrival-begin)*i/(count-1)/r.pulse)*r.pulse;
         const int index=i==count-2&&count>=3?goal+(start>goal?1:-1):start+(goal-start)*i/(count-1);
-        p.notes[static_cast<size_t>(p.count++)]={at,0,r.pitches[static_cast<size_t>(index)]};
+        p.notes[static_cast<size_t>(p.count++)]={at,{},r.pitches[static_cast<size_t>(index)]};
     }
     for(int i=(begin>r.begin?1:0);i<p.count;++i)
     {
         auto& n=p.notes[static_cast<size_t>(i)];
         const auto next=i+1<p.count?p.notes[static_cast<size_t>(i+1)].begin:p.breath;
-        n.end=i+1==p.count?p.breath:std::max(n.begin+1,next+(r.legato?1:-1));
+        n.end=i+1==p.count?p.breath:std::max(n.begin+musicaltime::sixteenth,next+(r.legato?musicaltime::sixteenth:-1*musicaltime::sixteenth));
     }
     p.valid=true;return p;
 }

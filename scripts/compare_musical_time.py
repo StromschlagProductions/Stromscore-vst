@@ -12,7 +12,7 @@ for id,meter,bpm,swing in itertools.product((1005,1008,1034,2015,2035,2037,2038,
 for id,num,den in itertools.product((1005,2035),range(1,17),(1,2,4,8,16)):cases.append((id,0,0,(num,den),120,.3,32,True))
 for id in (1005,2035,2037):cases.append((id,0,0,(3,8),173,.3,4096,True))
 with tempfile.TemporaryDirectory() as tmp:
- tmp=pathlib.Path(tmp);prepare(tmp/'headers',revision='7496c47',explicit=True);exe=tmp/'baseline';subprocess.run([a.compiler,'-std=c++17','-O2','-I',str(tmp/'headers'),str(root/'tools/harmony_import_probe.cpp'),'-o',str(exe)],check=True)
+ tmp=pathlib.Path(tmp);prepare(tmp/'headers',revision='cb25399',explicit=True);exe=tmp/'baseline';subprocess.run([a.compiler,'-std=c++17','-O2','-I',str(tmp/'headers'),str(root/'tools/harmony_import_probe.cpp'),'-o',str(exe)],check=True)
  for id,profile,route,meter,bpm,swing,bars,blocks in cases:
   t=byid[id];args=list(map(str,[id,0,*t['xyz'],1,0,1,1,bars,512,bpm,route,profile,swing,0 if id<2000 else 1,*meter]))
   before=subprocess.check_output([str(exe)]+args);after=subprocess.check_output([a.probe]+args);assert before==after,(id,profile,route,meter,bpm,swing,'MIDI changed')
@@ -23,4 +23,16 @@ with tempfile.TemporaryDirectory() as tmp:
     assert len(other)==len(reference) and all(x[1:]==y[1:] and abs(x[0]-y[0])<=1 for x,y in zip(other,reference)),(id,meter,bpm,block,'block')
     blockchecks+=1
   rows.append({'id':id,'profile':profile,'route':route,'meter':meter,'bpm':bpm,'swing':swing,'bars':bars,'sha256':hashlib.sha256(after).hexdigest()})
-(out/'regression.json').write_text(json.dumps({'baseline':'7496c47','comparisons':len(rows),'block_comparisons':blockchecks,'results':rows},indent=2)+'\n');print(len(rows),'byte-identical before/after renders;',blockchecks,'alternate-block comparisons')
+ # Direct regression of the just-migrated free-line, scene and manual/shared-claim paths.
+ for (num,den),genre,follow,swing,scenario in itertools.product(((4,4),(3,8),(5,8),(7,8)),range(2),range(2),(0,.3),range(3)):
+  id=1005 if genre==0 else 2025;t=byid[id];profile=(num+scenario)%3;route=scenario%2
+  args=list(map(str,[id,0,*t['xyz'],follow,0,0,1,32,512,120,route,profile,swing,genre,num,den,scenario]))
+  before=subprocess.check_output([str(exe)]+args);after=subprocess.check_output([a.probe]+args)
+  assert before==after,('planning',num,den,genre,follow,swing,scenario,'MIDI changed')
+  reference=[tuple(map(int,l.split(b','))) for l in after.splitlines()]
+  for block in (127,8192):
+   args[10]=str(block);other=[tuple(map(int,l.split(b','))) for l in subprocess.check_output([a.probe]+args).splitlines()]
+   assert len(other)==len(reference) and all(x[1:]==y[1:] and abs(x[0]-y[0])<=1 for x,y in zip(other,reference)),('planning',num,den,genre,block)
+   blockchecks+=1
+  rows.append({'id':id,'profile':profile,'route':route,'meter':[num,den],'bpm':120,'swing':swing,'bars':32,'planning_scenario':scenario,'follow':follow,'sha256':hashlib.sha256(after).hexdigest()})
+(out/'regression.json').write_text(json.dumps({'baseline':'cb25399','comparisons':len(rows),'block_comparisons':blockchecks,'results':rows},indent=2)+'\n');print(len(rows),'byte-identical before/after renders;',blockchecks,'alternate-block comparisons')

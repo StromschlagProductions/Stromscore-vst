@@ -282,8 +282,8 @@ int main()
     for(auto pitch:{PitchBehaviour::noise,PitchBehaviour::unknown})
     {tracks[0].instrument.pitch=pitch;CHECK(!assignDialogue(tracks,2,q,a).valid);}
     tracks[0].instrument.pitch=PitchBehaviour::pitched;
-    tracks[0].instrument.maxDuration=2;CHECK(!assignDialogue(tracks,2,q,a).valid);
-    tracks[0].instrument.maxDuration=32;tracks[0].style=PlayingStyle::sustained;CHECK(!assignDialogue(tracks,2,q,a).valid);
+    tracks[0].instrument.maxDuration=T(2);CHECK(!assignDialogue(tracks,2,q,a).valid);
+    tracks[0].instrument.maxDuration=T(32);tracks[0].style=PlayingStyle::sustained;CHECK(!assignDialogue(tracks,2,q,a).valid);
     tracks[0].style=PlayingStyle::detached;tracks[0].instrument.range={60,72};CHECK(!assignDialogue(tracks,2,q,a).valid);
     a.range={60,72};CHECK(assignDialogue(tracks,2,q,a).valid);
     tracks[1].instrument.polyphony=1;CHECK(!assignDialogue(tracks,2,q,a).valid);
@@ -296,11 +296,11 @@ int main()
     tracks[0].style=PlayingStyle::sustained;CHECK(!suitable(tracks[0],q));
     PlayingTrack longPatch;longPatch.id={501};longPatch.roles=roleBit(MusicalRole::accompaniment);
     longPatch.style=PlayingStyle::sustained;longPatch.instrument.pitch=PitchBehaviour::pitched;
-    longPatch.instrument.articulations=1;longPatch.instrument.polyphony=6;longPatch.instrument.maxDuration=128;
-    RoleNeed chord;chord.role=MusicalRole::accompaniment;chord.polyphony=4;chord.maxDuration=64;
+    longPatch.instrument.articulations=1;longPatch.instrument.polyphony=6;longPatch.instrument.maxDuration=T(128);
+    RoleNeed chord;chord.role=MusicalRole::accompaniment;chord.polyphony=4;chord.maxDuration=T(64);
     CHECK(suitable(longPatch,chord));
     auto shortPatch=longPatch;shortPatch.id={502};shortPatch.style=PlayingStyle::detached;
-    shortPatch.instrument.articulations=2;shortPatch.instrument.maxDuration=4;
+    shortPatch.instrument.articulations=2;shortPatch.instrument.maxDuration=T(4);
     CHECK(!suitable(shortPatch,chord));
     longPatch.available=false;CHECK(!suitable(longPatch,chord));
     CHECK(planForeground(true,tracks[1]).foreground);
@@ -325,8 +325,8 @@ int main()
         LinePhraseRequest r;r.count=6;r.pitches={60,64,67,71,72,76};r.goalPitchClass=0;r.notes=4;
         for(int duration:{16,32,48,80,128})
         {
-            r.end=duration;auto phrase=planLinePhrase(r);CHECK(phrase.valid&&phrase.goal==72);
-            CHECK(phrase.arrival==duration-8&&phrase.breath==duration-4);
+            r.end=T(duration);auto phrase=planLinePhrase(r);CHECK(phrase.valid&&phrase.goal==72);
+            CHECK(phrase.arrival==T(duration-8)&&phrase.breath==T(duration-4));
             CHECK(phrase.notes[static_cast<size_t>(phrase.count-1)].pitch==phrase.goal);
             CHECK(phrase.notes[static_cast<size_t>(phrase.count-1)].end==phrase.breath);
             for(int i=0;i<phrase.count;++i)
@@ -335,7 +335,7 @@ int main()
                 if(i)CHECK(n.begin>phrase.notes[static_cast<size_t>(i-1)].begin);
             }
         }
-        r.initialNeighbour=1;r.end=80;CHECK(planLinePhrase(r).count==5);
+        r.initialNeighbour=1;r.end=T(80);CHECK(planLinePhrase(r).count==5);
         r.legato=false;const auto detached=planLinePhrase(r);
         for(int i=1;i<detached.count;++i)CHECK(detached.notes[static_cast<size_t>(i-1)].end<detached.notes[static_cast<size_t>(i)].begin);
         r.goalPitchClass=9;CHECK(!planLinePhrase(r).valid);

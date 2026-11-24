@@ -90,6 +90,6 @@ inline bool valid(const TexturePolicy& p)
         &&p.arpeggio.quarterBelow<=p.arpeggio.eighthBelow;
 }
 // Auto only: explicit rates and figure-specific sixteenth overrides remain in the adapter.
-inline int autoArpeggioTicks(const TexturePolicy& p,float intensity)
-{return intensity<p.arpeggio.quarterBelow?4:intensity<p.arpeggio.eighthBelow?2:1;}
+inline musicaltime::Tick autoArpeggioDuration(const TexturePolicy& p,float intensity)
+{return intensity<p.arpeggio.quarterBelow?musicaltime::quarter:intensity<p.arpeggio.eighthBelow?2*musicaltime::sixteenth:musicaltime::sixteenth;}
 }
