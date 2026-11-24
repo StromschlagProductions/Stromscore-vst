@@ -1,0 +1,81 @@
+"""Offline validation, generation drift, sharing and real compiled large-pool tests."""
+import copy,importlib.util,json,pathlib,shutil,subprocess,tempfile,unittest,os
+root=pathlib.Path(__file__).resolve().parents[1]
+spec=importlib.util.spec_from_file_location('harmony_generator',root/'scripts/generate_harmony_catalog.py');gen=importlib.util.module_from_spec(spec);spec.loader.exec_module(gen)
+class HarmonyDataTests(unittest.TestCase):
+ @classmethod
+ def setUpClass(cls):cls.original=gen.load(root/'data/harmony')
+ def rejected(self,mutate):
+  data=copy.deepcopy(self.original);mutate(data)
+  with self.assertRaises(gen.ValidationError):gen.validate(data)
+ def test_existing_and_reproducible(self):
+  m=gen.validate(self.original);self.assertEqual(len(m['templates']),84);self.assertEqual(len(m['profiles']),3)
+  self.assertEqual(set(m['templates']),set(range(1001,1049))|set(range(2001,2037)))
+  self.assertIn([1047,2015,2019],m['duplicate_groups'])
+  for path,content in gen.emit(self.original).items():self.assertEqual((root/path).read_text(encoding='utf-8'),content)
+ def test_bad_definitions(self):
+  mutations=[lambda d:d['catalog.json']['templates'].append(copy.deepcopy(d['catalog.json']['templates'][0])),
+   lambda d:d['catalog.json']['templates'][0].update(id=65535),lambda d:d['catalog.json']['templates'][0].update(symbol='class'),
+   lambda d:d['catalog.json']['templates'][0].update(name=''),lambda d:d['catalog.json']['templates'][0].update(xyz=[.1,[.2,.3],.4]),
+   lambda d:d['catalog.json']['templates'][0].update(xyz=[float('nan'),.2,.3]),lambda d:d['catalog.json']['templates'][0].update(xyz=[1.1,.2,.3]),
+   lambda d:d['catalog.json']['templates'][0]['chords'][0].update(root=-1),lambda d:d['catalog.json']['templates'][0]['chords'][0].update(root=True),
+   lambda d:d['catalog.json']['templates'][0]['chords'][0].update(type='Maj6'),lambda d:d['catalog.json']['templates'][0]['chords'][0].update(type=[]),
+   lambda d:d['catalog.json']['templates'][0]['chords'][0].update(bass=12),lambda d:d['catalog.json']['templates'][0]['chords'][0].update(bass=-1),
+   lambda d:d['catalog.json']['templates'][0]['chords'][0].update(bars=.5),lambda d:d['catalog.json']['templates'][0]['chords'][0].update(bars=0),
+   lambda d:d['catalog.json']['templates'][0]['chords'][0].update(bars=3),lambda d:d['catalog.json']['templates'][0].update(chords=[]),
+   lambda d:d['catalog.json']['templates'][0].update(chords=[copy.deepcopy(d['catalog.json']['templates'][0]['chords'][0])]*9),
+   lambda d:d['catalog.json']['templates'][0].update(instruments='not a harmonic field'),
+   lambda d:d['catalog.json']['templates'][0].update(source_ref='unknown'),lambda d:d['catalog.json']['templates'][0]['tonality'].update(mode='phrygian'),
+   lambda d:d['catalog.json']['templates'][0]['tonality'].update(mode='ionian'),lambda d:d['catalog.json']['pools']['score'].append(99999),
+   lambda d:d['catalog.json']['pools']['pop_rock'].append(1001),lambda d:d['profiles.json']['profiles'][1]['weights'][0].update(template_id=99999),
+   lambda d:d['profiles.json']['profiles'][1]['weights'][0].update(factor=0),lambda d:d['profiles.json']['profiles'][1]['weights'][0].update(factor=float('inf')),
+   lambda d:d['profiles.json']['profiles'][1]['weights'].append(copy.deepcopy(d['profiles.json']['profiles'][1]['weights'][0])),
+   lambda d:d['profiles.json']['profiles'][1].update(id=0),lambda d:d['arrangements.json']['recipes'][0].update(arp=['ArpUnknown','ArpUp']),
+   lambda d:d['arrangements.json']['recipes'][0].update(coloration='literal'),lambda d:d['arrangements.json']['bindings'][0].update(recipe='unknown'),
+   lambda d:d['chord_types.json']['types'][0].update(intervals=[0,4,99]),lambda d:d['chord_types.json']['types'][0].update(intervals=[0,4,4]),
+   lambda d:d['chord_types.json']['types'][0].update(intervals=[0,2,4,5,7,9]),lambda d:d['chord_types.json']['types'][0].update(value=True),lambda d:d['chord_types.json']['types'][0].update(intervals=[0,3,7])]
+  for i,mutation in enumerate(mutations):
+   with self.subTest(case=i):self.rejected(mutation)
+ def test_nonchord_slash_bass_is_valid(self):
+  d=copy.deepcopy(self.original);t=d['catalog.json']['templates'][0];t['chords']=[{'root':10,'type':'Maj','bars':8,'bass':0}];t['tonality']={'center_pc':0,'mode':'mixolydian'}
+  gen.validate(d)
+ def test_duplicate_json_keys_and_drift(self):
+  with tempfile.TemporaryDirectory() as tmp:
+   p=pathlib.Path(tmp)
+   for f in gen.FILES:(p/f).write_text(json.dumps(self.original[f]))
+   (p/'catalog.json').write_text('{"schema_version":1,"schema_version":1}')
+   with self.assertRaises(gen.ValidationError):gen.load(p)
+   for f in gen.FILES:(p/f).write_text(json.dumps(self.original[f]))
+   result=subprocess.run([os.sys.executable,str(root/'scripts/generate_harmony_catalog.py'),'--source',str(p),'--output-root',str(p/'missing'),'--check'],capture_output=True)
+   self.assertNotEqual(result.returncode,0);self.assertFalse((p/'missing').exists())
+ def test_large_shared_catalog_compiles_and_selects(self):
+  compiler=shutil.which('c++') or shutil.which('g++')
+  if not compiler:self.skipTest('C++17 compiler unavailable; offline validation still runs')
+  d=copy.deepcopy(self.original);cat=d['catalog.json'];binding=d['arrangements.json']['bindings'][0]['recipe']
+  for i in range(1200):
+   t=copy.deepcopy(cat['templates'][0]);t.update(id=3000+i,symbol='synthetic'+str(i),name='Synthetic '+str(i),xyz=[.5,.5,.5],genres=['score'],chords=[{'root':0,'type':'Maj','bars':8,'bass':None}],tonality={'center_pc':0,'mode':'mixolydian'});cat['templates'].append(t);cat['pools']['score'].append(t['id']);d['arrangements.json']['bindings'].append({'template_id':t['id'],'recipe':binding});d['notes.json']['entries'].append({'template_id':t['id'],'idea':'Synthetic test only','instruments':'Independent'})
+  cat['templates'][0]['genres'].append('pop_rock');cat['pools']['pop_rock'].append(1001)
+  for i in range(3,40):d['profiles.json']['profiles'].append({'id':i,'symbol':'testProfile'+str(i),'name':'Test '+str(i),'harmony_selection_only':True,'weights':[{'template_id':3000,'factor':2}]})
+  m=gen.validate(d);self.assertEqual(len(m['templates']),1284);self.assertEqual(len(m['profiles']),40);self.assertTrue(any(len(g)>=1200 for g in m['duplicate_groups']))
+  with tempfile.TemporaryDirectory() as tmp:
+   p=pathlib.Path(tmp);source=p/'Source';source.mkdir()
+   for f in (root/'Source').glob('*.h'):shutil.copyfile(f,source/f.name)
+   for name,content in gen.emit(d).items():target=p/name;target.parent.mkdir(parents=True,exist_ok=True);target.write_text(content)
+   code=p/'test.cpp';code.write_text('''#include "ScoreEngine.h"
+#include "TestSupport.h"
+#include <memory>
+using namespace stromscore;
+int main(){static_assert(kMaxWendungen==1248);static_assert(kCustomWendung>=kMaxWendungen);
+CHECK(harmonyTemplates.size()==1284);CHECK(composition::compositionProfiles.size()==40);
+CHECK(findHarmonyTemplate(static_cast<WendungId>(3000))->tonality.mode==composition::Mode::mixolydian);
+CHECK(wendungIndex(GenrePopRock,WendungId::scoreHalbtonNachbarn)>=0);
+CHECK(composition::harmonicPreference(static_cast<composition::ProfileId>(39),static_cast<WendungId>(3000))==2.f);
+CHECK(!findHarmonyTemplate(static_cast<WendungId>(0xfffffffe)));
+Settings s;s.x=s.y=s.z=.5f;s.variety=0;int ids[kMaxWendungen];
+{NoAllocations guard;CHECK(Generator::candidates(s,ids,kMaxWendungen)==1200);}
+bool aboveOldSentinel=false;for(int salt=0;salt<128;++salt){int i=Generator::pick(s,salt);CHECK(i>=48&&i<1248);aboveOldSentinel|=i>=1000;}CHECK(aboveOldSentinel);
+auto g=std::make_unique<Generator>();Transport t;t.playing=true;EventList events;
+{NoAllocations guard;g->process(t,s,512,events);}CHECK(!events.overflow&&g->wendung()!=kCustomWendung);
+}''')
+   exe=p/'test';flags=['-g','-fsanitize=address,undefined','-fno-omit-frame-pointer'] if os.environ.get('HARMONY_TEST_SANITIZE') else [];build=subprocess.run([compiler,'-std=c++17','-O1']+flags+['-I',str(source),'-I',str(root/'Tests'),str(code),'-o',str(exe)],capture_output=True);self.assertEqual(build.returncode,0,build.stderr.decode());subprocess.run([str(exe)],check=True)
+if __name__=='__main__':unittest.main()

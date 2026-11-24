@@ -2,6 +2,7 @@
 #include "ModalContext.h"
 #include "RhythmPlan.h"
 #include "ChordDisposition.h"
+#include "ProfileIdentity.generated.h"
 #include <array>
 #include <cmath>
 #include <cstddef>
@@ -59,7 +60,6 @@ inline bool valid(const BassPhrasePolicy& p){return p.opportunityEvery>=1&&p.opp
 struct FreeCompositionPolicy { TexturePolicy texture; MotifRecurrencePolicy motif; HookPolicy popHooks; PassingPolicy passing; BassPhrasePolicy bass; RhythmCoordinationPolicy rhythm; ChordDispositionPolicy chords; };
 inline constexpr FreeCompositionPolicy neutralFreePolicy {};
 // Artist identities currently provide only initial harmonic preferences; all texture data stay neutral.
-enum class ProfileId { neutral=0, johnBarry=1, bernardHerrmann=2 };
 struct CompositionProfile
 {
     ProfileId id;
@@ -67,11 +67,11 @@ struct CompositionProfile
     const FreeCompositionPolicy* policy;
     bool harmonySelectionOnly=false;
 };
-inline constexpr std::array<CompositionProfile,3> compositionProfiles {{
-    {ProfileId::neutral,"Neutral",&neutralFreePolicy},
-    {ProfileId::johnBarry,"John Barry",&neutralFreePolicy,true},
-    {ProfileId::bernardHerrmann,"Bernard Herrmann",&neutralFreePolicy,true}
-}};
+inline constexpr auto compositionProfiles=[] {
+    std::array<CompositionProfile,profileIdentities.size()> result {};
+    for(size_t i=0;i<result.size();++i){const auto& p=profileIdentities[i];result[i]={p.id,p.name,&neutralFreePolicy,p.harmonySelectionOnly};}
+    return result;
+}();
 inline constexpr const CompositionProfile* findProfile(ProfileId id)
 {
     for(const auto& p:compositionProfiles)if(p.id==id)return &p;

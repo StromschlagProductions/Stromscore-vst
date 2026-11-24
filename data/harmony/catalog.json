@@ -1,0 +1,3990 @@
+{
+  "schema_version": 1,
+  "sources": [
+    {
+      "id": "catalog_reference_1",
+      "text": "Stilmittel-Katalog von Lars Eickstädt (21.11.2026), eigene harmonische Umsetzung. Übergreifender Forschungskontext: https://www.mtosmt.org/issues/mto.13.19.4/mto.13.19.4.lehman.html ; Künstlerbezüge im Katalog sind Anregungen, kein Nachweis für diese konkrete Akkordfolge.",
+      "verification": "unconfirmed_style_hints"
+    },
+    {
+      "id": "catalog_reference_2",
+      "text": "Stilmittel-Katalog von Lars Eickstädt (21.11.2026), Abschnitt 80er Pop-Rock bzw. Weltraum-Disco und Teufelsgeiger. Eigene Umsetzung, keine Originalnoten bekannter Titel.",
+      "verification": "unconfirmed_style_hints"
+    },
+    {
+      "id": "catalog_reference_3",
+      "text": "https://www.guitarworld.com/features/interview-wang-chungs-jack-hues-and-nick-feldman-discuss-new-album-tazer",
+      "verification": "unconfirmed_style_hints"
+    },
+    {
+      "id": "catalog_reference_4",
+      "text": "https://www.guitarworld.com/artists/guitarists/steve-stevens-billy-idol-dream-into-it",
+      "verification": "unconfirmed_style_hints"
+    },
+    {
+      "id": "catalog_reference_5",
+      "text": "https://www.soundonsound.com/techniques/classic-tracks-frankie-goes-hollywood-relax",
+      "verification": "unconfirmed_style_hints"
+    },
+    {
+      "id": "catalog_reference_6",
+      "text": "https://www.redbullmusicacademy.com/lectures/trevor-horn-buggles-in-the-bassbin/",
+      "verification": "unconfirmed_style_hints"
+    },
+    {
+      "id": "catalog_reference_7",
+      "text": "https://rockcellarmagazine.com/colin-hay-man-still-at-work-interview-2/",
+      "verification": "unconfirmed_style_hints"
+    }
+  ],
+  "templates": [
+    {
+      "id": 1001,
+      "symbol": "scoreHalbtonNachbarn",
+      "name": "Halbton-Nachbarn",
+      "xyz": [
+        0.12,
+        0.3,
+        0.75
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "catalog_reference_1",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Min",
+          "bars": 2,
+          "bass": null
+        },
+        {
+          "root": 11,
+          "type": "Min",
+          "bars": 2,
+          "bass": null
+        },
+        {
+          "root": 0,
+          "type": "Min",
+          "bars": 2,
+          "bass": null
+        },
+        {
+          "root": 0,
+          "type": "MinMaj7",
+          "bars": 2,
+          "bass": null
+        }
+      ]
+    },
+    {
+      "id": 1002,
+      "symbol": "scoreGrundtonTeppich",
+      "name": "Grundton-Teppich",
+      "xyz": [
+        0.1,
+        0.45,
+        0.5
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "catalog_reference_1",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Min",
+          "bars": 4,
+          "bass": null
+        },
+        {
+          "root": 1,
+          "type": "Maj",
+          "bars": 4,
+          "bass": null
+        }
+      ]
+    },
+    {
+      "id": 1003,
+      "symbol": "scoreLauern",
+      "name": "Lauern",
+      "xyz": [
+        0.08,
+        0.1,
+        0.6
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "catalog_reference_1",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Min",
+          "bars": 8,
+          "bass": null
+        }
+      ]
+    },
+    {
+      "id": 1004,
+      "symbol": "scoreTrauer",
+      "name": "Trauer",
+      "xyz": [
+        0.28,
+        0.15,
+        0.08
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "catalog_reference_1",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Min",
+          "bars": 2,
+          "bass": null
+        },
+        {
+          "root": 8,
+          "type": "Maj",
+          "bars": 2,
+          "bass": null
+        },
+        {
+          "root": 5,
+          "type": "Min",
+          "bars": 2,
+          "bass": null
+        },
+        {
+          "root": 7,
+          "type": "Maj",
+          "bars": 2,
+          "bass": null
+        }
+      ]
+    },
+    {
+      "id": 1005,
+      "symbol": "scoreAgentenfarbe",
+      "name": "Agentenfarbe",
+      "xyz": [
+        0.3,
+        0.45,
+        0.45
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "catalog_reference_1",
+      "chords": [
+        {
+          "root": 0,
+          "type": "MinMaj9",
+          "bars": 4,
+          "bass": null
+        },
+        {
+          "root": 5,
+          "type": "MinMaj7",
+          "bars": 2,
+          "bass": null
+        },
+        {
+          "root": 0,
+          "type": "MinMaj9",
+          "bars": 2,
+          "bass": null
+        }
+      ]
+    },
+    {
+      "id": 1006,
+      "symbol": "scoreSeptakkordPaare",
+      "name": "Septakkord-Paare",
+      "xyz": [
+        0.22,
+        0.55,
+        0.55
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "catalog_reference_1",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Min7",
+          "bars": 2,
+          "bass": null
+        },
+        {
+          "root": 5,
+          "type": "Min7",
+          "bars": 2,
+          "bass": null
+        },
+        {
+          "root": 0,
+          "type": "Min7",
+          "bars": 2,
+          "bass": null
+        },
+        {
+          "root": 5,
+          "type": "Min7",
+          "bars": 2,
+          "bass": null
+        }
+      ]
+    },
+    {
+      "id": 1007,
+      "symbol": "scoreSchieferWalzer",
+      "name": "Schiefer Walzer",
+      "xyz": [
+        0.2,
+        0.55,
+        0.35
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "catalog_reference_1",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Min",
+          "bars": 2,
+          "bass": null
+        },
+        {
+          "root": 0,
+          "type": "MinMaj7",
+          "bars": 2,
+          "bass": null
+        },
+        {
+          "root": 5,
+          "type": "Min7",
+          "bars": 2,
+          "bass": null
+        },
+        {
+          "root": 7,
+          "type": "Dom7",
+          "bars": 2,
+          "bass": null
+        }
+      ]
+    },
+    {
+      "id": 1008,
+      "symbol": "scoreUnruhigerSchlaf",
+      "name": "Unruhiger Schlaf",
+      "xyz": [
+        0.25,
+        0.35,
+        0.4
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "catalog_reference_1",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Min",
+          "bars": 1,
+          "bass": null
+        },
+        {
+          "root": 8,
+          "type": "Maj",
+          "bars": 1,
+          "bass": null
+        },
+        {
+          "root": 9,
+          "type": "Dim7",
+          "bars": 1,
+          "bass": null
+        },
+        {
+          "root": 8,
+          "type": "Maj",
+          "bars": 1,
+          "bass": null
+        },
+        {
+          "root": 0,
+          "type": "Min",
+          "bars": 1,
+          "bass": null
+        },
+        {
+          "root": 8,
+          "type": "Maj",
+          "bars": 1,
+          "bass": null
+        },
+        {
+          "root": 9,
+          "type": "Dim7",
+          "bars": 1,
+          "bass": null
+        },
+        {
+          "root": 8,
+          "type": "Maj",
+          "bars": 1,
+          "bass": null
+        }
+      ]
+    },
+    {
+      "id": 1009,
+      "symbol": "scoreMollInseln",
+      "name": "Moll-Inseln",
+      "xyz": [
+        0.3,
+        0.45,
+        0.3
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "catalog_reference_1",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Min",
+          "bars": 2,
+          "bass": null
+        },
+        {
+          "root": 8,
+          "type": "Min",
+          "bars": 2,
+          "bass": null
+        },
+        {
+          "root": 3,
+          "type": "Min",
+          "bars": 2,
+          "bass": null
+        },
+        {
+          "root": 0,
+          "type": "Min",
+          "bars": 2,
+          "bass": null
+        }
+      ]
+    },
+    {
+      "id": 1010,
+      "symbol": "scoreGruselOrchester",
+      "name": "Grusel-Orchester",
+      "xyz": [
+        0.15,
+        0.5,
+        0.5
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "catalog_reference_1",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Min",
+          "bars": 2,
+          "bass": null
+        },
+        {
+          "root": 2,
+          "type": "HalfDim",
+          "bars": 2,
+          "bass": null
+        },
+        {
+          "root": 0,
+          "type": "Min",
+          "bars": 2,
+          "bass": null
+        },
+        {
+          "root": 1,
+          "type": "Maj",
+          "bars": 2,
+          "bass": null
+        }
+      ]
+    },
+    {
+      "id": 1011,
+      "symbol": "scoreGeisterball",
+      "name": "Geisterball",
+      "xyz": [
+        0.15,
+        0.55,
+        0.55
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "catalog_reference_1",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Min",
+          "bars": 2,
+          "bass": null
+        },
+        {
+          "root": 11,
+          "type": "Dim7",
+          "bars": 2,
+          "bass": null
+        },
+        {
+          "root": 0,
+          "type": "Min",
+          "bars": 2,
+          "bass": null
+        },
+        {
+          "root": 5,
+          "type": "Min6",
+          "bars": 2,
+          "bass": null
+        }
+      ]
+    },
+    {
+      "id": 1012,
+      "symbol": "scoreTerzTreppe",
+      "name": "Terz-Treppe",
+      "xyz": [
+        0.2,
+        0.8,
+        0.6
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "catalog_reference_1",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Maj",
+          "bars": 2,
+          "bass": null
+        },
+        {
+          "root": 3,
+          "type": "Maj",
+          "bars": 2,
+          "bass": null
+        },
+        {
+          "root": 6,
+          "type": "Maj",
+          "bars": 2,
+          "bass": null
+        },
+        {
+          "root": 9,
+          "type": "Maj",
+          "bars": 2,
+          "bass": null
+        }
+      ]
+    },
+    {
+      "id": 1013,
+      "symbol": "scoreTritonusSchock",
+      "name": "Tritonus-Schock",
+      "xyz": [
+        0.08,
+        0.88,
+        0.88
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "catalog_reference_1",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Min",
+          "bars": 2,
+          "bass": null
+        },
+        {
+          "root": 6,
+          "type": "Maj",
+          "bars": 2,
+          "bass": null
+        },
+        {
+          "root": 0,
+          "type": "Min",
+          "bars": 2,
+          "bass": null
+        },
+        {
+          "root": 11,
+          "type": "Dim7",
+          "bars": 2,
+          "bass": null
+        }
+      ]
+    },
+    {
+      "id": 1014,
+      "symbol": "scoreVerfolgung",
+      "name": "Verfolgung",
+      "xyz": [
+        0.25,
+        0.95,
+        0.8
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "catalog_reference_1",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Min",
+          "bars": 1,
+          "bass": null
+        },
+        {
+          "root": 6,
+          "type": "Min",
+          "bars": 1,
+          "bass": null
+        },
+        {
+          "root": 0,
+          "type": "Min",
+          "bars": 1,
+          "bass": null
+        },
+        {
+          "root": 1,
+          "type": "Maj",
+          "bars": 1,
+          "bass": null
+        },
+        {
+          "root": 0,
+          "type": "Min",
+          "bars": 1,
+          "bass": null
+        },
+        {
+          "root": 6,
+          "type": "Maj",
+          "bars": 1,
+          "bass": null
+        },
+        {
+          "root": 3,
+          "type": "Min",
+          "bars": 1,
+          "bass": null
+        },
+        {
+          "root": 11,
+          "type": "Dim7",
+          "bars": 1,
+          "bass": null
+        }
+      ]
+    },
+    {
+      "id": 1015,
+      "symbol": "scoreAchse",
+      "name": "Achse",
+      "xyz": [
+        0.15,
+        0.7,
+        0.75
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "catalog_reference_1",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Min6",
+          "bars": 2,
+          "bass": null
+        },
+        {
+          "root": 6,
+          "type": "Min6",
+          "bars": 2,
+          "bass": null
+        },
+        {
+          "root": 0,
+          "type": "Min6",
+          "bars": 2,
+          "bass": null
+        },
+        {
+          "root": 9,
+          "type": "Min7",
+          "bars": 2,
+          "bass": null
+        }
+      ]
+    },
+    {
+      "id": 1016,
+      "symbol": "scoreSog",
+      "name": "Sog",
+      "xyz": [
+        0.3,
+        0.7,
+        0.7
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "catalog_reference_1",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Aug",
+          "bars": 1,
+          "bass": null
+        },
+        {
+          "root": 11,
+          "type": "Aug",
+          "bars": 1,
+          "bass": null
+        },
+        {
+          "root": 10,
+          "type": "Aug",
+          "bars": 1,
+          "bass": null
+        },
+        {
+          "root": 9,
+          "type": "Aug",
+          "bars": 1,
+          "bass": null
+        },
+        {
+          "root": 8,
+          "type": "Aug",
+          "bars": 1,
+          "bass": null
+        },
+        {
+          "root": 7,
+          "type": "Aug",
+          "bars": 1,
+          "bass": null
+        },
+        {
+          "root": 6,
+          "type": "Aug",
+          "bars": 1,
+          "bass": null
+        },
+        {
+          "root": 5,
+          "type": "Aug",
+          "bars": 1,
+          "bass": null
+        }
+      ]
+    },
+    {
+      "id": 1017,
+      "symbol": "scoreMollMarsch",
+      "name": "Moll-Marsch",
+      "xyz": [
+        0.32,
+        0.75,
+        0.2
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "catalog_reference_1",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Min",
+          "bars": 2,
+          "bass": null
+        },
+        {
+          "root": 5,
+          "type": "Min",
+          "bars": 2,
+          "bass": null
+        },
+        {
+          "root": 8,
+          "type": "Maj",
+          "bars": 2,
+          "bass": null
+        },
+        {
+          "root": 7,
+          "type": "Maj",
+          "bars": 2,
+          "bass": null
+        }
+      ]
+    },
+    {
+      "id": 1018,
+      "symbol": "scoreEpischeSpannung",
+      "name": "Epische Spannung",
+      "xyz": [
+        0.45,
+        0.6,
+        0.15
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "catalog_reference_1",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Min",
+          "bars": 2,
+          "bass": null
+        },
+        {
+          "root": 8,
+          "type": "Maj",
+          "bars": 2,
+          "bass": null
+        },
+        {
+          "root": 3,
+          "type": "Maj",
+          "bars": 2,
+          "bass": null
+        },
+        {
+          "root": 10,
+          "type": "Maj",
+          "bars": 2,
+          "bass": null
+        }
+      ]
+    },
+    {
+      "id": 1019,
+      "symbol": "scoreErmittlung",
+      "name": "Ermittlung",
+      "xyz": [
+        0.4,
+        0.5,
+        0.2
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "catalog_reference_1",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Min6",
+          "bars": 2,
+          "bass": null
+        },
+        {
+          "root": 5,
+          "type": "Min7",
+          "bars": 2,
+          "bass": null
+        },
+        {
+          "root": 2,
+          "type": "HalfDim",
+          "bars": 2,
+          "bass": null
+        },
+        {
+          "root": 7,
+          "type": "Dom7",
+          "bars": 2,
+          "bass": null
+        }
+      ]
+    },
+    {
+      "id": 1020,
+      "symbol": "scoreSequenzerNacht",
+      "name": "Sequenzer-Nacht",
+      "xyz": [
+        0.3,
+        0.5,
+        0.2
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "catalog_reference_1",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Min",
+          "bars": 2,
+          "bass": null
+        },
+        {
+          "root": 8,
+          "type": "Maj7",
+          "bars": 2,
+          "bass": null
+        },
+        {
+          "root": 0,
+          "type": "Min",
+          "bars": 2,
+          "bass": null
+        },
+        {
+          "root": 8,
+          "type": "Maj7",
+          "bars": 2,
+          "bass": null
+        }
+      ]
+    },
+    {
+      "id": 1021,
+      "symbol": "scoreNachtFlachen",
+      "name": "Nacht-Flächen",
+      "xyz": [
+        0.45,
+        0.3,
+        0.1
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "catalog_reference_1",
+      "chords": [
+        {
+          "root": 8,
+          "type": "Maj7",
+          "bars": 2,
+          "bass": null
+        },
+        {
+          "root": 5,
+          "type": "Min7",
+          "bars": 2,
+          "bass": null
+        },
+        {
+          "root": 7,
+          "type": "Min7",
+          "bars": 2,
+          "bass": null
+        },
+        {
+          "root": 0,
+          "type": "Min7",
+          "bars": 2,
+          "bass": null
+        }
+      ]
+    },
+    {
+      "id": 1022,
+      "symbol": "scoreSynthGroove",
+      "name": "Synth-Groove",
+      "xyz": [
+        0.55,
+        0.7,
+        0.15
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "catalog_reference_1",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Min",
+          "bars": 2,
+          "bass": null
+        },
+        {
+          "root": 10,
+          "type": "Maj",
+          "bars": 2,
+          "bass": null
+        },
+        {
+          "root": 8,
+          "type": "Maj",
+          "bars": 2,
+          "bass": null
+        },
+        {
+          "root": 10,
+          "type": "Maj",
+          "bars": 2,
+          "bass": null
+        }
+      ]
+    },
+    {
+      "id": 1023,
+      "symbol": "scoreFunkSpannung",
+      "name": "Funk-Spannung",
+      "xyz": [
+        0.5,
+        0.65,
+        0.25
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "catalog_reference_1",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Min9",
+          "bars": 2,
+          "bass": null
+        },
+        {
+          "root": 5,
+          "type": "Dom7",
+          "bars": 2,
+          "bass": null
+        },
+        {
+          "root": 0,
+          "type": "Min9",
+          "bars": 2,
+          "bass": null
+        },
+        {
+          "root": 10,
+          "type": "Dom7",
+          "bars": 2,
+          "bass": null
+        }
+      ]
+    },
+    {
+      "id": 1024,
+      "symbol": "scoreFremdeOrte",
+      "name": "Fremde Orte",
+      "xyz": [
+        0.3,
+        0.5,
+        0.45
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "catalog_reference_1",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Dom7b9",
+          "bars": 2,
+          "bass": null
+        },
+        {
+          "root": 1,
+          "type": "Maj",
+          "bars": 2,
+          "bass": null
+        },
+        {
+          "root": 0,
+          "type": "Dom7b9",
+          "bars": 2,
+          "bass": null
+        },
+        {
+          "root": 5,
+          "type": "Min",
+          "bars": 2,
+          "bass": null
+        }
+      ]
+    },
+    {
+      "id": 1025,
+      "symbol": "scoreWurmloch",
+      "name": "Wurmloch",
+      "xyz": [
+        0.4,
+        0.55,
+        0.55
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "catalog_reference_1",
+      "chords": [
+        {
+          "root": 7,
+          "type": "Aug",
+          "bars": 2,
+          "bass": null
+        },
+        {
+          "root": 0,
+          "type": "Min",
+          "bars": 2,
+          "bass": null
+        },
+        {
+          "root": 8,
+          "type": "Aug",
+          "bars": 2,
+          "bass": null
+        },
+        {
+          "root": 1,
+          "type": "Min",
+          "bars": 2,
+          "bass": null
+        }
+      ]
+    },
+    {
+      "id": 1026,
+      "symbol": "scoreQuartenRuf",
+      "name": "Quarten-Ruf",
+      "xyz": [
+        0.55,
+        0.6,
+        0.3
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "catalog_reference_1",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Quartal",
+          "bars": 2,
+          "bass": null
+        },
+        {
+          "root": 10,
+          "type": "Add9",
+          "bars": 2,
+          "bass": null
+        },
+        {
+          "root": 0,
+          "type": "Quartal",
+          "bars": 2,
+          "bass": null
+        },
+        {
+          "root": 5,
+          "type": "Sus4",
+          "bars": 2,
+          "bass": null
+        }
+      ]
+    },
+    {
+      "id": 1027,
+      "symbol": "scoreGeheimnis",
+      "name": "Geheimnis",
+      "xyz": [
+        0.45,
+        0.3,
+        0.5
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "catalog_reference_1",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Aug",
+          "bars": 2,
+          "bass": null
+        },
+        {
+          "root": 2,
+          "type": "Aug",
+          "bars": 2,
+          "bass": null
+        },
+        {
+          "root": 0,
+          "type": "Aug",
+          "bars": 2,
+          "bass": null
+        },
+        {
+          "root": 10,
+          "type": "Aug",
+          "bars": 2,
+          "bass": null
+        }
+      ]
+    },
+    {
+      "id": 1028,
+      "symbol": "scoreQuartenWeite",
+      "name": "Quarten-Weite",
+      "xyz": [
+        0.6,
+        0.45,
+        0.45
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "catalog_reference_1",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Quartal",
+          "bars": 2,
+          "bass": null
+        },
+        {
+          "root": 10,
+          "type": "Quartal",
+          "bars": 2,
+          "bass": null
+        },
+        {
+          "root": 0,
+          "type": "Quartal",
+          "bars": 2,
+          "bass": null
+        },
+        {
+          "root": 6,
+          "type": "Maj",
+          "bars": 2,
+          "bass": null
+        }
+      ]
+    },
+    {
+      "id": 1029,
+      "symbol": "scoreSchneelinien",
+      "name": "Schneelinien",
+      "xyz": [
+        0.55,
+        0.3,
+        0.1
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "catalog_reference_1",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Sus2",
+          "bars": 2,
+          "bass": null
+        },
+        {
+          "root": 10,
+          "type": "Add9",
+          "bars": 2,
+          "bass": null
+        },
+        {
+          "root": 5,
+          "type": "Add9",
+          "bars": 2,
+          "bass": null
+        },
+        {
+          "root": 0,
+          "type": "Min7",
+          "bars": 2,
+          "bass": null
+        }
+      ]
+    },
+    {
+      "id": 1030,
+      "symbol": "scoreDorischerSchimmer",
+      "name": "Dorischer Schimmer",
+      "xyz": [
+        0.6,
+        0.45,
+        0.05
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "catalog_reference_1",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Min7",
+          "bars": 2,
+          "bass": null
+        },
+        {
+          "root": 2,
+          "type": "Min7",
+          "bars": 2,
+          "bass": null
+        },
+        {
+          "root": 3,
+          "type": "Maj7",
+          "bars": 2,
+          "bass": null
+        },
+        {
+          "root": 5,
+          "type": "Maj",
+          "bars": 2,
+          "bass": null
+        }
+      ]
+    },
+    {
+      "id": 1031,
+      "symbol": "scoreGleiten",
+      "name": "Gleiten",
+      "xyz": [
+        0.6,
+        0.35,
+        0.25
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "catalog_reference_1",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Maj7",
+          "bars": 2,
+          "bass": null
+        },
+        {
+          "root": 11,
+          "type": "Maj7",
+          "bars": 2,
+          "bass": null
+        },
+        {
+          "root": 10,
+          "type": "Maj7",
+          "bars": 2,
+          "bass": null
+        },
+        {
+          "root": 9,
+          "type": "Maj7",
+          "bars": 2,
+          "bass": null
+        }
+      ]
+    },
+    {
+      "id": 1032,
+      "symbol": "scoreOffeneQuinten",
+      "name": "Offene Quinten",
+      "xyz": [
+        0.65,
+        0.3,
+        0.05
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "catalog_reference_1",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Fifth",
+          "bars": 2,
+          "bass": null
+        },
+        {
+          "root": 2,
+          "type": "Fifth",
+          "bars": 2,
+          "bass": null
+        },
+        {
+          "root": 4,
+          "type": "Fifth",
+          "bars": 2,
+          "bass": null
+        },
+        {
+          "root": 5,
+          "type": "Fifth",
+          "bars": 2,
+          "bass": null
+        }
+      ]
+    },
+    {
+      "id": 1033,
+      "symbol": "scoreBewegterAbschied",
+      "name": "Bewegter Abschied",
+      "xyz": [
+        0.6,
+        0.35,
+        0.15
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "catalog_reference_1",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Maj",
+          "bars": 2,
+          "bass": null
+        },
+        {
+          "root": 7,
+          "type": "Maj",
+          "bars": 2,
+          "bass": null
+        },
+        {
+          "root": 9,
+          "type": "Min",
+          "bars": 2,
+          "bass": null
+        },
+        {
+          "root": 5,
+          "type": "Maj",
+          "bars": 2,
+          "bass": null
+        }
+      ]
+    },
+    {
+      "id": 1034,
+      "symbol": "scoreSehnsucht",
+      "name": "Sehnsucht",
+      "xyz": [
+        0.62,
+        0.2,
+        0
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "catalog_reference_1",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Maj",
+          "bars": 2,
+          "bass": null
+        },
+        {
+          "root": 5,
+          "type": "Maj",
+          "bars": 2,
+          "bass": null
+        },
+        {
+          "root": 5,
+          "type": "Min",
+          "bars": 2,
+          "bass": null
+        },
+        {
+          "root": 0,
+          "type": "Maj",
+          "bars": 2,
+          "bass": null
+        }
+      ]
+    },
+    {
+      "id": 1035,
+      "symbol": "scoreWeite",
+      "name": "Weite",
+      "xyz": [
+        0.65,
+        0.15,
+        0.05
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "catalog_reference_1",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Add9",
+          "bars": 2,
+          "bass": null
+        },
+        {
+          "root": 9,
+          "type": "Min7",
+          "bars": 2,
+          "bass": null
+        },
+        {
+          "root": 5,
+          "type": "Maj7",
+          "bars": 2,
+          "bass": null
+        },
+        {
+          "root": 7,
+          "type": "Sus4",
+          "bars": 2,
+          "bass": null
+        }
+      ]
+    },
+    {
+      "id": 1036,
+      "symbol": "scoreErhaben",
+      "name": "Erhaben",
+      "xyz": [
+        0.7,
+        0.3,
+        0
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "catalog_reference_1",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Maj",
+          "bars": 2,
+          "bass": null
+        },
+        {
+          "root": 5,
+          "type": "Maj",
+          "bars": 2,
+          "bass": null
+        },
+        {
+          "root": 9,
+          "type": "Min",
+          "bars": 2,
+          "bass": null
+        },
+        {
+          "root": 5,
+          "type": "Maj",
+          "bars": 1,
+          "bass": null
+        },
+        {
+          "root": 0,
+          "type": "Maj",
+          "bars": 1,
+          "bass": null
+        }
+      ]
+    },
+    {
+      "id": 1037,
+      "symbol": "scoreRomantik",
+      "name": "Romantik",
+      "xyz": [
+        0.75,
+        0.3,
+        0
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "catalog_reference_1",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Maj",
+          "bars": 2,
+          "bass": null
+        },
+        {
+          "root": 9,
+          "type": "Min",
+          "bars": 2,
+          "bass": null
+        },
+        {
+          "root": 4,
+          "type": "Min",
+          "bars": 2,
+          "bass": null
+        },
+        {
+          "root": 5,
+          "type": "Maj",
+          "bars": 2,
+          "bass": null
+        }
+      ]
+    },
+    {
+      "id": 1038,
+      "symbol": "scoreWarme",
+      "name": "Wärme",
+      "xyz": [
+        0.8,
+        0.18,
+        0
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "catalog_reference_1",
+      "chords": [
+        {
+          "root": 5,
+          "type": "Maj7",
+          "bars": 2,
+          "bass": null
+        },
+        {
+          "root": 0,
+          "type": "Maj7",
+          "bars": 2,
+          "bass": null
+        },
+        {
+          "root": 5,
+          "type": "Maj7",
+          "bars": 2,
+          "bass": null
+        },
+        {
+          "root": 0,
+          "type": "Maj7",
+          "bars": 2,
+          "bass": null
+        }
+      ]
+    },
+    {
+      "id": 1039,
+      "symbol": "scoreLydischesStaunen",
+      "name": "Lydisches Staunen",
+      "xyz": [
+        0.85,
+        0.35,
+        0.1
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "catalog_reference_1",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Maj",
+          "bars": 2,
+          "bass": null
+        },
+        {
+          "root": 2,
+          "type": "Maj",
+          "bars": 2,
+          "bass": null
+        },
+        {
+          "root": 0,
+          "type": "Maj7",
+          "bars": 2,
+          "bass": null
+        },
+        {
+          "root": 2,
+          "type": "Maj",
+          "bars": 2,
+          "bass": null
+        }
+      ]
+    },
+    {
+      "id": 1040,
+      "symbol": "scoreTerrassen",
+      "name": "Terrassen",
+      "xyz": [
+        0.8,
+        0.4,
+        0.1
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "catalog_reference_1",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Maj",
+          "bars": 1,
+          "bass": null
+        },
+        {
+          "root": 2,
+          "type": "Maj",
+          "bars": 1,
+          "bass": 0
+        },
+        {
+          "root": 10,
+          "type": "Maj",
+          "bars": 1,
+          "bass": null
+        },
+        {
+          "root": 0,
+          "type": "Maj",
+          "bars": 1,
+          "bass": 10
+        },
+        {
+          "root": 5,
+          "type": "Maj",
+          "bars": 1,
+          "bass": null
+        },
+        {
+          "root": 7,
+          "type": "Maj",
+          "bars": 1,
+          "bass": 5
+        },
+        {
+          "root": 0,
+          "type": "Maj",
+          "bars": 2,
+          "bass": null
+        }
+      ]
+    },
+    {
+      "id": 1041,
+      "symbol": "scoreAbenteuer",
+      "name": "Abenteuer",
+      "xyz": [
+        0.7,
+        0.55,
+        0.1
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "catalog_reference_1",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Maj7",
+          "bars": 2,
+          "bass": null
+        },
+        {
+          "root": 2,
+          "type": "Min7",
+          "bars": 2,
+          "bass": null
+        },
+        {
+          "root": 4,
+          "type": "Min7",
+          "bars": 2,
+          "bass": null
+        },
+        {
+          "root": 7,
+          "type": "Dom7",
+          "bars": 2,
+          "bass": null
+        }
+      ]
+    },
+    {
+      "id": 1042,
+      "symbol": "scoreTerzverwandtschaft",
+      "name": "Terzverwandtschaft",
+      "xyz": [
+        0.72,
+        0.68,
+        0.3
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "catalog_reference_1",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Maj",
+          "bars": 2,
+          "bass": null
+        },
+        {
+          "root": 4,
+          "type": "Maj",
+          "bars": 2,
+          "bass": null
+        },
+        {
+          "root": 8,
+          "type": "Maj",
+          "bars": 2,
+          "bass": null
+        },
+        {
+          "root": 0,
+          "type": "Maj",
+          "bars": 2,
+          "bass": null
+        }
+      ]
+    },
+    {
+      "id": 1043,
+      "symbol": "scoreHeiter",
+      "name": "Heiter",
+      "xyz": [
+        0.82,
+        0.5,
+        0.05
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "catalog_reference_1",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Maj",
+          "bars": 2,
+          "bass": null
+        },
+        {
+          "root": 5,
+          "type": "Maj",
+          "bars": 2,
+          "bass": null
+        },
+        {
+          "root": 7,
+          "type": "Dom7",
+          "bars": 2,
+          "bass": null
+        },
+        {
+          "root": 0,
+          "type": "Maj",
+          "bars": 2,
+          "bass": null
+        }
+      ]
+    },
+    {
+      "id": 1044,
+      "symbol": "scoreWestern",
+      "name": "Western",
+      "xyz": [
+        0.85,
+        0.55,
+        0.05
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "catalog_reference_1",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Maj",
+          "bars": 2,
+          "bass": null
+        },
+        {
+          "root": 5,
+          "type": "Maj",
+          "bars": 2,
+          "bass": null
+        },
+        {
+          "root": 0,
+          "type": "Maj",
+          "bars": 2,
+          "bass": null
+        },
+        {
+          "root": 10,
+          "type": "Maj",
+          "bars": 2,
+          "bass": null
+        }
+      ]
+    },
+    {
+      "id": 1045,
+      "symbol": "scoreErhebung",
+      "name": "Erhebung",
+      "xyz": [
+        0.75,
+        0.7,
+        0.15
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "catalog_reference_1",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Maj",
+          "bars": 1,
+          "bass": null
+        },
+        {
+          "root": 0,
+          "type": "Dom7",
+          "bars": 1,
+          "bass": null
+        },
+        {
+          "root": 10,
+          "type": "Maj",
+          "bars": 1,
+          "bass": null
+        },
+        {
+          "root": 10,
+          "type": "Dom7",
+          "bars": 1,
+          "bass": null
+        },
+        {
+          "root": 8,
+          "type": "Maj",
+          "bars": 1,
+          "bass": null
+        },
+        {
+          "root": 8,
+          "type": "Dom7",
+          "bars": 1,
+          "bass": null
+        },
+        {
+          "root": 1,
+          "type": "Maj",
+          "bars": 1,
+          "bass": null
+        },
+        {
+          "root": 1,
+          "type": "Maj",
+          "bars": 1,
+          "bass": null
+        }
+      ]
+    },
+    {
+      "id": 1046,
+      "symbol": "scoreFanfare",
+      "name": "Fanfare",
+      "xyz": [
+        0.7,
+        0.85,
+        0.2
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "catalog_reference_1",
+      "chords": [
+        {
+          "root": 7,
+          "type": "Dim7",
+          "bars": 2,
+          "bass": null
+        },
+        {
+          "root": 0,
+          "type": "Fifth",
+          "bars": 2,
+          "bass": null
+        },
+        {
+          "root": 5,
+          "type": "Dim7",
+          "bars": 2,
+          "bass": null
+        },
+        {
+          "root": 10,
+          "type": "Fifth",
+          "bars": 2,
+          "bass": null
+        }
+      ]
+    },
+    {
+      "id": 1047,
+      "symbol": "scoreHeldisch",
+      "name": "Heldisch",
+      "xyz": [
+        0.8,
+        0.75,
+        0.1
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "catalog_reference_1",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Maj",
+          "bars": 2,
+          "bass": null
+        },
+        {
+          "root": 10,
+          "type": "Maj",
+          "bars": 2,
+          "bass": null
+        },
+        {
+          "root": 5,
+          "type": "Maj",
+          "bars": 2,
+          "bass": null
+        },
+        {
+          "root": 0,
+          "type": "Maj",
+          "bars": 2,
+          "bass": null
+        }
+      ]
+    },
+    {
+      "id": 1048,
+      "symbol": "scoreTriumph",
+      "name": "Triumph",
+      "xyz": [
+        0.88,
+        0.92,
+        0.05
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "catalog_reference_1",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Maj",
+          "bars": 2,
+          "bass": null
+        },
+        {
+          "root": 8,
+          "type": "Maj",
+          "bars": 2,
+          "bass": null
+        },
+        {
+          "root": 10,
+          "type": "Maj",
+          "bars": 2,
+          "bass": null
+        },
+        {
+          "root": 0,
+          "type": "Maj",
+          "bars": 2,
+          "bass": null
+        }
+      ]
+    },
+    {
+      "id": 2001,
+      "symbol": "popKalteWelle",
+      "name": "Kalte Welle",
+      "xyz": [
+        0.12,
+        0.45,
+        0.45
+      ],
+      "genres": [
+        "pop_rock"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "catalog_reference_2",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Min",
+          "bars": 4,
+          "bass": null
+        },
+        {
+          "root": 1,
+          "type": "Maj",
+          "bars": 4,
+          "bass": null
+        }
+      ]
+    },
+    {
+      "id": 2002,
+      "symbol": "popNeonregen",
+      "name": "Neonregen",
+      "xyz": [
+        0.35,
+        0.25,
+        0.1
+      ],
+      "genres": [
+        "pop_rock"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "catalog_reference_2",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Min",
+          "bars": 2,
+          "bass": null
+        },
+        {
+          "root": 5,
+          "type": "Min",
+          "bars": 2,
+          "bass": null
+        },
+        {
+          "root": 8,
+          "type": "Maj",
+          "bars": 2,
+          "bass": null
+        },
+        {
+          "root": 10,
+          "type": "Maj",
+          "bars": 2,
+          "bass": null
+        }
+      ]
+    },
+    {
+      "id": 2003,
+      "symbol": "popNachtfahrt",
+      "name": "Nachtfahrt",
+      "xyz": [
+        0.3,
+        0.4,
+        0.15
+      ],
+      "genres": [
+        "pop_rock"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "catalog_reference_2",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Min",
+          "bars": 2,
+          "bass": null
+        },
+        {
+          "root": 8,
+          "type": "Maj",
+          "bars": 2,
+          "bass": null
+        },
+        {
+          "root": 3,
+          "type": "Maj",
+          "bars": 2,
+          "bass": null
+        },
+        {
+          "root": 10,
+          "type": "Maj",
+          "bars": 2,
+          "bass": null
+        }
+      ]
+    },
+    {
+      "id": 2004,
+      "symbol": "popSequenzerFieber",
+      "name": "Sequenzer-Fieber",
+      "xyz": [
+        0.3,
+        0.55,
+        0.25
+      ],
+      "genres": [
+        "pop_rock"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "catalog_reference_2",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Min",
+          "bars": 2,
+          "bass": null
+        },
+        {
+          "root": 8,
+          "type": "Maj7",
+          "bars": 2,
+          "bass": null
+        },
+        {
+          "root": 0,
+          "type": "Min",
+          "bars": 2,
+          "bass": null
+        },
+        {
+          "root": 8,
+          "type": "Maj7",
+          "bars": 2,
+          "bass": null
+        }
+      ]
+    },
+    {
+      "id": 2005,
+      "symbol": "popMiamiNacht",
+      "name": "Miami-Nacht",
+      "xyz": [
+        0.45,
+        0.35,
+        0.1
+      ],
+      "genres": [
+        "pop_rock"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "catalog_reference_2",
+      "chords": [
+        {
+          "root": 8,
+          "type": "Maj7",
+          "bars": 2,
+          "bass": null
+        },
+        {
+          "root": 5,
+          "type": "Min7",
+          "bars": 2,
+          "bass": null
+        },
+        {
+          "root": 7,
+          "type": "Min7",
+          "bars": 2,
+          "bass": null
+        },
+        {
+          "root": 0,
+          "type": "Min7",
+          "bars": 2,
+          "bass": null
+        }
+      ]
+    },
+    {
+      "id": 2006,
+      "symbol": "popKalterKrieg",
+      "name": "Kalter Krieg",
+      "xyz": [
+        0.1,
+        0.75,
+        0.85
+      ],
+      "genres": [
+        "pop_rock"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "catalog_reference_2",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Min",
+          "bars": 2,
+          "bass": null
+        },
+        {
+          "root": 6,
+          "type": "Maj",
+          "bars": 2,
+          "bass": null
+        },
+        {
+          "root": 0,
+          "type": "Min",
+          "bars": 2,
+          "bass": null
+        },
+        {
+          "root": 11,
+          "type": "Dim7",
+          "bars": 2,
+          "bass": null
+        }
+      ]
+    },
+    {
+      "id": 2007,
+      "symbol": "popJagdDurchLA",
+      "name": "Jagd durch L.A.",
+      "xyz": [
+        0.15,
+        0.95,
+        0.7
+      ],
+      "genres": [
+        "pop_rock"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "catalog_reference_2",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Min",
+          "bars": 1,
+          "bass": null
+        },
+        {
+          "root": 8,
+          "type": "Maj",
+          "bars": 1,
+          "bass": null
+        },
+        {
+          "root": 10,
+          "type": "Maj",
+          "bars": 1,
+          "bass": null
+        },
+        {
+          "root": 0,
+          "type": "Min",
+          "bars": 1,
+          "bass": null
+        },
+        {
+          "root": 6,
+          "type": "Maj",
+          "bars": 1,
+          "bass": null
+        },
+        {
+          "root": 8,
+          "type": "Maj",
+          "bars": 1,
+          "bass": null
+        },
+        {
+          "root": 10,
+          "type": "Maj",
+          "bars": 1,
+          "bass": null
+        },
+        {
+          "root": 11,
+          "type": "Dim7",
+          "bars": 1,
+          "bass": null
+        }
+      ]
+    },
+    {
+      "id": 2008,
+      "symbol": "popBombast",
+      "name": "Bombast",
+      "xyz": [
+        0.2,
+        0.9,
+        0.55
+      ],
+      "genres": [
+        "pop_rock"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "catalog_reference_2",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Min",
+          "bars": 4,
+          "bass": null
+        },
+        {
+          "root": 8,
+          "type": "Maj",
+          "bars": 2,
+          "bass": null
+        },
+        {
+          "root": 10,
+          "type": "Maj",
+          "bars": 2,
+          "bass": null
+        }
+      ]
+    },
+    {
+      "id": 2009,
+      "symbol": "popRebellenschrei",
+      "name": "Rebellenschrei",
+      "xyz": [
+        0.25,
+        0.85,
+        0.4
+      ],
+      "genres": [
+        "pop_rock"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "catalog_reference_2",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Fifth",
+          "bars": 2,
+          "bass": null
+        },
+        {
+          "root": 10,
+          "type": "Fifth",
+          "bars": 2,
+          "bass": null
+        },
+        {
+          "root": 8,
+          "type": "Fifth",
+          "bars": 2,
+          "bass": null
+        },
+        {
+          "root": 10,
+          "type": "Fifth",
+          "bars": 2,
+          "bass": null
+        }
+      ]
+    },
+    {
+      "id": 2010,
+      "symbol": "popKommando",
+      "name": "Kommando",
+      "xyz": [
+        0.3,
+        0.8,
+        0.3
+      ],
+      "genres": [
+        "pop_rock"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "catalog_reference_2",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Min",
+          "bars": 2,
+          "bass": null
+        },
+        {
+          "root": 10,
+          "type": "Maj",
+          "bars": 2,
+          "bass": null
+        },
+        {
+          "root": 8,
+          "type": "Maj",
+          "bars": 2,
+          "bass": null
+        },
+        {
+          "root": 7,
+          "type": "Dom7",
+          "bars": 2,
+          "bass": null
+        }
+      ]
+    },
+    {
+      "id": 2011,
+      "symbol": "popGalopp",
+      "name": "Galopp",
+      "xyz": [
+        0.4,
+        0.85,
+        0.35
+      ],
+      "genres": [
+        "pop_rock"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "catalog_reference_2",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Min",
+          "bars": 2,
+          "bass": null
+        },
+        {
+          "root": 7,
+          "type": "Dom7",
+          "bars": 1,
+          "bass": null
+        },
+        {
+          "root": 0,
+          "type": "Min",
+          "bars": 1,
+          "bass": null
+        },
+        {
+          "root": 8,
+          "type": "Maj",
+          "bars": 2,
+          "bass": null
+        },
+        {
+          "root": 7,
+          "type": "Dom7",
+          "bars": 2,
+          "bass": null
+        }
+      ]
+    },
+    {
+      "id": 2012,
+      "symbol": "popDunklerGlanz",
+      "name": "Dunkler Glanz",
+      "xyz": [
+        0.45,
+        0.65,
+        0.25
+      ],
+      "genres": [
+        "pop_rock"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "catalog_reference_2",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Min",
+          "bars": 2,
+          "bass": null
+        },
+        {
+          "root": 5,
+          "type": "Maj",
+          "bars": 2,
+          "bass": null
+        },
+        {
+          "root": 0,
+          "type": "Min",
+          "bars": 2,
+          "bass": null
+        },
+        {
+          "root": 5,
+          "type": "Maj",
+          "bars": 2,
+          "bass": null
+        }
+      ]
+    },
+    {
+      "id": 2013,
+      "symbol": "popSynthFunk",
+      "name": "Synth-Funk",
+      "xyz": [
+        0.55,
+        0.7,
+        0.15
+      ],
+      "genres": [
+        "pop_rock"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "catalog_reference_2",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Min",
+          "bars": 2,
+          "bass": null
+        },
+        {
+          "root": 10,
+          "type": "Maj",
+          "bars": 2,
+          "bass": null
+        },
+        {
+          "root": 8,
+          "type": "Maj",
+          "bars": 2,
+          "bass": null
+        },
+        {
+          "root": 10,
+          "type": "Maj",
+          "bars": 2,
+          "bass": null
+        }
+      ]
+    },
+    {
+      "id": 2014,
+      "symbol": "popMosaik",
+      "name": "Mosaik",
+      "xyz": [
+        0.6,
+        0.55,
+        0.1
+      ],
+      "genres": [
+        "pop_rock"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "catalog_reference_2",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Maj",
+          "bars": 2,
+          "bass": null
+        },
+        {
+          "root": 7,
+          "type": "Maj",
+          "bars": 2,
+          "bass": null
+        },
+        {
+          "root": 9,
+          "type": "Min",
+          "bars": 2,
+          "bass": null
+        },
+        {
+          "root": 5,
+          "type": "Maj",
+          "bars": 2,
+          "bass": null
+        }
+      ]
+    },
+    {
+      "id": 2015,
+      "symbol": "popTanzsaal",
+      "name": "Tanzsaal",
+      "xyz": [
+        0.65,
+        0.65,
+        0.15
+      ],
+      "genres": [
+        "pop_rock"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "catalog_reference_2",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Maj",
+          "bars": 2,
+          "bass": null
+        },
+        {
+          "root": 10,
+          "type": "Maj",
+          "bars": 2,
+          "bass": null
+        },
+        {
+          "root": 5,
+          "type": "Maj",
+          "bars": 2,
+          "bass": null
+        },
+        {
+          "root": 0,
+          "type": "Maj",
+          "bars": 2,
+          "bass": null
+        }
+      ]
+    },
+    {
+      "id": 2016,
+      "symbol": "popPowerballade",
+      "name": "Powerballade",
+      "xyz": [
+        0.7,
+        0.3,
+        0.05
+      ],
+      "genres": [
+        "pop_rock"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "catalog_reference_2",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Maj",
+          "bars": 2,
+          "bass": null
+        },
+        {
+          "root": 4,
+          "type": "Min",
+          "bars": 2,
+          "bass": null
+        },
+        {
+          "root": 5,
+          "type": "Maj",
+          "bars": 2,
+          "bass": null
+        },
+        {
+          "root": 7,
+          "type": "Maj",
+          "bars": 2,
+          "bass": null
+        }
+      ]
+    },
+    {
+      "id": 2017,
+      "symbol": "popMachtakkorde",
+      "name": "Machtakkorde",
+      "xyz": [
+        0.7,
+        0.8,
+        0.3
+      ],
+      "genres": [
+        "pop_rock"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "catalog_reference_2",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Fifth",
+          "bars": 2,
+          "bass": null
+        },
+        {
+          "root": 10,
+          "type": "Fifth",
+          "bars": 2,
+          "bass": null
+        },
+        {
+          "root": 5,
+          "type": "Fifth",
+          "bars": 2,
+          "bass": null
+        },
+        {
+          "root": 0,
+          "type": "Fifth",
+          "bars": 2,
+          "bass": null
+        }
+      ]
+    },
+    {
+      "id": 2018,
+      "symbol": "popSunsetStrip",
+      "name": "Sunset Strip",
+      "xyz": [
+        0.8,
+        0.45,
+        0.05
+      ],
+      "genres": [
+        "pop_rock"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "catalog_reference_2",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Add9",
+          "bars": 2,
+          "bass": null
+        },
+        {
+          "root": 5,
+          "type": "Maj",
+          "bars": 2,
+          "bass": 0
+        },
+        {
+          "root": 0,
+          "type": "Add9",
+          "bars": 2,
+          "bass": null
+        },
+        {
+          "root": 7,
+          "type": "Sus4",
+          "bars": 2,
+          "bass": null
+        }
+      ]
+    },
+    {
+      "id": 2019,
+      "symbol": "popSonnenseite",
+      "name": "Sonnenseite",
+      "xyz": [
+        0.8,
+        0.65,
+        0.1
+      ],
+      "genres": [
+        "pop_rock"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "catalog_reference_2",
+      "chords": [
+        {
+          "root": 10,
+          "type": "Maj",
+          "bars": 2,
+          "bass": null
+        },
+        {
+          "root": 5,
+          "type": "Maj",
+          "bars": 2,
+          "bass": null
+        },
+        {
+          "root": 0,
+          "type": "Maj",
+          "bars": 4,
+          "bass": null
+        }
+      ]
+    },
+    {
+      "id": 2020,
+      "symbol": "popStadionhymne",
+      "name": "Stadionhymne",
+      "xyz": [
+        0.85,
+        0.9,
+        0.1
+      ],
+      "genres": [
+        "pop_rock"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "catalog_reference_2",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Maj",
+          "bars": 2,
+          "bass": null
+        },
+        {
+          "root": 8,
+          "type": "Maj",
+          "bars": 1,
+          "bass": null
+        },
+        {
+          "root": 10,
+          "type": "Maj",
+          "bars": 1,
+          "bass": null
+        },
+        {
+          "root": 0,
+          "type": "Maj",
+          "bars": 2,
+          "bass": null
+        },
+        {
+          "root": 8,
+          "type": "Maj",
+          "bars": 1,
+          "bass": null
+        },
+        {
+          "root": 10,
+          "type": "Maj",
+          "bars": 1,
+          "bass": null
+        }
+      ]
+    },
+    {
+      "id": 2021,
+      "symbol": "popFeindkontakt",
+      "name": "Feindkontakt",
+      "xyz": [
+        0.18,
+        0.8,
+        0.55
+      ],
+      "genres": [
+        "pop_rock"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "catalog_reference_2",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Min7",
+          "bars": 2,
+          "bass": null
+        },
+        {
+          "root": 1,
+          "type": "Maj7",
+          "bars": 2,
+          "bass": null
+        },
+        {
+          "root": 0,
+          "type": "Min7",
+          "bars": 2,
+          "bass": null
+        },
+        {
+          "root": 6,
+          "type": "Dom7",
+          "bars": 2,
+          "bass": null
+        }
+      ]
+    },
+    {
+      "id": 2022,
+      "symbol": "popTeufelsgeiger",
+      "name": "Teufelsgeiger",
+      "xyz": [
+        0.32,
+        0.7,
+        0.25
+      ],
+      "genres": [
+        "pop_rock"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "catalog_reference_2",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Min",
+          "bars": 1,
+          "bass": null
+        },
+        {
+          "root": 5,
+          "type": "Min",
+          "bars": 1,
+          "bass": null
+        },
+        {
+          "root": 10,
+          "type": "Maj",
+          "bars": 1,
+          "bass": null
+        },
+        {
+          "root": 3,
+          "type": "Maj",
+          "bars": 1,
+          "bass": null
+        },
+        {
+          "root": 8,
+          "type": "Maj",
+          "bars": 1,
+          "bass": null
+        },
+        {
+          "root": 2,
+          "type": "HalfDim",
+          "bars": 1,
+          "bass": null
+        },
+        {
+          "root": 7,
+          "type": "Dom7",
+          "bars": 1,
+          "bass": null
+        },
+        {
+          "root": 0,
+          "type": "Min",
+          "bars": 1,
+          "bass": null
+        }
+      ]
+    },
+    {
+      "id": 2023,
+      "symbol": "popVorahnung",
+      "name": "Vorahnung",
+      "xyz": [
+        0.38,
+        0.45,
+        0.45
+      ],
+      "genres": [
+        "pop_rock"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "catalog_reference_2",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Min",
+          "bars": 2,
+          "bass": null
+        },
+        {
+          "root": 1,
+          "type": "Maj",
+          "bars": 2,
+          "bass": null
+        },
+        {
+          "root": 7,
+          "type": "Dom7b9",
+          "bars": 2,
+          "bass": null
+        },
+        {
+          "root": 0,
+          "type": "Min",
+          "bars": 2,
+          "bass": null
+        }
+      ]
+    },
+    {
+      "id": 2024,
+      "symbol": "popEinsamerPlanet",
+      "name": "Einsamer Planet",
+      "xyz": [
+        0.4,
+        0.2,
+        0.1
+      ],
+      "genres": [
+        "pop_rock"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "catalog_reference_2",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Min9",
+          "bars": 2,
+          "bass": null
+        },
+        {
+          "root": 8,
+          "type": "Maj7",
+          "bars": 2,
+          "bass": null
+        },
+        {
+          "root": 10,
+          "type": "Sus4",
+          "bars": 1,
+          "bass": null
+        },
+        {
+          "root": 10,
+          "type": "Maj",
+          "bars": 1,
+          "bass": null
+        },
+        {
+          "root": 0,
+          "type": "Min9",
+          "bars": 2,
+          "bass": null
+        }
+      ]
+    },
+    {
+      "id": 2025,
+      "symbol": "popWeltraumDisco",
+      "name": "Weltraum-Disco",
+      "xyz": [
+        0.48,
+        0.62,
+        0.2
+      ],
+      "genres": [
+        "pop_rock"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "catalog_reference_2",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Min9",
+          "bars": 2,
+          "bass": null
+        },
+        {
+          "root": 5,
+          "type": "Dom7",
+          "bars": 2,
+          "bass": null
+        },
+        {
+          "root": 0,
+          "type": "Min9",
+          "bars": 2,
+          "bass": null
+        },
+        {
+          "root": 3,
+          "type": "Maj7",
+          "bars": 1,
+          "bass": null
+        },
+        {
+          "root": 5,
+          "type": "Dom7",
+          "bars": 1,
+          "bass": null
+        }
+      ]
+    },
+    {
+      "id": 2026,
+      "symbol": "popSerenade",
+      "name": "Serenade",
+      "xyz": [
+        0.72,
+        0.45,
+        0.05
+      ],
+      "genres": [
+        "pop_rock"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "catalog_reference_2",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Maj",
+          "bars": 2,
+          "bass": null
+        },
+        {
+          "root": 9,
+          "type": "Min",
+          "bars": 2,
+          "bass": null
+        },
+        {
+          "root": 2,
+          "type": "Min7",
+          "bars": 2,
+          "bass": null
+        },
+        {
+          "root": 7,
+          "type": "Dom7",
+          "bars": 2,
+          "bass": null
+        }
+      ]
+    },
+    {
+      "id": 2027,
+      "symbol": "popStartfreigabe",
+      "name": "Startfreigabe",
+      "xyz": [
+        0.78,
+        0.75,
+        0.15
+      ],
+      "genres": [
+        "pop_rock"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "catalog_reference_2",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Maj7",
+          "bars": 2,
+          "bass": null
+        },
+        {
+          "root": 2,
+          "type": "Dom7",
+          "bars": 2,
+          "bass": null
+        },
+        {
+          "root": 2,
+          "type": "Min7",
+          "bars": 2,
+          "bass": null
+        },
+        {
+          "root": 7,
+          "type": "Sus4",
+          "bars": 2,
+          "bass": null
+        }
+      ]
+    },
+    {
+      "id": 2028,
+      "symbol": "popTanzflachenlicht",
+      "name": "Tanzflächenlicht",
+      "xyz": [
+        0.76,
+        0.69,
+        0.08
+      ],
+      "genres": [
+        "pop_rock"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "catalog_reference_3",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Maj",
+          "bars": 2,
+          "bass": null
+        },
+        {
+          "root": 2,
+          "type": "Min7",
+          "bars": 2,
+          "bass": null
+        },
+        {
+          "root": 5,
+          "type": "Maj",
+          "bars": 2,
+          "bass": null
+        },
+        {
+          "root": 7,
+          "type": "Sus4",
+          "bars": 1,
+          "bass": null
+        },
+        {
+          "root": 7,
+          "type": "Maj",
+          "bars": 1,
+          "bass": null
+        }
+      ]
+    },
+    {
+      "id": 2029,
+      "symbol": "popGegenlicht",
+      "name": "Gegenlicht",
+      "xyz": [
+        0.52,
+        0.38,
+        0.12
+      ],
+      "genres": [
+        "pop_rock"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "catalog_reference_3",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Maj7",
+          "bars": 2,
+          "bass": null
+        },
+        {
+          "root": 10,
+          "type": "Maj7",
+          "bars": 2,
+          "bass": null
+        },
+        {
+          "root": 2,
+          "type": "Min7",
+          "bars": 2,
+          "bass": null
+        },
+        {
+          "root": 7,
+          "type": "Sus4",
+          "bars": 2,
+          "bass": null
+        }
+      ]
+    },
+    {
+      "id": 2030,
+      "symbol": "popRuckspiegel",
+      "name": "Rückspiegel",
+      "xyz": [
+        0.36,
+        0.18,
+        0.06
+      ],
+      "genres": [
+        "pop_rock"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "catalog_reference_3",
+      "chords": [
+        {
+          "root": 9,
+          "type": "Min9",
+          "bars": 2,
+          "bass": null
+        },
+        {
+          "root": 9,
+          "type": "Min9",
+          "bars": 2,
+          "bass": 7
+        },
+        {
+          "root": 2,
+          "type": "Dom7",
+          "bars": 2,
+          "bass": 6
+        },
+        {
+          "root": 5,
+          "type": "Maj7",
+          "bars": 2,
+          "bass": null
+        }
+      ]
+    },
+    {
+      "id": 2031,
+      "symbol": "popStahlpuls",
+      "name": "Stahlpuls",
+      "xyz": [
+        0.34,
+        0.83,
+        0.22
+      ],
+      "genres": [
+        "pop_rock"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "catalog_reference_4",
+      "chords": [
+        {
+          "root": 9,
+          "type": "Fifth",
+          "bars": 2,
+          "bass": 9
+        },
+        {
+          "root": 5,
+          "type": "Fifth",
+          "bars": 2,
+          "bass": 9
+        },
+        {
+          "root": 7,
+          "type": "Fifth",
+          "bars": 2,
+          "bass": 9
+        },
+        {
+          "root": 9,
+          "type": "Fifth",
+          "bars": 2,
+          "bass": 9
+        }
+      ]
+    },
+    {
+      "id": 2032,
+      "symbol": "popDrahtseil",
+      "name": "Drahtseil",
+      "xyz": [
+        0.2,
+        0.57,
+        0.42
+      ],
+      "genres": [
+        "pop_rock"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "catalog_reference_4",
+      "chords": [
+        {
+          "root": 9,
+          "type": "Min",
+          "bars": 2,
+          "bass": 9
+        },
+        {
+          "root": 9,
+          "type": "MinMaj7",
+          "bars": 2,
+          "bass": 9
+        },
+        {
+          "root": 9,
+          "type": "Min7",
+          "bars": 2,
+          "bass": 9
+        },
+        {
+          "root": 9,
+          "type": "Min6",
+          "bars": 2,
+          "bass": 9
+        }
+      ]
+    },
+    {
+      "id": 2033,
+      "symbol": "popSequenzmotor",
+      "name": "Sequenzmotor",
+      "xyz": [
+        0.46,
+        0.78,
+        0.17
+      ],
+      "genres": [
+        "pop_rock"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "catalog_reference_5",
+      "chords": [
+        {
+          "root": 9,
+          "type": "Min9",
+          "bars": 2,
+          "bass": null
+        },
+        {
+          "root": 2,
+          "type": "Dom7",
+          "bars": 2,
+          "bass": null
+        },
+        {
+          "root": 7,
+          "type": "Maj7",
+          "bars": 2,
+          "bass": null
+        },
+        {
+          "root": 0,
+          "type": "Maj7",
+          "bars": 2,
+          "bass": null
+        }
+      ]
+    },
+    {
+      "id": 2034,
+      "symbol": "popSpiegelpalast",
+      "name": "Spiegelpalast",
+      "xyz": [
+        0.7,
+        0.71,
+        0.26
+      ],
+      "genres": [
+        "pop_rock"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "catalog_reference_6",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Maj7",
+          "bars": 1,
+          "bass": null
+        },
+        {
+          "root": 4,
+          "type": "Dom7",
+          "bars": 1,
+          "bass": null
+        },
+        {
+          "root": 9,
+          "type": "Min7",
+          "bars": 2,
+          "bass": null
+        },
+        {
+          "root": 2,
+          "type": "Dom7",
+          "bars": 1,
+          "bass": null
+        },
+        {
+          "root": 2,
+          "type": "Min7",
+          "bars": 1,
+          "bass": null
+        },
+        {
+          "root": 7,
+          "type": "Dom7",
+          "bars": 1,
+          "bass": null
+        },
+        {
+          "root": 0,
+          "type": "Maj7",
+          "bars": 1,
+          "bass": null
+        }
+      ]
+    },
+    {
+      "id": 2035,
+      "symbol": "popSonntagmorgen",
+      "name": "Sonntagmorgen",
+      "xyz": [
+        0.88,
+        0.48,
+        0.03
+      ],
+      "genres": [
+        "pop_rock"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "catalog_reference_7",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Maj",
+          "bars": 2,
+          "bass": null
+        },
+        {
+          "root": 5,
+          "type": "Maj",
+          "bars": 2,
+          "bass": null
+        },
+        {
+          "root": 9,
+          "type": "Min7",
+          "bars": 2,
+          "bass": null
+        },
+        {
+          "root": 7,
+          "type": "Maj",
+          "bars": 2,
+          "bass": null
+        }
+      ]
+    },
+    {
+      "id": 2036,
+      "symbol": "popLichtImFenster",
+      "name": "Licht im Fenster",
+      "xyz": [
+        0.57,
+        0.23,
+        0.04
+      ],
+      "genres": [
+        "pop_rock"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "catalog_reference_7",
+      "chords": [
+        {
+          "root": 9,
+          "type": "Min",
+          "bars": 2,
+          "bass": null
+        },
+        {
+          "root": 0,
+          "type": "Maj",
+          "bars": 2,
+          "bass": 7
+        },
+        {
+          "root": 5,
+          "type": "Maj7",
+          "bars": 2,
+          "bass": null
+        },
+        {
+          "root": 4,
+          "type": "Dom7",
+          "bars": 2,
+          "bass": null
+        }
+      ]
+    }
+  ],
+  "pools": {
+    "score": [
+      1001,
+      1002,
+      1003,
+      1004,
+      1005,
+      1006,
+      1007,
+      1008,
+      1009,
+      1010,
+      1011,
+      1012,
+      1013,
+      1014,
+      1015,
+      1016,
+      1017,
+      1018,
+      1019,
+      1020,
+      1021,
+      1022,
+      1023,
+      1024,
+      1025,
+      1026,
+      1027,
+      1028,
+      1029,
+      1030,
+      1031,
+      1032,
+      1033,
+      1034,
+      1035,
+      1036,
+      1037,
+      1038,
+      1039,
+      1040,
+      1041,
+      1042,
+      1043,
+      1044,
+      1045,
+      1046,
+      1047,
+      1048
+    ],
+    "pop_rock": [
+      2001,
+      2002,
+      2003,
+      2004,
+      2005,
+      2006,
+      2007,
+      2008,
+      2009,
+      2010,
+      2011,
+      2012,
+      2013,
+      2014,
+      2015,
+      2016,
+      2017,
+      2018,
+      2019,
+      2020,
+      2021,
+      2022,
+      2023,
+      2024,
+      2025,
+      2026,
+      2027,
+      2028,
+      2029,
+      2030,
+      2031,
+      2032,
+      2033,
+      2034,
+      2035,
+      2036
+    ]
+  }
+}

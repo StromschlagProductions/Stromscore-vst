@@ -1,0 +1,238 @@
+{
+  "schema_version": 1,
+  "types": [
+    {
+      "id": "Maj",
+      "value": 0,
+      "suffix": "",
+      "minor": false,
+      "intervals": [
+        0,
+        4,
+        7
+      ]
+    },
+    {
+      "id": "Min",
+      "value": 1,
+      "suffix": "m",
+      "minor": true,
+      "intervals": [
+        0,
+        3,
+        7
+      ]
+    },
+    {
+      "id": "Maj7",
+      "value": 2,
+      "suffix": "maj7",
+      "minor": false,
+      "intervals": [
+        0,
+        4,
+        7,
+        11
+      ]
+    },
+    {
+      "id": "Min7",
+      "value": 3,
+      "suffix": "m7",
+      "minor": true,
+      "intervals": [
+        0,
+        3,
+        7,
+        10
+      ]
+    },
+    {
+      "id": "Dom7",
+      "value": 4,
+      "suffix": "7",
+      "minor": false,
+      "intervals": [
+        0,
+        4,
+        7,
+        10
+      ]
+    },
+    {
+      "id": "MinMaj7",
+      "value": 5,
+      "suffix": "m(maj7)",
+      "minor": true,
+      "intervals": [
+        0,
+        3,
+        7,
+        11
+      ]
+    },
+    {
+      "id": "MinMaj9",
+      "value": 6,
+      "suffix": "m(maj9)",
+      "minor": true,
+      "intervals": [
+        0,
+        3,
+        7,
+        11,
+        14
+      ]
+    },
+    {
+      "id": "Dim7",
+      "value": 7,
+      "suffix": "dim7",
+      "minor": true,
+      "intervals": [
+        0,
+        3,
+        6,
+        9
+      ]
+    },
+    {
+      "id": "HalfDim",
+      "value": 8,
+      "suffix": "m7b5",
+      "minor": true,
+      "intervals": [
+        0,
+        3,
+        6,
+        10
+      ]
+    },
+    {
+      "id": "Sus4",
+      "value": 9,
+      "suffix": "sus4",
+      "minor": false,
+      "intervals": [
+        0,
+        5,
+        7
+      ]
+    },
+    {
+      "id": "Quartal",
+      "value": 10,
+      "suffix": " Quarten",
+      "minor": false,
+      "intervals": [
+        0,
+        5,
+        10,
+        15
+      ]
+    },
+    {
+      "id": "Add9",
+      "value": 11,
+      "suffix": "add9",
+      "minor": false,
+      "intervals": [
+        0,
+        4,
+        7,
+        14
+      ]
+    },
+    {
+      "id": "Min9",
+      "value": 12,
+      "suffix": "m9",
+      "minor": true,
+      "intervals": [
+        0,
+        3,
+        7,
+        10,
+        14
+      ]
+    },
+    {
+      "id": "Aug",
+      "value": 13,
+      "suffix": "+",
+      "minor": false,
+      "intervals": [
+        0,
+        4,
+        8
+      ]
+    },
+    {
+      "id": "Min6",
+      "value": 14,
+      "suffix": "m6",
+      "minor": true,
+      "intervals": [
+        0,
+        3,
+        7,
+        9
+      ]
+    },
+    {
+      "id": "Dom7b9",
+      "value": 15,
+      "suffix": "7b9",
+      "minor": false,
+      "intervals": [
+        0,
+        4,
+        7,
+        10,
+        13
+      ]
+    },
+    {
+      "id": "Sus2",
+      "value": 16,
+      "suffix": "sus2",
+      "minor": false,
+      "intervals": [
+        0,
+        2,
+        7
+      ]
+    },
+    {
+      "id": "Fifth",
+      "value": 17,
+      "suffix": "5",
+      "minor": false,
+      "intervals": [
+        0,
+        7,
+        12
+      ]
+    }
+  ],
+  "custom_choice_order": [
+    "Maj",
+    "Min",
+    "Maj7",
+    "Min7",
+    "Dom7",
+    "Sus4",
+    "Sus2",
+    "Add9",
+    "Min6",
+    "MinMaj7",
+    "HalfDim",
+    "Dim7",
+    "Aug",
+    "MinMaj9",
+    "Quartal",
+    "Min9",
+    "Dom7b9",
+    "Fifth"
+  ]
+}

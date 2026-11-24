@@ -12,8 +12,8 @@ int main(int argc,char**)
     const bool report=argc>1;
     const std::array<std::array<float,3>,8> positions {{{.20f,.45f,.45f},{.15f,.78f,.75f},{.40f,.30f,.5f},
         {.65f,.23f,.05f},{.80f,.32f,.08f},{.5f,.6f,.2f},{.8f,.78f,.15f},{.30f,.70f,.25f}}};
-    CHECK(scorePreferences.size()==48);std::set<WendungId> ids;
-    for(const auto& p:scorePreferences){CHECK(ids.insert(p.id).second&&wendungIndex(GenreScore,p.id)>=0);CHECK(p.barry>=1.f&&p.barry<=1.8f&&p.herrmann>=1.f&&p.herrmann<=1.8f);}
+    CHECK(templatePreferences.size()==84);std::set<WendungId> ids;
+    for(const auto& p:templatePreferences){CHECK(ids.insert(p.id).second&&findWendung(p.id));for(float w:p.weights)CHECK(w>=1.f&&w<=1.8f);CHECK(p.weights[0]==1.f);}
     for(int i=0;i<48;++i)CHECK(ids.count(wendungAt(GenreScore,i).id));
     for(int i=0;i<36;++i)for(auto p:{ProfileId::neutral,ProfileId::johnBarry,ProfileId::bernardHerrmann})CHECK(harmonicPreference(p,wendungAt(GenrePopRock,i).id)==1.f);
     if(report)std::cout<<"# Auswahlhäufigkeiten – erste Harmonieprofile\n\n4096 tatsächliche `pick`-Aufrufe pro Profil und Position, Variation 1, Wurf 42, Salt 0–4095, Variety 0,5. Keine Hörqualitätsbewertung.\n\n";

@@ -18,7 +18,32 @@ set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")
 
 option(ENGINE_ONLY "Nur die Tests des Notengenerators bauen (ohne JUCE)" OFF)
 include(CTest)
+# Authoring validation happens at configure/build time, never in processBlock.
+find_package(Python3 COMPONENTS Interpreter REQUIRED)
+set_property(DIRECTORY APPEND PROPERTY CMAKE_CONFIGURE_DEPENDS
+    data/harmony/chord_types.json data/harmony/catalog.json data/harmony/arrangements.json
+    data/harmony/profiles.json data/harmony/notes.json scripts/generate_harmony_catalog.py)
+execute_process(COMMAND ${Python3_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/scripts/generate_harmony_catalog.py --check
+    RESULT_VARIABLE HARMONY_DATA_RESULT OUTPUT_VARIABLE HARMONY_DATA_OUTPUT ERROR_VARIABLE HARMONY_DATA_ERROR)
+if(NOT HARMONY_DATA_RESULT EQUAL 0)
+    message(FATAL_ERROR "Harmony catalog validation failed: ${HARMONY_DATA_ERROR}")
+endif()
+add_custom_target(ValidateHarmonyData ALL
+    COMMAND ${Python3_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/scripts/generate_harmony_catalog.py --check
+    COMMENT "Checking validated static harmony data")
 if(BUILD_TESTING)
+    add_executable(HarmonyCatalogTests Tests/HarmonyCatalogTests.cpp)
+    target_include_directories(HarmonyCatalogTests PRIVATE Source)
+    if(MSVC)
+        target_compile_options(HarmonyCatalogTests PRIVATE /utf-8)
+    endif()
+    add_test(NAME HarmonyCatalog COMMAND HarmonyCatalogTests)
+    add_executable(HarmonyDataProbe tools/harmony_catalog_probe.cpp)
+    target_include_directories(HarmonyDataProbe PRIVATE Source)
+    if(MSVC)
+        target_compile_options(HarmonyDataProbe PRIVATE /utf-8)
+    endif()
+    add_test(NAME HarmonyDataValidation COMMAND ${Python3_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/Tests/HarmonyDataTests.py)
     add_executable(ChordDispositionTests Tests/ChordDispositionTests.cpp)
     target_include_directories(ChordDispositionTests PRIVATE Source)
     add_test(NAME ChordDisposition COMMAND ChordDispositionTests)
@@ -187,6 +212,11 @@ if(BUILD_TESTING)
             ${CMAKE_CURRENT_SOURCE_DIR}/scripts/compare_chord_disposition.py --probe $<TARGET_FILE:ChordDispositionProbe>
             --compiler ${CMAKE_CXX_COMPILER} --output ${CMAKE_CURRENT_BINARY_DIR}/chord-disposition)
     endif()
+    if(Python3_Interpreter_FOUND AND GIT_FOUND AND NOT MSVC)
+        add_test(NAME HarmonyDataRegression COMMAND ${Python3_EXECUTABLE}
+            ${CMAKE_CURRENT_SOURCE_DIR}/scripts/compare_harmony_data.py --probe $<TARGET_FILE:HarmonyDataProbe>
+            --compiler ${CMAKE_CXX_COMPILER} --output ${CMAKE_CURRENT_BINARY_DIR}/harmony-data-regression)
+    endif()
     add_test(NAME WendungTransitions COMMAND TransitionTests)
     add_executable(TransitionProbe tools/transition_probe.cpp)
     target_include_directories(TransitionProbe PRIVATE Source)
@@ -330,6 +360,7 @@ juce_add_plugin(Stromscore
     VST3_CATEGORIES Instrument Generator
     COPY_PLUGIN_AFTER_BUILD FALSE)
 
+add_dependencies(Stromscore ValidateHarmonyData)
 target_sources(Stromscore PRIVATE
     Source/PluginProcessor.cpp
     Source/PluginEditor.cpp)

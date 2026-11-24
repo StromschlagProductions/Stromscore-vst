@@ -1,0 +1,1491 @@
+{
+  "schema_version": 1,
+  "recipes": [
+    {
+      "id": "neutral_1001",
+      "arp": [
+        "ArpCircle",
+        "ArpCell"
+      ],
+      "bass": [
+        "BassPendulum",
+        "BassHeld"
+      ],
+      "pad": "PadHeld",
+      "hook": null,
+      "coloration": "free"
+    },
+    {
+      "id": "neutral_1002",
+      "arp": [
+        "ArpCircle",
+        "ArpDown"
+      ],
+      "bass": [
+        "BassPulse",
+        "BassEighth"
+      ],
+      "pad": "PadHeld",
+      "hook": null,
+      "coloration": "free"
+    },
+    {
+      "id": "neutral_1003",
+      "arp": [
+        "ArpCircle",
+        "ArpCell"
+      ],
+      "bass": [
+        "BassHeld",
+        "BassPendulum"
+      ],
+      "pad": "PadHeld",
+      "hook": null,
+      "coloration": "free"
+    },
+    {
+      "id": "neutral_1004",
+      "arp": [
+        "ArpDown",
+        "ArpCircle"
+      ],
+      "bass": [
+        "BassHeld",
+        "BassHalf"
+      ],
+      "pad": "PadHeld",
+      "hook": null,
+      "coloration": "free"
+    },
+    {
+      "id": "neutral_1005",
+      "arp": [
+        "ArpCell",
+        "ArpCircle"
+      ],
+      "bass": [
+        "BassQuarter",
+        "BassPendulum"
+      ],
+      "pad": "PadHeld",
+      "hook": null,
+      "coloration": "free"
+    },
+    {
+      "id": "neutral_1006",
+      "arp": [
+        "ArpCell",
+        "ArpUp"
+      ],
+      "bass": [
+        "BassEighth",
+        "BassPendulum"
+      ],
+      "pad": "PadHeld",
+      "hook": null,
+      "coloration": "free"
+    },
+    {
+      "id": "neutral_1007",
+      "arp": [
+        "ArpCircle",
+        "ArpDown"
+      ],
+      "bass": [
+        "BassQuarter",
+        "BassHalf"
+      ],
+      "pad": "PadHeld",
+      "hook": null,
+      "coloration": "free"
+    },
+    {
+      "id": "neutral_1009",
+      "arp": [
+        "ArpDown",
+        "ArpCircle"
+      ],
+      "bass": [
+        "BassHalf",
+        "BassHeld"
+      ],
+      "pad": "PadHeld",
+      "hook": null,
+      "coloration": "free"
+    },
+    {
+      "id": "neutral_1010",
+      "arp": [
+        "ArpDown",
+        "ArpCircle"
+      ],
+      "bass": [
+        "BassQuarter",
+        "BassPendulum"
+      ],
+      "pad": "PadHeld",
+      "hook": null,
+      "coloration": "free"
+    },
+    {
+      "id": "neutral_1011",
+      "arp": [
+        "ArpCircle",
+        "ArpDown"
+      ],
+      "bass": [
+        "BassAlternating",
+        "BassQuarter"
+      ],
+      "pad": "PadStaccato",
+      "hook": null,
+      "coloration": "free"
+    },
+    {
+      "id": "neutral_1012",
+      "arp": [
+        "ArpCell",
+        "ArpUp"
+      ],
+      "bass": [
+        "BassPulse",
+        "BassEighth"
+      ],
+      "pad": "PadPulse",
+      "hook": null,
+      "coloration": "free"
+    },
+    {
+      "id": "neutral_1013",
+      "arp": [
+        "ArpCell",
+        "ArpCircle"
+      ],
+      "bass": [
+        "BassPulse",
+        "BassPendulum"
+      ],
+      "pad": "PadStabs",
+      "hook": null,
+      "coloration": "free"
+    },
+    {
+      "id": "neutral_1014",
+      "arp": [
+        "ArpCell",
+        "ArpUp"
+      ],
+      "bass": [
+        "BassPulse",
+        "BassEighth"
+      ],
+      "pad": "PadStabs",
+      "hook": null,
+      "coloration": "free"
+    },
+    {
+      "id": "neutral_1015",
+      "arp": [
+        "ArpOctatonic",
+        "ArpCell"
+      ],
+      "bass": [
+        "BassPulse",
+        "BassPendulum"
+      ],
+      "pad": "PadStabs",
+      "hook": null,
+      "coloration": "free"
+    },
+    {
+      "id": "neutral_1016",
+      "arp": [
+        "ArpCell",
+        "ArpDown"
+      ],
+      "bass": [
+        "BassPulse",
+        "BassEighth"
+      ],
+      "pad": "PadPulse",
+      "hook": null,
+      "coloration": "free"
+    },
+    {
+      "id": "neutral_1017",
+      "arp": [
+        "ArpUp",
+        "ArpDown"
+      ],
+      "bass": [
+        "BassEighth",
+        "BassQuarter"
+      ],
+      "pad": "PadPulse",
+      "hook": null,
+      "coloration": "free"
+    },
+    {
+      "id": "neutral_1018",
+      "arp": [
+        "ArpUp",
+        "ArpCircle"
+      ],
+      "bass": [
+        "BassEighth",
+        "BassQuarter"
+      ],
+      "pad": "PadHeld",
+      "hook": null,
+      "coloration": "free"
+    },
+    {
+      "id": "neutral_1019",
+      "arp": [
+        "ArpDown",
+        "ArpRiff"
+      ],
+      "bass": [
+        "BassWalking",
+        "BassWalking"
+      ],
+      "pad": "PadStabs",
+      "hook": null,
+      "coloration": "free"
+    },
+    {
+      "id": "neutral_1020",
+      "arp": [
+        "ArpUp",
+        "ArpCircle"
+      ],
+      "bass": [
+        "BassHeartbeat",
+        "BassHeartbeat"
+      ],
+      "pad": "PadHeld",
+      "hook": null,
+      "coloration": "free"
+    },
+    {
+      "id": "neutral_1021",
+      "arp": [
+        "ArpCircle",
+        "ArpUp"
+      ],
+      "bass": [
+        "BassArpeggio",
+        "BassHalf"
+      ],
+      "pad": "PadHeld",
+      "hook": null,
+      "coloration": "free"
+    },
+    {
+      "id": "neutral_1022",
+      "arp": [
+        "ArpUp",
+        "ArpRiff"
+      ],
+      "bass": [
+        "BassFunk",
+        "BassArpeggio"
+      ],
+      "pad": "PadStabs",
+      "hook": null,
+      "coloration": "free"
+    },
+    {
+      "id": "neutral_1023",
+      "arp": [
+        "ArpRiff",
+        "ArpRiff"
+      ],
+      "bass": [
+        "BassFunk",
+        "BassFunk"
+      ],
+      "pad": "PadStabs",
+      "hook": null,
+      "coloration": "free"
+    },
+    {
+      "id": "neutral_1024",
+      "arp": [
+        "ArpRiff",
+        "ArpCircle"
+      ],
+      "bass": [
+        "BassPendulum",
+        "BassQuarter"
+      ],
+      "pad": "PadHeld",
+      "hook": null,
+      "coloration": "free"
+    },
+    {
+      "id": "neutral_1025",
+      "arp": [
+        "ArpCircle",
+        "ArpGlitter"
+      ],
+      "bass": [
+        "BassPendulum",
+        "BassHeld"
+      ],
+      "pad": "PadHeld",
+      "hook": null,
+      "coloration": "free"
+    },
+    {
+      "id": "neutral_1026",
+      "arp": [
+        "ArpQuartal",
+        "ArpUp"
+      ],
+      "bass": [
+        "BassPedal",
+        "BassAlternating"
+      ],
+      "pad": "PadPulse",
+      "hook": null,
+      "coloration": "free"
+    },
+    {
+      "id": "neutral_1027",
+      "arp": [
+        "ArpCircle",
+        "ArpGlitter"
+      ],
+      "bass": [
+        "BassHeld",
+        "BassPendulum"
+      ],
+      "pad": "PadHeld",
+      "hook": null,
+      "coloration": "free"
+    },
+    {
+      "id": "neutral_1028",
+      "arp": [
+        "ArpGlitter",
+        "ArpCircle"
+      ],
+      "bass": [
+        "BassHeld",
+        "BassHalf"
+      ],
+      "pad": "PadHeld",
+      "hook": null,
+      "coloration": "free"
+    },
+    {
+      "id": "neutral_1029",
+      "arp": [
+        "ArpCascade",
+        "ArpCircle"
+      ],
+      "bass": [
+        "BassPedal",
+        "BassHeld"
+      ],
+      "pad": "PadHeld",
+      "hook": null,
+      "coloration": "free"
+    },
+    {
+      "id": "neutral_1030",
+      "arp": [
+        "ArpCascade",
+        "ArpUp"
+      ],
+      "bass": [
+        "BassQuarter",
+        "BassArpeggio"
+      ],
+      "pad": "PadHeld",
+      "hook": null,
+      "coloration": "free"
+    },
+    {
+      "id": "neutral_1031",
+      "arp": [
+        "ArpCircle",
+        "ArpDown"
+      ],
+      "bass": [
+        "BassHalf",
+        "BassHeld"
+      ],
+      "pad": "PadHeld",
+      "hook": null,
+      "coloration": "free"
+    },
+    {
+      "id": "neutral_1032",
+      "arp": [
+        "ArpCascade",
+        "ArpUp"
+      ],
+      "bass": [
+        "BassHalf",
+        "BassArpeggio"
+      ],
+      "pad": "PadHeld",
+      "hook": null,
+      "coloration": "free"
+    },
+    {
+      "id": "neutral_1033",
+      "arp": [
+        "ArpUp",
+        "ArpDown"
+      ],
+      "bass": [
+        "BassQuarter",
+        "BassHalf"
+      ],
+      "pad": "PadHeld",
+      "hook": null,
+      "coloration": "free"
+    },
+    {
+      "id": "neutral_1035",
+      "arp": [
+        "ArpUp",
+        "ArpCircle"
+      ],
+      "bass": [
+        "BassHeld",
+        "BassHalf"
+      ],
+      "pad": "PadHeld",
+      "hook": null,
+      "coloration": "free"
+    },
+    {
+      "id": "neutral_1036",
+      "arp": [
+        "ArpUp",
+        "ArpCircle"
+      ],
+      "bass": [
+        "BassHalf",
+        "BassHeld"
+      ],
+      "pad": "PadHeld",
+      "hook": null,
+      "coloration": "free"
+    },
+    {
+      "id": "neutral_1037",
+      "arp": [
+        "ArpUp",
+        "ArpCircle"
+      ],
+      "bass": [
+        "BassHalf",
+        "BassQuarter"
+      ],
+      "pad": "PadHeld",
+      "hook": null,
+      "coloration": "free"
+    },
+    {
+      "id": "neutral_1038",
+      "arp": [
+        "ArpCircle",
+        "ArpUp"
+      ],
+      "bass": [
+        "BassHeld",
+        "BassHalf"
+      ],
+      "pad": "PadHeld",
+      "hook": null,
+      "coloration": "free"
+    },
+    {
+      "id": "neutral_1039",
+      "arp": [
+        "ArpGlitter",
+        "ArpUp"
+      ],
+      "bass": [
+        "BassHeld",
+        "BassHalf"
+      ],
+      "pad": "PadHeld",
+      "hook": null,
+      "coloration": "free"
+    },
+    {
+      "id": "neutral_1040",
+      "arp": [
+        "ArpCascade",
+        "ArpUp"
+      ],
+      "bass": [
+        "BassHeld",
+        "BassHalf"
+      ],
+      "pad": "PadHeld",
+      "hook": null,
+      "coloration": "free"
+    },
+    {
+      "id": "neutral_1041",
+      "arp": [
+        "ArpRiff",
+        "ArpUp"
+      ],
+      "bass": [
+        "BassFunk",
+        "BassEighth"
+      ],
+      "pad": "PadStabs",
+      "hook": null,
+      "coloration": "free"
+    },
+    {
+      "id": "neutral_1042",
+      "arp": [
+        "ArpUp",
+        "ArpCircle"
+      ],
+      "bass": [
+        "BassQuarter",
+        "BassEighth"
+      ],
+      "pad": "PadHeld",
+      "hook": null,
+      "coloration": "free"
+    },
+    {
+      "id": "neutral_1043",
+      "arp": [
+        "ArpLeaps",
+        "ArpUp"
+      ],
+      "bass": [
+        "BassAlternating",
+        "BassAlternating"
+      ],
+      "pad": "PadStaccato",
+      "hook": null,
+      "coloration": "free"
+    },
+    {
+      "id": "neutral_1044",
+      "arp": [
+        "ArpLeaps",
+        "ArpUp"
+      ],
+      "bass": [
+        "BassAlternating",
+        "BassQuarter"
+      ],
+      "pad": "PadHeld",
+      "hook": null,
+      "coloration": "free"
+    },
+    {
+      "id": "neutral_1045",
+      "arp": [
+        "ArpUp",
+        "ArpLeaps"
+      ],
+      "bass": [
+        "BassQuarter",
+        "BassEighth"
+      ],
+      "pad": "PadPulse",
+      "hook": null,
+      "coloration": "free"
+    },
+    {
+      "id": "neutral_1046",
+      "arp": [
+        "ArpLeaps",
+        "ArpUp"
+      ],
+      "bass": [
+        "BassEighth",
+        "BassPulse"
+      ],
+      "pad": "PadStabs",
+      "hook": null,
+      "coloration": "free"
+    },
+    {
+      "id": "neutral_1047",
+      "arp": [
+        "ArpUp",
+        "ArpLeaps"
+      ],
+      "bass": [
+        "BassEighth",
+        "BassQuarter"
+      ],
+      "pad": "PadPulse",
+      "hook": null,
+      "coloration": "free"
+    },
+    {
+      "id": "neutral_1048",
+      "arp": [
+        "ArpUp",
+        "ArpLeaps"
+      ],
+      "bass": [
+        "BassEighth",
+        "BassEighth"
+      ],
+      "pad": "PadPulse",
+      "hook": null,
+      "coloration": "free"
+    },
+    {
+      "id": "neutral_2001",
+      "arp": [
+        "ArpSid",
+        "ArpCell"
+      ],
+      "bass": [
+        "BassPulse",
+        "BassHiNrg"
+      ],
+      "pad": "PadHeld",
+      "hook": null,
+      "coloration": "free"
+    },
+    {
+      "id": "neutral_2002",
+      "arp": [
+        "ArpCircle",
+        "ArpDown"
+      ],
+      "bass": [
+        "BassHalf",
+        "BassEighth"
+      ],
+      "pad": "PadHeld",
+      "hook": null,
+      "coloration": "free"
+    },
+    {
+      "id": "neutral_2003",
+      "arp": [
+        "ArpUp",
+        "ArpCircle"
+      ],
+      "bass": [
+        "BassEighth",
+        "BassPulse"
+      ],
+      "pad": "PadHeld",
+      "hook": null,
+      "coloration": "free"
+    },
+    {
+      "id": "neutral_2004",
+      "arp": [
+        "ArpUp",
+        "ArpSid"
+      ],
+      "bass": [
+        "BassHiNrg",
+        "BassHeartbeat"
+      ],
+      "pad": "PadHeld",
+      "hook": null,
+      "coloration": "free"
+    },
+    {
+      "id": "neutral_2005",
+      "arp": [
+        "ArpCircle",
+        "ArpSid"
+      ],
+      "bass": [
+        "BassArpeggio",
+        "BassHalf"
+      ],
+      "pad": "PadHeld",
+      "hook": null,
+      "coloration": "free"
+    },
+    {
+      "id": "neutral_2006",
+      "arp": [
+        "ArpSid",
+        "ArpOctatonic"
+      ],
+      "bass": [
+        "BassHiNrg",
+        "BassPulse"
+      ],
+      "pad": "PadStabs",
+      "hook": null,
+      "coloration": "free"
+    },
+    {
+      "id": "neutral_2007",
+      "arp": [
+        "ArpSid",
+        "ArpCell"
+      ],
+      "bass": [
+        "BassHiNrg",
+        "BassPulse"
+      ],
+      "pad": "PadStabs",
+      "hook": null,
+      "coloration": "free"
+    },
+    {
+      "id": "neutral_2008",
+      "arp": [
+        "ArpSid",
+        "ArpUp"
+      ],
+      "bass": [
+        "BassHiNrg",
+        "BassHiNrg"
+      ],
+      "pad": "PadGated",
+      "hook": null,
+      "coloration": "free"
+    },
+    {
+      "id": "neutral_2009",
+      "arp": [
+        "ArpRiff",
+        "ArpSid"
+      ],
+      "bass": [
+        "BassEighth",
+        "BassGallop"
+      ],
+      "pad": "PadStabs",
+      "hook": null,
+      "coloration": "free"
+    },
+    {
+      "id": "neutral_2010",
+      "arp": [
+        "ArpSid",
+        "ArpUp"
+      ],
+      "bass": [
+        "BassGallop",
+        "BassEighth"
+      ],
+      "pad": "PadGated",
+      "hook": null,
+      "coloration": "free"
+    },
+    {
+      "id": "neutral_2011",
+      "arp": [
+        "ArpSid",
+        "ArpRiff"
+      ],
+      "bass": [
+        "BassGallop",
+        "BassGallop"
+      ],
+      "pad": "PadStabs",
+      "hook": null,
+      "coloration": "free"
+    },
+    {
+      "id": "neutral_2012",
+      "arp": [
+        "ArpUp",
+        "ArpRiff"
+      ],
+      "bass": [
+        "BassEighth",
+        "BassGallop"
+      ],
+      "pad": "PadPulse",
+      "hook": null,
+      "coloration": "free"
+    },
+    {
+      "id": "neutral_2013",
+      "arp": [
+        "ArpRiff",
+        "ArpUp"
+      ],
+      "bass": [
+        "BassFunk",
+        "BassGallop"
+      ],
+      "pad": "PadStabs",
+      "hook": null,
+      "coloration": "free"
+    },
+    {
+      "id": "neutral_2014",
+      "arp": [
+        "ArpUp",
+        "ArpSid"
+      ],
+      "bass": [
+        "BassEighth",
+        "BassHiNrg"
+      ],
+      "pad": "PadGated",
+      "hook": null,
+      "coloration": "free"
+    },
+    {
+      "id": "neutral_2015",
+      "arp": [
+        "ArpRiff",
+        "ArpUp"
+      ],
+      "bass": [
+        "BassHiNrg",
+        "BassEighth"
+      ],
+      "pad": "PadGated",
+      "hook": null,
+      "coloration": "free"
+    },
+    {
+      "id": "neutral_2016",
+      "arp": [
+        "ArpCircle",
+        "ArpUp"
+      ],
+      "bass": [
+        "BassHalf",
+        "BassQuarter"
+      ],
+      "pad": "PadHeld",
+      "hook": null,
+      "coloration": "free"
+    },
+    {
+      "id": "neutral_2017",
+      "arp": [
+        "ArpRiff",
+        "ArpLeaps"
+      ],
+      "bass": [
+        "BassEighth",
+        "BassGallop"
+      ],
+      "pad": "PadStabs",
+      "hook": null,
+      "coloration": "free"
+    },
+    {
+      "id": "neutral_2018",
+      "arp": [
+        "ArpSid",
+        "ArpCascade"
+      ],
+      "bass": [
+        "BassPedal",
+        "BassEighth"
+      ],
+      "pad": "PadHeld",
+      "hook": null,
+      "coloration": "free"
+    },
+    {
+      "id": "neutral_2019",
+      "arp": [
+        "ArpRiff",
+        "ArpUp"
+      ],
+      "bass": [
+        "BassEighth",
+        "BassAlternating"
+      ],
+      "pad": "PadGated",
+      "hook": null,
+      "coloration": "free"
+    },
+    {
+      "id": "neutral_2020",
+      "arp": [
+        "ArpUp",
+        "ArpLeaps"
+      ],
+      "bass": [
+        "BassEighth",
+        "BassHiNrg"
+      ],
+      "pad": "PadPulse",
+      "hook": null,
+      "coloration": "free"
+    },
+    {
+      "id": "neutral_2021",
+      "arp": [
+        "ArpCell",
+        "ArpOctatonic"
+      ],
+      "bass": [
+        "BassFunk",
+        "BassPulse"
+      ],
+      "pad": "PadStabs",
+      "hook": null,
+      "coloration": "free"
+    },
+    {
+      "id": "neutral_2022",
+      "arp": [
+        "ArpLeaps",
+        "ArpCircle"
+      ],
+      "bass": [
+        "BassHiNrg",
+        "BassEighth"
+      ],
+      "pad": "PadPulse",
+      "hook": null,
+      "coloration": "free"
+    },
+    {
+      "id": "neutral_2023",
+      "arp": [
+        "ArpCircle",
+        "ArpCascade"
+      ],
+      "bass": [
+        "BassHeartbeat",
+        "BassPulse"
+      ],
+      "pad": "PadHeld",
+      "hook": null,
+      "coloration": "free"
+    },
+    {
+      "id": "neutral_2024",
+      "arp": [
+        "ArpCircle",
+        "ArpCascade"
+      ],
+      "bass": [
+        "BassHeld",
+        "BassHalf"
+      ],
+      "pad": "PadHeld",
+      "hook": null,
+      "coloration": "free"
+    },
+    {
+      "id": "neutral_2025",
+      "arp": [
+        "ArpRiff",
+        "ArpSid"
+      ],
+      "bass": [
+        "BassHiNrg",
+        "BassFunk"
+      ],
+      "pad": "PadGated",
+      "hook": null,
+      "coloration": "free"
+    },
+    {
+      "id": "neutral_2026",
+      "arp": [
+        "ArpLeaps",
+        "ArpUp"
+      ],
+      "bass": [
+        "BassAlternating",
+        "BassEighth"
+      ],
+      "pad": "PadStaccato",
+      "hook": null,
+      "coloration": "free"
+    },
+    {
+      "id": "neutral_2027",
+      "arp": [
+        "ArpRiff",
+        "ArpUp"
+      ],
+      "bass": [
+        "BassHiNrg",
+        "BassFunk"
+      ],
+      "pad": "PadStabs",
+      "hook": null,
+      "coloration": "free"
+    },
+    {
+      "id": "neutral_2028",
+      "arp": [
+        "ArpRiff",
+        "ArpUp"
+      ],
+      "bass": [
+        "BassFunk",
+        "BassArpeggio"
+      ],
+      "pad": "PadStabs",
+      "hook": 0,
+      "coloration": "free"
+    },
+    {
+      "id": "neutral_2029",
+      "arp": [
+        "ArpCircle",
+        "ArpCascade"
+      ],
+      "bass": [
+        "BassFunk",
+        "BassHalf"
+      ],
+      "pad": "PadHeld",
+      "hook": 1,
+      "coloration": "free"
+    },
+    {
+      "id": "neutral_2030",
+      "arp": [
+        "ArpDown",
+        "ArpCircle"
+      ],
+      "bass": [
+        "BassHeld",
+        "BassHalf"
+      ],
+      "pad": "PadHeld",
+      "hook": 2,
+      "coloration": "free"
+    },
+    {
+      "id": "neutral_2031",
+      "arp": [
+        "ArpRiff",
+        "ArpCell"
+      ],
+      "bass": [
+        "BassEighth",
+        "BassPedal"
+      ],
+      "pad": "PadGated",
+      "hook": 3,
+      "coloration": "free"
+    },
+    {
+      "id": "neutral_2032",
+      "arp": [
+        "ArpDown",
+        "ArpCell"
+      ],
+      "bass": [
+        "BassEighth",
+        "BassPedal"
+      ],
+      "pad": "PadHeld",
+      "hook": 4,
+      "coloration": "free"
+    },
+    {
+      "id": "neutral_2033",
+      "arp": [
+        "ArpSid",
+        "ArpRiff"
+      ],
+      "bass": [
+        "BassHiNrg",
+        "BassFunk"
+      ],
+      "pad": "PadGated",
+      "hook": 5,
+      "coloration": "free"
+    },
+    {
+      "id": "neutral_2034",
+      "arp": [
+        "ArpCascade",
+        "ArpUp"
+      ],
+      "bass": [
+        "BassArpeggio",
+        "BassQuarter"
+      ],
+      "pad": "PadStabs",
+      "hook": 6,
+      "coloration": "free"
+    },
+    {
+      "id": "neutral_2035",
+      "arp": [
+        "ArpRiff",
+        "ArpCircle"
+      ],
+      "bass": [
+        "BassFunk",
+        "BassAlternating"
+      ],
+      "pad": "PadStabs",
+      "hook": 7,
+      "coloration": "free"
+    },
+    {
+      "id": "neutral_2036",
+      "arp": [
+        "ArpCircle",
+        "ArpDown"
+      ],
+      "bass": [
+        "BassHeld",
+        "BassHalf"
+      ],
+      "pad": "PadHeld",
+      "hook": 8,
+      "coloration": "free"
+    }
+  ],
+  "bindings": [
+    {
+      "template_id": 1001,
+      "recipe": "neutral_1001"
+    },
+    {
+      "template_id": 1002,
+      "recipe": "neutral_1002"
+    },
+    {
+      "template_id": 1003,
+      "recipe": "neutral_1003"
+    },
+    {
+      "template_id": 1004,
+      "recipe": "neutral_1004"
+    },
+    {
+      "template_id": 1005,
+      "recipe": "neutral_1005"
+    },
+    {
+      "template_id": 1006,
+      "recipe": "neutral_1006"
+    },
+    {
+      "template_id": 1007,
+      "recipe": "neutral_1007"
+    },
+    {
+      "template_id": 1008,
+      "recipe": "neutral_1003"
+    },
+    {
+      "template_id": 1009,
+      "recipe": "neutral_1009"
+    },
+    {
+      "template_id": 1010,
+      "recipe": "neutral_1010"
+    },
+    {
+      "template_id": 1011,
+      "recipe": "neutral_1011"
+    },
+    {
+      "template_id": 1012,
+      "recipe": "neutral_1012"
+    },
+    {
+      "template_id": 1013,
+      "recipe": "neutral_1013"
+    },
+    {
+      "template_id": 1014,
+      "recipe": "neutral_1014"
+    },
+    {
+      "template_id": 1015,
+      "recipe": "neutral_1015"
+    },
+    {
+      "template_id": 1016,
+      "recipe": "neutral_1016"
+    },
+    {
+      "template_id": 1017,
+      "recipe": "neutral_1017"
+    },
+    {
+      "template_id": 1018,
+      "recipe": "neutral_1018"
+    },
+    {
+      "template_id": 1019,
+      "recipe": "neutral_1019"
+    },
+    {
+      "template_id": 1020,
+      "recipe": "neutral_1020"
+    },
+    {
+      "template_id": 1021,
+      "recipe": "neutral_1021"
+    },
+    {
+      "template_id": 1022,
+      "recipe": "neutral_1022"
+    },
+    {
+      "template_id": 1023,
+      "recipe": "neutral_1023"
+    },
+    {
+      "template_id": 1024,
+      "recipe": "neutral_1024"
+    },
+    {
+      "template_id": 1025,
+      "recipe": "neutral_1025"
+    },
+    {
+      "template_id": 1026,
+      "recipe": "neutral_1026"
+    },
+    {
+      "template_id": 1027,
+      "recipe": "neutral_1027"
+    },
+    {
+      "template_id": 1028,
+      "recipe": "neutral_1028"
+    },
+    {
+      "template_id": 1029,
+      "recipe": "neutral_1029"
+    },
+    {
+      "template_id": 1030,
+      "recipe": "neutral_1030"
+    },
+    {
+      "template_id": 1031,
+      "recipe": "neutral_1031"
+    },
+    {
+      "template_id": 1032,
+      "recipe": "neutral_1032"
+    },
+    {
+      "template_id": 1033,
+      "recipe": "neutral_1033"
+    },
+    {
+      "template_id": 1034,
+      "recipe": "neutral_1004"
+    },
+    {
+      "template_id": 1035,
+      "recipe": "neutral_1035"
+    },
+    {
+      "template_id": 1036,
+      "recipe": "neutral_1036"
+    },
+    {
+      "template_id": 1037,
+      "recipe": "neutral_1037"
+    },
+    {
+      "template_id": 1038,
+      "recipe": "neutral_1038"
+    },
+    {
+      "template_id": 1039,
+      "recipe": "neutral_1039"
+    },
+    {
+      "template_id": 1040,
+      "recipe": "neutral_1040"
+    },
+    {
+      "template_id": 1041,
+      "recipe": "neutral_1041"
+    },
+    {
+      "template_id": 1042,
+      "recipe": "neutral_1042"
+    },
+    {
+      "template_id": 1043,
+      "recipe": "neutral_1043"
+    },
+    {
+      "template_id": 1044,
+      "recipe": "neutral_1044"
+    },
+    {
+      "template_id": 1045,
+      "recipe": "neutral_1045"
+    },
+    {
+      "template_id": 1046,
+      "recipe": "neutral_1046"
+    },
+    {
+      "template_id": 1047,
+      "recipe": "neutral_1047"
+    },
+    {
+      "template_id": 1048,
+      "recipe": "neutral_1048"
+    },
+    {
+      "template_id": 2001,
+      "recipe": "neutral_2001"
+    },
+    {
+      "template_id": 2002,
+      "recipe": "neutral_2002"
+    },
+    {
+      "template_id": 2003,
+      "recipe": "neutral_2003"
+    },
+    {
+      "template_id": 2004,
+      "recipe": "neutral_2004"
+    },
+    {
+      "template_id": 2005,
+      "recipe": "neutral_2005"
+    },
+    {
+      "template_id": 2006,
+      "recipe": "neutral_2006"
+    },
+    {
+      "template_id": 2007,
+      "recipe": "neutral_2007"
+    },
+    {
+      "template_id": 2008,
+      "recipe": "neutral_2008"
+    },
+    {
+      "template_id": 2009,
+      "recipe": "neutral_2009"
+    },
+    {
+      "template_id": 2010,
+      "recipe": "neutral_2010"
+    },
+    {
+      "template_id": 2011,
+      "recipe": "neutral_2011"
+    },
+    {
+      "template_id": 2012,
+      "recipe": "neutral_2012"
+    },
+    {
+      "template_id": 2013,
+      "recipe": "neutral_2013"
+    },
+    {
+      "template_id": 2014,
+      "recipe": "neutral_2014"
+    },
+    {
+      "template_id": 2015,
+      "recipe": "neutral_2015"
+    },
+    {
+      "template_id": 2016,
+      "recipe": "neutral_2016"
+    },
+    {
+      "template_id": 2017,
+      "recipe": "neutral_2017"
+    },
+    {
+      "template_id": 2018,
+      "recipe": "neutral_2018"
+    },
+    {
+      "template_id": 2019,
+      "recipe": "neutral_2019"
+    },
+    {
+      "template_id": 2020,
+      "recipe": "neutral_2020"
+    },
+    {
+      "template_id": 2021,
+      "recipe": "neutral_2021"
+    },
+    {
+      "template_id": 2022,
+      "recipe": "neutral_2022"
+    },
+    {
+      "template_id": 2023,
+      "recipe": "neutral_2023"
+    },
+    {
+      "template_id": 2024,
+      "recipe": "neutral_2024"
+    },
+    {
+      "template_id": 2025,
+      "recipe": "neutral_2025"
+    },
+    {
+      "template_id": 2026,
+      "recipe": "neutral_2026"
+    },
+    {
+      "template_id": 2027,
+      "recipe": "neutral_2027"
+    },
+    {
+      "template_id": 2028,
+      "recipe": "neutral_2028"
+    },
+    {
+      "template_id": 2029,
+      "recipe": "neutral_2029"
+    },
+    {
+      "template_id": 2030,
+      "recipe": "neutral_2030"
+    },
+    {
+      "template_id": 2031,
+      "recipe": "neutral_2031"
+    },
+    {
+      "template_id": 2032,
+      "recipe": "neutral_2032"
+    },
+    {
+      "template_id": 2033,
+      "recipe": "neutral_2033"
+    },
+    {
+      "template_id": 2034,
+      "recipe": "neutral_2034"
+    },
+    {
+      "template_id": 2035,
+      "recipe": "neutral_2035"
+    },
+    {
+      "template_id": 2036,
+      "recipe": "neutral_2036"
+    }
+  ]
+}
