@@ -17,6 +17,17 @@ struct ExecutionTestAccess
   g.noteOn(output,1,91,end,0,out);g.forceOn=false;g.cur=nullptr;
  }
  static void endScene(Generator& g,Tick end){g.manualEndTime=end;g.sceneEndTime=end;}
+ static void material(Generator& g)
+ {
+  auto& use=g.voice(OutMelody).motif;use.clear();
+  use.observe(64,Tick{37},Tick{240},0,87,Tick{});
+  use.observe(67,Tick{517},Tick{240},0,89,Tick{});use.finish(g.motifCatalog);
+ }
+ static int64_t recurrenceEpoch(const Generator& g,int output){return g.voice(output).recurrence.epoch;}
+ static void section(Generator& g,Tick begin){g.wendungTime=begin;g.preparedTime.reset();}
+ static bool changeAt(Generator& g,Tick at,const Settings& s){return g.isChangePoint(g.locate(at),s);}
+ static Tick onset(Generator& g,Tick at,const Settings& s){g.cur=&s;auto result=g.nextOnset(at,s);g.cur=nullptr;return result;}
+
 };
 }
 using Row=std::tuple<int64_t,int,int,int,int,int>;
@@ -41,6 +52,43 @@ std::vector<Row> deadline(int block,float swing,bool shared,bool scene)
  CHECK(std::get<0>(result[1])==expected);
  return result;
 }
+// Actual note starts, not just note ends, must be dispatched between stock cells.
+std::vector<Row> fineStarts(int block,int numerator,float swing)
+{
+ Settings s;s.custom=true;s.customChords[0]={0,Maj7,8};s.key=0;s.y=.7f;
+ s.melody=true;s.melodyMotif=true;s.melodyLegato=false;s.solo[kMelodie]=true;
+ s.meterNum=numerator;s.meterDen=8;s.swing=swing;
+ Generator g;EventList events;Transport t;t.playing=true;
+ g.process(t,s,1,events);events.clear();g.allNotesOff(events,0);events.clear();ExecutionTestAccess::material(g);
+ std::vector<Row> result;
+ for(int at=1;at<30000;)
+ {
+  int count=std::min(block,30000-at);t.ppq=at/24000.;events.clear();
+  {NoAllocations guard;g.process(t,s,count,events);}CHECK(!events.overflow);
+  for(int i=0;i<events.size;++i){auto e=events.events[i];if(e.out==OutMelody&&!e.type)result.emplace_back(at+e.offset,e.out,e.channel,e.note,e.velocity,e.type);}
+  at+=count;
+ }
+ CHECK(result.size()==4);
+ CHECK(std::get<0>(result[0])==std::llround(execution::quarters(Tick{37},execution::Timing::groove,swing)*24000));
+ CHECK(std::get<0>(result[2])==std::llround(execution::quarters(Tick{517},execution::Timing::groove,swing)*24000));
+ CHECK(std::get<4>(result[0])>0&&std::get<4>(result[1])==0&&std::get<4>(result[2])>0&&std::get<4>(result[3])==0);
+ return result;
+}
+
+std::vector<Row> anchoredArpeggio(int block,int numerator,float swing)
+{
+ Settings s;s.custom=true;s.customChords[0]={0,Maj7,8};s.key=0;s.y=.7f;
+ s.solo[kArp]=true;s.arpFigure=ArpUp;s.arpRate=RateEighth;s.swing=swing;s.meterNum=numerator;s.meterDen=8;
+ Generator g;EventList events;Transport t;t.playing=true;g.process(t,s,1,events);events.clear();g.allNotesOff(events,0);events.clear();
+ ExecutionTestAccess::section(g,Tick{37});std::vector<Row> result;
+ for(int at=1;at<30000;){int count=std::min(block,30000-at);t.ppq=at/24000.;events.clear();
+  {NoAllocations guard;g.process(t,s,count,events);}CHECK(!events.overflow);
+  for(int i=0;i<events.size;++i){auto e=events.events[i];if(e.out==OutArp&&!e.type)result.emplace_back(at+e.offset,e.out,e.channel,e.note,e.velocity,e.type);}at+=count;}
+ int index=0;for(auto row:result)if(std::get<4>(row)>0)
+ {CHECK(std::get<0>(row)==std::llround(execution::quarters(Tick{37}+2*sixteenth*index,execution::Timing::groove,swing)*24000));++index;}
+ CHECK(index==3);return result;
+}
+
 int main()
 {
  for(float swing:{0.f,.3f,1.f})for(int num=1;num<=16;++num)for(int den:{1,2,4,8,16})
@@ -67,6 +115,117 @@ int main()
   CHECK(execution::first(boundary,release,swing).kind==execution::Kind::release);
   for(bool shared:{false,true})for(bool scene:{false,true})
   {auto a=deadline(127,swing,shared,scene);CHECK(a==deadline(512,swing,shared,scene));CHECK(a==deadline(8192,swing,shared,scene));}
+ }
+
+ for(int numerator:{3,5,7})for(float swing:{0.f,.5f,1.f})
+ {auto a=fineStarts(127,numerator,swing);CHECK(a==fineStarts(512,numerator,swing));CHECK(a==fineStarts(8192,numerator,swing));
+  auto arp=anchoredArpeggio(127,numerator,swing);CHECK(arp==anchoredArpeggio(512,numerator,swing));CHECK(arp==anchoredArpeggio(8192,numerator,swing));}
+ // Future onset previews must not commit recurrence decisions before nominal
+ // harmonic preparation (for example an XYZ-driven Wendung switch at an epoch).
+ {
+  Settings s;s.custom=true;s.customChords[0]={0,Maj7,8};s.key=0;s.y=.7f;s.melody=true;s.melodyMotif=true;s.solo[kMelodie]=true;
+  Generator g;EventList events;Transport t;t.playing=true;g.process(t,s,1,events);ExecutionTestAccess::material(g);
+  const auto identity=g.rememberedMotif(OutMelody).identity;
+  CHECK(ExecutionTestAccess::recurrenceEpoch(g,OutMelody)==-1);
+  for(auto at:{8*barLength(4,4),16*barLength(4,4),8*barLength(4,4)})
+   {ExecutionTestAccess::onset(g,at,s);CHECK(ExecutionTestAccess::recurrenceEpoch(g,OutMelody)==-1);CHECK(g.rememberedMotif(OutMelody).identity==identity);}
+ }
+ // A silent recurrence window is still a planning decision. Materialise it at
+ // its own milestone without relying on an accompaniment/CC sixteenth callback.
+ {
+  Settings s;s.custom=true;s.customChords[0]={0,Maj7,8};s.key=0;s.y=.2f;s.melody=true;s.melodyMotif=true;s.solo[kMelodie]=true;
+  s.policy.motif.sparseBelow=.9f;
+  Generator g;EventList events;Transport t;t.playing=true;g.process(t,s,1,events);events.clear();g.allNotesOff(events,0);events.clear();ExecutionTestAccess::material(g);
+  t.ppq=1/24000.;{NoAllocations guard;g.process(t,s,768000,events);}CHECK(!events.overflow);
+  CHECK(ExecutionTestAccess::recurrenceEpoch(g,OutMelody)==1);
+ }
+ // An idle held texture has no sixteenth clock. Its next concrete rhythm source
+ // is a section milestone; independent structural events still update harmony.
+ {
+  Settings s;s.custom=true;s.customChords[0]={0,Maj,8};s.padPattern=PadHeld;s.bassPattern=BassHeld;
+  s.solo[kFlaeche]=s.solo[kBass]=true;s.y=.7f;
+  Generator g;EventList events;Transport t;t.playing=true;g.process(t,s,1,events);
+  CHECK(ExecutionTestAccess::onset(g,Tick{1},s)>quarter);
+  CHECK(ExecutionTestAccess::changeAt(g,Tick{},s));
+  CHECK(!ExecutionTestAccess::changeAt(g,Tick{37},s));
+ }
+ // A 0.01-quarter jump is a real transport discontinuity, not host rounding.
+ // Sub-sample host rounding must not cut a running note.
+ for(auto test:std::array<std::pair<double,bool>,5>{{{.01,true},{-.01,true},{.000001,false},{.75/24000.,false},{1.5/24000.,true}}})
+ {
+  Settings s;s.y=.7f;Generator g;EventList events;Transport t;t.playing=true;
+  g.process(t,s,1,events);events.clear();ExecutionTestAccess::claim(g,s,events,OutCounter,8*quarter,execution::Timing::groove,true);
+  events.clear();t.ppq=1/24000.+test.first;g.process(t,s,1,events);bool off=false;
+  for(int i=0;i<events.size;++i){const auto& e=events.events[i];off|=e.note==1&&!e.type&&!e.velocity&&e.offset==0;}
+  CHECK(off==test.second);
+ }
+ // Between two musical onsets, ending requests are control events at their actual
+ // host position. They do not wait for a universal subdivision callback.
+ {
+  Settings s;s.custom=true;s.customChords[0]={0,Maj,8};s.padPattern=PadHeld;s.bassPattern=BassHeld;s.y=.7f;s.ending=EndHard;
+  Generator g;EventList events;Transport t;t.playing=true;g.process(t,s,925,events);
+  events.clear();ExecutionTestAccess::claim(g,s,events,OutCounter,8*quarter,execution::Timing::groove,true);
+  s.endRequested=true;t.ppq=37./960;events.clear();g.process(t,s,1,events);bool off=false;
+  for(int i=0;i<events.size;++i){const auto& e=events.events[i];off|=e.note==1&&!e.type&&!e.velocity&&e.offset==0;}
+  CHECK(off);CHECK(g.sceneOver());
+ }
+ // Revision between nominal preparation and delayed performance: mute is immediate;
+ // unmute may enable a still-future groove onset, never a past one.
+ for(bool initiallyMuted:{false,true})
+ {
+  Settings s;s.custom=true;s.customChords[0]={0,Maj,8};for(auto& mute:s.mute)mute=true;s.mute[kArp]=initiallyMuted;
+  s.y=.7f;s.swing=.5f;s.arpFigure=ArpUp;s.arpRate=RateSixteenth;
+  Generator g;EventList events;Transport t;t.playing=true;g.process(t,s,6600,events);
+  s.mute[kArp]=!initiallyMuted;t.ppq=6600/24000.;events.clear();g.process(t,s,5400,events);
+  int attacks=0;for(int i=0;i<events.size;++i){auto e=events.events[i];if(e.out==OutArp&&!e.type&&e.velocity)
+   {++attacks;CHECK(6600+e.offset==std::llround(execution::quarters(Tick{240},execution::Timing::groove,s.swing)*24000));}}
+  CHECK(attacks==(initiallyMuted?1:0));
+ }
+ // Cold chase of a continuous Pop hook must reconstruct a note that actually
+ // sounds at the destination; a genuine rest must stay silent.
+ for(int numerator:{3,5,7,4})for(float swing:{0.f,.5f})for(bool legato:{false,true})
+ {
+  Settings s;s.genre=GenrePopRock;s.custom=true;s.customChords[0]={0,Maj,8};s.key=0;s.y=.7f;s.swing=swing;s.legato=legato;
+  s.meterNum=numerator;s.meterDen=numerator==4?4:8;s.solo[kGegenstimme]=true;
+  Generator linear;EventList events;Transport t;t.playing=true;std::map<int,bool> sounding;
+  const int destination=10250; // inside the first offbeat hook's gate or articulation gap
+  for(int at=0;at<destination;){int count=std::min(127,destination-at);t.ppq=at/24000.;events.clear();linear.process(t,s,count,events);
+   for(int i=0;i<events.size;++i){auto e=events.events[i];if(e.out==OutCounter&&!e.type)sounding[e.note]=e.velocity>0;}at+=count;}
+  Generator cold;t.ppq=destination/24000.;events.clear();cold.process(t,s,1,events);std::map<int,bool> restored;
+  for(int i=0;i<events.size;++i){auto e=events.events[i];if(e.out==OutCounter&&!e.type)restored[e.note]=e.velocity>0;}
+  for(int note=0;note<128;++note)CHECK(sounding[note]==restored[note]);
+ }
+ // At an exact hook onset, a chased legato tail of the same physical key must
+ // not steal the real attack's accent/velocity through same-time claim coalescing.
+ for(int variation=1;variation<=16;++variation)
+ {
+  Settings s;s.genre=GenrePopRock;s.custom=true;s.customChords[0]={0,Maj,8};s.key=0;s.y=.7f;
+  s.legato=true;s.variation=variation;s.solo[kGegenstimme]=true;
+  Generator live;EventList events;Transport t;t.playing=true;live.process(t,s,12000,events);
+  t.ppq=.5;events.clear();live.process(t,s,1,events);std::map<int,int> attacks;
+  for(int i=0;i<events.size;++i){auto e=events.events[i];if(e.out==OutCounter&&!e.type&&e.velocity)attacks[e.note]=e.velocity;}
+  CHECK(!attacks.empty());Generator cold;events.clear();cold.process(t,s,1,events);std::map<int,int> restored;
+  for(int i=0;i<events.size;++i){auto e=events.events[i];if(e.out==OutCounter&&!e.type&&e.velocity)restored[e.note]=e.velocity;}
+  for(auto attack:attacks)CHECK(restored[attack.first]==attack.second);
+ }
+ // The same stock producers reconstruct their actual gates across harmonic/bar
+ // boundaries; no separate bass/arp/pad chase vocabulary is allowed.
+ for(int numerator:{3,5,7,4})for(float swing:{0.f,.5f})for(int family=0;family<3;++family)
+ for(int pattern=1;pattern<(family==0?static_cast<int>(kNumBassPatterns):family==1?static_cast<int>(kNumArpFigures):static_cast<int>(kNumPadPatterns));++pattern)
+ {
+  Settings s;s.custom=true;s.customChords[0]={0,Maj,1};s.customChords[1]={5,Min,1};s.key=0;s.y=.7f;s.z=.4f;s.swing=swing;
+  s.meterNum=numerator;s.meterDen=numerator==4?4:8;s.mute[kGegenstimme]=true;
+  const int layer=family==0?kBass:family==1?kArp:kFlaeche;s.solo[layer]=true;
+  if(family==0)s.bassPattern=pattern;else if(family==1){s.arpFigure=pattern;s.arpRate=RateEighth;}else s.padPattern=pattern;
+  const int destination=static_cast<int>(barLength(s.meterNum,s.meterDen).value*25+3101);
+  Generator linear;EventList events;Transport t;t.playing=true;std::map<std::pair<int,int>,bool> held;
+  for(int at=0;at<destination;){int count=std::min(127,destination-at);t.ppq=at/24000.;events.clear();linear.process(t,s,count,events);
+   for(int i=0;i<events.size;++i){auto e=events.events[i];if(!e.type)held[{e.channel,e.note}]=e.velocity>0;}at+=count;}
+  Generator cold;t.ppq=destination/24000.;events.clear();cold.process(t,s,1,events);std::map<std::pair<int,int>,bool> restored;
+  for(int i=0;i<events.size;++i){auto e=events.events[i];if(!e.type)restored[{e.channel,e.note}]=e.velocity>0;}
+  for(int channel=1;channel<=16;++channel)for(int note=0;note<128;++note)
+   if(held[{channel,note}]!=restored[{channel,note}])
+   {std::cerr<<"chase "<<numerator<<" "<<swing<<" "<<family<<" "<<pattern<<" "<<channel<<" "<<note<<"\n";CHECK(false);}
  }
  // Real held harmony must enter on odd-meter boundaries even when the coincident
  // rhythmic pulse has a delayed performance time.

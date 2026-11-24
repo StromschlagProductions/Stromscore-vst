@@ -74,7 +74,7 @@ if(BUILD_TESTING)
     target_include_directories(ExecutionTests PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/execution-fixture)
     add_test(NAME Execution COMMAND ExecutionTests)
     if(NOT MSVC)
-        add_test(NAME MusicalExecutionRegression COMMAND ${Python3_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/scripts/compare_execution_time.py
+        add_test(NAME MusicalExecutionRegression COMMAND ${Python3_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/scripts/compare_execution_time.py --completion
             --probe $<TARGET_FILE:HarmonyImportProbe> --compiler ${CMAKE_CXX_COMPILER} --output ${CMAKE_CURRENT_BINARY_DIR}/musical-execution)
     endif()
     add_executable(ChordDefinitionTests Tests/ChordDefinitionTests.cpp)

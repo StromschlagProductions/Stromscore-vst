@@ -36,6 +36,8 @@ int main(int argc,char** argv)
   if(scenario==1){s.scene=true;s.inertia=true;s.sceneBars=24;s.buildBars=4;s.entry=EntryAuto;s.ending=EndFade;s.hardness=.25f;}
   if(scenario==3){importTestId=WendungId::invalid;s.custom=true;s.customChords[0]={0,Maj,1};s.customChords[1]={5,Min,1};
    s.padPattern=PadHeld;s.bassPattern=BassHeld;s.y=.8f;s.z=0;s.solo[kFlaeche]=s.solo[kBass]=true;}
+  if(scenario==4){s.dynamics=true;s.ccDynamics=1;s.ccExpression=11;}
+  if(scenario==5){s.drive=true;s.driveFrom=0;s.driveBars=16;s.driveX=.8f;s.driveY=.85f;s.driveCurve=CurveSlow;}
   if(scenario==2){s.bassPattern=BassFunk;s.arpFigure=ArpCircle;s.arpRate=RateEighth;s.channel[OutArp]=s.channel[OutPadLong];}
  }
  const double barQuarters=Meter::from(s.meterNum,s.meterDen).len*kStep;

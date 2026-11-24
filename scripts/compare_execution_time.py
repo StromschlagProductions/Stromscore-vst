@@ -2,7 +2,8 @@
 import argparse,pathlib,sys,tempfile,subprocess,json,hashlib,itertools,collections,struct
 root=pathlib.Path(__file__).resolve().parents[1];sys.path.insert(0,str(root/'Tests'))
 from HarmonyImportFixtures import prepare
-p=argparse.ArgumentParser();p.add_argument('--probe',required=True);p.add_argument('--compiler',default='c++');p.add_argument('--output',required=True);a=p.parse_args();out=pathlib.Path(a.output);out.mkdir(parents=True,exist_ok=True);cat=json.loads((root/'data/harmony/catalog.json').read_text());byid={t['id']:t for t in cat['templates']};rows=[];blockchecks=0
+from transport_regression import assert_chase_delta
+p=argparse.ArgumentParser();p.add_argument('--probe',required=True);p.add_argument('--completion',action='store_true');p.add_argument('--compiler',default='c++');p.add_argument('--output',required=True);a=p.parse_args();out=pathlib.Path(a.output);out.mkdir(parents=True,exist_ok=True);cat=json.loads((root/'data/harmony/catalog.json').read_text());byid={t['id']:t for t in cat['templates']};rows=[];blockchecks=0
 meters=[(4,4),(3,4),(6,8),(3,8),(5,8),(7,8)];cases=[]
 for t in cat['templates']:
  for profile in range(3):
@@ -24,7 +25,7 @@ def group_positions(num,den):
  for size in sizes:starts.append(total);total+=size
  return length,starts
 
-def comparison(before,after,meter,swing,route):
+def part2a_comparison(before,after,meter,swing,route):
  same=before==after
  length,groups=group_positions(*meter)
  shifted=length%4!=0 or any(g%4 for g in groups)
@@ -44,6 +45,20 @@ def comparison(before,after,meter,swing,route):
   'removed_events':sum((b-n).values()),'added_events':sum((n-b).values()),'changed_timestamps':len(changes),'sample_shift_range':[min(shifts,default=0),max(shifts,default=0)],'examples':changes[:4],
   'correction':None if same else 'unswung_boundaries_or_performance_chase'}
 
+def comparison(before,after,meter,swing,route):
+ if not a.completion:return part2a_comparison(before,after,meter,swing,route)
+ # A continuous unchanged performance must be byte exact. Chase fixes are confined
+ # to explicit discontinuous routes and are reported with full removed/added data.
+ assert before==after or route,('continuous performance changed',args)
+ old=collections.Counter(tuple(map(int,l.split(b','))) for l in before.splitlines())
+ new=collections.Counter(tuple(map(int,l.split(b','))) for l in after.splitlines())
+ removed=list((old-new).elements());added=list((new-old).elements())
+ total=round(float(args[9])*int(args[16])*4/int(args[17])*48000*60/float(args[11]));segment=total//4
+ assert_chase_delta(before,after,(segment,2*segment,3*segment),layout='import',samples_per_quarter=48000*60/float(args[11]))
+ return {'byte_identical':before==after,'before_sha256':hashlib.sha256(before).hexdigest(),
+  'after_sha256':hashlib.sha256(after).hexdigest(),'removed_events':len(removed),'added_events':len(added),
+  'removed':removed,'added':added,'correction':None if before==after else 'explicit_transport_chase'}
+
 def midi(path,raw,bpm):
  def vlq(n):
   value=[n&127];n>>=7
@@ -56,10 +71,21 @@ def midi(path,raw,bpm):
  track+=b'\x00\xff\x2f\x00';path.write_bytes(b'MThd'+struct.pack('>IHHH',6,0,1,960)+b'MTrk'+struct.pack('>I',len(track))+track)
 
 with tempfile.TemporaryDirectory() as tmp:
- tmp=pathlib.Path(tmp);prepare(tmp/'headers',revision='17b15a4',explicit=True);exe=tmp/'baseline';subprocess.run([a.compiler,'-std=c++17','-O2','-I',str(tmp/'headers'),str(root/'tools/harmony_import_probe.cpp'),'-o',str(exe)],check=True)
+ tmp=pathlib.Path(tmp);prepare(tmp/'headers',revision='1481a4f' if a.completion else '17b15a4',explicit=True);exe=tmp/'baseline';subprocess.run([a.compiler,'-std=c++17','-O2','-I',str(tmp/'headers'),str(root/'tools/harmony_import_probe.cpp'),'-o',str(exe)],check=True)
+ if a.completion:
+  # Verify the complete original 2a matrix against its original base, not just a count
+  # of changes in the new renderings. Its 98 corrections remain independently auditable.
+  subprocess.run([sys.executable,__file__,'--probe',str(exe),'--compiler',a.compiler,'--output',str(out/'part2a')],check=True)
+  part2a=json.loads((out/'part2a/regression.json').read_text());assert part2a['comparisons']==1217 and part2a['corrected']==98
+  reference=json.loads((root/'docs/development/MUSICAL_EXECUTION_2A_REGRESSION.json').read_text())
+  assert [(r['before_sha256'],r['after_sha256']) for r in part2a['results']]==[(r['before_sha256'],r['after_sha256']) for r in reference['results']]
  for id,profile,route,meter,bpm,swing,bars,blocks in cases:
   t=byid[id];args=list(map(str,[id,0,*t['xyz'],1,0,1,1,bars,512,bpm,route,profile,swing,0 if id<2000 else 1,*meter]))
   before=subprocess.check_output([str(exe)]+args);after=subprocess.check_output([a.probe]+args);delta=comparison(before,after,meter,swing,route)
+  if a.completion and not blocks and id in (1001,2037) and profile==0 and route:
+   midi(out/f'chase-{id}-before.mid',before,bpm);midi(out/f'chase-{id}-after.mid',after,bpm)
+   for label,data in [('before',before),('after',after)]:
+    (out/f'chase-{id}-{label}.csv').write_bytes(b'sample,output,channel,note,velocity,type\n'+data)
   if blocks:
    reference=[tuple(map(int,l.split(b','))) for l in after.splitlines()]
    for block in (127,480,8192):
@@ -68,8 +94,8 @@ with tempfile.TemporaryDirectory() as tmp:
     blockchecks+=1
   rows.append({'id':id,'profile':profile,'route':route,'meter':meter,'bpm':bpm,'swing':swing,'bars':bars,**delta})
  # Direct regression of the just-migrated free-line, scene and manual/shared-claim paths.
- for (num,den),genre,follow,swing,scenario in itertools.product(((4,4),(3,8),(5,8),(7,8)),range(2),range(2),(0,.3),range(3)):
-  id=1005 if genre==0 else 2025;t=byid[id];profile=(num+scenario)%3;route=scenario%2
+ for (num,den),genre,follow,swing,scenario in itertools.product(((4,4),(3,8),(5,8),(7,8)),range(2),range(2),(0,.3),range(6 if a.completion else 3)):
+  id=1005 if genre==0 else 2025;t=byid[id];profile=(num+scenario)%3;route=scenario%2 if scenario<4 else follow
   args=list(map(str,[id,0,*t['xyz'],follow,0,0,1,32,512,120,route,profile,swing,genre,num,den,scenario]))
   before=subprocess.check_output([str(exe)]+args);after=subprocess.check_output([a.probe]+args)
   delta=comparison(before,after,(num,den),swing,route)
@@ -93,9 +119,9 @@ with tempfile.TemporaryDirectory() as tmp:
   for b in range(8):
    cell=b*num*2;delay=(.667 if cell%4==2 else .333 if cell%4 in (1,3) else 0)*.5
    expected.append(round((cell+delay)*6000))
-  assert legacy_bass==expected,('legacy reference boundary',num,legacy_bass,expected)
+  assert legacy_bass==(actual_bass if a.completion else expected),('reference boundary',num,legacy_bass,expected)
   for block in (127,8192):
    args[10]=str(block);assert subprocess.check_output([a.probe]+args)==after;blockchecks+=1
   midi(out/f'held-{num}-8-before.mid',before,120);midi(out/f'held-{num}-8-after.mid',after,120)
   rows.append({'id':'custom-C-Fm','profile':0,'route':0,'meter':[num,8],'bpm':120,'swing':.5,'bars':8,'legacy_bass_samples':legacy_bass,'bass_samples':actual_bass,**delta})
-(out/'regression.json').write_text(json.dumps({'baseline':'17b15a4','comparisons':len(rows),'byte_identical':sum(r['byte_identical'] for r in rows),'corrected':sum(not r['byte_identical'] for r in rows),'block_comparisons':blockchecks,'results':rows},indent=2)+'\n');print(len(rows),'comparisons;',sum(r['byte_identical'] for r in rows),'byte-identical;',sum(not r['byte_identical'] for r in rows),'documented swing/chase corrections;',blockchecks,'block comparisons')
+(out/'regression.json').write_text(json.dumps({'baseline':'1481a4f' if a.completion else '17b15a4','retained_part2a_corrections':98 if a.completion else None,'comparisons':len(rows),'byte_identical':sum(r['byte_identical'] for r in rows),'corrected':sum(not r['byte_identical'] for r in rows),'block_comparisons':blockchecks,'results':rows},indent=2)+'\n');print(len(rows),'comparisons;',sum(r['byte_identical'] for r in rows),'byte-identical;',sum(not r['byte_identical'] for r in rows),'documented transport/chase corrections;' if a.completion else 'documented swing/chase corrections;',blockchecks,'block comparisons')

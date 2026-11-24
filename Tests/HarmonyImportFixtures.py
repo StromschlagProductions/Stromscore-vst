@@ -15,7 +15,9 @@ def prepare(destination,revision=None,historical=False,explicit=False):
   name='ScoreEngine.h';s=headers[name].decode();s=s.replace('namespace stromscore\n{','namespace stromscore\n{\ninline WendungId importTestId=WendungId::invalid;',1)
   needle='static int pick (const Settings& s, long long salt)\n    {';assert needle in s
   s=s.replace(needle,needle+'\n        if(importTestId!=WendungId::invalid)return wendungIndex(s.genre,importTestId);',1)
-  needle='bool maybeSwitch (long long k, const Pos& p, const Settings& s)\n    {';assert needle in s
+  needle='bool maybeSwitch (long long k, const Pos& p, const Settings& s)\n    {'
+  if needle not in s:needle='bool maybeSwitch (musicaltime::Tick time, const Pos& p, const Settings& s)\n    {'
+  assert needle in s
   s=s.replace(needle,needle+'\n        if(importTestId!=WendungId::invalid)return false;',1);headers[name]=s.encode()
  p=pathlib.Path(destination);p.mkdir(parents=True,exist_ok=True)
  for n,v in headers.items():(p/n).write_bytes(v)
