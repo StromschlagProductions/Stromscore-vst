@@ -746,9 +746,10 @@ int main()
         CHECK (! c.broken && c.ons == c.offs); q.setPlayHead (nullptr);
     }
     // Voice-leading export equals live DAW playback, including channel CCs and held common notes.
-    for(float intensity : {.4f,.7f,.8f,.9f,1.f,.99f,.97f,.96f,.95f,.94f,.93f,.92f,.91f})
+    for(float intensity : {.4f,.7f,.8f,.9f,1.f,.99f,.97f,.96f,.95f,.94f,.93f,.92f,.91f,.89f,.88f})
     {
         StromscoreProcessor q; FakeHost h; q.setPlayHead (&h); q.prepareToPlay (48000, 512);
+        if(intensity==.89f||intensity==.88f)setParam(q,"genre",1);
         setParam (q, "aufbau", 0); setParam (q, "key", 0); setParam (q, "intensitaet", intensity);
         setParam(q,"durchgaenge",intensity>=.6f?1.f:0.f);
         setParam (q, "eigeneFolge", 1); setParam (q, "padPattern", stromscore::PadHeld); setParam (q, "dynamikCc", 1);
@@ -759,6 +760,7 @@ int main()
             setParam (q, ("slotRoot" + std::to_string (i + 1)).c_str(), (float) roots[i]);
             setParam (q, ("slotType" + std::to_string (i + 1)).c_str(), (float) types[i]);
         }
+        if(intensity==.88f)setParam(q,"eigeneFolge",0);
         // Nonuniform harmonic durations must agree between live MIDI and file export.
         const int durations[4]={1,3,2,2};
         for(int i=0;i<4;++i)setParam(q,("slotBars"+std::to_string(i+1)).c_str(),static_cast<float>(durations[i]));

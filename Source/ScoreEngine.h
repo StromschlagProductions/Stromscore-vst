@@ -669,6 +669,7 @@ public:
         s.genre = std::clamp (s.genre, 0, kNumGenres - 1);
         if (s.custom != wasCustom || bars != phraseBars || s.genre != lastGenre)   // Umschalten, neue Laenge oder anderes Genre: neue Phrase
         {
+            if(s.genre!=lastGenre){motifCatalog.clear();for(auto& state:voices){state.motif.clear();state.answer.clear();state.capture.clear();state.recurrenceEpoch=-1;}}
             phraseIndex = -1; wasCustom = s.custom; phraseBars = bars; style = -1;
             genre = s.genre; lastGenre = s.genre;
             if (running) releaseHeld (0, out);
@@ -677,6 +678,7 @@ public:
         if (! t.playing || ! std::isfinite (t.bpm) || ! std::isfinite (t.sampleRate) || ! std::isfinite (t.ppq) || std::abs (t.ppq) > 1.0e9 || t.bpm <= 0.0 || t.sampleRate <= 0.0 || numSamples <= 0)
         {
             if (running) allNotesOff (out, 0);
+            for(auto& state:voices){state.capture.clear();if(!state.motif.material(motifCatalog).complete)state.motif.clear();}
             running = false; curChord = -1; cur = nullptr; sceneBarNow = -1;
             return;
         }
@@ -690,6 +692,7 @@ public:
         {
             allNotesOff (out, 0);
             for(auto& state:voices)if(!state.motif.material(motifCatalog).complete)state.motif.clear();
+            for(auto& state:voices)state.capture.clear();
             resetVoicing();
             heardHarmony={}; harmonicChase=true;
             driveTrajectory = false; // A seek reconstructs the curve at the destination, without old segment history.
@@ -718,6 +721,7 @@ public:
             stepOn (k, offset, s, out);
             releaseDue (k, offset, out);
         }
+        capturePerformance(t.ppq,ppqEnd,samplesPerQuarter,s,out);
         lastPpqEnd = ppqEnd;
         cur = nullptr;
     }
@@ -2470,9 +2474,36 @@ private:
         return best >= 0 ? best : place (s.key + c.root + sh.iv[std::min (1, sh.n - 1)], a);
     }
 
+    void capturePerformance(double ppq,double end,double samplesPerQuarter,const Settings& s,const EventList& out)
+    {
+        if(s.genre!=GenrePopRock)return;
+        auto& state=voice(OutCounter);
+        if(!state.capture.active)return;
+        bool ambiguous=state.captureChannel!=s.channel[OutCounter];
+        for(int o=0;o<kNumOutputs;++o)if(o!=OutCounter&&s.channel[o]==s.channel[OutCounter])ambiguous=true;
+        if(ambiguous){state.capture.clear();state.motif.clear();return;}
+        for(int i=0;i<out.size;++i)
+        {
+            const auto& e=out.events[static_cast<size_t>(i)];
+            if(e.type==0&&e.channel==s.channel[OutCounter])
+                state.capture.event(state.motif,e.note,e.velocity,static_cast<int64_t>(std::llround((ppq+e.offset/samplesPerQuarter)*960.)));
+        }
+        state.capture.finish(state.motif,motifCatalog,static_cast<int64_t>(std::llround(end*960.)));
+    }
+    void armHookCapture(long long k,const Pos& p,const Settings& s)
+    {
+        auto& state=voice(OutCounter);
+        if(state.motif.material(motifCatalog).complete||state.capture.active)return;
+        // Shared physical notes do not identify an independent melodic performance.
+        for(int o=0;o<kNumOutputs;++o)if(o!=OutCounter&&s.channel[o]==s.channel[OutCounter])return;
+        const bool special=popHookPattern(W().id)>=0&&!s.custom;
+        const auto cycle=special?2LL*meter.len:8LL*(layerY(s,kGegenstimme)<.45f?4:2);
+        if((k-p.phraseStart)%cycle==0){state.captureChannel=s.channel[OutCounter];state.capture.start(state.motif,k*240,cycle*240,240);}
+    }
     // Pop-Rock: durchgehende, gleichbleibende Hook-Linie aus Akkordtoenen (eine Figur je VARIATION)
     void leadHook (long long k, const Pos& p, const Settings& s, int offset, EventList& out)
     {
+        armHookCapture(k,p,s);
         const int hook=popHookPattern(W().id);
         if (hook>=0 && ! s.custom)
         {
@@ -2643,6 +2674,7 @@ private:
     struct VoiceState
     {
         composition::MotifUse motif,answer;
+        composition::MotifCapture capture; int captureChannel=0;
         int64_t recurrenceEpoch=-1,recurrenceOrigin=0,recurrenceWindow=0;uint64_t recurrenceIdentity=0;
         composition::MotifOccurrence recurrencePlan;
         int note=-1,pending=-1;

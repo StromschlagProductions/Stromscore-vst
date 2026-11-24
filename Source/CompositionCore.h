@@ -23,14 +23,15 @@ struct Range { int low = 0, high = 127; };
 struct RememberedMotif
 {
     struct Note { int64_t at=0, length=1; int interval=0, velocity=64; };
-    std::array<Note,5> notes {};
+    std::array<Note,8> notes {};
     int count=0, origin=0;
+    int timeScale=1; int64_t cycleLength=0;
     uint64_t identity=0;
     bool complete=false;
     void clear(){*this={};}
     void observe(int pitch,int64_t at,int64_t length,int velocity=64)
     {
-        if(complete||count==5)return;
+        if(complete||count==8)return;
         if(count==0)origin=pitch;
         notes[static_cast<size_t>(count++)]={at,length,pitch-origin,velocity};
     }
@@ -40,6 +41,7 @@ struct RememberedMotif
         identity=1469598103934665603ull;
         for(int i=0;i<count;++i)for(auto value:{notes[static_cast<size_t>(i)].at,notes[static_cast<size_t>(i)].length,static_cast<int64_t>(notes[static_cast<size_t>(i)].interval)})
         {identity^=static_cast<uint64_t>(value);identity*=1099511628211ull;}
+        if(timeScale!=1){identity^=static_cast<uint64_t>(timeScale);identity*=1099511628211ull;identity^=static_cast<uint64_t>(cycleLength);identity*=1099511628211ull;}
         complete=true;
     }
     int64_t recalledLength(int index,bool variation,int64_t phraseEnd)const
@@ -67,7 +69,7 @@ struct MotifFigure
 inline MotifFigure deriveMotif(const RememberedMotif& source,MotifVariation variation,int sequenceSemitones=7)
 {
     MotifFigure figure;figure.sourceIdentity=source.identity;figure.variation=variation;
-    if(!source.complete||source.count<2||source.count>5||static_cast<int>(variation)<0||static_cast<int>(variation)>4)return figure;
+    if(source.timeScale!=1||!source.complete||source.count<2||source.count>5||static_cast<int>(variation)<0||static_cast<int>(variation)>4)return figure;
     int first=0,count=source.count;
     if(variation==MotifVariation::fragment){count=std::min(3,count-1);if(count<2)return figure;first=source.count-count;}
     if(variation==MotifVariation::sequence){if(sequenceSemitones==0||std::abs(sequenceSemitones)>12)return figure;count=2;}
@@ -155,6 +157,46 @@ struct MotifUse
         clear();reference=plan.material;introduction=plan.introduction;originTick=plan.originTick;return true;
     }
 };
+// Common performance capture: musical units are selected by the adapter, not a MIDI target.
+struct MotifCapture
+{
+    int64_t begin=0,end=0;
+    bool active=false,invalid=false;
+    std::array<bool,8> pending {};
+    void clear(){*this={};}
+    void start(MotifUse& use,int64_t at,int64_t length,int scale)
+    {
+        clear();use.clear();begin=at;end=at+length;active=true;
+        use.originTick=at;use.introduction=0;use.draft.timeScale=scale;use.draft.cycleLength=length;
+    }
+    void event(MotifUse& use,int pitch,int velocity,int64_t at)
+    {
+        if(!active||at<begin)return;
+        auto& m=use.draft;
+        for(int i=0;i<m.count;++i)if(pending[i]&&m.origin+m.notes[i].interval==pitch)
+        {m.notes[i].length=at-begin-m.notes[i].at;pending[i]=false;if(m.notes[i].length<1)invalid=true;}
+        if(velocity>0&&at<end)
+        {
+            if(m.count==8){invalid=true;return;}
+            const int index=m.count;m.observe(pitch,at-begin,1,velocity);pending[index]=true;
+        }
+    }
+    void finish(MotifUse& use,MotifCatalog& catalog,int64_t at)
+    {
+        if(!active||at<end)return;
+        for(bool open:pending)if(open)return;
+        active=false;
+        if(invalid||use.draft.count<2){use.clear();return;}
+        use.finish(catalog);
+    }
+};
+struct RecordedMotifNote { bool valid=false;int pitch=0,velocity=0;int64_t at=0,length=0; };
+inline RecordedMotifNote replayMotifNote(const RememberedMotif& material,int index)
+{
+    if(!material.complete||index<0||index>=material.count)return {};
+    const auto& n=material.notes[static_cast<size_t>(index)];
+    return {true,material.origin+n.interval,n.velocity,n.at,n.length};
+}
 struct RecurrenceSlot { bool eligible=false;int64_t ordinal=0;int preceding=0;bool lateAllowed=false; };
 inline RecurrenceSlot recurrenceSlot(const MotifRecurrencePolicy& policy,int64_t epoch,float energy,float unrest)
 {
