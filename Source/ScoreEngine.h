@@ -889,16 +889,16 @@ private:
     {
         const auto& w=W();const long long length=static_cast<long long>(phraseBars)*meter.len;
         const long long begin=floorDiv(at,length)*length;
-        composition::ChordTimeline timeline;timeline.count=w.n;timeline.begin=begin;timeline.end=begin+length;
+        composition::ChordTimeline timeline;timeline.count=w.n;timeline.begin=musicaltime::fromGridStep(begin);timeline.end=musicaltime::fromGridStep(begin+length);
         timeline.first=still?chordBase:0;timeline.held=still;
-        for(int i=0;i<w.n;++i)timeline.durations[static_cast<size_t>(i)]=static_cast<int64_t>(w.ch[i].bars)*meter.len;
-        const auto position=composition::locateChord(timeline,at);
+        for(int i=0;i<w.n;++i)timeline.durations[static_cast<size_t>(i)]=musicaltime::fromGridStep(static_cast<int64_t>(w.ch[i].bars)*meter.len);
+        const auto position=composition::locateChord(timeline,musicaltime::fromGridStep(at));
         const auto& chord=w.ch[position.index];
         const int next=position.index+1<w.n?w.ch[position.index+1].root:w.ch[0].root;
         const auto intent=composition::freeTransition(next,allowsPassingHarmony(s),s.y,still);
-        const auto placement=composition::placeTransition(intent,position.begin,position.end,meter.len,meter.groupStart[std::max(0,meter.numGroups-1)]);
-        if(placement.present&&at>=placement.begin)return {{intent.approachRoot,Dom7,1},placement.end};
-        return {chord,placement.present?placement.begin:position.end};
+        const auto placement=composition::placeTransition(intent,position.begin,position.end,musicaltime::fromGridStep(meter.len),musicaltime::fromGridStep(meter.groupStart[std::max(0,meter.numGroups-1)]));
+        if(placement.present&&musicaltime::fromGridStep(at)>=placement.begin)return {{intent.approachRoot,Dom7,1},musicaltime::toExactGridStep(placement.end)};
+        return {chord,musicaltime::toExactGridStep(placement.present?placement.begin:position.end)};
     }
     bool phrasedHook(const Settings& s)const
     {
@@ -1217,20 +1217,20 @@ private:
         const Wendung& w = W();
         composition::ChordTimeline timeline;
         timeline.count=w.n;timeline.first=chordBase;timeline.held=still;
-        timeline.begin=std::max(wendungStart,p.phraseStart);timeline.end=p.phraseEnd;
-        for(int i=0;i<w.n;++i)timeline.durations[static_cast<size_t>(i)]=static_cast<int64_t>(w.ch[i].bars)*meter.len;
-        const auto position=composition::locateChord(timeline,k);
-        p.chordIdx=position.index;p.chordStart=position.begin;p.chordEnd=position.end;
+        timeline.begin=musicaltime::fromGridStep(std::max(wendungStart,p.phraseStart));timeline.end=musicaltime::fromGridStep(p.phraseEnd);
+        for(int i=0;i<w.n;++i)timeline.durations[static_cast<size_t>(i)]=musicaltime::fromGridStep(static_cast<int64_t>(w.ch[i].bars)*meter.len);
+        const auto position=composition::locateChord(timeline,musicaltime::fromGridStep(k));
+        p.chordIdx=position.index;p.chordStart=musicaltime::toExactGridStep(position.begin);p.chordEnd=musicaltime::toExactGridStep(position.end);
         if(still)return p;
         if (cur != nullptr)
         {
             const auto intent=composition::freeTransition(nextChordRoot(p),allowsPassingHarmony(*cur),cur->y);
-            const auto transition=composition::placeTransition(intent,p.chordStart,p.chordEnd,
-                meter.len,meter.groupStart[std::max(0,meter.numGroups-1)]);
+            const auto transition=composition::placeTransition(intent,musicaltime::fromGridStep(p.chordStart),musicaltime::fromGridStep(p.chordEnd),
+                musicaltime::fromGridStep(meter.len),musicaltime::fromGridStep(meter.groupStart[std::max(0,meter.numGroups-1)]));
             if(transition.present)
             {
-                if(k>=transition.begin){p.chordStart=transition.begin;p.passing=true;}
-                else p.chordEnd=transition.begin;
+                if(musicaltime::fromGridStep(k)>=transition.begin){p.chordStart=musicaltime::toExactGridStep(transition.begin);p.passing=true;}
+                else p.chordEnd=musicaltime::toExactGridStep(transition.begin);
             }
         }
         return p;

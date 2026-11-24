@@ -185,18 +185,18 @@ int main()
     // Nonuniform durations, exact boundaries, truncated last chord and held harmony.
     for(int ticksPerBar:{10,12,14,16,24})
     {
-        ChordTimeline timeline;timeline.count=4;timeline.begin=100;timeline.end=100+8*ticksPerBar;
-        timeline.durations={ticksPerBar,3*ticksPerBar,2*ticksPerBar,2*ticksPerBar};
+        ChordTimeline timeline;timeline.count=4;timeline.begin={100};timeline.end={100+8*ticksPerBar};
+        timeline.durations={stromscore::musicaltime::Tick{ticksPerBar},stromscore::musicaltime::Tick{3*ticksPerBar},stromscore::musicaltime::Tick{2*ticksPerBar},stromscore::musicaltime::Tick{2*ticksPerBar}};
         int offset=0;
         for(int i=0;i<4;++i)
         {
-            auto p=locateChord(timeline,100+offset);
-            CHECK(p.index==i&&p.begin==100+offset);
-            CHECK(locateChord(timeline,p.end-1).index==i);
-            offset+=static_cast<int>(timeline.durations[static_cast<size_t>(i)]);
+            auto p=locateChord(timeline,stromscore::musicaltime::Tick{100+offset});
+            CHECK(p.index==i&&p.begin==stromscore::musicaltime::Tick{100+offset});
+            CHECK(locateChord(timeline,p.end-stromscore::musicaltime::Tick{1}).index==i);
+            offset+=static_cast<int>(timeline.durations[static_cast<size_t>(i)].value);
         }
         timeline.first=2;timeline.held=true;
-        CHECK(locateChord(timeline,timeline.end-1).index==2);
+        CHECK(locateChord(timeline,timeline.end-stromscore::musicaltime::Tick{1}).index==2);
     }
     // Existing transition strategy: threshold, held harmony and final beat group.
     CHECK(freeTransition(0,true,.599f).kind==TransitionKind::direct);
@@ -209,9 +209,9 @@ int main()
         CHECK(intent.approachRoot==(root+7)%12);
         for(int bar:{10,12,14,16,24})
         {
-            const auto placed=placeTransition(intent,100,100+3*bar,bar,bar-4);
-            CHECK(placed.present&&placed.begin==100+3*bar-4&&placed.end==100+3*bar);
-            CHECK(!placeTransition(intent,100,100+bar-1,bar,bar-4).present);
+            const auto placed=placeTransition(intent,{100},{100+3*bar},{bar},{bar-4});
+            CHECK(placed.present&&placed.begin==stromscore::musicaltime::Tick{100+3*bar-4}&&placed.end==stromscore::musicaltime::Tick{100+3*bar});
+            CHECK(!placeTransition(intent,{100},{100+bar-1},{bar},{bar-4}).present);
         }
         for(int key=0;key<12;++key)
         {

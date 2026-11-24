@@ -71,3 +71,36 @@ Keine neue Legacy-Engine, keine neue GUI und keine harmonischen oder rhythmische
 37/37 Gesamttests bestanden. Die zusätzliche Zeitregression liefert 973 bytegleiche vollständige Vorher-/Nachher-Renderings gegen `427a068`, einschließlich aller 87 produktiven Wendungen und vorhandenen Profile. 1353 zusätzliche Blockgrößenvergleiche bestanden mit maximal einem Sample Rundungsspielraum bei identischen Ereignissen; drei 4096-Takt-Läufe enthalten keine neue zeitliche Drift. Prüfsummen und Fallparameter stehen in `MUSICAL_TIME_REGRESSION.json`.
 
 ASan/UBSan für `MusicalTimeTests` und bestehende `EngineTests` ohne Befund. 7/7 Paketprüf-Fixtures bestanden. Tatsächlicher Processor-Gesamttest einschließlich bestehender 54 Import-Live-/SMF-Fälle bestanden. Linux-VST3 erfolgreich gebaut und Bundle-/ELF-/Versionsmetadaten geprüft. Kein Windows-/pluginval-Lauf, kein Push und kein Release in diesem Auftrag.
+
+## Teil 1b.1 – harmonische Zeitleiste und Übergangsplatzierung
+
+Aufbauend auf `9745fbe`. Der zulässige Umfang wird nochmals geteilt: Dieser Schritt migriert den gemeinsamen harmonischen Positionsplan, nicht die gesamte Phrasen- und Motivverwaltung. Die obige Tabelle beschreibt den Ausgangsstand von Teil 1a; für die folgenden Komponenten ist sie jetzt ersetzt:
+
+- `composition::ChordTimeline`: Phrasen-/Abschnittsfenster `begin/end` und alle Akkorddauern sind `musicaltime::Tick` mit 960 PPQ.
+- `ChordPosition`: Beginn und Ende des gefundenen harmonischen Slots sind derselbe starke Zeittyp.
+- `TransitionPlacement` und `placeTransition()`: Beginn/Ende, Taktlänge und die Position der letzten metrischen Gruppe sind nun Tick-Werte. Keine zeitliche Gleitkommaentscheidung im Planer.
+- `Generator::locate()` und `motifHarmonyAt()` liefern ihre harmonischen Fakten an denselben migrierten Kern. Die harmonische Eignungsprüfung von Motivfiguren erhält damit dieselben Akkord-/Übergangsgrenzen wie die Live-Wiedergabe.
+- Der Zeittyp besitzt Addition, Subtraktion und Ordnung ausschließlich zwischen Tick-Werten. Rasterindices werden nicht implizit konvertiert.
+
+Der bisherige Aufrufer arbeitet noch mit Rasterindices. Deshalb werden dessen Grenzen am Eintritt mit `fromGridStep()` umgerechnet und an der Rückgabe mit `toExactGridStep()` wieder in die noch benötigte Einheit überführt. Diese begrenzte Brücke setzt exakt rastergebundene Werte voraus; ein Debug-Assert prüft diese Invariante. Sie ist kein Konverter für künftig frei eingegebene feinere Dauern. Alle produktiven Dauern bleiben ganze Takte, und die Slotanzahl bleibt acht. Der gemeinsame Planer selbst kann bereits etwa eine Grenze bei 360 PPQ-Ticks darstellen; der alte Scheduler darf damit noch nicht gespeist werden.
+
+### Achtel-Taktarten und Tests
+
+Gezielte Kernprüfungen für 3/8, 5/8 und 7/8 prüfen wechselnde Akkorddauern, Abschnittsanfänge und -enden sowie Positionen einen Tick vor und genau auf einer Grenze. Ein feineres Vierteltaktfenster wird ausschließlich im Kernplaner geprüft, ohne neue klingende Ereignisse zu aktivieren. Bestehende Haltelogik und Übergangsstrategien bleiben unverändert.
+
+Die Zeitregression verwendet jetzt `9745fbe` als Basis. Zusätzlich zur vollständigen bisherigen Abdeckung kreuzt sie ausdrücklich 3/8, 5/8 und 7/8 mit Tempo, Swing, Transportwechseln, aktivem Motivbetrieb und verschiedenen Blockgrößen. Der tatsächliche Processor-Test veröffentlicht Host-Taktarten 3/8, 5/8 und 7/8 und vergleicht jede der drei importierten Wendungen in allen vorhandenen Profilen und beiden Follow-Zuständen mit dem SMF-Export. Notenenden werden einschließlich der abschließenden Note-Off-Bilanzen geprüft. Kein neuer GUI-Taktarteneintrag.
+
+### Ausdrücklich noch im alten Raster
+
+- `Generator::Pos` einschließlich globaler Phrasenanfänge/-enden, `nowStep`, Akkordgrenzen auf der noch nicht migrierten Adapterseite.
+- Szenen-/Aufbau-/Endzustände und die zeitliche Historie tatsächlich gehörter Wendungsübergänge.
+- Bassphrasen, freie Linienphrasen, Atempausen und rhythmische Einsatz-/Reservierungsfenster außerhalb der harmonischen Zeitleiste.
+- Score-Motivspeicherung, normalisierte Wiedergabefiguren, Wiederkehrabstände, Varianten und Frage-/Antwortfenster. Die harmonische Zeitabfrage ist migriert, die übrigen Motivdaten noch nicht. Tatsächlich aufgenommenes Pop-Material bleibt wie schon zuvor in 960 PPQ und wird für die bisherige Wiedergabe normalisiert.
+- Zufalls-/Musterindizes und der gesamte rhythmische Scheduler einschließlich Swing. Diese Indizes sind nicht durch bloßes Multiplizieren in Zeitstempel umzudeuten.
+- Der samplebasierte `Compiler`/`Plan`-Prüfpfad bleibt unverändert.
+
+Damit ist der ursprüngliche Auftrag **nicht als vollständige Planungsmigration abgeschlossen**. Als nächste klar getrennte Teilaufgaben verbleiben erst die Adapter-/Phrasenpositionen und anschließend die Motivdaten einschließlich Identitätsnormalisierung und Variationsschwellen. Eine direkte Skalierung würde unter anderem die bisherigen Mindestlängen, 4096-Grenzen und identitätsabhängigen Entscheidungen verändern. Erst danach folgt die separat beauftragte Scheduler-Entkopplung. Keiner dieser weiteren Schritte wurde hier begonnen.
+
+### Abschlussprüfung Teil 1b.1
+
+37/37 Gesamttests bestanden. 1117 vollständige Vorher-/Nachher-Renderings bytegleich zu `9745fbe`, einschließlich aller 87 produktiven Wendungen und aller vorhandenen Profile. 1785 zusätzliche Blockgrößenvergleiche bestanden; Prüfparameter und Prüfsummen in `MUSICAL_TIME_1B_REGRESSION.json`. Langzeitfälle umfassen 4096 Takte, weitere Fälle alle 80 unterstützten Taktarten und explizit 3/8, 5/8, 7/8. Tatsächlicher Processor: vorhandene 54 Live-/SMF-Fälle plus je 54 für die drei zusätzlichen Achtel-Taktarten bestanden; Notenbilanzen geschlossen. ASan/UBSan für MusicalTime, CompositionCore und Engine ohne Befund. 7/7 Paketprüf-Fixtures bestanden. Linux-VST3 erfolgreich gebaut und Bundle-/ELF-/Versionsmetadaten geprüft. Kein Windows-/pluginval-Lauf, kein Push und kein Release.

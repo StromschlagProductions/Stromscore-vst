@@ -23,5 +23,16 @@ int main()
  Settings s;s.genre=GenrePopRock;s.x=.75f;s.y=.5f;s.z=.3f;s.variety=0;s.channel[OutArp]=s.channel[OutPadLong];
  Generator g;EventList es;Transport t;t.playing=true;
  for(int repeat=0;repeat<2;++repeat){for(int k=0;k<128;++k){t.ppq=k*.25;es.clear();{NoAllocations guard;g.process(t,s,6000,es);}CHECK(!es.overflow);}Transport stop;es.clear();g.process(stop,s,512,es);}
+ for(int numerator:{3,5,7})
+ {
+  const auto bar=barLength(numerator,8);composition::ChordTimeline timeline;timeline.count=4;
+  timeline.begin=fromGridStep(17);timeline.end=timeline.begin+Tick{8*bar.value};
+  timeline.durations={Tick{2*bar.value},Tick{bar.value},Tick{3*bar.value},Tick{2*bar.value}};
+  Tick at=timeline.begin;
+  for(int i=0;i<4;++i){auto p=composition::locateChord(timeline,at);CHECK(p.index==i&&p.begin==at);CHECK(composition::locateChord(timeline,p.end-Tick{1}).index==i);if(i<3)CHECK(composition::locateChord(timeline,p.end).index==i+1);at=p.end;}
+  // Pure planning already represents a non-grid PPQ boundary exactly (not scheduled yet).
+  timeline.count=2;timeline.durations={Tick{bar.value/4},Tick{7*bar.value/4}};timeline.end=timeline.begin+Tick{2*bar.value};
+  auto boundary=timeline.begin+timeline.durations[0];CHECK(composition::locateChord(timeline,boundary-Tick{1}).index==0);CHECK(composition::locateChord(timeline,boundary).index==1);
+ }
  std::cout<<"Musical time units, all supported meters, 1M-step drift and allocation tests passed\n";
 }

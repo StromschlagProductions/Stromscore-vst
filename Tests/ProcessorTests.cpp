@@ -13,12 +13,14 @@ struct FakeHost final : juce::AudioPlayHead
 {
     bool playing = true;
     double ppq = 0.0, bpm = 120.0;
+    int numerator=0,denominator=8;
     juce::Optional<PositionInfo> getPosition() const override
     {
         PositionInfo info;
         info.setIsPlaying (playing);
         info.setPpqPosition (ppq);
         info.setBpm (bpm);
+        if(numerator>0)info.setTimeSignature(juce::AudioPlayHead::TimeSignature{numerator,denominator});
         return info;
     }
 };
@@ -114,7 +116,7 @@ static int testProtectedCatalogExport()
 }
 
 // Real 39-entry plugin path: the exact new anchors select each imported template.
-static void testImportedCatalogExport(bool extended=false)
+static void testImportedCatalogExport(bool extended=false,int meter=0)
 {
     using namespace stromscore;int cases=0;
     for(unsigned id:extended?std::vector<unsigned>{2001,2002,2003,2004,2005,2006,2007,2008,2009}:std::vector<unsigned>{2037,2038,2039})for(int key:{0,5,11})for(bool follow:{false,true})for(int profile=0;profile<3;++profile)
@@ -122,6 +124,7 @@ static void testImportedCatalogExport(bool extended=false)
         const auto* h=findHarmonyTemplate(static_cast<WendungId>(id));CHECK(h);
         if(extended)CHECK(h->chords[0].type==18+static_cast<int>(id)-2001);
         StromscoreProcessor q;FakeHost host;q.setPlayHead(&host);q.prepareToPlay(48000,512);
+        if(meter){host.numerator=meter;host.playing=false;juce::AudioBuffer<float> prime(2,512);juce::MidiBuffer midi;q.processBlock(prime,midi);host.playing=true;}
         setParam(q,"genre",1);setParam(q,"komponist",static_cast<float>(profile));setParam(q,"key",static_cast<float>(key));
         setParam(q,"faerbung",h->x);setParam(q,"intensitaet",h->y);setParam(q,"unruhe",h->z);setParam(q,"abwechslung",0);
         setParam(q,"durchgaenge",1);for(int i=1;i<=3;++i)setParam(q,("follow"+std::to_string(i)).c_str(),follow?1.f:0.f);
@@ -133,13 +136,14 @@ static void testImportedCatalogExport(bool extended=false)
         for(int tr=0;tr<midi.getNumTracks();++tr)for(int i=0;i<midi.getTrack(tr)->getNumEvents();++i)
         {const auto& m=midi.getTrack(tr)->getEventPointer(i)->message;add(exported,m,std::llround(m.getTimeStamp()));}
         juce::AudioBuffer<float> audio(2,512);juce::MidiBuffer messages;messages.ensureSize(65536);Counts ledger;
-        for(int at=0;at<8*96000;at+=512)
+        const int total=8*(meter?12000*meter:96000);
+        for(int at=0;at<total;at+=512)
         {
-            host.ppq=at/24000.;messages.clear();{NoCHeap cHeap;NoAllocations cppHeap;q.processBlock(audio,messages);}collect(messages,ledger);
+            audio.setSize(2,std::min(512,total-at));host.ppq=at/24000.;messages.clear();{NoCHeap cHeap;NoAllocations cppHeap;q.processBlock(audio,messages);}collect(messages,ledger);
             CHECK(q.wendung.load()==wendungIndex(GenrePopRock,static_cast<WendungId>(id)));
             for(auto m:messages)add(live,m.getMessage(),std::llround((at+m.samplePosition)/25.));
         }
-        host.playing=false;messages.clear();q.processBlock(audio,messages);collect(messages,ledger);for(auto m:messages)add(live,m.getMessage(),8*3840);
+        host.playing=false;messages.clear();q.processBlock(audio,messages);collect(messages,ledger);for(auto m:messages)add(live,m.getMessage(),total/25);
         std::sort(live.begin(),live.end());std::sort(exported.begin(),exported.end());CHECK(!live.empty()&&live==exported);CHECK(!ledger.broken&&ledger.ons==ledger.offs);
         file.deleteFile();++cases;
     }
@@ -152,6 +156,7 @@ int main(int argc,char** argv)
     if(argc==2&&std::string(argv[1])=="--protected-catalog")return testProtectedCatalogExport();
     if(argc==2&&std::string(argv[1])=="--extended-chords"){testImportedCatalogExport(true);return 0;}
     testImportedCatalogExport();
+    for(int numerator:{3,5,7})testImportedCatalogExport(false,numerator);
     auto p = std::make_unique<StromscoreProcessor>();
     FakeHost host;
     p->setPlayHead (&host);

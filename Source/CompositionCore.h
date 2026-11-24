@@ -472,12 +472,12 @@ inline TransitionIntent freeTransition (int targetRoot, bool enabled, float inte
     return { enabled && intensity >= .6f && !held ? TransitionKind::passingDominant : TransitionKind::direct,
              targetRoot, (targetRoot + 7) % 12 };
 }
-struct TransitionPlacement { bool present = false; int64_t begin = 0, end = 0; };
-inline TransitionPlacement placeTransition (const TransitionIntent& intent, int64_t begin,
-                                           int64_t end, int ticksPerBar, int lastGroup)
+struct TransitionPlacement { bool present = false; musicaltime::Tick begin {}, end {}; };
+inline TransitionPlacement placeTransition (const TransitionIntent& intent, musicaltime::Tick begin,
+                                           musicaltime::Tick end, musicaltime::Tick ticksPerBar, musicaltime::Tick lastGroup)
 {
-    if(intent.kind!=TransitionKind::passingDominant || ticksPerBar<=0 || lastGroup<0
-        || lastGroup>=ticksPerBar || end-begin<ticksPerBar)return {};
+    if(intent.kind!=TransitionKind::passingDominant || ticksPerBar<=musicaltime::Tick{} || lastGroup<musicaltime::Tick{}
+        || !(lastGroup<ticksPerBar) || end-begin<ticksPerBar)return {};
     return {true,end-(ticksPerBar-lastGroup),end};
 }
 inline ResolutionIntent dominantResolution (int sourceRoot, bool sourceDominant, int targetRoot, int key)
@@ -648,13 +648,13 @@ inline HarmonicSlot buildAnchor (const ChordIntent& in, Range range, bool constr
 // Integer musical ticks, independent of audio sample rate. An adapter defines ticks/bar.
 struct ChordTimeline
 {
-    std::array<int64_t,8> durations {};
+    std::array<musicaltime::Tick,8> durations {};
     int count=0, first=0;
-    int64_t begin=0,end=0;
+    musicaltime::Tick begin{},end{};
     bool held=false;
 };
-struct ChordPosition { int index=0; int64_t begin=0,end=0; };
-inline ChordPosition locateChord (const ChordTimeline& t,int64_t at)
+struct ChordPosition { int index=0; musicaltime::Tick begin{},end{}; };
+inline ChordPosition locateChord (const ChordTimeline& t,musicaltime::Tick at)
 {
     ChordPosition p;
     if(t.count<1||t.count>8)return p;
