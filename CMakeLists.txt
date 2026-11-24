@@ -55,6 +55,13 @@ if(BUILD_TESTING)
     add_test(NAME ChordDefinitionRegression COMMAND ${Python3_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/scripts/compare_chord_definitions.py
         --probe $<TARGET_FILE:HarmonyImportProbe> --compiler ${CMAKE_CXX_COMPILER} --output ${CMAKE_CURRENT_BINARY_DIR}/chord-definitions)
     endif()
+    add_executable(MusicalTimeTests Tests/MusicalTimeTests.cpp)
+    target_include_directories(MusicalTimeTests PRIVATE Source)
+    add_test(NAME MusicalTime COMMAND MusicalTimeTests)
+    if(NOT MSVC)
+        add_test(NAME MusicalTimeRegression COMMAND ${Python3_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/scripts/compare_musical_time.py
+            --probe $<TARGET_FILE:HarmonyImportProbe> --compiler ${CMAKE_CXX_COMPILER} --output ${CMAKE_CURRENT_BINARY_DIR}/musical-time)
+    endif()
     add_executable(ChordDefinitionTests Tests/ChordDefinitionTests.cpp)
     target_include_directories(ChordDefinitionTests PRIVATE Source)
     add_test(NAME ChordDefinitions COMMAND ChordDefinitionTests)

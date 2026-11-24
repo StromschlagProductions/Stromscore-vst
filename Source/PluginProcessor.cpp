@@ -862,7 +862,7 @@ juce::File StromscoreProcessor::renderMidiFile (int bars) const
         && settings.sceneBars <= bars;
     const double quarters = requestedQuarters + (finalHitIncluded ? stromscore::kStep * 4.0 : 0.0);
     const double samplesPerQuarter = sr * 60.0 / bpm;
-    constexpr int tpq = 960;
+    constexpr int tpq = stromscore::musicaltime::ticksPerQuarter;
 
     stromscore::Generator gen;
     gen.reset();
@@ -875,12 +875,12 @@ juce::File StromscoreProcessor::renderMidiFile (int bars) const
         for (int i = 0; i < events->size; ++i)
         {
             const auto& e = events->events[(size_t) i];
-            const double tick = std::min (quarters, blockPpq + (double) e.offset / samplesPerQuarter) * tpq;
+            const auto tick = stromscore::musicaltime::fromQuarters(std::min (quarters, blockPpq + (double) e.offset / samplesPerQuarter));
             const int ch = juce::jlimit (0, 15, (int) e.channel - 1);
             juce::MidiMessage m = e.type == 1 ? juce::MidiMessage::controllerEvent (e.channel, e.note, e.velocity)
                                 : e.velocity > 0 ? juce::MidiMessage::noteOn (e.channel, e.note, (juce::uint8) e.velocity)
                                                  : juce::MidiMessage::noteOff (e.channel, e.note);
-            m.setTimeStamp (std::round (tick));
+            m.setTimeStamp (static_cast<double>(tick.value));
             tracks[ch].addEvent (m);
         }
     };

@@ -1,5 +1,6 @@
 #pragma once
 #include "VoiceLeading.h"
+#include "MusicalTime.h"
 #include "CompositionPolicy.h"
 #include <array>
 #include <cstdint>

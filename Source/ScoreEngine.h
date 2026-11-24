@@ -30,7 +30,7 @@ constexpr int kOutputLayer[kNumOutputs] = { kFlaeche, kFlaeche, kBass, kBass, kA
 constexpr int kNumRanges = 7;
 constexpr int kOutputRange[kNumOutputs] = { 0, 0, 1, 1, 2, 3, 5, 4, 6 };
 constexpr int kNumKeys = 12;
-constexpr double kStep = 0.25;          // Raster: Sechzehntel (in Viertelnoten)
+constexpr double kStep = musicaltime::quartersPerGridStep;          // Raster: Sechzehntel (in Viertelnoten)
 constexpr int kPhraseBars = 8;          // eine Wendung = 8 Takte
 
 // Ab welcher Intensitaet eine Ebene im Modus Auto einsetzt (Akzent zusaetzlich bei Unruhe ab 0,35)
@@ -569,7 +569,7 @@ public:
 private:
     static constexpr float kKeepRatio = 0.5f;   // so gut muss die laufende Wendung mindestens passen, sonst wird gewechselt
 
-    struct Active { uint8_t channel, note, out; long long endStep, startStep; };
+    struct Active { uint8_t channel, note, out; musicaltime::Tick endTime, startTime; };
 
     // Wo im Takt / in der Phrase / in der Wendung ein Schritt liegt
     struct Pos
@@ -798,7 +798,7 @@ private:
                 removeActive (i, offset, out);
                 continue;
             }
-            a.endStep = std::min (a.endStep, until);
+            a.endTime = std::min (a.endTime, musicaltime::fromGridStep(until));
             ++i;
         }
     }
@@ -967,7 +967,7 @@ private:
     {
         auto& state=voice(output);const auto& use=state.motif;auto memory=performanceMaterial(output,s);
         const auto& policy=s.genre==GenrePopRock?s.policy.popHooks.recurrence:s.policy.motif;
-        const auto origin=s.genre==GenrePopRock?use.originTick/240:use.originTick;
+        const auto origin=s.genre==GenrePopRock?use.originTick/musicaltime::ticksPerGridStep:use.originTick;
         const auto section=p.phrase-phraseOf(sceneStep);
         if(memory.count&&(k-p.phraseStart>=std::min(2LL*meter.len,p.phraseEnd-p.phraseStart)||section!=use.introduction))memory.finish();
         if(!memory.complete)return {true,true,false,p.phraseStart,p.phraseStart+std::min(2LL*meter.len,p.phraseEnd-p.phraseStart),0,0};
@@ -1438,7 +1438,7 @@ private:
         for (int i = 0; i < numActive;)
         {
             const auto& claim = active[(size_t) i];
-            if (claim.endStep <= step && ! (deferPadBoundary && claim.endStep == step && claim.out == OutPadLong))
+            if (claim.endTime <= musicaltime::fromGridStep(step) && ! (deferPadBoundary && claim.endTime == musicaltime::fromGridStep(step) && claim.out == OutPadLong))
             {
                 removeActive (i, offset, out);
             }
@@ -1464,7 +1464,7 @@ private:
     {
         for (int i = 0; i < numActive;)
         {
-            if (keepPad && active[(size_t) i].out == OutPadLong) active[(size_t) i].endStep = std::min (active[(size_t) i].endStep, nowStep);
+            if (keepPad && active[(size_t) i].out == OutPadLong) active[(size_t) i].endTime = std::min (active[(size_t) i].endTime, musicaltime::fromGridStep(nowStep));
             const int layer = kOutputLayer[active[(size_t) i].out];
             if ((layer == kFlaeche && ! (keepPad && active[(size_t) i].out == OutPadLong)) || layer == kBass || layer == kAkzent)
             {
@@ -1549,7 +1549,7 @@ private:
         {
             const auto& a = active[(size_t) i];
             if (a.channel != channel || a.note != note) continue;
-            existing = true; sameStep = sameStep || a.startStep == nowStep;
+            existing = true; sameStep = sameStep || a.startTime == musicaltime::fromGridStep(nowStep);
             if (a.out == o) own = i;
         }
         if (own < 0 && numActive >= kMaxActive) return;
@@ -1559,15 +1559,15 @@ private:
             out.add (offset, channel, note, velocity, o);
             // One physical attack for all claims at this time.
             for (int i = 0; i < numActive; ++i)
-                if (active[(size_t) i].channel == channel && active[(size_t) i].note == note) active[(size_t) i].startStep = nowStep;
+                if (active[(size_t) i].channel == channel && active[(size_t) i].note == note) active[(size_t) i].startTime = musicaltime::fromGridStep(nowStep);
         }
         if (own >= 0)
         {
             auto& a = active[(size_t) own];
-            a.endStep = (sameStep || extendOnly) ? std::max (a.endStep, endStep) : endStep;
-            a.startStep = nowStep;
+            a.endTime = (sameStep || extendOnly) ? std::max (a.endTime, musicaltime::fromGridStep(endStep)) : musicaltime::fromGridStep(endStep);
+            a.startTime = musicaltime::fromGridStep(nowStep);
         }
-        else active[(size_t) numActive++] = { (uint8_t) channel, (uint8_t) note, (uint8_t) o, endStep, nowStep };
+        else active[(size_t) numActive++] = { (uint8_t) channel, (uint8_t) note, (uint8_t) o, musicaltime::fromGridStep(endStep), musicaltime::fromGridStep(nowStep) };
         if(o==OutBassLong||o==OutBassShort)heardHarmony.bass=note;
     }
 
@@ -2540,10 +2540,10 @@ private:
         {
             const auto& e=out.events[static_cast<size_t>(i)];
             if(e.type==0&&e.channel==s.channel[OutCounter])
-                state.capture.event(state.motif,e.note,e.velocity,static_cast<int64_t>(std::llround((ppq+e.offset/samplesPerQuarter)*960.)));
+                state.capture.event(state.motif,e.note,e.velocity,musicaltime::fromQuarters(ppq+e.offset/samplesPerQuarter).value);
         }
         captureRead=out.size;
-        state.capture.finish(state.motif,motifCatalog,static_cast<int64_t>(std::llround(end*960.)));
+        state.capture.finish(state.motif,motifCatalog,musicaltime::fromQuarters(end).value);
     }
     void armHookCapture(long long k,const Pos& p,const Settings& s)
     {
@@ -2553,7 +2553,7 @@ private:
         for(int o=0;o<kNumOutputs;++o)if(o!=OutCounter&&s.channel[o]==s.channel[OutCounter])return;
         const bool special=popHookPattern(W().id)>=0&&!s.custom;
         const auto cycle=special?2LL*meter.len:8LL*(layerY(s,kGegenstimme)<.45f?4:2);
-        if((k-p.phraseStart)%cycle==0){state.captureSwing=s.swing;state.captureChannel=s.channel[OutCounter];state.capture.start(state.motif,k*240,cycle*240,240);}
+        if((k-p.phraseStart)%cycle==0){state.captureSwing=s.swing;state.captureChannel=s.channel[OutCounter];state.capture.start(state.motif,musicaltime::fromGridStep(k).value,musicaltime::fromGridStep(cycle).value,musicaltime::ticksPerGridStep);}
     }
     // Pop-Rock: durchgehende, gleichbleibende Hook-Linie aus Akkordtoenen (eine Figur je VARIATION)
     void leadHook (long long k, const Pos& p, const Settings& s, int offset, EventList& out)
@@ -2620,7 +2620,7 @@ private:
         {
             auto& a = active[(size_t) i];
             if (a.out == o && a.note != keepNote)
-                a.endStep = std::min (a.endStep, nowStep + (cur != nullptr && cur->legato ? 1 : 0));
+                a.endTime = std::min (a.endTime, musicaltime::fromGridStep(nowStep + (cur != nullptr && cur->legato ? 1 : 0)));
         }
         if (cur == nullptr || ! cur->legato) releaseDue (nowStep, offset, out);
     }
