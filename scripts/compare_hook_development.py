@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+from reference_headers import header_snapshot
 import argparse,collections,hashlib,json,math,pathlib,struct,subprocess,tempfile
 p=argparse.ArgumentParser();p.add_argument('--probe',required=True);p.add_argument('--compiler',default='c++');p.add_argument('--output',required=True);a=p.parse_args();root=pathlib.Path(__file__).resolve().parents[1];out=pathlib.Path(a.output);out.mkdir(parents=True,exist_ok=True)
 names=['pedal-ostinato','intense-melodic','quiet-melodic','lyrical','syncopated-melodic','dance-ostinato','XY-changes','held-harmony']
@@ -30,7 +31,7 @@ def active_bars(events,bpm):
 summary=[];examples=[];sequences=0
 with tempfile.TemporaryDirectory() as tmp:
  tmp=pathlib.Path(tmp)
- for f in (root/'Source').glob('*.h'):(tmp/f.name).write_bytes(subprocess.check_output(['git','show','2566894:Source/'+f.name],cwd=root))
+ for name,data in header_snapshot(root,'2566894').items():(tmp/name).write_bytes(data)
  old=tmp/'before';subprocess.run([a.compiler,'-std=c++17','-O2','-I',str(tmp),str(root/'tools/hook_development_probe.cpp'),'-o',str(old)],check=True)
  for case,name in enumerate(names):
   for bpm in (90,120,173):

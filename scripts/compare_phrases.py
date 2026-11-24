@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 """Actual MIDI and preplanned target/breath evidence against 0cc30c2."""
+from reference_headers import header_snapshot
 import argparse,collections,hashlib,json,pathlib,subprocess,tempfile
 p=argparse.ArgumentParser();p.add_argument('--probe',required=True);p.add_argument('--compiler',default='c++');p.add_argument('--output',required=True);a=p.parse_args()
 root=pathlib.Path(__file__).resolve().parents[1];out=pathlib.Path(a.output);out.mkdir(parents=True,exist_ok=True)
@@ -36,8 +37,7 @@ def sounding(es):
 summary=[];closings=set()
 with tempfile.TemporaryDirectory(prefix='stromscore-phrases-') as temp:
     temp=pathlib.Path(temp)
-    for path in (root/'Source').glob('*.h'):
-        (temp/path.name).write_bytes(subprocess.check_output(['git','show',f'0cc30c2:Source/{path.name}'],cwd=root))
+    for name,data in header_snapshot(root,'0cc30c2').items():(temp/name).write_bytes(data)
     before=temp/'before'
     subprocess.run([a.compiler,'-std=c++17','-O1','-I',str(temp),str(root/'tools/phrase_probe.cpp'),'-o',str(before)],check=True)
     for profile in range(3):

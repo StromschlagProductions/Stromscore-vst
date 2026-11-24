@@ -1,4 +1,5 @@
 #pragma once
+#include "ModalContext.h"
 #include <array>
 #include <cmath>
 #include <cstddef>
@@ -51,7 +52,7 @@ struct HookPolicy
     std::array<bool,9> phrased {{false,true,true,false,false,false,true,true,true}};
     MotifRecurrencePolicy recurrence=[] {MotifRecurrencePolicy p;p.adaptChordTones=true;for(auto& v:p.variations)v=MotifVariation::original;p.variations[5]=MotifVariation::sequence;return p;}();
 };
-struct FreeCompositionPolicy { TexturePolicy texture; MotifRecurrencePolicy motif; HookPolicy popHooks; };
+struct FreeCompositionPolicy { TexturePolicy texture; MotifRecurrencePolicy motif; HookPolicy popHooks; PassingPolicy passing; };
 inline constexpr FreeCompositionPolicy neutralFreePolicy {};
 // Artist identities currently provide only initial harmonic preferences; all texture data stay neutral.
 enum class ProfileId { neutral=0, johnBarry=1, bernardHerrmann=2 };

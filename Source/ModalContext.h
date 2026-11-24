@@ -1,0 +1,67 @@
+#pragma once
+#include <array>
+#include <cstdlib>
+#include <cstdint>
+namespace stromscore::composition
+{
+enum class Mode { automatic,ionian,mixolydian,dorian,aeolian };
+enum class ModalStatus { unspecified,unique,ambiguous,incompatible };
+inline unsigned pitchBit(int pitch){return 1u<<((pitch%12+12)%12);}
+inline unsigned modalMask(Mode mode,int tonic)
+{
+    constexpr int steps[4][7]={{0,2,4,5,7,9,11},{0,2,4,5,7,9,10},{0,2,3,5,7,9,10},{0,2,3,5,7,8,10}};
+    const int index=static_cast<int>(mode)-1;if(index<0||index>=4)return 0;
+    unsigned result=0;for(int n:steps[index])result|=pitchBit(tonic+n);return result;
+}
+struct ModalContext { Mode mode=Mode::automatic;ModalStatus status=ModalStatus::unspecified;unsigned mask=0;int tonic=0; };
+inline ModalContext modalContext(unsigned vocabulary,int tonic,bool tonicEvidence,Mode requested=Mode::automatic)
+{
+    ModalContext result;result.tonic=(tonic%12+12)%12;
+    if(!vocabulary||(vocabulary&~0xfffu))return result;
+    int count=0;
+    for(int m=1;m<=4;++m)
+    {
+        const auto mode=static_cast<Mode>(m);if(requested!=Mode::automatic&&requested!=mode)continue;
+        const auto mask=modalMask(mode,tonic);
+        if(!(vocabulary&~mask)){++count;result.mode=mode;result.mask=mask;}
+    }
+    result.status=count==0?ModalStatus::incompatible:count>1?ModalStatus::ambiguous:
+        requested==Mode::automatic&&!tonicEvidence?ModalStatus::unspecified:ModalStatus::unique;
+    if(result.status!=ModalStatus::unique){result.mode=Mode::automatic;result.mask=0;}
+    return result;
+}
+struct PassingPolicy { bool enabled=true;int opportunityStride=3,minGap=4,maxDuration=2;Mode mode=Mode::automatic;int tonicOffset=0; };
+inline bool valid(const PassingPolicy& p)
+{return p.opportunityStride>=1&&p.opportunityStride<=64&&p.minGap>=3&&p.minGap<=32&&p.maxDuration>=1&&p.maxDuration<=4&&static_cast<int>(p.mode)>=0&&static_cast<int>(p.mode)<=4&&p.tonicOffset>=0&&p.tonicOffset<12;}
+struct PassingRequest
+{
+    ModalContext context;unsigned chordMask=0;int root=0,bassPitchClass=-1,source=0,target=0,low=0,high=127;
+    int64_t sourceAt=0,targetAt=0,harmonyBegin=0,harmonyEnd=0;int minDuration=1,maxDuration=2;
+};
+struct PassingTone { bool valid=false;int pitch=0;int64_t begin=0,end=0; };
+inline PassingTone planPassingTone(const PassingRequest& r)
+{
+    if(r.context.status!=ModalStatus::unique||(r.chordMask&~r.context.mask)||!(r.chordMask&pitchBit(r.root))||!(r.context.mask&pitchBit(r.source))||!(r.context.mask&pitchBit(r.target))||!(r.chordMask&pitchBit(r.source))||!(r.chordMask&pitchBit(r.target)))return {};
+    if(std::abs(r.target-r.source)<2||std::abs(r.target-r.source)>4||r.minDuration<1||r.maxDuration<r.minDuration||r.maxDuration>4)return {};
+    const int direction=r.target>r.source?1:-1;
+    if(r.source<r.low||r.source>r.high||r.target<r.low||r.target>r.high)return {};
+    for(int pitch=r.source+direction;pitch!=r.target;pitch+=direction)
+    {
+        const int a=(pitch-r.source)*direction,b=(r.target-pitch)*direction;
+        if(a>2||b>2||a<1||b<1||!(r.context.mask&pitchBit(pitch))||(r.chordMask&pitchBit(pitch)))continue;
+        if(pitch<r.low||pitch>r.high)continue;
+        // A diatonic semitone against the resolving target is intentional; other chord
+        // neighbours, especially the bass/root, are outside this first controlled scope.
+        if((pitchBit(pitch-1)|pitchBit(pitch+1))&(pitchBit(r.root)|pitchBit(r.bassPitchClass<0?r.root:r.bassPitchClass)))continue;
+        unsigned neighbours=pitchBit(pitch-1)|pitchBit(pitch+1);
+        if((r.chordMask&neighbours)&~pitchBit(r.target))continue;
+        for(int duration=r.maxDuration;duration>=r.minDuration;--duration)
+        {
+            const auto begin=r.targetAt-duration;
+            if(duration<1||begin<=r.sourceAt||begin<r.harmonyBegin||r.targetAt>=r.harmonyEnd||begin%4==0)continue;
+            return {true,pitch,begin,r.targetAt};
+        }
+    }
+    return {};
+}
+}

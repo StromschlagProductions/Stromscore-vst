@@ -10,6 +10,13 @@ int main(int argc,char** argv)
  s.genre=GenrePopRock;s.x=w.x;s.y=w.y;s.z=w.z;s.variety=0;s.key=0;s.swing=scenario%2?.3f:0;s.mute[kFlaeche]=s.mute[kBass]=s.mute[kAkzent]=true;
  if(scenario==7){s.custom=true;s.customChords[0]={0,Maj7,8};}
 #ifdef HOOK_DIAGNOSTICS
+#ifndef MODAL_DIAGNOSTICS
+#ifdef PASSING_CONTROL
+ s.policy.passing.enabled=false;
+#endif
+#else
+ if(argc>5)s.policy.passing.enabled=std::atoi(argv[5])!=0;
+#endif
  if(scenario==7)s.policy.popHooks.phrasedCustom=true;
  if(argc>4)s.policy.popHooks.enabled=std::atoi(argv[4])!=0;
 #endif
@@ -26,7 +33,11 @@ int main(int argc,char** argv)
   long long emittedTick=-1;
   for(int i=0;i<es.size;++i){const auto& e=es.events[i];if(e.out==OutCounter&&e.type==0&&e.velocity>0)emittedTick=static_cast<long long>(std::floor((t.ppq+e.offset*bpm/(48000.*60))*4+1e-4));}
   auto p=emittedTick>=0?g.inspectMotifOccurrence(emittedTick,s):composition::MotifOccurrence{};
-  if(p.active&&!p.introduction&&p.begin<128*16&&seen.insert(p.begin).second){std::cerr<<"P,"<<p.begin<<','<<p.end<<','<<p.ordinal<<','<<static_cast<int>(p.figure.variation)<<','<<p.base<<','<<p.figure.sourceIdentity<<','<<p.figure.count;for(int i=0;i<p.figure.count;++i)std::cerr<<','<<p.figure.notes[i].at<<','<<p.figure.notes[i].length<<','<<p.figure.notes[i].interval;std::cerr<<'\n';}
+  if(p.active&&!p.introduction&&p.begin<128*16&&seen.insert(p.begin).second){std::cerr<<"P,"<<p.begin<<','<<p.end<<','<<p.ordinal<<','<<static_cast<int>(p.figure.variation)<<','<<p.base<<','<<p.figure.sourceIdentity<<','<<p.figure.count;for(int i=0;i<p.figure.count;++i)std::cerr<<','<<p.figure.notes[i].at<<','<<p.figure.notes[i].length<<','<<p.figure.notes[i].interval;std::cerr<<'\n';
+#ifdef MODAL_DIAGNOSTICS
+   std::cerr<<"D,"<<p.begin<<','<<p.figure.passingIndex<<'\n';
+#endif
+  }
 #endif
   at+=n;
  }

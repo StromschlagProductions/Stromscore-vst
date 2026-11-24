@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 """Pinned A/B MIDI comparison plus same-energy, density-mask-disabled scientific control."""
+from reference_headers import header_snapshot
 import argparse, collections, hashlib, json, pathlib, subprocess, tempfile
 p=argparse.ArgumentParser();p.add_argument('--probe',required=True);p.add_argument('--compiler',default='c++');p.add_argument('--output',required=True);a=p.parse_args()
 root=pathlib.Path(__file__).resolve().parents[1];out=pathlib.Path(a.output);out.mkdir(parents=True,exist_ok=True)
@@ -29,12 +30,11 @@ with tempfile.TemporaryDirectory(prefix='stromscore-density-') as temp:
     temp=pathlib.Path(temp)
     for folder,revision in [('before','2f4dd47'),('control',None)]:
         dest=temp/folder;dest.mkdir()
-        for path in (root/'Source').glob('*.h'):
-            data=subprocess.check_output(['git','show',f'{revision}:Source/{path.name}'],cwd=root) if revision else path.read_bytes()
-            if not revision and path.name=='ScoreEngine.h':
+        for name,data in header_snapshot(root,revision).items():
+            if not revision and name=='ScoreEngine.h':
                 assert b'composition::EventDensity{dens}' in data
                 data=data.replace(b'composition::EventDensity{dens}',b'composition::EventDensity{1.f}')
-            (dest/path.name).write_bytes(data)
+            (dest/name).write_bytes(data)
         subprocess.run([a.compiler,'-std=c++17','-O1','-I',str(dest),str(root/'tools/density_probe.cpp'),'-o',str(temp/f'{folder}-probe')],check=True)
     for profile in range(3):
         for case,name in enumerate(names):

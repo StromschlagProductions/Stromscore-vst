@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 """Actual 128-bar MIDI comparison of Score Wendung entries against be09fea."""
+from reference_headers import header_snapshot
 import argparse, collections, hashlib, json, pathlib, struct, subprocess, tempfile
 p=argparse.ArgumentParser();p.add_argument('--probe',required=True);p.add_argument('--compiler',default='c++');p.add_argument('--output',required=True);a=p.parse_args()
 root=pathlib.Path(__file__).resolve().parents[1];out=pathlib.Path(a.output);out.mkdir(parents=True,exist_ok=True)
@@ -51,7 +52,7 @@ def midi(path,events):
 results=[];details=[]
 with tempfile.TemporaryDirectory(prefix='stromscore-entries-') as temp:
  temp=pathlib.Path(temp)
- for path in (root/'Source').glob('*.h'):(temp/path.name).write_bytes(subprocess.check_output(['git','show',f'be09fea:Source/{path.name}'],cwd=root))
+ for name,data in header_snapshot(root,'be09fea').items():(temp/name).write_bytes(data)
  before=temp/'before';subprocess.run([a.compiler,'-std=c++17','-O2','-I',str(temp),str(root/'tools/transition_probe.cpp'),'-o',str(before)],check=True)
  for profile in range(3):
   for case,name in enumerate(names):

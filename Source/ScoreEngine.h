@@ -634,7 +634,7 @@ public:
         s.change = std::clamp (s.change, 0, kNumChangeGrids - 1);
         for (auto& v : s.layerIntensity) v = std::clamp (v, -1.0f, 1.0f);
         if(!composition::findProfile(s.profile))s.profile=composition::ProfileId::neutral;
-        if(!composition::valid(s.policy.texture)||!composition::valid(s.policy.motif)||!composition::valid(s.policy.popHooks.recurrence))s.policy=composition::neutralFreePolicy;
+        if(!composition::valid(s.policy.texture)||!composition::valid(s.policy.motif)||!composition::valid(s.policy.popHooks.recurrence)||!composition::valid(s.policy.passing))s.policy=composition::neutralFreePolicy;
         s.variety = std::clamp (s.variety, 0.0f, 1.0f);
         for (auto& o : s.octave) o = std::clamp (o, -2, 2);
         for (auto& c : s.channel) c = std::clamp (c, 1, 16);
@@ -1088,6 +1088,40 @@ private:
         for(int i=0;i<material.count;++i)material.notes[i].length=std::max<int64_t>(1,std::min(material.notes[i].length,material.cycleLength-material.notes[i].at));
         return material;
     }
+    composition::ModalContext modalContextFor(const Settings& s)const
+    {
+        unsigned vocabulary=0;bool tonic=false;
+        for(int i=0;i<W().n;++i){const auto& c=W().ch[i];tonic|=c.root==s.policy.passing.tonicOffset;
+            for(int j=0;j<kShapes[c.type].n;++j)vocabulary|=composition::pitchBit(s.key+c.root+kShapes[c.type].iv[j]);
+            if(c.bass>=0)vocabulary|=composition::pitchBit(s.key+c.bass);}
+        return composition::modalContext(vocabulary,s.key+s.policy.passing.tonicOffset,tonic,s.policy.passing.mode);
+    }
+    void addPassingTone(composition::MotifOccurrence& occurrence,const Settings& s,int output)const
+    {
+        const auto& policy=s.policy.passing;
+        if(s.genre!=GenrePopRock||!phrasedHook(s)||!policy.enabled||!occurrence.active||occurrence.introduction
+            ||occurrence.figure.variation!=composition::MotifVariation::original||occurrence.ordinal%policy.opportunityStride)return;
+        auto& figure=occurrence.figure;if(figure.count>=10)return;
+        const auto context=modalContextFor(s);if(context.status!=composition::ModalStatus::unique)return;
+        const auto capabilities=outputCatalog(s)[output].track.instrument;
+        for(int i=0;i+1<figure.count;++i)
+        {
+            const auto source=figure.notes[i],target=figure.notes[i+1];if(target.at-source.at<policy.minGap)continue;
+            const auto sourceAt=occurrence.begin+source.at,targetAt=occurrence.begin+target.at;
+            const auto h=motifHarmonyAt(sourceAt,s);if(targetAt>=h.end)continue;
+            unsigned mask=0;for(int j=0;j<kShapes[h.chord.type].n;++j)mask|=composition::pitchBit(s.key+h.chord.root+kShapes[h.chord.type].iv[j]);
+            composition::PassingRequest request;request.context=context;request.chordMask=mask;request.root=s.key+h.chord.root;request.bassPitchClass=s.key+bassRoot(h.chord);
+            request.source=occurrence.base+source.interval;request.target=occurrence.base+target.interval;
+            request.low=capabilities.range.low;request.high=capabilities.range.high;request.sourceAt=sourceAt;request.targetAt=targetAt;
+            request.harmonyBegin=sourceAt;request.harmonyEnd=h.end;request.minDuration=static_cast<int>(capabilities.minDuration);
+            request.maxDuration=static_cast<int>(std::min<int64_t>(policy.maxDuration,capabilities.maxDuration));
+            const auto passing=composition::planPassingTone(request);if(!passing.valid)continue;
+            for(int j=figure.count;j>i+1;--j)figure.notes[j]=figure.notes[j-1];
+            figure.notes[i].length=std::min(figure.notes[i].length,passing.begin-sourceAt);
+            figure.notes[i+1]={passing.begin-occurrence.begin,passing.end-passing.begin,passing.pitch-occurrence.base,std::max(1,target.velocity-6)};
+            ++figure.count;figure.passingIndex=i+1;return;
+        }
+    }
     composition::MotifOccurrence motifOccurrence(long long k,const Pos& p,const Settings& s,int output)
     {
         auto& state=voice(output);const auto& use=state.motif;auto memory=performanceMaterial(output,s);
@@ -1180,6 +1214,7 @@ private:
         state.recurrencePlan=attempt(variation);
         if(!state.recurrencePlan.active&&variation!=composition::MotifVariation::original)
             state.recurrencePlan=attempt(composition::MotifVariation::original);
+        addPassingTone(state.recurrencePlan,s,output);
         return state.recurrencePlan;
     }
 

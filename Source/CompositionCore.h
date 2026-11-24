@@ -63,6 +63,7 @@ struct MotifFigure
     std::array<RememberedMotif::Note,10> notes {};
     uint64_t sourceIdentity=0;
     int count=0;
+    int passingIndex=-1;
     int64_t span=0;
     MotifVariation variation=MotifVariation::original;
 };

@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 """128-bar actual-material recurrence and coordinated MIDI regression against 920d388."""
+from reference_headers import header_snapshot
 import argparse,collections,hashlib,json,pathlib,struct,subprocess,tempfile
 p=argparse.ArgumentParser();p.add_argument('--probe',required=True);p.add_argument('--compiler',default='c++');p.add_argument('--output',required=True);a=p.parse_args()
 root=pathlib.Path(__file__).resolve().parents[1];out=pathlib.Path(a.output);out.mkdir(parents=True,exist_ok=True)
@@ -60,8 +61,7 @@ def write_midi(path,events):
 summary=[];default_intervals=set();all_records={}
 with tempfile.TemporaryDirectory(prefix='stromscore-recurrence-') as temp:
     temp=pathlib.Path(temp)
-    for path in (root/'Source').glob('*.h'):
-        (temp/path.name).write_bytes(subprocess.check_output(['git','show',f'920d388:Source/{path.name}'],cwd=root))
+    for name,data in header_snapshot(root,'920d388').items():(temp/name).write_bytes(data)
     before=temp/'before'
     subprocess.run([a.compiler,'-std=c++17','-O1','-I',str(temp),str(root/'tools/recurrence_probe.cpp'),'-o',str(before)],check=True)
     for profile in range(3):
