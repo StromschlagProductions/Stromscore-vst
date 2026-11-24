@@ -15,7 +15,7 @@ int main()
  CHECK(identity&&examples[0].active&&examples[1].active);
  for(auto plan:examples)
  {
-  auto note=plan.figure.notes[0];for(int repeat=0;repeat<2;++repeat){t.ppq=(plan.begin+note.at+1)*.25;es.clear();g.process(t,s,6000,es);bool found=false;for(int i=0;i<es.size;++i){auto e=es.events[i];if(e.out==OutCounter&&e.velocity){CHECK(e.note==plan.base+note.interval);found=true;}}CHECK(found);t.ppq=0;es.clear();g.process(t,s,6000,es);CHECK(g.rememberedMotif().identity==identity);}
+  auto note=plan.figure.notes[0];for(int repeat=0;repeat<2;++repeat){t.ppq=musicaltime::toQuarters(plan.begin+note.at+musicaltime::fromGridStep(1));es.clear();g.process(t,s,6000,es);bool found=false;for(int i=0;i<es.size;++i){auto e=es.events[i];if(e.out==OutCounter&&e.velocity){CHECK(e.note==plan.base+note.interval);found=true;}}CHECK(found);t.ppq=0;es.clear();g.process(t,s,6000,es);CHECK(g.rememberedMotif().identity==identity);}
  }
  std::cout<<"Hook development tests passed\n";
 }

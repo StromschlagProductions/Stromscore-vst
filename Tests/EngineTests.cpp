@@ -1604,10 +1604,10 @@ int main()
     }
     // Bounded motif/accompaniment coordination, independent of baseline Git availability.
     {
-        using composition::reserveMotifWindow;
-        CHECK(!reserveMotifWindow({8},0,0,32).contains(0));
-        const auto window=reserveMotifWindow({8},3,16,32);
-        CHECK(!window.contains(15)&&window.contains(16)&&window.contains(31)&&!window.contains(32));
+        using composition::reserveMotifWindow;using musicaltime::fromGridStep;
+        CHECK(!reserveMotifWindow({8},0,fromGridStep(0),fromGridStep(32)).contains(fromGridStep(0)));
+        const auto window=reserveMotifWindow({8},3,fromGridStep(16),fromGridStep(32));
+        CHECK(!window.contains(fromGridStep(15))&&window.contains(fromGridStep(16))&&window.contains(fromGridStep(31))&&!window.contains(fromGridStep(32)));
         for(int profile=0;profile<3;++profile)for(bool melody:{false,true})
         {
             Settings s;s.policy.motif.normalSteps={2,2,2};s.policy.motif.sparseSteps={2,2,2};s.profile=static_cast<composition::ProfileId>(profile);s.y=.7f;s.key=0;
@@ -1697,11 +1697,11 @@ int main()
             for(int i=0;i<events.size;++i)
             {
                 const auto& e=events.events[static_cast<size_t>(i)];if(e.velocity<=0||e.out!=OutCounter)continue;
-                CHECK(planned.active);starts.insert(planned.begin);
+                CHECK(planned.active);starts.insert(musicaltime::toExactGridStep(planned.begin));
                 if(!planned.introduction)
                 {
                     bool matched=false;
-                    for(int n=0;n<planned.figure.count;++n){const auto& note=planned.figure.notes[static_cast<size_t>(n)];matched|=tick==planned.begin+note.at&&e.note==planned.base+note.interval;}
+                    for(int n=0;n<planned.figure.count;++n){const auto& note=planned.figure.notes[static_cast<size_t>(n)];matched|=musicaltime::fromGridStep(tick)==planned.begin+note.at&&e.note==planned.base+note.interval;}
                     CHECK(matched);
                 }
             }

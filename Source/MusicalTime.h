@@ -13,6 +13,13 @@ struct Tick
     int64_t value=0;
     friend constexpr Tick operator+(Tick a,Tick b){return {a.value+b.value};}
     friend constexpr Tick operator-(Tick a,Tick b){return {a.value-b.value};}
+    friend constexpr Tick operator*(Tick a,int64_t n){return {a.value*n};}
+    friend constexpr Tick operator*(int64_t n,Tick a){return a*n;}
+    friend constexpr Tick operator/(Tick a,int64_t n){return {a.value/n};}
+    friend constexpr int64_t operator/(Tick a,Tick b){return a.value/b.value;}
+    Tick& operator-=(Tick b){value-=b.value;return *this;}
+    Tick& operator*=(int64_t n){value*=n;return *this;}
+    friend constexpr bool operator>(Tick a,Tick b){return b<a;}
     Tick& operator+=(Tick b){value+=b.value;return *this;}
     friend constexpr bool operator<(Tick a,Tick b){return a.value<b.value;}
     friend constexpr bool operator>=(Tick a,Tick b){return !(a<b);}

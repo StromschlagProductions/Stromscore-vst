@@ -144,3 +144,66 @@ Nächster abzugrenzender Teil ist die gemeinsame Motivdatenrepräsentation einsc
 ### Abschlussprüfung Teil 1b.2a
 
 37/37 Gesamttests bestanden. 1117 vollständige Vorher-/Nachher-Renderings bytegleich zu `c85d888`; 1785 zusätzliche Blockgrößenvergleiche bestanden. Details und Prüfsummen: `MUSICAL_TIME_1B2_REGRESSION.json`. Die Abdeckung umfasst alle 87 produktiven Wendungen, sämtliche vorhandenen Profile, alle 80 unterstützten Taktarten, insbesondere 3/8, 5/8 und 7/8, sowie 4096-Takt-Langzeitfälle. Die tatsächlichen 216 Processor-Live-/SMF-Fälle und der bestehende Processor-Gesamttest sind bestanden. ASan/UBSan für MusicalTime, CompositionCore und Engine ohne Befund. 7/7 Paketprüf-Fixtures bestanden. Linux-VST3 erfolgreich gebaut; Bundle-/ELF-/Versionsmetadaten geprüft. Kein Windows-/pluginval-Lauf, kein Push und kein Release.
+
+## Teil 1b.2b – Zusammenhängender Motivkern (Basis `7496c47`)
+
+Die oben für Teil 1b.2a beschriebene Einheitenmischung ist in diesem Teil aufgehoben. Score-Material, aufgenommene Pop-Noten und nominale Varianten verwenden denselben expliziten 64-Bit-Typ `musicaltime::Tick` mit 960 PPQ. `timeScale` und die genreabhängige Einheit von `originTick` entfallen; der Ursprung heißt jetzt `originTime`. Kein zweiter Motivspeicher und keine Rückrechnung des gesamten Materials in ein Rasterformat.
+
+### Musikalische Bedeutung der Daten
+
+| Daten | Bedeutung / Einheit |
+| --- | --- |
+| `RememberedMotif::Note::at`, `MotifFigure::notes[].at` | Relative Position ab Motivbeginn, Tick |
+| `Note::length`, `MotifFigure::span`, `cycleLength` | Dauer, Tick; die aufgenommene Zyklusdauer enthält auch Schlussstille |
+| `MotifUse::originTime`, `MotifReferencePlan::originTime` | Absolute Position auf der gemeinsamen musikalischen Zeitleiste, Tick |
+| `MotifCapture::begin/end`, `MotifOccurrence::begin/end`, `MotifPlacement::begin` | Absolute Aufnahme-/Wiederkehrpositionen, Tick |
+| `MotifHandoffPlan::begin/end` | Relative Grenzen ab `PlayableHandoff::origin`, jeweils Tick |
+| `DialoguePlan::answerBegin/answerEnd`, `MotifWindow::begin/end` | Absolute Antwort-/Reservierungsgrenzen, Tick; Ende exklusiv |
+| `recurrenceOrigin`, `recurrenceWindow`, `HarmonicEntryRecord::begin` | Absoluter Bezug, Fensterdauer bzw. historische Übergangsposition, Tick |
+| `introduction`, `recurrenceEpoch`, `ordinal`, `first`, `count`, Noten-/Musterindex | Dimensionslose Abschnitts-, Wiederkehr- oder Ereignisnummern, unverändert ganzzahlig |
+
+Positionen und Dauern teilen bewusst denselben gemeinsamen Zeittyp, ihre unterschiedlichen Bezüge sind in Feldern, Schnittstellen und dieser Tabelle festgelegt. Es gibt keine implizite Ganzzahl-zu-Tick-Konvertierung. Insbesondere wird eine Abschnittsnummer nicht als PPQ-Position interpretiert.
+
+**Normalisierte Vorlagen sind keine absoluten Sechzehntelnoten:** `Motif::on[]` beschreibt dimensionslose Sechzehntel **eines Taktes**. `motifTemplatePosition()` realisiert diese Anteile mit der tatsächlichen Taktlänge und der bisherigen Abrundung aufs Spielraster. Beispiel: Anteil 4 entspricht in 3/8 rechnerisch 360 PPQ; die bisherige Spielregel realisiert 240 PPQ. In 5/8 sind es 600 → 480, in 7/8 840 → 720 PPQ. Diese bewusst erhaltene Quantisierung verhindert neue Einsatzpositionen; die tatsächlich realisierten Positionen werden anschließend in PPQ gespeichert. Bereits gespeicherte Noten und abgeleitete Varianten werden nicht erneut taktproportional skaliert. Feinere Einsätze bedürfen einer späteren Scheduler-Arbeit und sind hier nicht aktiviert.
+
+### Aufgenommenes Pop-Material und Swing
+
+Die Aufnahme erfasst weiterhin tatsächlich ausgegebene Note-ons/-offs einschließlich Swing und Sample-zu-PPQ-Rundung. `performedTiming` bezeichnet ausschließlich diesen zeitlichen Bezug, **keine alternative Einheit**. Für die vorhandene Hook-Wiedergabe rekonstruiert `performanceMaterial()` daraus nominale PPQ-Positionen unter Verwendung des aufgenommenen Swing-Werts; die bisherige Performance-Schicht wendet Swing wie bisher an. Originalaufnahme und publizierter Katalog bleiben unverändert. Es wird weder eine zweite Motiv-Engine noch ein normalisiertes Raster-Speicherformat verwendet.
+
+Der Identitätshash enthält relative PPQ-Positionen, Dauern, Intervalle und die explizite Zyklusdauer; Capture-Herkunft, Stimme, Transposition und frühere Speicherskala sind keine Identitätsmerkmale. Die internen Hashwerte ändern sich gegenüber älteren Commits. Sie sind keine Seed-Eingaben für die Notenwahl. Gleiches Material mit gleicher Zyklusdauer erhält unabhängig vom Beobachtungs-/Aufnahmepfad dieselbe Identität. Die Wiederkehrreferenz bleibt bei einer nominalen Performance-Ableitung die Identität des tatsächlich aufgenommenen Originals.
+
+### Migrierte Verbraucher und entfernte Brücken
+
+- Identitätsbildung, Aufnahme, unveränderlicher Katalog, Stimmenreferenzen, Originalwiedergabe sowie rhythmische Variation, Fragment, Sequenz und Augmentation rechnen in PPQ.
+- Wiederkehrfenster, Kandidaten, Mindestpausen, Variantenlängen, Harmonieprüfung und Antwortpläne verwenden PPQ. Harmonieabfragen gehen unmittelbar an `ChordTimeline`; die frühere Raster-Rückgabe von `motifHarmonyAt()` entfällt.
+- Die unmittelbar abhängige Durchgangstonplanung verwendet ebenfalls Tick-Positionen/-Dauern. Die ausgeklammerte Bassplanung konvertiert ausschließlich an ihrem Aufruf dieser gemeinsamen Funktion.
+- Arpeggio-Motivreservierungen sind als direkte Verbraucher ebenfalls Tick-Fenster. Ihre vormals erforderlichen PPQ→Raster→PPQ-Brücken entfallen. Die eigentliche rhythmische Verzahnungsplanung bleibt unverändert.
+- Motivnoten geben ihre Tick-Enden unmittelbar an die bereits migrierten aktiven MIDI-Notenansprüche. Der alte `noteOn(...endStep...)`-Einstieg bleibt nur für noch rasterbasierte Stimmen; er konvertiert einmal an dieser Grenze.
+- Phrasen-/Harmoniegrenzen in `locate()` werden nicht mehr unnötig von Tick ins Raster und zurück gerechnet. Die Wendungsübergangshistorie speichert Tick. Ihr Cache-Schlüssel verwendet ausdrücklich die bisherige diskrete Ereignisnummer, um dessen Verhalten zu erhalten.
+- Mindestartikulation, Legatoüberhang und bestehende rhythmische Halbierung bleiben musikalisch auf ihrem bisherigen Sechzehntel-Quantum (240 PPQ). Insbesondere halbiert eine rhythmische Variante eine ungerade Rasterlänge weiterhin abgerundet; eine Migration darf nicht beiläufig neue Halbrasterpositionen erzeugen.
+
+### Verbleibende Rasterabhängigkeiten / Grenzen
+
+**Teil 1b.2 ist für den zusammenhängenden Phrasen-/Motivbereich abgeschlossen; die gesamte Engine ist noch nicht vollständig migriert.**
+
+1. Scheduler, `nowStep`, `Pos::k`, `Meter::len/pos`, Swing-Rasterphase und die metrische Einsatzabfrage bleiben auf dem bestehenden Sechzehntel-Spielraster. Die read-only Inspektion `inspectMotifOccurrence(step,...)` nimmt ebenfalls einen Scheduler-Schritt entgegen und liefert einen PPQ-Plan. Nominale Pop-Aufbereitung benutzt das bisherige Raster nur zur Inversion der vorhandenen Swing-Performance; keine neue Swing-Regel.
+2. Bass-/freie Linienpläne einschließlich Atempausen, `pendingAt/pendingEnd`, Basspaar-/Dispositionpositionen, rhythmische Verzahnungspläne, Szeneneintritts-/Ausstiegsmarker und Drive-Hilfszustände bleiben außerhalb dieses Auftrags. Die bestehenden `gridChord*`, `gridPhrase*`, `sceneGrid` usw. dienen nur ihren verbleibenden Verbrauchern.
+3. Instrumentenfähigkeits-/Rollenanforderungen (`minDuration/maxDuration`) sind weiterhin in ausdrücklich dokumentierten Sechzehntel-Einheiten konfiguriert. Die Durchgangston-Policy selbst ist bereits auf Tick-Dauern umgestellt. An der Motiv-/Durchgangston-Grenze werden aus den Instrumentengrenzen Tick-Dauern; die eigentlichen Pläne speichern keine Rasterkopien. Eine Umstellung des gesamten Fähigkeits-/Policy-Katalogs ist hier nicht erfolgt.
+4. Die Motiv-Vorabprüfung muss für die noch rasterbasierte Adapterposition `locate(step)` einmal exakt an dessen Grenze konvertieren. Neue feinere Figuren werden produktiv weiterhin nicht erzeugt. Die reinen Motiv-/Antwortplaner und die Aufnahme können dagegen auch nicht rastergebundene PPQ-Grenzen exakt darstellen; dafür gibt es gezielte Tests.
+5. Bestehende Grenzen des Verhaltens bleiben bestehen: acht Quellnoten, begrenzter Szenenkatalog, bisherige Wiederkehr-/Antwortbedingungen und der bekannte kalte-Seek-Kontext der Übergangsstimmführung. Keine neuen Kompositionsregeln und keine Ausweitung der Antwortfunktion auf weitere Taktarten.
+
+Es gibt keine neuen Heap-Allokationen, Dateizugriffe oder Laufzeitvalidierungen im Audiothread. Die gespeicherten Motivzeitfelder ersetzen gleich breite 64-Bit-Zahlen; der bisherige Skalenparameter entfällt. Auf dem geprüften Linux-x64-Build bleiben `Generator` (15176 Byte), `RememberedMotif` (232), `MotifUse` (256) und `MotifOccurrence` (312) gleich groß. Die auf 64-Bit-Dauern umgestellte `PassingPolicy` wächst von 24 auf 32 Byte; `Settings` wächst einschließlich Ausrichtung von 1060 auf 1080 Byte. Das ist fester Konfigurations-/Stack-Speicher, kein zusätzlicher Heap im Prozesspfad. Audio-/Hostpositionen und Sampleoffsets bleiben Grenzrepräsentationen.
+
+### Nachweise
+
+`MotifTimeTests` prüft gemeinsame Identität von Beobachtung und tatsächlicher Aufnahme, exakte nicht rastergebundene PPQ-Noten und Dauern, große absolute Positionen, unveränderliche Originale, Augmentation, unabhängige Stimmenreferenzen, Wiederkehr-/Antwortfenster und exklusive Reservierungsenden. Für 3/8, 5/8 und 7/8 werden jeweils Score und explizit phrasenbezogene Pop-Hooks über 128 Takte einschließlich Rücksprüngen und Neustart geprüft. Die übrigen Pop-Tests decken unverändert kontinuierliche Hooks und tatsächlich ausgegebene Aufnahme-/Notenendzeiten ab.
+
+Historische Analyse-Probes geben ausschließlich für ihre bestehenden Berichte weiterhin Sechzehntel-Anzeigeeinheiten aus (`tools/TimeDiagnostics.h`); das ist kein Laufzeit-Speicheradapter. Historische Vergleiche prüfen Noten-/Rhythmus-/Dauerdaten statt unzulässig alte und neue interne Identitätshashes gleichzusetzen. Identitätskonstanz und Quellenbezug innerhalb eines Renderings bleiben vollständig geprüft. Vollständige MIDI-Bytevergleiche bleiben unverändert streng.
+
+### Abschlussprüfung Teil 1b.2b
+
+Alle 38 Gesamttests bestanden: 36 im Gesamtlauf und die zwei historischen Hook-/Modal-Vergleiche nach Umstellung ihres versionsübergreifenden Hashvergleichs im gezielten Wiederholungslauf. Dabei bleiben die vollständigen aufgenommenen Noten-/Rhythmus-/Dauerdaten und die MIDI-Bytevergleiche geprüft; aktuelle Identitäten werden innerhalb derselben Implementierung weiterhin strikt verglichen.
+
+1117 vollständige Renderings sind bytegleich zur Basis `7496c47`; 1785 Blockgrößenvergleiche bestanden. Vollständige Fallliste/Prüfsummen: `MUSICAL_TIME_1B2B_REGRESSION.json`. Die bisherigen Renderings bei nicht ganzzahligen Samplepositionen erlauben wie zuvor höchstens einen Sample Unterschied zwischen Blockgrößen, bei unveränderter Ereignisfolge und sämtlichen übrigen MIDI-Daten. Die identischen Vorher-/Nachher-Konfigurationen werden ohne Toleranz byteweise verglichen. Alle 87 produktiven Wendungen, alle vorhandenen Profile, sämtliche 80 unterstützten Taktarten und die bestehenden 4096-Takt-Langzeitfälle sind enthalten. Es war keine musikalische Verhaltenskorrektur erforderlich.
+
+ASan/UBSan für MusicalTime, MotifTime, CompositionCore und Engine bestanden (`detect_leaks=0`, keine LeakSanitizer-Aussage). 7/7 Paketprüf-Fixtures bestanden. Der echte Processor-Gesamttest einschließlich 216 Live-/SMF-Fällen in 4/4, 3/8, 5/8 und 7/8 ist bestanden; der Großblocktest meldet 872 Note-ons, 872 Note-offs und keine Notenverwaltungsfehler. Linux-x64-VST3 gebaut, ELF/Bundle und Versionsmetadaten 2.2 geprüft. Kein Windows-/pluginval-Lauf, kein Push, kein Release.

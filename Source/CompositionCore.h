@@ -8,7 +8,9 @@
 
 namespace stromscore::composition
 {
-// First shared-core slice, not an artist grammar. Musical time is in quarter notes.
+// Motif positions, relative offsets and durations use the shared 960-PPQ Tick.
+using musicaltime::Tick;
+inline constexpr Tick motifQuantum=musicaltime::fromGridStep(1); // Existing performance articulation/rhythm quantum.
 enum class Role { pad, bass };
 enum class RandomDomain : uint32_t { harmony = 1, motif, rhythm, accent };
 inline uint32_t randomKey (uint32_t seed, uint32_t configuration, uint32_t revision,
@@ -23,14 +25,16 @@ struct Range { int low = 0, high = 127; };
 // Actually emitted musical material; no voice, timeline or MIDI destination.
 struct RememberedMotif
 {
-    struct Note { int64_t at=0, length=1; int interval=0, velocity=64; };
+    // at is an offset from the motif origin; length is a duration, never an event index.
+    struct Note { Tick at{}, length{motifQuantum}; int interval=0, velocity=64; };
     std::array<Note,8> notes {};
     int count=0, origin=0;
-    int timeScale=1; int64_t cycleLength=0;
+    Tick cycleLength{};
+    bool performedTiming=false; // Captured swing, not a different time unit.
     uint64_t identity=0;
     bool complete=false;
     void clear(){*this={};}
-    void observe(int pitch,int64_t at,int64_t length,int velocity=64)
+    void observe(int pitch,Tick at,Tick length,int velocity=64)
     {
         if(complete||count==8)return;
         if(count==0)origin=pitch;
@@ -40,21 +44,23 @@ struct RememberedMotif
     {
         if(complete||count<2)return;
         identity=1469598103934665603ull;
-        for(int i=0;i<count;++i)for(auto value:{notes[static_cast<size_t>(i)].at,notes[static_cast<size_t>(i)].length,static_cast<int64_t>(notes[static_cast<size_t>(i)].interval)})
+        for(int i=0;i<count;++i)for(auto value:{notes[static_cast<size_t>(i)].at.value,notes[static_cast<size_t>(i)].length.value,static_cast<int64_t>(notes[static_cast<size_t>(i)].interval)})
         {identity^=static_cast<uint64_t>(value);identity*=1099511628211ull;}
-        if(timeScale!=1){identity^=static_cast<uint64_t>(timeScale);identity*=1099511628211ull;identity^=static_cast<uint64_t>(cycleLength);identity*=1099511628211ull;}
+        // An explicitly recorded cycle includes its trailing rest; neither capture
+        // provenance nor a former storage scale contributes to musical identity.
+        identity^=static_cast<uint64_t>(cycleLength.value);identity*=1099511628211ull;
         complete=true;
     }
-    int64_t recalledLength(int index,bool variation,int64_t phraseEnd)const
+    Tick recalledLength(int index,bool variation,Tick phraseEnd)const
     {
-        if(index<0||index>=count)return 0;
+        if(index<0||index>=count)return {};
         const auto& n=notes[static_cast<size_t>(index)];
-        auto length=std::max<int64_t>(1,std::min(n.length,phraseEnd-n.at));
+        auto length=std::max(motifQuantum,std::min(n.length,phraseEnd-n.at));
         if(!variation)return length;
         int chosen=0;
         for(int i=1;i<count;++i)if(notes[static_cast<size_t>(i)].length>notes[static_cast<size_t>(chosen)].length)chosen=i;
-        if(index==chosen)length=std::max<int64_t>(1,length/2);
-        if(index+1<count)length=std::max<int64_t>(1,std::min(length,notes[static_cast<size_t>(index+1)].at-n.at));
+        if(index==chosen)length=std::max(motifQuantum,motifQuantum*((length/motifQuantum)/2));
+        if(index+1<count)length=std::max(motifQuantum,std::min(length,notes[static_cast<size_t>(index+1)].at-n.at));
         return length;
     }
 };
@@ -65,23 +71,23 @@ struct MotifFigure
     uint64_t sourceIdentity=0;
     int count=0;
     int passingIndex=-1;
-    int64_t span=0;
+    Tick span{};
     MotifVariation variation=MotifVariation::original;
 };
 inline MotifFigure deriveMotif(const RememberedMotif& source,MotifVariation variation,int sequenceSemitones=7)
 {
     MotifFigure figure;figure.sourceIdentity=source.identity;figure.variation=variation;
-    if(source.timeScale!=1||!source.complete||source.count<2||source.count>8||static_cast<int>(variation)<0||static_cast<int>(variation)>4)return figure;
+    if(source.performedTiming||!source.complete||source.count<2||source.count>8||static_cast<int>(variation)<0||static_cast<int>(variation)>4)return figure;
     int first=0,count=source.count;
     if(variation==MotifVariation::fragment){count=std::min(3,count-1);if(count<2)return figure;first=source.count-count;}
     if(variation==MotifVariation::sequence){if(sequenceSemitones==0||std::abs(sequenceSemitones)>12)return figure;count=2;}
-    const auto origin=first?source.notes[static_cast<size_t>(first)].at:0;
-    int64_t originalSpan=0;
+    const auto origin=first?source.notes[static_cast<size_t>(first)].at:Tick{};
+    Tick originalSpan{};
     for(int i=0;i<source.count;++i)originalSpan=std::max(originalSpan,source.notes[i].at+source.notes[i].length);
     for(int i=0;i<count;++i)
     {
         auto n=source.notes[static_cast<size_t>(first+i)];n.at-=origin;
-        if(n.at<0||n.length<1||n.at>4096||n.length>4096)return {};
+        if(n.at<Tick{}||n.length<Tick{1}||n.at>motifQuantum*4096||n.length>motifQuantum*4096)return {};
         if(variation==MotifVariation::rhythm)n.length=source.recalledLength(first+i,true,originalSpan);
         if(variation==MotifVariation::augmentation){n.at*=2;n.length*=2;}
         figure.notes[static_cast<size_t>(figure.count++)]=n;
@@ -98,7 +104,7 @@ inline MotifFigure deriveMotif(const RememberedMotif& source,MotifVariation vari
         if(i+1<figure.count)
         {
             const auto gap=figure.notes[static_cast<size_t>(i+1)].at-n.at;
-            if(gap<1)return {};
+            if(gap<Tick{1})return {};
             if(variation!=MotifVariation::original)n.length=std::min(n.length,gap);
         }
         figure.span=std::max(figure.span,n.at+n.length);
@@ -131,19 +137,25 @@ public:
     void clear(){*this={};}
 };
 // A future role plan must explicitly request adoption; never inferred from catalog contents.
-struct MotifReferencePlan { MotifRef material; int64_t introduction=-1,originTick=0; };
+struct MotifReferencePlan
+{
+    MotifRef material;
+    int64_t introduction=-1; // Dimensionless section ordinal.
+    Tick originTime{}; // Absolute musical position.
+};
 struct MotifUse
 {
     RememberedMotif draft;
     MotifRef reference;
-    int64_t introduction=-1,originTick=0;
+    int64_t introduction=-1; // Dimensionless section ordinal.
+    Tick originTime{}; // Absolute musical position.
     void clear(){*this={};}
     const RememberedMotif& material(const MotifCatalog& catalog)const
     {const auto* published=catalog.find(reference);return published?*published:draft;}
-    void observe(int pitch,int64_t at,int64_t length,int64_t section,int velocity=64,int64_t absoluteBegin=0)
+    void observe(int pitch,Tick at,Tick length,int64_t section,int velocity=64,Tick absoluteBegin={})
     {
         if(reference.value>=0)return;
-        if(draft.count==0){introduction=section;originTick=absoluteBegin;}
+        if(draft.count==0){introduction=section;originTime=absoluteBegin;}
         draft.observe(pitch,at,length,velocity);
     }
     void finish(MotifCatalog& catalog)
@@ -156,34 +168,34 @@ struct MotifUse
     bool adopt(const MotifReferencePlan& plan,const MotifCatalog& catalog)
     {
         if(plan.introduction<0||!catalog.find(plan.material))return false;
-        clear();reference=plan.material;introduction=plan.introduction;originTick=plan.originTick;return true;
+        clear();reference=plan.material;introduction=plan.introduction;originTime=plan.originTime;return true;
     }
 };
-// Common performance capture: musical units are selected by the adapter, not a MIDI target.
+// Common performance capture uses the same PPQ unit as score material.
 struct MotifCapture
 {
-    int64_t begin=0,end=0;
+    Tick begin{},end{};
     bool active=false,invalid=false;
     std::array<bool,8> pending {};
     void clear(){*this={};}
-    void start(MotifUse& use,int64_t at,int64_t length,int scale)
+    void start(MotifUse& use,Tick at,Tick length)
     {
         clear();use.clear();begin=at;end=at+length;active=true;
-        use.originTick=at;use.introduction=0;use.draft.timeScale=scale;use.draft.cycleLength=length;
+        use.originTime=at;use.introduction=0;use.draft.performedTiming=true;use.draft.cycleLength=length;
     }
-    void event(MotifUse& use,int pitch,int velocity,int64_t at)
+    void event(MotifUse& use,int pitch,int velocity,Tick at)
     {
         if(!active||at<begin)return;
         auto& m=use.draft;
         for(int i=0;i<m.count;++i)if(pending[i]&&m.origin+m.notes[i].interval==pitch)
-        {m.notes[i].length=at-begin-m.notes[i].at;pending[i]=false;if(m.notes[i].length<1)invalid=true;}
+        {m.notes[i].length=at-begin-m.notes[i].at;pending[i]=false;if(m.notes[i].length<Tick{1})invalid=true;}
         if(velocity>0&&at<end)
         {
             if(m.count==8){invalid=true;return;}
-            const int index=m.count;m.observe(pitch,at-begin,1,velocity);pending[index]=true;
+            const int index=m.count;m.observe(pitch,at-begin,Tick{1},velocity);pending[index]=true;
         }
     }
-    void finish(MotifUse& use,MotifCatalog& catalog,int64_t at)
+    void finish(MotifUse& use,MotifCatalog& catalog,Tick at)
     {
         if(!active||at<end)return;
         for(bool open:pending)if(open)return;
@@ -192,7 +204,7 @@ struct MotifCapture
         use.finish(catalog);
     }
 };
-struct RecordedMotifNote { bool valid=false;int pitch=0,velocity=0;int64_t at=0,length=0; };
+struct RecordedMotifNote { bool valid=false;int pitch=0,velocity=0;Tick at{},length{}; };
 inline RecordedMotifNote replayMotifNote(const RememberedMotif& material,int index)
 {
     if(!material.complete||index<0||index>=material.count)return {};
@@ -221,15 +233,16 @@ inline RecurrenceSlot recurrenceSlot(const MotifRecurrencePolicy& policy,int64_t
 struct MotifOccurrence
 {
     bool active=false,introduction=false,varied=false;
-    int64_t begin=0,end=0,ordinal=0;int base=0;
+    Tick begin{},end{}; // Absolute musical positions.
+    int64_t ordinal=0;int base=0;
     MotifFigure figure;
 };
-struct MotifPlacement { int64_t begin=0;int base=0,cost=0; };
+struct MotifPlacement { Tick begin{};int base=0,cost=0; };
 inline MotifOccurrence planRecurrence(const MotifRecurrencePolicy& policy,const RecurrenceSlot& slot,
-    int64_t begin,int64_t end,int64_t span,int64_t bar,
-    const MotifPlacement* candidates,int count,int64_t responseReserve=0)
+    Tick begin,Tick end,Tick span,Tick bar,
+    const MotifPlacement* candidates,int count,Tick responseReserve={})
 {
-    if(!slot.eligible||!valid(policy)||bar<1||span<1||count<0||count>32||!candidates)return {};
+    if(!slot.eligible||!valid(policy)||bar<Tick{1}||span<Tick{1}||count<0||count>32||!candidates)return {};
     const auto last=end-span-policy.minimumSilentBars*bar-responseReserve;
     if(last<begin)return {};
     // Interior entries finish a run of opportunities; after a quiet slot prefer an early return.
@@ -238,7 +251,7 @@ inline MotifOccurrence planRecurrence(const MotifRecurrencePolicy& policy,const 
     for(int i=0;i<count;++i)
     {
         const auto& c=candidates[i];if(c.begin<begin||c.begin>last)continue;
-        const auto score=c.cost+std::abs(c.begin-preferred)*(slot.preceding>1?24:4)/bar;
+        const auto score=c.cost+std::abs((c.begin-preferred).value)*(slot.preceding>1?24:4)/bar.value;
         if(score<cost){best=i;cost=score;}
     }
     if(best<0)return {};
@@ -257,7 +270,7 @@ struct InstrumentCapabilities
     PitchBehaviour pitch=PitchBehaviour::unknown;
     unsigned articulations=0; // Bit 0 sustained, bit 1 detached; unknown is not all-capable.
     Range range {0,127}; int polyphony=1;
-    int64_t minDuration=1,maxDuration=32; // Musical ticks, not patch release time.
+    int64_t minDuration=1,maxDuration=32; // Legacy sixteenth-note capability bounds; convert at the motif boundary.
 };
 struct PlayingTrack
 {
@@ -335,15 +348,15 @@ struct MotifHandoffPlan
     bool active=false;
     MotifReferencePlan reference;
     int first=0,count=0;
-    int64_t begin=0,end=0;
+    Tick begin{},end{}; // Relative to the role-plan handoff origin.
 };
 inline MotifHandoffPlan planMelodyHandoff(bool requested,const MotifUse& source,
-    const MotifCatalog& catalog,const PlayingTrack& target,int64_t epoch,int64_t bar,int64_t window,
+    const MotifCatalog& catalog,const PlayingTrack& target,int64_t epoch,Tick bar,Tick window,
     const MotifRecurrencePolicy& policy,float energy,float unrest,bool leading)
 {
     MotifHandoffPlan p;RoleNeed need;need.role=MusicalRole::answer;need.range=target.instrument.range;
     const auto* material=catalog.find(source.reference);
-    if(!requested||leading||!suitable(target,need)||!material||material->count<3||bar<1||window<4*bar||epoch<1)return p;
+    if(!requested||leading||!suitable(target,need)||!material||material->count<3||bar<Tick{1}||window<4*bar||epoch<1)return p;
     const auto group=(epoch-1)/4;int64_t quiet=-1;
     for(int i=1;i<=4;++i)if(!recurrenceSlot(policy,group*4+i,energy,unrest).eligible){quiet=group*4+i;break;}
     if(epoch!=quiet)return p;
@@ -351,10 +364,10 @@ inline MotifHandoffPlan planMelodyHandoff(bool requested,const MotifUse& source,
     const auto& last=material->notes[static_cast<size_t>(material->count-1)];
     p.end=p.begin+last.at-material->notes[static_cast<size_t>(p.first)].at+last.length;
     if(p.end>window||p.end-p.begin>2*bar)return {};
-    p.reference={source.reference,source.introduction+epoch,source.originTick+epoch*window};p.active=true;return p;
+    p.reference={source.reference,source.introduction+epoch,source.originTime+epoch*window};p.active=true;return p;
 }
-struct DialoguePlan { bool reserveResponse=false,answer=false;int answerNotes=0;uint64_t sourceMotif=0;int64_t answerBegin=0,answerEnd=0; };
-inline DialoguePlan planDialogue(const MotifUse& use,const MotifCatalog& catalog,const MotifOccurrence& question,int64_t at,int64_t window)
+struct DialoguePlan { bool reserveResponse=false,answer=false;int answerNotes=0;uint64_t sourceMotif=0;Tick answerBegin{},answerEnd{}; };
+inline DialoguePlan planDialogue(const MotifUse& use,const MotifCatalog& catalog,const MotifOccurrence& question,Tick at,Tick window)
 {
     const auto& memory=use.material(catalog);DialoguePlan p;p.sourceMotif=memory.identity;
     p.answerBegin=std::max(question.end,question.begin+window);p.answerEnd=p.answerBegin+window;
@@ -437,15 +450,15 @@ struct EventDensity
 struct MotifWindow
 {
     TrackId owner;
-    int64_t begin=0,end=0;
-    bool contains(int64_t tick)const{return owner.value>=0&&tick>=begin&&tick<end;}
+    Tick begin{},end{};
+    bool contains(Tick tick)const{return owner.value>=0&&tick>=begin&&tick<end;}
 };
-inline MotifWindow reserveMotifWindow(TrackId owner,int notes,int64_t begin,int64_t end)
-{return owner.value>=0&&notes>=2&&begin>=0&&end>begin?MotifWindow{owner,begin,end}:MotifWindow{};}
+inline MotifWindow reserveMotifWindow(TrackId owner,int notes,Tick begin,Tick end)
+{return owner.value>=0&&notes>=2&&begin>=Tick{}&&end>begin?MotifWindow{owner,begin,end}:MotifWindow{};}
 // Bound phrasing for a monophonic target: touching gates, never overlapping claims.
-inline int64_t articulatedLength(int64_t recorded,int64_t available,bool legato)
+inline Tick articulatedLength(Tick recorded,Tick available,bool legato)
 {
-    return std::max<int64_t>(1,std::min(recorded,std::max<int64_t>(1,available-(legato?0:1))));
+    return std::max(motifQuantum,std::min(recorded,std::max(motifQuantum,available-(legato?Tick{}:motifQuantum))));
 }
 inline int adaptMotifPitch(int desired,const int* ladder,int count)
 {

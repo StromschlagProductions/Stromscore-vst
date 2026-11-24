@@ -108,8 +108,8 @@ int main(int argc,char** argv)
    auto occurrence=g->inspectMotifOccurrence(tick,a);const int index=occurrence.figure.passingIndex;
    for(int i=0;i<es.size;++i){auto e=es.events[i];if(e.type||!e.velocity||e.out!=OutCounter)continue;
     if(tick==targetAt&&e.note==target){++resolutions;targetAt=-1;}
-    if(index>=0&&tick==occurrence.begin+occurrence.figure.notes[index].at&&e.note==occurrence.base+occurrence.figure.notes[index].interval)
-    {++passes;targetAt=occurrence.begin+occurrence.figure.notes[index+1].at;target=occurrence.base+occurrence.figure.notes[index+1].interval;}
+    if(index>=0&&musicaltime::fromGridStep(tick)==occurrence.begin+occurrence.figure.notes[index].at&&e.note==occurrence.base+occurrence.figure.notes[index].interval)
+    {++passes;targetAt=musicaltime::toExactGridStep(occurrence.begin+occurrence.figure.notes[index+1].at);target=occurrence.base+occurrence.figure.notes[index+1].interval;}
    }
   }
   CHECK(identity&&passes>0&&passes==resolutions);std::cout<<"Protected modal hook: "<<passes<<" checked passing tones, "<<resolutions<<" actual resolutions in 128 bars\n";

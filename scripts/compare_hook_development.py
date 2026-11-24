@@ -37,7 +37,9 @@ with tempfile.TemporaryDirectory() as tmp:
   for bpm in (90,120,173):
    br,b,bh=run(old,case,bpm);ar,es,tr=run(a.probe,case,bpm);cr,c,ch=run(a.probe,case,bpm,control=True)
    assert cr==br,('disabled regression',name,bpm)
-   assert tr['M']==bh['M'],('source altered',name,bpm)
+   # PPQ canonicalization changes internal hashes, not the actually captured notes.
+   assert tr['M']==ch['M'],('current source changed by policy',name,bpm)
+   assert [m[1:] for m in tr['M']]==[m[1:] for m in bh['M']],('source altered',name,bpm)
    if case in (0,5):assert ar==br and not tr['P'],('groove interrupted',name,bpm)
    for block in (127,8192):
     rr,ee,tt=run(a.probe,case,bpm,block)

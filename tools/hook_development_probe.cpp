@@ -1,3 +1,4 @@
+#include "TimeDiagnostics.h"
 #include "ScoreEngine.h"
 #include <cstdlib>
 #include <iostream>
@@ -34,14 +35,14 @@ int main(int argc,char** argv)
   int b=static_cast<int>(at/bar);if(scenario==6){const auto& target=kPopWendungen[(b/8)%2?29:33];s.x=target.x;s.y=target.y;s.z=target.z;}
   Transport t;t.playing=true;t.bpm=bpm;t.ppq=at*bpm/(48000.*60);const int n=static_cast<int>(std::min<long long>({block,total-at,bar-at%bar}));es.clear();g.process(t,s,n,es);if(es.overflow)return 3;emit(at);
   const auto& m=g.rememberedMotif();
-  if(m.complete&&!published){std::cerr<<"M,"<<m.identity<<','<<m.count<<','<<m.origin;for(int i=0;i<m.count;++i)std::cerr<<','<<m.notes[i].at<<','<<m.notes[i].length<<','<<m.notes[i].interval;std::cerr<<'\n';published=true;}
+  if(m.complete&&!published){std::cerr<<"M,"<<m.identity<<','<<m.count<<','<<m.origin;for(int i=0;i<m.count;++i)std::cerr<<','<<diagnosticTime(m.notes[i].at,1)<<','<<diagnosticTime(m.notes[i].length,1)<<','<<m.notes[i].interval;std::cerr<<'\n';published=true;}
 #ifdef HOOK_DIAGNOSTICS
   long long emittedTick=-1;
   for(int i=0;i<es.size;++i){const auto& e=es.events[i];if(e.out==OutCounter&&e.type==0&&e.velocity>0)emittedTick=static_cast<long long>(std::floor((t.ppq+e.offset*bpm/(48000.*60))*4+1e-4));}
   auto p=emittedTick>=0?g.inspectMotifOccurrence(emittedTick,s):composition::MotifOccurrence{};
-  if(p.active&&!p.introduction&&p.begin<128*16&&seen.insert(p.begin).second){std::cerr<<"P,"<<p.begin<<','<<p.end<<','<<p.ordinal<<','<<static_cast<int>(p.figure.variation)<<','<<p.base<<','<<p.figure.sourceIdentity<<','<<p.figure.count;for(int i=0;i<p.figure.count;++i)std::cerr<<','<<p.figure.notes[i].at<<','<<p.figure.notes[i].length<<','<<p.figure.notes[i].interval;std::cerr<<'\n';
+  if(p.active&&!p.introduction&&diagnosticTime(p.begin)<128*16&&seen.insert(diagnosticTime(p.begin)).second){std::cerr<<"P,"<<diagnosticTime(p.begin)<<','<<diagnosticTime(p.end)<<','<<p.ordinal<<','<<static_cast<int>(p.figure.variation)<<','<<p.base<<','<<p.figure.sourceIdentity<<','<<p.figure.count;for(int i=0;i<p.figure.count;++i)std::cerr<<','<<diagnosticTime(p.figure.notes[i].at)<<','<<diagnosticTime(p.figure.notes[i].length)<<','<<p.figure.notes[i].interval;std::cerr<<'\n';
 #ifdef MODAL_DIAGNOSTICS
-   std::cerr<<"D,"<<p.begin<<','<<p.figure.passingIndex<<'\n';
+   std::cerr<<"D,"<<diagnosticTime(p.begin)<<','<<p.figure.passingIndex<<'\n';
 #endif
   }
 #endif

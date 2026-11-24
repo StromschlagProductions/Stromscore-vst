@@ -1,3 +1,4 @@
+#include "TimeDiagnostics.h"
 #include "ScoreEngine.h"
 #include <cstdlib>
 #include <iostream>
@@ -83,18 +84,18 @@ int main(int argc,char** argv)
                 if(m.complete&&published.insert({o,m.identity}).second)
                 {
                     std::cerr<<"M,"<<o<<','<<m.identity<<','<<m.count<<','<<m.origin;
-                    for(int i=0;i<m.count;++i){const auto& note=m.notes[static_cast<size_t>(i)];std::cerr<<','<<note.at<<','<<note.length<<','<<note.interval;}
+                    for(int i=0;i<m.count;++i){const auto& note=m.notes[static_cast<size_t>(i)];std::cerr<<','<<diagnosticTime(note.at)<<','<<diagnosticTime(note.length)<<','<<note.interval;}
                     std::cerr<<'\n';
                 }
 #ifdef RECURRENCE_DIAGNOSTICS
                 const long long tick=static_cast<long long>((t.ppq+n/24000.)*4)-1;
                 const auto plan=g.inspectMotifOccurrence(tick,s,o);
-                if(plan.active&&occurrences.insert({o,plan.begin,plan.end,plan.ordinal}).second)
+                if(plan.active&&occurrences.insert({o,diagnosticTime(plan.begin),diagnosticTime(plan.end),plan.ordinal}).second)
                 {
-                    std::cerr<<"O,"<<o<<','<<plan.begin<<','<<plan.end<<','<<plan.ordinal<<','<<plan.varied<<','<<plan.introduction<<','<<plan.base<<'\n';
+                    std::cerr<<"O,"<<o<<','<<diagnosticTime(plan.begin)<<','<<diagnosticTime(plan.end)<<','<<plan.ordinal<<','<<plan.varied<<','<<plan.introduction<<','<<plan.base<<'\n';
 #ifdef VARIATION_DIAGNOSTICS
-                    std::cerr<<"V,"<<o<<','<<plan.begin<<','<<plan.end<<','<<plan.ordinal<<','<<plan.introduction<<','<<plan.base<<','<<static_cast<int>(plan.figure.variation)<<','<<plan.figure.sourceIdentity<<','<<plan.figure.count;
-                    for(int i=0;i<plan.figure.count;++i){const auto& n=plan.figure.notes[static_cast<size_t>(i)];std::cerr<<','<<n.at<<','<<n.length<<','<<n.interval;}
+                    std::cerr<<"V,"<<o<<','<<diagnosticTime(plan.begin)<<','<<diagnosticTime(plan.end)<<','<<plan.ordinal<<','<<plan.introduction<<','<<plan.base<<','<<static_cast<int>(plan.figure.variation)<<','<<plan.figure.sourceIdentity<<','<<plan.figure.count;
+                    for(int i=0;i<plan.figure.count;++i){const auto& n=plan.figure.notes[static_cast<size_t>(i)];std::cerr<<','<<diagnosticTime(n.at)<<','<<diagnosticTime(n.length)<<','<<n.interval;}
                     std::cerr<<'\n';
 #endif
                 }

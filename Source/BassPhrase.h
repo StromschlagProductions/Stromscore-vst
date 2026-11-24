@@ -70,10 +70,10 @@ inline BassPhrasePlan planBassPhrase(const BassPhraseRequest& r)
         if(n.anchor||before.at<r.middle&&target.at>=r.middle)continue;
         const int region=n.at>=r.middle?1:0;
         PassingRequest q;q.context=r.modal;q.chordMask=r.chords[region];q.root=r.root[region];q.bassPitchClass=r.bass[region]%12;
-        q.source=before.pitch;q.target=target.pitch;q.low=r.range.low;q.high=r.range.high;q.sourceAt=before.at;q.targetAt=target.at;
-        q.harmonyBegin=region?r.middle:r.begin;q.harmonyEnd=region?r.end:r.middle;q.minDuration=r.minDuration;q.maxDuration=2;
+        q.source=before.pitch;q.target=target.pitch;q.low=r.range.low;q.high=r.range.high;q.sourceAt=musicaltime::fromGridStep(before.at);q.targetAt=musicaltime::fromGridStep(target.at);
+        q.harmonyBegin=musicaltime::fromGridStep(region?r.middle:r.begin);q.harmonyEnd=musicaltime::fromGridStep(region?r.end:r.middle);q.minDuration=musicaltime::fromGridStep(r.minDuration);q.maxDuration=musicaltime::fromGridStep(2);
         const auto tone=planPassingTone(q);
-        if(tone.valid&&tone.begin==n.at&&target.at-(n.at+n.length)<=1)
+        if(tone.valid&&tone.begin==musicaltime::fromGridStep(n.at)&&target.at-(n.at+n.length)<=1)
             {n.pitch=tone.pitch;n.passing=true;n.resolution=i+1;break;}
     }
     for(int i=0;i<p.count;++i)

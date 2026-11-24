@@ -888,37 +888,37 @@ private:
 
     struct PlannedMotifNote
     {
-        long long at=0,length=0;int pitch=0,velocity=0;
+        musicaltime::Tick at{},length{};int pitch=0,velocity=0;
         bool valid=false;
     };
-    struct PlayableHandoff { composition::MotifHandoffPlan plan; int base=-1;int64_t origin=0; };
-    int64_t motifAvailableUntil(const Settings& s,int layer)const
+    struct PlayableHandoff { composition::MotifHandoffPlan plan; int base=-1;musicaltime::Tick origin{}; };
+    musicaltime::Tick motifAvailableUntil(const Settings& s,int layer)const
     {
-        int64_t end=sceneEndGrid();
-        if(s.ending==EndFade&&(s.sceneBars>0||manualEndGrid()>=0))
+        auto end=sceneEndTime.value_or(musicaltime::Tick{INT64_MAX/4});
+        if(s.ending==EndFade&&(s.sceneBars>0||manualEndTime))
         {
             int slots=0;const int index=orderIndex(s,entryInUse,layer,slots);
-            const int tailBars=manualEndGrid()>=0?2:std::clamp(std::min(s.buildBars,s.sceneBars/2),1,64);
-            if(index>0)end-=slotBar(index,slots,tailBars)*meter.len;
+            const int tailBars=manualEndTime?2:std::clamp(std::min(s.buildBars,s.sceneBars/2),1,64);
+            if(index>0)end-=musicaltime::fromGridStep(slotBar(index,slots,tailBars)*meter.len);
         }
         return end;
     }
-    struct MotifHarmony { Chord chord;long long end=0; };
-    // Canonical harmonic lookup across repeated custom cycles, independent of the live cursor.
-    MotifHarmony motifHarmonyAt(long long at,const Settings& s)const
+    struct MotifHarmony { Chord chord;musicaltime::Tick end{}; };
+    // The shared harmonic timeline is also the motif's harmonic reference.
+    MotifHarmony motifHarmonyAt(musicaltime::Tick at,const Settings& s)const
     {
-        const auto& w=W();const long long length=static_cast<long long>(phraseBars)*meter.len;
-        const long long begin=floorDiv(at,length)*length;
-        composition::ChordTimeline timeline;timeline.count=w.n;timeline.begin=musicaltime::fromGridStep(begin);timeline.end=musicaltime::fromGridStep(begin+length);
+        const auto& w=W();const auto length=musicaltime::fromGridStep(static_cast<int64_t>(phraseBars)*meter.len);
+        const auto begin=length*floorDiv(at.value,length.value);
+        composition::ChordTimeline timeline;timeline.count=w.n;timeline.begin=begin;timeline.end=begin+length;
         timeline.first=still?chordBase:0;timeline.held=still;
         for(int i=0;i<w.n;++i)timeline.durations[static_cast<size_t>(i)]=musicaltime::fromGridStep(static_cast<int64_t>(w.ch[i].bars)*meter.len);
-        const auto position=composition::locateChord(timeline,musicaltime::fromGridStep(at));
+        const auto position=composition::locateChord(timeline,at);
         const auto& chord=w.ch[position.index];
         const int next=position.index+1<w.n?w.ch[position.index+1].root:w.ch[0].root;
         const auto intent=composition::freeTransition(next,allowsPassingHarmony(s),s.y,still);
         const auto placement=composition::placeTransition(intent,position.begin,position.end,musicaltime::fromGridStep(meter.len),musicaltime::fromGridStep(meter.groupStart[std::max(0,meter.numGroups-1)]));
-        if(placement.present&&musicaltime::fromGridStep(at)>=placement.begin)return {{intent.approachRoot,Dom7,1},musicaltime::toExactGridStep(placement.end)};
-        return {chord,musicaltime::toExactGridStep(placement.present?placement.begin:position.end)};
+        if(placement.present&&at>=placement.begin)return {{intent.approachRoot,Dom7,1},placement.end};
+        return {chord,placement.present?placement.begin:position.end};
     }
     bool phrasedHook(const Settings& s)const
     {
@@ -931,19 +931,22 @@ private:
     composition::RememberedMotif performanceMaterial(int output,const Settings& s)const
     {
         auto material=voice(output).motif.material(motifCatalog);
-        if(s.genre!=GenrePopRock||material.timeScale==1)return material;
-        const auto origin=voice(output).motif.originTick/material.timeScale;
+        if(s.genre!=GenrePopRock||!material.performedTiming)return material;
+        const auto origin=musicaltime::toExactGridStep(voice(output).motif.originTime);
         Settings recorded=s;recorded.swing=voice(output).captureSwing;
-        auto stepAt=[&](int64_t at)
+        // Invert the recorded performance swing to nominal positions. Both representations
+        // are PPQ; this is a timing interpretation, never a change of storage units.
+        auto nominalAt=[&](musicaltime::Tick at)
         {
-            const auto estimate=static_cast<long long>(std::llround(static_cast<double>(at)/material.timeScale));
+            const auto estimate=static_cast<long long>(std::llround(static_cast<double>(at.value)/musicaltime::ticksPerGridStep));
             auto best=estimate;double distance=1e20;
-            for(auto n=estimate-2;n<=estimate+2;++n){const double d=std::abs((n+swingDelay(origin+n,recorded))*material.timeScale-at);if(d<distance){best=n;distance=d;}}
-            return best;
+            for(auto n=estimate-2;n<=estimate+2;++n){const double d=std::abs((n+swingDelay(origin+n,recorded))*musicaltime::ticksPerGridStep-at.value);if(d<distance){best=n;distance=d;}}
+            return musicaltime::fromGridStep(best);
         };
-        for(int i=0;i<material.count;++i){auto& n=material.notes[i];const auto start=stepAt(n.at),end=stepAt(n.at+n.length);n.at=start;n.length=std::max<int64_t>(1,end-start);}
-        material.cycleLength/=material.timeScale;material.timeScale=1;
-        for(int i=0;i<material.count;++i)material.notes[i].length=std::max<int64_t>(1,std::min(material.notes[i].length,material.cycleLength-material.notes[i].at));
+        const auto quantum=composition::motifQuantum;
+        for(int i=0;i<material.count;++i){auto& n=material.notes[i];const auto start=nominalAt(n.at),end=nominalAt(n.at+n.length);n.at=start;n.length=std::max(quantum,end-start);}
+        material.performedTiming=false;
+        for(int i=0;i<material.count;++i)material.notes[i].length=std::max(quantum,std::min(material.notes[i].length,material.cycleLength-material.notes[i].at));
         return material;
     }
     composition::ModalContext modalContextFor(const Settings& s)const
@@ -974,8 +977,8 @@ private:
             composition::PassingRequest request;request.context=context;request.chordMask=mask;request.root=s.key+h.chord.root;request.bassPitchClass=s.key+bassRoot(h.chord);
             request.source=occurrence.base+source.interval;request.target=occurrence.base+target.interval;
             request.low=capabilities.range.low;request.high=capabilities.range.high;request.sourceAt=sourceAt;request.targetAt=targetAt;
-            request.harmonyBegin=sourceAt;request.harmonyEnd=h.end;request.minDuration=static_cast<int>(capabilities.minDuration);
-            request.maxDuration=static_cast<int>(std::min<int64_t>(policy.maxDuration,capabilities.maxDuration));
+            request.harmonyBegin=sourceAt;request.harmonyEnd=h.end;request.minDuration=musicaltime::fromGridStep(capabilities.minDuration);
+            request.maxDuration=std::min(policy.maxDuration,musicaltime::fromGridStep(capabilities.maxDuration));
             const auto passing=composition::planPassingTone(request);if(!passing.valid)continue;
             for(int j=figure.count;j>i+1;--j)figure.notes[j]=figure.notes[j-1];
             figure.notes[i].length=std::min(figure.notes[i].length,passing.begin-sourceAt);
@@ -985,34 +988,35 @@ private:
     }
     composition::MotifOccurrence motifOccurrence(long long k,const Pos& p,const Settings& s,int output)
     {
+        const auto time=musicaltime::fromGridStep(k),bar=musicaltime::fromGridStep(meter.len);
         auto& state=voice(output);const auto& use=state.motif;auto memory=performanceMaterial(output,s);
         const auto& policy=s.genre==GenrePopRock?s.policy.popHooks.recurrence:s.policy.motif;
-        const auto origin=s.genre==GenrePopRock?use.originTick/musicaltime::ticksPerGridStep:use.originTick;
-        const auto section=p.phrase-phraseOf(sceneGrid());
-        if(memory.count&&(k-gridPhraseStart(p)>=std::min(2LL*meter.len,gridPhraseEnd(p)-gridPhraseStart(p))||section!=use.introduction))memory.finish();
-        if(!memory.complete)return {true,true,false,gridPhraseStart(p),gridPhraseStart(p)+std::min(2LL*meter.len,gridPhraseEnd(p)-gridPhraseStart(p)),0,0};
-        const int64_t window=static_cast<int64_t>(policy.windowBars)*meter.len;
-        if(k<origin)return {};
-        const auto epoch=(k-origin)/window;
-        int64_t span=0;for(int i=0;i<memory.count;++i)span=std::max(span,memory.notes[static_cast<size_t>(i)].at+memory.notes[static_cast<size_t>(i)].length);
+        const auto origin=use.originTime;
+        const auto section=p.phrase-phraseOf(sceneTime);
+        if(memory.count&&(time-p.phraseStartTime>=std::min(2*bar,p.phraseEndTime-p.phraseStartTime)||section!=use.introduction))memory.finish();
+        if(!memory.complete)return {true,true,false,p.phraseStartTime,p.phraseStartTime+std::min(2*bar,p.phraseEndTime-p.phraseStartTime),0,0};
+        const auto window=bar*policy.windowBars;
+        if(time<origin)return {};
+        const auto epoch=(time-origin)/window;
+        musicaltime::Tick span{};for(int i=0;i<memory.count;++i)span=std::max(span,memory.notes[static_cast<size_t>(i)].at+memory.notes[static_cast<size_t>(i)].length);
         if(epoch==0)return {true,true,false,origin,origin+span,0,0};
         if(state.recurrenceEpoch==epoch&&state.recurrenceIdentity==memory.identity&&state.recurrenceOrigin==origin&&state.recurrenceWindow==window)return state.recurrencePlan.end<=motifAvailableUntil(s,kOutputLayer[output])?state.recurrencePlan:composition::MotifOccurrence{};
         state.recurrenceEpoch=epoch;state.recurrenceIdentity=memory.identity;state.recurrenceOrigin=origin;state.recurrenceWindow=window;state.recurrencePlan={};
         const auto slot=composition::recurrenceSlot(policy,epoch,layerY(s,kOutputLayer[output]),s.z);
         if(!slot.eligible)return {};
-        const int64_t begin=origin+epoch*window,end=std::min(begin+window,motifAvailableUntil(s,kOutputLayer[output]));
+        const auto begin=origin+epoch*window,end=std::min(begin+window,motifAvailableUntil(s,kOutputLayer[output]));
         const bool dialogue=output==OutCounter&&!on[kMelodie]&&s.genre==GenreScore&&s.arpFigure==ArpCell&&!s.scene
             &&s.meterNum==4&&s.meterDen==4&&on[kArp]&&on[kGegenstimme]&&phraseBars>=4;
-        const int64_t response=dialogue?2LL*meter.len:0;
+        const auto response=dialogue?2*bar:musicaltime::Tick{};
         const auto catalog=outputCatalog(s);const auto& capability=catalog[output].track.instrument;
         auto attempt=[&](composition::MotifVariation variation)
         {
         const auto figure=composition::deriveMotif(memory,variation,policy.sequenceSemitones);
         if(!figure.count)return composition::MotifOccurrence{};
-        const int64_t last=end-figure.span-static_cast<int64_t>(policy.minimumSilentBars)*meter.len-response;
+        const auto last=end-figure.span-policy.minimumSilentBars*bar-response;
         std::array<composition::MotifPlacement,32> candidates {};
         std::array<composition::MotifFigure,32> realizations {};int count=0;
-        auto add=[&](int64_t at)
+        auto add=[&](musicaltime::Tick at)
         {
             if(at<begin||at>last||count==32)return;
             for(int i=0;i<count;++i)if(candidates[static_cast<size_t>(i)].begin==at)return;
@@ -1024,12 +1028,12 @@ private:
                 const auto harmonicLength=output==OutCounter&&i+1<figure.count
                     ?std::min(n.length,figure.notes[static_cast<size_t>(i+1)].at-n.at):n.length;
                 const auto finish=tick+harmonicLength;
-                if(n.length<capability.minDuration||n.length>capability.maxDuration)return;
+                if(n.length<musicaltime::fromGridStep(capability.minDuration)||n.length>musicaltime::fromGridStep(capability.maxDuration))return;
                 for(int step=0;tick<finish&&step<32;++step)
                 {
                     const auto h=motifHarmonyAt(tick,s);unsigned mask=0;const auto& shape=kShapes[h.chord.type];
                     for(int j=0;j<shape.n;++j)mask|=1u<<((s.key+h.chord.root+shape.iv[j])%12);
-                    allowed[i]&=mask;if(h.end<=tick)return;tick=std::min<int64_t>(finish,h.end);
+                    allowed[i]&=mask;if(h.end<=tick)return;tick=std::min(finish,h.end);
                 }
                 if(tick<finish||!allowed[i])return;
             }
@@ -1061,13 +1065,13 @@ private:
                         realization.notes[i].length=std::min(realization.notes[i].length,realization.notes[i+1].at-realization.notes[i].at);
                 realizations[static_cast<size_t>(count)]=realization;candidates[static_cast<size_t>(count++)]={at,base,cost};}
         };
-        for(int64_t at=begin;at<=last;)
+        for(auto at=begin;at<=last;)
         {
             const auto h=motifHarmonyAt(at,s);add(at);
-            const auto middle=at+std::max<int64_t>(0,(std::min<int64_t>(h.end,end)-at-figure.span)/2/meter.len)*meter.len;
+            const auto middle=at+std::max<int64_t>(0,(std::min(h.end,end)-at-figure.span)/2/bar)*bar;
             add(middle);if(h.end<=at)break;at=h.end;
         }
-        auto result=composition::planRecurrence(policy,slot,begin,end,figure.span,meter.len,candidates.data(),count,response);
+        auto result=composition::planRecurrence(policy,slot,begin,end,figure.span,bar,candidates.data(),count,response);
         if(result.active){for(int i=0;i<count;++i)if(candidates[i].begin==result.begin&&candidates[i].base==result.base){result.figure=realizations[i];break;}result.varied=variation==composition::MotifVariation::rhythm;}
         return result;
         };
@@ -1079,13 +1083,19 @@ private:
         return state.recurrencePlan;
     }
 
+    // Template positions are dimensionless sixteenths OF A BAR, not fixed sixteenth notes.
+    // Keep their existing floor-to-performance-grid realisation (including odd meters).
+    // Stored material and derived variants never pass through this template conversion.
+    musicaltime::Tick motifTemplatePosition(int subdivision)const
+    {return musicaltime::fromGridStep(static_cast<int64_t>(subdivision)*meter.len/16);}
+
     // One note calculation shared by the existing performance and accompaniment preflight.
     // The caller supplies the harmony at that note's onset; no memory or MIDI is modified.
     PlannedMotifNote planMotifNote(int i,const Pos& p,const Settings& s,int output,
         const composition::RememberedMotif* memory,bool varied,const composition::MotifOccurrence* occurrence=nullptr)const
     {
         PlannedMotifNote n;
-        const long long span=memory?gridPhraseEnd(p)-gridPhraseStart(p):std::min(2LL*meter.len,gridPhraseEnd(p)-gridPhraseStart(p));
+        const auto span=memory?p.phraseEndTime-p.phraseStartTime:std::min(musicaltime::fromGridStep(2LL*meter.len),p.phraseEndTime-p.phraseStartTime);
         const auto yc=layerY(s,kOutputLayer[output]);
         const Motif mo=motifFor(s,p.phrase);
         // Preserve the existing introduced material (tone count/rhythm), independently of restored expression.
@@ -1094,8 +1104,8 @@ private:
         const auto* figure=occurrence&&occurrence->figure.count?&occurrence->figure:nullptr;
         const int count=figure?figure->count:memory?memory->count:materialY>=.55f?mo.n:materialY>=.3f?std::max(2,mo.n-1):std::max(2,mo.n-2);
         if(i>=count)return n;
-        n.at=figure?figure->notes[static_cast<size_t>(i)].at:memory?memory->notes[static_cast<size_t>(i)].at:static_cast<long long>(mo.on[i])*meter.len/16;
-        if(n.at<0||n.at>=span)return n;
+        n.at=figure?figure->notes[static_cast<size_t>(i)].at:memory?memory->notes[static_cast<size_t>(i)].at:motifTemplatePosition(mo.on[i]);
+        if(n.at<musicaltime::Tick{}||n.at>=span)return n;
         int ladder[16] {};const bool exact=memory&&occurrence&&!occurrence->introduction;
         const int nl=exact?1:counterLadder(chordFor(p,kOutputLayer[output],s),s,ladder,output);
         if(!nl)return n;
@@ -1106,18 +1116,20 @@ private:
             n.pitch=occurrence&&!occurrence->introduction?occurrence->base+recorded.interval-12*octaveOf(output)
                 :composition::adaptMotifPitch(base+recorded.interval,ladder,nl);
             n.velocity=recorded.velocity;
-            n.length=std::min<int64_t>(figure?recorded.length:memory->recalledLength(i,varied,span),span-n.at);
+            n.length=std::min(figure?recorded.length:memory->recalledLength(i,varied,span),span-n.at);
             if(output==OutMelody)n.length=composition::articulatedLength(n.length,
-                std::min<int64_t>(exact?span-n.at:gridChordEnd(p)-(gridPhraseStart(p)+n.at),i+1<count?(figure?figure->notes[static_cast<size_t>(i+1)].at:memory->notes[static_cast<size_t>(i+1)].at)-n.at:span-n.at),s.melodyLegato);
+                std::min(exact?span-n.at:p.chordEndTime-(p.phraseStartTime+n.at),i+1<count?(figure?figure->notes[static_cast<size_t>(i+1)].at:memory->notes[static_cast<size_t>(i+1)].at)-n.at:span-n.at),s.melodyLegato);
         }
         else
         {
-            auto end=i+1<count?static_cast<long long>(mo.on[i+1])*meter.len/16:span;
-            end=std::min(end,gridPhraseEnd(p)-gridPhraseStart(p));
+            auto end=i+1<count?motifTemplatePosition(mo.on[i+1]):span;
+            end=std::min(end,p.phraseEndTime-p.phraseStartTime);
             n.pitch=ladder[std::clamp(mo.deg[i],0,nl-1)];n.velocity=static_cast<int>(56+35*yc)+(i==0?6:0);
-            n.length=std::min(span,end+(output==OutMelody?0:tail(end-n.at)))-n.at;
+            const auto extension=cur!=nullptr&&cur->legato?composition::motifQuantum
+                :end-n.at>=4*composition::motifQuantum?-1*composition::motifQuantum:musicaltime::Tick{};
+            n.length=std::min(span,end+(output==OutMelody?musicaltime::Tick{}:extension))-n.at;
             if(output==OutMelody)n.length=composition::articulatedLength(n.length,
-                std::min(n.length,gridChordEnd(p)-(gridPhraseStart(p)+n.at)),s.melodyLegato);
+                std::min(n.length,p.chordEndTime-(p.phraseStartTime+n.at)),s.melodyLegato);
         }
         if(exact)
         {
@@ -1138,18 +1150,18 @@ private:
         if(!composition::suitable(catalog[output].track,need))return {};
         const auto occurrence=motifOccurrence(p.k,p,s,output);if(!occurrence.active)return {};
         auto memory=performanceMaterial(output,s);
-        if(memory.count&&p.phrase-phraseOf(sceneGrid())!=voice(output).motif.introduction)memory.finish();
+        if(memory.count&&p.phrase-phraseOf(sceneTime)!=voice(output).motif.introduction)memory.finish();
         const bool complete=memory.complete;const auto mo=motifFor(s,p.phrase);
-        int count=0,future=0;int64_t begin=occurrence.end,end=occurrence.begin;
+        int count=0,future=0;auto begin=occurrence.end,end=occurrence.begin;
         for(int i=0;i<(occurrence.figure.count?occurrence.figure.count:complete?memory.count:mo.n);++i)
         {
-            const auto at=occurrence.figure.count?occurrence.figure.notes[static_cast<size_t>(i)].at:complete?memory.notes[static_cast<size_t>(i)].at:static_cast<long long>(mo.on[i])*meter.len/16;
-            auto local=locate(occurrence.begin+at);local.phraseStartTime = musicaltime::fromGridStep(occurrence.begin);local.phraseEndTime = musicaltime::fromGridStep(occurrence.end);
+            const auto at=occurrence.figure.count?occurrence.figure.notes[static_cast<size_t>(i)].at:complete?memory.notes[static_cast<size_t>(i)].at:motifTemplatePosition(mo.on[i]);
+            auto local=locate(musicaltime::toExactGridStep(occurrence.begin+at));local.phraseStartTime = occurrence.begin;local.phraseEndTime = occurrence.end;
             const auto note=planMotifNote(i,local,s,output,complete?&memory:nullptr,occurrence.varied,&occurrence);
             if(!note.valid)continue;
-            const auto& c=catalog[output].track.instrument;if(note.length<c.minDuration||note.length>c.maxDuration)continue;
-            ++count;if(occurrence.begin+note.at>=p.k)++future;
-            begin=std::min<int64_t>(begin,occurrence.begin+note.at);end=std::max<int64_t>(end,occurrence.begin+note.at+note.length);
+            const auto& c=catalog[output].track.instrument;if(note.length<musicaltime::fromGridStep(c.minDuration)||note.length>musicaltime::fromGridStep(c.maxDuration))continue;
+            ++count;if(occurrence.begin+note.at>=musicaltime::fromGridStep(p.k))++future;
+            begin=std::min(begin,occurrence.begin+note.at);end=std::max(end,occurrence.begin+note.at+note.length);
         }
         if(!future&&!outputSounding(output))return {};
         return composition::reserveMotifWindow(catalog[output].track.id,count,begin,end);
@@ -1161,13 +1173,13 @@ private:
         // Shared physical notes can alter motif recording/retriggers. Preserve that routing verbatim.
         for(int o=0;o<kNumOutputs;++o)if(o!=OutArp&&s.channel[o]==s.channel[OutArp])return {};
         const auto primary=primaryMotifWindow(p,s);
-        if(primary.contains(p.k))return primary;
+        if(primary.contains(musicaltime::fromGridStep(p.k)))return primary;
         const auto response=playableMelodyHandoff(p.k,p,s);
         if(response.plan.active)
         {
             const auto& material=*motifCatalog.find(response.plan.reference.material);
             const auto& last=material.notes[static_cast<size_t>(material.count-1)];
-            const auto end=response.plan.end-(!s.legato&&last.length>1?1:0);
+            const auto end=response.plan.end-(!s.legato&&last.length>composition::motifQuantum?composition::motifQuantum:musicaltime::Tick{});
             return composition::reserveMotifWindow(outputCatalog(s)[OutCounter].track.id,response.plan.count,
                 response.origin+response.plan.begin,response.origin+end);
         }
@@ -1178,34 +1190,35 @@ private:
     bool motifStep (long long k, const Pos& p, const Settings& s, int offset, EventList& out, int output=OutCounter)
     {
         auto& state=voice(output);auto& use=state.motif;
-        const long long span=std::min(2LL*meter.len,gridPhraseEnd(p)-gridPhraseStart(p)),rel=k-gridPhraseStart(p);
-        const long long section=p.phrase-phraseOf(sceneGrid());
+        const auto time=musicaltime::fromGridStep(k);
+        const auto span=std::min(musicaltime::fromGridStep(2LL*meter.len),p.phraseEndTime-p.phraseStartTime),rel=time-p.phraseStartTime;
+        const long long section=p.phrase-phraseOf(sceneTime);
         if(rel>=span||(use.material(motifCatalog).count&&section!=use.introduction))use.finish(motifCatalog);
         const auto memory=performanceMaterial(output,s);const bool complete=memory.complete;
         if(complete)
         {
             const auto occurrence=motifOccurrence(k,p,s,output);
-            if(!occurrence.active||k<occurrence.begin||k>=occurrence.end)return true;
+            if(!occurrence.active||time<occurrence.begin||time>=occurrence.end)return true;
         }
         else
         {
-            if(rel<0||rel>=span)return false;
+            if(rel<musicaltime::Tick{}||rel>=span)return false;
             if(memory.count&&use.introduction!=section)use.clear();
         }
         const auto occurrence=motifOccurrence(k,p,s,output);
-        auto local=p;if(complete){local.phraseStartTime = musicaltime::fromGridStep(occurrence.begin);local.phraseEndTime = musicaltime::fromGridStep(occurrence.end);}
+        auto local=p;if(complete){local.phraseStartTime = occurrence.begin;local.phraseEndTime = occurrence.end;}
         for(int i=0;i<(occurrence.figure.count?occurrence.figure.count:5);++i)
         {
             const auto note=planMotifNote(i,local,s,output,complete?&memory:nullptr,occurrence.varied,&occurrence);
-            if(!note.valid||note.at!=k-gridPhraseStart(local))continue;
+            if(!note.valid||note.at!=time-local.phraseStartTime)continue;
             const int before=out.size;
             const bool savedForce=forceOn;if(s.genre==GenrePopRock)forceOn=true;
-            noteOn(output,note.pitch,note.velocity,gridPhraseStart(local)+note.at+note.length,offset,out);forceOn=savedForce;
+            noteOn(output,note.pitch,note.velocity,local.phraseStartTime+note.at+note.length,offset,out);forceOn=savedForce;
             if(!complete)for(int e=before;e<out.size;++e)
             {
                 const auto& emitted=out.events[static_cast<size_t>(e)];
                 if(emitted.out==output&&emitted.type==0&&emitted.velocity>0)
-                    use.observe(emitted.note,note.at,note.length,section,note.velocity,gridPhraseStart(p));
+                    use.observe(emitted.note,note.at,note.length,section,note.velocity,p.phraseStartTime);
             }
             if(output==OutCounter)releaseOthers(output,note.pitch,offset,out);
             state.note=note.pitch;state.pendingAt=-1;
@@ -1222,6 +1235,8 @@ private:
         return 0.0;
     }
 
+    long long phraseOf(musicaltime::Tick time)const
+    {return floorDiv(time.value,musicaltime::fromGridStep(static_cast<int64_t>(meter.len)*phraseBars).value);}
     long long phraseOf (long long k) const { return floorDiv (floorDiv (k, meter.len), phraseBars); }
 
     Pos locate (long long k) const
@@ -1233,11 +1248,11 @@ private:
         p.phrase = floorDiv (p.bar, phraseBars);
         p.barInPhrase = (int) (p.bar - p.phrase * phraseBars);
         p.phraseStartTime = musicaltime::fromGridStep(p.phrase * phraseBars * meter.len);
-        p.phraseEndTime = musicaltime::fromGridStep(gridPhraseStart(p) + (long long) phraseBars * meter.len);
+        p.phraseEndTime = p.phraseStartTime + musicaltime::fromGridStep(static_cast<int64_t>(phraseBars)*meter.len);
         const Wendung& w = W();
         composition::ChordTimeline timeline;
         timeline.count=w.n;timeline.first=chordBase;timeline.held=still;
-        timeline.begin=musicaltime::fromGridStep(std::max(wendungGrid(),gridPhraseStart(p)));timeline.end=p.phraseEndTime;
+        timeline.begin=std::max(wendungTime,p.phraseStartTime);timeline.end=p.phraseEndTime;
         for(int i=0;i<w.n;++i)timeline.durations[static_cast<size_t>(i)]=musicaltime::fromGridStep(static_cast<int64_t>(w.ch[i].bars)*meter.len);
         const auto position=composition::locateChord(timeline,musicaltime::fromGridStep(k));
         p.chordIdx=position.index;p.chordStartTime=position.begin;p.chordEndTime=position.end;
@@ -1249,8 +1264,8 @@ private:
                 musicaltime::fromGridStep(meter.len),musicaltime::fromGridStep(meter.groupStart[std::max(0,meter.numGroups-1)]));
             if(transition.present)
             {
-                if(musicaltime::fromGridStep(k)>=transition.begin){p.chordStartTime = musicaltime::fromGridStep(musicaltime::toExactGridStep(transition.begin));p.passing=true;}
-                else p.chordEndTime = musicaltime::fromGridStep(musicaltime::toExactGridStep(transition.begin));
+                if(musicaltime::fromGridStep(k)>=transition.begin){p.chordStartTime = transition.begin;p.passing=true;}
+                else p.chordEndTime = transition.begin;
             }
         }
         return p;
@@ -1551,7 +1566,9 @@ private:
     // Note anschlagen. Mehrere Ausgaenge duerfen auf demselben Kanal liegen: Trifft ein Ton auf einen schon klingenden
     // gleichen Ton desselben Kanals, wird er im selben Schritt nur verlaengert, sonst neu angeschlagen. Jeder Ausgang
     // behaelt seinen eigenen Anspruch; erst das Ende des letzten Anspruchs beendet die physische MIDI-Note.
-    void noteOn (int o, int note, int velocity, long long endStep, int offset, EventList& out)
+    void noteOn (int o,int note,int velocity,long long endStep,int offset,EventList& out)
+    {noteOn(o,note,velocity,musicaltime::fromGridStep(endStep),offset,out);}
+    void noteOn (int o, int note, int velocity, musicaltime::Tick endTime, int offset, EventList& out)
     {
         const int layer = kOutputLayer[o];
         if (cur != nullptr && ! forceOn && ! on[layer]) return;
@@ -1584,10 +1601,10 @@ private:
         if (own >= 0)
         {
             auto& a = active[(size_t) own];
-            a.endTime = (sameStep || extendOnly) ? std::max (a.endTime, musicaltime::fromGridStep(endStep)) : musicaltime::fromGridStep(endStep);
+            a.endTime = (sameStep || extendOnly) ? std::max (a.endTime, endTime) : endTime;
             a.startTime = musicaltime::fromGridStep(nowStep);
         }
-        else active[(size_t) numActive++] = { (uint8_t) channel, (uint8_t) note, (uint8_t) o, musicaltime::fromGridStep(endStep), musicaltime::fromGridStep(nowStep) };
+        else active[(size_t) numActive++] = { (uint8_t) channel, (uint8_t) note, (uint8_t) o, endTime, musicaltime::fromGridStep(nowStep) };
         if(o==OutBassLong||o==OutBassShort)heardHarmony.bass=note;
     }
 
@@ -1615,7 +1632,7 @@ private:
         int bass=-1,root=0,type=Min;
     } heardHarmony;
     // Small scene-local ledger for revisiting the last 64 performed boundaries.
-    struct HarmonicEntryRecord { long long begin=-1;int target=-1;HeardHarmony heard; };
+    struct HarmonicEntryRecord { musicaltime::Tick begin{};int target=-1;HeardHarmony heard; };
     std::array<HarmonicEntryRecord,64> harmonicEntries {};
     unsigned harmonicEntryNext=0;
     bool harmonicChase=false;
@@ -1624,14 +1641,14 @@ private:
     void rememberHarmonicEntry(long long begin,int previous,const Settings& s)
     {
         if(harmonicChase||s.genre!=GenreScore||s.custom||previous<0||previous==current)return;
-        for(const auto& entry:harmonicEntries)if(entry.begin==begin&&entry.target==current)return;
-        harmonicEntries[harmonicEntryNext++%harmonicEntries.size()]={begin,current,heardHarmony};
+        for(const auto& entry:harmonicEntries)if(entry.begin==musicaltime::fromGridStep(begin)&&entry.target==current)return;
+        harmonicEntries[harmonicEntryNext++%harmonicEntries.size()]={musicaltime::fromGridStep(begin),current,heardHarmony};
         planValid=false;
     }
     const HarmonicEntryRecord* harmonicEntryAt(const Pos& p,const Settings& s)const
     {
         if(s.genre!=GenreScore||s.custom)return nullptr;
-        const auto begin=std::max(gridPhraseStart(p),wendungGrid());
+        const auto begin=std::max(p.phraseStartTime,wendungTime);
         for(const auto& entry:harmonicEntries)if(entry.begin==begin&&entry.target==current)return &entry;
         return nullptr;
     }
@@ -1652,7 +1669,10 @@ private:
         auto mix = [&] (int n) { key ^= (uint64_t) (uint32_t) n; key *= 1099511628211ull; };
         mix (lo); mix (hi); mix (blo); mix (bhi); mix (current); mix (genre);
         const auto* entry=harmonicEntryAt(p,s);
-        if(entry){mix(static_cast<int>(entry->begin));mix(static_cast<int>(entry->begin>>32));
+        if(entry){
+            // This cache key retains the historical event ordinal, not a second stored clock.
+            const auto eventIndex=musicaltime::toExactGridStep(entry->begin);
+            mix(static_cast<int>(eventIndex));mix(static_cast<int>(eventIndex>>32));
             mix(entry->heard.pad.n);for(int i=0;i<entry->heard.pad.n;++i)mix(entry->heard.pad.notes[i]);
             mix(entry->heard.bass);mix(entry->heard.root);mix(entry->heard.type);}
 
@@ -2041,20 +2061,21 @@ private:
 
     void chaseMotif(long long k,const Pos& p,const Settings& s,EventList& out,bool inclusive)
     {
+        const auto time=musicaltime::fromGridStep(k);
         if(s.genre!=GenreScore&&!phrasedHook(s))return;
         const int output=on[kMelodie]?OutMelody:OutCounter;
         const auto memory=performanceMaterial(output,s);
         if(on[kOutputLayer[output]]&&(s.genre==GenrePopRock||(output==OutMelody?s.melodyMotif:s.motif))&&memory.complete)
         {
             const auto occurrence=motifOccurrence(k,p,s,output);
-            if(occurrence.active&&k>=occurrence.begin&&k<occurrence.end)
+            if(occurrence.active&&time>=occurrence.begin&&time<occurrence.end)
             {
-                auto local=p;local.phraseStartTime = musicaltime::fromGridStep(occurrence.begin);local.phraseEndTime = musicaltime::fromGridStep(occurrence.end);
+                auto local=p;local.phraseStartTime = occurrence.begin;local.phraseEndTime = occurrence.end;
                 for(int i=0;i<(occurrence.figure.count?occurrence.figure.count:memory.count);++i)
                 {
                     const auto n=planMotifNote(i,local,s,output,&memory,occurrence.varied,&occurrence);
                     const auto begin=occurrence.begin+n.at,end=begin+n.length;
-                    if(n.valid&&(begin<k||(inclusive&&begin==k))&&k<end)
+                    if(n.valid&&(begin<time||(inclusive&&begin==time))&&time<end)
                     {const bool saved=forceOn;if(s.genre==GenrePopRock)forceOn=true;noteOn(output,n.pitch,n.velocity,end,0,out);forceOn=saved;voice(output).note=n.pitch;}
                 }
             }
@@ -2065,19 +2086,20 @@ private:
 
     PlayableHandoff playableMelodyHandoff(long long k,const Pos& p,const Settings& s)
     {
+        const auto time=musicaltime::fromGridStep(k);
         const auto catalog=outputCatalog(s);
         const auto& source=voice(OutMelody).motif;
-        const auto window=static_cast<int64_t>(s.policy.motif.windowBars)*meter.len;
-        const auto epoch=k>=source.originTick?(k-source.originTick)/window:-1;
-        const auto origin=source.originTick+epoch*window;
+        const auto window=musicaltime::fromGridStep(meter.len)*s.policy.motif.windowBars;
+        const auto epoch=time>=source.originTime?(time-source.originTime)/window:-1;
+        const auto origin=source.originTime+epoch*window;
         const auto leading=motifOccurrence(k,p,s,OutMelody);
         const auto plan=composition::planMelodyHandoff(
             s.genre==GenreScore&&s.melody&&s.melodyMotif&&s.motif&&!s.scene
                 &&s.meterNum==4&&s.meterDen==4&&on[kMelodie]&&on[kGegenstimme]&&phraseBars>=4,
-            source,motifCatalog,catalog[OutCounter].track,epoch,meter.len,window,s.policy.motif,
+            source,motifCatalog,catalog[OutCounter].track,epoch,musicaltime::fromGridStep(meter.len),window,s.policy.motif,
             layerY(s,kMelodie),s.z,leading.active);
         if(!plan.active||origin+plan.end>motifAvailableUntil(s,kGegenstimme))return {};
-        const auto relative=k-origin;
+        const auto relative=time-origin;
         if(relative<plan.begin||relative>=plan.end||outputSounding(OutMelody))return {};
         // Preflight the whole response: exact suffix intervals, one harmonic region, no fallback pitches.
         const auto start=origin+plan.begin;
@@ -2100,7 +2122,7 @@ private:
             if(valid&&distance<best){best=distance;base=candidate;}
         }
         if(base<0)return {};
-        for(auto tick=start;tick<start+plan.end-plan.begin;++tick)
+        for(auto tick=start;tick<start+plan.end-plan.begin;tick+=composition::motifQuantum)
         {
             const auto soundingChord=motifHarmonyAt(tick,s).chord;
             if(soundingChord.root!=chord.root||soundingChord.type!=chord.type)return {};
@@ -2110,10 +2132,11 @@ private:
 
     bool melodyHandoff(long long k,const Pos& p,const Settings& s,int offset,EventList& out,bool chase=false,bool inclusive=false)
     {
+        const auto time=musicaltime::fromGridStep(k);
         const auto playable=playableMelodyHandoff(k,p,s);
         const auto& plan=playable.plan;if(!plan.active)return false;
         const int base=playable.base,oct=12*octaveOf(OutCounter);
-        const auto relative=k-playable.origin;
+        const auto relative=time-playable.origin;
         const auto capability=outputCatalog(s)[OutCounter].track.instrument;
         auto& answer=voice(OutCounter).answer;
         if(answer.reference.value!=plan.reference.material.value||answer.introduction!=plan.reference.introduction)
@@ -2124,10 +2147,10 @@ private:
         {
             const auto& note=source.notes[static_cast<size_t>(plan.first+i)];
             const auto at=plan.begin+note.at-origin;
-            auto length=std::min<int64_t>(note.length,plan.end-at);
+            auto length=std::min(note.length,plan.end-at);
             if(i+1<plan.count)length=std::min(length,source.notes[static_cast<size_t>(plan.first+i+1)].at-note.at);
             length=composition::articulatedLength(length,length,s.legato);
-            if(length<capability.minDuration||length>capability.maxDuration)return false;
+            if(length<musicaltime::fromGridStep(capability.minDuration)||length>musicaltime::fromGridStep(capability.maxDuration))return false;
             if(chase?!((at<relative||(inclusive&&at==relative))&&relative<at+length):relative!=at)continue;
             // Renderer accepts prevalidated sounding pitches, compensating the adapter octave.
             cut(kGegenstimme,k,k,offset,out);
@@ -2138,6 +2161,7 @@ private:
 
     bool dialogueArp(long long k,const Pos& p,const Settings& s,int offset,EventList& out,bool chase=false,bool inclusive=false)
     {
+        const auto time=musicaltime::fromGridStep(k);
         // Explicit cell + motif, no buildup, four-bar-or-longer 4/4 phrases only.
         if(on[kMelodie]||s.genre!=GenreScore||!s.motif||s.arpFigure!=ArpCell||s.scene||s.meterNum!=4||s.meterDen!=4
             ||phraseBars<4||!on[kArp]||!on[kGegenstimme])return false;
@@ -2152,14 +2176,14 @@ private:
         int responseOutput=-1;
         for(const auto& entry:catalog)if(entry.track.id.value==assignment.response.value)responseOutput=entry.target.output;
         if(responseOutput<0)return true;
-        const long long window=2LL*meter.len;
+        const auto window=musicaltime::fromGridStep(2LL*meter.len);
         auto& use=voice(OutCounter).motif;
         auto occurrence=motifOccurrence(k,p,s,OutCounter);
-        if(k>=occurrence.begin+window)use.finish(motifCatalog);
+        if(time>=occurrence.begin+window)use.finish(motifCatalog);
         occurrence=motifOccurrence(k,p,s,OutCounter);
         const auto& motifMemory=use.material(motifCatalog);
-        if(!motifMemory.complete&&k>=occurrence.begin+window)return false;
-        const auto plan=composition::planDialogue(use,motifCatalog,occurrence,k,window);
+        if(!motifMemory.complete&&time>=occurrence.begin+window)return false;
+        const auto plan=composition::planDialogue(use,motifCatalog,occurrence,time,window);
         if(!plan.reserveResponse)return false;
         if(!plan.answer)return true;
         const auto chord=chordFor(p,kArp,s);const auto& shape=kShapes[chord.type];
@@ -2175,11 +2199,11 @@ private:
         for(int i=0;i<notes;++i)
         {
             const auto& n=motifMemory.notes[static_cast<size_t>(i)];
-            auto length=std::min<int64_t>(n.length,window-n.at);
+            auto length=std::min(n.length,window-n.at);
             if(i+1<notes)length=std::min(length,motifMemory.notes[static_cast<size_t>(i+1)].at-n.at);
-            if(length<=0)continue;
+            if(length<=musicaltime::Tick{})continue;
             const auto begin=plan.answerBegin+n.at;
-            if(chase?!((begin<k||(inclusive&&begin==k))&&k<begin+length):k!=begin)continue;
+            if(chase?!((begin<time||(inclusive&&begin==time))&&time<begin+length):time!=begin)continue;
             const int pitch=composition::adaptMotifPitch(base+n.interval,ladder,count);
             noteOn(responseOutput,pitch,n.velocity,begin+length,offset,out);
         }
@@ -2435,7 +2459,7 @@ private:
         }
 
         // --- Arp / Figur: motif/answer reservations retain priority over accompaniment.
-        if (on[kArp] && !dialogueArp(k,p,s,offset,out) && !motifWindow(p,s).contains(k) && (optional||chordStart))
+        if (on[kArp] && !dialogueArp(k,p,s,offset,out) && !motifWindow(p,s).contains(musicaltime::fromGridStep(k)) && (optional||chordStart))
             playArpeggio(k,offset,p,phrase,s,out);
 
         // --- Gegenstimme: ruhige Linie aus Akkordtoenen, schrittweise gefuehrt
@@ -2560,10 +2584,10 @@ private:
         {
             const auto& e=out.events[static_cast<size_t>(i)];
             if(e.type==0&&e.channel==s.channel[OutCounter])
-                state.capture.event(state.motif,e.note,e.velocity,musicaltime::fromQuarters(ppq+e.offset/samplesPerQuarter).value);
+                state.capture.event(state.motif,e.note,e.velocity,musicaltime::fromQuarters(ppq+e.offset/samplesPerQuarter));
         }
         captureRead=out.size;
-        state.capture.finish(state.motif,motifCatalog,musicaltime::fromQuarters(end).value);
+        state.capture.finish(state.motif,motifCatalog,musicaltime::fromQuarters(end));
     }
     void armHookCapture(long long k,const Pos& p,const Settings& s)
     {
@@ -2573,7 +2597,7 @@ private:
         for(int o=0;o<kNumOutputs;++o)if(o!=OutCounter&&s.channel[o]==s.channel[OutCounter])return;
         const bool special=popHookPattern(W().id)>=0&&!s.custom;
         const auto cycle=special?2LL*meter.len:8LL*(layerY(s,kGegenstimme)<.45f?4:2);
-        if((k-gridPhraseStart(p))%cycle==0){state.captureSwing=s.swing;state.captureChannel=s.channel[OutCounter];state.capture.start(state.motif,musicaltime::fromGridStep(k).value,musicaltime::fromGridStep(cycle).value,musicaltime::ticksPerGridStep);}
+        if((k-gridPhraseStart(p))%cycle==0){state.captureSwing=s.swing;state.captureChannel=s.channel[OutCounter];state.capture.start(state.motif,musicaltime::fromGridStep(k),musicaltime::fromGridStep(cycle));}
     }
     // Pop-Rock: durchgehende, gleichbleibende Hook-Linie aus Akkordtoenen (eine Figur je VARIATION)
     void leadHook (long long k, const Pos& p, const Settings& s, int offset, EventList& out)
@@ -2742,8 +2766,8 @@ private:
         if(output==OutMelody)
         {
             int ladder[16];if(counterLadder(c,s,ladder,output)==0)return;
-            const auto duration=composition::articulatedLength(end-k,end-k,s.melodyLegato);
-            noteOn(output,target,vel,k+duration,offset,out);voice(output).note=target;voice(output).pendingAt=-1;return;
+            const auto duration=composition::articulatedLength(musicaltime::fromGridStep(end-k),musicaltime::fromGridStep(end-k),s.melodyLegato);
+            noteOn(output,target,vel,musicaltime::fromGridStep(k)+duration,offset,out);voice(output).note=target;voice(output).pendingAt=-1;return;
         }
         noteOn (OutCounter, target, vel, end + tail (end - k), offset, out);   // Legato: eine Sechzehntel laenger, bindet zum naechsten Ton
         releaseOthers (OutCounter, target, offset, out);
@@ -2754,7 +2778,7 @@ private:
     {
         composition::MotifUse motif,answer;
         composition::MotifCapture capture; int captureChannel=0;float captureSwing=0;
-        int64_t recurrenceEpoch=-1,recurrenceOrigin=0,recurrenceWindow=0;uint64_t recurrenceIdentity=0;
+        int64_t recurrenceEpoch=-1;musicaltime::Tick recurrenceOrigin{},recurrenceWindow{};uint64_t recurrenceIdentity=0;
         composition::MotifOccurrence recurrencePlan;
         int note=-1,pending=-1;
         long long pendingAt=-1,pendingEnd=0;

@@ -2,29 +2,30 @@
 #include "ScoreEngine.h"
 #include <iostream>
 using namespace stromscore::composition;
+static constexpr auto T(int64_t n){return stromscore::musicaltime::fromGridStep(n);}
 int main()
 {
-    RememberedMotif source;source.observe(60,0,4);source.observe(64,4,4);source.observe(67,8,8);source.finish();const auto saved=source;
+    RememberedMotif source;source.observe(60,T(0),T(4));source.observe(64,T(4),T(4));source.observe(67,T(8),T(8));source.finish();const auto saved=source;
     for(int kind=0;kind<5;++kind)
     {
         MotifFigure f;{NoAllocations guard;f=deriveMotif(source,static_cast<MotifVariation>(kind));}
-        CHECK(f.sourceIdentity==source.identity&&f.count>=2&&f.span>0);
-        for(int i=0;i<f.count;++i){CHECK(f.notes[i].length>0);if(i+1<f.count)CHECK(f.notes[i].at+f.notes[i].length<=f.notes[i+1].at);}
+        CHECK(f.sourceIdentity==source.identity&&f.count>=2&&f.span>T(0));
+        for(int i=0;i<f.count;++i){CHECK(f.notes[i].length>T(0));if(i+1<f.count)CHECK(f.notes[i].at+f.notes[i].length<=f.notes[i+1].at);}
         auto repeated=deriveMotif(source,static_cast<MotifVariation>(kind));CHECK(f.span==repeated.span);
         CHECK(source.identity==saved.identity&&source.count==saved.count);
         for(int i=0;i<source.count;++i)CHECK(source.notes[i].at==saved.notes[i].at&&source.notes[i].length==saved.notes[i].length&&source.notes[i].interval==saved.notes[i].interval);
     }
-    auto rhythm=deriveMotif(source,MotifVariation::rhythm);CHECK(rhythm.notes[2].length==4&&rhythm.span==12);
-    auto fragment=deriveMotif(source,MotifVariation::fragment);CHECK(fragment.count==2&&fragment.notes[0].interval==4&&fragment.notes[1].at==4&&fragment.span==12);
-    auto sequence=deriveMotif(source,MotifVariation::sequence);CHECK(sequence.count==4&&sequence.notes[2].interval==7&&sequence.notes[3].interval==11&&sequence.notes[2].at==8);
-    auto augmented=deriveMotif(source,MotifVariation::augmentation);CHECK(augmented.span==32&&augmented.notes[1].at==8&&augmented.notes[2].length==16);
+    auto rhythm=deriveMotif(source,MotifVariation::rhythm);CHECK(rhythm.notes[2].length==T(4)&&rhythm.span==T(12));
+    auto fragment=deriveMotif(source,MotifVariation::fragment);CHECK(fragment.count==2&&fragment.notes[0].interval==4&&fragment.notes[1].at==T(4)&&fragment.span==T(12));
+    auto sequence=deriveMotif(source,MotifVariation::sequence);CHECK(sequence.count==4&&sequence.notes[2].interval==7&&sequence.notes[3].interval==11&&sequence.notes[2].at==T(8));
+    auto augmented=deriveMotif(source,MotifVariation::augmentation);CHECK(augmented.span==T(32)&&augmented.notes[1].at==T(8)&&augmented.notes[2].length==T(16));
     source.count=2;CHECK(!deriveMotif(source,MotifVariation::fragment).count);
     CHECK(!deriveMotif(source,MotifVariation::sequence,0).count);
     source.complete=false;CHECK(!deriveMotif(source,MotifVariation::augmentation).count);
     MotifRecurrencePolicy policy;CHECK(valid(policy));policy.sequenceSemitones=0;CHECK(!valid(policy));policy.sequenceSemitones=7;policy.variations[0]=static_cast<MotifVariation>(50);CHECK(!valid(policy));
     // A longer question moves the existing answer window; it cannot answer over augmentation.
-    MotifOccurrence q;q.active=true;q.begin=128;q.end=192;MotifUse use;MotifCatalog catalog;
-    auto response=planDialogue(use,catalog,q,180,32);CHECK(!response.answer&&response.answerBegin==192&&response.answerEnd==224);
+    MotifOccurrence q;q.active=true;q.begin=T(128);q.end=T(192);MotifUse use;MotifCatalog catalog;
+    auto response=planDialogue(use,catalog,q,T(180),T(32));CHECK(!response.answer&&response.answerBegin==T(192)&&response.answerEnd==T(224));
     // Real neutral performance: each realised variant has its own seekable timing,
     // and every return still references the unchanged actually introduced material.
     {
@@ -43,10 +44,10 @@ int main()
         for(const auto& plan:examples)
         {
             CHECK(plan.active&&plan.figure.sourceIdentity==original.identity);
-            const auto& n=plan.figure.notes[0];CHECK(n.length>1);
+            const auto& n=plan.figure.notes[0];CHECK(n.length>T(1));
             for(int repeat=0;repeat<2;++repeat)
             {
-                t.ppq=(plan.begin+n.at+1)*.25;events.clear();g.process(t,s,6000,events);bool found=false;
+                t.ppq=stromscore::musicaltime::toQuarters(plan.begin+n.at+T(1));events.clear();g.process(t,s,6000,events);bool found=false;
                 for(int i=0;i<events.size;++i){const auto e=events.events[i];if(e.out==OutCounter&&e.velocity>0){CHECK(e.note==plan.base+n.interval);found=true;}}
                 CHECK(found);
                 // Make the next visit a real discontinuity even when looping the same note.

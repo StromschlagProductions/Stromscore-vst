@@ -34,6 +34,7 @@ static std::vector<Event> render (const Plan& p, int block)
     for (const auto& n : notes) CHECK (n.second == 0);
     return result;
 }
+static constexpr auto T(int64_t n){return stromscore::musicaltime::fromGridStep(n);}
 int main()
 {
     Request request;
@@ -227,44 +228,44 @@ int main()
     CHECK(recurrenceSlot(policy,3,.7f,0).ordinal==2&&recurrenceSlot(policy,4,.7f,0).eligible);
     CHECK(!recurrenceSlot(policy,1,.2f,0).eligible&&recurrenceSlot(policy,2,.2f,0).eligible);
     auto invalid=policy;invalid.minimumSilentBars=0;CHECK(!valid(invalid));
-    MotifCatalog catalog;MotifUse use;use.observe(60,0,4,0);use.observe(64,6,8,0);use.finish(catalog);
+    MotifCatalog catalog;MotifUse use;use.observe(60,T(0),T(4),0);use.observe(64,T(6),T(8),0);use.finish(catalog);
     const auto& memory=use.material(catalog);CHECK(memory.complete&&memory.notes[1].interval==4);
-    const auto id=memory.identity;use.observe(90,4,1,3);use.finish(catalog);CHECK(use.material(catalog).identity==id);
+    const auto id=memory.identity;use.observe(90,T(4),T(1),3);use.finish(catalog);CHECK(use.material(catalog).identity==id);
     use.clear();CHECK(!use.material(catalog).complete);
-    MotifUse variationUse;variationUse.observe(60,0,9,0);variationUse.observe(64,8,12,0);variationUse.finish(catalog);
+    MotifUse variationUse;variationUse.observe(60,T(0),T(9),0);variationUse.observe(64,T(8),T(12),0);variationUse.finish(catalog);
     const auto& variation=variationUse.material(catalog);const auto originalIdentity=variation.identity;
-    CHECK(variation.recalledLength(1,false,32)==12&&variation.recalledLength(1,true,32)==6);
-    CHECK(variation.recalledLength(0,true,32)<=8&&variation.identity==originalIdentity);
-    MotifPlacement places[2]={{128,60,0},{192,60,0}};
-    const auto plain=planRecurrence(policy,recurrenceSlot(policy,1,.7f,0),128,256,32,16,places,2);
-    CHECK(plain.active&&!plain.varied&&plain.begin==128);
-    const auto changed=planRecurrence(policy,recurrenceSlot(policy,3,.7f,0),128,256,32,16,places,2);
-    CHECK(changed.active&&changed.varied&&changed.begin==128);
-    const auto interior=planRecurrence(policy,recurrenceSlot(policy,5,.7f,0),128,256,32,16,places,2);
-    CHECK(interior.active&&interior.begin==192&&interior.end==224);
+    CHECK(variation.recalledLength(1,false,T(32))==T(12)&&variation.recalledLength(1,true,T(32))==T(6));
+    CHECK(variation.recalledLength(0,true,T(32))<=T(8)&&variation.identity==originalIdentity);
+    MotifPlacement places[2]={{T(128),60,0},{T(192),60,0}};
+    const auto plain=planRecurrence(policy,recurrenceSlot(policy,1,.7f,0),T(128),T(256),T(32),T(16),places,2);
+    CHECK(plain.active&&!plain.varied&&plain.begin==T(128));
+    const auto changed=planRecurrence(policy,recurrenceSlot(policy,3,.7f,0),T(128),T(256),T(32),T(16),places,2);
+    CHECK(changed.active&&changed.varied&&changed.begin==T(128));
+    const auto interior=planRecurrence(policy,recurrenceSlot(policy,5,.7f,0),T(128),T(256),T(32),T(16),places,2);
+    CHECK(interior.active&&interior.begin==T(192)&&interior.end==T(224));
     auto moreRest=policy;moreRest.minimumSilentBars=4;
-    CHECK(planRecurrence(moreRest,recurrenceSlot(moreRest,5,.7f,0),128,256,32,16,places,2).begin==128);
+    CHECK(planRecurrence(moreRest,recurrenceSlot(moreRest,5,.7f,0),T(128),T(256),T(32),T(16),places,2).begin==T(128));
     auto restrained=policy;restrained.sparseBelow=.8f;
     CHECK(!recurrenceSlot(restrained,1,.7f,0).eligible);
     restrained.unrestEngages=.1f;CHECK(recurrenceSlot(restrained,1,.7f,.2f).eligible);
 
-    CHECK(!planRecurrence(policy,{},128,256,32,16,places,2).active);
-    MotifUse other;CHECK(other.adopt({variationUse.reference,1,128},catalog));
-    CHECK(&other.material(catalog)==&variationUse.material(catalog)&&other.originTick!=variationUse.originTick);
+    CHECK(!planRecurrence(policy,{},T(128),T(256),T(32),T(16),places,2).active);
+    MotifUse other;CHECK(other.adopt({variationUse.reference,1,T(128)},catalog));
+    CHECK(&other.material(catalog)==&variationUse.material(catalog)&&other.originTime!=variationUse.originTime);
     other.clear();CHECK(variationUse.material(catalog).identity==originalIdentity);
-    MotifCatalog questionCatalog;MotifUse question;question.observe(60,0,4,0);question.observe(64,8,4,0);question.finish(questionCatalog);
-    MotifOccurrence questionOccurrence{true,true,false,0,32,0,0};
-    CHECK(planDialogue(question,questionCatalog,questionOccurrence,0,32).reserveResponse);
-    CHECK(planDialogue(question,questionCatalog,questionOccurrence,32,32).answer);
-    CHECK(!planDialogue(question,questionCatalog,{},32,32).answer);
-    CHECK(!planDialogue(question,questionCatalog,questionOccurrence,64,32).reserveResponse);
+    MotifCatalog questionCatalog;MotifUse question;question.observe(60,T(0),T(4),0);question.observe(64,T(8),T(4),0);question.finish(questionCatalog);
+    MotifOccurrence questionOccurrence{true,true,false,T(0),T(32),0,0};
+    CHECK(planDialogue(question,questionCatalog,questionOccurrence,T(0),T(32)).reserveResponse);
+    CHECK(planDialogue(question,questionCatalog,questionOccurrence,T(32),T(32)).answer);
+    CHECK(!planDialogue(question,questionCatalog,{},T(32),T(32)).answer);
+    CHECK(!planDialogue(question,questionCatalog,questionOccurrence,T(64),T(32)).reserveResponse);
     {
-        MotifCatalog motifs;MotifUse lead;for(int i=0;i<4;++i)lead.observe(60+4*i,i*4,4,0);
+        MotifCatalog motifs;MotifUse lead;for(int i=0;i<4;++i)lead.observe(60+4*i,T(i*4),T(4),0);
         lead.finish(motifs);PlayingTrack target;target.id={5};target.style=PlayingStyle::sustained;
         target.roles=roleBit(MusicalRole::answer);target.instrument.pitch=PitchBehaviour::pitched;target.instrument.articulations=1;
-        auto handoff=[&](bool requested,int epoch,bool leading=false){return planMelodyHandoff(requested,lead,motifs,target,epoch,16,128,policy,.7f,0,leading);};
+        auto handoff=[&](bool requested,int epoch,bool leading=false){return planMelodyHandoff(requested,lead,motifs,target,epoch,T(16),T(128),policy,.7f,0,leading);};
         CHECK(!handoff(false,2).active&&!handoff(true,0).active&&!handoff(true,2,true).active);
-        const auto plan=handoff(true,2);CHECK(plan.active&&plan.first==1&&plan.count==3&&plan.begin==16);
+        const auto plan=handoff(true,2);CHECK(plan.active&&plan.first==1&&plan.count==3&&plan.begin==T(16));
         CHECK(plan.reference.material.value==lead.reference.value);
         CHECK(!handoff(true,3).active&&handoff(true,6).active);
         target.instrument.pitch=PitchBehaviour::noise;CHECK(!handoff(true,2).active);

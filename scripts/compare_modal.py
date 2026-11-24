@@ -26,7 +26,9 @@ with tempfile.TemporaryDirectory() as tmp:
   for bpm in (90,120,173):
    br,b,bh=run(old,case,bpm);cr,c,ch=run(a.probe,case,bpm,control=True);ar,es,tr=run(a.probe,case,bpm)
    assert cr==br,('previous output changed',case,bpm)
-   assert tr['M']==ch['M']==bh['M'],('source changed',case,bpm)
+   # Compare current identities strictly; historical storage used a different hash encoding.
+   assert tr['M']==ch['M'],('source changed by passing strategy',case,bpm)
+   assert [m[1:] for m in tr['M']]==[m[1:] for m in bh['M']],('source changed',case,bpm)
    assert [e for e in es if e[5]!=7]==[e for e in c if e[5]!=7],('unrelated output changed',case,bpm)
    for block in (127,8192):
     raw,ee,tt=run(a.probe,case,bpm,block);assert tt==tr and len(ee)==len(es) and all(x[1:]==y[1:] and abs(x[0]-y[0])<=(1 if bpm==173 else 0) for x,y in zip(ee,es)),('block drift',case,bpm,block)
