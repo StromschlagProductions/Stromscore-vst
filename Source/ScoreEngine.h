@@ -2249,12 +2249,17 @@ private:
         const int output=on[kMelodie]?OutMelody:OutCounter;
         if(on[kOutputLayer[output]])
         {
-            const bool motivic=s.genre==GenreScore?(output==OutMelody?s.melodyMotif:s.motif):
-                phrasedHook(s)&&voice(output).motif.material(motifCatalog).complete;
+            auto memory=performanceMaterial(output,s);
+            const auto span=std::min(2*musicaltime::sixteenth*meter.len,p.phraseEndTime-p.phraseStartTime);
+            const bool introduction=at>=p.phraseStartTime&&at<p.phraseStartTime+span;
+            // Match motifStep's existing fall-through: without completed material,
+            // time outside the introduction belongs to the local line, not recurrence.
+            if(s.genre==GenreScore&&memory.count&&(!introduction||p.phrase-phraseOf(sceneTime)!=voice(output).motif.introduction))memory.finish();
+            const bool motivic=s.genre==GenreScore?(output==OutMelody?s.melodyMotif:s.motif)&&(memory.complete||introduction):
+                phrasedHook(s)&&memory.complete;
             if(motivic)
             {
-                const auto occurrence=motifOccurrence(at,p,s,output,true);auto memory=performanceMaterial(output,s);
-                const auto span=std::min(2*musicaltime::sixteenth*meter.len,p.phraseEndTime-p.phraseStartTime);
+                const auto occurrence=motifOccurrence(at,p,s,output,true);
                 if(!memory.complete)consider(p.phraseStartTime+span); // finish the actually played introduction
                 if(occurrence.active)
                 {

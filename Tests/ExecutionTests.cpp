@@ -149,6 +149,49 @@ int main()
   CHECK(ExecutionTestAccess::changeAt(g,Tick{},s));
   CHECK(!ExecutionTestAccess::changeAt(g,Tick{37},s));
  }
+ // Empty Score motif memory outside its introduction must schedule the already
+ // existing local-line fallback. Cold starts on bars and between beats must not
+ // wait until the next eight-bar phrase merely because the motif switch is on.
+ for(int output:{OutCounter,OutMelody})for(double start:{12.,16.,16.5,20.,24.,28.})
+ for(int block:{64,512,1024})for(float swing:{0.f,.5f})
+ {
+  Settings s;s.x=.5f;s.y=.7f;s.inertia=true;s.motif=true;s.melody=output==OutMelody;s.swing=swing;
+  s.solo[kOutputLayer[output]]=true;
+  Generator g;EventList events;Transport t;t.playing=true;t.ppq=start;
+  int64_t first=-1;std::map<std::pair<int,int>,int> held;
+  for(int at=0;at<48000;at+=block)
+  {
+   t.ppq=start+at/24000.;events.clear();{NoAllocations guard;g.process(t,s,std::min(block,48000-at),events);}CHECK(!events.overflow);
+   for(int j=0;j<events.size;++j){const auto e=events.events[j];if(!e.type){auto& n=held[{e.channel,e.note}];if(e.velocity){CHECK(n==0);n=1;if(first<0)first=at+e.offset;}else{CHECK(n==1);n=0;}}}
+  }
+  CHECK(first>=0);
+  if(!swing)CHECK(first==static_cast<int64_t>(start==16.5?36000:0));
+  Transport stop;events.clear();g.process(stop,s,512,events);
+  for(int j=0;j<events.size;++j){const auto e=events.events[j];if(!e.type&&!e.velocity)--held[{e.channel,e.note}];}
+  for(const auto& pair:held)CHECK(pair.second==0);
+  CHECK(!g.rememberedMotif(output).complete); // A local fallback must not invent stored motif material.
+ }
+ // The same fallback period belongs to its chord anchor in eighth-note meters;
+ // it is not forced to the next bar/phrase or to an absolute sixteenth callback.
+ for(int num:{3,5,7})for(int output:{OutCounter,OutMelody})for(float swing:{0.f,.5f})
+ {
+  Settings s;s.custom=true;s.customChords[0]={0,Maj7,8};s.key=0;s.x=.5f;s.y=.7f;s.inertia=true;
+  s.motif=true;s.melody=output==OutMelody;s.solo[kOutputLayer[output]]=true;s.meterNum=num;s.meterDen=8;s.swing=swing;
+  const double start=3*num*.5+.125;const auto period=sixteenth*std::max(4,num);
+  const auto expected=execution::atOrAfter(musicaltime::fromQuarters(start),period);
+  const auto sample=std::llround((execution::quarters(expected,execution::Timing::groove,swing)-start)*24000);
+  for(int block:{64,512,1024})
+  {
+   Generator g;EventList events;Transport t;t.playing=true;int64_t reference=-1;
+   for(int pass=0;pass<3;++pass) // cold, backwards seek/loop, then explicit scene restart
+   {
+    if(pass==2){events.clear();g.allNotesOff(events,0);g.reset();}int64_t first=-1;
+    for(int at=0;at<48000;at+=block){t.ppq=start+at/24000.;events.clear();{NoAllocations guard;g.process(t,s,std::min(block,48000-at),events);}
+     for(int j=0;j<events.size;++j){const auto e=events.events[j];if(!e.type&&e.velocity&&first<0)first=at+e.offset;}}
+    CHECK(first==sample);if(pass==0)reference=first;else CHECK(first==reference);
+   }
+  }
+ }
  // A 0.01-quarter jump is a real transport discontinuity, not host rounding.
  // Sub-sample host rounding must not cut a running note.
  for(auto test:std::array<std::pair<double,bool>,5>{{{.01,true},{-.01,true},{.000001,false},{.75/24000.,false},{1.5/24000.,true}}})
