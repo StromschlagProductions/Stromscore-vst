@@ -78,13 +78,14 @@ struct MotifAuditAccess
 #endif
 int main(int argc,char** argv)
 {
-    if(argc!=14&&argc!=15)return 2;
+    if(argc<14||argc>16)return 2;
     Settings s;s.genre=std::atoi(argv[1]);s.profile=static_cast<composition::ProfileId>(std::atoi(argv[2]));s.policy=composition::policyForContext(s.profile,s.genre==GenreScore);
     const int path=std::atoi(argv[3]);s.variation=std::atoi(argv[4]);const int roles=std::atoi(argv[5]),motifs=std::atoi(argv[6]),custom=std::atoi(argv[7]);
     s.sceneBars=std::atoi(argv[8]);s.scene=std::atoi(argv[9])!=0;const int bars=std::atoi(argv[10]),block=std::atoi(argv[11]);const bool trace=std::atoi(argv[12])!=0;
-    std::string prefix=argv[13];s.key=argc==15?std::atoi(argv[14]):2;s.seed=0;s.inertia=true;s.melody=roles!=2;s.mute[kGegenstimme]=roles==1;s.motif=motifs&1;s.melodyMotif=motifs&2;
+    std::string prefix=argv[13];s.key=argc>=15?std::atoi(argv[14]):2;s.seed=0;s.inertia=true;s.melody=roles!=2;s.mute[kGegenstimme]=roles==1;s.motif=motifs&1;s.melodyMotif=motifs&2;
     if(roles==3){s.rangeLo[6]=60;s.rangeHi[6]=96;}
     s.legato=s.melodyLegato=true;s.entry=EntryAll;
+    if(argc==16&&std::atoi(argv[15])){s.arpFigure=ArpUp;s.arpRate=RateEighth;}
     const float points[][3]={{.2f,.45f,.4f},{.25f,.85f,.65f},{.8f,.3f,.1f},{.85f,.85f,.3f},{.5f,.9f,.9f},{1,1,1},
         {.5f,.85f,.5f},{.5f,.85f,.5f},{.76f,.69f,.08f},{.88f,.48f,.03f},{.36f,.18f,.06f},{.3f,.65f,.55f}};
     if(path<0||path>=12)return 3;s.x=points[path][0];s.y=points[path][1];s.z=points[path][2];if(path==11)s.meterNum=3;

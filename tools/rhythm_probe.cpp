@@ -1,5 +1,6 @@
 #include "TimeDiagnostics.h"
 #include "ScoreEngine.h"
+#include "../Tests/MotifExperiment.h"
 #include <cstdlib>
 #include <iostream>
 #include <set>
@@ -9,7 +10,7 @@ int main(int argc,char** argv)
  if(argc<4)return 2;const int scenario=std::atoi(argv[1]),block=std::atoi(argv[2]);const double bpm=std::atof(argv[3]);
  int index=scenario<36?scenario:34;
  if(scenario==44)index=30;if(scenario==46)index=3;if(scenario==51)index=30;if(scenario==57)index=3;
- const auto& w=kPopWendungen[index];Settings s;s.genre=GenrePopRock;s.x=w.x;s.y=w.y;s.z=w.z;s.variety=0;
+ const auto& w=kPopWendungen[index];Settings s;pinMotifExperiment(s);s.genre=GenrePopRock;s.x=w.x;s.y=w.y;s.z=w.z;s.variety=0;
  s.mute[kGegenstimme]=s.mute[kAkzent]=true;s.swing=scenario%2?.3f:0;
  if(scenario==36||scenario==38)s.follow[kBass]=false;
  if(scenario==37||scenario==38)s.follow[kArp]=false;

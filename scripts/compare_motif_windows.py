@@ -8,7 +8,8 @@ from reference_headers import header_snapshot
 root=pathlib.Path(__file__).resolve().parents[1]
 p=argparse.ArgumentParser();p.add_argument('--output',required=True);p.add_argument('--reference',default='9a8d01c');p.add_argument('--compiler',default='c++');p.add_argument('--current-headers',type=pathlib.Path);a=p.parse_args();out=pathlib.Path(a.output);out.mkdir(parents=True,exist_ok=True)
 source=root/'docs/development/motif-audit/probe.cpp'
-cases=[(genre,profile,path,var) for genre,profile in ((0,0),(0,1),(1,0)) for path in (0,1,3,6,7) for var in (1,)] + [(0,0,3,3)]
+cases=[(genre,profile,path,var,0) for genre,profile in ((0,0),(0,1),(1,0)) for path in (0,1,3,6,7) for var in (1,)] + [(0,0,3,3,0)]
+cases += [(genre,profile,path,1,1) for genre,profile in ((0,0),(0,1),(1,0)) for path in (1,6)]
 def decode(raw):return [tuple(map(int,l.split(b','))) for l in raw.splitlines()]
 def balanced(events):
  active={};voices=collections.Counter();previous=0
@@ -34,10 +35,10 @@ with tempfile.TemporaryDirectory() as tmp:
    (d/name).write_bytes(data)
   exe=d/'probe';subprocess.run([a.compiler,'-std=c++17','-O2','-I',str(d),str(source),'-o',str(exe)],check=True);executables.append(exe)
  results=[]
- for genre,profile,path,var in cases:
-  name=f'g{genre}-p{profile}-xyz{path}-v{var}';versions=[]
+ for genre,profile,path,var,manual in cases:
+  name=f'g{genre}-p{profile}-xyz{path}-v{var}'+('-manualArp' if manual else '');versions=[]
   for label,exe in zip(('before','after'),executables):
-   prefix=out/f'{name}-{label}';r=subprocess.run([str(exe),str(genre),str(profile),str(path),str(var),'0','3','0','0','0','128','512','0',str(prefix),'2'],capture_output=True,check=True)
+   prefix=out/f'{name}-{label}';r=subprocess.run([str(exe),str(genre),str(profile),str(path),str(var),'0','3','0','0','0','128','512','0',str(prefix),'2',str(manual)],capture_output=True,check=True)
    raw=prefix.with_suffix('.csv').read_bytes();events=decode(raw);balanced(events)
    reservations={int(t):bool(int(b)) for tag,t,b in (l.split(b',') for l in r.stderr.splitlines())}
    versions.append((events,reservations,hashlib.sha256(raw).hexdigest()))

@@ -1,5 +1,6 @@
 #include "TimeDiagnostics.h"
 #include "ScoreEngine.h"
+#include "../Tests/MotifExperiment.h"
 #include <cstdlib>
 #include <iostream>
 using namespace stromscore;
@@ -7,7 +8,7 @@ int main(int argc,char** argv)
 {
     if(argc!=4)return 2;
     const int scenario=std::atoi(argv[1]),profile=std::atoi(argv[2]),block=std::atoi(argv[3]);
-    Settings s;s.profile=static_cast<composition::ProfileId>(profile);s.key=0;s.x=.2f;s.y=.8f;s.z=0;s.motif=false;s.seed=3;
+    Settings s;pinMotifExperiment(s);s.profile=static_cast<composition::ProfileId>(profile);s.key=0;s.x=.2f;s.y=.8f;s.z=0;s.motif=false;s.seed=3;
     s.custom=true;s.customChords[0]={0,Maj7,8};s.dynamics=true;
     if(scenario==0)s.y=.2f;
     if(scenario==2)s.x=.8f;

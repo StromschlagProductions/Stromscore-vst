@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 from reference_headers import header_snapshot
-import argparse,collections,hashlib,json,pathlib,struct,subprocess,tempfile
+import argparse,collections,hashlib,json,pathlib,struct,subprocess,tempfile,sys
 p=argparse.ArgumentParser();p.add_argument('--probe',required=True);p.add_argument('--compiler',default='c++');p.add_argument('--output',required=True);a=p.parse_args();root=pathlib.Path(__file__).resolve().parents[1];out=pathlib.Path(a.output);out.mkdir(parents=True,exist_ok=True)
 def run(exe,case,bpm,block=512,control=False):
  cmd=[str(exe),str(case),str(block),str(bpm)]+(['1','0'] if control else [])
@@ -22,10 +22,17 @@ with tempfile.TemporaryDirectory() as tmp:
  tmp=pathlib.Path(tmp)
  for name,data in header_snapshot(root,'1fa718f').items():(tmp/name).write_bytes(data)
  old=tmp/'before';subprocess.run([a.compiler,'-std=c++17','-O2','-DHOOK_DIAGNOSTICS=1','-I',str(tmp),str(root/'tools/hook_development_probe.cpp'),'-o',str(old)],check=True)
+ # Reproduce the same historical pool/role fixture used by ModalProbe.
+ sys.path.insert(0,str(root/'Tests'));from HarmonyImportFixtures import prepare
+ corrected=tmp/'corrected';prepare(corrected,revision='b4a5184',historical=True)
+ fixed=tmp/'step-a';subprocess.run([a.compiler,'-std=c++17','-O2','-DHOOK_DIAGNOSTICS=1','-DMODAL_DIAGNOSTICS=1','-DBASS_REGRESSION_CONTROL=1','-I',str(corrected),str(root/'tools/hook_development_probe.cpp'),'-o',str(fixed)],check=True)
  for case in range(8):
   for bpm in (90,120,173):
    br,b,bh=run(old,case,bpm);cr,c,ch=run(a.probe,case,bpm,control=True);ar,es,tr=run(a.probe,case,bpm)
-   assert cr==br,('previous output changed',case,bpm)
+   if case==6:
+    fixed_control,_,_=run(fixed,case,bpm,control=True);fixed_active,_,_=run(fixed,case,bpm)
+    assert cr==fixed_control and ar==fixed_active,('corrected dynamic regression',case,bpm)
+   else:assert cr==br,('previous output changed',case,bpm)
    # Compare current identities strictly; historical storage used a different hash encoding.
    assert tr['M']==ch['M'],('source changed by passing strategy',case,bpm)
    assert [m[1:] for m in tr['M']]==[m[1:] for m in bh['M']],('source changed',case,bpm)
@@ -64,4 +71,4 @@ with tempfile.TemporaryDirectory() as tmp:
    rows.append({'case':case,'bpm':bpm,'passing_tones':count,'returns':len(tr['P']),'before_sha256':hashlib.sha256(br).hexdigest(),'after_sha256':hashlib.sha256(ar).hexdigest()})
    if bpm==120:write_midi(out/f'case-{case}-without.mid',c,bpm);write_midi(out/f'case-{case}-with.mid',es,bpm)
 assert passing_count>0
-(out/'summary.json').write_text(json.dumps({'baseline':'1fa718f','bars':128,'passing_tones':passing_count,'results':rows,'examples':examples},indent=2)+'\n');print('24 128-bar modal A/B cases, 48 block comparisons;',passing_count,'resolved passing tones')
+(out/'summary.json').write_text(json.dumps({'baseline':'1fa718f','dynamic_reference':'b4a5184','bars':128,'passing_tones':passing_count,'results':rows,'examples':examples},indent=2)+'\n');print('24 128-bar modal A/B cases, 48 block comparisons;',passing_count,'resolved passing tones')

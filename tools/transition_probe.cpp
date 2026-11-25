@@ -1,4 +1,5 @@
 #include "ScoreEngine.h"
+#include "../Tests/MotifExperiment.h"
 #include <algorithm>
 #include <cstdlib>
 #include <iostream>
@@ -7,7 +8,7 @@ int main(int argc,char** argv)
 {
     const int scenario=argc>1?std::atoi(argv[1]):0,profile=argc>2?std::atoi(argv[2]):0;
     const int block=argc>3?std::atoi(argv[3]):512;
-    Settings s;s.profile=static_cast<composition::ProfileId>(profile);s.key=0;s.variation=17;
+    Settings s;pinMotifExperiment(s);s.profile=static_cast<composition::ProfileId>(profile);s.key=0;s.variation=17;
     s.scene=false;s.padPattern=PadHeld;s.bassPattern=BassHeld;s.melody=true;s.melodyMotif=true;
     s.passing=false;s.variety=.8f;s.x=.3f;s.y=.65f;s.z=.2f;
     if(scenario==1)s.x=.8f,s.y=.5f;

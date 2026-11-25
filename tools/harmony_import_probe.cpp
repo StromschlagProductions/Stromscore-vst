@@ -1,5 +1,6 @@
 // Compiled only against an isolated test header snapshot with a selection seam.
 #include "ScoreEngine.h"
+#include "../Tests/MotifExperiment.h"
 #include "../Tests/TestSupport.h"
 #include <iomanip>
 #include <iostream>
@@ -9,7 +10,7 @@ int main(int argc,char** argv)
 {
  if(argc==2)
  {
-  std::cout<<std::setprecision(9);Settings s;s.genre=GenrePopRock;
+  std::cout<<std::setprecision(9);Settings s;pinMotifExperiment(s);s.genre=GenrePopRock;
   for(int x=0;x<=20;++x)for(int y=0;y<=20;++y)for(int z=0;z<=20;++z)for(float v:{0.f,.25f,.5f,.75f,1.f})
   {
    s.x=x/20.f;s.y=y/20.f;s.z=z/20.f;s.variety=v;int ids[kMaxWendungen];const int n=Generator::candidates(s,ids,kMaxWendungen);
@@ -22,7 +23,7 @@ int main(int argc,char** argv)
   }return 0;
  }
  if(argc!=16&&argc!=17&&argc!=19&&argc!=20)return 2;
- importTestId=static_cast<WendungId>(std::atoi(argv[1]));Settings s;s.genre=GenrePopRock;s.key=std::atoi(argv[2]);s.x=std::atof(argv[3]);s.y=std::atof(argv[4]);s.z=std::atof(argv[5]);
+ importTestId=static_cast<WendungId>(std::atoi(argv[1]));Settings s;pinMotifExperiment(s);s.genre=GenrePopRock;s.key=std::atoi(argv[2]);s.x=std::atof(argv[3]);s.y=std::atof(argv[4]);s.z=std::atof(argv[5]);
  s.follow[0]=s.follow[1]=s.follow[2]=std::atoi(argv[6])!=0;
  if(std::atoi(argv[7])){s.padPattern=PadHeld;s.bassPattern=BassHeld;s.arpFigure=ArpCircle;s.arpRate=RateEighth;}
  s.melody=std::atoi(argv[8])!=0;s.mute[kGegenstimme]=std::atoi(argv[9])==0;

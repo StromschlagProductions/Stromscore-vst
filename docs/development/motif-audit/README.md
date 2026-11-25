@@ -52,3 +52,27 @@ Grenzen: 100 BPM, 4/4 als Hauptmatrix, Legato EIN, voreingestellte Tonumfänge,
 Seed 0, Variationen 1/3/7. Ergänzende 3/4-, Register-, Tonart-, Szenen- und Solo-
 Kontrollen sind keine erschöpfende Prüfung aller Parametersätze. Keine neue
 VST3-/Host-Abnahme, kein neuer Live-/Export-Integrationstest und kein Audiohörurteil.
+
+## Wiederkehrprüfung A/B
+
+Der Harness ist auch für den aktuellen Produktionsstand verwendbar. `run.py`
+protokolliert dafür Commit, modifizierten Quellstand und SHA256 sämtlicher Header.
+Mit `--source-headers /pfad/zum/snapshot` lässt sich dieselbe Messmatrix auf einer
+vorherigen Fassung ausführen. Für alle drei Stände dieselbe aktuelle Auswertung
+verwenden: Bei Kontextänderungen zählt die zuletzt mit tatsächlich ausgegebenen
+Noten verbundene Planfassung, nicht der erste spekulative Cacheeintrag.
+
+```bash
+python docs/development/motif-audit/run.py --repo "$PWD" --output /tmp/motif-after
+python docs/development/motif-audit/summary.py --repo "$PWD" --output /tmp/motif-after
+python docs/development/motif-audit/blockcheck.py --output /tmp/motif-after
+python scripts/package_motif_reprise.py --before /tmp/motif-before \
+  --stage-a /tmp/motif-stage-a --after /tmp/motif-after --output docs/development
+```
+
+`before` = `9a8d01c`, `stage-a` = `b4a5184`; jeweils `run.py` und `summary.py`
+ausführen. Das neue Paket enthält 16 MIDI-Dateien aus vier Produktions-A/B-Läufen.
+Details, tatsächliche Prozessor-/Exportprüfungen und Grenzen stehen in
+`../MOTIF_REPRISE_B.md`. Die ursprüngliche Audit-Anleitung oben beschreibt den
+Untersuchungsauftrag vor der Fehlerkorrektur; dessen fehlende Integrationstests
+sind keine Aussage über die anschließend separat geprüfte Implementierung.

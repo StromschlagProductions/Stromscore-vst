@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 from reference_headers import header_snapshot
-import argparse,collections,hashlib,json,math,pathlib,struct,subprocess,tempfile
+import argparse,collections,hashlib,json,math,pathlib,struct,subprocess,tempfile,sys
 p=argparse.ArgumentParser();p.add_argument('--probe',required=True);p.add_argument('--compiler',default='c++');p.add_argument('--output',required=True);a=p.parse_args();root=pathlib.Path(__file__).resolve().parents[1];out=pathlib.Path(a.output);out.mkdir(parents=True,exist_ok=True)
 names=['pedal-ostinato','intense-melodic','quiet-melodic','lyrical','syncopated-melodic','dance-ostinato','XY-changes','held-harmony']
 def run(exe,case,bpm,block=512,control=False):
@@ -28,15 +28,21 @@ def active_bars(events,bpm):
    start=live.pop(key);first=int((start*bpm/(48000*60)*4+.001)//16);last=math.ceil((e[0]*bpm/(48000*60)*4-.001)/16)-1
    bars.update(range(first,last+1))
  return len(bars)
-summary=[];examples=[];sequences=0
+summary=[];examples=[];sequences=0;partial_dynamic_plans=0
 with tempfile.TemporaryDirectory() as tmp:
  tmp=pathlib.Path(tmp)
  for name,data in header_snapshot(root,'2566894').items():(tmp/name).write_bytes(data)
  old=tmp/'before';subprocess.run([a.compiler,'-std=c++17','-O2','-I',str(tmp),str(root/'tools/hook_development_probe.cpp'),'-o',str(old)],check=True)
+ sys.path.insert(0,str(root/'Tests'));from HarmonyImportFixtures import prepare
+ corrected=tmp/'corrected';prepare(corrected,revision='b4a5184',historical=True)
+ fixed=tmp/'step-a';subprocess.run([a.compiler,'-std=c++17','-O2','-DHOOK_DIAGNOSTICS=1','-DPASSING_CONTROL=1','-DBASS_REGRESSION_CONTROL=1','-I',str(corrected),str(root/'tools/hook_development_probe.cpp'),'-o',str(fixed)],check=True)
  for case,name in enumerate(names):
   for bpm in (90,120,173):
    br,b,bh=run(old,case,bpm);ar,es,tr=run(a.probe,case,bpm);cr,c,ch=run(a.probe,case,bpm,control=True)
    assert cr==br,('disabled regression',name,bpm)
+   if case==6:
+    corrected_raw,_,_=run(fixed,case,bpm)
+    assert ar==corrected_raw,('corrected dynamic regression',name,bpm)
    # PPQ canonicalization changes internal hashes, not the actually captured notes.
    assert tr['M']==ch['M'],('current source changed by policy',name,bpm)
    assert [m[1:] for m in tr['M']]==[m[1:] for m in bh['M']],('source altered',name,bpm)
@@ -73,6 +79,10 @@ with tempfile.TemporaryDirectory() as tmp:
     counts[kind]+=1;begins.append(begin/16)
     if last_end is not None:assert begin-last_end>=32,('minimum silence',plan,last_end)
     last_end=end;ons=[e for e in es if e[5]==7 and e[3] and not e[4] and begin-.001<=e[0]*bpm/(48000*60)*4<end-.001]
+    # A live harmony change may invalidate the unheard remainder. The entire
+    # dynamic stream is checked byte-for-byte against corrected step A above.
+    if case==6 and len(ons)!=count:
+     partial_dynamic_plans+=1;continue
     assert len(ons)==count,('missing figure',name,bpm,plan,ons)
     swing=.3 if case%2 else 0
     for e,(at,length,interval) in zip(ons,notes):
@@ -98,4 +108,4 @@ with tempfile.TemporaryDirectory() as tmp:
    summary.append({'case':name,'bpm':bpm,'counts':dict(counts),'starts_bars':begins,'active_return_bars':len(active),'before_active_bars':active_bars(b,bpm),'after_active_bars':active_bars(es,bpm),'before_hook_ons':sum(e[5]==7 and e[3]>0 and not e[4] for e in b),'after_hook_ons':sum(e[5]==7 and e[3]>0 and not e[4] for e in es),'before_sha256':hashlib.sha256(br).hexdigest(),'after_sha256':hashlib.sha256(ar).hexdigest()})
    if bpm==120:midi(out/f'{name}-before.mid',b,bpm);midi(out/f'{name}-after.mid',es,bpm)
 assert sequences>0,'No actual sequence realised'
-(out/'summary.json').write_text(json.dumps({'baseline':'2566894','bars':128,'results':summary,'sequence_examples':examples},indent=2)+'\n');print('24 128-bar A/B cases, 48 block comparisons passed;',sequences,'sequences')
+(out/'summary.json').write_text(json.dumps({'baseline':'2566894','dynamic_reference':'b4a5184','partial_dynamic_plans':partial_dynamic_plans,'bars':128,'results':summary,'sequence_examples':examples},indent=2)+'\n');print('24 128-bar A/B cases, 48 block comparisons passed;',sequences,'sequences')

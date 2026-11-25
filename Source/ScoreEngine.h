@@ -743,7 +743,7 @@ private:
             ||x.chords.minimumOpenSpan!=y.chords.minimumOpenSpan
             ||x.chords.maximumOpenSpan!=y.chords.maximumOpenSpan)return false;
         auto recurrence=[](const composition::MotifRecurrencePolicy& x,const composition::MotifRecurrencePolicy& y)
-        {return x.minimumSilentBars==y.minimumSilentBars&&x.adaptChordTones==y.adaptChordTones&&x.sparseBelow==y.sparseBelow&&x.unrestEngages==y.unrestEngages&&x.variations==y.variations&&x.sequenceSemitones==y.sequenceSemitones&&x.sparseSteps==y.sparseSteps&&x.normalSteps==y.normalSteps;};
+        {return x.minimumSilentBars==y.minimumSilentBars&&x.adaptChordTones==y.adaptChordTones&&x.establishOriginal==y.establishOriginal&&x.preserveContour==y.preserveContour&&x.sparseBelow==y.sparseBelow&&x.unrestEngages==y.unrestEngages&&x.variations==y.variations&&x.sequenceSemitones==y.sequenceSemitones&&x.sparseSteps==y.sparseSteps&&x.normalSteps==y.normalSteps;};
         if(!recurrence(x.motif,y.motif)||!recurrence(x.popHooks.recurrence,y.popHooks.recurrence))return false;
         for(size_t i=0;i<x.chords.cycle.size();++i)if(x.chords.cycle[i].population!=y.chords.cycle[i].population||x.chords.cycle[i].spacing!=y.chords.cycle[i].spacing)return false;
         return true;
@@ -1098,6 +1098,8 @@ private:
         const auto& w=W();for(int i=0;i<w.n;++i){add(w.ch[i].root);add(w.ch[i].type);add(w.ch[i].bars);}
         const auto c=outputCatalog(s)[output].track.instrument;
         add(c.range.low);add(c.range.high);add(c.minDuration.value);add(c.maxDuration.value);
+        const auto& policy=s.genre==GenrePopRock&&output==OutCounter?s.policy.popHooks.recurrence:s.policy.motif;
+        add(policy.establishOriginal);add(policy.preserveContour);
         uint32_t swing=0;std::memcpy(&swing,&s.swing,sizeof swing);add(swing);
         return key;
     }
@@ -1124,6 +1126,42 @@ private:
             if(at<end)return false;
         }
         return true;
+    }
+    composition::MotifOccurrence continueMotif(const composition::MotifOccurrence& previous,
+        const composition::RememberedMotif& memory,musicaltime::Tick time,const Settings& s,int output)const
+    {
+        // Always derive from the immutable original; freeze the already heard prefix.
+        // No accumulating transformations and no replacement of past MIDI notes.
+        if(previous.figure.passingIndex>=0||previous.figure.variation!=composition::MotifVariation::original)return {};
+        auto figure=composition::deriveMotif(memory,composition::MotifVariation::original);
+        if(figure.count!=previous.figure.count)return {};
+        const auto capability=outputCatalog(s)[output].track.instrument;
+        unsigned masks[10]{};musicaltime::Tick limits[10]{};int fixed[10];int prefix=0;
+        const auto& heard=voice(output).reprise;
+        for(int i=0;i<figure.count;++i)
+        {
+            const auto& note=figure.notes[i];const auto at=previous.begin+note.at;fixed[i]=-1;
+            if(at<time||(heard.identity==memory.identity&&heard.begin==previous.begin&&(heard.played&(1u<<i))))
+            {
+                ++prefix;fixed[i]=previous.base+previous.figure.notes[i].interval;
+                masks[i]=composition::pitchBit(fixed[i]);limits[i]=previous.figure.notes[i].length;
+            }
+            else
+            {
+                const auto h=motifHarmonyAt(at,s);
+                for(int j=0;j<kShapes[h.chord.type].n;++j)masks[i]|=composition::pitchBit(s.key+h.chord.root+kShapes[h.chord.type].iv[j]);
+                const auto end=execution::nominalAt(musicaltime::toQuarters(h.end),execution::Timing::groove,s.swing);
+                limits[i]=std::min(note.length,end-at);
+                if(i+1<figure.count)limits[i]=std::min(limits[i],figure.notes[i+1].at-note.at);
+            }
+        }
+        if(!prefix)return {};
+        const auto realized=composition::realizeScoreMotif(figure,masks,limits,capability.range,
+            capability.minDuration,capability.maxDuration,previous.base,fixed);
+        if(realized.base<0)return {};
+        auto result=previous;result.base=realized.base;result.figure=realized.figure;
+        result.end=result.begin+result.figure.span;
+        return result.end<=motifAvailableUntil(s,kOutputLayer[output])?result:composition::MotifOccurrence{};
     }
     bool phrasedHook(const Settings& s)const
     {
@@ -1223,7 +1261,13 @@ private:
         if(time<origin)return {};
         const auto epoch=(time-origin)/window;
         musicaltime::Tick span{};for(int i=0;i<memory.count;++i)span=std::max(span,memory.notes[static_cast<size_t>(i)].at+memory.notes[static_cast<size_t>(i)].length);
-        if(epoch==0)return {true,true,false,origin,origin+span,0,0};
+        const bool dialogue=output==OutCounter&&!on[kMelodie]&&s.genre==GenreScore&&s.arpFigure==ArpCell&&!s.scene
+            &&s.meterNum==4&&s.meterDen==4&&on[kArp]&&on[kGegenstimme]&&phraseBars>=4;
+        // The existing dialogue/Arp answer follows this introduction. Its reserved
+        // response must not be replaced by a new epoch-zero reprise.
+        if(epoch==0&&(!policy.establishOriginal||time<origin+span||dialogue))return {true,true,false,origin,origin+span,0,0};
+        auto heard=state.reprise;if(heard.identity!=memory.identity)heard={};
+        const bool establishing=policy.establishOriginal&&(!heard.establishedAt||time<*heard.establishedAt);
         // An onset lookup may precede nominal harmony preparation. Preview only the
         // bounded derived cache; never commit a future decision from the old context.
         auto& stored=reservation&&s.genre==GenreScore?state.reservationRecurrence:state.recurrence;
@@ -1235,16 +1279,32 @@ private:
         if(sameSlot&&cached.started)
         {
             cached.harmony=harmony;
-            if(cached.plan.active&&!remainingMotifFits(cached.plan,time,s,output))cached.plan={};
+            if(cached.plan.active&&!remainingMotifFits(cached.plan,time,s,output))
+            {
+                const bool adaptable=policy.establishOriginal&&(scoreMotifAdaptation(s,output)
+                    ||(popMelodicRoles(s)&&((output==OutMelody&&popLeadRoute(s))||(output==OutCounter&&phrasedHook(s)&&popDialogRoute(s)))));
+                cached.plan=adaptable?continueMotif(cached.plan,memory,time,s,output):composition::MotifOccurrence{};
+            }
             return cached.plan.end<=motifAvailableUntil(s,kOutputLayer[output])?cached.plan:composition::MotifOccurrence{};
         }
         cached.harmony=harmony;cached.started=false;
         cached.epoch=epoch;cached.identity=memory.identity;cached.origin=origin;cached.window=window;cached.plan={};
-        const auto slot=composition::recurrenceSlot(policy,epoch,layerY(s,kOutputLayer[output]),s.z);
+        auto slot=composition::recurrenceSlot(policy,epoch,layerY(s,kOutputLayer[output]),s.z);
+        if(epoch==0&&establishing)slot={true,1,1,false};
         if(!slot.eligible)return {};
-        const auto begin=origin+epoch*window,end=std::min(begin+window,motifAvailableUntil(s,kOutputLayer[output]));
-        const bool dialogue=output==OutCounter&&!on[kMelodie]&&s.genre==GenreScore&&s.arpFigure==ArpCell&&!s.scene
-            &&s.meterNum==4&&s.meterDen==4&&on[kArp]&&on[kGegenstimme]&&phraseBars>=4;
+        const auto horizon=origin+epoch*window,end=std::min(horizon+window,motifAvailableUntil(s,kOutputLayer[output]));
+        auto begin=horizon;
+        if(policy.establishOriginal)
+        {
+            // One actual thought per horizon. Neither failed opportunities nor
+            // automation may manufacture extra reiterations. Chase reconstructs
+            // an earlier performance, without consuming a future rest budget.
+            if(!chasingPatterns&&!harmonicChase&&heard.begin>=horizon&&heard.begin<horizon+window)return {};
+            // Articulation shortens gates, not the musical thought/cycle.
+            const auto thought=std::max(memory.cycleLength,bar*((span.value+bar.value-1)/bar.value));
+            begin=std::max(begin,origin+thought+policy.minimumSilentBars*bar);
+            if(!chasingPatterns&&!harmonicChase&&heard.identity==memory.identity)begin=std::max(begin,heard.end+policy.minimumSilentBars*bar);
+        }
         const auto response=dialogue?2*bar:musicaltime::Tick{};
         const auto catalog=outputCatalog(s);const auto& capability=catalog[output].track.instrument;
         auto attempt=[&](composition::MotifVariation variation,bool adaptive=false,int fragmentNotes=0)
@@ -1256,7 +1316,7 @@ private:
         std::array<composition::MotifFigure,32> realizations {};int count=0;
         auto add=[&](musicaltime::Tick at)
         {
-            if(at<begin||(sameSlot&&at<time)||at>last||count==32)return;
+            if(at<begin||(!chasingPatterns&&!harmonicChase&&(sameSlot||policy.establishOriginal)&&at<time)||at>last||count==32)return;
             for(int i=0;i<count;++i)if(candidates[static_cast<size_t>(i)].begin==at)return;
             unsigned allowed[10] {};musicaltime::Tick limits[10] {};
             for(int i=0;i<figure.count;++i)
@@ -1312,6 +1372,13 @@ private:
                     }
                     adjusted.notes[static_cast<size_t>(i)].interval=pitch-candidate;
                 }
+                if(fits&&policy.preserveContour)
+                    for(int i=1;i<adjusted.count;++i)
+                    {
+                        const int wanted=figure.notes[i].interval-figure.notes[i-1].interval;
+                        const int actual=adjusted.notes[i].interval-adjusted.notes[i-1].interval;
+                        if((wanted==0&&actual!=0)||(wanted>0&&actual<=0)||(wanted<0&&actual>=0))fits=false;
+                    }
                 const int distance=std::abs(candidate-memory.origin)+adjustment;
                 if(fits&&distance<cost){base=candidate;cost=distance;realization=adjusted;}
             }
@@ -1331,17 +1398,19 @@ private:
         if(result.active){for(int i=0;i<count;++i)if(candidates[i].begin==result.begin&&candidates[i].base==result.base){result.figure=realizations[i];break;}result.varied=variation==composition::MotifVariation::rhythm;if(adaptive)result.end=result.begin+result.figure.span;}
         return result;
         };
-        const auto variation=composition::motifVariation(policy,slot.ordinal);
+        const auto variation=establishing?composition::MotifVariation::original:composition::motifVariation(policy,slot.ordinal);
         cached.plan=attempt(variation);
         if(!cached.plan.active&&variation!=composition::MotifVariation::original)
             cached.plan=attempt(composition::MotifVariation::original);
-        if(!cached.plan.active&&!reservation&&(scoreMotifAdaptation(s,output)||(popMelodicRoles(s)&&output==OutMelody&&popLeadRoute(s))))
+        if(!cached.plan.active&&(((!reservation||policy.establishOriginal)&&scoreMotifAdaptation(s,output))
+            ||(popMelodicRoles(s)&&((output==OutMelody&&popLeadRoute(s))
+                ||(policy.establishOriginal&&output==OutCounter&&phrasedHook(s)&&popDialogRoute(s))))))
         {
             cached.plan=attempt(composition::MotifVariation::original,true);
-            for(int notes=std::min(3,memory.count-1);!cached.plan.active&&notes>=2;--notes)
+            for(int notes=std::min(3,memory.count-1);!establishing&&!cached.plan.active&&notes>=2;--notes)
                 cached.plan=attempt(composition::MotifVariation::fragment,true,notes);
         }
-        addPassingTone(cached.plan,s,output);
+        if(!establishing)addPassingTone(cached.plan,s,output);
         return cached.plan;
     }
 
@@ -1472,7 +1541,8 @@ private:
         {
             auto end=i+1<count?motifTemplatePosition(mo.on[i+1]):span;
             end=std::min(end,p.phraseEndTime-p.phraseStartTime);
-            n.pitch=ladder[std::clamp(mo.deg[i],0,nl-1)];n.velocity=static_cast<int>(56+35*yc)+(i==0?6:0);
+            const auto& policy=s.genre==GenrePopRock&&output==OutCounter?s.policy.popHooks.recurrence:s.policy.motif;
+            n.pitch=ladder[policy.preserveContour?composition::fittedMotifDegree(mo.deg,count,i,nl):std::clamp(mo.deg[i],0,nl-1)];n.velocity=static_cast<int>(56+35*yc)+(i==0?6:0);
             const auto extension=cur!=nullptr&&cur->legato?composition::motifQuantum
                 :end-n.at>=4*composition::motifQuantum?-1*composition::motifQuantum:musicaltime::Tick{};
             n.length=std::min(span,end+(output==OutMelody?musicaltime::Tick{}:extension))-n.at;
@@ -1708,6 +1778,7 @@ private:
                 {
                     if(complete)
                     {
+                        state.reprise.observe(occurrence,i,memory.count);
                         state.recurrence.started=true;
                         if(state.reservationRecurrence.plan.begin==occurrence.begin)state.reservationRecurrence.started=true;
                         continue;
@@ -2687,7 +2758,9 @@ private:
             if(motivic)
             {
                 const auto occurrence=motifOccurrence(at,p,s,output,true);
-                if(!memory.complete)consider(p.phraseStartTime+span); // finish the actually played introduction
+                // A locally finished preview must still dispatch the existing
+                // publication deadline for the real per-voice introduction.
+                if(!voice(output).motif.material(motifCatalog).complete)consider(p.phraseStartTime+span);
                 if(occurrence.active)
                 {
                     consider(occurrence.begin);consider(occurrence.end);
@@ -3675,6 +3748,7 @@ private:
     struct VoiceState
     {
         composition::MotifUse motif,answer;
+        composition::MotifRepriseProgress reprise;
         composition::MotifCapture capture; int captureChannel=0;float captureSwing=0;
         struct RecurrenceCache
         {

@@ -1,5 +1,6 @@
 #include "TimeDiagnostics.h"
 #include "ScoreEngine.h"
+#include "../Tests/MotifExperiment.h"
 #include <cstdlib>
 #include <iostream>
 #include <set>
@@ -7,8 +8,8 @@ using namespace stromscore;
 int main(int argc,char** argv)
 {
  if(argc<4)return 2;int scenario=std::atoi(argv[1]),block=std::atoi(argv[2]);double bpm=std::atof(argv[3]);
- const int indices[]={30,33,29,28,34,27,33,33};int index=indices[scenario];const auto& w=kPopWendungen[index];Settings s;
- s.genre=GenrePopRock;s.x=w.x;s.y=w.y;s.z=w.z;s.variety=0;s.key=0;s.swing=scenario%2?.3f:0;s.mute[kFlaeche]=s.mute[kBass]=s.mute[kAkzent]=true;
+ const int indices[]={30,33,29,28,34,27,33,33};int index=indices[scenario];const auto& w=kPopWendungen[index];Settings s;pinMotifExperiment(s);
+ s.genre=GenrePopRock;s.motif=true;s.x=w.x;s.y=w.y;s.z=w.z;s.variety=0;s.key=0;s.swing=scenario%2?.3f:0;s.mute[kFlaeche]=s.mute[kBass]=s.mute[kAkzent]=true;
  if(scenario==7){s.custom=true;s.customChords[0]={0,Maj7,8};}
 #ifdef HOOK_DIAGNOSTICS
 #ifndef MODAL_DIAGNOSTICS
@@ -38,7 +39,7 @@ int main(int argc,char** argv)
   if(m.complete&&!published){std::cerr<<"M,"<<m.identity<<','<<m.count<<','<<m.origin;for(int i=0;i<m.count;++i)std::cerr<<','<<diagnosticTime(m.notes[i].at,1)<<','<<diagnosticTime(m.notes[i].length,1)<<','<<m.notes[i].interval;std::cerr<<'\n';published=true;}
 #ifdef HOOK_DIAGNOSTICS
   long long emittedTick=-1;
-  for(int i=0;i<es.size;++i){const auto& e=es.events[i];if(e.out==OutCounter&&e.type==0&&e.velocity>0)emittedTick=static_cast<long long>(std::floor((t.ppq+e.offset*bpm/(48000.*60))*4+1e-4));}
+  for(int i=0;i<es.size;++i){const auto& e=es.events[i];if(e.out==OutCounter&&e.type==0&&e.velocity>0)emittedTick=diagnosticOnset(t.ppq+e.offset*bpm/(48000.*60),s.swing);}
   auto p=emittedTick>=0?g.inspectMotifOccurrence(emittedTick,s):composition::MotifOccurrence{};
   if(p.active&&!p.introduction&&diagnosticTime(p.begin)<128*16&&seen.insert(diagnosticTime(p.begin)).second){std::cerr<<"P,"<<diagnosticTime(p.begin)<<','<<diagnosticTime(p.end)<<','<<p.ordinal<<','<<static_cast<int>(p.figure.variation)<<','<<p.base<<','<<p.figure.sourceIdentity<<','<<p.figure.count;for(int i=0;i<p.figure.count;++i)std::cerr<<','<<diagnosticTime(p.figure.notes[i].at)<<','<<diagnosticTime(p.figure.notes[i].length)<<','<<p.figure.notes[i].interval;std::cerr<<'\n';
 #ifdef MODAL_DIAGNOSTICS

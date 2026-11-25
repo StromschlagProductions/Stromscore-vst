@@ -1,5 +1,6 @@
 // Reproducible note/CC probe shared by the current and pinned pre-coordination engine.
 #include "ScoreEngine.h"
+#include "../Tests/MotifExperiment.h"
 #include <cstdlib>
 #include <iostream>
 using namespace stromscore;
@@ -7,7 +8,7 @@ int main(int argc,char** argv)
 {
     if(argc!=4&&argc!=5)return 2;
     const int scenario=std::atoi(argv[1]),profile=std::atoi(argv[2]),block=std::atoi(argv[3]);
-    Settings s;s.profile=static_cast<composition::ProfileId>(profile);s.key=0;s.y=.7f;s.x=.3f;s.z=0;
+    Settings s;pinMotifExperiment(s);s.profile=static_cast<composition::ProfileId>(profile);s.key=0;s.y=.7f;s.x=.3f;s.z=0;
     s.motif=true;s.seed=3;s.custom=true;s.customChords[0]={0,Maj7,8};
     s.melody=scenario==18||scenario==1||scenario==4||scenario==5||scenario==7||scenario==8||scenario==15;
     if(scenario==1)s.motif=false;

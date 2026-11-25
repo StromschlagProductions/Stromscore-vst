@@ -33,7 +33,7 @@ def analyze(path,bars):
  broken+=sum(map(len,active));cursor=0;gap=0
  for begin,end in united:gap=max(gap,begin-cursor);cursor=end
  gap=max(gap,bars*96000-cursor)
- return {'controllers_sha256':digest([x for x in rows if x[5]]),'all_events_sha256':digest(rows),'accompaniment_canonical_sha256':digest([x for x in rows if x[1]<7]),'melody_sha256':digest([x for x in rows if x[1]==8]),'overlap_seconds':overlap/48000,'joint_max_silence_seconds':gap/48000,'note_ledger_errors':broken}
+ return {'controllers_sha256':digest([x for x in rows if x[5]]),'all_events_sha256':digest(rows),'accompaniment_canonical_sha256':digest([x for x in rows if x[1] in (0,1,2,3,5,6)]),'melody_sha256':digest([x for x in rows if x[1]==8]),'overlap_seconds':overlap/48000,'joint_max_silence_seconds':gap/48000,'note_ledger_errors':broken}
 for revision in ('a6affa0','working'):
  d=out/revision;d.mkdir(exist_ok=True)
  for name,content in header_snapshot(root,None if revision=='working' else revision).items():
@@ -50,8 +50,8 @@ for revision in ('a6affa0','working'):
    before=streams['a6affa0',genre,path,mode]
    assert r['accompaniment_canonical_sha256']==before['accompaniment_canonical_sha256'],('accompaniment',name)
 
-   if genre==0:assert r['all_events_sha256']==before['all_events_sha256'],('Score MIDI',name)
-   else:
+   r['melodic_or_reservation_delta']=r['all_events_sha256']!=before['all_events_sha256']
+   if genre==1:
     completed=before['roles'][1]['material_complete_ms']
     if completed>=0:
      limit=round(completed*48)+512

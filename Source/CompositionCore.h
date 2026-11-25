@@ -5,6 +5,7 @@
 #include <array>
 #include <cstdint>
 #include <limits>
+#include <optional>
 
 namespace stromscore::composition
 {
@@ -131,12 +132,13 @@ inline MotifFigure deriveMotif(const RememberedMotif& source,MotifVariation vari
     }
     return figure;
 }
-// Bounded harmonic realization of an immutable figure. Onsets and its strongest
-// interval remain exact; other intervals retain direction and move at most two
-// semitones. Duration clipping may remove at most half of a source gate.
+// Bounded realization of immutable material. Onsets stay exact; fresh placements
+// keep the strongest interval. Steps retain direction and move at most two semitones.
+// A fixed, already heard prefix permits one semitone of anchor adaptation.
+// Duration clipping may remove at most half of a source gate.
 struct MotifRealization { MotifFigure figure;int base=-1,cost=10000; };
 inline MotifRealization realizeScoreMotif(const MotifFigure& source,const unsigned* masks,
-    const Tick* limits,Range range,Tick minimum,Tick maximum,int preferred)
+    const Tick* limits,Range range,Tick minimum,Tick maximum,int preferred,const int* fixedPitches=nullptr)
 {
     MotifRealization result;
     if(source.count<2||source.count>10||!masks||!limits||minimum<Tick{1}||maximum<minimum)return result;
@@ -161,14 +163,15 @@ inline MotifRealization realizeScoreMotif(const MotifFigure& source,const unsign
         {
             costs[i][d]=inf;previous[i][d]=-1;
             const int pitch=base+source.notes[i].interval+d-2;
-            if(pitch<0||pitch>127||pitch<range.low||pitch>range.high||!(masks[i]&(1u<<(pitch%12))))continue;
+            if(pitch<0||pitch>127||pitch<range.low||pitch>range.high||!(masks[i]&(1u<<(pitch%12)))
+                ||(fixedPitches&&fixedPitches[i]>=0&&pitch!=fixedPitches[i]))continue;
             if(i==0){costs[i][d]=6*std::abs(d-2);continue;}
             const int original=source.notes[i].interval-source.notes[i-1].interval;
             for(int last=0;last<5;++last)
             {
                 const int step=original+d-last;
                 if((original==0&&step!=0)||(original>0&&step<=0)||(original<0&&step>=0)
-                    ||std::abs(step-original)>2||(i==anchor&&step!=original))continue;
+                    ||std::abs(step-original)>2||(i==anchor&&std::abs(step-original)>(fixedPitches?1:0)))continue;
                 const int cost=costs[i-1][last]+6*std::abs(d-2)+std::abs(step-original);
                 if(cost<costs[i][d]){costs[i][d]=cost;previous[i][d]=last;}
             }
@@ -316,6 +319,39 @@ struct MotifOccurrence
     int64_t ordinal=0;int base=0;
     MotifFigure figure;
 };
+// Per-use evidence of actually emitted recalls; never stored in the shared material.
+struct MotifRepriseProgress
+{
+    uint64_t identity=0;
+    Tick begin{INT64_MIN},end{};
+    std::optional<Tick> establishedAt;
+    unsigned played=0;int64_t completed=0;
+    void observe(const MotifOccurrence& occurrence,int index,int originalCount)
+    {
+        const auto& figure=occurrence.figure;
+        if(!occurrence.active||occurrence.introduction||index<0||index>=figure.count)return;
+        if(identity!=figure.sourceIdentity){*this={};identity=figure.sourceIdentity;}
+        if(begin!=occurrence.begin){begin=occurrence.begin;end=occurrence.end;played=0;}
+        const auto bit=1u<<index;if(played&bit)return;played|=bit;
+        if(played!=(1u<<figure.count)-1)return;
+        ++completed;
+        if(!establishedAt&&figure.variation==MotifVariation::original&&figure.count==originalCount&&figure.passingIndex<0)
+            establishedAt=occurrence.end;
+    }
+};
+// Fit the whole dimensionless contour, instead of independently clipping each step.
+inline int fittedMotifDegree(const int* degrees,int count,int index,int ladderSize)
+{
+    if(!degrees||count<1||index<0||index>=count||ladderSize<2)return 0;
+    int low=degrees[0],high=low;for(int i=1;i<count;++i){low=std::min(low,degrees[i]);high=std::max(high,degrees[i]);}
+    if(high-low<ladderSize)
+    {
+        const int shift=std::clamp(0,-low,ladderSize-1-high);
+        return degrees[index]+shift;
+    }
+    // A narrow instrument may need a compressed contour, preserving its extrema/order.
+    return static_cast<int>(std::lround(double(degrees[index]-low)*(ladderSize-1)/(high-low)));
+}
 struct MotifPlacement { Tick begin{};int base=0,cost=0; };
 inline MotifOccurrence planRecurrence(const MotifRecurrencePolicy& policy,const RecurrenceSlot& slot,
     Tick begin,Tick end,Tick span,Tick bar,

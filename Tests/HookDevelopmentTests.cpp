@@ -5,7 +5,10 @@
 using namespace stromscore;
 int main()
 {
- Settings s;s.genre=GenrePopRock;const auto& w=kPopWendungen[33];s.x=w.x;s.y=w.y;s.z=w.z;s.variety=0;s.key=0;s.solo[kGegenstimme]=true;
+ Settings s;s.motif=true;s.genre=GenrePopRock;const auto& w=kPopWendungen[33];s.x=w.x;s.y=w.y;s.z=w.z;s.variety=0;s.key=0;s.solo[kGegenstimme]=true;
+ // Controlled harmony makes both original and sequence musically eligible;
+ // a mixed catalog template need not admit a complete original before sequencing.
+ s.custom=true;s.customChords[0]={0,Maj7,8};s.policy.popHooks.phrasedCustom=true;
  Generator g;EventList es;Transport t;t.playing=true;std::array<composition::MotifOccurrence,2> examples {};uint64_t identity=0;
  for(int tick=0;tick<128*16;++tick)
  {

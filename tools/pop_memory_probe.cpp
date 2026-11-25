@@ -1,10 +1,11 @@
 #include "ScoreEngine.h"
+#include "../Tests/MotifExperiment.h"
 #include <cstdlib>
 #include <iostream>
 using namespace stromscore;
 int main(int argc,char** argv)
 {
- if(argc!=5)return 2;Settings s;s.genre=std::atoi(argv[1]);const auto& w=wendungAt(s.genre,std::atoi(argv[2]));
+ if(argc!=5)return 2;Settings s;pinMotifExperiment(s);s.genre=std::atoi(argv[1]);const auto& w=wendungAt(s.genre,std::atoi(argv[2]));
  s.x=w.x;s.y=w.y;s.z=w.z;s.variety=0;s.profile=static_cast<composition::ProfileId>(std::atoi(argv[3]));s.motif=true;s.melody=true;s.melodyMotif=true;s.swing=.3f;
 
 #ifdef POP_HOOK_REGRESSION

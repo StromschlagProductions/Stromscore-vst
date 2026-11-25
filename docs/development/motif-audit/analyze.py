@@ -49,6 +49,22 @@ def read_case(prefix, cfg):
             if v['answer_ref']>=0:
                 k=(v['answer_ref'],v['answer_intro'],v['answer_origin'])
                 if k not in answers:answers[k]=dict(tick=round(f['sample']/30),identity=v['answer_id'],origin=v['answer_origin'],intro=v['answer_intro'])
+        # A harmony change can revise a cached placement. Select the plan actually
+        # associated with emitted notes, rather than the first speculative cache.
+        latest={};performed={}
+        def version(f,v):
+            return dict(plan=v['plan'],seen_at=round(f['observed_end']/30),w=f['w'],energy=f['y'],unrest=f['z'],material=v['material'])
+        for f in frames:
+            v=next(v for v in f['roles'] if v['out']==out);p=v['plan']
+            if p['epoch']>=0 and not p['intro']:
+                latest[(p['identity'],p['origin'],p['epoch'])]=version(f,v)
+        for n in actual:
+            if not (cfg['motifs']&(2 if out==8 else 1)):continue
+            f=context(n['sample']);v=next(v for v in f['roles'] if v['out']==out);p=v['plan']
+            if p['epoch']<0 or not p['active'] or p['intro'] or (cfg['genre']==1 and out==7 and not f['phrased']):continue
+            if any(abs(n['tick']-p['begin']-note[0])<=1 and n['pitch']==p['base']+note[2] for note in p['notes']):
+                performed[(p['identity'],p['origin'],p['epoch'])]=version(f,v)
+        for key in list(plans):plans[key]=performed.get(key,latest.get(key,plans[key]))
         recalls=[];failed=[];ineligible=0
         for data in plans.values():
             p=data['plan'];m=data['material'];epoch=p['epoch']

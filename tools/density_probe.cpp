@@ -1,5 +1,6 @@
 // Complete MIDI/CC events plus bar-end harmonic/material diagnostics, at a fixed 48 kHz/120 BPM.
 #include "ScoreEngine.h"
+#include "../Tests/MotifExperiment.h"
 #include <cstdlib>
 #include <iostream>
 using namespace stromscore;
@@ -7,7 +8,7 @@ int main(int argc,char** argv)
 {
     if(argc!=4)return 2;
     const int scenario=std::atoi(argv[1]),profile=std::atoi(argv[2]),block=std::atoi(argv[3]);
-    Settings s;s.profile=static_cast<composition::ProfileId>(profile);s.key=0;s.x=.3f;s.y=.9f;s.z=.4f;
+    Settings s;pinMotifExperiment(s);s.profile=static_cast<composition::ProfileId>(profile);s.key=0;s.x=.3f;s.y=.9f;s.z=.4f;
     s.seed=3;s.motif=true;s.dynamics=true;s.custom=true;
     s.customChords[0]={0,MinMaj9,4};s.customChords[1]={5,MinMaj7,2};s.customChords[2]={0,MinMaj9,2};
     s.hardness=.5f;if(scenario==17||scenario==18)s.custom=false;

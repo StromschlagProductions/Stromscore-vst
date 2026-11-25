@@ -31,6 +31,8 @@ struct MotifRecurrencePolicy
     static constexpr int windowBars=8;
     int minimumSilentBars=2;
     bool adaptChordTones=false;
+    bool establishOriginal=true; // One early whole reprise before stronger transformations.
+    bool preserveContour=true;
     float sparseBelow=.4f,unrestEngages=.5f;
     std::array<MotifVariation,8> variations {{MotifVariation::original,MotifVariation::rhythm,
         MotifVariation::original,MotifVariation::fragment,MotifVariation::original,MotifVariation::sequence,

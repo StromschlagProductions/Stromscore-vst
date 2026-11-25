@@ -34,7 +34,7 @@ namespace stromscore { struct ExecutionTestAccess {
   if(revised.active){CHECK(revised.begin==preview.begin);CHECK(g.remainingMotifFits(revised,revised.begin,s,OutMelody));}
   // An already played prefix must not be replanned/retriggered in the same horizon.
   auto& cached=g.voice(OutMelody).recurrence;cached.plan=plan;cached.started=true;
-  g.custom.ch[0].root=1;g.wendungTime=at+quarter/2;
+  g.custom.ch[0].root=6;g.custom.ch[0].type=Maj;g.wendungTime=at+quarter/2;
   auto cancelled=g.motifOccurrence(at+quarter/2,g.locate(at+quarter/2),s,OutMelody);
   CHECK(!cancelled.active);
   CHECK(!g.motifOccurrence(at+quarter,g.locate(at+quarter),s,OutMelody).active);
