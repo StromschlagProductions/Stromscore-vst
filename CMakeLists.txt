@@ -28,7 +28,14 @@ execute_process(COMMAND ${Python3_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/script
 if(NOT HARMONY_DATA_RESULT EQUAL 0)
     message(FATAL_ERROR "Harmony catalog validation failed: ${HARMONY_DATA_ERROR}")
 endif()
+execute_process(COMMAND ${Python3_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/scripts/build_barry_vocabulary.py --check
+    RESULT_VARIABLE BARRY_DATA_RESULT)
+if(NOT BARRY_DATA_RESULT EQUAL 0)
+    message(FATAL_ERROR "Barry research data/header drift")
+endif()
+set_property(DIRECTORY APPEND PROPERTY CMAKE_CONFIGURE_DEPENDS scripts/build_barry_vocabulary.py data/barry/vocabulary.json)
 add_custom_target(ValidateHarmonyData ALL
+    COMMAND ${Python3_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/scripts/build_barry_vocabulary.py --check
     COMMAND ${Python3_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/scripts/generate_harmony_catalog.py --check
     COMMENT "Checking validated static harmony data")
 if(BUILD_TESTING)
@@ -191,6 +198,10 @@ if(BUILD_TESTING)
     add_executable(BarryTests Tests/BarryTests.cpp)
     target_include_directories(BarryTests PRIVATE Source)
     add_test(NAME Barry COMMAND BarryTests)
+    add_executable(BarryVocabularyTests Tests/BarryVocabularyTests.cpp)
+    target_include_directories(BarryVocabularyTests PRIVATE Source)
+    add_test(NAME BarryVocabulary COMMAND BarryVocabularyTests)
+    add_test(NAME BarryVocabularyData COMMAND ${Python3_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/scripts/build_barry_vocabulary.py --check)
     add_executable(HarmonicProfileTests Tests/HarmonicProfileTests.cpp)
     target_include_directories(HarmonicProfileTests PRIVATE Source)
     if(MSVC)

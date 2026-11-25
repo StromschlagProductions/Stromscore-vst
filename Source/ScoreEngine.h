@@ -11,7 +11,9 @@
 #include <cmath>
 #include <cstdint>
 #include <optional>
+#include <numeric>
 #include "CompositionCore.h"
+#include "BarryVocabulary.h"
 #include "MusicalExecution.h"
 #include "BassPhrase.h"
 #include "WendungId.h"
@@ -283,7 +285,7 @@ struct Meter
 class Generator
 {
 public:
-    void reset() { previousSettings.reset();preparedTime.reset();dispatchIdentity=0;nowTime={};currentPerformanceQuarter=0;currentTiming=execution::Timing::nominal;bassPhrase={};bassPairStart.reset();harmonicChase=false; clearHarmonicEntries(); motifCatalog.clear(); voices={}; style = -1; restartAt.reset(); lastGenre = -1; resetCc(); resetVoicing(); numActive = 0; running = false; lastPpqEnd = 0.0; phraseIndex = -1; current = -1; wendungTime = musicaltime::fromGridStep(0); still = false; chordBase = 0; drivePrev = driveSeen = driveLatched = driveArrivedNow = false; driveTrajectory = false; driveProgressNow = 0; driveGenerationSeen = 0; curRoot = 0; curType = Min; curChord = -1;
+    void reset() { previousSettings.reset();preparedTime.reset();dispatchIdentity=0;nowTime={};currentPerformanceQuarter=0;currentTiming=execution::Timing::nominal;bassPhrase={};bassPairStart.reset();harmonicChase=false; clearHarmonicEntries(); motifCatalog.clear(); voices={};authoredRhythmCache={}; style = -1; restartAt.reset(); lastGenre = -1; resetCc(); resetVoicing(); numActive = 0; running = false; lastPpqEnd = 0.0; phraseIndex = -1; current = -1; wendungTime = musicaltime::fromGridStep(0); still = false; chordBase = 0; drivePrev = driveSeen = driveLatched = driveArrivedNow = false; driveTrajectory = false; driveProgressNow = 0; driveGenerationSeen = 0; curRoot = 0; curType = Min; curChord = -1;
                    sceneTime=musicaltime::fromGridStep(0); manualEndTime.reset(); manualFinished = manualHitSent = false; endWasRequested = false; sceneSeed = 0; autoSeed = -1; sceneBarNow = -1; sceneEnded = false; for (int l = 0; l < kNumLayers; ++l) { on[l] = prevOn[l] = hOn[l] = false; } }
 
     uint32_t unavailablePadPitchClasses() const { return unavailablePad; }
@@ -529,7 +531,7 @@ public:
         s.genre = std::clamp (s.genre, 0, kNumGenres - 1);
         if (s.custom != wasCustom || bars != phraseBars || s.genre != lastGenre || s.profile != lastProfile)   // Umschalten, neue Laenge oder anderes Genre: neue Phrase
         {
-            if(s.genre!=lastGenre||s.profile!=lastProfile){if(s.profile!=lastProfile){allNotesOff(out,0);current=-1;voices={};bassPhrase={};bassPairStart.reset();clearHarmonicEntries();resetVoicing();}motifCatalog.clear();for(auto& state:voices){state.motif.clear();state.answer.clear();state.capture.clear();state.recurrence={};state.reservationRecurrence={};state.popTurnValid=false;}}
+            if(s.genre!=lastGenre||s.profile!=lastProfile){authoredRhythmCache={};if(s.profile!=lastProfile){allNotesOff(out,0);current=-1;voices={};authoredRhythmCache={};bassPhrase={};bassPairStart.reset();clearHarmonicEntries();resetVoicing();}motifCatalog.clear();for(auto& state:voices){state.motif.clear();state.answer.clear();state.capture.clear();state.recurrence={};state.reservationRecurrence={};state.popTurnValid=false;}}
             preparedTime.reset();
             phraseIndex = -1; wasCustom = s.custom; phraseBars = bars; style = -1;
             genre = s.genre; lastGenre = s.genre;lastProfile=s.profile;
@@ -566,7 +568,7 @@ public:
             const auto destination=execution::floorTime(t.ppq);
             const auto barDuration=musicaltime::sixteenth*meter.len;
             if (! running) { manualEndTime.reset(); manualFinished = manualHitSent = false; endWasRequested = false; }
-            if (! running || destination<sceneTime) { bassPhrase={};bassPairStart.reset();clearHarmonicEntries(); motifCatalog.clear(); voices={}; sceneTime=barDuration*floorDiv(destination.value,barDuration.value); driveLatched = false; drivePrev = false; driveSeen = false; }
+            if (! running || destination<sceneTime) { bassPhrase={};bassPairStart.reset();clearHarmonicEntries(); motifCatalog.clear(); voices={};authoredRhythmCache={}; sceneTime=barDuration*floorDiv(destination.value,barDuration.value); driveLatched = false; drivePrev = false; driveSeen = false; }
             running = true;
             phraseIndex = -1;
             for(auto& state:voices){state.note=-1;state.pendingAt.reset();} resetCc();
@@ -708,7 +710,7 @@ private:
         for(size_t i=0;i<a.route.points.size();++i)if(a.route.points[i].x!=b.route.points[i].x||a.route.points[i].y!=b.route.points[i].y)return false;
         for(size_t i=0;i<a.route.bends.size();++i)if(a.route.bends[i].x!=b.route.bends[i].x||a.route.bends[i].y!=b.route.bends[i].y)return false;
         const auto& x=a.policy;const auto& y=b.policy;
-        if(x.accompaniment.fieldAndOstinato!=y.accompaniment.fieldAndOstinato||x.accompaniment.fastestArp!=y.accompaniment.fastestArp
+        if(x.accompaniment.authoredCells!=y.accompaniment.authoredCells||x.accompaniment.fieldAndOstinato!=y.accompaniment.fieldAndOstinato||x.accompaniment.fastestArp!=y.accompaniment.fastestArp
             ||x.popRoles.sparseBelow!=y.popRoles.sparseBelow||x.popRoles.drivenFrom!=y.popRoles.drivenFrom||x.popRoles.unrestFrom!=y.popRoles.unrestFrom
             ||x.texture.activityStart!=y.texture.activityStart
             ||x.texture.accentUnrest!=y.texture.accentUnrest
@@ -1160,7 +1162,7 @@ private:
         if(output==OutMelody&&on[kGegenstimme]&&s.motif&&!voice(OutCounter).motif.material(motifCatalog).complete)
         {
             const auto p=locate(nowTime);const auto c=outputCatalog(s)[OutCounter].track.instrument;int playable=0;
-            for(int i=0;i<5;++i){const auto n=planMotifNote(i,p,s,OutCounter,nullptr,false);const int pitch=n.pitch+12*octaveOf(OutCounter);
+            for(int i=0;i<initialMotifSlots(s);++i){const auto n=planMotifNote(i,p,s,OutCounter,nullptr,false);const int pitch=n.pitch+12*octaveOf(OutCounter);
                 playable+=n.valid&&pitch>=c.range.low&&pitch<=c.range.high&&n.length>=c.minDuration&&n.length<=c.maxDuration;}
             if(playable>=2)return false;
         }
@@ -1296,6 +1298,71 @@ private:
         return cached.plan;
     }
 
+    struct AuthoredMotif {const composition::barry::MotifSource* source=nullptr;int base=-1;};
+    AuthoredMotif authoredMotif(const Pos& p,const Settings& s,int output)const
+    {
+        if(!authoredCells(s))return {};
+        const auto& recorded=voice(output).motif.material(motifCatalog);
+        const auto track=outputCatalog(s)[output].track;composition::RoleNeed need;need.range=track.instrument.range;
+        if(!composition::suitable(track,need))return {};
+        AuthoredMotif result;float best=1e9f;
+        for(const auto& source:composition::barry::motifs)
+        {
+            if(source.num!=s.meterNum||source.den!=s.meterDen||(recorded.vocabularyId&&recorded.vocabularyId!=static_cast<uint32_t>(source.id)))continue;
+            const auto span=musicaltime::sixteenth*source.steps;
+            if(p.phraseStartTime+span>p.phraseEndTime||p.phraseStartTime+span>motifAvailableUntil(s,kOutputLayer[output]))continue;
+            unsigned masks[8]{};bool valid=true;
+            for(int i=0;i<source.count;++i)
+            {
+                const auto length=musicaltime::sixteenth*source.lengths[i];
+                if(length<track.instrument.minDuration||length>track.instrument.maxDuration){valid=false;break;}
+                auto at=p.phraseStartTime+musicaltime::sixteenth*source.at[i];const auto end=at+length;masks[i]=0xfffu;
+                for(int part=0;at<end&&part<8;++part)
+                {
+                    const auto position=locate(at);const auto h=chordFor(position,kOutputLayer[output],s);unsigned chord=0;
+                    for(int j=0;j<kShapes[h.type].n;++j)chord|=composition::pitchBit(s.key+h.root+kShapes[h.type].iv[j]);
+                    // Unpredictable automation cannot rewrite an already heard prefix.
+                    if(!recorded.vocabularyId||at>=p.time)masks[i]&=chord;
+                    if(position.chordEndTime<=at){valid=false;break;}at=std::min(end,position.chordEndTime);
+                }
+                if(at<end||!masks[i])valid=false;
+            }
+            if(!valid)continue;
+            const int preferred=s.key+source.pitches[0]+(output==OutMelody?12:0)+12*octaveOf(output);
+            int chosen=-1,cost=10000;
+            for(int base=0;base<128;++base)
+            {
+                if(recorded.vocabularyId)
+                {
+                    // A late activation can first hear the middle of a cell. Its
+                    // recorded origin is that actual note, not the template's first pitch.
+                    int first=-1;for(int j=0;j<source.count;++j)
+                        if(recorded.notes[0].at==musicaltime::sixteenth*source.at[j])first=j;
+                    if(first<0||base!=recorded.origin-source.pitches[first]+source.pitches[0])continue;
+                }
+                bool fits=true;
+                for(int i=0;i<source.count;++i)
+                {
+                    const int pitch=base+source.pitches[i]-source.pitches[0];
+                    if(pitch<track.instrument.range.low||pitch>track.instrument.range.high||pitch<0||pitch>127||!(masks[i]&composition::pitchBit(pitch))){fits=false;break;}
+                }
+                if(fits&&std::abs(base-preferred)<cost){cost=std::abs(base-preferred);chosen=base;}
+            }
+            if(chosen<0)continue;
+            const float score=composition::barry::distance(s.x,s.y,s.z,source.x,source.y,source.z)+.0001f*cost;
+            if(score<best){best=score;result={&source,chosen};}
+        }
+        return result;
+    }
+    int initialMotifSlots(const Settings& s)const {return authoredCells(s)?8:5;}
+    musicaltime::Tick initialMotifAt(int i,const Pos& p,const Settings& s,int output)const
+    {
+        const auto authored=authoredMotif(p,s,output);
+        if(authored.source)return i<authored.source->count?musicaltime::sixteenth*authored.source->at[i]:p.phraseEndTime-p.phraseStartTime;
+        const auto legacy=motifFor(s,p.phrase);
+        return i<legacy.n?motifTemplatePosition(legacy.on[i]):p.phraseEndTime-p.phraseStartTime;
+    }
+
     // Template positions are dimensionless sixteenths OF A BAR, not fixed sixteenth notes.
     // Keep their existing floor-to-performance-grid realisation (including odd meters).
     // Stored material and derived variants never pass through this template conversion.
@@ -1308,6 +1375,20 @@ private:
         const composition::RememberedMotif* memory,bool varied,const composition::MotifOccurrence* occurrence=nullptr)const
     {
         PlannedMotifNote n;
+        if(!memory&&authoredCells(s))
+        {
+            const auto plan=authoredMotif(p,s,output);
+            if(plan.source)
+            {
+                if(i>=plan.source->count)return n;
+                n.at=musicaltime::sixteenth*plan.source->at[i];n.length=musicaltime::sixteenth*plan.source->lengths[i];
+                n.pitch=plan.base+plan.source->pitches[i]-plan.source->pitches[0]-12*octaveOf(output);
+                n.velocity=static_cast<int>(56+35*layerY(s,kOutputLayer[output]))+(i==0?6:0);
+                const bool legato=output==OutMelody?s.melodyLegato:s.legato;
+                n.length=composition::articulatedLength(n.length,n.length,legato);n.valid=true;return n;
+            }
+            if(voice(output).motif.material(motifCatalog).vocabularyId)return n; // Never splice a new cell into a begun gesture.
+        }
         const auto span=memory?p.phraseEndTime-p.phraseStartTime:std::min(musicaltime::fromGridStep(2LL*meter.len),p.phraseEndTime-p.phraseStartTime);
         const auto yc=layerY(s,kOutputLayer[output]);
         const Motif mo=motifFor(s,p.phrase);
@@ -1319,18 +1400,25 @@ private:
         if(i>=count)return n;
         n.at=figure?figure->notes[static_cast<size_t>(i)].at:memory?memory->notes[static_cast<size_t>(i)].at:motifTemplatePosition(mo.on[i]);
         if(n.at<musicaltime::Tick{}||n.at>=span)return n;
-        int ladder[16] {};const bool exact=memory&&occurrence&&!occurrence->introduction;
+        const bool authoredReplay=memory&&occurrence&&occurrence->introduction&&authoredCells(s)&&memory->vocabularyId;
+        int ladder[16] {};const bool exact=memory&&occurrence&&(!occurrence->introduction||authoredReplay);
         const int nl=exact?1:counterLadder(chordFor(p,kOutputLayer[output],s),s,ladder,output);
         if(!nl)return n;
         if(memory)
         {
             const auto& recorded=figure?figure->notes[static_cast<size_t>(i)]:memory->notes[static_cast<size_t>(i)];
             const int base=composition::adaptMotifPitch(memory->origin-12*octaveOf(output),ladder,nl);
-            n.pitch=occurrence&&!occurrence->introduction?occurrence->base+recorded.interval-12*octaveOf(output)
+            if(authoredReplay)
+            {
+                auto context=locate(p.time);context.phraseStartTime=p.phraseStartTime;
+                if(!authoredMotif(context,s,output).source)return n;
+                n.pitch=memory->origin+recorded.interval-12*octaveOf(output);
+            }
+            else n.pitch=occurrence&&!occurrence->introduction?occurrence->base+recorded.interval-12*octaveOf(output)
                 :composition::adaptMotifPitch(base+recorded.interval,ladder,nl);
             n.velocity=recorded.velocity;
             n.length=std::min(figure?recorded.length:memory->recalledLength(i,varied,span),span-n.at);
-            if(output==OutMelody)n.length=composition::articulatedLength(n.length,
+            if(output==OutMelody&&(!memory->vocabularyId||memory->legatoAtCapture!=s.melodyLegato))n.length=composition::articulatedLength(n.length,
                 std::min(exact?span-n.at:p.chordEndTime-(p.phraseStartTime+n.at),i+1<count?(figure?figure->notes[static_cast<size_t>(i+1)].at:memory->notes[static_cast<size_t>(i+1)].at)-n.at:span-n.at),s.melodyLegato);
         }
         else
@@ -1365,9 +1453,9 @@ private:
         if(memory.count&&p.phrase-phraseOf(sceneTime)!=voice(output).motif.introduction)memory.finish();
         const bool complete=memory.complete;const auto mo=motifFor(s,p.phrase);
         int count=0,future=0;auto begin=occurrence.end,end=occurrence.begin;
-        for(int i=0;i<(occurrence.figure.count?occurrence.figure.count:complete?memory.count:mo.n);++i)
+        for(int i=0;i<(occurrence.figure.count?occurrence.figure.count:complete?memory.count:authoredCells(s)?8:mo.n);++i)
         {
-            const auto at=occurrence.figure.count?occurrence.figure.notes[static_cast<size_t>(i)].at:complete?memory.notes[static_cast<size_t>(i)].at:motifTemplatePosition(mo.on[i]);
+            const auto at=occurrence.figure.count?occurrence.figure.notes[static_cast<size_t>(i)].at:complete?memory.notes[static_cast<size_t>(i)].at:initialMotifAt(i,p,s,output);
             auto local=locate(occurrence.begin+at);local.phraseStartTime = occurrence.begin;local.phraseEndTime = occurrence.end;
             const auto note=planMotifNote(i,local,s,output,complete?&memory:nullptr,occurrence.varied,&occurrence);
             if(!note.valid)continue;
@@ -1559,7 +1647,7 @@ private:
         }
         const auto occurrence=motifOccurrence(time,p,s,output);
         auto local=p;if(complete){local.phraseStartTime = occurrence.begin;local.phraseEndTime = occurrence.end;}
-        for(int i=0;i<(occurrence.figure.count?occurrence.figure.count:5);++i)
+        for(int i=0;i<(occurrence.figure.count?occurrence.figure.count:authoredCells(s)?(complete?memory.count:8):5);++i)
         {
             const auto note=planMotifNote(i,local,s,output,complete?&memory:nullptr,occurrence.varied,&occurrence);
             if(!note.valid||note.at!=time-local.phraseStartTime)continue;
@@ -1570,7 +1658,11 @@ private:
             {
                 const auto& emitted=out.events[static_cast<size_t>(e)];
                 if(emitted.out==output&&emitted.type==0&&emitted.velocity>0)
+                {
+                    const auto authored=authoredMotif(local,s,output);
                     use.observe(emitted.note,note.at,note.length,section,note.velocity,p.phraseStartTime);
+                    if(authored.source){use.draft.vocabularyId=authored.source->id;use.draft.legatoAtCapture=output==OutMelody?s.melodyLegato:s.legato;use.draft.cycleLength=musicaltime::sixteenth*authored.source->steps;}
+                }
             }
             if(output==OutCounter)releaseOthers(output,note.pitch,offset,out);
             state.note=note.pitch;state.pendingAt.reset();
@@ -1780,8 +1872,49 @@ private:
         bassPhrase=composition::planBassPhrase(r);
     }
 
+    bool authoredCells(const Settings& s)const
+    {return s.genre==GenreScore&&s.policy.accompaniment.authoredCells;}
+    const composition::barry::RhythmSource* authoredRhythm(const Settings& s)const
+    {
+        if(!authoredCells(s))return nullptr;
+        for(int o=0;o<kNumOutputs;++o)
+            if((o!=OutArp&&s.channel[o]==s.channel[OutArp])||(o!=OutBassLong&&s.channel[o]==s.channel[OutBassLong])
+                ||(o!=OutBassShort&&s.channel[o]==s.channel[OutBassShort]))return nullptr;
+        const auto& w=W();int stableBars=8;
+        if(!still)for(int i=0;i<w.n;++i)stableBars=std::gcd(stableBars,w.ch[i].bars);
+        if(!still&&wendungTime%(musicaltime::sixteenth*meter.len)!=musicaltime::Tick{})stableBars=0;
+        auto& c=authoredRhythmCache;
+        if(c.entry!=wendungTime||c.scene!=sceneTime||c.harmony!=w.id||c.num!=s.meterNum||c.den!=s.meterDen||c.stableBars!=stableBars)
+        {
+            c.entry=wendungTime;c.scene=sceneTime;c.harmony=w.id;c.num=s.meterNum;c.den=s.meterDen;c.stableBars=stableBars;
+            c.source=composition::barry::chooseRhythm(s.x,s.y,s.z,s.meterNum,s.meterDen,stableBars);
+        }
+        return c.source;
+    }
+    composition::RhythmPlan authoredRhythmBar(const Pos& p,const Settings& s,bool bass)const
+    {
+        if(bass?(s.bassPattern!=BassAuto||bassOverride>=0||bassRest||layerY(s,kBass)<.3f):(s.arpFigure!=ArpAuto||s.arpRate!=RateAuto))return {};
+        const auto* source=authoredRhythm(s);if(!source)return {};
+        auto plan=composition::barry::planBar(*source,bass,p.bar-floorDiv((source->staticHarmony?wendungTime:sceneTime).value,(musicaltime::sixteenth*meter.len).value));
+        // Chase has no authored cell before this scene/current harmonic entry.
+        // Keep ownership of its part, but never invent a negative cell ordinal.
+        if(p.time<std::max(sceneTime,source->staticHarmony?wendungTime:sceneTime)){plan.count=0;return plan;}
+        const auto catalog=outputCatalog(s);
+        for(int i=0;i<plan.count;++i)
+        {
+            auto& n=plan.notes[i];const auto at=musicaltime::sixteenth*(p.bar*meter.len)+n.at;
+            n.length=std::min(n.length,locate(at).chordEndTime-at);
+            const int output=bass?(n.length>4*musicaltime::sixteenth?OutBassLong:OutBassShort):OutArp;
+            const auto& track=catalog[output].track;composition::RoleNeed need;need.role=composition::MusicalRole::accompaniment;
+            need.style=track.style;need.range=track.instrument.range;need.minDuration=need.maxDuration=n.length;
+            if(!composition::suitable(track,need))return {};
+        }
+        return plan;
+    }
+
     composition::RhythmPlan movementRhythm(const Pos& p,const Settings& s)const
     {
+        if(authoredCells(s))return authoredRhythmBar(p,s,false);
         // Explicitly protect manual patterns, thematic contexts, scene density and shared routing.
         if(s.genre!=GenrePopRock||!s.policy.rhythm.enabled||s.bassPattern!=BassAuto||s.arpFigure!=ArpAuto
             ||s.arpRate!=RateAuto||!on[kBass]||!on[kArp]||s.scene||s.sceneBars>0||manualEndTime.has_value()||s.endRequested
@@ -2347,7 +2480,7 @@ private:
             padChord (p, s, OutPadLong, offset, padFollow ? p.chordEndTime : p.phraseEndTime, (int) (40 + 45 * layerY (s, kFlaeche)), out);
 
         const int bp = chooseBass (s, p.phrase);
-        if ((mask & 2u) && ((bp == BassHeld && (s.follow[kBass] || phraseStart || restart)) || bp == BassPedal))
+        if (!authoredRhythmBar(p,s,true).active && (mask & 2u) && ((bp == BassHeld && (s.follow[kBass] || phraseStart || restart)) || bp == BassPedal))
         {
             const bool pedal = bp == BassPedal;
             noteOn (OutBassLong, bassPlacement (p, s, place (s.key + (pedal ? pedalRoot() : bassRoot (chordFor (p, kBass, s))), bassLow (s)), pedal),
@@ -2376,6 +2509,7 @@ private:
         if(on[kFlaeche]&&((pad==PadStabs&&slot%4==2)||((pad==PadPulse||pad==PadStaccato)&&slot%4==0)||(pad==PadGated&&slot%2==0)))return true;
         if(on[kBass])
         {
+            const auto authored=authoredRhythmBar(p,s,true);if(authored.active&&authored.at(p.time-musicaltime::sixteenth*(p.bar*meter.len)))return true;
             const int bass=chooseBass(s,p.phrase);const bool approach=s.follow[kBass]&&(s.z>=.3f||bass==BassFunk)&&p.time==p.chordEndTime-2*musicaltime::sixteenth;
             switch(bass)
             {
@@ -2474,7 +2608,7 @@ private:
                 if(occurrence.active)
                 {
                     consider(occurrence.begin);consider(occurrence.end);
-                    for(int i=0;i<(occurrence.figure.count?occurrence.figure.count:memory.complete?memory.count:5);++i)
+                    for(int i=0;i<(occurrence.figure.count?occurrence.figure.count:memory.complete?memory.count:initialMotifSlots(s));++i)
                     {
                         auto local=p;local.phraseStartTime=occurrence.begin;local.phraseEndTime=occurrence.end;
                         const auto n=planMotifNote(i,local,s,output,memory.complete?&memory:nullptr,occurrence.varied,&occurrence);
@@ -2863,7 +2997,8 @@ private:
                 base += shift;
                 count = fitGroup (OutArp, tones, count);
             }
-            const long long c0 = sourceRel / period + (long long) (hashInt (77u, s.follow[kArp] ? floorDiv(anchor.value,musicaltime::sixteenth.value) : phrase) % 4);
+            const auto* authored=onset?authoredRhythm(s):nullptr;
+            const long long c0 = authored?composition::barry::movementOrdinal(*authored,p.bar-floorDiv((authored->staticHarmony?wendungTime:sceneTime).value,(musicaltime::sixteenth*meter.len).value),p.pos):sourceRel / period + (long long) (hashInt (77u, s.follow[kArp] ? floorDiv(anchor.value,musicaltime::sixteenth.value) : phrase) % 4);
             int note = base;
             switch (fig)
             {
@@ -2920,7 +3055,7 @@ private:
             }
             if (z >= 0.6f && c0 % 8 == 7) note -= 1;                    // Unruhe: chromatischer Durchgang
             if(protectedColoration()&&!authoredPitch(c,note,s))note=tones[c0%count];
-            const int vel = (int) ((fig == ArpGlitter ? 40 : 52) + 35 * yArp) + (group ? 6 : 0) + jitter (sourceStep, kArp, 6);
+            const int vel = (int) ((fig == ArpGlitter ? 40 : 52) + 35 * yArp) + (authored ? onset->accent : group ? 6 : 0) + jitter (sourceStep, kArp, 6);
             const auto len = onset?onset->length:period;
             noteOn (OutArp, note, vel, time + len, offset, out);
         }
@@ -3000,11 +3135,20 @@ private:
                 const int target = nextBassPlacement (p, s);
                 root = target - 1; // preserve the chromatic approach pitch class; sounding() applies the user range
             }
+            const auto authored=authoredRhythmBar(p,s,true);
+            if(authored.active&&!bassRest&&(optional||chordStart)&&on[kBass])
+                if(const auto* hit=authored.at(time-musicaltime::sixteenth*(p.bar*meter.len)))
+                {
+                    const auto pitch=bassPlacement(p,s,place(s.key+bassRoot(c),low),false);
+                    const int target=hit->length>4*musicaltime::sixteenth?OutBassLong:OutBassShort;
+                    cut(kBass,time,time,offset,out);
+                    noteOn(target,pitch,static_cast<int>(58+38*yBass)+hit->accent,time+hit->length,offset,out);
+                }
             bool plannedBass=false;
             if(!chasingPatterns&&!bassRest&&(optional||chordStart)&&on[kBass]&&melodicBassAllowed(s)&&bassPhrase.valid)
                 for(int i=0;i<bassPhrase.count;++i)if(bassPhrase.notes[i].at==time)
                 {const auto& n=bassPhrase.notes[i];noteOn(bo,n.pitch-12*s.octave[kBass],vel+n.accent,time+n.length,offset,out);plannedBass=true;}
-            switch ((chasingPatterns&&melodicBassAllowed(s)&&bassPhrase.valid) || plannedBass || (!templateSlot&&!(approach&&(pattern==BassHalf||pattern==BassQuarter||pattern==BassAlternating||pattern==BassFunk))) || bassRest || (!optional && !chordStart) ? -1 : pattern)   // Vorbereiten: in der zweiten Takthaelfte schweigt der Bass
+            switch (authored.active || (chasingPatterns&&melodicBassAllowed(s)&&bassPhrase.valid) || plannedBass || (!templateSlot&&!(approach&&(pattern==BassHalf||pattern==BassQuarter||pattern==BassAlternating||pattern==BassFunk))) || bassRest || (!optional && !chordStart) ? -1 : pattern)   // Vorbereiten: in der zweiten Takthaelfte schweigt der Bass
             {
                 case kPulseTick:   if (beat) noteOn (bo, root, vel - (group ? 0 : 8), time + musicaltime::sixteenth, offset, out); break;   // Ticken in Vierteln
                 case BassHalf:     if (p.pos % 8 == 0 || approach) noteOn (bo, root, vel, time + musicaltime::sixteenth*(approach ? 2 : 7), offset, out); break;
@@ -3458,6 +3602,12 @@ private:
         int note=-1,pending=-1;
         std::optional<musicaltime::Tick> pendingAt;musicaltime::Tick pendingEnd{};
     };
+    struct AuthoredRhythmCache
+    {
+        musicaltime::Tick entry{INT64_MIN},scene{};WendungId harmony=WendungId::invalid;
+        int num=0,den=0,stableBars=-1;const composition::barry::RhythmSource* source=nullptr;
+    };
+    mutable AuthoredRhythmCache authoredRhythmCache;
     std::array<VoiceState,2> voices {};
     int captureRead=0;
     composition::MotifCatalog motifCatalog;

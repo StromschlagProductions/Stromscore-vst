@@ -40,6 +40,8 @@ struct RememberedMotif
     struct Note { Tick at{}, length{motifQuantum}; int interval=0, velocity=64; };
     std::array<Note,8> notes {};
     int count=0, origin=0;
+    uint32_t vocabularyId=0; // Optional authoring provenance; identity still comes from actual emitted material.
+    bool legatoAtCapture=true; // Performance metadata, not part of musical identity.
     Tick cycleLength{};
     bool performedTiming=false; // Captured swing, not a different time unit.
     uint64_t identity=0;

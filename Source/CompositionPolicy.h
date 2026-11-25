@@ -64,7 +64,7 @@ inline bool valid(const BassPhrasePolicy& p){return p.opportunityEvery>=1&&p.opp
 // A small automatic accompaniment strategy; explicit user patterns/rates bypass it.
 struct AutoAccompanimentPolicy
 {
-    bool fieldAndOstinato=false;
+    bool fieldAndOstinato=false,authoredCells=false;
     musicaltime::Tick fastestArp=2*musicaltime::sixteenth;
 };
 inline bool valid(const AutoAccompanimentPolicy& p)
@@ -72,7 +72,7 @@ inline bool valid(const AutoAccompanimentPolicy& p)
 struct FreeCompositionPolicy { AutoAccompanimentPolicy accompaniment; TexturePolicy texture; PopRolePolicy popRoles; MotifRecurrencePolicy motif; HookPolicy popHooks; PassingPolicy passing; BassPhrasePolicy bass; RhythmCoordinationPolicy rhythm; ChordDispositionPolicy chords; };
 inline constexpr FreeCompositionPolicy neutralFreePolicy {};
 inline constexpr auto barryPolicy=[] {
-    auto p=neutralFreePolicy;p.accompaniment.fieldAndOstinato=true;
+    auto p=neutralFreePolicy;p.accompaniment.fieldAndOstinato=true;p.accompaniment.authoredCells=true;
     p.texture.activityStart={{0.f,0.f,.30f,.45f,.25f,.25f}};
     p.texture.accentUnrest=.65f;p.texture.minimumActiveBars=4;
     p.texture.arpeggio.quarterBelow=.4f;

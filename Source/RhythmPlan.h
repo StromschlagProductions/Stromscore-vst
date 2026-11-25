@@ -19,7 +19,7 @@ struct RhythmPlanRequest
 };
 struct RhythmPlan
 {
-    struct Onset { musicaltime::Tick at{},source{},length{}; };
+    struct Onset { musicaltime::Tick at{},source{},length{}; int accent=0; };
     uint16_t reference=0,original=0,coordinated=0;
     std::array<Onset,16> notes {};int count=0;bool active=false;
     const Onset* at(musicaltime::Tick position)const
