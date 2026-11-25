@@ -11,6 +11,7 @@
 #include <cmath>
 #include <cstdint>
 #include <optional>
+#include <cassert>
 #include <numeric>
 #include "CompositionCore.h"
 #include "BarryVocabulary.h"
@@ -590,7 +591,8 @@ public:
         while(musicaltime::toQuarters(nominalCursor)<t.ppq-1e-12)nominalCursor+=musicaltime::Tick{1};
         auto rhythmCursor=std::max(musicaltime::Tick{},execution::nominalAt(t.ppq,execution::Timing::groove,s.swing));
         while(execution::quarters(rhythmCursor,execution::Timing::groove,s.swing)<t.ppq-1e-12)rhythmCursor+=musicaltime::Tick{1};
-        if(current<0)ensurePhrase(phraseOf(nominalCursor),s);
+        if(!hasWendung())ensurePhrase(phraseOf(nominalCursor),s);
+        if(!hasWendung()){allNotesOff(out,0);curChord=-1;cur=nullptr;return;}
         bool inputEvent=configurationChanged;
         for(;;)
         {
@@ -762,7 +764,14 @@ private:
     static long long floorDiv (long long a, long long b) { return a >= 0 ? a / b : -((-a + b - 1) / b); }
 
     composition::ProfileId lastProfile=composition::ProfileId::neutral;
-    const Wendung& W() const { return current == kCustomWendung ? custom : wendungAt (genre, current,lastProfile); }
+    bool hasWendung() const
+    {return current==kCustomWendung||(current>=0&&current<wendungCount(genre,lastProfile));}
+    const Wendung& W() const
+    {
+        // Rendering requires an initialized selection; never clamp an invalid index to template 0.
+        assert(hasWendung());
+        return current==kCustomWendung?custom:wendungTable(genre,lastProfile)[current];
+    }
 
     // ---------------------------------------------------------------- Dramaturgie
     static constexpr int kPulseTick = 100;   // Bass-Muster nur fuer den Puls-Einstieg: kurze Viertel auf dem Orgelpunkt
@@ -1710,9 +1719,11 @@ private:
 
     void ensurePhrase (long long phrase, const Settings& s)
     {
-        if (phrase == phraseIndex) return;
+        const bool initialise=!hasWendung();
+        if (phrase == phraseIndex && ! initialise) return;
         const int previous=current;
-        if (! still) { current = s.custom ? kCustomWendung : pick (s, phrase); chordBase = 0; }
+        // Stillness holds a valid harmony; it must not block selection after a profile change.
+        if (! still || initialise) { current = s.custom ? kCustomWendung : pick (s, phrase); chordBase = 0; }
         rememberHarmonicEntry(musicaltime::sixteenth*(phrase * phraseBars * meter.len),previous,s);
         if (s.custom) style = pick (s, phrase);
         phraseIndex = phrase;

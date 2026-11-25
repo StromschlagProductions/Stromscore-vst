@@ -1,8 +1,28 @@
 # STROMSCORE 2.2 DEV – John Barry: Hörtest in Studio One Pro 8
 
-Musikalischer Stand: `24f3c13` (Barry Phase 2 und 3), Branch
+Musikalische Strategie: `24f3c13` (Barry Phase 2 und 3), ergänzt um die gezielte
+Korrektur der Profilwechsel-/Ruhemodus-Blockade nach `aaec260`. Branch
 `develop/composition-core-prototype`. Der Paket-Commit einschließlich dieser Anleitung
 steht in `BUILD.txt` und im Plugin als `v2.2 DEV <Commit>`. Kein offizielles Release.
+
+## Zuerst: Profilwechsel-Regression prüfen
+
+1. **4/4, D, 100 BPM**, Aufbau AUS, Auto-Spielweisen und „Folgt Akkorden“ EIN.
+   Neutral wählen, Host starten und Intensität auf **0,05** absenken.
+2. Bei laufender Wiedergabe **John Barry** wählen, Intensität noch einen Takt
+   niedrig lassen, dann auf **0,95** erhöhen; Färbung **0,85**, Unruhe **1,00**.
+3. Mindestens **32 Takte** weiterlaufen lassen (bei 100 BPM etwa **1:17 Minuten**).
+   Die Anzeige muss während der Host-Wiedergabe eine gültige Wendung und Akkorde
+   zeigen. Nach dem nächsten regulären Wechselpunkt muss die Harmonie wieder
+   fortschreiten können. Keine sofortige neue Note auf jedem Parameterwechsel
+   erwarten; der Ruhemodus und musikalische Pausen bleiben beabsichtigt.
+4. In umgekehrter Richtung wiederholen; danach mit Profilwechsel bei gestopptem
+   Host, Stop/Neustart, einem Positionssprung und Loop testen. Auch Pop/Rock
+   prüfen. Vorhören zunächst AUS lassen, damit eindeutig der Host-Pfad geprüft wird.
+
+Die Korrektur verändert **keine Barry-Rhythmusvorlagen oder Aktivitätsschwellen**.
+Eine weiterhin zu flächige Begleitstrategie bitte getrennt vom zuvor dauerhaft
+blockierten Wendungszustand beurteilen.
 
 ## Installation und MIDI
 

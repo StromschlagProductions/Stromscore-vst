@@ -2,6 +2,7 @@
 #include "PluginEditor.h"
 #include "TestSupport.h"
 #include <map>
+#include <set>
 #include <memory>
 #include <thread>
 #include <tuple>
@@ -150,9 +151,12 @@ static void testImportedCatalogExport(bool extended=false,int meter=0)
     std::cout<<"Imported catalog real processor live/export: "<<cases<<" cases passed\n";
 }
 
+#include "ProfileSwitchProcessorTests.h"
+
 int main(int argc,char** argv)
 {
     juce::ScopedJuceInitialiser_GUI init;
+    if(argc==2&&std::string(argv[1])=="--profile-switch")return testProfileSwitchProcessor();
     if(argc==2&&std::string(argv[1])=="--protected-catalog")return testProtectedCatalogExport();
     if(argc==2&&std::string(argv[1])=="--extended-chords"){testImportedCatalogExport(true);return 0;}
     testImportedCatalogExport();
