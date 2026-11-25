@@ -400,6 +400,7 @@ public:
     int chordRoot() const { return curRoot; }
     int chordType() const { return curType; }
     int styleWendung() const { return current == kCustomWendung ? style : -1; }   // eigene Folge: Wendung, deren Stil geliehen wird
+    int accompanimentRhythmId() const { return authoredRhythmCache.source?authoredRhythmCache.source->id:0; }
     int genreInUse() const { return genre; }
     int nextRoot() const { return curNextRoot; }
     int nextType() const { return curNextType; }
@@ -1835,6 +1836,8 @@ private:
     int chooseArp (const Settings& s, long long phrase) const
     {
         if (s.arpFigure != ArpAuto) return s.arpFigure;
+        // Barry's three-quarter movement is a circling ostinato, not a new meter.
+        if(fieldAccompaniment(s)&&s.meterNum==3&&s.meterDen==4&&s.z>=.4f)return ArpCircle;
         return SW().arp[hashInt (31u, phrase) % 2];
     }
     int rawBassPattern (const Settings& s, long long phrase) const
@@ -1845,7 +1848,10 @@ private:
         if(fieldAccompaniment(s))
         {
             if(y<.3f)return BassHeld;
-            return SW().bass[hashInt(47u,phrase)%2];
+            // Keep the low register metrically clear; escalation is an eighth-note
+            // pitch pendulum, not another simultaneous sixteenth-note motor.
+            if(y>=.6f&&s.z>=.95f)return BassPendulum;
+            if(y>=.55f&&y<=.8f&&s.z>=.5f)return BassQuarter;
         }
         if (y < 0.15f) return BassHeld;                       // ganz duenn: lange Toene
         if (y > 0.92f) return BassEighth;                     // ganz dicht: Achtel nageln
@@ -1904,7 +1910,7 @@ private:
     }
     composition::RhythmPlan authoredRhythmBar(const Pos& p,const Settings& s,bool bass)const
     {
-        if(bass?(s.bassPattern!=BassAuto||bassOverride>=0||bassRest||layerY(s,kBass)<.3f):(s.arpFigure!=ArpAuto||s.arpRate!=RateAuto))return {};
+        if(bass?(s.bassPattern!=BassAuto||bassOverride>=0||bassRest||still):(s.arpFigure!=ArpAuto||s.arpRate!=RateAuto))return {};
         const auto* source=authoredRhythm(s);if(!source)return {};
         auto plan=composition::barry::planBar(*source,bass,p.bar-floorDiv((source->staticHarmony?wendungTime:sceneTime).value,(musicaltime::sixteenth*meter.len).value));
         // Chase has no authored cell before this scene/current harmonic entry.
@@ -1957,8 +1963,16 @@ private:
     {
         if (padShy) return PadHeld;                   // Einstieg: ein stehender Ton
         if (s.padPattern != PadAuto) return s.padPattern;
-        if(fieldAccompaniment(s))return PadHeld;
         const float y = layerY (s, kFlaeche);
+        if(fieldAccompaniment(s))
+        {
+            if(y>=.6f&&s.z>=.95f)return PadGated;
+            // Notated diminution cells retain their sustained harmonic foundation.
+            if(const auto* cell=authoredRhythm(s);cell&&cell->staticHarmony)return PadHeld;
+            if(y>=.8f)return s.z>=.6f?PadStaccato:PadPulse;
+            if(y>=.55f&&s.z>=.4f)return PadStabs;
+            return PadHeld;
+        }
         return y < 0.3f ? PadHeld : SW().pad;
     }
 
@@ -2091,6 +2105,17 @@ private:
         note = (o == OutStich && cur != nullptr && cur->stichFixed) ? std::clamp (note, 0, 127) : sounding (o, note);
         if (! forceOn) velocity = (int) std::lround ((float) velocity * (cur != nullptr && cur->dynamics && cur->ccExpression > 0 ? 1.0f : (0.6f + 0.4f * gain[layer]))) + boost[layer];
         velocity = std::clamp (velocity, 1, 127);
+        // A newly playable Auto articulation replaces the old long patch of the
+        // same Barry part. Otherwise a held chord/bass can mask the new rhythm
+        // for the rest of an eight-bar field. Manual and other profiles are untouched.
+        if(cur&&fieldAccompaniment(*cur)&&((o==OutPadShort&&cur->padPattern==PadAuto)
+            ||(o==OutBassShort&&cur->bassPattern==BassAuto)))
+        {
+            for(int i=0;i<numActive;)
+                if(kOutputLayer[active[static_cast<size_t>(i)].out]==layer&&active[static_cast<size_t>(i)].out!=o)
+                    removeActive(i,offset,out);
+                else ++i;
+        }
         int own = -1; bool existing = false, sameStep = false;
         for (int i = 0; i < numActive; ++i)
         {
@@ -2503,7 +2528,11 @@ private:
     {
         const int figure=chooseArp(s,phrase);
         if(fieldAccompaniment(s)&&s.arpFigure==ArpAuto&&s.arpRate==RateAuto)
-            return std::max(s.policy.accompaniment.fastestArp,composition::autoArpeggioDuration(s.policy.texture,layerY(s,kArp)));
+        {
+            auto fastest=s.policy.accompaniment.fastestArp;
+            if(layerY(s,kArp)<.65f||s.z<.6f)fastest=std::max(fastest,2*musicaltime::sixteenth);
+            return std::max(fastest,composition::autoArpeggioDuration(s.policy.texture,layerY(s,kArp)));
+        }
         if(figure==ArpGlitter||figure==ArpSid)return musicaltime::sixteenth;
         return s.arpRate==RateQuarter?musicaltime::quarter:s.arpRate==RateEighth?2*musicaltime::sixteenth:
             s.arpRate==RateSixteenth?musicaltime::sixteenth:composition::autoArpeggioDuration(s.policy.texture,layerY(s,kArp));

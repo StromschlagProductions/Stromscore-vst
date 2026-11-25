@@ -73,6 +73,7 @@ struct FreeCompositionPolicy { AutoAccompanimentPolicy accompaniment; TexturePol
 inline constexpr FreeCompositionPolicy neutralFreePolicy {};
 inline constexpr auto barryPolicy=[] {
     auto p=neutralFreePolicy;p.accompaniment.fieldAndOstinato=true;p.accompaniment.authoredCells=true;
+    p.accompaniment.fastestArp=musicaltime::sixteenth;
     p.texture.activityStart={{0.f,0.f,.30f,.45f,.25f,.25f}};
     p.texture.accentUnrest=.65f;p.texture.minimumActiveBars=4;
     p.texture.arpeggio.quarterBelow=.4f;

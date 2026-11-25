@@ -827,7 +827,7 @@ int main(int argc,char** argv)
         CHECK (! c.broken && c.ons == c.offs); q.setPlayHead (nullptr);
     }
     // Voice-leading export equals live DAW playback, including channel CCs and held common notes.
-    for(float intensity : {.4f,.7f,.8f,.9f,1.f,.99f,.97f,.96f,.95f,.94f,.93f,.92f,.91f,.89f,.88f,.87f,.86f,.85f,.84f,.83f,.82f,.81f,.79f,.78f,.77f,.76f,.75f,.74f})
+    for(float intensity : {.4f,.7f,.8f,.9f,1.f,.99f,.97f,.96f,.95f,.94f,.93f,.92f,.91f,.89f,.88f,.87f,.86f,.85f,.84f,.83f,.82f,.81f,.79f,.78f,.77f,.76f,.75f,.74f,.73f,.72f})
     {
         StromscoreProcessor q; FakeHost h; q.setPlayHead (&h); q.prepareToPlay (48000, 512);
         if(intensity==.89f||intensity==.88f||intensity==.87f||intensity==.86f||intensity==.85f||intensity==.84f||intensity==.83f)setParam(q,"genre",1);
@@ -911,13 +911,21 @@ int main(int argc,char** argv)
             setParam(q,"motiv",0);setParam(q,"melodie",0);setParam(q,"mute3",0);setParam(q,"arpFigure",stromscore::ArpAuto);
             if(intensity==.91f){setParam(q,"aufbau",1);setParam(q,"einstieg",stromscore::EntryCounter);setParam(q,"szenenLaenge",16);}
         }
-        const bool barryLead=intensity==.77f||intensity==.76f||intensity==.75f||intensity==.74f;
+        const bool barryAccompaniment=intensity==.73f||intensity==.72f;
+        const bool barryLead=barryAccompaniment||intensity==.77f||intensity==.76f||intensity==.75f||intensity==.74f;
         if(barryLead)
         {
             setParam(q,"komponist",1);setParam(q,"genre",0);setParam(q,"aufbau",0);setParam(q,"melodie",1);setParam(q,"mute6",0);
             setParam(q,"faerbung",intensity==.77f||intensity==.75f?.2f:.8f);setParam(q,"unruhe",.3f);
             setParam(q,"melodieMotiv",intensity==.75f||intensity==.74f?0.f:1.f);setParam(q,"motiv",intensity==.76f||intensity==.74f?0.f:1.f);
             CHECK(q.currentSettings().policy.accompaniment.fieldAndOstinato);
+        }
+        if(barryAccompaniment)
+        {
+            setParam(q,"faerbung",.85f);setParam(q,"intensitaet",.95f);setParam(q,"unruhe",intensity==.73f?.85f:1.f);
+            setParam(q,"eigeneFolge",0);setParam(q,"padPattern",stromscore::PadAuto);setParam(q,"bassPattern",stromscore::BassAuto);
+            setParam(q,"arpFigure",stromscore::ArpAuto);setParam(q,"arpRate",stromscore::RateAuto);
+            for(int i=1;i<=6;++i)setParam(q,("mute"+std::to_string(i)).c_str(),0);
         }
         const bool popLead=intensity==.82f||intensity==.81f||intensity==.79f||intensity==.78f;
         if(popLead)
@@ -951,6 +959,9 @@ int main(int argc,char** argv)
         for (const auto meta : m) add (live, meta.getMessage(), bars*3840);
         std::sort (live.begin(), live.end()); std::sort (exported.begin(), exported.end());
         CHECK (! live.empty() && live == exported);
+        if(barryAccompaniment)
+            for(int output:{stromscore::OutPadShort,stromscore::OutBassShort,stromscore::OutArp})
+                CHECK(std::any_of(live.begin(),live.end(),[&](const Timed& n){return std::get<1>(n)==1&&std::get<2>(n)==q.currentSettings().channel[output];}));
         if(popLead)
         {
             int melody=0,dialog=0,ons=0;long long previous=-1;

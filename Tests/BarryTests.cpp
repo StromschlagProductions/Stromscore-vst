@@ -50,7 +50,7 @@ int main()
  auto s=barry();s.custom=true;s.customChords[0]={0,MinMaj7,8};s.x=.2f;s.y=1;s.z=0;s.solo[kArp]=true;
  auto dark=s;dark.scene=true;CHECK(Generator::autoEntry(dark)==EntryArp);dark.y=.2f;dark.solo[kArp]=false;CHECK(Generator::autoEntry(dark)==EntryPad);
  auto limited=render(s);CHECK(ons(limited,OutArp)>0&&ons(limited,OutArp)<=32*8);
- auto faster=s;faster.policy.accompaniment.fastestArp=musicaltime::sixteenth;CHECK(ons(render(faster),OutArp)>ons(limited,OutArp));
+ auto faster=s;faster.z=1;CHECK(ons(render(faster),OutArp)>ons(limited,OutArp));
  // Explicit user figure/rate overrides the Auto policy. Same harmony, same expression, exact events.
  s.arpFigure=ArpCircle;s.arpRate=RateSixteenth;auto manual=render(s);s.policy=composition::neutralFreePolicy;CHECK(render(s)==manual);
  // Real profile voices, motivational switches, bounded register, Swing and transport.

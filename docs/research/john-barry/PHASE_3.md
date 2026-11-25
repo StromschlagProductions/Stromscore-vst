@@ -1,5 +1,10 @@
 # John Barry – Phase 3: rhythmisches und motivisches Vokabular
 
+**Folgestand nach der Hörabnahme:** Die restriktiven Auto-Begleitregeln dieses
+historischen Phase-3-Stands wurden gezielt überarbeitet. Aktuelles Verhalten,
+Produktionsmessungen und MIDI-A/B-Beispiele stehen in
+[Bandbreite der automatischen Begleitung](ACCOMPANIMENT_BANDWIDTH.md).
+
 Ausgangspunkt `9b572b8`, Branch `develop/composition-core-prototype`, 25. November 2026. Diese Phase ergänzt den gemeinsamen Score-Barry-Pfad. Neutral, Herrmann, Pop/Rock, GUI, Harmoniekatalog und Profilgewichte werden nicht verändert.
 
 ## Hörbar wirksamer Umfang
