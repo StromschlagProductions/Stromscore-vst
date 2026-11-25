@@ -50,6 +50,236 @@
       "id": "WC-H19",
       "text": "Nutzervorgabe „Erster validierter Import neuen harmonischen Vokabulars“, 24.11.2026, WC-H19. Aus der Wang-Chung-Vokabularprüfung; eigenständige Vorlage, keine Transkription oder exklusive Künstlerzuordnung.",
       "verification": "user_specified_template"
+    },
+    {
+      "id": "JB-H01",
+      "text": "docs/research/shared/Musikalisches_Vokabular_Gesamtfassung_2026-11-24.txt · JB-H01 · Ein-Akkord-Ostinato: Moll-Dur7 · Verfahren [N]; konkrete Vorlage [E], keine Transkription.\n- **Zusammenführung (exakte Dublette):** ersetzt BH-H01\n- **Profile:** Barry + Herrmann · **XYZ:** 0,15–0,20 / 0,30–0,40 / 0,30–0,45 → dunkel · ruhig · stabil · **Evidenz:** Verfahren [N] · konkrete Vorlage [E] · **Kategorie:** komponistenspezifische Präferenz\n\n| Nr | Akkord | Takte | ab | Tonklassen (Bass zuerst) | Bass | Stufe |\n|---|---|---|---|---|---|---|\n| 1 | `CmM7` | 8 | T1 | C Eb G B | C | iM7 |\n\n- **Bass (aus den Akkorden abgeleitet):** Akkordbass C · Pedalbass-Vorschlag C · Charakter: fester Basston (Pedal) auf C\n- **Bassempfehlung:** Pedalbass auf C; Akkordbass liefert dieselbe Tonfolge unverändert (nur ein Ton).\n- **Zentrum/Modus:** C-Moll, Dur-Septime als Färbung; kein Zentrumswechsel\n- **Wirkung:** Schwebende Bedrohung, ohne dass die Harmonie etwas „tut“; Spannung entsteht nur aus Rhythmus und Oberstimme.\n\n| Ursprungs-ID | Profil | XYZ | Ausgestaltung (Anweisung) | Wirkung/Besetzung | Referenz |\n|---|---|---|---|---|---|\n| JB-H01 | Barry | 0,20 / 0,30 / 0,30 | Zwei-Takt-Ostinato auf Grundton und Terz/Quinte, Septime h nur als Spitzenton der Figur. Oberstimme bewegt sich über dem unveränderten Klang (Diminution oder Linie, siehe JB-M). | Schwebende Bedrohung, ohne dass die Harmonie etwas „tut“; Spannung entsteht nur aus Rhythmus und Oberstimme.; tiefe Streicher oder Klavier tief + Pizzicato; Melodie später darüber (Oboe, Horn, Soloflöte). | Barry baut viele Bond-Cues auf einem einzelnen Moll-mit-großer-Septime-Klang auf (Bond-Akkord); Ostinati machen etwa die Hälfte der frühen Bond-Scores aus. Die Vorlage ist die Reduktion auf einen Klang, bewusst ohne weitere Akkorde. |\n| BH-H01 | Herrmann | 0,15 / 0,40 / 0,45 | Zwei-Takt-Zelle auf Terz–Septime–Quinte, Grundton im Bass; Zelle wiederholen, Register wechseln. | Ahnung, Angst im Alltag; der Klang „steht“, erst Instrumentation und Register machen ihn bedrohlich oder zärtlich.; Streicher (Bratschen/Celli), zwei Harfen, Klavier tief. | Der Moll-mit-großer-Septime-Akkord („Hitchcock-Chord“) ist als Herrmann-Klang belegt; die statische Verwendung ist die einfachste Vorlage. |",
+      "verification": "research_constructed_N"
+    },
+    {
+      "id": "JB-H02",
+      "text": "docs/research/shared/Musikalisches_Vokabular_Gesamtfassung_2026-11-24.txt · JB-H02 · Ein-Akkord: Moll mit Sexte · Verfahren [N]; konkrete Vorlage [E], keine Transkription.\n- **Profile:** Barry · **XYZ:** 0,25 / 0,30 / 0,25 → dunkel · ruhig · stabil · **Evidenz:** Verfahren [N] · konkrete Vorlage [E] · **Kategorie:** komponistenspezifische Präferenz\n\n| Nr | Akkord | Takte | ab | Tonklassen (Bass zuerst) | Bass | Stufe |\n|---|---|---|---|---|---|---|\n| 1 | `Cm6` | 8 | T1 | C Eb G A | C | i6 |\n\n- **Bass (aus den Akkorden abgeleitet):** Akkordbass C · Pedalbass-Vorschlag C · Charakter: fester Basston (Pedal) auf C\n- **Bassempfehlung:** Pedalbass auf C; Akkordbass liefert dieselbe Tonfolge unverändert (nur ein Ton).\n- **Zentrum/Modus:** C-Moll mit großer Sexte (dorische Färbung), statisch\n- **Wirkung:** Wärmer und weniger „Agent“ als mM7: wehmütig, nüchtern, leicht nostalgisch.\n- **Besetzung (Vorschlag):** Streicher in mittlerer Lage, Soloklavier, Flöte über dem Klang.\n- **Anweisung:** Sexte (a) als Melodieton oder als Wechselnote zur Quinte; Grundton im Bass hält die ganze Zeit.\n- **Referenz:** Barry nutzt m6 und add2 als Ein-Akkord-Basis (Ostinato-Skizzen in den Berichten); die Vorlage ist die schlichteste Anwendung.",
+      "verification": "research_constructed_N"
+    },
+    {
+      "id": "JB-H03",
+      "text": "docs/research/shared/Musikalisches_Vokabular_Gesamtfassung_2026-11-24.txt · JB-H03 · Ein-Akkord: Dur mit None (add9) · Verfahren [N]; konkrete Vorlage [E], keine Transkription.\n- **Profile:** Barry · **XYZ:** 0,80 / 0,20 / 0,10 → hell · ruhig · stabil · **Evidenz:** Verfahren [N] · konkrete Vorlage [E] – Klangtyp belegt, keine Transkription · **Kategorie:** komponistenspezifische Präferenz\n\n| Nr | Akkord | Takte | ab | Tonklassen (Bass zuerst) | Bass | Stufe |\n|---|---|---|---|---|---|---|\n| 1 | `Cadd9` | 8 | T1 | C D E G | C | Iadd9 |\n\n- **Bass (aus den Akkorden abgeleitet):** Akkordbass C · Pedalbass-Vorschlag C · Charakter: fester Basston (Pedal) auf C\n- **Bassempfehlung:** Pedalbass auf C; Akkordbass liefert dieselbe Tonfolge unverändert (nur ein Ton).\n- **Zentrum/Modus:** C-Dur, offen und schwebend durch die Sekunde/None\n- **Wirkung:** Weite, Landschaft, Zuneigung; die Sekunde verhindert Kitsch.\n- **Besetzung (Vorschlag):** Streicher weit gesetzt, Harfe oder Klavier, Hörner.\n- **Anweisung:** Terz im Klang nur in der Mitte, Sekunde (d) oben als Dissonanz, die nicht aufgelöst wird (liegt als Farbe).\n- **Referenz:** Barry setzt add2/add9 in weiten Liebes- und Landschaftsstücken (Born Free, Out of Africa als Typ; hier nur als Klangtyp vermerkt, nicht transkribiert).\n- **Verwandt (eigene Vorlagen):** WC-H03 (Glockenfläche)",
+      "verification": "research_constructed_N"
+    },
+    {
+      "id": "JB-H04",
+      "text": "docs/research/shared/Musikalisches_Vokabular_Gesamtfassung_2026-11-24.txt · JB-H04 · Ein-Akkord: Dur-Septime weit · Verfahren [I]; konkrete Vorlage [E], keine Transkription.\n- **Profile:** Barry · **XYZ:** 0,75 / 0,15 / 0,05 → hell · ruhig · stabil · **Evidenz:** Verfahren [I] · konkrete Vorlage [E] · **Kategorie:** komponistenspezifische Präferenz\n\n| Nr | Akkord | Takte | ab | Tonklassen (Bass zuerst) | Bass | Stufe |\n|---|---|---|---|---|---|---|\n| 1 | `Cmaj7` | 8 | T1 | C E G B | C | Imaj7 |\n\n- **Bass (aus den Akkorden abgeleitet):** Akkordbass C · Pedalbass-Vorschlag C · Charakter: fester Basston (Pedal) auf C\n- **Bassempfehlung:** Pedalbass auf C; Akkordbass liefert dieselbe Tonfolge unverändert (nur ein Ton).\n- **Zentrum/Modus:** C-Dur-Septakkord, ruhend\n- **Wirkung:** Sehnsucht, Rückblick, Zärtlichkeit; kaum Spannung.\n- **Besetzung (Vorschlag):** Streicher flächig, Soloflöte oder Horn, Klavier mit Pedal.\n- **Anweisung:** Ganze Takte liegen lassen; ein einziger Melodieton h als Septime über dem Klang genügt. Bassempfehlung: Pedalbass auf c.\n- **Referenz:** Barrys lyrische Liebesthemen halten oft lange Klänge; die konkrete Wahl von maj7 statt add9 ist eine Interpretation.",
+      "verification": "research_constructed_I"
+    },
+    {
+      "id": "JB-H05",
+      "text": "docs/research/shared/Musikalisches_Vokabular_Gesamtfassung_2026-11-24.txt · JB-H05 · Terzverschiebung mM7 · Verfahren [N]; konkrete Vorlage [E], keine Transkription.\n- **Profile:** Barry · **XYZ:** 0,30 / 0,50 / 0,45 → dunkel · mittel · mittel · **Evidenz:** Verfahren [N] · konkrete Vorlage [E] – Original in E-Moll / G♯-Moll · **Kategorie:** komponistenspezifische Präferenz\n\n| Nr | Akkord | Takte | ab | Tonklassen (Bass zuerst) | Bass | Stufe |\n|---|---|---|---|---|---|---|\n| 1 | `CmM7` | 4 | T1 | C Eb G B | C | iM7 |\n| 2 | `EmM7` | 4 | T5 | E G B Eb | E | iiiM7 |\n\n- **Bass (aus den Akkorden abgeleitet):** Akkordbass C → E · Pedalbass-Vorschlag C · Charakter: bewegt: der Basston wechselt mit den Akkorden\n- **Bassempfehlung:** Akkordbass (C → E); als Pedalbass ist C möglich, die Spannung der Folge sinkt dann.\n- **Zentrum/Modus:** C-Moll → E-Moll (große Terz aufwärts), beide mit großer Septime\n- **Wirkung:** Klang wird heller und fremder, ohne Dur zu werden; Pendel mit Verfremdung.\n- **Besetzung (Vorschlag):** Streicher-Tutti oder Klavier + Vibraphon, Bassempfehlung: Akkordbass.\n- **Anweisung:** Vier Takte pro Akkord im Wechsel (Verdichtung auf 2+2 möglich); Übergang ohne Verbindungston. Oberstimme bleibt auf einem Ton (Quinte), der gemeinsame Ton zwischen den Klängen (g/h→ h gemeinsam) bildet die Brücke.\n- **Referenz:** Das Pendel EmM7–G♯mM7 (große Terz) ist als Barry-Verfahren belegt; die Vorlage überträgt es nach C-Moll → E-Moll.",
+      "verification": "research_constructed_N"
+    },
+    {
+      "id": "JB-H06",
+      "text": "docs/research/shared/Musikalisches_Vokabular_Gesamtfassung_2026-11-24.txt · JB-H06 · Dur-Pendel Grund–Quinte · Verfahren [N]; konkrete Vorlage [E], keine Transkription.\n- **Profile:** Barry · **XYZ:** 0,70 / 0,35 / 0,25 → hell · ruhig · stabil · **Evidenz:** Verfahren [N] · konkrete Vorlage [E] – Original Bb–F · **Kategorie:** komponistenspezifische Präferenz\n\n| Nr | Akkord | Takte | ab | Tonklassen (Bass zuerst) | Bass | Stufe |\n|---|---|---|---|---|---|---|\n| 1 | `Cmaj7` | 4 | T1 | C E G B | C | Imaj7 |\n| 2 | `Gmaj7` | 4 | T5 | G B D F# | G | Vmaj7 |\n\n- **Bass (aus den Akkorden abgeleitet):** Akkordbass C → G · Pedalbass-Vorschlag C · Charakter: bewegt: der Basston wechselt mit den Akkorden\n- **Bassempfehlung:** Akkordbass (C → G); als Pedalbass ist C möglich, die Spannung der Folge sinkt dann.\n- **Zentrum/Modus:** C-Dur → G-Dur, beide mit Septime\n- **Wirkung:** Weiter, ruhiger Wechsel; Stimmung offen, nach vorn schauend.\n- **Besetzung (Vorschlag):** Streicher, Harfe, Klavier; Hörner halten die gemeinsamen Töne.\n- **Anweisung:** Vier Takte je Akkord. Oberstimme: h hält (Terz von G, Septime von C) und bindet beide Klänge.\n- **Referenz:** BbM7–FM7 ist als Barry-Pendel belegt; die Vorlage setzt dieselbe Beziehung (I–V, beide mit Septime) nach C.",
+      "verification": "research_constructed_N"
+    },
+    {
+      "id": "JB-H07",
+      "text": "docs/research/shared/Musikalisches_Vokabular_Gesamtfassung_2026-11-24.txt · JB-H07 · Moll mit tiefer Terzfarbe · Verfahren [I]; konkrete Vorlage [E], keine Transkription.\n- **Profile:** Barry · **XYZ:** 0,35 / 0,45 / 0,30 → dunkel · mittel · stabil · **Evidenz:** Verfahren [I] · konkrete Vorlage [E] · **Kategorie:** komponistenspezifische Präferenz\n\n| Nr | Akkord | Takte | ab | Tonklassen (Bass zuerst) | Bass | Stufe |\n|---|---|---|---|---|---|---|\n| 1 | `Cm` | 4 | T1 | C Eb G | C | i |\n| 2 | `Abmaj7` | 4 | T5 | Ab C Eb G | Ab | bVImaj7 |\n\n- **Bass (aus den Akkorden abgeleitet):** Akkordbass C → Ab · Pedalbass-Vorschlag C · Charakter: bewegt: der Basston wechselt mit den Akkorden\n- **Bassempfehlung:** Akkordbass (C → Ab); als Pedalbass ist C möglich, die Spannung der Folge sinkt dann.\n- **Zentrum/Modus:** C-Moll ↔ Ab-Dur (bVI-Klang), Moll bleibt Zentrum\n- **Wirkung:** Pathetisch, erzählend, aber ohne Eile.\n- **Besetzung (Vorschlag):** Streicher, Horn-Melodie, Bassempfehlung: Akkordbass.\n- **Anweisung:** Je vier Takte; melodisch zwischen g und c wechseln, Ab-Klang trägt die Spitze.\n- **Referenz:** bVI-Farbe in Moll ist gewöhnlicher Bond-Dur-Moll-Wechsel; kein Einzelnachweis, deshalb [I].",
+      "verification": "research_constructed_I"
+    },
+    {
+      "id": "JB-H08",
+      "text": "docs/research/shared/Musikalisches_Vokabular_Gesamtfassung_2026-11-24.txt · JB-H08 · Pedal c mit bVII · Verfahren [I]; konkrete Vorlage [E], keine Transkription.\n- **Profile:** Barry · **XYZ:** 0,45 / 0,40 / 0,30 → neutral · ruhig · stabil · **Evidenz:** Verfahren [I] · konkrete Vorlage [E] · **Kategorie:** komponistenspezifische Präferenz\n\n| Nr | Akkord | Takte | ab | Tonklassen (Bass zuerst) | Bass | Stufe |\n|---|---|---|---|---|---|---|\n| 1 | `Cm` | 4 | T1 | C Eb G | C | i |\n| 2 | `Bb/C` | 4 | T5 | C D F Bb | C | bVII/1 |\n\n- **Bass (aus den Akkorden abgeleitet):** Akkordbass C · Pedalbass-Vorschlag C · Charakter: fester Basston (Pedal) auf C\n- **Bassempfehlung:** Pedalbass auf C; Akkordbass liefert dieselbe Tonfolge unverändert (nur ein Ton).\n- **Zentrum/Modus:** C-Moll, Pedal c, Septim-Dur darüber\n- **Wirkung:** Der Boden bleibt, darüber hebt sich der Klang: offener, ohne zu „lösen“.\n- **Besetzung (Vorschlag):** Bass/Cello und Kontrabass halten c, Bläser/Streicher darüber.\n- **Anweisung:** Bass bleibt auf c; nur die oberen Stimmen wechseln zu Bb-Dur. Bassempfehlung: Pedalbass.\n- **Referenz:** Pedal unter wechselnder Oberharmonik ist ein Barry-Prinzip (Ostinato bleibt, Harmonie darüber ändert sich); die konkrete bVII-Farbe ist [I].",
+      "verification": "research_constructed_I"
+    },
+    {
+      "id": "JB-H09",
+      "text": "docs/research/shared/Musikalisches_Vokabular_Gesamtfassung_2026-11-24.txt · JB-H09 · Absteigende Moll-Kadenz Cm–Ab–Bb · Verfahren [I]; konkrete Vorlage [E], keine Transkription.\n- **Profile:** Barry · **XYZ:** 0,35 / 0,50 / 0,35 → dunkel · mittel · stabil · **Evidenz:** Verfahren [I] · konkrete Vorlage [E] · **Kategorie:** charakteristische Kombination\n\n| Nr | Akkord | Takte | ab | Tonklassen (Bass zuerst) | Bass | Stufe |\n|---|---|---|---|---|---|---|\n| 1 | `Cm` | 2 | T1 | C Eb G | C | i |\n| 2 | `Abmaj7` | 2 | T3 | Ab C Eb G | Ab | bVImaj7 |\n| 3 | `Bb` | 2 | T5 | Bb D F | Bb | bVII |\n| 4 | `Cm` | 2 | T7 | C Eb G | C | i |\n\n- **Bass (aus den Akkorden abgeleitet):** Akkordbass C → Ab → Bb → C · Pedalbass-Vorschlag C · Charakter: bewegt: der Basston wechselt mit den Akkorden\n- **Bassempfehlung:** Akkordbass (C → Ab → Bb → C); als Pedalbass ist C möglich, die Spannung der Folge sinkt dann.\n- **Zentrum/Modus:** C-Moll; Ab und Bb als Nebenklänge, Rückkehr nach c\n- **Wirkung:** Heldenhaft-ernst, erinnert an Bond-Hauptthema-Stimmung; geschlossen.\n- **Besetzung (Vorschlag):** Streicher, Blech, Pauke auf c.\n- **Anweisung:** Bass: c – as – b – c. Je zwei Takte; Melodie arbeitet mit Quartsprüngen.\n- **Referenz:** Allgemeiner Bond-/Barry-Moll-Modus (Zusammenfassung aus Berichten); konkrete Reihenfolge eigener Zuschnitt.",
+      "verification": "research_constructed_I"
+    },
+    {
+      "id": "JB-H10",
+      "text": "docs/research/shared/Musikalisches_Vokabular_Gesamtfassung_2026-11-24.txt · JB-H10 · Moll-Plagal Cm–Fm–Cm · Verfahren [I]; konkrete Vorlage [E], keine Transkription.\n- **Profile:** Barry · **XYZ:** 0,30 / 0,35 / 0,25 → dunkel · ruhig · stabil · **Evidenz:** Verfahren [I] · konkrete Vorlage [E] · **Kategorie:** komponistenspezifische Präferenz\n\n| Nr | Akkord | Takte | ab | Tonklassen (Bass zuerst) | Bass | Stufe |\n|---|---|---|---|---|---|---|\n| 1 | `Cm` | 4 | T1 | C Eb G | C | i |\n| 2 | `Fm` | 2 | T5 | F Ab C | F | iv |\n| 3 | `Cm` | 2 | T7 | C Eb G | C | i |\n\n- **Bass (aus den Akkorden abgeleitet):** Akkordbass C → F → C · Pedalbass-Vorschlag C · Charakter: bewegt: der Basston wechselt mit den Akkorden\n- **Bassempfehlung:** Akkordbass (C → F → C); als Pedalbass ist C möglich, die Spannung der Folge sinkt dann.\n- **Zentrum/Modus:** C-Moll mit kurzer Subdominante\n- **Wirkung:** Ernsthaft, abschließend; Ruhepunkt nach Aktion.\n- **Besetzung (Vorschlag):** Streicher oder Klavier; leise Bläser.\n- **Anweisung:** Zwei Takte Fm als Atempause, dann Rückkehr. Gut als Schluss einer 8-Takt-Phrase.\n- **Referenz:** Plagale Wendung in Moll als Abschluss ist verbreitet; Barry-Zuordnung nur [I].\n- **Verwandt (eigene Vorlagen):** JB-H41, BH-H41, BH-H22 (Cm/Fm-Familie)",
+      "verification": "research_constructed_I"
+    },
+    {
+      "id": "JB-H11",
+      "text": "docs/research/shared/Musikalisches_Vokabular_Gesamtfassung_2026-11-24.txt · JB-H11 · Dur-Ostinato mit Pedal c · Verfahren [I]; konkrete Vorlage [E], keine Transkription.\n- **Profile:** Barry · **XYZ:** 0,80 / 0,30 / 0,10 → hell · ruhig · stabil · **Evidenz:** Verfahren [I] · konkrete Vorlage [E] · **Kategorie:** komponistenspezifische Präferenz\n\n| Nr | Akkord | Takte | ab | Tonklassen (Bass zuerst) | Bass | Stufe |\n|---|---|---|---|---|---|---|\n| 1 | `Cadd9` | 4 | T1 | C D E G | C | Iadd9 |\n| 2 | `Fmaj7/C` | 4 | T5 | C E F A | C | IVmaj7/1 |\n\n- **Bass (aus den Akkorden abgeleitet):** Akkordbass C · Pedalbass-Vorschlag C · Charakter: fester Basston (Pedal) auf C\n- **Bassempfehlung:** Pedalbass auf C; Akkordbass liefert dieselbe Tonfolge unverändert (nur ein Ton).\n- **Zentrum/Modus:** C-Dur, Pedal c, Subdominant-Farbe darüber\n- **Wirkung:** Hell, weit, getragen; „Landschaft“ und Aufbruch.\n- **Besetzung (Vorschlag):** Streicher, Hörner, Harfe, tiefer Bass hält c.\n- **Anweisung:** Bass c bleibt; Oberstimmen wechseln zwischen add9 und Fmaj7. Bassempfehlung: Pedalbass.\n- **Referenz:** Pedal + Oberschicht ist belegt (JB-H08); Dur-Version eigene Übertragung auf die Landschaftsmusik.",
+      "verification": "research_constructed_I"
+    },
+    {
+      "id": "JB-H12",
+      "text": "docs/research/shared/Musikalisches_Vokabular_Gesamtfassung_2026-11-24.txt · JB-H12 · Schwebende Sus-Folge · Verfahren [H]; konkrete Vorlage [E], keine Transkription.\n- **Profile:** Barry · **XYZ:** 0,60 / 0,25 / 0,25 → hell · ruhig · stabil · **Evidenz:** Verfahren [H] · konkrete Vorlage [E] · **Kategorie:** komponistenspezifische Präferenz\n\n| Nr | Akkord | Takte | ab | Tonklassen (Bass zuerst) | Bass | Stufe |\n|---|---|---|---|---|---|---|\n| 1 | `Csus2` | 4 | T1 | C D G | C | Isus2 |\n| 2 | `Csus4` | 4 | T5 | C F G | C | Isus4 |\n\n- **Bass (aus den Akkorden abgeleitet):** Akkordbass C · Pedalbass-Vorschlag C · Charakter: fester Basston (Pedal) auf C\n- **Bassempfehlung:** Pedalbass auf C; Akkordbass liefert dieselbe Tonfolge unverändert (nur ein Ton).\n- **Zentrum/Modus:** C ohne Terz; Dur/Moll bleibt offen\n- **Wirkung:** Offen, unentschieden, wartend – passt für Abendhimmel, Warten, Vorspann.\n- **Besetzung (Vorschlag):** Streicher in Quinten, Flöte, Harfe.\n- **Anweisung:** Zwei Vierer-Blöcke; die Auflösung (Terz) kommt erst im nächsten Takt/der nächsten Vorlage.\n- **Referenz:** Terzlose Klänge sind als Spannungsmittel plausibel, aber nicht belegt; deshalb [H].",
+      "verification": "research_constructed_H"
+    },
+    {
+      "id": "JB-H13",
+      "text": "docs/research/shared/Musikalisches_Vokabular_Gesamtfassung_2026-11-24.txt · JB-H13 · Halbton-Pendel mM7 · Verfahren [H]; konkrete Vorlage [E], keine Transkription.\n- **Zusammenführung (exakte Dublette):** ersetzt BH-H02\n- **Profile:** Barry + Herrmann · **XYZ:** 0,15–0,30 / 0,60–0,65 / 0,70–0,75 → dunkel · intensiv · unruhig · **Evidenz:** Verfahren [H] · konkrete Vorlage [E] · **Kategorie:** komponistenspezifische Präferenz · Randbereich/Extrapolation\n\n| Nr | Akkord | Takte | ab | Tonklassen (Bass zuerst) | Bass | Stufe |\n|---|---|---|---|---|---|---|\n| 1 | `CmM7` | 4 | T1 | C Eb G B | C | iM7 |\n| 2 | `C#mM7` | 4 | T5 | C# E G# C | C# | biiM7 |\n\n- **Bass (aus den Akkorden abgeleitet):** Akkordbass C → Db · Pedalbass-Vorschlag C · Charakter: bewegt: der Basston wechselt mit den Akkorden\n- **Bassempfehlung:** Akkordbass (C → Db); als Pedalbass ist C möglich, die Spannung der Folge sinkt dann.\n- **Zentrum/Modus:** C-Moll ↔ C♯-Moll, beide mit Septime\n- **Wirkung:** Beklemmend, schleichend; Halbtonschritt als Schreck.\n\n| Ursprungs-ID | Profil | XYZ | Ausgestaltung (Anweisung) | Wirkung/Besetzung | Referenz |\n|---|---|---|---|---|---|\n| JB-H13 | Barry | 0,30 / 0,60 / 0,70 | Zwei Takte pro Wechsel möglich (nur als Verdichtung). Übergang ohne Verbindung. | Beklemmend, schleichend; Halbtonschritt als Schreck.; tiefe Streicher, gestopfte Blechbläser, Klavier tief. | Chromatik gehört zu Barrys Bond-Action-Stücken; dieses konkrete Halbton-Pendel ist eigene Konstruktion. |\n| BH-H02 | Herrmann | 0,15 / 0,65 / 0,75 | Zwei Takte pro Seite möglich; ohne Verbindungston, Schlag auf der Taktzeit 1. | Panik im Halbtonschritt; „Etwas ist falsch“.; Streicher gleichfamilie (nur Violinen oder nur Bratschen), Blech tief. | Halbtonverschiebungen derselben Klangfamilie sind Herrmann-typisch (Chromatik, parallele Klänge); konkret eigene Konstruktion. |",
+      "verification": "research_constructed_H"
+    },
+    {
+      "id": "JB-H14",
+      "text": "docs/research/shared/Musikalisches_Vokabular_Gesamtfassung_2026-11-24.txt · JB-H14 · Tritonus-Pendel Moll · Verfahren [H]; konkrete Vorlage [E], keine Transkription.\n- **Zusammenführung (exakte Dublette):** ersetzt BH-H03\n- **Profile:** Barry + Herrmann · **XYZ:** 0,10–0,20 / 0,65–0,70 / 0,65–0,80 → dunkel · intensiv · unruhig · **Evidenz:** Verfahren [H] · konkrete Vorlage [E] · **Kategorie:** komponistenspezifische Präferenz · Randbereich/Extrapolation\n\n| Nr | Akkord | Takte | ab | Tonklassen (Bass zuerst) | Bass | Stufe |\n|---|---|---|---|---|---|---|\n| 1 | `Cm` | 4 | T1 | C Eb G | C | i |\n| 2 | `F#m` | 4 | T5 | F# A C# | F# | #iv |\n\n- **Bass (aus den Akkorden abgeleitet):** Akkordbass C → F# · Pedalbass-Vorschlag C · Charakter: bewegt: der Basston wechselt mit den Akkorden\n- **Bassempfehlung:** Akkordbass (C → F#); als Pedalbass ist C möglich, die Spannung der Folge sinkt dann.\n- **Zentrum/Modus:** C-Moll ↔ F♯-Moll (Tritonus)\n- **Wirkung:** Bedrohlich, ratlos; „Tritonus-Schock“ ohne Dissonanzorgie.\n\n| Ursprungs-ID | Profil | XYZ | Ausgestaltung (Anweisung) | Wirkung/Besetzung | Referenz |\n|---|---|---|---|---|---|\n| JB-H14 | Barry | 0,20 / 0,65 / 0,65 | Vier Takte je Seite; gemeinsamer Ton: keiner – dadurch hart. Melodie über Liegetönen. | Bedrohlich, ratlos; „Tritonus-Schock“ ohne Dissonanzorgie.; Streicher, Posaunen, Pauke. | Tritonus als Wendung ist nicht typisch Barry; hier ein Gegenstück zu Herrmann, deshalb [H] und Randbereich. |\n| BH-H03 | Herrmann | 0,10 / 0,70 / 0,80 | Vier Takte je Seite, Wechsel hart. | Schock ohne Auflösung; „Etwas Falsches ist im Raum“.; Streicher, tiefes Blech, Pauke. | Tritonus-Beziehungen sind ein Herrmann-Merkmal (Tritonus-/Halbton-Verschiebungen im Bericht). |",
+      "verification": "research_constructed_H"
+    },
+    {
+      "id": "JB-H15",
+      "text": "docs/research/shared/Musikalisches_Vokabular_Gesamtfassung_2026-11-24.txt · JB-H15 · Mediantenpaar hell · Verfahren [I]; konkrete Vorlage [E], keine Transkription.\n- **Profile:** Barry · **XYZ:** 0,65 / 0,35 / 0,20 → hell · ruhig · stabil · **Evidenz:** Verfahren [I] · konkrete Vorlage [E] · **Kategorie:** komponistenspezifische Präferenz\n\n| Nr | Akkord | Takte | ab | Tonklassen (Bass zuerst) | Bass | Stufe |\n|---|---|---|---|---|---|---|\n| 1 | `Cmaj7` | 4 | T1 | C E G B | C | Imaj7 |\n| 2 | `Ebmaj7` | 4 | T5 | Eb G Bb D | Eb | bIIImaj7 |\n\n- **Bass (aus den Akkorden abgeleitet):** Akkordbass C → Eb · Pedalbass-Vorschlag C · Charakter: bewegt: der Basston wechselt mit den Akkorden\n- **Bassempfehlung:** Akkordbass (C → Eb); als Pedalbass ist C möglich, die Spannung der Folge sinkt dann.\n- **Zentrum/Modus:** C-Dur ↔ Eb-Dur (bIII-Mediante)\n- **Wirkung:** Warm, öffnend, filmisch; „Heimlichkeit“ ohne Bedrohung.\n- **Besetzung (Vorschlag):** Streicher, Harfe, Soloflöte.\n- **Anweisung:** Vier Takte pro Klang; Melodie: g hält (gemeinsamer Ton), Spitze wechselt zu bb.\n- **Referenz:** Medianten-Wechsel mit Septakkorden passt zu Barrys Liebesmusik; Zuordnung [I].",
+      "verification": "research_constructed_I"
+    },
+    {
+      "id": "JB-H16",
+      "text": "docs/research/shared/Musikalisches_Vokabular_Gesamtfassung_2026-11-24.txt · JB-H16 · Lydische Färbung über Pedal · Verfahren [H]; konkrete Vorlage [E], keine Transkription.\n- **Profile:** Barry · **XYZ:** 0,85 / 0,30 / 0,20 → hell · ruhig · stabil · **Evidenz:** Verfahren [H] · konkrete Vorlage [E] · **Kategorie:** komponistenspezifische Präferenz · Randbereich/Extrapolation\n\n| Nr | Akkord | Takte | ab | Tonklassen (Bass zuerst) | Bass | Stufe |\n|---|---|---|---|---|---|---|\n| 1 | `Cmaj7` | 4 | T1 | C E G B | C | Imaj7 |\n| 2 | `D/C` | 4 | T5 | C D F# A | C | II/1 |\n\n- **Bass (aus den Akkorden abgeleitet):** Akkordbass C · Pedalbass-Vorschlag C · Charakter: fester Basston (Pedal) auf C\n- **Bassempfehlung:** Pedalbass auf C; Akkordbass liefert dieselbe Tonfolge unverändert (nur ein Ton).\n- **Zentrum/Modus:** C-lydisch (♯4 über Pedal c)\n- **Wirkung:** Schwebend-hell, „Weite mit Staunen“.\n- **Besetzung (Vorschlag):** Streicher hoch, Harfe, Celesta; Bass c bleibt.\n- **Anweisung:** D-Dur-Klang über c erzeugt Lydisch; eine Schicht, Melodie über fis/a.\n- **Referenz:** Lydische Wirkung ist bei Barry nicht belegt; Vorlage eigene Konstruktion.",
+      "verification": "research_constructed_H"
+    },
+    {
+      "id": "JB-H17",
+      "text": "docs/research/shared/Musikalisches_Vokabular_Gesamtfassung_2026-11-24.txt · JB-H17 · Bright Pedal mit bVII–IV · Verfahren [I]; konkrete Vorlage [E], keine Transkription.\n- **Profile:** Barry · **XYZ:** 0,65 / 0,50 / 0,30 → hell · mittel · stabil · **Evidenz:** Verfahren [I] · konkrete Vorlage [E] · **Kategorie:** charakteristische Kombination\n\n| Nr | Akkord | Takte | ab | Tonklassen (Bass zuerst) | Bass | Stufe |\n|---|---|---|---|---|---|---|\n| 1 | `C` | 4 | T1 | C E G | C | I |\n| 2 | `Bb/C` | 2 | T5 | C D F Bb | C | bVII/1 |\n| 3 | `F/C` | 2 | T7 | C F A | C | IV/1 |\n\n- **Bass (aus den Akkorden abgeleitet):** Akkordbass C · Pedalbass-Vorschlag C · Charakter: fester Basston (Pedal) auf C\n- **Bassempfehlung:** Pedalbass auf C; Akkordbass liefert dieselbe Tonfolge unverändert (nur ein Ton).\n- **Zentrum/Modus:** C-mixolydisch über Pedal c\n- **Wirkung:** Aufbruchsstimmung, gerade, offen. Nähe zu Wang Chung.\n- **Besetzung (Vorschlag):** Streicher oder Klavier; Bass c.\n- **Anweisung:** Pedal c; oben C → Bb → F. Rhythmus beliebig (siehe JB-R).\n- **Referenz:** Mixolydische bVII–IV-Folge ist gemeinsamer Baustein (WC-H). Bei Barry nur als Kombination mit Pedal belegt.\n- **Verwandt (eigene Vorlagen):** JB-H37, JB-H45, WC-H29, WC-H02",
+      "verification": "research_constructed_I"
+    },
+    {
+      "id": "JB-H18",
+      "text": "docs/research/shared/Musikalisches_Vokabular_Gesamtfassung_2026-11-24.txt · JB-H18 · Quint-Pedal c–g (mit Linie oder als leerer Klang) · Verfahren [N]; konkrete Vorlage [E], keine Transkription.\n- **Zusammenführung (exakte Dublette):** ersetzt JB-H33\n- **Profile:** Barry · **XYZ:** 0,25–0,50 / 0,10–0,55 / 0,10–0,60 → dunkel · mittel · unruhig · **Evidenz:** Verfahren [N] · konkrete Vorlage [E] – Pawnee-Beispiel nur als Verfahren · **Kategorie:** Verfahren mit Planungsbedarf\n\n| Nr | Akkord | Takte | ab | Tonklassen (Bass zuerst) | Bass | Stufe |\n|---|---|---|---|---|---|---|\n| 1 | `C5` | 8 | T1 | C G | C | I5 |\n\n- **Bass (aus den Akkorden abgeleitet):** Akkordbass C · Pedalbass-Vorschlag C · Charakter: fester Basston (Pedal) auf C\n- **Bassempfehlung:** Pedalbass auf C; Akkordbass liefert dieselbe Tonfolge unverändert (nur ein Ton).\n- **Zentrum/Modus:** c-Pedal; die Linie darüber bewegt sich chromatisch\n- **Wirkung:** Schleichend-spannend, Verfolgung in Zeitlupe.\n\n| Ursprungs-ID | Profil | XYZ | Ausgestaltung (Anweisung) | Wirkung/Besetzung | Referenz |\n|---|---|---|---|---|---|\n| JB-H18 | Barry | 0,25 / 0,55 / 0,60 | Quinte c–g hält; die Melodie (einstimmig) steigt chromatisch auf oder ab (siehe JB-M). | Schleichend-spannend, Verfolgung in Zeitlupe.; Bassklarinette, tiefe Streicher; Linie in Fagott/Oboe. | Einstimmige chromatische Linie über Pedal ist als Barry-Verfahren belegt (Pawnee-Beispiel in den Berichten); Harmonie ist kein eigener Klang, sondern Liegeton. |\n| JB-H33 | Barry | 0,50 / 0,10 / 0,10 | Quinte als Vorhang; Melodie darüber frei. | Leere, Pause, Weite.; Streicher in Quinten, Pauke leise. | Quintenklänge sind stilistisch plausibel; Vorlage eigen. |\n- **Verwandt (eigene Vorlagen):** WC-H18 (Drone-Fläche)",
+      "verification": "research_constructed_N"
+    },
+    {
+      "id": "JB-H19",
+      "text": "docs/research/shared/Musikalisches_Vokabular_Gesamtfassung_2026-11-24.txt · JB-H19 · Phrygisches Pendel · Verfahren [I]; konkrete Vorlage [E], keine Transkription.\n- **Profile:** Barry · **XYZ:** 0,15 / 0,55 / 0,55 → dunkel · mittel · mittel · **Evidenz:** Verfahren [I] · konkrete Vorlage [E] · **Kategorie:** komponistenspezifische Präferenz\n\n| Nr | Akkord | Takte | ab | Tonklassen (Bass zuerst) | Bass | Stufe |\n|---|---|---|---|---|---|---|\n| 1 | `Cm` | 4 | T1 | C Eb G | C | i |\n| 2 | `Dbmaj7` | 4 | T5 | Db F Ab C | Db | bIImaj7 |\n\n- **Bass (aus den Akkorden abgeleitet):** Akkordbass C → Db · Pedalbass-Vorschlag C · Charakter: bewegt: der Basston wechselt mit den Akkorden\n- **Bassempfehlung:** Akkordbass (C → Db); als Pedalbass ist C möglich, die Spannung der Folge sinkt dann.\n- **Zentrum/Modus:** C-Moll ↔ Db (bII, phrygisch)\n- **Wirkung:** Dunkler, bedrohlicher; „Exotik“ und Gefahr.\n- **Besetzung (Vorschlag):** Streicher tief, Pauke, Blech.\n- **Anweisung:** Vier Takte je Seite oder zwei+zwei; die Melodie pendelt zwischen c und des, der Fall des → c ist die Auflösung.\n- **Referenz:** Phrygisches bII taucht in der Bond-Action auf; Zuordnung [I].",
+      "verification": "research_constructed_I"
+    },
+    {
+      "id": "JB-H20",
+      "text": "docs/research/shared/Musikalisches_Vokabular_Gesamtfassung_2026-11-24.txt · JB-H20 · Schnelles Phrygisch-Pendel · Verfahren [I]; konkrete Vorlage [E], keine Transkription.\n- **Profile:** Barry · **XYZ:** 0,15 / 0,75 / 0,70 → dunkel · intensiv · unruhig · **Evidenz:** Verfahren [I] · konkrete Vorlage [E] · **Kategorie:** komponistenspezifische Präferenz\n\n| Nr | Akkord | Takte | ab | Tonklassen (Bass zuerst) | Bass | Stufe |\n|---|---|---|---|---|---|---|\n| 1 | `Cm` | 2 | T1 | C Eb G | C | i |\n| 2 | `Db` | 2 | T3 | Db F Ab | Db | bII |\n| 3 | `Cm` | 2 | T5 | C Eb G | C | i |\n| 4 | `Db` | 2 | T7 | Db F Ab | Db | bII |\n\n- **Bass (aus den Akkorden abgeleitet):** Akkordbass C → Db → C → Db · Pedalbass-Vorschlag C · Charakter: bewegt: der Basston wechselt mit den Akkorden\n- **Bassempfehlung:** Akkordbass (C → Db → C → Db); als Pedalbass ist C möglich, die Spannung der Folge sinkt dann.\n- **Zentrum/Modus:** wie JB-H19, aber im Zwei-Takt-Wechsel\n- **Wirkung:** Verdichtet die Spannung durch halbe Länge der Wechsel.\n- **Besetzung (Vorschlag):** Streicher, Blech staccato, Pauke.\n- **Anweisung:** Wechsel alle 2 Takte; als Verdichtung nach JB-H19 verwendbar.\n- **Referenz:** Verdichtung als Vorlage eigene Konstruktion auf belegter Pendelbasis.",
+      "verification": "research_constructed_I"
+    },
+    {
+      "id": "JB-H21",
+      "text": "docs/research/shared/Musikalisches_Vokabular_Gesamtfassung_2026-11-24.txt · JB-H21 · Bittersüßes Dur-Moll-Pendel · Verfahren [I]; konkrete Vorlage [E], keine Transkription.\n- **Profile:** Barry · **XYZ:** 0,50 / 0,30 / 0,30 → neutral · ruhig · stabil · **Evidenz:** Verfahren [I] · konkrete Vorlage [E] · **Kategorie:** komponistenspezifische Präferenz\n\n| Nr | Akkord | Takte | ab | Tonklassen (Bass zuerst) | Bass | Stufe |\n|---|---|---|---|---|---|---|\n| 1 | `Cmaj7` | 4 | T1 | C E G B | C | Imaj7 |\n| 2 | `Cm6` | 4 | T5 | C Eb G A | C | i6 |\n\n- **Bass (aus den Akkorden abgeleitet):** Akkordbass C · Pedalbass-Vorschlag C · Charakter: fester Basston (Pedal) auf C\n- **Bassempfehlung:** Pedalbass auf C; Akkordbass liefert dieselbe Tonfolge unverändert (nur ein Ton).\n- **Zentrum/Modus:** C-Dur ↔ C-Moll, Septime wandert zur Sexte\n- **Wirkung:** Süß-bitter; Abschied, Erinnerung.\n- **Besetzung (Vorschlag):** Streicher, Soloinstrument.\n- **Anweisung:** Je vier Takte; Terz e → es und Septime h → Sexte a wechseln gemeinsam.\n- **Referenz:** Moll-Dur-Wechsel als Barry-Farbe belegt; die konkrete Paarung eigener Zuschnitt.\n- **Verwandt (eigene Vorlagen):** JB-H22 (gleiche Struktur, Subdominante statt Tonika)",
+      "verification": "research_constructed_I"
+    },
+    {
+      "id": "JB-H22",
+      "text": "docs/research/shared/Musikalisches_Vokabular_Gesamtfassung_2026-11-24.txt · JB-H22 · Mollsubdominante hell · Verfahren [I]; konkrete Vorlage [E], keine Transkription.\n- **Profile:** Barry · **XYZ:** 0,45 / 0,30 / 0,25 → neutral · ruhig · stabil · **Evidenz:** Verfahren [I] · konkrete Vorlage [E] · **Kategorie:** komponistenspezifische Präferenz\n\n| Nr | Akkord | Takte | ab | Tonklassen (Bass zuerst) | Bass | Stufe |\n|---|---|---|---|---|---|---|\n| 1 | `Fmaj7` | 4 | T1 | F A C E | F | IVmaj7 |\n| 2 | `Fm6` | 4 | T5 | F Ab C D | F | iv6 |\n\n- **Bass (aus den Akkorden abgeleitet):** Akkordbass F · Pedalbass-Vorschlag F · Charakter: fester Basston (Pedal) auf F\n- **Bassempfehlung:** Pedalbass auf F; Akkordbass liefert dieselbe Tonfolge unverändert (nur ein Ton).\n- **Zentrum/Modus:** F-Dur → F-Moll (Subdominante in C)\n- **Wirkung:** Wehmut, Rückschau, „Dur wird Moll“.\n- **Besetzung (Vorschlag):** Streicher, Flöte.\n- **Anweisung:** Terz a → as und Septime e → Sexte d wechseln gemeinsam; Bass f bleibt.\n- **Referenz:** Subdominant-Moll-Farbe ist bei Barry belegt, Zuordnung zu diesem Paar [I].\n- **Verwandt (eigene Vorlagen):** JB-H21 (gleiche Struktur, Tonika statt Subdominante)",
+      "verification": "research_constructed_I"
+    },
+    {
+      "id": "JB-H23",
+      "text": "docs/research/shared/Musikalisches_Vokabular_Gesamtfassung_2026-11-24.txt · JB-H23 · Moll-Diminished-Wechsel · Verfahren [H]; konkrete Vorlage [E], keine Transkription.\n- **Profile:** Barry · **XYZ:** 0,15 / 0,80 / 0,85 → dunkel · intensiv · unruhig · **Evidenz:** Verfahren [H] · konkrete Vorlage [E] · **Kategorie:** komponistenspezifische Präferenz · Randbereich/Extrapolation\n\n| Nr | Akkord | Takte | ab | Tonklassen (Bass zuerst) | Bass | Stufe |\n|---|---|---|---|---|---|---|\n| 1 | `Cm` | 2 | T1 | C Eb G | C | i |\n| 2 | `Cdim` | 2 | T3 | C Eb F# | C | i° |\n| 3 | `Cm` | 2 | T5 | C Eb G | C | i |\n| 4 | `Cdim` | 2 | T7 | C Eb F# | C | i° |\n\n- **Bass (aus den Akkorden abgeleitet):** Akkordbass C · Pedalbass-Vorschlag C · Charakter: fester Basston (Pedal) auf C\n- **Bassempfehlung:** Pedalbass auf C; Akkordbass liefert dieselbe Tonfolge unverändert (nur ein Ton).\n- **Zentrum/Modus:** C-Moll mit verminderter Spannung\n- **Wirkung:** Hektisch, bedrohlich, Gegenspieler-Szene.\n- **Besetzung (Vorschlag):** Streicher, Blech, Klavier.\n- **Anweisung:** Alternierend alle 2 Takte; Bass bleibt c.\n- **Referenz:** Verminderte Klänge sind bei Barry untypisch; eigene Konstruktion im Extrembereich.",
+      "verification": "research_constructed_H"
+    },
+    {
+      "id": "JB-H24",
+      "text": "docs/research/shared/Musikalisches_Vokabular_Gesamtfassung_2026-11-24.txt · JB-H24 · Chromatische Mollreihe aufwärts · Verfahren [H]; konkrete Vorlage [E], keine Transkription.\n- **Profile:** Barry · **XYZ:** 0,20 / 0,90 / 0,90 → dunkel · intensiv · unruhig · **Evidenz:** Verfahren [H] · konkrete Vorlage [E] · **Kategorie:** Verfahren mit Planungsbedarf · Randbereich/Extrapolation\n\n| Nr | Akkord | Takte | ab | Tonklassen (Bass zuerst) | Bass | Stufe |\n|---|---|---|---|---|---|---|\n| 1 | `Cm` | 2 | T1 | C Eb G | C | i |\n| 2 | `C#m` | 2 | T3 | C# E G# | C# | bii |\n| 3 | `Dm` | 2 | T5 | D F A | D | ii |\n| 4 | `D#m` | 2 | T7 | D# F# A# | D# | biii |\n\n- **Bass (aus den Akkorden abgeleitet):** Akkordbass C → Db → D → Eb · Pedalbass-Vorschlag C · Charakter: bewegt: der Basston wechselt mit den Akkorden\n- **Bassempfehlung:** Akkordbass (C → Db → D → Eb); als Pedalbass ist C möglich, die Spannung der Folge sinkt dann.\n- **Zentrum/Modus:** Moll-Dreiklänge steigen chromatisch\n- **Wirkung:** Maximale Steigerung; Verfolgung, Panik.\n- **Besetzung (Vorschlag):** Streicher tremolo, Blech, Pauke.\n- **Anweisung:** Je zwei Takte; der Liegeton c ist nur über Cm Klangton und über den anderen Klängen bewusste Reibung, alternativ folgt die Oberstimme parallel.\n- **Referenz:** Chromatische Sequenz ist plausibel für Bond-Action; konkret eigene Konstruktion.",
+      "verification": "research_constructed_H"
+    },
+    {
+      "id": "JB-H25",
+      "text": "docs/research/shared/Musikalisches_Vokabular_Gesamtfassung_2026-11-24.txt · JB-H25 · Ein-Akkord: Moll-None · Verfahren [I]; konkrete Vorlage [E], keine Transkription.\n- **Profile:** Barry · **XYZ:** 0,30 / 0,35 / 0,35 → dunkel · ruhig · stabil · **Evidenz:** Verfahren [I] · konkrete Vorlage [E] · **Kategorie:** komponistenspezifische Präferenz\n\n| Nr | Akkord | Takte | ab | Tonklassen (Bass zuerst) | Bass | Stufe |\n|---|---|---|---|---|---|---|\n| 1 | `CmM9` | 8 | T1 | C D Eb G B | C | iM9 |\n\n- **Bass (aus den Akkorden abgeleitet):** Akkordbass C · Pedalbass-Vorschlag C · Charakter: fester Basston (Pedal) auf C\n- **Bassempfehlung:** Pedalbass auf C; Akkordbass liefert dieselbe Tonfolge unverändert (nur ein Ton).\n- **Zentrum/Modus:** C-Moll mit großer Septime und None\n- **Wirkung:** Dichter Bond-Klang; zusätzlich Farbe durch Sekunde.\n- **Besetzung (Vorschlag):** Streicher, Klavier, Harfe.\n- **Anweisung:** Töne der None (d) nur als Oberstimme verwenden.\n- **Referenz:** Erweiterte mM-Klänge sind von Barry-Ostinati abgeleitet (mM9 im Bericht); Zuordnung [I].",
+      "verification": "research_constructed_I"
+    },
+    {
+      "id": "JB-H26",
+      "text": "docs/research/shared/Musikalisches_Vokabular_Gesamtfassung_2026-11-24.txt · JB-H26 · Moll-Septakkord-Kette · Verfahren [H]; konkrete Vorlage [E], keine Transkription.\n- **Profile:** Barry · **XYZ:** 0,45 / 0,25 / 0,20 → neutral · ruhig · stabil · **Evidenz:** Verfahren [H] · konkrete Vorlage [E] · **Kategorie:** komponistenspezifische Präferenz\n\n| Nr | Akkord | Takte | ab | Tonklassen (Bass zuerst) | Bass | Stufe |\n|---|---|---|---|---|---|---|\n| 1 | `Cm7` | 4 | T1 | C Eb G Bb | C | i7 |\n| 2 | `Fm7` | 4 | T5 | F Ab C Eb | F | iv7 |\n\n- **Bass (aus den Akkorden abgeleitet):** Akkordbass C → F · Pedalbass-Vorschlag C · Charakter: bewegt: der Basston wechselt mit den Akkorden\n- **Bassempfehlung:** Akkordbass (C → F); als Pedalbass ist C möglich, die Spannung der Folge sinkt dann.\n- **Zentrum/Modus:** C-Moll → F-Moll, beide mit kleiner Septime\n- **Wirkung:** Weich, jazzig, entspannt (Barry-Seite „Midnight Cowboy“-Typ; nicht verifiziert).\n- **Besetzung (Vorschlag):** Klavier, Bass, Besen/Schlagzeug.\n- **Anweisung:** Je vier Takte; Bassempfehlung: Akkordbass.\n- **Referenz:** Jazziger Barry (Sixties) nur als Typ erwähnt; als [H] markiert.",
+      "verification": "research_constructed_H"
+    },
+    {
+      "id": "JB-H27",
+      "text": "docs/research/shared/Musikalisches_Vokabular_Gesamtfassung_2026-11-24.txt · JB-H27 · Quintaufstieg hell · Verfahren [H]; konkrete Vorlage [E], keine Transkription.\n- **Profile:** Barry · **XYZ:** 0,90 / 0,65 / 0,40 → hell · intensiv · stabil · **Evidenz:** Verfahren [H] · konkrete Vorlage [E] · **Kategorie:** komponistenspezifische Präferenz · Randbereich/Extrapolation\n\n| Nr | Akkord | Takte | ab | Tonklassen (Bass zuerst) | Bass | Stufe |\n|---|---|---|---|---|---|---|\n| 1 | `C` | 2 | T1 | C E G | C | I |\n| 2 | `G` | 2 | T3 | G B D | G | V |\n| 3 | `D` | 2 | T5 | D F# A | D | II |\n| 4 | `A` | 2 | T7 | A Db E | A | VI |\n\n- **Bass (aus den Akkorden abgeleitet):** Akkordbass C → G → D → A · Pedalbass-Vorschlag C · Charakter: bewegt: der Basston wechselt mit den Akkorden\n- **Bassempfehlung:** Akkordbass (C → G → D → A); als Pedalbass ist C möglich, die Spannung der Folge sinkt dann.\n- **Zentrum/Modus:** Aufwärts in Quinten, Dur\n- **Wirkung:** Fanfare, Aufbruch, Start.\n- **Besetzung (Vorschlag):** Blech, Streicher.\n- **Anweisung:** Bassempfehlung: Akkordbass; zwei Takte pro Klang; Spitze des Aufstiegs im letzten Klang.\n- **Referenz:** Fanfarenartige Dur-Aufstiege sind bei Barry plausibel; Reihenfolge eigener Zuschnitt.",
+      "verification": "research_constructed_H"
+    },
+    {
+      "id": "JB-H28",
+      "text": "docs/research/shared/Musikalisches_Vokabular_Gesamtfassung_2026-11-24.txt · JB-H28 · Hymnisches Plagal · Verfahren [H]; konkrete Vorlage [E], keine Transkription.\n- **Profile:** Barry · **XYZ:** 0,75 / 0,40 / 0,15 → hell · ruhig · stabil · **Evidenz:** Verfahren [H] · konkrete Vorlage [E] · **Kategorie:** universell einsetzbar\n\n| Nr | Akkord | Takte | ab | Tonklassen (Bass zuerst) | Bass | Stufe |\n|---|---|---|---|---|---|---|\n| 1 | `F` | 2 | T1 | F A C | F | IV |\n| 2 | `C` | 2 | T3 | C E G | C | I |\n| 3 | `F` | 2 | T5 | F A C | F | IV |\n| 4 | `C` | 2 | T7 | C E G | C | I |\n\n- **Bass (aus den Akkorden abgeleitet):** Akkordbass F → C → F → C · Pedalbass-Vorschlag F · Charakter: bewegt: der Basston wechselt mit den Akkorden\n- **Bassempfehlung:** Akkordbass (F → C → F → C); als Pedalbass ist F möglich, die Spannung der Folge sinkt dann.\n- **Zentrum/Modus:** C-Dur, IV–I pendelnd\n- **Wirkung:** Feierlich, getragen, versöhnlich.\n- **Besetzung (Vorschlag):** Streicher, Horn, Orgel.\n- **Anweisung:** Je zwei Takte; Melodie: halbe Noten auf c–d–e.\n- **Referenz:** Plagale Wendung ist allgemein; als gemeinsame Vorlage mit WC-H gedacht.",
+      "verification": "research_constructed_H"
+    },
+    {
+      "id": "JB-H29",
+      "text": "docs/research/shared/Musikalisches_Vokabular_Gesamtfassung_2026-11-24.txt · JB-H29 · Absteigende Moll-Kadenz i–♭VII–♭VI–V (Zentrum c oder a) · Verfahren [I]; konkrete Vorlage [E], keine Transkription.\n- **Zusammenführung (transpositionsgleich, gleiche Funktion):** ersetzt BH-H08\n- **Profile:** Barry + Herrmann · **XYZ:** 0,25–0,35 / 0,50–0,60 / 0,40–0,50 → dunkel · mittel · stabil · **Evidenz:** Verfahren [I] · konkrete Vorlage [E] · **Kategorie:** universell einsetzbar\n\n| Nr | Akkord | Takte | ab | Tonklassen (Bass zuerst) | Bass | Stufe |\n|---|---|---|---|---|---|---|\n| 1 | `Cm` | 2 | T1 | C Eb G | C | i |\n| 2 | `Bb` | 2 | T3 | Bb D F | Bb | bVII |\n| 3 | `Ab` | 2 | T5 | Ab C Eb | Ab | bVI |\n| 4 | `G` | 2 | T7 | G B D | G | V |\n\n- **Bass (aus den Akkorden abgeleitet):** Akkordbass C → Bb → Ab → G · Pedalbass-Vorschlag C · Charakter: bewegt: der Basston wechselt mit den Akkorden\n- **Bassempfehlung:** Akkordbass (C → Bb → Ab → G); als Pedalbass ist C möglich, die Spannung der Folge sinkt dann.\n- **Zentrum/Modus:** C-Moll, absteigendes Moll-Tetrachord\n- **Wirkung:** Fatalistisch, drängend, spanisch/exotisch.\n\n| Ursprungs-ID | Profil | XYZ | Ausgestaltung (Anweisung) | Wirkung/Besetzung | Referenz |\n|---|---|---|---|---|---|\n| JB-H29 | Barry | 0,25 / 0,50 / 0,40 | Bass fällt c–b–as–g; zwei Takte pro Akkord. | Fatalistisch, drängend, spanisch/exotisch.; Streicher, Gitarre, Blech. | Absteigendes Tetrachord ist universell; Barry-Bezug nur [I]. |\n| BH-H08 | Herrmann | 0,35 / 0,60 / 0,50 | Typisch in 3/8 (Fandango) mit Hemiolen: zwei Takte pro Klang. | Spanisch/Mittelmeer, Abenteuer, Kampf.; Streicher, Gitarre, Blech. | Fandango/Hemiola in 3/8 ist belegt (Mysterious-Island-Typ [I]); Akkordfolge eigen. |\n- **Verwandt (eigene Vorlagen):** WC-H16, WC-H24 (modale Fassungen derselben Reihe)",
+      "verification": "research_constructed_I"
+    },
+    {
+      "id": "JB-H30",
+      "text": "docs/research/shared/Musikalisches_Vokabular_Gesamtfassung_2026-11-24.txt · JB-H30 · Lamento-Kadenz · Verfahren [I]; konkrete Vorlage [E], keine Transkription.\n- **Profile:** Barry · **XYZ:** 0,25 / 0,40 / 0,35 → dunkel · ruhig · stabil · **Evidenz:** Verfahren [I] · konkrete Vorlage [E] · **Kategorie:** universell einsetzbar\n\n| Nr | Akkord | Takte | ab | Tonklassen (Bass zuerst) | Bass | Stufe |\n|---|---|---|---|---|---|---|\n| 1 | `Cm` | 2 | T1 | C Eb G | C | i |\n| 2 | `Cm/Bb` | 2 | T3 | Bb C Eb G | Bb | i/b7 |\n| 3 | `Abmaj7` | 2 | T5 | Ab C Eb G | Ab | bVImaj7 |\n| 4 | `G` | 2 | T7 | G B D | G | V |\n\n- **Bass (aus den Akkorden abgeleitet):** Akkordbass C → Bb → Ab → G · Pedalbass-Vorschlag C · Charakter: bewegt: der Basston wechselt mit den Akkorden\n- **Bassempfehlung:** Akkordbass (C → Bb → Ab → G); als Pedalbass ist C möglich, die Spannung der Folge sinkt dann.\n- **Zentrum/Modus:** C-Moll, Lamento-Bass, Halbschluss auf g\n- **Wirkung:** Trauer, Verlust; endet offen.\n- **Besetzung (Vorschlag):** Streicher, Klavier, Oboe.\n- **Anweisung:** Bass c–b–as–g; vier Gewichte; Schluss auf g offen.\n- **Referenz:** Lamento-Bass ist Allgemeingut; Einordnung bei Barry nur [I].",
+      "verification": "research_constructed_I"
+    },
+    {
+      "id": "JB-H31",
+      "text": "docs/research/shared/Musikalisches_Vokabular_Gesamtfassung_2026-11-24.txt · JB-H31 · Dominantpedal · Verfahren [H]; konkrete Vorlage [E], keine Transkription.\n- **Profile:** Barry · **XYZ:** 0,30 / 0,70 / 0,65 → dunkel · intensiv · unruhig · **Evidenz:** Verfahren [H] · konkrete Vorlage [E] · **Kategorie:** komponistenspezifische Präferenz\n\n| Nr | Akkord | Takte | ab | Tonklassen (Bass zuerst) | Bass | Stufe |\n|---|---|---|---|---|---|---|\n| 1 | `G7sus4` | 4 | T1 | G C D F | G | V7sus4 |\n| 2 | `G7` | 4 | T5 | G B D F | G | V7 |\n\n- **Bass (aus den Akkorden abgeleitet):** Akkordbass G · Pedalbass-Vorschlag G · Charakter: fester Basston (Pedal) auf G\n- **Bassempfehlung:** Pedalbass auf G; Akkordbass liefert dieselbe Tonfolge unverändert (nur ein Ton).\n- **Zentrum/Modus:** g als Zielton, C-Moll im Hintergrund\n- **Wirkung:** Spannung wird gehalten, nicht gelöst.\n- **Besetzung (Vorschlag):** Pauke, Bass, Blech.\n- **Anweisung:** Bassempfehlung: Pedalbass auf g; der Vorhalt c löst nach h (nicht nach b).\n- **Referenz:** Dominantpedal als Spannungsverfahren ist allgemein; nicht barrybeleg.\n- **Verwandt (eigene Vorlagen):** BH-H28 (gleiche Struktur, Pedal c statt g)",
+      "verification": "research_constructed_H"
+    },
+    {
+      "id": "JB-H32",
+      "text": "docs/research/shared/Musikalisches_Vokabular_Gesamtfassung_2026-11-24.txt · JB-H32 · Moll-Dur-Wechsel mit Septime · Verfahren [I]; konkrete Vorlage [E], keine Transkription.\n- **Profile:** Barry · **XYZ:** 0,50 / 0,40 / 0,40 → neutral · ruhig · stabil · **Evidenz:** Verfahren [I] · konkrete Vorlage [E] · **Kategorie:** komponistenspezifische Präferenz\n\n| Nr | Akkord | Takte | ab | Tonklassen (Bass zuerst) | Bass | Stufe |\n|---|---|---|---|---|---|---|\n| 1 | `CmM7` | 4 | T1 | C Eb G B | C | iM7 |\n| 2 | `Cmaj7` | 4 | T5 | C E G B | C | Imaj7 |\n\n- **Bass (aus den Akkorden abgeleitet):** Akkordbass C · Pedalbass-Vorschlag C · Charakter: fester Basston (Pedal) auf C\n- **Bassempfehlung:** Pedalbass auf C; Akkordbass liefert dieselbe Tonfolge unverändert (nur ein Ton).\n- **Zentrum/Modus:** C-Moll ↔ C-Dur mit großer Septime\n- **Wirkung:** Mehrdeutig, Abendstimmung.\n- **Besetzung (Vorschlag):** Streicher.\n- **Anweisung:** Je vier Takte; einziger Unterschied ist es/e.\n- **Referenz:** Mehrdeutigkeit durch Terzwechsel [I].",
+      "verification": "research_constructed_I"
+    },
+    {
+      "id": "JB-H34",
+      "text": "docs/research/shared/Musikalisches_Vokabular_Gesamtfassung_2026-11-24.txt · JB-H34 · Terzkette abwärts · Verfahren [I]; konkrete Vorlage [E], keine Transkription.\n- **Profile:** Barry · **XYZ:** 0,30 / 0,50 / 0,40 → dunkel · mittel · stabil · **Evidenz:** Verfahren [I] · konkrete Vorlage [E] · **Kategorie:** charakteristische Kombination\n\n| Nr | Akkord | Takte | ab | Tonklassen (Bass zuerst) | Bass | Stufe |\n|---|---|---|---|---|---|---|\n| 1 | `Cm` | 2 | T1 | C Eb G | C | i |\n| 2 | `Abmaj7` | 2 | T3 | Ab C Eb G | Ab | bVImaj7 |\n| 3 | `Fm` | 2 | T5 | F Ab C | F | iv |\n| 4 | `Dbmaj7` | 2 | T7 | Db F Ab C | Db | bIImaj7 |\n\n- **Bass (aus den Akkorden abgeleitet):** Akkordbass C → Ab → F → Db · Pedalbass-Vorschlag C · Charakter: bewegt: der Basston wechselt mit den Akkorden\n- **Bassempfehlung:** Akkordbass (C → Ab → F → Db); als Pedalbass ist C möglich, die Spannung der Folge sinkt dann.\n- **Zentrum/Modus:** C-Moll, Terzen absteigend\n- **Wirkung:** Fall in dunkle Räume.\n- **Besetzung (Vorschlag):** Streicher, Blech.\n- **Anweisung:** Je zwei Takte; Bass fällt c–as–f–des.\n- **Referenz:** Terzverwandtschaft passt zu Barrys Mediantenklängen; konkrete Reihe eigene Konstruktion.",
+      "verification": "research_constructed_I"
+    },
+    {
+      "id": "JB-H35",
+      "text": "docs/research/shared/Musikalisches_Vokabular_Gesamtfassung_2026-11-24.txt · JB-H35 · Tritonus-Dur · Verfahren [H]; konkrete Vorlage [E], keine Transkription.\n- **Profile:** Barry · **XYZ:** 0,60 / 0,70 / 0,80 → hell · intensiv · unruhig · **Evidenz:** Verfahren [H] · konkrete Vorlage [E] · **Kategorie:** komponistenspezifische Präferenz · Randbereich/Extrapolation\n\n| Nr | Akkord | Takte | ab | Tonklassen (Bass zuerst) | Bass | Stufe |\n|---|---|---|---|---|---|---|\n| 1 | `Cmaj7` | 4 | T1 | C E G B | C | Imaj7 |\n| 2 | `F#maj7` | 4 | T5 | F# A# C# F | F# | #IVmaj7 |\n\n- **Bass (aus den Akkorden abgeleitet):** Akkordbass C → F# · Pedalbass-Vorschlag C · Charakter: bewegt: der Basston wechselt mit den Akkorden\n- **Bassempfehlung:** Akkordbass (C → F#); als Pedalbass ist C möglich, die Spannung der Folge sinkt dann.\n- **Zentrum/Modus:** C-Dur ↔ F♯-Dur (Tritonus, beide hell)\n- **Wirkung:** Glanz und Schock zugleich; „Spezialeffekt“-Klang.\n- **Besetzung (Vorschlag):** Streicher, Blech, Celesta.\n- **Anweisung:** Je vier Takte; schneidend. Nur für Extremszenen.\n- **Referenz:** Eigene Konstruktion, bei Barry nicht belegt.\n- **Verwandt (eigene Vorlagen):** JB-H47 (gleiche Klänge, schnellerer Wechsel)",
+      "verification": "research_constructed_H"
+    },
+    {
+      "id": "JB-H36",
+      "text": "docs/research/shared/Musikalisches_Vokabular_Gesamtfassung_2026-11-24.txt · JB-H36 · Moll-Schluss mit Aufhellung · Verfahren [I]; konkrete Vorlage [E], keine Transkription.\n- **Profile:** Barry · **XYZ:** 0,40 / 0,30 / 0,20 → dunkel · ruhig · stabil · **Evidenz:** Verfahren [I] · konkrete Vorlage [E] · **Kategorie:** komponistenspezifische Präferenz\n\n| Nr | Akkord | Takte | ab | Tonklassen (Bass zuerst) | Bass | Stufe |\n|---|---|---|---|---|---|---|\n| 1 | `Cm` | 4 | T1 | C Eb G | C | i |\n| 2 | `Fm` | 2 | T5 | F Ab C | F | iv |\n| 3 | `C` | 2 | T7 | C E G | C | I |\n\n- **Bass (aus den Akkorden abgeleitet):** Akkordbass C → F → C · Pedalbass-Vorschlag C · Charakter: bewegt: der Basston wechselt mit den Akkorden\n- **Bassempfehlung:** Akkordbass (C → F → C); als Pedalbass ist C möglich, die Spannung der Folge sinkt dann.\n- **Zentrum/Modus:** C-Moll endet in C-Dur (Picardische Terz)\n- **Wirkung:** Versöhnlich, Schluss.\n- **Besetzung (Vorschlag):** Streicher, Horn.\n- **Anweisung:** Letzter Klang Dur: Terz e hell.\n- **Referenz:** Picardische Terz ist allgemein; Barry-Bezug [I].",
+      "verification": "research_constructed_I"
+    },
+    {
+      "id": "JB-H37",
+      "text": "docs/research/shared/Musikalisches_Vokabular_Gesamtfassung_2026-11-24.txt · JB-H37 · Pedal c mit absteigenden Dreiklängen · Verfahren [I]; konkrete Vorlage [E], keine Transkription.\n- **Profile:** Barry · **XYZ:** 0,50 / 0,60 / 0,50 → neutral · intensiv · mittel · **Evidenz:** Verfahren [I] · konkrete Vorlage [E] · **Kategorie:** charakteristische Kombination\n\n| Nr | Akkord | Takte | ab | Tonklassen (Bass zuerst) | Bass | Stufe |\n|---|---|---|---|---|---|---|\n| 1 | `C` | 2 | T1 | C E G | C | I |\n| 2 | `Bb/C` | 2 | T3 | C D F Bb | C | bVII/1 |\n| 3 | `Ab/C` | 2 | T5 | C Eb Ab | C | bVI/1 |\n| 4 | `G/C` | 2 | T7 | C D G B | C | V/1 |\n\n- **Bass (aus den Akkorden abgeleitet):** Akkordbass C · Pedalbass-Vorschlag C · Charakter: fester Basston (Pedal) auf C\n- **Bassempfehlung:** Pedalbass auf C; Akkordbass liefert dieselbe Tonfolge unverändert (nur ein Ton).\n- **Zentrum/Modus:** c bleibt, Dreiklänge steigen/fallen darüber\n- **Wirkung:** Wuchtig, marschartig; Aktion mit Pedal.\n- **Besetzung (Vorschlag):** Blech, Pauke, Streicher.\n- **Anweisung:** Bass c bleibt durchgehend; Bassempfehlung: Pedalbass. Rhythmus marschartig (siehe JB-R).\n- **Referenz:** Pedal + parallele Dreiklänge ist ein im Bond-Action-Stil plausibles Muster; konkrete Folge eigen.\n- **Verwandt (eigene Vorlagen):** JB-H17, JB-H45",
+      "verification": "research_constructed_I"
+    },
+    {
+      "id": "JB-H38",
+      "text": "docs/research/shared/Musikalisches_Vokabular_Gesamtfassung_2026-11-24.txt · JB-H38 · Leises Flirren (Moll-Verminderung) · Verfahren [H]; konkrete Vorlage [E], keine Transkription.\n- **Profile:** Barry · **XYZ:** 0,15 / 0,30 / 0,65 → dunkel · ruhig · unruhig · **Evidenz:** Verfahren [H] · konkrete Vorlage [E] · **Kategorie:** komponistenspezifische Präferenz · Randbereich/Extrapolation\n\n| Nr | Akkord | Takte | ab | Tonklassen (Bass zuerst) | Bass | Stufe |\n|---|---|---|---|---|---|---|\n| 1 | `CmM7` | 4 | T1 | C Eb G B | C | iM7 |\n| 2 | `Cdim` | 4 | T5 | C Eb F# | C | i° |\n\n- **Bass (aus den Akkorden abgeleitet):** Akkordbass C · Pedalbass-Vorschlag C · Charakter: fester Basston (Pedal) auf C\n- **Bassempfehlung:** Pedalbass auf C; Akkordbass liefert dieselbe Tonfolge unverändert (nur ein Ton).\n- **Zentrum/Modus:** C-Moll mit Verminderung, sehr leise\n- **Wirkung:** Etwas stimmt nicht, aber niemand handelt.\n- **Besetzung (Vorschlag):** Streicher con sordino, Tremolo pp.\n- **Anweisung:** Tremolo leise; zweiter Block nimmt die Quinte (g) zu ges.\n- **Referenz:** Extrapolation [E] für einen Randbereich: nicht belegt, soll nur verhindern, dass das Profil dort ausfällt.",
+      "verification": "research_constructed_H"
+    },
+    {
+      "id": "JB-H39",
+      "text": "docs/research/shared/Musikalisches_Vokabular_Gesamtfassung_2026-11-24.txt · JB-H39 · Wackelnder Bass unter Moll · Verfahren [H]; konkrete Vorlage [E], keine Transkription.\n- **Profile:** Barry · **XYZ:** 0,20 / 0,25 / 0,60 → dunkel · ruhig · unruhig · **Evidenz:** Verfahren [H] · konkrete Vorlage [E] · **Kategorie:** komponistenspezifische Präferenz · Randbereich/Extrapolation\n\n| Nr | Akkord | Takte | ab | Tonklassen (Bass zuerst) | Bass | Stufe |\n|---|---|---|---|---|---|---|\n| 1 | `Cm` | 2 | T1 | C Eb G | C | i |\n| 2 | `Cm/B` | 2 | T3 | B C Eb G | B | i/7 |\n| 3 | `Cm` | 2 | T5 | C Eb G | C | i |\n| 4 | `Cm/B` | 2 | T7 | B C Eb G | B | i/7 |\n\n- **Bass (aus den Akkorden abgeleitet):** Akkordbass C → B → C → B · Pedalbass-Vorschlag C · Charakter: bewegt: der Basston wechselt mit den Akkorden\n- **Bassempfehlung:** Akkordbass (C → B → C → B); als Pedalbass ist C möglich, die Spannung der Folge sinkt dann.\n- **Zentrum/Modus:** C-Moll, Bass wechselt c–h\n- **Wirkung:** Unruhe im Verborgenen.\n- **Besetzung (Vorschlag):** Kontrabass, Streicher pp.\n- **Anweisung:** Bass-Halbton alle 2 Takte; Oberstimmen unverändert.\n- **Referenz:** Extrapolation [E] für einen Randbereich: nicht belegt, soll nur verhindern, dass das Profil dort ausfällt.\n- **Verwandt (eigene Vorlagen):** BH-H29 (Cm über bewegtem Bass: Wackeln gegen Fall)",
+      "verification": "research_constructed_H"
+    },
+    {
+      "id": "JB-H40",
+      "text": "docs/research/shared/Musikalisches_Vokabular_Gesamtfassung_2026-11-24.txt · JB-H40 · Wuchtiges Moll-Pedal · Verfahren [H]; konkrete Vorlage [E], keine Transkription.\n- **Zusammenführung (exakte Dublette):** ersetzt BH-H40\n- **Profile:** Barry + Herrmann · **XYZ:** 0,15 / 0,85 / 0,20–0,25 → dunkel · intensiv · stabil · **Evidenz:** Verfahren [H] · konkrete Vorlage [E] · **Kategorie:** komponistenspezifische Präferenz · Randbereich/Extrapolation\n\n| Nr | Akkord | Takte | ab | Tonklassen (Bass zuerst) | Bass | Stufe |\n|---|---|---|---|---|---|---|\n| 1 | `Cm` | 8 | T1 | C Eb G | C | i |\n\n- **Bass (aus den Akkorden abgeleitet):** Akkordbass C · Pedalbass-Vorschlag C · Charakter: fester Basston (Pedal) auf C\n- **Bassempfehlung:** Pedalbass auf C; Akkordbass liefert dieselbe Tonfolge unverändert (nur ein Ton).\n- **Zentrum/Modus:** C-Moll statisch, fortissimo\n- **Wirkung:** Schwer, bedrohlich, ohne Bewegung.\n\n| Ursprungs-ID | Profil | XYZ | Ausgestaltung (Anweisung) | Wirkung/Besetzung | Referenz |\n|---|---|---|---|---|---|\n| JB-H40 | Barry | 0,15 / 0,85 / 0,25 | Ein Klang, Pauke auf 1 und 3; keine Melodie. | Schwer, bedrohlich, ohne Bewegung.; Blech, Pauke, tiefe Streicher. | Extrapolation [E] für einen Randbereich: nicht belegt, soll nur verhindern, dass das Profil dort ausfällt. |\n| BH-H40 | Herrmann | 0,15 / 0,85 / 0,20 | Ein Klang; Pauke. | Gewicht, Bedrohung.; Blech, Pauke. | Extrapolation [E] für einen Randbereich: nicht belegt, soll nur verhindern, dass das Profil dort ausfällt. |",
+      "verification": "research_constructed_H"
+    },
+    {
+      "id": "JB-H41",
+      "text": "docs/research/shared/Musikalisches_Vokabular_Gesamtfassung_2026-11-24.txt · JB-H41 · Schwerer Plagalschritt · Verfahren [H]; konkrete Vorlage [E], keine Transkription.\n- **Profile:** Barry · **XYZ:** 0,20 / 0,80 / 0,30 → dunkel · intensiv · stabil · **Evidenz:** Verfahren [H] · konkrete Vorlage [E] · **Kategorie:** komponistenspezifische Präferenz · Randbereich/Extrapolation\n\n| Nr | Akkord | Takte | ab | Tonklassen (Bass zuerst) | Bass | Stufe |\n|---|---|---|---|---|---|---|\n| 1 | `Cm` | 4 | T1 | C Eb G | C | i |\n| 2 | `Fm` | 4 | T5 | F Ab C | F | iv |\n\n- **Bass (aus den Akkorden abgeleitet):** Akkordbass C → F · Pedalbass-Vorschlag C · Charakter: bewegt: der Basston wechselt mit den Akkorden\n- **Bassempfehlung:** Akkordbass (C → F); als Pedalbass ist C möglich, die Spannung der Folge sinkt dann.\n- **Zentrum/Modus:** C-Moll → F-Moll, laut\n- **Wirkung:** Wucht und Gewicht.\n- **Besetzung (Vorschlag):** Blech, Pauke.\n- **Anweisung:** Vier Takte je Klang; Bass c–f.\n- **Referenz:** Extrapolation [E] für einen Randbereich: nicht belegt, soll nur verhindern, dass das Profil dort ausfällt.\n- **Verwandt (eigene Vorlagen):** BH-H22 (gleiche Klänge, Bass versetzt), JB-H10, BH-H41",
+      "verification": "research_constructed_H"
+    },
+    {
+      "id": "JB-H42",
+      "text": "docs/research/shared/Musikalisches_Vokabular_Gesamtfassung_2026-11-24.txt · JB-H42 · Heller Schimmer · Verfahren [H]; konkrete Vorlage [E], keine Transkription.\n- **Profile:** Barry · **XYZ:** 0,85 / 0,20 / 0,65 → hell · ruhig · unruhig · **Evidenz:** Verfahren [H] · konkrete Vorlage [E] · **Kategorie:** komponistenspezifische Präferenz · Randbereich/Extrapolation\n\n| Nr | Akkord | Takte | ab | Tonklassen (Bass zuerst) | Bass | Stufe |\n|---|---|---|---|---|---|---|\n| 1 | `Cmaj7#11` | 8 | T1 | C E F# G B | C | Imaj7#11 |\n\n- **Bass (aus den Akkorden abgeleitet):** Akkordbass C · Pedalbass-Vorschlag C · Charakter: fester Basston (Pedal) auf C\n- **Bassempfehlung:** Pedalbass auf C; Akkordbass liefert dieselbe Tonfolge unverändert (nur ein Ton).\n- **Zentrum/Modus:** C-lydisch, ruhig und flirrend\n- **Wirkung:** Staunen mit leichtem Unbehagen.\n- **Besetzung (Vorschlag):** Harfe, Celesta, Streicher flageolett.\n- **Anweisung:** Ein Klang; Töne werden verteilt, Celesta-Schimmer.\n- **Referenz:** Extrapolation [E] für einen Randbereich: nicht belegt, soll nur verhindern, dass das Profil dort ausfällt.",
+      "verification": "research_constructed_H"
+    },
+    {
+      "id": "JB-H43",
+      "text": "docs/research/shared/Musikalisches_Vokabular_Gesamtfassung_2026-11-24.txt · JB-H43 · Helles Flirren-Pendel · Verfahren [H]; konkrete Vorlage [E], keine Transkription.\n- **Profile:** Barry · **XYZ:** 0,85 / 0,25 / 0,65 → hell · ruhig · unruhig · **Evidenz:** Verfahren [H] · konkrete Vorlage [E] · **Kategorie:** komponistenspezifische Präferenz · Randbereich/Extrapolation\n\n| Nr | Akkord | Takte | ab | Tonklassen (Bass zuerst) | Bass | Stufe |\n|---|---|---|---|---|---|---|\n| 1 | `Cmaj7` | 4 | T1 | C E G B | C | Imaj7 |\n| 2 | `Dmaj7` | 4 | T5 | D F# A Db | D | IImaj7 |\n\n- **Bass (aus den Akkorden abgeleitet):** Akkordbass C → D · Pedalbass-Vorschlag C · Charakter: bewegt: der Basston wechselt mit den Akkorden\n- **Bassempfehlung:** Akkordbass (C → D); als Pedalbass ist C möglich, die Spannung der Folge sinkt dann.\n- **Zentrum/Modus:** C-Dur ↔ D-Dur, hell\n- **Wirkung:** Glanz mit Unruhe.\n- **Besetzung (Vorschlag):** Harfe, Streicher hoch.\n- **Anweisung:** Je vier Takte.\n- **Referenz:** Extrapolation [E] für einen Randbereich: nicht belegt, soll nur verhindern, dass das Profil dort ausfällt.",
+      "verification": "research_constructed_H"
+    },
+    {
+      "id": "JB-H44",
+      "text": "docs/research/shared/Musikalisches_Vokabular_Gesamtfassung_2026-11-24.txt · JB-H44 · Fanfare statisch · Verfahren [H]; konkrete Vorlage [E], keine Transkription.\n- **Zusammenführung (exakte Dublette):** ersetzt BH-H45\n- **Profile:** Barry + Herrmann · **XYZ:** 0,90 / 0,80–0,85 / 0,15–0,20 → hell · intensiv · stabil · **Evidenz:** Verfahren [H] · konkrete Vorlage [E] · **Kategorie:** komponistenspezifische Präferenz · Randbereich/Extrapolation\n\n| Nr | Akkord | Takte | ab | Tonklassen (Bass zuerst) | Bass | Stufe |\n|---|---|---|---|---|---|---|\n| 1 | `C` | 8 | T1 | C E G | C | I |\n\n- **Bass (aus den Akkorden abgeleitet):** Akkordbass C · Pedalbass-Vorschlag C · Charakter: fester Basston (Pedal) auf C\n- **Bassempfehlung:** Pedalbass auf C; Akkordbass liefert dieselbe Tonfolge unverändert (nur ein Ton).\n- **Zentrum/Modus:** C-Dur laut\n- **Wirkung:** Triumph.\n\n| Ursprungs-ID | Profil | XYZ | Ausgestaltung (Anweisung) | Wirkung/Besetzung | Referenz |\n|---|---|---|---|---|---|\n| JB-H44 | Barry | 0,90 / 0,85 / 0,20 | Ein Klang; Fanfarenmotiv JB-M12 darüber. | Triumph.; Blech, Pauke, Streicher. | Extrapolation [E] für einen Randbereich: nicht belegt, soll nur verhindern, dass das Profil dort ausfällt. |\n| BH-H45 | Herrmann | 0,90 / 0,80 / 0,15 | Ein Klang; Choralartige Melodie. | Feierlich.; Blech, Orgel. | Extrapolation [E] für einen Randbereich: nicht belegt, soll nur verhindern, dass das Profil dort ausfällt. |\n- **Verwandt (eigene Vorlagen):** BH-H23 (statisch, aber Quartsextakkord über Pedal c)",
+      "verification": "research_constructed_H"
+    },
+    {
+      "id": "JB-H45",
+      "text": "docs/research/shared/Musikalisches_Vokabular_Gesamtfassung_2026-11-24.txt · JB-H45 · Triumph über Pedal · Verfahren [H]; konkrete Vorlage [E], keine Transkription.\n- **Zusammenführung (exakte Dublette):** ersetzt BH-H44\n- **Profile:** Barry + Herrmann · **XYZ:** 0,90 / 0,80–0,85 / 0,25 → hell · intensiv · stabil · **Evidenz:** Verfahren [H] · konkrete Vorlage [E] · **Kategorie:** komponistenspezifische Präferenz · Randbereich/Extrapolation\n\n| Nr | Akkord | Takte | ab | Tonklassen (Bass zuerst) | Bass | Stufe |\n|---|---|---|---|---|---|---|\n| 1 | `C` | 4 | T1 | C E G | C | I |\n| 2 | `F/C` | 4 | T5 | C F A | C | IV/1 |\n\n- **Bass (aus den Akkorden abgeleitet):** Akkordbass C · Pedalbass-Vorschlag C · Charakter: fester Basston (Pedal) auf C\n- **Bassempfehlung:** Pedalbass auf C; Akkordbass liefert dieselbe Tonfolge unverändert (nur ein Ton).\n- **Zentrum/Modus:** C-Dur mit Subdominante über Pedal c\n- **Wirkung:** Sieg, Heldentum.\n\n| Ursprungs-ID | Profil | XYZ | Ausgestaltung (Anweisung) | Wirkung/Besetzung | Referenz |\n|---|---|---|---|---|---|\n| JB-H45 | Barry | 0,90 / 0,80 / 0,25 | Bass c bleibt. | Sieg, Heldentum.; Blech, Streicher, Pauke. | Extrapolation [E] für einen Randbereich: nicht belegt, soll nur verhindern, dass das Profil dort ausfällt. |\n| BH-H44 | Herrmann | 0,90 / 0,85 / 0,25 | Bass c bleibt. | Triumph.; Blech, Pauke. | Extrapolation [E] für einen Randbereich: nicht belegt, soll nur verhindern, dass das Profil dort ausfällt. |\n- **Verwandt (eigene Vorlagen):** JB-H17, JB-H37, BH-H23",
+      "verification": "research_constructed_H"
+    },
+    {
+      "id": "JB-H46",
+      "text": "docs/research/shared/Musikalisches_Vokabular_Gesamtfassung_2026-11-24.txt · JB-H46 · Heller Quintaufstieg beschleunigt · Verfahren [H]; konkrete Vorlage [E], keine Transkription.\n- **Profile:** Barry · **XYZ:** 0,90 / 0,90 / 0,80 → hell · intensiv · unruhig · **Evidenz:** Verfahren [H] · konkrete Vorlage [E] · **Kategorie:** Verfahren mit Planungsbedarf · Randbereich/Extrapolation\n\n| Nr | Akkord | Takte | ab | Tonklassen (Bass zuerst) | Bass | Stufe |\n|---|---|---|---|---|---|---|\n| 1 | `C` | 1 | T1 | C E G | C | I |\n| 2 | `G` | 1 | T2 | G B D | G | V |\n| 3 | `D` | 1 | T3 | D F# A | D | II |\n| 4 | `A` | 1 | T4 | A Db E | A | VI |\n| 5 | `E` | 1 | T5 | E Ab B | E | III |\n| 6 | `B` | 1 | T6 | B Eb F# | B | VII |\n| 7 | `F#` | 1 | T7 | F# A# C# | F# | #IV |\n| 8 | `C#` | 1 | T8 | C# F G# | C# | bII |\n\n- **Bass (aus den Akkorden abgeleitet):** Akkordbass C → G → D → A → E → B → F# → Db · Pedalbass-Vorschlag C · Charakter: bewegt: der Basston wechselt mit den Akkorden\n- **Bassempfehlung:** Akkordbass (C → G → D → A → E → B → F# → Db); als Pedalbass ist C möglich, die Spannung der Folge sinkt dann.\n- **Zentrum/Modus:** Dur-Quinten im Takt\n- **Wirkung:** Rausch, Jagd, Glanz.\n- **Besetzung (Vorschlag):** Blech, Streicher, Xylophon.\n- **Anweisung:** Ein Akkord pro Takt; Bassempfehlung: Akkordbass.\n- **Referenz:** Extrapolation [E] für einen Randbereich: nicht belegt, soll nur verhindern, dass das Profil dort ausfällt.",
+      "verification": "research_constructed_H"
+    },
+    {
+      "id": "JB-H47",
+      "text": "docs/research/shared/Musikalisches_Vokabular_Gesamtfassung_2026-11-24.txt · JB-H47 · Heller Tritonus-Wechsel · Verfahren [H]; konkrete Vorlage [E], keine Transkription.\n- **Profile:** Barry · **XYZ:** 0,80 / 0,85 / 0,85 → hell · intensiv · unruhig · **Evidenz:** Verfahren [H] · konkrete Vorlage [E] · **Kategorie:** komponistenspezifische Präferenz · Randbereich/Extrapolation\n\n| Nr | Akkord | Takte | ab | Tonklassen (Bass zuerst) | Bass | Stufe |\n|---|---|---|---|---|---|---|\n| 1 | `Cmaj7` | 2 | T1 | C E G B | C | Imaj7 |\n| 2 | `F#maj7` | 2 | T3 | F# A# C# F | F# | #IVmaj7 |\n| 3 | `Cmaj7` | 2 | T5 | C E G B | C | Imaj7 |\n| 4 | `F#maj7` | 2 | T7 | F# A# C# F | F# | #IVmaj7 |\n\n- **Bass (aus den Akkorden abgeleitet):** Akkordbass C → F# → C → F# · Pedalbass-Vorschlag C · Charakter: bewegt: der Basston wechselt mit den Akkorden\n- **Bassempfehlung:** Akkordbass (C → F# → C → F#); als Pedalbass ist C möglich, die Spannung der Folge sinkt dann.\n- **Zentrum/Modus:** C-Dur ↔ F♯-Dur, schnell\n- **Wirkung:** Glanz und Panik.\n- **Besetzung (Vorschlag):** Blech, Celesta, Streicher.\n- **Anweisung:** Alle 2 Takte; Bassempfehlung: Akkordbass.\n- **Referenz:** Extrapolation [E] für einen Randbereich: nicht belegt, soll nur verhindern, dass das Profil dort ausfällt.\n- **Verwandt (eigene Vorlagen):** JB-H35 (gleiche Klänge, langsamerer Wechsel)",
+      "verification": "research_constructed_H"
     }
   ],
   "templates": [
@@ -4132,6 +4362,1641 @@
           "type": "Fifth",
           "bars": 1,
           "bass": 10
+        }
+      ],
+      "coloration": "protected"
+    },
+    {
+      "id": 30001,
+      "symbol": "barryH01",
+      "name": "JB-H01 – Ein-Akkord-Ostinato: Moll-Dur7",
+      "xyz": [
+        0.2,
+        0.3,
+        0.3
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "JB-H01",
+      "chords": [
+        {
+          "root": 0,
+          "type": "MinMaj7",
+          "bars": 8,
+          "bass": 0
+        }
+      ],
+      "coloration": "protected"
+    },
+    {
+      "id": 30002,
+      "symbol": "barryH02",
+      "name": "JB-H02 – Ein-Akkord: Moll mit Sexte",
+      "xyz": [
+        0.25,
+        0.3,
+        0.25
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "JB-H02",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Min6",
+          "bars": 8,
+          "bass": 0
+        }
+      ],
+      "coloration": "protected"
+    },
+    {
+      "id": 30003,
+      "symbol": "barryH03",
+      "name": "JB-H03 – Ein-Akkord: Dur mit None (add9)",
+      "xyz": [
+        0.8,
+        0.2,
+        0.1
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "JB-H03",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Add9",
+          "bars": 8,
+          "bass": 0
+        }
+      ],
+      "coloration": "protected"
+    },
+    {
+      "id": 30004,
+      "symbol": "barryH04",
+      "name": "JB-H04 – Ein-Akkord: Dur-Septime weit",
+      "xyz": [
+        0.75,
+        0.15,
+        0.05
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "JB-H04",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Maj7",
+          "bars": 8,
+          "bass": 0
+        }
+      ],
+      "coloration": "protected"
+    },
+    {
+      "id": 30005,
+      "symbol": "barryH05",
+      "name": "JB-H05 – Terzverschiebung mM7",
+      "xyz": [
+        0.3,
+        0.5,
+        0.45
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "JB-H05",
+      "chords": [
+        {
+          "root": 0,
+          "type": "MinMaj7",
+          "bars": 4,
+          "bass": 0
+        },
+        {
+          "root": 4,
+          "type": "MinMaj7",
+          "bars": 4,
+          "bass": 4
+        }
+      ],
+      "coloration": "protected"
+    },
+    {
+      "id": 30006,
+      "symbol": "barryH06",
+      "name": "JB-H06 – Dur-Pendel Grund–Quinte",
+      "xyz": [
+        0.7,
+        0.35,
+        0.25
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "JB-H06",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Maj7",
+          "bars": 4,
+          "bass": 0
+        },
+        {
+          "root": 7,
+          "type": "Maj7",
+          "bars": 4,
+          "bass": 7
+        }
+      ],
+      "coloration": "protected"
+    },
+    {
+      "id": 30007,
+      "symbol": "barryH07",
+      "name": "JB-H07 – Moll mit tiefer Terzfarbe",
+      "xyz": [
+        0.35,
+        0.45,
+        0.3
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "JB-H07",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Min",
+          "bars": 4,
+          "bass": 0
+        },
+        {
+          "root": 8,
+          "type": "Maj7",
+          "bars": 4,
+          "bass": 8
+        }
+      ],
+      "coloration": "protected"
+    },
+    {
+      "id": 30008,
+      "symbol": "barryH08",
+      "name": "JB-H08 – Pedal c mit bVII",
+      "xyz": [
+        0.45,
+        0.4,
+        0.3
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "JB-H08",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Min",
+          "bars": 4,
+          "bass": 0
+        },
+        {
+          "root": 10,
+          "type": "Maj",
+          "bars": 4,
+          "bass": 0
+        }
+      ],
+      "coloration": "protected"
+    },
+    {
+      "id": 30009,
+      "symbol": "barryH09",
+      "name": "JB-H09 – Absteigende Moll-Kadenz Cm–Ab–Bb",
+      "xyz": [
+        0.35,
+        0.5,
+        0.35
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "JB-H09",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Min",
+          "bars": 2,
+          "bass": 0
+        },
+        {
+          "root": 8,
+          "type": "Maj7",
+          "bars": 2,
+          "bass": 8
+        },
+        {
+          "root": 10,
+          "type": "Maj",
+          "bars": 2,
+          "bass": 10
+        },
+        {
+          "root": 0,
+          "type": "Min",
+          "bars": 2,
+          "bass": 0
+        }
+      ],
+      "coloration": "protected"
+    },
+    {
+      "id": 30010,
+      "symbol": "barryH10",
+      "name": "JB-H10 – Moll-Plagal Cm–Fm–Cm",
+      "xyz": [
+        0.3,
+        0.35,
+        0.25
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "JB-H10",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Min",
+          "bars": 4,
+          "bass": 0
+        },
+        {
+          "root": 5,
+          "type": "Min",
+          "bars": 2,
+          "bass": 5
+        },
+        {
+          "root": 0,
+          "type": "Min",
+          "bars": 2,
+          "bass": 0
+        }
+      ],
+      "coloration": "protected"
+    },
+    {
+      "id": 30011,
+      "symbol": "barryH11",
+      "name": "JB-H11 – Dur-Ostinato mit Pedal c",
+      "xyz": [
+        0.8,
+        0.3,
+        0.1
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "JB-H11",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Add9",
+          "bars": 4,
+          "bass": 0
+        },
+        {
+          "root": 5,
+          "type": "Maj7",
+          "bars": 4,
+          "bass": 0
+        }
+      ],
+      "coloration": "protected"
+    },
+    {
+      "id": 30012,
+      "symbol": "barryH12",
+      "name": "JB-H12 – Schwebende Sus-Folge",
+      "xyz": [
+        0.6,
+        0.25,
+        0.25
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "JB-H12",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Sus2",
+          "bars": 4,
+          "bass": 0
+        },
+        {
+          "root": 0,
+          "type": "Sus4",
+          "bars": 4,
+          "bass": 0
+        }
+      ],
+      "coloration": "protected"
+    },
+    {
+      "id": 30013,
+      "symbol": "barryH13",
+      "name": "JB-H13 – Halbton-Pendel mM7",
+      "xyz": [
+        0.3,
+        0.6,
+        0.7
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "JB-H13",
+      "chords": [
+        {
+          "root": 0,
+          "type": "MinMaj7",
+          "bars": 4,
+          "bass": 0
+        },
+        {
+          "root": 1,
+          "type": "MinMaj7",
+          "bars": 4,
+          "bass": 1
+        }
+      ],
+      "coloration": "protected"
+    },
+    {
+      "id": 30014,
+      "symbol": "barryH14",
+      "name": "JB-H14 – Tritonus-Pendel Moll",
+      "xyz": [
+        0.2,
+        0.65,
+        0.65
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "JB-H14",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Min",
+          "bars": 4,
+          "bass": 0
+        },
+        {
+          "root": 6,
+          "type": "Min",
+          "bars": 4,
+          "bass": 6
+        }
+      ],
+      "coloration": "protected"
+    },
+    {
+      "id": 30015,
+      "symbol": "barryH15",
+      "name": "JB-H15 – Mediantenpaar hell",
+      "xyz": [
+        0.65,
+        0.35,
+        0.2
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "JB-H15",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Maj7",
+          "bars": 4,
+          "bass": 0
+        },
+        {
+          "root": 3,
+          "type": "Maj7",
+          "bars": 4,
+          "bass": 3
+        }
+      ],
+      "coloration": "protected"
+    },
+    {
+      "id": 30016,
+      "symbol": "barryH16",
+      "name": "JB-H16 – Lydische Färbung über Pedal",
+      "xyz": [
+        0.85,
+        0.3,
+        0.2
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "JB-H16",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Maj7",
+          "bars": 4,
+          "bass": 0
+        },
+        {
+          "root": 2,
+          "type": "Maj",
+          "bars": 4,
+          "bass": 0
+        }
+      ],
+      "coloration": "protected"
+    },
+    {
+      "id": 30017,
+      "symbol": "barryH17",
+      "name": "JB-H17 – Bright Pedal mit bVII–IV",
+      "xyz": [
+        0.65,
+        0.5,
+        0.3
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "JB-H17",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Maj",
+          "bars": 4,
+          "bass": 0
+        },
+        {
+          "root": 10,
+          "type": "Maj",
+          "bars": 2,
+          "bass": 0
+        },
+        {
+          "root": 5,
+          "type": "Maj",
+          "bars": 2,
+          "bass": 0
+        }
+      ],
+      "coloration": "protected"
+    },
+    {
+      "id": 30018,
+      "symbol": "barryH18",
+      "name": "JB-H18 – Quint-Pedal c–g (mit Linie oder als leerer Klang)",
+      "xyz": [
+        0.25,
+        0.55,
+        0.6
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "JB-H18",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Fifth",
+          "bars": 8,
+          "bass": 0
+        }
+      ],
+      "coloration": "protected"
+    },
+    {
+      "id": 30019,
+      "symbol": "barryH19",
+      "name": "JB-H19 – Phrygisches Pendel",
+      "xyz": [
+        0.15,
+        0.55,
+        0.55
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "JB-H19",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Min",
+          "bars": 4,
+          "bass": 0
+        },
+        {
+          "root": 1,
+          "type": "Maj7",
+          "bars": 4,
+          "bass": 1
+        }
+      ],
+      "coloration": "protected"
+    },
+    {
+      "id": 30020,
+      "symbol": "barryH20",
+      "name": "JB-H20 – Schnelles Phrygisch-Pendel",
+      "xyz": [
+        0.15,
+        0.75,
+        0.7
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "JB-H20",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Min",
+          "bars": 2,
+          "bass": 0
+        },
+        {
+          "root": 1,
+          "type": "Maj",
+          "bars": 2,
+          "bass": 1
+        },
+        {
+          "root": 0,
+          "type": "Min",
+          "bars": 2,
+          "bass": 0
+        },
+        {
+          "root": 1,
+          "type": "Maj",
+          "bars": 2,
+          "bass": 1
+        }
+      ],
+      "coloration": "protected"
+    },
+    {
+      "id": 30021,
+      "symbol": "barryH21",
+      "name": "JB-H21 – Bittersüßes Dur-Moll-Pendel",
+      "xyz": [
+        0.5,
+        0.3,
+        0.3
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "JB-H21",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Maj7",
+          "bars": 4,
+          "bass": 0
+        },
+        {
+          "root": 0,
+          "type": "Min6",
+          "bars": 4,
+          "bass": 0
+        }
+      ],
+      "coloration": "protected"
+    },
+    {
+      "id": 30022,
+      "symbol": "barryH22",
+      "name": "JB-H22 – Mollsubdominante hell",
+      "xyz": [
+        0.45,
+        0.3,
+        0.25
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "JB-H22",
+      "chords": [
+        {
+          "root": 5,
+          "type": "Maj7",
+          "bars": 4,
+          "bass": 5
+        },
+        {
+          "root": 5,
+          "type": "Min6",
+          "bars": 4,
+          "bass": 5
+        }
+      ],
+      "coloration": "protected"
+    },
+    {
+      "id": 30023,
+      "symbol": "barryH23",
+      "name": "JB-H23 – Moll-Diminished-Wechsel",
+      "xyz": [
+        0.15,
+        0.8,
+        0.85
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "JB-H23",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Min",
+          "bars": 2,
+          "bass": 0
+        },
+        {
+          "root": 0,
+          "type": "DiminishedTriad",
+          "bars": 2,
+          "bass": 0
+        },
+        {
+          "root": 0,
+          "type": "Min",
+          "bars": 2,
+          "bass": 0
+        },
+        {
+          "root": 0,
+          "type": "DiminishedTriad",
+          "bars": 2,
+          "bass": 0
+        }
+      ],
+      "coloration": "protected"
+    },
+    {
+      "id": 30024,
+      "symbol": "barryH24",
+      "name": "JB-H24 – Chromatische Mollreihe aufwärts",
+      "xyz": [
+        0.2,
+        0.9,
+        0.9
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "JB-H24",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Min",
+          "bars": 2,
+          "bass": 0
+        },
+        {
+          "root": 1,
+          "type": "Min",
+          "bars": 2,
+          "bass": 1
+        },
+        {
+          "root": 2,
+          "type": "Min",
+          "bars": 2,
+          "bass": 2
+        },
+        {
+          "root": 3,
+          "type": "Min",
+          "bars": 2,
+          "bass": 3
+        }
+      ],
+      "coloration": "protected"
+    },
+    {
+      "id": 30025,
+      "symbol": "barryH25",
+      "name": "JB-H25 – Ein-Akkord: Moll-None",
+      "xyz": [
+        0.3,
+        0.35,
+        0.35
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "JB-H25",
+      "chords": [
+        {
+          "root": 0,
+          "type": "MinMaj9",
+          "bars": 8,
+          "bass": 0
+        }
+      ],
+      "coloration": "protected"
+    },
+    {
+      "id": 30026,
+      "symbol": "barryH26",
+      "name": "JB-H26 – Moll-Septakkord-Kette",
+      "xyz": [
+        0.45,
+        0.25,
+        0.2
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "JB-H26",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Min7",
+          "bars": 4,
+          "bass": 0
+        },
+        {
+          "root": 5,
+          "type": "Min7",
+          "bars": 4,
+          "bass": 5
+        }
+      ],
+      "coloration": "protected"
+    },
+    {
+      "id": 30027,
+      "symbol": "barryH27",
+      "name": "JB-H27 – Quintaufstieg hell",
+      "xyz": [
+        0.9,
+        0.65,
+        0.4
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "JB-H27",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Maj",
+          "bars": 2,
+          "bass": 0
+        },
+        {
+          "root": 7,
+          "type": "Maj",
+          "bars": 2,
+          "bass": 7
+        },
+        {
+          "root": 2,
+          "type": "Maj",
+          "bars": 2,
+          "bass": 2
+        },
+        {
+          "root": 9,
+          "type": "Maj",
+          "bars": 2,
+          "bass": 9
+        }
+      ],
+      "coloration": "protected"
+    },
+    {
+      "id": 30028,
+      "symbol": "barryH28",
+      "name": "JB-H28 – Hymnisches Plagal",
+      "xyz": [
+        0.75,
+        0.4,
+        0.15
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "JB-H28",
+      "chords": [
+        {
+          "root": 5,
+          "type": "Maj",
+          "bars": 2,
+          "bass": 5
+        },
+        {
+          "root": 0,
+          "type": "Maj",
+          "bars": 2,
+          "bass": 0
+        },
+        {
+          "root": 5,
+          "type": "Maj",
+          "bars": 2,
+          "bass": 5
+        },
+        {
+          "root": 0,
+          "type": "Maj",
+          "bars": 2,
+          "bass": 0
+        }
+      ],
+      "coloration": "protected"
+    },
+    {
+      "id": 30029,
+      "symbol": "barryH29",
+      "name": "JB-H29 – Absteigende Moll-Kadenz i–♭VII–♭VI–V (Zentrum c oder a)",
+      "xyz": [
+        0.25,
+        0.5,
+        0.4
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "JB-H29",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Min",
+          "bars": 2,
+          "bass": 0
+        },
+        {
+          "root": 10,
+          "type": "Maj",
+          "bars": 2,
+          "bass": 10
+        },
+        {
+          "root": 8,
+          "type": "Maj",
+          "bars": 2,
+          "bass": 8
+        },
+        {
+          "root": 7,
+          "type": "Maj",
+          "bars": 2,
+          "bass": 7
+        }
+      ],
+      "coloration": "protected"
+    },
+    {
+      "id": 30030,
+      "symbol": "barryH30",
+      "name": "JB-H30 – Lamento-Kadenz",
+      "xyz": [
+        0.25,
+        0.4,
+        0.35
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "JB-H30",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Min",
+          "bars": 2,
+          "bass": 0
+        },
+        {
+          "root": 0,
+          "type": "Min",
+          "bars": 2,
+          "bass": 10
+        },
+        {
+          "root": 8,
+          "type": "Maj7",
+          "bars": 2,
+          "bass": 8
+        },
+        {
+          "root": 7,
+          "type": "Maj",
+          "bars": 2,
+          "bass": 7
+        }
+      ],
+      "coloration": "protected"
+    },
+    {
+      "id": 30031,
+      "symbol": "barryH31",
+      "name": "JB-H31 – Dominantpedal",
+      "xyz": [
+        0.3,
+        0.7,
+        0.65
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "JB-H31",
+      "chords": [
+        {
+          "root": 7,
+          "type": "Dominant7Sus4",
+          "bars": 4,
+          "bass": 7
+        },
+        {
+          "root": 7,
+          "type": "Dom7",
+          "bars": 4,
+          "bass": 7
+        }
+      ],
+      "coloration": "protected"
+    },
+    {
+      "id": 30032,
+      "symbol": "barryH32",
+      "name": "JB-H32 – Moll-Dur-Wechsel mit Septime",
+      "xyz": [
+        0.5,
+        0.4,
+        0.4
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "JB-H32",
+      "chords": [
+        {
+          "root": 0,
+          "type": "MinMaj7",
+          "bars": 4,
+          "bass": 0
+        },
+        {
+          "root": 0,
+          "type": "Maj7",
+          "bars": 4,
+          "bass": 0
+        }
+      ],
+      "coloration": "protected"
+    },
+    {
+      "id": 30034,
+      "symbol": "barryH34",
+      "name": "JB-H34 – Terzkette abwärts",
+      "xyz": [
+        0.3,
+        0.5,
+        0.4
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "JB-H34",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Min",
+          "bars": 2,
+          "bass": 0
+        },
+        {
+          "root": 8,
+          "type": "Maj7",
+          "bars": 2,
+          "bass": 8
+        },
+        {
+          "root": 5,
+          "type": "Min",
+          "bars": 2,
+          "bass": 5
+        },
+        {
+          "root": 1,
+          "type": "Maj7",
+          "bars": 2,
+          "bass": 1
+        }
+      ],
+      "coloration": "protected"
+    },
+    {
+      "id": 30035,
+      "symbol": "barryH35",
+      "name": "JB-H35 – Tritonus-Dur",
+      "xyz": [
+        0.6,
+        0.7,
+        0.8
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "JB-H35",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Maj7",
+          "bars": 4,
+          "bass": 0
+        },
+        {
+          "root": 6,
+          "type": "Maj7",
+          "bars": 4,
+          "bass": 6
+        }
+      ],
+      "coloration": "protected"
+    },
+    {
+      "id": 30036,
+      "symbol": "barryH36",
+      "name": "JB-H36 – Moll-Schluss mit Aufhellung",
+      "xyz": [
+        0.4,
+        0.3,
+        0.2
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "JB-H36",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Min",
+          "bars": 4,
+          "bass": 0
+        },
+        {
+          "root": 5,
+          "type": "Min",
+          "bars": 2,
+          "bass": 5
+        },
+        {
+          "root": 0,
+          "type": "Maj",
+          "bars": 2,
+          "bass": 0
+        }
+      ],
+      "coloration": "protected"
+    },
+    {
+      "id": 30037,
+      "symbol": "barryH37",
+      "name": "JB-H37 – Pedal c mit absteigenden Dreiklängen",
+      "xyz": [
+        0.5,
+        0.6,
+        0.5
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "JB-H37",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Maj",
+          "bars": 2,
+          "bass": 0
+        },
+        {
+          "root": 10,
+          "type": "Maj",
+          "bars": 2,
+          "bass": 0
+        },
+        {
+          "root": 8,
+          "type": "Maj",
+          "bars": 2,
+          "bass": 0
+        },
+        {
+          "root": 7,
+          "type": "Maj",
+          "bars": 2,
+          "bass": 0
+        }
+      ],
+      "coloration": "protected"
+    },
+    {
+      "id": 30038,
+      "symbol": "barryH38",
+      "name": "JB-H38 – Leises Flirren (Moll-Verminderung)",
+      "xyz": [
+        0.15,
+        0.3,
+        0.65
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "JB-H38",
+      "chords": [
+        {
+          "root": 0,
+          "type": "MinMaj7",
+          "bars": 4,
+          "bass": 0
+        },
+        {
+          "root": 0,
+          "type": "DiminishedTriad",
+          "bars": 4,
+          "bass": 0
+        }
+      ],
+      "coloration": "protected"
+    },
+    {
+      "id": 30039,
+      "symbol": "barryH39",
+      "name": "JB-H39 – Wackelnder Bass unter Moll",
+      "xyz": [
+        0.2,
+        0.25,
+        0.6
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "JB-H39",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Min",
+          "bars": 2,
+          "bass": 0
+        },
+        {
+          "root": 0,
+          "type": "Min",
+          "bars": 2,
+          "bass": 11
+        },
+        {
+          "root": 0,
+          "type": "Min",
+          "bars": 2,
+          "bass": 0
+        },
+        {
+          "root": 0,
+          "type": "Min",
+          "bars": 2,
+          "bass": 11
+        }
+      ],
+      "coloration": "protected"
+    },
+    {
+      "id": 30041,
+      "symbol": "barryH41",
+      "name": "JB-H41 – Schwerer Plagalschritt",
+      "xyz": [
+        0.2,
+        0.8,
+        0.3
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "JB-H41",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Min",
+          "bars": 4,
+          "bass": 0
+        },
+        {
+          "root": 5,
+          "type": "Min",
+          "bars": 4,
+          "bass": 5
+        }
+      ],
+      "coloration": "protected"
+    },
+    {
+      "id": 30042,
+      "symbol": "barryH42",
+      "name": "JB-H42 – Heller Schimmer",
+      "xyz": [
+        0.85,
+        0.2,
+        0.65
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "JB-H42",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Major7Sharp11",
+          "bars": 8,
+          "bass": 0
+        }
+      ],
+      "coloration": "protected"
+    },
+    {
+      "id": 30043,
+      "symbol": "barryH43",
+      "name": "JB-H43 – Helles Flirren-Pendel",
+      "xyz": [
+        0.85,
+        0.25,
+        0.65
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "JB-H43",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Maj7",
+          "bars": 4,
+          "bass": 0
+        },
+        {
+          "root": 2,
+          "type": "Maj7",
+          "bars": 4,
+          "bass": 2
+        }
+      ],
+      "coloration": "protected"
+    },
+    {
+      "id": 30044,
+      "symbol": "barryH44",
+      "name": "JB-H44 – Fanfare statisch",
+      "xyz": [
+        0.9,
+        0.85,
+        0.2
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "JB-H44",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Maj",
+          "bars": 8,
+          "bass": 0
+        }
+      ],
+      "coloration": "protected"
+    },
+    {
+      "id": 30045,
+      "symbol": "barryH45",
+      "name": "JB-H45 – Triumph über Pedal",
+      "xyz": [
+        0.9,
+        0.8,
+        0.25
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "JB-H45",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Maj",
+          "bars": 4,
+          "bass": 0
+        },
+        {
+          "root": 5,
+          "type": "Maj",
+          "bars": 4,
+          "bass": 0
+        }
+      ],
+      "coloration": "protected"
+    },
+    {
+      "id": 30046,
+      "symbol": "barryH46",
+      "name": "JB-H46 – Heller Quintaufstieg beschleunigt",
+      "xyz": [
+        0.9,
+        0.9,
+        0.8
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "JB-H46",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Maj",
+          "bars": 1,
+          "bass": 0
+        },
+        {
+          "root": 7,
+          "type": "Maj",
+          "bars": 1,
+          "bass": 7
+        },
+        {
+          "root": 2,
+          "type": "Maj",
+          "bars": 1,
+          "bass": 2
+        },
+        {
+          "root": 9,
+          "type": "Maj",
+          "bars": 1,
+          "bass": 9
+        },
+        {
+          "root": 4,
+          "type": "Maj",
+          "bars": 1,
+          "bass": 4
+        },
+        {
+          "root": 11,
+          "type": "Maj",
+          "bars": 1,
+          "bass": 11
+        },
+        {
+          "root": 6,
+          "type": "Maj",
+          "bars": 1,
+          "bass": 6
+        },
+        {
+          "root": 1,
+          "type": "Maj",
+          "bars": 1,
+          "bass": 1
+        }
+      ],
+      "coloration": "protected"
+    },
+    {
+      "id": 30047,
+      "symbol": "barryH47",
+      "name": "JB-H47 – Heller Tritonus-Wechsel",
+      "xyz": [
+        0.8,
+        0.85,
+        0.85
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "JB-H47",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Maj7",
+          "bars": 2,
+          "bass": 0
+        },
+        {
+          "root": 6,
+          "type": "Maj7",
+          "bars": 2,
+          "bass": 6
+        },
+        {
+          "root": 0,
+          "type": "Maj7",
+          "bars": 2,
+          "bass": 0
+        },
+        {
+          "root": 6,
+          "type": "Maj7",
+          "bars": 2,
+          "bass": 6
         }
       ],
       "coloration": "protected"

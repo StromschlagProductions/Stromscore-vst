@@ -356,6 +356,11 @@ public:
     {
         const bool pop = s.genre == GenrePopRock;
         auto ok = [&s] (int l) { return muteSoloOk (s, l) && levelOn (s, l); };
+        if(!pop&&s.policy.accompaniment.fieldAndOstinato)
+        {
+            if(s.x<.5f&&s.y>=.5f&&ok(kArp))return EntryArp;
+            if(ok(kFlaeche))return EntryPad;
+        }
         float w[kNumEntries] {};
         if (ok (kFlaeche)) w[EntryPad] = pop ? 1.0f : 3.0f + (s.z >= s.policy.texture.accentUnrest ? 1.0f : 0.0f) + (s.y < 0.3f ? 1.0f : 0.0f);
         if (ok (kBass)) { w[EntryBass] = 2.0f; w[EntryPulse] = 1.0f + (s.z >= s.policy.texture.accentUnrest ? 2.0f : 0.0f); }
@@ -411,7 +416,7 @@ public:
     // Wendungen, die an der aktuellen Stelle in Frage kommen, nach Passung sortiert
     static int candidates (const Settings& s, int* out, int maxOut)
     {
-        const Wendung* tbl = wendungTable (s.genre); const int count = wendungCount (s.genre);
+        const Wendung* tbl = wendungTable (s.genre,s.profile); const int count = wendungCount (s.genre,s.profile);
         float w[kMaxWendungen],xyz[kMaxWendungen]; float best = 0.0f;
         for (int i = 0; i < count; ++i) { xyz[i] = weight (tbl[i], s); best = std::max (best, xyz[i]);
             w[i]=xyz[i]*composition::harmonicPreference(s.profile,tbl[i].id); }
@@ -441,14 +446,14 @@ public:
     static float bestWeight (const Settings& s)
     {
         float best = 0.0f;
-        for (int i = 0; i < wendungCount (s.genre); ++i) best = std::max (best, weight (wendungTable (s.genre)[i], s));
+        for (int i = 0; i < wendungCount (s.genre,s.profile); ++i) best = std::max (best, weight (wendungTable (s.genre,s.profile)[i], s));
         return best;
     }
 
     // Deterministische Wahl unter den Wendungen, die gut zur Lage passen (mindestens halb so gut wie die beste)
     static int pick (const Settings& s, long long salt)
     {
-        const Wendung* tbl = wendungTable (s.genre); const int count = wendungCount (s.genre);
+        const Wendung* tbl = wendungTable (s.genre,s.profile); const int count = wendungCount (s.genre,s.profile);
         float w[kMaxWendungen]; float total = 0.0f, best = 0.0f; int bestIdx = 0;
         for (int i = 0; i < count; ++i)
         {
@@ -488,7 +493,7 @@ public:
         s.change = std::clamp (s.change, 0, kNumChangeGrids - 1);
         for (auto& v : s.layerIntensity) v = std::clamp (v, -1.0f, 1.0f);
         if(!composition::findProfile(s.profile))s.profile=composition::ProfileId::neutral;
-        if(!composition::valid(s.policy.popRoles)||!composition::valid(s.policy.texture)||!composition::valid(s.policy.motif)||!composition::valid(s.policy.popHooks.recurrence)||!composition::valid(s.policy.passing)||!composition::valid(s.policy.bass)||!composition::valid(s.policy.rhythm)||!composition::valid(s.policy.chords))s.policy=composition::neutralFreePolicy;
+        if(!composition::valid(s.policy.accompaniment)||!composition::valid(s.policy.popRoles)||!composition::valid(s.policy.texture)||!composition::valid(s.policy.motif)||!composition::valid(s.policy.popHooks.recurrence)||!composition::valid(s.policy.passing)||!composition::valid(s.policy.bass)||!composition::valid(s.policy.rhythm)||!composition::valid(s.policy.chords))s.policy=composition::neutralFreePolicy;
         s.variety = std::clamp (s.variety, 0.0f, 1.0f);
         for (auto& o : s.octave) o = std::clamp (o, -2, 2);
         for (auto& c : s.channel) c = std::clamp (c, 1, 16);
@@ -522,12 +527,12 @@ public:
         custom = customWendung (s);
         const int bars = s.custom ? wendungBars (custom) : kPhraseBars;
         s.genre = std::clamp (s.genre, 0, kNumGenres - 1);
-        if (s.custom != wasCustom || bars != phraseBars || s.genre != lastGenre)   // Umschalten, neue Laenge oder anderes Genre: neue Phrase
+        if (s.custom != wasCustom || bars != phraseBars || s.genre != lastGenre || s.profile != lastProfile)   // Umschalten, neue Laenge oder anderes Genre: neue Phrase
         {
-            if(s.genre!=lastGenre){motifCatalog.clear();for(auto& state:voices){state.motif.clear();state.answer.clear();state.capture.clear();state.recurrence={};state.reservationRecurrence={};state.popTurnValid=false;}}
+            if(s.genre!=lastGenre||s.profile!=lastProfile){if(s.profile!=lastProfile){allNotesOff(out,0);current=-1;voices={};bassPhrase={};bassPairStart.reset();clearHarmonicEntries();resetVoicing();}motifCatalog.clear();for(auto& state:voices){state.motif.clear();state.answer.clear();state.capture.clear();state.recurrence={};state.reservationRecurrence={};state.popTurnValid=false;}}
             preparedTime.reset();
             phraseIndex = -1; wasCustom = s.custom; phraseBars = bars; style = -1;
-            genre = s.genre; lastGenre = s.genre;
+            genre = s.genre; lastGenre = s.genre;lastProfile=s.profile;
             if (running) releaseHeld (0, out);
         }
 
@@ -703,7 +708,8 @@ private:
         for(size_t i=0;i<a.route.points.size();++i)if(a.route.points[i].x!=b.route.points[i].x||a.route.points[i].y!=b.route.points[i].y)return false;
         for(size_t i=0;i<a.route.bends.size();++i)if(a.route.bends[i].x!=b.route.bends[i].x||a.route.bends[i].y!=b.route.bends[i].y)return false;
         const auto& x=a.policy;const auto& y=b.policy;
-        if(x.popRoles.sparseBelow!=y.popRoles.sparseBelow||x.popRoles.drivenFrom!=y.popRoles.drivenFrom||x.popRoles.unrestFrom!=y.popRoles.unrestFrom
+        if(x.accompaniment.fieldAndOstinato!=y.accompaniment.fieldAndOstinato||x.accompaniment.fastestArp!=y.accompaniment.fastestArp
+            ||x.popRoles.sparseBelow!=y.popRoles.sparseBelow||x.popRoles.drivenFrom!=y.popRoles.drivenFrom||x.popRoles.unrestFrom!=y.popRoles.unrestFrom
             ||x.texture.activityStart!=y.texture.activityStart
             ||x.texture.accentUnrest!=y.texture.accentUnrest
             ||x.texture.stichStart!=y.texture.stichStart
@@ -753,7 +759,8 @@ private:
 
     static long long floorDiv (long long a, long long b) { return a >= 0 ? a / b : -((-a + b - 1) / b); }
 
-    const Wendung& W() const { return current == kCustomWendung ? custom : wendungAt (genre, current); }
+    composition::ProfileId lastProfile=composition::ProfileId::neutral;
+    const Wendung& W() const { return current == kCustomWendung ? custom : wendungAt (genre, current,lastProfile); }
 
     // ---------------------------------------------------------------- Dramaturgie
     static constexpr int kPulseTick = 100;   // Bass-Muster nur fuer den Puls-Einstieg: kurze Viertel auf dem Orgelpunkt
@@ -1655,11 +1662,11 @@ private:
         if (still || time == p.phraseStartTime || ! isChangePoint (p, s)) return false;
         if (current == kCustomWendung)   // eigene Folge: nur der geliehene Stil wechselt, die Akkorde bleiben
         {
-            if (style < 0 || weight (wendungAt (genre, style), s) < std::min (kKeepRatio, keepRatio (s)) * bestWeight (s)) style = pick (s, k * 7 + 3);
+            if (style < 0 || weight (wendungAt (genre, style,lastProfile), s) < std::min (kKeepRatio, keepRatio (s)) * bestWeight (s)) style = pick (s, k * 7 + 3);
             return false;
         }
         if (s.custom) return false;
-        if (weight (wendungAt (genre, current), s) >= std::min (kKeepRatio, keepRatio (s)) * bestWeight (s)) return false;
+        if (weight (wendungAt (genre, current,lastProfile), s) >= std::min (kKeepRatio, keepRatio (s)) * bestWeight (s)) return false;
         const int previous=current;
         current = pick (s, k * 7 + 3);
         rememberHarmonicEntry(time,previous,s);
@@ -1667,7 +1674,7 @@ private:
         return true;
     }
 
-    const Wendung& SW() const { return current == kCustomWendung ? wendungAt (genre, style) : W(); }
+    const Wendung& SW() const { return current == kCustomWendung ? wendungAt (genre, style,lastProfile) : W(); }
 
     int nextChordRoot (const Pos& p) const
     {
@@ -1719,6 +1726,9 @@ private:
 
     int hashInt (uint32_t salt, long long a) const { return (int) (hash3 ((uint32_t) cur->variation, (uint32_t) a, salt) & 0x7fffffff); }
 
+    bool fieldAccompaniment(const Settings& s)const
+    {return s.genre==GenreScore&&s.policy.accompaniment.fieldAndOstinato;}
+
     int chooseArp (const Settings& s, long long phrase) const
     {
         if (s.arpFigure != ArpAuto) return s.arpFigure;
@@ -1729,6 +1739,11 @@ private:
         if (bassOverride >= 0) return bassOverride;   // Einstieg: Bass-Schlag (gehalten) oder Puls
         if (s.bassPattern != BassAuto) return s.bassPattern;
         const float y = layerY (s, kBass);
+        if(fieldAccompaniment(s))
+        {
+            if(y<.3f)return BassHeld;
+            return SW().bass[hashInt(47u,phrase)%2];
+        }
         if (y < 0.15f) return BassHeld;                       // ganz duenn: lange Toene
         if (y > 0.92f) return BassEighth;                     // ganz dicht: Achtel nageln
         int pref = SW().bass[hashInt (47u, phrase) % 2];
@@ -1798,6 +1813,7 @@ private:
     {
         if (padShy) return PadHeld;                   // Einstieg: ein stehender Ton
         if (s.padPattern != PadAuto) return s.padPattern;
+        if(fieldAccompaniment(s))return PadHeld;
         const float y = layerY (s, kFlaeche);
         return y < 0.3f ? PadHeld : SW().pad;
     }
@@ -2342,6 +2358,8 @@ private:
     musicaltime::Tick arpeggioPeriod(const Settings& s,long long phrase)const
     {
         const int figure=chooseArp(s,phrase);
+        if(fieldAccompaniment(s)&&s.arpFigure==ArpAuto&&s.arpRate==RateAuto)
+            return std::max(s.policy.accompaniment.fastestArp,composition::autoArpeggioDuration(s.policy.texture,layerY(s,kArp)));
         if(figure==ArpGlitter||figure==ArpSid)return musicaltime::sixteenth;
         return s.arpRate==RateQuarter?musicaltime::quarter:s.arpRate==RateEighth?2*musicaltime::sixteenth:
             s.arpRate==RateSixteenth?musicaltime::sixteenth:composition::autoArpeggioDuration(s.policy.texture,layerY(s,kArp));
@@ -3010,7 +3028,7 @@ private:
                     const int rate = yBass > 0.6f ? 2 : 4;
                     if (p.pos % rate == 0)
                     {
-                        const int other = z >= 0.5f ? 1 : 3;                 // Halbton (Unruhe) oder kleine Terz
+                        const int other = fieldAccompaniment(s)&&s.bassPattern==BassAuto?3:z >= 0.5f ? 1 : 3;                 // Halbton (Unruhe) oder kleine Terz
                         const int n = (p.pos / rate) % 2 == 0 ? root : root + other;
                         noteOn (bo, n, vel, time + musicaltime::sixteenth*(rate - 1), offset, out);
                     }

@@ -25,6 +25,7 @@ with tempfile.TemporaryDirectory() as tmp:
   d=tmp/(rev or 'working');prepare(d,revision=rev,explicit=True,currentMotifs=True,currentPop=True);exe=d/'probe'
   subprocess.run([a.compiler,'-std=c++17','-O2','-I',str(d),str(root/'tools/harmony_import_probe.cpp'),'-o',str(exe)],check=True);executables.append(exe)
  for t in json.loads((root/'data/harmony/catalog.json').read_text())['templates']:
+  if t['id']>=30000:continue # Historical study predates Barry material.
   for profile in range(3):
    for route in (0,1):
     args=list(map(str,[t['id'],0,*t['xyz'],1,0,1,1,32,512,120,route,profile,.2,0 if t['id']<2000 else 1]))

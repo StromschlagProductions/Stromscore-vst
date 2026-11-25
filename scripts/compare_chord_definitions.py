@@ -8,6 +8,7 @@ p=argparse.ArgumentParser();p.add_argument('--probe',required=True);p.add_argume
 with tempfile.TemporaryDirectory() as tmp:
  tmp=pathlib.Path(tmp);prepare(tmp/'headers',revision='e4cb881',explicit=True);exe=tmp/'baseline';subprocess.run([a.compiler,'-std=c++17','-O2','-I',str(tmp/'headers'),str(root/'tools/harmony_import_probe.cpp'),'-o',str(exe)],check=True)
  for t in cat['templates']:
+  if t['id']>=30000:continue # This historical regression predates the Barry vocabulary.
   for profile in range(3):
    for route in range(2):
     args=list(map(str,[t['id'],0,*t['xyz'],1,0,1,1,32,512,120,route,profile,.2,0 if t['id']<2000 else 1]))

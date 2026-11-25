@@ -5,8 +5,13 @@ import pathlib,re,sys
 sys.path.insert(0,str(pathlib.Path(__file__).resolve().parents[1]/'scripts'))
 from reference_headers import header_snapshot
 root=pathlib.Path(__file__).resolve().parents[1]
-def prepare(destination,revision=None,historical=False,explicit=False,currentMotifs=False,currentPop=False):
+def prepare(destination,revision=None,historical=False,explicit=False,currentMotifs=False,currentPop=False,currentBarry=False):
  headers=header_snapshot(root,revision)
+ if not currentBarry and 'HarmonyProfilePools.generated.h' in headers:
+  name='HarmonyProfilePools.generated.h';s=headers[name].decode()
+  s=re.sub(r'case composition::ProfileId::[^:]+:return profileScore\d+\.data\(\);', '',s)
+  s=re.sub(r'case composition::ProfileId::[^:]+:return profileScore\d+\.size\(\);', '',s)
+  headers[name]=s.encode()
  if historical:
   name='HarmonyStrategies.generated.h';s=headers[name].decode();pattern=r'(inline constexpr std::array<int,)\d+(> kPopWendungenIndices \{\{)([^}]+)(\}\};)'
   def trim(m):return m[1]+'36'+m[2]+','.join(m[3].split(',')[:36])+m[4]

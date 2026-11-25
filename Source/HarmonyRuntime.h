@@ -1,4 +1,5 @@
 #pragma once
+#include "ProfileIdentity.generated.h"
 #include "HarmonyCatalog.generated.h"
 #include "HarmonyStrategies.generated.h"
 #include <algorithm>
@@ -27,15 +28,21 @@ inline constexpr auto kWendungen=playbackPool(kWendungenIndices);
 inline constexpr auto kPopWendungen=playbackPool(kPopWendungenIndices);
 inline constexpr int kNumWendungen=static_cast<int>(kWendungen.size());
 inline constexpr int kNumPopWendungen=static_cast<int>(kPopWendungen.size());
-// Stack scratch space scales with validated generated pools, without an arbitrary fixed 64 cap.
-inline constexpr int kMaxWendungen=kNumWendungen>kNumPopWendungen?kNumWendungen:kNumPopWendungen;
-// Preserve existing diagnostic value, but never collide with a larger generated pool index.
+}
+#include "HarmonyProfilePools.generated.h"
+namespace stromscore
+{
+// Bounded scratch follows the largest validated selection view.
+inline constexpr int kMaxWendungen=std::max({kNumWendungen,kNumPopWendungen,profilePoolCapacity});
 inline constexpr int kCustomWendung=kMaxWendungen<1000?1000:kMaxWendungen;
-inline const Wendung* wendungTable(int genre){return genre==GenrePopRock?kPopWendungen.data():kWendungen.data();}
-inline int wendungCount(int genre){return genre==GenrePopRock?kNumPopWendungen:kNumWendungen;}
-inline const Wendung& wendungAt(int genre,int index){return wendungTable(genre)[std::clamp(index,0,wendungCount(genre)-1)];}
-inline int wendungIndex(int genre,WendungId id)
-{for(int i=0;i<wendungCount(genre);++i)if(wendungAt(genre,i).id==id)return i;return -1;}
+inline const Wendung* wendungTable(int genre,composition::ProfileId profile=composition::ProfileId::neutral)
+{return genre==GenrePopRock?kPopWendungen.data():scoreProfileTable(profile);}
+inline int wendungCount(int genre,composition::ProfileId profile=composition::ProfileId::neutral)
+{return genre==GenrePopRock?kNumPopWendungen:scoreProfileCount(profile);}
+inline const Wendung& wendungAt(int genre,int index,composition::ProfileId profile=composition::ProfileId::neutral)
+{return wendungTable(genre,profile)[std::clamp(index,0,wendungCount(genre,profile)-1)];}
+inline int wendungIndex(int genre,WendungId id,composition::ProfileId profile=composition::ProfileId::neutral)
+{for(int i=0;i<wendungCount(genre,profile);++i)if(wendungAt(genre,i,profile).id==id)return i;return -1;}
 inline const Wendung* findWendung(WendungId id)
-{for(int g=0;g<kNumGenres;++g){int index=wendungIndex(g,id);if(index>=0)return &wendungAt(g,index);}return nullptr;}
+{for(const auto& p:composition::profileIdentities)for(int g=0;g<kNumGenres;++g){int index=wendungIndex(g,id,p.id);if(index>=0)return &wendungAt(g,index,p.id);}return nullptr;}
 }

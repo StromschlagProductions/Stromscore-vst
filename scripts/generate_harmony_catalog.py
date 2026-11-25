@@ -69,7 +69,6 @@ def _validate(data):
  for genre,ids in cat['pools'].items():
   sequence(ids,'pool '+genre);require(len(ids)>0 and len(ids)<0x7ffffffd,'pool '+genre,'nonempty, representable runtime index count required');require(len(set(ids))==len(ids),'pool '+genre,'duplicate pool reference')
   for i in ids:require(type(i)is int and i in templates and genre in templates[i]['genres'],'pool '+genre,'invalid/ineligible template reference')
- for t in templates.values():require(all(t['id'] in cat['pools'][g] for g in t['genres']),t['symbol'],'genre suitability and published pools disagree')
  arr=data['arrangements.json'];obj(arr,['schema_version','recipes','bindings'],'arrangements');recipes={}
  for r in arr['recipes']:
   obj(r,['id','arp','bass','pad','hook'],'recipe');text(r['id'],'recipe.id');require(r['id'] not in recipes,'recipe','duplicate recipe')
@@ -84,15 +83,25 @@ def _validate(data):
  profiles=data['profiles.json'];obj(profiles,['schema_version','profiles'],'profiles');pids=set();pnames=set();prefs={}
  require(type(profiles['profiles'])is list and len(profiles['profiles'])>0,'profiles','nonempty registry required')
  for p in profiles['profiles']:
-  obj(p,['id','symbol','name','harmony_selection_only','weights'],'profile');integer(p['id'],0,0x7fffffff,'profile.id');identifier(p['symbol'],'profile.symbol');text(p['name'],'profile.name');require(p['id'] not in pids and p['symbol'] not in pnames,'profile','duplicate profile identity');pids.add(p['id']);pnames.add(p['symbol']);require(type(p['harmony_selection_only'])is bool,'profile','boolean required');sequence(p['weights'],'profile.weights');weights={}
+  obj(p,['id','symbol','name','harmony_selection_only','weights']+[k for k in ('score_pool','score_overrides') if k in p],'profile');integer(p['id'],0,0x7fffffff,'profile.id');identifier(p['symbol'],'profile.symbol');text(p['name'],'profile.name');require(p['id'] not in pids and p['symbol'] not in pnames,'profile','duplicate profile identity');pids.add(p['id']);pnames.add(p['symbol']);require(type(p['harmony_selection_only'])is bool,'profile','boolean required');sequence(p['weights'],'profile.weights');weights={}
   for w in p['weights']:
    obj(w,['template_id','factor'],'weight');require(type(w['template_id'])is int and w['template_id'] in templates,'weight','unknown template reference');require(w['template_id'] not in weights,'weight','duplicate template/profile weight');number(w['factor'],'weight.factor');require(w['factor']>0,'weight.factor','positive weights only; no exclusion lists')
    try:f32=struct.unpack('<f',struct.pack('<f',w['factor']))[0]
    except OverflowError:raise ValidationError('weight.factor: not representable as float32')
    require(math.isfinite(f32) and f32>0,'weight.factor','finite positive float32 required');weights[w['template_id']]=w['factor']
+  pool=p.get('score_pool',[]);sequence(pool,'profile.score_pool');require(len(pool)==len(set(pool)),'profile.score_pool','duplicate material reference')
+  for i in pool:require(type(i)is int and i in templates and 'score' in templates[i]['genres'],'profile.score_pool','unknown/ineligible score material')
+  overrides=p.get('score_overrides',[]);sequence(overrides,'profile.score_overrides');seen=set()
+  for o in overrides:
+   obj(o,['template_id','xyz','coloration','source_ref','name'],'profile.override');i=o['template_id'];require(i in pool and i not in seen,'profile.override','unknown/duplicate material');seen.add(i)
+   sequence(o['xyz'],'override.xyz');require(len(o['xyz'])==3,'override.xyz','three static coordinates required')
+   for v in o['xyz']:number(v,'override.xyz');require(0<=v<=1,'override.xyz','outside unit cube')
+   require(o['coloration'] in ('flexible','protected') and o['source_ref'] in sources,'profile.override','invalid coloration/source');text(o['name'],'override.name')
   # Derived numeric safety, not a fixed artistic weight cap.
   require(sum(max(1.,weights.get(i,1.)) for i in templates)<3.4028234663852886e38/4,'profile.weights','unsafe floating-point accumulator total');prefs[p['symbol']]=weights
  require(pids==set(range(len(pids))) and profiles['profiles'][0]['id']==0 and profiles['profiles'][0]['symbol']=='neutral','profiles','contiguous stable runtime indices with neutral=0 required')
+ for t in templates.values():
+  for g in t['genres']:require(t['id'] in cat['pools'][g] or (g=='score' and any(t['id'] in p.get('score_pool',[]) for p in profiles['profiles'])),t['symbol'],'genre suitability and published pools disagree')
  notes=data['notes.json'];obj(notes,['schema_version','entries'],'notes');noteMap={}
  for n in notes['entries']:
   obj(n,['template_id','idea','instruments'],'notes.entry');require(type(n['template_id'])is int and n['template_id'] in templates and n['template_id'] not in noteMap,'notes','unknown/duplicate reference');text(n['idea'],'notes.idea');text(n['instruments'],'notes.instruments');noteMap[n['template_id']]=n
@@ -134,6 +143,24 @@ def emit(data):
   indices=[next(i for i,t in enumerate(ts) if t['id']==id) for id in data['catalog.json']['pools'][genre]]
   arr+='inline constexpr std::array<int,'+str(len(indices))+'> '+variable+'Indices {{'+','.join(map(str,indices))+'}};\n'
  arr+='}\n';out['Source/HarmonyStrategies.generated.h']=arr
+ # Profile membership is a shared-catalog view, never another harmonic authoring catalog.
+ pools=banner+'namespace stromscore {\n';sizes=[]
+ for p in ps:
+  ids=p.get('score_pool',[])
+  if not ids:continue
+  sizes.append(len(ids));indices=[next(i for i,t in enumerate(ts) if t['id']==id) for id in ids];name='profileScore'+str(p['id'])
+  pools+='inline constexpr auto '+name+'=[] {auto result=playbackPool(std::array<int,'+str(len(ids))+'>{{'+','.join(map(str,indices))+'}});\n'
+  for o in p.get('score_overrides',[]):
+   access='result['+str(ids.index(o['template_id']))+']';pools+=';'.join(access+'.'+k+'='+flt(v) for k,v in zip(('x','y','z'),o['xyz']))+';'+access+'.coloration=ChordColoration::'+('protectedColor' if o['coloration']=='protected' else 'flexible')+';'+access+'.name='+string(o['name'])+';\n'
+  pools+='return result;}();\n'
+ pools+='inline constexpr int profilePoolCapacity='+str(max(sizes,default=0))+';\n'
+ for what,ret,default in [('Table','const Wendung*','kWendungen.data()'),('Count','int','kNumWendungen')]:
+  pools+='inline constexpr '+ret+' scoreProfile'+what+'(composition::ProfileId id){switch(id){\n'
+  for p in ps:
+   if p.get('score_pool'):pools+='case composition::ProfileId::'+p['symbol']+':return profileScore'+str(p['id'])+('.data()' if what=='Table' else '.size()')+';\n'
+  pools+='default:return '+default+';}}\n'
+ pools+='}\n';out['Source/HarmonyProfilePools.generated.h']=pools
+
  pref=banner+'#include "WendungId.h"\n#include "ProfileIdentity.generated.h"\n#include <array>\nnamespace stromscore::composition {\nstruct TemplatePreference {WendungId id;std::array<float,'+str(len(ps))+'> weights;};\ninline constexpr std::array<TemplatePreference,'+str(len(ts))+'> templatePreferences {{\n'
  for t in ts:pref+='{WendungId::'+t['symbol']+',{{'+','.join(flt(m['prefs'][p['symbol']].get(t['id'],1.)) for p in ps)+'}}},\n'
  pref+='}};\ninline constexpr float harmonicPreference(ProfileId p,WendungId id){int index=static_cast<int>(p);if(index<0||index>=static_cast<int>(profileIdentities.size()))return 1.f;int lo=0,hi=static_cast<int>(templatePreferences.size());while(lo<hi){int mid=lo+(hi-lo)/2;if(static_cast<uint32_t>(templatePreferences[mid].id)<static_cast<uint32_t>(id))lo=mid+1;else hi=mid;}return lo<static_cast<int>(templatePreferences.size())&&templatePreferences[lo].id==id?templatePreferences[lo].weights[index]:1.f;}\n}\n';out['Source/HarmonyPreferences.generated.h']=pref
@@ -143,6 +170,19 @@ def emit(data):
   for id in data['catalog.json']['pools'][genre]:
    n=m['notes'][id];t=m['templates'][id];notes+='{'+','.join(string(v) for v in [n['idea'],n['instruments'],m['sources'][t['source_ref']]['text']])+'},\n'
   notes+='};\n'
+ for p in ps:
+  ids=p.get('score_pool',[])
+  if not ids:continue
+  overrides={o['template_id']:o for o in p.get('score_overrides',[])}
+  notes+='inline constexpr WendungInfo kProfileInfo'+str(p['id'])+'[]={\n'
+  for id in ids:
+   n=m['notes'][id];t=m['templates'][id];o=overrides.get(id,{})
+   notes+='{'+','.join(string(v) for v in [o.get('name',n['idea']),n['instruments'],m['sources'][o.get('source_ref',t['source_ref'])]['text']])+'},\n'
+  notes+='};\n'
+ notes+='inline const WendungInfo& scoreProfileInfo(stromscore::composition::ProfileId id,int index){switch(id){\n'
+ for p in ps:
+  if p.get('score_pool'):notes+='case stromscore::composition::ProfileId::'+p['symbol']+':return kProfileInfo'+str(p['id'])+'[index];\n'
+ notes+='default:return kScoreInfo[index];}}\n'
  out['Source/WendungInfo.h']=notes
  out['docs/development/HARMONY_DATA_VALIDATION.json']=json.dumps({'schema_version':1,'templates':len(ts),'chord_types':len(sh['types']),'profiles':len(ps),'pools':{g:len(v) for g,v in data['catalog.json']['pools'].items()},'potential_harmonic_duplicate_groups':m['duplicate_groups'],'duplicate_policy':'warning only; preserve IDs, entry phase and independent strategies','source_sha256':{f:hashlib.sha256((json.dumps(data[f],sort_keys=True,ensure_ascii=False)).encode()).hexdigest() for f in FILES}},ensure_ascii=False,indent=2)+'\n'
  return out

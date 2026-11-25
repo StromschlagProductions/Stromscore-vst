@@ -1,5 +1,5 @@
 """Offline validation, generation drift, sharing and real compiled large-pool tests."""
-import copy,importlib.util,json,pathlib,shutil,subprocess,tempfile,unittest,os
+import copy,importlib.util,json,pathlib,shutil,subprocess,tempfile,unittest,os,re
 root=pathlib.Path(__file__).resolve().parents[1]
 spec=importlib.util.spec_from_file_location('harmony_generator',root/'scripts/generate_harmony_catalog.py');gen=importlib.util.module_from_spec(spec);spec.loader.exec_module(gen)
 class HarmonyDataTests(unittest.TestCase):
@@ -9,10 +9,37 @@ class HarmonyDataTests(unittest.TestCase):
   data=copy.deepcopy(self.original);mutate(data)
   with self.assertRaises(gen.ValidationError):gen.validate(data)
  def test_existing_and_reproducible(self):
-  m=gen.validate(self.original);self.assertEqual(len(m['templates']),87);self.assertEqual(len(m['profiles']),3)
-  self.assertEqual(set(m['templates']),set(range(1001,1049))|set(range(2001,2040)))
+  m=gen.validate(self.original);self.assertEqual(len(m['templates']),132);self.assertEqual(len(m['profiles']),3)
+  self.assertEqual(set(m['templates']),set(range(1001,1049))|set(range(2001,2040))|{30000+n for n in range(1,48) if n not in (33,40)})
   self.assertIn([1047,2015,2019],m['duplicate_groups'])
   for path,content in gen.emit(self.original).items():self.assertEqual((root/path).read_text(encoding='utf-8'),content)
+ def test_barry_research_material_and_shared_alias(self):
+  spec=importlib.util.spec_from_file_location('barry_import',root/'scripts/import_barry_research.py');module=importlib.util.module_from_spec(spec);spec.loader.exec_module(module)
+  records=module.research();self.assertEqual(len(records),46)
+  m=gen.validate(self.original);profile=m['profiles'][1];self.assertFalse(profile['harmony_selection_only']);self.assertEqual(len(profile['score_pool']),46)
+  self.assertEqual(set(self.original['catalog.json']['pools']['score']),set(range(1001,1049)))
+  for r,i in zip(records,profile['score_pool']):
+   expected=1003 if r['number']==40 else 30000+r['number'];self.assertEqual(i,expected)
+   t=m['templates'][i];self.assertIn(r['ref'],m['sources'])
+   for a,b in zip(t['chords'],r['chords']):self.assertEqual((a['root'],a['type'],a['bars'],a['root'] if a['bass']is None else a['bass']),(b['root'],b['type'],b['bars'],b['bass']))
+   self.assertEqual(len(t['chords']),len(r['chords']))
+   # Independently check the source's explicit note column, not just the importer's symbol mapping.
+   rows=[line for line in r['text'].splitlines() if re.match(r'^\| \d+ \|',line)]
+   for chord,line in zip(t['chords'],rows):
+    columns=[v.strip() for v in line.strip('|').split('|')]
+    pitches={(chord['root']+n)%12 for n in m['definitions'][chord['type']]['intervals']}
+    pitches.add(chord['root'] if chord['bass']is None else chord['bass'])
+    self.assertEqual(pitches,{module.pc(note) for note in columns[4].split()},r['ref'])
+   if i!=1003:self.assertEqual(t['xyz'],r['xyz']);self.assertEqual(t['source_ref'],r['ref']);self.assertEqual(t['coloration'],'protected')
+  self.assertEqual(profile['score_overrides'][0]['template_id'],1003)
+  self.assertEqual(m['templates'][1003]['xyz'],[.08,.1,.6]);self.assertEqual(m['templates'][1003]['coloration'],'flexible')
+  # A membership reference cannot invent/redefine harmony, name a Pop-only entry, or carry invalid anchors.
+  for mutate in [lambda d:d['profiles.json']['profiles'][1]['score_pool'].append(99999),
+    lambda d:d['profiles.json']['profiles'][1]['score_pool'].append(2037),
+    lambda d:d['profiles.json']['profiles'][1]['score_pool'].append(1003),
+    lambda d:d['profiles.json']['profiles'][1]['score_overrides'][0].update(chords=[]),
+    lambda d:d['profiles.json']['profiles'][1]['score_overrides'][0].update(xyz=[0,0,2]),
+    lambda d:d['profiles.json']['profiles'][1]['score_overrides'][0].update(source_ref='missing')]:self.rejected(mutate)
  def test_import_fixture_accepts_windows_line_endings(self):
   from unittest.mock import patch
   import HarmonyImportFixtures as fixtures
@@ -88,7 +115,7 @@ class HarmonyDataTests(unittest.TestCase):
    t=copy.deepcopy(cat['templates'][0]);t.update(id=3000+i,symbol='synthetic'+str(i),name='Synthetic '+str(i),xyz=[.5,.5,.5],genres=['score'],chords=[{'root':0,'type':'Maj','bars':8,'bass':None}],tonality={'center_pc':0,'mode':'mixolydian'});cat['templates'].append(t);cat['pools']['score'].append(t['id']);d['arrangements.json']['bindings'].append({'template_id':t['id'],'recipe':binding});d['notes.json']['entries'].append({'template_id':t['id'],'idea':'Synthetic test only','instruments':'Independent'})
   cat['templates'][0]['genres'].append('pop_rock');cat['pools']['pop_rock'].append(1001)
   for i in range(3,40):d['profiles.json']['profiles'].append({'id':i,'symbol':'testProfile'+str(i),'name':'Test '+str(i),'harmony_selection_only':True,'weights':[{'template_id':3000,'factor':2}]})
-  m=gen.validate(d);self.assertEqual(len(m['templates']),1287);self.assertEqual(len(m['profiles']),40);self.assertTrue(any(len(g)>=1200 for g in m['duplicate_groups']))
+  m=gen.validate(d);self.assertEqual(len(m['templates']),1332);self.assertEqual(len(m['profiles']),40);self.assertTrue(any(len(g)>=1200 for g in m['duplicate_groups']))
   with tempfile.TemporaryDirectory() as tmp:
    p=pathlib.Path(tmp);source=p/'Source';source.mkdir()
    for f in (root/'Source').glob('*.h'):shutil.copyfile(f,source/f.name)
@@ -98,7 +125,7 @@ class HarmonyDataTests(unittest.TestCase):
 #include <memory>
 using namespace stromscore;
 int main(){static_assert(kMaxWendungen==1248);static_assert(kCustomWendung>=kMaxWendungen);
-CHECK(harmonyTemplates.size()==1287);CHECK(composition::compositionProfiles.size()==40);
+CHECK(harmonyTemplates.size()==1332);CHECK(composition::compositionProfiles.size()==40);
 CHECK(findHarmonyTemplate(static_cast<WendungId>(3000))->tonality.mode==composition::Mode::mixolydian);
 CHECK(wendungIndex(GenrePopRock,WendungId::scoreHalbtonNachbarn)>=0);
 CHECK(composition::harmonicPreference(static_cast<composition::ProfileId>(39),static_cast<WendungId>(3000))==2.f);

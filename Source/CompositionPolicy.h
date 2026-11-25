@@ -61,9 +61,24 @@ inline bool valid(const PopRolePolicy& p)
     &&p.sparseBelow>=0&&p.drivenFrom>p.sparseBelow&&p.drivenFrom<=1&&p.unrestFrom>=0&&p.unrestFrom<=1;}
 struct BassPhrasePolicy { bool enabled=true;int opportunityEvery=3,maxLeap=7; };
 inline bool valid(const BassPhrasePolicy& p){return p.opportunityEvery>=1&&p.opportunityEvery<=64&&p.maxLeap>=3&&p.maxLeap<=12;}
-struct FreeCompositionPolicy { TexturePolicy texture; PopRolePolicy popRoles; MotifRecurrencePolicy motif; HookPolicy popHooks; PassingPolicy passing; BassPhrasePolicy bass; RhythmCoordinationPolicy rhythm; ChordDispositionPolicy chords; };
+// A small automatic accompaniment strategy; explicit user patterns/rates bypass it.
+struct AutoAccompanimentPolicy
+{
+    bool fieldAndOstinato=false;
+    musicaltime::Tick fastestArp=2*musicaltime::sixteenth;
+};
+inline bool valid(const AutoAccompanimentPolicy& p)
+{return p.fastestArp==musicaltime::sixteenth||p.fastestArp==2*musicaltime::sixteenth||p.fastestArp==musicaltime::quarter;}
+struct FreeCompositionPolicy { AutoAccompanimentPolicy accompaniment; TexturePolicy texture; PopRolePolicy popRoles; MotifRecurrencePolicy motif; HookPolicy popHooks; PassingPolicy passing; BassPhrasePolicy bass; RhythmCoordinationPolicy rhythm; ChordDispositionPolicy chords; };
 inline constexpr FreeCompositionPolicy neutralFreePolicy {};
-// Artist identities currently provide only initial harmonic preferences; all texture data stay neutral.
+inline constexpr auto barryPolicy=[] {
+    auto p=neutralFreePolicy;p.accompaniment.fieldAndOstinato=true;
+    p.texture.activityStart={{0.f,0.f,.30f,.45f,.25f,.25f}};
+    p.texture.accentUnrest=.65f;p.texture.minimumActiveBars=4;
+    p.texture.arpeggio.quarterBelow=.4f;
+    return p;
+}();
+// Each profile supplies data to the same planning and rendering mechanisms.
 struct CompositionProfile
 {
     ProfileId id;
@@ -73,7 +88,7 @@ struct CompositionProfile
 };
 inline constexpr auto compositionProfiles=[] {
     std::array<CompositionProfile,profileIdentities.size()> result {};
-    for(size_t i=0;i<result.size();++i){const auto& p=profileIdentities[i];result[i]={p.id,p.name,&neutralFreePolicy,p.harmonySelectionOnly};}
+    for(size_t i=0;i<result.size();++i){const auto& p=profileIdentities[i];result[i]={p.id,p.name,p.id==ProfileId::johnBarry?&barryPolicy:&neutralFreePolicy,p.harmonySelectionOnly};}
     return result;
 }();
 inline constexpr const CompositionProfile* findProfile(ProfileId id)
@@ -83,6 +98,8 @@ inline constexpr const CompositionProfile* findProfile(ProfileId id)
 }
 inline constexpr const FreeCompositionPolicy* policyForProfile(ProfileId id)
 {const auto* p=findProfile(id);return p?p->policy:nullptr;}
+inline constexpr const FreeCompositionPolicy& policyForContext(ProfileId id,bool score)
+{return score&&policyForProfile(id)?*policyForProfile(id):neutralFreePolicy;}
 inline bool valid(const TexturePolicy& p)
 {
     auto unit=[](float v){return std::isfinite(v)&&v>=0.f&&v<=1.f;};

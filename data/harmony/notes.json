@@ -435,6 +435,231 @@
       "template_id": 2039,
       "idea": "WC-H19 – Dunkle Quint-Maschine. Geschützte harmonische Vorlage; keine profilspezifische Rhythmus-, Motiv- oder Instrumentierungsstrategie.",
       "instruments": "Frei wählbar; die Kompositionsvorlage legt keine Instrumentierung fest."
+    },
+    {
+      "template_id": 30001,
+      "idea": "Ein-Akkord-Ostinato: Moll-Dur7. Verfahren [N]; Tonfolge [E]. Bassvorgaben und Dauern laut kanonischer Forschung.",
+      "instruments": "Besetzungsunabhängig; vorhandene geeignete MIDI-Ziele. Originalhinweise siehe Quelle."
+    },
+    {
+      "template_id": 30002,
+      "idea": "Ein-Akkord: Moll mit Sexte. Verfahren [N]; Tonfolge [E]. Bassvorgaben und Dauern laut kanonischer Forschung.",
+      "instruments": "Besetzungsunabhängig; vorhandene geeignete MIDI-Ziele. Originalhinweise siehe Quelle."
+    },
+    {
+      "template_id": 30003,
+      "idea": "Ein-Akkord: Dur mit None (add9). Verfahren [N]; Tonfolge [E]. Bassvorgaben und Dauern laut kanonischer Forschung.",
+      "instruments": "Besetzungsunabhängig; vorhandene geeignete MIDI-Ziele. Originalhinweise siehe Quelle."
+    },
+    {
+      "template_id": 30004,
+      "idea": "Ein-Akkord: Dur-Septime weit. Verfahren [I]; Tonfolge [E]. Bassvorgaben und Dauern laut kanonischer Forschung.",
+      "instruments": "Besetzungsunabhängig; vorhandene geeignete MIDI-Ziele. Originalhinweise siehe Quelle."
+    },
+    {
+      "template_id": 30005,
+      "idea": "Terzverschiebung mM7. Verfahren [N]; Tonfolge [E]. Bassvorgaben und Dauern laut kanonischer Forschung.",
+      "instruments": "Besetzungsunabhängig; vorhandene geeignete MIDI-Ziele. Originalhinweise siehe Quelle."
+    },
+    {
+      "template_id": 30006,
+      "idea": "Dur-Pendel Grund–Quinte. Verfahren [N]; Tonfolge [E]. Bassvorgaben und Dauern laut kanonischer Forschung.",
+      "instruments": "Besetzungsunabhängig; vorhandene geeignete MIDI-Ziele. Originalhinweise siehe Quelle."
+    },
+    {
+      "template_id": 30007,
+      "idea": "Moll mit tiefer Terzfarbe. Verfahren [I]; Tonfolge [E]. Bassvorgaben und Dauern laut kanonischer Forschung.",
+      "instruments": "Besetzungsunabhängig; vorhandene geeignete MIDI-Ziele. Originalhinweise siehe Quelle."
+    },
+    {
+      "template_id": 30008,
+      "idea": "Pedal c mit bVII. Verfahren [I]; Tonfolge [E]. Bassvorgaben und Dauern laut kanonischer Forschung.",
+      "instruments": "Besetzungsunabhängig; vorhandene geeignete MIDI-Ziele. Originalhinweise siehe Quelle."
+    },
+    {
+      "template_id": 30009,
+      "idea": "Absteigende Moll-Kadenz Cm–Ab–Bb. Verfahren [I]; Tonfolge [E]. Bassvorgaben und Dauern laut kanonischer Forschung.",
+      "instruments": "Besetzungsunabhängig; vorhandene geeignete MIDI-Ziele. Originalhinweise siehe Quelle."
+    },
+    {
+      "template_id": 30010,
+      "idea": "Moll-Plagal Cm–Fm–Cm. Verfahren [I]; Tonfolge [E]. Bassvorgaben und Dauern laut kanonischer Forschung.",
+      "instruments": "Besetzungsunabhängig; vorhandene geeignete MIDI-Ziele. Originalhinweise siehe Quelle."
+    },
+    {
+      "template_id": 30011,
+      "idea": "Dur-Ostinato mit Pedal c. Verfahren [I]; Tonfolge [E]. Bassvorgaben und Dauern laut kanonischer Forschung.",
+      "instruments": "Besetzungsunabhängig; vorhandene geeignete MIDI-Ziele. Originalhinweise siehe Quelle."
+    },
+    {
+      "template_id": 30012,
+      "idea": "Schwebende Sus-Folge. Verfahren [H]; Tonfolge [E]. Bassvorgaben und Dauern laut kanonischer Forschung.",
+      "instruments": "Besetzungsunabhängig; vorhandene geeignete MIDI-Ziele. Originalhinweise siehe Quelle."
+    },
+    {
+      "template_id": 30013,
+      "idea": "Halbton-Pendel mM7. Verfahren [H]; Tonfolge [E]. Bassvorgaben und Dauern laut kanonischer Forschung.",
+      "instruments": "Besetzungsunabhängig; vorhandene geeignete MIDI-Ziele. Originalhinweise siehe Quelle."
+    },
+    {
+      "template_id": 30014,
+      "idea": "Tritonus-Pendel Moll. Verfahren [H]; Tonfolge [E]. Bassvorgaben und Dauern laut kanonischer Forschung.",
+      "instruments": "Besetzungsunabhängig; vorhandene geeignete MIDI-Ziele. Originalhinweise siehe Quelle."
+    },
+    {
+      "template_id": 30015,
+      "idea": "Mediantenpaar hell. Verfahren [I]; Tonfolge [E]. Bassvorgaben und Dauern laut kanonischer Forschung.",
+      "instruments": "Besetzungsunabhängig; vorhandene geeignete MIDI-Ziele. Originalhinweise siehe Quelle."
+    },
+    {
+      "template_id": 30016,
+      "idea": "Lydische Färbung über Pedal. Verfahren [H]; Tonfolge [E]. Bassvorgaben und Dauern laut kanonischer Forschung.",
+      "instruments": "Besetzungsunabhängig; vorhandene geeignete MIDI-Ziele. Originalhinweise siehe Quelle."
+    },
+    {
+      "template_id": 30017,
+      "idea": "Bright Pedal mit bVII–IV. Verfahren [I]; Tonfolge [E]. Bassvorgaben und Dauern laut kanonischer Forschung.",
+      "instruments": "Besetzungsunabhängig; vorhandene geeignete MIDI-Ziele. Originalhinweise siehe Quelle."
+    },
+    {
+      "template_id": 30018,
+      "idea": "Quint-Pedal c–g (mit Linie oder als leerer Klang). Verfahren [N]; Tonfolge [E]. Bassvorgaben und Dauern laut kanonischer Forschung.",
+      "instruments": "Besetzungsunabhängig; vorhandene geeignete MIDI-Ziele. Originalhinweise siehe Quelle."
+    },
+    {
+      "template_id": 30019,
+      "idea": "Phrygisches Pendel. Verfahren [I]; Tonfolge [E]. Bassvorgaben und Dauern laut kanonischer Forschung.",
+      "instruments": "Besetzungsunabhängig; vorhandene geeignete MIDI-Ziele. Originalhinweise siehe Quelle."
+    },
+    {
+      "template_id": 30020,
+      "idea": "Schnelles Phrygisch-Pendel. Verfahren [I]; Tonfolge [E]. Bassvorgaben und Dauern laut kanonischer Forschung.",
+      "instruments": "Besetzungsunabhängig; vorhandene geeignete MIDI-Ziele. Originalhinweise siehe Quelle."
+    },
+    {
+      "template_id": 30021,
+      "idea": "Bittersüßes Dur-Moll-Pendel. Verfahren [I]; Tonfolge [E]. Bassvorgaben und Dauern laut kanonischer Forschung.",
+      "instruments": "Besetzungsunabhängig; vorhandene geeignete MIDI-Ziele. Originalhinweise siehe Quelle."
+    },
+    {
+      "template_id": 30022,
+      "idea": "Mollsubdominante hell. Verfahren [I]; Tonfolge [E]. Bassvorgaben und Dauern laut kanonischer Forschung.",
+      "instruments": "Besetzungsunabhängig; vorhandene geeignete MIDI-Ziele. Originalhinweise siehe Quelle."
+    },
+    {
+      "template_id": 30023,
+      "idea": "Moll-Diminished-Wechsel. Verfahren [H]; Tonfolge [E]. Bassvorgaben und Dauern laut kanonischer Forschung.",
+      "instruments": "Besetzungsunabhängig; vorhandene geeignete MIDI-Ziele. Originalhinweise siehe Quelle."
+    },
+    {
+      "template_id": 30024,
+      "idea": "Chromatische Mollreihe aufwärts. Verfahren [H]; Tonfolge [E]. Bassvorgaben und Dauern laut kanonischer Forschung.",
+      "instruments": "Besetzungsunabhängig; vorhandene geeignete MIDI-Ziele. Originalhinweise siehe Quelle."
+    },
+    {
+      "template_id": 30025,
+      "idea": "Ein-Akkord: Moll-None. Verfahren [I]; Tonfolge [E]. Bassvorgaben und Dauern laut kanonischer Forschung.",
+      "instruments": "Besetzungsunabhängig; vorhandene geeignete MIDI-Ziele. Originalhinweise siehe Quelle."
+    },
+    {
+      "template_id": 30026,
+      "idea": "Moll-Septakkord-Kette. Verfahren [H]; Tonfolge [E]. Bassvorgaben und Dauern laut kanonischer Forschung.",
+      "instruments": "Besetzungsunabhängig; vorhandene geeignete MIDI-Ziele. Originalhinweise siehe Quelle."
+    },
+    {
+      "template_id": 30027,
+      "idea": "Quintaufstieg hell. Verfahren [H]; Tonfolge [E]. Bassvorgaben und Dauern laut kanonischer Forschung.",
+      "instruments": "Besetzungsunabhängig; vorhandene geeignete MIDI-Ziele. Originalhinweise siehe Quelle."
+    },
+    {
+      "template_id": 30028,
+      "idea": "Hymnisches Plagal. Verfahren [H]; Tonfolge [E]. Bassvorgaben und Dauern laut kanonischer Forschung.",
+      "instruments": "Besetzungsunabhängig; vorhandene geeignete MIDI-Ziele. Originalhinweise siehe Quelle."
+    },
+    {
+      "template_id": 30029,
+      "idea": "Absteigende Moll-Kadenz i–♭VII–♭VI–V (Zentrum c oder a). Verfahren [I]; Tonfolge [E]. Bassvorgaben und Dauern laut kanonischer Forschung.",
+      "instruments": "Besetzungsunabhängig; vorhandene geeignete MIDI-Ziele. Originalhinweise siehe Quelle."
+    },
+    {
+      "template_id": 30030,
+      "idea": "Lamento-Kadenz. Verfahren [I]; Tonfolge [E]. Bassvorgaben und Dauern laut kanonischer Forschung.",
+      "instruments": "Besetzungsunabhängig; vorhandene geeignete MIDI-Ziele. Originalhinweise siehe Quelle."
+    },
+    {
+      "template_id": 30031,
+      "idea": "Dominantpedal. Verfahren [H]; Tonfolge [E]. Bassvorgaben und Dauern laut kanonischer Forschung.",
+      "instruments": "Besetzungsunabhängig; vorhandene geeignete MIDI-Ziele. Originalhinweise siehe Quelle."
+    },
+    {
+      "template_id": 30032,
+      "idea": "Moll-Dur-Wechsel mit Septime. Verfahren [I]; Tonfolge [E]. Bassvorgaben und Dauern laut kanonischer Forschung.",
+      "instruments": "Besetzungsunabhängig; vorhandene geeignete MIDI-Ziele. Originalhinweise siehe Quelle."
+    },
+    {
+      "template_id": 30034,
+      "idea": "Terzkette abwärts. Verfahren [I]; Tonfolge [E]. Bassvorgaben und Dauern laut kanonischer Forschung.",
+      "instruments": "Besetzungsunabhängig; vorhandene geeignete MIDI-Ziele. Originalhinweise siehe Quelle."
+    },
+    {
+      "template_id": 30035,
+      "idea": "Tritonus-Dur. Verfahren [H]; Tonfolge [E]. Bassvorgaben und Dauern laut kanonischer Forschung.",
+      "instruments": "Besetzungsunabhängig; vorhandene geeignete MIDI-Ziele. Originalhinweise siehe Quelle."
+    },
+    {
+      "template_id": 30036,
+      "idea": "Moll-Schluss mit Aufhellung. Verfahren [I]; Tonfolge [E]. Bassvorgaben und Dauern laut kanonischer Forschung.",
+      "instruments": "Besetzungsunabhängig; vorhandene geeignete MIDI-Ziele. Originalhinweise siehe Quelle."
+    },
+    {
+      "template_id": 30037,
+      "idea": "Pedal c mit absteigenden Dreiklängen. Verfahren [I]; Tonfolge [E]. Bassvorgaben und Dauern laut kanonischer Forschung.",
+      "instruments": "Besetzungsunabhängig; vorhandene geeignete MIDI-Ziele. Originalhinweise siehe Quelle."
+    },
+    {
+      "template_id": 30038,
+      "idea": "Leises Flirren (Moll-Verminderung). Verfahren [H]; Tonfolge [E]. Bassvorgaben und Dauern laut kanonischer Forschung.",
+      "instruments": "Besetzungsunabhängig; vorhandene geeignete MIDI-Ziele. Originalhinweise siehe Quelle."
+    },
+    {
+      "template_id": 30039,
+      "idea": "Wackelnder Bass unter Moll. Verfahren [H]; Tonfolge [E]. Bassvorgaben und Dauern laut kanonischer Forschung.",
+      "instruments": "Besetzungsunabhängig; vorhandene geeignete MIDI-Ziele. Originalhinweise siehe Quelle."
+    },
+    {
+      "template_id": 30041,
+      "idea": "Schwerer Plagalschritt. Verfahren [H]; Tonfolge [E]. Bassvorgaben und Dauern laut kanonischer Forschung.",
+      "instruments": "Besetzungsunabhängig; vorhandene geeignete MIDI-Ziele. Originalhinweise siehe Quelle."
+    },
+    {
+      "template_id": 30042,
+      "idea": "Heller Schimmer. Verfahren [H]; Tonfolge [E]. Bassvorgaben und Dauern laut kanonischer Forschung.",
+      "instruments": "Besetzungsunabhängig; vorhandene geeignete MIDI-Ziele. Originalhinweise siehe Quelle."
+    },
+    {
+      "template_id": 30043,
+      "idea": "Helles Flirren-Pendel. Verfahren [H]; Tonfolge [E]. Bassvorgaben und Dauern laut kanonischer Forschung.",
+      "instruments": "Besetzungsunabhängig; vorhandene geeignete MIDI-Ziele. Originalhinweise siehe Quelle."
+    },
+    {
+      "template_id": 30044,
+      "idea": "Fanfare statisch. Verfahren [H]; Tonfolge [E]. Bassvorgaben und Dauern laut kanonischer Forschung.",
+      "instruments": "Besetzungsunabhängig; vorhandene geeignete MIDI-Ziele. Originalhinweise siehe Quelle."
+    },
+    {
+      "template_id": 30045,
+      "idea": "Triumph über Pedal. Verfahren [H]; Tonfolge [E]. Bassvorgaben und Dauern laut kanonischer Forschung.",
+      "instruments": "Besetzungsunabhängig; vorhandene geeignete MIDI-Ziele. Originalhinweise siehe Quelle."
+    },
+    {
+      "template_id": 30046,
+      "idea": "Heller Quintaufstieg beschleunigt. Verfahren [H]; Tonfolge [E]. Bassvorgaben und Dauern laut kanonischer Forschung.",
+      "instruments": "Besetzungsunabhängig; vorhandene geeignete MIDI-Ziele. Originalhinweise siehe Quelle."
+    },
+    {
+      "template_id": 30047,
+      "idea": "Heller Tritonus-Wechsel. Verfahren [H]; Tonfolge [E]. Bassvorgaben und Dauern laut kanonischer Forschung.",
+      "instruments": "Besetzungsunabhängig; vorhandene geeignete MIDI-Ziele. Originalhinweise siehe Quelle."
     }
   ]
 }

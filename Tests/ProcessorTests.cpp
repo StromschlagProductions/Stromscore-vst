@@ -823,7 +823,7 @@ int main(int argc,char** argv)
         CHECK (! c.broken && c.ons == c.offs); q.setPlayHead (nullptr);
     }
     // Voice-leading export equals live DAW playback, including channel CCs and held common notes.
-    for(float intensity : {.4f,.7f,.8f,.9f,1.f,.99f,.97f,.96f,.95f,.94f,.93f,.92f,.91f,.89f,.88f,.87f,.86f,.85f,.84f,.83f,.82f,.81f,.79f,.78f})
+    for(float intensity : {.4f,.7f,.8f,.9f,1.f,.99f,.97f,.96f,.95f,.94f,.93f,.92f,.91f,.89f,.88f,.87f,.86f,.85f,.84f,.83f,.82f,.81f,.79f,.78f,.77f,.76f,.75f,.74f})
     {
         StromscoreProcessor q; FakeHost h; q.setPlayHead (&h); q.prepareToPlay (48000, 512);
         if(intensity==.89f||intensity==.88f||intensity==.87f||intensity==.86f||intensity==.85f||intensity==.84f||intensity==.83f)setParam(q,"genre",1);
@@ -907,6 +907,14 @@ int main(int argc,char** argv)
             setParam(q,"motiv",0);setParam(q,"melodie",0);setParam(q,"mute3",0);setParam(q,"arpFigure",stromscore::ArpAuto);
             if(intensity==.91f){setParam(q,"aufbau",1);setParam(q,"einstieg",stromscore::EntryCounter);setParam(q,"szenenLaenge",16);}
         }
+        const bool barryLead=intensity==.77f||intensity==.76f||intensity==.75f||intensity==.74f;
+        if(barryLead)
+        {
+            setParam(q,"komponist",1);setParam(q,"genre",0);setParam(q,"aufbau",0);setParam(q,"melodie",1);setParam(q,"mute6",0);
+            setParam(q,"faerbung",intensity==.77f||intensity==.75f?.2f:.8f);setParam(q,"unruhe",.3f);
+            setParam(q,"melodieMotiv",intensity==.75f||intensity==.74f?0.f:1.f);setParam(q,"motiv",intensity==.76f||intensity==.74f?0.f:1.f);
+            CHECK(q.currentSettings().policy.accompaniment.fieldAndOstinato);
+        }
         const bool popLead=intensity==.82f||intensity==.81f||intensity==.79f||intensity==.78f;
         if(popLead)
         {
@@ -916,7 +924,7 @@ int main(int argc,char** argv)
             setParam(q,"melodieLegato",intensity==.78f?0.f:1.f);
         }
         // The existing plugin export is capped at 64 bars; the core comparison covers 128.
-        const int bars=(popLead||intensity==.8f||intensity==.9f||intensity==.87f||intensity==.86f||intensity==.85f||intensity==.84f||intensity==.83f||handoff)?64:recurrence?40:8;
+        const int bars=(barryLead||popLead||intensity==.8f||intensity==.9f||intensity==.87f||intensity==.86f||intensity==.85f||intensity==.84f||intensity==.83f||handoff)?64:recurrence?40:8;
         using Timed = std::tuple<long long, int, int, int, int>;
         std::vector<Timed> live, exported;
         auto add = [] (std::vector<Timed>& target, const juce::MidiMessage& m, long long tick)
@@ -1128,6 +1136,8 @@ int main(int argc,char** argv)
             host.ppq=phrase*32.;midi.clear();q.processBlock(audio,midi);
             CHECK(q.wendung.load()==stromscore::Generator::pick(settings,phrase));++phrase;
         }
+        setParam(q,"komponist",1);CHECK(q.currentSettings().policy.accompaniment.fieldAndOstinato);
+        setParam(q,"genre",1);CHECK(!q.currentSettings().policy.accompaniment.fieldAndOstinato);setParam(q,"genre",0);
         setParam(q,"komponist",2);CHECK(profile->getSelectedId()==3&&q.currentSettings().profile==ProfileId::bernardHerrmann);
         juce::MemoryBlock state;q.getStateInformation(state);editor.reset();
         auto restored=std::make_unique<StromscoreProcessor>();restored->setStateInformation(state.getData(),static_cast<int>(state.getSize()));

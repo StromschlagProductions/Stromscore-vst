@@ -5,6 +5,7 @@ from HarmonyImportFixtures import prepare
 p=argparse.ArgumentParser();p.add_argument('--probe',required=True);p.add_argument('--compiler',default='c++');p.add_argument('--output',required=True);a=p.parse_args();out=pathlib.Path(a.output);out.mkdir(parents=True,exist_ok=True);cat=json.loads((root/'data/harmony/catalog.json').read_text());byid={t['id']:t for t in cat['templates']};rows=[];blockchecks=0
 meters=[(4,4),(3,4),(6,8),(3,8),(5,8),(7,8)];cases=[]
 for t in cat['templates']:
+ if t['id']>=30000:continue # Historical study predates Barry material.
  for profile in range(3):
   for route in range(2):cases.append((t['id'],profile,route,meters[(t['id']+profile)%4],(90,120,173)[profile],(0,.2,.5)[(t['id']+route)%3],32,False))
 for id,meter,bpm,swing in itertools.product((1005,1008,1034,2015,2035,2037,2038,2039),meters,(90,120,173),(0,.2,.5)):

@@ -6,7 +6,7 @@ enum class ProfileId { neutral=0,johnBarry=1,bernardHerrmann=2 };
 struct ProfileIdentity {ProfileId id;const char* name;bool harmonySelectionOnly;};
 inline constexpr std::array<ProfileIdentity,3> profileIdentities {{
 {ProfileId::neutral,"Neutral",false},
-{ProfileId::johnBarry,"John Barry",true},
+{ProfileId::johnBarry,"John Barry",false},
 {ProfileId::bernardHerrmann,"Bernard Herrmann",true},
 }};
 }

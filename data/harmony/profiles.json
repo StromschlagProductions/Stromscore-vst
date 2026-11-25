@@ -12,7 +12,7 @@
       "id": 1,
       "symbol": "johnBarry",
       "name": "John Barry",
-      "harmony_selection_only": true,
+      "harmony_selection_only": false,
       "weights": [
         {
           "template_id": 1001,
@@ -205,6 +205,247 @@
         {
           "template_id": 1048,
           "factor": 1
+        },
+        {
+          "template_id": 30001,
+          "factor": 1.8
+        },
+        {
+          "template_id": 30002,
+          "factor": 1.8
+        },
+        {
+          "template_id": 30003,
+          "factor": 1.8
+        },
+        {
+          "template_id": 30004,
+          "factor": 1.3
+        },
+        {
+          "template_id": 30005,
+          "factor": 1.8
+        },
+        {
+          "template_id": 30006,
+          "factor": 1.8
+        },
+        {
+          "template_id": 30007,
+          "factor": 1.3
+        },
+        {
+          "template_id": 30008,
+          "factor": 1.3
+        },
+        {
+          "template_id": 30009,
+          "factor": 1.3
+        },
+        {
+          "template_id": 30010,
+          "factor": 1.3
+        },
+        {
+          "template_id": 30011,
+          "factor": 1.3
+        },
+        {
+          "template_id": 30012,
+          "factor": 0.75
+        },
+        {
+          "template_id": 30013,
+          "factor": 0.75
+        },
+        {
+          "template_id": 30014,
+          "factor": 0.75
+        },
+        {
+          "template_id": 30015,
+          "factor": 1.3
+        },
+        {
+          "template_id": 30016,
+          "factor": 0.75
+        },
+        {
+          "template_id": 30017,
+          "factor": 1.3
+        },
+        {
+          "template_id": 30018,
+          "factor": 1.8
+        },
+        {
+          "template_id": 30019,
+          "factor": 1.3
+        },
+        {
+          "template_id": 30020,
+          "factor": 1.3
+        },
+        {
+          "template_id": 30021,
+          "factor": 1.3
+        },
+        {
+          "template_id": 30022,
+          "factor": 1.3
+        },
+        {
+          "template_id": 30023,
+          "factor": 0.75
+        },
+        {
+          "template_id": 30024,
+          "factor": 0.75
+        },
+        {
+          "template_id": 30025,
+          "factor": 1.3
+        },
+        {
+          "template_id": 30026,
+          "factor": 0.75
+        },
+        {
+          "template_id": 30027,
+          "factor": 0.75
+        },
+        {
+          "template_id": 30028,
+          "factor": 0.75
+        },
+        {
+          "template_id": 30029,
+          "factor": 1.3
+        },
+        {
+          "template_id": 30030,
+          "factor": 1.3
+        },
+        {
+          "template_id": 30031,
+          "factor": 0.75
+        },
+        {
+          "template_id": 30032,
+          "factor": 1.3
+        },
+        {
+          "template_id": 30034,
+          "factor": 1.3
+        },
+        {
+          "template_id": 30035,
+          "factor": 0.75
+        },
+        {
+          "template_id": 30036,
+          "factor": 1.3
+        },
+        {
+          "template_id": 30037,
+          "factor": 1.3
+        },
+        {
+          "template_id": 30038,
+          "factor": 0.75
+        },
+        {
+          "template_id": 30039,
+          "factor": 0.75
+        },
+        {
+          "template_id": 30041,
+          "factor": 0.75
+        },
+        {
+          "template_id": 30042,
+          "factor": 0.75
+        },
+        {
+          "template_id": 30043,
+          "factor": 0.75
+        },
+        {
+          "template_id": 30044,
+          "factor": 0.75
+        },
+        {
+          "template_id": 30045,
+          "factor": 0.75
+        },
+        {
+          "template_id": 30046,
+          "factor": 0.75
+        },
+        {
+          "template_id": 30047,
+          "factor": 0.75
+        }
+      ],
+      "score_pool": [
+        30001,
+        30002,
+        30003,
+        30004,
+        30005,
+        30006,
+        30007,
+        30008,
+        30009,
+        30010,
+        30011,
+        30012,
+        30013,
+        30014,
+        30015,
+        30016,
+        30017,
+        30018,
+        30019,
+        30020,
+        30021,
+        30022,
+        30023,
+        30024,
+        30025,
+        30026,
+        30027,
+        30028,
+        30029,
+        30030,
+        30031,
+        30032,
+        30034,
+        30035,
+        30036,
+        30037,
+        30038,
+        30039,
+        1003,
+        30041,
+        30042,
+        30043,
+        30044,
+        30045,
+        30046,
+        30047
+      ],
+      "score_overrides": [
+        {
+          "template_id": 1003,
+          "xyz": [
+            0.15,
+            0.85,
+            0.25
+          ],
+          "coloration": "protected",
+          "source_ref": "JB-H40",
+          "name": "JB-H40 – Wuchtiges Moll-Pedal"
         }
       ]
     },

@@ -1079,6 +1079,32 @@
       ],
       "pad": "PadHeld",
       "hook": null
+    },
+    {
+      "id": "barry_static",
+      "bass": [
+        "BassPedal",
+        "BassHeld"
+      ],
+      "arp": [
+        "ArpCircle",
+        "ArpUp"
+      ],
+      "pad": "PadHeld",
+      "hook": null
+    },
+    {
+      "id": "barry_moving",
+      "bass": [
+        "BassHeld",
+        "BassHalf"
+      ],
+      "arp": [
+        "ArpCircle",
+        "ArpDown"
+      ],
+      "pad": "PadHeld",
+      "hook": null
     }
   ],
   "bindings": [
@@ -1429,6 +1455,186 @@
     {
       "template_id": 2039,
       "recipe": "neutral_harmony_import"
+    },
+    {
+      "template_id": 30001,
+      "recipe": "barry_static"
+    },
+    {
+      "template_id": 30002,
+      "recipe": "barry_static"
+    },
+    {
+      "template_id": 30003,
+      "recipe": "barry_static"
+    },
+    {
+      "template_id": 30004,
+      "recipe": "barry_static"
+    },
+    {
+      "template_id": 30005,
+      "recipe": "barry_moving"
+    },
+    {
+      "template_id": 30006,
+      "recipe": "barry_moving"
+    },
+    {
+      "template_id": 30007,
+      "recipe": "barry_moving"
+    },
+    {
+      "template_id": 30008,
+      "recipe": "barry_static"
+    },
+    {
+      "template_id": 30009,
+      "recipe": "barry_moving"
+    },
+    {
+      "template_id": 30010,
+      "recipe": "barry_moving"
+    },
+    {
+      "template_id": 30011,
+      "recipe": "barry_static"
+    },
+    {
+      "template_id": 30012,
+      "recipe": "barry_static"
+    },
+    {
+      "template_id": 30013,
+      "recipe": "barry_moving"
+    },
+    {
+      "template_id": 30014,
+      "recipe": "barry_moving"
+    },
+    {
+      "template_id": 30015,
+      "recipe": "barry_moving"
+    },
+    {
+      "template_id": 30016,
+      "recipe": "barry_static"
+    },
+    {
+      "template_id": 30017,
+      "recipe": "barry_static"
+    },
+    {
+      "template_id": 30018,
+      "recipe": "barry_static"
+    },
+    {
+      "template_id": 30019,
+      "recipe": "barry_moving"
+    },
+    {
+      "template_id": 30020,
+      "recipe": "barry_moving"
+    },
+    {
+      "template_id": 30021,
+      "recipe": "barry_static"
+    },
+    {
+      "template_id": 30022,
+      "recipe": "barry_static"
+    },
+    {
+      "template_id": 30023,
+      "recipe": "barry_static"
+    },
+    {
+      "template_id": 30024,
+      "recipe": "barry_moving"
+    },
+    {
+      "template_id": 30025,
+      "recipe": "barry_static"
+    },
+    {
+      "template_id": 30026,
+      "recipe": "barry_moving"
+    },
+    {
+      "template_id": 30027,
+      "recipe": "barry_moving"
+    },
+    {
+      "template_id": 30028,
+      "recipe": "barry_moving"
+    },
+    {
+      "template_id": 30029,
+      "recipe": "barry_moving"
+    },
+    {
+      "template_id": 30030,
+      "recipe": "barry_moving"
+    },
+    {
+      "template_id": 30031,
+      "recipe": "barry_static"
+    },
+    {
+      "template_id": 30032,
+      "recipe": "barry_static"
+    },
+    {
+      "template_id": 30034,
+      "recipe": "barry_moving"
+    },
+    {
+      "template_id": 30035,
+      "recipe": "barry_moving"
+    },
+    {
+      "template_id": 30036,
+      "recipe": "barry_moving"
+    },
+    {
+      "template_id": 30037,
+      "recipe": "barry_static"
+    },
+    {
+      "template_id": 30038,
+      "recipe": "barry_static"
+    },
+    {
+      "template_id": 30039,
+      "recipe": "barry_moving"
+    },
+    {
+      "template_id": 30041,
+      "recipe": "barry_moving"
+    },
+    {
+      "template_id": 30042,
+      "recipe": "barry_static"
+    },
+    {
+      "template_id": 30043,
+      "recipe": "barry_moving"
+    },
+    {
+      "template_id": 30044,
+      "recipe": "barry_static"
+    },
+    {
+      "template_id": 30045,
+      "recipe": "barry_static"
+    },
+    {
+      "template_id": 30046,
+      "recipe": "barry_moving"
+    },
+    {
+      "template_id": 30047,
+      "recipe": "barry_moving"
     }
   ]
 }

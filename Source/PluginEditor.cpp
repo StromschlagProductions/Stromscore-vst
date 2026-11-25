@@ -669,16 +669,16 @@ private:
 class WendungInfoPanel final : public juce::Component
 {
 public:
-    WendungInfoPanel (int genre, int selected, int key) : tonic (key)
+    WendungInfoPanel (int genre, int selected, int key, stromscore::composition::ProfileId profile) : tonic (key), profile(profile)
     {
         setSize (650, 410); addAndMakeVisible (choices); addAndMakeVisible (details);
         details.setMultiLine (true); details.setReadOnly (true); details.setScrollbarsShown (true); details.setCaretVisible (false);
         details.setFont (juce::FontOptions (14.0f));
         for (int g = 0; g < 2; ++g)
-            for (int i = 0; i < stromscore::wendungCount (g); ++i)
-                choices.addItem (u8 (g == 0 ? "Score · " : "Pop-Rock · ") + u8 (stromscore::wendungAt (g, i).name), 1 + g * 100 + i);
+            for (int i = 0; i < stromscore::wendungCount (g,profile); ++i)
+                choices.addItem (u8 (g == 0 ? "Score · " : "Pop-Rock · ") + u8 (stromscore::wendungAt (g, i,profile).name), 1 + g * 100 + i);
         choices.onChange = [this] { update(); };
-        choices.setSelectedId (1 + genre * 100 + juce::jlimit (0, stromscore::wendungCount (genre) - 1, selected), juce::dontSendNotification);
+        choices.setSelectedId (1 + genre * 100 + juce::jlimit (0, stromscore::wendungCount (genre,profile) - 1, selected), juce::dontSendNotification);
         update();
     }
     void paint (juce::Graphics& g) override { g.fillAll (getLookAndFeel().findColour (juce::PopupMenu::backgroundColourId)); }
@@ -687,8 +687,8 @@ private:
     void update()
     {
         const int id = choices.getSelectedId() - 1, genre = id / 100, index = id % 100;
-        const auto& w = stromscore::wendungAt (genre, index);
-        const auto& info = genre == 0 ? kScoreInfo[index] : kPopInfo[index];
+        const auto& w = stromscore::wendungAt (genre, index,profile);
+        const auto& info = genre == 0 ? scoreProfileInfo(profile,index) : kPopInfo[index];
         juce::String t = u8 (w.name) + "\n\nHarmonik (aktuelle Tonart):\n";
         char chord[96];
         for (int c = 0; c < w.n; ++c)
@@ -707,6 +707,7 @@ private:
         details.setText (t, false);
     }
     int tonic;
+    stromscore::composition::ProfileId profile;
     juce::ComboBox choices;
     juce::TextEditor details;
 };
@@ -897,7 +898,7 @@ StromscoreEditor::StromscoreEditor (StromscoreProcessor& p) : AudioProcessorEdit
         pad.numHover = n;
         for (int i = 0; i < n; ++i)
         {
-            const auto& wd = stromscore::wendungAt (st.genre, c[i]);
+            const auto& wd = stromscore::wendungAt (st.genre, c[i],st.profile);
             pad.hover[i] = { juce::String (juce::CharPointer_UTF8 (wd.name)), wd.x, wd.y };
         }
         pad.repaint();
@@ -948,7 +949,7 @@ StromscoreEditor::StromscoreEditor (StromscoreProcessor& p) : AudioProcessorEdit
     profileBox.addItemList(StromscoreProcessor::profileNames(),1);
     profileBox.setName("Komponist");profileBox.setComponentID("komponist");
     profileLabel.setComponentID("komponistLabel");
-    profileBox.setTooltip(u8("Erste harmonische Profilpräferenzen. Score: ab der nächsten automatischen Wendungsauswahl wirksam; bestehende Akkorde werden nicht sofort ersetzt. Pop-Rock bleibt unverändert. Eigene Akkorde bleiben erhalten; ihr geliehener Auto-Stil kann wechseln."));
+    profileBox.setTooltip(u8("Neutral: freie Komposition. John Barry: eigenes Score-Vokabular und ruhige Auto-Begleitung. Herrmann: bisherige Harmoniepräferenzen. Profilwechsel beginnt eine neue musikalische Planung. Manuelle Spielweisen und eigene Akkorde bleiben erhalten. Pop-Rock bleibt unverändert."));
     content.addAndMakeVisible(profileBox);
     profileAttachment=std::make_unique<APVTS::ComboBoxAttachment>(processor.apvts,"komponist",profileBox);
     keyBox.addItemList (StromscoreProcessor::keyNames(), 1);
@@ -1367,9 +1368,10 @@ void StromscoreEditor::showWendungInfo()
 {
     const auto settings = processor.currentSettings();
     int genre = settings.genre;
+    const auto profile=settings.profile;
     int index = processor.wendung.load();
-    if (index < 0 || index >= stromscore::wendungCount (genre)) index = stromscore::Generator::pick (settings, 0);
-    auto panel = std::make_unique<WendungInfoPanel> (genre, index, settings.key);
+    if (index < 0 || index >= stromscore::wendungCount (genre,profile)) index = stromscore::Generator::pick (settings, 0);
+    auto panel = std::make_unique<WendungInfoPanel> (genre, index, settings.key,settings.profile);
     juce::CallOutBox::launchAsynchronously (std::move (panel), infoButton.getBounds(), &content);
 }
 
@@ -1433,10 +1435,10 @@ void StromscoreEditor::timerCallback()
     // Akkord-Anzeige
     const int w = processor.wendung.load();
     const int key = juce::roundToInt (processor.apvts.getRawParameterValue ("key")->load());
-    const int gen = processor.genreInUse.load();
-    chordDisplay.playing = w >= 0 && (w == stromscore::kCustomWendung || w < stromscore::wendungCount (gen));
-    chordDisplay.meter = u8 ("Takt ") + juce::String (processor.meterNum.load()) + "/" + juce::String (processor.meterDen.load());
     const auto settings = processor.currentSettings();
+    const int gen = processor.genreInUse.load();
+    chordDisplay.playing = w >= 0 && (w == stromscore::kCustomWendung || w < stromscore::wendungCount (gen,settings.profile));
+    chordDisplay.meter = u8 ("Takt ") + juce::String (processor.meterNum.load()) + "/" + juce::String (processor.meterDen.load());
     {
         int total = 0;
         for (const auto& c : settings.customChords) total += c.bars;
@@ -1447,15 +1449,15 @@ void StromscoreEditor::timerCallback()
     if (chordDisplay.playing)
     {
         const auto custom = stromscore::customWendung (settings);
-        const auto& wd = w == stromscore::kCustomWendung ? custom : stromscore::wendungAt (gen, w);
+        const auto& wd = w == stromscore::kCustomWendung ? custom : stromscore::wendungAt (gen, w,settings.profile);
         char buf[32];
         stromscore::chordName (key, processor.chordRoot.load(), processor.chordType.load(), buf, (int) sizeof (buf));
         chordDisplay.chord = juce::String (juce::CharPointer_UTF8 (buf));
         chordDisplay.wendung = juce::String (juce::CharPointer_UTF8 (wd.name));
         chordDisplay.custom = w == stromscore::kCustomWendung;
         const int st = processor.styleIndex.load();
-        if (chordDisplay.custom && st >= 0 && st < stromscore::wendungCount (gen))
-            chordDisplay.wendung << u8 (" · Stil: ") << juce::String (juce::CharPointer_UTF8 (stromscore::wendungAt (gen, st).name));
+        if (chordDisplay.custom && st >= 0 && st < stromscore::wendungCount (gen,settings.profile))
+            chordDisplay.wendung << u8 (" · Stil: ") << juce::String (juce::CharPointer_UTF8 (stromscore::wendungAt (gen, st,settings.profile).name));
         stromscore::chordName (key, processor.nextRoot.load(), processor.nextType.load(), buf, (int) sizeof (buf));
         chordDisplay.nextChord = juce::String (juce::CharPointer_UTF8 (buf));
         chordDisplay.progress = processor.chordProgress.load();
@@ -1498,7 +1500,7 @@ void StromscoreEditor::timerCallback()
         int c[6];
         const int n = stromscore::Generator::candidates (settings, c, 6);
         juce::String t;
-        for (int i = 0; i < n; ++i) t << (i > 0 ? u8 (" · ") : juce::String()) << juce::String (juce::CharPointer_UTF8 (stromscore::wendungAt (settings.genre, c[i]).name));
+        for (int i = 0; i < n; ++i) t << (i > 0 ? u8 (" · ") : juce::String()) << juce::String (juce::CharPointer_UTF8 (stromscore::wendungAt (settings.genre, c[i],settings.profile).name));
         chordDisplay.candidates = t;
     }
 
@@ -1521,13 +1523,13 @@ void StromscoreEditor::timerCallback()
         else if (anySolo ? ! s.solo[i] : s.mute[i]) entry = "stumm";
         else
         {
-            const float t = stromscore::kLayerStart[i] - s.layerIntensity[i];
+            const float t = s.policy.texture.start(static_cast<stromscore::composition::TexturePart>(i)) - s.layerIntensity[i];
             auto pct = [] (float v) { return v <= 0.0f ? juce::String ("immer") : juce::String (juce::roundToInt (v * 100.0f)) + " %"; };
             entry = t <= 0.0f ? juce::String ("immer") : t > 1.0f ? (i == stromscore::kAkzent ? juce::String ("bei Unruhe") : juce::String ("nie"))
                                                                    : "ab " + pct (t);
             if (i == stromscore::kAkzent && t <= 1.0f)   // Akzent: Tupfer und Stich setzen getrennt ein
             {
-                const float ts = stromscore::kStichStart - s.layerIntensity[i];
+                const float ts = s.policy.texture.stichStart - s.layerIntensity[i];
                 entry = (t <= 0.0f ? juce::String ("immer") : "ab " + juce::String (juce::roundToInt (t * 100.0f)))
                       + " / " + (ts > 1.0f ? juce::String ("nie") : ts <= 0.0f ? juce::String ("immer") : juce::String (juce::roundToInt (ts * 100.0f)) + " %");
             }
