@@ -71,6 +71,7 @@ struct MotifFigure
     uint64_t sourceIdentity=0;
     int count=0;
     int passingIndex=-1;
+    bool harmonicallyAdapted=false,durationAdjusted=false,harmonicRealization=false;
     Tick span{};
     MotifVariation variation=MotifVariation::original;
 };
@@ -115,6 +116,71 @@ inline MotifFigure deriveMotif(const RememberedMotif& source,MotifVariation vari
         for(int i=0;i<figure.count;++i){const auto& a=figure.notes[i];const auto& b=source.notes[i];unchanged&=a.at==b.at&&a.length==b.length&&a.interval==b.interval;}
         if(unchanged)return {};
     }
+    return figure;
+}
+// Bounded harmonic realization of an immutable figure. Onsets and its strongest
+// interval remain exact; other intervals retain direction and move at most two
+// semitones. Duration clipping may remove at most half of a source gate.
+struct MotifRealization { MotifFigure figure;int base=-1,cost=10000; };
+inline MotifRealization realizeScoreMotif(const MotifFigure& source,const unsigned* masks,
+    const Tick* limits,Range range,Tick minimum,Tick maximum,int preferred)
+{
+    MotifRealization result;
+    if(source.count<2||source.count>10||!masks||!limits||minimum<Tick{1}||maximum<minimum)return result;
+    auto figure=source;figure.span={};figure.harmonicRealization=true;int anchor=1;
+    for(int i=1;i<source.count;++i)
+        if(std::abs(source.notes[i].interval-source.notes[i-1].interval)>
+           std::abs(source.notes[anchor].interval-source.notes[anchor-1].interval))anchor=i;
+    int durationCost=0;
+    for(int i=0;i<figure.count;++i)
+    {
+        auto& note=figure.notes[i];if(!masks[i]||note.at<Tick{}||(i&&note.at<=figure.notes[i-1].at))return result;
+        const auto length=std::min({note.length,limits[i],maximum});
+        if(length<minimum||length*2<note.length)return result;
+        if(length!=note.length){figure.durationAdjusted=true;++durationCost;}
+        note.length=length;figure.span=std::max(figure.span,note.at+note.length);
+    }
+    constexpr int inf=100000;
+    for(int base=0;base<128;++base)
+    {
+        int costs[10][5],previous[10][5];
+        for(int i=0;i<figure.count;++i)for(int d=0;d<5;++d)
+        {
+            costs[i][d]=inf;previous[i][d]=-1;
+            const int pitch=base+source.notes[i].interval+d-2;
+            if(pitch<0||pitch>127||pitch<range.low||pitch>range.high||!(masks[i]&(1u<<(pitch%12))))continue;
+            if(i==0){costs[i][d]=6*std::abs(d-2);continue;}
+            const int original=source.notes[i].interval-source.notes[i-1].interval;
+            for(int last=0;last<5;++last)
+            {
+                const int step=original+d-last;
+                if((original==0&&step!=0)||(original>0&&step<=0)||(original<0&&step>=0)
+                    ||std::abs(step-original)>2||(i==anchor&&step!=original))continue;
+                const int cost=costs[i-1][last]+6*std::abs(d-2)+std::abs(step-original);
+                if(cost<costs[i][d]){costs[i][d]=cost;previous[i][d]=last;}
+            }
+        }
+        for(int d=0;d<5;++d)
+        {
+            if(costs[figure.count-1][d]>=inf)continue;
+            const int cost=costs[figure.count-1][d]+std::abs(base-preferred)+durationCost*2;
+            if(cost>=result.cost)continue;
+            auto realized=figure;int choice=d;
+            for(int i=figure.count-1;i>=0;--i)
+            {realized.notes[i].interval+=choice-2;realized.harmonicallyAdapted|=choice!=2;choice=previous[i][choice];}
+            result={realized,base,cost};
+        }
+    }
+    return result;
+}
+inline MotifFigure suffixFigure(const RememberedMotif& source,int count)
+{
+    auto figure=deriveMotif(source,MotifVariation::original);
+    if(count<2||count>=figure.count)return {};
+    const auto first=figure.count-count;const auto at=figure.notes[first].at;
+    for(int i=0;i<count;++i)figure.notes[i]=figure.notes[first+i];
+    figure.count=count;figure.variation=MotifVariation::fragment;figure.span={};
+    for(int i=0;i<count;++i){figure.notes[i].at-=at;figure.span=std::max(figure.span,figure.notes[i].at+figure.notes[i].length);}
     return figure;
 }
 inline MotifVariation motifVariation(const MotifRecurrencePolicy& policy,int64_t ordinal)

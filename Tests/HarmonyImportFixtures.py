@@ -5,7 +5,7 @@ import pathlib,re,sys
 sys.path.insert(0,str(pathlib.Path(__file__).resolve().parents[1]/'scripts'))
 from reference_headers import header_snapshot
 root=pathlib.Path(__file__).resolve().parents[1]
-def prepare(destination,revision=None,historical=False,explicit=False):
+def prepare(destination,revision=None,historical=False,explicit=False,currentMotifs=False):
  headers=header_snapshot(root,revision)
  if historical:
   name='HarmonyStrategies.generated.h';s=headers[name].decode();pattern=r'(inline constexpr std::array<int,)\d+(> kPopWendungenIndices \{\{)([^}]+)(\}\};)'
@@ -17,6 +17,12 @@ def prepare(destination,revision=None,historical=False,explicit=False):
   pattern=r'    bool dialogueMayLead\(const Pos& p,const Settings& s\)\n    \{.*?\n    \}'
   if 'bool dialogueMayLead(' in s:
    s,n=re.subn(pattern,'    bool dialogueMayLead(const Pos&,const Settings& s)\n    {return s.genre!=GenreScore||!on[kMelodie];}',s,count=1,flags=re.S);assert n==1
+   headers[name]=s.encode()
+ if not currentMotifs:
+  name='ScoreEngine.h';s=headers[name].decode().replace('\r\n','\n')
+  pattern=r'    bool scoreMotifAdaptation\(const Settings& s,int output\)const\n    \{.*?\n    \}'
+  if 'bool scoreMotifAdaptation(' in s:
+   s,n=re.subn(pattern,'    bool scoreMotifAdaptation(const Settings&,int)const\n    {return false;}',s,count=1,flags=re.S);assert n==1
    headers[name]=s.encode()
  if explicit:
   name='ScoreEngine.h';s=headers[name].decode().replace('\r\n','\n');s=s.replace('namespace stromscore\n{','namespace stromscore\n{\ninline WendungId importTestId=WendungId::invalid;',1)
