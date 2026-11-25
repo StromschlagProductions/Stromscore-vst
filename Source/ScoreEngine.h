@@ -127,10 +127,13 @@ struct Settings
     int stichNote = 36;
 };
 
+// Genre strategy seam, also frozen only in historical offline feature probes.
+inline bool popMelodicRoles(const Settings& s){return s.genre==GenrePopRock;}
+inline bool melodyAvailable(const Settings& s){return s.melody&&(s.genre==GenreScore||popMelodicRoles(s));}
 inline bool hasSolo(const Settings& s)
 {
     for(int layer=0;layer<kNumLayers;++layer)
-        if(s.solo[layer]&&(layer!=kMelodie||(s.melody&&s.genre==GenreScore)))return true;
+        if(s.solo[layer]&&(layer!=kMelodie||melodyAvailable(s)))return true;
     return false;
 }
 
@@ -161,7 +164,8 @@ inline std::array<composition::OutputDescription,kNumOutputs> outputCatalog(cons
         const auto& standard=standards[o];const int layer=kOutputLayer[o],range=kOutputRange[o];
         entry.standardUse=uses[o];entry.target={o,s.channel[o],s.stichNote};track.id={1000+o};
         track.style=standard.style;track.roles=standard.roles;
-        track.available=(layer!=kMelodie||(s.melody&&s.genre==GenreScore))&&!s.mute[layer]&&(!anySolo||s.solo[layer]);
+        track.available=(layer!=kMelodie||melodyAvailable(s))
+            &&(layer==kMelodie&&popMelodicRoles(s)?(anySolo?s.solo[layer]:!s.mute[layer]):!s.mute[layer]&&(!anySolo||s.solo[layer]));
         auto& c=track.instrument;c.pitch=PitchBehaviour::pitched;
         c.articulations=1u<<static_cast<unsigned>(standard.style);
         c.polyphony=standard.voices;c.maxDuration=standard.maxDuration;
@@ -298,7 +302,7 @@ public:
     composition::MotifOccurrence inspectMotifOccurrence(long long tick,Settings settings,int output=OutCounter)const
     {
         auto snapshot=*this;snapshot.cur=&settings;
-        if((settings.genre!=GenreScore&&!snapshot.phrasedHook(settings))||!on[kOutputLayer[output]]||(settings.genre==GenreScore&&!(output==OutMelody?settings.melodyMotif:settings.motif))
+        if((settings.genre!=GenreScore&&!snapshot.phrasedHook(settings)&&!(popMelodicRoles(settings)&&output==OutMelody))||!on[kOutputLayer[output]]||(settings.genre==GenreScore&&!(output==OutMelody?settings.melodyMotif:settings.motif))
             ||(output==OutCounter&&!snapshot.dialogueMayLead(snapshot.locate(tick),settings)))return {};
         return snapshot.motifOccurrence(musicaltime::fromGridStep(tick),snapshot.locate(tick),settings,output);
     }
@@ -329,7 +333,7 @@ public:
     // Ebene nicht stumm (Mute) und nicht durch Solo einer anderen Ebene ausgeschlossen
     static bool muteSoloOk (const Settings& s, int layer)
     {
-        if(layer==kMelodie&&(!s.melody||s.genre!=GenreScore))return false;
+        if(layer==kMelodie&&(!melodyAvailable(s)))return false;
         const bool anySolo=hasSolo(s);
         return anySolo ? s.solo[layer] : ! s.mute[layer];
     }
@@ -484,7 +488,7 @@ public:
         s.change = std::clamp (s.change, 0, kNumChangeGrids - 1);
         for (auto& v : s.layerIntensity) v = std::clamp (v, -1.0f, 1.0f);
         if(!composition::findProfile(s.profile))s.profile=composition::ProfileId::neutral;
-        if(!composition::valid(s.policy.texture)||!composition::valid(s.policy.motif)||!composition::valid(s.policy.popHooks.recurrence)||!composition::valid(s.policy.passing)||!composition::valid(s.policy.bass)||!composition::valid(s.policy.rhythm)||!composition::valid(s.policy.chords))s.policy=composition::neutralFreePolicy;
+        if(!composition::valid(s.policy.popRoles)||!composition::valid(s.policy.texture)||!composition::valid(s.policy.motif)||!composition::valid(s.policy.popHooks.recurrence)||!composition::valid(s.policy.passing)||!composition::valid(s.policy.bass)||!composition::valid(s.policy.rhythm)||!composition::valid(s.policy.chords))s.policy=composition::neutralFreePolicy;
         s.variety = std::clamp (s.variety, 0.0f, 1.0f);
         for (auto& o : s.octave) o = std::clamp (o, -2, 2);
         for (auto& c : s.channel) c = std::clamp (c, 1, 16);
@@ -520,7 +524,7 @@ public:
         s.genre = std::clamp (s.genre, 0, kNumGenres - 1);
         if (s.custom != wasCustom || bars != phraseBars || s.genre != lastGenre)   // Umschalten, neue Laenge oder anderes Genre: neue Phrase
         {
-            if(s.genre!=lastGenre){motifCatalog.clear();for(auto& state:voices){state.motif.clear();state.answer.clear();state.capture.clear();state.recurrence={};state.reservationRecurrence={};}}
+            if(s.genre!=lastGenre){motifCatalog.clear();for(auto& state:voices){state.motif.clear();state.answer.clear();state.capture.clear();state.recurrence={};state.reservationRecurrence={};state.popTurnValid=false;}}
             preparedTime.reset();
             phraseIndex = -1; wasCustom = s.custom; phraseBars = bars; style = -1;
             genre = s.genre; lastGenre = s.genre;
@@ -699,7 +703,8 @@ private:
         for(size_t i=0;i<a.route.points.size();++i)if(a.route.points[i].x!=b.route.points[i].x||a.route.points[i].y!=b.route.points[i].y)return false;
         for(size_t i=0;i<a.route.bends.size();++i)if(a.route.bends[i].x!=b.route.bends[i].x||a.route.bends[i].y!=b.route.bends[i].y)return false;
         const auto& x=a.policy;const auto& y=b.policy;
-        if(x.texture.activityStart!=y.texture.activityStart
+        if(x.popRoles.sparseBelow!=y.popRoles.sparseBelow||x.popRoles.drivenFrom!=y.popRoles.drivenFrom||x.popRoles.unrestFrom!=y.popRoles.unrestFrom
+            ||x.texture.activityStart!=y.texture.activityStart
             ||x.texture.accentUnrest!=y.texture.accentUnrest
             ||x.texture.stichStart!=y.texture.stichStart
             ||x.texture.activityHysteresis!=y.texture.activityHysteresis
@@ -838,10 +843,12 @@ private:
         for (int i = 0; i < kNumLayers; ++i)
         {
             const int l = kEntryOrder[row][i];
+            if(popMelodicRoles(s)&&l==kMelodie)continue; // keep accompaniment build/end slots unchanged
             if (! muteSoloOk (s, l)) continue;
             if (l == layer) idx = m;
             ++m;
         }
+        if(popMelodicRoles(s)&&layer==kMelodie)idx=std::max(0,m-1);
         return idx;
     }
     // Takt, an dem Platz i von m einsetzt (verteilt auf span Takte; der letzte im letzten Takt des Aufbaus)
@@ -1113,6 +1120,7 @@ private:
     }
     void addPassingTone(composition::MotifOccurrence& occurrence,const Settings& s,int output)const
     {
+        if(popMelodicRoles(s)&&output==OutMelody)return;
         const auto& policy=s.policy.passing;
         if(s.genre!=GenrePopRock||!phrasedHook(s)||!policy.enabled||!occurrence.active||occurrence.introduction
             ||occurrence.figure.variation!=composition::MotifVariation::original||occurrence.ordinal%policy.opportunityStride)return;
@@ -1159,7 +1167,7 @@ private:
     {
         const auto bar=musicaltime::fromGridStep(meter.len);
         auto& state=voice(output);const auto& use=state.motif;auto memory=performanceMaterial(output,s);
-        const auto& policy=s.genre==GenrePopRock?s.policy.popHooks.recurrence:s.policy.motif;
+        const auto& policy=s.genre==GenrePopRock&&!(popMelodicRoles(s)&&output==OutMelody)?s.policy.popHooks.recurrence:s.policy.motif;
         const auto origin=use.originTime;
         const auto section=p.phrase-phraseOf(sceneTime);
         if(memory.count&&(time-p.phraseStartTime>=std::min(2*bar,p.phraseEndTime-p.phraseStartTime)||section!=use.introduction))memory.finish();
@@ -1271,7 +1279,7 @@ private:
         cached.plan=attempt(variation);
         if(!cached.plan.active&&variation!=composition::MotifVariation::original)
             cached.plan=attempt(composition::MotifVariation::original);
-        if(!cached.plan.active&&!reservation&&scoreMotifAdaptation(s,output))
+        if(!cached.plan.active&&!reservation&&(scoreMotifAdaptation(s,output)||(popMelodicRoles(s)&&output==OutMelody&&popLeadRoute(s))))
         {
             cached.plan=attempt(composition::MotifVariation::original,true);
             for(int notes=std::min(3,memory.count-1);!cached.plan.active&&notes>=2;--notes)
@@ -1342,7 +1350,7 @@ private:
     composition::MotifWindow motifVoiceWindow(const Pos& p,const Settings& s,int output,bool preview=false,bool roleWindow=false)
     {
         if(!on[kOutputLayer[output]]||(s.genre==GenreScore&&!(output==OutMelody?s.melodyMotif:s.motif)))return {};
-        if(s.genre==GenrePopRock&&(!phrasedHook(s)||!voice(output).motif.material(motifCatalog).complete))return {};
+        if(s.genre==GenrePopRock&&!(popMelodicRoles(s)&&roleWindow&&output==OutMelody)&&(!phrasedHook(s)||!voice(output).motif.material(motifCatalog).complete))return {};
         const auto catalog=outputCatalog(s);composition::RoleNeed need;need.range=catalog[output].track.instrument.range;
         if(!composition::suitable(catalog[output].track,need))return {};
         const auto occurrence=motifOccurrence(p.time,p,s,output,preview,!roleWindow);if(!occurrence.active)return {};
@@ -1361,14 +1369,97 @@ private:
             begin=std::min(begin,occurrence.begin+note.at);end=std::max(end,occurrence.begin+note.at+note.length);
         }
         if(roleWindow)return count>0&&end>begin?composition::MotifWindow{catalog[output].track.id,begin,end}:composition::MotifWindow{};
-        if(!future&&!outputSounding(output)&&!chasingPatterns)return {};
+        if(!future&&!outputSounding(output)&&!chasingPatterns&&!(popMelodicRoles(s)&&!roleWindow))return {};
         return composition::reserveMotifWindow(catalog[output].track.id,count,begin,end);
+    }
+
+    bool popLeadRoute(const Settings& s)const
+    {
+        for(int o=0;o<OutCounter;++o)if(s.channel[o]==s.channel[OutMelody]||s.channel[o]==s.channel[OutCounter])return false;
+        return s.channel[OutMelody]!=s.channel[OutCounter];
+    }
+    bool popDialogRoute(const Settings& s)const
+    {for(int o=0;o<OutCounter;++o)if(s.channel[o]==s.channel[OutCounter])return false;return true;}
+    bool popHookIntroductionPending(const Pos& p,const Settings& s)
+    {
+        const auto& state=voice(OutCounter);
+        if(!on[kGegenstimme]||state.motif.material(motifCatalog).complete)return false;
+        if(state.capture.active)return true;
+        const auto capability=outputCatalog(s)[OutCounter].track.instrument;int playable=0;
+        const auto bar=musicaltime::sixteenth*meter.len;
+        for(auto at=p.phraseStartTime;at<p.phraseStartTime+2*bar;at+=musicaltime::sixteenth)
+        {const auto n=hookNote(at,locate(at),s);const int pitch=sounding(OutCounter,n.pitch);
+            playable+=n.valid&&pitch>=capability.range.low&&pitch<=capability.range.high&&n.length>=capability.minDuration&&n.length<=capability.maxDuration;}
+        return playable>=2;
+    }
+    composition::MotifWindow popLeadWindow(const Pos& p,const Settings& s,bool preview=true)
+    {
+        if(!on[kMelodie]||!popLeadRoute(s))return {};
+        // Preserve the first actually captured hook, including boundary retriggers.
+        if(on[kGegenstimme]&&p.time<sceneTime+4*musicaltime::sixteenth*meter.len)return {};
+        const auto& leadState=voice(OutMelody);
+        const bool inProgress=outputSounding(OutMelody)
+            ||(leadState.recurrence.plan.active&&p.time>=leadState.recurrence.plan.begin&&p.time<leadState.recurrence.plan.end)
+            ||(!leadState.motif.material(motifCatalog).complete&&leadState.motif.material(motifCatalog).count>0
+                &&p.phrase-phraseOf(sceneTime)==leadState.motif.introduction);
+        if(!inProgress&&popHookIntroductionPending(p,s))return {};
+        const auto track=outputCatalog(s)[OutMelody].track;
+        if(!composition::planForeground(s.melody,track).foreground)return {};
+        const auto bar=musicaltime::sixteenth*meter.len;
+        if(s.melodyMotif)
+        {
+            auto memory=performanceMaterial(OutMelody,s);
+            if(memory.count&&(p.time>=p.phraseStartTime+2*bar||p.phrase!=voice(OutMelody).motif.introduction+phraseOf(sceneTime)))memory.finish();
+            if(!memory.complete&&p.time>=p.phraseStartTime+std::min(2*bar,p.phraseEndTime-p.phraseStartTime))return {};
+            return motifVoiceWindow(p,s,OutMelody,true,true);
+        }
+        int ladder[16];if(!counterLadder(chordFor(p,kMelodie,s),s,ladder,OutMelody))return {};
+        const auto end=std::min(p.phraseEndTime,p.phraseStartTime+2*bar);
+        auto& state=voice(OutMelody);
+        if(state.popTurnValid&&state.popTurnKey==p.phraseStartTime&&state.popTurn.end==end)
+            return state.popTurn.active?composition::MotifWindow{track.id,state.popTurn.begin,state.popTurn.end}:composition::MotifWindow{};
+        const auto epoch=std::max<int64_t>(0,p.phrase-phraseOf(sceneTime));
+        const bool active=(epoch==0||composition::recurrenceSlot(s.policy.motif,epoch,layerY(s,kMelodie),s.z).eligible);
+        const composition::HookTurn turn{active,p.phraseStartTime,end};
+        if(!preview){state.popTurn=turn;state.popTurnKey=p.phraseStartTime;state.popTurnValid=true;}
+        return active?composition::MotifWindow{track.id,turn.begin,turn.end}:composition::MotifWindow{};
+    }
+    composition::HookTurn popDialogTurn(const Pos& p,const Settings& s,bool preview=true)
+    {
+        const auto bar=musicaltime::sixteenth*meter.len;
+        const auto cycleBegin=2*bar*(p.time/(2*bar));
+        if(!voice(OutCounter).motif.material(motifCatalog).complete||voice(OutCounter).capture.active)
+            return {true,cycleBegin,cycleBegin+2*bar};
+        if(p.time<sceneTime+4*bar)return {true,sceneTime,sceneTime+4*bar};
+        // Stock Pop figures assume 4/4. Other meters breathe only at existing
+        // phrase resets rather than interrupting a differently scaled hook cycle.
+        const auto cycle=s.meterNum==4&&s.meterDen==4?2*bar:p.phraseEndTime-p.phraseStartTime;
+        const auto key=cycle*(p.time/cycle);auto& state=voice(OutCounter);
+        if(state.popTurnValid&&state.popTurnKey==key&&state.popTurn.end==key+cycle)return state.popTurn;
+        const auto turn=composition::planHookTurn(s.policy.popRoles,p.time,cycle,layerY(s,kGegenstimme),s.z);
+        if(!preview){state.popTurn=turn;state.popTurnKey=key;state.popTurnValid=true;}
+        return turn;
+    }
+    bool popDialogueMayLead(const Pos& p,const Settings& s)
+    {
+        if(!on[kGegenstimme])return false;
+        if(!popDialogRoute(s))return true; // physical accompaniment claims retain their behavior
+        const bool recalled=s.motif&&phrasedHook(s)&&voice(OutCounter).motif.material(motifCatalog).complete;
+        const auto turn=popDialogTurn(p,s);
+        auto begin=turn.begin,end=turn.end;
+        if(recalled){const auto plan=motifOccurrence(p.time,p,s,OutCounter,true);if(!plan.active)return false;begin=plan.begin;end=plan.end;}
+        else if(!turn.active)return false;
+        if(end>p.phraseEndTime)return false; // never overrun an as-yet unplanned lead epoch
+        const auto lead=popLeadWindow(p,s);
+        if(outputSounding(OutMelody)||lead.contains(p.time))return false;
+        return lead.owner.value<0||end<=lead.begin||begin>=lead.end;
     }
 
     // Bounded Score role windows reuse the existing motif and line plans. They do
     // not change the accompaniment's established reservations or transformations.
     composition::MotifWindow melodicRoleWindow(int output,const Pos& p,const Settings& s)
     {
+        if(popMelodicRoles(s))return output==OutMelody?popLeadWindow(p,s):composition::MotifWindow{};
         if(s.genre!=GenreScore||!on[kOutputLayer[output]])return {};
         const auto catalog=outputCatalog(s);
         if(output==OutMelody&&!composition::planForeground(s.melody,catalog[output].track).foreground)return {};
@@ -1401,6 +1492,7 @@ private:
 
     bool dialogueMayLead(const Pos& p,const Settings& s)
     {
+        if(popMelodicRoles(s))return popDialogueMayLead(p,s);
         if(s.genre!=GenreScore||!on[kMelodie])return true;
         if(!on[kGegenstimme]||outputSounding(OutMelody))return false;
         // New dialogue must not alter physical claims of an accompaniment output.
@@ -1425,7 +1517,7 @@ private:
         if((s.genre!=GenreScore&&!phrasedHook(s))||s.arpFigure!=ArpAuto)return {};
         // Shared physical notes can alter motif recording/retriggers. Preserve that routing verbatim.
         for(int o=0;o<kNumOutputs;++o)if(o!=OutArp&&s.channel[o]==s.channel[OutArp])return {};
-        const auto primary=motifVoiceWindow(p,s,on[kMelodie]?OutMelody:OutCounter);
+        const auto primary=motifVoiceWindow(p,s,on[kMelodie]&&!popMelodicRoles(s)?OutMelody:OutCounter);
         if(primary.contains(p.time))return primary;
         const auto response=playableMelodyHandoff(p.time,p,s);
         if(response.plan.active)
@@ -1679,7 +1771,7 @@ private:
         if(s.genre!=GenrePopRock||!s.policy.rhythm.enabled||s.bassPattern!=BassAuto||s.arpFigure!=ArpAuto
             ||s.arpRate!=RateAuto||!on[kBass]||!on[kArp]||s.scene||s.sceneBars>0||manualEndTime.has_value()||s.endRequested
             ||still||bassRest||bassOverride>=0||dens<1.f||s.meterNum!=4||s.meterDen!=4||s.passing
-            ||on[kMelodie]||(on[kGegenstimme]&&phrasedHook(s)))return {};
+            ||(on[kMelodie]&&!popMelodicRoles(s))||(on[kGegenstimme]&&phrasedHook(s)))return {};
         for(int o=0;o<kNumOutputs;++o)
             if((o!=OutArp&&s.channel[o]==s.channel[OutArp])
                 ||(o!=OutBassShort&&s.channel[o]==s.channel[OutBassShort]))return {};
@@ -2310,8 +2402,8 @@ private:
             const int in=static_cast<int>(k-window*half),target=2*(hashInt(701u,window)%std::max(1,half/2));
             if(in==target||(s.z>=.9f&&in==target+1))return true;
         }
-        if(on[kGegenstimme]&&!on[kMelodie]&&s.genre==GenrePopRock&&
-            !(phrasedHook(s)&&voice(OutCounter).motif.material(motifCatalog).complete))
+        if(on[kGegenstimme]&&(!on[kMelodie]||popMelodicRoles(s))&&s.genre==GenrePopRock&&
+            !(phrasedHook(s)&&voice(OutCounter).motif.material(motifCatalog).complete&&(!popMelodicRoles(s)||s.motif)))
         {
             const bool special=popHookPattern(W().id)>=0&&!s.custom;
             const auto cycle=musicaltime::sixteenth*(special?2LL*meter.len:8LL*(layerY(s,kGegenstimme)<.45f?4:2));
@@ -2354,9 +2446,9 @@ private:
             const bool introduction=at>=p.phraseStartTime&&at<p.phraseStartTime+span;
             // Match motifStep's existing fall-through: without completed material,
             // time outside the introduction belongs to the local line, not recurrence.
-            if(s.genre==GenreScore&&memory.count&&(!introduction||p.phrase-phraseOf(sceneTime)!=voice(output).motif.introduction))memory.finish();
-            const bool motivic=s.genre==GenreScore?(output==OutMelody?s.melodyMotif:s.motif)&&(memory.complete||introduction):
-                phrasedHook(s)&&memory.complete;
+            if((s.genre==GenreScore||(popMelodicRoles(s)&&output==OutMelody))&&memory.count&&(!introduction||p.phrase-phraseOf(sceneTime)!=voice(output).motif.introduction))memory.finish();
+            const bool motivic=(s.genre==GenreScore||(popMelodicRoles(s)&&output==OutMelody))?(output==OutMelody?s.melodyMotif:s.motif)&&(memory.complete||introduction):
+                phrasedHook(s)&&memory.complete&&(!popMelodicRoles(s)||s.motif);
             if(motivic)
             {
                 const auto occurrence=motifOccurrence(at,p,s,output,true);
@@ -2383,7 +2475,7 @@ private:
                     if(plan.reserveResponse){consider(plan.answerBegin);for(int i=0;i<plan.answerNotes;++i)consider(plan.answerBegin+memory.notes[i].at);}
                 }
             }
-            else if(s.genre==GenreScore)
+            else if(s.genre==GenreScore||(popMelodicRoles(s)&&output==OutMelody))
             {
                 const auto plan=output==OutCounter?freeLinePhrase(p,s):composition::LinePhrasePlan{};
                 if(plan.valid){for(int i=0;i<plan.count;++i)consider(plan.notes[i].begin);consider(plan.breath);}
@@ -2471,16 +2563,18 @@ private:
             for(int i=0;i<bassPhrase.count;++i){const auto& note=bassPhrase.notes[i];if(execution::sounding(note.at,note.at+note.length,currentTiming,s.swing,ppq))
                 {const auto eventIndex=floorDiv(note.at.value,musicaltime::sixteenth.value);const int position=static_cast<int>(eventIndex%meter.len);const int velocity=static_cast<int>(58+38*layerY(s,kBass))+(meter.isGroupStart(position)?8:0)+jitter(eventIndex,kBass,3)+note.accent;
                  noteOn(OutBassShort,note.pitch-12*s.octave[kBass],velocity,note.at+note.length,0,out);}}
-        if(on[kGegenstimme]&&!on[kMelodie]&&s.genre==GenrePopRock&&
-            !(phrasedHook(s)&&voice(OutCounter).motif.material(motifCatalog).complete))
+        if(on[kGegenstimme]&&(!on[kMelodie]||popMelodicRoles(s))&&s.genre==GenrePopRock&&
+            !(phrasedHook(s)&&voice(OutCounter).motif.material(motifCatalog).complete&&(!popMelodicRoles(s)||s.motif)))
         {
             // At most the last hook note and its actual legato overlap are sounding.
             PlannedMotifNote last,previous;
             for(auto at=execution::atOrAfter(begin,musicaltime::sixteenth);at<=source;at+=musicaltime::sixteenth)
             {
                 const auto n=hookNote(at,locate(at),s);
-                if(n.valid&&execution::quarters(at,currentTiming,s.swing)<ppq-1e-9){previous=last;last=n;}
+                if(n.valid&&(!popMelodicRoles(s)||popDialogueMayLead(locate(at),s))&&execution::quarters(at,currentTiming,s.swing)<ppq-1e-9){previous=last;last=n;}
             }
+            if(popMelodicRoles(s)&&popDialogRoute(s)&&voice(OutCounter).motif.material(motifCatalog).complete)
+                for(auto* n:{&last,&previous})if(n->valid)n->length=std::min(n->length,popDialogTurn(locate(n->at),s).end-n->at);
             const bool releases=(popHookPattern(W().id)>=0&&!s.custom)||s.legato;
             // A real attack exactly at the seek destination owns its articulation and
             // velocity. Do not pre-empt it with an overlapping chase of the same key.
@@ -2499,7 +2593,7 @@ private:
         freePhraseStep(source,p,s,0,out,true);
         chaseMotif(source,p,s,out);
         const int lineOutput=on[kMelodie]&&!dialogueMayLead(p,s)?OutMelody:OutCounter;
-        if(s.genre==GenreScore&&on[kOutputLayer[lineOutput]]&&
+        if((s.genre==GenreScore||(popMelodicRoles(s)&&lineOutput==OutMelody))&&on[kOutputLayer[lineOutput]]&&
             !(lineOutput==OutMelody?s.melodyMotif:s.motif)&&(lineOutput!=OutCounter||!freeLinePhrase(p,s).valid))
         {
             const auto y=layerY(s,kOutputLayer[lineOutput]);
@@ -2563,12 +2657,14 @@ private:
     void chaseMotif(musicaltime::Tick time,const Pos& p,const Settings& s,EventList& out)
     {
 
-        if(s.genre!=GenreScore&&!phrasedHook(s))return;
+        if(s.genre!=GenreScore&&!phrasedHook(s)&&!popMelodicRoles(s))return;
         for(int output:{OutMelody,OutCounter})
         {
+        if(popMelodicRoles(s)&&output==OutCounter&&(!s.motif||!phrasedHook(s)))continue;
         if(output==OutCounter&&!dialogueMayLead(p,s))continue;
         const auto memory=performanceMaterial(output,s);
-        if(on[kOutputLayer[output]]&&(s.genre==GenrePopRock||(output==OutMelody?s.melodyMotif:s.motif))&&memory.complete)
+        if(on[kOutputLayer[output]]&&(output!=OutMelody||!popMelodicRoles(s)||popLeadWindow(p,s).contains(time))
+            &&(s.genre==GenrePopRock&&(!popMelodicRoles(s)||(output==OutCounter&&s.motif&&phrasedHook(s)))||(output==OutMelody?s.melodyMotif:s.motif))&&memory.complete)
         {
             const auto occurrence=motifOccurrence(time,p,s,output);
             if(occurrence.active&&time>=occurrence.begin&&time<occurrence.end)
@@ -2590,6 +2686,7 @@ private:
 
     PlayableHandoff playableMelodyHandoff(musicaltime::Tick time,const Pos& p,const Settings& s,bool preview=false)
     {
+        if(popMelodicRoles(s))return {};
 
         const auto catalog=outputCatalog(s);
         const auto& source=voice(OutMelody).motif;
@@ -2983,6 +3080,19 @@ private:
 
         if(accompanimentOnly)return;
 
+        if(popMelodicRoles(s))
+        {
+            // Publish the completed, actually performed introduction even during
+            // the subsequent breathing window (which deliberately has no emitter).
+            auto& use=voice(OutMelody).motif;
+            if(use.material(motifCatalog).count&&(time-p.phraseStartTime>=std::min(2*musicaltime::sixteenth*meter.len,p.phraseEndTime-p.phraseStartTime)
+                ||p.phrase-phraseOf(sceneTime)!=use.introduction))use.finish(motifCatalog);
+            popDialogTurn(p,s,false);
+            const auto lead=popLeadWindow(p,s,false);
+            if(lead.contains(time)&&!outputSounding(OutCounter))counterLine(time,p,s,offset,chordStart||enterNow[kMelodie],out,OutMelody);
+            if(popDialogueMayLead(p,s))counterLine(time,p,s,offset,chordStart||enterNow[kGegenstimme],out);
+            return;
+        }
         // --- Gegenstimme: ruhige Linie aus Akkordtoenen, schrittweise gefuehrt
         if(on[kMelodie])
         {
@@ -3182,7 +3292,10 @@ private:
     {
         armHookCapture(time,p,s);
         const auto n=hookNote(time,p,s);if(!n.valid)return;
-        noteOn(OutCounter,n.pitch,n.velocity,n.at+n.length,offset,out);
+        auto end=n.at+n.length;
+        if(popMelodicRoles(s)&&popDialogRoute(s)&&voice(OutCounter).motif.material(motifCatalog).complete)
+            end=std::min(end,popDialogTurn(p,s).end);
+        noteOn(OutCounter,n.pitch,n.velocity,end,offset,out);
         if((popHookPattern(W().id)>=0&&!s.custom)||s.legato)releaseOthers(OutCounter,n.pitch,offset,out);
         voice(OutCounter).note=n.pitch;
     }
@@ -3272,9 +3385,10 @@ private:
         if(output==OutCounter&&!dialogueMayLead(p,s))return;
         if (output==OutCounter && s.genre == GenrePopRock)
         {
-            if(phrasedHook(s)&&voice(output).motif.material(motifCatalog).complete){motifStep(time,p,s,offset,out,output);return;}
+            if(phrasedHook(s)&&voice(output).motif.material(motifCatalog).complete&&(!popMelodicRoles(s)||s.motif)){motifStep(time,p,s,offset,out,output);return;}
             leadHook(time,p,s,offset,out);return;
         }
+        if(popMelodicRoles(s)&&output==OutMelody&&!popLeadWindow(p,s).contains(time))return;
         if ((output==OutMelody?s.melodyMotif:s.motif) && motifStep (time, p, s, offset, out,output)) return;
         if(output==OutCounter&&freePhraseStep(time,p,s,offset,out))return;
         const float yc = layerY (s, kOutputLayer[output]);
@@ -3304,7 +3418,8 @@ private:
         if(output==OutMelody)
         {
             int ladder[16];if(counterLadder(c,s,ladder,output)==0)return;
-            const auto duration=composition::articulatedLength(end-time,end-time,s.melodyLegato);
+            const auto bound=popMelodicRoles(s)?std::min(end,popLeadWindow(p,s).end):end;
+            const auto duration=composition::articulatedLength(bound-time,bound-time,s.melodyLegato);
             noteOn(output,target,vel,time+duration,offset,out);voice(output).note=target;voice(output).pendingAt.reset();return;
         }
         noteOn (OutCounter, target, vel, end + tail(end-time), offset, out);   // Legato: eine Sechzehntel laenger, bindet zum naechsten Ton
@@ -3321,6 +3436,7 @@ private:
             int64_t epoch=-1;musicaltime::Tick origin{},window{};uint64_t identity=0;
             composition::MotifOccurrence plan;
         } recurrence,reservationRecurrence;
+        composition::HookTurn popTurn;musicaltime::Tick popTurnKey{};bool popTurnValid=false;
         int note=-1,pending=-1;
         std::optional<musicaltime::Tick> pendingAt;musicaltime::Tick pendingEnd{};
     };

@@ -11,6 +11,17 @@ namespace stromscore::composition
 // Motif positions, relative offsets and durations use the shared 960-PPQ Tick.
 using musicaltime::Tick;
 inline constexpr Tick motifQuantum=musicaltime::sixteenth; // Existing performance articulation/rhythm quantum.
+// Whole existing hook/phrase cycles form a thought; breathing happens between cycles,
+// never by randomly dropping notes of the characteristic rhythm.
+struct HookTurn { bool active=false;Tick begin{},end{}; };
+inline HookTurn planHookTurn(const PopRolePolicy& policy,Tick at,Tick cycle,float energy,float unrest)
+{
+    if(!valid(policy)||cycle<Tick{1}||at<Tick{})return {};
+    const auto index=at/cycle;
+    const int sounding=energy>=policy.drivenFrom&&unrest>=policy.unrestFrom?2:1;
+    const int breath=energy<policy.sparseBelow&&unrest<policy.unrestFrom?2:1;
+    return {index%(sounding+breath)<sounding,cycle*index,cycle*(index+1)};
+}
 enum class Role { pad, bass };
 enum class RandomDomain : uint32_t { harmony = 1, motif, rhythm, accent };
 inline uint32_t randomKey (uint32_t seed, uint32_t configuration, uint32_t revision,

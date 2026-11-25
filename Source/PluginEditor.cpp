@@ -1518,7 +1518,6 @@ void StromscoreEditor::timerCallback()
         const bool anySolo=stromscore::hasSolo(s);
         juce::String entry;
         if(i==stromscore::kMelodie&&!s.melody)entry="aus";
-        else if(i==stromscore::kMelodie&&s.genre!=stromscore::GenreScore)entry="nur Score";
         else if (anySolo ? ! s.solo[i] : s.mute[i]) entry = "stumm";
         else
         {

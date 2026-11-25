@@ -55,9 +55,13 @@ struct HookPolicy
     std::array<bool,9> phrased {{false,true,true,false,false,false,true,true,true}};
     MotifRecurrencePolicy recurrence=[] {MotifRecurrencePolicy p;p.adaptChordTones=true;for(auto& v:p.variations)v=MotifVariation::original;p.variations[5]=MotifVariation::sequence;return p;}();
 };
+struct PopRolePolicy { float sparseBelow=.4f,drivenFrom=.75f,unrestFrom=.5f; };
+inline bool valid(const PopRolePolicy& p)
+{return std::isfinite(p.sparseBelow)&&std::isfinite(p.drivenFrom)&&std::isfinite(p.unrestFrom)
+    &&p.sparseBelow>=0&&p.drivenFrom>p.sparseBelow&&p.drivenFrom<=1&&p.unrestFrom>=0&&p.unrestFrom<=1;}
 struct BassPhrasePolicy { bool enabled=true;int opportunityEvery=3,maxLeap=7; };
 inline bool valid(const BassPhrasePolicy& p){return p.opportunityEvery>=1&&p.opportunityEvery<=64&&p.maxLeap>=3&&p.maxLeap<=12;}
-struct FreeCompositionPolicy { TexturePolicy texture; MotifRecurrencePolicy motif; HookPolicy popHooks; PassingPolicy passing; BassPhrasePolicy bass; RhythmCoordinationPolicy rhythm; ChordDispositionPolicy chords; };
+struct FreeCompositionPolicy { TexturePolicy texture; PopRolePolicy popRoles; MotifRecurrencePolicy motif; HookPolicy popHooks; PassingPolicy passing; BassPhrasePolicy bass; RhythmCoordinationPolicy rhythm; ChordDispositionPolicy chords; };
 inline constexpr FreeCompositionPolicy neutralFreePolicy {};
 // Artist identities currently provide only initial harmonic preferences; all texture data stay neutral.
 struct CompositionProfile

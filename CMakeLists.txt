@@ -82,6 +82,15 @@ if(BUILD_TESTING)
         add_test(NAME ScoreRealizationRegression COMMAND ${Python3_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/scripts/compare_score_realization.py
             --compiler ${CMAKE_CXX_COMPILER} --output ${CMAKE_CURRENT_BINARY_DIR}/score-realization)
     endif()
+    add_executable(PopRoleTests Tests/PopRoleTests.cpp)
+    target_include_directories(PopRoleTests PRIVATE Source)
+    add_test(NAME PopRoles COMMAND PopRoleTests)
+    if(NOT MSVC)
+        add_test(NAME PopRoleCatalog COMMAND ${Python3_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/scripts/compare_pop_roles.py
+            --compiler ${CMAKE_CXX_COMPILER} --output ${CMAKE_CURRENT_BINARY_DIR}/pop-role-catalog)
+        add_test(NAME PopRoleActivity COMMAND ${Python3_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/scripts/analyze_pop_roles.py
+            --quick --dynamics --compiler ${CMAKE_CXX_COMPILER} --output ${CMAKE_CURRENT_BINARY_DIR}/pop-role-activity)
+    endif()
     add_executable(RoleCoordinationTests Tests/RoleCoordinationTests.cpp)
     target_include_directories(RoleCoordinationTests PRIVATE Source)
     add_test(NAME RoleCoordination COMMAND RoleCoordinationTests)

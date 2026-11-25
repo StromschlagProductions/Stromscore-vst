@@ -25,13 +25,17 @@ struct ActivityAccess {
   r.flexible=p.figure.harmonicRealization;r.adapted=p.figure.harmonicallyAdapted;r.shortened=p.figure.durationAdjusted;
 #endif
   r.active=p.active;r.begin=p.begin.value;r.end=p.end.value;r.notes=p.figure.count;
+#ifdef POP_ROLES_MEASUREMENTS
+  const auto& policy=s.genre==GenrePopRock&&output==OutCounter?s.policy.popHooks.recurrence:s.policy.motif;
+#else
   const auto& policy=s.genre==GenrePopRock?s.policy.popHooks.recurrence:s.policy.motif;
+#endif
   r.eligible=r.epoch>=1&&composition::recurrenceSlot(policy,r.epoch,Generator::layerY(s,kOutputLayer[output]),s.z).eligible;return r;}
 };}
 #endif
 struct RoleStats{int ons=0;long long busy=0,enabled=0,first=-1,complete=-1;std::set<int> bars;std::vector<std::pair<long long,long long>> intervals;int open=0;long long since=0;};
-int main(int argc,char** argv){if(argc!=8)return 2;int genre=std::atoi(argv[1]),path=std::atoi(argv[2]),mode=std::atoi(argv[3]),profile=std::atoi(argv[4]),seed=std::atoi(argv[5]),bars=std::atoi(argv[6]);std::ofstream notes(argv[7]);notes<<"sample,out,channel,note,velocity,type\n";
- Settings s;s.genre=genre;s.key=9;s.x=.5f;s.y=.85f;s.z=.1f;s.inertia=true;s.scene=path==8||path==12;s.motif=mode!=2;s.seed=seed;
+int main(int argc,char** argv){if(argc!=8&&argc!=9)return 2;int genre=std::atoi(argv[1]),path=std::atoi(argv[2]),mode=std::atoi(argv[3]),profile=std::atoi(argv[4]),seed=std::atoi(argv[5]),bars=std::atoi(argv[6]);std::ofstream notes(argv[7]);notes<<"sample,out,channel,note,velocity,type\n";
+ Settings s;s.dynamics=argc==9&&std::atoi(argv[8])!=0;s.genre=genre;s.key=9;s.x=.5f;s.y=.85f;s.z=.1f;s.inertia=true;s.scene=path==8||path==12;s.motif=mode!=2;s.seed=seed;
 #ifndef ACTIVITY_V21
  s.melody=mode!=1&&mode!=4;s.melodyMotif=mode!=2;s.profile=static_cast<composition::ProfileId>(profile);
 #else
@@ -62,6 +66,8 @@ int main(int argc,char** argv){if(argc!=8)return 2;int genre=std::atoi(argv[1]),
    if(path==6)s.z=.1f; // XYZ motion with low unrest, same XY trajectory.
   }
   if(path==9){s.y=1;s.z=1;}
+  if(path==14){s.x=.25f;s.y=.3f;s.z=.15f;}
+  if(path==15){s.x=.6f;s.y=.55f;s.z=.4f;}
   if(path==13){s.x=q<8?.5f:static_cast<float>(.5+.4*std::sin(q*6.283185307179586/8));s.y=q<8?.85f:1.f;s.z=q<8?.1f:1.f;}
   if(path==10)s.genre=q<240?GenreScore:q<360?GenrePopRock:GenreScore;
 #ifndef ACTIVITY_V21

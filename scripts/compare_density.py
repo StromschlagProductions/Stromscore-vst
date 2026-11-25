@@ -1,7 +1,9 @@
 #!/usr/bin/env python3
 """Pinned A/B MIDI comparison plus same-energy, density-mask-disabled scientific control."""
 from reference_headers import header_snapshot
-import argparse, collections, hashlib, json, pathlib, subprocess, tempfile
+import argparse, collections, hashlib, json, pathlib, subprocess, tempfile, sys
+sys.path.insert(0,str(pathlib.Path(__file__).resolve().parents[1]/'Tests'))
+from HarmonyImportFixtures import prepare
 p=argparse.ArgumentParser();p.add_argument('--probe',required=True);p.add_argument('--compiler',default='c++');p.add_argument('--output',required=True);a=p.parse_args()
 root=pathlib.Path(__file__).resolve().parents[1];out=pathlib.Path(a.output);out.mkdir(parents=True,exist_ok=True)
 names=['high-steady','high-build','low-build','manual-build','auto-fade','manual-fade','open-end','hard-end','pop-steady','pop-build','pop-fade','protected-motif','melody-build','seek-loop','restart','manual-fade-request','low-steady','catalog-steady','catalog-build','passing-fade','velocity-fade']
@@ -30,7 +32,11 @@ with tempfile.TemporaryDirectory(prefix='stromscore-density-') as temp:
     temp=pathlib.Path(temp)
     for folder,revision in [('before','2f4dd47'),('control',None)]:
         dest=temp/folder;dest.mkdir()
-        for name,data in header_snapshot(root,revision).items():
+        if revision:snapshot=header_snapshot(root,revision)
+        else:
+            prepare(dest,historical=True)
+            snapshot={p.name:p.read_bytes() for p in dest.glob('*.h')}
+        for name,data in snapshot.items():
             if not revision and name=='ScoreEngine.h':
                 assert b'composition::EventDensity{dens}' in data
                 data=data.replace(b'composition::EventDensity{dens}',b'composition::EventDensity{1.f}')

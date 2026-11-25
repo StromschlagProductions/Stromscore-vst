@@ -823,7 +823,7 @@ int main(int argc,char** argv)
         CHECK (! c.broken && c.ons == c.offs); q.setPlayHead (nullptr);
     }
     // Voice-leading export equals live DAW playback, including channel CCs and held common notes.
-    for(float intensity : {.4f,.7f,.8f,.9f,1.f,.99f,.97f,.96f,.95f,.94f,.93f,.92f,.91f,.89f,.88f,.87f,.86f,.85f,.84f,.83f})
+    for(float intensity : {.4f,.7f,.8f,.9f,1.f,.99f,.97f,.96f,.95f,.94f,.93f,.92f,.91f,.89f,.88f,.87f,.86f,.85f,.84f,.83f,.82f,.81f,.79f,.78f})
     {
         StromscoreProcessor q; FakeHost h; q.setPlayHead (&h); q.prepareToPlay (48000, 512);
         if(intensity==.89f||intensity==.88f||intensity==.87f||intensity==.86f||intensity==.85f||intensity==.84f||intensity==.83f)setParam(q,"genre",1);
@@ -907,8 +907,16 @@ int main(int argc,char** argv)
             setParam(q,"motiv",0);setParam(q,"melodie",0);setParam(q,"mute3",0);setParam(q,"arpFigure",stromscore::ArpAuto);
             if(intensity==.91f){setParam(q,"aufbau",1);setParam(q,"einstieg",stromscore::EntryCounter);setParam(q,"szenenLaenge",16);}
         }
+        const bool popLead=intensity==.82f||intensity==.81f||intensity==.79f||intensity==.78f;
+        if(popLead)
+        {
+            setParam(q,"genre",1);setParam(q,"melodie",1);setParam(q,"mute6",0);setParam(q,"unruhe",.4f);
+            setParam(q,"melodieMotiv",intensity==.81f||intensity==.78f?0.f:1.f);
+            setParam(q,"motiv",intensity==.79f||intensity==.78f?0.f:1.f);
+            setParam(q,"melodieLegato",intensity==.78f?0.f:1.f);
+        }
         // The existing plugin export is capped at 64 bars; the core comparison covers 128.
-        const int bars=(intensity==.8f||intensity==.9f||intensity==.87f||intensity==.86f||intensity==.85f||intensity==.84f||intensity==.83f||handoff)?64:recurrence?40:8;
+        const int bars=(popLead||intensity==.8f||intensity==.9f||intensity==.87f||intensity==.86f||intensity==.85f||intensity==.84f||intensity==.83f||handoff)?64:recurrence?40:8;
         using Timed = std::tuple<long long, int, int, int, int>;
         std::vector<Timed> live, exported;
         auto add = [] (std::vector<Timed>& target, const juce::MidiMessage& m, long long tick)
@@ -931,6 +939,15 @@ int main(int argc,char** argv)
         for (const auto meta : m) add (live, meta.getMessage(), bars*3840);
         std::sort (live.begin(), live.end()); std::sort (exported.begin(), exported.end());
         CHECK (! live.empty() && live == exported);
+        if(popLead)
+        {
+            int melody=0,dialog=0,ons=0;long long previous=-1;
+            for(const auto& e:live){const auto at=std::get<0>(e);CHECK(!(melody&&dialog&&at>previous));previous=at;
+                if(std::get<1>(e)==2)continue;const auto delta=std::get<1>(e)==1?1:-1;
+                if(std::get<2>(e)==9){melody+=delta;ons+=delta>0;CHECK(melody>=0&&melody<=1);}
+                if(std::get<2>(e)==8){dialog+=delta;CHECK(dialog>=0&&dialog<=2);}}
+            CHECK(ons>0&&melody==0&&dialog==0);
+        }
         if(intensity==.83f)
         {
             bool active[128] {};

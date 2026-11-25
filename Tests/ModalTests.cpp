@@ -30,7 +30,7 @@ int main()
   r.source=r.target;CHECK(!planPassingTone(r).valid);
   r.source=71+key;r.target=74+key;r.chordMask=pitchBit(r.source)|pitchBit(r.target);CHECK(!planPassingTone(r).valid);
  }
- Settings s;s.genre=GenrePopRock;auto w=kPopWendungen[34];s.x=w.x;s.y=w.y;s.z=w.z;s.variety=0;s.key=0;s.solo[kGegenstimme]=true;
+ Settings s;s.genre=GenrePopRock;s.motif=true;auto w=kPopWendungen[34];s.x=w.x;s.y=w.y;s.z=w.z;s.variety=0;s.key=0;s.solo[kGegenstimme]=true;
  Generator g;EventList es;Transport t;t.playing=true;MotifOccurrence example;uint64_t id=0;int count=0;
  for(int tick=0;tick<128*16;++tick){t.ppq=tick*.25;es.clear();{NoAllocations guard;g.process(t,s,6000,es);}auto m=g.rememberedMotif();if(m.complete){if(!id)id=m.identity;CHECK(id==m.identity);}auto p=g.inspectMotifOccurrence(tick,s);if(p.figure.passingIndex>=0){example=p;for(int i=0;i<es.size;++i)if(es.events[i].out==OutCounter&&es.events[i].velocity&&T(tick)==p.begin+p.figure.notes[p.figure.passingIndex].at)++count;}}
  CHECK(count>0&&example.active);auto n=example.figure.notes[example.figure.passingIndex];

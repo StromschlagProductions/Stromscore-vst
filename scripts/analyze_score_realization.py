@@ -39,6 +39,7 @@ for revision in ('c835747','working'):
  d=out/revision;d.mkdir(exist_ok=True)
  for name,content in header_snapshot(root,None if revision=='working' else revision).items():
   if name=='ScoreEngine.h':
+   content=content.replace(b'inline bool popMelodicRoles(const Settings& s){return s.genre==GenrePopRock;}',b'inline bool popMelodicRoles(const Settings&){return false;}')
    content=content.replace(b'\r\n',b'\n');needle=b'class Generator\n{\npublic:';assert needle in content
    content=content.replace(needle,b'class Generator\n{\nfriend struct ActivityAccess;\npublic:',1)
   (d/name).write_bytes(content)

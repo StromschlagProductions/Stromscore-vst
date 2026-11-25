@@ -5,7 +5,7 @@ import pathlib,re,sys
 sys.path.insert(0,str(pathlib.Path(__file__).resolve().parents[1]/'scripts'))
 from reference_headers import header_snapshot
 root=pathlib.Path(__file__).resolve().parents[1]
-def prepare(destination,revision=None,historical=False,explicit=False,currentMotifs=False):
+def prepare(destination,revision=None,historical=False,explicit=False,currentMotifs=False,currentPop=False):
  headers=header_snapshot(root,revision)
  if historical:
   name='HarmonyStrategies.generated.h';s=headers[name].decode();pattern=r'(inline constexpr std::array<int,)\d+(> kPopWendungenIndices \{\{)([^}]+)(\}\};)'
@@ -24,6 +24,10 @@ def prepare(destination,revision=None,historical=False,explicit=False,currentMot
   if 'bool scoreMotifAdaptation(' in s:
    s,n=re.subn(pattern,'    bool scoreMotifAdaptation(const Settings&,int)const\n    {return false;}',s,count=1,flags=re.S);assert n==1
    headers[name]=s.encode()
+ if not currentPop:
+  name='ScoreEngine.h';s=headers[name].decode().replace('\r\n','\n')
+  s=s.replace('inline bool popMelodicRoles(const Settings& s){return s.genre==GenrePopRock;}','inline bool popMelodicRoles(const Settings&){return false;}')
+  headers[name]=s.encode()
  if explicit:
   name='ScoreEngine.h';s=headers[name].decode().replace('\r\n','\n');s=s.replace('namespace stromscore\n{','namespace stromscore\n{\ninline WendungId importTestId=WendungId::invalid;',1)
   needle='static int pick (const Settings& s, long long salt)\n    {';assert needle in s

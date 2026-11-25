@@ -218,8 +218,8 @@ int main(int argc,char**argv)
             for(int c=0;c<4;++c) { const auto notes=pitches(dev,c*192000LL,3); CHECK(notes.size()==1); CHECK(*notes.begin()%12==bassPcs[c]); }
         }
         // Arp/accent streams remain identical; free Score counterphrases intentionally evolve after 2.2.
-        Events otherA,otherB;for(auto e:dev)if(e.channel!=1&&e.channel!=2&&e.channel!=3&&e.channel!=4&&(e.channel!=8||s.genre==GenrePopRock))otherA.push_back(e);
-        for(auto e:ref)if(e.channel!=1&&e.channel!=2&&e.channel!=3&&e.channel!=4&&(e.channel!=8||s.genre==GenrePopRock))otherB.push_back(e);
+        Events otherA,otherB;for(auto e:dev)if(e.channel!=1&&e.channel!=2&&e.channel!=3&&e.channel!=4&&e.channel!=8)otherA.push_back(e);
+        for(auto e:ref)if(e.channel!=1&&e.channel!=2&&e.channel!=3&&e.channel!=4&&e.channel!=8)otherB.push_back(e);
         // Fewer counter claims can reorder simultaneous releases in the compact active-note array.
         // Keep exact events/times, independent of that irrelevant cross-channel ordering.
         auto order=[](const E& a,const E& b){return std::tie(a.sample,a.channel,a.note,a.velocity,a.type)<std::tie(b.sample,b.channel,b.note,b.velocity,b.type);};

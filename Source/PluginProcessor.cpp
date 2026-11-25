@@ -909,7 +909,7 @@ juce::File StromscoreProcessor::renderMidiFile (int bars) const
     {
         juce::StringArray names;
         for (int o = 0; o < stromscore::kNumOutputs; ++o)
-            if (settings.channel[o] == ch + 1 && (o!=stromscore::OutMelody || (settings.melody&&settings.genre==stromscore::GenreScore))) names.add (outputNames()[o]);
+            if (settings.channel[o] == ch + 1 && (o!=stromscore::OutMelody || stromscore::melodyAvailable(settings))) names.add (outputNames()[o]);
         if (names.isEmpty()) continue;
         juce::MidiMessageSequence seq;
         seq.addEvent (juce::MidiMessage::textMetaEvent (3, names.joinIntoString (" + ") + " (Kanal " + juce::String (ch + 1) + ")"));
