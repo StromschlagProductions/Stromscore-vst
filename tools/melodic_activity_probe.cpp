@@ -37,6 +37,13 @@ int main(int argc,char** argv){if(argc!=8)return 2;int genre=std::atoi(argv[1]),
 #ifndef ACTIVITY_V21
  if(mode==5){s.solo[kMelodie]=s.solo[kGegenstimme]=true;}
 #endif
+#ifndef ACTIVITY_V21
+ if(mode==8||mode==11)s.mute[kGegenstimme]=true;
+ if(mode==9)s.mute[kMelodie]=true;
+ if(mode==10)s.solo[kGegenstimme]=true;
+ if(mode==11)s.solo[kMelodie]=true;
+ if(mode==12)s.layerIntensity[kMelodie]=-1;
+#endif
  if(path==7){s.custom=true;s.customChords[0]={0,Maj7,8};}
  Generator g;EventList out;Transport t;t.playing=true;t.bpm=120;std::array<RoleStats,2> stats;std::array<std::map<int,long long>,2> held;std::array<std::set<int64_t>,2> epochs;std::array<int,2> eligible{},activePlans{},plannedNotes{},performedPlanNotes{};std::array<std::vector<std::pair<int64_t,int64_t>>,2> planWindows;std::set<int> ids;int changes=0,prevId=-1;uint64_t accompaniment=1469598103934665603ull;const long long total=static_cast<long long>(bars)*96000;
  auto emit=[&](long long offset){for(int i=0;i<out.size;++i){auto e=out.events[i];long long at=offset+e.offset;notes<<at<<','<<int(e.out)<<','<<int(e.channel)<<','<<int(e.note)<<','<<int(e.velocity)<<','<<int(e.type)<<'\n';if(e.out<7){for(auto x:{at,static_cast<long long>(e.out),static_cast<long long>(e.channel),static_cast<long long>(e.note),static_cast<long long>(e.velocity),static_cast<long long>(e.type)}){accompaniment^=static_cast<uint64_t>(x);accompaniment*=1099511628211ull;}}if(e.type||e.out<7)continue;int role=e.out==7?1:0;auto& r=stats[role];auto& h=held[role];if(e.velocity){for(auto window:planWindows[role])if(at>=window.first&&at<window.second){++performedPlanNotes[role];break;}++r.ons;if(r.first<0)r.first=at;if(h.empty())r.since=at;h[e.note]=at;}else{h.erase(e.note);if(h.empty()&&r.since>=0){if(at>r.since){r.intervals.push_back({r.since,at});r.busy+=at-r.since;for(int b=r.since/96000;b<bars&&b*96000<at;++b)r.bars.insert(b);}r.since=-1;}}}};
@@ -51,6 +58,7 @@ int main(int argc,char** argv){if(argc!=8)return 2;int genre=std::atoi(argv[1]),
 #ifndef ACTIVITY_V21
   if(mode==6){s.mute[kMelodie]=s.mute[kGegenstimme]=q<16;}
   if(mode==7)s.melody=q>=16;
+  if(mode==13)s.mute[kMelodie]=q>=32&&q<64;
 #endif
   t.ppq=q;out.clear();g.process(t,s,n,out);if(out.overflow)return 4;int id=g.wendung();ids.insert(id);if(prevId>=0&&prevId!=id)++changes;prevId=id;
   for(int r=0;r<2;++r){const int output=r==0?8:7;

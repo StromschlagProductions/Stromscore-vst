@@ -946,7 +946,22 @@ int main(int argc,char** argv)
                 {shifted|=std::get<0>(e)==23*240;oldSlot|=std::get<0>(e)==22*240;}
             CHECK(shifted&&!oldSlot);
         }
-        if(handoff){int answers=0;for(const auto& e:live)if(std::get<1>(e)==1&&std::get<2>(e)==8)++answers;CHECK(answers==6);}
+        if(handoff)
+        {
+            std::vector<Timed> introduction,answers;long long end=0;
+            for(const auto& e:live)if(std::get<2>(e)==9&&std::get<0>(e)<=4*1920)
+            {if(std::get<1>(e)==1&&std::get<0>(e)<4*1920)introduction.push_back(e);else if(std::get<1>(e)==0)end=std::max(end,std::get<0>(e));}
+            CHECK(introduction.size()>=4);const auto source=introduction.size()-3;
+            const auto span=end-std::get<0>(introduction[source]);
+            for(const auto& e:live)if(std::get<1>(e)==1&&std::get<2>(e)==8)
+            {const auto at=std::get<0>(e);if((at>=34*1920&&at<34*1920+span)||(at>=98*1920&&at<98*1920+span))answers.push_back(e);}
+            CHECK(answers.size()==6);
+            for(int group=0;group<2;++group)for(int i=0;i<3;++i)
+            {
+                CHECK(std::get<0>(answers[group*3+i])-std::get<0>(answers[group*3])==std::get<0>(introduction[source+i])-std::get<0>(introduction[source]));
+                CHECK(std::get<3>(answers[group*3+i])-std::get<3>(answers[group*3])==std::get<3>(introduction[source+i])-std::get<3>(introduction[source]));
+            }
+        }
         q.setPlayHead (nullptr);
     }
 

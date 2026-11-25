@@ -1453,14 +1453,14 @@ int main()
         CHECK(catalog[OutMelody].target.channel==9&&catalog[OutMelody].track.instrument.polyphony==1);
         CHECK(composition::planForeground(true,catalog[OutMelody].track).foreground);
         const auto events=run(s,512,80.);checkBalanced(events);
-        int active=0;std::vector<std::pair<long long,int>> intro,recall;int pause=0;
+        int active=0,dialogActive=0;std::vector<std::pair<long long,int>> intro,recall;int pause=0;
         for(auto e:events)
         {
-            CHECK(e.out!=OutCounter);
+            if(e.out==OutCounter){dialogActive+=e.velocity>0?1:-1;CHECK(dialogActive>=0&&dialogActive<=2);CHECK(!(active&&dialogActive));continue;}
             if(e.out!=OutMelody)continue;
             CHECK(e.midi==9&&e.note>=60&&e.note<=84);
             const int pc=(e.note-s.customChords[0].rootAbs+12)%12;CHECK(pc==0||pc==4||pc==7||pc==11);
-            active+=e.velocity>0?1:-1;CHECK(active>=0&&active<=1);
+            active+=e.velocity>0?1:-1;CHECK(active>=0&&active<=1);CHECK(!(active&&dialogActive));
             if(e.velocity>0){if(e.sample<192000)intro.push_back({e.sample,e.note});
                 if(e.sample>=16*96000&&e.sample<18*96000)recall.push_back({e.sample-16*96000,e.note});
                 if(e.sample>=8*96000&&e.sample<16*96000)++pause;}
@@ -1483,13 +1483,18 @@ int main()
         s.solo[kMelodie]=s.solo[kGegenstimme]=true;
         const auto events=run(s,512,120.);checkBalanced(events);
         std::vector<std::pair<long long,int>> intro,answer;int leadActive=0,answerActive=0;
+        long long sourceEnd=0;
+        for(const auto& e:events)if(e.out==OutMelody&&e.sample<=192000){if(e.velocity>0&&e.sample<192000)intro.push_back({e.sample,e.note});else if(!e.velocity)sourceEnd=std::max(sourceEnd,e.sample);}
+        const int suffixCount=std::min(3,static_cast<int>(intro.size())-1);CHECK(suffixCount>=2);
+        const auto answerSpan=sourceEnd-intro[intro.size()-suffixCount].first;
+        auto responseTime=[&](long long at){return (at>=18*48000&&at<18*48000+answerSpan)||(at>=82*48000&&at<82*48000+answerSpan);};
         for(const auto& e:events)
         {
-            if(e.out==OutMelody){leadActive+=e.velocity>0?1:-1;if(e.velocity>0&&e.sample<192000)intro.push_back({e.sample,e.note});}
+            if(e.out==OutMelody){leadActive+=e.velocity>0?1:-1;}
             if(e.out==OutCounter)
             {
-                answerActive+=e.velocity>0?1:-1;CHECK(answerActive>=0&&answerActive<=1);
-                if(e.velocity>0)answer.push_back({e.sample,e.note});
+                answerActive+=e.velocity>0?1:-1;CHECK(answerActive>=0&&answerActive<=2);if(responseTime(e.sample))CHECK(answerActive<=1);
+                if(e.velocity>0&&responseTime(e.sample))answer.push_back({e.sample,e.note});
                 CHECK(e.note>=62&&e.note<=86);const int pc=e.note%12;CHECK(pc==0||pc==4||pc==7||pc==11);
             }
             CHECK(!(leadActive&&answerActive));
@@ -1516,10 +1521,13 @@ int main()
         CHECK(g.answerUse().introduction!=introduction&&g.rememberedMotif().count==0);
         at(0);CHECK(at(36)==response&&g.rememberedMotif(OutMelody).identity==identity);
         t.playing=false;at(36);t.playing=true;at(0);CHECK(g.answerUse().reference.value<0);
-        s.melodyMotif=false;for(const auto& e:run(s,512,40.))CHECK(e.out!=OutCounter);
-        s.melodyMotif=true;s.motif=false;for(const auto& e:run(s,512,40.))CHECK(e.out!=OutCounter);
+        // Disabled motif switches suppress explicit handoff, not independent dialogue.
+        auto noHandoff=[&]{Generator probe;EventList pending;Transport host;host.playing=true;
+            for(int at=0;at<40*48000;at+=512){host.ppq=at/24000.;pending.clear();probe.process(host,s,512,pending);CHECK(probe.answerUse().reference.value<0);}};
+        s.melodyMotif=false;noHandoff();
+        s.melodyMotif=true;s.motif=false;noHandoff();
         s.motif=true;s.rangeOn[kOutputRange[OutCounter]]=true;s.rangeLo[kOutputRange[OutCounter]]=61;s.rangeHi[kOutputRange[OutCounter]]=61;
-        for(const auto& e:run(s,512,40.))CHECK(e.out!=OutCounter);
+        noHandoff();for(const auto& e:run(s,512,40.))if(e.out==OutCounter)CHECK(e.note==61);
     }
     // Both contexts survive foreground changes without adopting or mutating each other's material.
     {

@@ -73,6 +73,10 @@ if(BUILD_TESTING)
     add_executable(ExecutionTests Tests/ExecutionTests.cpp)
     target_include_directories(ExecutionTests PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/execution-fixture)
     add_test(NAME Execution COMMAND ExecutionTests)
+    add_executable(RoleCoordinationTests Tests/RoleCoordinationTests.cpp)
+    target_include_directories(RoleCoordinationTests PRIVATE Source)
+    add_test(NAME RoleCoordination COMMAND RoleCoordinationTests)
+    add_test(NAME RoleRegressionValidation COMMAND ${Python3_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/Tests/RoleRegressionTests.py)
     if(NOT MSVC)
         add_test(NAME MusicalExecutionRegression COMMAND ${Python3_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/scripts/compare_execution_time.py --completion
             --probe $<TARGET_FILE:HarmonyImportProbe> --compiler ${CMAKE_CXX_COMPILER} --output ${CMAKE_CURRENT_BINARY_DIR}/musical-execution)
@@ -381,7 +385,8 @@ if(BUILD_TESTING)
         endif()
     endif()
 
-    # Historical feature comparisons intentionally retain their original 36-candidate pool.
+    # Historical feature comparisons retain their original pool and foreground arbitration.
+    # RoleCoordination and explicit full-catalog probes exercise current role behavior.
     # The real 39-entry engine is covered separately by HarmonyImportAnalysis and unit tests.
     foreach(probe HarmonyDataProbe ChordDispositionProbe RhythmProbe BassPhraseProbe ModalProbe HookDevelopmentProbe PopMemoryProbe TransitionProbe VariationProbe RecurrenceProbe PhraseProbe DensityProbe AccompanimentProbe)
         target_include_directories(${probe} BEFORE PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/harmony-import-headers/historical)

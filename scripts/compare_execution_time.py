@@ -3,6 +3,7 @@ import argparse,pathlib,sys,tempfile,subprocess,json,hashlib,itertools,collectio
 root=pathlib.Path(__file__).resolve().parents[1];sys.path.insert(0,str(root/'Tests'))
 from HarmonyImportFixtures import prepare
 from transport_regression import assert_chase_delta
+from role_regression import assert_score_role_delta
 p=argparse.ArgumentParser();p.add_argument('--probe',required=True);p.add_argument('--completion',action='store_true');p.add_argument('--compiler',default='c++');p.add_argument('--output',required=True);a=p.parse_args();out=pathlib.Path(a.output);out.mkdir(parents=True,exist_ok=True);cat=json.loads((root/'data/harmony/catalog.json').read_text());byid={t['id']:t for t in cat['templates']};rows=[];blockchecks=0
 meters=[(4,4),(3,4),(6,8),(3,8),(5,8),(7,8)];cases=[]
 for t in cat['templates']:
@@ -49,15 +50,17 @@ def comparison(before,after,meter,swing,route):
  if not a.completion:return part2a_comparison(before,after,meter,swing,route)
  # A continuous unchanged performance must be byte exact. Chase fixes are confined
  # to explicit discontinuous routes and are reported with full removed/added data.
- assert before==after or route,('continuous performance changed',args)
+ role_case=int(args[15])==0 and len(args)==18 and int(args[7])!=0
+ assert before==after or route or role_case,('continuous performance changed',args)
  old=collections.Counter(tuple(map(int,l.split(b','))) for l in before.splitlines())
  new=collections.Counter(tuple(map(int,l.split(b','))) for l in after.splitlines())
  removed=list((old-new).elements());added=list((new-old).elements())
  total=round(float(args[9])*int(args[16])*4/int(args[17])*48000*60/float(args[11]));segment=total//4
- assert_chase_delta(before,after,(segment,2*segment,3*segment),layout='import',samples_per_quarter=48000*60/float(args[11]))
+ if role_case:assert_score_role_delta(before,after,(segment,2*segment,3*segment) if route else (),layout='import',samples_per_quarter=48000*60/float(args[11]))
+ else:assert_chase_delta(before,after,(segment,2*segment,3*segment),layout='import',samples_per_quarter=48000*60/float(args[11]))
  return {'byte_identical':before==after,'before_sha256':hashlib.sha256(before).hexdigest(),
   'after_sha256':hashlib.sha256(after).hexdigest(),'removed_events':len(removed),'added_events':len(added),
-  'removed':removed,'added':added,'correction':None if before==after else 'explicit_transport_chase'}
+  'removed':removed,'added':added,'correction':None if before==after else 'score_role_windows' if role_case else 'explicit_transport_chase'}
 
 def midi(path,raw,bpm):
  def vlq(n):

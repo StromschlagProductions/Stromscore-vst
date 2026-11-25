@@ -11,6 +11,13 @@ def prepare(destination,revision=None,historical=False,explicit=False):
   name='HarmonyStrategies.generated.h';s=headers[name].decode();pattern=r'(inline constexpr std::array<int,)\d+(> kPopWendungenIndices \{\{)([^}]+)(\}\};)'
   def trim(m):return m[1]+'36'+m[2]+','.join(m[3].split(',')[:36])+m[4]
   s,count=re.subn(pattern,trim,s);assert count==1;headers[name]=s.encode()
+  # Historical feature probes freeze their original foreground arbitration, just
+  # as they freeze the 36-entry pool. Current-role integration is tested separately.
+  name='ScoreEngine.h';s=headers[name].decode().replace('\r\n','\n')
+  pattern=r'    bool dialogueMayLead\(const Pos& p,const Settings& s\)\n    \{.*?\n    \}'
+  if 'bool dialogueMayLead(' in s:
+   s,n=re.subn(pattern,'    bool dialogueMayLead(const Pos&,const Settings& s)\n    {return s.genre!=GenreScore||!on[kMelodie];}',s,count=1,flags=re.S);assert n==1
+   headers[name]=s.encode()
  if explicit:
   name='ScoreEngine.h';s=headers[name].decode().replace('\r\n','\n');s=s.replace('namespace stromscore\n{','namespace stromscore\n{\ninline WendungId importTestId=WendungId::invalid;',1)
   needle='static int pick (const Settings& s, long long salt)\n    {';assert needle in s

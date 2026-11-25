@@ -3,6 +3,7 @@ import argparse,collections,csv,hashlib,importlib.util,itertools,json,math,pathl
 root=pathlib.Path(__file__).resolve().parents[1];sys.path.insert(0,str(root/'Tests'))
 from HarmonyImportFixtures import prepare
 from transport_regression import assert_chase_delta
+from role_regression import assert_score_role_delta
 p=argparse.ArgumentParser();p.add_argument('--probe',required=True);p.add_argument('--compiler',default='c++');p.add_argument('--output',required=True);a=p.parse_args();out=pathlib.Path(a.output);out.mkdir(parents=True,exist_ok=True)
 cat=json.loads((root/'data/harmony/catalog.json').read_text());entries={t['id']:t for t in cat['templates']};shapes={t['id']:t['intervals'] for t in json.loads((root/'data/harmony/chord_types.json').read_text())['types']}
 def run(exe,id,key=0,x=None,y=None,z=None,follow=1,manual=0,melody=0,dialog=0,bars=8,block=512,bpm=120,route=0,profile=0,swing=0,genre=1):
@@ -77,7 +78,8 @@ with tempfile.TemporaryDirectory() as tmp:
    for route in range(2):
     kw=dict(profile=profile,route=route,bars=32,melody=1,dialog=1,swing=.2,genre=0 if id<2000 else 1)
     before=run(old,id,**kw);after=run(a.probe,id,**kw)
-    if route:assert_chase_delta(before,after,(768000,1536000,2304000),layout='import')
+    if id<2000:assert_score_role_delta(before,after,(768000,1536000,2304000) if route else (),layout='import')
+    elif route:assert_chase_delta(before,after,(768000,1536000,2304000),layout='import')
     else:assert before==after,('explicit old MIDI changed',id,profile,route)
     regression.append({'id':id,'profile':profile,'route':route,'byte_identical':before==after,'before_sha256':hashlib.sha256(before).hexdigest(),'sha256':hashlib.sha256(after).hexdigest(),'bytes':len(after)})
  samples=[];matrix=0
