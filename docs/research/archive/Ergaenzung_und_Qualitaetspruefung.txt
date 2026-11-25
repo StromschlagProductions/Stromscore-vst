@@ -1,0 +1,772 @@
+# STROMSCORE – Ergänzung und Qualitätsprüfung (Barry / Herrmann)
+
+Stand 24.11.2026 · nur Neues und Korrekturen, keine Wiederholung des großen Dokuments · Bezugsrahmen wie dort: Grundton C, 4/4 mit 16 Sechzehnteln pro Takt, Evidenz [N] belegt · [I] plausible Deutung · [H] Hypothese · [E] eigene Konstruktion.
+
+Gliederung: 1 Neue Phrasen · 2 Korrekturliste · 3 Redundanzabgleich und gemeinsame Vorlage · 4 XYZ-Randbereiche · 5 A View to a Kill / The Black Hole · 6 „Folgt Akkorden“ als Benutzerschalter · 7 Offene Punkte
+
+---
+
+## 1 Neue melodische Phrasen
+
+**Lesehilfe.** Jeder Ton steht als `Ton/Dauer`, die Dauer zählt in Sechzehnteln (4 = Viertel, 8 = Halbe, 16 = ganzer Takt), `r` ist eine Pause, jeder Takt summiert auf 16 (maschinell geprüft). Oktavzahl nach MIDI-Konvention, c4 = Schlüssel-C. `#` und `b` sind Vorzeichen. Gemeint ist immer die Melodie über dem angegebenen Akkord; die Phrasen enthalten weder Bass noch Begleitrhythmus, die kommen aus den Rhythmusvorlagen.
+
+**Phrase gegen Figurenreihe.** Als Phrase zählt hier nur, was alle vier Punkte erfüllt: (a) erkennbarer Anfang, (b) ein einziger Höhepunkt, (c) Schluss auf einem Zielton, nach dem nichts mehr „fehlt“, (d) mindestens zwei Töne pro Takt gehören zum Bogen und sind keine Ostinato-Wiederholung. Die vorhandenen Motive JB-M01 bis M20 sind kurze Zellen und bleiben Zellen. Die neuen Phrasen bauen auf solchen Zellen auf, folgen aber einem Bogen über vier oder acht Takte.
+
+**Prüfwerte (maschinell).** Alle Phrasen: Taktsummen 16, Taktzahl gleich Akkordzahl. Anteil der Akkordtöne nach Dauer: 68–100 %, Ausnahme JB-L03 (28 %, bewusst: chromatische Linie über Pedal ohne Terz). Längere Nicht-Akkordtöne (ab Achtel-Punktierte) sind in den Tabellen nicht versteckt: Leittöne h4/h5 über Cm (JB-P04, JB-L04), Nonen/Durchgänge d5 über Cmaj7 und Am7 (JB-L01, BH-P01, BH-L01, BH-L02, BH-L06). Das sind gewollte Klangfarben, keine Fehler.
+
+
+### 1.1 Barry
+
+### 1.1.1 Acht eigenständige Phrasen zu vier Takten
+
+#### JB-P01 – Weiter Liebesbogen  (4 Takte, 4/4)
+**Charakter:** romantisch · **XYZ:** X 0.75 · Y 0.20 · Z 0.10 · **Harmonie:** JB-H04, JB-H03, JB-H22 · **Evidenz:** Verfahren [I], Anlage [N]
+
+| Takt | Akkord | Noten (Ton/Dauer in Sechzehnteln, r = Pause) |
+|---|---|---|
+| 1 | Cmaj7 | E5/8 D5/4 B4/4 |
+| 2 | Cmaj7 | C5/6 D5/2 E5/8 |
+| 3 | Fmaj7 | A5/8 G5/4 E5/4 |
+| 4 | Cadd9 | D5/4 C5/12 |
+
+**Bau:** T1–2: Anfang – Fall von e5 über d5 nach h4, dann Aufstieg zurück zu e5; T3: Höhepunkt – a5 als einziger Gipfel; T4: Schluss – Abstieg zum langen c5.
+**Quelle/Einordnung:** Lange Töne über ruhenden Septakkorden und Linie über statischer Harmonie sind belegt; Tonfolge [E].
+
+#### JB-P02 – Melancholischer Moll-Gang  (4 Takte, 4/4)
+**Charakter:** melancholisch · **XYZ:** X 0.30 · Y 0.25 · Z 0.20 · **Harmonie:** JB-H09, JB-H34 (i–VI–iv–i) · **Evidenz:** Verfahren [I], Töne [E]
+
+| Takt | Akkord | Noten (Ton/Dauer in Sechzehnteln, r = Pause) |
+|---|---|---|
+| 1 | Cm | G4/6 Ab4/2 G4/8 |
+| 2 | Abmaj7 | Eb5/8 D5/4 C5/4 |
+| 3 | Fm | Ab4/6 C5/2 F5/8 |
+| 4 | Cm | Eb5/4 D5/4 C5/8 |
+
+**Bau:** T1: Anfang – g4 mit Halbton-Seufzer (as4); T2: Fortspinnung – Sprung zu es5, fallender Gang; T3: Höhepunkt – Aufstieg zum f5; T4: Schluss – Abstieg zum langen c5.
+**Quelle/Einordnung:** Moll-Kadenz mit bVI-Farbe [I]; Tonfolge [E].
+
+#### JB-P03 – Geheimnis mit Terzverschiebung  (4 Takte, 4/4)
+**Charakter:** geheimnisvoll · **XYZ:** X 0.25 · Y 0.30 · Z 0.35 · **Harmonie:** JB-H05 · **Evidenz:** Verfahren [N], Töne [E]
+
+| Takt | Akkord | Noten (Ton/Dauer in Sechzehnteln, r = Pause) |
+|---|---|---|
+| 1 | CmM7 | r/4 G4/4 B4/8 |
+| 2 | CmM7 | C5/6 B4/2 G4/8 |
+| 3 | EmM7 | G4/4 B4/4 D#5/8 |
+| 4 | EmM7 | E5/6 D#5/2 B4/4 r/4 |
+
+**Bau:** T1–2: Frage – Aufstieg aus der Pause, Abstieg zum g4; T3–4: Antwort – dieselbe Bewegung in EmM7, eine Terz höher, endet in Pause.
+**Quelle/Einordnung:** Pendel EmM7–G♯mM7 ist belegt; Melodie darüber [E].
+
+#### JB-P04 – Drohende Repetition  (4 Takte, 4/4)
+**Charakter:** bedrohlich · **XYZ:** X 0.15 · Y 0.60 · Z 0.55 · **Harmonie:** JB-H19, JB-H20 · **Evidenz:** Verfahren [I], Töne [E]
+
+| Takt | Akkord | Noten (Ton/Dauer in Sechzehnteln, r = Pause) |
+|---|---|---|
+| 1 | Cm | G4/2 G4/2 G4/2 Ab4/2 G4/8 |
+| 2 | Cm | G4/2 G4/2 G4/2 Ab4/2 B4/8 |
+| 3 | Dbmaj7 | C5/8 Db5/4 C5/4 |
+| 4 | Cm | B4/4 C5/12 |
+
+**Bau:** T1–2: Anfang – Repetition mit Halbton-Stich, im zweiten Takt zum Leitton h4; T3: Höhepunkt – c5–des5 über dem Phrygisch-Klang; T4: Schluss – Leitton löst nach c5.
+**Quelle/Einordnung:** Phrygisches bII ist plausibel; Repetition bewusst (siehe Prüfwerte).
+**Hinweis:** Tonwiederholungen sind hier gewollt (Drohgeste), keine Lücke im Melodiebau.
+
+#### JB-P05 – Heldenruf über Pedal  (4 Takte, 4/4)
+**Charakter:** heroisch · **XYZ:** X 0.80 · Y 0.60 · Z 0.20 · **Harmonie:** JB-H17, JB-H37 · **Evidenz:** Verfahren [I], Töne [E]
+
+| Takt | Akkord | Noten (Ton/Dauer in Sechzehnteln, r = Pause) |
+|---|---|---|
+| 1 | C | G4/4 C5/6 D5/2 E5/4 |
+| 2 | Bb/C | F5/6 D5/2 Bb4/4 D5/4 |
+| 3 | F/C | F5/6 E5/2 F5/4 A5/4 |
+| 4 | C | G5/4 E5/4 C5/8 |
+
+**Bau:** T1: Anfang – Quarte auf, dann Stufen; T2: Fortspinnung – Fall und Wiederaufstieg über Bb/C; T3: Höhepunkt – a5; T4: Schluss – Abstieg zum c5.
+**Quelle/Einordnung:** Mixolydische bVII–IV-Folge über Pedal [I]; Tonfolge [E].
+
+#### JB-P06 – Agentenlinie  (4 Takte, 4/4)
+**Charakter:** agententypisch · **XYZ:** X 0.20 · Y 0.55 · Z 0.50 · **Harmonie:** JB-H01, JB-H10 · **Evidenz:** Verfahren [I], Töne [E]
+
+| Takt | Akkord | Noten (Ton/Dauer in Sechzehnteln, r = Pause) |
+|---|---|---|
+| 1 | CmM7 | G4/6 F#4/2 G4/4 Eb4/4 |
+| 2 | CmM7 | C5/6 B4/2 G4/4 r/4 |
+| 3 | Fm | Ab4/6 G4/2 Ab4/4 C5/4 |
+| 4 | CmM7 | Eb5/4 D5/4 C5/8 |
+
+**Bau:** T1: Anfang – g4 mit Halbtonstich fis4; T2: Fortspinnung – Aufstieg zum c5, Pause; T3: Gegenbewegung – über Fm, Sprung zum c5; T4: Schluss – es5 fällt zum c5.
+**Quelle/Einordnung:** mM7-Ein-Akkord-Basis [N], Linie darüber [E].
+
+#### JB-P07 – Heller Landschaftsbogen  (4 Takte, 4/4)
+**Charakter:** romantisch · **XYZ:** X 0.85 · Y 0.20 · Z 0.10 · **Harmonie:** JB-H11, JB-H03 · **Evidenz:** Verfahren [I], Töne [E]
+
+| Takt | Akkord | Noten (Ton/Dauer in Sechzehnteln, r = Pause) |
+|---|---|---|
+| 1 | Cadd9 | G4/4 D5/4 E5/8 |
+| 2 | Cadd9 | C5/6 D5/2 G5/8 |
+| 3 | Fmaj7/C | A5/6 G5/2 E5/4 C5/4 |
+| 4 | Cadd9 | D5/4 C5/4 G4/8 |
+
+**Bau:** T1–2: Anfang – Quinte auf, Sekunde als Farbe; T3: Höhepunkt – a5 über Fmaj7/C; T4: Schluss – offener Schluss auf g4.
+**Quelle/Einordnung:** add9 und Pedal sind belegte Klangtypen; Gestalt [E].
+
+#### JB-P08 – Bittersüßer Dur-Moll-Gang  (4 Takte, 4/4)
+**Charakter:** melancholisch · **XYZ:** X 0.45 · Y 0.20 · Z 0.20 · **Harmonie:** JB-H21 · **Evidenz:** Verfahren [I], Töne [E]
+
+| Takt | Akkord | Noten (Ton/Dauer in Sechzehnteln, r = Pause) |
+|---|---|---|
+| 1 | Cmaj7 | E5/6 D5/2 B4/4 C5/4 |
+| 2 | Cmaj7 | G4/8 B4/4 C5/4 |
+| 3 | Cm6 | Eb5/6 D5/2 C5/4 A4/4 |
+| 4 | Cm6 | G4/12 r/4 |
+
+**Bau:** T1–2: Dur-Hälfte – e5 fällt, Rückkehr zum c5; T3–4: Moll-Hälfte – dieselbe Geste mit es5, endet auf g4 und Pause.
+**Quelle/Einordnung:** Dur-Moll-Wechsel [N/I]; Melodie [E].
+
+
+### 1.1.2 Acht eigenständige Phrasen zu acht Takten
+
+#### JB-L01 – Liebesthema mit Mediante  (8 Takte, 4/4)
+**Charakter:** romantisch · **XYZ:** X 0.70 · Y 0.25 · Z 0.10 · **Harmonie:** JB-H15, JB-H04 · **Evidenz:** Verfahren [I], Töne [E]
+
+| Takt | Akkord | Noten (Ton/Dauer in Sechzehnteln, r = Pause) |
+|---|---|---|
+| 1 | Cmaj7 | E5/8 D5/4 E5/4 |
+| 2 | Cmaj7 | G5/8 E5/4 D5/4 |
+| 3 | Cmaj7 | C5/6 B4/2 C5/4 E5/4 |
+| 4 | Cmaj7 | D5/8 B4/8 |
+| 5 | Ebmaj7 | Bb4/4 D5/4 G5/8 |
+| 6 | Ebmaj7 | Bb5/6 A5/2 G5/8 |
+| 7 | Ebmaj7 | F5/4 Eb5/4 D5/8 |
+| 8 | Cmaj7 | B4/8 C5/8 |
+
+**Bau:** T1–4: Vordersatz – ruhiger Bogen über Cmaj7, endet offen auf h4; T5–8: Nachsatz – Mediante Ebmaj7, Gipfel b5 in Takt 6, Rückkehr zum c5.
+**Quelle/Einordnung:** Mediantenpaar (JB-H15) als Klang [I]; Melodie [E].
+
+#### JB-L02 – Moll-Klage mit Halbschluss  (8 Takte, 4/4)
+**Charakter:** melancholisch · **XYZ:** X 0.30 · Y 0.30 · Z 0.25 · **Harmonie:** JB-H09, JB-H34 · **Evidenz:** Verfahren [I], Töne [E]
+
+| Takt | Akkord | Noten (Ton/Dauer in Sechzehnteln, r = Pause) |
+|---|---|---|
+| 1 | Cm | G4/8 C5/6 B4/2 |
+| 2 | Cm | C5/8 Eb5/4 D5/4 |
+| 3 | Abmaj7 | C5/6 Eb5/2 G5/8 |
+| 4 | Abmaj7 | F5/4 Eb5/4 C5/8 |
+| 5 | Fm | Ab4/6 C5/2 F5/8 |
+| 6 | Fm | Eb5/4 D5/4 C5/8 |
+| 7 | Cm | Eb5/6 D5/2 C5/4 G4/4 |
+| 8 | G7 | B4/8 D5/4 B4/4 |
+
+**Bau:** T1–4: Vordersatz – Aufstieg zum g5 über As-Dur; T5–8: Nachsatz – f5 über Fm, Abstieg, offener Schluss auf der Dominante.
+**Quelle/Einordnung:** Moll-Kadenz mit bVI [I]; Melodie [E].
+
+#### JB-L03 – Schleichende Chromatik über Pedal  (8 Takte, 4/4)
+**Charakter:** geheimnisvoll · **XYZ:** X 0.20 · Y 0.40 · Z 0.45 · **Harmonie:** JB-H18, JB-H33 · **Evidenz:** Verfahren [N], Töne [E]
+
+| Takt | Akkord | Noten (Ton/Dauer in Sechzehnteln, r = Pause) |
+|---|---|---|
+| 1 | C5 | C4/6 r/2 C#4/4 D4/4 |
+| 2 | C5 | Eb4/8 E4/4 F4/4 |
+| 3 | C5 | F#4/8 r/4 G4/4 |
+| 4 | C5 | Ab4/12 r/4 |
+| 5 | C5 | G4/4 F#4/4 F4/8 |
+| 6 | C5 | E4/4 Eb4/4 D4/8 |
+| 7 | C5 | C#4/8 C4/4 B3/4 |
+| 8 | C5 | C4/16 |
+
+**Bau:** T1–4: Aufstieg – chromatisch von c4 zu as4, mit Pausen; T5–8: Rückweg – chromatisch abwärts bis unter den Grundton, Ruhe auf c4.
+**Quelle/Einordnung:** Einstimmige chromatische Linie über Pedal ist belegt (Pawnee-Typ); Töne [E].
+
+#### JB-L04 – Phrygische Steigerung  (8 Takte, 4/4)
+**Charakter:** bedrohlich · **XYZ:** X 0.15 · Y 0.70 · Z 0.60 · **Harmonie:** JB-H19, JB-H20 · **Evidenz:** Verfahren [I], Töne [E]
+
+| Takt | Akkord | Noten (Ton/Dauer in Sechzehnteln, r = Pause) |
+|---|---|---|
+| 1 | Cm | G4/2 G4/2 Ab4/4 G4/8 |
+| 2 | Cm | G4/2 G4/2 Ab4/4 B4/8 |
+| 3 | Dbmaj7 | C5/8 Db5/4 C5/4 |
+| 4 | Dbmaj7 | F5/4 Eb5/4 Db5/8 |
+| 5 | Cm | G5/2 G5/2 Ab5/4 G5/8 |
+| 6 | Cm | G5/2 G5/2 Ab5/4 B5/8 |
+| 7 | Dbmaj7 | C6/8 Db6/4 C6/4 |
+| 8 | Cm | B5/4 C6/12 |
+
+**Bau:** T1–4: Vordersatz – Repetition und Halbton, Gipfel c5/des5; T5–8: Nachsatz – dieselbe Linie eine Oktave höher, Gipfel des6 in Takt 7.
+**Quelle/Einordnung:** Phrygisches Pendel mit Oktavsteigerung [I]/[E].
+**Hinweis:** Tonwiederholungen sind hier gewollt (Drohgeste), keine Lücke im Melodiebau.
+
+#### JB-L05 – Marschhymne  (8 Takte, 4/4)
+**Charakter:** heroisch · **XYZ:** X 0.80 · Y 0.65 · Z 0.25 · **Harmonie:** JB-H37, JB-H17, JB-R09 · **Evidenz:** Verfahren [I], Töne [E]
+
+| Takt | Akkord | Noten (Ton/Dauer in Sechzehnteln, r = Pause) |
+|---|---|---|
+| 1 | C | C5/6 C5/2 E5/4 G5/4 |
+| 2 | C | G5/6 F5/2 E5/4 D5/4 |
+| 3 | F/C | F5/6 F5/2 A5/4 C6/4 |
+| 4 | C | C6/8 G5/4 E5/4 |
+| 5 | Bb/C | D5/6 D5/2 F5/4 Bb5/4 |
+| 6 | Bb/C | Bb5/6 A5/2 G5/4 F5/4 |
+| 7 | G/C | G5/8 D5/4 B4/4 |
+| 8 | C | C5/4 G4/4 C5/8 |
+
+**Bau:** T1–4: Vordersatz – punktierter Anfang, Gipfel c6 in Takt 3/4; T5–8: Nachsatz – über Bb/C, Fall, Schluss in tiefer Lage.
+**Quelle/Einordnung:** Pedal c mit parallelen Dreiklängen und Marsch [I]; Tonfolge [E].
+
+#### JB-L06 – Agentenlinie, lang  (8 Takte, 4/4)
+**Charakter:** agententypisch · **XYZ:** X 0.20 · Y 0.60 · Z 0.50 · **Harmonie:** JB-H01, JB-H10, JB-H09 · **Evidenz:** Verfahren [I], Töne [E]
+
+| Takt | Akkord | Noten (Ton/Dauer in Sechzehnteln, r = Pause) |
+|---|---|---|
+| 1 | CmM7 | G4/6 F#4/2 G4/4 Eb4/4 |
+| 2 | CmM7 | C5/6 B4/2 G4/4 r/4 |
+| 3 | Fm | Ab4/6 G4/2 Ab4/4 C5/4 |
+| 4 | CmM7 | Eb5/4 D5/4 B4/8 |
+| 5 | Abmaj7 | C5/6 Eb5/2 G5/4 Eb5/4 |
+| 6 | Abmaj7 | C5/6 Bb4/2 Ab4/8 |
+| 7 | G7 | B4/6 C5/2 D5/4 B4/4 |
+| 8 | CmM7 | C5/4 B4/4 C5/8 |
+
+**Bau:** T1–4: Vordersatz – Linie über CmM7/Fm, Pause in Takt 2; T5–8: Nachsatz – As-Dur-Weitung, Dominante G7, Schluss auf c5.
+**Quelle/Einordnung:** mM7-Basis [N], Melodie [E].
+
+#### JB-L07 – Bittersüße Zwei-Tonarten-Melodie  (8 Takte, 4/4)
+**Charakter:** melancholisch · **XYZ:** X 0.45 · Y 0.25 · Z 0.20 · **Harmonie:** JB-H21, JB-H22 · **Evidenz:** Verfahren [I], Töne [E]
+
+| Takt | Akkord | Noten (Ton/Dauer in Sechzehnteln, r = Pause) |
+|---|---|---|
+| 1 | Cmaj7 | E5/8 D5/4 B4/4 |
+| 2 | Cmaj7 | C5/8 E5/8 |
+| 3 | Cm6 | Eb5/8 D5/4 C5/4 |
+| 4 | Cm6 | Eb5/6 C5/2 A4/8 |
+| 5 | Fmaj7 | A5/8 G5/4 F5/4 |
+| 6 | Fmaj7 | E5/8 C5/8 |
+| 7 | Fm6 | Ab5/8 G5/4 F5/4 |
+| 8 | Cm6 | Eb5/4 D5/4 C5/8 |
+
+**Bau:** T1–4: Vordersatz – Dur-Teil und Moll-Teil mit gleicher Geste; T5–8: Nachsatz – Subdominante, ebenfalls Dur dann Moll, Rückkehr nach c5.
+**Quelle/Einordnung:** Dur-Moll-Wechsel [N/I]; Melodie [E].
+
+#### JB-L08 – Heller Landschaftsthema  (8 Takte, 4/4)
+**Charakter:** romantisch · **XYZ:** X 0.85 · Y 0.30 · Z 0.10 · **Harmonie:** JB-H11, JB-H03 · **Evidenz:** Verfahren [I], Töne [E]
+
+| Takt | Akkord | Noten (Ton/Dauer in Sechzehnteln, r = Pause) |
+|---|---|---|
+| 1 | Cadd9 | G4/4 D5/4 E5/8 |
+| 2 | Cadd9 | G5/8 E5/4 D5/4 |
+| 3 | Fmaj7/C | C5/6 E5/2 A5/8 |
+| 4 | Fmaj7/C | G5/4 F5/4 E5/8 |
+| 5 | Cadd9 | D5/6 E5/2 G5/8 |
+| 6 | G/C | B5/8 A5/4 G5/4 |
+| 7 | Fmaj7/C | A5/4 G5/4 F5/4 E5/4 |
+| 8 | Cadd9 | D5/4 C5/12 |
+
+**Bau:** T1–4: Vordersatz – Quint-Aufschlag, Gipfel a5; T5–8: Nachsatz – Gipfel h5 in Takt 6, stufenweiser Abstieg zum c5.
+**Quelle/Einordnung:** add9-Pedal-Landschaft [I]; Melodie [E].
+
+
+### 1.1.3 Vier Entwicklungen: A–A–B und Frage–Antwort
+
+#### JB-A01 – A–A′–B, Moll-Lied  (8 Takte, 4/4)
+**Charakter:** melancholisch-heroisch · **XYZ:** X 0.30 · Y 0.40 · Z 0.30 · **Harmonie:** JB-H07, JB-H10 · **Evidenz:** Verfahren [N], Töne [E]
+
+| Takt | Akkord | Noten (Ton/Dauer in Sechzehnteln, r = Pause) |
+|---|---|---|
+| 1 | Cm | G4/6 Ab4/2 G4/4 Eb4/4 |
+| 2 | Cm | C5/8 B4/4 C5/4 |
+| 3 | Cm | G4/6 Ab4/2 G4/4 Eb4/4 |
+| 4 | Cm | C5/8 Bb4/4 Ab4/4 |
+| 5 | Abmaj7 | C5/6 Eb5/2 G5/8 |
+| 6 | Abmaj7 | F5/4 Eb5/4 C5/8 |
+| 7 | Fm | Ab5/6 G5/2 F5/4 Eb5/4 |
+| 8 | Cm | D5/4 C5/12 |
+
+**Bau:** T1–2: A – g4 mit Halbton, Ziel c5; T3–4: A′ – wörtliche Wiederholung, Schluss abwärts statt Auflösung; T5–8: B – Kontrast: As-Dur-Weitung, Gipfel as5 über Fm, Auflösung nach c5.
+**Quelle/Einordnung:** Phrasendoppelung A–A–B und Reinstrumentierung identischer Figuren sind belegt [N]; Töne [E].
+
+#### JB-A02 – A–A′–B, Quartaufschlag-Thema  (8 Takte, 4/4)
+**Charakter:** agentisch-pathetisch · **XYZ:** X 0.35 · Y 0.50 · Z 0.30 · **Harmonie:** JB-H10, JB-H31 · **Evidenz:** Verfahren [I], Töne [E]
+
+| Takt | Akkord | Noten (Ton/Dauer in Sechzehnteln, r = Pause) |
+|---|---|---|
+| 1 | Cm | G4/4 C5/12 |
+| 2 | Cm | B4/4 C5/12 |
+| 3 | Fm | C5/4 F5/12 |
+| 4 | Fm | E5/4 F5/12 |
+| 5 | Abmaj7 | Eb5/8 G5/4 Eb5/4 |
+| 6 | G7sus4 | C5/8 D5/8 |
+| 7 | G7 | B4/6 C5/2 D5/8 |
+| 8 | Cm | Eb5/4 D5/4 C5/8 |
+
+**Bau:** T1–2: A – Quartaufschlag g4–c5 mit Leitton h4; T3–4: A′ – Sequenz eine Quarte höher über Fm; T5–8: B – Abstieg über As-Dur und Dominante, Auflösung auf c5.
+**Quelle/Einordnung:** Titelthema-Anfang mit Quart/Quint ist belegt (allgemein) [I]; Gestalt [E].
+
+#### JB-F01 – Frage–Antwort, Agentenlinie  (8 Takte, 4/4)
+**Charakter:** agententypisch · **XYZ:** X 0.20 · Y 0.55 · Z 0.45 · **Harmonie:** JB-H01, JB-H10 · **Evidenz:** Verfahren [I], Töne [E]
+
+| Takt | Akkord | Noten (Ton/Dauer in Sechzehnteln, r = Pause) |
+|---|---|---|
+| 1 | CmM7 | C4/6 Eb4/2 G4/4 B4/4 |
+| 2 | CmM7 | C5/6 B4/2 G4/8 |
+| 3 | Fm | Ab4/6 G4/2 Ab4/4 C5/4 |
+| 4 | G7 | B4/8 D5/8 |
+| 5 | CmM7 | C4/6 Eb4/2 G4/4 B4/4 |
+| 6 | CmM7 | C5/6 B4/2 G4/8 |
+| 7 | Abmaj7 | Ab4/6 C5/2 Eb5/4 G5/4 |
+| 8 | CmM7 | F5/4 Eb5/4 C5/8 |
+
+**Bau:** T1–4: Frage – endet auf d5 über G7 (offen); T5–8: Antwort – gleicher Anfang, Gipfel g5 über As-Dur, schließt auf c5.
+**Quelle/Einordnung:** Frage–Antwort-Bau mit gleichem Anfang [I]; Töne [E].
+
+#### JB-F02 – Frage–Antwort, Liebesthema  (8 Takte, 4/4)
+**Charakter:** romantisch · **XYZ:** X 0.75 · Y 0.25 · Z 0.10 · **Harmonie:** JB-H04, JB-H28 · **Evidenz:** Verfahren [I], Töne [E]
+
+| Takt | Akkord | Noten (Ton/Dauer in Sechzehnteln, r = Pause) |
+|---|---|---|
+| 1 | Cmaj7 | E5/8 D5/4 B4/4 |
+| 2 | Cmaj7 | C5/6 D5/2 E5/8 |
+| 3 | Fmaj7 | A5/8 G5/4 E5/4 |
+| 4 | G | D5/8 B4/8 |
+| 5 | Cmaj7 | E5/8 D5/4 B4/4 |
+| 6 | Cmaj7 | C5/6 D5/2 E5/8 |
+| 7 | Fmaj7 | A5/8 G5/4 F5/4 |
+| 8 | Cmaj7 | E5/4 D5/4 C5/8 |
+
+**Bau:** T1–4: Frage – endet auf h4 über G (Halbschluss); T5–8: Antwort – gleicher Anfang, stufenweiser Abstieg und Schluss auf c5.
+**Quelle/Einordnung:** Frage–Antwort-Bau [I]; Töne [E].
+
+
+**Zur Unterscheidung.** JB-A01 und JB-A02 verdoppeln A (zweite Aussage wörtlich oder als Sequenz), dann bringt B den Kontrast. JB-F01 und JB-F02 sind Frage und Antwort: gleicher Anfang, die Frage endet offen (Dominante, Halbschluss), die Antwort schließt auf dem Grundton. In JB-F01 liegt der Neuansatz in Takt 5 bewusst eine Oktave unter dem Fragenende (Sprung von d5 nach c4); wer den Sprung nicht will, setzt den Antwortanfang eine Oktave höher.
+
+### 1.2 Herrmann
+
+Herrmann arbeitet sonst mit kurzen Zellen; die Phrasen hier sind die Ausnahme-Seite (Muir, Vertigo-Liebesmusik, Nordwest, Taxi Driver) und deshalb lyrisch, romantisch oder fantastisch. Konkrete Töne sind in allen Fällen [E].
+
+
+### 1.2.1 Sechs Phrasen zu vier Takten
+
+#### BH-P01 – Meeres-Sehnsucht (Muir-Typ)  (4 Takte, 4/4)
+**Charakter:** lyrisch-romantisch · **XYZ:** X 0.75 · Y 0.20 · Z 0.15 · **Harmonie:** BH-H09 · **Evidenz:** Verfahren [I], Töne [E]
+
+| Takt | Akkord | Noten (Ton/Dauer in Sechzehnteln, r = Pause) |
+|---|---|---|
+| 1 | Cmaj7 | G4/4 C5/4 E5/8 |
+| 2 | Cmaj7 | D5/6 C5/2 B4/8 |
+| 3 | Am7 | C5/6 D5/2 E5/8 |
+| 4 | Am7 | A5/6 G5/2 E5/8 |
+
+**Bau:** T1–2: Anfang – Quinte auf, Rückfall zum h4; T3–4: Höhepunkt und Schluss – a5, dann abwärts auf e5 (offen).
+**Quelle/Einordnung:** Lyrik als Ausnahme (Muir) [N]; Tonfolge [E].
+
+#### BH-P02 – Liebesthema mit fallendem Bass  (4 Takte, 4/4)
+**Charakter:** romantisch · **XYZ:** X 0.70 · Y 0.30 · Z 0.15 · **Harmonie:** BH-H12 · **Evidenz:** Verfahren [I], Töne [E]
+
+| Takt | Akkord | Noten (Ton/Dauer in Sechzehnteln, r = Pause) |
+|---|---|---|
+| 1 | Fmaj7 | A4/4 C5/4 F5/8 |
+| 2 | Em7 | G5/8 E5/4 D5/4 |
+| 3 | Dm7 | F5/6 E5/2 D5/8 |
+| 4 | Cmaj7 | C5/4 B4/4 C5/8 |
+
+**Bau:** T1: Anfang – Aufstieg zum f5; T2: Höhepunkt – g5, dann Fall; T3–4: Schluss – stufenweiser Abstieg und c5.
+**Quelle/Einordnung:** NbNW-Liebesthema als Typ [I]; Tonfolge [E].
+
+#### BH-P03 – Traumsequenz (Halbton-Gleiten)  (4 Takte, 4/4)
+**Charakter:** fantastisch-unwirklich · **XYZ:** X 0.40 · Y 0.55 · Z 0.60 · **Harmonie:** BH-H05 · **Evidenz:** Verfahren [I], Töne [E]
+
+| Takt | Akkord | Noten (Ton/Dauer in Sechzehnteln, r = Pause) |
+|---|---|---|
+| 1 | Cmaj7 | E5/6 D5/2 B4/8 |
+| 2 | Bmaj7 | D#5/6 C#5/2 A#4/8 |
+| 3 | Bbmaj7 | D5/6 C5/2 A4/8 |
+| 4 | Amaj7 | C#5/6 B4/2 G#4/8 |
+
+**Bau:** T1–4: Sequenz – eine Dreitonzelle, je einen Halbton tiefer, über parallelen Septakkorden.
+**Quelle/Einordnung:** Parallele Septakkorde sind belegt [N]; Vertigo-Traumtyp [I]; Zelle [E]. Eine Sequenz, keine Reihung verschiedener Figuren.
+**Hinweis:** Dies ist eine echte Sequenz: dieselbe Zelle wird transponiert wiederholt, nicht eine Reihung verschiedener Figuren.
+
+#### BH-P04 – Abenteuer-Ruf  (4 Takte, 4/4)
+**Charakter:** fantastisch-abenteuerlich · **XYZ:** X 0.80 · Y 0.55 · Z 0.30 · **Harmonie:** BH-H15 · **Evidenz:** Verfahren [I], Töne [E]
+
+| Takt | Akkord | Noten (Ton/Dauer in Sechzehnteln, r = Pause) |
+|---|---|---|
+| 1 | C | G4/4 C5/6 D5/2 E5/4 |
+| 2 | D | F#5/6 E5/2 D5/4 A4/4 |
+| 3 | Bb | D5/6 F5/2 Bb5/8 |
+| 4 | C | G5/4 E5/4 C5/8 |
+
+**Bau:** T1: Anfang – Quarte auf mit Stufen; T2: Fortspinnung – D-Dur-Takt, Abstieg; T3: Höhepunkt – b5 über Bb-Dur; T4: Schluss – Abstieg zum c5.
+**Quelle/Einordnung:** Mysterious-Island-Typ [I]; Tonfolge [E].
+
+#### BH-P05 – Nächtliche Saxophonlinie  (4 Takte, 4/4)
+**Charakter:** bittersüß-lyrisch · **XYZ:** X 0.40 · Y 0.30 · Z 0.25 · **Harmonie:** BH-H13 · **Evidenz:** Verfahren [I], Töne [E]
+
+| Takt | Akkord | Noten (Ton/Dauer in Sechzehnteln, r = Pause) |
+|---|---|---|
+| 1 | Dm9 | F5/6 E5/2 D5/4 C5/4 |
+| 2 | Dm9 | A4/4 C5/4 D5/8 |
+| 3 | Ebmaj7 | G5/6 F5/2 Eb5/8 |
+| 4 | Ebmaj7 | Bb4/4 D5/12 |
+
+**Bau:** T1–2: Anfang – fallende Linie, Rückkehr zum d5; T3–4: Höhepunkt und Schluss – g5, Fall, offener Schluss auf d5.
+**Quelle/Einordnung:** Saxophon-Thema in Taxi Driver als Gegenpol zur Bedrohung [I]; Tonfolge [E].
+
+#### BH-P06 – Märchenhafter Aufstieg  (4 Takte, 4/4)
+**Charakter:** fantastisch-hell · **XYZ:** X 0.80 · Y 0.35 · Z 0.40 · **Harmonie:** BH-H35 · **Evidenz:** Verfahren [I], Töne [E]
+
+| Takt | Akkord | Noten (Ton/Dauer in Sechzehnteln, r = Pause) |
+|---|---|---|
+| 1 | Cmaj7 | G4/4 B4/4 E5/8 |
+| 2 | Cmaj7 | G5/6 F5/2 E5/8 |
+| 3 | Bmaj7 | D#5/4 F#5/4 B5/8 |
+| 4 | Cmaj7 | A5/4 G5/4 E5/8 |
+
+**Bau:** T1–2: Aufstieg – Dreiklang aus der Tiefe, Gipfel g5 als Zwischenhöhe; T3: Höhepunkt – h5 über Bmaj7; T4: Schluss – Abstieg zum e5.
+**Quelle/Einordnung:** Halbton-Aufhellung mit Septakkorden [I]; Tonfolge [E].
+
+
+### 1.2.2 Sechs Phrasen zu acht Takten
+
+#### BH-L01 – Liebesthema (Muir-Typ), lang  (8 Takte, 4/4)
+**Charakter:** lyrisch-romantisch · **XYZ:** X 0.75 · Y 0.20 · Z 0.10 · **Harmonie:** BH-H09, BH-H12 · **Evidenz:** Verfahren [I], Töne [E]
+
+| Takt | Akkord | Noten (Ton/Dauer in Sechzehnteln, r = Pause) |
+|---|---|---|
+| 1 | Cmaj7 | G4/4 C5/4 E5/8 |
+| 2 | Cmaj7 | D5/6 C5/2 B4/8 |
+| 3 | Am7 | C5/6 D5/2 E5/8 |
+| 4 | Am7 | G5/6 E5/2 C5/8 |
+| 5 | Fmaj7 | A5/8 G5/4 F5/4 |
+| 6 | Fmaj7 | E5/8 C5/8 |
+| 7 | Dm7 | D5/6 F5/2 A4/8 |
+| 8 | Cmaj7 | B4/4 C5/12 |
+
+**Bau:** T1–4: Vordersatz – Aufstieg über Cmaj7/Am7, Gipfel g5; T5–8: Nachsatz – Gipfel a5 über Fmaj7, Abstieg, Schluss auf c5.
+**Quelle/Einordnung:** Lyrik als Ausnahme [N]; Tonfolge [E].
+
+#### BH-L02 – Vertigo-Schleife (Terzkreis)  (8 Takte, 4/4)
+**Charakter:** fantastisch-kreisend · **XYZ:** X 0.45 · Y 0.50 · Z 0.50 · **Harmonie:** BH-H10 · **Evidenz:** Verfahren [I], Töne [E]
+
+| Takt | Akkord | Noten (Ton/Dauer in Sechzehnteln, r = Pause) |
+|---|---|---|
+| 1 | C | E5/10 D5/2 C5/4 |
+| 2 | C | G4/8 C5/8 |
+| 3 | Ab | Eb5/10 D5/2 C5/4 |
+| 4 | Ab | Ab4/8 Eb5/8 |
+| 5 | E | G#5/10 F#5/2 E5/4 |
+| 6 | E | B4/8 E5/8 |
+| 7 | C | G5/10 F5/2 E5/4 |
+| 8 | C | D5/8 C5/8 |
+
+**Bau:** T1–2: Bogen 1 – e5 fällt zum c5 über C-Dur; T3–4: Bogen 2 – dieselbe Gestalt eine große Terz tiefer über As-Dur; T5–6: Bogen 3 – eine große Terz höher über E-Dur; T7–8: Rückkehr – zurück zu C, Schluss auf c5.
+**Quelle/Einordnung:** Kreisende Strukturen in Vertigo [I]; Terzkette als Konstruktion [E]. Drei Bögen derselben Gestalt = Sequenz, keine Reihung.
+**Hinweis:** Dies ist eine echte Sequenz: dieselbe Zelle wird transponiert wiederholt, nicht eine Reihung verschiedener Figuren.
+
+#### BH-L03 – Liebesthema mit fallendem Bass, lang  (8 Takte, 4/4)
+**Charakter:** romantisch · **XYZ:** X 0.70 · Y 0.35 · Z 0.15 · **Harmonie:** BH-H12 · **Evidenz:** Verfahren [I], Töne [E]
+
+| Takt | Akkord | Noten (Ton/Dauer in Sechzehnteln, r = Pause) |
+|---|---|---|
+| 1 | Fmaj7 | A4/4 C5/4 F5/8 |
+| 2 | Em7 | G5/8 E5/4 D5/4 |
+| 3 | Dm7 | F5/6 E5/2 D5/8 |
+| 4 | Cmaj7 | C5/4 B4/4 C5/8 |
+| 5 | Fmaj7 | C5/4 F5/4 A5/8 |
+| 6 | Em7 | B5/8 G5/4 E5/4 |
+| 7 | Dm7 | A5/6 G5/2 F5/4 D5/4 |
+| 8 | Cmaj7 | E5/4 D5/4 C5/8 |
+
+**Bau:** T1–4: Vordersatz – f5 und g5, Fall zum c5; T5–8: Nachsatz – dieselbe Bassfolge höher, Gipfel h5, Schluss auf c5.
+**Quelle/Einordnung:** NbNW-Typ [I]; Tonfolge [E].
+
+#### BH-L04 – Abenteuer-Thema  (8 Takte, 4/4)
+**Charakter:** fantastisch-abenteuerlich · **XYZ:** X 0.80 · Y 0.60 · Z 0.30 · **Harmonie:** BH-H15 · **Evidenz:** Verfahren [I], Töne [E]
+
+| Takt | Akkord | Noten (Ton/Dauer in Sechzehnteln, r = Pause) |
+|---|---|---|
+| 1 | C | G4/4 C5/6 D5/2 E5/4 |
+| 2 | C | G5/8 E5/4 C5/4 |
+| 3 | D | F#5/6 E5/2 D5/4 A4/4 |
+| 4 | D | D5/8 F#5/4 A5/4 |
+| 5 | Bb | D5/6 F5/2 Bb5/8 |
+| 6 | Bb | A5/4 G5/4 F5/8 |
+| 7 | C | E5/6 D5/2 C5/8 |
+| 8 | C | G4/4 E4/4 C4/8 |
+
+**Bau:** T1–4: Vordersatz – C-Dur und D-Dur, Gipfel a5; T5–8: Nachsatz – Bb-Dur-Gipfel b5, Rückfall bis c4.
+**Quelle/Einordnung:** Mysterious-Island-Typ [I]; Tonfolge [E].
+
+#### BH-L05 – Saxophonlinie, lang  (8 Takte, 4/4)
+**Charakter:** bittersüß-lyrisch · **XYZ:** X 0.40 · Y 0.30 · Z 0.25 · **Harmonie:** BH-H13 · **Evidenz:** Verfahren [I], Töne [E]
+
+| Takt | Akkord | Noten (Ton/Dauer in Sechzehnteln, r = Pause) |
+|---|---|---|
+| 1 | Dm9 | F5/6 E5/2 D5/4 C5/4 |
+| 2 | Dm9 | r/4 A4/4 C5/4 D5/4 |
+| 3 | Ebmaj7 | G5/8 F5/4 Eb5/4 |
+| 4 | Ebmaj7 | D5/6 Bb4/2 G4/8 |
+| 5 | Dm9 | A4/4 C5/4 F5/8 |
+| 6 | Dm9 | A5/6 G5/2 F5/4 E5/4 |
+| 7 | Ebmaj7 | G5/6 F5/2 Eb5/4 D5/4 |
+| 8 | Dm9 | D5/12 r/4 |
+
+**Bau:** T1–4: Vordersatz – fallend, Pause, Gipfel g5; T5–8: Nachsatz – Gipfel a5, Fall, endet auf d5 und Pause.
+**Quelle/Einordnung:** Saxophon-Typ [I]; Tonfolge [E].
+
+#### BH-L06 – Märchenwald  (8 Takte, 4/4)
+**Charakter:** fantastisch-hell · **XYZ:** X 0.75 · Y 0.30 · Z 0.35 · **Harmonie:** BH-H27, BH-H35 · **Evidenz:** Verfahren [H], Töne [E]
+
+| Takt | Akkord | Noten (Ton/Dauer in Sechzehnteln, r = Pause) |
+|---|---|---|
+| 1 | Cmaj7#5 | E5/8 G#4/4 B4/4 |
+| 2 | Cmaj7#5 | E5/6 F#5/2 G#5/8 |
+| 3 | Cmaj7 | B5/8 G5/4 E5/4 |
+| 4 | Cmaj7 | D5/6 C5/2 B4/8 |
+| 5 | Fmaj7 | A4/4 C5/4 F5/8 |
+| 6 | Fmaj7 | E5/8 A5/4 G5/4 |
+| 7 | Cmaj7#5 | E5/6 D5/2 C5/8 |
+| 8 | Cmaj7 | B4/4 C5/12 |
+
+**Bau:** T1–4: Vordersatz – übermäßige Quinte als Farbe, Gipfel h5 in Takt 3; T5–8: Nachsatz – Fmaj7-Takt, Abstieg, Schluss auf c5.
+**Quelle/Einordnung:** Übermäßige Klänge als Farbe [H]; Tonfolge [E].
+
+---
+
+## 2 Korrekturliste (Beschreibung gegen tatsächliches Material)
+
+**Grundregel, die fast alle Funde erklärt.** Das Raster zeigt nur Einsätze. Ein Eintrag wie „Halbe“, „Ganze“ oder „liegt lang“ braucht Haltestriche (`-`), sonst bleibt nur ein kurzer Anschlag. Neue Pflicht für jede Vorlage: Zähl- und Namenstexte („auf 1 und 3“, „Viertel“, „Dreiergruppen“) werden aus dem Raster abgeleitet oder gegen es geprüft, nicht frei geschrieben.
+
+### 2.1 Rhythmusvorlagen
+
+| ID | Befund | Alt | Neu |
+|---|---|---|---|
+| JB-R01 Halbe-Note-Bass | Name und Rolle sagen Halbe Noten, das Raster liefert zwei kurze Anschläge | `X.......x.......` | `X-------x-------` |
+| JB-R03 Achtel-Pendel | Text „wechselt mit Harmonie (siehe JB-H05/06)“ stimmt nur lose: H05 wechselt alle vier Takte, das Ostinato hat zwei Takte | Verweis | „Zweitaktfigur läuft über den Wechsel hinweg weiter; der Akkord wechselt in JB-H05 alle vier Takte“ |
+| JB-R05 Diminution | Ostinato „bleibt fix“, im Raster nur ein Anschlag pro Takt | `X...............` | `X---------------` (alle vier Takte) |
+| JB-R06 A-A-B | Text: „A (2 Takte, wörtlich)“; im Raster ist A ein Takt, zweimal gespielt. Schlusstakt „endet auf der Länge“ ist nur ein Anschlag | Text; `X...............` | „A (1 Takt) wörtlich wiederholt, B in Takt 3, Takt 4 Länge“; `X---------------` |
+| JB-R07 Stille vor Aktion | Text: „ein einzelner Akkord“; Raster hat zwei Anschläge (Zählzeit 1 und 3) | `X.......x.......` | `X---------------` (ein Akkord, danach Takt 2 Pause) |
+| JB-R08 Zeitlupen-Aktion | Text „Linie in Vierteln“; Takt 1 hat nur einen Ton, Viertel erst in Takt 2 | Text | „Takt 1 ein Ton, Takt 2 Viertel“ |
+| JB-R09 Pauken-Marsch | Text „Blech auf 1 und 3“; Takt 2 hat 1, 3 und 4 | `X.......x...x...` | `X.......x.......` (oder Text „Takt 2 mit Nachschlag auf 4“) |
+| JB-R14 Bond-Synkope | Text „3+3+2“; tatsächliche Abstände in Sechzehnteln 3+3+4+2+4 | Text | „Abstände 3+3+4+2+4“ |
+| JB-R17 3/4-Walzer ruhig | Text „Bass auf 1 und 2“; Anschläge liegen auf Schritt 0 und 6, das ist die Achtel nach Zählzeit 2, nicht Zählzeit 2 (Schritt 4). Mit nur zwei Basstönen ist es auch kein Walzer | `X.....x.....` | `X...x.......` für „Bass auf 1 und 2“; Walzer-Feeling erst mit Akkordzeile auf 2 und 3 (siehe 4.2, JB-R26 und unten RC04) |
+| JB-R19 Ausdünnung | Ganze/Halbe/Viertel in der Stufenfolge, aber nur Anschläge | `X.......x.......`, `X...............` | `X-------x-------`, `X---------------` |
+| JB-R20 Zweitakt-Stau | Auftaktreihe ist rhythmisch korrekt; „Entladung mit Pauke“ in der Variante setzt eine Pauke voraus, die in der Vorlage keine Rolle hat | Variante | Variante streichen oder „Pauke ergänzen“ als eigene Zeile |
+| BH-R06 Wiege 6/8 | Text „Zählzeit 1 und 2.5“; im 6/8 gibt es zwei Hauptschläge (Schritt 0 und 6), der Anschlag auf Schritt 10 ist ein Nachschlag auf der letzten Achtel | Text | „Hauptschläge 1 und 2, Nachschlag auf der letzten Achtel in Takt 1“ |
+| BH-R13 Ein-Schlag-Schock | „ein Takt Ausklang, ein Takt Stille“ ergibt drei Takte; die Vorlage hat zwei | Text | „ein Takt gehaltener Klang, ein Takt Stille“ |
+| BH-R14 Hemiole 3 gegen 4 | Dreiergruppen starten in Takt 2 wieder bei null, laufen also nicht über zwei Takte | `X..x..x..x..x...|x..X..x..x..x...` | `X..x..x..x..x...|..X..x..x..x..x.` |
+| JB-RC01 | Text: Bass setze die Wechselpunkte des Pendels. Der Bass schlägt aber auf 1 und 3 jedes Taktes, das Pendel wechselt alle vier Takte; Melodie in Takt 2 hat keinen Haltestrich | Text; `--------x.......` | „Bass schlägt auf 1 und 3; das Pendel selbst wechselt alle vier Takte“; `--------x-------` |
+| JB-RC04 | „Bass betont 1 und 2“ und „Melodie liegt auf 1 und 2“: Raster hat Schritt 0 und 6, Melodie `X-----` dauert 1½ Zählzeiten | Text, `X.....x.....` | Bass `X...x.......`; Melodie „liegt von Zählzeit 1 bis zur Mitte von 2“ |
+
+### 2.2 Harmonievorlagen
+
+| ID | Befund | Korrektur |
+|---|---|---|
+| JB-H04 | „ein Melodieton h gegen den Klang“: h ist die große Septime von Cmaj7, also Klangton | „h als Septime über dem Klang“ |
+| JB-H05 | Anweisung „zwei Takte pro Akkord“, Daten sagen 4+4 (8 Takte). Außerdem „Bass folgt dem Klang“ fest im Text (siehe Abschnitt 6) | „vier Takte pro Akkord, Verdichtung auf 2+2 möglich“; Bassangabe in zwei Felder trennen |
+| JB-H13 | Gleiche Folge wie BH-H02; Text „zwei Takte pro Wechsel möglich“ passt zu 4+4 nur als Variante | als eine gemeinsame Vorlage führen (Abschnitt 3) |
+| JB-H19 | Takteinteilung stimmt. „Melodie fällt in den Halbtonschritt“ ist mehrdeutig (c→des steigt, des→c fällt) | „Melodie pendelt zwischen c und des; der Fall des→c ist die Auflösung“ |
+| JB-H21 | „Terz wechselt e/es als einziger Unterschied“: Cmaj7 → Cm6 ändert auch h → a | „Terz e → es und Septime h → Sexte a“ |
+| JB-H22 | „Terz wechselt a/as“: Fmaj7 → Fm6 ändert auch e → d | „Terz a → as und Septime e → Sexte d; Bass f bleibt“ |
+| JB-H24 | Liegeton c ist nur über Cm Klangton, über C♯m, Dm, D♯m nicht | „Liegeton c als bewusste Reibung, oder Oberstimme folgt parallel“ (zwei Varianten kennzeichnen) |
+| JB-H31 | „Vorhalt c löst nach b/h“: in deutscher Schreibweise ist b = B♭; G7 verlangt h | „c löst nach h“ |
+| BH-H37 | Anweisung „Je Block.“ ohne Inhalt | „CmM7 in Takt 5–6 als Schattenfarbe, Takt 7–8 zurück zu Cm“ |
+| H21/H22 in der Basstabelle | als „Bass folgt“ geführt, obwohl der Bass nur f/c hält | neu klassifizieren: Pedalbass (siehe 6) |
+
+### 2.3 Motive
+
+| ID | Befund | Korrektur |
+|---|---|---|
+| JB-M03 | „Fall um eine Sexte“: g4 → c4 ist eine Quinte. „Schritt 28–31 gehalten“: die Note c4 beginnt bei 24, ist also von 24 bis 31 gehalten | „Fall um eine Quinte“; „Schritt 24–31 gehalten“ |
+| JB-M04 | „zweites Viertel stützt“: c5 beginnt bei Schritt 4 und dauert 8, ist also eine Halbe, kein Viertel | „c5 trägt eine halbe Note (Schritt 4–11)“ |
+
+### 2.4 Weitere Prüfung ohne Befund
+
+Taktsummen, Rasterlängen und Akkord-/Notenzuordnung aller neuen Phrasen; die Evidenz-Etiketten der Vorlagen (sie trennen schon sauber Verfahren und konkrete Töne). Nicht einzeln durchgesehen wurden die Texte der XYZ-Randvorlagen (Abschnitt 3.4), weil sie ohnehin zusammengeführt werden.
+
+---
+
+## 3 Redundanzabgleich und gemeinsame Vorlage
+
+**Methode.** Akkordfolgen werden auf den ersten Grundton normiert (Transpositionsgleichheit) und mit Qualität und Takten verglichen. Raster werden bis zur kleinsten Wiederholungslänge gekürzt (gleiche Raster verschiedener Länge) und einmal mit, einmal ohne Akzent verglichen. Motive werden über ihre Tonschritte und über Tonschritte mit Rhythmus verglichen. Verglichen wurden Barry, Herrmann und die zehn bzw. sechs Randvorlagen je Profil.
+
+### 3.1 Harmonien: gleiche Folge, andere Beschreibung
+
+| Gruppe | Folge (auf C normiert) | Befund |
+|---|---|---|
+| JB-H01 = BH-H01 | CmM7, 8 Takte | Barry „mM7-Ostinato“, Herrmann „Hitchcock-Akkord“. Gleiche Daten, andere Rolle (Bass/Farbe) |
+| JB-H13 = BH-H02 | CmM7 → C♯mM7, 4+4 | Halbton-Pendel; Barry [H]/Herrmann-Variante |
+| JB-H14 = BH-H03 | Cm → F♯m, 4+4 | Tritonus-Pendel |
+| JB-H18 = JB-H33 | C5, 8 Takte | Innerhalb Barry doppelt: gleiche Quint-Klang-Vorlage unter zwei Namen |
+| JB-H21 = JB-H22 | maj7 → m6 auf gleicher Wurzel, 4+4 | Zwei Transpositionen derselben Folge (C und F); eine Vorlage mit Wurzelparameter |
+| JB-H29 = BH-H08 | Cm, B♭, A♭, G je 2 Takte | Fallende Moll-Folge |
+| JB-H31 = BH-H28 | G7sus4 → G7 (auf C normiert: C7sus4 → C7) | Dominantpedal |
+| BH-H22 = JB-H41 | Cm → Fm, 4+4 | i–iv |
+| BH-H23 = JB-H44 = BH-H45 | C-Dur, 8 Takte | Ein-Akkord-Dur, dreimal unter verschiedenen Rollen |
+| BH-H29 = JB-H39 | Cm, 4×2 Takte | Moll-Ostinato in Blöcken |
+| JB-H40 = BH-H40 | Cm, 8 Takte | Moll-Fläche |
+| JB-H45 = BH-H44 | C → F, 4+4 | I–IV |
+
+**Entscheidung.** Zwölf Gruppen entfallen als eigene Einträge. Es bleibt je eine **Grundvorlage mit Profilvorlieben**: gleiche Akkordfolge einmal im Datenpool, die Profile (Barry, Herrmann, Wang Chung) tragen nur Gewicht und Begleittext. Die Folge H21/H22 wird zu einer Vorlage mit Wurzel als Parameter (C oder F).
+
+### 3.2 Rhythmen: identisch nach Kürzung
+
+| Gruppe | Raster | Befund |
+|---|---|---|
+| JB-R21 = BH-R19 | `x.` | Flirren: gleiche Struktur |
+| JB-R23 = BH-R21 | `x.` | Schimmer: nur Instrumentierung anders |
+| JB-R22 = BH-R20 | `X...` | Block: gleich |
+| JB-R24 = BH-R22 | 8 Takte Marsch mit Fill | gleich |
+| JB-R25 = BH-R23 | `Xxxx` | Jagd: gleich |
+
+Ohne Akzent zusätzlich gleich: JB-R03, JB-R13, BH-R01, JB-R21, JB-R23, BH-R19, BH-R21 (alle durchlaufende Achtel- oder Sechzehntelpulse); JB-R02 = JB-R22 = BH-R20 (Viertelblock); JB-R12 = JB-R16; JB-R15 = BH-R02 = JB-R25 = BH-R23; JB-R24 = BH-R22.
+
+**Entscheidung.** Eine Vorlage „Puls“ mit Parametern *Teilung* (Achtel/Sechzehntel), *Akzent* (an/aus), *Register/Besetzung* (Text). Die Randvorlagen unterscheiden sich in diesen Fällen nur durch XYZ-Wert, Lautstärke oder Besetzung und werden zusammengeführt (Abschnitt 3.4).
+
+### 3.3 Motive
+
+Nur zwei Gruppen haben gleiche Tonschritte (mit verschiedenen Rhythmen): JB-M10 / JB-M20 / BH-M12 und BH-M05 / BH-M16. Gleiche Tonschritte mit gleichem Rhythmus kommen nicht vor. Beide Gruppen bleiben als *Rhythmusvarianten derselben Tonzelle* erhalten (eine Vorlage, mehrere Rhythmen).
+
+### 3.4 Randvorlagen
+
+Die je Ecke angelegten Zusatzvorlagen (JBH_X/BHH_X je 10, JBR_X 5, BHR_X 6, JBM_X 5, BHM_X 6) sind zu großen Teilen Kopien der Grundvorlagen mit verschobenem XYZ. Diese werden **nicht** als eigene Einträge geführt, sondern über die Grundvorlage mit erweitertem XYZ-Bereich abgedeckt (siehe 4). Die Erweiterungen mit eigener Musik bleiben (4.2).
+
+### 3.5 Wang Chung
+
+Das Wang-Chung-Vokabular liegt mir in dieser Sitzung nicht als Datei vor und ließ sich auch aus früheren Chats nicht wiederfinden. Der Abgleich erfolgt deshalb **nach Typ**, nicht nach ID:
+
+| Wang-Chung-Typ | Gleiches in Barry/Herrmann |
+|---|---|
+| Mixolydisch B♭–F über C (bVII–IV) | BH-/JB-Pedalvorlagen mit B♭/C und F/C, JB-H17 |
+| Pedalverdichtung | JB-R19 (Ausdünnung) rückwärts, JB-R05 (Diminution) |
+| Melodischer Bass gegen starres Raster | Herrmann „verschobener Bass“, JB-R08 |
+| Oktavabsenkung | reine Registerfrage, keine eigene Vorlage |
+| Reich-artige Verlängerung | BH-Fugato-Schichtung ohne Tempowechsel (gleiches Verfahren) |
+| Harter Schluss | BH-R13 Ein-Schlag-Schock, JB-R07 |
+
+Für den ID-genauen Abgleich brauche ich das Wang-Chung-Dokument (siehe 7).
+
+### 3.6 Gemeinsame Datenvorlage
+
+```
+Vorlage
+  id, name, typ (D einfach / V Verfahren), meter, takte
+  daten: akkorde[]  oder  raster{}  oder  noten[] mit ctx
+  xyz_zentrum, xyz_toleranz        (statt je einer Kopie pro Ecke)
+  parameter: wurzel, teilung, akzent, register, oktave
+  bass: akkordbass{...}, pedalbass{...}      (siehe Abschnitt 6)
+  evidenz: je Verfahren und je Konkretes getrennt
+  profile: [ {profil: Barry, gewicht, text, besetzung}, {profil: Herrmann, ...}, {profil: Wang Chung, ...} ]
+```
+
+Profile dürfen *Gewicht*, *Beschreibung*, *Besetzungsvorschlag* und *Variantenauswahl* tragen. Sie dürfen keine Werte setzen, die das Raster, die Akkorde oder den Bass-Schalter verändern.
+
+---
+
+## 4 XYZ-Randbereiche nach der Bereinigung
+
+### 4.1 Befund
+
+Nach Zusammenführung (Abschnitt 3) bleiben vier echte musikalische Lücken. Andere Ecken sind durch Parameter (Register, Akzent, Teilung) der Grundvorlagen abgedeckt und bekommen **keine** neuen Einträge.
+
+| Lücke | Warum echt | Antwort |
+|---|---|---|
+| Hohe Unruhe bei niedriger Intensität (Z hoch, Y niedrig) | Bisher nur Phrase JB-L03 (Schleichlinie); im Rhythmus fehlt ein unregelmäßiges, leises Material, das nicht pulst | JB-R27 |
+| 3/4 mit Energie (Y mittel/hoch, 3/4) | 3/4 gab es nur als ruhigen Bass und Schwung ohne Steigerung (JB-R17, RC04) | JB-R26 |
+| Antagonist als Dreitonzelle | Zorin-Verfahren (Abschnitt 5) fehlt als Motivtyp | JB-M21 |
+| Bedrohung ohne Akkordgrundlage (einstimmige Linie) | Als Phrase jetzt vorhanden (JB-L03, JB-P03); keine neue Vorlage nötig | – |
+
+### 4.2 Gezielte Ergänzungen
+
+**JB-R26 – 3/4-Wirbel mit Diminution** · 3/4, 2 Takte · Typ D · XYZ (0.30, 0.65, 0.55) · Evidenz: 3/4-Wirbel als Typ [I] (Black Hole, Sekundärquellen); Raster [E]
+
+| Zeile | Raster |
+|---|---|
+| Bass | `X-----------|X-----------` |
+| Wirbel | `x.x.x.x.x.x.|xxxxxxxxxxxx` |
+
+Takt 1 Achtel, Takt 2 Sechzehntel: Diminution wie in JB-R05, aber im Dreier. Bass hält die punktierte Halbe. Wirkung: kreisend, steigernd, ohne harmonischen Wechsel. Paarung mit JB-H01 (CmM7) oder JB-H40 (Cm). Der Bass ist hier **Pedalbass** (siehe 6).
+
+**JB-R27 – Unruhe-Tupfer** · 4/4, 4 Takte · Typ D · XYZ (0.25, 0.20, 0.75) · Evidenz [E]
+
+| Zeile | Raster |
+|---|---|
+| Tupfer | `x.....x...x.....|..x.......x...x.|x.........x.....|....x.x.........` |
+
+Unregelmäßige Einzelschläge ohne Akzent; kein Puls, den das Ohr als Takt hört. Gedacht für Hörspielszenen mit Unbehagen ohne Aktion (Schleichen, Warten). Mit Cluster- oder Pedalklang.
+
+**JB-M21 – Dreitonzelle des Gegenspielers** · 4/4, 2 Takte · Typ D · XYZ (0.20, 0.50, 0.45) · Evidenz: Dreitonmotiv für Zorin [I]; konkrete Töne [E]
+
+```
+Noten: C4@0+4 Db4@4+4 B3@8+8 C4@16+16      ctx: Cm Cm
+```
+
+des4 und h3 sind Durchgangs- und Leittöne um den Grundton c4 (Halbton-Umspielung); Takt 2 hält c4. Varianten: Oktave höher, Wiederholung ohne Pause, Zelle über Fm. Die Zelle ist keine Transkription.
+
+---
+
+## 5 A View to a Kill und The Black Hole
+
+### 5.1 Was belegt ist und was Konstruktion
+
+| Merkmal | Belegt? | Im Barry-Vokabular |
+|---|---|---|
+| Titelsong-Material wird zum Liebesthema | [N] | **Teilweise.** Phrasen JB-L01/L07/L08 liefern Liebesthemen, aber kein Verfahren „gleiche Melodie, zweite Rolle“. Schwäche: Verfahren fehlt (siehe 5.2) |
+| Dreitonmotiv für Zorin | [N] als Dreitonmotiv, Töne unbekannt | Fehlte, jetzt JB-M21 [E] |
+| Marsch im Stil OHMSS | [I] | JB-R09 Pauken-Marsch, JB-L05 Marschhymne |
+| Bond-Thema in Verfolgungsjagden | [N] | JB-R14 Bond-Synkope (Raster [E]) |
+| Voll orchestral, kaum Elektronik | [N] | Als Besetzungsangabe in den Vorlagen vorhanden; kein Datenfall |
+| Orchestrierung durch Nic Raine, Flötensoli Susan Milan | [N] als Produktionsangabe | Keine Musikvorlage; nur als Besetzungshinweis (Flötenstimme) sinnvoll |
+| Titellieder beginnen oft mit Quart oder Quint | [I] | JB-M04, JB-A02, JB-P05 |
+| 3/4-Wirbel (Black Hole) | [I], Sekundärquellen | Fehlte, jetzt JB-R26 [E] |
+| Pendel, Ostinato mit gleichem Klang, Schichtung | [N] | vorhanden (JB-H01, JB-H05, JB-R05) |
+| Stille vor Aktion | [N] | JB-R07 (mit Korrektur) |
+| Schlagwerk/Pauken | [I] | JB-R09 (Pauken-Marsch) |
+
+### 5.2 Verbleibende Lücke
+
+Ein **Verfahren** fehlt: „Umharmonisierung eines Themas“. Dieselbe Melodie, einmal über Moll/mM7-Aktionsklang, einmal über Dur-Septakkord als Liebesthema. Als Datenfall abbildbar: JB-F01 (Agentenlinie) und JB-F02 (Liebesthema) tragen schon die gleiche Frage-Antwort-Form; als eigenes Verfahren bleibt es offen und wird nicht neu erfunden, solange keine belegte Notenvorlage vorliegt.
+
+### 5.3 Nicht gemacht
+
+Keine Transkription aus dem Gedächtnis, keine Notenlage der Originalthemen. Konkrete Töne in 5.1 sind ausschließlich eigene Konstruktionen und so gekennzeichnet.
+
+---
+
+## 6 „Folgt Akkorden“: Benutzereinstellung
+
+### 6.1 Befund
+
+Die bisherige Fassung schreibt in Vorlagentexten, Basstabellen und Empfehlungen teils fest „Bass folgt dem Klang“ oder „Folgt Akkorden: an/aus“ (z. B. JB-H05). Damit überschreiben Vorlagen die Einstellung im Kopf des Lesers und, bei Umsetzung, im Plugin.
+
+### 6.2 Datenstruktur
+
+Jede Vorlage mit Bassbezug liefert **zwei** getrennte Angaben:
+
+```
+bass:
+  akkordbass:   Wurzeln je Akkord, in der Takteinteilung der Vorlage
+  pedalbass:    Einzelton oder Liste (z. B. [C]), plus optional Quinte, wenn die Vorlage Pedal vorsieht
+  empfehlung:   "Akkordbass" | "Pedalbass" | "beide gleichwertig"    (nur Hinweistext)
+```
+
+### 6.3 Regeln
+
+1. Der Schalter „Folgt Akkorden“ gehört der Benutzerin/dem Benutzer. Er steht in den Plugin-Einstellungen und wird **nur** vom Benutzer geändert, nie von Vorlage, Profil, XYZ-Wert oder Preset-Wechsel.
+2. **Schalter an:** Bass spielt `akkordbass`. **Schalter aus:** Bass spielt `pedalbass`; hat die Vorlage keinen, der erste Akkord-Grundton gehalten.
+3. `empfehlung` erscheint als Hinweis neben der Vorlage und steuert nichts. Ein Profil darf ein *Standardgewicht* für die Empfehlung setzen, aber nicht den Schalter.
+4. Beim Laden eines Presets oder Profils bleibt der Schalter, wie der Benutzer ihn gesetzt hat. Presets dürfen ihn nur mitspeichern, wenn der Benutzer „Preset speichern“ gewählt hat und beim Laden eine Rückfrage kommt (Standard: nicht anwenden).
+5. Vorlagen, die ohne Bass nicht sinnvoll klingen (JB-H18 Quintklang, Pedalvorlagen), melden das als **Hinweis** („klingt mit Akkordbass gebrochen, Pedalbass empfohlen“), nicht als Zwang.
+
+### 6.4 Folge für das große Dokument
+
+Alle Textstellen „Bass folgt dem Klang“ und die Zuordnung „Folgt Akkorden: an/aus“ in den Basstabellen werden durch die beiden Felder oben ersetzt; die Tabellen werden pro Vorlage in Spalten *Akkordbass* und *Pedalbass* aufgeteilt, die Spalte „Empfehlung“ nur noch als Hinweis. Die Tabelle H21/H22 wechselt dabei von „folgt“ nach „Pedalbass“.
+
+---
+
+## 7 Offene Punkte
+
+1. **Wang-Chung-Dokument:** Für den ID-genauen Abgleich (3.5) bitte hochladen oder den Dateinamen nennen.
+2. **Korrekturen in den Daten:** In diesem Dokument sind sie als Liste angegeben, aber noch nicht in das große Vokabular eingearbeitet. Soll ich eine bereinigte Gesamtfassung bauen (Dubletten zusammengeführt, Korrekturen drin, Basstabellen getrennt)?
+3. **Umharmonisierung** (5.2): erst sinnvoll, wenn du ein Thema vorgibst, an dem sie sich zeigen lässt.
+
+Quellenhinweis: Die Aussagen zu AVTAK und Black Hole beruhen auf den früheren Recherchen dieser Sitzung (Sekundärquellen, Produktionsangaben); keine Partitur und keine Transkription wurde ausgewertet.

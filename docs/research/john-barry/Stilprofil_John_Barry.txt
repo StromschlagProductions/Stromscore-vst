@@ -1,0 +1,277 @@
+# John Barry für STROMSCORE: musikalische Handschrift, Stimmungsmatrix und algorithmisch nutzbare Stilregeln
+
+John Barrys Handschrift beruht vor allem auf **Ökonomie**. Er arbeitet mit wenigen, lange gehaltenen Harmonien. Darüber liegen Ostinati, die meist auf einem einzigen Akkord ruhen, oft auf Moll mit großer Septime (mM7), Moll-Sexte (m6) oder add2. Lange, langsam entfaltete Melodiebögen werden wiederholt statt durchgeführt. Spannung entsteht durch Schichtung und Verdichtung über unverändertem Fundament, nicht durch höheres Tempo.
+
+Das Profil darf sich weder auf Streicherromantik noch auf Bond-Blech reduzieren lassen. Dieselbe Grammatik erzeugt auch The Black Hole: ein kreisendes Synthesizer-Ostinato im 3/4-Takt, darüber eine Posaunen-Melodie mit Pauken. Und sie erzeugt die Pawnee-Musik aus Dances with Wolves: eine einstimmige chromatische Linie über einem tiefen Orgelpunkt, ganz ohne Harmonie.
+
+## TL;DR
+
+- **Kern:** Barry baut Musik aus statischen Akkordflächen oder Zwei-Akkord-Pendeln. Typische Farben sind mM7, m6 und add2. Darüber laufen kurze, oft wiederholte Ostinati und wenige, langsam gesetzte Melodietöne. Spannung steigt durch hinzugefügte Schichten und verkürzte Wiederholungszellen bei gleichbleibendem Fundament. Das ist durch die Goldfinger-Analyse von Mark Richards (Film Music Notes) gut belegt.
+- **Die dunkle Seite ist dieselbe Grammatik:** The Black Hole beruht auf einem „swirling ostinato for synthesizer“ im 3/4-Takt, „half-waltz, half death-march“ (Intrada). Hinzu kommen Blaster Beam und tiefe Klavier- und Kontrabass-Motive. Die Pawnee-Musik in Dances with Wolves ist eine einstimmige, chromatische Linie über einem Pedal auf etwa E1 mit Große-Trommel-Schlägen.
+- **Fürs Hörspiel:** Am wertvollsten sind die harmonische Stasis mit langen Orgelpunkten, Ostinati mit Schichtaufbau, begrenzte Notendichte und die strikte Trennung von Melodie oben und Harmonie unten. Barry selbst sagte, man treibe einen Film nicht durch Tempo voran, sondern durch „changings, intriguing sounds“, und Dialog sei für ihn „part of the music“.
+
+---
+
+## Key Findings
+
+1. **Akkordqualitäten sind die Signatur, nicht die Fortschreitungen.** Belegt sind mehrere Akkordfarben:
+   - CmM7 als Oddjob-Leitmotiv, „consistently C-Eb-G-B“.
+   - Der „James Bond chord“ E-G-B-D#-F# (EmM9).
+   - Ostinati über Cm6 und Fm(add2).
+   - Ein Ostinato aus „a pair of minor major-seventh chords (a particular favourite with Barry)“, EmM7 → G#mM7 in OHMSS.
+   - Ein Pendel aus zwei Dur-Septakkorden, BbM7–FM7 (alles Richards, Film Music Notes).
+2. **Harmonischer Stillstand ist ein Normalfall.** In Goldfinger heißt es: „Several of these ostinatos are based entirely on a single chord.“ Spannung wird über einem stehenden Akkord aufgebaut (Richards).
+3. **Spannungssteigerung durch Diminution statt durch neue Harmonik.** Laser-Beam-Szene: Zuerst kommt eine Achtton-Melodie hinzu, die halb so lang ist wie das Ostinato. Dann wird sie auf zwei Töne verkürzt, ebenfalls über demselben Ostinato. Am Ende bricht das Ostinato in einen verklingenden Haltetonakkord ab (Richards).
+4. **Chromatische Mittelstimmen- und Außenstimmenlinien.** Die Bond-Wendung B–C–C#–C liegt in Außenstimmen-Oktaven über einem Em-Fundament; die Mittelstimmen bleiben stehen und wechseln nur ihre Funktion (Brian Morrell, *How Film & TV Music Communicate*, Bd. III). Belegt sind auch die Folge Dm–Bb/D–Dm6–Bb/D und die „Goldfinger chord change“ F–Db (Morrell).
+5. **Spätstil: langsam, streicherbetont, einfach.** Mit Moonraker (1979) gab Barry das „Kentonesque brass“ auf, zugunsten von „slow, rich string passages“, die er in Raise the Titanic, Somewhere in Time und Out of Africa fortführte (Wikipedia, Moonraker soundtrack). Zu Dances with Wolves sagte er: „in a strange way it had to be very simple … keeping that simplicity for most of the music“ (Interview mit Jon Burlingame, zitiert bei Movie Music UK).
+6. **Tempo ist nicht der Motor.** „A lot of people think you move a movie along by increasing tempo. This is a fallacy. You can move a movie along by changings, intriguing sounds … You can actually ruin a scene by pushing tempo.“ (Barry, Gstaad 1996, FSM #75 / IndustryCentral)
+7. **Dialog und Musik sind eine Einheit.** „When you write for film, the dialogue is like the voice … I always consider that as part of the music. Certain orchestral textures have to match the texture of the scene.“ (Barry, zitiert in The Arts Desk, 2011)
+8. **Elektronik gehört früh dazu und wird integriert, nicht als Effekt aufgesetzt.**
+   - OHMSS (1969): Moog-Synthesizer im Bassostinato und anstelle der Gitarre im Bond-Thema, „fully integrated within the traditional orchestra“ (Burlingame, zitiert bei Richards).
+   - Diamonds Are Forever: „tinkly bright“ E-Orgel-Ostinato aus acht Tönen.
+   - The Black Hole: Synthesizer-Ostinato und Blaster Beam.
+
+---
+
+## Details
+
+### 1. Harmonik
+
+**Akkordqualitäten (belegt):**
+
+| Akkord | Beispiel | Funktion | Quelle |
+|---|---|---|---|
+| mM7 (z. B. CmM7) | Oddjob-Leitmotiv, Goldfinger | Bedrohung; der Akkord enthält eine große Septime und eine übermäßige Quinte (Eb–B) | Richards / filmmusicnotes |
+| mM9 (E-G-B-D#-F#) | „James Bond chord“, Anfangs- und Schlussakkord des Bond-Themas | Ambivalenz, Coolness | Richards; Morrell |
+| m6 (Cm6, Em6, Bbm6, Dm6) | Ostinato bei Bonds Gefangennahme; Bond-Streicherwendung; Thunderball | „dramatic“; Morrell nennt die große Sexte über Moll eine „real Bond extension“ | Richards; Morrell |
+| m(add2) (Fm add2) | „The Laser Beam“ | Ostinato-Grundlage | Richards |
+| mM7 → mM7 im Großterzabstand (EmM7–G#mM7) | Gehirnwäsche-Ostinato, OHMSS | Unheimliches, stilles Pendel, verbunden durch chromatisch steigende Parallelquinten | Richards |
+| Dur-Septakkorde im Pendel (BbM7–FM7) | „Sexy theme“, OHMSS | Sinnlich, leicht dissonant | Richards |
+| m6/9 mit leerer Quarte oben, Polychord-Ansatz | You Only Live Twice (F#m mit D# und G#; später E# und G#, also ein C#-Dreiklang über F#m) | Fernöstliche, schwebende Farbe | Morrell |
+| Terzverwandte Moll-Dominant-Wechsel („sci-fi chord change“, z. B. C–Gm) | YOLT, Takte 3–6 | Harmonische Ferne | Morrell |
+
+**Fortschreitungen (belegt):**
+- Em mit chromatischer Außenstimme B–C–C#–C, also Em–C/E–C#ø-artig–C. Morrell transkribiert sie als Linie und nicht als festes Akkordsymbol, deshalb ist die Stufenbezeichnung hier eine Interpretation.
+- Dm–Bb/D–Dm6–Bb/D, die „original Bond“-Folge laut Morrell.
+- F–Db, die „Goldfinger chord change“ (Morrell).
+- John-Dunbar-Thema: I–vi–IV–V in Eb-Dur, mit Begleitung in Grundton, Quinte und Terz (Jolin Jiang, Analyse von „The Death of Timmons“).
+- Black Hole (Fanbeobachtung, FSM-Forum): Das Overture-Thema pendelt bevorzugt zwischen Tonika und subtonaler VII. Stufe. Das ist nicht partiturgeprüft.
+
+**Harmonischer Rhythmus:** Er ist oft extrem langsam: ein Akkord pro Ostinato-Abschnitt, in Goldfinger auch ein Akkord pro ganzer Szene. In Moonraker sind die Ostinati dagegen kürzer. Jede Phrase erklingt zweimal, danach folgt neues Material (Richards, Teil 4). Daraus ergibt sich eine Stilskala:
+- 60er-Jahre-Suspense: ein Akkord über viele Takte.
+- Spätstil: Zweitakt-Paare mit Wiederholung.
+
+Taktzahlen zur Wechselrate sind in den Quellen **nicht** belegt. Für STROMSCORE ist das ein Parameter, kein Fakt.
+
+**Orgelpunkte:** Belegt sind
+- das Pedal auf etwa E1 unter dem Pawnee-Thema (Jiang),
+- das „ominous timpani ostinato, backed with a pedal point“ in Dances with Wolves (Mark Brownrigg, Dissertation, Stirling 2003),
+- die „warm drone from the lower end of the orchestra“ zu Beginn von Moviola (Classicalexburns, Rezension),
+- das „ominous drone by strings and timpani“ des Violence-Themas (Movie Music UK).
+
+**Romantisch, spannungsvoll, düster:**
+- **Romantisch:** diatonisch, Dur, Kadenzharmonik nach Pop-Art (I–vi–IV–V), vereinzelte Vorhalte. Moviola wird beschrieben als „mostly straightforward … some suspensions and moving chords that create a slight dissonance“.
+- **Spannungsvoll:** Ein Moll-Akkord mit Zusatzton (mM7, m6, add2) bleibt statisch, darüber liegt ein Ostinato.
+- **Düster:** Die Harmonie fällt weg. Es bleibt eine einstimmige chromatische Linie über einem Pedal (Pawnee), oder „massive block minor chords for suspense“ (Intrada-Werbetext zu The Black Hole).
+
+### 2. Melodik und Motivik
+
+- **Kurze Kopfmotive mit Signalwirkung:**
+  - der Drei-Ton-„Goldfinger“-Kern,
+  - die steigende Quinte am Beginn von „Diamonds Are Forever“,
+  - der steigende Sprung im „sexy theme“ (alle Richards),
+  - das Body-Heat-Saxophon, beschrieben als „repeated three-note sax motif“ (Zuschauerkommentar, also niedrige Quellenqualität).
+- **Black-Hole-Thema:** Grundton, große Terz hinauf, zurück zum Grundton, Sprung zur kleinen Septime, dann chromatischer Abstieg zur Dominante. Das ist eine Fan-Analyse aus dem FSM-Forum, Sicherheit mittel bis niedrig.
+- **Pawnee-Thema:** Zwei Leitmotive, jeweils zwei Sechzehntel plus ein langer Ton. Ein Teil A wird wiederholt; Teil B variiert höher, etwa als modifizierte Umkehrung im Krebs B5–G#5–G5. Das ergibt eine konsequent chromatische Linie (Jiang).
+- **John-Dunbar-Thema:** Achttaktig, gebaut aus einem einzigen synkopierten Rhythmusmotiv in vier Konturen. Es bildet „zwei Mini- und eine große Frage-Antwort-Phrase“ (Jiang).
+- **Phrasenwiederholung als Prinzip:** „As is Barry's custom, he repeats the A phrase before introducing the B phrase“ (Craig Lysy, Movie Music UK, zu Black Hole). Dass das Dunbar-Thema seine Phrasen *nicht* doppelt, gilt als Ausnahme: „defies Barry's usual method of operation by not repeating each of its main phrases twice“ (Filmtracks).
+- **Out of Africa:** Das Hauptthema wächst durch Wiederholung, „with each repetition the music becomes richer in texture – something signature to Barry's style“ (Classicalexburns).
+- **Somewhere in Time:** Barry übernimmt offenbar die Töne 2–4 der Eröffnungsphrase aus Rachmaninows Variation 18 als Eröffnungsgeste. Das ist eine Interpretation von *The Tannhauser Gate*, kein Selbstzeugnis.
+- **Gegenstimme:** In Moonraker gibt es eine „rising/falling countermelody in the usual late Barry style played on harp, celli, bassoon and low horns“ (MI6-Community, Fanquelle).
+- **Rollenverteilung:** „the lower half of the orchestra plays the harmony and the upper half plays the melody“ (Jiang zu Dunbar). In Out of Africa wird das Klangbild als „high strings, low horns“ beschrieben (mfiles).
+
+**Nicht belegt:** konkrete Ambitus-Angaben, exakte Phrasenlängen in Takten (außer den acht Takten des Dunbar-Themas) und die Funktion von Pausen auf Partiturebene. Belegt ist nur die dramaturgische Pause: Action-Szenen in Diamonds Are Forever und Moonraker beginnen ohne Musik (Richards).
+
+### 3. Rhythmik und Bewegung
+
+- **Ostinato als Standard-Underscore:** „When a major theme is not being sounded in the film, Barry often turns to … ostinato“ (Richards).
+- **Struktur eines Ostinatos (Laser Beam):** Akkord, dann die oberen drei Töne eine Oktave höher, dann dreimal schneller noch eine Oktave höher. Es ist also ein registerhaftes Aufsteigen mit rhythmischer Beschleunigung innerhalb der Zelle.
+- **OHMSS:** Ein marschartiges Moog-Begleitmuster aus vier Tönen. Ein Ostinato in zwei Phrasen liegt in Klavier, Pauken und tiefen Streichern; bei steigendem Zeitdruck kommt eine Synth-Melodie darüber.
+- **Diamonds Are Forever:** Ein Achtton-Begleitostinato, bei jedem Auftreten anders instrumentiert. Die Figur bleibt, die Farbe wechselt. Das ist ein Kernbeleg für „Instrumentierung ändert Spannung, nicht die Figur“.
+- **Black Hole:** 3/4-Takt laut Wrobels Partituranalyse (secondhand über das FSM-Forum) und laut Barrys Wort „three-quarters swirling thing“. Das Ostinato sei „half-waltz, half death-march, driven by a swirling ostinato for synthesizer“ (Intrada 2011). Filmtracks hört „circular motion … perpetually descending in the bass while the brass theme … struggles to ascend“; das Tempo variiere in den ersten vier Cues deutlich.
+- **Suspense-Ostinati in Black Hole:** „Hot and Heavy“ hat eine „repeating line motif of low register piano, pizzicato strings and harp“, „Into the Hole“ eine „repeating seven-note string line“ (Lysy).
+- **Kleine-Terz-Pendel:** In „Start the Countdown“ wird das Ostinato zur „straight minor third alternation“ (Filmtracks). Ein Forenbeitrag nennt die kleine Terz Barrys bevorzugtes Intervall für treibende Bedrohungs-Ostinati. Das ist eine Fan-These, Sicherheit niedrig bis mittel.
+- **Action:** Das 007-Thema ist in Dur und synkopiert. In Moonraker verlangsamt Barry es leicht, „which ironically provides the scene with a slightly more serious atmosphere“ (Richards). Die Laserschlacht in Moonraker wird „almost defiantly slow“ vertont, mit einem insistierenden Pauken-Rhythmus (mfiles). Action heißt bei Barry also nicht zwingend schnelle Notenwerte.
+- **Fan-Beobachtung:** Barry habe das Drumset gemieden und die tiefen Streicher als Rhythmusgruppe behandelt (johnbarry.org.uk, Fan-Essay, niedrige Sicherheit).
+
+### 4. Orchestrierung und Klang (getrennt von der Komposition)
+
+| Gruppe | Funktion | Belege |
+|---|---|---|
+| Hohe Streicher, oft unisono oder in Oktaven | Melodie im Spätstil | YOLT-Intro in hohen Violinoktaven (Wikipedia); Out of Africa (mfiles) |
+| Tiefe Hörner und Posaunen in enger Lage | Akkordfläche, Wärme oder Drohung | Black Hole mit Posaunen über Pauken; Out of Africa „low horns“ |
+| Pauken, tiefe Trommeln | Puls ohne Drumset, Drohung | Black Hole, Pawnee (große Trommel, laut Jiang elfmal im Cue) |
+| Tiefes Klavier und Kontrabass | Düstere Ostinati | Black Hole: „Start the Countdown“, „Hot and Heavy“; Body Heat mit Mike Langs tiefem Klavier (movie-wave) |
+| Harfe, Flöte, Vibraphon, Glockenspiel | Schwebe, Geheimnis | Goldfinger: Thema in Moll auf der Harfe über gehaltenem Streicherakkord, also „ominous“ |
+| Solo-Farbinstrumente | Identität eines ganzen Films | Cimbalom (Ipcress File), Altsaxophon (Body Heat), Mundharmonika (Midnight Cowboy), Fingerzimbeln für Oddjobs „metal“ |
+| Elektronik | In das Orchester integriert | Moog live mit dem Orchester (OHMSS, laut Gearspace mit Programmierer Phil Ramone; Forum, mittlere Sicherheit); Synth-Ostinato und Blaster Beam (Black Hole, 94-köpfiges Orchester); Synth-Farben in Body Heat |
+| Chor | Raum, Spiritualität, Archaik | Lion in Winter; Buffalo Hunt; Moonraker (Frauenchor) |
+
+**Wie Instrumentierung Spannung erzeugt, ohne die Figur zu ändern (belegt):**
+- Das Goldfinger-Thema erscheint in Moll, „very light“, mit Harfe über einem gehaltenen Streicherakkord. Dieselbe Melodie wirkt dadurch bedrohlich.
+- Das Diamonds-Ostinato wird neu instrumentiert, und der Klang trägt eine erzählende Funktion: E-Orgel steht für Bonds Unsicherheit.
+- Das Dunbar-Thema wechselt in „Death of Timmons“ von der Trompete zur leisen Soloflöte.
+- Black Hole: Das Gravity-Well-Motiv liegt zuerst im Synthesizer, später in Klavier, Harfe und Holzbläsern, dann im ganzen Orchester. Das Kontrabassmotiv wandert ins volle Orchester und wieder zurück (Lysy).
+- Barry zu Thunderball/YOLT-artigen Klängen: „Lots of echo, and no bass“ (zitiert bei Tracking Angle). Das ist eine Produktionsentscheidung, keine Kompositionsentscheidung.
+
+### 5. Dramaturgie und Underscoring
+
+- **Monothematik und „theme score“:** Ein Haupt-Song oder Hauptthema wird für viele Stimmungen variiert (Goldfinger; Ipcress File „monothematic“). Dances with Wolves widerspricht dem mit elf Themen und über 100 Minuten Musik (Movie Music UK).
+- **Spät eingesetzte Steigerung:** In OHMSS kehrt das Titelthema erst nach etwa 90 Minuten beim Ski-Chase zurück. Dieser Wechsel markiert den Beginn des Climax (Richards).
+- **Stille als Mittel:** Action ohne Musik zu Beginn macht eine Szene „more real“ (Richards zu Diamonds Are Forever). Für Moonraker war das teils eine Entscheidung der Mischung, die Barry selbst kritisierte. Body Heat wird beschrieben als „mostly silence and one saxophone“ (Neocities-Wiki, niedrige Quellenqualität).
+- **Perspektive statt Lokalkolorit:** In Out of Africa verwarf Barry Pollacks Wunsch nach indigener Musik und vertonte die Emotion der Figuren (mfiles). In Dances with Wolves sollte die Musik aus Dunbars Perspektive kommen (Movie Music UK).
+- **Gegen das Bild:** „most good scores to some degree go against the picture, or give another dimension“ (Barry 1997, The Arts Desk).
+- **Szenenmarker:** In Lion in Winter setzt Barry Choreinwürfe als „scene-markers“ und als Stütze des Flusses ein (John Caps, mfiles).
+
+**Interpretation für dialogreiches Hörspiel:** Belegt sind die Bausteine (statische Akkorde, Ostinati, Orgelpunkte, Klangfarbenwechsel). Ihre Eignung unter Dialog ist **meine plausible Ableitung** aus Barrys Aussage über Dialog als „Stimme“ der Musik:
+- Mittel- und tiefe Lage freihalten oder nur halten.
+- Melodie nur in Dialogpausen einsetzen.
+- Spannung über Schichten aufbauen.
+
+### 6. Stimmungsmatrix
+
+| Bereich | Harmonik | Rhythmik | Motivik | Rollenverteilung | Instrumentierung | Werkbeispiele |
+|---|---|---|---|---|---|---|
+| Ruhig / neutral | Diatonischer Dur- oder Moll-Akkord, lang gehalten; Drone | Kaum Puls, Haltetöne | Keine oder nur Fragmente | Nur Fläche | Tiefe Streicher als Drone, Harfe | Moviola-Beginn (Drone); Black Hole „Cygnus Floating“ (Violinenlinie über Bassakkorden) |
+| Melancholisch | Moll, m6, Vorhalte; langsame Wechsel | Langsam, getragen | Langer Bogen, Phrase wird doppelt gesetzt | Melodie oben, warme Mitte | Solo-Holzbläser oder Trompete, Streicher | Ipcress File (Solo-Holz und Cimbalom); „Bob and VINCENT“; Dunbar-Thema auf Soloflöte |
+| Romantisch / warm | Dur, I–vi–IV–V, Maj7-Farben | Ruhig, synkopierte Melodie | Lange, wiederholte, sich verdichtende Bögen | Obere Hälfte Melodie, untere Hälfte Harmonie | Hohe Streicher unisono, tiefe Hörner, Flöte, Harfe | Out of Africa, Somewhere in Time, Dunbar-Thema, Moonraker-Liebesthema |
+| Geheimnisvoll | mM7, Maj7-Pendel ohne Auflösung, chromatische Parallelquinten | Langsames Zwei-Akkord-Pendel | Kurze Zellen | Fläche plus Farbtupfer | Harfe, Vibraphon, Flöte, Synth, Echo „no bass“ | OHMSS-Gehirnwäsche (EmM7–G#mM7); Black Hole „Closer Look“; Kidd & Wint (Flöte und Altsax) |
+| Bedrohlich | Ein einzelner mM7- oder Moll-Akkord, Orgelpunkt, Blockakkorde in Moll | Kreisendes Ostinato (3/4 möglich), Pauken | Grundton–Terz–Septime, chromatischer Fall; kleines-Terz-Pendel | Ostinato tief oder mittel, Melodie in Posaunen | Synth-Ostinato, Posaunen, Pauken, Blaster Beam, tiefes Klavier | Black Hole „Main Title“; Oddjob-Akkord; „Start the Countdown“ |
+| Spannungssteigernd | Akkord bleibt **unverändert** | Ostinato bleibt; neue, kürzere Zelle darüber (8 → 2 Töne) | Diminution, Verkürzung | Schichtaufbau | Hinzunahme von Synth, höheren Lagen, Oktavierung | Goldfinger „Laser Beam“; OHMSS Gumbold-Safe |
+| Action / hoch | Moll-Ostinato oder Dur (007); I–bVII-Pendel | Marschartig, synkopiert, Pauken oder Snare; nicht zwingend schnell | Kurze Blechmotive über Ostinato | Ostinato-Bass, Blechmelodie | Kentoneskes Blech (60er), Moog-Bass, später Streicher und Trompete | 007-Thema, OHMSS-Titel, Black Hole „Laser“ und Overture, Buffalo Hunt |
+| Düster / hoffnungslos | Keine Harmonie: Einstimmigkeit über Pedal; Trauermarsch-Moll | Langsamer Puls, isolierte Schläge | Chromatische, kantige Kurzmotive | Linie plus Drone | Tiefe Streicher, große Trommel, Taiko, Flatterzunge in der Trompete | Pawnee (Dances with Wolves); „Durant Is Dead“; Lion in Winter „Media vita in morte sumus“ |
+
+### 7. Algorithmisch verwertbare Ergebnisse
+
+| # | Stilmerkmal | Beschreibung | Beispiel | Einsatz | Mögliche Regel | Parameter | Quelle | Sicherheit |
+|---|---|---|---|---|---|---|---|---|
+| 1 | Ein-Akkord-Ostinato | Ostinato über einem einzigen Akkord ohne Wechsel | Goldfinger: Fm add2, Cm6, Em | Suspense, Underscore | Im Suspense-Modus nur einen Akkord pro Abschnitt; Wechsel nur bei Abschnittsgrenze | Abschnittslänge; P(Wechsel) | Richards | hoch |
+| 2 | Bevorzugte Akkordfarben | mM7, m6, add2, mM9 | Oddjob, Bond-Akkord | Bedrohlich, geheimnisvoll | Gewichtete Wahl der Moll-Erweiterungen | Gewichte mM7 / m6 / add2 / m7 | Richards; Morrell | hoch |
+| 3 | Zwei-Akkord-Pendel | Langsamer Wechsel zweier Farbakkorde | EmM7–G#mM7; BbM7–FM7 | Geheimnisvoll, sinnlich | Pendel A–B ohne Kadenz | Intervall der Grundtöne; Dauer pro Akkord | Richards | hoch |
+| 4 | Diminution | Spannungssteigerung durch kürzere Oberzelle | Laser Beam, 8 → 2 Töne | Steigerung | Bei steigendem Y: Oberstimmenzelle halbieren, Akkord fix | Stufenzahl; Mindestlänge | Richards | hoch |
+| 5 | Schichtaufbau | Neue Stimme über unverändertem Ostinato | OHMSS Gumbold | Steigerung | Bei steigender Intensität Stimmen addieren statt ändern | Max. Stimmen; Reihenfolge | Richards | hoch |
+| 6 | Reinstrumentierung | Gleiche Figur, andere Farbe | Diamonds-Ostinato; Goldfinger auf Harfe in Moll | Stimmungswechsel | Bei X-Wechsel Klangfarbe tauschen, Noten beibehalten | Farbtabelle | Richards | hoch |
+| 7 | Phrasendoppelung | A wird wiederholt, dann B | Black Hole, Dunbar (als Ausnahme) | Thematik | A-A-B-Schema als Default | P(Doppelung) etwa hoch | Lysy; Filmtracks | mittel |
+| 8 | Verdichtung bei Wiederholung | Jede Wiederholung voller instrumentiert | Out of Africa | Romantisch | Pro Wiederholung eine Schicht hinzufügen | Wachstumsrate | Classicalexburns | mittel |
+| 9 | Melodie oben, Harmonie unten | Klare Registertrennung | Dunbar | Romantisch | Melodie nur im oberen Register, keine Mittelstimmen-Melodik | Registergrenzen | Jiang | mittel |
+| 10 | Einstimmig über Pedal | Keine Akkorde, Pedal tief | Pawnee über etwa E1 | Düster | Harmonie abschalten; chromatische Linie plus Pedal | Chromatik-Gewicht; Pedal-Lage | Jiang; Brownrigg | hoch |
+| 11 | Chromatische Außenstimme | Linie B–C–C#–C über stehender Mitte | Bond-Streicher | Spannung, Spy | Außenstimmen chromatisch, Mitte gehalten | Linienrichtung | Morrell | hoch |
+| 12 | Kreisendes 3/4-Ostinato | Wirbel-Figur, „half-waltz, half death-march“ | Black Hole | Bedrohlich, kosmisch | 3/4-Ostinato in Achteln, absteigende Tendenz im Bass | Metrum; Richtung | Intrada; FSM (Wrobel secondhand); Filmtracks | mittel |
+| 13 | Langsame Action | Spannung ohne Tempoerhöhung | Moonraker 007 verlangsamt; Laserschlacht | Action | Intensität über Dynamik und Dichte, Tempo gedeckelt | Tempo-Obergrenze | Richards; mfiles; Barry, Gstaad | mittel |
+| 14 | Stille vor Musik | Action beginnt ohne Musik | Diamonds, Moonraker | Realismus | Verzögerter Einsatz | Verzögerung | Richards | mittel |
+| 15 | Kleine-Terz-Pendel | Ostinato aus kleiner Terz | Start the Countdown; Lion in Winter | Bedrohlich | Bass-Ostinato-Intervall m3 bevorzugen | Gewicht | Filmtracks; FSM-Forum | niedrig bis mittel |
+| 16 | Tonika–bVII-Pendel | Bevorzugter Wechsel I–bVII | Black Hole Overture | Heroisch | Gewicht für bVII | Gewicht | FSM-Forum | niedrig |
+| 17 | Signaturklang pro Profil | Ein Farbinstrument definiert den Film | Cimbalom, Saxophon | Identität | Ein Lead-Timbre pro Session | Timbre-Wahl | Arts Desk; AllMusic | hoch |
+| 18 | Schlagwerk statt Drumset | Pauken und große Trommel als Puls | Black Hole, Pawnee | Action, düster | Kein Drumkit; Pauken und Taiko | — | Lysy; Jiang; Fan-Essay | mittel |
+
+---
+
+## A. Kompakte Stilgrammatik
+
+| Ebene | Regel |
+|---|---|
+| Tonalität | Überwiegend Moll mit Zusatztönen; im romantischen Spätstil Dur mit Pop-Kadenzen |
+| Akkordvokabular | m, mM7, m6, m(add2), mM9, Maj7, Dominant-Septakkord; selten verminderte Akkorde (eher bei anderen Bond-Komponisten) |
+| Harmonischer Rhythmus | Sehr langsam; oft null Wechsel pro Abschnitt; Pendel aus zwei Akkorden |
+| Bass | Pedal oder Ostinato; chromatische Außenstimmen |
+| Melodie | Kurze Kernzelle (3–4 Töne) oder langer, langsamer Bogen; Phrasen doppelt |
+| Rhythmus | Ostinato als Grundmodus; Steigerung durch Diminution der Oberzelle |
+| Textur | Schichten: Fläche, dann Ostinato, dann Melodie; Melodie hoch, Harmonie tief |
+| Farbe | Ein Signatur-Timbre; Streicher hoch unisono, Hörner und Posaunen tief, Pauken; integrierte Elektronik |
+| Dramaturgie | Monothematisch mit Varianten; Stille; Tempo bleibt konstant |
+
+## B. 15–25 Stilregeln (mit Beleg und Sicherheit)
+
+1. Im Suspense-Modus erhält jeder Abschnitt genau einen Akkord; das Ostinato baut auf ihm auf (Richards, Goldfinger). **Hoch**
+2. Moll-Akkorde werden bevorzugt mit großer Septime, großer Sexte oder add2 gefärbt (Richards; Morrell). **Hoch**
+3. Das mM7-Pendel im Großterzabstand ist für hypnotische oder unheimliche Szenen reserviert (Richards, OHMSS). **Hoch**
+4. Spannung steigt durch eine neue Oberzelle, die halb so lang ist wie das Ostinato, und später durch Verkürzung auf zwei Töne (Richards, Laser Beam). **Hoch**
+5. Auflösung geschieht durch Abbruch des Ostinatos in einen verklingenden Haltetonakkord (Richards). **Hoch**
+6. Bei steigender Unruhe (Z) werden Schichten hinzugefügt, nicht Akkorde gewechselt (Richards, OHMSS). **Hoch**
+7. Ein Stimmungswechsel ohne neue Noten geschieht durch Moll-Variante plus leichtere Instrumentierung, etwa Harfe über einem Haltetonakkord (Richards). **Hoch**
+8. Ein Ostinato behält seine Tonfolge, wechselt aber bei jedem Wiederauftreten die Klangfarbe (Richards, Diamonds). **Hoch**
+9. Im düsteren Modus wird die Harmonie entfernt: eine einstimmige chromatische Kurzmotivik über einem tiefen Pedal und vereinzelten Trommelschlägen (Jiang; Brownrigg). **Hoch**
+10. Chromatische Außenstimmen in Oktaven laufen über gehaltenen Mittelstimmen (Morrell). **Hoch**
+11. Ein Thema wird als A-A-B gebaut; eine Phrase wird vor dem Kontrast wiederholt (Lysy; Filmtracks). **Mittel**
+12. Bei jeder Themenwiederkehr kommt eine Schicht hinzu (Classicalexburns zu Out of Africa). **Mittel**
+13. Die Melodie liegt in der oberen Orchesterhälfte, die Harmonie in der unteren; keine konkurrierenden Mittelstimmen (Jiang). **Mittel**
+14. Action wird über Dichte, Blech und Pauken intensiviert, nicht über das Tempo (Barry, Gstaad 1996; Richards zu Moonraker). **Mittel**
+15. Im Spätstil werden Ostinato-Phrasen nur zweimal wiederholt, dann folgt neues Material (Richards, Moonraker). **Mittel**
+16. Ein „kosmisch-bedrohliches“ Profil nutzt ein kreisendes 3/4-Ostinato im Synthesizer, darüber eine Posaunenmelodie und Pauken (Intrada; Lysy; Wrobel secondhand). **Mittel**
+17. Szenen können musikalisch leer beginnen; die Musik setzt verzögert ein (Richards). **Mittel**
+18. Ein Signatur-Soloinstrument trägt die Identität einer Session (Arts Desk; AllMusic zu Ipcress). **Hoch**
+19. Kein Drumset; Puls kommt aus Pauken, großer Trommel und tiefen Streichern (Lysy; Jiang; Fan-Essay). **Mittel**
+20. Bedrohliche Bass-Ostinati bevorzugen die kleine Terz (Filmtracks; FSM-Forum). **Niedrig bis mittel**
+21. Ein heroischer Modus nutzt das Pendel I–bVII (FSM-Forum zur Black-Hole-Overture). **Niedrig**
+22. Ein Leitmotiv wird harmonisch aus dem Hauptakkord abgeleitet, etwa Oddjobs mM7 als Teilmenge des Bond-Akkords mM9 (Richards). **Mittel**
+
+## C. Erforderliche musikalische Bausteine
+
+- Akkordbibliothek: m, mM7, m6, m(add2), mM9, Maj7, 7, Maj7#5, m6/9 mit Quartvoicing
+- Pendelgenerator für zwei Akkorde (beliebiges Grundtonintervall, besonders große Terz)
+- Ostinato-Engine: Arpeggio-Zellen mit Oktavversetzung und Diminution; 3/4- und 4/4-Varianten; kreisende Figuren
+- Orgelpunkt- und Drone-Generator (tief, sehr tief)
+- Diminutionsmodul für die Oberzelle (8 → 4 → 2 Töne)
+- Schichtmanager mit festgelegter Reihenfolge des Hinzufügens
+- Klangfarben-Tauschmodul bei identischen Noten
+- Themenspeicher mit A-A-B-Logik und Variantenbildung (Moll-Variante, Ausdünnung)
+- Generator für chromatische Außenstimmen
+- Einstimmiger Modus über Pedal (chromatisch, kantig, mit Rhythmus aus zwei Sechzehnteln plus langem Ton)
+- Schlagwerkpuls ohne Drumset (Pauken, große Trommel, Taiko)
+- Abbruch-und-Haltetonakkord als Auflösungsereignis
+- Steuerung von Stille und verzögertem Einsatz
+
+## D. Typisch Barry vs. allgemein verbreitet
+
+**Besonders charakteristisch:**
+- Ein-Akkord-Ostinati mit mM7, m6 oder add2 als Spannungsträger über ganze Szenen
+- Der Bond-Akkord mM9 und die chromatische Außenstimme B–C–C#–C
+- Diminution der Oberzelle über einem unveränderten Ostinato
+- Bewusst langsame Action und Tempoverzicht als Programm (Selbstaussage)
+- Reinstrumentierung derselben Figur als erzählendes Mittel
+- Ein exotisches Signatur-Soloinstrument pro Film (Cimbalom, Fingerzimbeln, Saxophon)
+- Früh integrierte Elektronik (Moog live mit dem Orchester 1969)
+- Im Spätstil hohe Streicher unisono gegen tiefe Hörner mit großer Schlichtheit
+
+**Auch bei vielen anderen verbreitet:**
+- mM7 als „Hitchcock chord“ (Herrmann)
+- Leitmotive für Figuren
+- Ostinati in Suspense-Szenen
+- Pedaltöne für Bedrohung (Genre-Paradigma Horror und Western laut Brownrigg)
+- Pop-Kadenzen I–vi–IV–V in Liebesthemen
+- Chor für Archaik und Spiritualität
+- Chromatische Parallelbewegung für Heimlichkeit (Mancini, Pink Panther)
+
+## E. Offene Forschungsfragen
+
+1. Was zeigt Bill Wrobels Partituranalyse zu The Black Hole konkret: Tonart, Tempoangabe, Akkordqualitäten des Main Title, Besetzung des Ostinatos? Sie war hier nicht direkt einsehbar.
+2. Wie oft wechseln die Akkorde in Barrys Spätstil-Underscore tatsächlich, gemessen in Takten? Dazu fehlen Messdaten.
+3. Welchen Ambitus haben die großen Themen (Out of Africa, Somewhere in Time), und welche Intervallverteilung? Belastbare Transkriptionen fehlen; Chordify-Daten widersprechen sich und taugen nicht.
+4. Trägt der Blaster Beam im Black-Hole-Main-Title die Basslinie, oder ist das ein Synthesizer? Die Quellen widersprechen sich.
+5. Wie systematisch ist das kleine-Terz-Ostinato als Bedrohungsmarker? Bisher stützt sich das nur auf Fanbeobachtungen.
+6. Wie geht Barry mit Pausen innerhalb von Phrasen und mit Musik unter Dialog um? Konkrete Cue-Analysen dazu fehlen.
+7. Wie viel der Bond-Harmonik stammt von Barry als Arrangeur und wie viel von Monty Norman? Das Gericht stellte fest, dass Norman komponierte und Barry arrangierte.
+8. Wie sind die Black-Hole-Cues „Hot and Heavy“ und „Meteorites“ intern gebaut? Sie sind besonders nah am Hörspielbedarf.
+
+## Caveats
+
+- Ich habe keine Partitur und keine Aufnahme selbst analysiert. Alle Akkordangaben stammen aus den genannten Analysen.
+  - Richards (Film Music Notes) ist eine Analyse-Website mit Notenbeispielen.
+  - Morrell legt Transkriptionen in einem Lehrbuch vor.
+  - Jiang ist eine studentische Analyse, die Brownrigg zitiert.
+  - Brownrigg ist eine Dissertation aus Stirling 2003.
+- Die Angaben zu The Black Hole beruhen auf Intrada-Texten, Barry-Zitaten und Rezensionen. Der 3/4-Takt ist durch Barrys Wort „three-quarters“ und eine Forenangabe zu Wrobel gestützt, aber nicht am Original geprüft.
+- Rezensionen (Movie Music UK, Filmtracks, mfiles) sind Höreindrücke, keine Partituranalysen.
+- Foren- und Fanquellen (FSM, MI6, johnbarry.org.uk) sind entsprechend markiert.
+- Die Body-Heat-Seite auf neocities enthält als „Paraphrase“ gekennzeichnete Zitate; sie wurde nur mit niedriger Sicherheit verwendet.
+- Die Anwendungen fürs Hörspiel sind begründete Interpretationen, keine Selbstaussagen Barrys.

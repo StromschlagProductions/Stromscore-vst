@@ -1,0 +1,288 @@
+# Bernard Herrmann für STROMSCORE: Musikwissenschaftliches Stilprofil, Vergleich mit John Barry und ableitbare Generatorregeln
+
+Herrmanns Handschrift lässt sich nicht an Dissonanz oder schrillen Streichern festmachen. Kennzeichnend ist die Arbeitsweise: Er setzt kurze, modular austauschbare Zellen (ein bis zwei Takte) in Blöcken aneinander, verwendet Akkorde als Klangfarbe statt als Kadenzfunktion, schichtet und kontrastiert homogene Instrumentenfamilien und dosiert Musik sehr sparsam, bis hin zur bewussten Stille. Dieselbe Grammatik trägt den romantisch-lyrischen Herrmann (The Ghost and Mrs. Muir, Vertigo, Walking Distance) ebenso wie den bedrohlichen (Psycho, Cape Fear, Mysterious Island). Für STROMSCORE heißt das: Das Profil muss die Denkweise abbilden, also Zelle, Block, Klangfarbenakkord und Familienkontrast. Eine Ästhetik reicht nicht.
+
+## TL;DR
+
+- **Kern:** Herrmann denkt in kurzen Zellen und Modulen. Er selbst sagte, er bevorzuge die „short phrase“ und lehne „the leitmotif system“ ab; Schneller beschreibt seine Cues als „assembled from short blocks of musical material rather than extended melodic lines“. Harmonisch arbeitet er mit nicht-funktionalen Farbakkorden: dem Moll-Dur-Septakkord („Hitchcock-Akkord“), Halbton- und Tritonusbeziehungen, Orgelpunkten und gelegentlich Polychorden. Die Polychorde setzt er gezielt nur für das „Unheimliche“ und „Bedrohliche“ ein.
+- **Nicht nur Horror:** Lange lyrische Themen sind die belegte Ausnahme, keine Unmöglichkeit. Herrmann nannte Ghost and Mrs. Muir seine „Max Steiner score“, Vertigo enthält Wagner/Tristan-Bezüge, die Liebesmusik in North by Northwest ist ein konsonantes I–V–I in D-Dur, und Fahrenheit 451 verzichtet weitgehend auf Dissonanz. Das Profil muss deshalb für alle XYZ-Werte tragfähig sein, mit derselben Zell- und Blocklogik in warmer Harmonik.
+- **Gegenüber Barry:** Beide teilen Ostinato, Stillstand und sogar den Moll-Dur-Septakkord (Barry nutzt ihn für Oddjob in Goldfinger; Film Music Notes nennt ihn „a particular favourite with Barry“). Herrmann unterscheidet sich hörbar durch fünf Dinge: (1) Zellen statt langer Melodiebögen, (2) abrupte Blockschnitte und Registersprünge statt kontinuierlicher Schichtung, (3) Halbton- und Tritonus-Rückungen und Polychorde statt schwebender Zusatzton-Akkorde, (4) Antrieb durch metrische Reibung (Hemiolen, Synkopen, verschobene Bässe) statt gleichmäßigem Puls, (5) homogene Instrumentenfamilien, die gegeneinander arbeiten, statt verschmelzendem Tutti mit Melodie oben.
+
+## Key Findings
+
+1. **Kurze Zellen sind die Regel, belegt durch Herrmann selbst und durch die Forschung.** Im Interview mit Royal S. Brown (August 1975): „I think a short phrase has got certain advantages. Because I don’t like the leitmotif system… a tune has to have eight or sixteen bars, which limits you as a composer.“ Tom Schneller („Easy to Cut: Modular Form in the Film Scores of Bernard Herrmann“, Journal of Film Music 5.1–2, S. 127–151, doi:10.1558/jfm.v5i1-2.127) nennt den modularen Aufbau „one of the defining characteristics“. Cooper (Vertigo-Handbuch, 2001) beschreibt die Einheiten als „generally one, two or four bars in length“. Dieses Zitat liegt mir nur sekundär vor.
+2. **Ausnahmen existieren und sind wichtig:** Ghost and Mrs. Muir (1947) hat mehrere längere Themen; Movie Music UK schreibt, Herrmann habe hier „long lined leitmotifs“ verwendet, „which he usually eschewed“. Laut Steven C. Smith (A Heart at Fire's Center) hielt Herrmann die Partitur für „his finest film score: poetic, unique, highly personal“. Auch die Vertigo-Liebesmusik und das Saxophonthema in Taxi Driver sind länger angelegt. Selbst dort bleibt aber die Bauweise aus wiederholten Kurzgliedern erkennbar.
+3. **Harmonik als Klangfarbe:** Im Psycho-Material heißt es, Akkorde würden „for their sound, rather than for their role in the prevailing tonality“ eingesetzt. Der Hitchcock-Akkord „does not develop, or indeed lead anywhere“ (Pearson-Leitfaden). Polychorde sind laut Moreira (Music Theory Online 31.4, 2025) ein „special effect“ für extreme Spannung; in Jane Eyre und Tender Is the Night fehlen sie ganz.
+4. **Musik-Ökonomie und Stille sind kompositorische Entscheidungen.** North by Northwest hat bei über zwei Stunden Laufzeit „well under an hour of music“, viele Cues sind kürzer als eine Minute. Die Crop-Duster-Sequenz bleibt ohne Musik, Dialog- und Konfrontationsszenen ebenfalls.
+5. **Orchestrierung ist Teil des Konzepts, aber eine eigene Ebene.** Psycho verwendet nur Streicher und spielt mit Dämpfer, außer im Mord-Cue. Cape Fear: vier Flöten, acht Hörner, Streicher. Fahrenheit 451: Streicher, Harfen, Stabspiele. The Day the Earth Stood Still: zwei Theremins plus Elektro-Streicher. Die Strukturprinzipien (Zelle, Block, Farbakkord) bleiben dabei über alle Besetzungen gleich.
+
+## 1. Quellenlage und Methode
+
+**Ausdrücklich:** Ich habe keine Partituren oder Aufnahmen selbst analysiert. Alle Ton-, Akkord- und Taktangaben stammen aus den unten genannten Quellen.
+
+| Qualitätsstufe | Quellen | Bewertung |
+|---|---|---|
+| Hoch (begutachtet/akademisch) | Scott Murphy, „Three Audiovisual Correspondences in the Main Title for Vertigo“, MTO 28.1 (2022); Daniel Moreira, „Weird, Menacing, and Colorful: Bernard Herrmann’s Harmonic Polytonality“, MTO 31.4 (2025); Mark Richards, „Film Music Themes“, MTO 22.1 (2016); Tom Schneller, „Easy to Cut“, Journal of Film Music 5/1–2; Kenneth M. Smith, „Vertigo’s Musical Gaze“ (Universität Liverpool, Repositorium); Royal S. Brown, „Herrmann, Hitchcock, and the Music of the Irrational“, Cinema Journal 21/2 (1982) | Partiturbasiert oder theoriegestützt. Moreira und Murphy arbeiten mit Partiturbeispielen. |
+| Mittel-hoch (Lehrmaterial, Primärinterview) | Pearson-Edexcel-Leitfaden zu Psycho (8 Cues, taktgenau); Brown-Interview 1975 (Bernard Herrmann Society); Royal Holloway Teacher Hub | Partiturnah. Pearson weist selbst darauf hin, dass es sich um eine Interpretation handelt. |
+| Mittel (detaillierte Laien- und Studienanalysen) | Bill Wrobel, Film Score Rundowns (Taxi Driver, Day the Earth Stood Still, Walking Distance), partiturbasiert, aber nicht begutachtet; Aaron Ramsey, Berklee-Masterarbeit zu Cape Fear (2014); Essay „A Case Study of the Bernard Herrmann Style“ (hitchcock.tv) zu North by Northwest, stützt sich auf Brown und Partituren aus dem MGM-Archiv | Nützlich, aber einzeln zu prüfen. Wrobel- und Ramsey-Zitate habe ich nur aus Auszügen erhalten. |
+| Niedrig (Rezensionen, Fan- und Labeltexte) | Movie Music UK, Filmtracks, Intrada-Produkttexte, Blogs, Sparknotes | Nur für Besetzungsangaben oder als Hinweise. Dort, wo sie verwendet werden, als solche gekennzeichnet. |
+
+Zu Barry stütze ich mich überwiegend auf Analyseblogs (Film Music Notes zu Goldfinger), Interviews und Fanbeiträge. Der Barry-Teil ist deshalb deutlich schwächer belegt als der Herrmann-Teil.
+
+## 2. Werkprofile in Kurzform
+
+| Werk | Besetzung (Instrumentierung) | Strukturelle Kernidee (Komposition) | Beleg |
+|---|---|---|---|
+| Psycho (1960) | Nur Streicher, gedämpft außer im Mord-Cue; 40 Cues | Hitchcock-Akkord auf B als statischer Block; Ostinato-Module; Halbtonzelle in vielen Transformationen; Cluster; Fuge („The Cellar“) | Pearson; Royal Holloway |
+| Vertigo (1958) | Großes Orchester, Harfen, Vibraphon, Orgel | Gegenläufig kreisende Arpeggien über Es-Moll-Dur-Septakkord; Tristan-Anspielungen; Habanera-Ostinato (Carlotta); Bitonalität beim Schwindel-Akkord | Murphy; Smith; Moreira |
+| North by Northwest (1959) | Rund 64 Spieler, 5 Klarinetten (davon 2 Bassklarinetten), erweitertes Schlagwerk, auffallend wenige Violinen | Fandango im 3/8 mit Hemiolen; Synkopen; chromatische Bassdreiklänge; bitonale Trompeten; Orgelpunkte; konsonantes Liebesthema | hitchcock.tv-Essay |
+| The Day the Earth Stood Still (1951) | 2 Theremins, E-Violine, E-Cello, E-Bass, Hammondorgeln, Studioorgel, Pianos, Harfen, Vibraphone, Blech ohne Holzbläser | Poly-Dreiklänge mit Grundtönen im Abstand Halbton oder Tritonus; Gort: langsame Halbe im Vierertakt, Tritonusbewegung | Leydon 2004 (nach Moreira); College Music Symposium |
+| Mysterious Island (1961) | 4 Harfen, 8 Hörner, 4 Tuben, große Perkussion | Dreitonmotiv als drei Moll-Akkorde im Fortissimo; Moll-Dur-Wechsel im Tritonusabstand; Krabbe: Polychord As-Moll über G-Moll | Intrada-Text; Moreira |
+| Cape Fear (1962) | 4 Flöten (inkl. Alt- und Bassflöten), 8 Hörner, rund 46 Streicher; kein Trompeten/Posaunen/Schlagwerk laut Ramsey | Absteigendes Viertonmotiv in tiefer Hornlage; absteigend chromatische Violinlinie; Sechzehntel-Ostinato; Halbton-Ostinato | Ramsey (Berklee); Bernstein-Interview |
+| Taxi Driver (1976) | Hauptorchester: tiefe Holzbläser, Blech, Harfen, Vibraphone, Snares, Celli, Bässe (Violinen fehlen offenbar); separate Jazzband mit Altsaxophon | Kleine Trommel als Puls; Fes-maj7 → Es-maj7 („Travis“-Paar); g-Moll-9 in den Harfen; „So Close To Me Blues“ (langsamer Blues, 4/4) | Wrobel |
+| Fahrenheit 451 (1966) | Streicher, 2 Harfen, Xylophon, Vibraphon, Glockenspiel, Marimba | Absteigende Akkordfolgen, „small shifting blocks“, kaum Dissonanz; Moto-perpetuo-Feuerwehrmusik | Intrada-Text; Herrmann-Zitat |
+| The Ghost and Mrs. Muir (1947) | Orchester mit Betonung von Streichern, Harfe, Horn | Mehrere längere Leitthemen (Meer, Cottage/Kapitän, Lucy); kontrapunktisches Gegeneinander der Themen | FSM-Rezension; Fred Steiner (Booklet) |
+| Twilight Zone: Walking Distance (1959) | 19 Spieler: Streicher und 1 Harfe, gedämpft | Fallende Halbtonmuster, Septakkorde, wiederholte Zwei-Takt-Motive | Wrobel; Analyseblogs |
+
+## 3. Harmonik
+
+### 3.1 Der Moll-Dur-Septakkord als statisches Signum
+- **Beleg:** Brown (1994, S. 151) nennt den Moll-Dreiklang mit großer Septime den „Hitchcock chord“. Laut Murphy kennt Cooper (2005, S. 39) ihn schon aus Herrmanns Zeit vor Hitchcock. Psycho beginnt mit B-Moll plus großer Septime (A), laut Royal Holloway in zweiter Umkehrung, in synkopierten Abstrichen. In Vertigo arpeggieren zwei Triolenlinien gegenläufig einen Es-Moll-Dur-Septakkord (Murphy, Beispiel 1). Taxi Driver verwendet ihn wieder: Die Hörner spielen „F minMaj 7th (F/Ab/C/E)“ (Wrobel).
+- **Funktion:** Pearson schreibt, der Akkord „does not develop, or indeed lead anywhere“. Er erzeugt Spannung als Zustand, ohne aufgelöst zu werden. In North by Northwest kommt er nach dem hitchcock.tv-Essay nicht vor. Er ist also typisch, aber nicht obligatorisch.
+
+### 3.2 Nicht-funktionale Harmonik und Rückungen
+- **Psycho (Pearson):** Gegenüberstellung von Akkorden im Halbtonabstand (Prelude T. 37–40 Es-Moll, T. 41–44 E-Moll). Parallelverschiebungen von Dur- und Moll-Septakkorden („The Toys“), Cis7 mit kleiner None (Prelude T. 21), Schlussklang des Finale: As-Moll-Dreiklang über D-Bass (Tritonus). „The City“: verminderte und halbverminderte Septakkorde in „impressionistischer“ Verwendung.
+- **North by Northwest:** Die Basstriaden der Überleitung wechseln alle zwei Takte und durchlaufen acht Tonarten. Die Pauke etabliert A → B (Halbton). Die Jagdmusik verwendet nach AllMusic Ganztonmelodik und übermäßige Dreiklänge.
+- **Day the Earth Stood Still:** Die Partitur nutzt die Halbtonspannung D–Es und die Tritonusbeziehung D–As (College Music Symposium). Rosar und Murphy (MTO 12.2) nennen die Tritonus-Progression als Sci-Fi-Topos, den auch Herrmann verwendet.
+- **Taxi Driver:** Wrobel beschreibt das Paar Fes-maj7 → Es-maj7, also eine Halbtonrückung zwischen großen Septakkorden, für Travis und führt es auf das Citizen-Kane-Prelude zurück.
+- **Fazit:** Spannung entsteht durch Rückung (Halbton, Tritonus, Terzverwandtschaft), Liegenbleiben und Parallelverschiebung, nicht durch die Dominante. Kadenzen bleiben für Sonderfälle reserviert. Laut Anthony John (zitiert bei Smith) spart Herrmann C-Dur in Vertigo für Strand- und Schlussszene auf.
+
+### 3.3 Bitonalität und Polychorde: konkret nachweisbar
+- **Vertigo-Schwindelakkord:** D-Dur über Es-Moll (Moreira, Beispiel 1a; hitchcock.tv). Er wird in North by Northwest am Mount Rushmore wörtlich wiederverwendet (Brown 1982). **Widerspruch:** Smith schreibt „E minor and D major“. Wahrscheinlich ist das Vorzeichen bei der Textextraktion verloren gegangen. Die MTO-Lesart (Es-Moll) ist vorzuziehen.
+- **Leydon (2004):** „the use of poly-triads is a hallmark“. Die Grundtöne liegen bevorzugt „a minor second or a tritone apart“.
+- **Moreira:** Belege aus Sisters (Es-Moll\A-Moll, Holzbläser, versetzt einsetzend, wirkt „mellower“), It’s Alive (D-Moll\Gis-Moll, gedämpftes Blech im Fortissimo), Mysterious Island (Krabbe: As-Moll\G-Moll, Trompeten und Posaunen, marcato, ff) und The Naked and the Dead (As-Moll\D-Moll im Blech; As-Moll\G-Moll → Fis-Moll\G-Moll).
+- **Begrenzung:** Moreira nennt Polytonalität ausdrücklich einen „special effect… reserved for extremely tense narrative situations“. Vor der Enthüllung der Narbe in Sisters ist die Harmonik spätromantisch. Für die Engine folgt daraus: Polychorde nur am oberen Ende der Z-Achse einsetzen.
+- **Wichtig:** Moreira zeigt, dass derselbe Polychord je nach Klangfarbe, Synchronität und Register unterschiedlich „hart“ wirkt. Die Dissonanzstärke ist also ein Produkt aus Harmonik, Textur und Timbre.
+
+### 3.4 Orgelpunkte und Stillstand
+- North by Northwest: „The Phone Booth“ hat einen Paukenorgelpunkt auf B; auch „The Question“, „The House“ und „The Cliff“ arbeiten mit Orgelpunkten (hitchcock.tv).
+- Psycho, „The Toys“: Doppelorgelpunkt, Viola F in Vierteln, Cello-Pizzicato E, Kontrabass liegendes E (Pearson).
+- Vertigo: Smith hebt das insistierende D als statischen Orgelpunkt hervor („Gaze 2“), das Prelude endet auf einem tonikaähnlichen D (Murphy).
+- Brown (bei Smith): Das Vertigo-Prelude „lacks the sense of harmonic movement… and instead creates a sense of stasis“.
+
+### 3.5 Symmetrie und Stimmführung
+- Vertigo: Cooper sieht im Ostinato „a number of axes of symmetry“. Smith beschreibt, wie ein übermäßiger Dreiklang chromatisch in einen Moll- bzw. halbverminderten („Tristan“-)Akkord verschoben wird. Murphy weist nach, dass das ganze Prelude nur zehn der zwölf Tonklassen verwendet (Cis/Des und F fehlen).
+- Psycho: Die Halbtonzelle wird zum Ostinato, in Terzen gedoppelt, gleichzeitig umgekehrt, augmentiert, zu großen Septimen gespreizt (Mord-Cluster Es–E–F–Ges) und zum Akkord vertikalisiert (Pearson). Das Murder-Material (T. 18) verbindet ineinandergreifende Tritoni D/Gis und G/Cis.
+
+### 3.6 Harmonik nach Ausdruckstyp
+| Ausdruck | Typische Harmonik | Beleg |
+|---|---|---|
+| Romantisch | Tristan-Vorhalte, Terzverwandtschaften, hexatonische Pole (Smith), gelegentlich klare Kadenz | Vertigo „Scène d’amour“; Ghost and Mrs. Muir; NbNW-Liebesthema (I–V–I) |
+| Geheimnisvoll | Septakkorde in Parallelen, übermäßige Dreiklänge, Ganzton, weich instrumentierte Polychorde | City-Cue, Walking Distance, Sisters |
+| Bedrohlich | Moll-Dur-Septakkord, Tritonus-Rückungen, Halbton-Ostinato | Psycho, Cape Fear, DESS |
+| Action | Chromatisch rückende Dreiklänge über Ostinato, bitonale Blechschichten | NbNW-Ouvertüre |
+| Schock | Cluster, harte Polychorde (synchron, homogen, laut) | Psycho-Mord, Mysterious Island |
+
+## 4. Melodik und Motivik
+
+- **Zelle statt Melodie:** Belegt ist das durch Herrmanns eigene Aussage, durch Schneller (modulare Blöcke, „phrases no longer than a second or two“ als Herrmann-Forderung) und durch Richards (MTO): Herrmann „favored a small cluster of notes as a structural unit, a musical phrase lasting perhaps only two measures or even two or three notes“.
+- **Typische Zellen und Konturen:** Halbtonschritt aufwärts (Psycho „Steiner-Motiv“); fallende Dreitonfigur F–Es–D (Psycho „Madness“); ineinandergreifende große Terzen E/Gis + F/A (Psycho-Prelude); Quinte steigend/fallend in jeder Phrase (Psycho „Marion“); absteigende Vierton-Figur (Cape Fear); Dreiton-Kern (Mysterious Island); kreisende Arpeggien in Gegenbewegung (Vertigo).
+- **Verfahren:** Wiederholung, Sequenz, Umkehrung, Augmentation, Vertikalisierung, Transposition. Pearson zur Psycho-Melodik: Herrmann baue aus „short melodic cells“ längere Strukturen „by repetition, sequence and development“. Im Psycho-Prelude sind die vier Ideen umstellbar: Idee 1 steht immer vor Idee 2, Ideen 3 und 4 werden unvorhersehbar eingeschoben.
+- **Phrasenbau trotz Moderne:** Herrmann „does favour phrases which are built up of two-, four- and eight-bar units“ („Marion“ als AABA in Viertaktern). Seine Zellen sitzen also in einem regelmäßigen Raster. Das ist für die Engine relevant: Zelle ≠ Taktfreiheit.
+- **Leitmotiv bei Herrmann:** Bei ihm ist das Leitmotiv oft ein Komplex aus Harmonik, Textur und Rhythmus, nicht nur eine Melodie (Pearson). Das Prelude-Material steht in sechs Cues für Autofahrten und Flucht, der Mord-Cue kehrt viermal wieder. In Ghost and Mrs. Muir verwendet er dagegen klassische Leitthemen.
+- **Bewusste Nicht-Entwicklung:** Der Hitchcock-Akkord wird nicht entwickelt. Die Ostinati in Eye of the Beholder werden als „unvarying“ beschrieben (Fanrezension). Wiederholung ohne Veränderung ist ein eigenes Ausdrucksmittel. Gegenposition: Laut AllMusic „Herrmann rarely repeated music exactly“ in North by Northwest. Beides trifft zu, nur auf unterschiedlichen Ebenen: Die Zelle bleibt gleich, Besetzung und Kontext ändern sich.
+- **Ausnahmen (lange Linien):** Ghost and Mrs. Muir („reliance on longer themes, which is a little unusual for Herrmann“), die Vertigo-Liebesmusik, das Saxophonthema in Taxi Driver und das NbNW-Liebesthema („long-breathed melodies“, AllMusic). Auch Lionel Newmans Spott („couldn’t write a tune to save his ass“, zitiert bei Smith) belegt, wie die Zeitgenossen ihn wahrnahmen. Er ist aber kein Fachurteil.
+
+## 5. Rhythmik und Metrik
+
+- **Belegte Metren:** Psycho-Prelude 2/4, Mord-Cue 3/2, „The Cellar“ 2/4, „Discovery“ 2/4 → 3/8, Finale 3/4 und 4/4 (Pearson). NbNW-Ouvertüre im 3/8, wobei der Fandango-Rhythmus ein Hemiolenverhältnis (6/8 gegen 3/4) erzeugt. Vertigo: Habanera-Rhythmus für Carlotta. Taxi Driver: langsamer Blues im 4/4. Ungerade Taktarten (5/8, 7/8) sind in meinen Quellen **nicht** belegt. Ich behaupte sie deshalb nicht.
+- **Metrische Reibung statt ungerader Takte:** Hemiolen und Synkopen in der NbNW-Ouvertüre („virtually every combination and permutation of hemiola“). Im Psycho-Mord-Cue stehen ab T. 17 regelmäßige Oberstimmenakkorde gegen „rhythmically displaced“ Celli und Bässe. „Discovery“ bringt Kreuzrhythmen in den tiefen Streichern. Das dritte „Madness“-Motiv im Finale ist auf Zählzeit 3 verschoben.
+- **Zellen:** „Journey motif“ aus vier Sechzehnteln (NbNW), Achtel-Motorik (Psycho), punktierte Blockakkorde mit nachschlagendem Bass-Pizzicato (Psycho T. 21–24), Kleine-Trommel-Viertel (Taxi Driver).
+- **Steigerung ohne Tempowechsel:** In „The Cellar“ bauen sich Fugeneinsätze mit Moto-perpetuo-Achteln und Tremolo auf. Die NbNW-Ouvertüre beginnt mit einer kaum hörbaren Pauke und baut sich zur vollen Dynamik auf („dynamic build“, nach dem Essay häufiger als bei anderen Filmkomponisten). Gegenstück: Pausen, die in Ideen eingefügt werden, um „the rate of progress“ zu variieren (Pearson).
+- **Pulsierend vs. schwebend:** „The City“ läuft in gleichen Vierteln, das erzeugt „a feeling of pulse rather more than of rhythm“. Das Psycho-Finale klingt dagegen „directionless“ und vermeidet ein Metrumsgefühl.
+
+## 6. Orchestrierung und Klang: getrennt von der Struktur
+
+**Strukturelle Ebene (besetzungsunabhängig):** Zelle, Modul, Farbakkord, Orgelpunkt, Rückung, metrische Reibung, Schichtung und Blockschnitt.
+
+**Instrumentierungsebene:**
+- **Selbst orchestriert:** Fremde Orchestrierung sei für ihn „like someone putting color to your paintings“ (Smith 1991, zitiert bei Moreira).
+- **Homogene Ensembles:** Psycho nur Streicher („black and white“), Fahrenheit 451 Streicher, Harfen und Stabspiele, Cape Fear Flöten, Hörner und Streicher, Walking Distance Streicher und Harfe. Herrmann wählt also für jedes Werk eine eigene Klangwelt.
+- **Dunkle Farben:** Bassklarinetten, Fagotte, Kontrafagotte, gestopfte oder gedämpfte Hörner (NbNW „Kidnapped“: zwei Hörner gedämpft, zwei gestopft). Violinen meidet er oft. Nach dem hitchcock.tv-Essay treten sie nur bei Liebesthemen in den Vordergrund.
+- **Spieltechniken:** Non vibrato als Grundeinstellung, sul ponticello und sul tasto im schnellen Wechsel („The Airplane“), „poco a poco con sordino“ (NbNW). Das Streichertremolo meidet er nach dem Essay als Klischee, verwendet es aber gezielt („The Cellar“).
+- **Harfen:** Gegenläufige Glissandi (NbNW-Ouvertüre, Vertigo-Schwindel), Arpeggien als ruhiger Teppich (Fahrenheit 451, Walking Distance).
+- **Elektronik:** Zwei Theremins, die oft mit der E-Violine verdoppelt werden, dazu Orgelpedale aus Hammondorgeln, Studioorgel und E-Bass (Day the Earth Stood Still).
+- **Registerextreme:** Ganz hohe Lagen und tiefe Bläser ohne Mitte (Psycho-Mord, Mysterious Island).
+- **Gruppen gegeneinander:** Trompeten in fremden Tonarten gegen eine Bass-Fagott-Linie (NbNW), Hörner gegen Streicher (Ghost and Mrs. Muir „About Ships“), Trompeten-/Snare-Schicht gegen Saxophon (Taxi Driver).
+- **Jazz im Spätwerk:** Separates Ensemble für „Track A“ (Altsaxophon, Trompete, Posaune, Klavier, Schlagzeug, kleine Streichergruppe, Bass). Im Film spielte Ronny Lang das Saxophon, Tom Scott die Album-Arrangements von Dave Blume. Herrmanns Jazz bleibt Inselmaterial in einem nicht-jazzigen Orchesterrahmen.
+
+## 7. Dramaturgie und Hörspiel-Underscoring
+
+**Historische Beobachtungen:**
+- **Platzierung:** Laut hitchcock.tv-Essay meidet Herrmann Musik in Szenen, die durch Dialog oder Spiel bereits tragen. Er „scores the empty spaces between the tensest moments and leaves the important interactions unscored“. Mickey-Mousing und alleinstehende Stinger meidet er.
+- **Stille:** Crop-Duster-Szene ohne Musik. Herrmann schrieb den Cue „The Highway“ für den Anfang, er wurde nicht verwendet. Das Erstgespräch Roger/Van Damm ist ohne Musik. Gegenbeispiel: Hitchcock wollte die Psycho-Duschszene ohne Musik; Herrmann setzte die Musik durch, und Hitchcock räumte später ein: „Thirty-three percent of the effect of Psycho was due to the music.“
+- **Keine Vorwegnahme:** Eve bekommt bei der Einführung kein Liebesthema, damit ihre Rolle ambivalent bleibt (NbNW).
+- **Lange Spannungszustände:** Getragen durch Ostinato-Module, Orgelpunkte und schleichende Verdichtung („The Cellar“; NbNW-Suspense mit „slowly rising harmonic sequences in the low winds and strings“).
+- **Leise Spannung:** Viel Suspense-Musik in NbNW ist „at very low levels and orchestrated for only a few instruments“.
+- **Radio-Herkunft:** Herrmann kam 1934 als Staff Conductor zu CBS, wurde 1936 Musikdirektor des Columbia Workshop (u. a. Musik zu MacLeishs „The Fall of the City“, 1937) und war Komponist der Mercury Theatre on the Air. Seine Radiomusik zu „The Hitch-Hiker“ wurde später für die Twilight Zone wiederverwendet (Historical Journal of Film, Radio and Television, 2021). Kosovskys Dissertation über die Columbia-Workshop-Musik konnte ich nicht einsehen.
+
+**Interpretation für Hörspielmusik (eigene Übertragung, nicht historisch belegt):**
+- Herrmanns Modulbau eignet sich ideal für Hörspiele, weil Module an Dialogpausen geschnitten werden können („easy to cut“).
+- Unter Dialog: ein einzelnes Ostinato-Modul in tiefer bis mittlerer Lage mit gedämpftem Klang und ohne Melodie. Ein Farbakkord liegt, eine Zelle wiederholt sich. Der Vordergrund gehört dem Sprecher.
+- Szenenübergänge: Hier darf die Zelle melodisch hervortreten, also kurze „bridges“ im Radiostil.
+- Stille als Spannungsmittel: Die Musik bricht vor dem Höhepunkt ab, Geräusch und Stimme übernehmen.
+
+## 8. Stimmungsmatrix
+
+| Bereich | Harmonik | Rhythmik | Motivik | Rollen | Instrumentierung | Werkbeispiele | Quellenlage |
+|---|---|---|---|---|---|---|---|
+| Ruhig/neutral | Diatonische oder milde Septakkordfelder, langsamer Wechsel, Orgelpunkt | Gleiche Notenwerte, Puls statt Rhythmus | Eine kurze Zelle, wiederholt | Teppich + Bass; keine Melodie | Gedämpfte Streicher, Harfe | Psycho „The City“; Walking Distance | Mittel |
+| Melancholisch | Fallende Halbtonmuster, Septakkorde, Moll | Langsam, Dreier- oder Vierertakt | Zwei-Takt-Seufzermotiv, sequenziert | Mittellage-Melodie, Harfe als Begleitung | Streicher und Harfe; Altsaxophon (spät) | Walking Distance; Taxi Driver; Psycho-Finale | Mittel |
+| Romantisch/warm | Tristan-Vorhalte, Terzverwandtschaft, späte Kadenz | Ruhig, „Lento amoroso“; Habanera möglich | Längere Linie aus wiederholten Gliedern | Melodie oben (Violinen), pulsierende tiefe Streicher | Volle Streicher, Holzbläser im Duett | Vertigo „Scène d’amour“; NbNW „Interlude“; Ghost and Mrs. Muir | Hoch |
+| Geheimnisvoll | Übermäßige oder Ganzton-Klänge, Polychord weich und versetzt, Parallelverschiebung | Schwebend, Ostinato in Harfe/Vibraphon | Kreisende Arpeggien | Getrennte Schichten | Vibraphon, Harfen, Theremin, Orgel, tiefe Klarinetten | Vertigo-Prelude, DESS, Sisters | Hoch |
+| Bedrohlich | Moll-Dur-Septakkord, Tritonus, Halbton-Ostinato | Langsame Halbe, Orgelpunkt-Pauke | Absteigende Vier- oder Dreitonzelle | Tiefes Motiv gegen hohes Ostinato | Hörner tief, Bassklarinetten, tiefe Streicher | Cape Fear; Gort (DESS); NbNW „Phone Booth“ | Hoch |
+| Psychologisch angespannt | Statischer Farbakkord, Rückungen | Obsessive Achtelzellen, verschobene Bässe | Halbtonzelle, unverändert wiederholt | Ostinato als Hauptrolle | Gedämpfte Streicher, sul pont | Psycho-Prelude; Vertigo-Verfolgung | Hoch |
+| Spannungssteigernd | Sequenzierende Rückungen über Orgelpunkt | Gleiches Tempo, Einsatzverdichtung, Fugato | Zelle + Gegenzellen | Stimmen treten nacheinander ein | Allmähliche Erweiterung, Tremolo | Psycho „The Cellar“; NbNW-Ouvertüre | Hoch |
+| Action | Chromatisch rückende Dreiklänge, bitonale Schichten | Hemiole, Synkope, Sechzehntel-Motorik | Rhythmische Zelle als Motiv | Blech/Xylophon gegen Bass/Fagott | Erweitertes Schlagwerk, Kastagnetten, Pauke | NbNW-Ouvertüre; Fahrenheit „Fire Engine“ | Hoch (NbNW) |
+| Düster/hoffnungslos | Tiefe Polychorde, Tritonus-Schlussklang, keine Auflösung | Richtungslos, gelegentlich schwere Off-Beats | Fragmente, Pausen | Dünne Polyphonie | Tiefe Bläser, tiefe Streicher | Psycho-Finale (As-Moll über D); Taxi Driver | Mittel |
+
+## 9. Vergleich mit John Barry
+
+**Hinweis zur Quellenlage:** Die Barry-Merkmale sind vorläufig, meine Belege dazu sind schwächer.
+
+**Gemeinsam:**
+- Ostinato über einem einzigen Akkord: Barry in Goldfinger, z. B. auf Fm(add2) und auf E-Moll (Film Music Notes); Herrmann im Psycho-Prelude.
+- Harmonischer Stillstand.
+- Sogar der Moll-Dur-Septakkord: Barrys Oddjob-Leitmotiv ist laut Film Music Notes „consistently C-Eb-G-B, or CmM7“; in On Her Majesty's Secret Service nennt dieselbe Quelle den Akkord „a particular favourite with Barry“ (EmM7–G#mM7-Ostinato).
+- Kleine Trommel als militärischer Gefahrenpuls (Barry in Goldfinger; Herrmann in Taxi Driver).
+- Musik „gegen“ das Bild: Barry: „most good scores to some degree go against the picture“ (1997).
+
+**Unterschiede (unabhängig von der Instrumentierung):**
+- **Melodik:** Barry denkt vom Lied her: Songs („Goldfinger“, „Midnight Cowboy“), lange Bögen, Varianten des Songs als Leitmotiv. Herrmann lehnt die „tune“ mit 8 oder 16 Takten ausdrücklich ab.
+- **Harmonik:** Barry verwendet nach meinen Quellen chromatische Mediantenpaare (F-Dur ↔ Des-Dur in Goldfinger) und Moll mit Zusatztönen, die als stehender Klang bleiben. Herrmann rückt häufiger um Halbton oder Tritonus, schichtet Polychorde und reiht Akkorde blockweise. Barrys Zusatztöne mildern den Klang, Herrmanns Septimen und Polychorde schärfen ihn.
+- **Form:** Barry: Kontinuität, Schichtaufbau, Themenwiederkehr. Herrmann: Module, Schnitt, Abbruch, Stille.
+- **Rhythmik:** Barry: Ostinato aus kleinen Terzen (Lion in Winter, Moonraker; Fanquelle), 3-3-2-Teilungen (Fanquelle). Herrmann: Hemiolen-Permutation, Gegenakzente in den tiefen Stimmen.
+- **Klang:** Barry lässt Klangfarben verschmelzen (unisono, Melodie oben; späte Phase mit „slow, rich string passages“ seit Moonraker). Herrmann setzt Familien gegeneinander.
+
+**Vier Szenarien (Interpretation):**
+1. **Ruhig, unterschwellig bedrohlich:** *Barry:* ein Moll-add9-Akkord, langsam schwingende Zweitonfigur, darüber ein langgezogenes Thema. *Herrmann:* keine Melodie. Ein Moll-Dur-Septakkord als Orgelpunktfeld, darin eine Halbtonzelle in der Bratsche, nach einigen Wiederholungen ein einzelner tiefer Tritonus-Akzent, dann Pause.
+2. **Langsam steigende psychologische Spannung:** *Barry:* dieselbe Phrase mit zunehmenden Schichten (Streicher, dann Holz, dann Blech), Harmonik bleibt. *Herrmann:* Fugato-Prinzip. Die Zelle tritt stimmenweise ein, wird sequenzierend gerückt, Tremolo und sul ponticello kommen hinzu, die Basse werden metrisch verschoben. Am Höhepunkt Abbruch statt Tutti.
+3. **Romantisch-melancholisch:** *Barry:* weit gespannte Kantilene in Streichern über langsamem Akkordwechsel, wiederholt und gesteigert. *Herrmann:* Seufzerzelle über zwei Takte, sequenziert über Tristan-artige Vorhalte, Harfenarpeggio. Die Kadenz wird bis zum Schluss verzögert, dann vielleicht ein unerwartet reiner Dur-Akkord.
+4. **Verfolgung/Action:** *Barry:* treibendes Ostinato, darüber ein Blechthema mit Song-Kontur. *Herrmann:* rhythmische Zelle (Fandango/Hemiole) als eigentliches Thema, chromatisch rückende Dreiklänge im Bass, eine bitonale Gegenschicht im Blech, Blockwechsel alle zwei Takte.
+
+## A. Kompakte Herrmann-Stilgrammatik
+
+| Prinzip | Kurzbeschreibung | Sicherheit |
+|---|---|---|
+| Zelle | 2–3 Töne bis 2 Takte als Grundeinheit | Hoch |
+| Modul | Cue aus umstellbaren, wiederholbaren Blöcken | Hoch |
+| Raster | Blöcke in 2-, 4- und 8-Takt-Einheiten | Mittel |
+| Farbakkord | Akkord als Klangfarbe, nicht als Funktion | Hoch |
+| Signaturakkord | Moll mit großer Septime als stehender Klang | Hoch |
+| Rückung | Halbton- und Tritonusverschiebung, Parallelen | Hoch |
+| Polychord | Zwei Dreiklänge (Halbton/Tritonus) nur bei Extremspannung | Hoch |
+| Orgelpunkt | Liegender oder repetierter Basston als Spannungsträger | Hoch |
+| Symmetrie | Gegenbewegung, Spiegelung, Umkehrung der Zelle | Mittel-hoch |
+| Metrische Reibung | Hemiole, Synkope, verschobene Bässe | Hoch |
+| Blockkontrast | Familien gegeneinander, Registerextreme | Hoch |
+| Ökonomie | Wenig Musik, Stille, kein Mickey-Mousing | Mittel-hoch |
+| Lyrische Ausnahme | Längere Themen bei Romanze/Nostalgie | Hoch |
+
+## B. Algorithmisch nutzbare Stilregeln
+
+Historische Beobachtung (Spalte „Beleg“) und Generatorvorschlag (Spalte „Umsetzung“) sind getrennt. Alle Werte sind Gewichtungen, keine historischen Wahrscheinlichkeiten.
+
+| Nr. | Merkmal und Beschreibung | Beleg (Werk / Quelle) | Einsatz | Umsetzung und Parameter | Sicherheit |
+|---|---|---|---|---|---|
+| 1 | Kurze Zelle als Grundeinheit (2–4 Töne, ≤ 2 Takte) | Herrmann-Interview 1975; Schneller; Richards | Alle Bereiche | Motivlänge bevorzugt kurz; Parameter „Zellenlänge“ an X/Z gekoppelt, bei warm/romantisch länger | Hoch |
+| 2 | Modulare Reihung umstellbarer Blöcke | Psycho-Prelude (Pearson); Schneller | Suspense, Action, Dialog | Blockpool mit Ordnungsbedingungen (A vor B), freie Einschübe; Gewicht „Umstellbarkeit“ | Hoch |
+| 3 | Moll-Dur-Septakkord als stehender Klang | Psycho, Vertigo, Taxi Driver; Brown | Bedrohlich, angespannt, geheimnisvoll | Akkordtyp-Gewicht steigt mit Z; keine Auflösungspflicht | Hoch |
+| 4 | Halbton-Rückung zwischen Akkordblöcken | Psycho T. 37–44; Taxi Driver Fes-maj7→Es-maj7 | Angespannt, melancholisch | Übergangswahrscheinlichkeit für ±1 Halbton erhöhen | Hoch |
+| 5 | Tritonusbeziehung (Rückung oder Bass) | Psycho-Finale; DESS; Mysterious Island | Bedrohlich, düster | Gewicht „Tritonus-Root-Motion“ an Z | Hoch |
+| 6 | Polychord (zwei Dreiklänge, Halbton/Tritonus) | Vertigo; Mysterious Island; Moreira; Leydon | Nur Extremspannung, Schock | Schwellwert bei hohem Z und hohem Y; Dissonanzgrad über Synchronität und Registerabstand steuern | Hoch |
+| 7 | Orgelpunkt/Doppelorgelpunkt | NbNW „Phone Booth“; Psycho „Toys“; Vertigo D | Lange Spannung, Dialog | Bassrolle „Pedal“ mit hoher Grundgewichtung bei niedrigem Y | Hoch |
+| 8 | Parallelverschiebung von Septakkorden | Psycho „Toys“, „Discovery“ | Geheimnisvoll, Schock | Planing-Modul, Richtung bevorzugt abwärts | Hoch |
+| 9 | Kreisende Gegenbewegung (Arpeggien) | Vertigo-Prelude; Cooper; Murphy | Geheimnisvoll, obsessiv | Zwei gespiegelte Arpeggiolinien über demselben Akkord | Hoch |
+| 10 | Zellentransformation (Umkehrung, Augmentation, Vertikalisierung) | Psycho-Halbtonzelle (Pearson) | Motivgedächtnis | Transformationsoperatoren statt neuer Motive; Gewicht „Neuheit“ niedrig | Hoch |
+| 11 | Unveränderte Wiederholung als Spannung | Psycho-Akkord; Eye of the Beholder (Fanquelle) | Psychologisch angespannt | Parameter „Variationsrate“ niedrig bei hohem Z, mittlerem Y | Mittel |
+| 12 | Hemiole/Fandango als Antrieb | NbNW-Ouvertüre | Action | Rhythmusgenerator mit 3:2-Umgruppierung, Permutation über Takte | Hoch (Einzelwerk) |
+| 13 | Gegenakzente/verschobene Bässe | Psycho-Mord ab T. 17; „Discovery“ | Schock, Action | Bassrolle phasenverschoben zur Oberstimme | Hoch |
+| 14 | Fugato-Verdichtung ohne Tempoänderung | Psycho „The Cellar“ | Spannungssteigernd | Einsatzplanung Stimme für Stimme, Tremolo-Zuschaltung | Hoch |
+| 15 | Dynamischer Aufbau aus dem Nichts | NbNW-Ouvertüre | Steigernd, Titel | Y-Rampe mit Besetzungsaufbau | Mittel |
+| 16 | Musik meidet Dialoghöhepunkte | NbNW (Essay) | Hörspiel-Dialog | „Dialog-Ducking“: Musik pausiert oder auf Pedal reduziert | Mittel |
+| 17 | Bewusste Stille vor/in Höhepunkt | Crop-Duster-Szene | Action, Schock | Stille-Wahrscheinlichkeit bei Klimax nicht null | Mittel-hoch |
+| 18 | Kein Mickey-Mousing/keine Einzelstinger | NbNW (Essay); Smith (Vertigo-Ausnahme) | Alle | Stinger nur als Teil eines Moduls | Mittel |
+| 19 | Homogene Familienwahl pro Szene/Profil | Psycho, Fahrenheit 451, Cape Fear, Walking Distance | Alle | Besetzungs-Preset pro Szene; Familienwechsel als Blockkontrast | Hoch |
+| 20 | Familien gegeneinander (Schichten in fremder Tonart/Rhythmik) | NbNW-Trompeten; Muir „About Ships“ | Action, Romantik | Schichtrollen mit eigener Harmonik/Rhythmik | Mittel-hoch |
+| 21 | Dunkle Register (Bassklarinette, Kontrafagott, tiefe Hörner) | NbNW; Mysterious Island; Taxi Driver | Bedrohlich, düster | Registergewicht unten bei hohem Z | Hoch |
+| 22 | Lyrische Ausnahme: längere Linie aus wiederholten Gliedern | Vertigo; Ghost and Mrs. Muir; Taxi Driver | Romantisch, melancholisch | Bei hohem X (warm) Phrasenlänge 4–8 Takte zulassen | Hoch |
+| 23 | Kadenz als seltenes Ereignis | Vertigo C-Dur (John bei Smith); NbNW-Liebesthema I–V–I | Lösung, Romanze | Kadenzgewicht niedrig, Belohnung am Szenenende | Mittel |
+
+## C. Erforderliche musikalische Bausteine
+
+1. Zellen- und Modulspeicher mit Ordnungsregeln und Transformationsoperatoren.
+2. Akkordtypen jenseits der Funktionsharmonik (Moll-Dur-Septakkord, halbvermindert, übermäßig, große Septakkorde) mit freier Rückungslogik (Halbton, Tritonus, Terzen).
+3. Polychord-Generator mit Steuerung von Dissonanz, Synchronität, Registerabstand und Timbre-Homogenität (nach Moreiras Modell).
+4. Orgelpunkt- und Doppelorgelpunkt-Rolle.
+5. Rhythmische Umgruppierung (Hemiole, Synkope, Phasenverschiebung zwischen Rollen).
+6. Fugato- bzw. Einsatzplaner für Verdichtung bei gleichem Tempo.
+7. Familien- und Schichtrollen mit unabhängiger Harmonik und Rhythmik.
+8. Stille- und Dialog-Logik (Pause, Reduktion, Abbruch).
+9. Spieltechnik-Parameter (con sordino, non vibrato, sul ponticello/tasto, gestopft).
+10. Phrasenraster (2/4/8 Takte) als Rahmen für die Blöcke.
+
+## D. Herrmann versus Barry
+
+| Dimension | Herrmann | Barry (vorläufig) |
+|---|---|---|
+| Grundeinheit | Zelle (1–2 Takte) | Lied-/Themenphrase, lange Bögen |
+| Formlogik | Modul, Schnitt, Umstellung | Kontinuierlicher Schichtaufbau |
+| Harmonik | Farbakkord, Halbton/Tritonus, Polychord | Stehender Moll-/Zusatztonakkord, chromatische Medianten |
+| Dissonanzrichtung | Schärfend (Septime, Polychord) | Weichend (add9, maj7) |
+| Rhythmik | Hemiole, Gegenakzent | Ostinato aus Terzen, gleichmäßiger Puls, 3-3-2 |
+| Klang | Familien gegeneinander, Registerextreme | Verschmelzung, Melodie oben |
+| Stille | Strukturell eingesetzt | (nicht untersucht) |
+| Szenario 1: ruhig-bedrohlich | Farbakkord + Halbtonzelle, Pause | Moll-add9-Pedal + lange Linie |
+| Szenario 2: steigende Spannung | Fugato, Rückung, Abbruch | Phrase gleich, Schichten kommen hinzu |
+| Szenario 3: romantisch | Seufzerzelle sequenziert, späte Kadenz | Kantilene über langsamen Akkorden |
+| Szenario 4: Action | Rhythmuszelle als Thema, bitonale Schicht | Ostinato + Blechthema |
+
+## E. Typisch Herrmann versus allgemeine Filmmusik
+
+- **Allgemein verbreitet:** Ostinato, Orgelpunkt, Tremolo, Crescendo, Leitmotiv, Polychord als Sci-Fi-/Horror-Topos (Moreira nennt Steiner, Williams, Goldsmith), Tritonus-Progression im Sci-Fi-Film (Murphy MTO 12.2).
+- **Typisch Herrmann:**
+  - Ausdrückliche Ablehnung der „tune“
+  - Modularer Zellenbau als Hauptprinzip
+  - Moll-Dur-Septakkord als stehender Klang (aber auch bei Barry vorhanden, dort laut Film Music Notes sogar „a particular favourite“ – als Abgrenzungsmerkmal daher nur schwach)
+  - Homogene, ungewöhnliche Besetzungen pro Film
+  - Eigene Orchestrierung
+  - Bevorzugung dunkler Holzbläser und Meiden der Violinen
+  - Sparsamkeit und Stille
+  - Hemiolen-Permutation als Thema
+  - Polychorde mit Halbton- oder Tritonusabstand
+- **Grenzfall:** Die Bitonalität ist typisch in ihrer Häufung und Präzision, als Verfahren aber nicht exklusiv.
+
+## F. Offene Forschungsfragen
+
+1. Wie oft verwendet Herrmann lange Themen im Verhältnis zu Zellen, gerechnet über das ganze Werk? Es fehlt ein Korpus.
+2. Cape Fear: Die genauen Tonhöhen des Viertonmotivs sind in meinen Quellen nicht belegt. Weiterzuverfolgen: der volle Ramsey-PDF, Wrobels Rundown, der Academia-Aufsatz „Cape Fear: Remaking a film score“.
+3. Taxi Driver: Wer hat die „Track A“-Seiten geschrieben (Christopher Palmer?), und folgt das Thema einer Bluesform? Ungeklärt.
+4. Vertigo-Schwindelakkord: Es-Moll (MTO, hitchcock.tv) oder E-Moll (Smith)? Vermutlich ein Extraktionsfehler bei Smith.
+5. Radiomusik (Columbia Workshop, Mercury): Systematische Analysen (Kosovsky) habe ich nicht eingesehen. Gerade für Hörspielmusik ist das die wichtigste Lücke.
+6. Barry: Die Merkmale stützen sich bislang vorwiegend auf Blogs und Fanquellen. Musikwissenschaftliche Analysen fehlen.
+7. Ungerade Taktarten bei Herrmann: In den Quellen nicht belegt. Offen ist, ob sie vorkommen (z. B. Torn Curtain, Twisted Nerve).
+
+## G. Die fünf wichtigsten hörbaren Unterschiede
+
+1. **Zelle statt Kantilene:** Herrmanns melodisches Material ist kürzer und wird wiederholt und transformiert. Barry zieht Bögen.
+2. **Rückung statt Schweben:** Halbton- und Tritonusverschiebungen sowie Parallelen bei Herrmann, stehende Zusatztonakkorde bei Barry.
+3. **Schnitt statt Schicht:** Blockkontraste und Abbrüche bei Herrmann, kontinuierlicher Aufbau bei Barry.
+4. **Metrische Reibung statt gleichmäßigem Puls:** Hemiolen und Gegenakzente.
+5. **Gegeneinander statt Miteinander:** Klangfamilien oder Schichten in eigener Harmonik und Rhythmik bei Herrmann, verschmolzenes Tutti mit Melodie oben bei Barry.
+
+## Caveats
+
+- Die Partiturbelege stützen sich stark auf Psycho, Vertigo und North by Northwest. Für Mysterious Island, Cape Fear und Taxi Driver ist die Lage dünner und teils sekundär.
+- Der hitchcock.tv-Essay ist kein begutachteter Text, beruht aber auf Brown und Archivpartituren.
+- Zitate aus Wrobel und Ramsey liegen nur als Auszüge vor und sollten vor Veröffentlichung im Original geprüft werden.
+- Die Hörspielübertragungen und Barry-Szenarien sind Interpretation.
