@@ -83,6 +83,13 @@ if(BUILD_TESTING)
     add_executable(ScoreRealizationTests Tests/ScoreRealizationTests.cpp)
     target_include_directories(ScoreRealizationTests PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/execution-fixture)
     add_test(NAME ScoreRealization COMMAND ScoreRealizationTests)
+    add_executable(MotifConsistencyTests Tests/MotifConsistencyTests.cpp)
+    target_include_directories(MotifConsistencyTests PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/execution-fixture)
+    add_test(NAME MotifConsistency COMMAND MotifConsistencyTests)
+    if(NOT MSVC)
+        add_test(NAME MotifWindowRegression COMMAND ${Python3_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/scripts/compare_motif_windows.py
+            --compiler ${CMAKE_CXX_COMPILER} --output ${CMAKE_CURRENT_BINARY_DIR}/motif-window-regression)
+    endif()
     if(NOT MSVC)
         add_test(NAME ScoreRealizationActivity COMMAND ${Python3_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/scripts/analyze_score_realization.py
             --quick --compiler ${CMAKE_CXX_COMPILER} --output ${CMAKE_CURRENT_BINARY_DIR}/score-realization-activity)

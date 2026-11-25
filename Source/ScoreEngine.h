@@ -10,6 +10,7 @@
 #include <array>
 #include <cmath>
 #include <cstdint>
+#include <cstring>
 #include <optional>
 #include <cassert>
 #include <numeric>
@@ -1084,18 +1085,45 @@ private:
     // The shared harmonic timeline is also the motif's harmonic reference.
     MotifHarmony motifHarmonyAt(musicaltime::Tick at,const Settings& s)const
     {
-        const auto& w=W();const auto length=musicaltime::fromGridStep(static_cast<int64_t>(phraseBars)*meter.len);
-        const auto begin=length*floorDiv(at.value,length.value);
-        composition::ChordTimeline timeline;timeline.count=w.n;timeline.begin=begin;timeline.end=begin+length;
-        timeline.first=still?chordBase:0;timeline.held=still;
-        for(int i=0;i<w.n;++i)timeline.durations[static_cast<size_t>(i)]=musicaltime::fromGridStep(static_cast<int64_t>(w.ch[i].bars)*meter.len);
-        const auto position=composition::locateChord(timeline,at);
-        const auto& chord=w.ch[position.index];
-        const int next=position.index+1<w.n?w.ch[position.index+1].root:w.ch[0].root;
-        const auto intent=composition::freeTransition(next,allowsPassingHarmony(s),s.y,still);
-        const auto placement=composition::placeTransition(intent,position.begin,position.end,musicaltime::fromGridStep(meter.len),musicaltime::fromGridStep(meter.groupStart[std::max(0,meter.numGroups-1)]));
-        if(placement.present&&at>=placement.begin)return {{intent.approachRoot,Dom7,1},placement.end};
-        return {chord,placement.present?placement.begin:position.end};
+        const auto position=locate(at);
+        return {chordFor(position,kMelodie,s),position.chordEndTime};
+    }
+
+    uint64_t motifHarmonyKey(const Settings& s,int output)const
+    {
+        uint64_t key=1469598103934665603ull;
+        auto add=[&](int64_t value){key^=static_cast<uint64_t>(value);key*=1099511628211ull;};
+        for(auto value:{int64_t(current),wendungTime.value,int64_t(chordBase),int64_t(still),int64_t(s.key),
+            int64_t(meter.len),int64_t(phraseBars),int64_t(allowsPassingHarmony(s)&&s.y>=.6f)})add(value);
+        const auto& w=W();for(int i=0;i<w.n;++i){add(w.ch[i].root);add(w.ch[i].type);add(w.ch[i].bars);}
+        const auto c=outputCatalog(s)[output].track.instrument;
+        add(c.range.low);add(c.range.high);add(c.minDuration.value);add(c.maxDuration.value);
+        uint32_t swing=0;std::memcpy(&swing,&s.swing,sizeof swing);add(swing);
+        return key;
+    }
+    // Automation cannot rewrite an already heard prefix. A changed harmony may
+    // keep a begun thought only if all its remaining attacks/gates still fit.
+    bool remainingMotifFits(const composition::MotifOccurrence& plan,musicaltime::Tick time,const Settings& s,int output)const
+    {
+        const auto capability=outputCatalog(s)[output].track.instrument;
+        for(int i=0;i<plan.figure.count;++i)
+        {
+            const auto& n=plan.figure.notes[i];auto at=plan.begin+n.at;
+            if(at<time)continue;
+            const int pitch=plan.base+n.interval;
+            if(pitch<capability.range.low||pitch>capability.range.high)return false;
+            const auto length=output==OutCounter&&i+1<plan.figure.count?std::min(n.length,plan.figure.notes[i+1].at-n.at):n.length;
+            const auto end=at+length;
+            for(int part=0;at<end&&part<32;++part)
+            {
+                const auto h=motifHarmonyAt(at,s);unsigned mask=0;
+                for(int j=0;j<kShapes[h.chord.type].n;++j)mask|=composition::pitchBit(s.key+h.chord.root+kShapes[h.chord.type].iv[j]);
+                if(!(mask&composition::pitchBit(pitch))||h.end<=at)return false;
+                at=std::min(end,h.end);
+            }
+            if(at<end)return false;
+        }
+        return true;
     }
     bool phrasedHook(const Settings& s)const
     {
@@ -1201,7 +1229,16 @@ private:
         auto& stored=reservation&&s.genre==GenreScore?state.reservationRecurrence:state.recurrence;
         auto cacheCopy=stored;
         auto& cached=preview?cacheCopy:stored;
-        if(cached.epoch==epoch&&cached.identity==memory.identity&&cached.origin==origin&&cached.window==window)return cached.plan.end<=motifAvailableUntil(s,kOutputLayer[output])?cached.plan:composition::MotifOccurrence{};
+        const auto harmony=motifHarmonyKey(s,output);
+        const bool sameSlot=cached.epoch==epoch&&cached.identity==memory.identity&&cached.origin==origin&&cached.window==window;
+        if(sameSlot&&cached.harmony==harmony)return cached.plan.end<=motifAvailableUntil(s,kOutputLayer[output])?cached.plan:composition::MotifOccurrence{};
+        if(sameSlot&&cached.started)
+        {
+            cached.harmony=harmony;
+            if(cached.plan.active&&!remainingMotifFits(cached.plan,time,s,output))cached.plan={};
+            return cached.plan.end<=motifAvailableUntil(s,kOutputLayer[output])?cached.plan:composition::MotifOccurrence{};
+        }
+        cached.harmony=harmony;cached.started=false;
         cached.epoch=epoch;cached.identity=memory.identity;cached.origin=origin;cached.window=window;cached.plan={};
         const auto slot=composition::recurrenceSlot(policy,epoch,layerY(s,kOutputLayer[output]),s.z);
         if(!slot.eligible)return {};
@@ -1219,7 +1256,7 @@ private:
         std::array<composition::MotifFigure,32> realizations {};int count=0;
         auto add=[&](musicaltime::Tick at)
         {
-            if(at<begin||at>last||count==32)return;
+            if(at<begin||(sameSlot&&at<time)||at>last||count==32)return;
             for(int i=0;i<count;++i)if(candidates[static_cast<size_t>(i)].begin==at)return;
             unsigned allowed[10] {};musicaltime::Tick limits[10] {};
             for(int i=0;i<figure.count;++i)
@@ -1664,11 +1701,17 @@ private:
             const int before=out.size;
             const bool savedForce=forceOn;if(s.genre==GenrePopRock)forceOn=true;
             noteOn(output,note.pitch,note.velocity,local.phraseStartTime+note.at+note.length,offset,out);forceOn=savedForce;
-            if(!complete)for(int e=before;e<out.size;++e)
+            for(int e=before;e<out.size;++e)
             {
                 const auto& emitted=out.events[static_cast<size_t>(e)];
                 if(emitted.out==output&&emitted.type==0&&emitted.velocity>0)
                 {
+                    if(complete)
+                    {
+                        state.recurrence.started=true;
+                        if(state.reservationRecurrence.plan.begin==occurrence.begin)state.reservationRecurrence.started=true;
+                        continue;
+                    }
                     const auto authored=authoredMotif(local,s,output);
                     use.observe(emitted.note,note.at,note.length,section,note.velocity,p.phraseStartTime);
                     if(authored.source){use.draft.vocabularyId=authored.source->id;use.draft.legatoAtCapture=output==OutMelody?s.melodyLegato:s.legato;use.draft.cycleLength=musicaltime::sixteenth*authored.source->steps;}
@@ -3635,7 +3678,7 @@ private:
         composition::MotifCapture capture; int captureChannel=0;float captureSwing=0;
         struct RecurrenceCache
         {
-            int64_t epoch=-1;musicaltime::Tick origin{},window{};uint64_t identity=0;
+            int64_t epoch=-1;musicaltime::Tick origin{},window{};uint64_t identity=0,harmony=0;bool started=false;
             composition::MotifOccurrence plan;
         } recurrence,reservationRecurrence;
         composition::HookTurn popTurn;musicaltime::Tick popTurnKey{};bool popTurnValid=false;
