@@ -21,6 +21,67 @@ leiser Bedrohung sind für den tatsächlichen Einsatz besonders wertvoll. Die
 Priorisierung ist **keine Laufzeitquote**, keine neue GUI-Einstellung und kein Grund,
 bestehende warme Vorlagen zu löschen oder fremde XYZ-Anker umzusetzen.
 
+## Langfristige Betriebsarten: SCORE, SYNTH und POP/ROCK
+
+Verbindliche Projektentscheidung vom 26. November 2026: STROMSCORE soll langfristig
+drei musikalische Betriebsarten anbieten: **SCORE**, **SYNTH** und **POP/ROCK**.
+Alle verwenden denselben gemeinsamen Kompositionskern, jedoch unterschiedliche
+musikalische Strategien, Vokabulare und Künstlerprofile. SYNTH ist eine zukünftige
+Betriebsart und im aktuellen Entwicklungsstand noch nicht implementiert.
+
+Geplante SYNTH-Profile:
+
+- Neutral Electronic.
+- John Carpenter.
+- Harold Faltermeyer.
+- Jan Hammer.
+- Vangelis.
+- Tangerine Dream.
+- Jean-Michel Jarre.
+
+Weitere Künstler können später hinzukommen. **John Carpenter besitzt für das
+geplante Horrorhörspiel KADAITCHA besonders hohe Priorität.** Musikalischer
+Referenzschwerpunkt der kommenden Forschung sind klassische elektronische
+Horror-Soundtracks wie *The Fog*, *Christine* und die elektronischen Passagen aus
+*The Thing*. Diese Priorität ist noch keine ausgearbeitete Stilgrammatik oder
+Freigabe zur Profilimplementierung.
+
+Bei zukünftigen gemeinsamen Erweiterungen sind insbesondere zu berücksichtigen:
+
+- Eigenständige Sequencer-Figuren und harmonisch unabhängige Basssequenzen.
+- Mehrere ineinandergreifende rhythmische Schichten mit unabhängigen
+  Wiederholungszyklen und rhythmischen Phasenverschiebungen.
+- Hypnotische Ostinati, mechanische rhythmische Präzision und minimale
+  musikalische Variation.
+- Bewusst statische harmonische Strukturen und langfristige Entwicklung durch
+  wechselnde Schichtung.
+
+Diese Verfahren sind musikalische Möglichkeiten und Profilpräferenzen, keine
+generellen Pflichten für alle SYNTH-Profile. Kontinuierliche Sequenzen dürfen
+nicht allein wegen einer für andere Kontexte vorgesehenen Wiederkehrpause
+unterbrochen werden. Die gemeinsame Engine soll geeignete Strategien ermöglichen;
+es entsteht keine separate elektronische Kompositionsengine.
+
+**Komposition und Instrumentierung bleiben unabhängig.** SYNTH bestimmt die
+musikalische Arbeitsweise, nicht die Instrumente. Elektronische Kompositionsstile
+sollen auch orchestral spielbar sein; SCORE-Strategien sollen ebenso mit
+Synthesizern funktionieren. Kein Profil schreibt eine Instrumentierung vor.
+Tatsächliche Spielweisen, Tonumfänge, Polyphonie und Instrumentenfähigkeiten
+bleiben bei der Ausgabe zu berücksichtigen.
+
+Optionale elektronische Percussion, optionale MIDI-CC-Klangbewegungen und eventuell
+erforderliche zusätzliche musikalische MIDI-Rollen sind spätere Forschungsfragen.
+Die vorhandenen neun MIDI-Ausgabeziele sollen möglichst erhalten bleiben.
+Über notwendige Rollen-/Ausgangserweiterungen wird erst nach der
+musikwissenschaftlichen Recherche entschieden; aus dieser Ausrichtung folgt
+keine jetzige Routing- oder Artikulationserweiterung.
+
+Die Entscheidung wird zunächst ausschließlich dokumentiert. Keine Änderung an
+Engine, GUI, MIDI-Ausgängen, XYZ-Steuerung oder aktuellem musikalischem Verhalten;
+keine vorsorglichen Architekturumbauten. Williams P1 wartet weiterhin auf die
+musikalische Hörabnahme. Gemeinsame Anknüpfungspunkte stehen im
+[musikalischen Fähigkeitsbericht](research/SHARED_MUSICAL_CAPABILITIES.md).
+
 ## Bedeutung der drei Achsen
 
 X bleibt dunkel–hell, Y zurückhaltend–kraftvoll, Z stabil–unruhig. Hell bedeutet

@@ -337,3 +337,8 @@ mit derselben Variation vom Szenenanfang starten. Pop/Rock bleibt unverändert. 
 Akkorde werden nicht ersetzt, ihr automatischer Begleitstil kann sich jedoch ändern.
 
 Die verbindliche [musikalische Projektausrichtung](docs/MUSICAL_DIRECTION.md) priorisiert spannungsorientiertes Hörspiel-Underscoring bei erhaltener Gesamtbandbreite.
+
+Langfristig sind **SCORE, SYNTH und POP/ROCK** mit gemeinsamem Kompositionskern und
+unterschiedlichen musikalischen Strategien geplant. SYNTH ist noch nicht
+implementiert; John Carpenter hat für KADAITCHA besondere Forschungspriorität.
+Die geplanten Profile und Grenzen stehen in der Projektausrichtung.

@@ -152,3 +152,35 @@ Archivintegrität: Der neue Bericht wurde unter verkürztem Dateinamen bytegleic
 Keine Originaltexte korrigiert, keine Vorlagen erzeugt, keine musikalischen Tests
 neu als Hörabnahme ausgegeben. Dieser Dokumentationsstand wartet gemeinsam mit
 Williams P1 auf die nächsten Entscheidungen des Anwenders.
+
+## 6. Zukünftiger SYNTH-Modus als gemeinsame Anforderung
+
+Die [übergeordnete Projektentscheidung](../MUSICAL_DIRECTION.md) sieht langfristig
+SCORE, SYNTH und POP/ROCK mit demselben Kompositionskern vor. Für SYNTH sind Neutral
+Electronic, John Carpenter, Harold Faltermeyer, Jan Hammer, Vangelis, Tangerine
+Dream und Jean-Michel Jarre vorgesehen. Carpenter hat wegen KADAITCHA hohe
+Forschungspriorität; Referenzschwerpunkt sind *The Fog*, *Christine* und die
+elektronischen Passagen aus *The Thing*. Noch keine recherchierte Synth-Stilgrammatik
+oder umgesetzte zusätzliche Betriebsart behaupten.
+
+Das ergänzt die gemeinsamen Erweiterungen aus diesem Bericht um folgende
+Anwendungsfälle, ohne ihre Implementierung vorwegzunehmen:
+
+| Gemeinsamer Baustein | Zukünftige elektronische Anforderung |
+|---|---|
+| Kurze Module / Motivverwendung | Eigenständige Sequencer-Figuren und hypnotische Ostinati mit minimaler oder bewusst ausbleibender Variation; kontinuierliche Wiederholung von phrasierender Wiederkehr mit Pause unterscheiden. |
+| Koordinierte Einsatzpläne | Ineinandergreifende Schichten, unabhängige Zykluslängen und kontrollierte Phasenverschiebungen; mechanische Präzision muss als musikalische Option erhalten bleiben. |
+| Bass- und Harmonieabsichten | Harmonisch unabhängige Basssequenzen und bewusst statische Harmonik; nicht jede Sequenz auf den jeweils nächsten Akkordton reduzieren. |
+| Längere Entwicklung | Schichten hinzufügen, entfernen und neu kombinieren, während Material und Puls erkennbar bleiben; Entwicklung benötigt nicht ständig neue Harmonien oder stärkere Motivvariation. |
+
+Die Entscheidung rechtfertigt keine weitere Scheduler-Migration, universelle
+Sequencer-Plattform oder getrennte Künstlerengines. Konkrete Tonvorräte, Figuren,
+Zyklen und Präferenzen werden erst durch die jeweilige Forschung spezifiziert;
+etwa Oktatonik ist keine automatisch übertragene Carpenter-Vorgabe. Die Instrumentierung
+bleibt unabhängig: Die Verfahren sollen sowohl mit Orchesterpatches als auch
+mit Synthesizern nutzbar sein. Percussion, MIDI-CC-Klangbewegungen und zusätzliche
+MIDI-Rollen bleiben offene spätere Untersuchungen. Die neun vorhandenen Ausgabeziele
+werden zunächst beibehalten; notwendige Erweiterungen erst nach der Forschung entscheiden.
+
+Dies ist eine dokumentierte Zukunftsanforderung, keine neue Implementierungsphase
+oder Änderung der Williams-P1-Hörabnahme und des aktuellen musikalischen Verhaltens.
