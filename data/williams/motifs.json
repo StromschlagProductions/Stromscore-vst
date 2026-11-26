@@ -1,0 +1,3073 @@
+{
+  "schema_version": 1,
+  "source": "docs/research/john-williams/STROMSCORE_John_Williams_Profil_Kanonisch.md",
+  "motifs": [
+    {
+      "id": "JW-M01",
+      "runtime_id": 50001,
+      "name": "Quintaufschwung mit Doppelschlag",
+      "xyz": [
+        0.75,
+        0.45,
+        0.35
+      ],
+      "meter": [
+        4,
+        4
+      ],
+      "context": [
+        "C",
+        "G/D"
+      ],
+      "sequence": "C4/4 G4/8 A4/2 G4/1 F#4/1 | G4/8 D4/8",
+      "enabled": true,
+      "reason": "",
+      "evidence": "Canonical notes are constructed (E); procedure evidence retained in original research",
+      "notes": [
+        {
+          "pitch": 60,
+          "at_ticks": 0,
+          "length_ticks": 960
+        },
+        {
+          "pitch": 67,
+          "at_ticks": 960,
+          "length_ticks": 1920
+        },
+        {
+          "pitch": 69,
+          "at_ticks": 2880,
+          "length_ticks": 480
+        },
+        {
+          "pitch": 67,
+          "at_ticks": 3360,
+          "length_ticks": 240
+        },
+        {
+          "pitch": 66,
+          "at_ticks": 3600,
+          "length_ticks": 240
+        },
+        {
+          "pitch": 67,
+          "at_ticks": 3840,
+          "length_ticks": 1920
+        },
+        {
+          "pitch": 62,
+          "at_ticks": 5760,
+          "length_ticks": 1920
+        }
+      ],
+      "harmony": [
+        145,
+        2180
+      ],
+      "melodic": [
+        705,
+        132
+      ],
+      "bass": [
+        0,
+        2
+      ],
+      "octatonic": false,
+      "dialog_only": false,
+      "single_introduction": false
+    },
+    {
+      "id": "JW-M02",
+      "runtime_id": 50002,
+      "name": "Kampfkontur",
+      "xyz": [
+        0.7,
+        0.7,
+        0.45
+      ],
+      "meter": [
+        4,
+        4
+      ],
+      "context": [
+        "C",
+        "G"
+      ],
+      "sequence": "C4/4 G4/4 F4/2 E4/2 C5/4 | B4/4 G5/12",
+      "enabled": true,
+      "reason": "",
+      "evidence": "Canonical notes are constructed (E); procedure evidence retained in original research",
+      "notes": [
+        {
+          "pitch": 60,
+          "at_ticks": 0,
+          "length_ticks": 960
+        },
+        {
+          "pitch": 67,
+          "at_ticks": 960,
+          "length_ticks": 960
+        },
+        {
+          "pitch": 65,
+          "at_ticks": 1920,
+          "length_ticks": 480
+        },
+        {
+          "pitch": 64,
+          "at_ticks": 2400,
+          "length_ticks": 480
+        },
+        {
+          "pitch": 72,
+          "at_ticks": 2880,
+          "length_ticks": 960
+        },
+        {
+          "pitch": 71,
+          "at_ticks": 3840,
+          "length_ticks": 960
+        },
+        {
+          "pitch": 79,
+          "at_ticks": 4800,
+          "length_ticks": 2880
+        }
+      ],
+      "harmony": [
+        145,
+        2180
+      ],
+      "melodic": [
+        177,
+        2176
+      ],
+      "bass": [
+        0,
+        7
+      ],
+      "octatonic": false,
+      "dialog_only": false,
+      "single_introduction": false
+    },
+    {
+      "id": "JW-M03",
+      "runtime_id": 50003,
+      "name": "Zielton mit Obersekund-Vorhalt",
+      "xyz": [
+        0.7,
+        0.55,
+        0.3
+      ],
+      "meter": [
+        4,
+        4
+      ],
+      "context": [
+        "C",
+        "C"
+      ],
+      "sequence": "E4/2 G4/2 C5/4 E5/4 D5/4 | C5/16",
+      "enabled": true,
+      "reason": "",
+      "evidence": "Canonical notes are constructed (E); procedure evidence retained in original research",
+      "notes": [
+        {
+          "pitch": 64,
+          "at_ticks": 0,
+          "length_ticks": 480
+        },
+        {
+          "pitch": 67,
+          "at_ticks": 480,
+          "length_ticks": 480
+        },
+        {
+          "pitch": 72,
+          "at_ticks": 960,
+          "length_ticks": 960
+        },
+        {
+          "pitch": 76,
+          "at_ticks": 1920,
+          "length_ticks": 960
+        },
+        {
+          "pitch": 74,
+          "at_ticks": 2880,
+          "length_ticks": 960
+        },
+        {
+          "pitch": 72,
+          "at_ticks": 3840,
+          "length_ticks": 3840
+        }
+      ],
+      "harmony": [
+        145,
+        145
+      ],
+      "melodic": [
+        149,
+        1
+      ],
+      "bass": [
+        0,
+        0
+      ],
+      "octatonic": false,
+      "dialog_only": false,
+      "single_introduction": false
+    },
+    {
+      "id": "JW-M04",
+      "runtime_id": 50004,
+      "name": "Quartsignal",
+      "xyz": [
+        0.7,
+        0.75,
+        0.4
+      ],
+      "meter": [
+        4,
+        4
+      ],
+      "context": [
+        "Cq",
+        "C"
+      ],
+      "sequence": "G4/2 C5/2 G4/2 C5/2 F5/8 | E5/16",
+      "enabled": false,
+      "reason": "Exact three-note quartal Cq harmony is not a supported chord definition",
+      "evidence": "Canonical notes are constructed (E); procedure evidence retained in original research",
+      "notes": [
+        {
+          "pitch": 67,
+          "at_ticks": 0,
+          "length_ticks": 480
+        },
+        {
+          "pitch": 72,
+          "at_ticks": 480,
+          "length_ticks": 480
+        },
+        {
+          "pitch": 67,
+          "at_ticks": 960,
+          "length_ticks": 480
+        },
+        {
+          "pitch": 72,
+          "at_ticks": 1440,
+          "length_ticks": 480
+        },
+        {
+          "pitch": 77,
+          "at_ticks": 1920,
+          "length_ticks": 1920
+        },
+        {
+          "pitch": 76,
+          "at_ticks": 3840,
+          "length_ticks": 3840
+        }
+      ]
+    },
+    {
+      "id": "JW-M05",
+      "runtime_id": 50005,
+      "name": "Repetition und kleine Terz",
+      "xyz": [
+        0.2,
+        0.45,
+        0.5
+      ],
+      "meter": [
+        4,
+        4
+      ],
+      "context": [
+        "Cm",
+        "Db/C"
+      ],
+      "sequence": "C4/2 C4/2 C4/2 Eb4/10 | D4/4 Db4/12",
+      "enabled": true,
+      "reason": "",
+      "evidence": "Canonical notes are constructed (E); procedure evidence retained in original research",
+      "notes": [
+        {
+          "pitch": 60,
+          "at_ticks": 0,
+          "length_ticks": 480
+        },
+        {
+          "pitch": 60,
+          "at_ticks": 480,
+          "length_ticks": 480
+        },
+        {
+          "pitch": 60,
+          "at_ticks": 960,
+          "length_ticks": 480
+        },
+        {
+          "pitch": 63,
+          "at_ticks": 1440,
+          "length_ticks": 2400
+        },
+        {
+          "pitch": 62,
+          "at_ticks": 3840,
+          "length_ticks": 960
+        },
+        {
+          "pitch": 61,
+          "at_ticks": 4800,
+          "length_ticks": 2880
+        }
+      ],
+      "harmony": [
+        137,
+        290
+      ],
+      "melodic": [
+        9,
+        6
+      ],
+      "bass": [
+        0,
+        0
+      ],
+      "octatonic": false,
+      "dialog_only": false,
+      "single_introduction": false
+    },
+    {
+      "id": "JW-M06",
+      "runtime_id": 50006,
+      "name": "Sechsfache Repetition mit Halbtonfall",
+      "xyz": [
+        0.2,
+        0.4,
+        0.6
+      ],
+      "meter": [
+        4,
+        4
+      ],
+      "context": [
+        "Cm",
+        "Cm"
+      ],
+      "sequence": "G3/1 G3/1 G3/1 G3/1 G3/1 G3/1 F#3/10 | r/16",
+      "enabled": true,
+      "reason": "",
+      "evidence": "Canonical notes are constructed (E); procedure evidence retained in original research",
+      "notes": [
+        {
+          "pitch": 55,
+          "at_ticks": 0,
+          "length_ticks": 240
+        },
+        {
+          "pitch": 55,
+          "at_ticks": 240,
+          "length_ticks": 240
+        },
+        {
+          "pitch": 55,
+          "at_ticks": 480,
+          "length_ticks": 240
+        },
+        {
+          "pitch": 55,
+          "at_ticks": 720,
+          "length_ticks": 240
+        },
+        {
+          "pitch": 55,
+          "at_ticks": 960,
+          "length_ticks": 240
+        },
+        {
+          "pitch": 55,
+          "at_ticks": 1200,
+          "length_ticks": 240
+        },
+        {
+          "pitch": 54,
+          "at_ticks": 1440,
+          "length_ticks": 2400
+        }
+      ],
+      "harmony": [
+        137,
+        137
+      ],
+      "melodic": [
+        192,
+        0
+      ],
+      "bass": [
+        0,
+        0
+      ],
+      "octatonic": true,
+      "dialog_only": true,
+      "single_introduction": false
+    },
+    {
+      "id": "JW-M07",
+      "runtime_id": 50007,
+      "name": "Verminderte Terz (Gegenspieler)",
+      "xyz": [
+        0.15,
+        0.4,
+        0.55
+      ],
+      "meter": [
+        4,
+        4
+      ],
+      "context": [
+        "Cm",
+        "Cm"
+      ],
+      "sequence": "Db4/4 C4/4 B3/8 | C4/16",
+      "enabled": true,
+      "reason": "",
+      "evidence": "Canonical notes are constructed (E); procedure evidence retained in original research",
+      "notes": [
+        {
+          "pitch": 61,
+          "at_ticks": 0,
+          "length_ticks": 960
+        },
+        {
+          "pitch": 60,
+          "at_ticks": 960,
+          "length_ticks": 960
+        },
+        {
+          "pitch": 59,
+          "at_ticks": 1920,
+          "length_ticks": 1920
+        },
+        {
+          "pitch": 60,
+          "at_ticks": 3840,
+          "length_ticks": 3840
+        }
+      ],
+      "harmony": [
+        137,
+        137
+      ],
+      "melodic": [
+        2051,
+        1
+      ],
+      "bass": [
+        0,
+        0
+      ],
+      "octatonic": false,
+      "dialog_only": false,
+      "single_introduction": false
+    },
+    {
+      "id": "JW-M08",
+      "runtime_id": 50008,
+      "name": "Lydischer Doppelnachbar",
+      "xyz": [
+        0.85,
+        0.25,
+        0.3
+      ],
+      "meter": [
+        4,
+        4
+      ],
+      "context": [
+        "C",
+        "C"
+      ],
+      "sequence": "A4/4 F#4/4 G4/8 | E4/16",
+      "enabled": true,
+      "reason": "",
+      "evidence": "Canonical notes are constructed (E); procedure evidence retained in original research",
+      "notes": [
+        {
+          "pitch": 69,
+          "at_ticks": 0,
+          "length_ticks": 960
+        },
+        {
+          "pitch": 66,
+          "at_ticks": 960,
+          "length_ticks": 960
+        },
+        {
+          "pitch": 67,
+          "at_ticks": 1920,
+          "length_ticks": 1920
+        },
+        {
+          "pitch": 64,
+          "at_ticks": 3840,
+          "length_ticks": 3840
+        }
+      ],
+      "harmony": [
+        145,
+        145
+      ],
+      "melodic": [
+        704,
+        16
+      ],
+      "bass": [
+        0,
+        0
+      ],
+      "octatonic": false,
+      "dialog_only": false,
+      "single_introduction": false
+    },
+    {
+      "id": "JW-M09",
+      "runtime_id": 50009,
+      "name": "♭6–5–♯4-Zelle",
+      "xyz": [
+        0.2,
+        0.45,
+        0.55
+      ],
+      "meter": [
+        4,
+        4
+      ],
+      "context": [
+        "Cm",
+        "Cm"
+      ],
+      "sequence": "Ab4/4 G4/4 F#4/8 | G4/16",
+      "enabled": true,
+      "reason": "",
+      "evidence": "Canonical notes are constructed (E); procedure evidence retained in original research",
+      "notes": [
+        {
+          "pitch": 68,
+          "at_ticks": 0,
+          "length_ticks": 960
+        },
+        {
+          "pitch": 67,
+          "at_ticks": 960,
+          "length_ticks": 960
+        },
+        {
+          "pitch": 66,
+          "at_ticks": 1920,
+          "length_ticks": 1920
+        },
+        {
+          "pitch": 67,
+          "at_ticks": 3840,
+          "length_ticks": 3840
+        }
+      ],
+      "harmony": [
+        137,
+        137
+      ],
+      "melodic": [
+        448,
+        128
+      ],
+      "bass": [
+        0,
+        0
+      ],
+      "octatonic": false,
+      "dialog_only": false,
+      "single_introduction": false
+    },
+    {
+      "id": "JW-M10",
+      "runtime_id": 50010,
+      "name": "Pentatonischer Hüpfer",
+      "xyz": [
+        0.8,
+        0.45,
+        0.5
+      ],
+      "meter": [
+        4,
+        4
+      ],
+      "context": [
+        "C",
+        "Am7"
+      ],
+      "sequence": "C5/2 A4/2 G4/4 E4/2 G4/2 A4/4 | C5/2 D5/2 E5/12",
+      "enabled": false,
+      "reason": "9 notes exceed the eight-note immutable material capacity",
+      "evidence": "Canonical notes are constructed (E); procedure evidence retained in original research",
+      "notes": [
+        {
+          "pitch": 72,
+          "at_ticks": 0,
+          "length_ticks": 480
+        },
+        {
+          "pitch": 69,
+          "at_ticks": 480,
+          "length_ticks": 480
+        },
+        {
+          "pitch": 67,
+          "at_ticks": 960,
+          "length_ticks": 960
+        },
+        {
+          "pitch": 64,
+          "at_ticks": 1920,
+          "length_ticks": 480
+        },
+        {
+          "pitch": 67,
+          "at_ticks": 2400,
+          "length_ticks": 480
+        },
+        {
+          "pitch": 69,
+          "at_ticks": 2880,
+          "length_ticks": 960
+        },
+        {
+          "pitch": 72,
+          "at_ticks": 3840,
+          "length_ticks": 480
+        },
+        {
+          "pitch": 74,
+          "at_ticks": 4320,
+          "length_ticks": 480
+        },
+        {
+          "pitch": 76,
+          "at_ticks": 4800,
+          "length_ticks": 2880
+        }
+      ]
+    },
+    {
+      "id": "JW-M11",
+      "runtime_id": 50011,
+      "name": "Oktatonische Synkope in Unterterzen",
+      "xyz": [
+        0.3,
+        0.65,
+        0.8
+      ],
+      "meter": [
+        4,
+        4
+      ],
+      "context": [
+        "Cm",
+        "Cm"
+      ],
+      "sequence": "Bb4/2 r/2 A4/2 G4/2 r/2 F#4/2 E4/4 | Eb4/2 r/2 Db4/2 Eb4/2 r/2 E4/2 F#4/4",
+      "enabled": false,
+      "reason": "10 notes and mandatory parallel minor thirds require polyphonic motif material",
+      "evidence": "Canonical notes are constructed (E); procedure evidence retained in original research",
+      "notes": [
+        {
+          "pitch": 70,
+          "at_ticks": 0,
+          "length_ticks": 480
+        },
+        {
+          "pitch": 69,
+          "at_ticks": 960,
+          "length_ticks": 480
+        },
+        {
+          "pitch": 67,
+          "at_ticks": 1440,
+          "length_ticks": 480
+        },
+        {
+          "pitch": 66,
+          "at_ticks": 2400,
+          "length_ticks": 480
+        },
+        {
+          "pitch": 64,
+          "at_ticks": 2880,
+          "length_ticks": 960
+        },
+        {
+          "pitch": 63,
+          "at_ticks": 3840,
+          "length_ticks": 480
+        },
+        {
+          "pitch": 61,
+          "at_ticks": 4800,
+          "length_ticks": 480
+        },
+        {
+          "pitch": 63,
+          "at_ticks": 5280,
+          "length_ticks": 480
+        },
+        {
+          "pitch": 64,
+          "at_ticks": 6240,
+          "length_ticks": 480
+        },
+        {
+          "pitch": 66,
+          "at_ticks": 6720,
+          "length_ticks": 960
+        }
+      ]
+    },
+    {
+      "id": "JW-M12",
+      "runtime_id": 50012,
+      "name": "Nervöses vermindertes Arpeggio",
+      "xyz": [
+        0.3,
+        0.6,
+        0.8
+      ],
+      "meter": [
+        4,
+        4
+      ],
+      "context": [
+        "Cdim7",
+        "Cdim7"
+      ],
+      "sequence": "C5/1 A4/1 F#4/1 Eb4/1 C5/1 A4/1 F#4/1 Eb4/1 Db5/1 Bb4/1 G4/1 E4/1 Db5/4 | r/16",
+      "enabled": false,
+      "reason": "13 notes exceed the eight-note immutable material capacity",
+      "evidence": "Canonical notes are constructed (E); procedure evidence retained in original research",
+      "notes": [
+        {
+          "pitch": 72,
+          "at_ticks": 0,
+          "length_ticks": 240
+        },
+        {
+          "pitch": 69,
+          "at_ticks": 240,
+          "length_ticks": 240
+        },
+        {
+          "pitch": 66,
+          "at_ticks": 480,
+          "length_ticks": 240
+        },
+        {
+          "pitch": 63,
+          "at_ticks": 720,
+          "length_ticks": 240
+        },
+        {
+          "pitch": 72,
+          "at_ticks": 960,
+          "length_ticks": 240
+        },
+        {
+          "pitch": 69,
+          "at_ticks": 1200,
+          "length_ticks": 240
+        },
+        {
+          "pitch": 66,
+          "at_ticks": 1440,
+          "length_ticks": 240
+        },
+        {
+          "pitch": 63,
+          "at_ticks": 1680,
+          "length_ticks": 240
+        },
+        {
+          "pitch": 73,
+          "at_ticks": 1920,
+          "length_ticks": 240
+        },
+        {
+          "pitch": 70,
+          "at_ticks": 2160,
+          "length_ticks": 240
+        },
+        {
+          "pitch": 67,
+          "at_ticks": 2400,
+          "length_ticks": 240
+        },
+        {
+          "pitch": 64,
+          "at_ticks": 2640,
+          "length_ticks": 240
+        },
+        {
+          "pitch": 73,
+          "at_ticks": 2880,
+          "length_ticks": 960
+        }
+      ]
+    },
+    {
+      "id": "JW-M13",
+      "runtime_id": 50013,
+      "name": "Chromatische Glockenfigur",
+      "xyz": [
+        0.3,
+        0.35,
+        0.45
+      ],
+      "meter": [
+        4,
+        4
+      ],
+      "context": [
+        "C",
+        "C"
+      ],
+      "sequence": "E4/4 Eb4/4 D4/4 Db4/4 | C4/16",
+      "enabled": true,
+      "reason": "",
+      "evidence": "Canonical notes are constructed (E); procedure evidence retained in original research",
+      "notes": [
+        {
+          "pitch": 64,
+          "at_ticks": 0,
+          "length_ticks": 960
+        },
+        {
+          "pitch": 63,
+          "at_ticks": 960,
+          "length_ticks": 960
+        },
+        {
+          "pitch": 62,
+          "at_ticks": 1920,
+          "length_ticks": 960
+        },
+        {
+          "pitch": 61,
+          "at_ticks": 2880,
+          "length_ticks": 960
+        },
+        {
+          "pitch": 60,
+          "at_ticks": 3840,
+          "length_ticks": 3840
+        }
+      ],
+      "harmony": [
+        145,
+        145
+      ],
+      "melodic": [
+        30,
+        1
+      ],
+      "bass": [
+        0,
+        0
+      ],
+      "octatonic": false,
+      "dialog_only": false,
+      "single_introduction": false
+    },
+    {
+      "id": "JW-M14",
+      "runtime_id": 50014,
+      "name": "Zitternder chromatischer Doppelnachbar",
+      "xyz": [
+        0.3,
+        0.25,
+        0.65
+      ],
+      "meter": [
+        4,
+        4
+      ],
+      "context": [
+        "Cm",
+        "Cm"
+      ],
+      "sequence": "C5/2 Db5/2 B4/2 C5/10 | r/16",
+      "enabled": true,
+      "reason": "",
+      "evidence": "Canonical notes are constructed (E); procedure evidence retained in original research",
+      "notes": [
+        {
+          "pitch": 72,
+          "at_ticks": 0,
+          "length_ticks": 480
+        },
+        {
+          "pitch": 73,
+          "at_ticks": 480,
+          "length_ticks": 480
+        },
+        {
+          "pitch": 71,
+          "at_ticks": 960,
+          "length_ticks": 480
+        },
+        {
+          "pitch": 72,
+          "at_ticks": 1440,
+          "length_ticks": 2400
+        }
+      ],
+      "harmony": [
+        137,
+        137
+      ],
+      "melodic": [
+        2051,
+        0
+      ],
+      "bass": [
+        0,
+        0
+      ],
+      "octatonic": false,
+      "dialog_only": false,
+      "single_introduction": false
+    },
+    {
+      "id": "JW-M15",
+      "runtime_id": 50015,
+      "name": "Seufzerkette",
+      "xyz": [
+        0.25,
+        0.3,
+        0.35
+      ],
+      "meter": [
+        4,
+        4
+      ],
+      "context": [
+        "Fm6",
+        "G7sus4"
+      ],
+      "sequence": "Ab4/3 G4/5 Gb4/3 F4/5 | Eb4/3 D4/13",
+      "enabled": true,
+      "reason": "",
+      "evidence": "Canonical notes are constructed (E); procedure evidence retained in original research",
+      "notes": [
+        {
+          "pitch": 68,
+          "at_ticks": 0,
+          "length_ticks": 720
+        },
+        {
+          "pitch": 67,
+          "at_ticks": 720,
+          "length_ticks": 1200
+        },
+        {
+          "pitch": 66,
+          "at_ticks": 1920,
+          "length_ticks": 720
+        },
+        {
+          "pitch": 65,
+          "at_ticks": 2640,
+          "length_ticks": 1200
+        },
+        {
+          "pitch": 63,
+          "at_ticks": 3840,
+          "length_ticks": 720
+        },
+        {
+          "pitch": 62,
+          "at_ticks": 4560,
+          "length_ticks": 3120
+        }
+      ],
+      "harmony": [
+        293,
+        165
+      ],
+      "melodic": [
+        480,
+        12
+      ],
+      "bass": [
+        5,
+        7
+      ],
+      "octatonic": false,
+      "dialog_only": false,
+      "single_introduction": false
+    },
+    {
+      "id": "JW-M16",
+      "runtime_id": 50016,
+      "name": "Triolensequenz (fallend, steigend gekettet)",
+      "xyz": [
+        0.75,
+        0.5,
+        0.45
+      ],
+      "meter": [
+        4,
+        4
+      ],
+      "context": [
+        "C",
+        "C"
+      ],
+      "sequence": "G4/1 F4/1 E4/1 A4/1 G4/1 F4/1 B4/1 A4/1 G4/1 C5/3 | E5/12",
+      "enabled": false,
+      "reason": "11 notes and triplet-source consumer not available in the current authoring entry",
+      "evidence": "Canonical notes are constructed (E); procedure evidence retained in original research",
+      "notes": [
+        {
+          "pitch": 67,
+          "at_ticks": 0,
+          "length_ticks": 320
+        },
+        {
+          "pitch": 65,
+          "at_ticks": 320,
+          "length_ticks": 320
+        },
+        {
+          "pitch": 64,
+          "at_ticks": 640,
+          "length_ticks": 320
+        },
+        {
+          "pitch": 69,
+          "at_ticks": 960,
+          "length_ticks": 320
+        },
+        {
+          "pitch": 67,
+          "at_ticks": 1280,
+          "length_ticks": 320
+        },
+        {
+          "pitch": 65,
+          "at_ticks": 1600,
+          "length_ticks": 320
+        },
+        {
+          "pitch": 71,
+          "at_ticks": 1920,
+          "length_ticks": 320
+        },
+        {
+          "pitch": 69,
+          "at_ticks": 2240,
+          "length_ticks": 320
+        },
+        {
+          "pitch": 67,
+          "at_ticks": 2560,
+          "length_ticks": 320
+        },
+        {
+          "pitch": 72,
+          "at_ticks": 2880,
+          "length_ticks": 960
+        },
+        {
+          "pitch": 76,
+          "at_ticks": 3840,
+          "length_ticks": 3840
+        }
+      ]
+    },
+    {
+      "id": "JW-M17",
+      "runtime_id": 50017,
+      "name": "Heroische Tetrachorde",
+      "xyz": [
+        0.75,
+        0.75,
+        0.4
+      ],
+      "meter": [
+        4,
+        4
+      ],
+      "context": [
+        "C",
+        "F"
+      ],
+      "sequence": "C5/4 Bb4/4 A4/4 G4/4 | F5/4 Eb5/4 D5/4 C5/4",
+      "enabled": true,
+      "reason": "",
+      "evidence": "Canonical notes are constructed (E); procedure evidence retained in original research",
+      "notes": [
+        {
+          "pitch": 72,
+          "at_ticks": 0,
+          "length_ticks": 960
+        },
+        {
+          "pitch": 70,
+          "at_ticks": 960,
+          "length_ticks": 960
+        },
+        {
+          "pitch": 69,
+          "at_ticks": 1920,
+          "length_ticks": 960
+        },
+        {
+          "pitch": 67,
+          "at_ticks": 2880,
+          "length_ticks": 960
+        },
+        {
+          "pitch": 77,
+          "at_ticks": 3840,
+          "length_ticks": 960
+        },
+        {
+          "pitch": 75,
+          "at_ticks": 4800,
+          "length_ticks": 960
+        },
+        {
+          "pitch": 74,
+          "at_ticks": 5760,
+          "length_ticks": 960
+        },
+        {
+          "pitch": 72,
+          "at_ticks": 6720,
+          "length_ticks": 960
+        }
+      ],
+      "harmony": [
+        145,
+        545
+      ],
+      "melodic": [
+        1665,
+        45
+      ],
+      "bass": [
+        0,
+        5
+      ],
+      "octatonic": false,
+      "dialog_only": false,
+      "single_introduction": false
+    },
+    {
+      "id": "JW-M18",
+      "runtime_id": 50018,
+      "name": "Steigende Quartenkette",
+      "xyz": [
+        0.65,
+        0.7,
+        0.55
+      ],
+      "meter": [
+        4,
+        4
+      ],
+      "context": [
+        "Cq",
+        "Cq"
+      ],
+      "sequence": "D4/2 G4/2 C5/2 F5/2 E5/8 | r/16",
+      "enabled": false,
+      "reason": "Exact three-note quartal Cq harmony is not a supported chord definition",
+      "evidence": "Canonical notes are constructed (E); procedure evidence retained in original research",
+      "notes": [
+        {
+          "pitch": 62,
+          "at_ticks": 0,
+          "length_ticks": 480
+        },
+        {
+          "pitch": 67,
+          "at_ticks": 480,
+          "length_ticks": 480
+        },
+        {
+          "pitch": 72,
+          "at_ticks": 960,
+          "length_ticks": 480
+        },
+        {
+          "pitch": 77,
+          "at_ticks": 1440,
+          "length_ticks": 480
+        },
+        {
+          "pitch": 76,
+          "at_ticks": 1920,
+          "length_ticks": 1920
+        }
+      ]
+    },
+    {
+      "id": "JW-M19",
+      "runtime_id": 50019,
+      "name": "Synkopierte Militärzelle",
+      "xyz": [
+        0.55,
+        0.7,
+        0.55
+      ],
+      "meter": [
+        4,
+        4
+      ],
+      "context": [
+        "C",
+        "C"
+      ],
+      "sequence": "C5/3 C5/3 C5/2 G4/4 Bb4/4 | C5/16",
+      "enabled": true,
+      "reason": "",
+      "evidence": "Canonical notes are constructed (E); procedure evidence retained in original research",
+      "notes": [
+        {
+          "pitch": 72,
+          "at_ticks": 0,
+          "length_ticks": 720
+        },
+        {
+          "pitch": 72,
+          "at_ticks": 720,
+          "length_ticks": 720
+        },
+        {
+          "pitch": 72,
+          "at_ticks": 1440,
+          "length_ticks": 480
+        },
+        {
+          "pitch": 67,
+          "at_ticks": 1920,
+          "length_ticks": 960
+        },
+        {
+          "pitch": 70,
+          "at_ticks": 2880,
+          "length_ticks": 960
+        },
+        {
+          "pitch": 72,
+          "at_ticks": 3840,
+          "length_ticks": 3840
+        }
+      ],
+      "harmony": [
+        145,
+        145
+      ],
+      "melodic": [
+        1153,
+        1
+      ],
+      "bass": [
+        0,
+        0
+      ],
+      "octatonic": false,
+      "dialog_only": false,
+      "single_introduction": false
+    },
+    {
+      "id": "JW-M20",
+      "runtime_id": 50020,
+      "name": "Romantischer Sextaufschwung",
+      "xyz": [
+        0.6,
+        0.4,
+        0.25
+      ],
+      "meter": [
+        4,
+        4
+      ],
+      "context": [
+        "Am7",
+        "Fmaj7"
+      ],
+      "sequence": "E4/4 C5/8 B4/4 | A4/12 G4/4",
+      "enabled": true,
+      "reason": "",
+      "evidence": "Canonical notes are constructed (E); procedure evidence retained in original research",
+      "notes": [
+        {
+          "pitch": 64,
+          "at_ticks": 0,
+          "length_ticks": 960
+        },
+        {
+          "pitch": 72,
+          "at_ticks": 960,
+          "length_ticks": 1920
+        },
+        {
+          "pitch": 71,
+          "at_ticks": 2880,
+          "length_ticks": 960
+        },
+        {
+          "pitch": 69,
+          "at_ticks": 3840,
+          "length_ticks": 2880
+        },
+        {
+          "pitch": 67,
+          "at_ticks": 6720,
+          "length_ticks": 960
+        }
+      ],
+      "harmony": [
+        657,
+        561
+      ],
+      "melodic": [
+        2065,
+        640
+      ],
+      "bass": [
+        9,
+        5
+      ],
+      "octatonic": false,
+      "dialog_only": false,
+      "single_introduction": false
+    },
+    {
+      "id": "JW-M21",
+      "runtime_id": 50021,
+      "name": "Wiegenterzen",
+      "xyz": [
+        0.7,
+        0.2,
+        0.2
+      ],
+      "meter": [
+        6,
+        8
+      ],
+      "context": [
+        "C",
+        "C"
+      ],
+      "sequence": "E5/4 D5/2 C5/4 D5/2 | E5/6 G4/6",
+      "enabled": true,
+      "reason": "",
+      "evidence": "Canonical notes are constructed (E); procedure evidence retained in original research",
+      "notes": [
+        {
+          "pitch": 76,
+          "at_ticks": 0,
+          "length_ticks": 960
+        },
+        {
+          "pitch": 74,
+          "at_ticks": 960,
+          "length_ticks": 480
+        },
+        {
+          "pitch": 72,
+          "at_ticks": 1440,
+          "length_ticks": 960
+        },
+        {
+          "pitch": 74,
+          "at_ticks": 2400,
+          "length_ticks": 480
+        },
+        {
+          "pitch": 76,
+          "at_ticks": 2880,
+          "length_ticks": 1440
+        },
+        {
+          "pitch": 67,
+          "at_ticks": 4320,
+          "length_ticks": 1440
+        }
+      ],
+      "harmony": [
+        145,
+        145
+      ],
+      "melodic": [
+        21,
+        144
+      ],
+      "bass": [
+        0,
+        0
+      ],
+      "octatonic": false,
+      "dialog_only": false,
+      "single_introduction": false
+    },
+    {
+      "id": "JW-M22",
+      "runtime_id": 50022,
+      "name": "Staunen: Nonensprung",
+      "xyz": [
+        0.8,
+        0.3,
+        0.4
+      ],
+      "meter": [
+        4,
+        4
+      ],
+      "context": [
+        "Cmaj7",
+        "Cmaj7"
+      ],
+      "sequence": "C4/4 D5/8 C5/2 B4/2 | G4/16",
+      "enabled": true,
+      "reason": "",
+      "evidence": "Canonical notes are constructed (E); procedure evidence retained in original research",
+      "notes": [
+        {
+          "pitch": 60,
+          "at_ticks": 0,
+          "length_ticks": 960
+        },
+        {
+          "pitch": 74,
+          "at_ticks": 960,
+          "length_ticks": 1920
+        },
+        {
+          "pitch": 72,
+          "at_ticks": 2880,
+          "length_ticks": 480
+        },
+        {
+          "pitch": 71,
+          "at_ticks": 3360,
+          "length_ticks": 480
+        },
+        {
+          "pitch": 67,
+          "at_ticks": 3840,
+          "length_ticks": 3840
+        }
+      ],
+      "harmony": [
+        2193,
+        2193
+      ],
+      "melodic": [
+        2053,
+        128
+      ],
+      "bass": [
+        0,
+        0
+      ],
+      "octatonic": false,
+      "dialog_only": false,
+      "single_introduction": true
+    },
+    {
+      "id": "JW-M23",
+      "runtime_id": 50023,
+      "name": "Quarte–Tritonus-Rätsel",
+      "xyz": [
+        0.3,
+        0.25,
+        0.5
+      ],
+      "meter": [
+        4,
+        4
+      ],
+      "context": [
+        "Cm",
+        "Cm"
+      ],
+      "sequence": "C4/6 F4/2 B4/8 | Bb4/16",
+      "enabled": true,
+      "reason": "",
+      "evidence": "Canonical notes are constructed (E); procedure evidence retained in original research",
+      "notes": [
+        {
+          "pitch": 60,
+          "at_ticks": 0,
+          "length_ticks": 1440
+        },
+        {
+          "pitch": 65,
+          "at_ticks": 1440,
+          "length_ticks": 480
+        },
+        {
+          "pitch": 71,
+          "at_ticks": 1920,
+          "length_ticks": 1920
+        },
+        {
+          "pitch": 70,
+          "at_ticks": 3840,
+          "length_ticks": 3840
+        }
+      ],
+      "harmony": [
+        137,
+        137
+      ],
+      "melodic": [
+        2081,
+        1024
+      ],
+      "bass": [
+        0,
+        0
+      ],
+      "octatonic": false,
+      "dialog_only": false,
+      "single_introduction": false
+    },
+    {
+      "id": "JW-M24",
+      "runtime_id": 50024,
+      "name": "Tiefe Lauerzelle",
+      "xyz": [
+        0.15,
+        0.2,
+        0.45
+      ],
+      "meter": [
+        4,
+        4
+      ],
+      "context": [
+        "Cm",
+        "Cm"
+      ],
+      "sequence": "C3/2 r/2 D3/2 r/2 Ab2/6 r/2 | r/16",
+      "enabled": false,
+      "reason": "Explicit low register Ab2–D3 cannot be guaranteed by the current melodic destinations",
+      "evidence": "Canonical notes are constructed (E); procedure evidence retained in original research",
+      "notes": [
+        {
+          "pitch": 48,
+          "at_ticks": 0,
+          "length_ticks": 480
+        },
+        {
+          "pitch": 50,
+          "at_ticks": 960,
+          "length_ticks": 480
+        },
+        {
+          "pitch": 44,
+          "at_ticks": 1920,
+          "length_ticks": 1440
+        }
+      ]
+    },
+    {
+      "id": "JW-M25",
+      "runtime_id": 50025,
+      "name": "Chromatischer Stolperer",
+      "xyz": [
+        0.75,
+        0.4,
+        0.6
+      ],
+      "meter": [
+        4,
+        4
+      ],
+      "context": [
+        "C",
+        "C"
+      ],
+      "sequence": "G4/1 r/1 G#4/1 r/1 A4/2 C5/2 r/2 B4/1 Bb4/1 A4/4 | r/16",
+      "enabled": true,
+      "reason": "",
+      "evidence": "Canonical notes are constructed (E); procedure evidence retained in original research",
+      "notes": [
+        {
+          "pitch": 67,
+          "at_ticks": 0,
+          "length_ticks": 240
+        },
+        {
+          "pitch": 68,
+          "at_ticks": 480,
+          "length_ticks": 240
+        },
+        {
+          "pitch": 69,
+          "at_ticks": 960,
+          "length_ticks": 480
+        },
+        {
+          "pitch": 72,
+          "at_ticks": 1440,
+          "length_ticks": 480
+        },
+        {
+          "pitch": 71,
+          "at_ticks": 2400,
+          "length_ticks": 240
+        },
+        {
+          "pitch": 70,
+          "at_ticks": 2640,
+          "length_ticks": 240
+        },
+        {
+          "pitch": 69,
+          "at_ticks": 2880,
+          "length_ticks": 960
+        }
+      ],
+      "harmony": [
+        145,
+        145
+      ],
+      "melodic": [
+        3969,
+        0
+      ],
+      "bass": [
+        0,
+        0
+      ],
+      "octatonic": false,
+      "dialog_only": false,
+      "single_introduction": false
+    },
+    {
+      "id": "JW-M26",
+      "runtime_id": 50026,
+      "name": "Mechanischer Marschgruß",
+      "xyz": [
+        0.8,
+        0.45,
+        0.45
+      ],
+      "meter": [
+        4,
+        4
+      ],
+      "context": [
+        "C",
+        "C"
+      ],
+      "sequence": "C5/2 C5/2 G4/2 E4/2 F#4/2 G4/2 r/4 | r/16",
+      "enabled": true,
+      "reason": "",
+      "evidence": "Canonical notes are constructed (E); procedure evidence retained in original research",
+      "notes": [
+        {
+          "pitch": 72,
+          "at_ticks": 0,
+          "length_ticks": 480
+        },
+        {
+          "pitch": 72,
+          "at_ticks": 480,
+          "length_ticks": 480
+        },
+        {
+          "pitch": 67,
+          "at_ticks": 960,
+          "length_ticks": 480
+        },
+        {
+          "pitch": 64,
+          "at_ticks": 1440,
+          "length_ticks": 480
+        },
+        {
+          "pitch": 66,
+          "at_ticks": 1920,
+          "length_ticks": 480
+        },
+        {
+          "pitch": 67,
+          "at_ticks": 2400,
+          "length_ticks": 480
+        }
+      ],
+      "harmony": [
+        145,
+        145
+      ],
+      "melodic": [
+        209,
+        0
+      ],
+      "bass": [
+        0,
+        0
+      ],
+      "octatonic": false,
+      "dialog_only": false,
+      "single_introduction": false
+    },
+    {
+      "id": "JW-M27",
+      "runtime_id": 50027,
+      "name": "Abenteueraufruf",
+      "xyz": [
+        0.8,
+        0.7,
+        0.4
+      ],
+      "meter": [
+        4,
+        4
+      ],
+      "context": [
+        "C",
+        "G"
+      ],
+      "sequence": "G4/1 A4/1 B4/2 C5/4 E5/4 D5/4 | G5/16",
+      "enabled": true,
+      "reason": "",
+      "evidence": "Canonical notes are constructed (E); procedure evidence retained in original research",
+      "notes": [
+        {
+          "pitch": 67,
+          "at_ticks": 0,
+          "length_ticks": 240
+        },
+        {
+          "pitch": 69,
+          "at_ticks": 240,
+          "length_ticks": 240
+        },
+        {
+          "pitch": 71,
+          "at_ticks": 480,
+          "length_ticks": 480
+        },
+        {
+          "pitch": 72,
+          "at_ticks": 960,
+          "length_ticks": 960
+        },
+        {
+          "pitch": 76,
+          "at_ticks": 1920,
+          "length_ticks": 960
+        },
+        {
+          "pitch": 74,
+          "at_ticks": 2880,
+          "length_ticks": 960
+        },
+        {
+          "pitch": 79,
+          "at_ticks": 3840,
+          "length_ticks": 3840
+        }
+      ],
+      "harmony": [
+        145,
+        2180
+      ],
+      "melodic": [
+        2709,
+        128
+      ],
+      "bass": [
+        0,
+        7
+      ],
+      "octatonic": false,
+      "dialog_only": false,
+      "single_introduction": false
+    },
+    {
+      "id": "JW-M28",
+      "runtime_id": 50028,
+      "name": "Moll-Klagezelle i–♭6–5",
+      "xyz": [
+        0.2,
+        0.4,
+        0.35
+      ],
+      "meter": [
+        4,
+        4
+      ],
+      "context": [
+        "Cm",
+        "Cm"
+      ],
+      "sequence": "C4/6 Eb4/2 Ab4/8 | G4/16",
+      "enabled": true,
+      "reason": "",
+      "evidence": "Canonical notes are constructed (E); procedure evidence retained in original research",
+      "notes": [
+        {
+          "pitch": 60,
+          "at_ticks": 0,
+          "length_ticks": 1440
+        },
+        {
+          "pitch": 63,
+          "at_ticks": 1440,
+          "length_ticks": 480
+        },
+        {
+          "pitch": 68,
+          "at_ticks": 1920,
+          "length_ticks": 1920
+        },
+        {
+          "pitch": 67,
+          "at_ticks": 3840,
+          "length_ticks": 3840
+        }
+      ],
+      "harmony": [
+        137,
+        137
+      ],
+      "melodic": [
+        265,
+        128
+      ],
+      "bass": [
+        0,
+        0
+      ],
+      "octatonic": false,
+      "dialog_only": false,
+      "single_introduction": false
+    },
+    {
+      "id": "JW-M29",
+      "runtime_id": 50029,
+      "name": "Phrygischer Abstieg",
+      "xyz": [
+        0.2,
+        0.55,
+        0.45
+      ],
+      "meter": [
+        4,
+        4
+      ],
+      "context": [
+        "Db/C",
+        "Cm"
+      ],
+      "sequence": "Db5/4 C5/4 Bb4/4 Ab4/4 | G4/16",
+      "enabled": true,
+      "reason": "",
+      "evidence": "Canonical notes are constructed (E); procedure evidence retained in original research",
+      "notes": [
+        {
+          "pitch": 73,
+          "at_ticks": 0,
+          "length_ticks": 960
+        },
+        {
+          "pitch": 72,
+          "at_ticks": 960,
+          "length_ticks": 960
+        },
+        {
+          "pitch": 70,
+          "at_ticks": 1920,
+          "length_ticks": 960
+        },
+        {
+          "pitch": 68,
+          "at_ticks": 2880,
+          "length_ticks": 960
+        },
+        {
+          "pitch": 67,
+          "at_ticks": 3840,
+          "length_ticks": 3840
+        }
+      ],
+      "harmony": [
+        290,
+        137
+      ],
+      "melodic": [
+        1283,
+        128
+      ],
+      "bass": [
+        0,
+        0
+      ],
+      "octatonic": false,
+      "dialog_only": false,
+      "single_introduction": false
+    },
+    {
+      "id": "JW-M30",
+      "runtime_id": 50030,
+      "name": "Hexatonische Linie",
+      "xyz": [
+        0.45,
+        0.35,
+        0.55
+      ],
+      "meter": [
+        4,
+        4
+      ],
+      "context": [
+        "C",
+        "Abm"
+      ],
+      "sequence": "C5/2 B4/2 Ab4/2 G4/2 E4/4 Eb4/4 | r/16",
+      "enabled": false,
+      "reason": "Explicit shared hexatonic context is not implemented",
+      "evidence": "Canonical notes are constructed (E); procedure evidence retained in original research",
+      "notes": [
+        {
+          "pitch": 72,
+          "at_ticks": 0,
+          "length_ticks": 480
+        },
+        {
+          "pitch": 71,
+          "at_ticks": 480,
+          "length_ticks": 480
+        },
+        {
+          "pitch": 68,
+          "at_ticks": 960,
+          "length_ticks": 480
+        },
+        {
+          "pitch": 67,
+          "at_ticks": 1440,
+          "length_ticks": 480
+        },
+        {
+          "pitch": 64,
+          "at_ticks": 1920,
+          "length_ticks": 960
+        },
+        {
+          "pitch": 63,
+          "at_ticks": 2880,
+          "length_ticks": 960
+        }
+      ]
+    },
+    {
+      "id": "JW-M31",
+      "runtime_id": 50031,
+      "name": "Ganztonschwebe",
+      "xyz": [
+        0.6,
+        0.2,
+        0.55
+      ],
+      "meter": [
+        4,
+        4
+      ],
+      "context": [
+        "Caug",
+        "Caug"
+      ],
+      "sequence": "C5/4 D5/4 E5/4 F#5/4 | G#5/8 F#5/8",
+      "enabled": false,
+      "reason": "Explicit shared whole-tone context is not implemented",
+      "evidence": "Canonical notes are constructed (E); procedure evidence retained in original research",
+      "notes": [
+        {
+          "pitch": 72,
+          "at_ticks": 0,
+          "length_ticks": 960
+        },
+        {
+          "pitch": 74,
+          "at_ticks": 960,
+          "length_ticks": 960
+        },
+        {
+          "pitch": 76,
+          "at_ticks": 1920,
+          "length_ticks": 960
+        },
+        {
+          "pitch": 78,
+          "at_ticks": 2880,
+          "length_ticks": 960
+        },
+        {
+          "pitch": 80,
+          "at_ticks": 3840,
+          "length_ticks": 1920
+        },
+        {
+          "pitch": 78,
+          "at_ticks": 5760,
+          "length_ticks": 1920
+        }
+      ]
+    },
+    {
+      "id": "JW-M32",
+      "runtime_id": 50032,
+      "name": "Oktatonischer Verbindungslauf",
+      "xyz": [
+        0.35,
+        0.75,
+        0.75
+      ],
+      "meter": [
+        4,
+        4
+      ],
+      "context": [
+        "Cdim7",
+        "Cdim7"
+      ],
+      "sequence": "C4/1 Db4/1 Eb4/1 E4/1 F#4/1 G4/1 A4/1 Bb4/1 C5/8 | r/16",
+      "enabled": false,
+      "reason": "9 notes exceed the eight-note immutable material capacity",
+      "evidence": "Canonical notes are constructed (E); procedure evidence retained in original research",
+      "notes": [
+        {
+          "pitch": 60,
+          "at_ticks": 0,
+          "length_ticks": 240
+        },
+        {
+          "pitch": 61,
+          "at_ticks": 240,
+          "length_ticks": 240
+        },
+        {
+          "pitch": 63,
+          "at_ticks": 480,
+          "length_ticks": 240
+        },
+        {
+          "pitch": 64,
+          "at_ticks": 720,
+          "length_ticks": 240
+        },
+        {
+          "pitch": 66,
+          "at_ticks": 960,
+          "length_ticks": 240
+        },
+        {
+          "pitch": 67,
+          "at_ticks": 1200,
+          "length_ticks": 240
+        },
+        {
+          "pitch": 69,
+          "at_ticks": 1440,
+          "length_ticks": 240
+        },
+        {
+          "pitch": 70,
+          "at_ticks": 1680,
+          "length_ticks": 240
+        },
+        {
+          "pitch": 72,
+          "at_ticks": 1920,
+          "length_ticks": 1920
+        }
+      ]
+    },
+    {
+      "id": "JW-M33",
+      "runtime_id": 50033,
+      "name": "Kurze Antwortfigur",
+      "xyz": [
+        0.7,
+        0.3,
+        0.3
+      ],
+      "meter": [
+        4,
+        4
+      ],
+      "context": [
+        "C",
+        "C"
+      ],
+      "sequence": "r/8 E5/2 D5/2 C5/4 | r/16",
+      "enabled": false,
+      "reason": "Dedicated answer-only role request is required; not imported as an unrelated introduction",
+      "evidence": "Canonical notes are constructed (E); procedure evidence retained in original research",
+      "notes": [
+        {
+          "pitch": 76,
+          "at_ticks": 1920,
+          "length_ticks": 480
+        },
+        {
+          "pitch": 74,
+          "at_ticks": 2400,
+          "length_ticks": 480
+        },
+        {
+          "pitch": 72,
+          "at_ticks": 2880,
+          "length_ticks": 960
+        }
+      ]
+    },
+    {
+      "id": "JW-M34",
+      "runtime_id": 50034,
+      "name": "Schwere Quint-Oktav-Zelle",
+      "xyz": [
+        0.15,
+        0.8,
+        0.25
+      ],
+      "meter": [
+        4,
+        4
+      ],
+      "context": [
+        "Cm",
+        "Fm"
+      ],
+      "sequence": "C3/4 G3/4 C4/8 | Bb3/4 Ab3/4 G3/8",
+      "enabled": true,
+      "reason": "",
+      "evidence": "Canonical notes are constructed (E); procedure evidence retained in original research",
+      "notes": [
+        {
+          "pitch": 48,
+          "at_ticks": 0,
+          "length_ticks": 960
+        },
+        {
+          "pitch": 55,
+          "at_ticks": 960,
+          "length_ticks": 960
+        },
+        {
+          "pitch": 60,
+          "at_ticks": 1920,
+          "length_ticks": 1920
+        },
+        {
+          "pitch": 58,
+          "at_ticks": 3840,
+          "length_ticks": 960
+        },
+        {
+          "pitch": 56,
+          "at_ticks": 4800,
+          "length_ticks": 960
+        },
+        {
+          "pitch": 55,
+          "at_ticks": 5760,
+          "length_ticks": 1920
+        }
+      ],
+      "harmony": [
+        137,
+        289
+      ],
+      "melodic": [
+        129,
+        1408
+      ],
+      "bass": [
+        0,
+        5
+      ],
+      "octatonic": false,
+      "dialog_only": false,
+      "single_introduction": false
+    },
+    {
+      "id": "JW-M35",
+      "runtime_id": 50035,
+      "name": "Synkopiertes Quintpendel (6/8)",
+      "xyz": [
+        0.7,
+        0.4,
+        0.6
+      ],
+      "meter": [
+        6,
+        8
+      ],
+      "context": [
+        "C",
+        "C"
+      ],
+      "sequence": "C5/3 G4/2 C5/1 G5/3 C5/3 | r/12",
+      "enabled": true,
+      "reason": "",
+      "evidence": "Canonical notes are constructed (E); procedure evidence retained in original research",
+      "notes": [
+        {
+          "pitch": 72,
+          "at_ticks": 0,
+          "length_ticks": 720
+        },
+        {
+          "pitch": 67,
+          "at_ticks": 720,
+          "length_ticks": 480
+        },
+        {
+          "pitch": 72,
+          "at_ticks": 1200,
+          "length_ticks": 240
+        },
+        {
+          "pitch": 79,
+          "at_ticks": 1440,
+          "length_ticks": 720
+        },
+        {
+          "pitch": 72,
+          "at_ticks": 2160,
+          "length_ticks": 720
+        }
+      ],
+      "harmony": [
+        145,
+        145
+      ],
+      "melodic": [
+        129,
+        0
+      ],
+      "bass": [
+        0,
+        0
+      ],
+      "octatonic": false,
+      "dialog_only": false,
+      "single_introduction": false
+    },
+    {
+      "id": "JW-M36",
+      "runtime_id": 50036,
+      "name": "Isolierter Quinteinwurf",
+      "xyz": [
+        0.7,
+        0.15,
+        0.5
+      ],
+      "meter": [
+        4,
+        4
+      ],
+      "context": [
+        "C",
+        "C"
+      ],
+      "sequence": "r/8 G4/2 D5/6 | r/16",
+      "enabled": true,
+      "reason": "",
+      "evidence": "Canonical notes are constructed (E); procedure evidence retained in original research",
+      "notes": [
+        {
+          "pitch": 67,
+          "at_ticks": 1920,
+          "length_ticks": 480
+        },
+        {
+          "pitch": 74,
+          "at_ticks": 2400,
+          "length_ticks": 1440
+        }
+      ],
+      "harmony": [
+        145,
+        145
+      ],
+      "melodic": [
+        132,
+        0
+      ],
+      "bass": [
+        0,
+        0
+      ],
+      "octatonic": false,
+      "dialog_only": false,
+      "single_introduction": false
+    },
+    {
+      "id": "JW-M37",
+      "runtime_id": 50037,
+      "name": "Lydisch-♯2-Hüpfer",
+      "xyz": [
+        0.7,
+        0.3,
+        0.65
+      ],
+      "meter": [
+        4,
+        4
+      ],
+      "context": [
+        "C",
+        "C"
+      ],
+      "sequence": "C5/1 r/1 D#5/1 E5/1 F#5/2 E5/2 r/2 B4/2 C5/4 | r/16",
+      "enabled": true,
+      "reason": "",
+      "evidence": "Canonical notes are constructed (E); procedure evidence retained in original research",
+      "notes": [
+        {
+          "pitch": 72,
+          "at_ticks": 0,
+          "length_ticks": 240
+        },
+        {
+          "pitch": 75,
+          "at_ticks": 480,
+          "length_ticks": 240
+        },
+        {
+          "pitch": 76,
+          "at_ticks": 720,
+          "length_ticks": 240
+        },
+        {
+          "pitch": 78,
+          "at_ticks": 960,
+          "length_ticks": 480
+        },
+        {
+          "pitch": 76,
+          "at_ticks": 1440,
+          "length_ticks": 480
+        },
+        {
+          "pitch": 71,
+          "at_ticks": 2400,
+          "length_ticks": 480
+        },
+        {
+          "pitch": 72,
+          "at_ticks": 2880,
+          "length_ticks": 960
+        }
+      ],
+      "harmony": [
+        145,
+        145
+      ],
+      "melodic": [
+        2137,
+        0
+      ],
+      "bass": [
+        0,
+        0
+      ],
+      "octatonic": false,
+      "dialog_only": false,
+      "single_introduction": false
+    },
+    {
+      "id": "JW-M38",
+      "runtime_id": 50038,
+      "name": "Wrong-note-Punktierung",
+      "xyz": [
+        0.75,
+        0.35,
+        0.65
+      ],
+      "meter": [
+        4,
+        4
+      ],
+      "context": [
+        "C",
+        "C"
+      ],
+      "sequence": "G4/3 A4/1 F#5/3 G5/1 E5/4 r/4 | r/16",
+      "enabled": true,
+      "reason": "",
+      "evidence": "Canonical notes are constructed (E); procedure evidence retained in original research",
+      "notes": [
+        {
+          "pitch": 67,
+          "at_ticks": 0,
+          "length_ticks": 720
+        },
+        {
+          "pitch": 69,
+          "at_ticks": 720,
+          "length_ticks": 240
+        },
+        {
+          "pitch": 78,
+          "at_ticks": 960,
+          "length_ticks": 720
+        },
+        {
+          "pitch": 79,
+          "at_ticks": 1680,
+          "length_ticks": 240
+        },
+        {
+          "pitch": 76,
+          "at_ticks": 1920,
+          "length_ticks": 960
+        }
+      ],
+      "harmony": [
+        145,
+        145
+      ],
+      "melodic": [
+        720,
+        0
+      ],
+      "bass": [
+        0,
+        0
+      ],
+      "octatonic": false,
+      "dialog_only": false,
+      "single_introduction": false
+    },
+    {
+      "id": "JW-M39",
+      "runtime_id": 50039,
+      "name": "Hexatonische Abwärtszelle, synkopiert",
+      "xyz": [
+        0.7,
+        0.35,
+        0.6
+      ],
+      "meter": [
+        4,
+        4
+      ],
+      "context": [
+        "E",
+        "E"
+      ],
+      "sequence": "r/2 E5/2 D#5/2 B4/4 G#4/2 E4/4 | r/16",
+      "enabled": false,
+      "reason": "Explicit shared hexatonic context is not implemented",
+      "evidence": "Canonical notes are constructed (E); procedure evidence retained in original research",
+      "notes": [
+        {
+          "pitch": 76,
+          "at_ticks": 480,
+          "length_ticks": 480
+        },
+        {
+          "pitch": 75,
+          "at_ticks": 960,
+          "length_ticks": 480
+        },
+        {
+          "pitch": 71,
+          "at_ticks": 1440,
+          "length_ticks": 960
+        },
+        {
+          "pitch": 68,
+          "at_ticks": 2400,
+          "length_ticks": 480
+        },
+        {
+          "pitch": 64,
+          "at_ticks": 2880,
+          "length_ticks": 960
+        }
+      ]
+    },
+    {
+      "id": "JW-M40",
+      "runtime_id": 50040,
+      "name": "Galoppzelle",
+      "xyz": [
+        0.75,
+        0.7,
+        0.6
+      ],
+      "meter": [
+        4,
+        4
+      ],
+      "context": [
+        "C",
+        "C"
+      ],
+      "sequence": "G4/2 A4/1 B4/1 C5/4 E5/2 D5/1 C5/1 G5/4 | r/16",
+      "enabled": true,
+      "reason": "",
+      "evidence": "Canonical notes are constructed (E); procedure evidence retained in original research",
+      "notes": [
+        {
+          "pitch": 67,
+          "at_ticks": 0,
+          "length_ticks": 480
+        },
+        {
+          "pitch": 69,
+          "at_ticks": 480,
+          "length_ticks": 240
+        },
+        {
+          "pitch": 71,
+          "at_ticks": 720,
+          "length_ticks": 240
+        },
+        {
+          "pitch": 72,
+          "at_ticks": 960,
+          "length_ticks": 960
+        },
+        {
+          "pitch": 76,
+          "at_ticks": 1920,
+          "length_ticks": 480
+        },
+        {
+          "pitch": 74,
+          "at_ticks": 2400,
+          "length_ticks": 240
+        },
+        {
+          "pitch": 72,
+          "at_ticks": 2640,
+          "length_ticks": 240
+        },
+        {
+          "pitch": 79,
+          "at_ticks": 2880,
+          "length_ticks": 960
+        }
+      ],
+      "harmony": [
+        145,
+        145
+      ],
+      "melodic": [
+        2709,
+        0
+      ],
+      "bass": [
+        0,
+        0
+      ],
+      "octatonic": false,
+      "dialog_only": false,
+      "single_introduction": false
+    },
+    {
+      "id": "JW-M41",
+      "runtime_id": 50041,
+      "name": "Sechzehntel-Fanfarenkopf mit Staccato-Achtel",
+      "xyz": [
+        0.85,
+        0.8,
+        0.6
+      ],
+      "meter": [
+        4,
+        4
+      ],
+      "context": [
+        "C",
+        "G"
+      ],
+      "sequence": "C5/1 D5/1 E5/1 G5/1 C6/2 r/2 G5/1 A5/1 B5/1 D6/1 E6/2 r/2 | r/16",
+      "enabled": false,
+      "reason": "10 notes exceed the eight-note immutable material capacity",
+      "evidence": "Canonical notes are constructed (E); procedure evidence retained in original research",
+      "notes": [
+        {
+          "pitch": 72,
+          "at_ticks": 0,
+          "length_ticks": 240
+        },
+        {
+          "pitch": 74,
+          "at_ticks": 240,
+          "length_ticks": 240
+        },
+        {
+          "pitch": 76,
+          "at_ticks": 480,
+          "length_ticks": 240
+        },
+        {
+          "pitch": 79,
+          "at_ticks": 720,
+          "length_ticks": 240
+        },
+        {
+          "pitch": 84,
+          "at_ticks": 960,
+          "length_ticks": 480
+        },
+        {
+          "pitch": 79,
+          "at_ticks": 1920,
+          "length_ticks": 240
+        },
+        {
+          "pitch": 81,
+          "at_ticks": 2160,
+          "length_ticks": 240
+        },
+        {
+          "pitch": 83,
+          "at_ticks": 2400,
+          "length_ticks": 240
+        },
+        {
+          "pitch": 86,
+          "at_ticks": 2640,
+          "length_ticks": 240
+        },
+        {
+          "pitch": 88,
+          "at_ticks": 2880,
+          "length_ticks": 480
+        }
+      ]
+    },
+    {
+      "id": "JW-M42",
+      "runtime_id": 50042,
+      "name": "Leiser Kleinterz-Kreisel (oktatonisch)",
+      "xyz": [
+        0.2,
+        0.2,
+        0.6
+      ],
+      "meter": [
+        4,
+        4
+      ],
+      "context": [
+        "Cm",
+        "Cm"
+      ],
+      "sequence": "C4/2 Eb4/2 Db4/2 E4/2 Eb4/4 r/4 | r/16",
+      "enabled": false,
+      "reason": "Mandatory parallel minor thirds need polyphonic motif material; monophonic reduction is not imported",
+      "evidence": "Canonical notes are constructed (E); procedure evidence retained in original research",
+      "notes": [
+        {
+          "pitch": 60,
+          "at_ticks": 0,
+          "length_ticks": 480
+        },
+        {
+          "pitch": 63,
+          "at_ticks": 480,
+          "length_ticks": 480
+        },
+        {
+          "pitch": 61,
+          "at_ticks": 960,
+          "length_ticks": 480
+        },
+        {
+          "pitch": 64,
+          "at_ticks": 1440,
+          "length_ticks": 480
+        },
+        {
+          "pitch": 63,
+          "at_ticks": 1920,
+          "length_ticks": 960
+        }
+      ]
+    },
+    {
+      "id": "JW-M43",
+      "runtime_id": 50043,
+      "name": "Choralabstieg 5→3 mit ♭6-Reibung",
+      "xyz": [
+        0.15,
+        0.65,
+        0.3
+      ],
+      "meter": [
+        4,
+        4
+      ],
+      "context": [
+        "Cm",
+        "Fm"
+      ],
+      "sequence": "G4/8 Ab4/4 G4/4 | F4/8 Eb4/8",
+      "enabled": true,
+      "reason": "",
+      "evidence": "Canonical notes are constructed (E); procedure evidence retained in original research",
+      "notes": [
+        {
+          "pitch": 67,
+          "at_ticks": 0,
+          "length_ticks": 1920
+        },
+        {
+          "pitch": 68,
+          "at_ticks": 1920,
+          "length_ticks": 960
+        },
+        {
+          "pitch": 67,
+          "at_ticks": 2880,
+          "length_ticks": 960
+        },
+        {
+          "pitch": 65,
+          "at_ticks": 3840,
+          "length_ticks": 1920
+        },
+        {
+          "pitch": 63,
+          "at_ticks": 5760,
+          "length_ticks": 1920
+        }
+      ],
+      "harmony": [
+        137,
+        289
+      ],
+      "melodic": [
+        384,
+        40
+      ],
+      "bass": [
+        0,
+        5
+      ],
+      "octatonic": false,
+      "dialog_only": false,
+      "single_introduction": false
+    },
+    {
+      "id": "JW-M44",
+      "runtime_id": 50044,
+      "name": "Dies-irae-Kopf (Typ 1)",
+      "xyz": [
+        0.15,
+        0.55,
+        0.35
+      ],
+      "meter": [
+        4,
+        4
+      ],
+      "context": [
+        "Cm",
+        "Cm"
+      ],
+      "sequence": "C4/4 B3/4 C4/4 A3/4 | r/16",
+      "enabled": true,
+      "reason": "",
+      "evidence": "Canonical notes are constructed (E); procedure evidence retained in original research",
+      "notes": [
+        {
+          "pitch": 60,
+          "at_ticks": 0,
+          "length_ticks": 960
+        },
+        {
+          "pitch": 59,
+          "at_ticks": 960,
+          "length_ticks": 960
+        },
+        {
+          "pitch": 60,
+          "at_ticks": 1920,
+          "length_ticks": 960
+        },
+        {
+          "pitch": 57,
+          "at_ticks": 2880,
+          "length_ticks": 960
+        }
+      ],
+      "harmony": [
+        137,
+        137
+      ],
+      "melodic": [
+        2561,
+        0
+      ],
+      "bass": [
+        0,
+        0
+      ],
+      "octatonic": false,
+      "dialog_only": false,
+      "single_introduction": false
+    },
+    {
+      "id": "JW-M45",
+      "runtime_id": 50045,
+      "name": "Dies-irae-Umkehrung (Typ 5)",
+      "xyz": [
+        0.15,
+        0.7,
+        0.55
+      ],
+      "meter": [
+        4,
+        4
+      ],
+      "context": [
+        "Cm",
+        "Cm"
+      ],
+      "sequence": "C4/4 Db4/4 C4/4 Eb4/4 | r/16",
+      "enabled": true,
+      "reason": "",
+      "evidence": "Canonical notes are constructed (E); procedure evidence retained in original research",
+      "notes": [
+        {
+          "pitch": 60,
+          "at_ticks": 0,
+          "length_ticks": 960
+        },
+        {
+          "pitch": 61,
+          "at_ticks": 960,
+          "length_ticks": 960
+        },
+        {
+          "pitch": 60,
+          "at_ticks": 1920,
+          "length_ticks": 960
+        },
+        {
+          "pitch": 63,
+          "at_ticks": 2880,
+          "length_ticks": 960
+        }
+      ],
+      "harmony": [
+        137,
+        137
+      ],
+      "melodic": [
+        11,
+        0
+      ],
+      "bass": [
+        0,
+        0
+      ],
+      "octatonic": true,
+      "dialog_only": false,
+      "single_introduction": false
+    },
+    {
+      "id": "JW-M46",
+      "runtime_id": 50046,
+      "name": "Spannungszelle 1–3–2–x–1, synkopiert",
+      "xyz": [
+        0.2,
+        0.4,
+        0.6
+      ],
+      "meter": [
+        4,
+        4
+      ],
+      "context": [
+        "Cm",
+        "Cm"
+      ],
+      "sequence": "C4/2 Eb4/3 D4/3 B3/4 C4/4 | r/16",
+      "enabled": true,
+      "reason": "",
+      "evidence": "Canonical notes are constructed (E); procedure evidence retained in original research",
+      "notes": [
+        {
+          "pitch": 60,
+          "at_ticks": 0,
+          "length_ticks": 480
+        },
+        {
+          "pitch": 63,
+          "at_ticks": 480,
+          "length_ticks": 720
+        },
+        {
+          "pitch": 62,
+          "at_ticks": 1200,
+          "length_ticks": 720
+        },
+        {
+          "pitch": 59,
+          "at_ticks": 1920,
+          "length_ticks": 960
+        },
+        {
+          "pitch": 60,
+          "at_ticks": 2880,
+          "length_ticks": 960
+        }
+      ],
+      "harmony": [
+        137,
+        137
+      ],
+      "melodic": [
+        2061,
+        0
+      ],
+      "bass": [
+        0,
+        0
+      ],
+      "octatonic": false,
+      "dialog_only": false,
+      "single_introduction": false
+    },
+    {
+      "id": "JW-M47",
+      "runtime_id": 50047,
+      "name": "Arpeggio mit Fremdton (♭6)",
+      "xyz": [
+        0.3,
+        0.2,
+        0.6
+      ],
+      "meter": [
+        4,
+        4
+      ],
+      "context": [
+        "Cm(b6)",
+        "Cm"
+      ],
+      "sequence": "C4/2 Eb4/2 G4/2 Ab4/2 G4/2 Eb4/2 C4/4 | r/16",
+      "enabled": false,
+      "reason": "Exact Cm(b6) chord definition is not implemented; its characteristic added Ab must not be dropped",
+      "evidence": "Canonical notes are constructed (E); procedure evidence retained in original research",
+      "notes": [
+        {
+          "pitch": 60,
+          "at_ticks": 0,
+          "length_ticks": 480
+        },
+        {
+          "pitch": 63,
+          "at_ticks": 480,
+          "length_ticks": 480
+        },
+        {
+          "pitch": 67,
+          "at_ticks": 960,
+          "length_ticks": 480
+        },
+        {
+          "pitch": 68,
+          "at_ticks": 1440,
+          "length_ticks": 480
+        },
+        {
+          "pitch": 67,
+          "at_ticks": 1920,
+          "length_ticks": 480
+        },
+        {
+          "pitch": 63,
+          "at_ticks": 2400,
+          "length_ticks": 480
+        },
+        {
+          "pitch": 60,
+          "at_ticks": 2880,
+          "length_ticks": 960
+        }
+      ]
+    },
+    {
+      "id": "JW-M48",
+      "runtime_id": 50048,
+      "name": "Halbton-Mollpaar in hoher Lage",
+      "xyz": [
+        0.15,
+        0.2,
+        0.65
+      ],
+      "meter": [
+        4,
+        4
+      ],
+      "context": [
+        "C#m|Cm",
+        "Cm"
+      ],
+      "sequence": "G5/4 G#5/4 G5/4 E5/4 | Eb5/16",
+      "enabled": false,
+      "reason": "Separate polychord components/registers and context are not implemented",
+      "evidence": "Canonical notes are constructed (E); procedure evidence retained in original research",
+      "notes": [
+        {
+          "pitch": 79,
+          "at_ticks": 0,
+          "length_ticks": 960
+        },
+        {
+          "pitch": 80,
+          "at_ticks": 960,
+          "length_ticks": 960
+        },
+        {
+          "pitch": 79,
+          "at_ticks": 1920,
+          "length_ticks": 960
+        },
+        {
+          "pitch": 76,
+          "at_ticks": 2880,
+          "length_ticks": 960
+        },
+        {
+          "pitch": 75,
+          "at_ticks": 3840,
+          "length_ticks": 3840
+        }
+      ]
+    }
+  ]
+}

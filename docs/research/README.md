@@ -52,3 +52,5 @@ Forschungsrezepte sind keine Aufträge für Engine-Änderungen. Die erste Willia
 gehört; siehe [Abnahme 2c6f366](../development/ACCEPTED_REFERENCE_2c6f366.md).
 Der neue [P2-Kontext](john-williams/P2_OCTATONIC.md) wartet auf seine eigene Hörabnahme. Die projektweite Priorisierung steht in
 [`docs/MUSICAL_DIRECTION.md`](../MUSICAL_DIRECTION.md).
+
+Williams P3: [48 Motiv-Einzelbewertungen, tatsächliche Produktionsverwendung und A/B-Hörbeispiele](john-williams/P3_MOTIFS.md). Die neue Motivik ist technisch geprüft und musikalisch noch nicht abgenommen; die akzeptierte Arpeggio-Phrasierung bleibt unverändert.

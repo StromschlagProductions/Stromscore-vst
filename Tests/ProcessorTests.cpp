@@ -153,9 +153,39 @@ static void testImportedCatalogExport(bool extended=false,int meter=0)
 
 #include "ProfileSwitchProcessorTests.h"
 
+// P3: actual processor/SMF path, including both melodic channels and their real note ledger.
+static int testWilliamsMotifsExport()
+{
+ using namespace stromscore;int cases=0;
+ for(unsigned id:{40002u,40014u})for(int key:{0,11})for(float swing:{0.f,.3f}){
+  const auto* h=findHarmonyTemplate(static_cast<WendungId>(id));CHECK(h);
+  StromscoreProcessor q;FakeHost host;q.setPlayHead(&host);q.prepareToPlay(48000,512);
+  setParam(q,"komponist",3);setParam(q,"genre",0);setParam(q,"key",static_cast<float>(key));setParam(q,"aufbau",0);
+  setParam(q,"faerbung",h->x);setParam(q,"intensitaet",h->y);setParam(q,"unruhe",h->z);setParam(q,"abwechslung",0);
+  setParam(q,"durchgaenge",1);setParam(q,"melodie",1);setParam(q,"motiv",1);setParam(q,"melodieMotiv",1);setParam(q,"swing",swing);
+  using Timed=std::tuple<long long,int,int,int,int>;std::vector<Timed> live,exported;
+  auto add=[](std::vector<Timed>& target,const juce::MidiMessage& m,long long tick){
+   if(m.isNoteOnOrOff())target.emplace_back(tick,m.isNoteOn()?1:0,m.getChannel(),m.getNoteNumber(),m.isNoteOn()?m.getVelocity():0);
+   else if(m.isController()&&!m.isAllNotesOff())target.emplace_back(tick,2,m.getChannel(),m.getControllerNumber(),m.getControllerValue());};
+  auto file=q.renderMidiFile(64);auto stream=file.createInputStream();juce::MidiFile midi;CHECK(stream&&midi.readFrom(*stream));
+  for(int tr=0;tr<midi.getNumTracks();++tr)for(int i=0;i<midi.getTrack(tr)->getNumEvents();++i){const auto& m=midi.getTrack(tr)->getEventPointer(i)->message;add(exported,m,std::llround(m.getTimeStamp()));}
+  juce::AudioBuffer<float> audio(2,512);juce::MidiBuffer messages;messages.ensureSize(65536);Counts ledger;
+  const int total=64*96000;
+  for(int at=0;at<total;at+=512){audio.setSize(2,std::min(512,total-at));host.ppq=at/24000.;messages.clear();
+   {NoCHeap c;NoAllocations n;q.processBlock(audio,messages);}collect(messages,ledger);
+   for(auto m:messages)add(live,m.getMessage(),std::llround((at+m.samplePosition)/25.));}
+  host.playing=false;messages.clear();q.processBlock(audio,messages);collect(messages,ledger);for(auto m:messages)add(live,m.getMessage(),total/25);
+  std::sort(live.begin(),live.end());std::sort(exported.begin(),exported.end());CHECK(live==exported&&!live.empty());CHECK(!ledger.broken&&ledger.ons==ledger.offs);
+  int melodic=0;for(auto e:live)if(std::get<1>(e)==1&&(std::get<2>(e)==q.currentSettings().channel[OutMelody]||std::get<2>(e)==q.currentSettings().channel[OutCounter]))++melodic;CHECK(melodic>10);
+  file.deleteFile();++cases;
+ }
+ std::cout<<"Williams P3 real processor live/export: "<<cases<<" cases, no hanging notes or process allocations\n";return 0;
+}
+
 int main(int argc,char** argv)
 {
     juce::ScopedJuceInitialiser_GUI init;
+    if(argc==2&&std::string(argv[1])=="--williams-motifs")return testWilliamsMotifsExport();
     if(argc==2&&std::string(argv[1])=="--profile-switch")return testProfileSwitchProcessor();
     if(argc==2&&std::string(argv[1])=="--protected-catalog")return testProtectedCatalogExport();
     if(argc==2&&std::string(argv[1])=="--extended-chords"){testImportedCatalogExport(true);return 0;}

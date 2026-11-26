@@ -38,7 +38,13 @@ execute_process(COMMAND ${Python3_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/script
 if(NOT WILLIAMS_DATA_RESULT EQUAL 0)
     message(FATAL_ERROR "Williams data/header drift")
 endif()
+execute_process(COMMAND ${Python3_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/scripts/build_williams_motifs.py --check RESULT_VARIABLE WILLIAMS_MOTIF_RESULT)
+if(NOT WILLIAMS_MOTIF_RESULT EQUAL 0)
+    message(FATAL_ERROR "Williams motif data/header drift")
+endif()
+set_property(DIRECTORY APPEND PROPERTY CMAKE_CONFIGURE_DEPENDS scripts/build_williams_motifs.py data/williams/motifs.json)
 add_custom_target(ValidateHarmonyData ALL
+    COMMAND ${Python3_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/scripts/build_williams_motifs.py --check
     COMMAND ${Python3_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/scripts/build_williams_vocabulary.py --check
     COMMAND ${Python3_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/scripts/build_barry_vocabulary.py --check
     COMMAND ${Python3_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/scripts/generate_harmony_catalog.py --check
@@ -94,6 +100,10 @@ if(BUILD_TESTING)
     add_executable(OctatonicTests Tests/OctatonicTests.cpp)
     target_include_directories(OctatonicTests PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/execution-fixture)
     add_test(NAME Octatonic COMMAND OctatonicTests)
+    add_executable(WilliamsMotifTests Tests/WilliamsMotifTests.cpp)
+    target_include_directories(WilliamsMotifTests PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/execution-fixture)
+    add_test(NAME WilliamsMotifs COMMAND WilliamsMotifTests)
+    add_test(NAME WilliamsMotifData COMMAND ${Python3_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/Tests/WilliamsMotifDataTests.py)
     add_executable(WilliamsTests Tests/WilliamsTests.cpp)
     target_include_directories(WilliamsTests PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/execution-fixture)
     add_test(NAME Williams COMMAND WilliamsTests)
@@ -532,6 +542,7 @@ if(BUILD_TESTING)
     endif()
     add_test(NAME Processor COMMAND ProcessorTests)
     add_test(NAME ProcessorProfileSwitch COMMAND ProcessorTests --profile-switch)
+    add_test(NAME ProcessorWilliamsMotifs COMMAND ProcessorTests --williams-motifs)
 endif()
 
 # Screenshot-Werkzeug fuer README und Homepage (nicht Teil des Standard-Builds): cmake --build build --target StromscoreScreenshot

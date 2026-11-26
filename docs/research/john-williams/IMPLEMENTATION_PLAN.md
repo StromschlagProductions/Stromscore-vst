@@ -47,6 +47,14 @@ Score-Motivkern. Keine neue Motivbibliothek, keine vollständige Systemgrammatik
 Die folgenden Tabellen bleiben der historische Bestandsabgleich vor P1/P2;
 neue musikalische P2-Ergebnisse benötigen die anschließende Anwender-Hörabnahme.
 
+### Williams P3: kurze charakteristische Motivvorlagen
+
+[P3_MOTIFS.md](P3_MOTIFS.md) prüft sämtliche 48 M-Grundvorlagen. 32 sind ohne
+Tonverlust im gemeinsamen Vorlagen-/Motivpfad angebunden; 16 bleiben konkret
+begründet zurückgestellt. Registrierung und tatsächliche Produktionsverwendung
+werden im P3-Bericht getrennt ausgewiesen. Keine neue Langphrasen-, Kanon- oder
+Parallelstimmenengine. P2/P3 benötigen weiterhin die musikalische Hörabnahme.
+
 ## 1. Ergebnis und Bedeutung der Einstufungen
 
 Die Forschung ist wesentlich breiter als ein Akkord-Preset. Die Engine bietet dafür

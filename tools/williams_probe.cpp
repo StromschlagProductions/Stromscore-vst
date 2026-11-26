@@ -28,6 +28,21 @@ namespace stromscore {struct ExecutionTestAccess {
  }
 };}
 #endif
+#ifdef WILLIAMS_MOTIF_DIAGNOSTICS
+namespace stromscore {struct ExecutionTestAccess {
+ static void traceMotif(const Generator& original,const Settings& s,long long sample,int output,int pitch){
+  auto g=original;g.cur=&s;const auto at=execution::nominalAt(sample/28800.,execution::Timing::groove,s.swing);const auto pos=g.locate(at);
+  const auto& m=g.voice(output).motif.material(g.motifCatalog);const auto plan=g.motifOccurrence(at,pos,s,output,true);
+  const auto h=g.motifHarmonyAt(at,s);const auto allowed=g.motifPitchMask(h.chord,s,output);
+  bool planned=false;auto local=pos;if(m.complete){local.phraseStartTime=plan.begin;local.phraseEndTime=plan.end;}
+  for(int i=0;i<(plan.figure.count?plan.figure.count:m.complete?m.count:8);++i){
+   const auto note=g.planMotifNote(i,local,s,output,m.complete?&m:nullptr,plan.varied,&plan);
+   if(note.valid&&note.pitch+12*g.octaveOf(output)==pitch&&std::abs(std::llround(execution::quarters(local.phraseStartTime+note.at,execution::Timing::groove,s.swing)*28800.)-sample)<=1)planned=true;
+  }
+  std::cerr<<"M,"<<sample<<','<<output<<','<<m.vocabularyId<<','<<m.identity<<','<<m.complete<<','<<m.count<<','<<plan.introduction<<','<<static_cast<int>(plan.figure.variation)<<','<<plan.begin.value<<','<<plan.end.value<<','<<plan.figure.count<<','<<pitch<<','<<allowed<<','<<planned<<'\n';
+ }
+};}
+#endif
 using namespace stromscore;
 int main(int argc,char** argv){
  if(argc<7)return 2;Settings s;s.profile=static_cast<composition::ProfileId>(std::atoi(argv[1]));const int path=std::atoi(argv[2]),mode=std::atoi(argv[3]),block=std::atoi(argv[4]),bars=std::atoi(argv[5]);s.genre=std::atoi(argv[6]);
@@ -40,7 +55,7 @@ int main(int argc,char** argv){
  if(argc>9)s.follow[kBass]=s.follow[kFlaeche]=std::atoi(argv[9])!=0;
  if(argc>10)s.swing=std::atof(argv[10]);if(argc>11){s.meterNum=std::atoi(argv[11]);s.meterDen=std::atoi(argv[12]);}
  if(argc>14)s.arpFigure=std::atoi(argv[14]);if(argc>15)s.arpRate=std::atoi(argv[15]);
- if(argc>16)s.key=std::atoi(argv[16]);
+ if(argc>16)s.key=std::atoi(argv[16]);if(argc>17)s.seed=std::atoi(argv[17]);
  Generator g;Transport t;t.playing=true;t.bpm=100;EventList es;long long total=static_cast<long long>(bars*4.*s.meterNum/s.meterDen*28800);int last=-2;
  for(long long at=0;at<total;){
   if((path==11||path==12)&&at%7200==0){double phase=at/28800./(path==11?64:8);s.x=.5+.4*std::sin(phase);s.y=.65+.25*std::sin(phase*.7);s.z=.5+.45*std::cos(phase*.8);}
@@ -53,6 +68,9 @@ int main(int argc,char** argv){
   es.clear();g.process(t,s,n,es);if(es.overflow)return 3;
   if(g.wendung()!=last){last=g.wendung();std::cerr<<"H,"<<at<<','<<(last<0?-1:static_cast<int>(wendungAt(s.genre,last,s.profile).id))<<'\n';}
   for(int i=0;i<es.size;++i){const auto& e=es.events[i];std::cout<<at+e.offset<<','<<int(e.out)<<','<<int(e.channel)<<','<<int(e.note)<<','<<int(e.velocity)<<','<<int(e.type)<<'\n';
+#ifdef WILLIAMS_MOTIF_DIAGNOSTICS
+   if(e.type==0&&e.velocity&&(e.out==OutCounter||e.out==OutMelody))ExecutionTestAccess::traceMotif(g,s,at+e.offset,e.out,e.note);
+#endif
 #ifdef OCTATONIC_DIAGNOSTICS
    if(e.type==0&&e.velocity&&(e.out==OutCounter||e.out==OutMelody))ExecutionTestAccess::traceOct(g,s,at+e.offset,e.out,e.note);
 #endif

@@ -16,6 +16,7 @@
 #include <numeric>
 #include "CompositionCore.h"
 #include "BarryVocabulary.h"
+#include "WilliamsMotifs.generated.h"
 #include "RoleRhythm.h"
 #include "MusicalExecution.h"
 #include "BassPhrase.h"
@@ -1121,7 +1122,7 @@ private:
             for(int part=0;at<end&&part<32;++part)
             {
                 const auto h=motifHarmonyAt(at,s);unsigned mask=0;
-                for(int j=0;j<kShapes[h.chord.type].n;++j)mask|=composition::pitchBit(s.key+h.chord.root+kShapes[h.chord.type].iv[j]);
+                mask=motifPitchMask(h.chord,s,output);
                 if(!(mask&composition::pitchBit(pitch))){
                     const int index=plan.figure.passingIndex;
                     if(s.genre!=GenreScore||i!=index||i<1||i+1>=plan.figure.count)return false;
@@ -1167,7 +1168,7 @@ private:
             else
             {
                 const auto h=motifHarmonyAt(at,s);
-                for(int j=0;j<kShapes[h.chord.type].n;++j)masks[i]|=composition::pitchBit(s.key+h.chord.root+kShapes[h.chord.type].iv[j]);
+                masks[i]=motifPitchMask(h.chord,s,output);
                 const auto end=execution::nominalAt(musicaltime::toQuarters(h.end),execution::Timing::groove,s.swing);
                 limits[i]=std::min(note.length,end-at);
                 if(i+1<figure.count)limits[i]=std::min(limits[i],figure.notes[i+1].at-note.at);
@@ -1277,6 +1278,7 @@ private:
         const auto section=p.phrase-phraseOf(sceneTime);
         if(memory.count&&(time-p.phraseStartTime>=std::min(2*bar,p.phraseEndTime-p.phraseStartTime)||section!=use.introduction))memory.finish();
         if(!memory.complete)return {true,true,false,p.phraseStartTime,p.phraseStartTime+std::min(2*bar,p.phraseEndTime-p.phraseStartTime),0,0};
+        if(const auto* source=williamsMaterial(s,output);source&&source->singleIntroduction)return {};
         const auto window=bar*policy.windowBars;
         if(time<origin)return {};
         const auto epoch=(time-origin)/window;
@@ -1349,8 +1351,8 @@ private:
                 limits[i]=n.length;
                 if(adaptive)
                 {
-                    const auto h=motifHarmonyAt(tick,s);allowed[i]=0;const auto& shape=kShapes[h.chord.type];
-                    for(int j=0;j<shape.n;++j)allowed[i]|=1u<<((s.key+h.chord.root+shape.iv[j])%12);
+                    const auto h=motifHarmonyAt(tick,s);allowed[i]=0;
+                    allowed[i]=motifPitchMask(h.chord,s,output);
                     // A groove-domain gate must finish at the nominal harmony boundary,
                     // also when an odd-meter bar ends on a swung subdivision.
                     const auto releaseLimit=execution::nominalAt(musicaltime::toQuarters(h.end),execution::Timing::groove,s.swing);
@@ -1361,8 +1363,8 @@ private:
                 if(n.length<capability.minDuration||n.length>capability.maxDuration)return;
                 for(int step=0;tick<finish&&step<32;++step)
                 {
-                    const auto h=motifHarmonyAt(tick,s);unsigned mask=0;const auto& shape=kShapes[h.chord.type];
-                    for(int j=0;j<shape.n;++j)mask|=1u<<((s.key+h.chord.root+shape.iv[j])%12);
+                    const auto h=motifHarmonyAt(tick,s);unsigned mask=0;
+                    mask=motifPitchMask(h.chord,s,output);
                     allowed[i]&=mask;if(h.end<=tick)return;tick=std::min(finish,h.end);
                 }
                 if(tick<finish||!allowed[i])return;
@@ -1434,16 +1436,41 @@ private:
         return cached.plan;
     }
 
-    struct AuthoredMotif {const composition::barry::MotifSource* source=nullptr;int base=-1;};
+    bool authoredMotifs(const Settings& s)const
+    {return authoredCells(s)||(s.genre==GenreScore&&s.profile==composition::ProfileId::johnWilliams&&!s.custom);}
+    const composition::AuthoredMotifSource* williamsMaterial(const Settings& s,int output)const
+    {
+        if(s.genre!=GenreScore||s.profile!=composition::ProfileId::johnWilliams)return nullptr;
+        const auto id=voice(output).motif.material(motifCatalog).vocabularyId;
+        for(const auto& source:composition::williamsMotifs)if(static_cast<uint32_t>(source.id)==id)return &source;
+        return nullptr;
+    }
+    unsigned motifPitchMask(const Chord& chord,const Settings& s,int output)const
+    {
+        unsigned mask=0;for(int j=0;j<kShapes[chord.type].n;++j)mask|=composition::pitchBit(s.key+chord.root+kShapes[chord.type].iv[j]);
+        if(const auto* source=williamsMaterial(s,output))
+            return composition::authoredPitchMask(*source,mask,s.key+bassRoot(chord),s.key,modalContextFor(s));
+        return mask;
+    }
+    struct AuthoredMotif {const composition::AuthoredMotifSource* source=nullptr;int base=-1;};
     AuthoredMotif authoredMotif(const Pos& p,const Settings& s,int output)const
     {
-        if(!authoredCells(s))return {};
+        if(!authoredMotifs(s))return {};
         const auto& recorded=voice(output).motif.material(motifCatalog);
+        // A free prefix is already real material. A newly compatible template
+        // cannot retrospectively claim it or splice a different cell into it.
+        if(s.profile==composition::ProfileId::johnWilliams&&recorded.count&&!recorded.vocabularyId)return {};
         const auto track=outputCatalog(s)[output].track;composition::RoleNeed need;need.range=track.instrument.range;
         if(!composition::suitable(track,need))return {};
         AuthoredMotif result;float best=1e9f;
-        for(const auto& source:composition::barry::motifs)
+        const bool williams=s.profile==composition::ProfileId::johnWilliams;
+        const auto* sources=williams?composition::williamsMotifs:composition::barry::motifs;
+        const auto size=williams?sizeof(composition::williamsMotifs)/sizeof(*sources):sizeof(composition::barry::motifs)/sizeof(*sources);
+        const auto context=modalContextFor(s);
+        for(size_t index=0;index<size;++index)
         {
+            const auto& source=sources[index];
+            if(source.dialogOnly&&output!=OutCounter)continue;
             if(source.num!=s.meterNum||source.den!=s.meterDen||(recorded.vocabularyId&&recorded.vocabularyId!=static_cast<uint32_t>(source.id)))continue;
             const auto span=musicaltime::sixteenth*source.steps;
             if(p.phraseStartTime+span>p.phraseEndTime||p.phraseStartTime+span>motifAvailableUntil(s,kOutputLayer[output]))continue;
@@ -1457,6 +1484,7 @@ private:
                 {
                     const auto position=locate(at);const auto h=chordFor(position,kOutputLayer[output],s);unsigned chord=0;
                     for(int j=0;j<kShapes[h.type].n;++j)chord|=composition::pitchBit(s.key+h.root+kShapes[h.type].iv[j]);
+                    if(williams)chord=composition::authoredPitchMask(source,chord,s.key+bassRoot(h),s.key,context);
                     // Unpredictable automation cannot rewrite an already heard prefix.
                     if(!recorded.vocabularyId||at>=p.time)masks[i]&=chord;
                     if(position.chordEndTime<=at){valid=false;break;}at=std::min(end,position.chordEndTime);
@@ -1468,6 +1496,7 @@ private:
             int chosen=-1,cost=10000;
             for(int base=0;base<128;++base)
             {
+                if(williams&&(base-preferred)%12!=0)continue;
                 if(recorded.vocabularyId)
                 {
                     // A late activation can first hear the middle of a cell. Its
@@ -1486,11 +1515,21 @@ private:
             }
             if(chosen<0)continue;
             const float score=composition::barry::distance(s.x,s.y,s.z,source.x,source.y,source.z)+.0001f*cost;
-            if(score<best){best=score;result={&source,chosen};}
+            if(williams&&!recorded.vocabularyId&&score>.25f*.25f)continue;
+            // A stable weighted choice among compatible nearby templates. Once a
+            // real prefix exists its provenance locks the thought; automation
+            // cannot splice another template into it.
+            float rank=score;
+            if(williams&&!recorded.vocabularyId){
+                const auto draw=composition::randomKey(static_cast<uint32_t>(s.seed),static_cast<uint32_t>(s.variation),
+                    static_cast<uint32_t>(source.id+output*65536),composition::RandomDomain::motif,static_cast<uint32_t>(p.phrase-phraseOf(sceneTime)));
+                rank=static_cast<float>(-std::log((static_cast<double>(draw)+1.)/4294967297.)*std::exp(score/.025f));
+            }
+            if(rank<best){best=rank;result={&source,chosen};}
         }
         return result;
     }
-    int initialMotifSlots(const Settings& s)const {return authoredCells(s)?8:5;}
+    int initialMotifSlots(const Settings& s)const {return authoredMotifs(s)?8:5;}
     musicaltime::Tick initialMotifAt(int i,const Pos& p,const Settings& s,int output)const
     {
         const auto authored=authoredMotif(p,s,output);
@@ -1511,7 +1550,7 @@ private:
         const composition::RememberedMotif* memory,bool varied,const composition::MotifOccurrence* occurrence=nullptr)const
     {
         PlannedMotifNote n;
-        if(!memory&&authoredCells(s))
+        if(!memory&&authoredMotifs(s))
         {
             const auto plan=authoredMotif(p,s,output);
             if(plan.source)
@@ -1536,7 +1575,7 @@ private:
         if(i>=count)return n;
         n.at=figure?figure->notes[static_cast<size_t>(i)].at:memory?memory->notes[static_cast<size_t>(i)].at:motifTemplatePosition(mo.on[i]);
         if(n.at<musicaltime::Tick{}||n.at>=span)return n;
-        const bool authoredReplay=memory&&occurrence&&occurrence->introduction&&authoredCells(s)&&memory->vocabularyId;
+        const bool authoredReplay=memory&&occurrence&&occurrence->introduction&&authoredMotifs(s)&&memory->vocabularyId;
         int ladder[16] {};const bool exact=memory&&occurrence&&(!occurrence->introduction||authoredReplay);
         const int nl=exact?1:counterLadder(chordFor(p,kOutputLayer[output],s),s,ladder,output);
         if(!nl)return n;
@@ -1590,7 +1629,7 @@ private:
         if(memory.count&&p.phrase-phraseOf(sceneTime)!=voice(output).motif.introduction)memory.finish();
         const bool complete=memory.complete;const auto mo=motifFor(s,p.phrase);
         int count=0,future=0;auto begin=occurrence.end,end=occurrence.begin;
-        for(int i=0;i<(occurrence.figure.count?occurrence.figure.count:complete?memory.count:authoredCells(s)?8:mo.n);++i)
+        for(int i=0;i<(occurrence.figure.count?occurrence.figure.count:complete?memory.count:authoredMotifs(s)?8:mo.n);++i)
         {
             const auto at=occurrence.figure.count?occurrence.figure.notes[static_cast<size_t>(i)].at:complete?memory.notes[static_cast<size_t>(i)].at:initialMotifAt(i,p,s,output);
             auto local=locate(occurrence.begin+at);local.phraseStartTime = occurrence.begin;local.phraseEndTime = occurrence.end;
@@ -1784,7 +1823,7 @@ private:
         }
         const auto occurrence=motifOccurrence(time,p,s,output);
         auto local=p;if(complete){local.phraseStartTime = occurrence.begin;local.phraseEndTime = occurrence.end;}
-        for(int i=0;i<(occurrence.figure.count?occurrence.figure.count:authoredCells(s)?(complete?memory.count:8):5);++i)
+        for(int i=0;i<(occurrence.figure.count?occurrence.figure.count:authoredMotifs(s)?(complete?memory.count:8):5);++i)
         {
             const auto note=planMotifNote(i,local,s,output,complete?&memory:nullptr,occurrence.varied,&occurrence);
             if(!note.valid||note.at!=time-local.phraseStartTime)continue;
