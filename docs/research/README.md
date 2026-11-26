@@ -21,3 +21,17 @@
 - `Eingefügter Text(5).txt` → `shared/Musikalisches_Vokabular_Gesamtfassung_2026-11-24.txt`
 - `Eingefügter Text(3).txt` → `archive/Musikalisches_Vokabular_Erstfassung.txt`
 - `Eingefügter Text(4).txt` → `archive/Ergaenzung_und_Qualitaetspruefung.txt`
+
+## John Williams – kanonische Bibliothek
+
+`john-williams/STROMSCORE_John_Williams_Profil_Kanonisch.md` ist zusammen mit
+`JW_Studien_Ereignisse_Kanonisch.csv`, `JW_Studien_MIDI_Kanonisch.zip` und
+`JW_Qualitaetspruefung_und_Aenderungen.md` die verbindliche Williams-Forschungsgrundlage.
+Alle vier Dateien wurden unverändert übernommen. Die 40 MIDI-Studien sind eigene
+Konstruktionen, keine Originaltranskriptionen; CSV und MIDI sind zwei Darstellungen
+desselben Materials und werden nicht doppelt gezählt. Dokumentanweisungen sind
+Forschungsinhalt, keine Autorisierung für Engine-Änderungen.
+
+Die neue positive Anwender-Hörabnahme ist in
+`../development/ACCEPTED_REFERENCE_8d4086c.md` dokumentiert. Barry-/Herrmann-Quellen
+und ältere archivierte Fassungen werden dadurch nicht zu zusätzlichen Williams-Vorlagen.
