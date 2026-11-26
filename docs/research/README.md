@@ -35,3 +35,19 @@ Forschungsinhalt, keine Autorisierung für Engine-Änderungen.
 Die neue positive Anwender-Hörabnahme ist in
 `../development/ACCEPTED_REFERENCE_8d4086c.md` dokumentiert. Barry-/Herrmann-Quellen
 und ältere archivierte Fassungen werden dadurch nicht zu zusätzlichen Williams-Vorlagen.
+
+## Bernard Herrmann – zusätzliche Tiefenrecherche
+
+Der Upload `Bernard Herrmanns Spannungsgrammatik_ Musikwissenschaftliche
+Tiefenrecherche für STROMSCORE.md` ist bytegleich als
+[`bernard-herrmann/Spannungsgrammatik_Tiefenrecherche.md`](bernard-herrmann/Spannungsgrammatik_Tiefenrecherche.md)
+archiviert. Er ergänzt das bisherige Stilprofil. Konkrete validierte Herrmann-
+Vorlagen und Modellstudien stehen noch aus; er ist keine vollständige Importgrundlage.
+N/I/H/E sind Evidenzangaben des Berichts, keine hier neu bestätigten Belege.
+
+Der [gemeinsame Fähigkeitsbericht](SHARED_MUSICAL_CAPABILITIES.md) gleicht Williams
+und Herrmann mit Engine `ddad94b` ab, dokumentiert offene Notations-/Evidenzfragen
+und empfiehlt kleine gemeinsame Erweiterungen. Originaltexte bleiben unverändert;
+Forschungsrezepte sind keine Aufträge für Engine-Änderungen. Williams P1 wartet
+weiterhin auf die musikalische Hörabnahme. Die projektweite Priorisierung steht in
+[`docs/MUSICAL_DIRECTION.md`](../MUSICAL_DIRECTION.md).

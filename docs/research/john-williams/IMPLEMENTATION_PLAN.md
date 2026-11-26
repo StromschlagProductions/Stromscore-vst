@@ -23,6 +23,19 @@ und danach Langphrasen/Rollenübergaben bleiben abgegrenzte Folgephasen. Sämtli
 76 Harmonien, 48 R-, 40 B-, 48 M-, 24 P- und 40 S/T-Referenzen bleiben im Ausbauplan;
 nicht implementierte Studien sind keine statisch abzuspielenden Produktsequenzen.
 
+### Gemeinsame Fortschreibung mit Herrmann, 26.11.2026
+
+Williams P1 (`ddad94b`) ist technisch vorläufig freigegeben; die musikalische
+Hörabnahme steht aus. Der neue [gemeinsame Fähigkeitsbericht](../SHARED_MUSICAL_CAPABILITIES.md)
+empfiehlt danach einen tatsächlich ausgewerteten Tonvorratskontext, unabhängige
+Pedal-/Bassabsichten sowie kleine repetitive Module und begrenzte Einsatz-/Register-
+koordination vor umfangreicher Langphrasenplanung. Fehlende einfache Klangtypen
+können bei konkretem Bedarf unabhängig folgen; Polychorde benötigen zusätzlich
+eine getrennte Komponenten-/Registerbedeutung. Herrmanns neue Recherche begründet
+keine allgemeine Oktatonikpflicht. Die historischen P2–P7 unten bleiben als
+Bestandsplanung erhalten; die neue Reihenfolge ist ein Vorschlag, kein neuer
+Implementierungsauftrag. Keine Änderung an P1 oder Freigabe einer Folgephase.
+
 ## 1. Ergebnis und Bedeutung der Einstufungen
 
 Die Forschung ist wesentlich breiter als ein Akkord-Preset. Die Engine bietet dafür
