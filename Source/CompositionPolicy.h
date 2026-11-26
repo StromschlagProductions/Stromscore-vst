@@ -1,5 +1,6 @@
 #pragma once
 #include "ModalContext.h"
+#include "ArpeggioPhrase.h"
 #include "RhythmPlan.h"
 #include "ChordDisposition.h"
 #include "ProfileIdentity.generated.h"
@@ -71,7 +72,7 @@ struct AutoAccompanimentPolicy
 };
 inline bool valid(const AutoAccompanimentPolicy& p)
 {return p.fastestArp==musicaltime::sixteenth||p.fastestArp==2*musicaltime::sixteenth||p.fastestArp==musicaltime::quarter;}
-struct FreeCompositionPolicy { AutoAccompanimentPolicy accompaniment; TexturePolicy texture; PopRolePolicy popRoles; MotifRecurrencePolicy motif; HookPolicy popHooks; PassingPolicy passing; BassPhrasePolicy bass; RhythmCoordinationPolicy rhythm; ChordDispositionPolicy chords; };
+struct FreeCompositionPolicy { ArpeggioPhrasePolicy arpeggioPhrase; AutoAccompanimentPolicy accompaniment; TexturePolicy texture; PopRolePolicy popRoles; MotifRecurrencePolicy motif; HookPolicy popHooks; PassingPolicy passing; BassPhrasePolicy bass; RhythmCoordinationPolicy rhythm; ChordDispositionPolicy chords; };
 inline constexpr FreeCompositionPolicy neutralFreePolicy {};
 inline constexpr auto barryPolicy=[] {
     auto p=neutralFreePolicy;p.accompaniment.fieldAndOstinato=true;p.accompaniment.authoredCells=true;
@@ -81,6 +82,7 @@ inline constexpr auto barryPolicy=[] {
     p.texture.arpeggio.quarterBelow=.4f;
     return p;
 }();
+inline constexpr auto williamsPolicy=[] {auto p=neutralFreePolicy;p.arpeggioPhrase.enabled=true;return p;}();
 // Each profile supplies data to the same planning and rendering mechanisms.
 struct CompositionProfile
 {
@@ -91,7 +93,7 @@ struct CompositionProfile
 };
 inline constexpr auto compositionProfiles=[] {
     std::array<CompositionProfile,profileIdentities.size()> result {};
-    for(size_t i=0;i<result.size();++i){const auto& p=profileIdentities[i];result[i]={p.id,p.name,p.id==ProfileId::johnBarry?&barryPolicy:&neutralFreePolicy,p.harmonySelectionOnly};}
+    for(size_t i=0;i<result.size();++i){const auto& p=profileIdentities[i];result[i]={p.id,p.name,p.id==ProfileId::johnBarry?&barryPolicy:p.id==ProfileId::johnWilliams?&williamsPolicy:&neutralFreePolicy,p.harmonySelectionOnly};}
     return result;
 }();
 inline constexpr const CompositionProfile* findProfile(ProfileId id)

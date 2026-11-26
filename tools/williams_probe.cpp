@@ -22,6 +22,7 @@ int main(int argc,char** argv){
  if(argc>8&&std::atoi(argv[8])){s.padPattern=PadPulse;s.bassPattern=BassQuarter;}
  if(argc>9)s.follow[kBass]=s.follow[kFlaeche]=std::atoi(argv[9])!=0;
  if(argc>10)s.swing=std::atof(argv[10]);if(argc>11){s.meterNum=std::atoi(argv[11]);s.meterDen=std::atoi(argv[12]);}
+ if(argc>14)s.arpFigure=std::atoi(argv[14]);if(argc>15)s.arpRate=std::atoi(argv[15]);
  Generator g;Transport t;t.playing=true;t.bpm=100;EventList es;long long total=static_cast<long long>(bars*4.*s.meterNum/s.meterDen*28800);int last=-2;
  for(long long at=0;at<total;){
   if((path==11||path==12)&&at%7200==0){double phase=at/28800./(path==11?64:8);s.x=.5+.4*std::sin(phase);s.y=.65+.25*std::sin(phase*.7);s.z=.5+.45*std::cos(phase*.8);}

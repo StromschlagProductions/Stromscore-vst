@@ -288,7 +288,7 @@ struct Meter
 class Generator
 {
 public:
-    void reset() { previousSettings.reset();preparedTime.reset();dispatchIdentity=0;nowTime={};currentPerformanceQuarter=0;currentTiming=execution::Timing::nominal;bassPhrase={};bassPairStart.reset();harmonicChase=false; clearHarmonicEntries(); motifCatalog.clear(); voices={};authoredRhythmCache={}; style = -1; restartAt.reset(); lastGenre = -1; resetCc(); resetVoicing(); numActive = 0; running = false; lastPpqEnd = 0.0; phraseIndex = -1; current = -1; wendungTime = musicaltime::fromGridStep(0); still = false; chordBase = 0; drivePrev = driveSeen = driveLatched = driveArrivedNow = false; driveTrajectory = false; driveProgressNow = 0; driveGenerationSeen = 0; curRoot = 0; curType = Min; curChord = -1;
+    void reset() { previousSettings.reset();preparedTime.reset();dispatchIdentity=0;nowTime={};currentPerformanceQuarter=0;currentTiming=execution::Timing::nominal;bassPhrase={};bassPairStart.reset();harmonicChase=false; clearHarmonicEntries(); motifCatalog.clear(); voices={};authoredRhythmCache={};arpPhrase={}; style = -1; restartAt.reset(); lastGenre = -1; resetCc(); resetVoicing(); numActive = 0; running = false; lastPpqEnd = 0.0; phraseIndex = -1; current = -1; wendungTime = musicaltime::fromGridStep(0); still = false; chordBase = 0; drivePrev = driveSeen = driveLatched = driveArrivedNow = false; driveTrajectory = false; driveProgressNow = 0; driveGenerationSeen = 0; curRoot = 0; curType = Min; curChord = -1;
                    sceneTime=musicaltime::fromGridStep(0); manualEndTime.reset(); manualFinished = manualHitSent = false; endWasRequested = false; sceneSeed = 0; autoSeed = -1; sceneBarNow = -1; sceneEnded = false; for (int l = 0; l < kNumLayers; ++l) { on[l] = prevOn[l] = hOn[l] = false; } }
 
     uint32_t unavailablePadPitchClasses() const { return unavailablePad; }
@@ -499,7 +499,7 @@ public:
         s.change = std::clamp (s.change, 0, kNumChangeGrids - 1);
         for (auto& v : s.layerIntensity) v = std::clamp (v, -1.0f, 1.0f);
         if(!composition::findProfile(s.profile))s.profile=composition::ProfileId::neutral;
-        if(!composition::valid(s.policy.accompaniment)||!composition::valid(s.policy.popRoles)||!composition::valid(s.policy.texture)||!composition::valid(s.policy.motif)||!composition::valid(s.policy.popHooks.recurrence)||!composition::valid(s.policy.passing)||!composition::valid(s.policy.bass)||!composition::valid(s.policy.rhythm)||!composition::valid(s.policy.chords))s.policy=composition::neutralFreePolicy;
+        if(!composition::valid(s.policy.arpeggioPhrase)||!composition::valid(s.policy.accompaniment)||!composition::valid(s.policy.popRoles)||!composition::valid(s.policy.texture)||!composition::valid(s.policy.motif)||!composition::valid(s.policy.popHooks.recurrence)||!composition::valid(s.policy.passing)||!composition::valid(s.policy.bass)||!composition::valid(s.policy.rhythm)||!composition::valid(s.policy.chords))s.policy=composition::neutralFreePolicy;
         s.variety = std::clamp (s.variety, 0.0f, 1.0f);
         for (auto& o : s.octave) o = std::clamp (o, -2, 2);
         for (auto& c : s.channel) c = std::clamp (c, 1, 16);
@@ -535,7 +535,7 @@ public:
         s.genre = std::clamp (s.genre, 0, kNumGenres - 1);
         if (s.custom != wasCustom || bars != phraseBars || s.genre != lastGenre || s.profile != lastProfile)   // Umschalten, neue Laenge oder anderes Genre: neue Phrase
         {
-            if(s.genre!=lastGenre||s.profile!=lastProfile){authoredRhythmCache={};if(s.profile!=lastProfile){allNotesOff(out,0);current=-1;voices={};authoredRhythmCache={};bassPhrase={};bassPairStart.reset();clearHarmonicEntries();resetVoicing();}motifCatalog.clear();for(auto& state:voices){state.motif.clear();state.answer.clear();state.capture.clear();state.recurrence={};state.reservationRecurrence={};state.popTurnValid=false;}}
+            if(s.genre!=lastGenre||s.profile!=lastProfile){authoredRhythmCache={};arpPhrase={};if(s.profile!=lastProfile){allNotesOff(out,0);current=-1;voices={};authoredRhythmCache={};arpPhrase={};bassPhrase={};bassPairStart.reset();clearHarmonicEntries();resetVoicing();}motifCatalog.clear();for(auto& state:voices){state.motif.clear();state.answer.clear();state.capture.clear();state.recurrence={};state.reservationRecurrence={};state.popTurnValid=false;}}
             preparedTime.reset();
             phraseIndex = -1; wasCustom = s.custom; phraseBars = bars; style = -1;
             genre = s.genre; lastGenre = s.genre;lastProfile=s.profile;
@@ -572,7 +572,7 @@ public:
             const auto destination=execution::floorTime(t.ppq);
             const auto barDuration=musicaltime::sixteenth*meter.len;
             if (! running) { manualEndTime.reset(); manualFinished = manualHitSent = false; endWasRequested = false; }
-            if (! running || destination<sceneTime) { bassPhrase={};bassPairStart.reset();clearHarmonicEntries(); motifCatalog.clear(); voices={};authoredRhythmCache={}; sceneTime=barDuration*floorDiv(destination.value,barDuration.value); driveLatched = false; drivePrev = false; driveSeen = false; }
+            if (! running || destination<sceneTime) { bassPhrase={};bassPairStart.reset();clearHarmonicEntries(); motifCatalog.clear(); voices={};authoredRhythmCache={};arpPhrase={}; sceneTime=barDuration*floorDiv(destination.value,barDuration.value); driveLatched = false; drivePrev = false; driveSeen = false; }
             running = true;
             phraseIndex = -1;
             for(auto& state:voices){state.note=-1;state.pendingAt.reset();} resetCc();
@@ -715,7 +715,7 @@ private:
         for(size_t i=0;i<a.route.points.size();++i)if(a.route.points[i].x!=b.route.points[i].x||a.route.points[i].y!=b.route.points[i].y)return false;
         for(size_t i=0;i<a.route.bends.size();++i)if(a.route.bends[i].x!=b.route.bends[i].x||a.route.bends[i].y!=b.route.bends[i].y)return false;
         const auto& x=a.policy;const auto& y=b.policy;
-        if(x.accompaniment.authoredCells!=y.accompaniment.authoredCells||x.accompaniment.fieldAndOstinato!=y.accompaniment.fieldAndOstinato||x.accompaniment.fastestArp!=y.accompaniment.fastestArp
+        if(x.arpeggioPhrase.enabled!=y.arpeggioPhrase.enabled||x.arpeggioPhrase.breathWeight!=y.arpeggioPhrase.breathWeight||x.arpeggioPhrase.exchangeWeight!=y.arpeggioPhrase.exchangeWeight||x.accompaniment.authoredCells!=y.accompaniment.authoredCells||x.accompaniment.fieldAndOstinato!=y.accompaniment.fieldAndOstinato||x.accompaniment.fastestArp!=y.accompaniment.fastestArp
             ||x.popRoles.sparseBelow!=y.popRoles.sparseBelow||x.popRoles.drivenFrom!=y.popRoles.drivenFrom||x.popRoles.unrestFrom!=y.popRoles.unrestFrom
             ||x.texture.activityStart!=y.texture.activityStart
             ||x.texture.accentUnrest!=y.texture.accentUnrest
@@ -3189,8 +3189,27 @@ private:
         return true;
     }
 
+    musicaltime::Tick arpeggioFigureEnd(const Pos& p,const Settings& s)
+    {
+        if(s.genre!=GenreScore||s.profile!=composition::ProfileId::johnWilliams||!s.policy.arpeggioPhrase.enabled
+            ||s.arpFigure!=ArpAuto||s.arpRate!=RateAuto||s.meterNum!=4||s.meterDen!=4)return p.chordEndTime;
+        const auto begin=std::max(p.chordStartTime,sceneTime);
+        if(arpPhrase.count==0||arpPhrase.begin!=begin||arpPhrase.end!=p.chordEndTime){
+            const auto parts=roleRhythm(p,s);
+            const bool companion=(on[kFlaeche]&&parts.harmony.active&&parts.harmony.count>0)
+                ||(on[kBass]&&parts.bass.active&&parts.bass.count>0);
+            arpPhrase=composition::planArpeggioPhrase(s.policy.arpeggioPhrase,begin,p.chordEndTime,
+                musicaltime::sixteenth*meter.len,layerY(s,kArp),s.z,companion,
+                static_cast<uint32_t>(hashInt(1873u,begin.value)));
+        }
+        return arpPhrase.releaseAt(p.time);
+    }
     void playArpeggio(musicaltime::Tick time,int offset,const Pos& p,long long phrase,const Settings& s,EventList& out)
     {
+        const bool phrased=s.genre==GenreScore&&s.profile==composition::ProfileId::johnWilliams
+            &&s.policy.arpeggioPhrase.enabled&&s.arpFigure==ArpAuto&&s.arpRate==RateAuto&&s.meterNum==4&&s.meterDen==4;
+        const auto figureEnd=phrased?arpeggioFigureEnd(p,s):time;
+        if(phrased&&figureEnd<=time)return;
         const bool group=metricGroup(p);const float z=s.z,yArp=layerY(s,kArp);
         const int fig = chooseArp (s, phrase);
         const auto period=arpeggioPeriod(s,phrase);
@@ -3276,7 +3295,7 @@ private:
             if(protectedColoration()&&!authoredPitch(c,note,s))note=tones[c0%count];
             const int vel = (int) ((fig == ArpGlitter ? 40 : 52) + 35 * yArp) + (authored ? onset->accent : group ? 6 : 0) + jitter (sourceStep, kArp, 6);
             const auto len = onset?onset->length:period;
-            noteOn (OutArp, note, vel, time + len, offset, out);
+            noteOn (OutArp, note, vel, phrased?std::min(time+len,figureEnd):time+len, offset, out);
         }
     }
 
@@ -3843,6 +3862,7 @@ private:
         int num=0,den=0,stableBars=-1;const composition::barry::RhythmSource* source=nullptr;
     };
     mutable AuthoredRhythmCache authoredRhythmCache;
+    composition::ArpeggioPhrasePlan arpPhrase;
     std::array<VoiceState,2> voices {};
     int captureRead=0;
     composition::MotifCatalog motifCatalog;

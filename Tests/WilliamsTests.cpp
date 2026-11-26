@@ -9,9 +9,23 @@ namespace stromscore {struct ExecutionTestAccess {
 };}
 int main()
 {
+ ArpeggioPhrasePolicy phrasing;phrasing.enabled=true;
+ int continued=0,breathed=0,exchanged=0;
+ for(unsigned choice=0;choice<100000;choice+=997){
+  const auto plan=planArpeggioPhrase(phrasing,Tick{},16*quarter,4*quarter,.7f,.8f,true,choice);
+  CHECK(plan.count>=1&&plan.count<=2);
+  for(int i=0;i<plan.count;++i){CHECK(plan.figures[i].end>plan.figures[i].begin);CHECK(plan.figures[i].end<=plan.end);}
+  if(plan.count==2){++exchanged;CHECK(plan.figures[0].end<plan.figures[1].begin);CHECK(plan.releaseAt(plan.figures[0].end)==plan.figures[0].end);}
+  if(plan.figures[plan.count-1].end==plan.end)++continued;else ++breathed;
+ }
+ CHECK(continued&&breathed&&exchanged);
+ phrasing.enabled=false;
+ const auto continuous=planArpeggioPhrase(phrasing,Tick{},32*quarter,4*quarter,.2f,.8f,true,99999);
+ CHECK(continuous.count==1&&continuous.releaseAt(31*quarter)==32*quarter);
+
  CHECK(wendungCount(GenreScore,ProfileId::johnWilliams)==49);
  std::set<int> selected;
- Settings s;s.profile=ProfileId::johnWilliams;s.y=.75f;s.x=.3f;s.z=.6f;s.melody=true;
+ Settings s;s.profile=ProfileId::johnWilliams;s.policy=policyForContext(s.profile,true);s.y=.75f;s.x=.3f;s.z=.6f;s.melody=true;
  for(int xyz=0;xyz<49;++xyz){const auto& w=wendungAt(GenreScore,xyz,s.profile);CHECK(w.coloration==ChordColoration::protectedColor);s.x=w.x;s.y=w.y;s.z=w.z;
   for(int salt=0;salt<200;++salt)selected.insert(static_cast<int>(wendungAt(GenreScore,Generator::pick(s,salt),s.profile).id));}
  CHECK(selected.size()==49);
