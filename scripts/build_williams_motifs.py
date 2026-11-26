@@ -49,7 +49,7 @@ def outputs():
    header+='{'+','.join(map(str,[50000+number,num,den,at,len(row['notes'])]))+','+','.join(str(v)+'f' for v in x['xyz'])+','+','.join('{'+','.join(map(str,a))+'}' for a in arrays)+','+str(number==6).lower()+','+str(octatonic).lower()+','+str(number==22).lower()+'},\n'
   rows.append(row)
  header+='};\n}\n'
- return {'Source/WilliamsMotifs.generated.h':header,'data/williams/motifs.json':json.dumps(dict(schema_version=1,source=str(CANON.relative_to(ROOT)),motifs=rows),ensure_ascii=False,indent=2)+'\n'}
+ return {'Source/WilliamsMotifs.generated.h':header,'data/williams/motifs.json':json.dumps(dict(schema_version=1,source=CANON.relative_to(ROOT).as_posix(),motifs=rows),ensure_ascii=False,indent=2)+'\n'}
 def main():
  p=argparse.ArgumentParser();p.add_argument('--check',action='store_true');a=p.parse_args()
  for name,content in outputs().items():
