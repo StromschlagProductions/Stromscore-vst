@@ -5,6 +5,24 @@ Stand: 26.11.2026. Untersuchte Engine: `8d4086c`, Branch
 [ACCEPTED_REFERENCE_8d4086c](../../development/ACCEPTED_REFERENCE_8d4086c.md).
 Keine Engine-/GUI-Änderung, kein Vorlagenimport in den Laufzeitkatalog.
 
+## P1-Fortschreibung vom 26.11.2026
+
+Die anschließende P1-Umsetzung erweitert den ursprünglich vorgeschlagenen 16er-Pool
+auf sämtliche 49 direkt darstellbaren H-Grundvorlagen. Die zwölf angebundenen
+R-Quellen und B01/B04/B18 nutzen eine gemeinsame rollenbezogene Begleitplanung;
+Musik, Messungen, Teilübernahmen und Grenzen stehen in [P1.md](P1.md).
+Die projektweit verbindliche [Ausrichtung](../../MUSICAL_DIRECTION.md) priorisiert
+Horror/Thriller/Mystery, ohne helle oder warme Bereiche zu unterdrücken und ohne
+XYZ-Anker/Quoten zu verändern. Der folgende Bestandsbericht bleibt die historische
+Analyse vor P1; sein 16er-Vorschlag ist durch den freigegebenen 49er-Umfang ersetzt.
+
+Nach der P1-Hörabnahme werden weitere Aufgaben gemeinsam festgelegt, mit hoher
+Priorität für gemeinsame Okt-/Hex-/Lydisch-Kontexte, funktionale Nicht-Akkordtöne
+und eigenständigere Bassführung. Klang-/Zeit-/Rhythmuserweiterungen, Williams-Motive
+und danach Langphrasen/Rollenübergaben bleiben abgegrenzte Folgephasen. Sämtliche
+76 Harmonien, 48 R-, 40 B-, 48 M-, 24 P- und 40 S/T-Referenzen bleiben im Ausbauplan;
+nicht implementierte Studien sind keine statisch abzuspielenden Produktsequenzen.
+
 ## 1. Ergebnis und Bedeutung der Einstufungen
 
 Die Forschung ist wesentlich breiter als ein Akkord-Preset. Die Engine bietet dafür

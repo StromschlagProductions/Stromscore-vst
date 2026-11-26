@@ -11,7 +11,7 @@ static unsigned mask(const Chord& c,int key)
 {unsigned m=0;for(int i=0;i<kShapes[c.type].n;++i)m|=composition::pitchBit(key+c.root+kShapes[c.type].iv[i]);return m;}
 static Settings settingsFor(int type,bool protect,int genre=GenrePopRock)
 {
- Settings s;s.genre=genre;s.profile=static_cast<composition::ProfileId>(3+type*2+protect);s.variety=0;
+ Settings s;s.genre=genre;s.profile=static_cast<composition::ProfileId>(static_cast<int>(composition::ProfileId::colorationTest0)+type*2+protect);s.variety=0;
  s.mute[kGegenstimme]=s.mute[kAkzent]=true;s.melody=false;s.padPattern=PadHeld;s.bassPattern=BassHeld;
  s.arpFigure=ArpCircle;s.arpRate=RateEighth;s.x=.8f;s.y=.8f;s.z=.9f;s.passing=true;
  s.rangeOn[0]=true;s.rangeLo[0]=36;s.rangeHi[0]=108;
@@ -99,7 +99,7 @@ int main(int argc,char** argv)
  }
  // Checked modal passing tones remain possible and resolve; the stored original stays immutable.
  {
-  Settings a;a.genre=GenrePopRock;a.motif=true;a.profile=static_cast<composition::ProfileId>(3+2*kNumChordTypes);a.x=.85f;a.y=.75f;a.z=.35f;a.variety=0;a.solo[kGegenstimme]=true;
+  Settings a;a.genre=GenrePopRock;a.motif=true;a.profile=composition::ProfileId::protectedModalTest;a.x=.85f;a.y=.75f;a.z=.35f;a.variety=0;a.solo[kGegenstimme]=true;
   auto g=std::make_unique<Generator>();Transport t;t.playing=true;EventList es;int passes=0,resolutions=0;uint64_t identity=0;long long targetAt=-1;int target=-1;
   for(int tick=0;tick<128*16;++tick)
   {

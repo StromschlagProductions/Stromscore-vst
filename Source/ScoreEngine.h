@@ -16,6 +16,7 @@
 #include <numeric>
 #include "CompositionCore.h"
 #include "BarryVocabulary.h"
+#include "RoleRhythm.h"
 #include "MusicalExecution.h"
 #include "BassPhrase.h"
 #include "WendungId.h"
@@ -2022,6 +2023,66 @@ private:
         }
         return c.source;
     }
+    composition::RoleRhythmPlan roleRhythm(const Pos& p,const Settings& s)const
+    {
+        using namespace composition;
+        if(p.time<sceneTime||s.genre!=GenreScore||s.profile!=ProfileId::johnWilliams||s.meterNum!=4||s.meterDen!=4||s.custom||still||manualEndTime||s.endRequested)return {};
+        const RoleRhythmSource* selected=nullptr;
+        float weights[sizeof(williamsRhythms)/sizeof(williamsRhythms[0])]{};float total=.35f;int cellIndex=0;
+        // Stable phrase variation among nearby cells, without a forced rotation.
+        for(const auto& cell:williamsRhythms)
+        {
+            const int candidateIndex=cellIndex++;
+            const float dx=s.x-cell.x,dy=.7f*(s.y-cell.y),dz=.8f*(s.z-cell.z);
+            const float distance=dx*dx+dy*dy+dz*dz;
+            if(distance>.16f)continue;
+            bool eligible=true;
+            for(int i=0;i<W().n;++i)
+            {
+                const auto& chord=W().ch[i];
+                if(cell.pedal&&chord.bass>=0&&chord.bass!=0)eligible=false;
+                for(int n=0;n<cell.intervalCount;++n)if(cell.intervals[n]%12)
+                {
+                    if(chord.bass>=0&&chord.bass!=chord.root){eligible=false;continue;}
+                    bool found=false;for(int j=0;j<kShapes[chord.type].n;++j)found|=kShapes[chord.type].iv[j]%12==cell.intervals[n]%12;
+                    if(!found)eligible=false;
+                }
+            }
+            if(!eligible)continue;
+            weights[candidateIndex]=std::exp(-distance/.035f);total+=weights[candidateIndex];
+        }
+        const float draw=(hashInt(1447u,p.phrase)%100000)/100000.f*total;
+        float sum=.35f; // Existing accompaniment remains an explicit musical option.
+        if(draw<sum)return {};
+        for(size_t i=0;i<sizeof(williamsRhythms)/sizeof(williamsRhythms[0]);++i)
+        {sum+=weights[i];if(draw<sum){selected=&williamsRhythms[i];break;}}
+        if(!selected)return {};
+        auto plan=planRoleRhythm(*selected,p.bar-floorDiv(sceneTime.value,(16*musicaltime::sixteenth).value));
+        const auto catalog=outputCatalog(s);
+        auto validate=[&](RhythmPlan& part,int output,bool manual){
+            if(manual){part={};return;}
+            const auto& track=catalog[output].track;
+            const auto chord=chordFor(p,output==OutPadShort?kFlaeche:kBass,s);
+            auto fits=[&](int pitch){const int pc=(pitch%12+12)%12;const int low=track.instrument.range.low;
+                return low+(pc-low%12+12)%12<=track.instrument.range.high;};
+            RoleNeed baseNeed;baseNeed.role=MusicalRole::accompaniment;baseNeed.style=track.style;baseNeed.range=track.instrument.range;
+            baseNeed.minDuration=baseNeed.maxDuration=track.instrument.minDuration;
+            baseNeed.polyphony=output==OutPadShort?kShapes[chord.type].n:1;
+            if(part.active&&!suitable(track,baseNeed)){part={};return;}
+            if(part.active&&output==OutPadShort){for(int j=0;j<kShapes[chord.type].n;++j)
+                if(!fits(s.key+chord.root+kShapes[chord.type].iv[j])){part={};return;}}
+            else if(part.active)for(int j=0;j<selected->intervalCount;++j)
+                if(!fits(s.key+(selected->pedal?0:bassRoot(chord))+selected->intervals[j])){part={};return;}
+            for(int i=0;i<part.count;++i){auto& n=part.notes[i];
+                if(!selected->pedal||output==OutPadShort)n.length=std::min(n.length,locate(p.bar*16*musicaltime::sixteenth+n.at).chordEndTime-(p.bar*16*musicaltime::sixteenth+n.at));
+                RoleNeed need;need.role=MusicalRole::accompaniment;need.style=track.style;need.range=track.instrument.range;need.minDuration=need.maxDuration=n.length;
+                if(!suitable(track,need)){part={};return;}}
+        };
+        validate(plan.harmony,OutPadShort,s.padPattern!=PadAuto||padGrow||padShy||peak);
+        validate(plan.bass,selected->pedal?OutBassLong:OutBassShort,s.bassPattern!=BassAuto||bassOverride>=0||bassRest);
+        return plan;
+    }
+
     composition::RhythmPlan authoredRhythmBar(const Pos& p,const Settings& s,bool bass)const
     {
         if(bass?(s.bassPattern!=BassAuto||bassOverride>=0||bassRest||still):(s.arpFigure!=ArpAuto||s.arpRate!=RateAuto))return {};
@@ -2626,11 +2687,11 @@ private:
         const int pad = choosePad (s);
         const bool padFollow = s.follow[kFlaeche];
         const bool phraseStart = p.time == p.phraseStartTime;
-        if ((mask & 1u) && pad == PadHeld && (padFollow || phraseStart || restart))
+        if (!roleRhythm(p,s).harmony.active && (mask & 1u) && pad == PadHeld && (padFollow || phraseStart || restart))
             padChord (p, s, OutPadLong, offset, padFollow ? p.chordEndTime : p.phraseEndTime, (int) (40 + 45 * layerY (s, kFlaeche)), out);
 
         const int bp = chooseBass (s, p.phrase);
-        if (!authoredRhythmBar(p,s,true).active && (mask & 2u) && ((bp == BassHeld && (s.follow[kBass] || phraseStart || restart)) || bp == BassPedal))
+        if (!roleRhythm(p,s).bass.active && !authoredRhythmBar(p,s,true).active && (mask & 2u) && ((bp == BassHeld && (s.follow[kBass] || phraseStart || restart)) || bp == BassPedal))
         {
             const bool pedal = bp == BassPedal;
             noteOn (OutBassLong, bassPlacement (p, s, place (s.key + (pedal ? pedalRoot() : bassRoot (chordFor (p, kBass, s))), bassLow (s)), pedal),
@@ -2659,6 +2720,8 @@ private:
         if(p.time%musicaltime::sixteenth!=musicaltime::Tick{})return false;
         const int slot=p.pos;const auto k=p.k;
         if(s.dynamics)return true; // Existing expression curve sampling, not a note scheduler.
+        const auto coordinated=roleRhythm(p,s);const auto local=p.time-p.bar*16*musicaltime::sixteenth;
+        if((on[kFlaeche]&&coordinated.harmony.active&&coordinated.harmony.at(local))||(on[kBass]&&coordinated.bass.active&&coordinated.bass.at(local)))return true;
         const int pad=choosePad(s);
         if(on[kFlaeche]&&((pad==PadStabs&&slot%4==2)||((pad==PadPulse||pad==PadStaccato)&&slot%4==0)||(pad==PadGated&&slot%2==0)))return true;
         if(on[kBass])
@@ -3263,13 +3326,17 @@ private:
 
         // --- Flaeche: Schlaege, Puls oder Staccato
         const int pad = choosePad (s);
-        if (templateSlot && optional && pad == PadStabs && p.pos % 4 == 2)
+        const auto coordinated=roleRhythm(p,s);
+        if(optional&&coordinated.harmony.active&&on[kFlaeche])
+            if(const auto* hit=coordinated.harmony.at(time-p.bar*16*musicaltime::sixteenth))
+                padChord(p,s,OutPadShort,offset,time+hit->length,static_cast<int>(50+40*yPad)+hit->accent,out);
+        if (!coordinated.harmony.active && templateSlot && optional && pad == PadStabs && p.pos % 4 == 2)
             padChord (p, s, OutPadShort, offset, time + musicaltime::sixteenth*1, (int) (55 + 40 * yPad) + jitter (k, kFlaeche, 4), out);
-        else if (templateSlot && optional && pad == PadPulse && beat)
+        else if (!coordinated.harmony.active && templateSlot && optional && pad == PadPulse && beat)
             padChord (p, s, OutPadShort, offset, time + musicaltime::sixteenth*3, (int) (50 + 40 * yPad) + (group ? 8 : 0), out);
-        else if (templateSlot && optional && pad == PadStaccato && beat)
+        else if (!coordinated.harmony.active && templateSlot && optional && pad == PadStaccato && beat)
             padChord (p, s, OutPadShort, offset, time + musicaltime::sixteenth*1, (int) (48 + 40 * yPad) + (group ? 6 : 0), out);
-        else if (templateSlot && optional && pad == PadGated && p.pos % 2 == 0)                 // gehackte Achtel wie ein Gate
+        else if (!coordinated.harmony.active && templateSlot && optional && pad == PadGated && p.pos % 2 == 0)                 // gehackte Achtel wie ein Gate
             padChord (p, s, OutPadShort, offset, time + musicaltime::sixteenth*1, (int) (46 + 40 * yPad) + (group ? 10 : 0), out);
 
         // --- Bass
@@ -3300,11 +3367,22 @@ private:
                     cut(kBass,time,time,offset,out);
                     noteOn(target,pitch,static_cast<int>(58+38*yBass)+hit->accent,time+hit->length,offset,out);
                 }
+            if(coordinated.bass.active&&!bassRest&&(optional||chordStart)&&on[kBass])
+                if(const auto* hit=coordinated.bass.at(time-p.bar*16*musicaltime::sixteenth))
+                {
+                    const auto& cell=*coordinated.source;
+                    const int interval=composition::roleBassInterval(cell,p.bar-floorDiv(sceneTime.value,(16*musicaltime::sixteenth).value),p.pos);
+                    const int target=cell.pedal?OutBassLong:OutBassShort;
+                    const int anchor=cell.pedal?0:bassRoot(c);
+                    const int pitch=bassPlacement(p,s,place(s.key+anchor,low),cell.pedal)+interval;
+                    cut(kBass,time,time,offset,out);
+                    noteOn(target,pitch,static_cast<int>(58+38*yBass)+hit->accent,time+hit->length,offset,out);
+                }
             bool plannedBass=false;
             if(!chasingPatterns&&!bassRest&&(optional||chordStart)&&on[kBass]&&melodicBassAllowed(s)&&bassPhrase.valid)
                 for(int i=0;i<bassPhrase.count;++i)if(bassPhrase.notes[i].at==time)
                 {const auto& n=bassPhrase.notes[i];noteOn(bo,n.pitch-12*s.octave[kBass],vel+n.accent,time+n.length,offset,out);plannedBass=true;}
-            switch (authored.active || (chasingPatterns&&melodicBassAllowed(s)&&bassPhrase.valid) || plannedBass || (!templateSlot&&!(approach&&(pattern==BassHalf||pattern==BassQuarter||pattern==BassAlternating||pattern==BassFunk))) || bassRest || (!optional && !chordStart) ? -1 : pattern)   // Vorbereiten: in der zweiten Takthaelfte schweigt der Bass
+            switch (coordinated.bass.active || authored.active || (chasingPatterns&&melodicBassAllowed(s)&&bassPhrase.valid) || plannedBass || (!templateSlot&&!(approach&&(pattern==BassHalf||pattern==BassQuarter||pattern==BassAlternating||pattern==BassFunk))) || bassRest || (!optional && !chordStart) ? -1 : pattern)   // Vorbereiten: in der zweiten Takthaelfte schweigt der Bass
             {
                 case kPulseTick:   if (beat) noteOn (bo, root, vel - (group ? 0 : 8), time + musicaltime::sixteenth, offset, out); break;   // Ticken in Vierteln
                 case BassHalf:     if (p.pos % 8 == 0 || approach) noteOn (bo, root, vel, time + musicaltime::sixteenth*(approach ? 2 : 7), offset, out); break;

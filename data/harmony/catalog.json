@@ -280,6 +280,251 @@
       "id": "JB-H47",
       "text": "docs/research/shared/Musikalisches_Vokabular_Gesamtfassung_2026-11-24.txt · JB-H47 · Heller Tritonus-Wechsel · Verfahren [H]; konkrete Vorlage [E], keine Transkription.\n- **Profile:** Barry · **XYZ:** 0,80 / 0,85 / 0,85 → hell · intensiv · unruhig · **Evidenz:** Verfahren [H] · konkrete Vorlage [E] · **Kategorie:** komponistenspezifische Präferenz · Randbereich/Extrapolation\n\n| Nr | Akkord | Takte | ab | Tonklassen (Bass zuerst) | Bass | Stufe |\n|---|---|---|---|---|---|---|\n| 1 | `Cmaj7` | 2 | T1 | C E G B | C | Imaj7 |\n| 2 | `F#maj7` | 2 | T3 | F# A# C# F | F# | #IVmaj7 |\n| 3 | `Cmaj7` | 2 | T5 | C E G B | C | Imaj7 |\n| 4 | `F#maj7` | 2 | T7 | F# A# C# F | F# | #IVmaj7 |\n\n- **Bass (aus den Akkorden abgeleitet):** Akkordbass C → F# → C → F# · Pedalbass-Vorschlag C · Charakter: bewegt: der Basston wechselt mit den Akkorden\n- **Bassempfehlung:** Akkordbass (C → F# → C → F#); als Pedalbass ist C möglich, die Spannung der Folge sinkt dann.\n- **Zentrum/Modus:** C-Dur ↔ F♯-Dur, schnell\n- **Wirkung:** Glanz und Panik.\n- **Besetzung (Vorschlag):** Blech, Celesta, Streicher.\n- **Anweisung:** Alle 2 Takte; Bassempfehlung: Akkordbass.\n- **Referenz:** Extrapolation [E] für einen Randbereich: nicht belegt, soll nur verhindern, dass das Profil dort ausfällt.\n- **Verwandt (eigene Vorlagen):** JB-H35 (gleiche Klänge, langsamerer Wechsel)",
       "verification": "research_constructed_H"
+    },
+    {
+      "id": "JW-H01",
+      "text": "Canonical John Williams constructed study JW-H01",
+      "verification": "E: constructed, not transcription"
+    },
+    {
+      "id": "JW-H02",
+      "text": "Canonical John Williams constructed study JW-H02",
+      "verification": "E: constructed, not transcription"
+    },
+    {
+      "id": "JW-H03",
+      "text": "Canonical John Williams constructed study JW-H03",
+      "verification": "E: constructed, not transcription"
+    },
+    {
+      "id": "JW-H04",
+      "text": "Canonical John Williams constructed study JW-H04",
+      "verification": "E: constructed, not transcription"
+    },
+    {
+      "id": "JW-H06",
+      "text": "Canonical John Williams constructed study JW-H06",
+      "verification": "E: constructed, not transcription"
+    },
+    {
+      "id": "JW-H07",
+      "text": "Canonical John Williams constructed study JW-H07",
+      "verification": "E: constructed, not transcription"
+    },
+    {
+      "id": "JW-H08",
+      "text": "Canonical John Williams constructed study JW-H08",
+      "verification": "E: constructed, not transcription"
+    },
+    {
+      "id": "JW-H09",
+      "text": "Canonical John Williams constructed study JW-H09",
+      "verification": "E: constructed, not transcription"
+    },
+    {
+      "id": "JW-H10",
+      "text": "Canonical John Williams constructed study JW-H10",
+      "verification": "E: constructed, not transcription"
+    },
+    {
+      "id": "JW-H11",
+      "text": "Canonical John Williams constructed study JW-H11",
+      "verification": "E: constructed, not transcription"
+    },
+    {
+      "id": "JW-H12",
+      "text": "Canonical John Williams constructed study JW-H12",
+      "verification": "E: constructed, not transcription"
+    },
+    {
+      "id": "JW-H13",
+      "text": "Canonical John Williams constructed study JW-H13",
+      "verification": "E: constructed, not transcription"
+    },
+    {
+      "id": "JW-H14",
+      "text": "Canonical John Williams constructed study JW-H14",
+      "verification": "E: constructed, not transcription"
+    },
+    {
+      "id": "JW-H15",
+      "text": "Canonical John Williams constructed study JW-H15",
+      "verification": "E: constructed, not transcription"
+    },
+    {
+      "id": "JW-H16",
+      "text": "Canonical John Williams constructed study JW-H16",
+      "verification": "E: constructed, not transcription"
+    },
+    {
+      "id": "JW-H17",
+      "text": "Canonical John Williams constructed study JW-H17",
+      "verification": "E: constructed, not transcription"
+    },
+    {
+      "id": "JW-H19",
+      "text": "Canonical John Williams constructed study JW-H19",
+      "verification": "E: constructed, not transcription"
+    },
+    {
+      "id": "JW-H24",
+      "text": "Canonical John Williams constructed study JW-H24",
+      "verification": "E: constructed, not transcription"
+    },
+    {
+      "id": "JW-H25",
+      "text": "Canonical John Williams constructed study JW-H25",
+      "verification": "E: constructed, not transcription"
+    },
+    {
+      "id": "JW-H28",
+      "text": "Canonical John Williams constructed study JW-H28",
+      "verification": "E: constructed, not transcription"
+    },
+    {
+      "id": "JW-H29",
+      "text": "Canonical John Williams constructed study JW-H29",
+      "verification": "E: constructed, not transcription"
+    },
+    {
+      "id": "JW-H30",
+      "text": "Canonical John Williams constructed study JW-H30",
+      "verification": "E: constructed, not transcription"
+    },
+    {
+      "id": "JW-H31",
+      "text": "Canonical John Williams constructed study JW-H31",
+      "verification": "E: constructed, not transcription"
+    },
+    {
+      "id": "JW-H33",
+      "text": "Canonical John Williams constructed study JW-H33",
+      "verification": "E: constructed, not transcription"
+    },
+    {
+      "id": "JW-H34",
+      "text": "Canonical John Williams constructed study JW-H34",
+      "verification": "E: constructed, not transcription"
+    },
+    {
+      "id": "JW-H35",
+      "text": "Canonical John Williams constructed study JW-H35",
+      "verification": "E: constructed, not transcription"
+    },
+    {
+      "id": "JW-H36",
+      "text": "Canonical John Williams constructed study JW-H36",
+      "verification": "E: constructed, not transcription"
+    },
+    {
+      "id": "JW-H37",
+      "text": "Canonical John Williams constructed study JW-H37",
+      "verification": "E: constructed, not transcription"
+    },
+    {
+      "id": "JW-H38",
+      "text": "Canonical John Williams constructed study JW-H38",
+      "verification": "E: constructed, not transcription"
+    },
+    {
+      "id": "JW-H39",
+      "text": "Canonical John Williams constructed study JW-H39",
+      "verification": "E: constructed, not transcription"
+    },
+    {
+      "id": "JW-H40",
+      "text": "Canonical John Williams constructed study JW-H40",
+      "verification": "E: constructed, not transcription"
+    },
+    {
+      "id": "JW-H41",
+      "text": "Canonical John Williams constructed study JW-H41",
+      "verification": "E: constructed, not transcription"
+    },
+    {
+      "id": "JW-H42",
+      "text": "Canonical John Williams constructed study JW-H42",
+      "verification": "E: constructed, not transcription"
+    },
+    {
+      "id": "JW-H43",
+      "text": "Canonical John Williams constructed study JW-H43",
+      "verification": "E: constructed, not transcription"
+    },
+    {
+      "id": "JW-H46",
+      "text": "Canonical John Williams constructed study JW-H46",
+      "verification": "E: constructed, not transcription"
+    },
+    {
+      "id": "JW-H49",
+      "text": "Canonical John Williams constructed study JW-H49",
+      "verification": "E: constructed, not transcription"
+    },
+    {
+      "id": "JW-H50",
+      "text": "Canonical John Williams constructed study JW-H50",
+      "verification": "E: constructed, not transcription"
+    },
+    {
+      "id": "JW-H51",
+      "text": "Canonical John Williams constructed study JW-H51",
+      "verification": "E: constructed, not transcription"
+    },
+    {
+      "id": "JW-H52",
+      "text": "Canonical John Williams constructed study JW-H52",
+      "verification": "E: constructed, not transcription"
+    },
+    {
+      "id": "JW-H54",
+      "text": "Canonical John Williams constructed study JW-H54",
+      "verification": "E: constructed, not transcription"
+    },
+    {
+      "id": "JW-H55",
+      "text": "Canonical John Williams constructed study JW-H55",
+      "verification": "E: constructed, not transcription"
+    },
+    {
+      "id": "JW-H56",
+      "text": "Canonical John Williams constructed study JW-H56",
+      "verification": "E: constructed, not transcription"
+    },
+    {
+      "id": "JW-H57",
+      "text": "Canonical John Williams constructed study JW-H57",
+      "verification": "E: constructed, not transcription"
+    },
+    {
+      "id": "JW-H59",
+      "text": "Canonical John Williams constructed study JW-H59",
+      "verification": "E: constructed, not transcription"
+    },
+    {
+      "id": "JW-H61",
+      "text": "Canonical John Williams constructed study JW-H61",
+      "verification": "E: constructed, not transcription"
+    },
+    {
+      "id": "JW-H63",
+      "text": "Canonical John Williams constructed study JW-H63",
+      "verification": "E: constructed, not transcription"
+    },
+    {
+      "id": "JW-H67",
+      "text": "Canonical John Williams constructed study JW-H67",
+      "verification": "E: constructed, not transcription"
+    },
+    {
+      "id": "JW-H69",
+      "text": "Canonical John Williams constructed study JW-H69",
+      "verification": "E: constructed, not transcription"
+    },
+    {
+      "id": "JW-H76",
+      "text": "Canonical John Williams constructed study JW-H76",
+      "verification": "E: constructed, not transcription"
     }
   ],
   "templates": [
@@ -6000,6 +6245,2931 @@
         }
       ],
       "coloration": "protected"
+    },
+    {
+      "id": 40001,
+      "symbol": "williamsH01",
+      "name": "JW-H01 – Mixolydische Fanfarenachse",
+      "xyz": [
+        0.8,
+        0.75,
+        0.3
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "JW-H01",
+      "coloration": "protected",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Maj",
+          "bars": 2,
+          "bass": 0
+        },
+        {
+          "root": 10,
+          "type": "Maj",
+          "bars": 1,
+          "bass": 10
+        },
+        {
+          "root": 5,
+          "type": "Maj",
+          "bars": 1,
+          "bass": 5
+        },
+        {
+          "root": 0,
+          "type": "Maj",
+          "bars": 2,
+          "bass": 0
+        },
+        {
+          "root": 7,
+          "type": "Sus4",
+          "bars": 1,
+          "bass": 7
+        },
+        {
+          "root": 0,
+          "type": "Maj",
+          "bars": 1,
+          "bass": 0
+        }
+      ]
+    },
+    {
+      "id": 40002,
+      "symbol": "williamsH02",
+      "name": "JW-H02 – Subtonischer Halbschluss (♭VII–V)",
+      "xyz": [
+        0.75,
+        0.7,
+        0.4
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "JW-H02",
+      "coloration": "protected",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Maj",
+          "bars": 2,
+          "bass": 0
+        },
+        {
+          "root": 5,
+          "type": "Maj",
+          "bars": 1,
+          "bass": 5
+        },
+        {
+          "root": 10,
+          "type": "Maj",
+          "bars": 1,
+          "bass": 10
+        },
+        {
+          "root": 0,
+          "type": "Maj",
+          "bars": 2,
+          "bass": 0
+        },
+        {
+          "root": 10,
+          "type": "Maj",
+          "bars": 1,
+          "bass": 10
+        },
+        {
+          "root": 7,
+          "type": "Maj",
+          "bars": 1,
+          "bass": 7
+        }
+      ]
+    },
+    {
+      "id": 40003,
+      "symbol": "williamsH03",
+      "name": "JW-H03 – Lydische Schwebe (II♯ über Tonikapedal)",
+      "xyz": [
+        0.85,
+        0.3,
+        0.25
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "JW-H03",
+      "coloration": "protected",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Maj",
+          "bars": 2,
+          "bass": 0
+        },
+        {
+          "root": 2,
+          "type": "Maj",
+          "bars": 2,
+          "bass": 0
+        },
+        {
+          "root": 0,
+          "type": "Maj",
+          "bars": 2,
+          "bass": 0
+        },
+        {
+          "root": 2,
+          "type": "Maj",
+          "bars": 1,
+          "bass": 0
+        },
+        {
+          "root": 0,
+          "type": "Maj7",
+          "bars": 1,
+          "bass": 0
+        }
+      ]
+    },
+    {
+      "id": 40004,
+      "symbol": "williamsH04",
+      "name": "JW-H04 – Lydischer Aufschwung",
+      "xyz": [
+        0.9,
+        0.65,
+        0.35
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "JW-H04",
+      "coloration": "protected",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Maj",
+          "bars": 2,
+          "bass": 0
+        },
+        {
+          "root": 2,
+          "type": "Maj",
+          "bars": 1,
+          "bass": 2
+        },
+        {
+          "root": 4,
+          "type": "Min",
+          "bars": 1,
+          "bass": 4
+        },
+        {
+          "root": 9,
+          "type": "Min",
+          "bars": 1,
+          "bass": 9
+        },
+        {
+          "root": 2,
+          "type": "Maj",
+          "bars": 1,
+          "bass": 2
+        },
+        {
+          "root": 0,
+          "type": "Maj",
+          "bars": 1,
+          "bass": 0
+        },
+        {
+          "root": 0,
+          "type": "Maj",
+          "bars": 1,
+          "bass": 0
+        }
+      ]
+    },
+    {
+      "id": 40006,
+      "symbol": "williamsH06",
+      "name": "JW-H06 – Tonikapedal mit Mischklängen",
+      "xyz": [
+        0.65,
+        0.35,
+        0.2
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "JW-H06",
+      "coloration": "protected",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Maj",
+          "bars": 2,
+          "bass": 0
+        },
+        {
+          "root": 5,
+          "type": "Maj",
+          "bars": 1,
+          "bass": 0
+        },
+        {
+          "root": 5,
+          "type": "Min",
+          "bars": 1,
+          "bass": 0
+        },
+        {
+          "root": 0,
+          "type": "Maj",
+          "bars": 2,
+          "bass": 0
+        },
+        {
+          "root": 8,
+          "type": "Maj",
+          "bars": 1,
+          "bass": 0
+        },
+        {
+          "root": 0,
+          "type": "Maj",
+          "bars": 1,
+          "bass": 0
+        }
+      ]
+    },
+    {
+      "id": 40007,
+      "symbol": "williamsH07",
+      "name": "JW-H07 – Dominantpedal mit wechselnden Oberklängen",
+      "xyz": [
+        0.6,
+        0.6,
+        0.45
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "JW-H07",
+      "coloration": "protected",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Maj",
+          "bars": 2,
+          "bass": 7
+        },
+        {
+          "root": 5,
+          "type": "Maj",
+          "bars": 2,
+          "bass": 7
+        },
+        {
+          "root": 3,
+          "type": "Maj",
+          "bars": 1,
+          "bass": 7
+        },
+        {
+          "root": 5,
+          "type": "Maj",
+          "bars": 1,
+          "bass": 7
+        },
+        {
+          "root": 7,
+          "type": "Maj",
+          "bars": 2,
+          "bass": 7
+        }
+      ]
+    },
+    {
+      "id": 40008,
+      "symbol": "williamsH08",
+      "name": "JW-H08 – Chromatische Großterz-Rückung",
+      "xyz": [
+        0.8,
+        0.65,
+        0.4
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "JW-H08",
+      "coloration": "protected",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Maj",
+          "bars": 2,
+          "bass": 0
+        },
+        {
+          "root": 7,
+          "type": "Maj",
+          "bars": 1,
+          "bass": 7
+        },
+        {
+          "root": 0,
+          "type": "Maj",
+          "bars": 1,
+          "bass": 0
+        },
+        {
+          "root": 4,
+          "type": "Maj",
+          "bars": 2,
+          "bass": 4
+        },
+        {
+          "root": 11,
+          "type": "Maj",
+          "bars": 1,
+          "bass": 11
+        },
+        {
+          "root": 4,
+          "type": "Maj",
+          "bars": 1,
+          "bass": 4
+        }
+      ]
+    },
+    {
+      "id": 40009,
+      "symbol": "williamsH09",
+      "name": "JW-H09 – Chromatisch modulierende Kadenzauflösung",
+      "xyz": [
+        0.75,
+        0.55,
+        0.45
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "JW-H09",
+      "coloration": "protected",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Maj",
+          "bars": 2,
+          "bass": 0
+        },
+        {
+          "root": 5,
+          "type": "Maj",
+          "bars": 1,
+          "bass": 9
+        },
+        {
+          "root": 7,
+          "type": "Maj",
+          "bars": 1,
+          "bass": 7
+        },
+        {
+          "root": 4,
+          "type": "Maj",
+          "bars": 2,
+          "bass": 4
+        },
+        {
+          "root": 9,
+          "type": "Maj",
+          "bars": 1,
+          "bass": 4
+        },
+        {
+          "root": 4,
+          "type": "Maj",
+          "bars": 1,
+          "bass": 4
+        }
+      ]
+    },
+    {
+      "id": 40010,
+      "symbol": "williamsH10",
+      "name": "JW-H10 – Gemischte Plagalkadenz",
+      "xyz": [
+        0.7,
+        0.45,
+        0.15
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "JW-H10",
+      "coloration": "protected",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Maj",
+          "bars": 2,
+          "bass": 0
+        },
+        {
+          "root": 5,
+          "type": "Maj",
+          "bars": 1,
+          "bass": 5
+        },
+        {
+          "root": 5,
+          "type": "Min",
+          "bars": 1,
+          "bass": 5
+        },
+        {
+          "root": 0,
+          "type": "Maj",
+          "bars": 1,
+          "bass": 0
+        },
+        {
+          "root": 2,
+          "type": "HalfDim",
+          "bars": 1,
+          "bass": 2
+        },
+        {
+          "root": 7,
+          "type": "Dom7",
+          "bars": 1,
+          "bass": 7
+        },
+        {
+          "root": 0,
+          "type": "Maj",
+          "bars": 1,
+          "bass": 0
+        }
+      ]
+    },
+    {
+      "id": 40011,
+      "symbol": "williamsH11",
+      "name": "JW-H11 – Moll-Tonika zur Dur-Subdominante",
+      "xyz": [
+        0.4,
+        0.3,
+        0.35
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "JW-H11",
+      "coloration": "protected",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Min",
+          "bars": 2,
+          "bass": 0
+        },
+        {
+          "root": 5,
+          "type": "Maj",
+          "bars": 2,
+          "bass": 5
+        },
+        {
+          "root": 0,
+          "type": "Min",
+          "bars": 2,
+          "bass": 0
+        },
+        {
+          "root": 5,
+          "type": "Maj",
+          "bars": 1,
+          "bass": 9
+        },
+        {
+          "root": 0,
+          "type": "Min",
+          "bars": 1,
+          "bass": 0
+        }
+      ]
+    },
+    {
+      "id": 40012,
+      "symbol": "williamsH12",
+      "name": "JW-H12 – Moll-Dreiklänge im Kleinterzzyklus",
+      "xyz": [
+        0.15,
+        0.35,
+        0.55
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "JW-H12",
+      "coloration": "protected",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Min",
+          "bars": 2,
+          "bass": 0
+        },
+        {
+          "root": 3,
+          "type": "Min",
+          "bars": 1,
+          "bass": 3
+        },
+        {
+          "root": 0,
+          "type": "Min",
+          "bars": 1,
+          "bass": 0
+        },
+        {
+          "root": 6,
+          "type": "Min",
+          "bars": 1,
+          "bass": 6
+        },
+        {
+          "root": 0,
+          "type": "Min",
+          "bars": 1,
+          "bass": 0
+        },
+        {
+          "root": 9,
+          "type": "Min",
+          "bars": 1,
+          "bass": 9
+        },
+        {
+          "root": 0,
+          "type": "Min",
+          "bars": 1,
+          "bass": 0
+        }
+      ]
+    },
+    {
+      "id": 40013,
+      "symbol": "williamsH13",
+      "name": "JW-H13 – Moll-Pendel i–♭vi (hexatonisch)",
+      "xyz": [
+        0.15,
+        0.75,
+        0.4
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "JW-H13",
+      "coloration": "protected",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Min",
+          "bars": 1,
+          "bass": 0
+        },
+        {
+          "root": 8,
+          "type": "Min",
+          "bars": 1,
+          "bass": 0
+        },
+        {
+          "root": 0,
+          "type": "Min",
+          "bars": 1,
+          "bass": 0
+        },
+        {
+          "root": 8,
+          "type": "Min",
+          "bars": 1,
+          "bass": 0
+        },
+        {
+          "root": 0,
+          "type": "Min",
+          "bars": 1,
+          "bass": 0
+        },
+        {
+          "root": 8,
+          "type": "Min",
+          "bars": 1,
+          "bass": 0
+        },
+        {
+          "root": 4,
+          "type": "Min",
+          "bars": 1,
+          "bass": 11
+        },
+        {
+          "root": 0,
+          "type": "Min",
+          "bars": 1,
+          "bass": 0
+        }
+      ]
+    },
+    {
+      "id": 40014,
+      "symbol": "williamsH14",
+      "name": "JW-H14 – Tritonus-Mollwechsel",
+      "xyz": [
+        0.2,
+        0.45,
+        0.6
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "JW-H14",
+      "coloration": "protected",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Min",
+          "bars": 2,
+          "bass": 0
+        },
+        {
+          "root": 6,
+          "type": "Min",
+          "bars": 2,
+          "bass": 6
+        },
+        {
+          "root": 0,
+          "type": "Min",
+          "bars": 2,
+          "bass": 0
+        },
+        {
+          "root": 6,
+          "type": "Min",
+          "bars": 1,
+          "bass": 6
+        },
+        {
+          "root": 0,
+          "type": "Min",
+          "bars": 1,
+          "bass": 0
+        }
+      ]
+    },
+    {
+      "id": 40015,
+      "symbol": "williamsH15",
+      "name": "JW-H15 – Dur-Tritonus-Schweben",
+      "xyz": [
+        0.7,
+        0.3,
+        0.5
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "JW-H15",
+      "coloration": "protected",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Maj",
+          "bars": 2,
+          "bass": 0
+        },
+        {
+          "root": 6,
+          "type": "Maj",
+          "bars": 2,
+          "bass": 6
+        },
+        {
+          "root": 0,
+          "type": "Maj",
+          "bars": 2,
+          "bass": 0
+        },
+        {
+          "root": 6,
+          "type": "Maj",
+          "bars": 1,
+          "bass": 6
+        },
+        {
+          "root": 0,
+          "type": "Maj",
+          "bars": 1,
+          "bass": 0
+        }
+      ]
+    },
+    {
+      "id": 40016,
+      "symbol": "williamsH16",
+      "name": "JW-H16 – Kleinterz-Durzyklus",
+      "xyz": [
+        0.55,
+        0.7,
+        0.75
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "JW-H16",
+      "coloration": "protected",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Maj",
+          "bars": 1,
+          "bass": 0
+        },
+        {
+          "root": 3,
+          "type": "Maj",
+          "bars": 1,
+          "bass": 3
+        },
+        {
+          "root": 6,
+          "type": "Maj",
+          "bars": 1,
+          "bass": 6
+        },
+        {
+          "root": 9,
+          "type": "Maj",
+          "bars": 1,
+          "bass": 9
+        },
+        {
+          "root": 0,
+          "type": "Maj",
+          "bars": 1,
+          "bass": 0
+        },
+        {
+          "root": 3,
+          "type": "Maj",
+          "bars": 1,
+          "bass": 3
+        },
+        {
+          "root": 6,
+          "type": "Maj",
+          "bars": 1,
+          "bass": 6
+        },
+        {
+          "root": 9,
+          "type": "Maj",
+          "bars": 1,
+          "bass": 9
+        }
+      ]
+    },
+    {
+      "id": 40017,
+      "symbol": "williamsH17",
+      "name": "JW-H17 – Durklang über Halbton-Bass",
+      "xyz": [
+        0.3,
+        0.85,
+        0.8
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "JW-H17",
+      "coloration": "protected",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Maj",
+          "bars": 2,
+          "bass": 1
+        },
+        {
+          "root": 3,
+          "type": "Maj",
+          "bars": 2,
+          "bass": 4
+        },
+        {
+          "root": 6,
+          "type": "Maj",
+          "bars": 2,
+          "bass": 7
+        },
+        {
+          "root": 9,
+          "type": "Maj",
+          "bars": 2,
+          "bass": 10
+        }
+      ]
+    },
+    {
+      "id": 40019,
+      "symbol": "williamsH19",
+      "name": "JW-H19 – Oktatonischer Basslauf",
+      "xyz": [
+        0.35,
+        0.65,
+        0.7
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "JW-H19",
+      "coloration": "protected",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Min",
+          "bars": 1,
+          "bass": 0
+        },
+        {
+          "root": 9,
+          "type": "Maj",
+          "bars": 1,
+          "bass": 1
+        },
+        {
+          "root": 3,
+          "type": "Maj",
+          "bars": 1,
+          "bass": 3
+        },
+        {
+          "root": 0,
+          "type": "Maj",
+          "bars": 1,
+          "bass": 4
+        },
+        {
+          "root": 6,
+          "type": "Min",
+          "bars": 1,
+          "bass": 6
+        },
+        {
+          "root": 3,
+          "type": "Maj",
+          "bars": 1,
+          "bass": 7
+        },
+        {
+          "root": 9,
+          "type": "Min",
+          "bars": 1,
+          "bass": 9
+        },
+        {
+          "root": 6,
+          "type": "Maj",
+          "bars": 1,
+          "bass": 10
+        }
+      ]
+    },
+    {
+      "id": 40024,
+      "symbol": "williamsH24",
+      "name": "JW-H24 – Hexatonischer Pol",
+      "xyz": [
+        0.45,
+        0.35,
+        0.5
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "JW-H24",
+      "coloration": "protected",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Maj",
+          "bars": 2,
+          "bass": 0
+        },
+        {
+          "root": 8,
+          "type": "Min",
+          "bars": 2,
+          "bass": 8
+        },
+        {
+          "root": 0,
+          "type": "Maj",
+          "bars": 2,
+          "bass": 0
+        },
+        {
+          "root": 8,
+          "type": "Min",
+          "bars": 1,
+          "bass": 8
+        },
+        {
+          "root": 0,
+          "type": "Maj",
+          "bars": 1,
+          "bass": 0
+        }
+      ]
+    },
+    {
+      "id": 40025,
+      "symbol": "williamsH25",
+      "name": "JW-H25 – Hexatonischer Zyklus",
+      "xyz": [
+        0.45,
+        0.45,
+        0.6
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "JW-H25",
+      "coloration": "protected",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Maj",
+          "bars": 1,
+          "bass": 0
+        },
+        {
+          "root": 0,
+          "type": "Min",
+          "bars": 1,
+          "bass": 0
+        },
+        {
+          "root": 8,
+          "type": "Maj",
+          "bars": 1,
+          "bass": 8
+        },
+        {
+          "root": 8,
+          "type": "Min",
+          "bars": 1,
+          "bass": 8
+        },
+        {
+          "root": 4,
+          "type": "Maj",
+          "bars": 1,
+          "bass": 4
+        },
+        {
+          "root": 4,
+          "type": "Min",
+          "bars": 1,
+          "bass": 4
+        },
+        {
+          "root": 0,
+          "type": "Maj",
+          "bars": 2,
+          "bass": 0
+        }
+      ]
+    },
+    {
+      "id": 40028,
+      "symbol": "williamsH28",
+      "name": "JW-H28 – Sus-Pendel C2 – G7sus4",
+      "xyz": [
+        0.8,
+        0.45,
+        0.35
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "JW-H28",
+      "coloration": "protected",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Sus2",
+          "bars": 1,
+          "bass": 0
+        },
+        {
+          "root": 7,
+          "type": "Dominant7Sus4",
+          "bars": 1,
+          "bass": 7
+        },
+        {
+          "root": 0,
+          "type": "Sus2",
+          "bars": 1,
+          "bass": 0
+        },
+        {
+          "root": 7,
+          "type": "Dominant7Sus4",
+          "bars": 1,
+          "bass": 7
+        },
+        {
+          "root": 9,
+          "type": "Min7",
+          "bars": 1,
+          "bass": 9
+        },
+        {
+          "root": 5,
+          "type": "Sus2",
+          "bars": 1,
+          "bass": 5
+        },
+        {
+          "root": 7,
+          "type": "Dominant7Sus4",
+          "bars": 1,
+          "bass": 7
+        },
+        {
+          "root": 0,
+          "type": "Sus2",
+          "bars": 1,
+          "bass": 0
+        }
+      ]
+    },
+    {
+      "id": 40029,
+      "symbol": "williamsH29",
+      "name": "JW-H29 – Großterzzyklus in Dur",
+      "xyz": [
+        0.7,
+        0.55,
+        0.5
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "JW-H29",
+      "coloration": "protected",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Maj",
+          "bars": 1,
+          "bass": 0
+        },
+        {
+          "root": 8,
+          "type": "Maj",
+          "bars": 1,
+          "bass": 8
+        },
+        {
+          "root": 0,
+          "type": "Maj",
+          "bars": 1,
+          "bass": 0
+        },
+        {
+          "root": 4,
+          "type": "Maj",
+          "bars": 1,
+          "bass": 4
+        },
+        {
+          "root": 8,
+          "type": "Maj",
+          "bars": 1,
+          "bass": 8
+        },
+        {
+          "root": 4,
+          "type": "Maj",
+          "bars": 1,
+          "bass": 4
+        },
+        {
+          "root": 0,
+          "type": "Maj",
+          "bars": 2,
+          "bass": 0
+        }
+      ]
+    },
+    {
+      "id": 40030,
+      "symbol": "williamsH30",
+      "name": "JW-H30 – Chromatischer Basslink",
+      "xyz": [
+        0.55,
+        0.4,
+        0.45
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "JW-H30",
+      "coloration": "protected",
+      "chords": [
+        {
+          "root": 9,
+          "type": "Min",
+          "bars": 1,
+          "bass": 9
+        },
+        {
+          "root": 5,
+          "type": "Min",
+          "bars": 1,
+          "bass": 8
+        },
+        {
+          "root": 3,
+          "type": "Maj",
+          "bars": 1,
+          "bass": 7
+        },
+        {
+          "root": 2,
+          "type": "Maj",
+          "bars": 1,
+          "bass": 6
+        },
+        {
+          "root": 2,
+          "type": "Min",
+          "bars": 1,
+          "bass": 5
+        },
+        {
+          "root": 0,
+          "type": "Maj",
+          "bars": 1,
+          "bass": 4
+        },
+        {
+          "root": 5,
+          "type": "Maj7",
+          "bars": 1,
+          "bass": 5
+        },
+        {
+          "root": 7,
+          "type": "Maj",
+          "bars": 1,
+          "bass": 7
+        }
+      ]
+    },
+    {
+      "id": 40031,
+      "symbol": "williamsH31",
+      "name": "JW-H31 – Verminderter Septakkord statt Dominante",
+      "xyz": [
+        0.65,
+        0.45,
+        0.35
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "JW-H31",
+      "coloration": "protected",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Maj",
+          "bars": 2,
+          "bass": 0
+        },
+        {
+          "root": 5,
+          "type": "Maj",
+          "bars": 1,
+          "bass": 5
+        },
+        {
+          "root": 9,
+          "type": "Min",
+          "bars": 1,
+          "bass": 9
+        },
+        {
+          "root": 2,
+          "type": "Min7",
+          "bars": 1,
+          "bass": 2
+        },
+        {
+          "root": 11,
+          "type": "Dim7",
+          "bars": 1,
+          "bass": 11
+        },
+        {
+          "root": 0,
+          "type": "Maj",
+          "bars": 2,
+          "bass": 0
+        }
+      ]
+    },
+    {
+      "id": 40033,
+      "symbol": "williamsH33",
+      "name": "JW-H33 – Heroische Mischung ♭VI–♭VII–I",
+      "xyz": [
+        0.8,
+        0.85,
+        0.3
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "JW-H33",
+      "coloration": "protected",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Maj",
+          "bars": 2,
+          "bass": 0
+        },
+        {
+          "root": 9,
+          "type": "Min",
+          "bars": 1,
+          "bass": 9
+        },
+        {
+          "root": 5,
+          "type": "Maj",
+          "bars": 1,
+          "bass": 5
+        },
+        {
+          "root": 8,
+          "type": "Maj",
+          "bars": 1,
+          "bass": 8
+        },
+        {
+          "root": 10,
+          "type": "Maj",
+          "bars": 1,
+          "bass": 10
+        },
+        {
+          "root": 0,
+          "type": "Maj",
+          "bars": 2,
+          "bass": 0
+        }
+      ]
+    },
+    {
+      "id": 40034,
+      "symbol": "williamsH34",
+      "name": "JW-H34 – Moll-Trauer mit Sextakkord",
+      "xyz": [
+        0.25,
+        0.3,
+        0.2
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "JW-H34",
+      "coloration": "protected",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Min",
+          "bars": 2,
+          "bass": 0
+        },
+        {
+          "root": 8,
+          "type": "Maj7",
+          "bars": 1,
+          "bass": 8
+        },
+        {
+          "root": 5,
+          "type": "Min6",
+          "bars": 1,
+          "bass": 5
+        },
+        {
+          "root": 0,
+          "type": "Min",
+          "bars": 1,
+          "bass": 7
+        },
+        {
+          "root": 7,
+          "type": "Dominant7Sus4",
+          "bars": 1,
+          "bass": 7
+        },
+        {
+          "root": 7,
+          "type": "Dom7",
+          "bars": 1,
+          "bass": 7
+        },
+        {
+          "root": 0,
+          "type": "Min",
+          "bars": 1,
+          "bass": 0
+        }
+      ]
+    },
+    {
+      "id": 40035,
+      "symbol": "williamsH35",
+      "name": "JW-H35 – Undulation Tonika–Mediante",
+      "xyz": [
+        0.5,
+        0.25,
+        0.15
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "JW-H35",
+      "coloration": "protected",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Maj",
+          "bars": 1,
+          "bass": 0
+        },
+        {
+          "root": 4,
+          "type": "Min",
+          "bars": 1,
+          "bass": 11
+        },
+        {
+          "root": 0,
+          "type": "Maj",
+          "bars": 1,
+          "bass": 0
+        },
+        {
+          "root": 4,
+          "type": "Min",
+          "bars": 1,
+          "bass": 11
+        },
+        {
+          "root": 9,
+          "type": "Min",
+          "bars": 1,
+          "bass": 9
+        },
+        {
+          "root": 4,
+          "type": "Min",
+          "bars": 1,
+          "bass": 4
+        },
+        {
+          "root": 5,
+          "type": "Maj",
+          "bars": 1,
+          "bass": 5
+        },
+        {
+          "root": 0,
+          "type": "Maj",
+          "bars": 1,
+          "bass": 0
+        }
+      ]
+    },
+    {
+      "id": 40036,
+      "symbol": "williamsH36",
+      "name": "JW-H36 – Pandiatonische Add-Fläche",
+      "xyz": [
+        0.75,
+        0.2,
+        0.1
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "JW-H36",
+      "coloration": "protected",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Add9",
+          "bars": 2,
+          "bass": 0
+        },
+        {
+          "root": 5,
+          "type": "Add9",
+          "bars": 2,
+          "bass": 0
+        },
+        {
+          "root": 9,
+          "type": "Min7",
+          "bars": 2,
+          "bass": 9
+        },
+        {
+          "root": 7,
+          "type": "Sus4",
+          "bars": 1,
+          "bass": 7
+        },
+        {
+          "root": 0,
+          "type": "Add9",
+          "bars": 1,
+          "bass": 0
+        }
+      ]
+    },
+    {
+      "id": 40037,
+      "symbol": "williamsH37",
+      "name": "JW-H37 – Quintfallsequenz mit Septimen und Zwischendominante",
+      "xyz": [
+        0.6,
+        0.45,
+        0.25
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "JW-H37",
+      "coloration": "protected",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Maj7",
+          "bars": 1,
+          "bass": 0
+        },
+        {
+          "root": 5,
+          "type": "Maj7",
+          "bars": 1,
+          "bass": 5
+        },
+        {
+          "root": 11,
+          "type": "HalfDim",
+          "bars": 1,
+          "bass": 11
+        },
+        {
+          "root": 4,
+          "type": "Dom7",
+          "bars": 1,
+          "bass": 4
+        },
+        {
+          "root": 9,
+          "type": "Min7",
+          "bars": 1,
+          "bass": 9
+        },
+        {
+          "root": 2,
+          "type": "Min7",
+          "bars": 1,
+          "bass": 2
+        },
+        {
+          "root": 7,
+          "type": "Dominant7Sus4",
+          "bars": 1,
+          "bass": 7
+        },
+        {
+          "root": 0,
+          "type": "Maj7",
+          "bars": 1,
+          "bass": 0
+        }
+      ]
+    },
+    {
+      "id": 40038,
+      "symbol": "williamsH38",
+      "name": "JW-H38 – Romantische Mischklänge über Pedal",
+      "xyz": [
+        0.6,
+        0.35,
+        0.3
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "JW-H38",
+      "coloration": "protected",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Maj7",
+          "bars": 1,
+          "bass": 0
+        },
+        {
+          "root": 5,
+          "type": "Min6",
+          "bars": 1,
+          "bass": 0
+        },
+        {
+          "root": 0,
+          "type": "Maj7",
+          "bars": 1,
+          "bass": 0
+        },
+        {
+          "root": 8,
+          "type": "Maj7",
+          "bars": 1,
+          "bass": 0
+        },
+        {
+          "root": 5,
+          "type": "Maj7",
+          "bars": 1,
+          "bass": 5
+        },
+        {
+          "root": 5,
+          "type": "Min6",
+          "bars": 1,
+          "bass": 5
+        },
+        {
+          "root": 0,
+          "type": "Sus4",
+          "bars": 1,
+          "bass": 0
+        },
+        {
+          "root": 0,
+          "type": "Maj",
+          "bars": 1,
+          "bass": 0
+        }
+      ]
+    },
+    {
+      "id": 40039,
+      "symbol": "williamsH39",
+      "name": "JW-H39 – Chromatisch fallender Lamentobass",
+      "xyz": [
+        0.25,
+        0.45,
+        0.4
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "JW-H39",
+      "coloration": "protected",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Min",
+          "bars": 1,
+          "bass": 0
+        },
+        {
+          "root": 7,
+          "type": "Maj",
+          "bars": 1,
+          "bass": 11
+        },
+        {
+          "root": 7,
+          "type": "Min",
+          "bars": 1,
+          "bass": 10
+        },
+        {
+          "root": 5,
+          "type": "Maj",
+          "bars": 1,
+          "bass": 9
+        },
+        {
+          "root": 5,
+          "type": "Min",
+          "bars": 1,
+          "bass": 8
+        },
+        {
+          "root": 0,
+          "type": "Min",
+          "bars": 1,
+          "bass": 7
+        },
+        {
+          "root": 2,
+          "type": "Dom7",
+          "bars": 1,
+          "bass": 6
+        },
+        {
+          "root": 7,
+          "type": "Maj",
+          "bars": 1,
+          "bass": 7
+        }
+      ]
+    },
+    {
+      "id": 40040,
+      "symbol": "williamsH40",
+      "name": "JW-H40 – Gemeinsamer-Ton-Wanderung über C",
+      "xyz": [
+        0.3,
+        0.25,
+        0.4
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "JW-H40",
+      "coloration": "protected",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Min",
+          "bars": 1,
+          "bass": 0
+        },
+        {
+          "root": 8,
+          "type": "Maj",
+          "bars": 1,
+          "bass": 0
+        },
+        {
+          "root": 9,
+          "type": "Min",
+          "bars": 1,
+          "bass": 0
+        },
+        {
+          "root": 5,
+          "type": "Maj",
+          "bars": 1,
+          "bass": 0
+        },
+        {
+          "root": 5,
+          "type": "Min",
+          "bars": 1,
+          "bass": 0
+        },
+        {
+          "root": 6,
+          "type": "DiminishedTriad",
+          "bars": 1,
+          "bass": 0
+        },
+        {
+          "root": 8,
+          "type": "Maj",
+          "bars": 1,
+          "bass": 0
+        },
+        {
+          "root": 0,
+          "type": "Min",
+          "bars": 1,
+          "bass": 0
+        }
+      ]
+    },
+    {
+      "id": 40041,
+      "symbol": "williamsH41",
+      "name": "JW-H41 – Phrygische Lauer-Achse",
+      "xyz": [
+        0.15,
+        0.25,
+        0.45
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "JW-H41",
+      "coloration": "protected",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Min",
+          "bars": 2,
+          "bass": 0
+        },
+        {
+          "root": 1,
+          "type": "Maj",
+          "bars": 1,
+          "bass": 0
+        },
+        {
+          "root": 0,
+          "type": "Min",
+          "bars": 1,
+          "bass": 0
+        },
+        {
+          "root": 0,
+          "type": "Min",
+          "bars": 2,
+          "bass": 0
+        },
+        {
+          "root": 1,
+          "type": "Maj",
+          "bars": 1,
+          "bass": 0
+        },
+        {
+          "root": 0,
+          "type": "Min",
+          "bars": 1,
+          "bass": 0
+        }
+      ]
+    },
+    {
+      "id": 40042,
+      "symbol": "williamsH42",
+      "name": "JW-H42 – Dorisch-mystische Fläche",
+      "xyz": [
+        0.35,
+        0.3,
+        0.25
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "JW-H42",
+      "coloration": "protected",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Min7",
+          "bars": 2,
+          "bass": 0
+        },
+        {
+          "root": 2,
+          "type": "Min7",
+          "bars": 2,
+          "bass": 2
+        },
+        {
+          "root": 0,
+          "type": "Min7",
+          "bars": 1,
+          "bass": 0
+        },
+        {
+          "root": 3,
+          "type": "Maj7",
+          "bars": 1,
+          "bass": 3
+        },
+        {
+          "root": 10,
+          "type": "Sus2",
+          "bars": 1,
+          "bass": 10
+        },
+        {
+          "root": 0,
+          "type": "Min",
+          "bars": 1,
+          "bass": 0
+        }
+      ]
+    },
+    {
+      "id": 40043,
+      "symbol": "williamsH43",
+      "name": "JW-H43 – Ungarisch-Moll-Aktionsklang",
+      "xyz": [
+        0.2,
+        0.75,
+        0.65
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "JW-H43",
+      "coloration": "protected",
+      "chords": [
+        {
+          "root": 0,
+          "type": "MinMaj7",
+          "bars": 2,
+          "bass": 0
+        },
+        {
+          "root": 8,
+          "type": "Maj",
+          "bars": 1,
+          "bass": 8
+        },
+        {
+          "root": 11,
+          "type": "Maj",
+          "bars": 1,
+          "bass": 11
+        },
+        {
+          "root": 0,
+          "type": "MinMaj7",
+          "bars": 2,
+          "bass": 0
+        },
+        {
+          "root": 3,
+          "type": "Aug",
+          "bars": 1,
+          "bass": 3
+        },
+        {
+          "root": 7,
+          "type": "Maj",
+          "bars": 1,
+          "bass": 7
+        }
+      ]
+    },
+    {
+      "id": 40046,
+      "symbol": "williamsH46",
+      "name": "JW-H46 – Dissonanzbass unter statischem Moll",
+      "xyz": [
+        0.15,
+        0.6,
+        0.7
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "JW-H46",
+      "coloration": "protected",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Min",
+          "bars": 2,
+          "bass": 6
+        },
+        {
+          "root": 0,
+          "type": "Min",
+          "bars": 2,
+          "bass": 1
+        },
+        {
+          "root": 0,
+          "type": "Min",
+          "bars": 2,
+          "bass": 6
+        },
+        {
+          "root": 0,
+          "type": "Min",
+          "bars": 2,
+          "bass": 0
+        }
+      ]
+    },
+    {
+      "id": 40049,
+      "symbol": "williamsH49",
+      "name": "JW-H49 – Heroische Medianten-Rückung",
+      "xyz": [
+        0.85,
+        0.9,
+        0.45
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "JW-H49",
+      "coloration": "protected",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Maj",
+          "bars": 2,
+          "bass": 0
+        },
+        {
+          "root": 4,
+          "type": "Maj",
+          "bars": 2,
+          "bass": 4
+        },
+        {
+          "root": 0,
+          "type": "Maj",
+          "bars": 1,
+          "bass": 0
+        },
+        {
+          "root": 8,
+          "type": "Maj",
+          "bars": 1,
+          "bass": 8
+        },
+        {
+          "root": 10,
+          "type": "Maj",
+          "bars": 1,
+          "bass": 10
+        },
+        {
+          "root": 0,
+          "type": "Maj",
+          "bars": 1,
+          "bass": 0
+        }
+      ]
+    },
+    {
+      "id": 40050,
+      "symbol": "williamsH50",
+      "name": "JW-H50 – Pantriadisches Staunen über Pedal",
+      "xyz": [
+        0.75,
+        0.4,
+        0.5
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "JW-H50",
+      "coloration": "protected",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Maj7",
+          "bars": 2,
+          "bass": 0
+        },
+        {
+          "root": 8,
+          "type": "Maj",
+          "bars": 1,
+          "bass": 0
+        },
+        {
+          "root": 4,
+          "type": "Maj",
+          "bars": 1,
+          "bass": 0
+        },
+        {
+          "root": 8,
+          "type": "Maj",
+          "bars": 1,
+          "bass": 0
+        },
+        {
+          "root": 4,
+          "type": "Maj",
+          "bars": 1,
+          "bass": 0
+        },
+        {
+          "root": 0,
+          "type": "Maj7",
+          "bars": 2,
+          "bass": 0
+        }
+      ]
+    },
+    {
+      "id": 40051,
+      "symbol": "williamsH51",
+      "name": "JW-H51 – Scherzando-Chromatik",
+      "xyz": [
+        0.75,
+        0.5,
+        0.7
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "JW-H51",
+      "coloration": "protected",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Maj",
+          "bars": 1,
+          "bass": 0
+        },
+        {
+          "root": 3,
+          "type": "Maj",
+          "bars": 1,
+          "bass": 3
+        },
+        {
+          "root": 0,
+          "type": "Maj",
+          "bars": 1,
+          "bass": 0
+        },
+        {
+          "root": 8,
+          "type": "Maj",
+          "bars": 1,
+          "bass": 8
+        },
+        {
+          "root": 5,
+          "type": "Maj",
+          "bars": 1,
+          "bass": 5
+        },
+        {
+          "root": 1,
+          "type": "Maj",
+          "bars": 1,
+          "bass": 1
+        },
+        {
+          "root": 7,
+          "type": "Dom7",
+          "bars": 1,
+          "bass": 7
+        },
+        {
+          "root": 0,
+          "type": "Maj",
+          "bars": 1,
+          "bass": 0
+        }
+      ]
+    },
+    {
+      "id": 40052,
+      "symbol": "williamsH52",
+      "name": "JW-H52 – Marsch mit einem chromatischen Moment",
+      "xyz": [
+        0.8,
+        0.45,
+        0.45
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "JW-H52",
+      "coloration": "protected",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Maj",
+          "bars": 1,
+          "bass": 0
+        },
+        {
+          "root": 5,
+          "type": "Maj",
+          "bars": 1,
+          "bass": 5
+        },
+        {
+          "root": 2,
+          "type": "Dom7",
+          "bars": 1,
+          "bass": 6
+        },
+        {
+          "root": 7,
+          "type": "Maj",
+          "bars": 1,
+          "bass": 7
+        },
+        {
+          "root": 0,
+          "type": "Maj",
+          "bars": 1,
+          "bass": 0
+        },
+        {
+          "root": 5,
+          "type": "Maj",
+          "bars": 1,
+          "bass": 5
+        },
+        {
+          "root": 6,
+          "type": "Dim7",
+          "bars": 1,
+          "bass": 6
+        },
+        {
+          "root": 0,
+          "type": "Maj",
+          "bars": 1,
+          "bass": 7
+        }
+      ]
+    },
+    {
+      "id": 40054,
+      "symbol": "williamsH54",
+      "name": "JW-H54 – Oktatonische Moll-Parallelterzen über Pedal",
+      "xyz": [
+        0.25,
+        0.45,
+        0.7
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "JW-H54",
+      "coloration": "protected",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Min",
+          "bars": 2,
+          "bass": 0
+        },
+        {
+          "root": 3,
+          "type": "Min",
+          "bars": 2,
+          "bass": 0
+        },
+        {
+          "root": 6,
+          "type": "Min",
+          "bars": 2,
+          "bass": 0
+        },
+        {
+          "root": 0,
+          "type": "Min",
+          "bars": 2,
+          "bass": 0
+        }
+      ]
+    },
+    {
+      "id": 40055,
+      "symbol": "williamsH55",
+      "name": "JW-H55 – Epische Breite mit langem harmonischem Rhythmus",
+      "xyz": [
+        0.7,
+        0.55,
+        0.2
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "JW-H55",
+      "coloration": "protected",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Maj",
+          "bars": 4,
+          "bass": 0
+        },
+        {
+          "root": 8,
+          "type": "Maj",
+          "bars": 2,
+          "bass": 8
+        },
+        {
+          "root": 10,
+          "type": "Maj",
+          "bars": 2,
+          "bass": 10
+        }
+      ]
+    },
+    {
+      "id": 40056,
+      "symbol": "williamsH56",
+      "name": "JW-H56 – Archaische Mollkadenz",
+      "xyz": [
+        0.2,
+        0.75,
+        0.25
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "JW-H56",
+      "coloration": "protected",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Min",
+          "bars": 2,
+          "bass": 0
+        },
+        {
+          "root": 10,
+          "type": "Maj",
+          "bars": 1,
+          "bass": 10
+        },
+        {
+          "root": 0,
+          "type": "Min",
+          "bars": 1,
+          "bass": 0
+        },
+        {
+          "root": 5,
+          "type": "Min",
+          "bars": 1,
+          "bass": 5
+        },
+        {
+          "root": 8,
+          "type": "Maj",
+          "bars": 1,
+          "bass": 8
+        },
+        {
+          "root": 7,
+          "type": "Min",
+          "bars": 1,
+          "bass": 7
+        },
+        {
+          "root": 0,
+          "type": "Min",
+          "bars": 1,
+          "bass": 0
+        }
+      ]
+    },
+    {
+      "id": 40057,
+      "symbol": "williamsH57",
+      "name": "JW-H57 – Schweres Moll über Orgelpunkt",
+      "xyz": [
+        0.15,
+        0.85,
+        0.2
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "JW-H57",
+      "coloration": "protected",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Min",
+          "bars": 2,
+          "bass": 0
+        },
+        {
+          "root": 8,
+          "type": "Maj",
+          "bars": 2,
+          "bass": 0
+        },
+        {
+          "root": 5,
+          "type": "Min",
+          "bars": 2,
+          "bass": 0
+        },
+        {
+          "root": 0,
+          "type": "Min",
+          "bars": 2,
+          "bass": 0
+        }
+      ]
+    },
+    {
+      "id": 40059,
+      "symbol": "williamsH59",
+      "name": "JW-H59 – Lydisch-♯2-Farbe",
+      "xyz": [
+        0.7,
+        0.3,
+        0.65
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "JW-H59",
+      "coloration": "protected",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Maj",
+          "bars": 2,
+          "bass": 0
+        },
+        {
+          "root": 9,
+          "type": "Min",
+          "bars": 1,
+          "bass": 0
+        },
+        {
+          "root": 0,
+          "type": "Maj",
+          "bars": 1,
+          "bass": 0
+        },
+        {
+          "root": 11,
+          "type": "Maj",
+          "bars": 1,
+          "bass": 0
+        },
+        {
+          "root": 0,
+          "type": "Maj",
+          "bars": 1,
+          "bass": 0
+        },
+        {
+          "root": 4,
+          "type": "Min",
+          "bars": 1,
+          "bass": 0
+        },
+        {
+          "root": 0,
+          "type": "Maj",
+          "bars": 1,
+          "bass": 0
+        }
+      ]
+    },
+    {
+      "id": 40061,
+      "symbol": "williamsH61",
+      "name": "JW-H61 – Sus-Farbwechsel über Pedal",
+      "xyz": [
+        0.7,
+        0.2,
+        0.6
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "JW-H61",
+      "coloration": "protected",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Sus2",
+          "bars": 1,
+          "bass": 0
+        },
+        {
+          "root": 2,
+          "type": "Sus2",
+          "bars": 1,
+          "bass": 0
+        },
+        {
+          "root": 5,
+          "type": "Sus2",
+          "bars": 1,
+          "bass": 0
+        },
+        {
+          "root": 3,
+          "type": "Sus2",
+          "bars": 1,
+          "bass": 0
+        },
+        {
+          "root": 0,
+          "type": "Sus2",
+          "bars": 1,
+          "bass": 0
+        },
+        {
+          "root": 8,
+          "type": "Sus2",
+          "bars": 1,
+          "bass": 0
+        },
+        {
+          "root": 10,
+          "type": "Sus2",
+          "bars": 1,
+          "bass": 0
+        },
+        {
+          "root": 0,
+          "type": "Sus2",
+          "bars": 1,
+          "bass": 0
+        }
+      ]
+    },
+    {
+      "id": 40063,
+      "symbol": "williamsH63",
+      "name": "JW-H63 – Mixolydische Maj7-Farbe ohne Dominante",
+      "xyz": [
+        0.8,
+        0.6,
+        0.5
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "JW-H63",
+      "coloration": "protected",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Maj7",
+          "bars": 2,
+          "bass": 0
+        },
+        {
+          "root": 5,
+          "type": "Maj7",
+          "bars": 1,
+          "bass": 5
+        },
+        {
+          "root": 10,
+          "type": "Maj7",
+          "bars": 1,
+          "bass": 10
+        },
+        {
+          "root": 0,
+          "type": "Maj7",
+          "bars": 1,
+          "bass": 0
+        },
+        {
+          "root": 1,
+          "type": "Maj7",
+          "bars": 1,
+          "bass": 1
+        },
+        {
+          "root": 10,
+          "type": "Maj7",
+          "bars": 1,
+          "bass": 10
+        },
+        {
+          "root": 0,
+          "type": "Maj7",
+          "bars": 1,
+          "bass": 0
+        }
+      ]
+    },
+    {
+      "id": 40067,
+      "symbol": "williamsH67",
+      "name": "JW-H67 – Tritonusoszillation mit stufenweisem Abstieg",
+      "xyz": [
+        0.15,
+        0.75,
+        0.35
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "JW-H67",
+      "coloration": "protected",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Min",
+          "bars": 1,
+          "bass": 0
+        },
+        {
+          "root": 6,
+          "type": "Min",
+          "bars": 1,
+          "bass": 6
+        },
+        {
+          "root": 0,
+          "type": "Min",
+          "bars": 1,
+          "bass": 0
+        },
+        {
+          "root": 6,
+          "type": "Min",
+          "bars": 1,
+          "bass": 6
+        },
+        {
+          "root": 10,
+          "type": "Min",
+          "bars": 1,
+          "bass": 10
+        },
+        {
+          "root": 8,
+          "type": "Min",
+          "bars": 1,
+          "bass": 8
+        },
+        {
+          "root": 7,
+          "type": "Min",
+          "bars": 1,
+          "bass": 7
+        },
+        {
+          "root": 0,
+          "type": "Min",
+          "bars": 1,
+          "bass": 0
+        }
+      ]
+    },
+    {
+      "id": 40069,
+      "symbol": "williamsH69",
+      "name": "JW-H69 – Dies-irae-Bass, choralartig (Typ 2)",
+      "xyz": [
+        0.15,
+        0.8,
+        0.25
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "JW-H69",
+      "coloration": "protected",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Min",
+          "bars": 1,
+          "bass": 0
+        },
+        {
+          "root": 7,
+          "type": "Maj",
+          "bars": 1,
+          "bass": 11
+        },
+        {
+          "root": 0,
+          "type": "Min",
+          "bars": 1,
+          "bass": 0
+        },
+        {
+          "root": 5,
+          "type": "Min",
+          "bars": 1,
+          "bass": 8
+        },
+        {
+          "root": 7,
+          "type": "Maj",
+          "bars": 1,
+          "bass": 11
+        },
+        {
+          "root": 0,
+          "type": "Min",
+          "bars": 1,
+          "bass": 7
+        },
+        {
+          "root": 5,
+          "type": "Min",
+          "bars": 1,
+          "bass": 8
+        },
+        {
+          "root": 8,
+          "type": "Maj",
+          "bars": 1,
+          "bass": 8
+        }
+      ]
+    },
+    {
+      "id": 40076,
+      "symbol": "williamsH76",
+      "name": "JW-H76 – Pantriadische Kleinterzkette zur überhöhten Kadenz",
+      "xyz": [
+        0.3,
+        0.55,
+        0.55
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "JW-H76",
+      "coloration": "protected",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Min",
+          "bars": 2,
+          "bass": 0
+        },
+        {
+          "root": 3,
+          "type": "Min",
+          "bars": 1,
+          "bass": 3
+        },
+        {
+          "root": 6,
+          "type": "Min",
+          "bars": 1,
+          "bass": 6
+        },
+        {
+          "root": 9,
+          "type": "Min",
+          "bars": 1,
+          "bass": 9
+        },
+        {
+          "root": 0,
+          "type": "Min",
+          "bars": 1,
+          "bass": 0
+        },
+        {
+          "root": 8,
+          "type": "Dom7",
+          "bars": 1,
+          "bass": 8
+        },
+        {
+          "root": 1,
+          "type": "Min",
+          "bars": 1,
+          "bass": 1
+        }
+      ]
     }
   ],
   "pools": {

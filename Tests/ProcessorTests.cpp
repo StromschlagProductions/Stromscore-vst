@@ -86,7 +86,7 @@ static int testProtectedCatalogExport()
     using namespace stromscore;
     for(const auto& h:harmonyTemplates)CHECK(h.coloration==ChordColoration::protectedColor);
     int cases=0;
-    for(int genre=0;genre<2;++genre)for(int profile=0;profile<3;++profile)
+    for(int genre=0;genre<2;++genre)for(int profile=0;profile<4;++profile)
     for(float unrest:{.1f,.6f,.95f})for(bool follow:{false,true})
     {
         StromscoreProcessor q;FakeHost host;q.setPlayHead(&host);q.prepareToPlay(48000,512);
@@ -1126,7 +1126,7 @@ int main(int argc,char** argv)
             for(auto* child:c.getChildren())find(*child);
         };find(*editor);
         CHECK(profile&&mood&&label&&score&&pop);
-        CHECK(profile->getNumItems()==3&&profile->getSelectedId()==1&&profile->getText()=="Neutral");
+        CHECK(profile->getNumItems()==4&&profile->getSelectedId()==1&&profile->getText()=="Neutral");
         CHECK(label->getText()=="KOMPONIST"&&label->getBounds()==juce::Rectangle<int>(256,82,142,18));
         CHECK(profile->getBounds()==juce::Rectangle<int>(256,102,142,24));
         CHECK(score->getBounds()==juce::Rectangle<int>(118,80,52,20)&&pop->getBounds()==juce::Rectangle<int>(172,80,60,20));
@@ -1143,7 +1143,7 @@ int main(int argc,char** argv)
         setParam(q,"aufbau",0);setParam(q,"faerbung",.2f);setParam(q,"intensitaet",.45f);setParam(q,"unruhe",.45f);
         q.prepareToPlay(48000,512);FakeHost host;q.setPlayHead(&host);juce::AudioBuffer<float> audio(2,512);juce::MidiBuffer midi;
         int phrase=0;
-        for(int item:{2,3,1})
+        for(int item:{2,3,4,1})
         {
             profile->setSelectedId(item,juce::sendNotificationSync);
             const auto settings=q.currentSettings();CHECK(static_cast<int>(settings.profile)==item-1);

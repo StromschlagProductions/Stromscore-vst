@@ -949,7 +949,7 @@ StromscoreEditor::StromscoreEditor (StromscoreProcessor& p) : AudioProcessorEdit
     profileBox.addItemList(StromscoreProcessor::profileNames(),1);
     profileBox.setName("Komponist");profileBox.setComponentID("komponist");
     profileLabel.setComponentID("komponistLabel");
-    profileBox.setTooltip(u8("Neutral: freie Komposition. John Barry: eigenes Score-Vokabular und ruhige Auto-Begleitung. Herrmann: bisherige Harmoniepräferenzen. Profilwechsel beginnt eine neue musikalische Planung. Manuelle Spielweisen und eigene Akkorde bleiben erhalten. Pop-Rock bleibt unverändert."));
+    profileBox.setTooltip(u8("Neutral: freie Komposition. John Barry: eigenes Score-Vokabular. John Williams: charakteristische Harmonik und koordinierte Bass-/Kurzflächenfiguren. Herrmann: bisherige Harmoniepräferenzen. Profilwechsel beginnt eine neue musikalische Planung. Manuelle Spielweisen und eigene Akkorde bleiben erhalten. Pop-Rock bleibt unverändert."));
     content.addAndMakeVisible(profileBox);
     profileAttachment=std::make_unique<APVTS::ComboBoxAttachment>(processor.apvts,"komponist",profileBox);
     keyBox.addItemList (StromscoreProcessor::keyNames(), 1);

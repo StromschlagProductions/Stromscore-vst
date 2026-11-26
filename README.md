@@ -335,3 +335,5 @@ zunächst ausschließlich die vorhandenen harmonischen Auswahlpräferenzen im Sc
 Sie wirkt ab der nächsten automatischen Wendungsauswahl; für einen direkten A/B-Vergleich
 mit derselben Variation vom Szenenanfang starten. Pop/Rock bleibt unverändert. Eigene
 Akkorde werden nicht ersetzt, ihr automatischer Begleitstil kann sich jedoch ändern.
+
+Die verbindliche [musikalische Projektausrichtung](docs/MUSICAL_DIRECTION.md) priorisiert spannungsorientiertes Hörspiel-Underscoring bei erhaltener Gesamtbandbreite.

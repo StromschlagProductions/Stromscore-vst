@@ -660,6 +660,251 @@
       "template_id": 30047,
       "idea": "Heller Tritonus-Wechsel. Verfahren [H]; Tonfolge [E]. Bassvorgaben und Dauern laut kanonischer Forschung.",
       "instruments": "Besetzungsunabhängig; vorhandene geeignete MIDI-Ziele. Originalhinweise siehe Quelle."
+    },
+    {
+      "template_id": 40001,
+      "idea": "Constructed Williams harmony; Mixolydisch chord relationship, not a shared role scale.",
+      "instruments": "Independent of patch; long/short destinations retain their capabilities."
+    },
+    {
+      "template_id": 40002,
+      "idea": "Constructed Williams harmony; Dur-Moll-Mischung chord relationship, not a shared role scale.",
+      "instruments": "Independent of patch; long/short destinations retain their capabilities."
+    },
+    {
+      "template_id": 40003,
+      "idea": "Constructed Williams harmony; Lydisch chord relationship, not a shared role scale.",
+      "instruments": "Independent of patch; long/short destinations retain their capabilities."
+    },
+    {
+      "template_id": 40004,
+      "idea": "Constructed Williams harmony; Lydisch chord relationship, not a shared role scale.",
+      "instruments": "Independent of patch; long/short destinations retain their capabilities."
+    },
+    {
+      "template_id": 40006,
+      "idea": "Constructed Williams harmony; Dur-Moll-Mischung chord relationship, not a shared role scale.",
+      "instruments": "Independent of patch; long/short destinations retain their capabilities."
+    },
+    {
+      "template_id": 40007,
+      "idea": "Constructed Williams harmony; Dur-Moll-Mischung chord relationship, not a shared role scale.",
+      "instruments": "Independent of patch; long/short destinations retain their capabilities."
+    },
+    {
+      "template_id": 40008,
+      "idea": "Constructed Williams harmony; Pantriadisch chord relationship, not a shared role scale.",
+      "instruments": "Independent of patch; long/short destinations retain their capabilities."
+    },
+    {
+      "template_id": 40009,
+      "idea": "Constructed Williams harmony; Pantriadisch chord relationship, not a shared role scale.",
+      "instruments": "Independent of patch; long/short destinations retain their capabilities."
+    },
+    {
+      "template_id": 40010,
+      "idea": "Constructed Williams harmony; Dur-Moll-Mischung chord relationship, not a shared role scale.",
+      "instruments": "Independent of patch; long/short destinations retain their capabilities."
+    },
+    {
+      "template_id": 40011,
+      "idea": "Constructed Williams harmony; Dorisch chord relationship, not a shared role scale.",
+      "instruments": "Independent of patch; long/short destinations retain their capabilities."
+    },
+    {
+      "template_id": 40012,
+      "idea": "Constructed Williams harmony; Okt-A chord relationship, not a shared role scale.",
+      "instruments": "Independent of patch; long/short destinations retain their capabilities."
+    },
+    {
+      "template_id": 40013,
+      "idea": "Constructed Williams harmony; Hex-C chord relationship, not a shared role scale.",
+      "instruments": "Independent of patch; long/short destinations retain their capabilities."
+    },
+    {
+      "template_id": 40014,
+      "idea": "Constructed Williams harmony; Okt-A chord relationship, not a shared role scale.",
+      "instruments": "Independent of patch; long/short destinations retain their capabilities."
+    },
+    {
+      "template_id": 40015,
+      "idea": "Constructed Williams harmony; Okt-A chord relationship, not a shared role scale.",
+      "instruments": "Independent of patch; long/short destinations retain their capabilities."
+    },
+    {
+      "template_id": 40016,
+      "idea": "Constructed Williams harmony; Okt-A chord relationship, not a shared role scale.",
+      "instruments": "Independent of patch; long/short destinations retain their capabilities."
+    },
+    {
+      "template_id": 40017,
+      "idea": "Constructed Williams harmony; Okt-A chord relationship, not a shared role scale.",
+      "instruments": "Independent of patch; long/short destinations retain their capabilities."
+    },
+    {
+      "template_id": 40019,
+      "idea": "Constructed Williams harmony; Okt-A chord relationship, not a shared role scale.",
+      "instruments": "Independent of patch; long/short destinations retain their capabilities."
+    },
+    {
+      "template_id": 40024,
+      "idea": "Constructed Williams harmony; Hex-C chord relationship, not a shared role scale.",
+      "instruments": "Independent of patch; long/short destinations retain their capabilities."
+    },
+    {
+      "template_id": 40025,
+      "idea": "Constructed Williams harmony; Hex-C chord relationship, not a shared role scale.",
+      "instruments": "Independent of patch; long/short destinations retain their capabilities."
+    },
+    {
+      "template_id": 40028,
+      "idea": "Constructed Williams harmony; Dur chord relationship, not a shared role scale.",
+      "instruments": "Independent of patch; long/short destinations retain their capabilities."
+    },
+    {
+      "template_id": 40029,
+      "idea": "Constructed Williams harmony; Hex-C chord relationship, not a shared role scale.",
+      "instruments": "Independent of patch; long/short destinations retain their capabilities."
+    },
+    {
+      "template_id": 40030,
+      "idea": "Constructed Williams harmony; Pantriadisch chord relationship, not a shared role scale.",
+      "instruments": "Independent of patch; long/short destinations retain their capabilities."
+    },
+    {
+      "template_id": 40031,
+      "idea": "Constructed Williams harmony; Dur-Moll-Mischung chord relationship, not a shared role scale.",
+      "instruments": "Independent of patch; long/short destinations retain their capabilities."
+    },
+    {
+      "template_id": 40033,
+      "idea": "Constructed Williams harmony; Dur-Moll-Mischung chord relationship, not a shared role scale.",
+      "instruments": "Independent of patch; long/short destinations retain their capabilities."
+    },
+    {
+      "template_id": 40034,
+      "idea": "Constructed Williams harmony; Moll gesamt chord relationship, not a shared role scale.",
+      "instruments": "Independent of patch; long/short destinations retain their capabilities."
+    },
+    {
+      "template_id": 40035,
+      "idea": "Constructed Williams harmony; Dur chord relationship, not a shared role scale.",
+      "instruments": "Independent of patch; long/short destinations retain their capabilities."
+    },
+    {
+      "template_id": 40036,
+      "idea": "Constructed Williams harmony; Dur chord relationship, not a shared role scale.",
+      "instruments": "Independent of patch; long/short destinations retain their capabilities."
+    },
+    {
+      "template_id": 40037,
+      "idea": "Constructed Williams harmony; Pantriadisch chord relationship, not a shared role scale.",
+      "instruments": "Independent of patch; long/short destinations retain their capabilities."
+    },
+    {
+      "template_id": 40038,
+      "idea": "Constructed Williams harmony; Dur-Moll-Mischung chord relationship, not a shared role scale.",
+      "instruments": "Independent of patch; long/short destinations retain their capabilities."
+    },
+    {
+      "template_id": 40039,
+      "idea": "Constructed Williams harmony; Chromatisch chord relationship, not a shared role scale.",
+      "instruments": "Independent of patch; long/short destinations retain their capabilities."
+    },
+    {
+      "template_id": 40040,
+      "idea": "Constructed Williams harmony; Pantriadisch chord relationship, not a shared role scale.",
+      "instruments": "Independent of patch; long/short destinations retain their capabilities."
+    },
+    {
+      "template_id": 40041,
+      "idea": "Constructed Williams harmony; Phrygisch chord relationship, not a shared role scale.",
+      "instruments": "Independent of patch; long/short destinations retain their capabilities."
+    },
+    {
+      "template_id": 40042,
+      "idea": "Constructed Williams harmony; Dorisch chord relationship, not a shared role scale.",
+      "instruments": "Independent of patch; long/short destinations retain their capabilities."
+    },
+    {
+      "template_id": 40043,
+      "idea": "Constructed Williams harmony; Ungarisch-Moll chord relationship, not a shared role scale.",
+      "instruments": "Independent of patch; long/short destinations retain their capabilities."
+    },
+    {
+      "template_id": 40046,
+      "idea": "Constructed Williams harmony; Okt-A chord relationship, not a shared role scale.",
+      "instruments": "Independent of patch; long/short destinations retain their capabilities."
+    },
+    {
+      "template_id": 40049,
+      "idea": "Constructed Williams harmony; Pantriadisch chord relationship, not a shared role scale.",
+      "instruments": "Independent of patch; long/short destinations retain their capabilities."
+    },
+    {
+      "template_id": 40050,
+      "idea": "Constructed Williams harmony; Hex-C chord relationship, not a shared role scale.",
+      "instruments": "Independent of patch; long/short destinations retain their capabilities."
+    },
+    {
+      "template_id": 40051,
+      "idea": "Constructed Williams harmony; Pantriadisch chord relationship, not a shared role scale.",
+      "instruments": "Independent of patch; long/short destinations retain their capabilities."
+    },
+    {
+      "template_id": 40052,
+      "idea": "Constructed Williams harmony; Pantriadisch chord relationship, not a shared role scale.",
+      "instruments": "Independent of patch; long/short destinations retain their capabilities."
+    },
+    {
+      "template_id": 40054,
+      "idea": "Constructed Williams harmony; Okt-A chord relationship, not a shared role scale.",
+      "instruments": "Independent of patch; long/short destinations retain their capabilities."
+    },
+    {
+      "template_id": 40055,
+      "idea": "Constructed Williams harmony; Dur-Moll-Mischung chord relationship, not a shared role scale.",
+      "instruments": "Independent of patch; long/short destinations retain their capabilities."
+    },
+    {
+      "template_id": 40056,
+      "idea": "Constructed Williams harmony; Äolisch chord relationship, not a shared role scale.",
+      "instruments": "Independent of patch; long/short destinations retain their capabilities."
+    },
+    {
+      "template_id": 40057,
+      "idea": "Constructed Williams harmony; Äolisch chord relationship, not a shared role scale.",
+      "instruments": "Independent of patch; long/short destinations retain their capabilities."
+    },
+    {
+      "template_id": 40059,
+      "idea": "Constructed Williams harmony; Lydisch-♯2 chord relationship, not a shared role scale.",
+      "instruments": "Independent of patch; long/short destinations retain their capabilities."
+    },
+    {
+      "template_id": 40061,
+      "idea": "Constructed Williams harmony; Pantriadisch chord relationship, not a shared role scale.",
+      "instruments": "Independent of patch; long/short destinations retain their capabilities."
+    },
+    {
+      "template_id": 40063,
+      "idea": "Constructed Williams harmony; Pantriadisch chord relationship, not a shared role scale.",
+      "instruments": "Independent of patch; long/short destinations retain their capabilities."
+    },
+    {
+      "template_id": 40067,
+      "idea": "Constructed Williams harmony; Pantriadisch chord relationship, not a shared role scale.",
+      "instruments": "Independent of patch; long/short destinations retain their capabilities."
+    },
+    {
+      "template_id": 40069,
+      "idea": "Constructed Williams harmony; Moll harm. chord relationship, not a shared role scale.",
+      "instruments": "Independent of patch; long/short destinations retain their capabilities."
+    },
+    {
+      "template_id": 40076,
+      "idea": "Constructed Williams harmony; Pantriadisch chord relationship, not a shared role scale.",
+      "instruments": "Independent of patch; long/short destinations retain their capabilities."
     }
   ]
 }

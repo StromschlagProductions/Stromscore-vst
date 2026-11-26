@@ -1105,6 +1105,643 @@
       ],
       "pad": "PadHeld",
       "hook": null
+    },
+    {
+      "id": "williams_1",
+      "arp": [
+        "ArpCircle",
+        "ArpUp"
+      ],
+      "bass": [
+        "BassQuarter",
+        "BassAlternating"
+      ],
+      "pad": "PadPulse",
+      "hook": null
+    },
+    {
+      "id": "williams_2",
+      "arp": [
+        "ArpCircle",
+        "ArpUp"
+      ],
+      "bass": [
+        "BassQuarter",
+        "BassAlternating"
+      ],
+      "pad": "PadPulse",
+      "hook": null
+    },
+    {
+      "id": "williams_3",
+      "arp": [
+        "ArpCircle",
+        "ArpUp"
+      ],
+      "bass": [
+        "BassHeld",
+        "BassPedal"
+      ],
+      "pad": "PadHeld",
+      "hook": null
+    },
+    {
+      "id": "williams_4",
+      "arp": [
+        "ArpCircle",
+        "ArpUp"
+      ],
+      "bass": [
+        "BassQuarter",
+        "BassAlternating"
+      ],
+      "pad": "PadPulse",
+      "hook": null
+    },
+    {
+      "id": "williams_6",
+      "arp": [
+        "ArpCircle",
+        "ArpUp"
+      ],
+      "bass": [
+        "BassHeld",
+        "BassPedal"
+      ],
+      "pad": "PadHeld",
+      "hook": null
+    },
+    {
+      "id": "williams_7",
+      "arp": [
+        "ArpCircle",
+        "ArpUp"
+      ],
+      "bass": [
+        "BassQuarter",
+        "BassAlternating"
+      ],
+      "pad": "PadPulse",
+      "hook": null
+    },
+    {
+      "id": "williams_8",
+      "arp": [
+        "ArpCircle",
+        "ArpUp"
+      ],
+      "bass": [
+        "BassQuarter",
+        "BassAlternating"
+      ],
+      "pad": "PadPulse",
+      "hook": null
+    },
+    {
+      "id": "williams_9",
+      "arp": [
+        "ArpCircle",
+        "ArpUp"
+      ],
+      "bass": [
+        "BassQuarter",
+        "BassAlternating"
+      ],
+      "pad": "PadPulse",
+      "hook": null
+    },
+    {
+      "id": "williams_10",
+      "arp": [
+        "ArpCircle",
+        "ArpUp"
+      ],
+      "bass": [
+        "BassQuarter",
+        "BassAlternating"
+      ],
+      "pad": "PadHeld",
+      "hook": null
+    },
+    {
+      "id": "williams_11",
+      "arp": [
+        "ArpCircle",
+        "ArpUp"
+      ],
+      "bass": [
+        "BassHeld",
+        "BassPedal"
+      ],
+      "pad": "PadHeld",
+      "hook": null
+    },
+    {
+      "id": "williams_12",
+      "arp": [
+        "ArpCircle",
+        "ArpUp"
+      ],
+      "bass": [
+        "BassHeld",
+        "BassPedal"
+      ],
+      "pad": "PadHeld",
+      "hook": null
+    },
+    {
+      "id": "williams_13",
+      "arp": [
+        "ArpCircle",
+        "ArpUp"
+      ],
+      "bass": [
+        "BassQuarter",
+        "BassAlternating"
+      ],
+      "pad": "PadHeld",
+      "hook": null
+    },
+    {
+      "id": "williams_14",
+      "arp": [
+        "ArpCircle",
+        "ArpUp"
+      ],
+      "bass": [
+        "BassPendulum",
+        "BassEighth"
+      ],
+      "pad": "PadHeld",
+      "hook": null
+    },
+    {
+      "id": "williams_15",
+      "arp": [
+        "ArpCircle",
+        "ArpUp"
+      ],
+      "bass": [
+        "BassHeld",
+        "BassPedal"
+      ],
+      "pad": "PadHeld",
+      "hook": null
+    },
+    {
+      "id": "williams_16",
+      "arp": [
+        "ArpCircle",
+        "ArpUp"
+      ],
+      "bass": [
+        "BassPendulum",
+        "BassEighth"
+      ],
+      "pad": "PadPulse",
+      "hook": null
+    },
+    {
+      "id": "williams_17",
+      "arp": [
+        "ArpCircle",
+        "ArpUp"
+      ],
+      "bass": [
+        "BassPendulum",
+        "BassEighth"
+      ],
+      "pad": "PadPulse",
+      "hook": null
+    },
+    {
+      "id": "williams_19",
+      "arp": [
+        "ArpCircle",
+        "ArpUp"
+      ],
+      "bass": [
+        "BassPendulum",
+        "BassEighth"
+      ],
+      "pad": "PadPulse",
+      "hook": null
+    },
+    {
+      "id": "williams_24",
+      "arp": [
+        "ArpCircle",
+        "ArpUp"
+      ],
+      "bass": [
+        "BassHeld",
+        "BassPedal"
+      ],
+      "pad": "PadHeld",
+      "hook": null
+    },
+    {
+      "id": "williams_25",
+      "arp": [
+        "ArpCircle",
+        "ArpUp"
+      ],
+      "bass": [
+        "BassPendulum",
+        "BassEighth"
+      ],
+      "pad": "PadHeld",
+      "hook": null
+    },
+    {
+      "id": "williams_28",
+      "arp": [
+        "ArpCircle",
+        "ArpUp"
+      ],
+      "bass": [
+        "BassQuarter",
+        "BassAlternating"
+      ],
+      "pad": "PadHeld",
+      "hook": null
+    },
+    {
+      "id": "williams_29",
+      "arp": [
+        "ArpCircle",
+        "ArpUp"
+      ],
+      "bass": [
+        "BassQuarter",
+        "BassAlternating"
+      ],
+      "pad": "PadPulse",
+      "hook": null
+    },
+    {
+      "id": "williams_30",
+      "arp": [
+        "ArpCircle",
+        "ArpUp"
+      ],
+      "bass": [
+        "BassQuarter",
+        "BassAlternating"
+      ],
+      "pad": "PadHeld",
+      "hook": null
+    },
+    {
+      "id": "williams_31",
+      "arp": [
+        "ArpCircle",
+        "ArpUp"
+      ],
+      "bass": [
+        "BassQuarter",
+        "BassAlternating"
+      ],
+      "pad": "PadHeld",
+      "hook": null
+    },
+    {
+      "id": "williams_33",
+      "arp": [
+        "ArpCircle",
+        "ArpUp"
+      ],
+      "bass": [
+        "BassQuarter",
+        "BassAlternating"
+      ],
+      "pad": "PadHeld",
+      "hook": null
+    },
+    {
+      "id": "williams_34",
+      "arp": [
+        "ArpCircle",
+        "ArpUp"
+      ],
+      "bass": [
+        "BassHeld",
+        "BassPedal"
+      ],
+      "pad": "PadHeld",
+      "hook": null
+    },
+    {
+      "id": "williams_35",
+      "arp": [
+        "ArpCircle",
+        "ArpUp"
+      ],
+      "bass": [
+        "BassHeld",
+        "BassPedal"
+      ],
+      "pad": "PadHeld",
+      "hook": null
+    },
+    {
+      "id": "williams_36",
+      "arp": [
+        "ArpCircle",
+        "ArpUp"
+      ],
+      "bass": [
+        "BassHeld",
+        "BassPedal"
+      ],
+      "pad": "PadHeld",
+      "hook": null
+    },
+    {
+      "id": "williams_37",
+      "arp": [
+        "ArpCircle",
+        "ArpUp"
+      ],
+      "bass": [
+        "BassQuarter",
+        "BassAlternating"
+      ],
+      "pad": "PadHeld",
+      "hook": null
+    },
+    {
+      "id": "williams_38",
+      "arp": [
+        "ArpCircle",
+        "ArpUp"
+      ],
+      "bass": [
+        "BassHeld",
+        "BassPedal"
+      ],
+      "pad": "PadHeld",
+      "hook": null
+    },
+    {
+      "id": "williams_39",
+      "arp": [
+        "ArpCircle",
+        "ArpUp"
+      ],
+      "bass": [
+        "BassQuarter",
+        "BassAlternating"
+      ],
+      "pad": "PadHeld",
+      "hook": null
+    },
+    {
+      "id": "williams_40",
+      "arp": [
+        "ArpCircle",
+        "ArpUp"
+      ],
+      "bass": [
+        "BassHeld",
+        "BassPedal"
+      ],
+      "pad": "PadHeld",
+      "hook": null
+    },
+    {
+      "id": "williams_41",
+      "arp": [
+        "ArpCircle",
+        "ArpUp"
+      ],
+      "bass": [
+        "BassHeld",
+        "BassPedal"
+      ],
+      "pad": "PadHeld",
+      "hook": null
+    },
+    {
+      "id": "williams_42",
+      "arp": [
+        "ArpCircle",
+        "ArpUp"
+      ],
+      "bass": [
+        "BassHeld",
+        "BassPedal"
+      ],
+      "pad": "PadHeld",
+      "hook": null
+    },
+    {
+      "id": "williams_43",
+      "arp": [
+        "ArpCircle",
+        "ArpUp"
+      ],
+      "bass": [
+        "BassPendulum",
+        "BassEighth"
+      ],
+      "pad": "PadPulse",
+      "hook": null
+    },
+    {
+      "id": "williams_46",
+      "arp": [
+        "ArpCircle",
+        "ArpUp"
+      ],
+      "bass": [
+        "BassPendulum",
+        "BassEighth"
+      ],
+      "pad": "PadPulse",
+      "hook": null
+    },
+    {
+      "id": "williams_49",
+      "arp": [
+        "ArpCircle",
+        "ArpUp"
+      ],
+      "bass": [
+        "BassQuarter",
+        "BassAlternating"
+      ],
+      "pad": "PadHeld",
+      "hook": null
+    },
+    {
+      "id": "williams_50",
+      "arp": [
+        "ArpCircle",
+        "ArpUp"
+      ],
+      "bass": [
+        "BassQuarter",
+        "BassAlternating"
+      ],
+      "pad": "PadHeld",
+      "hook": null
+    },
+    {
+      "id": "williams_51",
+      "arp": [
+        "ArpCircle",
+        "ArpUp"
+      ],
+      "bass": [
+        "BassPendulum",
+        "BassEighth"
+      ],
+      "pad": "PadPulse",
+      "hook": null
+    },
+    {
+      "id": "williams_52",
+      "arp": [
+        "ArpCircle",
+        "ArpUp"
+      ],
+      "bass": [
+        "BassQuarter",
+        "BassAlternating"
+      ],
+      "pad": "PadHeld",
+      "hook": null
+    },
+    {
+      "id": "williams_54",
+      "arp": [
+        "ArpCircle",
+        "ArpUp"
+      ],
+      "bass": [
+        "BassPendulum",
+        "BassEighth"
+      ],
+      "pad": "PadHeld",
+      "hook": null
+    },
+    {
+      "id": "williams_55",
+      "arp": [
+        "ArpCircle",
+        "ArpUp"
+      ],
+      "bass": [
+        "BassQuarter",
+        "BassAlternating"
+      ],
+      "pad": "PadHeld",
+      "hook": null
+    },
+    {
+      "id": "williams_56",
+      "arp": [
+        "ArpCircle",
+        "ArpUp"
+      ],
+      "bass": [
+        "BassQuarter",
+        "BassAlternating"
+      ],
+      "pad": "PadPulse",
+      "hook": null
+    },
+    {
+      "id": "williams_57",
+      "arp": [
+        "ArpCircle",
+        "ArpUp"
+      ],
+      "bass": [
+        "BassQuarter",
+        "BassAlternating"
+      ],
+      "pad": "PadHeld",
+      "hook": null
+    },
+    {
+      "id": "williams_59",
+      "arp": [
+        "ArpCircle",
+        "ArpUp"
+      ],
+      "bass": [
+        "BassHeld",
+        "BassPedal"
+      ],
+      "pad": "PadHeld",
+      "hook": null
+    },
+    {
+      "id": "williams_61",
+      "arp": [
+        "ArpCircle",
+        "ArpUp"
+      ],
+      "bass": [
+        "BassHeld",
+        "BassPedal"
+      ],
+      "pad": "PadHeld",
+      "hook": null
+    },
+    {
+      "id": "williams_63",
+      "arp": [
+        "ArpCircle",
+        "ArpUp"
+      ],
+      "bass": [
+        "BassQuarter",
+        "BassAlternating"
+      ],
+      "pad": "PadPulse",
+      "hook": null
+    },
+    {
+      "id": "williams_67",
+      "arp": [
+        "ArpCircle",
+        "ArpUp"
+      ],
+      "bass": [
+        "BassQuarter",
+        "BassAlternating"
+      ],
+      "pad": "PadHeld",
+      "hook": null
+    },
+    {
+      "id": "williams_69",
+      "arp": [
+        "ArpCircle",
+        "ArpUp"
+      ],
+      "bass": [
+        "BassQuarter",
+        "BassAlternating"
+      ],
+      "pad": "PadHeld",
+      "hook": null
+    },
+    {
+      "id": "williams_76",
+      "arp": [
+        "ArpCircle",
+        "ArpUp"
+      ],
+      "bass": [
+        "BassQuarter",
+        "BassAlternating"
+      ],
+      "pad": "PadPulse",
+      "hook": null
     }
   ],
   "bindings": [
@@ -1635,6 +2272,202 @@
     {
       "template_id": 30047,
       "recipe": "barry_moving"
+    },
+    {
+      "template_id": 40001,
+      "recipe": "williams_1"
+    },
+    {
+      "template_id": 40002,
+      "recipe": "williams_2"
+    },
+    {
+      "template_id": 40003,
+      "recipe": "williams_3"
+    },
+    {
+      "template_id": 40004,
+      "recipe": "williams_4"
+    },
+    {
+      "template_id": 40006,
+      "recipe": "williams_6"
+    },
+    {
+      "template_id": 40007,
+      "recipe": "williams_7"
+    },
+    {
+      "template_id": 40008,
+      "recipe": "williams_8"
+    },
+    {
+      "template_id": 40009,
+      "recipe": "williams_9"
+    },
+    {
+      "template_id": 40010,
+      "recipe": "williams_10"
+    },
+    {
+      "template_id": 40011,
+      "recipe": "williams_11"
+    },
+    {
+      "template_id": 40012,
+      "recipe": "williams_12"
+    },
+    {
+      "template_id": 40013,
+      "recipe": "williams_13"
+    },
+    {
+      "template_id": 40014,
+      "recipe": "williams_14"
+    },
+    {
+      "template_id": 40015,
+      "recipe": "williams_15"
+    },
+    {
+      "template_id": 40016,
+      "recipe": "williams_16"
+    },
+    {
+      "template_id": 40017,
+      "recipe": "williams_17"
+    },
+    {
+      "template_id": 40019,
+      "recipe": "williams_19"
+    },
+    {
+      "template_id": 40024,
+      "recipe": "williams_24"
+    },
+    {
+      "template_id": 40025,
+      "recipe": "williams_25"
+    },
+    {
+      "template_id": 40028,
+      "recipe": "williams_28"
+    },
+    {
+      "template_id": 40029,
+      "recipe": "williams_29"
+    },
+    {
+      "template_id": 40030,
+      "recipe": "williams_30"
+    },
+    {
+      "template_id": 40031,
+      "recipe": "williams_31"
+    },
+    {
+      "template_id": 40033,
+      "recipe": "williams_33"
+    },
+    {
+      "template_id": 40034,
+      "recipe": "williams_34"
+    },
+    {
+      "template_id": 40035,
+      "recipe": "williams_35"
+    },
+    {
+      "template_id": 40036,
+      "recipe": "williams_36"
+    },
+    {
+      "template_id": 40037,
+      "recipe": "williams_37"
+    },
+    {
+      "template_id": 40038,
+      "recipe": "williams_38"
+    },
+    {
+      "template_id": 40039,
+      "recipe": "williams_39"
+    },
+    {
+      "template_id": 40040,
+      "recipe": "williams_40"
+    },
+    {
+      "template_id": 40041,
+      "recipe": "williams_41"
+    },
+    {
+      "template_id": 40042,
+      "recipe": "williams_42"
+    },
+    {
+      "template_id": 40043,
+      "recipe": "williams_43"
+    },
+    {
+      "template_id": 40046,
+      "recipe": "williams_46"
+    },
+    {
+      "template_id": 40049,
+      "recipe": "williams_49"
+    },
+    {
+      "template_id": 40050,
+      "recipe": "williams_50"
+    },
+    {
+      "template_id": 40051,
+      "recipe": "williams_51"
+    },
+    {
+      "template_id": 40052,
+      "recipe": "williams_52"
+    },
+    {
+      "template_id": 40054,
+      "recipe": "williams_54"
+    },
+    {
+      "template_id": 40055,
+      "recipe": "williams_55"
+    },
+    {
+      "template_id": 40056,
+      "recipe": "williams_56"
+    },
+    {
+      "template_id": 40057,
+      "recipe": "williams_57"
+    },
+    {
+      "template_id": 40059,
+      "recipe": "williams_59"
+    },
+    {
+      "template_id": 40061,
+      "recipe": "williams_61"
+    },
+    {
+      "template_id": 40063,
+      "recipe": "williams_63"
+    },
+    {
+      "template_id": 40067,
+      "recipe": "williams_67"
+    },
+    {
+      "template_id": 40069,
+      "recipe": "williams_69"
+    },
+    {
+      "template_id": 40076,
+      "recipe": "williams_76"
     }
   ]
 }

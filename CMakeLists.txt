@@ -34,7 +34,12 @@ if(NOT BARRY_DATA_RESULT EQUAL 0)
     message(FATAL_ERROR "Barry research data/header drift")
 endif()
 set_property(DIRECTORY APPEND PROPERTY CMAKE_CONFIGURE_DEPENDS scripts/build_barry_vocabulary.py data/barry/vocabulary.json)
+execute_process(COMMAND ${Python3_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/scripts/build_williams_vocabulary.py --check RESULT_VARIABLE WILLIAMS_DATA_RESULT)
+if(NOT WILLIAMS_DATA_RESULT EQUAL 0)
+    message(FATAL_ERROR "Williams data/header drift")
+endif()
 add_custom_target(ValidateHarmonyData ALL
+    COMMAND ${Python3_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/scripts/build_williams_vocabulary.py --check
     COMMAND ${Python3_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/scripts/build_barry_vocabulary.py --check
     COMMAND ${Python3_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/scripts/generate_harmony_catalog.py --check
     COMMENT "Checking validated static harmony data")
@@ -86,6 +91,9 @@ if(BUILD_TESTING)
     add_executable(MotifConsistencyTests Tests/MotifConsistencyTests.cpp)
     target_include_directories(MotifConsistencyTests PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/execution-fixture)
     add_test(NAME MotifConsistency COMMAND MotifConsistencyTests)
+    add_executable(WilliamsTests Tests/WilliamsTests.cpp)
+    target_include_directories(WilliamsTests PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/execution-fixture)
+    add_test(NAME Williams COMMAND WilliamsTests)
     add_executable(MotifRepriseTests Tests/MotifRepriseTests.cpp)
     target_include_directories(MotifRepriseTests PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/execution-fixture)
     add_test(NAME MotifReprise COMMAND MotifRepriseTests)
