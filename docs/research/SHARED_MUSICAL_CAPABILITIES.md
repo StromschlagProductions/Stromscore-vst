@@ -1,8 +1,8 @@
 # Gemeinsame musikalische Fähigkeiten – Williams und Herrmann
 
 Stand: 26.11.2026, Engine `ddad94b`, Branch `develop/composition-core-prototype`.
-Williams P1 ist technisch vorläufig freigegeben; die **musikalische Hörabnahme steht
-aus**. Dieser Bericht dokumentiert Forschungsabgleich und Empfehlungen. Er gibt
+Die erste [Williams-P1-Hörabnahme](john-williams/P1_ARPEGGIO_AUDIT.md) akzeptiert
+P1 als brauchbare Entwicklungsgrundlage, noch nicht als fertiges Künstlerprofil. Dieser Bericht dokumentiert Forschungsabgleich und Empfehlungen. Er gibt
 keine weitere Implementierung frei. Engine, GUI, Laufzeitdaten und musikalische
 Auswahl bleiben unverändert.
 

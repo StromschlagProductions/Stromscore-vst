@@ -26,7 +26,8 @@ nicht implementierte Studien sind keine statisch abzuspielenden Produktsequenzen
 ### Gemeinsame Fortschreibung mit Herrmann, 26.11.2026
 
 Williams P1 (`ddad94b`) ist technisch vorläufig freigegeben; die musikalische
-Hörabnahme steht aus. Der neue [gemeinsame Fähigkeitsbericht](../SHARED_MUSICAL_CAPABILITIES.md)
+Hörabnahme akzeptiert P1 als brauchbare Grundlage, nicht als fertiges Profil; siehe
+[Arpeggio-Untersuchung und Motivfolgeaufgaben](P1_ARPEGGIO_AUDIT.md). Der neue [gemeinsame Fähigkeitsbericht](../SHARED_MUSICAL_CAPABILITIES.md)
 empfiehlt danach einen tatsächlich ausgewerteten Tonvorratskontext, unabhängige
 Pedal-/Bassabsichten sowie kleine repetitive Module und begrenzte Einsatz-/Register-
 koordination vor umfangreicher Langphrasenplanung. Fehlende einfache Klangtypen
