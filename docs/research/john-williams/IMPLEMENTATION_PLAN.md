@@ -37,6 +37,16 @@ keine allgemeine Oktatonikpflicht. Die historischen P2–P7 unten bleiben als
 Bestandsplanung erhalten; die neue Reihenfolge ist ein Vorschlag, kein neuer
 Implementierungsauftrag. Keine Änderung an P1 oder Freigabe einer Folgephase.
 
+### Williams P2: erster gemeinsamer Oktatonik-Kontext
+
+`2c6f366` ist musikalisch abgenommen; die Arp-Phrasierung wird nicht weiter
+optimiert. Die freigegebene erste Kontextanbindung ist in [P2_OCTATONIC.md](P2_OCTATONIC.md)
+dokumentiert: explizite Oktatonik-Metadaten für acht vorhandene Harmonien,
+gemeinsame Zugehörigkeitsprüfung und kontrollierte Durchgänge im bestehenden
+Score-Motivkern. Keine neue Motivbibliothek, keine vollständige Systemgrammatik.
+Die folgenden Tabellen bleiben der historische Bestandsabgleich vor P1/P2;
+neue musikalische P2-Ergebnisse benötigen die anschließende Anwender-Hörabnahme.
+
 ## 1. Ergebnis und Bedeutung der Einstufungen
 
 Die Forschung ist wesentlich breiter als ein Akkord-Preset. Die Engine bietet dafür

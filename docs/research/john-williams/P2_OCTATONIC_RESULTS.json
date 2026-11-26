@@ -1,0 +1,8107 @@
+{
+  "reference": "2c6f366",
+  "source_sha256": {
+    "HarmonicPreferences.h": "225fcd69dc372023950e5bf2fac175fbedaa82b9fadaaf7fa98c5d8f4f429b54",
+    "ScoreEngine.h": "0a7b9ebcda7ff94b16d712dcd0e0ce8dcdaa381fe688c3ef6b6a992bf809d5db",
+    "BassPhrase.h": "7d12aa417a4abcdce8814c76c0e590a2e43a185585b7b543b252340485ab0129",
+    "MusicalExecution.h": "efd451133e6cc2fc84917cfab38abc42698b12e837575ec400093b844d73510c",
+    "RhythmPlan.h": "02624fbcace8ee605e26d3854cd6a33dcf3b9e20b0621108b0f956447303d474",
+    "HarmonyRuntime.h": "f92fa628353f3120bf08a7d181fc40d16a451fb2cbf5b7a7f1ae3fe3d1789bdd",
+    "VoiceLeading.h": "b8f8250e3de32db3642964f192c19179730aaf769c9f49be565637b198a0affb",
+    "ModalContext.h": "1b6d20a80aa501965902685932cfe824706ea80d1899912b4aa0788c55c8ebd0",
+    "RoleRhythm.h": "72d9e8ada04aa726dd74323b984a2733a5f4865ccdf0348b53bcdeedd1a7275a",
+    "HarmonyTypes.h": "e00c8fddd78a16ce2731cb3c05926f13796ae5fab46064a036d6c3370c866416",
+    "ChordTypes.generated.h": "3278e46526b51fa9551a7ba74ac4b5002d346befc929d7da99e852440e599588",
+    "ArrangementTypes.h": "99d9200ef7b1a03d2a2299e3057dfc5d4a0af58071929d9715a0256077c0bac2",
+    "BarryVocabulary.generated.h": "98678f856a2c76773426de54360e883ec87d21052bebd00c2523869dd98174df",
+    "HarmonyCatalog.generated.h": "ed8d91061b27d7e5199ef5d6f8ac0e92640aa4665017f57e1e87e5f3853a29f5",
+    "PluginProcessor.h": "e25dc98e567f95211e5f650ed2daa998fc8fb20852794e7693336cd9b9471aef",
+    "WilliamsVocabulary.generated.h": "c25a6a594e0e737b333834a3c38a880dcb1cee51a88fb97e4767bf1a03f1950f",
+    "ProfileIdentity.generated.h": "8ca3b83c902a04aa6d22ed4f8db59fabdbea3910b071e9b79677f75b9f5a8b96",
+    "ChordDisposition.h": "9c8150756f7fbbccd97090a021d9be2fa7596e31f2ea3b95f75fcacc7cd7b84d",
+    "DrivePath.h": "243525c53b7f6f0df1026894295698cdd95898f4182d072a456ddb3c587a2be4",
+    "ArpeggioPhrase.h": "e3008914a606c3417f3f598e588c1981c610ddd2f73c9e651170da39f998729d",
+    "MusicalTime.h": "5164b3e2b3a92d9c85a395d32388872879115309925e9604ef3c44a88395284b",
+    "CompositionPolicy.h": "ef636d16d6028261df857245d1fc5ad9ac1f9e617d04742b3e8db1e791f1064d",
+    "CompositionCore.h": "e2db7ceb5dcdec93c12281ed8ef32a0b97fb2924cdfd201c8b1940257948ad41",
+    "HarmonyPreferences.generated.h": "1867b0168a86094271c3dfd906328a808c71c9ca3db1f36fe307d4361c4866a4",
+    "WendungId.h": "90adf15f85cea35d872d6df6203ceec850112cb01017f7cdcbc917a363636907",
+    "BarryVocabulary.h": "2acf2caf2453784dba801a7db9126662398af6ef124fea045fc13fba0d124e9c",
+    "WendungInfo.h": "a780890386e507be416bac97eed1ba69eb213bdcaf4878469722b21c04534fb6",
+    "HarmonyProfilePools.generated.h": "484843c08b47a50d72cc0b33dfd68f67c4bdcb0ef8545d2f6272934a989bebfb",
+    "HarmonyStrategies.generated.h": "88cb189edeff32f7119fbc8b94c93a971f3c4bc5c9cf9be4c1683bf28d3e7ab7",
+    "PluginEditor.h": "c4a28c3d46a11d9ea734d4d66ef564d2fecd2b1fbf3eabd42c5bfbf67802e924"
+  },
+  "production_pairs": 148,
+  "old_profile_byte_cases": 30,
+  "rows": [
+    {
+      "args": [
+        3,
+        0,
+        0,
+        512,
+        128,
+        0,
+        3
+      ],
+      "byte_equal": true,
+      "arp_events_equal": true,
+      "passing": [],
+      "unresolved": [],
+      "sha256": "2c1365d473cb0d9848f8a787dc06ec1f9c55e532f271e87dd3a8503b15a5be75"
+    },
+    {
+      "args": [
+        3,
+        0,
+        1,
+        512,
+        128,
+        0,
+        3
+      ],
+      "byte_equal": true,
+      "arp_events_equal": true,
+      "passing": [],
+      "unresolved": [],
+      "sha256": "5f82021c91ab34d45ffb4be5c382a0cecbf197ab3c70d98c46cccb612401b482"
+    },
+    {
+      "args": [
+        3,
+        0,
+        2,
+        512,
+        128,
+        0,
+        3
+      ],
+      "byte_equal": true,
+      "arp_events_equal": true,
+      "passing": [],
+      "unresolved": [],
+      "sha256": "a47caf752f950a31bb3f4a1f1564d494f9b410a8342eacb5e3577ba004b1f065"
+    },
+    {
+      "args": [
+        3,
+        0,
+        3,
+        512,
+        128,
+        0,
+        3
+      ],
+      "byte_equal": true,
+      "arp_events_equal": true,
+      "passing": [],
+      "unresolved": [],
+      "sha256": "9f11a6a0c9c6d2304e6d90edc228228d5f980278cf92cb40fca15c926411d29f"
+    },
+    {
+      "args": [
+        3,
+        1,
+        0,
+        512,
+        128,
+        0,
+        3
+      ],
+      "byte_equal": true,
+      "arp_events_equal": true,
+      "passing": [],
+      "unresolved": [],
+      "sha256": "5eddde254cc1f7a4e6d50a1601cd2f8abe2931b9bcb95021ec8530dc598b6c84"
+    },
+    {
+      "args": [
+        3,
+        1,
+        1,
+        512,
+        128,
+        0,
+        3
+      ],
+      "byte_equal": true,
+      "arp_events_equal": true,
+      "passing": [],
+      "unresolved": [],
+      "sha256": "92a4bca9d7031e0630ffb0daf40e136ffdac6e78a736eb22d42c433ae8f0343f"
+    },
+    {
+      "args": [
+        3,
+        1,
+        2,
+        512,
+        128,
+        0,
+        3
+      ],
+      "byte_equal": true,
+      "arp_events_equal": true,
+      "passing": [],
+      "unresolved": [],
+      "sha256": "3238abb1ad26f62891f32667e8f549d164417e8ba99ed883348cdc565d03b4db"
+    },
+    {
+      "args": [
+        3,
+        1,
+        3,
+        512,
+        128,
+        0,
+        3
+      ],
+      "byte_equal": false,
+      "arp_events_equal": true,
+      "passing": [
+        {
+          "at_quarters": 193.5,
+          "output": 7,
+          "pitch": 75,
+          "chord_mask": 548,
+          "context_mask": 2925,
+          "target_quarters": 194.0,
+          "target_pitch": 74,
+          "material_identity": 14322598535839953528,
+          "resolved": true
+        },
+        {
+          "at_quarters": 321.5,
+          "output": 7,
+          "pitch": 75,
+          "chord_mask": 548,
+          "context_mask": 2925,
+          "target_quarters": 322.0,
+          "target_pitch": 74,
+          "material_identity": 14322598535839953528,
+          "resolved": true
+        },
+        {
+          "at_quarters": 449.5,
+          "output": 7,
+          "pitch": 75,
+          "chord_mask": 548,
+          "context_mask": 2925,
+          "target_quarters": 450.0,
+          "target_pitch": 74,
+          "material_identity": 14322598535839953528,
+          "resolved": true
+        }
+      ],
+      "unresolved": [],
+      "sha256": "3f0391fc7497e44208b8d3d81d7dd74d40880c9a1e65f78e25d1f618ee3e7016"
+    },
+    {
+      "args": [
+        3,
+        2,
+        0,
+        512,
+        128,
+        0,
+        3
+      ],
+      "byte_equal": true,
+      "arp_events_equal": true,
+      "passing": [],
+      "unresolved": [],
+      "sha256": "a0f8686344243cf7e88051d2711ab52364cf65a554b2391b0034411bb22f3650"
+    },
+    {
+      "args": [
+        3,
+        2,
+        1,
+        512,
+        128,
+        0,
+        3
+      ],
+      "byte_equal": true,
+      "arp_events_equal": true,
+      "passing": [],
+      "unresolved": [],
+      "sha256": "b0db14b8c0d8d64d823ea61f95363f4f244c94827f3239979c3f69e82e769874"
+    },
+    {
+      "args": [
+        3,
+        2,
+        2,
+        512,
+        128,
+        0,
+        3
+      ],
+      "byte_equal": true,
+      "arp_events_equal": true,
+      "passing": [],
+      "unresolved": [],
+      "sha256": "88bf1705d88c8f233ab6dd5c666779c59b1be1916625b26d16d2c6da34f8b9a0"
+    },
+    {
+      "args": [
+        3,
+        2,
+        3,
+        512,
+        128,
+        0,
+        3
+      ],
+      "byte_equal": true,
+      "arp_events_equal": true,
+      "passing": [],
+      "unresolved": [],
+      "sha256": "ef9108b2dd659ec826aca83b3e05bf117056c2c1bac83489d027174de97895fc"
+    },
+    {
+      "args": [
+        3,
+        3,
+        0,
+        512,
+        128,
+        0,
+        3
+      ],
+      "byte_equal": true,
+      "arp_events_equal": true,
+      "passing": [],
+      "unresolved": [],
+      "sha256": "9ae7b1c1db7b6bceee4a5668306195dd13b07f8d70e97522d22a34157a86d1c2"
+    },
+    {
+      "args": [
+        3,
+        3,
+        1,
+        512,
+        128,
+        0,
+        3
+      ],
+      "byte_equal": false,
+      "arp_events_equal": true,
+      "passing": [
+        {
+          "at_quarters": 129.5,
+          "output": 8,
+          "pitch": 75,
+          "chord_mask": 548,
+          "context_mask": 2925,
+          "target_quarters": 130.0,
+          "target_pitch": 77,
+          "material_identity": 4636332812703413742,
+          "resolved": true
+        }
+      ],
+      "unresolved": [],
+      "sha256": "9a15a6758934cbe6d8d7645b1625fc32f58f2619c2570400301c0e62d3fddbf0"
+    },
+    {
+      "args": [
+        3,
+        3,
+        2,
+        512,
+        128,
+        0,
+        3
+      ],
+      "byte_equal": false,
+      "arp_events_equal": true,
+      "passing": [
+        {
+          "at_quarters": 129.5,
+          "output": 7,
+          "pitch": 75,
+          "chord_mask": 548,
+          "context_mask": 2925,
+          "target_quarters": 130.0,
+          "target_pitch": 77,
+          "material_identity": 11110425286130515630,
+          "resolved": true
+        }
+      ],
+      "unresolved": [],
+      "sha256": "3e06674249fc0ad4e46dff409bf06a7b8d0b971dcf315466f883bfc2ccff8c39"
+    },
+    {
+      "args": [
+        3,
+        3,
+        3,
+        512,
+        128,
+        0,
+        3
+      ],
+      "byte_equal": false,
+      "arp_events_equal": true,
+      "passing": [
+        {
+          "at_quarters": 129.5,
+          "output": 8,
+          "pitch": 75,
+          "chord_mask": 548,
+          "context_mask": 2925,
+          "target_quarters": 130.0,
+          "target_pitch": 77,
+          "material_identity": 4636332812703413742,
+          "resolved": true
+        },
+        {
+          "at_quarters": 305.5,
+          "output": 7,
+          "pitch": 75,
+          "chord_mask": 548,
+          "context_mask": 2925,
+          "target_quarters": 306.0,
+          "target_pitch": 77,
+          "material_identity": 13558422726702898138,
+          "resolved": true
+        }
+      ],
+      "unresolved": [],
+      "sha256": "4a6f5e9c9fb0afced202373afe224c405cb0f96a4ce6eee0bf61706e0ea5cb55"
+    },
+    {
+      "args": [
+        3,
+        4,
+        0,
+        512,
+        128,
+        0,
+        3
+      ],
+      "byte_equal": true,
+      "arp_events_equal": true,
+      "passing": [],
+      "unresolved": [],
+      "sha256": "331c0ceb6cbf18dfc808a1be1786bd9ca8885d46172d345c39dcc3be283f1634"
+    },
+    {
+      "args": [
+        3,
+        4,
+        1,
+        512,
+        128,
+        0,
+        3
+      ],
+      "byte_equal": true,
+      "arp_events_equal": true,
+      "passing": [],
+      "unresolved": [],
+      "sha256": "dcb1491c9a009db6de3c410ab148280520fe07526cfa92c45b2daaa098404aab"
+    },
+    {
+      "args": [
+        3,
+        4,
+        2,
+        512,
+        128,
+        0,
+        3
+      ],
+      "byte_equal": true,
+      "arp_events_equal": true,
+      "passing": [],
+      "unresolved": [],
+      "sha256": "c7635ee1c6012162671b743a80b1de8abfb27d56a5b6e9a22934828de06c9dc7"
+    },
+    {
+      "args": [
+        3,
+        4,
+        3,
+        512,
+        128,
+        0,
+        3
+      ],
+      "byte_equal": true,
+      "arp_events_equal": true,
+      "passing": [],
+      "unresolved": [],
+      "sha256": "db48caf60cd5c7943d3f397cda53fbd4bfd4733f7488069c1a106f7a1c992562"
+    },
+    {
+      "args": [
+        3,
+        5,
+        0,
+        512,
+        128,
+        0,
+        3
+      ],
+      "byte_equal": true,
+      "arp_events_equal": true,
+      "passing": [],
+      "unresolved": [],
+      "sha256": "682f1f2cc78c0b24738f097a867e82bdf462dbea0a0073328a8dafe431cf783e"
+    },
+    {
+      "args": [
+        3,
+        5,
+        1,
+        512,
+        128,
+        0,
+        3
+      ],
+      "byte_equal": true,
+      "arp_events_equal": true,
+      "passing": [],
+      "unresolved": [],
+      "sha256": "3c6083f6ebcc162762ed52ce63ab832840ed13b6b650bfdbbb7655665fa2ca9a"
+    },
+    {
+      "args": [
+        3,
+        5,
+        2,
+        512,
+        128,
+        0,
+        3
+      ],
+      "byte_equal": true,
+      "arp_events_equal": true,
+      "passing": [],
+      "unresolved": [],
+      "sha256": "c76663096cf9434531958f4de225005c68890dff34c2afe980e130ccf31cb0f7"
+    },
+    {
+      "args": [
+        3,
+        5,
+        3,
+        512,
+        128,
+        0,
+        3
+      ],
+      "byte_equal": true,
+      "arp_events_equal": true,
+      "passing": [],
+      "unresolved": [],
+      "sha256": "d51f18dc10fd1b266de5408214d06c3a966c2c8ee406f59a600f8497aa53153c"
+    },
+    {
+      "args": [
+        3,
+        6,
+        0,
+        512,
+        128,
+        0,
+        3
+      ],
+      "byte_equal": true,
+      "arp_events_equal": true,
+      "passing": [],
+      "unresolved": [],
+      "sha256": "72cd4cc565f52286f88919ec3b02578c79162f05cbfaf0b22cd5d43baf8a946d"
+    },
+    {
+      "args": [
+        3,
+        6,
+        1,
+        512,
+        128,
+        0,
+        3
+      ],
+      "byte_equal": true,
+      "arp_events_equal": true,
+      "passing": [],
+      "unresolved": [],
+      "sha256": "fb2bb9182e86726b0471ffa738747a897a64549c9e2fa3791c39a3a38d9ef1f6"
+    },
+    {
+      "args": [
+        3,
+        6,
+        2,
+        512,
+        128,
+        0,
+        3
+      ],
+      "byte_equal": true,
+      "arp_events_equal": true,
+      "passing": [],
+      "unresolved": [],
+      "sha256": "314a8ca8bb1f45af5515747d3948fd0e7c5b0555d7938a46818aa7243ddc2ddc"
+    },
+    {
+      "args": [
+        3,
+        6,
+        3,
+        512,
+        128,
+        0,
+        3
+      ],
+      "byte_equal": true,
+      "arp_events_equal": true,
+      "passing": [],
+      "unresolved": [],
+      "sha256": "8afcfdb17130aeb297cf253139a28e950a1e446f07715127f4e47369747770c3"
+    },
+    {
+      "args": [
+        3,
+        7,
+        0,
+        512,
+        128,
+        0,
+        3
+      ],
+      "byte_equal": true,
+      "arp_events_equal": true,
+      "passing": [],
+      "unresolved": [],
+      "sha256": "f6622de77f173811bf0a83f16ecb52c07c11e244bddf8d34021c5c51b1c42eb9"
+    },
+    {
+      "args": [
+        3,
+        7,
+        1,
+        512,
+        128,
+        0,
+        3
+      ],
+      "byte_equal": true,
+      "arp_events_equal": true,
+      "passing": [],
+      "unresolved": [],
+      "sha256": "e9342bec8c492b3a724f135e0142b3edf402566572ad2ec05c0c6fea51099eee"
+    },
+    {
+      "args": [
+        3,
+        7,
+        2,
+        512,
+        128,
+        0,
+        3
+      ],
+      "byte_equal": true,
+      "arp_events_equal": true,
+      "passing": [],
+      "unresolved": [],
+      "sha256": "7eb51acd28faf0b510adf8cce536f4a4d33c221455fa6a422e58e840c41b4439"
+    },
+    {
+      "args": [
+        3,
+        7,
+        3,
+        512,
+        128,
+        0,
+        3
+      ],
+      "byte_equal": false,
+      "arp_events_equal": true,
+      "passing": [
+        {
+          "at_quarters": 193.5,
+          "output": 7,
+          "pitch": 80,
+          "chord_mask": 580,
+          "context_mask": 2925,
+          "target_quarters": 194.0,
+          "target_pitch": 78,
+          "material_identity": 13478148636788287784,
+          "resolved": true
+        },
+        {
+          "at_quarters": 321.5,
+          "output": 7,
+          "pitch": 80,
+          "chord_mask": 580,
+          "context_mask": 2925,
+          "target_quarters": 322.0,
+          "target_pitch": 78,
+          "material_identity": 13478148636788287784,
+          "resolved": true
+        }
+      ],
+      "unresolved": [],
+      "sha256": "3cb5d18192de90a578034836e9094a25cf63618bd3c4fca24e203a6d8b56dc89"
+    },
+    {
+      "args": [
+        3,
+        8,
+        0,
+        512,
+        128,
+        0,
+        3
+      ],
+      "byte_equal": true,
+      "arp_events_equal": true,
+      "passing": [],
+      "unresolved": [],
+      "sha256": "4db6d3954d266b138c80fb88b16dba9f161dc842219a8ba96a074dcb9ab05cc3"
+    },
+    {
+      "args": [
+        3,
+        8,
+        1,
+        512,
+        128,
+        0,
+        3
+      ],
+      "byte_equal": true,
+      "arp_events_equal": true,
+      "passing": [],
+      "unresolved": [],
+      "sha256": "0f96987636824e4ea58623ceec888dee15e04f42229433d7882d8b2444593a32"
+    },
+    {
+      "args": [
+        3,
+        8,
+        2,
+        512,
+        128,
+        0,
+        3
+      ],
+      "byte_equal": true,
+      "arp_events_equal": true,
+      "passing": [],
+      "unresolved": [],
+      "sha256": "c5ee18ba0b4ca3c869a8315d4ed668c8bd8c7897fb44ef233920a3ee8bc4da07"
+    },
+    {
+      "args": [
+        3,
+        8,
+        3,
+        512,
+        128,
+        0,
+        3
+      ],
+      "byte_equal": true,
+      "arp_events_equal": true,
+      "passing": [],
+      "unresolved": [],
+      "sha256": "e19e1ed3c7f4a2543ecae448e6337c566e788437f2352ad6d795b37be3e56a21"
+    },
+    {
+      "args": [
+        3,
+        9,
+        0,
+        512,
+        128,
+        0,
+        3
+      ],
+      "byte_equal": true,
+      "arp_events_equal": true,
+      "passing": [],
+      "unresolved": [],
+      "sha256": "7379e73864eadc5e278c6c67b7dd11ad22e701a066fadf3085b9083f150a5323"
+    },
+    {
+      "args": [
+        3,
+        9,
+        1,
+        512,
+        128,
+        0,
+        3
+      ],
+      "byte_equal": false,
+      "arp_events_equal": true,
+      "passing": [
+        {
+          "at_quarters": 129.5,
+          "output": 8,
+          "pitch": 75,
+          "chord_mask": 548,
+          "context_mask": 2925,
+          "target_quarters": 130.0,
+          "target_pitch": 77,
+          "material_identity": 4418599985994613983,
+          "resolved": true
+        },
+        {
+          "at_quarters": 257.5,
+          "output": 8,
+          "pitch": 75,
+          "chord_mask": 548,
+          "context_mask": 2925,
+          "target_quarters": 258.0,
+          "target_pitch": 77,
+          "material_identity": 4418599985994613983,
+          "resolved": true
+        },
+        {
+          "at_quarters": 385.5,
+          "output": 8,
+          "pitch": 75,
+          "chord_mask": 548,
+          "context_mask": 2925,
+          "target_quarters": 386.0,
+          "target_pitch": 77,
+          "material_identity": 4418599985994613983,
+          "resolved": true
+        }
+      ],
+      "unresolved": [],
+      "sha256": "d68f2f49fe9d4eb47750514e841b0d52fc100451a86bbc7f45d038110f642bec"
+    },
+    {
+      "args": [
+        3,
+        9,
+        2,
+        512,
+        128,
+        0,
+        3
+      ],
+      "byte_equal": false,
+      "arp_events_equal": true,
+      "passing": [
+        {
+          "at_quarters": 129.5,
+          "output": 7,
+          "pitch": 75,
+          "chord_mask": 548,
+          "context_mask": 2925,
+          "target_quarters": 130.0,
+          "target_pitch": 77,
+          "material_identity": 11696191919484204527,
+          "resolved": true
+        },
+        {
+          "at_quarters": 257.5,
+          "output": 7,
+          "pitch": 75,
+          "chord_mask": 548,
+          "context_mask": 2925,
+          "target_quarters": 258.0,
+          "target_pitch": 77,
+          "material_identity": 11696191919484204527,
+          "resolved": true
+        },
+        {
+          "at_quarters": 385.5,
+          "output": 7,
+          "pitch": 75,
+          "chord_mask": 548,
+          "context_mask": 2925,
+          "target_quarters": 386.0,
+          "target_pitch": 77,
+          "material_identity": 11696191919484204527,
+          "resolved": true
+        }
+      ],
+      "unresolved": [],
+      "sha256": "1b3bae03e4a21f3428d05b01fde7e0cfdeffa826b82907b26f7b62359797435b"
+    },
+    {
+      "args": [
+        3,
+        9,
+        3,
+        512,
+        128,
+        0,
+        3
+      ],
+      "byte_equal": false,
+      "arp_events_equal": true,
+      "passing": [
+        {
+          "at_quarters": 129.5,
+          "output": 8,
+          "pitch": 75,
+          "chord_mask": 548,
+          "context_mask": 2925,
+          "target_quarters": 130.0,
+          "target_pitch": 77,
+          "material_identity": 4418599985994613983,
+          "resolved": true
+        },
+        {
+          "at_quarters": 257.5,
+          "output": 8,
+          "pitch": 75,
+          "chord_mask": 548,
+          "context_mask": 2925,
+          "target_quarters": 258.0,
+          "target_pitch": 77,
+          "material_identity": 4418599985994613983,
+          "resolved": true
+        },
+        {
+          "at_quarters": 385.5,
+          "output": 8,
+          "pitch": 75,
+          "chord_mask": 548,
+          "context_mask": 2925,
+          "target_quarters": 386.0,
+          "target_pitch": 77,
+          "material_identity": 4418599985994613983,
+          "resolved": true
+        }
+      ],
+      "unresolved": [],
+      "sha256": "045e1729fb2711d1acdcc2e54321ac3d942839badeef46f84cde8d038d46ca56"
+    },
+    {
+      "args": [
+        3,
+        10,
+        0,
+        512,
+        128,
+        0,
+        3
+      ],
+      "byte_equal": true,
+      "arp_events_equal": true,
+      "passing": [],
+      "unresolved": [],
+      "sha256": "d0c9270aa9d308e635991e09376cfaa456d302b1aa7b3a666c40786af6eecf9d"
+    },
+    {
+      "args": [
+        3,
+        10,
+        1,
+        512,
+        128,
+        0,
+        3
+      ],
+      "byte_equal": true,
+      "arp_events_equal": true,
+      "passing": [],
+      "unresolved": [],
+      "sha256": "d766e2ced891ddaeef55c0bbe148f2a245f0ce97656f87f83bc547a61b9159be"
+    },
+    {
+      "args": [
+        3,
+        10,
+        2,
+        512,
+        128,
+        0,
+        3
+      ],
+      "byte_equal": true,
+      "arp_events_equal": true,
+      "passing": [],
+      "unresolved": [],
+      "sha256": "cd3390379118532acc8369f7547d89bd8ffae5737f77eb057dc745473489afe2"
+    },
+    {
+      "args": [
+        3,
+        10,
+        3,
+        512,
+        128,
+        0,
+        3
+      ],
+      "byte_equal": false,
+      "arp_events_equal": true,
+      "passing": [
+        {
+          "at_quarters": 193.5,
+          "output": 7,
+          "pitch": 80,
+          "chord_mask": 580,
+          "context_mask": 2925,
+          "target_quarters": 194.0,
+          "target_pitch": 78,
+          "material_identity": 13478148636788287784,
+          "resolved": true
+        },
+        {
+          "at_quarters": 321.5,
+          "output": 7,
+          "pitch": 80,
+          "chord_mask": 580,
+          "context_mask": 2925,
+          "target_quarters": 322.0,
+          "target_pitch": 78,
+          "material_identity": 13478148636788287784,
+          "resolved": true
+        },
+        {
+          "at_quarters": 449.5,
+          "output": 7,
+          "pitch": 80,
+          "chord_mask": 580,
+          "context_mask": 2925,
+          "target_quarters": 450.0,
+          "target_pitch": 78,
+          "material_identity": 13478148636788287784,
+          "resolved": true
+        }
+      ],
+      "unresolved": [],
+      "sha256": "dc7825e46dd63cc82f9046cd59993cca0303b4cdafc7decaa05069e7217d1c07"
+    },
+    {
+      "args": [
+        3,
+        11,
+        0,
+        512,
+        128,
+        0,
+        3
+      ],
+      "byte_equal": true,
+      "arp_events_equal": true,
+      "passing": [],
+      "unresolved": [],
+      "sha256": "5c9a83ad23133ed4e5a94376d6ecbe3d67d1198b48cc0826297d6332f4448593"
+    },
+    {
+      "args": [
+        3,
+        11,
+        1,
+        512,
+        128,
+        0,
+        3
+      ],
+      "byte_equal": true,
+      "arp_events_equal": true,
+      "passing": [],
+      "unresolved": [],
+      "sha256": "53d41c4260f4347cc9b9167c2c0213f485eb2b601144dd6726aadaaf21f12784"
+    },
+    {
+      "args": [
+        3,
+        11,
+        2,
+        512,
+        128,
+        0,
+        3
+      ],
+      "byte_equal": true,
+      "arp_events_equal": true,
+      "passing": [],
+      "unresolved": [],
+      "sha256": "1dd7c0aaecc3c2ba9edf98de983103436b3464f411bd5fc8c39f0e35aece28b2"
+    },
+    {
+      "args": [
+        3,
+        11,
+        3,
+        512,
+        128,
+        0,
+        3
+      ],
+      "byte_equal": false,
+      "arp_events_equal": true,
+      "passing": [],
+      "unresolved": [],
+      "sha256": "c7b65e74cb682deed97cc32152b9c96acb53bd3b398b0e4a3b0f61a3996c1b84"
+    },
+    {
+      "args": [
+        3,
+        12,
+        0,
+        512,
+        128,
+        0,
+        3
+      ],
+      "byte_equal": true,
+      "arp_events_equal": true,
+      "passing": [],
+      "unresolved": [],
+      "sha256": "d310fea1234d5e4ac1a645fabfa2e353d35cdbc03a2b47ddad2d92e817a574c8"
+    },
+    {
+      "args": [
+        3,
+        12,
+        1,
+        512,
+        128,
+        0,
+        3
+      ],
+      "byte_equal": true,
+      "arp_events_equal": true,
+      "passing": [],
+      "unresolved": [],
+      "sha256": "35e1b9ab267b107ffd9c04249baaaf9d2f67fb5cefa1023ca2e4e1265f4ff566"
+    },
+    {
+      "args": [
+        3,
+        12,
+        2,
+        512,
+        128,
+        0,
+        3
+      ],
+      "byte_equal": true,
+      "arp_events_equal": true,
+      "passing": [],
+      "unresolved": [],
+      "sha256": "55972bae98ef42f36807ca2fa6d141fba58c07db3f1756f3925770c5c1bfedb7"
+    },
+    {
+      "args": [
+        3,
+        12,
+        3,
+        512,
+        128,
+        0,
+        3
+      ],
+      "byte_equal": false,
+      "arp_events_equal": true,
+      "passing": [],
+      "unresolved": [],
+      "sha256": "a2c900f838159aeece548557c8a3e26d83f2e82cc8992ec638b07802c1a99d15"
+    },
+    {
+      "args": [
+        3,
+        110,
+        3,
+        512,
+        128,
+        0,
+        3,
+        0,
+        1,
+        0,
+        4,
+        4,
+        0,
+        0,
+        0,
+        0
+      ],
+      "byte_equal": false,
+      "arp_events_equal": true,
+      "passing": [
+        {
+          "at_quarters": 129.5,
+          "output": 8,
+          "pitch": 73,
+          "chord_mask": 137,
+          "context_mask": 1755,
+          "target_quarters": 130.0,
+          "target_pitch": 72,
+          "material_identity": 13106895589071053772,
+          "resolved": true
+        },
+        {
+          "at_quarters": 257.5,
+          "output": 8,
+          "pitch": 73,
+          "chord_mask": 137,
+          "context_mask": 1755,
+          "target_quarters": 258.0,
+          "target_pitch": 72,
+          "material_identity": 13106895589071053772,
+          "resolved": true
+        },
+        {
+          "at_quarters": 385.5,
+          "output": 8,
+          "pitch": 73,
+          "chord_mask": 137,
+          "context_mask": 1755,
+          "target_quarters": 386.0,
+          "target_pitch": 72,
+          "material_identity": 13106895589071053772,
+          "resolved": true
+        }
+      ],
+      "unresolved": [],
+      "sha256": "4c1ecec0d84ea6a32ebb3d2622e5b52c00b78cc05bf188c3865f68b89e945cd2",
+      "reference_id": 40012,
+      "key": 0
+    },
+    {
+      "args": [
+        3,
+        110,
+        3,
+        512,
+        128,
+        0,
+        3,
+        0,
+        1,
+        0,
+        4,
+        4,
+        0,
+        0,
+        0,
+        1
+      ],
+      "byte_equal": false,
+      "arp_events_equal": true,
+      "passing": [
+        {
+          "at_quarters": 129.5,
+          "output": 8,
+          "pitch": 74,
+          "chord_mask": 274,
+          "context_mask": 3510,
+          "target_quarters": 130.0,
+          "target_pitch": 73,
+          "material_identity": 13106895589071053772,
+          "resolved": true
+        },
+        {
+          "at_quarters": 257.5,
+          "output": 8,
+          "pitch": 74,
+          "chord_mask": 274,
+          "context_mask": 3510,
+          "target_quarters": 258.0,
+          "target_pitch": 73,
+          "material_identity": 13106895589071053772,
+          "resolved": true
+        },
+        {
+          "at_quarters": 385.5,
+          "output": 8,
+          "pitch": 74,
+          "chord_mask": 274,
+          "context_mask": 3510,
+          "target_quarters": 386.0,
+          "target_pitch": 73,
+          "material_identity": 13106895589071053772,
+          "resolved": true
+        }
+      ],
+      "unresolved": [],
+      "sha256": "c587a70b33b088110604abef00d84fc7d77f8ab75cc8174c6927979dd9297811",
+      "reference_id": 40012,
+      "key": 1
+    },
+    {
+      "args": [
+        3,
+        110,
+        3,
+        512,
+        128,
+        0,
+        3,
+        0,
+        1,
+        0,
+        4,
+        4,
+        0,
+        0,
+        0,
+        2
+      ],
+      "byte_equal": false,
+      "arp_events_equal": true,
+      "passing": [],
+      "unresolved": [],
+      "sha256": "72e96bb56f9d759bdfc30e1e9dfebe0e451d1487667dc5bf2b12556939d1298a",
+      "reference_id": 40012,
+      "key": 2
+    },
+    {
+      "args": [
+        3,
+        110,
+        3,
+        512,
+        128,
+        0,
+        3,
+        0,
+        1,
+        0,
+        4,
+        4,
+        0,
+        0,
+        0,
+        3
+      ],
+      "byte_equal": false,
+      "arp_events_equal": true,
+      "passing": [
+        {
+          "at_quarters": 193.5,
+          "output": 7,
+          "pitch": 76,
+          "chord_mask": 1096,
+          "context_mask": 1755,
+          "target_quarters": 194.0,
+          "target_pitch": 78,
+          "material_identity": 11371242056848765643,
+          "resolved": true
+        },
+        {
+          "at_quarters": 321.5,
+          "output": 7,
+          "pitch": 76,
+          "chord_mask": 1096,
+          "context_mask": 1755,
+          "target_quarters": 322.0,
+          "target_pitch": 78,
+          "material_identity": 11371242056848765643,
+          "resolved": true
+        },
+        {
+          "at_quarters": 449.5,
+          "output": 7,
+          "pitch": 76,
+          "chord_mask": 1096,
+          "context_mask": 1755,
+          "target_quarters": 450.0,
+          "target_pitch": 78,
+          "material_identity": 11371242056848765643,
+          "resolved": true
+        }
+      ],
+      "unresolved": [],
+      "sha256": "42f84708d72120ad1d61812252a8957afa8dc59fb7acd131bcfd95b8c64a68dd",
+      "reference_id": 40012,
+      "key": 3
+    },
+    {
+      "args": [
+        3,
+        110,
+        3,
+        512,
+        128,
+        0,
+        3,
+        0,
+        1,
+        0,
+        4,
+        4,
+        0,
+        0,
+        0,
+        4
+      ],
+      "byte_equal": false,
+      "arp_events_equal": true,
+      "passing": [
+        {
+          "at_quarters": 193.5,
+          "output": 7,
+          "pitch": 77,
+          "chord_mask": 2192,
+          "context_mask": 3510,
+          "target_quarters": 194.0,
+          "target_pitch": 79,
+          "material_identity": 11371242056848765643,
+          "resolved": true
+        },
+        {
+          "at_quarters": 321.5,
+          "output": 7,
+          "pitch": 77,
+          "chord_mask": 2192,
+          "context_mask": 3510,
+          "target_quarters": 322.0,
+          "target_pitch": 79,
+          "material_identity": 11371242056848765643,
+          "resolved": true
+        },
+        {
+          "at_quarters": 449.5,
+          "output": 7,
+          "pitch": 77,
+          "chord_mask": 2192,
+          "context_mask": 3510,
+          "target_quarters": 450.0,
+          "target_pitch": 79,
+          "material_identity": 11371242056848765643,
+          "resolved": true
+        }
+      ],
+      "unresolved": [],
+      "sha256": "128cf279e0122046649745ffe405bdc64d409d518a9710b3b338b2c6997ef9de",
+      "reference_id": 40012,
+      "key": 4
+    },
+    {
+      "args": [
+        3,
+        110,
+        3,
+        512,
+        128,
+        0,
+        3,
+        0,
+        1,
+        0,
+        4,
+        4,
+        0,
+        0,
+        0,
+        5
+      ],
+      "byte_equal": false,
+      "arp_events_equal": true,
+      "passing": [
+        {
+          "at_quarters": 193.5,
+          "output": 7,
+          "pitch": 78,
+          "chord_mask": 289,
+          "context_mask": 2925,
+          "target_quarters": 194.0,
+          "target_pitch": 80,
+          "material_identity": 11371242056848765643,
+          "resolved": true
+        },
+        {
+          "at_quarters": 321.5,
+          "output": 7,
+          "pitch": 78,
+          "chord_mask": 289,
+          "context_mask": 2925,
+          "target_quarters": 322.0,
+          "target_pitch": 80,
+          "material_identity": 11371242056848765643,
+          "resolved": true
+        },
+        {
+          "at_quarters": 449.5,
+          "output": 7,
+          "pitch": 78,
+          "chord_mask": 289,
+          "context_mask": 2925,
+          "target_quarters": 450.0,
+          "target_pitch": 80,
+          "material_identity": 11371242056848765643,
+          "resolved": true
+        }
+      ],
+      "unresolved": [],
+      "sha256": "5aa24e288792f37f6f95832164e87c67cf2722bf807ee56c22a204385a56815d",
+      "reference_id": 40012,
+      "key": 5
+    },
+    {
+      "args": [
+        3,
+        110,
+        3,
+        512,
+        128,
+        0,
+        3,
+        0,
+        1,
+        0,
+        4,
+        4,
+        0,
+        0,
+        0,
+        6
+      ],
+      "byte_equal": false,
+      "arp_events_equal": true,
+      "passing": [
+        {
+          "at_quarters": 193.5,
+          "output": 7,
+          "pitch": 79,
+          "chord_mask": 578,
+          "context_mask": 1755,
+          "target_quarters": 194.0,
+          "target_pitch": 81,
+          "material_identity": 11371242056848765643,
+          "resolved": true
+        },
+        {
+          "at_quarters": 321.5,
+          "output": 7,
+          "pitch": 79,
+          "chord_mask": 578,
+          "context_mask": 1755,
+          "target_quarters": 322.0,
+          "target_pitch": 81,
+          "material_identity": 11371242056848765643,
+          "resolved": true
+        },
+        {
+          "at_quarters": 449.5,
+          "output": 7,
+          "pitch": 79,
+          "chord_mask": 578,
+          "context_mask": 1755,
+          "target_quarters": 450.0,
+          "target_pitch": 81,
+          "material_identity": 11371242056848765643,
+          "resolved": true
+        }
+      ],
+      "unresolved": [],
+      "sha256": "08307d99c8840fac6f3461039e64940ceeef95d7a8c2b0c8e103fb331b7f113f",
+      "reference_id": 40012,
+      "key": 6
+    },
+    {
+      "args": [
+        3,
+        110,
+        3,
+        512,
+        128,
+        0,
+        3,
+        0,
+        1,
+        0,
+        4,
+        4,
+        0,
+        0,
+        0,
+        7
+      ],
+      "byte_equal": false,
+      "arp_events_equal": true,
+      "passing": [
+        {
+          "at_quarters": 130.5,
+          "output": 8,
+          "pitch": 68,
+          "chord_mask": 1156,
+          "context_mask": 3510,
+          "target_quarters": 131.0,
+          "target_pitch": 67,
+          "material_identity": 4616484974260104154,
+          "resolved": true
+        },
+        {
+          "at_quarters": 258.5,
+          "output": 8,
+          "pitch": 68,
+          "chord_mask": 1156,
+          "context_mask": 3510,
+          "target_quarters": 259.0,
+          "target_pitch": 67,
+          "material_identity": 4616484974260104154,
+          "resolved": true
+        },
+        {
+          "at_quarters": 321.5,
+          "output": 7,
+          "pitch": 80,
+          "chord_mask": 1156,
+          "context_mask": 3510,
+          "target_quarters": 322.0,
+          "target_pitch": 82,
+          "material_identity": 11371242056848765643,
+          "resolved": true
+        },
+        {
+          "at_quarters": 386.5,
+          "output": 8,
+          "pitch": 68,
+          "chord_mask": 1156,
+          "context_mask": 3510,
+          "target_quarters": 387.0,
+          "target_pitch": 67,
+          "material_identity": 4616484974260104154,
+          "resolved": true
+        },
+        {
+          "at_quarters": 449.5,
+          "output": 7,
+          "pitch": 80,
+          "chord_mask": 1156,
+          "context_mask": 3510,
+          "target_quarters": 450.0,
+          "target_pitch": 82,
+          "material_identity": 11371242056848765643,
+          "resolved": true
+        }
+      ],
+      "unresolved": [],
+      "sha256": "baabef638ec748af72106af49a6e3a75a7f2e3a3990880ea5d26f695ce7fe3af",
+      "reference_id": 40012,
+      "key": 7
+    },
+    {
+      "args": [
+        3,
+        110,
+        3,
+        512,
+        128,
+        0,
+        3,
+        0,
+        1,
+        0,
+        4,
+        4,
+        0,
+        0,
+        0,
+        8
+      ],
+      "byte_equal": false,
+      "arp_events_equal": true,
+      "passing": [
+        {
+          "at_quarters": 130.5,
+          "output": 8,
+          "pitch": 69,
+          "chord_mask": 2312,
+          "context_mask": 2925,
+          "target_quarters": 131.0,
+          "target_pitch": 68,
+          "material_identity": 4616484974260104154,
+          "resolved": true
+        },
+        {
+          "at_quarters": 258.5,
+          "output": 8,
+          "pitch": 69,
+          "chord_mask": 2312,
+          "context_mask": 2925,
+          "target_quarters": 259.0,
+          "target_pitch": 68,
+          "material_identity": 4616484974260104154,
+          "resolved": true
+        },
+        {
+          "at_quarters": 322.5,
+          "output": 7,
+          "pitch": 81,
+          "chord_mask": 2312,
+          "context_mask": 2925,
+          "target_quarters": 323.0,
+          "target_pitch": 83,
+          "material_identity": 4876167472332399924,
+          "resolved": true
+        },
+        {
+          "at_quarters": 386.5,
+          "output": 8,
+          "pitch": 69,
+          "chord_mask": 2312,
+          "context_mask": 2925,
+          "target_quarters": 387.0,
+          "target_pitch": 68,
+          "material_identity": 4616484974260104154,
+          "resolved": true
+        },
+        {
+          "at_quarters": 450.5,
+          "output": 7,
+          "pitch": 81,
+          "chord_mask": 2312,
+          "context_mask": 2925,
+          "target_quarters": 451.0,
+          "target_pitch": 83,
+          "material_identity": 4876167472332399924,
+          "resolved": true
+        }
+      ],
+      "unresolved": [],
+      "sha256": "513f79817e24f4f93eb3ea562d6c3addb0a54441528a95387e49997e7e057ae0",
+      "reference_id": 40012,
+      "key": 8
+    },
+    {
+      "args": [
+        3,
+        110,
+        3,
+        512,
+        128,
+        0,
+        3,
+        0,
+        1,
+        0,
+        4,
+        4,
+        0,
+        0,
+        0,
+        9
+      ],
+      "byte_equal": false,
+      "arp_events_equal": true,
+      "passing": [
+        {
+          "at_quarters": 130.5,
+          "output": 8,
+          "pitch": 70,
+          "chord_mask": 529,
+          "context_mask": 1755,
+          "target_quarters": 131.0,
+          "target_pitch": 69,
+          "material_identity": 4616484974260104154,
+          "resolved": true
+        },
+        {
+          "at_quarters": 258.5,
+          "output": 8,
+          "pitch": 70,
+          "chord_mask": 529,
+          "context_mask": 1755,
+          "target_quarters": 259.0,
+          "target_pitch": 69,
+          "material_identity": 4616484974260104154,
+          "resolved": true
+        },
+        {
+          "at_quarters": 322.5,
+          "output": 7,
+          "pitch": 82,
+          "chord_mask": 529,
+          "context_mask": 1755,
+          "target_quarters": 323.0,
+          "target_pitch": 84,
+          "material_identity": 4876167472332399924,
+          "resolved": true
+        },
+        {
+          "at_quarters": 386.5,
+          "output": 8,
+          "pitch": 70,
+          "chord_mask": 529,
+          "context_mask": 1755,
+          "target_quarters": 387.0,
+          "target_pitch": 69,
+          "material_identity": 4616484974260104154,
+          "resolved": true
+        },
+        {
+          "at_quarters": 450.5,
+          "output": 7,
+          "pitch": 82,
+          "chord_mask": 529,
+          "context_mask": 1755,
+          "target_quarters": 451.0,
+          "target_pitch": 84,
+          "material_identity": 4876167472332399924,
+          "resolved": true
+        }
+      ],
+      "unresolved": [],
+      "sha256": "b735e38c444a825fccb0c159adba2ad419551f71cdd6d4c9550e23200dbb6f6e",
+      "reference_id": 40012,
+      "key": 9
+    },
+    {
+      "args": [
+        3,
+        110,
+        3,
+        512,
+        128,
+        0,
+        3,
+        0,
+        1,
+        0,
+        4,
+        4,
+        0,
+        0,
+        0,
+        10
+      ],
+      "byte_equal": false,
+      "arp_events_equal": true,
+      "passing": [
+        {
+          "at_quarters": 130.5,
+          "output": 8,
+          "pitch": 71,
+          "chord_mask": 1058,
+          "context_mask": 3510,
+          "target_quarters": 131.0,
+          "target_pitch": 70,
+          "material_identity": 4616484974260104154,
+          "resolved": true
+        },
+        {
+          "at_quarters": 258.5,
+          "output": 8,
+          "pitch": 71,
+          "chord_mask": 1058,
+          "context_mask": 3510,
+          "target_quarters": 259.0,
+          "target_pitch": 70,
+          "material_identity": 4616484974260104154,
+          "resolved": true
+        },
+        {
+          "at_quarters": 322.5,
+          "output": 7,
+          "pitch": 83,
+          "chord_mask": 1058,
+          "context_mask": 3510,
+          "target_quarters": 323.0,
+          "target_pitch": 85,
+          "material_identity": 4876167472332399924,
+          "resolved": true
+        },
+        {
+          "at_quarters": 386.5,
+          "output": 8,
+          "pitch": 71,
+          "chord_mask": 1058,
+          "context_mask": 3510,
+          "target_quarters": 387.0,
+          "target_pitch": 70,
+          "material_identity": 4616484974260104154,
+          "resolved": true
+        },
+        {
+          "at_quarters": 450.5,
+          "output": 7,
+          "pitch": 83,
+          "chord_mask": 1058,
+          "context_mask": 3510,
+          "target_quarters": 451.0,
+          "target_pitch": 85,
+          "material_identity": 4876167472332399924,
+          "resolved": true
+        }
+      ],
+      "unresolved": [],
+      "sha256": "77f33bae22f69003f30957484ba529b0f252c82ffbd0b2005b4a7ccb53961bdd",
+      "reference_id": 40012,
+      "key": 10
+    },
+    {
+      "args": [
+        3,
+        110,
+        3,
+        512,
+        128,
+        0,
+        3,
+        0,
+        1,
+        0,
+        4,
+        4,
+        0,
+        0,
+        0,
+        11
+      ],
+      "byte_equal": false,
+      "arp_events_equal": true,
+      "passing": [
+        {
+          "at_quarters": 129.5,
+          "output": 8,
+          "pitch": 72,
+          "chord_mask": 2116,
+          "context_mask": 2925,
+          "target_quarters": 130.0,
+          "target_pitch": 71,
+          "material_identity": 13106895589071053772,
+          "resolved": true
+        },
+        {
+          "at_quarters": 257.5,
+          "output": 8,
+          "pitch": 72,
+          "chord_mask": 2116,
+          "context_mask": 2925,
+          "target_quarters": 258.0,
+          "target_pitch": 71,
+          "material_identity": 13106895589071053772,
+          "resolved": true
+        },
+        {
+          "at_quarters": 322.5,
+          "output": 7,
+          "pitch": 84,
+          "chord_mask": 2116,
+          "context_mask": 2925,
+          "target_quarters": 323.0,
+          "target_pitch": 86,
+          "material_identity": 4876167472332399924,
+          "resolved": true
+        },
+        {
+          "at_quarters": 385.5,
+          "output": 8,
+          "pitch": 72,
+          "chord_mask": 2116,
+          "context_mask": 2925,
+          "target_quarters": 386.0,
+          "target_pitch": 71,
+          "material_identity": 13106895589071053772,
+          "resolved": true
+        },
+        {
+          "at_quarters": 450.5,
+          "output": 7,
+          "pitch": 84,
+          "chord_mask": 2116,
+          "context_mask": 2925,
+          "target_quarters": 451.0,
+          "target_pitch": 86,
+          "material_identity": 4876167472332399924,
+          "resolved": true
+        }
+      ],
+      "unresolved": [],
+      "sha256": "6240ac406a1d3d7518e72230fc50416ff687e0367f9e4ec3e2647c9cad4b59d6",
+      "reference_id": 40012,
+      "key": 11
+    },
+    {
+      "args": [
+        3,
+        112,
+        3,
+        512,
+        128,
+        0,
+        3,
+        0,
+        1,
+        0,
+        4,
+        4,
+        0,
+        0,
+        0,
+        0
+      ],
+      "byte_equal": false,
+      "arp_events_equal": true,
+      "passing": [
+        {
+          "at_quarters": 129.5,
+          "output": 8,
+          "pitch": 73,
+          "chord_mask": 137,
+          "context_mask": 1755,
+          "target_quarters": 130.0,
+          "target_pitch": 72,
+          "material_identity": 13106895589071053772,
+          "resolved": true
+        },
+        {
+          "at_quarters": 194.5,
+          "output": 7,
+          "pitch": 85,
+          "chord_mask": 137,
+          "context_mask": 1755,
+          "target_quarters": 195.0,
+          "target_pitch": 87,
+          "material_identity": 4876167472332399924,
+          "resolved": true
+        },
+        {
+          "at_quarters": 257.5,
+          "output": 8,
+          "pitch": 73,
+          "chord_mask": 137,
+          "context_mask": 1755,
+          "target_quarters": 258.0,
+          "target_pitch": 72,
+          "material_identity": 13106895589071053772,
+          "resolved": true
+        },
+        {
+          "at_quarters": 322.5,
+          "output": 7,
+          "pitch": 85,
+          "chord_mask": 137,
+          "context_mask": 1755,
+          "target_quarters": 323.0,
+          "target_pitch": 87,
+          "material_identity": 4876167472332399924,
+          "resolved": true
+        },
+        {
+          "at_quarters": 385.5,
+          "output": 8,
+          "pitch": 73,
+          "chord_mask": 137,
+          "context_mask": 1755,
+          "target_quarters": 386.0,
+          "target_pitch": 72,
+          "material_identity": 13106895589071053772,
+          "resolved": true
+        },
+        {
+          "at_quarters": 450.5,
+          "output": 7,
+          "pitch": 85,
+          "chord_mask": 137,
+          "context_mask": 1755,
+          "target_quarters": 451.0,
+          "target_pitch": 87,
+          "material_identity": 4876167472332399924,
+          "resolved": true
+        }
+      ],
+      "unresolved": [],
+      "sha256": "43f52d3ad9b4fef993febd5668cfd561d2d80212952038af98770444e39d62a0",
+      "reference_id": 40014,
+      "key": 0
+    },
+    {
+      "args": [
+        3,
+        112,
+        3,
+        512,
+        128,
+        0,
+        3,
+        0,
+        1,
+        0,
+        4,
+        4,
+        0,
+        0,
+        0,
+        1
+      ],
+      "byte_equal": false,
+      "arp_events_equal": true,
+      "passing": [
+        {
+          "at_quarters": 129.5,
+          "output": 8,
+          "pitch": 74,
+          "chord_mask": 274,
+          "context_mask": 3510,
+          "target_quarters": 130.0,
+          "target_pitch": 73,
+          "material_identity": 13106895589071053772,
+          "resolved": true
+        },
+        {
+          "at_quarters": 257.5,
+          "output": 8,
+          "pitch": 74,
+          "chord_mask": 274,
+          "context_mask": 3510,
+          "target_quarters": 258.0,
+          "target_pitch": 73,
+          "material_identity": 13106895589071053772,
+          "resolved": true
+        },
+        {
+          "at_quarters": 385.5,
+          "output": 8,
+          "pitch": 74,
+          "chord_mask": 274,
+          "context_mask": 3510,
+          "target_quarters": 386.0,
+          "target_pitch": 73,
+          "material_identity": 13106895589071053772,
+          "resolved": true
+        }
+      ],
+      "unresolved": [],
+      "sha256": "4d39109b43272d3ab4f89234094c4af1a19ff31b039bde6e55680427dae021fc",
+      "reference_id": 40014,
+      "key": 1
+    },
+    {
+      "args": [
+        3,
+        112,
+        3,
+        512,
+        128,
+        0,
+        3,
+        0,
+        1,
+        0,
+        4,
+        4,
+        0,
+        0,
+        0,
+        2
+      ],
+      "byte_equal": false,
+      "arp_events_equal": true,
+      "passing": [
+        {
+          "at_quarters": 129.5,
+          "output": 8,
+          "pitch": 75,
+          "chord_mask": 548,
+          "context_mask": 2925,
+          "target_quarters": 130.0,
+          "target_pitch": 74,
+          "material_identity": 13106895589071053772,
+          "resolved": true
+        },
+        {
+          "at_quarters": 257.5,
+          "output": 8,
+          "pitch": 75,
+          "chord_mask": 548,
+          "context_mask": 2925,
+          "target_quarters": 258.0,
+          "target_pitch": 74,
+          "material_identity": 13106895589071053772,
+          "resolved": true
+        },
+        {
+          "at_quarters": 385.5,
+          "output": 8,
+          "pitch": 75,
+          "chord_mask": 548,
+          "context_mask": 2925,
+          "target_quarters": 386.0,
+          "target_pitch": 74,
+          "material_identity": 13106895589071053772,
+          "resolved": true
+        }
+      ],
+      "unresolved": [],
+      "sha256": "b88782629711cbeb16b46d409f213fa7f1fbb373ba59eb9c3233de4361dae75f",
+      "reference_id": 40014,
+      "key": 2
+    },
+    {
+      "args": [
+        3,
+        112,
+        3,
+        512,
+        128,
+        0,
+        3,
+        0,
+        1,
+        0,
+        4,
+        4,
+        0,
+        0,
+        0,
+        3
+      ],
+      "byte_equal": false,
+      "arp_events_equal": true,
+      "passing": [],
+      "unresolved": [],
+      "sha256": "7c5fdced5774323e07c5af692a06e9504cc77ff5626af73ea2768f17aea34198",
+      "reference_id": 40014,
+      "key": 3
+    },
+    {
+      "args": [
+        3,
+        112,
+        3,
+        512,
+        128,
+        0,
+        3,
+        0,
+        1,
+        0,
+        4,
+        4,
+        0,
+        0,
+        0,
+        4
+      ],
+      "byte_equal": false,
+      "arp_events_equal": true,
+      "passing": [
+        {
+          "at_quarters": 193.5,
+          "output": 7,
+          "pitch": 77,
+          "chord_mask": 2192,
+          "context_mask": 3510,
+          "target_quarters": 194.0,
+          "target_pitch": 79,
+          "material_identity": 11371242056848765643,
+          "resolved": true
+        },
+        {
+          "at_quarters": 321.5,
+          "output": 7,
+          "pitch": 77,
+          "chord_mask": 2192,
+          "context_mask": 3510,
+          "target_quarters": 322.0,
+          "target_pitch": 79,
+          "material_identity": 11371242056848765643,
+          "resolved": true
+        },
+        {
+          "at_quarters": 449.5,
+          "output": 7,
+          "pitch": 77,
+          "chord_mask": 2192,
+          "context_mask": 3510,
+          "target_quarters": 450.0,
+          "target_pitch": 79,
+          "material_identity": 11371242056848765643,
+          "resolved": true
+        }
+      ],
+      "unresolved": [],
+      "sha256": "adc5e82e5e4c18dda61fb34f8dd12ad2de5949a9a1be6f921ac518aefeabc1ee",
+      "reference_id": 40014,
+      "key": 4
+    },
+    {
+      "args": [
+        3,
+        112,
+        3,
+        512,
+        128,
+        0,
+        3,
+        0,
+        1,
+        0,
+        4,
+        4,
+        0,
+        0,
+        0,
+        5
+      ],
+      "byte_equal": false,
+      "arp_events_equal": true,
+      "passing": [
+        {
+          "at_quarters": 193.5,
+          "output": 7,
+          "pitch": 78,
+          "chord_mask": 289,
+          "context_mask": 2925,
+          "target_quarters": 194.0,
+          "target_pitch": 80,
+          "material_identity": 11371242056848765643,
+          "resolved": true
+        },
+        {
+          "at_quarters": 321.5,
+          "output": 7,
+          "pitch": 78,
+          "chord_mask": 289,
+          "context_mask": 2925,
+          "target_quarters": 322.0,
+          "target_pitch": 80,
+          "material_identity": 11371242056848765643,
+          "resolved": true
+        },
+        {
+          "at_quarters": 449.5,
+          "output": 7,
+          "pitch": 78,
+          "chord_mask": 289,
+          "context_mask": 2925,
+          "target_quarters": 450.0,
+          "target_pitch": 80,
+          "material_identity": 11371242056848765643,
+          "resolved": true
+        }
+      ],
+      "unresolved": [],
+      "sha256": "b09967e5998f240053679b089f289047c602e1a1b25c31288d0b3c592308ce3b",
+      "reference_id": 40014,
+      "key": 5
+    },
+    {
+      "args": [
+        3,
+        112,
+        3,
+        512,
+        128,
+        0,
+        3,
+        0,
+        1,
+        0,
+        4,
+        4,
+        0,
+        0,
+        0,
+        6
+      ],
+      "byte_equal": false,
+      "arp_events_equal": true,
+      "passing": [
+        {
+          "at_quarters": 193.5,
+          "output": 7,
+          "pitch": 79,
+          "chord_mask": 578,
+          "context_mask": 1755,
+          "target_quarters": 194.0,
+          "target_pitch": 81,
+          "material_identity": 11371242056848765643,
+          "resolved": true
+        },
+        {
+          "at_quarters": 321.5,
+          "output": 7,
+          "pitch": 79,
+          "chord_mask": 578,
+          "context_mask": 1755,
+          "target_quarters": 322.0,
+          "target_pitch": 81,
+          "material_identity": 11371242056848765643,
+          "resolved": true
+        },
+        {
+          "at_quarters": 449.5,
+          "output": 7,
+          "pitch": 79,
+          "chord_mask": 578,
+          "context_mask": 1755,
+          "target_quarters": 450.0,
+          "target_pitch": 81,
+          "material_identity": 11371242056848765643,
+          "resolved": true
+        }
+      ],
+      "unresolved": [],
+      "sha256": "26591ee86d0aae7f8e7ef858f57135308e99cf5493b5d6c440cf23aae93b71b1",
+      "reference_id": 40014,
+      "key": 6
+    },
+    {
+      "args": [
+        3,
+        112,
+        3,
+        512,
+        128,
+        0,
+        3,
+        0,
+        1,
+        0,
+        4,
+        4,
+        0,
+        0,
+        0,
+        7
+      ],
+      "byte_equal": false,
+      "arp_events_equal": true,
+      "passing": [
+        {
+          "at_quarters": 193.5,
+          "output": 7,
+          "pitch": 80,
+          "chord_mask": 1156,
+          "context_mask": 3510,
+          "target_quarters": 194.0,
+          "target_pitch": 82,
+          "material_identity": 11371242056848765643,
+          "resolved": true
+        },
+        {
+          "at_quarters": 321.5,
+          "output": 7,
+          "pitch": 80,
+          "chord_mask": 1156,
+          "context_mask": 3510,
+          "target_quarters": 322.0,
+          "target_pitch": 82,
+          "material_identity": 11371242056848765643,
+          "resolved": true
+        },
+        {
+          "at_quarters": 449.5,
+          "output": 7,
+          "pitch": 80,
+          "chord_mask": 1156,
+          "context_mask": 3510,
+          "target_quarters": 450.0,
+          "target_pitch": 82,
+          "material_identity": 11371242056848765643,
+          "resolved": true
+        }
+      ],
+      "unresolved": [],
+      "sha256": "4a176bb5028e2967e47fe94151ad9c67ffa5566552ba7edd300448cd7b07abcf",
+      "reference_id": 40014,
+      "key": 7
+    },
+    {
+      "args": [
+        3,
+        112,
+        3,
+        512,
+        128,
+        0,
+        3,
+        0,
+        1,
+        0,
+        4,
+        4,
+        0,
+        0,
+        0,
+        8
+      ],
+      "byte_equal": false,
+      "arp_events_equal": true,
+      "passing": [
+        {
+          "at_quarters": 130.5,
+          "output": 8,
+          "pitch": 69,
+          "chord_mask": 2312,
+          "context_mask": 2925,
+          "target_quarters": 131.0,
+          "target_pitch": 68,
+          "material_identity": 4616484974260104154,
+          "resolved": true
+        },
+        {
+          "at_quarters": 193.5,
+          "output": 7,
+          "pitch": 81,
+          "chord_mask": 2312,
+          "context_mask": 2925,
+          "target_quarters": 194.0,
+          "target_pitch": 83,
+          "material_identity": 11371242056848765643,
+          "resolved": true
+        },
+        {
+          "at_quarters": 258.5,
+          "output": 8,
+          "pitch": 69,
+          "chord_mask": 2312,
+          "context_mask": 2925,
+          "target_quarters": 259.0,
+          "target_pitch": 68,
+          "material_identity": 4616484974260104154,
+          "resolved": true
+        },
+        {
+          "at_quarters": 321.5,
+          "output": 7,
+          "pitch": 81,
+          "chord_mask": 2312,
+          "context_mask": 2925,
+          "target_quarters": 322.0,
+          "target_pitch": 83,
+          "material_identity": 11371242056848765643,
+          "resolved": true
+        },
+        {
+          "at_quarters": 386.5,
+          "output": 8,
+          "pitch": 69,
+          "chord_mask": 2312,
+          "context_mask": 2925,
+          "target_quarters": 387.0,
+          "target_pitch": 68,
+          "material_identity": 4616484974260104154,
+          "resolved": true
+        },
+        {
+          "at_quarters": 449.5,
+          "output": 7,
+          "pitch": 81,
+          "chord_mask": 2312,
+          "context_mask": 2925,
+          "target_quarters": 450.0,
+          "target_pitch": 83,
+          "material_identity": 11371242056848765643,
+          "resolved": true
+        }
+      ],
+      "unresolved": [],
+      "sha256": "58ad309f94145396573cc7954b2b5903d639f03bf15401c3ec67f42b012f9e90",
+      "reference_id": 40014,
+      "key": 8
+    },
+    {
+      "args": [
+        3,
+        112,
+        3,
+        512,
+        128,
+        0,
+        3,
+        0,
+        1,
+        0,
+        4,
+        4,
+        0,
+        0,
+        0,
+        9
+      ],
+      "byte_equal": false,
+      "arp_events_equal": true,
+      "passing": [
+        {
+          "at_quarters": 130.5,
+          "output": 8,
+          "pitch": 70,
+          "chord_mask": 529,
+          "context_mask": 1755,
+          "target_quarters": 131.0,
+          "target_pitch": 69,
+          "material_identity": 4616484974260104154,
+          "resolved": true
+        },
+        {
+          "at_quarters": 194.5,
+          "output": 7,
+          "pitch": 82,
+          "chord_mask": 529,
+          "context_mask": 1755,
+          "target_quarters": 195.0,
+          "target_pitch": 84,
+          "material_identity": 4876167472332399924,
+          "resolved": true
+        },
+        {
+          "at_quarters": 258.5,
+          "output": 8,
+          "pitch": 70,
+          "chord_mask": 529,
+          "context_mask": 1755,
+          "target_quarters": 259.0,
+          "target_pitch": 69,
+          "material_identity": 4616484974260104154,
+          "resolved": true
+        },
+        {
+          "at_quarters": 322.5,
+          "output": 7,
+          "pitch": 82,
+          "chord_mask": 529,
+          "context_mask": 1755,
+          "target_quarters": 323.0,
+          "target_pitch": 84,
+          "material_identity": 4876167472332399924,
+          "resolved": true
+        },
+        {
+          "at_quarters": 386.5,
+          "output": 8,
+          "pitch": 70,
+          "chord_mask": 529,
+          "context_mask": 1755,
+          "target_quarters": 387.0,
+          "target_pitch": 69,
+          "material_identity": 4616484974260104154,
+          "resolved": true
+        },
+        {
+          "at_quarters": 450.5,
+          "output": 7,
+          "pitch": 82,
+          "chord_mask": 529,
+          "context_mask": 1755,
+          "target_quarters": 451.0,
+          "target_pitch": 84,
+          "material_identity": 4876167472332399924,
+          "resolved": true
+        }
+      ],
+      "unresolved": [],
+      "sha256": "1117088e58547f02ff78cef81b1be03d33278aaa8253a3a07f50703e54cd2c3b",
+      "reference_id": 40014,
+      "key": 9
+    },
+    {
+      "args": [
+        3,
+        112,
+        3,
+        512,
+        128,
+        0,
+        3,
+        0,
+        1,
+        0,
+        4,
+        4,
+        0,
+        0,
+        0,
+        10
+      ],
+      "byte_equal": false,
+      "arp_events_equal": true,
+      "passing": [
+        {
+          "at_quarters": 130.5,
+          "output": 8,
+          "pitch": 71,
+          "chord_mask": 1058,
+          "context_mask": 3510,
+          "target_quarters": 131.0,
+          "target_pitch": 70,
+          "material_identity": 4616484974260104154,
+          "resolved": true
+        },
+        {
+          "at_quarters": 194.5,
+          "output": 7,
+          "pitch": 83,
+          "chord_mask": 1058,
+          "context_mask": 3510,
+          "target_quarters": 195.0,
+          "target_pitch": 85,
+          "material_identity": 4876167472332399924,
+          "resolved": true
+        },
+        {
+          "at_quarters": 258.5,
+          "output": 8,
+          "pitch": 71,
+          "chord_mask": 1058,
+          "context_mask": 3510,
+          "target_quarters": 259.0,
+          "target_pitch": 70,
+          "material_identity": 4616484974260104154,
+          "resolved": true
+        },
+        {
+          "at_quarters": 322.5,
+          "output": 7,
+          "pitch": 83,
+          "chord_mask": 1058,
+          "context_mask": 3510,
+          "target_quarters": 323.0,
+          "target_pitch": 85,
+          "material_identity": 4876167472332399924,
+          "resolved": true
+        },
+        {
+          "at_quarters": 386.5,
+          "output": 8,
+          "pitch": 71,
+          "chord_mask": 1058,
+          "context_mask": 3510,
+          "target_quarters": 387.0,
+          "target_pitch": 70,
+          "material_identity": 4616484974260104154,
+          "resolved": true
+        },
+        {
+          "at_quarters": 450.5,
+          "output": 7,
+          "pitch": 83,
+          "chord_mask": 1058,
+          "context_mask": 3510,
+          "target_quarters": 451.0,
+          "target_pitch": 85,
+          "material_identity": 4876167472332399924,
+          "resolved": true
+        }
+      ],
+      "unresolved": [],
+      "sha256": "2d69c787c0e2f4572ede970b767e547a4a7380075a4cafbbd49d28031c8adcfe",
+      "reference_id": 40014,
+      "key": 10
+    },
+    {
+      "args": [
+        3,
+        112,
+        3,
+        512,
+        128,
+        0,
+        3,
+        0,
+        1,
+        0,
+        4,
+        4,
+        0,
+        0,
+        0,
+        11
+      ],
+      "byte_equal": false,
+      "arp_events_equal": true,
+      "passing": [
+        {
+          "at_quarters": 130.5,
+          "output": 8,
+          "pitch": 72,
+          "chord_mask": 2116,
+          "context_mask": 2925,
+          "target_quarters": 131.0,
+          "target_pitch": 71,
+          "material_identity": 4616484974260104154,
+          "resolved": true
+        },
+        {
+          "at_quarters": 194.5,
+          "output": 7,
+          "pitch": 84,
+          "chord_mask": 2116,
+          "context_mask": 2925,
+          "target_quarters": 195.0,
+          "target_pitch": 86,
+          "material_identity": 4876167472332399924,
+          "resolved": true
+        },
+        {
+          "at_quarters": 258.5,
+          "output": 8,
+          "pitch": 72,
+          "chord_mask": 2116,
+          "context_mask": 2925,
+          "target_quarters": 259.0,
+          "target_pitch": 71,
+          "material_identity": 4616484974260104154,
+          "resolved": true
+        },
+        {
+          "at_quarters": 322.5,
+          "output": 7,
+          "pitch": 84,
+          "chord_mask": 2116,
+          "context_mask": 2925,
+          "target_quarters": 323.0,
+          "target_pitch": 86,
+          "material_identity": 4876167472332399924,
+          "resolved": true
+        },
+        {
+          "at_quarters": 386.5,
+          "output": 8,
+          "pitch": 72,
+          "chord_mask": 2116,
+          "context_mask": 2925,
+          "target_quarters": 387.0,
+          "target_pitch": 71,
+          "material_identity": 4616484974260104154,
+          "resolved": true
+        },
+        {
+          "at_quarters": 450.5,
+          "output": 7,
+          "pitch": 84,
+          "chord_mask": 2116,
+          "context_mask": 2925,
+          "target_quarters": 451.0,
+          "target_pitch": 86,
+          "material_identity": 4876167472332399924,
+          "resolved": true
+        }
+      ],
+      "unresolved": [],
+      "sha256": "1e65a51d20b64b86e14e73250bc2336c0f347c1649d199628a80bce7af3ff790",
+      "reference_id": 40014,
+      "key": 11
+    },
+    {
+      "args": [
+        3,
+        113,
+        3,
+        512,
+        128,
+        0,
+        3,
+        0,
+        1,
+        0,
+        4,
+        4,
+        0,
+        0,
+        0,
+        0
+      ],
+      "byte_equal": true,
+      "arp_events_equal": true,
+      "passing": [],
+      "unresolved": [],
+      "sha256": "be17fbe2f2451a3efe84730d7306002b3e4c1b35456d83057a8534e5255a545a",
+      "reference_id": 40015,
+      "key": 0
+    },
+    {
+      "args": [
+        3,
+        113,
+        3,
+        512,
+        128,
+        0,
+        3,
+        0,
+        1,
+        0,
+        4,
+        4,
+        0,
+        0,
+        0,
+        1
+      ],
+      "byte_equal": false,
+      "arp_events_equal": true,
+      "passing": [
+        {
+          "at_quarters": 193.5,
+          "output": 7,
+          "pitch": 79,
+          "chord_mask": 290,
+          "context_mask": 3510,
+          "target_quarters": 194.0,
+          "target_pitch": 80,
+          "material_identity": 17002617235650513058,
+          "resolved": true
+        },
+        {
+          "at_quarters": 321.5,
+          "output": 7,
+          "pitch": 79,
+          "chord_mask": 290,
+          "context_mask": 3510,
+          "target_quarters": 322.0,
+          "target_pitch": 80,
+          "material_identity": 17002617235650513058,
+          "resolved": true
+        },
+        {
+          "at_quarters": 449.5,
+          "output": 7,
+          "pitch": 79,
+          "chord_mask": 290,
+          "context_mask": 3510,
+          "target_quarters": 450.0,
+          "target_pitch": 80,
+          "material_identity": 17002617235650513058,
+          "resolved": true
+        }
+      ],
+      "unresolved": [],
+      "sha256": "18454faa83d8f9e567931056605883e59ddacfc6e8b706654d2ed9213e1360d1",
+      "reference_id": 40015,
+      "key": 1
+    },
+    {
+      "args": [
+        3,
+        113,
+        3,
+        512,
+        128,
+        0,
+        3,
+        0,
+        1,
+        0,
+        4,
+        4,
+        0,
+        0,
+        0,
+        2
+      ],
+      "byte_equal": false,
+      "arp_events_equal": true,
+      "passing": [
+        {
+          "at_quarters": 193.5,
+          "output": 7,
+          "pitch": 80,
+          "chord_mask": 580,
+          "context_mask": 2925,
+          "target_quarters": 194.0,
+          "target_pitch": 81,
+          "material_identity": 17002617235650513058,
+          "resolved": true
+        },
+        {
+          "at_quarters": 321.5,
+          "output": 7,
+          "pitch": 80,
+          "chord_mask": 580,
+          "context_mask": 2925,
+          "target_quarters": 322.0,
+          "target_pitch": 81,
+          "material_identity": 17002617235650513058,
+          "resolved": true
+        },
+        {
+          "at_quarters": 449.5,
+          "output": 7,
+          "pitch": 80,
+          "chord_mask": 580,
+          "context_mask": 2925,
+          "target_quarters": 450.0,
+          "target_pitch": 81,
+          "material_identity": 17002617235650513058,
+          "resolved": true
+        }
+      ],
+      "unresolved": [],
+      "sha256": "d794a33193c71aad59c11036e8cb28db94d8e3d1b9809ecfcc3afe9ae57b1883",
+      "reference_id": 40015,
+      "key": 2
+    },
+    {
+      "args": [
+        3,
+        113,
+        3,
+        512,
+        128,
+        0,
+        3,
+        0,
+        1,
+        0,
+        4,
+        4,
+        0,
+        0,
+        0,
+        3
+      ],
+      "byte_equal": false,
+      "arp_events_equal": true,
+      "passing": [
+        {
+          "at_quarters": 193.5,
+          "output": 7,
+          "pitch": 81,
+          "chord_mask": 1160,
+          "context_mask": 1755,
+          "target_quarters": 194.0,
+          "target_pitch": 82,
+          "material_identity": 17002617235650513058,
+          "resolved": true
+        },
+        {
+          "at_quarters": 321.5,
+          "output": 7,
+          "pitch": 81,
+          "chord_mask": 1160,
+          "context_mask": 1755,
+          "target_quarters": 322.0,
+          "target_pitch": 82,
+          "material_identity": 17002617235650513058,
+          "resolved": true
+        },
+        {
+          "at_quarters": 449.5,
+          "output": 7,
+          "pitch": 81,
+          "chord_mask": 1160,
+          "context_mask": 1755,
+          "target_quarters": 450.0,
+          "target_pitch": 82,
+          "material_identity": 17002617235650513058,
+          "resolved": true
+        }
+      ],
+      "unresolved": [],
+      "sha256": "d065641fc1857593d3978051a29ef82d719f5ec6e9529329086bc401d7693de6",
+      "reference_id": 40015,
+      "key": 3
+    },
+    {
+      "args": [
+        3,
+        113,
+        3,
+        512,
+        128,
+        0,
+        3,
+        0,
+        1,
+        0,
+        4,
+        4,
+        0,
+        0,
+        0,
+        4
+      ],
+      "byte_equal": false,
+      "arp_events_equal": true,
+      "passing": [
+        {
+          "at_quarters": 130.5,
+          "output": 8,
+          "pitch": 70,
+          "chord_mask": 2320,
+          "context_mask": 3510,
+          "target_quarters": 131.0,
+          "target_pitch": 68,
+          "material_identity": 4438888677553288858,
+          "resolved": true
+        },
+        {
+          "at_quarters": 193.5,
+          "output": 7,
+          "pitch": 82,
+          "chord_mask": 2320,
+          "context_mask": 3510,
+          "target_quarters": 194.0,
+          "target_pitch": 83,
+          "material_identity": 17002617235650513058,
+          "resolved": true
+        },
+        {
+          "at_quarters": 258.5,
+          "output": 8,
+          "pitch": 70,
+          "chord_mask": 2320,
+          "context_mask": 3510,
+          "target_quarters": 259.0,
+          "target_pitch": 68,
+          "material_identity": 4438888677553288858,
+          "resolved": true
+        },
+        {
+          "at_quarters": 321.5,
+          "output": 7,
+          "pitch": 82,
+          "chord_mask": 2320,
+          "context_mask": 3510,
+          "target_quarters": 322.0,
+          "target_pitch": 83,
+          "material_identity": 17002617235650513058,
+          "resolved": true
+        },
+        {
+          "at_quarters": 386.5,
+          "output": 8,
+          "pitch": 70,
+          "chord_mask": 2320,
+          "context_mask": 3510,
+          "target_quarters": 387.0,
+          "target_pitch": 68,
+          "material_identity": 4438888677553288858,
+          "resolved": true
+        },
+        {
+          "at_quarters": 449.5,
+          "output": 7,
+          "pitch": 82,
+          "chord_mask": 2320,
+          "context_mask": 3510,
+          "target_quarters": 450.0,
+          "target_pitch": 83,
+          "material_identity": 17002617235650513058,
+          "resolved": true
+        }
+      ],
+      "unresolved": [],
+      "sha256": "af0d315fef43b78587879ab6394a5e660e602bbb6a73590d6ff3cf9523a1910e",
+      "reference_id": 40015,
+      "key": 4
+    },
+    {
+      "args": [
+        3,
+        113,
+        3,
+        512,
+        128,
+        0,
+        3,
+        0,
+        1,
+        0,
+        4,
+        4,
+        0,
+        0,
+        0,
+        5
+      ],
+      "byte_equal": false,
+      "arp_events_equal": true,
+      "passing": [
+        {
+          "at_quarters": 130.5,
+          "output": 8,
+          "pitch": 71,
+          "chord_mask": 545,
+          "context_mask": 2925,
+          "target_quarters": 131.0,
+          "target_pitch": 69,
+          "material_identity": 4438888677553288858,
+          "resolved": true
+        },
+        {
+          "at_quarters": 194.5,
+          "output": 7,
+          "pitch": 83,
+          "chord_mask": 545,
+          "context_mask": 2925,
+          "target_quarters": 195.0,
+          "target_pitch": 84,
+          "material_identity": 15349244953558103464,
+          "resolved": true
+        },
+        {
+          "at_quarters": 258.5,
+          "output": 8,
+          "pitch": 71,
+          "chord_mask": 545,
+          "context_mask": 2925,
+          "target_quarters": 259.0,
+          "target_pitch": 69,
+          "material_identity": 4438888677553288858,
+          "resolved": true
+        },
+        {
+          "at_quarters": 322.5,
+          "output": 7,
+          "pitch": 83,
+          "chord_mask": 545,
+          "context_mask": 2925,
+          "target_quarters": 323.0,
+          "target_pitch": 84,
+          "material_identity": 15349244953558103464,
+          "resolved": true
+        },
+        {
+          "at_quarters": 386.5,
+          "output": 8,
+          "pitch": 71,
+          "chord_mask": 545,
+          "context_mask": 2925,
+          "target_quarters": 387.0,
+          "target_pitch": 69,
+          "material_identity": 4438888677553288858,
+          "resolved": true
+        },
+        {
+          "at_quarters": 450.5,
+          "output": 7,
+          "pitch": 83,
+          "chord_mask": 545,
+          "context_mask": 2925,
+          "target_quarters": 451.0,
+          "target_pitch": 84,
+          "material_identity": 15349244953558103464,
+          "resolved": true
+        }
+      ],
+      "unresolved": [],
+      "sha256": "1231f3c01c09d6e13001c4cb8549069ab4247f0650f0a0edf699622a52b8d98d",
+      "reference_id": 40015,
+      "key": 5
+    },
+    {
+      "args": [
+        3,
+        113,
+        3,
+        512,
+        128,
+        0,
+        3,
+        0,
+        1,
+        0,
+        4,
+        4,
+        0,
+        0,
+        0,
+        6
+      ],
+      "byte_equal": false,
+      "arp_events_equal": true,
+      "passing": [
+        {
+          "at_quarters": 130.5,
+          "output": 8,
+          "pitch": 72,
+          "chord_mask": 1090,
+          "context_mask": 1755,
+          "target_quarters": 131.0,
+          "target_pitch": 70,
+          "material_identity": 4438888677553288858,
+          "resolved": true
+        },
+        {
+          "at_quarters": 194.5,
+          "output": 7,
+          "pitch": 84,
+          "chord_mask": 1090,
+          "context_mask": 1755,
+          "target_quarters": 195.0,
+          "target_pitch": 85,
+          "material_identity": 15349244953558103464,
+          "resolved": true
+        },
+        {
+          "at_quarters": 258.5,
+          "output": 8,
+          "pitch": 72,
+          "chord_mask": 1090,
+          "context_mask": 1755,
+          "target_quarters": 259.0,
+          "target_pitch": 70,
+          "material_identity": 4438888677553288858,
+          "resolved": true
+        },
+        {
+          "at_quarters": 322.5,
+          "output": 7,
+          "pitch": 84,
+          "chord_mask": 1090,
+          "context_mask": 1755,
+          "target_quarters": 323.0,
+          "target_pitch": 85,
+          "material_identity": 15349244953558103464,
+          "resolved": true
+        },
+        {
+          "at_quarters": 386.5,
+          "output": 8,
+          "pitch": 72,
+          "chord_mask": 1090,
+          "context_mask": 1755,
+          "target_quarters": 387.0,
+          "target_pitch": 70,
+          "material_identity": 4438888677553288858,
+          "resolved": true
+        },
+        {
+          "at_quarters": 450.5,
+          "output": 7,
+          "pitch": 84,
+          "chord_mask": 1090,
+          "context_mask": 1755,
+          "target_quarters": 451.0,
+          "target_pitch": 85,
+          "material_identity": 15349244953558103464,
+          "resolved": true
+        }
+      ],
+      "unresolved": [],
+      "sha256": "c05b70dcfb308dc2a40b7c090492b15361a01007bf8f4c7e7e13c9b557ede3ad",
+      "reference_id": 40015,
+      "key": 6
+    },
+    {
+      "args": [
+        3,
+        113,
+        3,
+        512,
+        128,
+        0,
+        3,
+        0,
+        1,
+        0,
+        4,
+        4,
+        0,
+        0,
+        0,
+        7
+      ],
+      "byte_equal": false,
+      "arp_events_equal": true,
+      "passing": [
+        {
+          "at_quarters": 130.5,
+          "output": 8,
+          "pitch": 73,
+          "chord_mask": 2180,
+          "context_mask": 3510,
+          "target_quarters": 131.0,
+          "target_pitch": 71,
+          "material_identity": 4438888677553288858,
+          "resolved": true
+        },
+        {
+          "at_quarters": 194.5,
+          "output": 7,
+          "pitch": 85,
+          "chord_mask": 2180,
+          "context_mask": 3510,
+          "target_quarters": 195.0,
+          "target_pitch": 86,
+          "material_identity": 15349244953558103464,
+          "resolved": true
+        },
+        {
+          "at_quarters": 258.5,
+          "output": 8,
+          "pitch": 73,
+          "chord_mask": 2180,
+          "context_mask": 3510,
+          "target_quarters": 259.0,
+          "target_pitch": 71,
+          "material_identity": 4438888677553288858,
+          "resolved": true
+        },
+        {
+          "at_quarters": 322.5,
+          "output": 7,
+          "pitch": 85,
+          "chord_mask": 2180,
+          "context_mask": 3510,
+          "target_quarters": 323.0,
+          "target_pitch": 86,
+          "material_identity": 15349244953558103464,
+          "resolved": true
+        },
+        {
+          "at_quarters": 386.5,
+          "output": 8,
+          "pitch": 73,
+          "chord_mask": 2180,
+          "context_mask": 3510,
+          "target_quarters": 387.0,
+          "target_pitch": 71,
+          "material_identity": 4438888677553288858,
+          "resolved": true
+        },
+        {
+          "at_quarters": 450.5,
+          "output": 7,
+          "pitch": 85,
+          "chord_mask": 2180,
+          "context_mask": 3510,
+          "target_quarters": 451.0,
+          "target_pitch": 86,
+          "material_identity": 15349244953558103464,
+          "resolved": true
+        }
+      ],
+      "unresolved": [],
+      "sha256": "68fe684cc8564ce34e222cf3b55f772b59d0c67124313decf1a43471627881cd",
+      "reference_id": 40015,
+      "key": 7
+    },
+    {
+      "args": [
+        3,
+        113,
+        3,
+        512,
+        128,
+        0,
+        3,
+        0,
+        1,
+        0,
+        4,
+        4,
+        0,
+        0,
+        0,
+        8
+      ],
+      "byte_equal": false,
+      "arp_events_equal": true,
+      "passing": [
+        {
+          "at_quarters": 130.5,
+          "output": 8,
+          "pitch": 74,
+          "chord_mask": 265,
+          "context_mask": 2925,
+          "target_quarters": 131.0,
+          "target_pitch": 72,
+          "material_identity": 4438888677553288858,
+          "resolved": true
+        },
+        {
+          "at_quarters": 194.5,
+          "output": 7,
+          "pitch": 86,
+          "chord_mask": 265,
+          "context_mask": 2925,
+          "target_quarters": 195.0,
+          "target_pitch": 87,
+          "material_identity": 15349244953558103464,
+          "resolved": true
+        },
+        {
+          "at_quarters": 258.5,
+          "output": 8,
+          "pitch": 74,
+          "chord_mask": 265,
+          "context_mask": 2925,
+          "target_quarters": 259.0,
+          "target_pitch": 72,
+          "material_identity": 4438888677553288858,
+          "resolved": true
+        },
+        {
+          "at_quarters": 322.5,
+          "output": 7,
+          "pitch": 86,
+          "chord_mask": 265,
+          "context_mask": 2925,
+          "target_quarters": 323.0,
+          "target_pitch": 87,
+          "material_identity": 15349244953558103464,
+          "resolved": true
+        },
+        {
+          "at_quarters": 386.5,
+          "output": 8,
+          "pitch": 74,
+          "chord_mask": 265,
+          "context_mask": 2925,
+          "target_quarters": 387.0,
+          "target_pitch": 72,
+          "material_identity": 4438888677553288858,
+          "resolved": true
+        },
+        {
+          "at_quarters": 450.5,
+          "output": 7,
+          "pitch": 86,
+          "chord_mask": 265,
+          "context_mask": 2925,
+          "target_quarters": 451.0,
+          "target_pitch": 87,
+          "material_identity": 15349244953558103464,
+          "resolved": true
+        }
+      ],
+      "unresolved": [],
+      "sha256": "041a9bdd784f482151b9377b54d6b61d91d609971e14417d2d319897731f192d",
+      "reference_id": 40015,
+      "key": 8
+    },
+    {
+      "args": [
+        3,
+        113,
+        3,
+        512,
+        128,
+        0,
+        3,
+        0,
+        1,
+        0,
+        4,
+        4,
+        0,
+        0,
+        0,
+        9
+      ],
+      "byte_equal": false,
+      "arp_events_equal": true,
+      "passing": [
+        {
+          "at_quarters": 129.5,
+          "output": 8,
+          "pitch": 75,
+          "chord_mask": 530,
+          "context_mask": 1755,
+          "target_quarters": 130.0,
+          "target_pitch": 73,
+          "material_identity": 4189682280116079535,
+          "resolved": true
+        },
+        {
+          "at_quarters": 194.5,
+          "output": 7,
+          "pitch": 87,
+          "chord_mask": 530,
+          "context_mask": 1755,
+          "target_quarters": 195.0,
+          "target_pitch": 88,
+          "material_identity": 15349244953558103464,
+          "resolved": true
+        },
+        {
+          "at_quarters": 257.5,
+          "output": 8,
+          "pitch": 75,
+          "chord_mask": 530,
+          "context_mask": 1755,
+          "target_quarters": 258.0,
+          "target_pitch": 73,
+          "material_identity": 4189682280116079535,
+          "resolved": true
+        },
+        {
+          "at_quarters": 322.5,
+          "output": 7,
+          "pitch": 87,
+          "chord_mask": 530,
+          "context_mask": 1755,
+          "target_quarters": 323.0,
+          "target_pitch": 88,
+          "material_identity": 15349244953558103464,
+          "resolved": true
+        },
+        {
+          "at_quarters": 385.5,
+          "output": 8,
+          "pitch": 75,
+          "chord_mask": 530,
+          "context_mask": 1755,
+          "target_quarters": 386.0,
+          "target_pitch": 73,
+          "material_identity": 4189682280116079535,
+          "resolved": true
+        },
+        {
+          "at_quarters": 450.5,
+          "output": 7,
+          "pitch": 87,
+          "chord_mask": 530,
+          "context_mask": 1755,
+          "target_quarters": 451.0,
+          "target_pitch": 88,
+          "material_identity": 15349244953558103464,
+          "resolved": true
+        }
+      ],
+      "unresolved": [],
+      "sha256": "05478753099d3350029441c58eb95407663f51c90d8067ced02cc8045b4f5aa8",
+      "reference_id": 40015,
+      "key": 9
+    },
+    {
+      "args": [
+        3,
+        113,
+        3,
+        512,
+        128,
+        0,
+        3,
+        0,
+        1,
+        0,
+        4,
+        4,
+        0,
+        0,
+        0,
+        10
+      ],
+      "byte_equal": false,
+      "arp_events_equal": true,
+      "passing": [
+        {
+          "at_quarters": 129.5,
+          "output": 8,
+          "pitch": 76,
+          "chord_mask": 1060,
+          "context_mask": 3510,
+          "target_quarters": 130.0,
+          "target_pitch": 74,
+          "material_identity": 4189682280116079535,
+          "resolved": true
+        },
+        {
+          "at_quarters": 257.5,
+          "output": 8,
+          "pitch": 76,
+          "chord_mask": 1060,
+          "context_mask": 3510,
+          "target_quarters": 258.0,
+          "target_pitch": 74,
+          "material_identity": 4189682280116079535,
+          "resolved": true
+        },
+        {
+          "at_quarters": 385.5,
+          "output": 8,
+          "pitch": 76,
+          "chord_mask": 1060,
+          "context_mask": 3510,
+          "target_quarters": 386.0,
+          "target_pitch": 74,
+          "material_identity": 4189682280116079535,
+          "resolved": true
+        }
+      ],
+      "unresolved": [],
+      "sha256": "78e758b03f461c91e0891f47bede07ecb69a34984ca662ef3e81150c31212015",
+      "reference_id": 40015,
+      "key": 10
+    },
+    {
+      "args": [
+        3,
+        113,
+        3,
+        512,
+        128,
+        0,
+        3,
+        0,
+        1,
+        0,
+        4,
+        4,
+        0,
+        0,
+        0,
+        11
+      ],
+      "byte_equal": false,
+      "arp_events_equal": true,
+      "passing": [
+        {
+          "at_quarters": 129.5,
+          "output": 8,
+          "pitch": 77,
+          "chord_mask": 2120,
+          "context_mask": 2925,
+          "target_quarters": 130.0,
+          "target_pitch": 75,
+          "material_identity": 4189682280116079535,
+          "resolved": true
+        },
+        {
+          "at_quarters": 257.5,
+          "output": 8,
+          "pitch": 77,
+          "chord_mask": 2120,
+          "context_mask": 2925,
+          "target_quarters": 258.0,
+          "target_pitch": 75,
+          "material_identity": 4189682280116079535,
+          "resolved": true
+        },
+        {
+          "at_quarters": 385.5,
+          "output": 8,
+          "pitch": 77,
+          "chord_mask": 2120,
+          "context_mask": 2925,
+          "target_quarters": 386.0,
+          "target_pitch": 75,
+          "material_identity": 4189682280116079535,
+          "resolved": true
+        }
+      ],
+      "unresolved": [],
+      "sha256": "1c3733392fed926833c0988976cc5b0ab4457fcbeba084d030e29204becf7b3b",
+      "reference_id": 40015,
+      "key": 11
+    },
+    {
+      "args": [
+        3,
+        114,
+        3,
+        512,
+        128,
+        0,
+        3,
+        0,
+        1,
+        0,
+        4,
+        4,
+        0,
+        0,
+        0,
+        0
+      ],
+      "byte_equal": false,
+      "arp_events_equal": true,
+      "passing": [],
+      "unresolved": [],
+      "sha256": "2d7224428376e6dfb68e5ad0101a8ae534101d04edba505a1136a96721427432",
+      "reference_id": 40016,
+      "key": 0
+    },
+    {
+      "args": [
+        3,
+        114,
+        3,
+        512,
+        128,
+        0,
+        3,
+        0,
+        1,
+        0,
+        4,
+        4,
+        0,
+        0,
+        0,
+        1
+      ],
+      "byte_equal": false,
+      "arp_events_equal": true,
+      "passing": [
+        {
+          "at_quarters": 193.5,
+          "output": 7,
+          "pitch": 79,
+          "chord_mask": 290,
+          "context_mask": 3510,
+          "target_quarters": 194.0,
+          "target_pitch": 80,
+          "material_identity": 9832890504269175857,
+          "resolved": true
+        },
+        {
+          "at_quarters": 321.5,
+          "output": 7,
+          "pitch": 79,
+          "chord_mask": 290,
+          "context_mask": 3510,
+          "target_quarters": 322.0,
+          "target_pitch": 80,
+          "material_identity": 9832890504269175857,
+          "resolved": true
+        },
+        {
+          "at_quarters": 449.5,
+          "output": 7,
+          "pitch": 79,
+          "chord_mask": 290,
+          "context_mask": 3510,
+          "target_quarters": 450.0,
+          "target_pitch": 80,
+          "material_identity": 9832890504269175857,
+          "resolved": true
+        }
+      ],
+      "unresolved": [],
+      "sha256": "e9991b03a4e6b46248991aa0d651e59ee6fa2d47d81658ee776897ffcfcbdf70",
+      "reference_id": 40016,
+      "key": 1
+    },
+    {
+      "args": [
+        3,
+        114,
+        3,
+        512,
+        128,
+        0,
+        3,
+        0,
+        1,
+        0,
+        4,
+        4,
+        0,
+        0,
+        0,
+        2
+      ],
+      "byte_equal": false,
+      "arp_events_equal": true,
+      "passing": [
+        {
+          "at_quarters": 193.5,
+          "output": 7,
+          "pitch": 80,
+          "chord_mask": 580,
+          "context_mask": 2925,
+          "target_quarters": 194.0,
+          "target_pitch": 81,
+          "material_identity": 9835760229618238892,
+          "resolved": true
+        },
+        {
+          "at_quarters": 321.5,
+          "output": 7,
+          "pitch": 80,
+          "chord_mask": 580,
+          "context_mask": 2925,
+          "target_quarters": 322.0,
+          "target_pitch": 81,
+          "material_identity": 9835760229618238892,
+          "resolved": true
+        },
+        {
+          "at_quarters": 449.5,
+          "output": 7,
+          "pitch": 80,
+          "chord_mask": 580,
+          "context_mask": 2925,
+          "target_quarters": 450.0,
+          "target_pitch": 81,
+          "material_identity": 9835760229618238892,
+          "resolved": true
+        }
+      ],
+      "unresolved": [],
+      "sha256": "6ed3c38cc28a1e1794a7c7b2c343af6a5c00a8dc88cd1427e9067ed38983afb4",
+      "reference_id": 40016,
+      "key": 2
+    },
+    {
+      "args": [
+        3,
+        114,
+        3,
+        512,
+        128,
+        0,
+        3,
+        0,
+        1,
+        0,
+        4,
+        4,
+        0,
+        0,
+        0,
+        3
+      ],
+      "byte_equal": false,
+      "arp_events_equal": true,
+      "passing": [
+        {
+          "at_quarters": 193.5,
+          "output": 7,
+          "pitch": 81,
+          "chord_mask": 1160,
+          "context_mask": 1755,
+          "target_quarters": 194.0,
+          "target_pitch": 82,
+          "material_identity": 9835760229618238892,
+          "resolved": true
+        },
+        {
+          "at_quarters": 321.5,
+          "output": 7,
+          "pitch": 81,
+          "chord_mask": 1160,
+          "context_mask": 1755,
+          "target_quarters": 322.0,
+          "target_pitch": 82,
+          "material_identity": 9835760229618238892,
+          "resolved": true
+        },
+        {
+          "at_quarters": 449.5,
+          "output": 7,
+          "pitch": 81,
+          "chord_mask": 1160,
+          "context_mask": 1755,
+          "target_quarters": 450.0,
+          "target_pitch": 82,
+          "material_identity": 9835760229618238892,
+          "resolved": true
+        }
+      ],
+      "unresolved": [],
+      "sha256": "80f56b2502d9cd25b6f4235e7a039c45d530d4b52f49193a16b463431036eb3b",
+      "reference_id": 40016,
+      "key": 3
+    },
+    {
+      "args": [
+        3,
+        114,
+        3,
+        512,
+        128,
+        0,
+        3,
+        0,
+        1,
+        0,
+        4,
+        4,
+        0,
+        0,
+        0,
+        4
+      ],
+      "byte_equal": false,
+      "arp_events_equal": true,
+      "passing": [
+        {
+          "at_quarters": 130.5,
+          "output": 8,
+          "pitch": 70,
+          "chord_mask": 2320,
+          "context_mask": 3510,
+          "target_quarters": 131.0,
+          "target_pitch": 68,
+          "material_identity": 2357702579405588497,
+          "resolved": true
+        },
+        {
+          "at_quarters": 193.5,
+          "output": 7,
+          "pitch": 82,
+          "chord_mask": 2320,
+          "context_mask": 3510,
+          "target_quarters": 194.0,
+          "target_pitch": 83,
+          "material_identity": 9835760229618238892,
+          "resolved": true
+        },
+        {
+          "at_quarters": 258.5,
+          "output": 8,
+          "pitch": 70,
+          "chord_mask": 2320,
+          "context_mask": 3510,
+          "target_quarters": 259.0,
+          "target_pitch": 68,
+          "material_identity": 2357702579405588497,
+          "resolved": true
+        },
+        {
+          "at_quarters": 321.5,
+          "output": 7,
+          "pitch": 82,
+          "chord_mask": 2320,
+          "context_mask": 3510,
+          "target_quarters": 322.0,
+          "target_pitch": 83,
+          "material_identity": 9835760229618238892,
+          "resolved": true
+        },
+        {
+          "at_quarters": 386.5,
+          "output": 8,
+          "pitch": 70,
+          "chord_mask": 2320,
+          "context_mask": 3510,
+          "target_quarters": 387.0,
+          "target_pitch": 68,
+          "material_identity": 2357702579405588497,
+          "resolved": true
+        },
+        {
+          "at_quarters": 449.5,
+          "output": 7,
+          "pitch": 82,
+          "chord_mask": 2320,
+          "context_mask": 3510,
+          "target_quarters": 450.0,
+          "target_pitch": 83,
+          "material_identity": 9835760229618238892,
+          "resolved": true
+        }
+      ],
+      "unresolved": [],
+      "sha256": "bbce3906f5a90314b4e049a400999434cad7f8339854f9fb92b4ffdf4887e60f",
+      "reference_id": 40016,
+      "key": 4
+    },
+    {
+      "args": [
+        3,
+        114,
+        3,
+        512,
+        128,
+        0,
+        3,
+        0,
+        1,
+        0,
+        4,
+        4,
+        0,
+        0,
+        0,
+        5
+      ],
+      "byte_equal": false,
+      "arp_events_equal": true,
+      "passing": [
+        {
+          "at_quarters": 130.5,
+          "output": 8,
+          "pitch": 71,
+          "chord_mask": 545,
+          "context_mask": 2925,
+          "target_quarters": 131.0,
+          "target_pitch": 69,
+          "material_identity": 2357702579405588497,
+          "resolved": true
+        },
+        {
+          "at_quarters": 194.5,
+          "output": 7,
+          "pitch": 83,
+          "chord_mask": 545,
+          "context_mask": 2925,
+          "target_quarters": 195.0,
+          "target_pitch": 84,
+          "material_identity": 6026617736194503462,
+          "resolved": true
+        },
+        {
+          "at_quarters": 258.5,
+          "output": 8,
+          "pitch": 71,
+          "chord_mask": 545,
+          "context_mask": 2925,
+          "target_quarters": 259.0,
+          "target_pitch": 69,
+          "material_identity": 2357702579405588497,
+          "resolved": true
+        },
+        {
+          "at_quarters": 322.5,
+          "output": 7,
+          "pitch": 83,
+          "chord_mask": 545,
+          "context_mask": 2925,
+          "target_quarters": 323.0,
+          "target_pitch": 84,
+          "material_identity": 6026617736194503462,
+          "resolved": true
+        },
+        {
+          "at_quarters": 386.5,
+          "output": 8,
+          "pitch": 71,
+          "chord_mask": 545,
+          "context_mask": 2925,
+          "target_quarters": 387.0,
+          "target_pitch": 69,
+          "material_identity": 2357702579405588497,
+          "resolved": true
+        },
+        {
+          "at_quarters": 450.5,
+          "output": 7,
+          "pitch": 83,
+          "chord_mask": 545,
+          "context_mask": 2925,
+          "target_quarters": 451.0,
+          "target_pitch": 84,
+          "material_identity": 6026617736194503462,
+          "resolved": true
+        }
+      ],
+      "unresolved": [],
+      "sha256": "ad63fcce0a26470d941366894fae47858c6addbe58619bb54a5bb8b079be07f0",
+      "reference_id": 40016,
+      "key": 5
+    },
+    {
+      "args": [
+        3,
+        114,
+        3,
+        512,
+        128,
+        0,
+        3,
+        0,
+        1,
+        0,
+        4,
+        4,
+        0,
+        0,
+        0,
+        6
+      ],
+      "byte_equal": false,
+      "arp_events_equal": true,
+      "passing": [
+        {
+          "at_quarters": 130.5,
+          "output": 8,
+          "pitch": 72,
+          "chord_mask": 1090,
+          "context_mask": 1755,
+          "target_quarters": 131.0,
+          "target_pitch": 70,
+          "material_identity": 2361528879871005877,
+          "resolved": true
+        },
+        {
+          "at_quarters": 194.5,
+          "output": 7,
+          "pitch": 84,
+          "chord_mask": 1090,
+          "context_mask": 1755,
+          "target_quarters": 195.0,
+          "target_pitch": 85,
+          "material_identity": 6026617736194503462,
+          "resolved": true
+        },
+        {
+          "at_quarters": 258.5,
+          "output": 8,
+          "pitch": 72,
+          "chord_mask": 1090,
+          "context_mask": 1755,
+          "target_quarters": 259.0,
+          "target_pitch": 70,
+          "material_identity": 2361528879871005877,
+          "resolved": true
+        },
+        {
+          "at_quarters": 322.5,
+          "output": 7,
+          "pitch": 84,
+          "chord_mask": 1090,
+          "context_mask": 1755,
+          "target_quarters": 323.0,
+          "target_pitch": 85,
+          "material_identity": 6026617736194503462,
+          "resolved": true
+        },
+        {
+          "at_quarters": 386.5,
+          "output": 8,
+          "pitch": 72,
+          "chord_mask": 1090,
+          "context_mask": 1755,
+          "target_quarters": 387.0,
+          "target_pitch": 70,
+          "material_identity": 2361528879871005877,
+          "resolved": true
+        },
+        {
+          "at_quarters": 450.5,
+          "output": 7,
+          "pitch": 84,
+          "chord_mask": 1090,
+          "context_mask": 1755,
+          "target_quarters": 451.0,
+          "target_pitch": 85,
+          "material_identity": 6026617736194503462,
+          "resolved": true
+        }
+      ],
+      "unresolved": [],
+      "sha256": "70ded50e1def2c48ac2cc3e14b785267c65bfa5ed1fbc0d68f8555c82064329b",
+      "reference_id": 40016,
+      "key": 6
+    },
+    {
+      "args": [
+        3,
+        114,
+        3,
+        512,
+        128,
+        0,
+        3,
+        0,
+        1,
+        0,
+        4,
+        4,
+        0,
+        0,
+        0,
+        7
+      ],
+      "byte_equal": false,
+      "arp_events_equal": true,
+      "passing": [
+        {
+          "at_quarters": 130.5,
+          "output": 8,
+          "pitch": 73,
+          "chord_mask": 2180,
+          "context_mask": 3510,
+          "target_quarters": 131.0,
+          "target_pitch": 71,
+          "material_identity": 2361528879871005877,
+          "resolved": true
+        },
+        {
+          "at_quarters": 194.5,
+          "output": 7,
+          "pitch": 85,
+          "chord_mask": 2180,
+          "context_mask": 3510,
+          "target_quarters": 195.0,
+          "target_pitch": 86,
+          "material_identity": 6023748010845440427,
+          "resolved": true
+        },
+        {
+          "at_quarters": 258.5,
+          "output": 8,
+          "pitch": 73,
+          "chord_mask": 2180,
+          "context_mask": 3510,
+          "target_quarters": 259.0,
+          "target_pitch": 71,
+          "material_identity": 2361528879871005877,
+          "resolved": true
+        },
+        {
+          "at_quarters": 322.5,
+          "output": 7,
+          "pitch": 85,
+          "chord_mask": 2180,
+          "context_mask": 3510,
+          "target_quarters": 323.0,
+          "target_pitch": 86,
+          "material_identity": 6023748010845440427,
+          "resolved": true
+        },
+        {
+          "at_quarters": 386.5,
+          "output": 8,
+          "pitch": 73,
+          "chord_mask": 2180,
+          "context_mask": 3510,
+          "target_quarters": 387.0,
+          "target_pitch": 71,
+          "material_identity": 2361528879871005877,
+          "resolved": true
+        },
+        {
+          "at_quarters": 450.5,
+          "output": 7,
+          "pitch": 85,
+          "chord_mask": 2180,
+          "context_mask": 3510,
+          "target_quarters": 451.0,
+          "target_pitch": 86,
+          "material_identity": 6023748010845440427,
+          "resolved": true
+        }
+      ],
+      "unresolved": [],
+      "sha256": "9c54d8e88b32c9e1f1162f7129f017f46eb4db071d46facd121a2fb878461b9e",
+      "reference_id": 40016,
+      "key": 7
+    },
+    {
+      "args": [
+        3,
+        114,
+        3,
+        512,
+        128,
+        0,
+        3,
+        0,
+        1,
+        0,
+        4,
+        4,
+        0,
+        0,
+        0,
+        8
+      ],
+      "byte_equal": false,
+      "arp_events_equal": true,
+      "passing": [
+        {
+          "at_quarters": 130.5,
+          "output": 8,
+          "pitch": 74,
+          "chord_mask": 265,
+          "context_mask": 2925,
+          "target_quarters": 131.0,
+          "target_pitch": 72,
+          "material_identity": 2361528879871005877,
+          "resolved": true
+        },
+        {
+          "at_quarters": 194.5,
+          "output": 7,
+          "pitch": 86,
+          "chord_mask": 265,
+          "context_mask": 2925,
+          "target_quarters": 195.0,
+          "target_pitch": 87,
+          "material_identity": 6023748010845440427,
+          "resolved": true
+        },
+        {
+          "at_quarters": 258.5,
+          "output": 8,
+          "pitch": 74,
+          "chord_mask": 265,
+          "context_mask": 2925,
+          "target_quarters": 259.0,
+          "target_pitch": 72,
+          "material_identity": 2361528879871005877,
+          "resolved": true
+        },
+        {
+          "at_quarters": 322.5,
+          "output": 7,
+          "pitch": 86,
+          "chord_mask": 265,
+          "context_mask": 2925,
+          "target_quarters": 323.0,
+          "target_pitch": 87,
+          "material_identity": 6023748010845440427,
+          "resolved": true
+        },
+        {
+          "at_quarters": 386.5,
+          "output": 8,
+          "pitch": 74,
+          "chord_mask": 265,
+          "context_mask": 2925,
+          "target_quarters": 387.0,
+          "target_pitch": 72,
+          "material_identity": 2361528879871005877,
+          "resolved": true
+        },
+        {
+          "at_quarters": 450.5,
+          "output": 7,
+          "pitch": 86,
+          "chord_mask": 265,
+          "context_mask": 2925,
+          "target_quarters": 451.0,
+          "target_pitch": 87,
+          "material_identity": 6023748010845440427,
+          "resolved": true
+        }
+      ],
+      "unresolved": [],
+      "sha256": "fed1fb8cb9c9a8ce6f22a714e67484d156d0140e53beae218776c9f5130485d1",
+      "reference_id": 40016,
+      "key": 8
+    },
+    {
+      "args": [
+        3,
+        114,
+        3,
+        512,
+        128,
+        0,
+        3,
+        0,
+        1,
+        0,
+        4,
+        4,
+        0,
+        0,
+        0,
+        9
+      ],
+      "byte_equal": false,
+      "arp_events_equal": true,
+      "passing": [
+        {
+          "at_quarters": 129.5,
+          "output": 8,
+          "pitch": 75,
+          "chord_mask": 530,
+          "context_mask": 1755,
+          "target_quarters": 130.0,
+          "target_pitch": 73,
+          "material_identity": 17684073487482670606,
+          "resolved": true
+        },
+        {
+          "at_quarters": 194.5,
+          "output": 7,
+          "pitch": 87,
+          "chord_mask": 530,
+          "context_mask": 1755,
+          "target_quarters": 195.0,
+          "target_pitch": 88,
+          "material_identity": 6023748010845440427,
+          "resolved": true
+        },
+        {
+          "at_quarters": 257.5,
+          "output": 8,
+          "pitch": 75,
+          "chord_mask": 530,
+          "context_mask": 1755,
+          "target_quarters": 258.0,
+          "target_pitch": 73,
+          "material_identity": 17684073487482670606,
+          "resolved": true
+        },
+        {
+          "at_quarters": 322.5,
+          "output": 7,
+          "pitch": 87,
+          "chord_mask": 530,
+          "context_mask": 1755,
+          "target_quarters": 323.0,
+          "target_pitch": 88,
+          "material_identity": 6023748010845440427,
+          "resolved": true
+        },
+        {
+          "at_quarters": 385.5,
+          "output": 8,
+          "pitch": 75,
+          "chord_mask": 530,
+          "context_mask": 1755,
+          "target_quarters": 386.0,
+          "target_pitch": 73,
+          "material_identity": 17684073487482670606,
+          "resolved": true
+        },
+        {
+          "at_quarters": 450.5,
+          "output": 7,
+          "pitch": 87,
+          "chord_mask": 530,
+          "context_mask": 1755,
+          "target_quarters": 451.0,
+          "target_pitch": 88,
+          "material_identity": 6023748010845440427,
+          "resolved": true
+        }
+      ],
+      "unresolved": [],
+      "sha256": "8e8c076e78ab62042efbe834677b35accc1123284b1bb2a68af19f789e8ca403",
+      "reference_id": 40016,
+      "key": 9
+    },
+    {
+      "args": [
+        3,
+        114,
+        3,
+        512,
+        128,
+        0,
+        3,
+        0,
+        1,
+        0,
+        4,
+        4,
+        0,
+        0,
+        0,
+        10
+      ],
+      "byte_equal": false,
+      "arp_events_equal": true,
+      "passing": [
+        {
+          "at_quarters": 129.5,
+          "output": 8,
+          "pitch": 76,
+          "chord_mask": 1060,
+          "context_mask": 3510,
+          "target_quarters": 130.0,
+          "target_pitch": 74,
+          "material_identity": 17684073487482670606,
+          "resolved": true
+        },
+        {
+          "at_quarters": 257.5,
+          "output": 8,
+          "pitch": 76,
+          "chord_mask": 1060,
+          "context_mask": 3510,
+          "target_quarters": 258.0,
+          "target_pitch": 74,
+          "material_identity": 17684073487482670606,
+          "resolved": true
+        },
+        {
+          "at_quarters": 385.5,
+          "output": 8,
+          "pitch": 76,
+          "chord_mask": 1060,
+          "context_mask": 3510,
+          "target_quarters": 386.0,
+          "target_pitch": 74,
+          "material_identity": 17684073487482670606,
+          "resolved": true
+        }
+      ],
+      "unresolved": [],
+      "sha256": "9d6817de57ba6a80938c43d328364a1de451024d6550307f686161f52948368a",
+      "reference_id": 40016,
+      "key": 10
+    },
+    {
+      "args": [
+        3,
+        114,
+        3,
+        512,
+        128,
+        0,
+        3,
+        0,
+        1,
+        0,
+        4,
+        4,
+        0,
+        0,
+        0,
+        11
+      ],
+      "byte_equal": false,
+      "arp_events_equal": true,
+      "passing": [
+        {
+          "at_quarters": 129.5,
+          "output": 8,
+          "pitch": 77,
+          "chord_mask": 2120,
+          "context_mask": 2925,
+          "target_quarters": 130.0,
+          "target_pitch": 75,
+          "material_identity": 17684073487482670606,
+          "resolved": true
+        },
+        {
+          "at_quarters": 257.5,
+          "output": 8,
+          "pitch": 77,
+          "chord_mask": 2120,
+          "context_mask": 2925,
+          "target_quarters": 258.0,
+          "target_pitch": 75,
+          "material_identity": 17684073487482670606,
+          "resolved": true
+        },
+        {
+          "at_quarters": 385.5,
+          "output": 8,
+          "pitch": 77,
+          "chord_mask": 2120,
+          "context_mask": 2925,
+          "target_quarters": 386.0,
+          "target_pitch": 75,
+          "material_identity": 17684073487482670606,
+          "resolved": true
+        }
+      ],
+      "unresolved": [],
+      "sha256": "d7694247a8cd06799c5d115bd26657a34eb1f961991d1b2274a720c834ea411a",
+      "reference_id": 40016,
+      "key": 11
+    },
+    {
+      "args": [
+        3,
+        115,
+        3,
+        512,
+        128,
+        0,
+        3,
+        0,
+        1,
+        0,
+        4,
+        4,
+        0,
+        0,
+        0,
+        0
+      ],
+      "byte_equal": false,
+      "arp_events_equal": true,
+      "passing": [
+        {
+          "at_quarters": 193.5,
+          "output": 7,
+          "pitch": 78,
+          "chord_mask": 145,
+          "context_mask": 1755,
+          "target_quarters": 194.0,
+          "target_pitch": 79,
+          "material_identity": 9833847079385530202,
+          "resolved": true
+        },
+        {
+          "at_quarters": 321.5,
+          "output": 7,
+          "pitch": 78,
+          "chord_mask": 145,
+          "context_mask": 1755,
+          "target_quarters": 322.0,
+          "target_pitch": 79,
+          "material_identity": 9833847079385530202,
+          "resolved": true
+        },
+        {
+          "at_quarters": 449.5,
+          "output": 7,
+          "pitch": 78,
+          "chord_mask": 145,
+          "context_mask": 1755,
+          "target_quarters": 450.0,
+          "target_pitch": 79,
+          "material_identity": 9833847079385530202,
+          "resolved": true
+        }
+      ],
+      "unresolved": [],
+      "sha256": "5bff25c7dc9b2efbe6d3188992fa331eb802c69526d5d2a22123152ebd909074",
+      "reference_id": 40017,
+      "key": 0
+    },
+    {
+      "args": [
+        3,
+        115,
+        3,
+        512,
+        128,
+        0,
+        3,
+        0,
+        1,
+        0,
+        4,
+        4,
+        0,
+        0,
+        0,
+        1
+      ],
+      "byte_equal": false,
+      "arp_events_equal": true,
+      "passing": [
+        {
+          "at_quarters": 193.5,
+          "output": 7,
+          "pitch": 79,
+          "chord_mask": 290,
+          "context_mask": 3510,
+          "target_quarters": 194.0,
+          "target_pitch": 80,
+          "material_identity": 9833847079385530202,
+          "resolved": true
+        },
+        {
+          "at_quarters": 321.5,
+          "output": 7,
+          "pitch": 79,
+          "chord_mask": 290,
+          "context_mask": 3510,
+          "target_quarters": 322.0,
+          "target_pitch": 80,
+          "material_identity": 9833847079385530202,
+          "resolved": true
+        },
+        {
+          "at_quarters": 449.5,
+          "output": 7,
+          "pitch": 79,
+          "chord_mask": 290,
+          "context_mask": 3510,
+          "target_quarters": 450.0,
+          "target_pitch": 80,
+          "material_identity": 9833847079385530202,
+          "resolved": true
+        }
+      ],
+      "unresolved": [],
+      "sha256": "802b6a414b0e098bd9775ba4926f17f87faf5b339e11a9c62ab76b85650de6cf",
+      "reference_id": 40017,
+      "key": 1
+    },
+    {
+      "args": [
+        3,
+        115,
+        3,
+        512,
+        128,
+        0,
+        3,
+        0,
+        1,
+        0,
+        4,
+        4,
+        0,
+        0,
+        0,
+        2
+      ],
+      "byte_equal": false,
+      "arp_events_equal": true,
+      "passing": [
+        {
+          "at_quarters": 193.5,
+          "output": 7,
+          "pitch": 80,
+          "chord_mask": 580,
+          "context_mask": 2925,
+          "target_quarters": 194.0,
+          "target_pitch": 81,
+          "material_identity": 9833847079385530202,
+          "resolved": true
+        },
+        {
+          "at_quarters": 321.5,
+          "output": 7,
+          "pitch": 80,
+          "chord_mask": 580,
+          "context_mask": 2925,
+          "target_quarters": 322.0,
+          "target_pitch": 81,
+          "material_identity": 9833847079385530202,
+          "resolved": true
+        },
+        {
+          "at_quarters": 449.5,
+          "output": 7,
+          "pitch": 80,
+          "chord_mask": 580,
+          "context_mask": 2925,
+          "target_quarters": 450.0,
+          "target_pitch": 81,
+          "material_identity": 9833847079385530202,
+          "resolved": true
+        }
+      ],
+      "unresolved": [],
+      "sha256": "2b5b0e92e26469daba513e258e5ee4b8800296c6e3f8a45c93597da360350b87",
+      "reference_id": 40017,
+      "key": 2
+    },
+    {
+      "args": [
+        3,
+        115,
+        3,
+        512,
+        128,
+        0,
+        3,
+        0,
+        1,
+        0,
+        4,
+        4,
+        0,
+        0,
+        0,
+        3
+      ],
+      "byte_equal": false,
+      "arp_events_equal": true,
+      "passing": [
+        {
+          "at_quarters": 130.5,
+          "output": 8,
+          "pitch": 69,
+          "chord_mask": 1160,
+          "context_mask": 1755,
+          "target_quarters": 131.0,
+          "target_pitch": 67,
+          "material_identity": 2358659154521942842,
+          "resolved": true
+        },
+        {
+          "at_quarters": 193.5,
+          "output": 7,
+          "pitch": 81,
+          "chord_mask": 1160,
+          "context_mask": 1755,
+          "target_quarters": 194.0,
+          "target_pitch": 82,
+          "material_identity": 9833847079385530202,
+          "resolved": true
+        },
+        {
+          "at_quarters": 258.5,
+          "output": 8,
+          "pitch": 69,
+          "chord_mask": 1160,
+          "context_mask": 1755,
+          "target_quarters": 259.0,
+          "target_pitch": 67,
+          "material_identity": 2358659154521942842,
+          "resolved": true
+        },
+        {
+          "at_quarters": 321.5,
+          "output": 7,
+          "pitch": 81,
+          "chord_mask": 1160,
+          "context_mask": 1755,
+          "target_quarters": 322.0,
+          "target_pitch": 82,
+          "material_identity": 9833847079385530202,
+          "resolved": true
+        },
+        {
+          "at_quarters": 386.5,
+          "output": 8,
+          "pitch": 69,
+          "chord_mask": 1160,
+          "context_mask": 1755,
+          "target_quarters": 387.0,
+          "target_pitch": 67,
+          "material_identity": 2358659154521942842,
+          "resolved": true
+        },
+        {
+          "at_quarters": 449.5,
+          "output": 7,
+          "pitch": 81,
+          "chord_mask": 1160,
+          "context_mask": 1755,
+          "target_quarters": 450.0,
+          "target_pitch": 82,
+          "material_identity": 9833847079385530202,
+          "resolved": true
+        }
+      ],
+      "unresolved": [],
+      "sha256": "7391e7c006a7b0a387e70619e909dcfd7a74afbc3bc028095cf96569afe8f54a",
+      "reference_id": 40017,
+      "key": 3
+    },
+    {
+      "args": [
+        3,
+        115,
+        3,
+        512,
+        128,
+        0,
+        3,
+        0,
+        1,
+        0,
+        4,
+        4,
+        0,
+        0,
+        0,
+        4
+      ],
+      "byte_equal": false,
+      "arp_events_equal": true,
+      "passing": [
+        {
+          "at_quarters": 130.5,
+          "output": 8,
+          "pitch": 70,
+          "chord_mask": 2320,
+          "context_mask": 3510,
+          "target_quarters": 131.0,
+          "target_pitch": 68,
+          "material_identity": 2358659154521942842,
+          "resolved": true
+        },
+        {
+          "at_quarters": 194.5,
+          "output": 7,
+          "pitch": 82,
+          "chord_mask": 2320,
+          "context_mask": 3510,
+          "target_quarters": 195.0,
+          "target_pitch": 83,
+          "material_identity": 6023748010845440427,
+          "resolved": true
+        },
+        {
+          "at_quarters": 258.5,
+          "output": 8,
+          "pitch": 70,
+          "chord_mask": 2320,
+          "context_mask": 3510,
+          "target_quarters": 259.0,
+          "target_pitch": 68,
+          "material_identity": 2358659154521942842,
+          "resolved": true
+        },
+        {
+          "at_quarters": 322.5,
+          "output": 7,
+          "pitch": 82,
+          "chord_mask": 2320,
+          "context_mask": 3510,
+          "target_quarters": 323.0,
+          "target_pitch": 83,
+          "material_identity": 6023748010845440427,
+          "resolved": true
+        },
+        {
+          "at_quarters": 386.5,
+          "output": 8,
+          "pitch": 70,
+          "chord_mask": 2320,
+          "context_mask": 3510,
+          "target_quarters": 387.0,
+          "target_pitch": 68,
+          "material_identity": 2358659154521942842,
+          "resolved": true
+        },
+        {
+          "at_quarters": 450.5,
+          "output": 7,
+          "pitch": 82,
+          "chord_mask": 2320,
+          "context_mask": 3510,
+          "target_quarters": 451.0,
+          "target_pitch": 83,
+          "material_identity": 6023748010845440427,
+          "resolved": true
+        }
+      ],
+      "unresolved": [],
+      "sha256": "58e3091677179284bb6815a07a56f58279bfb987bba20c9a590b6329c0ac6440",
+      "reference_id": 40017,
+      "key": 4
+    },
+    {
+      "args": [
+        3,
+        115,
+        3,
+        512,
+        128,
+        0,
+        3,
+        0,
+        1,
+        0,
+        4,
+        4,
+        0,
+        0,
+        0,
+        5
+      ],
+      "byte_equal": false,
+      "arp_events_equal": true,
+      "passing": [
+        {
+          "at_quarters": 130.5,
+          "output": 8,
+          "pitch": 71,
+          "chord_mask": 545,
+          "context_mask": 2925,
+          "target_quarters": 131.0,
+          "target_pitch": 69,
+          "material_identity": 2358659154521942842,
+          "resolved": true
+        },
+        {
+          "at_quarters": 194.5,
+          "output": 7,
+          "pitch": 83,
+          "chord_mask": 545,
+          "context_mask": 2925,
+          "target_quarters": 195.0,
+          "target_pitch": 84,
+          "material_identity": 6023748010845440427,
+          "resolved": true
+        },
+        {
+          "at_quarters": 258.5,
+          "output": 8,
+          "pitch": 71,
+          "chord_mask": 545,
+          "context_mask": 2925,
+          "target_quarters": 259.0,
+          "target_pitch": 69,
+          "material_identity": 2358659154521942842,
+          "resolved": true
+        },
+        {
+          "at_quarters": 322.5,
+          "output": 7,
+          "pitch": 83,
+          "chord_mask": 545,
+          "context_mask": 2925,
+          "target_quarters": 323.0,
+          "target_pitch": 84,
+          "material_identity": 6023748010845440427,
+          "resolved": true
+        },
+        {
+          "at_quarters": 386.5,
+          "output": 8,
+          "pitch": 71,
+          "chord_mask": 545,
+          "context_mask": 2925,
+          "target_quarters": 387.0,
+          "target_pitch": 69,
+          "material_identity": 2358659154521942842,
+          "resolved": true
+        },
+        {
+          "at_quarters": 450.5,
+          "output": 7,
+          "pitch": 83,
+          "chord_mask": 545,
+          "context_mask": 2925,
+          "target_quarters": 451.0,
+          "target_pitch": 84,
+          "material_identity": 6023748010845440427,
+          "resolved": true
+        }
+      ],
+      "unresolved": [],
+      "sha256": "9279f4474fba11cdbab6ed5499ea0c572ee61fc504333463fe6a0c1fa6154530",
+      "reference_id": 40017,
+      "key": 5
+    },
+    {
+      "args": [
+        3,
+        115,
+        3,
+        512,
+        128,
+        0,
+        3,
+        0,
+        1,
+        0,
+        4,
+        4,
+        0,
+        0,
+        0,
+        6
+      ],
+      "byte_equal": false,
+      "arp_events_equal": true,
+      "passing": [
+        {
+          "at_quarters": 130.5,
+          "output": 8,
+          "pitch": 72,
+          "chord_mask": 1090,
+          "context_mask": 1755,
+          "target_quarters": 131.0,
+          "target_pitch": 70,
+          "material_identity": 2358659154521942842,
+          "resolved": true
+        },
+        {
+          "at_quarters": 194.5,
+          "output": 7,
+          "pitch": 84,
+          "chord_mask": 1090,
+          "context_mask": 1755,
+          "target_quarters": 195.0,
+          "target_pitch": 85,
+          "material_identity": 6023748010845440427,
+          "resolved": true
+        },
+        {
+          "at_quarters": 258.5,
+          "output": 8,
+          "pitch": 72,
+          "chord_mask": 1090,
+          "context_mask": 1755,
+          "target_quarters": 259.0,
+          "target_pitch": 70,
+          "material_identity": 2358659154521942842,
+          "resolved": true
+        },
+        {
+          "at_quarters": 322.5,
+          "output": 7,
+          "pitch": 84,
+          "chord_mask": 1090,
+          "context_mask": 1755,
+          "target_quarters": 323.0,
+          "target_pitch": 85,
+          "material_identity": 6023748010845440427,
+          "resolved": true
+        },
+        {
+          "at_quarters": 386.5,
+          "output": 8,
+          "pitch": 72,
+          "chord_mask": 1090,
+          "context_mask": 1755,
+          "target_quarters": 387.0,
+          "target_pitch": 70,
+          "material_identity": 2358659154521942842,
+          "resolved": true
+        },
+        {
+          "at_quarters": 450.5,
+          "output": 7,
+          "pitch": 84,
+          "chord_mask": 1090,
+          "context_mask": 1755,
+          "target_quarters": 451.0,
+          "target_pitch": 85,
+          "material_identity": 6023748010845440427,
+          "resolved": true
+        }
+      ],
+      "unresolved": [],
+      "sha256": "3710db344d33140d030b7d646a0dd85be2641f4c3f9de96d76a4fea088c4a0e6",
+      "reference_id": 40017,
+      "key": 6
+    },
+    {
+      "args": [
+        3,
+        115,
+        3,
+        512,
+        128,
+        0,
+        3,
+        0,
+        1,
+        0,
+        4,
+        4,
+        0,
+        0,
+        0,
+        7
+      ],
+      "byte_equal": false,
+      "arp_events_equal": true,
+      "passing": [
+        {
+          "at_quarters": 130.5,
+          "output": 8,
+          "pitch": 73,
+          "chord_mask": 2180,
+          "context_mask": 3510,
+          "target_quarters": 131.0,
+          "target_pitch": 71,
+          "material_identity": 2358659154521942842,
+          "resolved": true
+        },
+        {
+          "at_quarters": 194.5,
+          "output": 7,
+          "pitch": 85,
+          "chord_mask": 2180,
+          "context_mask": 3510,
+          "target_quarters": 195.0,
+          "target_pitch": 86,
+          "material_identity": 6023748010845440427,
+          "resolved": true
+        },
+        {
+          "at_quarters": 258.5,
+          "output": 8,
+          "pitch": 73,
+          "chord_mask": 2180,
+          "context_mask": 3510,
+          "target_quarters": 259.0,
+          "target_pitch": 71,
+          "material_identity": 2358659154521942842,
+          "resolved": true
+        },
+        {
+          "at_quarters": 322.5,
+          "output": 7,
+          "pitch": 85,
+          "chord_mask": 2180,
+          "context_mask": 3510,
+          "target_quarters": 323.0,
+          "target_pitch": 86,
+          "material_identity": 6023748010845440427,
+          "resolved": true
+        },
+        {
+          "at_quarters": 386.5,
+          "output": 8,
+          "pitch": 73,
+          "chord_mask": 2180,
+          "context_mask": 3510,
+          "target_quarters": 387.0,
+          "target_pitch": 71,
+          "material_identity": 2358659154521942842,
+          "resolved": true
+        },
+        {
+          "at_quarters": 450.5,
+          "output": 7,
+          "pitch": 85,
+          "chord_mask": 2180,
+          "context_mask": 3510,
+          "target_quarters": 451.0,
+          "target_pitch": 86,
+          "material_identity": 6023748010845440427,
+          "resolved": true
+        }
+      ],
+      "unresolved": [],
+      "sha256": "3e76b0ee4d2f509f19e1200b344c4d33d68ba57b32e86b0f7d9218ac6bf6a7a4",
+      "reference_id": 40017,
+      "key": 7
+    },
+    {
+      "args": [
+        3,
+        115,
+        3,
+        512,
+        128,
+        0,
+        3,
+        0,
+        1,
+        0,
+        4,
+        4,
+        0,
+        0,
+        0,
+        8
+      ],
+      "byte_equal": false,
+      "arp_events_equal": true,
+      "passing": [
+        {
+          "at_quarters": 129.5,
+          "output": 8,
+          "pitch": 74,
+          "chord_mask": 265,
+          "context_mask": 2925,
+          "target_quarters": 130.0,
+          "target_pitch": 72,
+          "material_identity": 17678334036784544536,
+          "resolved": true
+        },
+        {
+          "at_quarters": 194.5,
+          "output": 7,
+          "pitch": 86,
+          "chord_mask": 265,
+          "context_mask": 2925,
+          "target_quarters": 195.0,
+          "target_pitch": 87,
+          "material_identity": 6023748010845440427,
+          "resolved": true
+        },
+        {
+          "at_quarters": 257.5,
+          "output": 8,
+          "pitch": 74,
+          "chord_mask": 265,
+          "context_mask": 2925,
+          "target_quarters": 258.0,
+          "target_pitch": 72,
+          "material_identity": 17678334036784544536,
+          "resolved": true
+        },
+        {
+          "at_quarters": 322.5,
+          "output": 7,
+          "pitch": 86,
+          "chord_mask": 265,
+          "context_mask": 2925,
+          "target_quarters": 323.0,
+          "target_pitch": 87,
+          "material_identity": 6023748010845440427,
+          "resolved": true
+        },
+        {
+          "at_quarters": 385.5,
+          "output": 8,
+          "pitch": 74,
+          "chord_mask": 265,
+          "context_mask": 2925,
+          "target_quarters": 386.0,
+          "target_pitch": 72,
+          "material_identity": 17678334036784544536,
+          "resolved": true
+        },
+        {
+          "at_quarters": 450.5,
+          "output": 7,
+          "pitch": 86,
+          "chord_mask": 265,
+          "context_mask": 2925,
+          "target_quarters": 451.0,
+          "target_pitch": 87,
+          "material_identity": 6023748010845440427,
+          "resolved": true
+        }
+      ],
+      "unresolved": [],
+      "sha256": "0e791733147e7a7b772fbd7c6a8f5ca3c08b7b8da4bb46dd0d9ad39534f26a13",
+      "reference_id": 40017,
+      "key": 8
+    },
+    {
+      "args": [
+        3,
+        115,
+        3,
+        512,
+        128,
+        0,
+        3,
+        0,
+        1,
+        0,
+        4,
+        4,
+        0,
+        0,
+        0,
+        9
+      ],
+      "byte_equal": false,
+      "arp_events_equal": true,
+      "passing": [
+        {
+          "at_quarters": 129.5,
+          "output": 8,
+          "pitch": 75,
+          "chord_mask": 530,
+          "context_mask": 1755,
+          "target_quarters": 130.0,
+          "target_pitch": 73,
+          "material_identity": 17678334036784544536,
+          "resolved": true
+        },
+        {
+          "at_quarters": 257.5,
+          "output": 8,
+          "pitch": 75,
+          "chord_mask": 530,
+          "context_mask": 1755,
+          "target_quarters": 258.0,
+          "target_pitch": 73,
+          "material_identity": 17678334036784544536,
+          "resolved": true
+        },
+        {
+          "at_quarters": 385.5,
+          "output": 8,
+          "pitch": 75,
+          "chord_mask": 530,
+          "context_mask": 1755,
+          "target_quarters": 386.0,
+          "target_pitch": 73,
+          "material_identity": 17678334036784544536,
+          "resolved": true
+        }
+      ],
+      "unresolved": [],
+      "sha256": "72598a9cee79a4df30ef9a0919ef0732902563123eb77ad1cce660cdea33cf7f",
+      "reference_id": 40017,
+      "key": 9
+    },
+    {
+      "args": [
+        3,
+        115,
+        3,
+        512,
+        128,
+        0,
+        3,
+        0,
+        1,
+        0,
+        4,
+        4,
+        0,
+        0,
+        0,
+        10
+      ],
+      "byte_equal": false,
+      "arp_events_equal": true,
+      "passing": [
+        {
+          "at_quarters": 129.5,
+          "output": 8,
+          "pitch": 76,
+          "chord_mask": 1060,
+          "context_mask": 3510,
+          "target_quarters": 130.0,
+          "target_pitch": 74,
+          "material_identity": 17678334036784544536,
+          "resolved": true
+        },
+        {
+          "at_quarters": 257.5,
+          "output": 8,
+          "pitch": 76,
+          "chord_mask": 1060,
+          "context_mask": 3510,
+          "target_quarters": 258.0,
+          "target_pitch": 74,
+          "material_identity": 17678334036784544536,
+          "resolved": true
+        },
+        {
+          "at_quarters": 385.5,
+          "output": 8,
+          "pitch": 76,
+          "chord_mask": 1060,
+          "context_mask": 3510,
+          "target_quarters": 386.0,
+          "target_pitch": 74,
+          "material_identity": 17678334036784544536,
+          "resolved": true
+        }
+      ],
+      "unresolved": [],
+      "sha256": "fe985c122126b5c736ee1236c41cd25fa9a2cab83d7bb315413e57552303cdba",
+      "reference_id": 40017,
+      "key": 10
+    },
+    {
+      "args": [
+        3,
+        115,
+        3,
+        512,
+        128,
+        0,
+        3,
+        0,
+        1,
+        0,
+        4,
+        4,
+        0,
+        0,
+        0,
+        11
+      ],
+      "byte_equal": false,
+      "arp_events_equal": true,
+      "passing": [],
+      "unresolved": [],
+      "sha256": "912cfc88a2d874ebc52dd5912bbde4a9e8a77ca23170c061c0db7c5124353c4c",
+      "reference_id": 40017,
+      "key": 11
+    },
+    {
+      "args": [
+        3,
+        116,
+        3,
+        512,
+        128,
+        0,
+        3,
+        0,
+        1,
+        0,
+        4,
+        4,
+        0,
+        0,
+        0,
+        0
+      ],
+      "byte_equal": false,
+      "arp_events_equal": true,
+      "passing": [
+        {
+          "at_quarters": 129.5,
+          "output": 8,
+          "pitch": 73,
+          "chord_mask": 137,
+          "context_mask": 1755,
+          "target_quarters": 130.0,
+          "target_pitch": 72,
+          "material_identity": 4385666431656092658,
+          "resolved": true
+        },
+        {
+          "at_quarters": 194.5,
+          "output": 7,
+          "pitch": 85,
+          "chord_mask": 137,
+          "context_mask": 1755,
+          "target_quarters": 195.0,
+          "target_pitch": 87,
+          "material_identity": 16082007361019734790,
+          "resolved": true
+        },
+        {
+          "at_quarters": 257.5,
+          "output": 8,
+          "pitch": 73,
+          "chord_mask": 137,
+          "context_mask": 1755,
+          "target_quarters": 258.0,
+          "target_pitch": 72,
+          "material_identity": 4385666431656092658,
+          "resolved": true
+        },
+        {
+          "at_quarters": 322.5,
+          "output": 7,
+          "pitch": 85,
+          "chord_mask": 137,
+          "context_mask": 1755,
+          "target_quarters": 323.0,
+          "target_pitch": 87,
+          "material_identity": 16082007361019734790,
+          "resolved": true
+        },
+        {
+          "at_quarters": 385.5,
+          "output": 8,
+          "pitch": 73,
+          "chord_mask": 137,
+          "context_mask": 1755,
+          "target_quarters": 386.0,
+          "target_pitch": 72,
+          "material_identity": 4385666431656092658,
+          "resolved": true
+        },
+        {
+          "at_quarters": 450.5,
+          "output": 7,
+          "pitch": 85,
+          "chord_mask": 137,
+          "context_mask": 1755,
+          "target_quarters": 451.0,
+          "target_pitch": 87,
+          "material_identity": 16082007361019734790,
+          "resolved": true
+        }
+      ],
+      "unresolved": [],
+      "sha256": "761052c3f703a9f569d0697de2fe534c49a9ac72bad1268d579619503759c824",
+      "reference_id": 40019,
+      "key": 0
+    },
+    {
+      "args": [
+        3,
+        116,
+        3,
+        512,
+        128,
+        0,
+        3,
+        0,
+        1,
+        0,
+        4,
+        4,
+        0,
+        0,
+        0,
+        1
+      ],
+      "byte_equal": false,
+      "arp_events_equal": true,
+      "passing": [
+        {
+          "at_quarters": 129.5,
+          "output": 8,
+          "pitch": 74,
+          "chord_mask": 274,
+          "context_mask": 3510,
+          "target_quarters": 130.0,
+          "target_pitch": 73,
+          "material_identity": 4385666431656092658,
+          "resolved": true
+        },
+        {
+          "at_quarters": 257.5,
+          "output": 8,
+          "pitch": 74,
+          "chord_mask": 274,
+          "context_mask": 3510,
+          "target_quarters": 258.0,
+          "target_pitch": 73,
+          "material_identity": 4385666431656092658,
+          "resolved": true
+        },
+        {
+          "at_quarters": 385.5,
+          "output": 8,
+          "pitch": 74,
+          "chord_mask": 274,
+          "context_mask": 3510,
+          "target_quarters": 386.0,
+          "target_pitch": 73,
+          "material_identity": 4385666431656092658,
+          "resolved": true
+        }
+      ],
+      "unresolved": [],
+      "sha256": "84478c6b41d036df5c1c60a49ed1624390f62b348e45432a844060a49afa02e5",
+      "reference_id": 40019,
+      "key": 1
+    },
+    {
+      "args": [
+        3,
+        116,
+        3,
+        512,
+        128,
+        0,
+        3,
+        0,
+        1,
+        0,
+        4,
+        4,
+        0,
+        0,
+        0,
+        2
+      ],
+      "byte_equal": false,
+      "arp_events_equal": true,
+      "passing": [
+        {
+          "at_quarters": 129.5,
+          "output": 8,
+          "pitch": 75,
+          "chord_mask": 548,
+          "context_mask": 2925,
+          "target_quarters": 130.0,
+          "target_pitch": 74,
+          "material_identity": 4388536157005155693,
+          "resolved": true
+        },
+        {
+          "at_quarters": 257.5,
+          "output": 8,
+          "pitch": 75,
+          "chord_mask": 548,
+          "context_mask": 2925,
+          "target_quarters": 258.0,
+          "target_pitch": 74,
+          "material_identity": 4388536157005155693,
+          "resolved": true
+        },
+        {
+          "at_quarters": 385.5,
+          "output": 8,
+          "pitch": 75,
+          "chord_mask": 548,
+          "context_mask": 2925,
+          "target_quarters": 386.0,
+          "target_pitch": 74,
+          "material_identity": 4388536157005155693,
+          "resolved": true
+        }
+      ],
+      "unresolved": [],
+      "sha256": "854bb31aa9af8a46a735eb2b9accc091ca7a9852ce7b4ad27d4494d8285efa67",
+      "reference_id": 40019,
+      "key": 2
+    },
+    {
+      "args": [
+        3,
+        116,
+        3,
+        512,
+        128,
+        0,
+        3,
+        0,
+        1,
+        0,
+        4,
+        4,
+        0,
+        0,
+        0,
+        3
+      ],
+      "byte_equal": false,
+      "arp_events_equal": true,
+      "passing": [],
+      "unresolved": [],
+      "sha256": "2a15d59fa16ad2ee1281c5d86327153de6dbc812b1dead4d1f78def2d3263a00",
+      "reference_id": 40019,
+      "key": 3
+    },
+    {
+      "args": [
+        3,
+        116,
+        3,
+        512,
+        128,
+        0,
+        3,
+        0,
+        1,
+        0,
+        4,
+        4,
+        0,
+        0,
+        0,
+        4
+      ],
+      "byte_equal": false,
+      "arp_events_equal": true,
+      "passing": [
+        {
+          "at_quarters": 193.5,
+          "output": 7,
+          "pitch": 77,
+          "chord_mask": 2192,
+          "context_mask": 3510,
+          "target_quarters": 194.0,
+          "target_pitch": 79,
+          "material_identity": 6106821454906578044,
+          "resolved": true
+        },
+        {
+          "at_quarters": 321.5,
+          "output": 7,
+          "pitch": 77,
+          "chord_mask": 2192,
+          "context_mask": 3510,
+          "target_quarters": 322.0,
+          "target_pitch": 79,
+          "material_identity": 6106821454906578044,
+          "resolved": true
+        },
+        {
+          "at_quarters": 449.5,
+          "output": 7,
+          "pitch": 77,
+          "chord_mask": 2192,
+          "context_mask": 3510,
+          "target_quarters": 450.0,
+          "target_pitch": 79,
+          "material_identity": 6106821454906578044,
+          "resolved": true
+        }
+      ],
+      "unresolved": [],
+      "sha256": "88cc96e9e717cfd2e7ba284670c41e97bc12c54e46044c8dfaa5f643df7d9a85",
+      "reference_id": 40019,
+      "key": 4
+    },
+    {
+      "args": [
+        3,
+        116,
+        3,
+        512,
+        128,
+        0,
+        3,
+        0,
+        1,
+        0,
+        4,
+        4,
+        0,
+        0,
+        0,
+        5
+      ],
+      "byte_equal": false,
+      "arp_events_equal": true,
+      "passing": [
+        {
+          "at_quarters": 193.5,
+          "output": 7,
+          "pitch": 78,
+          "chord_mask": 289,
+          "context_mask": 2925,
+          "target_quarters": 194.0,
+          "target_pitch": 80,
+          "material_identity": 6106821454906578044,
+          "resolved": true
+        },
+        {
+          "at_quarters": 321.5,
+          "output": 7,
+          "pitch": 78,
+          "chord_mask": 289,
+          "context_mask": 2925,
+          "target_quarters": 322.0,
+          "target_pitch": 80,
+          "material_identity": 6106821454906578044,
+          "resolved": true
+        },
+        {
+          "at_quarters": 449.5,
+          "output": 7,
+          "pitch": 78,
+          "chord_mask": 289,
+          "context_mask": 2925,
+          "target_quarters": 450.0,
+          "target_pitch": 80,
+          "material_identity": 6106821454906578044,
+          "resolved": true
+        }
+      ],
+      "unresolved": [],
+      "sha256": "606be639de942b75c93344e7432199fd994de7fae1f1e4b776523b39c4fb43e0",
+      "reference_id": 40019,
+      "key": 5
+    },
+    {
+      "args": [
+        3,
+        116,
+        3,
+        512,
+        128,
+        0,
+        3,
+        0,
+        1,
+        0,
+        4,
+        4,
+        0,
+        0,
+        0,
+        6
+      ],
+      "byte_equal": false,
+      "arp_events_equal": true,
+      "passing": [
+        {
+          "at_quarters": 193.5,
+          "output": 7,
+          "pitch": 79,
+          "chord_mask": 578,
+          "context_mask": 1755,
+          "target_quarters": 194.0,
+          "target_pitch": 81,
+          "material_identity": 6106821454906578044,
+          "resolved": true
+        },
+        {
+          "at_quarters": 321.5,
+          "output": 7,
+          "pitch": 79,
+          "chord_mask": 578,
+          "context_mask": 1755,
+          "target_quarters": 322.0,
+          "target_pitch": 81,
+          "material_identity": 6106821454906578044,
+          "resolved": true
+        },
+        {
+          "at_quarters": 449.5,
+          "output": 7,
+          "pitch": 79,
+          "chord_mask": 578,
+          "context_mask": 1755,
+          "target_quarters": 450.0,
+          "target_pitch": 81,
+          "material_identity": 6106821454906578044,
+          "resolved": true
+        }
+      ],
+      "unresolved": [],
+      "sha256": "9688370a6b64e8328c13a8aaded917d932989f6b266b560d861e2321731ba969",
+      "reference_id": 40019,
+      "key": 6
+    },
+    {
+      "args": [
+        3,
+        116,
+        3,
+        512,
+        128,
+        0,
+        3,
+        0,
+        1,
+        0,
+        4,
+        4,
+        0,
+        0,
+        0,
+        7
+      ],
+      "byte_equal": false,
+      "arp_events_equal": true,
+      "passing": [
+        {
+          "at_quarters": 193.5,
+          "output": 7,
+          "pitch": 80,
+          "chord_mask": 1156,
+          "context_mask": 3510,
+          "target_quarters": 194.0,
+          "target_pitch": 82,
+          "material_identity": 6103951729557515009,
+          "resolved": true
+        },
+        {
+          "at_quarters": 321.5,
+          "output": 7,
+          "pitch": 80,
+          "chord_mask": 1156,
+          "context_mask": 3510,
+          "target_quarters": 322.0,
+          "target_pitch": 82,
+          "material_identity": 6103951729557515009,
+          "resolved": true
+        },
+        {
+          "at_quarters": 449.5,
+          "output": 7,
+          "pitch": 80,
+          "chord_mask": 1156,
+          "context_mask": 3510,
+          "target_quarters": 450.0,
+          "target_pitch": 82,
+          "material_identity": 6103951729557515009,
+          "resolved": true
+        }
+      ],
+      "unresolved": [],
+      "sha256": "a29c7270d5774f387b013556a99484c84fa5395f9ca13d675bbe3b59fc1c2c65",
+      "reference_id": 40019,
+      "key": 7
+    },
+    {
+      "args": [
+        3,
+        116,
+        3,
+        512,
+        128,
+        0,
+        3,
+        0,
+        1,
+        0,
+        4,
+        4,
+        0,
+        0,
+        0,
+        8
+      ],
+      "byte_equal": false,
+      "arp_events_equal": true,
+      "passing": [
+        {
+          "at_quarters": 130.5,
+          "output": 8,
+          "pitch": 69,
+          "chord_mask": 2312,
+          "context_mask": 2925,
+          "target_quarters": 131.0,
+          "target_pitch": 68,
+          "material_identity": 16847428747580724392,
+          "resolved": true
+        },
+        {
+          "at_quarters": 193.5,
+          "output": 7,
+          "pitch": 81,
+          "chord_mask": 2312,
+          "context_mask": 2925,
+          "target_quarters": 194.0,
+          "target_pitch": 83,
+          "material_identity": 6103951729557515009,
+          "resolved": true
+        },
+        {
+          "at_quarters": 258.5,
+          "output": 8,
+          "pitch": 69,
+          "chord_mask": 2312,
+          "context_mask": 2925,
+          "target_quarters": 259.0,
+          "target_pitch": 68,
+          "material_identity": 16847428747580724392,
+          "resolved": true
+        },
+        {
+          "at_quarters": 321.5,
+          "output": 7,
+          "pitch": 81,
+          "chord_mask": 2312,
+          "context_mask": 2925,
+          "target_quarters": 322.0,
+          "target_pitch": 83,
+          "material_identity": 6103951729557515009,
+          "resolved": true
+        },
+        {
+          "at_quarters": 386.5,
+          "output": 8,
+          "pitch": 69,
+          "chord_mask": 2312,
+          "context_mask": 2925,
+          "target_quarters": 387.0,
+          "target_pitch": 68,
+          "material_identity": 16847428747580724392,
+          "resolved": true
+        },
+        {
+          "at_quarters": 449.5,
+          "output": 7,
+          "pitch": 81,
+          "chord_mask": 2312,
+          "context_mask": 2925,
+          "target_quarters": 450.0,
+          "target_pitch": 83,
+          "material_identity": 6103951729557515009,
+          "resolved": true
+        }
+      ],
+      "unresolved": [],
+      "sha256": "5b0363315850575f277d644a1ec21763438932531b01d3df31ace4de83c043c0",
+      "reference_id": 40019,
+      "key": 8
+    },
+    {
+      "args": [
+        3,
+        116,
+        3,
+        512,
+        128,
+        0,
+        3,
+        0,
+        1,
+        0,
+        4,
+        4,
+        0,
+        0,
+        0,
+        9
+      ],
+      "byte_equal": false,
+      "arp_events_equal": true,
+      "passing": [
+        {
+          "at_quarters": 130.5,
+          "output": 8,
+          "pitch": 70,
+          "chord_mask": 529,
+          "context_mask": 1755,
+          "target_quarters": 131.0,
+          "target_pitch": 69,
+          "material_identity": 16847428747580724392,
+          "resolved": true
+        },
+        {
+          "at_quarters": 194.5,
+          "output": 7,
+          "pitch": 82,
+          "chord_mask": 529,
+          "context_mask": 1755,
+          "target_quarters": 195.0,
+          "target_pitch": 84,
+          "material_identity": 16077224485437963065,
+          "resolved": true
+        },
+        {
+          "at_quarters": 258.5,
+          "output": 8,
+          "pitch": 70,
+          "chord_mask": 529,
+          "context_mask": 1755,
+          "target_quarters": 259.0,
+          "target_pitch": 69,
+          "material_identity": 16847428747580724392,
+          "resolved": true
+        },
+        {
+          "at_quarters": 322.5,
+          "output": 7,
+          "pitch": 82,
+          "chord_mask": 529,
+          "context_mask": 1755,
+          "target_quarters": 323.0,
+          "target_pitch": 84,
+          "material_identity": 16077224485437963065,
+          "resolved": true
+        },
+        {
+          "at_quarters": 386.5,
+          "output": 8,
+          "pitch": 70,
+          "chord_mask": 529,
+          "context_mask": 1755,
+          "target_quarters": 387.0,
+          "target_pitch": 69,
+          "material_identity": 16847428747580724392,
+          "resolved": true
+        },
+        {
+          "at_quarters": 450.5,
+          "output": 7,
+          "pitch": 82,
+          "chord_mask": 529,
+          "context_mask": 1755,
+          "target_quarters": 451.0,
+          "target_pitch": 84,
+          "material_identity": 16077224485437963065,
+          "resolved": true
+        }
+      ],
+      "unresolved": [],
+      "sha256": "6fef35b4241a6260096efa01ecf027628afaf21c7fc127d7a38574467ca3e587",
+      "reference_id": 40019,
+      "key": 9
+    },
+    {
+      "args": [
+        3,
+        116,
+        3,
+        512,
+        128,
+        0,
+        3,
+        0,
+        1,
+        0,
+        4,
+        4,
+        0,
+        0,
+        0,
+        10
+      ],
+      "byte_equal": false,
+      "arp_events_equal": true,
+      "passing": [
+        {
+          "at_quarters": 130.5,
+          "output": 8,
+          "pitch": 71,
+          "chord_mask": 1058,
+          "context_mask": 3510,
+          "target_quarters": 131.0,
+          "target_pitch": 70,
+          "material_identity": 16847428747580724392,
+          "resolved": true
+        },
+        {
+          "at_quarters": 194.5,
+          "output": 7,
+          "pitch": 83,
+          "chord_mask": 1058,
+          "context_mask": 3510,
+          "target_quarters": 195.0,
+          "target_pitch": 85,
+          "material_identity": 16077224485437963065,
+          "resolved": true
+        },
+        {
+          "at_quarters": 258.5,
+          "output": 8,
+          "pitch": 71,
+          "chord_mask": 1058,
+          "context_mask": 3510,
+          "target_quarters": 259.0,
+          "target_pitch": 70,
+          "material_identity": 16847428747580724392,
+          "resolved": true
+        },
+        {
+          "at_quarters": 322.5,
+          "output": 7,
+          "pitch": 83,
+          "chord_mask": 1058,
+          "context_mask": 3510,
+          "target_quarters": 323.0,
+          "target_pitch": 85,
+          "material_identity": 16077224485437963065,
+          "resolved": true
+        },
+        {
+          "at_quarters": 386.5,
+          "output": 8,
+          "pitch": 71,
+          "chord_mask": 1058,
+          "context_mask": 3510,
+          "target_quarters": 387.0,
+          "target_pitch": 70,
+          "material_identity": 16847428747580724392,
+          "resolved": true
+        },
+        {
+          "at_quarters": 450.5,
+          "output": 7,
+          "pitch": 83,
+          "chord_mask": 1058,
+          "context_mask": 3510,
+          "target_quarters": 451.0,
+          "target_pitch": 85,
+          "material_identity": 16077224485437963065,
+          "resolved": true
+        }
+      ],
+      "unresolved": [],
+      "sha256": "5130b6bfb5774d85b75c17d86ec7852d52b21c8d63dc0350c45079ef0ec6a536",
+      "reference_id": 40019,
+      "key": 10
+    },
+    {
+      "args": [
+        3,
+        116,
+        3,
+        512,
+        128,
+        0,
+        3,
+        0,
+        1,
+        0,
+        4,
+        4,
+        0,
+        0,
+        0,
+        11
+      ],
+      "byte_equal": false,
+      "arp_events_equal": true,
+      "passing": [
+        {
+          "at_quarters": 130.5,
+          "output": 8,
+          "pitch": 72,
+          "chord_mask": 2116,
+          "context_mask": 2925,
+          "target_quarters": 131.0,
+          "target_pitch": 71,
+          "material_identity": 16851255048046141772,
+          "resolved": true
+        },
+        {
+          "at_quarters": 194.5,
+          "output": 7,
+          "pitch": 84,
+          "chord_mask": 2116,
+          "context_mask": 2925,
+          "target_quarters": 195.0,
+          "target_pitch": 86,
+          "material_identity": 16077224485437963065,
+          "resolved": true
+        },
+        {
+          "at_quarters": 258.5,
+          "output": 8,
+          "pitch": 72,
+          "chord_mask": 2116,
+          "context_mask": 2925,
+          "target_quarters": 259.0,
+          "target_pitch": 71,
+          "material_identity": 16851255048046141772,
+          "resolved": true
+        },
+        {
+          "at_quarters": 322.5,
+          "output": 7,
+          "pitch": 84,
+          "chord_mask": 2116,
+          "context_mask": 2925,
+          "target_quarters": 323.0,
+          "target_pitch": 86,
+          "material_identity": 16077224485437963065,
+          "resolved": true
+        },
+        {
+          "at_quarters": 386.5,
+          "output": 8,
+          "pitch": 72,
+          "chord_mask": 2116,
+          "context_mask": 2925,
+          "target_quarters": 387.0,
+          "target_pitch": 71,
+          "material_identity": 16851255048046141772,
+          "resolved": true
+        },
+        {
+          "at_quarters": 450.5,
+          "output": 7,
+          "pitch": 84,
+          "chord_mask": 2116,
+          "context_mask": 2925,
+          "target_quarters": 451.0,
+          "target_pitch": 86,
+          "material_identity": 16077224485437963065,
+          "resolved": true
+        }
+      ],
+      "unresolved": [],
+      "sha256": "74142eba32e620ec223f4cf2b9db35de267bfbfe15842daaa5f046d0477c0482",
+      "reference_id": 40019,
+      "key": 11
+    },
+    {
+      "args": [
+        3,
+        134,
+        3,
+        512,
+        128,
+        0,
+        3,
+        0,
+        1,
+        0,
+        4,
+        4,
+        0,
+        0,
+        0,
+        0
+      ],
+      "byte_equal": false,
+      "arp_events_equal": true,
+      "passing": [
+        {
+          "at_quarters": 129.5,
+          "output": 8,
+          "pitch": 73,
+          "chord_mask": 137,
+          "context_mask": 1755,
+          "target_quarters": 130.0,
+          "target_pitch": 72,
+          "material_identity": 4383753281423383968,
+          "resolved": true
+        },
+        {
+          "at_quarters": 257.5,
+          "output": 8,
+          "pitch": 73,
+          "chord_mask": 137,
+          "context_mask": 1755,
+          "target_quarters": 258.0,
+          "target_pitch": 72,
+          "material_identity": 4383753281423383968,
+          "resolved": true
+        },
+        {
+          "at_quarters": 385.5,
+          "output": 8,
+          "pitch": 73,
+          "chord_mask": 137,
+          "context_mask": 1755,
+          "target_quarters": 386.0,
+          "target_pitch": 72,
+          "material_identity": 4383753281423383968,
+          "resolved": true
+        }
+      ],
+      "unresolved": [],
+      "sha256": "f89135c81ce0e62fdfef1e425becc7f932887c250504e015ceed78a0f21978d0",
+      "reference_id": 40046,
+      "key": 0
+    },
+    {
+      "args": [
+        3,
+        134,
+        3,
+        512,
+        128,
+        0,
+        3,
+        0,
+        1,
+        0,
+        4,
+        4,
+        0,
+        0,
+        0,
+        1
+      ],
+      "byte_equal": false,
+      "arp_events_equal": true,
+      "passing": [
+        {
+          "at_quarters": 129.5,
+          "output": 8,
+          "pitch": 74,
+          "chord_mask": 274,
+          "context_mask": 3510,
+          "target_quarters": 130.0,
+          "target_pitch": 73,
+          "material_identity": 4383753281423383968,
+          "resolved": true
+        },
+        {
+          "at_quarters": 257.5,
+          "output": 8,
+          "pitch": 74,
+          "chord_mask": 274,
+          "context_mask": 3510,
+          "target_quarters": 258.0,
+          "target_pitch": 73,
+          "material_identity": 4383753281423383968,
+          "resolved": true
+        },
+        {
+          "at_quarters": 385.5,
+          "output": 8,
+          "pitch": 74,
+          "chord_mask": 274,
+          "context_mask": 3510,
+          "target_quarters": 386.0,
+          "target_pitch": 73,
+          "material_identity": 4383753281423383968,
+          "resolved": true
+        }
+      ],
+      "unresolved": [],
+      "sha256": "410042129c1d486e059a6072ddeebd41af41a65f2ab1a0115eb163ae712bf174",
+      "reference_id": 40046,
+      "key": 1
+    },
+    {
+      "args": [
+        3,
+        134,
+        3,
+        512,
+        128,
+        0,
+        3,
+        0,
+        1,
+        0,
+        4,
+        4,
+        0,
+        0,
+        0,
+        2
+      ],
+      "byte_equal": true,
+      "arp_events_equal": true,
+      "passing": [],
+      "unresolved": [],
+      "sha256": "afcff7875699a5140e59c82064bf9d7221ebf17326b32fdb84cdbec0896d9b44",
+      "reference_id": 40046,
+      "key": 2
+    },
+    {
+      "args": [
+        3,
+        134,
+        3,
+        512,
+        128,
+        0,
+        3,
+        0,
+        1,
+        0,
+        4,
+        4,
+        0,
+        0,
+        0,
+        3
+      ],
+      "byte_equal": false,
+      "arp_events_equal": true,
+      "passing": [
+        {
+          "at_quarters": 193.5,
+          "output": 7,
+          "pitch": 76,
+          "chord_mask": 1096,
+          "context_mask": 1755,
+          "target_quarters": 194.0,
+          "target_pitch": 78,
+          "material_identity": 6104908304673869354,
+          "resolved": true
+        },
+        {
+          "at_quarters": 321.5,
+          "output": 7,
+          "pitch": 76,
+          "chord_mask": 1096,
+          "context_mask": 1755,
+          "target_quarters": 322.0,
+          "target_pitch": 78,
+          "material_identity": 6104908304673869354,
+          "resolved": true
+        },
+        {
+          "at_quarters": 449.5,
+          "output": 7,
+          "pitch": 76,
+          "chord_mask": 1096,
+          "context_mask": 1755,
+          "target_quarters": 450.0,
+          "target_pitch": 78,
+          "material_identity": 6104908304673869354,
+          "resolved": true
+        }
+      ],
+      "unresolved": [],
+      "sha256": "c02ca25375d49fb5ec933b3ec7e22555c4a2c955485a7f7b82b7adff90d22ab3",
+      "reference_id": 40046,
+      "key": 3
+    },
+    {
+      "args": [
+        3,
+        134,
+        3,
+        512,
+        128,
+        0,
+        3,
+        0,
+        1,
+        0,
+        4,
+        4,
+        0,
+        0,
+        0,
+        4
+      ],
+      "byte_equal": false,
+      "arp_events_equal": true,
+      "passing": [
+        {
+          "at_quarters": 193.5,
+          "output": 7,
+          "pitch": 77,
+          "chord_mask": 2192,
+          "context_mask": 3510,
+          "target_quarters": 194.0,
+          "target_pitch": 79,
+          "material_identity": 6104908304673869354,
+          "resolved": true
+        },
+        {
+          "at_quarters": 321.5,
+          "output": 7,
+          "pitch": 77,
+          "chord_mask": 2192,
+          "context_mask": 3510,
+          "target_quarters": 322.0,
+          "target_pitch": 79,
+          "material_identity": 6104908304673869354,
+          "resolved": true
+        },
+        {
+          "at_quarters": 449.5,
+          "output": 7,
+          "pitch": 77,
+          "chord_mask": 2192,
+          "context_mask": 3510,
+          "target_quarters": 450.0,
+          "target_pitch": 79,
+          "material_identity": 6104908304673869354,
+          "resolved": true
+        }
+      ],
+      "unresolved": [],
+      "sha256": "d37176c7178bf52ecce9ee68d53a6bfddc9e8f52c77ce9e238ed2fa25afbb49c",
+      "reference_id": 40046,
+      "key": 4
+    },
+    {
+      "args": [
+        3,
+        134,
+        3,
+        512,
+        128,
+        0,
+        3,
+        0,
+        1,
+        0,
+        4,
+        4,
+        0,
+        0,
+        0,
+        5
+      ],
+      "byte_equal": false,
+      "arp_events_equal": true,
+      "passing": [
+        {
+          "at_quarters": 193.5,
+          "output": 7,
+          "pitch": 78,
+          "chord_mask": 289,
+          "context_mask": 2925,
+          "target_quarters": 194.0,
+          "target_pitch": 80,
+          "material_identity": 6104908304673869354,
+          "resolved": true
+        },
+        {
+          "at_quarters": 321.5,
+          "output": 7,
+          "pitch": 78,
+          "chord_mask": 289,
+          "context_mask": 2925,
+          "target_quarters": 322.0,
+          "target_pitch": 80,
+          "material_identity": 6104908304673869354,
+          "resolved": true
+        },
+        {
+          "at_quarters": 449.5,
+          "output": 7,
+          "pitch": 78,
+          "chord_mask": 289,
+          "context_mask": 2925,
+          "target_quarters": 450.0,
+          "target_pitch": 80,
+          "material_identity": 6104908304673869354,
+          "resolved": true
+        }
+      ],
+      "unresolved": [],
+      "sha256": "e4d9c1a038fded8b29b922c871d1cb82ef2eb070da326f48208eeda50d753d62",
+      "reference_id": 40046,
+      "key": 5
+    },
+    {
+      "args": [
+        3,
+        134,
+        3,
+        512,
+        128,
+        0,
+        3,
+        0,
+        1,
+        0,
+        4,
+        4,
+        0,
+        0,
+        0,
+        6
+      ],
+      "byte_equal": false,
+      "arp_events_equal": true,
+      "passing": [
+        {
+          "at_quarters": 193.5,
+          "output": 7,
+          "pitch": 79,
+          "chord_mask": 578,
+          "context_mask": 1755,
+          "target_quarters": 194.0,
+          "target_pitch": 81,
+          "material_identity": 6104908304673869354,
+          "resolved": true
+        },
+        {
+          "at_quarters": 321.5,
+          "output": 7,
+          "pitch": 79,
+          "chord_mask": 578,
+          "context_mask": 1755,
+          "target_quarters": 322.0,
+          "target_pitch": 81,
+          "material_identity": 6104908304673869354,
+          "resolved": true
+        },
+        {
+          "at_quarters": 449.5,
+          "output": 7,
+          "pitch": 79,
+          "chord_mask": 578,
+          "context_mask": 1755,
+          "target_quarters": 450.0,
+          "target_pitch": 81,
+          "material_identity": 6104908304673869354,
+          "resolved": true
+        }
+      ],
+      "unresolved": [],
+      "sha256": "d1b5f560d837d38d0f9db0d2957618528d8620404636b80441fcf5b1ddc1ccb5",
+      "reference_id": 40046,
+      "key": 6
+    },
+    {
+      "args": [
+        3,
+        134,
+        3,
+        512,
+        128,
+        0,
+        3,
+        0,
+        1,
+        0,
+        4,
+        4,
+        0,
+        0,
+        0,
+        7
+      ],
+      "byte_equal": false,
+      "arp_events_equal": true,
+      "passing": [
+        {
+          "at_quarters": 130.5,
+          "output": 8,
+          "pitch": 68,
+          "chord_mask": 1156,
+          "context_mask": 3510,
+          "target_quarters": 131.0,
+          "target_pitch": 67,
+          "material_identity": 16850298472929787427,
+          "resolved": true
+        },
+        {
+          "at_quarters": 193.5,
+          "output": 7,
+          "pitch": 80,
+          "chord_mask": 1156,
+          "context_mask": 3510,
+          "target_quarters": 194.0,
+          "target_pitch": 82,
+          "material_identity": 6104908304673869354,
+          "resolved": true
+        },
+        {
+          "at_quarters": 258.5,
+          "output": 8,
+          "pitch": 68,
+          "chord_mask": 1156,
+          "context_mask": 3510,
+          "target_quarters": 259.0,
+          "target_pitch": 67,
+          "material_identity": 16850298472929787427,
+          "resolved": true
+        },
+        {
+          "at_quarters": 321.5,
+          "output": 7,
+          "pitch": 80,
+          "chord_mask": 1156,
+          "context_mask": 3510,
+          "target_quarters": 322.0,
+          "target_pitch": 82,
+          "material_identity": 6104908304673869354,
+          "resolved": true
+        },
+        {
+          "at_quarters": 386.5,
+          "output": 8,
+          "pitch": 68,
+          "chord_mask": 1156,
+          "context_mask": 3510,
+          "target_quarters": 387.0,
+          "target_pitch": 67,
+          "material_identity": 16850298472929787427,
+          "resolved": true
+        },
+        {
+          "at_quarters": 449.5,
+          "output": 7,
+          "pitch": 80,
+          "chord_mask": 1156,
+          "context_mask": 3510,
+          "target_quarters": 450.0,
+          "target_pitch": 82,
+          "material_identity": 6104908304673869354,
+          "resolved": true
+        }
+      ],
+      "unresolved": [],
+      "sha256": "62708c1d937143e5ad09d6e1eb72ceaa97e4113bd27d397022f5680ea21cb084",
+      "reference_id": 40046,
+      "key": 7
+    },
+    {
+      "args": [
+        3,
+        134,
+        3,
+        512,
+        128,
+        0,
+        3,
+        0,
+        1,
+        0,
+        4,
+        4,
+        0,
+        0,
+        0,
+        8
+      ],
+      "byte_equal": false,
+      "arp_events_equal": true,
+      "passing": [
+        {
+          "at_quarters": 130.5,
+          "output": 8,
+          "pitch": 69,
+          "chord_mask": 2312,
+          "context_mask": 2925,
+          "target_quarters": 131.0,
+          "target_pitch": 68,
+          "material_identity": 16850298472929787427,
+          "resolved": true
+        },
+        {
+          "at_quarters": 194.5,
+          "output": 7,
+          "pitch": 81,
+          "chord_mask": 2312,
+          "context_mask": 2925,
+          "target_quarters": 195.0,
+          "target_pitch": 83,
+          "material_identity": 16076267910321608720,
+          "resolved": true
+        },
+        {
+          "at_quarters": 258.5,
+          "output": 8,
+          "pitch": 69,
+          "chord_mask": 2312,
+          "context_mask": 2925,
+          "target_quarters": 259.0,
+          "target_pitch": 68,
+          "material_identity": 16850298472929787427,
+          "resolved": true
+        },
+        {
+          "at_quarters": 322.5,
+          "output": 7,
+          "pitch": 81,
+          "chord_mask": 2312,
+          "context_mask": 2925,
+          "target_quarters": 323.0,
+          "target_pitch": 83,
+          "material_identity": 16076267910321608720,
+          "resolved": true
+        },
+        {
+          "at_quarters": 386.5,
+          "output": 8,
+          "pitch": 69,
+          "chord_mask": 2312,
+          "context_mask": 2925,
+          "target_quarters": 387.0,
+          "target_pitch": 68,
+          "material_identity": 16850298472929787427,
+          "resolved": true
+        },
+        {
+          "at_quarters": 450.5,
+          "output": 7,
+          "pitch": 81,
+          "chord_mask": 2312,
+          "context_mask": 2925,
+          "target_quarters": 451.0,
+          "target_pitch": 83,
+          "material_identity": 16076267910321608720,
+          "resolved": true
+        }
+      ],
+      "unresolved": [],
+      "sha256": "3046e9529da45c6a4cece758889eac244413bf11f3af931419810e82ed5f8cda",
+      "reference_id": 40046,
+      "key": 8
+    },
+    {
+      "args": [
+        3,
+        134,
+        3,
+        512,
+        128,
+        0,
+        3,
+        0,
+        1,
+        0,
+        4,
+        4,
+        0,
+        0,
+        0,
+        9
+      ],
+      "byte_equal": false,
+      "arp_events_equal": true,
+      "passing": [
+        {
+          "at_quarters": 130.5,
+          "output": 8,
+          "pitch": 70,
+          "chord_mask": 529,
+          "context_mask": 1755,
+          "target_quarters": 131.0,
+          "target_pitch": 69,
+          "material_identity": 16850298472929787427,
+          "resolved": true
+        },
+        {
+          "at_quarters": 194.5,
+          "output": 7,
+          "pitch": 82,
+          "chord_mask": 529,
+          "context_mask": 1755,
+          "target_quarters": 195.0,
+          "target_pitch": 84,
+          "material_identity": 16076267910321608720,
+          "resolved": true
+        },
+        {
+          "at_quarters": 258.5,
+          "output": 8,
+          "pitch": 70,
+          "chord_mask": 529,
+          "context_mask": 1755,
+          "target_quarters": 259.0,
+          "target_pitch": 69,
+          "material_identity": 16850298472929787427,
+          "resolved": true
+        },
+        {
+          "at_quarters": 322.5,
+          "output": 7,
+          "pitch": 82,
+          "chord_mask": 529,
+          "context_mask": 1755,
+          "target_quarters": 323.0,
+          "target_pitch": 84,
+          "material_identity": 16076267910321608720,
+          "resolved": true
+        },
+        {
+          "at_quarters": 386.5,
+          "output": 8,
+          "pitch": 70,
+          "chord_mask": 529,
+          "context_mask": 1755,
+          "target_quarters": 387.0,
+          "target_pitch": 69,
+          "material_identity": 16850298472929787427,
+          "resolved": true
+        },
+        {
+          "at_quarters": 450.5,
+          "output": 7,
+          "pitch": 82,
+          "chord_mask": 529,
+          "context_mask": 1755,
+          "target_quarters": 451.0,
+          "target_pitch": 84,
+          "material_identity": 16076267910321608720,
+          "resolved": true
+        }
+      ],
+      "unresolved": [],
+      "sha256": "c660e50b83ecc0c2a936946a25cdf633e38a65735de361b1d3dba5dee489a61c",
+      "reference_id": 40046,
+      "key": 9
+    },
+    {
+      "args": [
+        3,
+        134,
+        3,
+        512,
+        128,
+        0,
+        3,
+        0,
+        1,
+        0,
+        4,
+        4,
+        0,
+        0,
+        0,
+        10
+      ],
+      "byte_equal": false,
+      "arp_events_equal": true,
+      "passing": [
+        {
+          "at_quarters": 130.5,
+          "output": 8,
+          "pitch": 71,
+          "chord_mask": 1058,
+          "context_mask": 3510,
+          "target_quarters": 131.0,
+          "target_pitch": 70,
+          "material_identity": 16850298472929787427,
+          "resolved": true
+        },
+        {
+          "at_quarters": 194.5,
+          "output": 7,
+          "pitch": 83,
+          "chord_mask": 1058,
+          "context_mask": 3510,
+          "target_quarters": 195.0,
+          "target_pitch": 85,
+          "material_identity": 16076267910321608720,
+          "resolved": true
+        },
+        {
+          "at_quarters": 258.5,
+          "output": 8,
+          "pitch": 71,
+          "chord_mask": 1058,
+          "context_mask": 3510,
+          "target_quarters": 259.0,
+          "target_pitch": 70,
+          "material_identity": 16850298472929787427,
+          "resolved": true
+        },
+        {
+          "at_quarters": 322.5,
+          "output": 7,
+          "pitch": 83,
+          "chord_mask": 1058,
+          "context_mask": 3510,
+          "target_quarters": 323.0,
+          "target_pitch": 85,
+          "material_identity": 16076267910321608720,
+          "resolved": true
+        },
+        {
+          "at_quarters": 386.5,
+          "output": 8,
+          "pitch": 71,
+          "chord_mask": 1058,
+          "context_mask": 3510,
+          "target_quarters": 387.0,
+          "target_pitch": 70,
+          "material_identity": 16850298472929787427,
+          "resolved": true
+        },
+        {
+          "at_quarters": 450.5,
+          "output": 7,
+          "pitch": 83,
+          "chord_mask": 1058,
+          "context_mask": 3510,
+          "target_quarters": 451.0,
+          "target_pitch": 85,
+          "material_identity": 16076267910321608720,
+          "resolved": true
+        }
+      ],
+      "unresolved": [],
+      "sha256": "a9b123b8e72d42ddfa8b07f9bf2439df186582162ff027648001d731a2e7b3ea",
+      "reference_id": 40046,
+      "key": 10
+    },
+    {
+      "args": [
+        3,
+        134,
+        3,
+        512,
+        128,
+        0,
+        3,
+        0,
+        1,
+        0,
+        4,
+        4,
+        0,
+        0,
+        0,
+        11
+      ],
+      "byte_equal": false,
+      "arp_events_equal": true,
+      "passing": [
+        {
+          "at_quarters": 129.5,
+          "output": 8,
+          "pitch": 72,
+          "chord_mask": 2116,
+          "context_mask": 2925,
+          "target_quarters": 130.0,
+          "target_pitch": 71,
+          "material_identity": 4383753281423383968,
+          "resolved": true
+        },
+        {
+          "at_quarters": 194.5,
+          "output": 7,
+          "pitch": 84,
+          "chord_mask": 2116,
+          "context_mask": 2925,
+          "target_quarters": 195.0,
+          "target_pitch": 86,
+          "material_identity": 16076267910321608720,
+          "resolved": true
+        },
+        {
+          "at_quarters": 257.5,
+          "output": 8,
+          "pitch": 72,
+          "chord_mask": 2116,
+          "context_mask": 2925,
+          "target_quarters": 258.0,
+          "target_pitch": 71,
+          "material_identity": 4383753281423383968,
+          "resolved": true
+        },
+        {
+          "at_quarters": 322.5,
+          "output": 7,
+          "pitch": 84,
+          "chord_mask": 2116,
+          "context_mask": 2925,
+          "target_quarters": 323.0,
+          "target_pitch": 86,
+          "material_identity": 16076267910321608720,
+          "resolved": true
+        },
+        {
+          "at_quarters": 385.5,
+          "output": 8,
+          "pitch": 72,
+          "chord_mask": 2116,
+          "context_mask": 2925,
+          "target_quarters": 386.0,
+          "target_pitch": 71,
+          "material_identity": 4383753281423383968,
+          "resolved": true
+        },
+        {
+          "at_quarters": 450.5,
+          "output": 7,
+          "pitch": 84,
+          "chord_mask": 2116,
+          "context_mask": 2925,
+          "target_quarters": 451.0,
+          "target_pitch": 86,
+          "material_identity": 16076267910321608720,
+          "resolved": true
+        }
+      ],
+      "unresolved": [],
+      "sha256": "0302e5710b6765fc8e9a2d903ff0227af1544c02775190ac9222faed976ba64e",
+      "reference_id": 40046,
+      "key": 11
+    },
+    {
+      "args": [
+        3,
+        139,
+        3,
+        512,
+        128,
+        0,
+        3,
+        0,
+        1,
+        0,
+        4,
+        4,
+        0,
+        0,
+        0,
+        0
+      ],
+      "byte_equal": false,
+      "arp_events_equal": true,
+      "passing": [
+        {
+          "at_quarters": 129.5,
+          "output": 8,
+          "pitch": 73,
+          "chord_mask": 137,
+          "context_mask": 1755,
+          "target_quarters": 130.0,
+          "target_pitch": 72,
+          "material_identity": 13106895589071053772,
+          "resolved": true
+        },
+        {
+          "at_quarters": 194.5,
+          "output": 7,
+          "pitch": 85,
+          "chord_mask": 137,
+          "context_mask": 1755,
+          "target_quarters": 195.0,
+          "target_pitch": 87,
+          "material_identity": 4876167472332399924,
+          "resolved": true
+        },
+        {
+          "at_quarters": 257.5,
+          "output": 8,
+          "pitch": 73,
+          "chord_mask": 137,
+          "context_mask": 1755,
+          "target_quarters": 258.0,
+          "target_pitch": 72,
+          "material_identity": 13106895589071053772,
+          "resolved": true
+        },
+        {
+          "at_quarters": 322.5,
+          "output": 7,
+          "pitch": 85,
+          "chord_mask": 137,
+          "context_mask": 1755,
+          "target_quarters": 323.0,
+          "target_pitch": 87,
+          "material_identity": 4876167472332399924,
+          "resolved": true
+        },
+        {
+          "at_quarters": 385.5,
+          "output": 8,
+          "pitch": 73,
+          "chord_mask": 137,
+          "context_mask": 1755,
+          "target_quarters": 386.0,
+          "target_pitch": 72,
+          "material_identity": 13106895589071053772,
+          "resolved": true
+        },
+        {
+          "at_quarters": 450.5,
+          "output": 7,
+          "pitch": 85,
+          "chord_mask": 137,
+          "context_mask": 1755,
+          "target_quarters": 451.0,
+          "target_pitch": 87,
+          "material_identity": 4876167472332399924,
+          "resolved": true
+        }
+      ],
+      "unresolved": [],
+      "sha256": "fc9cc47390fa5ae67eb5c8fa44b31bb71fa536e57e06777b4018b858636cd824",
+      "reference_id": 40054,
+      "key": 0
+    },
+    {
+      "args": [
+        3,
+        139,
+        3,
+        512,
+        128,
+        0,
+        3,
+        0,
+        1,
+        0,
+        4,
+        4,
+        0,
+        0,
+        0,
+        1
+      ],
+      "byte_equal": false,
+      "arp_events_equal": true,
+      "passing": [
+        {
+          "at_quarters": 129.5,
+          "output": 8,
+          "pitch": 74,
+          "chord_mask": 274,
+          "context_mask": 3510,
+          "target_quarters": 130.0,
+          "target_pitch": 73,
+          "material_identity": 13106895589071053772,
+          "resolved": true
+        },
+        {
+          "at_quarters": 257.5,
+          "output": 8,
+          "pitch": 74,
+          "chord_mask": 274,
+          "context_mask": 3510,
+          "target_quarters": 258.0,
+          "target_pitch": 73,
+          "material_identity": 13106895589071053772,
+          "resolved": true
+        },
+        {
+          "at_quarters": 385.5,
+          "output": 8,
+          "pitch": 74,
+          "chord_mask": 274,
+          "context_mask": 3510,
+          "target_quarters": 386.0,
+          "target_pitch": 73,
+          "material_identity": 13106895589071053772,
+          "resolved": true
+        }
+      ],
+      "unresolved": [],
+      "sha256": "0ea58a6ef5a2d6ada899c176e3b570427eb1421f09620399874e29655d391cb3",
+      "reference_id": 40054,
+      "key": 1
+    },
+    {
+      "args": [
+        3,
+        139,
+        3,
+        512,
+        128,
+        0,
+        3,
+        0,
+        1,
+        0,
+        4,
+        4,
+        0,
+        0,
+        0,
+        2
+      ],
+      "byte_equal": false,
+      "arp_events_equal": true,
+      "passing": [
+        {
+          "at_quarters": 129.5,
+          "output": 8,
+          "pitch": 75,
+          "chord_mask": 548,
+          "context_mask": 2925,
+          "target_quarters": 130.0,
+          "target_pitch": 74,
+          "material_identity": 13106895589071053772,
+          "resolved": true
+        },
+        {
+          "at_quarters": 257.5,
+          "output": 8,
+          "pitch": 75,
+          "chord_mask": 548,
+          "context_mask": 2925,
+          "target_quarters": 258.0,
+          "target_pitch": 74,
+          "material_identity": 13106895589071053772,
+          "resolved": true
+        },
+        {
+          "at_quarters": 385.5,
+          "output": 8,
+          "pitch": 75,
+          "chord_mask": 548,
+          "context_mask": 2925,
+          "target_quarters": 386.0,
+          "target_pitch": 74,
+          "material_identity": 13106895589071053772,
+          "resolved": true
+        }
+      ],
+      "unresolved": [],
+      "sha256": "927ddd590b8c9c1430fc6b3fbf18a137d1018e42d798b51abc1318c641171da6",
+      "reference_id": 40054,
+      "key": 2
+    },
+    {
+      "args": [
+        3,
+        139,
+        3,
+        512,
+        128,
+        0,
+        3,
+        0,
+        1,
+        0,
+        4,
+        4,
+        0,
+        0,
+        0,
+        3
+      ],
+      "byte_equal": false,
+      "arp_events_equal": true,
+      "passing": [],
+      "unresolved": [],
+      "sha256": "76426aebba9e0fc8fe88e8f0df3053f7c2b80d431593bffae29b2d9f672dd153",
+      "reference_id": 40054,
+      "key": 3
+    },
+    {
+      "args": [
+        3,
+        139,
+        3,
+        512,
+        128,
+        0,
+        3,
+        0,
+        1,
+        0,
+        4,
+        4,
+        0,
+        0,
+        0,
+        4
+      ],
+      "byte_equal": false,
+      "arp_events_equal": true,
+      "passing": [
+        {
+          "at_quarters": 193.5,
+          "output": 7,
+          "pitch": 77,
+          "chord_mask": 2192,
+          "context_mask": 3510,
+          "target_quarters": 194.0,
+          "target_pitch": 79,
+          "material_identity": 11371242056848765643,
+          "resolved": true
+        },
+        {
+          "at_quarters": 321.5,
+          "output": 7,
+          "pitch": 77,
+          "chord_mask": 2192,
+          "context_mask": 3510,
+          "target_quarters": 322.0,
+          "target_pitch": 79,
+          "material_identity": 11371242056848765643,
+          "resolved": true
+        },
+        {
+          "at_quarters": 449.5,
+          "output": 7,
+          "pitch": 77,
+          "chord_mask": 2192,
+          "context_mask": 3510,
+          "target_quarters": 450.0,
+          "target_pitch": 79,
+          "material_identity": 11371242056848765643,
+          "resolved": true
+        }
+      ],
+      "unresolved": [],
+      "sha256": "8986b8f441e50eba2e526933c3845892549344c32189bfd768588855b2f9b999",
+      "reference_id": 40054,
+      "key": 4
+    },
+    {
+      "args": [
+        3,
+        139,
+        3,
+        512,
+        128,
+        0,
+        3,
+        0,
+        1,
+        0,
+        4,
+        4,
+        0,
+        0,
+        0,
+        5
+      ],
+      "byte_equal": false,
+      "arp_events_equal": true,
+      "passing": [
+        {
+          "at_quarters": 193.5,
+          "output": 7,
+          "pitch": 78,
+          "chord_mask": 289,
+          "context_mask": 2925,
+          "target_quarters": 194.0,
+          "target_pitch": 80,
+          "material_identity": 11371242056848765643,
+          "resolved": true
+        },
+        {
+          "at_quarters": 321.5,
+          "output": 7,
+          "pitch": 78,
+          "chord_mask": 289,
+          "context_mask": 2925,
+          "target_quarters": 322.0,
+          "target_pitch": 80,
+          "material_identity": 11371242056848765643,
+          "resolved": true
+        },
+        {
+          "at_quarters": 449.5,
+          "output": 7,
+          "pitch": 78,
+          "chord_mask": 289,
+          "context_mask": 2925,
+          "target_quarters": 450.0,
+          "target_pitch": 80,
+          "material_identity": 11371242056848765643,
+          "resolved": true
+        }
+      ],
+      "unresolved": [],
+      "sha256": "e2c5fb81b54da31e797db4fff538f1473e4a75db1093aa2a73667521f4dfcbac",
+      "reference_id": 40054,
+      "key": 5
+    },
+    {
+      "args": [
+        3,
+        139,
+        3,
+        512,
+        128,
+        0,
+        3,
+        0,
+        1,
+        0,
+        4,
+        4,
+        0,
+        0,
+        0,
+        6
+      ],
+      "byte_equal": false,
+      "arp_events_equal": true,
+      "passing": [
+        {
+          "at_quarters": 193.5,
+          "output": 7,
+          "pitch": 79,
+          "chord_mask": 578,
+          "context_mask": 1755,
+          "target_quarters": 194.0,
+          "target_pitch": 81,
+          "material_identity": 11371242056848765643,
+          "resolved": true
+        },
+        {
+          "at_quarters": 321.5,
+          "output": 7,
+          "pitch": 79,
+          "chord_mask": 578,
+          "context_mask": 1755,
+          "target_quarters": 322.0,
+          "target_pitch": 81,
+          "material_identity": 11371242056848765643,
+          "resolved": true
+        },
+        {
+          "at_quarters": 449.5,
+          "output": 7,
+          "pitch": 79,
+          "chord_mask": 578,
+          "context_mask": 1755,
+          "target_quarters": 450.0,
+          "target_pitch": 81,
+          "material_identity": 11371242056848765643,
+          "resolved": true
+        }
+      ],
+      "unresolved": [],
+      "sha256": "7def1a90d7b372e73416b18bdf8b2e13098097d1b23adc021d44e01c0d658636",
+      "reference_id": 40054,
+      "key": 6
+    },
+    {
+      "args": [
+        3,
+        139,
+        3,
+        512,
+        128,
+        0,
+        3,
+        0,
+        1,
+        0,
+        4,
+        4,
+        0,
+        0,
+        0,
+        7
+      ],
+      "byte_equal": false,
+      "arp_events_equal": true,
+      "passing": [
+        {
+          "at_quarters": 193.5,
+          "output": 7,
+          "pitch": 80,
+          "chord_mask": 1156,
+          "context_mask": 3510,
+          "target_quarters": 194.0,
+          "target_pitch": 82,
+          "material_identity": 11371242056848765643,
+          "resolved": true
+        },
+        {
+          "at_quarters": 321.5,
+          "output": 7,
+          "pitch": 80,
+          "chord_mask": 1156,
+          "context_mask": 3510,
+          "target_quarters": 322.0,
+          "target_pitch": 82,
+          "material_identity": 11371242056848765643,
+          "resolved": true
+        },
+        {
+          "at_quarters": 449.5,
+          "output": 7,
+          "pitch": 80,
+          "chord_mask": 1156,
+          "context_mask": 3510,
+          "target_quarters": 450.0,
+          "target_pitch": 82,
+          "material_identity": 11371242056848765643,
+          "resolved": true
+        }
+      ],
+      "unresolved": [],
+      "sha256": "8e094579eeff23fc6a043a3a05b747c80436434becabc17cb1adc750c2ffe293",
+      "reference_id": 40054,
+      "key": 7
+    },
+    {
+      "args": [
+        3,
+        139,
+        3,
+        512,
+        128,
+        0,
+        3,
+        0,
+        1,
+        0,
+        4,
+        4,
+        0,
+        0,
+        0,
+        8
+      ],
+      "byte_equal": false,
+      "arp_events_equal": true,
+      "passing": [
+        {
+          "at_quarters": 130.5,
+          "output": 8,
+          "pitch": 69,
+          "chord_mask": 2312,
+          "context_mask": 2925,
+          "target_quarters": 131.0,
+          "target_pitch": 68,
+          "material_identity": 4616484974260104154,
+          "resolved": true
+        },
+        {
+          "at_quarters": 193.5,
+          "output": 7,
+          "pitch": 81,
+          "chord_mask": 2312,
+          "context_mask": 2925,
+          "target_quarters": 194.0,
+          "target_pitch": 83,
+          "material_identity": 11371242056848765643,
+          "resolved": true
+        },
+        {
+          "at_quarters": 258.5,
+          "output": 8,
+          "pitch": 69,
+          "chord_mask": 2312,
+          "context_mask": 2925,
+          "target_quarters": 259.0,
+          "target_pitch": 68,
+          "material_identity": 4616484974260104154,
+          "resolved": true
+        },
+        {
+          "at_quarters": 321.5,
+          "output": 7,
+          "pitch": 81,
+          "chord_mask": 2312,
+          "context_mask": 2925,
+          "target_quarters": 322.0,
+          "target_pitch": 83,
+          "material_identity": 11371242056848765643,
+          "resolved": true
+        },
+        {
+          "at_quarters": 386.5,
+          "output": 8,
+          "pitch": 69,
+          "chord_mask": 2312,
+          "context_mask": 2925,
+          "target_quarters": 387.0,
+          "target_pitch": 68,
+          "material_identity": 4616484974260104154,
+          "resolved": true
+        },
+        {
+          "at_quarters": 449.5,
+          "output": 7,
+          "pitch": 81,
+          "chord_mask": 2312,
+          "context_mask": 2925,
+          "target_quarters": 450.0,
+          "target_pitch": 83,
+          "material_identity": 11371242056848765643,
+          "resolved": true
+        }
+      ],
+      "unresolved": [],
+      "sha256": "3b0634f7cdaf691c68e5f669186eee7af464d21e8ae364994583ac825d261736",
+      "reference_id": 40054,
+      "key": 8
+    },
+    {
+      "args": [
+        3,
+        139,
+        3,
+        512,
+        128,
+        0,
+        3,
+        0,
+        1,
+        0,
+        4,
+        4,
+        0,
+        0,
+        0,
+        9
+      ],
+      "byte_equal": false,
+      "arp_events_equal": true,
+      "passing": [
+        {
+          "at_quarters": 130.5,
+          "output": 8,
+          "pitch": 70,
+          "chord_mask": 529,
+          "context_mask": 1755,
+          "target_quarters": 131.0,
+          "target_pitch": 69,
+          "material_identity": 4616484974260104154,
+          "resolved": true
+        },
+        {
+          "at_quarters": 194.5,
+          "output": 7,
+          "pitch": 82,
+          "chord_mask": 529,
+          "context_mask": 1755,
+          "target_quarters": 195.0,
+          "target_pitch": 84,
+          "material_identity": 4876167472332399924,
+          "resolved": true
+        },
+        {
+          "at_quarters": 258.5,
+          "output": 8,
+          "pitch": 70,
+          "chord_mask": 529,
+          "context_mask": 1755,
+          "target_quarters": 259.0,
+          "target_pitch": 69,
+          "material_identity": 4616484974260104154,
+          "resolved": true
+        },
+        {
+          "at_quarters": 322.5,
+          "output": 7,
+          "pitch": 82,
+          "chord_mask": 529,
+          "context_mask": 1755,
+          "target_quarters": 323.0,
+          "target_pitch": 84,
+          "material_identity": 4876167472332399924,
+          "resolved": true
+        },
+        {
+          "at_quarters": 386.5,
+          "output": 8,
+          "pitch": 70,
+          "chord_mask": 529,
+          "context_mask": 1755,
+          "target_quarters": 387.0,
+          "target_pitch": 69,
+          "material_identity": 4616484974260104154,
+          "resolved": true
+        },
+        {
+          "at_quarters": 450.5,
+          "output": 7,
+          "pitch": 82,
+          "chord_mask": 529,
+          "context_mask": 1755,
+          "target_quarters": 451.0,
+          "target_pitch": 84,
+          "material_identity": 4876167472332399924,
+          "resolved": true
+        }
+      ],
+      "unresolved": [],
+      "sha256": "d4657ae45cbf656a4120538dc308867d8e98668777040ef814ef4ae2ad260aef",
+      "reference_id": 40054,
+      "key": 9
+    },
+    {
+      "args": [
+        3,
+        139,
+        3,
+        512,
+        128,
+        0,
+        3,
+        0,
+        1,
+        0,
+        4,
+        4,
+        0,
+        0,
+        0,
+        10
+      ],
+      "byte_equal": false,
+      "arp_events_equal": true,
+      "passing": [
+        {
+          "at_quarters": 130.5,
+          "output": 8,
+          "pitch": 71,
+          "chord_mask": 1058,
+          "context_mask": 3510,
+          "target_quarters": 131.0,
+          "target_pitch": 70,
+          "material_identity": 4616484974260104154,
+          "resolved": true
+        },
+        {
+          "at_quarters": 194.5,
+          "output": 7,
+          "pitch": 83,
+          "chord_mask": 1058,
+          "context_mask": 3510,
+          "target_quarters": 195.0,
+          "target_pitch": 85,
+          "material_identity": 4876167472332399924,
+          "resolved": true
+        },
+        {
+          "at_quarters": 258.5,
+          "output": 8,
+          "pitch": 71,
+          "chord_mask": 1058,
+          "context_mask": 3510,
+          "target_quarters": 259.0,
+          "target_pitch": 70,
+          "material_identity": 4616484974260104154,
+          "resolved": true
+        },
+        {
+          "at_quarters": 322.5,
+          "output": 7,
+          "pitch": 83,
+          "chord_mask": 1058,
+          "context_mask": 3510,
+          "target_quarters": 323.0,
+          "target_pitch": 85,
+          "material_identity": 4876167472332399924,
+          "resolved": true
+        },
+        {
+          "at_quarters": 386.5,
+          "output": 8,
+          "pitch": 71,
+          "chord_mask": 1058,
+          "context_mask": 3510,
+          "target_quarters": 387.0,
+          "target_pitch": 70,
+          "material_identity": 4616484974260104154,
+          "resolved": true
+        },
+        {
+          "at_quarters": 450.5,
+          "output": 7,
+          "pitch": 83,
+          "chord_mask": 1058,
+          "context_mask": 3510,
+          "target_quarters": 451.0,
+          "target_pitch": 85,
+          "material_identity": 4876167472332399924,
+          "resolved": true
+        }
+      ],
+      "unresolved": [],
+      "sha256": "0dc52b7e232fbab6e9fc907a90200a8ad904d136ede8fe737e60d3d237d48ba0",
+      "reference_id": 40054,
+      "key": 10
+    },
+    {
+      "args": [
+        3,
+        139,
+        3,
+        512,
+        128,
+        0,
+        3,
+        0,
+        1,
+        0,
+        4,
+        4,
+        0,
+        0,
+        0,
+        11
+      ],
+      "byte_equal": false,
+      "arp_events_equal": true,
+      "passing": [
+        {
+          "at_quarters": 130.5,
+          "output": 8,
+          "pitch": 72,
+          "chord_mask": 2116,
+          "context_mask": 2925,
+          "target_quarters": 131.0,
+          "target_pitch": 71,
+          "material_identity": 4616484974260104154,
+          "resolved": true
+        },
+        {
+          "at_quarters": 194.5,
+          "output": 7,
+          "pitch": 84,
+          "chord_mask": 2116,
+          "context_mask": 2925,
+          "target_quarters": 195.0,
+          "target_pitch": 86,
+          "material_identity": 4876167472332399924,
+          "resolved": true
+        },
+        {
+          "at_quarters": 258.5,
+          "output": 8,
+          "pitch": 72,
+          "chord_mask": 2116,
+          "context_mask": 2925,
+          "target_quarters": 259.0,
+          "target_pitch": 71,
+          "material_identity": 4616484974260104154,
+          "resolved": true
+        },
+        {
+          "at_quarters": 322.5,
+          "output": 7,
+          "pitch": 84,
+          "chord_mask": 2116,
+          "context_mask": 2925,
+          "target_quarters": 323.0,
+          "target_pitch": 86,
+          "material_identity": 4876167472332399924,
+          "resolved": true
+        },
+        {
+          "at_quarters": 386.5,
+          "output": 8,
+          "pitch": 72,
+          "chord_mask": 2116,
+          "context_mask": 2925,
+          "target_quarters": 387.0,
+          "target_pitch": 71,
+          "material_identity": 4616484974260104154,
+          "resolved": true
+        },
+        {
+          "at_quarters": 450.5,
+          "output": 7,
+          "pitch": 84,
+          "chord_mask": 2116,
+          "context_mask": 2925,
+          "target_quarters": 451.0,
+          "target_pitch": 86,
+          "material_identity": 4876167472332399924,
+          "resolved": true
+        }
+      ],
+      "unresolved": [],
+      "sha256": "6a9d6eab289ea736dcba90eae0797bdb88fc47ea6c3036111f4bcac25eb825c0",
+      "reference_id": 40054,
+      "key": 11
+    }
+  ],
+  "swing_reference": {
+    "args": [
+      3,
+      110,
+      3,
+      512,
+      128,
+      0,
+      3,
+      0,
+      1,
+      0.3,
+      4,
+      4,
+      0,
+      0,
+      0,
+      0
+    ],
+    "passing": [
+      {
+        "at_quarters": 129.55003472222222,
+        "output": 8,
+        "pitch": 73,
+        "target_quarters": 130.0,
+        "target_pitch": 72,
+        "resolved": true
+      },
+      {
+        "at_quarters": 257.5500347222222,
+        "output": 8,
+        "pitch": 73,
+        "target_quarters": 258.0,
+        "target_pitch": 72,
+        "resolved": true
+      },
+      {
+        "at_quarters": 385.5500347222222,
+        "output": 8,
+        "pitch": 73,
+        "target_quarters": 386.0,
+        "target_pitch": 72,
+        "resolved": true
+      }
+    ],
+    "unresolved": [],
+    "accompaniment_unchanged": true
+  }
+}

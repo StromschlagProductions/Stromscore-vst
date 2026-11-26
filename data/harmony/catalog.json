@@ -6824,7 +6824,7 @@
       ],
       "tonality": {
         "center_pc": 0,
-        "mode": "automatic"
+        "mode": "octatonic"
       },
       "source_ref": "JW-H12",
       "coloration": "protected",
@@ -6956,7 +6956,7 @@
       ],
       "tonality": {
         "center_pc": 0,
-        "mode": "automatic"
+        "mode": "octatonic"
       },
       "source_ref": "JW-H14",
       "coloration": "protected",
@@ -7007,7 +7007,7 @@
       ],
       "tonality": {
         "center_pc": 0,
-        "mode": "automatic"
+        "mode": "octatonic"
       },
       "source_ref": "JW-H15",
       "coloration": "protected",
@@ -7058,7 +7058,7 @@
       ],
       "tonality": {
         "center_pc": 0,
-        "mode": "automatic"
+        "mode": "octatonic"
       },
       "source_ref": "JW-H16",
       "coloration": "protected",
@@ -7127,7 +7127,7 @@
       ],
       "tonality": {
         "center_pc": 0,
-        "mode": "automatic"
+        "mode": "octatonic"
       },
       "source_ref": "JW-H17",
       "coloration": "protected",
@@ -7172,7 +7172,7 @@
       ],
       "tonality": {
         "center_pc": 0,
-        "mode": "automatic"
+        "mode": "octatonic"
       },
       "source_ref": "JW-H19",
       "coloration": "protected",
@@ -8300,7 +8300,7 @@
       ],
       "tonality": {
         "center_pc": 0,
-        "mode": "automatic"
+        "mode": "octatonic"
       },
       "source_ref": "JW-H46",
       "coloration": "protected",
@@ -8597,7 +8597,7 @@
       ],
       "tonality": {
         "center_pc": 0,
-        "mode": "automatic"
+        "mode": "octatonic"
       },
       "source_ref": "JW-H54",
       "coloration": "protected",

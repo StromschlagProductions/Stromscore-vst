@@ -39,7 +39,7 @@ def main():
    x=by[f'JW-H{number:02}'];assert x['classification']=='Direkt umsetzbar';identifier=40000+number;ids.append(identifier)
    assert all(c['type'] and c['bars'].is_integer() for c in x['chords']) and len(x['chords'])<=8
    cat['sources'].append(dict(id=x['id'],text='Canonical John Williams constructed study '+x['id'],verification='E: constructed, not transcription'))
-   cat['templates'].append(dict(id=identifier,symbol=f'williamsH{number:02}',name=x['id']+' – '+x['name'],xyz=x['xyz'],genres=['score'],tonality=dict(center_pc=0,mode='automatic'),source_ref=x['id'],coloration='protected',chords=[dict(root=c['root'],type=c['type'],bars=int(c['bars']),bass=c['bass']) for c in x['chords']]))
+   cat['templates'].append(dict(id=identifier,symbol=f'williamsH{number:02}',name=x['id']+' – '+x['name'],xyz=x['xyz'],genres=['score'],tonality=dict(center_pc=0,mode='octatonic' if x['system']=='Okt-A' else 'automatic'),source_ref=x['id'],coloration='protected',chords=[dict(root=c['root'],type=c['type'],bars=int(c['bars']),bass=c['bass']) for c in x['chords']]))
    recipe='williams_'+str(number);y,z=x['xyz'][1:]
    arr['recipes'].append(dict(id=recipe,arp=['ArpCircle','ArpUp'],bass=['BassHeld','BassPedal'] if y<.4 else ['BassQuarter','BassAlternating'] if z<.6 else ['BassPendulum','BassEighth'],pad='PadHeld' if y<.5 or number in (13,33,49,55,57,67,69) else 'PadPulse',hook=None));arr['bindings'].append(dict(template_id=identifier,recipe=recipe))
    notes['entries'].append(dict(template_id=identifier,idea='Constructed Williams harmony; '+x['system']+' chord relationship, not a shared role scale.',instruments='Independent of patch; long/short destinations retain their capabilities.'))
@@ -56,6 +56,7 @@ def main():
   cat=json.loads((ROOT/'data/harmony/catalog.json').read_text(encoding='utf-8'));templates={t['id']:t for t in cat['templates']}
   for number in H:
    x=by[f'JW-H{number:02}'];t=templates[40000+number]
+   assert t['tonality']==dict(center_pc=0,mode='octatonic' if x['system']=='Okt-A' else 'automatic')
    assert t['xyz']==x['xyz'] and t['coloration']=='protected' and t['source_ref']==x['id']
    assert t['chords']==[dict(root=c['root'],type=c['type'],bars=int(c['bars']),bass=c['bass']) for c in x['chords']]
 

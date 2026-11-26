@@ -48,6 +48,7 @@ N/I/H/E sind Evidenzangaben des Berichts, keine hier neu bestätigten Belege.
 Der [gemeinsame Fähigkeitsbericht](SHARED_MUSICAL_CAPABILITIES.md) gleicht Williams
 und Herrmann mit Engine `ddad94b` ab, dokumentiert offene Notations-/Evidenzfragen
 und empfiehlt kleine gemeinsame Erweiterungen. Originaltexte bleiben unverändert;
-Forschungsrezepte sind keine Aufträge für Engine-Änderungen. Williams P1 wartet
-weiterhin auf die musikalische Hörabnahme. Die projektweite Priorisierung steht in
+Forschungsrezepte sind keine Aufträge für Engine-Änderungen. Die erste Williams-P1-Grundlage samt Arp-Phrasierung ist inzwischen positiv
+gehört; siehe [Abnahme 2c6f366](../development/ACCEPTED_REFERENCE_2c6f366.md).
+Der neue [P2-Kontext](john-williams/P2_OCTATONIC.md) wartet auf seine eigene Hörabnahme. Die projektweite Priorisierung steht in
 [`docs/MUSICAL_DIRECTION.md`](../MUSICAL_DIRECTION.md).

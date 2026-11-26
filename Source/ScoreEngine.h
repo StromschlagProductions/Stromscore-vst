@@ -1097,6 +1097,7 @@ private:
         for(auto value:{int64_t(current),wendungTime.value,int64_t(chordBase),int64_t(still),int64_t(s.key),
             int64_t(meter.len),int64_t(phraseBars),int64_t(allowsPassingHarmony(s)&&s.y>=.6f)})add(value);
         const auto& w=W();for(int i=0;i<w.n;++i){add(w.ch[i].root);add(w.ch[i].type);add(w.ch[i].bars);}
+        const auto tonal=modalContextFor(s);add(static_cast<int>(tonal.mode));add(tonal.mask);
         const auto c=outputCatalog(s)[output].track.instrument;
         add(c.range.low);add(c.range.high);add(c.minDuration.value);add(c.maxDuration.value);
         const auto& policy=s.genre==GenrePopRock&&output==OutCounter?s.policy.popHooks.recurrence:s.policy.motif;
@@ -1121,7 +1122,23 @@ private:
             {
                 const auto h=motifHarmonyAt(at,s);unsigned mask=0;
                 for(int j=0;j<kShapes[h.chord.type].n;++j)mask|=composition::pitchBit(s.key+h.chord.root+kShapes[h.chord.type].iv[j]);
-                if(!(mask&composition::pitchBit(pitch))||h.end<=at)return false;
+                if(!(mask&composition::pitchBit(pitch))){
+                    const int index=plan.figure.passingIndex;
+                    if(s.genre!=GenreScore||i!=index||i<1||i+1>=plan.figure.count)return false;
+                    const auto context=modalContextFor(s);
+                    if(context.mode!=composition::Mode::octatonic||context.status!=composition::ModalStatus::unique)return false;
+                    const auto& before=plan.figure.notes[i-1];const auto& target=plan.figure.notes[i+1];
+                    composition::PassingRequest request;request.context=context;request.chordMask=mask;
+                    request.root=s.key+h.chord.root;request.bassPitchClass=s.key+bassRoot(h.chord);
+                    request.source=plan.base+before.interval;request.target=plan.base+target.interval;
+                    request.sourceAt=plan.begin+before.at;request.targetAt=plan.begin+target.at;
+                    request.low=capability.range.low;request.high=capability.range.high;
+                    request.harmonyBegin=request.sourceAt;request.harmonyEnd=h.end;
+                    request.minDuration=n.length;request.maxDuration=n.length;
+                    const auto passing=composition::planPassingTone(request);
+                    if(!passing.valid||passing.pitch!=pitch||passing.begin!=at||passing.end!=end)return false;
+                }
+                if(h.end<=at)return false;
                 at=std::min(end,h.end);
             }
             if(at<end)return false;
@@ -1208,10 +1225,12 @@ private:
     {
         if(popMelodicRoles(s)&&output==OutMelody)return;
         const auto& policy=s.policy.passing;
-        if(s.genre!=GenrePopRock||!phrasedHook(s)||!policy.enabled||!occurrence.active||occurrence.introduction
+        const auto context=modalContextFor(s);
+        const bool scoreCollection=s.genre==GenreScore&&context.status==composition::ModalStatus::unique&&context.mode==composition::Mode::octatonic;
+        if((!scoreCollection&&(s.genre!=GenrePopRock||!phrasedHook(s)))||!policy.enabled||!occurrence.active||occurrence.introduction
             ||occurrence.figure.variation!=composition::MotifVariation::original||occurrence.ordinal%policy.opportunityStride)return;
         auto& figure=occurrence.figure;if(figure.count>=10)return;
-        const auto context=modalContextFor(s);if(context.status!=composition::ModalStatus::unique)return;
+        if(context.status!=composition::ModalStatus::unique)return;
         const auto capabilities=outputCatalog(s)[output].track.instrument;
         for(int i=0;i+1<figure.count;++i)
         {
@@ -3770,7 +3789,13 @@ private:
         request.goalPitchClass=(s.key+chord.root+interval)%12;
         request.descending=s.x<.5f;request.notes=layerY(s,kGegenstimme)>=.7f?4:3;
         request.legato=s.legato;request.initialNeighbour=s.z>=.75f?1:s.z>=.5f?2:0;
-        return composition::planLinePhrase(request);
+        auto plan=composition::planLinePhrase(request);
+        const auto context=modalContextFor(s);
+        if(context.status==composition::ModalStatus::unique&&context.mode==composition::Mode::octatonic)
+            for(int i=0;i<plan.count;++i)if(!(context.mask&composition::pitchBit(plan.notes[i].pitch+oct))){
+                request.initialNeighbour=0;return composition::planLinePhrase(request);
+            }
+        return plan;
     }
 
     bool freePhraseStep(musicaltime::Tick time,const Pos& p,const Settings& s,int offset,EventList& out,
@@ -3821,7 +3846,11 @@ private:
         const Chord c = chordFor (p, kOutputLayer[output], s);
         const auto end = rate > musicaltime::Tick{} ? std::min (p.chordEndTime, time + rate) : p.chordEndTime;
         const int target = counterTarget (c, s, chordStart, k,output);
-        if (output==OutCounter && s.z >= 0.5f && chordStart && end - time >= 2*musicaltime::quarter)               // Unruhe: Vorhalt von oben, loest auf den Zielton auf
+        const auto pitchContext=modalContextFor(s);
+        const int neighbour=target+(s.z>=.75f?1:2);
+        const bool permittedNeighbour=pitchContext.mode!=composition::Mode::octatonic
+            ||(pitchContext.mask&composition::pitchBit(neighbour+12*octaveOf(output)));
+        if (output==OutCounter && permittedNeighbour && s.z >= 0.5f && chordStart && end - time >= 2*musicaltime::quarter)               // Unruhe: Vorhalt von oben, loest auf den Zielton auf
         {
             const int sus = target + (s.z >= 0.75f ? 1 : 2);
             noteOn (OutCounter, sus, vel + 6, time + musicaltime::quarter + (s.legato ? musicaltime::sixteenth : musicaltime::Tick{}), offset, out);

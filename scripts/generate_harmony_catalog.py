@@ -8,7 +8,7 @@ ARP='ArpAuto ArpUp ArpDown ArpCircle ArpCell ArpRiff ArpGlitter ArpLeaps ArpCasc
 BASS='BassAuto BassHeld BassHalf BassQuarter BassEighth BassPulse BassFunk BassPendulum BassWalking BassAlternating BassHeartbeat BassArpeggio BassPedal BassHiNrg BassGallop'.split()
 PAD='PadAuto PadHeld PadStabs PadPulse PadStaccato PadGated'.split()
 ENGINE_VOCABULARY_SIGNATURE='b9358ee8884a096c609ef792ca9ad2cc065650a3ec805c2aa6c13dcf38c67c68' # existing engine contract, not a second chord dictionary
-MODES={'automatic':None,'ionian':{0,2,4,5,7,9,11},'mixolydian':{0,2,4,5,7,9,10},'dorian':{0,2,3,5,7,9,10},'aeolian':{0,2,3,5,7,8,10}}
+MODES={'automatic':None,'ionian':{0,2,4,5,7,9,11},'mixolydian':{0,2,4,5,7,9,10},'dorian':{0,2,3,5,7,9,10},'aeolian':{0,2,3,5,7,8,10},'octatonic':{0,1,3,4,6,7,9,10}}
 KEYWORDS=set('alignas alignof and asm auto bool break case catch char char16_t char32_t class const const_cast constexpr continue decltype default delete do double dynamic_cast else enum explicit export extern false float for friend goto if inline int long mutable namespace new noexcept not nullptr operator or private protected public register reinterpret_cast return short signed sizeof static static_assert static_cast struct switch template this thread_local throw true try typedef typeid typename union unsigned using virtual void volatile wchar_t while xor xor_eq and_eq bitand bitor compl not_eq or_eq template'.split())
 class ValidationError(ValueError):pass
 def require(ok,path,message):

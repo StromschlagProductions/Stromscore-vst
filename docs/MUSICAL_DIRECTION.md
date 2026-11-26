@@ -5,6 +5,12 @@ STROMSCORE bleibt ein spezialisiertes Hörspiel-Underscoring-Werkzeug, kein
 universeller Songgenerator oder Orchesterarranger. Ausgangspunkt dieser Phase
 ist die positive Hörabnahme von `8d4086c`.
 
+Fortschreibung vom 26. November 2026: Die Williams-Arp-Phrasierung `2c6f366` wurde
+vom Anwender positiv gehört und musikalisch abgenommen; siehe
+[Referenzabnahme](development/ACCEPTED_REFERENCE_2c6f366.md). Sie bleibt für Williams P2
+unverändert. Der freigegebene nächste Schritt ist ein erster gemeinsamer
+Oktatonik-Kontext, keine weitere Arpeggio-Optimierung.
+
 ## Prioritäten für Forschung und Entwicklung
 
 Höchste Priorität: Mystik, Geheimnis, subtile Spannung, psychologisches Unbehagen,
@@ -78,8 +84,8 @@ keine jetzige Routing- oder Artikulationserweiterung.
 
 Die Entscheidung wird zunächst ausschließlich dokumentiert. Keine Änderung an
 Engine, GUI, MIDI-Ausgängen, XYZ-Steuerung oder aktuellem musikalischem Verhalten;
-keine vorsorglichen Architekturumbauten. Williams P1 wartet weiterhin auf die
-musikalische Hörabnahme. Gemeinsame Anknüpfungspunkte stehen im
+keine vorsorglichen Architekturumbauten. Die erste Williams-P1-Grundlage und ihre Arp-Phrasierung sind inzwischen
+positiv gehört; das vollständige Stilprofil bleibt weiter auszuarbeiten. Gemeinsame Anknüpfungspunkte stehen im
 [musikalischen Fähigkeitsbericht](research/SHARED_MUSICAL_CAPABILITIES.md).
 
 ## Bedeutung der drei Achsen

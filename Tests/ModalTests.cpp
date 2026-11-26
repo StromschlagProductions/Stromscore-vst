@@ -8,6 +8,23 @@ int main()
 {
  for(int key=0;key<12;++key)
  {
+  const auto mask=modalMask(Mode::octatonic,key);
+  CHECK(mask==modalMask(Mode::octatonic,key+3));
+  CHECK(mask!=modalMask(Mode::octatonic,key+1));
+  int size=0;for(int pc=0;pc<12;++pc)size+=(mask>>pc)&1u;CHECK(size==8);
+  const unsigned chord=pitchBit(key)|pitchBit(key+3)|pitchBit(key+7);
+  auto explicitContext=modalContext(chord,key,false,Mode::octatonic);
+  CHECK(explicitContext.status==ModalStatus::unique&&explicitContext.mask==mask);
+  CHECK(membership(explicitContext,chord,key)==PitchMembership::chord);
+  CHECK(membership(explicitContext,chord,key+1)==PitchMembership::collection);
+  CHECK(membership(explicitContext,chord,key+2)==PitchMembership::excluded);
+  CHECK(modalContext(mask|pitchBit(key+2),key,true,Mode::octatonic).status==ModalStatus::incompatible);
+  CHECK(modalContext(mask,key,true).status==ModalStatus::incompatible); // No new automatic inference.
+  PassingRequest oct;oct.context=explicitContext;oct.chordMask=chord;oct.root=key;oct.bassPitchClass=key;
+  oct.source=60+key;oct.target=63+key;oct.targetAt=T(8);oct.harmonyEnd=T(16);
+  const auto bridge=planPassingTone(oct);CHECK(bridge.valid&&bridge.pitch==61+key&&bridge.end==oct.targetAt);
+  oct.harmonyEnd=oct.targetAt;CHECK(!planPassingTone(oct).valid);
+
   for(int mode=1;mode<=4;++mode){auto m=static_cast<Mode>(mode);auto mask=modalMask(m,key);auto c=modalContext(mask,key,true);CHECK(c.status==ModalStatus::unique&&c.mode==m);int bits=0;for(int n=0;n<12;++n)bits+=(mask>>n)&1u;CHECK(bits==7);PassingRequest passing;passing.context=c;passing.root=key;passing.source=60+key;passing.target=60+key+(mode<=2?4:3);passing.chordMask=pitchBit(key)|pitchBit(passing.target)|pitchBit(key+7);passing.targetAt=T(8);passing.harmonyEnd=T(16);auto note=planPassingTone(passing);CHECK(note.valid&&note.pitch==62+key);}
   CHECK(contextFor(kPopWendungen[14],key).mode==Mode::mixolydian);CHECK(contextFor(kPopWendungen[18],key).mode==Mode::mixolydian);
   CHECK(contextFor(kPopWendungen[11],key).mode==Mode::dorian);CHECK(contextFor(kPopWendungen[24],key).mode==Mode::dorian);

@@ -6,6 +6,12 @@ P1 als brauchbare Entwicklungsgrundlage, noch nicht als fertiges Künstlerprofil
 keine weitere Implementierung frei. Engine, GUI, Laufzeitdaten und musikalische
 Auswahl bleiben unverändert.
 
+Fortschreibung Williams P2: Die Arp-Phrasierung `2c6f366` ist musikalisch abgenommen.
+Der erste [gemeinsame Oktatonik-Kontext](john-williams/P2_OCTATONIC.md) ergänzt
+explizite Harmonie-/Bassvalidierung und einen begrenzten Score-Motivverbraucher.
+Die folgende Matrix bleibt auf ihren angegebenen Untersuchungsstand `ddad94b`
+bezogen; Hexatonik/Ganzton, neue Bassfolgen und Williams-Motivimporte bleiben offen.
+
 ## Grundlage und Aussagegrenzen
 
 - [Herrmann: neue Tiefenrecherche](bernard-herrmann/Spannungsgrammatik_Tiefenrecherche.md), vollständig gelesen; zusätzliches Material zum [bisherigen Stilprofil](bernard-herrmann/Stilprofil_Bernard_Herrmann.txt), kein Ersatz durch ein neues kanonisches Vorlageninventar.

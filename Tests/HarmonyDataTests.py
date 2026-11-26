@@ -13,6 +13,15 @@ class HarmonyDataTests(unittest.TestCase):
   self.assertEqual(set(m['templates']),set(range(1001,1049))|set(range(2001,2040))|{30000+n for n in range(1,48) if n not in (33,40)}|set(self.original['profiles.json']['profiles'][3]['score_pool']))
   self.assertIn([1047,2015,2019],m['duplicate_groups'])
   for path,content in gen.emit(self.original).items():self.assertEqual((root/path).read_text(encoding='utf-8'),content)
+ def test_explicit_octatonic_harmonic_and_bass_context(self):
+  templates={t['id']:t for t in self.original['catalog.json']['templates']}
+  expected={40012,40014,40015,40016,40017,40019,40046,40054}
+  self.assertEqual({i for i,t in templates.items() if t['tonality']['mode']=='octatonic'},expected)
+  for identifier in expected:self.assertEqual(templates[identifier]['tonality']['center_pc'],0)
+  index=next(i for i,t in enumerate(self.original['catalog.json']['templates']) if t['id']==40012)
+  self.rejected(lambda d:d['catalog.json']['templates'][index]['chords'][0].update(bass=2))
+  self.rejected(lambda d:d['catalog.json']['templates'][index]['chords'][0].update(type='MinMaj7'))
+  self.rejected(lambda d:d['catalog.json']['templates'][index]['tonality'].update(center_pc=1))
  def test_barry_research_material_and_shared_alias(self):
   spec=importlib.util.spec_from_file_location('barry_import',root/'scripts/import_barry_research.py');module=importlib.util.module_from_spec(spec);spec.loader.exec_module(module)
   records=module.research();self.assertEqual(len(records),46)

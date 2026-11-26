@@ -158,3 +158,9 @@ einschließlich musikalischer Ereignisausführung, Harmonie-/Akkorddaten, Rhythm
 Motivfenster, Wiederkehr, Übergangsstimmführung, Dichte und Begleitkoordination.
 Alle Ergebnisse beziehen sich auf den unveränderten finalen Produktionsquellstand.
 Es wurde nach bestandenen Prüfungen kein weiteres musikalisches Verhalten ergänzt.
+
+## Musikalische Abnahme
+
+Der Anwender hat `2c6f366` praktisch gehört und die Arp-Phrasierung als musikalisch
+insgesamt ausgewogener positiv abgenommen. Sie bleibt für Williams P2 unverändert;
+siehe [Abnahmereferenz](../../development/ACCEPTED_REFERENCE_2c6f366.md).
