@@ -14,9 +14,9 @@ class HarmonyDataTests(unittest.TestCase):
   self.assertIn([1047,2015,2019],m['duplicate_groups'])
   for path,content in gen.emit(self.original).items():self.assertEqual((root/path).read_text(encoding='utf-8'),content)
  def test_authored_voicings_and_hard_transition_contract(self):
-  rs=json.loads((root/'docs/research/ennio-morricone/SOURCE_RECORDS.json').read_text())
+  rs=json.loads((root/'docs/research/ennio-morricone/SOURCE_RECORDS.json').read_text(encoding='utf-8'))
   by={r['id']:r for r in rs}
-  assessed={r['id']:r['assessment']['status']for r in json.loads((root/'docs/research/ennio-morricone/TECHNICAL_INVENTORY.json').read_text())['records']}
+  assessed={r['id']:r['assessment']['status']for r in json.loads((root/'docs/research/ennio-morricone/TECHNICAL_INVENTORY.json').read_text(encoding='utf-8'))['records']}
   templates=self.original['catalog.json']['templates']
   authored=[t for t in templates if 'voicings' in t]
   self.assertEqual(len(authored),14)
