@@ -335,3 +335,8 @@ Die Datenfingerabdrücke im Ergebnis-JSON stimmen mit dem finalen Engine-Quellst
 Die schnelle Fahrt ist danach vollständig MIDI-bytegleich mit `a8efd75`: der
 bestehende freie Gedanke wird weder umetikettiert noch durch eine neue Vorlage
 ersetzt. Musikalische Hörabnahme von P2/P3 steht aus.
+
+
+## Aktualisierter Hörabnahmestand
+
+Der Anwender hat Windows-Build `023b0a6` mit P2/P3 ausdrücklich positiv gehört und als musikalische Entwicklungsgrundlage akzeptiert. Details und Reichweite: [Abgenommene Referenz 023b0a6](../../development/ACCEPTED_REFERENCE_023b0a6.md). Frühere Hinweise auf eine ausstehende Hörabnahme beschreiben den damaligen Stand.

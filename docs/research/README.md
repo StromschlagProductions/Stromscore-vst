@@ -50,10 +50,12 @@ und Herrmann inzwischen mit Engine `023b0a6` einschließlich P2/P3 ab, dokumenti
 und empfiehlt kleine gemeinsame Erweiterungen. Originaltexte bleiben unverändert;
 Forschungsrezepte sind keine Aufträge für Engine-Änderungen. Die erste Williams-P1-Grundlage samt Arp-Phrasierung ist inzwischen positiv
 gehört; siehe [Abnahme 2c6f366](../development/ACCEPTED_REFERENCE_2c6f366.md).
-Der neue [P2-Kontext](john-williams/P2_OCTATONIC.md) wartet auf seine eigene Hörabnahme. Die projektweite Priorisierung steht in
+Der [P2-Kontext](john-williams/P2_OCTATONIC.md) und P3 wurden gemeinsam am Windows-Stand `023b0a6` vom Anwender positiv gehört; siehe [musikalisch akzeptierte Entwicklungsgrundlage](../development/ACCEPTED_REFERENCE_023b0a6.md). Die projektweite Priorisierung steht in
 [`docs/MUSICAL_DIRECTION.md`](../MUSICAL_DIRECTION.md).
 
-Williams P3: [48 Motiv-Einzelbewertungen, tatsächliche Produktionsverwendung und A/B-Hörbeispiele](john-williams/P3_MOTIFS.md). Die neue Motivik ist technisch geprüft und musikalisch noch nicht abgenommen; die akzeptierte Arpeggio-Phrasierung bleibt unverändert.
+Williams P3: [48 Motiv-Einzelbewertungen, tatsächliche Produktionsverwendung und A/B-Hörbeispiele](john-williams/P3_MOTIFS.md). P2/P3 sind als Entwicklungsgrundlage musikalisch akzeptiert; dies ist keine exhaustive Prüfung aller Parameterkombinationen. Die akzeptierte Arpeggio-Phrasierung bleibt unverändert.
+
+Der erste begrenzte [gemeinsame Pedalpfad](john-williams/INDEPENDENT_PEDALS.md) bindet JW-H03/H50/H61 an; seine Hörabnahme steht separat aus.
 
 ## Bernard Herrmann – kanonische HE-Bibliothek, 27.11.2026
 
@@ -66,8 +68,8 @@ diese bleiben historische Quellen und werden nicht zusätzlich importiert.
 [BH-/HE-Abgleich](bernard-herrmann/BH_HE_CROSSWALK.md) und
 [Implementierungsfahrplan](bernard-herrmann/IMPLEMENTATION_PLAN.md) unterscheiden
 Darstellbarkeit, begrenzte Anbindung, neue gemeinsame Fähigkeiten und Klärungsbedarf.
-Keine HE-Vorlage ist dadurch im Plugin aktiviert. Williams P2/P3 warten weiter
-auf die musikalische Anwender-Hörabnahme.
+Keine HE-Vorlage ist dadurch im Plugin aktiviert. Williams P2/P3 sind inzwischen
+wie oben dokumentiert vom Anwender als Entwicklungsgrundlage positiv gehört.
 
 ## John Carpenter – Tiefenrecherche und korrigierende Vertiefung
 

@@ -1,11 +1,13 @@
 # Gemeinsame musikalische Fähigkeiten – Williams, Herrmann, Carpenter und SYNTH
 
-Stand: 27.11.2026 · Dokumentationsausgang `4937722` · unveränderte Engine `023b0a6` ·
-`develop/composition-core-prototype`.
-Fortschreibung des früheren Abgleichs bei `ddad94b`: Williams P2-Oktatonik und
-P3-Motive sind jetzt berücksichtigt; deren musikalische Hörabnahme steht aus.
+Stand: 27.11.2026 · `develop/composition-core-prototype` · musikalisch abgenommene
+Grundlage `023b0a6`, aktueller Implementierungs-Ausgang `1d3c1d5`.
+Williams P2-Oktatonik und P3-Motive wurden vom Anwender in Studio One ausdrücklich
+positiv gehört; [Reichweite der Abnahme](../development/ACCEPTED_REFERENCE_023b0a6.md).
 Die positiv gehörte Arpeggio-Phrasierung `2c6f366` bleibt unverändert.
-Dieser Bericht plant ausschließlich. Keine Engine-/GUI-/Laufzeitdatenänderung.
+Der Planungsabgleich wurde nach dem ersten begrenzten [unabhängigen Einzelpedal](john-williams/INDEPENDENT_PEDALS.md)
+fortgeschrieben. Dieses neue Pedal benötigt seine eigene Hörabnahme. Die übrigen
+unten beschriebenen Erweiterungen sind weiterhin Planung, keine aktivierten Funktionen.
 
 Maßgebliche Quellen: [Williams-Plan](john-williams/IMPLEMENTATION_PLAN.md),
 [P2](john-williams/P2_OCTATONIC.md), [P3](john-williams/P3_MOTIFS.md), die neue
@@ -28,7 +30,7 @@ als Material zählen. Forschungsrezepte sind keine Implementierungsaufträge.
 | Tonvorräte | [ModalContext.h](../../Source/ModalContext.h): Ionisch/Mixolydisch/Dorisch/Äolisch; P2 explizite transponierbare Oktatonik, `PitchMembership` chord/collection. Aktive Verbraucher sind begrenzt. | Ganzton, danach Hexatonik; ggf. Lydisch/weitere konkrete Systeme. Gemeinsame Rollenreferenz und Gültigkeit bei Wechseln. Herrmanns Okt-A/B sind lokale Vorräte, keine allgemeine Oktatonikpflicht. |
 | Zusatztöne und Funktionen | `planPassingTone` prüft diatonische/oktatonische Durchgänge mit Ziel, Register und Zeit. [AuthoredMotifSource.h](../../Source/AuthoredMotifSource.h)::`authoredPitchMask` erlaubt zusätzliche Quelltöne bei exakt passendem Harmonie-/Basskontext. | A/T/V/F/U als unterscheidbare musikalische Absichten bei flexibler Realisierung; V-Ziel/Frist prüfen, F/U erhalten. Die bestehende lokale Maskenfreigabe ermöglicht bereits unveränderte kurze Quellen; sie ist keine allgemeine dissonante Liniengrammatik. |
 | Bass | `Chord.bass`/Slash-Bass, Bassspielweisen und Pedalanker; [BassPhrase.h](../../Source/BassPhrase.h) mit begrenztem Pop-Verbraucher. Williams-P1 besitzt einige relative B-Quellen. | Gemeinsame notierte fixe/relative Bassfolge mit Kontur, Rhythmus und eigener Ziel-/Funktionsabsicht. Score hat keinen allgemeinen Bass-Quelllinienplan. Follow AUS ist kein Ersatz; beide Benutzereinstellungen ausdrücklich respektieren. |
-| Pedale | `ScoreEngine::pedalRoot/BassPedal` und kontextgeprüfte Williams-Pedalfigur; wiederholte explizite Slash-Bässe können dissonant sein. | Unabhängige Lebensdauer und expliziter Ton, zunächst ein tiefes/inneres Pedal, dann hohes/Doppelpedal. Beginn/Ende über Akkord-/Wendungsgrenzen. Keine ungeprüfte Bindung an das Ende der aktuellen Harmonie. |
+| Pedale | Gemeinsamer `PedalPlan` mit eigener 960-PPQ-Lebensdauer, kontextgebundener Dissonanzautorisierung und geschütztem Notenbesitz. Begrenzte Williams-Anbindung an JW-H03/H50/H61; bestehende andere Basspfade bleiben erhalten. | Hohe/innere und mehrfache Pedale, frei notierte Lebensdauern und weitere datenbasierte Künstleranbindungen bleiben offen. Der erste Schritt ist unter [INDEPENDENT_PEDALS.md](john-williams/INDEPENDENT_PEDALS.md) dokumentiert. |
 | Stimmführung / Planing | [VoiceLeading.h](../../Source/VoiceLeading.h), `CompositionCore::planHarmony/buildAnchor/leadEntry`: Register, Anker, gemeinsame Töne und kleine Wege. | Exakte chromatische Strukturverschiebung als eigene Absicht; normale Optimierung darf Umkehrungen ändern. Feste Parallelintervalle, Komponenten und Bassbeziehungen sonst nicht garantiert. |
 | Motive | [CompositionCore.h](../../Source/CompositionCore.h): unveränderliches tatsächlich gespieltes Material, Identität aus Intervallen/Rhythmus/Dauern, unabhängige Verwendung. Frühe Reprise, Fragment/Sequenz/Augmentation/Rhythmusvariation. P3 registriert 32 Williams-Quellen, 20 im dortigen Produktionsnachweis. | acht Noten, zwei Materialien/Szene und kurze Einführungsfenster sind Grenzen. Quellenregistrierung ist kein Klangnachweis. Kontrollierte modulare Bearbeitung statt willkürlicher Kombination vieler Varianten. |
 | Repetitive Module | Motivwiederkehr, Pop-Hook/Ostinato-Unterscheidung, [ArpeggioPhrase.h](../../Source/ArpeggioPhrase.h) und Rollenfenster liefern Teilverfahren. | Kurzes Modul mit eigener Wiederholungsfunktion, Pause/Unterbrechung und identischer Rückkehr; danach Kürzung/Verlängerung. Kontinuierliche Sequenz bleibt gültig, keine verpflichtende Score-Mindestpause für SYNTH. |

@@ -20,6 +20,7 @@
 #include "RoleRhythm.h"
 #include "MusicalExecution.h"
 #include "BassPhrase.h"
+#include "PedalPlan.h"
 #include "WendungId.h"
 #include "HarmonicPreferences.h"
 #include "DrivePath.h"
@@ -289,7 +290,7 @@ struct Meter
 class Generator
 {
 public:
-    void reset() { previousSettings.reset();preparedTime.reset();dispatchIdentity=0;nowTime={};currentPerformanceQuarter=0;currentTiming=execution::Timing::nominal;bassPhrase={};bassPairStart.reset();harmonicChase=false; clearHarmonicEntries(); motifCatalog.clear(); voices={};authoredRhythmCache={};arpPhrase={}; style = -1; restartAt.reset(); lastGenre = -1; resetCc(); resetVoicing(); numActive = 0; running = false; lastPpqEnd = 0.0; phraseIndex = -1; current = -1; wendungTime = musicaltime::fromGridStep(0); still = false; chordBase = 0; drivePrev = driveSeen = driveLatched = driveArrivedNow = false; driveTrajectory = false; driveProgressNow = 0; driveGenerationSeen = 0; curRoot = 0; curType = Min; curChord = -1;
+    void reset() { independentPedal={}; previousSettings.reset();preparedTime.reset();dispatchIdentity=0;nowTime={};currentPerformanceQuarter=0;currentTiming=execution::Timing::nominal;bassPhrase={};bassPairStart.reset();harmonicChase=false; clearHarmonicEntries(); motifCatalog.clear(); voices={};authoredRhythmCache={};arpPhrase={}; style = -1; restartAt.reset(); lastGenre = -1; resetCc(); resetVoicing(); numActive = 0; running = false; lastPpqEnd = 0.0; phraseIndex = -1; current = -1; wendungTime = musicaltime::fromGridStep(0); still = false; chordBase = 0; drivePrev = driveSeen = driveLatched = driveArrivedNow = false; driveTrajectory = false; driveProgressNow = 0; driveGenerationSeen = 0; curRoot = 0; curType = Min; curChord = -1;
                    sceneTime=musicaltime::fromGridStep(0); manualEndTime.reset(); manualFinished = manualHitSent = false; endWasRequested = false; sceneSeed = 0; autoSeed = -1; sceneBarNow = -1; sceneEnded = false; for (int l = 0; l < kNumLayers; ++l) { on[l] = prevOn[l] = hOn[l] = false; } }
 
     uint32_t unavailablePadPitchClasses() const { return unavailablePad; }
@@ -481,6 +482,7 @@ public:
     void allNotesOff (EventList& out, int offset)
     {
         while (numActive > 0) removeActive (numActive - 1, offset, out);
+        independentPedal={};
     }
 
     void process (const Transport& t, const Settings& sIn, int numSamples, EventList& out)
@@ -500,7 +502,7 @@ public:
         s.change = std::clamp (s.change, 0, kNumChangeGrids - 1);
         for (auto& v : s.layerIntensity) v = std::clamp (v, -1.0f, 1.0f);
         if(!composition::findProfile(s.profile))s.profile=composition::ProfileId::neutral;
-        if(!composition::valid(s.policy.arpeggioPhrase)||!composition::valid(s.policy.accompaniment)||!composition::valid(s.policy.popRoles)||!composition::valid(s.policy.texture)||!composition::valid(s.policy.motif)||!composition::valid(s.policy.popHooks.recurrence)||!composition::valid(s.policy.passing)||!composition::valid(s.policy.bass)||!composition::valid(s.policy.rhythm)||!composition::valid(s.policy.chords))s.policy=composition::neutralFreePolicy;
+        if(!composition::valid(s.policy.pedal)||!composition::valid(s.policy.arpeggioPhrase)||!composition::valid(s.policy.accompaniment)||!composition::valid(s.policy.popRoles)||!composition::valid(s.policy.texture)||!composition::valid(s.policy.motif)||!composition::valid(s.policy.popHooks.recurrence)||!composition::valid(s.policy.passing)||!composition::valid(s.policy.bass)||!composition::valid(s.policy.rhythm)||!composition::valid(s.policy.chords))s.policy=composition::neutralFreePolicy;
         s.variety = std::clamp (s.variety, 0.0f, 1.0f);
         for (auto& o : s.octave) o = std::clamp (o, -2, 2);
         for (auto& c : s.channel) c = std::clamp (c, 1, 16);
@@ -562,7 +564,11 @@ public:
         const float ax = s.x, ay = s.y;   // Punkt A im Feld (die Fahrt bewegt den klingenden Punkt von hier nach B)
         if (! running || jumped)
         {
+            const auto retainedPedal=independentPedal;
             allNotesOff (out, 0);
+            // Chase releases physical notes, not an already known musical intent.
+            // A cold start still needs an explicit source at the destination.
+            if(running&&retainedPedal.contains(execution::floorTime(t.ppq)))independentPedal=retainedPedal;
             for(auto& state:voices)if(!state.motif.material(motifCatalog).complete)state.motif.clear();
             for(auto& state:voices)state.capture.clear();
             resetVoicing();
@@ -661,7 +667,8 @@ public:
 private:
     static bool sameSettings(const Settings& a,const Settings& b)
     {
-        if(a.profile!=b.profile
+        if(a.policy.pedal.enabled!=b.policy.pedal.enabled||a.policy.pedal.lifetimeBars!=b.policy.pedal.lifetimeBars
+            ||a.profile!=b.profile
             ||a.melodyLegato!=b.melodyLegato
             ||a.melodyMotif!=b.melodyMotif
             ||a.melody!=b.melody
@@ -753,7 +760,8 @@ private:
 
     static constexpr float kKeepRatio = 0.5f;   // so gut muss die laufende Wendung mindestens passen, sonst wird gewechselt
 
-    struct Active { uint8_t channel, note, out; musicaltime::Tick endTime;execution::Timing timing=execution::Timing::nominal;uint64_t attack=0; };
+    struct Active { uint8_t channel, note, out; musicaltime::Tick endTime;execution::Timing timing=execution::Timing::nominal;uint64_t attack=0;bool pedalOwner=false;int8_t pedalOctave=0; };
+    composition::PedalPlan independentPedal;
 
     // Wo im Takt / in der Phrase / in der Wendung ein Schritt liegt
     struct Pos
@@ -2257,6 +2265,7 @@ private:
     {
         for (int i = 0; i < numActive;)
         {
+            if(active[static_cast<size_t>(i)].pedalOwner){++i;continue;}
             if (keepPad && active[(size_t) i].out == OutPadLong) limitClaim(active[static_cast<size_t>(i)],nowTime,execution::Timing::nominal);
             const int layer = kOutputLayer[active[(size_t) i].out];
             if ((layer == kFlaeche && ! (keepPad && active[(size_t) i].out == OutPadLong)) || layer == kBass || layer == kAkzent)
@@ -2324,7 +2333,7 @@ private:
     // Note anschlagen. Mehrere Ausgaenge duerfen auf demselben Kanal liegen: Trifft ein Ton auf einen schon klingenden
     // gleichen Ton desselben Kanals, wird er im selben Schritt nur verlaengert, sonst neu angeschlagen. Jeder Ausgang
     // behaelt seinen eigenen Anspruch; erst das Ende des letzten Anspruchs beendet die physische MIDI-Note.
-    void noteOn (int o, int note, int velocity, musicaltime::Tick endTime, int offset, EventList& out)
+    void noteOn (int o, int note, int velocity, musicaltime::Tick endTime, int offset, EventList& out, bool pedalOwner=false)
     {
         if(chasingPatterns&&!execution::sounding(nowTime,endTime,currentTiming,cur?cur->swing:0.f,currentPerformanceQuarter))return;
         const int layer = kOutputLayer[o];
@@ -2349,16 +2358,16 @@ private:
                     removeActive(i,offset,out);
                 else ++i;
         }
-        int own = -1; bool existing = false, sameStep = false;
+        int own = -1; bool existing = false, sameStep = false, heldPedal=pedalOwner;
         for (int i = 0; i < numActive; ++i)
         {
             const auto& a = active[(size_t) i];
             if (a.channel != channel || a.note != note) continue;
-            existing = true; sameStep = sameStep || a.attack == dispatchIdentity;
+            existing = true; sameStep = sameStep || a.attack == dispatchIdentity;heldPedal|=a.pedalOwner;
             if (a.out == o) own = i;
         }
         if (own < 0 && numActive >= kMaxActive) return;
-        if (! existing || (! sameStep && ! extendOnly))
+        if (! existing || (! sameStep && ! extendOnly && !heldPedal))
         {
             if (existing) out.add (offset, channel, note, 0, o);
             out.add (offset, channel, note, velocity, o);
@@ -2371,9 +2380,9 @@ private:
             auto& a = active[(size_t) own];
             if(!(sameStep||extendOnly)||performed(endTime,currentTiming)>performed(a.endTime,a.timing))
                 {a.endTime=endTime;a.timing=currentTiming;}
-            a.attack = dispatchIdentity;
+            a.attack = dispatchIdentity;a.pedalOwner=pedalOwner;a.pedalOctave=static_cast<int8_t>(octaveOf(o));
         }
-        else active[(size_t) numActive++] = { (uint8_t) channel, (uint8_t) note, (uint8_t) o, endTime, currentTiming, dispatchIdentity };
+        else active[(size_t) numActive++] = { (uint8_t) channel, (uint8_t) note, (uint8_t) o, endTime, currentTiming, dispatchIdentity, pedalOwner,static_cast<int8_t>(octaveOf(o)) };
         if(o==OutBassLong||o==OutBassShort)heardHarmony.bass=note;
     }
 
@@ -2739,6 +2748,83 @@ private:
         if (hit) stich (p, s, offset, s.genre == GenrePopRock ? 1 : 2, phraseEnd ? 8 : 0, out);
     }
 
+    // Research bindings: these three existing templates explicitly keep C under
+    // every harmonic slot (JW-H03, JW-H50, JW-H61). H17/H46's MOVING slash basses
+    // are deliberately not pedal instructions. No arbitrary foreign note license.
+    static bool williamsPedalSource(WendungId id)
+    {
+        constexpr WendungId sources[]={static_cast<WendungId>(40003),static_cast<WendungId>(40050),static_cast<WendungId>(40061)};
+        for(auto source:sources)if(source==id)return true;
+        return false;
+    }
+    void preparePedal(musicaltime::Tick time,const Pos&,const Settings& s,int offset,EventList& out)
+    {
+        using namespace composition;
+        const bool source=williamsPedalSource(W().id);
+        bool eligible=s.genre==GenreScore&&s.profile==ProfileId::johnWilliams&&s.policy.pedal.enabled
+            &&!s.custom&&s.bassPattern==BassAuto&&bassOverride<0&&s.follow[kBass]
+            &&on[kBass]&&!bassRest&&!still&&!sceneEnded&&!allowsPassingHarmony(s);
+        if(independentPedal.relation==BassRelation::chordBound&&(!eligible||!source))return;
+        auto candidate=independentPedal;
+        if(!candidate.contains(time)||candidate.pitchClass!=s.key)
+        {
+            candidate={};
+            if(eligible&&source)
+            {
+                const auto bar=musicaltime::sixteenth*meter.len;
+                const auto lifetime=bar*s.policy.pedal.lifetimeBars;
+                candidate.begin=sceneTime+lifetime*floorDiv((time-sceneTime).value,lifetime.value);
+                candidate.end=candidate.begin+lifetime;
+                candidate.pitchClass=s.key;
+                candidate.relation=BassRelation::authorizedDissonancePedal;
+            }
+        }
+        if(sceneEndTime)candidate.end=std::min(candidate.end,*sceneEndTime);
+        eligible=eligible&&candidate.contains(time);
+        // Validate the entire currently planned harmonic timeline, not just the
+        // sounding chord. Later XYZ replacements must pass the same check again.
+        if(eligible)for(int i=0;i<W().n;++i)
+        {
+            const auto& c=W().ch[i];unsigned tones=0;
+            for(int n=0;n<kShapes[c.type].n;++n)tones|=pitchBit(s.key+c.root+kShapes[c.type].iv[n]);
+            const int bass=c.bass>=0?(s.key+c.bass)%12:-1;
+            if(!permits(candidate,{tones,bass,source}))eligible=false;
+        }
+        int physical=place(s.key,bassLow(s))+12*s.octave[kBass];
+        const auto track=outputCatalog(s)[OutBassLong].track;
+        while(physical<track.instrument.range.low)physical+=12;
+        while(physical>track.instrument.range.high)physical-=12;
+        // Once heard, the register belongs to the pedal's lifetime. XYZ may
+        // suggest a different register for the NEXT plan, not retrigger this one.
+        for(int i=0;i<numActive;++i)
+        {
+            const auto& a=active[static_cast<size_t>(i)];
+            if(a.pedalOwner&&a.pedalOctave==s.octave[kBass]&&a.note%12==candidate.pitchClass
+                &&a.note>=track.instrument.range.low&&a.note<=track.instrument.range.high)
+                {physical=a.note;break;}
+        }
+        RoleNeed need;need.role=MusicalRole::accompaniment;need.range={physical,physical};
+        need.minDuration=need.maxDuration=candidate.end-candidate.begin;
+        eligible=eligible&&physical>=0&&physical<=127&&physical%12==candidate.pitchClass&&suitable(track,need);
+        bool owned=false;
+        for(int i=0;i<numActive;)
+        {
+            auto& a=active[static_cast<size_t>(i)];
+            if(!a.pedalOwner){++i;continue;}
+            if(!eligible||a.note!=physical||a.channel!=s.channel[OutBassLong])
+                removeActive(i,offset,out);
+            else {a.endTime=candidate.end;owned=true;++i;}
+        }
+        independentPedal=eligible?candidate:PedalPlan{};
+        if(!eligible||owned)return;
+        if(candidate.end-time<track.instrument.minDuration){independentPedal={};return;}
+        // Sole owner of the bass part; no simultaneous short/long bass claims.
+        cut(kBass,time,time,offset,out);
+        const auto saved=currentTiming;currentTiming=execution::Timing::nominal;
+        noteOn(OutBassLong,physical-12*s.octave[kBass],static_cast<int>(60+35*layerY(s,kBass)),candidate.end,offset,out,true);
+        currentTiming=saved;
+    }
+
     // Liegetoene einer Akkordposition (Flaeche gehalten, Bass gehalten)
     void sustained (const Pos& p, const Settings& s, int offset, EventList& out, bool restart, unsigned mask = 3u)
     {
@@ -2749,7 +2835,7 @@ private:
             padChord (p, s, OutPadLong, offset, padFollow ? p.chordEndTime : p.phraseEndTime, (int) (40 + 45 * layerY (s, kFlaeche)), out);
 
         const int bp = chooseBass (s, p.phrase);
-        if (!roleRhythm(p,s).bass.active && !authoredRhythmBar(p,s,true).active && (mask & 2u) && ((bp == BassHeld && (s.follow[kBass] || phraseStart || restart)) || bp == BassPedal))
+        if (!independentPedal.contains(p.time) && !roleRhythm(p,s).bass.active && !authoredRhythmBar(p,s,true).active && (mask & 2u) && ((bp == BassHeld && (s.follow[kBass] || phraseStart || restart)) || bp == BassPedal))
         {
             const bool pedal = bp == BassPedal;
             noteOn (OutBassLong, bassPlacement (p, s, place (s.key + (pedal ? pedalRoot() : bassRoot (chordFor (p, kBass, s))), bassLow (s)), pedal),
@@ -2970,6 +3056,7 @@ private:
         updateMask (s);
         updateScene (actual, structural, s, true, 0, out);
         if (sceneEnded) return;
+        preparePedal(actual,structural,s,0,out);
         prepareBassPhrase(p,s);
         if (ppq > musicaltime::toQuarters(structural.chordStartTime) + 1e-9)
             sustained (structural, s, 0, out, true);
@@ -2988,7 +3075,7 @@ private:
                 render(at,0,position,false,position.phrase,s,out,false,true);
         }
         chasingPatterns=false;nowTime=source;
-        if(on[kBass]&&bassPhrase.valid)
+        if(on[kBass]&&!independentPedal.contains(actual)&&bassPhrase.valid)
             for(int i=0;i<bassPhrase.count;++i){const auto& note=bassPhrase.notes[i];if(execution::sounding(note.at,note.at+note.length,currentTiming,s.swing,ppq))
                 {const auto eventIndex=floorDiv(note.at.value,musicaltime::sixteenth.value);const int position=static_cast<int>(eventIndex%meter.len);const int velocity=static_cast<int>(58+38*layerY(s,kBass))+(meter.isGroupStart(position)?8:0)+jitter(eventIndex,kBass,3)+note.accent;
                  noteOn(OutBassShort,note.pitch-12*s.octave[kBass],velocity,note.at+note.length,0,out);}}
@@ -3070,6 +3157,7 @@ private:
             }
             return;
         }
+        preparePedal(time,p,s,offset,out);
         // Density is a separate optional-event mask. EndOpen's explicit energy rise is retained.
         if (yAdd > 0.001f)
         {
@@ -3417,6 +3505,7 @@ private:
             padChord (p, s, OutPadShort, offset, time + musicaltime::sixteenth*1, (int) (46 + 40 * yPad) + (group ? 10 : 0), out);
 
         // --- Bass
+        if(independentPedal.relation==composition::BassRelation::chordBound)
         {
             const Chord c = chordFor (p, kBass, s);
             const ChordShape& sh = kShapes[c.type];

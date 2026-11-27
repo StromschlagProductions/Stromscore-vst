@@ -72,7 +72,9 @@ struct AutoAccompanimentPolicy
 };
 inline bool valid(const AutoAccompanimentPolicy& p)
 {return p.fastestArp==musicaltime::sixteenth||p.fastestArp==2*musicaltime::sixteenth||p.fastestArp==musicaltime::quarter;}
-struct FreeCompositionPolicy { ArpeggioPhrasePolicy arpeggioPhrase; AutoAccompanimentPolicy accompaniment; TexturePolicy texture; PopRolePolicy popRoles; MotifRecurrencePolicy motif; HookPolicy popHooks; PassingPolicy passing; BassPhrasePolicy bass; RhythmCoordinationPolicy rhythm; ChordDispositionPolicy chords; };
+struct PedalPolicy { bool enabled=false; int lifetimeBars=16; };
+inline bool valid(const PedalPolicy& p){return p.lifetimeBars>=1&&p.lifetimeBars<=64;}
+struct FreeCompositionPolicy { PedalPolicy pedal; ArpeggioPhrasePolicy arpeggioPhrase; AutoAccompanimentPolicy accompaniment; TexturePolicy texture; PopRolePolicy popRoles; MotifRecurrencePolicy motif; HookPolicy popHooks; PassingPolicy passing; BassPhrasePolicy bass; RhythmCoordinationPolicy rhythm; ChordDispositionPolicy chords; };
 inline constexpr FreeCompositionPolicy neutralFreePolicy {};
 inline constexpr auto barryPolicy=[] {
     auto p=neutralFreePolicy;p.accompaniment.fieldAndOstinato=true;p.accompaniment.authoredCells=true;
@@ -82,7 +84,7 @@ inline constexpr auto barryPolicy=[] {
     p.texture.arpeggio.quarterBelow=.4f;
     return p;
 }();
-inline constexpr auto williamsPolicy=[] {auto p=neutralFreePolicy;p.arpeggioPhrase.enabled=true;return p;}();
+inline constexpr auto williamsPolicy=[] {auto p=neutralFreePolicy;p.arpeggioPhrase.enabled=true;p.pedal.enabled=true;return p;}();
 // Each profile supplies data to the same planning and rendering mechanisms.
 struct CompositionProfile
 {

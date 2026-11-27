@@ -189,3 +189,8 @@ diese Transportaufrufe sind ebenfalls unter Allokationswache geprüft.
 Alle Prüfungen unter Linux. Kein Windows-Build in diesem Auftrag. Kein Push,
 kein Release und keine eigenständig begonnene Folgephase. Die neue P2-Musik ist
 technisch geprüft, ihre endgültige musikalische Bewertung bleibt dem Anwender.
+
+
+## Aktualisierter Hörabnahmestand
+
+Der Anwender hat Windows-Build `023b0a6` mit P2/P3 ausdrücklich positiv gehört und als musikalische Entwicklungsgrundlage akzeptiert. Details und Reichweite: [Abgenommene Referenz 023b0a6](../../development/ACCEPTED_REFERENCE_023b0a6.md). Frühere Hinweise auf eine ausstehende Hörabnahme beschreiben den damaligen Stand.

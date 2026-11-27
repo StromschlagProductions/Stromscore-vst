@@ -713,3 +713,7 @@ Einzelbewertungen erstellt, nicht aus den Namen allein.
 `python docs/research/john-williams/write_inventory.py` aktualisiert ausschließlich den markierten Tabellenteil dieses Berichts.
 
 Keine zusätzliche Engine-Regression erforderlich: `Source/`, Laufzeitdaten, GUI, Build- und Testkonfiguration wurden nicht verändert. Geprüft wurden die neuen Dokumentationsartefakte und Forschungsdaten, nicht eine noch nicht existierende Williams-Implementierung. Die vollständige letzte Engine-/Plugin-Prüfung bleibt die zu `8d4086c` dokumentierte.
+
+## Fortschreibung: unabhängiges Einzelpedal
+
+Der erste begrenzte gemeinsame Pedalpfad ist mit JW-H03/H50/H61 verbunden. Modell, Autorisierungsgrenzen, tatsächliche MIDI-Vergleiche und noch offene Bass-/Pedalfähigkeiten stehen in [INDEPENDENT_PEDALS.md](INDEPENDENT_PEDALS.md). Dies ersetzt keine vollständige Implementierung des übrigen Bassvokabulars oder der Modellstudien. Williams P2/P3 wurde separat am Windows-Stand 023b0a6 musikalisch positiv gehört.
