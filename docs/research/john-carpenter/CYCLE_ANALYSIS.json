@@ -1,0 +1,1852 @@
+{
+  "rule": "N/gcd(N,A) rhythm repetitions; joint pitch/rhythm cycle. Additional gate phases unresolved unless their event mapping is explicit.",
+  "cycles": [
+    {
+      "id": "JC-Q001",
+      "pitch_count": 1,
+      "attacks_per_rhythm": 8,
+      "rhythm_ticks": 3840,
+      "rhythm_repetitions": 1,
+      "total_ticks": 3840,
+      "total_attacks": 8,
+      "rule": "pitchIndex=globalAttackOrdinal%N; rhythm repeats with its own period; no bar reset",
+      "gate_phase_known": true,
+      "joint_with_host_bar_ticks": 3840
+    },
+    {
+      "id": "JC-Q002",
+      "pitch_count": 1,
+      "attacks_per_rhythm": 8,
+      "rhythm_ticks": 3840,
+      "rhythm_repetitions": 1,
+      "total_ticks": 3840,
+      "total_attacks": 8,
+      "rule": "pitchIndex=globalAttackOrdinal%N; rhythm repeats with its own period; no bar reset",
+      "gate_phase_known": true,
+      "joint_with_host_bar_ticks": 3840
+    },
+    {
+      "id": "JC-Q003",
+      "pitch_count": 1,
+      "attacks_per_rhythm": 8,
+      "rhythm_ticks": 3840,
+      "rhythm_repetitions": 1,
+      "total_ticks": 3840,
+      "total_attacks": 8,
+      "rule": "pitchIndex=globalAttackOrdinal%N; rhythm repeats with its own period; no bar reset",
+      "gate_phase_known": true,
+      "joint_with_host_bar_ticks": 3840
+    },
+    {
+      "id": "JC-Q004",
+      "pitch_count": 2,
+      "attacks_per_rhythm": 8,
+      "rhythm_ticks": 3840,
+      "rhythm_repetitions": 1,
+      "total_ticks": 3840,
+      "total_attacks": 8,
+      "rule": "pitchIndex=globalAttackOrdinal%N; rhythm repeats with its own period; no bar reset",
+      "gate_phase_known": true,
+      "joint_with_host_bar_ticks": 3840
+    },
+    {
+      "id": "JC-Q005",
+      "pitch_count": 2,
+      "attacks_per_rhythm": 8,
+      "rhythm_ticks": 3840,
+      "rhythm_repetitions": 1,
+      "total_ticks": 3840,
+      "total_attacks": 8,
+      "rule": "pitchIndex=globalAttackOrdinal%N; rhythm repeats with its own period; no bar reset",
+      "gate_phase_known": true,
+      "joint_with_host_bar_ticks": 3840
+    },
+    {
+      "id": "JC-Q006",
+      "pitch_count": 2,
+      "attacks_per_rhythm": 8,
+      "rhythm_ticks": 3840,
+      "rhythm_repetitions": 1,
+      "total_ticks": 3840,
+      "total_attacks": 8,
+      "rule": "pitchIndex=globalAttackOrdinal%N; rhythm repeats with its own period; no bar reset",
+      "gate_phase_known": true,
+      "joint_with_host_bar_ticks": 3840
+    },
+    {
+      "id": "JC-Q007",
+      "pitch_count": 2,
+      "attacks_per_rhythm": 16,
+      "rhythm_ticks": 3840,
+      "rhythm_repetitions": 1,
+      "total_ticks": 3840,
+      "total_attacks": 16,
+      "rule": "pitchIndex=globalAttackOrdinal%N; rhythm repeats with its own period; no bar reset",
+      "gate_phase_known": true,
+      "joint_with_host_bar_ticks": 3840
+    },
+    {
+      "id": "JC-Q008",
+      "pitch_count": 2,
+      "attacks_per_rhythm": 8,
+      "rhythm_ticks": 3840,
+      "rhythm_repetitions": 1,
+      "total_ticks": 3840,
+      "total_attacks": 8,
+      "rule": "pitchIndex=globalAttackOrdinal%N; rhythm repeats with its own period; no bar reset",
+      "gate_phase_known": true,
+      "joint_with_host_bar_ticks": 3840
+    },
+    {
+      "id": "JC-Q009",
+      "pitch_count": 3,
+      "attacks_per_rhythm": 3,
+      "rhythm_ticks": 3840,
+      "rhythm_repetitions": 1,
+      "total_ticks": 3840,
+      "total_attacks": 3,
+      "rule": "pitchIndex=globalAttackOrdinal%N; rhythm repeats with its own period; no bar reset",
+      "gate_phase_known": true,
+      "joint_with_host_bar_ticks": 3840
+    },
+    {
+      "id": "JC-Q010",
+      "pitch_count": 4,
+      "attacks_per_rhythm": 16,
+      "rhythm_ticks": 3840,
+      "rhythm_repetitions": 1,
+      "total_ticks": 3840,
+      "total_attacks": 16,
+      "rule": "pitchIndex=globalAttackOrdinal%N; rhythm repeats with its own period; no bar reset",
+      "gate_phase_known": true,
+      "joint_with_host_bar_ticks": 3840
+    },
+    {
+      "id": "JC-Q011",
+      "pitch_count": 4,
+      "attacks_per_rhythm": 16,
+      "rhythm_ticks": 3840,
+      "rhythm_repetitions": 1,
+      "total_ticks": 3840,
+      "total_attacks": 16,
+      "rule": "pitchIndex=globalAttackOrdinal%N; rhythm repeats with its own period; no bar reset",
+      "gate_phase_known": true,
+      "joint_with_host_bar_ticks": 3840
+    },
+    {
+      "id": "JC-Q012",
+      "pitch_count": 3,
+      "attacks_per_rhythm": 12,
+      "rhythm_ticks": 3840,
+      "rhythm_repetitions": 1,
+      "total_ticks": 3840,
+      "total_attacks": 12,
+      "rule": "pitchIndex=globalAttackOrdinal%N; rhythm repeats with its own period; no bar reset",
+      "gate_phase_known": true,
+      "joint_with_host_bar_ticks": 3840
+    },
+    {
+      "id": "JC-Q013",
+      "pitch_count": 4,
+      "attacks_per_rhythm": 16,
+      "rhythm_ticks": 3840,
+      "rhythm_repetitions": 1,
+      "total_ticks": 3840,
+      "total_attacks": 16,
+      "rule": "pitchIndex=globalAttackOrdinal%N; rhythm repeats with its own period; no bar reset",
+      "gate_phase_known": true,
+      "joint_with_host_bar_ticks": 3840
+    },
+    {
+      "id": "JC-Q014",
+      "pitch_count": 10,
+      "attacks_per_rhythm": 10,
+      "rhythm_ticks": 4800,
+      "rhythm_repetitions": 1,
+      "total_ticks": 4800,
+      "total_attacks": 10,
+      "rule": "pitchIndex=globalAttackOrdinal%N; rhythm repeats with its own period; no bar reset",
+      "gate_phase_known": true,
+      "joint_with_host_bar_ticks": 4800
+    },
+    {
+      "id": "JC-Q015",
+      "pitch_count": 8,
+      "attacks_per_rhythm": 16,
+      "rhythm_ticks": 3840,
+      "rhythm_repetitions": 1,
+      "total_ticks": 3840,
+      "total_attacks": 16,
+      "rule": "pitchIndex=globalAttackOrdinal%N; rhythm repeats with its own period; no bar reset",
+      "gate_phase_known": true,
+      "joint_with_host_bar_ticks": 3840
+    },
+    {
+      "id": "JC-Q016",
+      "pitch_count": 4,
+      "attacks_per_rhythm": 16,
+      "rhythm_ticks": 3840,
+      "rhythm_repetitions": 1,
+      "total_ticks": 3840,
+      "total_attacks": 16,
+      "rule": "pitchIndex=globalAttackOrdinal%N; rhythm repeats with its own period; no bar reset",
+      "gate_phase_known": true,
+      "joint_with_host_bar_ticks": 3840
+    },
+    {
+      "id": "JC-Q017",
+      "pitch_count": 8,
+      "attacks_per_rhythm": 8,
+      "rhythm_ticks": 3840,
+      "rhythm_repetitions": 1,
+      "total_ticks": 3840,
+      "total_attacks": 8,
+      "rule": "pitchIndex=globalAttackOrdinal%N; rhythm repeats with its own period; no bar reset",
+      "gate_phase_known": true,
+      "joint_with_host_bar_ticks": 3840
+    },
+    {
+      "id": "JC-Q018",
+      "pitch_count": 4,
+      "attacks_per_rhythm": 8,
+      "rhythm_ticks": 3840,
+      "rhythm_repetitions": 1,
+      "total_ticks": 3840,
+      "total_attacks": 8,
+      "rule": "pitchIndex=globalAttackOrdinal%N; rhythm repeats with its own period; no bar reset",
+      "gate_phase_known": true,
+      "joint_with_host_bar_ticks": 3840
+    },
+    {
+      "id": "JC-Q019",
+      "pitch_count": 8,
+      "attacks_per_rhythm": 8,
+      "rhythm_ticks": 3840,
+      "rhythm_repetitions": 1,
+      "total_ticks": 3840,
+      "total_attacks": 8,
+      "rule": "pitchIndex=globalAttackOrdinal%N; rhythm repeats with its own period; no bar reset",
+      "gate_phase_known": true,
+      "joint_with_host_bar_ticks": 3840
+    },
+    {
+      "id": "JC-Q020",
+      "pitch_count": 4,
+      "attacks_per_rhythm": 32,
+      "rhythm_ticks": 15360,
+      "rhythm_repetitions": 1,
+      "total_ticks": 15360,
+      "total_attacks": 32,
+      "rule": "pitchIndex=globalAttackOrdinal%N; rhythm repeats with its own period; no bar reset",
+      "gate_phase_known": true,
+      "joint_with_host_bar_ticks": 15360
+    },
+    {
+      "id": "JC-Q021",
+      "pitch_count": 4,
+      "attacks_per_rhythm": 16,
+      "rhythm_ticks": 3840,
+      "rhythm_repetitions": 1,
+      "total_ticks": 3840,
+      "total_attacks": 16,
+      "rule": "pitchIndex=globalAttackOrdinal%N; rhythm repeats with its own period; no bar reset",
+      "gate_phase_known": true,
+      "joint_with_host_bar_ticks": 3840
+    },
+    {
+      "id": "JC-Q022",
+      "pitch_count": 8,
+      "attacks_per_rhythm": 16,
+      "rhythm_ticks": 3840,
+      "rhythm_repetitions": 1,
+      "total_ticks": 3840,
+      "total_attacks": 16,
+      "rule": "pitchIndex=globalAttackOrdinal%N; rhythm repeats with its own period; no bar reset",
+      "gate_phase_known": true,
+      "joint_with_host_bar_ticks": 3840
+    },
+    {
+      "id": "JC-Q023",
+      "pitch_count": 4,
+      "attacks_per_rhythm": 8,
+      "rhythm_ticks": 3840,
+      "rhythm_repetitions": 1,
+      "total_ticks": 3840,
+      "total_attacks": 8,
+      "rule": "pitchIndex=globalAttackOrdinal%N; rhythm repeats with its own period; no bar reset",
+      "gate_phase_known": true,
+      "joint_with_host_bar_ticks": 3840
+    },
+    {
+      "id": "JC-Q024",
+      "pitch_count": 2,
+      "attacks_per_rhythm": 4,
+      "rhythm_ticks": 3840,
+      "rhythm_repetitions": 1,
+      "total_ticks": 3840,
+      "total_attacks": 4,
+      "rule": "pitchIndex=globalAttackOrdinal%N; rhythm repeats with its own period; no bar reset",
+      "gate_phase_known": true,
+      "joint_with_host_bar_ticks": 3840
+    },
+    {
+      "id": "JC-Q025",
+      "pitch_count": 2,
+      "attacks_per_rhythm": 4,
+      "rhythm_ticks": 3840,
+      "rhythm_repetitions": 1,
+      "total_ticks": 3840,
+      "total_attacks": 4,
+      "rule": "pitchIndex=globalAttackOrdinal%N; rhythm repeats with its own period; no bar reset",
+      "gate_phase_known": true,
+      "joint_with_host_bar_ticks": 3840
+    },
+    {
+      "id": "JC-Q026",
+      "pitch_count": 8,
+      "attacks_per_rhythm": 16,
+      "rhythm_ticks": 3840,
+      "rhythm_repetitions": 1,
+      "total_ticks": 3840,
+      "total_attacks": 16,
+      "rule": "pitchIndex=globalAttackOrdinal%N; rhythm repeats with its own period; no bar reset",
+      "gate_phase_known": true,
+      "joint_with_host_bar_ticks": 3840
+    },
+    {
+      "id": "JC-Q027",
+      "pitch_count": 16,
+      "attacks_per_rhythm": 16,
+      "rhythm_ticks": 3840,
+      "rhythm_repetitions": 1,
+      "total_ticks": 3840,
+      "total_attacks": 16,
+      "rule": "pitchIndex=globalAttackOrdinal%N; rhythm repeats with its own period; no bar reset",
+      "gate_phase_known": true,
+      "joint_with_host_bar_ticks": 3840
+    },
+    {
+      "id": "JC-Q028",
+      "pitch_count": 24,
+      "attacks_per_rhythm": 12,
+      "rhythm_ticks": 3840,
+      "rhythm_repetitions": 2,
+      "total_ticks": 7680,
+      "total_attacks": 24,
+      "rule": "pitchIndex=globalAttackOrdinal%N; rhythm repeats with its own period; no bar reset",
+      "gate_phase_known": true,
+      "joint_with_host_bar_ticks": 7680
+    },
+    {
+      "id": "JC-Q029",
+      "pitch_count": 4,
+      "attacks_per_rhythm": 16,
+      "rhythm_ticks": 3840,
+      "rhythm_repetitions": 1,
+      "total_ticks": 3840,
+      "total_attacks": 16,
+      "rule": "pitchIndex=globalAttackOrdinal%N; rhythm repeats with its own period; no bar reset",
+      "gate_phase_known": true,
+      "joint_with_host_bar_ticks": 3840
+    },
+    {
+      "id": "JC-Q030",
+      "pitch_count": 4,
+      "attacks_per_rhythm": 8,
+      "rhythm_ticks": 3840,
+      "rhythm_repetitions": 1,
+      "total_ticks": 3840,
+      "total_attacks": 8,
+      "rule": "pitchIndex=globalAttackOrdinal%N; rhythm repeats with its own period; no bar reset",
+      "gate_phase_known": true,
+      "joint_with_host_bar_ticks": 3840
+    },
+    {
+      "id": "JC-Q031",
+      "pitch_count": 2,
+      "attacks_per_rhythm": 8,
+      "rhythm_ticks": 3840,
+      "rhythm_repetitions": 1,
+      "total_ticks": 3840,
+      "total_attacks": 8,
+      "rule": "pitchIndex=globalAttackOrdinal%N; rhythm repeats with its own period; no bar reset",
+      "gate_phase_known": true,
+      "joint_with_host_bar_ticks": 3840
+    },
+    {
+      "id": "JC-Q032",
+      "pitch_count": 4,
+      "attacks_per_rhythm": 16,
+      "rhythm_ticks": 3840,
+      "rhythm_repetitions": 1,
+      "total_ticks": 3840,
+      "total_attacks": 16,
+      "rule": "pitchIndex=globalAttackOrdinal%N; rhythm repeats with its own period; no bar reset",
+      "gate_phase_known": true,
+      "joint_with_host_bar_ticks": 3840
+    },
+    {
+      "id": "JC-Q033",
+      "pitch_count": 4,
+      "attacks_per_rhythm": 12,
+      "rhythm_ticks": 3840,
+      "rhythm_repetitions": 1,
+      "total_ticks": 3840,
+      "total_attacks": 12,
+      "rule": "pitchIndex=globalAttackOrdinal%N; rhythm repeats with its own period; no bar reset",
+      "gate_phase_known": true,
+      "joint_with_host_bar_ticks": 3840
+    },
+    {
+      "id": "JC-Q034",
+      "pitch_count": 4,
+      "attacks_per_rhythm": 12,
+      "rhythm_ticks": 3840,
+      "rhythm_repetitions": 1,
+      "total_ticks": 3840,
+      "total_attacks": 12,
+      "rule": "pitchIndex=globalAttackOrdinal%N; rhythm repeats with its own period; no bar reset",
+      "gate_phase_known": true,
+      "joint_with_host_bar_ticks": 3840
+    },
+    {
+      "id": "JC-Q035",
+      "pitch_count": 4,
+      "attacks_per_rhythm": 8,
+      "rhythm_ticks": 3840,
+      "rhythm_repetitions": 1,
+      "total_ticks": 3840,
+      "total_attacks": 8,
+      "rule": "pitchIndex=globalAttackOrdinal%N; rhythm repeats with its own period; no bar reset",
+      "gate_phase_known": true,
+      "joint_with_host_bar_ticks": 3840
+    },
+    {
+      "id": "JC-Q036",
+      "pitch_count": 4,
+      "attacks_per_rhythm": 8,
+      "rhythm_ticks": 3840,
+      "rhythm_repetitions": 1,
+      "total_ticks": 3840,
+      "total_attacks": 8,
+      "rule": "pitchIndex=globalAttackOrdinal%N; rhythm repeats with its own period; no bar reset",
+      "gate_phase_known": true,
+      "joint_with_host_bar_ticks": 3840
+    },
+    {
+      "id": "JC-Q037",
+      "pitch_count": 4,
+      "attacks_per_rhythm": 8,
+      "rhythm_ticks": 3840,
+      "rhythm_repetitions": 1,
+      "total_ticks": 3840,
+      "total_attacks": 8,
+      "rule": "pitchIndex=globalAttackOrdinal%N; rhythm repeats with its own period; no bar reset",
+      "gate_phase_known": true,
+      "joint_with_host_bar_ticks": 3840
+    },
+    {
+      "id": "JC-Q038",
+      "pitch_count": 8,
+      "attacks_per_rhythm": 8,
+      "rhythm_ticks": 3840,
+      "rhythm_repetitions": 1,
+      "total_ticks": 3840,
+      "total_attacks": 8,
+      "rule": "pitchIndex=globalAttackOrdinal%N; rhythm repeats with its own period; no bar reset",
+      "gate_phase_known": true,
+      "joint_with_host_bar_ticks": 3840
+    },
+    {
+      "id": "JC-Q039",
+      "pitch_count": 2,
+      "attacks_per_rhythm": 2,
+      "rhythm_ticks": 3840,
+      "rhythm_repetitions": 1,
+      "total_ticks": 3840,
+      "total_attacks": 2,
+      "rule": "pitchIndex=globalAttackOrdinal%N; rhythm repeats with its own period; no bar reset",
+      "gate_phase_known": true,
+      "joint_with_host_bar_ticks": 3840
+    },
+    {
+      "id": "JC-Q040",
+      "pitch_count": 3,
+      "attacks_per_rhythm": 6,
+      "rhythm_ticks": 3840,
+      "rhythm_repetitions": 1,
+      "total_ticks": 3840,
+      "total_attacks": 6,
+      "rule": "pitchIndex=globalAttackOrdinal%N; rhythm repeats with its own period; no bar reset",
+      "gate_phase_known": true,
+      "joint_with_host_bar_ticks": 3840
+    },
+    {
+      "id": "JC-Q041",
+      "pitch_count": 4,
+      "attacks_per_rhythm": 24,
+      "rhythm_ticks": 15360,
+      "rhythm_repetitions": 1,
+      "total_ticks": 15360,
+      "total_attacks": 24,
+      "rule": "pitchIndex=globalAttackOrdinal%N; rhythm repeats with its own period; no bar reset",
+      "gate_phase_known": true,
+      "joint_with_host_bar_ticks": 15360
+    },
+    {
+      "id": "JC-Q042",
+      "pitch_count": 4,
+      "attacks_per_rhythm": 28,
+      "rhythm_ticks": 15360,
+      "rhythm_repetitions": 1,
+      "total_ticks": 15360,
+      "total_attacks": 28,
+      "rule": "pitchIndex=globalAttackOrdinal%N; rhythm repeats with its own period; no bar reset",
+      "gate_phase_known": true,
+      "joint_with_host_bar_ticks": 15360
+    },
+    {
+      "id": "JC-Q043",
+      "pitch_count": 5,
+      "attacks_per_rhythm": 16,
+      "rhythm_ticks": 3840,
+      "rhythm_repetitions": 5,
+      "total_ticks": 19200,
+      "total_attacks": 80,
+      "rule": "pitchIndex=globalAttackOrdinal%N; rhythm repeats with its own period; no bar reset",
+      "gate_phase_known": true,
+      "joint_with_host_bar_ticks": 19200
+    },
+    {
+      "id": "JC-Q044",
+      "pitch_count": 3,
+      "attacks_per_rhythm": 8,
+      "rhythm_ticks": 3840,
+      "rhythm_repetitions": 3,
+      "total_ticks": 11520,
+      "total_attacks": 24,
+      "rule": "pitchIndex=globalAttackOrdinal%N; rhythm repeats with its own period; no bar reset",
+      "gate_phase_known": true,
+      "joint_with_host_bar_ticks": 11520
+    },
+    {
+      "id": "JC-Q045",
+      "pitch_count": 7,
+      "attacks_per_rhythm": 7,
+      "rhythm_ticks": 3360,
+      "rhythm_repetitions": 1,
+      "total_ticks": 3360,
+      "total_attacks": 7,
+      "rule": "pitchIndex=globalAttackOrdinal%N; rhythm repeats with its own period; no bar reset",
+      "gate_phase_known": true,
+      "joint_with_host_bar_ticks": 3360
+    },
+    {
+      "id": "JC-Q046",
+      "pitch_count": 9,
+      "attacks_per_rhythm": 9,
+      "rhythm_ticks": 4320,
+      "rhythm_repetitions": 1,
+      "total_ticks": 4320,
+      "total_attacks": 9,
+      "rule": "pitchIndex=globalAttackOrdinal%N; rhythm repeats with its own period; no bar reset",
+      "gate_phase_known": true,
+      "joint_with_host_bar_ticks": 4320
+    },
+    {
+      "id": "JC-Q047",
+      "pitch_count": 8,
+      "attacks_per_rhythm": 8,
+      "rhythm_ticks": 3840,
+      "rhythm_repetitions": 1,
+      "total_ticks": 3840,
+      "total_attacks": 8,
+      "rule": "pitchIndex=globalAttackOrdinal%N; rhythm repeats with its own period; no bar reset",
+      "gate_phase_known": true,
+      "joint_with_host_bar_ticks": 3840
+    },
+    {
+      "id": "JC-Q048",
+      "pitch_count": 3,
+      "attacks_per_rhythm": 12,
+      "rhythm_ticks": 3840,
+      "rhythm_repetitions": 1,
+      "total_ticks": 3840,
+      "total_attacks": 12,
+      "rule": "pitchIndex=globalAttackOrdinal%N; rhythm repeats with its own period; no bar reset",
+      "gate_phase_known": true,
+      "joint_with_host_bar_ticks": 3840
+    },
+    {
+      "id": "JC-Q049",
+      "pitch_count": 6,
+      "attacks_per_rhythm": 12,
+      "rhythm_ticks": 3840,
+      "rhythm_repetitions": 1,
+      "total_ticks": 3840,
+      "total_attacks": 12,
+      "rule": "pitchIndex=globalAttackOrdinal%N; rhythm repeats with its own period; no bar reset",
+      "gate_phase_known": true,
+      "joint_with_host_bar_ticks": 3840
+    },
+    {
+      "id": "JC-Q050",
+      "pitch_count": 8,
+      "attacks_per_rhythm": 8,
+      "rhythm_ticks": 3840,
+      "rhythm_repetitions": 1,
+      "total_ticks": 3840,
+      "total_attacks": 8,
+      "rule": "pitchIndex=globalAttackOrdinal%N; rhythm repeats with its own period; no bar reset",
+      "gate_phase_known": true,
+      "joint_with_host_bar_ticks": 3840
+    },
+    {
+      "id": "JC-Q051",
+      "pitch_count": 2,
+      "attacks_per_rhythm": 8,
+      "rhythm_ticks": 3840,
+      "rhythm_repetitions": 1,
+      "total_ticks": 3840,
+      "total_attacks": 8,
+      "rule": "pitchIndex=globalAttackOrdinal%N; rhythm repeats with its own period; no bar reset",
+      "gate_phase_known": true,
+      "joint_with_host_bar_ticks": 3840
+    },
+    {
+      "id": "JC-Q052",
+      "pitch_count": 4,
+      "attacks_per_rhythm": 16,
+      "rhythm_ticks": 3840,
+      "rhythm_repetitions": 1,
+      "total_ticks": 3840,
+      "total_attacks": 16,
+      "rule": "pitchIndex=globalAttackOrdinal%N; rhythm repeats with its own period; no bar reset",
+      "gate_phase_known": true,
+      "joint_with_host_bar_ticks": 3840
+    },
+    {
+      "id": "JC-Q053",
+      "pitch_count": 1,
+      "attacks_per_rhythm": 8,
+      "rhythm_ticks": 3840,
+      "rhythm_repetitions": 1,
+      "total_ticks": 3840,
+      "total_attacks": 8,
+      "rule": "pitchIndex=globalAttackOrdinal%N; rhythm repeats with its own period; no bar reset",
+      "gate_phase_known": true,
+      "joint_with_host_bar_ticks": 3840
+    },
+    {
+      "id": "JC-Q054",
+      "pitch_count": 4,
+      "attacks_per_rhythm": 2,
+      "rhythm_ticks": 3840,
+      "rhythm_repetitions": 2,
+      "total_ticks": 7680,
+      "total_attacks": 4,
+      "rule": "pitchIndex=globalAttackOrdinal%N; rhythm repeats with its own period; no bar reset",
+      "gate_phase_known": true,
+      "joint_with_host_bar_ticks": 7680
+    },
+    {
+      "id": "JC-Q055",
+      "pitch_count": 4,
+      "attacks_per_rhythm": 1,
+      "rhythm_ticks": 3840,
+      "rhythm_repetitions": 4,
+      "total_ticks": 15360,
+      "total_attacks": 4,
+      "rule": "pitchIndex=globalAttackOrdinal%N; rhythm repeats with its own period; no bar reset",
+      "gate_phase_known": true,
+      "joint_with_host_bar_ticks": 15360
+    },
+    {
+      "id": "JC-Q056",
+      "pitch_count": 8,
+      "attacks_per_rhythm": 16,
+      "rhythm_ticks": 3840,
+      "rhythm_repetitions": 1,
+      "total_ticks": 3840,
+      "total_attacks": 16,
+      "rule": "pitchIndex=globalAttackOrdinal%N; rhythm repeats with its own period; no bar reset",
+      "gate_phase_known": true,
+      "joint_with_host_bar_ticks": 3840
+    },
+    {
+      "id": "JC-Q057",
+      "pitch_count": 8,
+      "attacks_per_rhythm": 8,
+      "rhythm_ticks": 3840,
+      "rhythm_repetitions": 1,
+      "total_ticks": 3840,
+      "total_attacks": 8,
+      "rule": "pitchIndex=globalAttackOrdinal%N; rhythm repeats with its own period; no bar reset",
+      "gate_phase_known": true,
+      "joint_with_host_bar_ticks": 3840
+    },
+    {
+      "id": "JC-Q058",
+      "pitch_count": 4,
+      "attacks_per_rhythm": 4,
+      "rhythm_ticks": 3840,
+      "rhythm_repetitions": 1,
+      "total_ticks": 3840,
+      "total_attacks": 4,
+      "rule": "pitchIndex=globalAttackOrdinal%N; rhythm repeats with its own period; no bar reset",
+      "gate_phase_known": true,
+      "joint_with_host_bar_ticks": 3840
+    },
+    {
+      "id": "JC-Q059",
+      "pitch_count": 4,
+      "attacks_per_rhythm": 4,
+      "rhythm_ticks": 3840,
+      "rhythm_repetitions": 1,
+      "total_ticks": 3840,
+      "total_attacks": 4,
+      "rule": "pitchIndex=globalAttackOrdinal%N; rhythm repeats with its own period; no bar reset",
+      "gate_phase_known": true,
+      "joint_with_host_bar_ticks": 3840
+    },
+    {
+      "id": "JC-Q060",
+      "pitch_count": 4,
+      "attacks_per_rhythm": 8,
+      "rhythm_ticks": 3840,
+      "rhythm_repetitions": 1,
+      "total_ticks": 3840,
+      "total_attacks": 8,
+      "rule": "pitchIndex=globalAttackOrdinal%N; rhythm repeats with its own period; no bar reset",
+      "gate_phase_known": true,
+      "joint_with_host_bar_ticks": 3840
+    },
+    {
+      "id": "JC-Q061",
+      "pitch_count": 4,
+      "attacks_per_rhythm": 16,
+      "rhythm_ticks": 3840,
+      "rhythm_repetitions": 1,
+      "total_ticks": 3840,
+      "total_attacks": 16,
+      "rule": "pitchIndex=globalAttackOrdinal%N; rhythm repeats with its own period; no bar reset",
+      "gate_phase_known": true,
+      "joint_with_host_bar_ticks": 3840
+    },
+    {
+      "id": "JC-Q062",
+      "pitch_count": 4,
+      "attacks_per_rhythm": 8,
+      "rhythm_ticks": 3840,
+      "rhythm_repetitions": 1,
+      "total_ticks": 3840,
+      "total_attacks": 8,
+      "rule": "pitchIndex=globalAttackOrdinal%N; rhythm repeats with its own period; no bar reset",
+      "gate_phase_known": true,
+      "joint_with_host_bar_ticks": 3840
+    },
+    {
+      "id": "JC-Q063",
+      "pitch_count": 32,
+      "attacks_per_rhythm": 16,
+      "rhythm_ticks": 3840,
+      "rhythm_repetitions": 2,
+      "total_ticks": 7680,
+      "total_attacks": 32,
+      "rule": "pitchIndex=globalAttackOrdinal%N; rhythm repeats with its own period; no bar reset",
+      "gate_phase_known": true,
+      "joint_with_host_bar_ticks": 7680
+    },
+    {
+      "id": "JC-Q064",
+      "pitch_count": 8,
+      "attacks_per_rhythm": 8,
+      "rhythm_ticks": 3840,
+      "rhythm_repetitions": 1,
+      "total_ticks": 3840,
+      "total_attacks": 8,
+      "rule": "pitchIndex=globalAttackOrdinal%N; rhythm repeats with its own period; no bar reset",
+      "gate_phase_known": true,
+      "joint_with_host_bar_ticks": 3840
+    },
+    {
+      "id": "JC-Q065",
+      "pitch_count": 2,
+      "attacks_per_rhythm": 2,
+      "rhythm_ticks": 3840,
+      "rhythm_repetitions": 1,
+      "total_ticks": 3840,
+      "total_attacks": 2,
+      "rule": "pitchIndex=globalAttackOrdinal%N; rhythm repeats with its own period; no bar reset",
+      "gate_phase_known": true,
+      "joint_with_host_bar_ticks": 3840
+    },
+    {
+      "id": "JC-Q066",
+      "pitch_count": 4,
+      "attacks_per_rhythm": 12,
+      "rhythm_ticks": 3840,
+      "rhythm_repetitions": 1,
+      "total_ticks": 3840,
+      "total_attacks": 12,
+      "rule": "pitchIndex=globalAttackOrdinal%N; rhythm repeats with its own period; no bar reset",
+      "gate_phase_known": true,
+      "joint_with_host_bar_ticks": 3840
+    },
+    {
+      "id": "JC-Q067",
+      "pitch_count": 3,
+      "attacks_per_rhythm": 3,
+      "rhythm_ticks": 3840,
+      "rhythm_repetitions": 1,
+      "total_ticks": 3840,
+      "total_attacks": 3,
+      "rule": "pitchIndex=globalAttackOrdinal%N; rhythm repeats with its own period; no bar reset",
+      "gate_phase_known": true,
+      "joint_with_host_bar_ticks": 3840
+    },
+    {
+      "id": "JC-B009",
+      "pitch_count": 1,
+      "attacks_per_rhythm": 8,
+      "rhythm_ticks": 3840,
+      "rhythm_repetitions": 1,
+      "total_ticks": 3840,
+      "total_attacks": 8,
+      "rule": "pitchIndex=globalAttackOrdinal%N; rhythm repeats with its own period; no bar reset",
+      "gate_phase_known": true,
+      "joint_with_host_bar_ticks": 3840
+    },
+    {
+      "id": "JC-B010",
+      "pitch_count": 1,
+      "attacks_per_rhythm": 8,
+      "rhythm_ticks": 3840,
+      "rhythm_repetitions": 1,
+      "total_ticks": 3840,
+      "total_attacks": 8,
+      "rule": "pitchIndex=globalAttackOrdinal%N; rhythm repeats with its own period; no bar reset",
+      "gate_phase_known": true,
+      "joint_with_host_bar_ticks": 3840
+    },
+    {
+      "id": "JC-B011",
+      "pitch_count": 1,
+      "attacks_per_rhythm": 4,
+      "rhythm_ticks": 3840,
+      "rhythm_repetitions": 1,
+      "total_ticks": 3840,
+      "total_attacks": 4,
+      "rule": "pitchIndex=globalAttackOrdinal%N; rhythm repeats with its own period; no bar reset",
+      "gate_phase_known": true,
+      "joint_with_host_bar_ticks": 3840
+    },
+    {
+      "id": "JC-B012",
+      "pitch_count": 1,
+      "attacks_per_rhythm": 16,
+      "rhythm_ticks": 3840,
+      "rhythm_repetitions": 1,
+      "total_ticks": 3840,
+      "total_attacks": 16,
+      "rule": "pitchIndex=globalAttackOrdinal%N; rhythm repeats with its own period; no bar reset",
+      "gate_phase_known": true,
+      "joint_with_host_bar_ticks": 3840
+    },
+    {
+      "id": "JC-B013",
+      "pitch_count": 2,
+      "attacks_per_rhythm": 2,
+      "rhythm_ticks": 3840,
+      "rhythm_repetitions": 1,
+      "total_ticks": 3840,
+      "total_attacks": 2,
+      "rule": "pitchIndex=globalAttackOrdinal%N; rhythm repeats with its own period; no bar reset",
+      "gate_phase_known": true,
+      "joint_with_host_bar_ticks": 3840
+    },
+    {
+      "id": "JC-B014",
+      "pitch_count": 2,
+      "attacks_per_rhythm": 2,
+      "rhythm_ticks": 7680,
+      "rhythm_repetitions": 1,
+      "total_ticks": 7680,
+      "total_attacks": 2,
+      "rule": "pitchIndex=globalAttackOrdinal%N; rhythm repeats with its own period; no bar reset",
+      "gate_phase_known": true,
+      "joint_with_host_bar_ticks": 7680
+    },
+    {
+      "id": "JC-B015",
+      "pitch_count": 1,
+      "attacks_per_rhythm": 4,
+      "rhythm_ticks": 3840,
+      "rhythm_repetitions": 1,
+      "total_ticks": 3840,
+      "total_attacks": 4,
+      "rule": "pitchIndex=globalAttackOrdinal%N; rhythm repeats with its own period; no bar reset",
+      "gate_phase_known": true,
+      "joint_with_host_bar_ticks": 3840
+    },
+    {
+      "id": "JC-B016",
+      "pitch_count": 1,
+      "attacks_per_rhythm": 3,
+      "rhythm_ticks": 3840,
+      "rhythm_repetitions": 1,
+      "total_ticks": 3840,
+      "total_attacks": 3,
+      "rule": "pitchIndex=globalAttackOrdinal%N; rhythm repeats with its own period; no bar reset",
+      "gate_phase_known": true,
+      "joint_with_host_bar_ticks": 3840
+    },
+    {
+      "id": "JC-B017",
+      "pitch_count": 1,
+      "attacks_per_rhythm": 12,
+      "rhythm_ticks": 3840,
+      "rhythm_repetitions": 1,
+      "total_ticks": 3840,
+      "total_attacks": 12,
+      "rule": "pitchIndex=globalAttackOrdinal%N; rhythm repeats with its own period; no bar reset",
+      "gate_phase_known": true,
+      "joint_with_host_bar_ticks": 3840
+    },
+    {
+      "id": "JC-B018",
+      "pitch_count": 1,
+      "attacks_per_rhythm": 8,
+      "rhythm_ticks": 3840,
+      "rhythm_repetitions": 1,
+      "total_ticks": 3840,
+      "total_attacks": 8,
+      "rule": "pitchIndex=globalAttackOrdinal%N; rhythm repeats with its own period; no bar reset",
+      "gate_phase_known": true,
+      "joint_with_host_bar_ticks": 3840
+    },
+    {
+      "id": "JC-B019",
+      "pitch_count": 1,
+      "attacks_per_rhythm": 10,
+      "rhythm_ticks": 4800,
+      "rhythm_repetitions": 1,
+      "total_ticks": 4800,
+      "total_attacks": 10,
+      "rule": "pitchIndex=globalAttackOrdinal%N; rhythm repeats with its own period; no bar reset",
+      "gate_phase_known": true,
+      "joint_with_host_bar_ticks": 4800
+    },
+    {
+      "id": "JC-B020",
+      "pitch_count": 3,
+      "attacks_per_rhythm": 3,
+      "rhythm_ticks": 7680,
+      "rhythm_repetitions": 1,
+      "total_ticks": 7680,
+      "total_attacks": 3,
+      "rule": "pitchIndex=globalAttackOrdinal%N; rhythm repeats with its own period; no bar reset",
+      "gate_phase_known": true,
+      "joint_with_host_bar_ticks": 7680
+    },
+    {
+      "id": "JC-B021",
+      "pitch_count": 8,
+      "attacks_per_rhythm": 8,
+      "rhythm_ticks": 3840,
+      "rhythm_repetitions": 1,
+      "total_ticks": 3840,
+      "total_attacks": 8,
+      "rule": "pitchIndex=globalAttackOrdinal%N; rhythm repeats with its own period; no bar reset",
+      "gate_phase_known": true,
+      "joint_with_host_bar_ticks": 3840
+    },
+    {
+      "id": "JC-B022",
+      "pitch_count": 8,
+      "attacks_per_rhythm": 8,
+      "rhythm_ticks": 3840,
+      "rhythm_repetitions": 1,
+      "total_ticks": 3840,
+      "total_attacks": 8,
+      "rule": "pitchIndex=globalAttackOrdinal%N; rhythm repeats with its own period; no bar reset",
+      "gate_phase_known": true,
+      "joint_with_host_bar_ticks": 3840
+    },
+    {
+      "id": "JC-B023",
+      "pitch_count": 8,
+      "attacks_per_rhythm": 8,
+      "rhythm_ticks": 3840,
+      "rhythm_repetitions": 1,
+      "total_ticks": 3840,
+      "total_attacks": 8,
+      "rule": "pitchIndex=globalAttackOrdinal%N; rhythm repeats with its own period; no bar reset",
+      "gate_phase_known": true,
+      "joint_with_host_bar_ticks": 3840
+    },
+    {
+      "id": "JC-B024",
+      "pitch_count": 6,
+      "attacks_per_rhythm": 12,
+      "rhythm_ticks": 3840,
+      "rhythm_repetitions": 1,
+      "total_ticks": 3840,
+      "total_attacks": 12,
+      "rule": "pitchIndex=globalAttackOrdinal%N; rhythm repeats with its own period; no bar reset",
+      "gate_phase_known": true,
+      "joint_with_host_bar_ticks": 3840
+    },
+    {
+      "id": "JC-B025",
+      "pitch_count": 10,
+      "attacks_per_rhythm": 10,
+      "rhythm_ticks": 4800,
+      "rhythm_repetitions": 1,
+      "total_ticks": 4800,
+      "total_attacks": 10,
+      "rule": "pitchIndex=globalAttackOrdinal%N; rhythm repeats with its own period; no bar reset",
+      "gate_phase_known": true,
+      "joint_with_host_bar_ticks": 4800
+    },
+    {
+      "id": "JC-B026",
+      "pitch_count": 2,
+      "attacks_per_rhythm": 8,
+      "rhythm_ticks": 3840,
+      "rhythm_repetitions": 1,
+      "total_ticks": 3840,
+      "total_attacks": 8,
+      "rule": "pitchIndex=globalAttackOrdinal%N; rhythm repeats with its own period; no bar reset",
+      "gate_phase_known": true,
+      "joint_with_host_bar_ticks": 3840
+    },
+    {
+      "id": "JC-B027",
+      "pitch_count": 2,
+      "attacks_per_rhythm": 4,
+      "rhythm_ticks": 3840,
+      "rhythm_repetitions": 1,
+      "total_ticks": 3840,
+      "total_attacks": 4,
+      "rule": "pitchIndex=globalAttackOrdinal%N; rhythm repeats with its own period; no bar reset",
+      "gate_phase_known": true,
+      "joint_with_host_bar_ticks": 3840
+    },
+    {
+      "id": "JC-B028",
+      "pitch_count": 3,
+      "attacks_per_rhythm": 3,
+      "rhythm_ticks": 3840,
+      "rhythm_repetitions": 1,
+      "total_ticks": 3840,
+      "total_attacks": 3,
+      "rule": "pitchIndex=globalAttackOrdinal%N; rhythm repeats with its own period; no bar reset",
+      "gate_phase_known": true,
+      "joint_with_host_bar_ticks": 3840
+    },
+    {
+      "id": "JC-B029",
+      "pitch_count": 4,
+      "attacks_per_rhythm": 1,
+      "rhythm_ticks": 3840,
+      "rhythm_repetitions": 4,
+      "total_ticks": 15360,
+      "total_attacks": 4,
+      "rule": "pitchIndex=globalAttackOrdinal%N; rhythm repeats with its own period; no bar reset",
+      "gate_phase_known": true,
+      "joint_with_host_bar_ticks": 15360
+    },
+    {
+      "id": "JC-B030",
+      "pitch_count": 4,
+      "attacks_per_rhythm": 1,
+      "rhythm_ticks": 3840,
+      "rhythm_repetitions": 4,
+      "total_ticks": 15360,
+      "total_attacks": 4,
+      "rule": "pitchIndex=globalAttackOrdinal%N; rhythm repeats with its own period; no bar reset",
+      "gate_phase_known": true,
+      "joint_with_host_bar_ticks": 15360
+    },
+    {
+      "id": "JC-B031",
+      "pitch_count": 16,
+      "attacks_per_rhythm": 8,
+      "rhythm_ticks": 3840,
+      "rhythm_repetitions": 2,
+      "total_ticks": 7680,
+      "total_attacks": 16,
+      "rule": "pitchIndex=globalAttackOrdinal%N; rhythm repeats with its own period; no bar reset",
+      "gate_phase_known": true,
+      "joint_with_host_bar_ticks": 7680
+    },
+    {
+      "id": "JC-B032",
+      "pitch_count": 4,
+      "attacks_per_rhythm": 1,
+      "rhythm_ticks": 3840,
+      "rhythm_repetitions": 4,
+      "total_ticks": 15360,
+      "total_attacks": 4,
+      "rule": "pitchIndex=globalAttackOrdinal%N; rhythm repeats with its own period; no bar reset",
+      "gate_phase_known": true,
+      "joint_with_host_bar_ticks": 15360
+    },
+    {
+      "id": "JC-B033",
+      "pitch_count": 8,
+      "attacks_per_rhythm": 2,
+      "rhythm_ticks": 3840,
+      "rhythm_repetitions": 4,
+      "total_ticks": 15360,
+      "total_attacks": 8,
+      "rule": "pitchIndex=globalAttackOrdinal%N; rhythm repeats with its own period; no bar reset",
+      "gate_phase_known": true,
+      "joint_with_host_bar_ticks": 15360
+    },
+    {
+      "id": "JC-B034",
+      "pitch_count": 4,
+      "attacks_per_rhythm": 1,
+      "rhythm_ticks": 3840,
+      "rhythm_repetitions": 4,
+      "total_ticks": 15360,
+      "total_attacks": 4,
+      "rule": "pitchIndex=globalAttackOrdinal%N; rhythm repeats with its own period; no bar reset",
+      "gate_phase_known": true,
+      "joint_with_host_bar_ticks": 15360
+    },
+    {
+      "id": "JC-B035",
+      "pitch_count": 4,
+      "attacks_per_rhythm": 1,
+      "rhythm_ticks": 3840,
+      "rhythm_repetitions": 4,
+      "total_ticks": 15360,
+      "total_attacks": 4,
+      "rule": "pitchIndex=globalAttackOrdinal%N; rhythm repeats with its own period; no bar reset",
+      "gate_phase_known": true,
+      "joint_with_host_bar_ticks": 15360
+    },
+    {
+      "id": "JC-B036",
+      "pitch_count": 4,
+      "attacks_per_rhythm": 4,
+      "rhythm_ticks": 3840,
+      "rhythm_repetitions": 1,
+      "total_ticks": 3840,
+      "total_attacks": 4,
+      "rule": "pitchIndex=globalAttackOrdinal%N; rhythm repeats with its own period; no bar reset",
+      "gate_phase_known": true,
+      "joint_with_host_bar_ticks": 3840
+    },
+    {
+      "id": "JC-B037",
+      "pitch_count": 4,
+      "attacks_per_rhythm": 4,
+      "rhythm_ticks": 3840,
+      "rhythm_repetitions": 1,
+      "total_ticks": 3840,
+      "total_attacks": 4,
+      "rule": "pitchIndex=globalAttackOrdinal%N; rhythm repeats with its own period; no bar reset",
+      "gate_phase_known": true,
+      "joint_with_host_bar_ticks": 3840
+    },
+    {
+      "id": "JC-B038",
+      "pitch_count": 1,
+      "attacks_per_rhythm": 4,
+      "rhythm_ticks": 3840,
+      "rhythm_repetitions": 1,
+      "total_ticks": 3840,
+      "total_attacks": 4,
+      "rule": "pitchIndex=globalAttackOrdinal%N; rhythm repeats with its own period; no bar reset",
+      "gate_phase_known": true,
+      "joint_with_host_bar_ticks": 3840
+    },
+    {
+      "id": "JC-B039",
+      "pitch_count": 1,
+      "attacks_per_rhythm": 5,
+      "rhythm_ticks": 3840,
+      "rhythm_repetitions": 1,
+      "total_ticks": 3840,
+      "total_attacks": 5,
+      "rule": "pitchIndex=globalAttackOrdinal%N; rhythm repeats with its own period; no bar reset",
+      "gate_phase_known": true,
+      "joint_with_host_bar_ticks": 3840
+    },
+    {
+      "id": "JC-B040",
+      "pitch_count": 4,
+      "attacks_per_rhythm": 4,
+      "rhythm_ticks": 3840,
+      "rhythm_repetitions": 1,
+      "total_ticks": 3840,
+      "total_attacks": 4,
+      "rule": "pitchIndex=globalAttackOrdinal%N; rhythm repeats with its own period; no bar reset",
+      "gate_phase_known": true,
+      "joint_with_host_bar_ticks": 3840
+    },
+    {
+      "id": "JC-B042",
+      "pitch_count": 2,
+      "attacks_per_rhythm": 2,
+      "rhythm_ticks": 3840,
+      "rhythm_repetitions": 1,
+      "total_ticks": 3840,
+      "total_attacks": 2,
+      "rule": "pitchIndex=globalAttackOrdinal%N; rhythm repeats with its own period; no bar reset",
+      "gate_phase_known": true,
+      "joint_with_host_bar_ticks": 3840
+    },
+    {
+      "id": "JC-B043",
+      "pitch_count": 2,
+      "attacks_per_rhythm": 2,
+      "rhythm_ticks": 7680,
+      "rhythm_repetitions": 1,
+      "total_ticks": 7680,
+      "total_attacks": 2,
+      "rule": "pitchIndex=globalAttackOrdinal%N; rhythm repeats with its own period; no bar reset",
+      "gate_phase_known": true,
+      "joint_with_host_bar_ticks": 7680
+    },
+    {
+      "id": "JC-B044",
+      "pitch_count": 1,
+      "attacks_per_rhythm": 1,
+      "rhythm_ticks": 3840,
+      "rhythm_repetitions": 1,
+      "total_ticks": 3840,
+      "total_attacks": 1,
+      "rule": "pitchIndex=globalAttackOrdinal%N; rhythm repeats with its own period; no bar reset",
+      "gate_phase_known": true,
+      "joint_with_host_bar_ticks": 3840
+    },
+    {
+      "id": "JC-B045",
+      "pitch_count": 2,
+      "attacks_per_rhythm": 2,
+      "rhythm_ticks": 3840,
+      "rhythm_repetitions": 1,
+      "total_ticks": 3840,
+      "total_attacks": 2,
+      "rule": "pitchIndex=globalAttackOrdinal%N; rhythm repeats with its own period; no bar reset",
+      "gate_phase_known": true,
+      "joint_with_host_bar_ticks": 3840
+    },
+    {
+      "id": "JC-B046",
+      "pitch_count": 4,
+      "attacks_per_rhythm": 16,
+      "rhythm_ticks": 3840,
+      "rhythm_repetitions": 1,
+      "total_ticks": 3840,
+      "total_attacks": 16,
+      "rule": "pitchIndex=globalAttackOrdinal%N; rhythm repeats with its own period; no bar reset",
+      "gate_phase_known": true,
+      "joint_with_host_bar_ticks": 3840
+    },
+    {
+      "id": "JC-B047",
+      "pitch_count": 6,
+      "attacks_per_rhythm": 6,
+      "rhythm_ticks": 3840,
+      "rhythm_repetitions": 1,
+      "total_ticks": 3840,
+      "total_attacks": 6,
+      "rule": "pitchIndex=globalAttackOrdinal%N; rhythm repeats with its own period; no bar reset",
+      "gate_phase_known": true,
+      "joint_with_host_bar_ticks": 3840
+    },
+    {
+      "id": "JC-B048",
+      "pitch_count": 1,
+      "attacks_per_rhythm": 56,
+      "rhythm_ticks": 30720,
+      "rhythm_repetitions": 1,
+      "total_ticks": 30720,
+      "total_attacks": 56,
+      "rule": "pitchIndex=globalAttackOrdinal%N; rhythm repeats with its own period; no bar reset",
+      "gate_phase_known": true,
+      "joint_with_host_bar_ticks": 30720
+    },
+    {
+      "id": "JC-B049",
+      "pitch_count": 1,
+      "attacks_per_rhythm": 8,
+      "rhythm_ticks": 3840,
+      "rhythm_repetitions": 1,
+      "total_ticks": 3840,
+      "total_attacks": 8,
+      "rule": "pitchIndex=globalAttackOrdinal%N; rhythm repeats with its own period; no bar reset",
+      "gate_phase_known": false,
+      "joint_with_host_bar_ticks": 3840
+    },
+    {
+      "id": "JC-B050",
+      "pitch_count": 5,
+      "attacks_per_rhythm": 5,
+      "rhythm_ticks": 3840,
+      "rhythm_repetitions": 1,
+      "total_ticks": 3840,
+      "total_attacks": 5,
+      "rule": "pitchIndex=globalAttackOrdinal%N; rhythm repeats with its own period; no bar reset",
+      "gate_phase_known": true,
+      "joint_with_host_bar_ticks": 3840
+    },
+    {
+      "id": "JC-B051",
+      "pitch_count": 4,
+      "attacks_per_rhythm": 4,
+      "rhythm_ticks": 3840,
+      "rhythm_repetitions": 1,
+      "total_ticks": 3840,
+      "total_attacks": 4,
+      "rule": "pitchIndex=globalAttackOrdinal%N; rhythm repeats with its own period; no bar reset",
+      "gate_phase_known": true,
+      "joint_with_host_bar_ticks": 3840
+    },
+    {
+      "id": "JC-B052",
+      "pitch_count": 16,
+      "attacks_per_rhythm": 8,
+      "rhythm_ticks": 3840,
+      "rhythm_repetitions": 2,
+      "total_ticks": 7680,
+      "total_attacks": 16,
+      "rule": "pitchIndex=globalAttackOrdinal%N; rhythm repeats with its own period; no bar reset",
+      "gate_phase_known": true,
+      "joint_with_host_bar_ticks": 7680
+    }
+  ],
+  "nonperiodic_bass": [
+    {
+      "id": "JC-B001",
+      "kind": "held_or_rearticulated",
+      "source_instruction": "1 (durchgehend gehalten)",
+      "rearticulation_ticks": null
+    },
+    {
+      "id": "JC-B002",
+      "kind": "held_or_rearticulated",
+      "source_instruction": "5 (durchgehend gehalten)",
+      "rearticulation_ticks": null
+    },
+    {
+      "id": "JC-B003",
+      "kind": "held_or_rearticulated",
+      "source_instruction": "1 (alle 4 Takte neu angeschlagen)",
+      "rearticulation_ticks": 15360
+    },
+    {
+      "id": "JC-B004",
+      "kind": "held_or_rearticulated",
+      "source_instruction": "1 (alle 2 Takte neu angeschlagen)",
+      "rearticulation_ticks": 7680
+    },
+    {
+      "id": "JC-B005",
+      "kind": "held_or_rearticulated",
+      "source_instruction": "1 (durchgehend gehalten)",
+      "rearticulation_ticks": null
+    },
+    {
+      "id": "JC-B006",
+      "kind": "held_or_rearticulated",
+      "source_instruction": "♭2 (durchgehend gehalten)",
+      "rearticulation_ticks": null
+    },
+    {
+      "id": "JC-B007",
+      "kind": "held_or_rearticulated",
+      "source_instruction": "5 (alle 8 Takte neu angeschlagen)",
+      "rearticulation_ticks": 30720
+    },
+    {
+      "id": "JC-B008",
+      "kind": "held_or_rearticulated",
+      "source_instruction": "♯4/♭5 (durchgehend gehalten)",
+      "rearticulation_ticks": null
+    },
+    {
+      "id": "JC-B041",
+      "kind": "silence",
+      "source_instruction": "keine (bewusster Verzicht)",
+      "rearticulation_ticks": null
+    }
+  ],
+  "rhythms": [
+    {
+      "id": "JC-R001",
+      "own_period_ticks": 3840,
+      "bar_ticks": 3840,
+      "joint_with_host_bar_ticks": 3840,
+      "gate_mapping_known": true
+    },
+    {
+      "id": "JC-R002",
+      "own_period_ticks": 3840,
+      "bar_ticks": 3840,
+      "joint_with_host_bar_ticks": 3840,
+      "gate_mapping_known": true
+    },
+    {
+      "id": "JC-R003",
+      "own_period_ticks": 3840,
+      "bar_ticks": 3840,
+      "joint_with_host_bar_ticks": 3840,
+      "gate_mapping_known": true
+    },
+    {
+      "id": "JC-R004",
+      "own_period_ticks": 3840,
+      "bar_ticks": 3840,
+      "joint_with_host_bar_ticks": 3840,
+      "gate_mapping_known": true
+    },
+    {
+      "id": "JC-R005",
+      "own_period_ticks": 3840,
+      "bar_ticks": 3840,
+      "joint_with_host_bar_ticks": 3840,
+      "gate_mapping_known": true
+    },
+    {
+      "id": "JC-R006",
+      "own_period_ticks": 3840,
+      "bar_ticks": 3840,
+      "joint_with_host_bar_ticks": 3840,
+      "gate_mapping_known": true
+    },
+    {
+      "id": "JC-R007",
+      "own_period_ticks": 3840,
+      "bar_ticks": 3840,
+      "joint_with_host_bar_ticks": 3840,
+      "gate_mapping_known": true
+    },
+    {
+      "id": "JC-R008",
+      "own_period_ticks": 3840,
+      "bar_ticks": 3840,
+      "joint_with_host_bar_ticks": 3840,
+      "gate_mapping_known": true
+    },
+    {
+      "id": "JC-R009",
+      "own_period_ticks": 7680,
+      "bar_ticks": 3840,
+      "joint_with_host_bar_ticks": 7680,
+      "gate_mapping_known": true
+    },
+    {
+      "id": "JC-R010",
+      "own_period_ticks": 3840,
+      "bar_ticks": 3840,
+      "joint_with_host_bar_ticks": 3840,
+      "gate_mapping_known": true
+    },
+    {
+      "id": "JC-R011",
+      "own_period_ticks": 11520,
+      "bar_ticks": 3840,
+      "joint_with_host_bar_ticks": 11520,
+      "gate_mapping_known": true
+    },
+    {
+      "id": "JC-R012",
+      "own_period_ticks": 7680,
+      "bar_ticks": 3840,
+      "joint_with_host_bar_ticks": 7680,
+      "gate_mapping_known": true
+    },
+    {
+      "id": "JC-R013",
+      "own_period_ticks": 3840,
+      "bar_ticks": 3840,
+      "joint_with_host_bar_ticks": 3840,
+      "gate_mapping_known": true
+    },
+    {
+      "id": "JC-R014",
+      "own_period_ticks": 3840,
+      "bar_ticks": 3840,
+      "joint_with_host_bar_ticks": 3840,
+      "gate_mapping_known": true
+    },
+    {
+      "id": "JC-R015",
+      "own_period_ticks": 3840,
+      "bar_ticks": 3840,
+      "joint_with_host_bar_ticks": 3840,
+      "gate_mapping_known": true
+    },
+    {
+      "id": "JC-R016",
+      "own_period_ticks": 3840,
+      "bar_ticks": 3840,
+      "joint_with_host_bar_ticks": 3840,
+      "gate_mapping_known": true
+    },
+    {
+      "id": "JC-R017",
+      "own_period_ticks": 3840,
+      "bar_ticks": 3840,
+      "joint_with_host_bar_ticks": 3840,
+      "gate_mapping_known": true
+    },
+    {
+      "id": "JC-R018",
+      "own_period_ticks": 3840,
+      "bar_ticks": 3840,
+      "joint_with_host_bar_ticks": 3840,
+      "gate_mapping_known": true
+    },
+    {
+      "id": "JC-R019",
+      "own_period_ticks": 3840,
+      "bar_ticks": 3840,
+      "joint_with_host_bar_ticks": 3840,
+      "gate_mapping_known": true
+    },
+    {
+      "id": "JC-R020",
+      "own_period_ticks": 3840,
+      "bar_ticks": 3840,
+      "joint_with_host_bar_ticks": 3840,
+      "gate_mapping_known": true
+    },
+    {
+      "id": "JC-R021",
+      "own_period_ticks": 7680,
+      "bar_ticks": 3840,
+      "joint_with_host_bar_ticks": 7680,
+      "gate_mapping_known": true
+    },
+    {
+      "id": "JC-R022",
+      "own_period_ticks": 3840,
+      "bar_ticks": 3840,
+      "joint_with_host_bar_ticks": 3840,
+      "gate_mapping_known": true
+    },
+    {
+      "id": "JC-R023",
+      "own_period_ticks": 3840,
+      "bar_ticks": 3840,
+      "joint_with_host_bar_ticks": 3840,
+      "gate_mapping_known": true
+    },
+    {
+      "id": "JC-R024",
+      "own_period_ticks": 4800,
+      "bar_ticks": 4800,
+      "joint_with_host_bar_ticks": 4800,
+      "gate_mapping_known": true
+    },
+    {
+      "id": "JC-R025",
+      "own_period_ticks": 4800,
+      "bar_ticks": 4800,
+      "joint_with_host_bar_ticks": 4800,
+      "gate_mapping_known": true
+    },
+    {
+      "id": "JC-R026",
+      "own_period_ticks": 3360,
+      "bar_ticks": 3360,
+      "joint_with_host_bar_ticks": 3360,
+      "gate_mapping_known": true
+    },
+    {
+      "id": "JC-R027",
+      "own_period_ticks": 3360,
+      "bar_ticks": 3360,
+      "joint_with_host_bar_ticks": 3360,
+      "gate_mapping_known": true
+    },
+    {
+      "id": "JC-R028",
+      "own_period_ticks": 3840,
+      "bar_ticks": 3840,
+      "joint_with_host_bar_ticks": 3840,
+      "gate_mapping_known": true
+    },
+    {
+      "id": "JC-R029",
+      "own_period_ticks": 3840,
+      "bar_ticks": 3840,
+      "joint_with_host_bar_ticks": 3840,
+      "gate_mapping_known": true
+    },
+    {
+      "id": "JC-R030",
+      "own_period_ticks": 4320,
+      "bar_ticks": 4320,
+      "joint_with_host_bar_ticks": 4320,
+      "gate_mapping_known": true
+    },
+    {
+      "id": "JC-R031",
+      "own_period_ticks": 2880,
+      "bar_ticks": 2880,
+      "joint_with_host_bar_ticks": 2880,
+      "gate_mapping_known": true
+    },
+    {
+      "id": "JC-R032",
+      "own_period_ticks": 3840,
+      "bar_ticks": 3840,
+      "joint_with_host_bar_ticks": 3840,
+      "gate_mapping_known": true
+    },
+    {
+      "id": "JC-R033",
+      "own_period_ticks": 3840,
+      "bar_ticks": 3840,
+      "joint_with_host_bar_ticks": 3840,
+      "gate_mapping_known": true
+    },
+    {
+      "id": "JC-R034",
+      "own_period_ticks": 3840,
+      "bar_ticks": 3840,
+      "joint_with_host_bar_ticks": 3840,
+      "gate_mapping_known": true
+    },
+    {
+      "id": "JC-R035",
+      "own_period_ticks": 3840,
+      "bar_ticks": 3840,
+      "joint_with_host_bar_ticks": 3840,
+      "gate_mapping_known": true
+    },
+    {
+      "id": "JC-R036",
+      "own_period_ticks": 5760,
+      "bar_ticks": 5760,
+      "joint_with_host_bar_ticks": 5760,
+      "gate_mapping_known": true
+    },
+    {
+      "id": "JC-R037",
+      "own_period_ticks": 3840,
+      "bar_ticks": 3840,
+      "joint_with_host_bar_ticks": 3840,
+      "gate_mapping_known": true
+    },
+    {
+      "id": "JC-R038",
+      "own_period_ticks": 3840,
+      "bar_ticks": 3840,
+      "joint_with_host_bar_ticks": 3840,
+      "gate_mapping_known": false
+    },
+    {
+      "id": "JC-R039",
+      "own_period_ticks": 15360,
+      "bar_ticks": 3840,
+      "joint_with_host_bar_ticks": 15360,
+      "gate_mapping_known": false
+    },
+    {
+      "id": "JC-R040",
+      "own_period_ticks": 15360,
+      "bar_ticks": 3840,
+      "joint_with_host_bar_ticks": 15360,
+      "gate_mapping_known": false
+    },
+    {
+      "id": "JC-R041",
+      "own_period_ticks": 15360,
+      "bar_ticks": 3840,
+      "joint_with_host_bar_ticks": 15360,
+      "gate_mapping_known": true
+    },
+    {
+      "id": "JC-R042",
+      "own_period_ticks": 15360,
+      "bar_ticks": 3840,
+      "joint_with_host_bar_ticks": 15360,
+      "gate_mapping_known": true
+    },
+    {
+      "id": "JC-R043",
+      "own_period_ticks": 3840,
+      "bar_ticks": 3840,
+      "joint_with_host_bar_ticks": 3840,
+      "gate_mapping_known": true
+    },
+    {
+      "id": "JC-R044",
+      "own_period_ticks": 30720,
+      "bar_ticks": 3840,
+      "joint_with_host_bar_ticks": 30720,
+      "gate_mapping_known": true
+    },
+    {
+      "id": "JC-R045",
+      "own_period_ticks": 7680,
+      "bar_ticks": 3840,
+      "joint_with_host_bar_ticks": 7680,
+      "gate_mapping_known": true
+    },
+    {
+      "id": "JC-R046",
+      "own_period_ticks": 3840,
+      "bar_ticks": 3840,
+      "joint_with_host_bar_ticks": 3840,
+      "gate_mapping_known": true
+    },
+    {
+      "id": "JC-R047",
+      "own_period_ticks": 15360,
+      "bar_ticks": 3840,
+      "joint_with_host_bar_ticks": 15360,
+      "gate_mapping_known": true
+    },
+    {
+      "id": "JC-R048",
+      "own_period_ticks": 57600,
+      "bar_ticks": 3840,
+      "joint_with_host_bar_ticks": 57600,
+      "gate_mapping_known": true
+    },
+    {
+      "id": "JC-R049",
+      "own_period_ticks": 69120,
+      "bar_ticks": 3840,
+      "joint_with_host_bar_ticks": 69120,
+      "gate_mapping_known": true
+    },
+    {
+      "id": "JC-R050",
+      "own_period_ticks": 23040,
+      "bar_ticks": 3840,
+      "joint_with_host_bar_ticks": 23040,
+      "gate_mapping_known": true
+    },
+    {
+      "id": "JC-R051",
+      "own_period_ticks": 23040,
+      "bar_ticks": 3840,
+      "joint_with_host_bar_ticks": 23040,
+      "gate_mapping_known": true
+    },
+    {
+      "id": "JC-R052",
+      "own_period_ticks": 3840,
+      "bar_ticks": 3840,
+      "joint_with_host_bar_ticks": 3840,
+      "gate_mapping_known": true
+    },
+    {
+      "id": "JC-R053",
+      "own_period_ticks": 3840,
+      "bar_ticks": 3840,
+      "joint_with_host_bar_ticks": 3840,
+      "gate_mapping_known": true
+    },
+    {
+      "id": "JC-R054",
+      "own_period_ticks": 3840,
+      "bar_ticks": 3840,
+      "joint_with_host_bar_ticks": 3840,
+      "gate_mapping_known": true
+    },
+    {
+      "id": "JC-R055",
+      "own_period_ticks": 3840,
+      "bar_ticks": 3840,
+      "joint_with_host_bar_ticks": 3840,
+      "gate_mapping_known": true
+    },
+    {
+      "id": "JC-R056",
+      "own_period_ticks": 3840,
+      "bar_ticks": 3840,
+      "joint_with_host_bar_ticks": 3840,
+      "gate_mapping_known": true
+    },
+    {
+      "id": "JC-R057",
+      "own_period_ticks": 15360,
+      "bar_ticks": 3840,
+      "joint_with_host_bar_ticks": 15360,
+      "gate_mapping_known": true
+    },
+    {
+      "id": "JC-R058",
+      "own_period_ticks": 3840,
+      "bar_ticks": 3840,
+      "joint_with_host_bar_ticks": 3840,
+      "gate_mapping_known": true
+    },
+    {
+      "id": "JC-R059",
+      "own_period_ticks": 15360,
+      "bar_ticks": 3840,
+      "joint_with_host_bar_ticks": 15360,
+      "gate_mapping_known": true
+    },
+    {
+      "id": "JC-R060",
+      "own_period_ticks": 15360,
+      "bar_ticks": 3840,
+      "joint_with_host_bar_ticks": 15360,
+      "gate_mapping_known": true
+    },
+    {
+      "id": "JC-R061",
+      "own_period_ticks": 3840,
+      "bar_ticks": 3840,
+      "joint_with_host_bar_ticks": 3840,
+      "gate_mapping_known": true
+    },
+    {
+      "id": "JC-R062",
+      "own_period_ticks": 720,
+      "bar_ticks": 3840,
+      "joint_with_host_bar_ticks": 11520,
+      "gate_mapping_known": true
+    },
+    {
+      "id": "JC-R063",
+      "own_period_ticks": 1200,
+      "bar_ticks": 3840,
+      "joint_with_host_bar_ticks": 19200,
+      "gate_mapping_known": true
+    },
+    {
+      "id": "JC-R064",
+      "own_period_ticks": 7680,
+      "bar_ticks": 3840,
+      "joint_with_host_bar_ticks": 7680,
+      "gate_mapping_known": true
+    },
+    {
+      "id": "JC-R065",
+      "own_period_ticks": 15360,
+      "bar_ticks": 3840,
+      "joint_with_host_bar_ticks": 15360,
+      "gate_mapping_known": true
+    },
+    {
+      "id": "JC-R066",
+      "own_period_ticks": 3840,
+      "bar_ticks": 3840,
+      "joint_with_host_bar_ticks": 3840,
+      "gate_mapping_known": true
+    },
+    {
+      "id": "JC-R067",
+      "own_period_ticks": 3840,
+      "bar_ticks": 3840,
+      "joint_with_host_bar_ticks": 3840,
+      "gate_mapping_known": true
+    }
+  ]
+}

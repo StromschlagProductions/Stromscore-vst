@@ -1,0 +1,27 @@
+{
+  "base": "4937722",
+  "date": "2026-11-27",
+  "files": [
+    {
+      "name": "STROMSCORE_John_Carpenter_Vokabular_Kanonisch.md",
+      "bytes": 380520,
+      "sha256": "c00ceed00d0f1a9f5570aa51efcd692f7eeaad060b03c50685c843959732a883"
+    },
+    {
+      "name": "JC_Studien_Ereignisse.csv",
+      "bytes": 2327370,
+      "sha256": "4dc96fa77af77c37c149c1d55ef1720ca7adc0073b41426d23047f461e6db86b"
+    },
+    {
+      "name": "JC_Studien_MIDI.zip",
+      "bytes": 22435,
+      "sha256": "d61e02d66c31748b0398e78384594a452fe3e0417f05aa991faa07b4d53022ec"
+    },
+    {
+      "name": "JC_Qualitaetspruefung.md",
+      "bytes": 8534,
+      "sha256": "5f6c6e00b93e2a89176e65458243ce02ec7bc5f9fce00e90ebc435310af5d93a"
+    }
+  ],
+  "authority": "Kanonische Vorlagenbibliothek; konkrete Konflikte separat dokumentiert, Originale nicht verändert."
+}

@@ -1,6 +1,6 @@
 # Gemeinsame musikalische Fähigkeiten – Williams, Herrmann, Carpenter und SYNTH
 
-Stand: 27.11.2026 · Dokumentationsausgang `38d2238` · unveränderte Engine `023b0a6` ·
+Stand: 27.11.2026 · Dokumentationsausgang `4937722` · unveränderte Engine `023b0a6` ·
 `develop/composition-core-prototype`.
 Fortschreibung des früheren Abgleichs bei `ddad94b`: Williams P2-Oktatonik und
 P3-Motive sind jetzt berücksichtigt; deren musikalische Hörabnahme steht aus.
@@ -13,8 +13,9 @@ Maßgebliche Quellen: [Williams-Plan](john-williams/IMPLEMENTATION_PLAN.md),
 [343 Einzelbewertungen](bernard-herrmann/TECHNICAL_INVENTORY.json) sowie die separate
 [Tiefenrecherche](bernard-herrmann/Spannungsgrammatik_Tiefenrecherche.md).
 Die [Carpenter-Recherche einschließlich maßgeblicher Vertiefung](john-carpenter/README.md)
-ergänzt diese Grundlage; eine kanonische Carpenter-Vorlagenbibliothek liegt noch
-nicht vor. Die Carpenter-Ergänzung unten bewertet Verfahren, keine einzelnen Vorlagen.
+ergänzt diese Grundlage. Die inzwischen archivierte
+[kanonische405-ID-Bibliothek](john-carpenter/IMPLEMENTATION_PLAN.md) ist vollständig
+geprüft; aktuelle Konkretisierungen stehen im neuen Abschnitt am Ende.
 Konstruktions-/Evidenzangaben bleiben Angaben der Autoren, keine hier neu bestätigten
 Filmtranskriptionen. Archivfassungen, BH-/HE-Überdeckungen und CSV/MIDI nicht doppelt
 als Material zählen. Forschungsrezepte sind keine Implementierungsaufträge.
@@ -33,7 +34,7 @@ als Material zählen. Forschungsrezepte sind keine Implementierungsaufträge.
 | Repetitive Module | Motivwiederkehr, Pop-Hook/Ostinato-Unterscheidung, [ArpeggioPhrase.h](../../Source/ArpeggioPhrase.h) und Rollenfenster liefern Teilverfahren. | Kurzes Modul mit eigener Wiederholungsfunktion, Pause/Unterbrechung und identischer Rückkehr; danach Kürzung/Verlängerung. Kontinuierliche Sequenz bleibt gültig, keine verpflichtende Score-Mindestpause für SYNTH. |
 | Gemeinsame Rhythmik | [RoleRhythm.h](../../Source/RoleRhythm.h)::`RoleRhythmSource/planRoleRhythm`, Williams-KF/Bass: zwei Takte4/4; [BarryVocabulary.h](../../Source/BarryVocabulary.h)::`planBar`; Pop-Bass/AR-Verzahnung; Motiv-/AR-Reservierungen. | Kleine Datenverbraucher für exakte Triolen und2/3-Gruppierung; getrennt davon eigene Perioden/Phasen, später mehrrollige Entwicklung. Endliches abweichendes Raster ist nicht automatisch eine neue Rhythmusengine. |
 | Zeit / Ausführung | [MusicalTime.h](../../Source/MusicalTime.h), [MusicalExecution.h](../../Source/MusicalExecution.h):64 Bit960 PPQ, Harmonie unabhängig vom Swing, deterministische Ausführung. | Die Zeitbasis ist fertig. Achteltriolen320 Ticks sind darstellbar; heutige Vorlageneingänge zählen vielfach240 Tick-Sechzehntel. Verbraucher erweitern, keinen neuen Scheduler auf Vorrat bauen. |
-| Polychorde | Ein Akkordobjekt pro Slot, Intervalle pro Typ maximal5; keine Komponentenidentität. Eine Vereinigung von Tonklassen kann als Maske berechenbar sein. | Getrennte Komponenten mit Register, Zeit und Artikulation; Verschmelzung verändert diese Beziehungen. Weder PC-Vereinigung noch Weglassen einer Hälfte ist eine vollständige Umsetzung. |
+| Polychorde | Ein Akkordobjekt pro Slot, Intervalle pro Typ maximal 5; keine Komponentenidentität. Eine Vereinigung von Tonklassen kann als Maske berechenbar sein. | Getrennte Komponenten mit Register, Zeit und Artikulation; Verschmelzung verändert diese Beziehungen. Weder PC-Vereinigung noch Weglassen einer Hälfte ist eine vollständige Umsetzung. |
 | Rollen / Instrumente | `CompositionCore::MusicalRole/RoleNeed/PlayingTrack/suitable`, `ScoreEngine::outputCatalog`:9 Ziele, getrennte LF/KF/LB/KB, Rollenfähigkeiten und MIDI-Adresse getrennt. Unabhängige HM-/GS-Zustände; enge HM→GS- und GS→AR-Antworten. | Explizite Rollenwanderung/Kanon und Komponenten-Synchronität erst bei konkreter Vorlage. Keine beliebige Begleitlinie automatisch in GS verschieben. Kein zusätzlicher Ausgang ohne Bedarf und Forschung. |
 | Register und Synchronität | Konfigurierbare Tonumfänge, Artikulations-/Polyphonie-/Dauerprüfung; bestehende Vordergrundkoordination. | Gemeinsamer Registerabstand, definierter Versatz und synchroner Eintritt als unabhängige Parameter. Keine pauschale Rollenabschaltung, wenn Bass oder Kurzfläche aktiv sind. |
 | Langzeitentwicklung | Phrasen-/Szenenplanung, Ereignisdichte getrennt von Intensität, Aufbau/Ende, freie kurze Zieltonlinien, frühe Reprise. | Kurze Module und kontrollierte Gestaltwechsel bei statischem XYZ zuerst. Später längere Bögen, Verschachtelung, Liquidation und gerichtete Entwicklung. XYZ-Fahrt und autonome Entwicklung sind verschiedene Fälle. |
@@ -46,16 +47,16 @@ begrenzt gemeinsam nutzen, keine parallelen HE- oder SYNTH-Kopien anlegen.
 
 ### Wichtige Daten- und Instrumentenbefunde
 
-Die HE-Prüfung bestätigt343 IDs und53 SMF/5.328 Noten mit CSV-Gleichheit,960 PPQ und
-ST36. Sie bestätigt nicht die Eignung der heutigen Ziele:22 Studien-/Transformations-
-IDs enthalten28 Dauer-/Polyphonieabweichungen gegenüber den Generatorannahmen.
+Die HE-Prüfung bestätigt 343 IDs und53 SMF/5.328 Noten mit CSV-Gleichheit,960 PPQ und
+ST 36. Sie bestätigt nicht die Eignung der heutigen Ziele:22 Studien-/Transformations-
+IDs enthalten 28 Dauer-/Polyphonieabweichungen gegenüber den Generatorannahmen.
 KF/TU sind derzeit auf 720 Ticks, KB auf 960 Ticks begrenzt; LB und KB je monophon.
 Ein reales externes Instrument kann mehr oder weniger leisten, ist aber unbekannt.
 Lange Kurzrollen-Noten und Bassdyaden daher weder kürzen noch still umrouten.
 LB+KB mit je einer Stimme ist physisch etwas anderes als zwei Stimmen auf LB.
 
 `stichFixed/stichNote` erlauben eine feste Triggeradresse (Standard36). Deren
-Tonhöhen-/Geräuschcharakter ist unbekannt. HE-ST36 bleibt fest und untransponiert;
+Tonhöhen-/Geräuschcharakter ist unbekannt. HE-ST 36 bleibt fest und untransponiert;
 keine Motiv-, Modus- oder Harmonieregel darauf anwenden.
 
 Geschützte Akkordfärbung verhindert automatische harmonische Erweiterung; sie
@@ -83,7 +84,7 @@ Siehe [Projektentscheidung](../MUSICAL_DIRECTION.md).
 ## XYZ und Auswahl
 
 Harmonieauswahl bleibt vollständig XYZ-geführt. In der kanonischen HE-Bibliothek
-sind57 Rhythmus-,24 Bass-,45 Motiv- und18 Phrasenquellen ausdrücklich X-unabhängig.
+sind 57 Rhythmus-,24 Bass-,45 Motiv- und18 Phrasenquellen ausdrücklich X-unabhängig.
 Ihr dunkler Forschungsanker darf keine versteckte Helligkeitssperre werden.
 [Diagnose](bernard-herrmann/XYZ_COVERAGE.json): In den heute für Williams verwendeten
 3 D-Radien wäre am X=1-Rand jede dieser unabhängigen R/B/M-Quellen selbst an ihrem
@@ -162,8 +163,9 @@ Ihre §§2/4/6/8 ersetzen insbesondere die frühen pauschalen Regeln:
   ein gekoppelter Schichttausch darf zwei zusammengehörige Änderungen enthalten.
 
 Diese Gewichtungen und Entwicklungsstrategien sind Forschungsableitungen, keine
-neuen Laufzeitregeln. Auch die korrigierte Recherche liefert noch keine kanonischen
-Carpenter-Vorlagen mit einzeln geprüften Noten-/Zeit-/Harmoniebezügen. Keine neuen
+neuen Laufzeitregeln. Die damalige korrigierte Recherche war noch keine kanonische Vorlagenbibliothek.
+Die inzwischen vorliegenden405 IDs sind separat geprüft; offene Kontextfragen
+bleiben ausdrücklich dokumentiert. Keine neuen
 Profile, Template-IDs, Katalogeinträge oder Gewichte aus diesem Bericht ableiten.
 
 ## Carpenter: gemeinsamer Fähigkeitsabgleich
@@ -239,7 +241,8 @@ Keine neue Freigabe, kein eigenständiger Carpenter-Vorlagenplan.
 
 1. **Williams P2/P3 hören; bestehende Abnahmen schützen.** Herrmann-Klärungen und
    begrenzter kompatibler HE-Import bleiben getrennte nächste Entscheidungen.
-   Carpenter-Originale archivieren, auf kanonische Bibliothek warten.
+   Carpenter-Kanon ist nun archiviert: Gate-, Kontext- und Kombinationsfragen
+   klären, bevor die entsprechenden Vorlagen importiert werden.
 2. **Einzelpedal und autorisierte Bass-/Tonabsicht.** Eigene Lebensdauer und
    unabhängige Tonfolge bringen frühen gemeinsamen Nutzen. Kontinuierlich halten
    und periodisch neu anschlagen unterscheiden; neue Harmonie muss nicht das Pedal
@@ -291,12 +294,92 @@ Tempo kommt aus dem Host. Maschinenpuls/Handspiel ist nicht gleich globales
 Swing oder zufälliger Jitter aller Rollen. Kein Humanisierungsumbau in diesem Schritt.
 
 Die Forschung berichtet fehlende eigene Audioanalyse, nicht verfügbare Primärtexte
-und teils widersprüchliche Crowd-Tonartangaben. Genaue Harmonien, Akzentfolgen,
-Zellperioden und instrumentale Eignung können erst anhand der kanonischen Bibliothek
-verbindlich geprüft werden. Das gilt auch für untertaktige Wechsel oder zusätzliche
+und teils widersprüchliche Crowd-Tonartangaben. Der nun mögliche kanonische Abgleich von Harmonien, Akzentfolgen, Zellperioden
+und Instrumentenanforderungen steht im folgenden Abschnitt. Er ersetzt keine
+Hörabnahme oder Kenntnis externer Patches. Das gilt auch für untertaktige Wechsel oder zusätzliche
 Tonvorräte: jetzt keine Vorlagen vereinfachen oder vermeintliche Anforderungen erfinden.
 Filter-/CC74-Rampen, elektronische Percussion und weitere MIDI-Ziele bleiben offen.
 Vorhandene optionale Dynamics-/Expression-CC in `ScoreEngine::dynamicsCc` beweisen
 keine allgemeine rollenunabhängige Klangbewegung: der aktuelle Verlauf ist
 musikalisch gekoppelt und geteilter MIDI-Kanal bedeutet geteilte CC-Wirkung.
 Keine automatische Echo-/Hall-Notenerzeugung aus Produktionsbeschreibungen ableiten.
+
+## Carpenter-Kanon: technischer Abgleich bei `4937722`
+
+Die [vier Originale](john-carpenter/README.md) umfassen405 IDs:88H/67R/67Q/52B/45M/
+16P/16T/12EF/42S. Alle54 SMF-Dateien enthalten 16.046 Noten bei 960 PPQ und stimmen
+Note für Note mit der CSV überein.21 Grundformen sind direkt darstellbar,87 benötigen
+begrenzte Anbindung,288 mindestens eine gemeinsame Fähigkeit und9 eine konkrete
+Klärung. Keine JC-Vorlage, kein Carpenter-Profil und kein SYNTH-Modus ist aktiviert.
+Vollständige Gründe: [Einzelinventar](john-carpenter/TECHNICAL_INVENTORY.json).
+
+### Was dadurch konkret wird
+
+- **Eigene Pitchfolgen:** Die67 Q-Quellen sind eigenständige Tonobjekte. Auch eine
+  Folge aus Akkordtönen darf nicht zu einem beliebig sortierten Arpeggio werden.
+  Bestehendes tatsächlich gespieltes Motivmaterial und unabhängige Verwendungszustände
+  weiterverwenden; Langsequenzen/Ein-Noten-Zellen und neue Rollenverbraucher sind
+  reale Grenzen der aktuellen Acht-Noten-/Zwei-Materialien-Struktur.
+- **Perioden:** Q028/Q054/Q063 bzw.B031/B052 benötigen zwei Takte, Q055 und mehrere
+  Kriech-/Schreitbässe vierTakte. Q043 hat fünfTakte Gesamtzyklus bei 16 Anschlägen/Takt.
+  Nicht auf den ersten Rhythmustakt kürzen. Alle119Q/B-Quellen und67R sind
+  [zeitlich abgeglichen](john-carpenter/CYCLE_ANALYSIS.json). 10/6-Takt-Harmonien
+  sind gerade, aber keine Zweierpotenzen; das ist ein Zyklusmodellproblem, kein
+  Anlass für einen neuen Scheduler oder ein untertaktiges Zeitmodell.
+- **Funktionen:** Alle237 V-Studiennoten besitzen ein tatsächliches schrittweises
+  A-Ziel; alle 332 F/U-Noten eine Freigabe.62 T-Kennzeichnungen passen dagegen nur
+  unter einer präzisierten lokalen Q/B/M-Kontexthierarchie, nicht allein zum
+  H-Vorrat. Keine versteckte Vereinigung aller Modi und keine Tonkorrektur zur
+  Statistikglättung. Gemeinsame Tonabsicht bleibt früh nötig.
+- **Fähigkeiten:** Kürzeste Note48 Ticks gegen240 Ticks Modellminimum;64 Studien-/
+  Ziel-Kombinationen in 38 IDs verletzen mindestens eine Dauer-/Polyphonieannahme.
+  Der Emitter kann kurze Noten schon ausgeben, die Eignungsprüfung ist aber eine
+  andere Frage. H067 hat fünf Stimmen, LF 6 reicht. Keine neuen Ausgänge nötig, nur
+  weil ein beschreibender Mindestwert zu niedrig war. Keine stillen Kürzungen.
+- **Stasis/Ereignisfeld:** Eigene Haltelebensdauer und geplante seltene Ereignisse
+  bleiben frühe gemeinsame Aufgaben. Eine16-/64-Takt-Studie macht den derzeit
+  akkordgebundenen Pedalverbraucher noch nicht unabhängig. Kein obligatorischer
+  Puls/AR und kein Spannungsbogen bei unverändertem XYZ.
+- **Rotation:** S35 spielt im PoolKB/AR/GS über vier 16-Takt-Blöcke2/2/1/2Rollen und
+  256/192/128/192 Anschläge. Der beabsichtigte konstante Zwei-Schicht-Tausch wird
+  nicht vollständig vorgeführt. Kein Algorithmus darf diesen Fehler als Stil
+  übernehmen; Rollenzahl und musikalische Dichte auseinanderhalten.
+
+### Gemeinsame Abhängigkeiten und nächste Reihenfolge
+
+Die achtStrategien bleiben gemeinsam nutzbar, sind jetzt mit konkreten JC-Verfahren
+verknüpft: S1→T012, S2→T007, S3→T016, S4→T006, S5→T008, S6→EF, S7→T001,
+S8→T011/T014. Die [achtteilige Gegenüberstellung](john-carpenter/IMPLEMENTATION_PLAN.md)
+dokumentiert die jeweilige Grenze. T016wirkt nur auf neue Anschläge; daraus folgt
+kein CC-Fade. Schichtrotation, Materialwanderung und Umfärbung bleiben verschiedene
+Entscheidungen. Perioden sind gemeinsame Fähigkeit, kein gesichertes Carpenter-Merkmal.
+
+Nach Williams-Hörabnahme und den jeweils betroffenen Quellenklärungen:
+
+1. Einzelpedal/Note-Lebensdauer und notwendige Tonabsicht für alle Profile.
+2. Gehaltenes Feld plus einzelnes geplantes Ereignis als kleiner gemeinsamer Pfad;
+   damit früh auch ohne HM/GS/AR eine musikalisch eigenständige spätereSYNTH-Probe.
+3. Stabile vollständige Ton-/Bassfolge mit eigener Rhythmusphase und exakten Gates.
+4. Nach konkret benötigtem Material harmonische Zykluslängen, Klangobjekte und
+   lokale Vorräte ergänzen; nicht erst nach Import fehlende F/U-Bezüge reparieren.
+5. Einzelne Blockverschiebung, Übergabe oder gekoppelte Rotation; danach komplexere
+   Strategien, Polychordkomponenten und Langphrasen. Keine zweite Engine.
+
+Die27XYZ-Zellen sind formal mit H/B versorgt, neun ohne eigeneStudie. Paarprüfungen
+über ganze Harmonie-/Figurzyklen zeigen zusätzliche Engstellen: In vier Zellen
+sind vorhandeneQ bei strikterVererbung ihres R-Gültigkeitsbereichs unerreichbar.
+Diese Vererbungsfrage bleibt offen, Bereiche werden nicht ausgeweitet. Insgesamt
+sechs Zellen haben unter dieser Lesart kein kompatiblesQ/H/R-Paar. Das ist kein
+pauschaler Musikmangel: pulslose und melodielose Pläne sind gültig, aber ein
+Bassverzicht oder Einzelkandidat beweist noch keine ausreichende musikalische Vielfalt.
+[XYZ-/Kombinationsbericht](john-carpenter/XYZ_COMPATIBILITY.json) trennt formal
+geeignete Paare, tatsächliche Referenzstudien, Instrumentenbereitschaft und Hörqualität.
+Eine globale XYZ-Umstellung oder Gewichtung wird daraus nicht abgeleitet.
+
+Korrekturen/Unsicherheiten, inklusive R022/R038–040/R046, S35und nicht vollständig
+gespeicherter Schlussstille in S04/S33: [ERRATA.md](john-carpenter/ERRATA.md).
+Registertrennung bleibt nach Anwenderentscheidung Präferenz, keine zwingende
+Freihaltung der Mitte. Der User-Schalter Follow wird nicht aus einem Quellwort
+„eigenständig“ automatisch überschrieben. TU bleibt tonal, ST fest 36. CC, elektronische
+Percussion und zusätzliche Ausgänge sind weiter nicht beschlossen. Keine musikalische
+Verhaltensänderung in diesem Dokumentationsstand.

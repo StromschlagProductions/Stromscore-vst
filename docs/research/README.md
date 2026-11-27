@@ -78,6 +78,7 @@ pulslose Ereignisfelder, unabhängige Pedale, identifizierbare Zellen, Schichtwe
 und alternative Entwicklung bei statischem XYZ. Die acht Strategien und der
 Williams-/Herrmann-/Carpenter-Abgleich stehen im
 [gemeinsamen Fähigkeitsbericht](SHARED_MUSICAL_CAPABILITIES.md#carpenter-acht-entwicklungsstrategien).
-Die kanonische Carpenter-Vorlagenbibliothek steht aus. Noch keine Einzelvorlagen-
-Planung, Gewichte oder Aktivierung. Keine separate SYNTH-Engine; CC, elektronische
+Die kanonische Carpenter-Vorlagenbibliothek ist inzwischen separat archiviert;
+der [vollständige405-ID-Abgleich](john-carpenter/IMPLEMENTATION_PLAN.md) konkretisiert
+diese Forschungsphase. Keine Aktivierung oder Festlegung von Profilgewichten. Keine separate SYNTH-Engine; CC, elektronische
 Percussion und zusätzliche MIDI-Ziele sind weiterhin nicht beschlossen.

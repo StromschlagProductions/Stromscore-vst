@@ -15,7 +15,7 @@ Zeilenendenkonvertierung geschützt.
 **Bei Widersprüchen gilt die korrigierte Vertiefung.** Die erste Recherche bleibt
 zur Nachvollziehbarkeit unverändert erhalten. Die beiden Texte sind ergänzende
 Forschung, keine zwei additiv zu importierenden Vokabularsammlungen. Die kanonische
-Carpenter-Vorlagenbibliothek steht noch aus. Es wurden keine Vorlagen-IDs vergeben,
+Carpenter-Vorlagenbibliothek stand in dieser ersten Phase noch aus. Damals wurden keine Vorlagen-IDs vergeben,
 keine Einzelfiguren zur Implementierung ausgewählt und keine Profilgewichte festgelegt.
 
 ## Maßgebliche Korrekturen
@@ -70,3 +70,57 @@ Dateilinks und alle acht Strategiezeilen kontrolliert. Quellcodeabgleich u.a. mi
 Keine neuen Renderings, Klangbeispiele, Sanitizer- oder Plugin-Builds: dieser Auftrag
 enthält ausschließlich Archivierung, Analyse und Dokumentation. Keine Aussage
 über die musikalische Hörabnahme von Williams P2/P3 oder eines Carpenter-Profils.
+
+## Kanonische Vorlagenbibliothek – Fortschreibung nach `4937722`
+
+Die oben beschriebene erste Archivierungsphase bleibt historisch nachvollziehbar.
+Inzwischen ist die separate kanonische Bibliothek vollständig und bytegleich
+unter ihren Originalnamen archiviert:
+
+- [STROMSCORE_John_Carpenter_Vokabular_Kanonisch.md](STROMSCORE_John_Carpenter_Vokabular_Kanonisch.md)
+- [JC_Studien_Ereignisse.csv](JC_Studien_Ereignisse.csv)
+- [JC_Studien_MIDI.zip](JC_Studien_MIDI.zip)
+- [JC_Qualitaetspruefung.md](JC_Qualitaetspruefung.md)
+
+[CANONICAL_MANIFEST.json](CANONICAL_MANIFEST.json) dokumentiert Bytes/SHA-256.
+Die ursprünglichen zwei Tiefenrecherchen bleiben unverändert und separat; bei
+Widersprüchen zwischen ihnen hat weiterhin die Vertiefung Vorrang. Konkrete
+kanonische Vorlagen sind 405eindeutige JC-IDs, keine zusätzlichen Importkopien der
+Recherche-Beispiele. CSV und MIDI sind dieselben54 Studien in zwei Darstellungen.
+Anwenderentscheidungen (u.a. Registerpräferenz, keine obligatorischen Rollen,
+keine automatische Follow-Umschaltung) haben Vorrang vor Dokumentrezepten.
+
+### Vollständiger Abgleich
+
+- [Technische Einzelbewertungen, lesbar](TECHNICAL_INVENTORY.md)
+- [Alle405 Datensätze, maschinenlesbar](TECHNICAL_INVENTORY.json)
+- [Fehlerliste und offene Entscheidungen](ERRATA.md)
+- [Gemeinsame Zyklen aller Q/B und Perioden aller R](CYCLE_ANALYSIS.json)
+- [MIDI-/CSV-/Funktions-/Registerprüfung](VALIDATION_RESULTS.json)
+- [XYZ-Kompatibilität und Vergleich zur bestehenden Auswahl](XYZ_COMPATIBILITY.json)
+- [Alle20.328 Paarprüfungen mit Gegenbeispielen](PAIR_COMPATIBILITY.jsonl)
+- [Kleine Implementierungsschritte und Ergebnisgrenzen](IMPLEMENTATION_PLAN.md)
+
+D: 21 / A: 87 / E: 288 / K: 9 sind technische Grundform-/Anbindungsurteile, keine Import- oder
+Hörfreigabe. Referenzstudien sind keine aktuellen Engine-Renderings. Insbesondere
+S35-Rotation, Gate-Listen und lokale T-Kontexte bleiben offen. Die ursprüngliche
+Aussage „kanonische Bibliothek steht aus“ im historischen Abschnitt oben ist damit
+überholt; die Grundsätze zu Evidenz, Instrumentierung und noch offenen CC-/Routing-
+Fragen bleiben bestehen.
+
+Reproduzierbar aus dem Repository, ausschließlich offline:
+
+```sh
+python docs/research/john-carpenter/audit.py
+python docs/research/john-carpenter/compatibility.py
+```
+
+`assessment.json` enthält fachlich redigierte Urteile; `audit.py` ergänzt konkrete
+Quellwerte und einen unabhängigen SMF-Parser. `compatibility.py` prüft Paare und
+bindet für die reine XYZ-Gewichtsdiagnose den unveränderten Engine-Header mit einem
+C++17-Compiler (`c++`) ein. Temporäre Programme verbleiben außerhalb des Repositorys.
+Keine Datei ist in Plugin, CMake oder Runtime-Datengenerierung eingebunden.
+Archivebytes/Git-Blobs, SHA-256, vollständige IDs, alle acht Strategiezuordnungen,
+Dateilinks, reproduzierbare Ausgaben und Dokumentationsumfang wurden geprüft.
+Kein neuer Engine-/VST3-/Sanitizerlauf für reine Dokumentation; keine Aktivierung,
+kein Push, kein Release.
