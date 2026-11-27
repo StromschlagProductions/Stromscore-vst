@@ -68,3 +68,16 @@ diese bleiben historische Quellen und werden nicht zusätzlich importiert.
 Darstellbarkeit, begrenzte Anbindung, neue gemeinsame Fähigkeiten und Klärungsbedarf.
 Keine HE-Vorlage ist dadurch im Plugin aktiviert. Williams P2/P3 warten weiter
 auf die musikalische Anwender-Hörabnahme.
+
+## John Carpenter – Tiefenrecherche und korrigierende Vertiefung
+
+Die [beiden Forschungsberichte](john-carpenter/README.md) sind vollständig und
+bytegleich archiviert. **Bei Widersprüchen hat die Vertiefung Vorrang.**
+Sie erweitern die Grundlage für den zukünftigen SYNTH-Modus, insbesondere
+pulslose Ereignisfelder, unabhängige Pedale, identifizierbare Zellen, Schichtwechsel
+und alternative Entwicklung bei statischem XYZ. Die acht Strategien und der
+Williams-/Herrmann-/Carpenter-Abgleich stehen im
+[gemeinsamen Fähigkeitsbericht](SHARED_MUSICAL_CAPABILITIES.md#carpenter-acht-entwicklungsstrategien).
+Die kanonische Carpenter-Vorlagenbibliothek steht aus. Noch keine Einzelvorlagen-
+Planung, Gewichte oder Aktivierung. Keine separate SYNTH-Engine; CC, elektronische
+Percussion und zusätzliche MIDI-Ziele sind weiterhin nicht beschlossen.

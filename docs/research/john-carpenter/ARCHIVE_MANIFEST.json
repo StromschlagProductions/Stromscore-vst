@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "archive_date": "2026-11-27",
+  "repository_base": "38d2238",
+  "branch": "develop/composition-core-prototype",
+  "authority": "Bei Widersprüchen hat die korrigierte Vertiefung Vorrang. Forschung, keine kanonische Vorlagenbibliothek oder Implementierungsfreigabe.",
+  "files": [
+    {
+      "upload_name": "STROMSCORE_ Musikwissenschaftliche Tiefenrecherche zu John Carpenter.md",
+      "archived_name": "STROMSCORE_John_Carpenter_Tiefenrecherche.md",
+      "bytes": 42000,
+      "sha256": "0f800154ee27ab710072f16657fbfeacb4e25bbd209489bfa797815ac041589d"
+    },
+    {
+      "upload_name": "STROMSCORE_John_Carpenter_Tiefenrecherche_Vertiefung.md",
+      "archived_name": "STROMSCORE_John_Carpenter_Tiefenrecherche_Vertiefung.md",
+      "bytes": 45366,
+      "sha256": "2d93b20285798d829f3e033e75221e2d49fa6304171875a9ad3fba71792bfe8a"
+    }
+  ]
+}

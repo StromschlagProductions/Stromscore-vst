@@ -1,6 +1,7 @@
-# Gemeinsame musikalische Fähigkeiten – Williams, Herrmann und später SYNTH
+# Gemeinsame musikalische Fähigkeiten – Williams, Herrmann, Carpenter und SYNTH
 
-Stand: 27.11.2026 · Engine `023b0a6` · `develop/composition-core-prototype`.
+Stand: 27.11.2026 · Dokumentationsausgang `38d2238` · unveränderte Engine `023b0a6` ·
+`develop/composition-core-prototype`.
 Fortschreibung des früheren Abgleichs bei `ddad94b`: Williams P2-Oktatonik und
 P3-Motive sind jetzt berücksichtigt; deren musikalische Hörabnahme steht aus.
 Die positiv gehörte Arpeggio-Phrasierung `2c6f366` bleibt unverändert.
@@ -11,6 +12,9 @@ Maßgebliche Quellen: [Williams-Plan](john-williams/IMPLEMENTATION_PLAN.md),
 [Herrmann-Bibliothek](bernard-herrmann/README.md) mit
 [343 Einzelbewertungen](bernard-herrmann/TECHNICAL_INVENTORY.json) sowie die separate
 [Tiefenrecherche](bernard-herrmann/Spannungsgrammatik_Tiefenrecherche.md).
+Die [Carpenter-Recherche einschließlich maßgeblicher Vertiefung](john-carpenter/README.md)
+ergänzt diese Grundlage; eine kanonische Carpenter-Vorlagenbibliothek liegt noch
+nicht vor. Die Carpenter-Ergänzung unten bewertet Verfahren, keine einzelnen Vorlagen.
 Konstruktions-/Evidenzangaben bleiben Angaben der Autoren, keine hier neu bestätigten
 Filmtranskriptionen. Archivfassungen, BH-/HE-Überdeckungen und CSV/MIDI nicht doppelt
 als Material zählen. Forschungsrezepte sind keine Implementierungsaufträge.
@@ -104,14 +108,20 @@ Erreichbarkeit getrennt messen.
 4. **Lokale A/T/V/F/U-Semantik und konkrete Ganzton-/Hexatonik-Kontexte** ergänzen,
    soweit die jeweilige Quelle sie braucht. Keine Pflichtskala für reine Aug-Akkorde.
    Bestehende P3-Quellmasken weiterverwenden, keine zweite Pitch-Architektur.
-5. **Ein kurzes Modul mit Wiederholung/Unterbrechung/Rückkehr**, danach Kürzung und
-   Verlängerung. Für alle drei künftigen Genres nutzbar, ohne universelle Formengine.
-6. **Exakte Strukturverschiebung; zwei Komponenten mit Register-/Zeitplan.** Zunächst
-   zwei geprüfte Zustände, kein umfassendes Orchestrierungsmodell. Instrumenten-
+5. **Identifizierbare kurze Zelle und Modul mit Wiederholung/Unterbrechung/Rückkehr**,
+   danach Kürzung und Verlängerung. Kontinuierliches Ostinato und phrasierte Wiederkehr
+   unterscheiden. Ein begrenzter Plan für pulslose Einzelereignisse kann parallel
+   nach dem Einzelpedal folgen; er braucht weder Polychorde noch vollständige Langform.
+   Für alle drei künftigen Genres nutzbar, ohne universelle Formengine.
+6. **Exakte Strukturverschiebung; danach zwei Komponenten mit Register-/Zeitplan.**
+   Die Verschiebung einer einzelnen Zelle braucht keine Polychorde. Zunächst zwei
+   geprüfte Komponentenzustände, kein umfassendes Orchestrierungsmodell. Instrumenten-
    Dauer-/Polyphoniegrenzen vor Polychord-Hörabnahme lösen.
 7. **Triolen-/Hemiolen-Verbraucher** können als kleiner separater Daten-Schritt früher
-   erfolgen; **unabhängige Perioden und Rollenwanderung** erst mit fortgeführter
-   Phase und vorhandenen gemeinsamen Plänen. Nicht taktweise zurücksetzen.
+   erfolgen. **Unabhängige Perioden** benötigen fortgeführte Phasen; nicht taktweise
+   zurücksetzen. **Einfache Rollenwanderung** benötigt Materialidentität, geeignete
+   Ziele und einen expliziten Übergabeplan; sie muss nicht auf Polychorde oder
+   unabhängige Perioden warten. Details der Carpenter-Fortschreibung stehen unten.
 8. **Längere Phrasen, Fugato und komplexe Szenarien** zuletzt gezielt, nicht durch
    bloßes Vergrößern des Motivarrays.
 
@@ -128,3 +138,165 @@ Mute/Solo/Follow/Artikulation, Determinismus, Seek/Loop, Blockgrößen und Live/
 unveränderte Profile/Rollen separat regressieren. Audiothread frei von Dateizugriff,
 Validierung und neuen Allokationen halten. Kein Schritt ist hiermit implementiert
 oder freigegeben.
+
+## Carpenter: Quellenrang und musikalische Korrekturen
+
+Die [erste Recherche](john-carpenter/STROMSCORE_John_Carpenter_Tiefenrecherche.md)
+und die [Vertiefung](john-carpenter/STROMSCORE_John_Carpenter_Tiefenrecherche_Vertiefung.md)
+sind vollständig archiviert. **Bei Widersprüchen hat die Vertiefung Vorrang.**
+Ihre §§2/4/6/8 ersetzen insbesondere die frühen pauschalen Regeln:
+
+- Harmonik umfasst nicht nur Quintleere und Halbtonreibung, sondern auch
+  Mollakkordfolgen, diatonische Zirkulation, gehaltene Mehrklänge, schreitende tiefe
+  Akkorde und Umfärbung einer gleichbleibenden Figur. Reiche Akkordfarben sind
+  durch die Recherche nicht als Kern belegt; daraus folgt kein technisches Verbot.
+- Kurze Zwei- bis Viertonzellen sind eine Sequencer-Präferenz, keine maximale
+  Motivlänge. Längere Figuren, lyrische Linien und Drei-Linien-Satz bleiben zulässig.
+- Pulslose Texturen und lange Leerräume sind für Hörspiel-Underscoring ebenso
+  wichtig wie motorische Sequenzen. Keine obligatorischen LF/LB/AR/ST-Rollen.
+- C♯–F♯ und C–F sind reine Quarten (fünf Halbtöne), keine Tritoni. Die bekannte
+  Herzschlagfigur des *The Thing*-Hauptthemas stammt von Morricone; Carpenter/Howarth-
+  Zusatzcues begründen vor allem Drones und Stinger. Zuschreibungen nicht vermischen.
+- Die festen 8/16/32/64-Takt-Veränderungen der ersten Recherche sind durch
+  alternative Entwicklungsstrategien ersetzt. Null Veränderungen bleiben möglich;
+  ein gekoppelter Schichttausch darf zwei zusammengehörige Änderungen enthalten.
+
+Diese Gewichtungen und Entwicklungsstrategien sind Forschungsableitungen, keine
+neuen Laufzeitregeln. Auch die korrigierte Recherche liefert noch keine kanonischen
+Carpenter-Vorlagen mit einzeln geprüften Noten-/Zeit-/Harmoniebezügen. Keine neuen
+Profile, Template-IDs, Katalogeinträge oder Gewichte aus diesem Bericht ableiten.
+
+## Carpenter: gemeinsamer Fähigkeitsabgleich
+
+| Geforderte Fähigkeit | Tatsächlicher Ausgangspunkt im Code | Gemeinsame Lücke / Abhängigkeit und Nutzbarkeit |
+|---|---|---|
+| Unabhängige Pedaltöne | `ScoreEngine::pedalRoot()` nimmt den ersten Bassanker. `sustained()` setzt auch `BassPedal` bis `chordEndTime`; bei hoher Intensität kann `BassPedal` einen KB-Puls ergänzen. Explizite Slash-Bässe und lange Ziele sind vorhanden. | Kein vom Harmonieslot unabhängiger Lebensplan eines tiefen/hohen/inneren Tons. Für Carpenter lange Drones; für Herrmann Reibungs-/Innenpedale; für Williams Pedal unter beweglichem Material. Zunächst ein expliziter Ton mit Beginn/Ende, dann mehrere geeignete Ziele. Langes Halten muss nicht automatisch einen Puls aktivieren. |
+| Eigenständige Basssequenzen | `RoleRhythmSource::intervals[3]` und `roleBassInterval` bieten begrenzte akkordrelative Folgen. `BassPhrase::planBassPhrase` erzeugt gezielte Linien in engem 4/4-Pop-Kontext; `ScoreEngine::melodicBassAllowed` begrenzt den Verbraucher. | Feste/relative Tonfolgen mit eigener Identität, Kontur, Register, Zeit und autorisierter Dissonanz fehlen als gemeinsame Quelle. Carpenter-Riff und Herrmann-Chromatik dürfen nicht ungefragt auf Akkordtöne korrigiert werden; Williams profitiert ebenso. Beide Follow-Zustände sind eine explizite fachliche Frage, kein Pedalersatz durch Follow AUS. |
+| Repetitive Tonzelle mit Identität | `RememberedMotif`, `MotifCatalog` und `MotifUse`: tatsächlich ausgegebenes Material, unverändertes Original, unabhängige Verwendung. P3 und Pop-Hooks nutzen diesen Kern. | Kein frei beliebigen Begleitrollen zuweisbarer Zellplan. Acht Originalnoten und zwei Materialien/Szene sind bestehende Grenzen. Eine sechsnotige Zelle ist deshalb nicht grundsätzlich zu lang; Periode, Pausen und Rollenverbraucher separat prüfen. Kontinuierliches Ostinato darf keine aufgezwungene Score-Wiederkehrpause bekommen. Keine zweite Zellen-/Motivimplementierung. |
+| Blocktransposition | `deriveMotif(...sequence...)` arbeitet mit den ersten zwei Noten und einer versetzten Zweitonwiederholung; normale Harmonierealisierung kann Tonhöhen anpassen. `VoiceLeading` minimiert Bewegungen. | Beides ist keine garantierte Transposition einer vollständigen Zelle oder eines Klangblocks. Benötigt werden expliziter Umfang der Verschiebung und Erhalt von Intervallen, Rhythmus, Akzenten, Gate und Materialreferenz. Bass/Pedal nur mitverschieben, wenn angefordert; sonst beabsichtigte Reibung prüfen. Für Carpenter und Herrmann zentral, auch für Williams nutzbar. Keine Polychorde als Voraussetzung für eine einzelne Zelle. |
+| Schichtrotation | `TexturePolicy` bietet Aktivitätsschwellen/Hysterese, `ArpeggioPhrasePlan` begrenzte Figuren-/Pausenfenster; bestehende Rollenkoordination kann tatsächlichen Vordergrund schützen. | Kein geplanter Austausch zweier Begleitfunktionen bei weiterlaufendem Kernmaterial. Schichtanzahl ist nicht automatisch Dichte: mono KB und poly KF sind kein gleichwertiger Tausch. Gekoppelte Ein-/Austritte, Register, klingende Restnoten und geeignete Artikulation gemeinsam planen. Alle drei Künstler und spätere SYNTH-Profile profitieren. |
+| Rollenwanderung | `MotifReferencePlan::adopt` erlaubt explizite Referenzübernahme mit unabhängigem Zustand. `planMelodyHandoff` bedient den engen HM→GS-Fall; GS→AR-Antwort ist ebenfalls vorhanden. | Ganze tatsächlich verwendete Zelle an ein anderes geeignetes Ziel übergeben, ohne Zufallsübernahme oder Fortschrittskopplung. Ein einzelner kontrollierter Rollenwechsel benötigt keine unabhängigen Perioden und keine Polychorde. Wiedererkennung vor/nach Übergabe, erlaubte Register und nicht konkurrierende Fenster nachweisen. |
+| Pulslose Ereignisfelder | Gehaltene Flächen, sparsame Akzente sowie `tupfer`, `foreignTone`, `stich` existieren. Sie sind über metrische Fenster und Aktivität gesteuert; manche fremden Akzente entfallen bei geschützter Harmonik. `MusicalExecution` kann exakte Tick-Zeit ausführen. | Eine gehaltene Grundlage plus vorher festgelegte seltene Einzelereignisse/Leere ist nicht bloß ein abgeschaltetes Arpeggio oder globale Ausdünnung. Kleiner musikalischer Ereignisplan mit Identität, Typ, Zeitpunkt, Abstand und Tonabsicht; auch lange ohne neues Ereignis gültig. Für Herrmann, Carpenter und später Ambient/Vangelis nutzbar; kein neuer technischer Scheduler. |
+| Mechanische / psychologische Unruhe | XYZ steuert heute Tempoauswahl, Figuren, Akzente und Fremdtöne; Ereignisdichte und Intensität sind bereits getrennt. Die geschützte harmonische Definition ist vorhanden, eine allgemeine F/U-Semantik noch nicht. | Mechanisch: regelmäßige prägnante Figur, stabile Referenz, ggf. Akzentasymmetrie. Psychologisch: lange Leere, Reibung, unerwarteter einzelner Einsatz, keine Pflicht auf hohe Dichte. Kontextabhängige musikalische Präferenzen statt zusätzlichem GUI-Regler oder pauschaler Z→Tempo-Kopplung. Keine freie Dissonanzquote. |
+| Unabhängige rhythmische Perioden | Gemeinsame 64-Bit-Zeit mit 960 PPQ; `planRoleRhythm` ist zweitaktig/4/4, `BarryVocabulary::planBar` liest taktsynchrone Quellen. Separate Stimmenzustände sind kein Nachweis unabhängiger Phasen. | Eigene Periodenlänge/Phase im selben Host-Zeitbezug über Takt-/Akkordgrenzen erhalten, ohne neue Uhren oder Tempi. Für konkrete Herrmann-Vorlagen bereits begründet, für spätere SYNTH-Recherche relevant. Als Carpenter-Stilmerkmal weiterhin unbelegt, nicht aktivieren oder gewichten, bevor die kanonische Grundlage dies trägt. |
+| Langfristige Entwicklung bei statischem XYZ | Motivwiederkehr, Szenenaufbau/-ende, wechselnde Quellwahl und Williams-Arp-Phrasierung sind vorhanden. | Kein allgemeiner musikalischer Strategieplan für Stasis, Schichtwechsel, Reharmonisierung oder Rückkehr derselben Textur. Fortschritt darf nicht nur von einer XYZ-Fahrt oder begrenzten Szene abhängen. Strategien gezielt und schrittweise erweitern; keine universelle Langform-/Orchestrierungsplattform. |
+
+Der gemeinsame Kern bleibt instrumentenunabhängig. Neun vorhandene MIDI-Ziele sind
+die derzeitige Ausgangsbasis, keine neun zwingend gleichzeitig aktiven Funktionen.
+TU bleibt tonal nutzbar und wird nicht pauschal zur Rhythmusmaschine umgewidmet.
+ST bleibt im festen Modus Trigger (Standard36), keine transponierbare Clusterstimme.
+Tonale Stinger dürfen nur an dafür geeignete TU/KF-Spielweisen gehen; deren aktuelle
+Dauer-/Polyphonieannahmen gelten weiterhin. Ein Klang, der Minuten hält, verlangt
+auch einen tatsächlich dazu geeigneten Patch. Neue CC-Verläufe, Percussion oder
+Ausgänge sind weder Voraussetzung dieser Analyse noch hiermit beschlossen.
+
+### Gemeinsame Uhr ist nicht gemeinsame Periodenlänge
+
+Die Vertiefung §5.2 beschreibt einen gemeinsamen Linn-/ARP-Takt und hält den
+Nachweis von Phasenverschiebung offen. Diese Aussagen widersprechen sich technisch
+nicht: Zwei Figuren können dieselbe Uhr und verschieden lange Perioden besitzen.
+Aber weder ein 5/4-Thema noch Triolen beweisen eine unabhängige Periode. Triolen
+können vollständig taktsynchron sein; 3+3+2+2 ist zunächst eine Akzentgruppierung.
+Die Empfehlung der Recherche, daraus eine schwache Carpenter-Präferenz abzuleiten,
+wird deshalb **nicht als gesicherte Regel oder neuer Default übernommen**.
+
+Die bestehende Tick-Basis bildet bei 960 PPQ etwa Achteltriolen mit 320 Ticks exakt
+ab. Das beseitigt nicht die Grenzen aktueller Sechzehntel-Vorlagenverbraucher.
+Diese Verbraucher, eine unabhängige musikalische Phase und eine Humanisierung
+relativ zum Referenzpuls sind drei getrennte Fragen. Der Host bleibt Tempoautorität;
+keine neue Sequencer-Uhr, keine Swing- oder Scheduler-Überarbeitung auf Vorrat.
+
+## Carpenter: acht Entwicklungsstrategien
+
+Quelle: Vertiefung §7.2. **S1–S8 sind lokale Strategiebezeichnungen der Recherche,
+keine Vorlagen-IDs, Laufzeittypen oder acht implementierte Betriebsarten.**
+Alle sind dort E-Ableitungen aus unterschiedlich belastbaren N/I-Bezügen, keine
+hier unabhängig nachgewiesene vollständige Kompositionsgrammatik.
+
+| Strategie | Musikalische Absicht | Wiederverwendbarer Bestand / verbleibende Voraussetzung | Gemeinsame Nutzung und künftiger Nachweis |
+|---|---|---|---|
+| S1 **Stasis** | Material und Schichtung dürfen über lange Zeit gleich bleiben; keine erzwungene Entwicklung. | Gehaltene Klänge, Originalreprise und konstante Muster sind Teilbausteine. Wirklich unabhängige Haltelebensdauer und Schutz vor ungefragtem Materialwechsel fehlen. Velocity-Mikrovariation ist keine Pflicht und wirkt nur bei neuen Anschlägen. | Carpenter: Drone/Zelle; Herrmann: Klangobjekt; Williams: Spannungsfeld. Bei statischem XYZ auch 128 Takte ohne vorgeschriebene Steigerung, zusätzlichen Puls oder Wechsel prüfen; technische Note-offs bleiben korrekt. |
+| S2 **Rotation** | Eine Schicht gegen eine andere tauschen, tragendes Material und ungefähres Aktivitätsniveau erhalten. | Schwellen/Hysterese und Rollenfenster reichen nicht für den gekoppelten Tausch. Zwei Änderungen können ein einziger musikalischer Entschluss sein; keine starre „nur eine Änderung“-Sperre. | Gemeinsamer Texturwechsel für alle Profile. Laufende Kernfigur, tatsächlich klingende Überlagerung, Artikulation und Energie vor/nach Tausch prüfen; nicht gleiche Rollenzahl als gleiche Dichte ausgeben. |
+| S3 **Atmung** | Langsames Auftauchen/Zurücknehmen einzelner Schichten ohne obligatorischen Höhepunkt; langfristig im gleichen Bereich bleiben. | Szenenaufbau und End-Fade sind endliche Verläufe, keine autonome Texturatmung. Einsätze, Register und Gate können musikalische Annäherung/Entfernung tragen; sie ersetzen kein echtes stufenloses Fade eines gehaltenen Tons. | Alle drei Künstler, später Vangelis/Ambient. Notenbezogene Lesart gesondert hörprüfen. Ein echtes gehaltenes Fade ist ohne geeignete Klangsteuerung nicht zugesagt. Bestehende optionale Dynamics/Expression-CC sind kein neuer S3- oder Filterplan. |
+| S4 **Wanderung** | Ein identischer Gedanke wechselt Rolle und/oder Register. | Gemeinsames Material und getrennte `MotifUse`-Zustände vorhanden; heutige Übergabe nur enger Spezialfall. Ganzen Gedanken explizit weiterreichen, geeignetes Ziel prüfen, Phase/Neuanfang begründet festlegen. | Carpenter-Motivtransfer, Herrmann-Zelle, Williams-Dialog. Intervalle/Rhythmus/Dauern und erkennbare Herkunft erhalten; keine unabsichtliche zweite Vordergrundstimme. Kein bloßer Instrumentenprogrammwechsel. |
+| S5 **Umfärbung** | Figur bleibt erkennbar, der harmonische Unterbau ändert sich. | Harmonieplanung, lokale Quellmasken und adaptive Wiederkehr vorhanden. Gemeinsame Gültigkeitsintervalle und Schutz der Tonabsichten nötig, damit identische Figur nicht widersprüchlich korrigiert wird. | Besonders Verbindung zu Williams-Motivik und Herrmann-Pedalen. Figur vor/nach Unterbauwechsel und beabsichtigte A/T/V/F/U-Bezüge prüfen. Wenn eine echte unveränderte Figur nicht passt, den Wechsel ablehnen statt ihre Töne heimlich umzubauen. |
+| S6 **Ereignisfeld** | Lange gehaltene Grundlage, seltene klar umrissene Ereignisse; auch gar kein neues Ereignis. | Bestehende Akzenterzeugung nur Teilbaustein. Eigene geplante Ereigniszeit/-art, Mindestabstand und autorisierte Tonbeziehung fehlen als zusammenhängendes Verfahren. | Carpenter/Fog/Thing-Zusatzcues, Herrmann-Spannung, spätere Ambient-Stile. Lange Leerräume und tatsächliche Ereignisfolgen messen, ohne Mindestquote; Stop/Seek/Loop dürfen keine Zusatzschläge oder hängenden Töne erzeugen. |
+| S7 **Blockverschiebung** | Ganze ausgewählte Zelle oder Fläche exakt verschieben und ggf. zurückführen. | Sequenzvariation ist keine Ganzzellen-Blocktransposition. Umfang, Transpositionsvektor, Register und Beziehung zum verbleibenden Pedal planen. Quelle unverändert lassen. | Carpenter und Herrmann unmittelbar, Williams ebenfalls. Alle Intervalle, Einsatzabstände, Akzente und Dauern vergleichen; Grenzfall verwerfen statt Tonleiterkorrektur. Keine Oktav-/Stimmführungsänderung als exakte Transposition ausgeben. |
+| S8 **Reduktion und Wiederaufnahme** | Zeitweise nur ein Element oder Leere, dann Rückkehr des vorherigen musikalischen Zusammenhangs. | Motivgedächtnis und Arp-Pausen vorhanden; keine vollständige Textur-/Modulreferenz für koordinierten Rückzug/Rückkehr. Bewusste Pause darf nicht das Material löschen. | Für alle drei Künstler und SYNTH. Rückkehr derselben Identität, bestimmter Wiedereinstieg (Neubeginn oder Fortsetzung), Rollenfenster und Schutz der Kernstimme nachweisen; keine zwangsläufige anschließende Eskalation. |
+
+S1/S6 dürfen lange null Änderungen haben. S2 und ggf. S5 dürfen gekoppelte
+Änderungen enthalten. Die Recherche nennt keine Verpflichtung, alle Strategien
+rotierend abzuarbeiten. Eine Strategie kann dauerhaft passend bleiben; Mittelwert
+und Ereignisarmut sind musikalische Ziele, keine festgelegten Aktivitätsquoten.
+Profil- und vorlagenspezifische Präferenzen erst anhand kanonischer Daten bestimmen.
+
+## Carpenter: begründete Fortschreibung des gemeinsamen Fahrplans
+
+Die bisherige Reihenfolge bleibt im Kern sinnvoll. Die Ergänzung verschiebt den
+Fokus von ausschließlich motorischen Modulen zu **zwei gleichwertigen Anwendungen**:
+kontinuierliche Zelle und pulslose gehaltene Grundlage mit wenigen Ereignissen.
+Keine neue Freigabe, kein eigenständiger Carpenter-Vorlagenplan.
+
+1. **Williams P2/P3 hören; bestehende Abnahmen schützen.** Herrmann-Klärungen und
+   begrenzter kompatibler HE-Import bleiben getrennte nächste Entscheidungen.
+   Carpenter-Originale archivieren, auf kanonische Bibliothek warten.
+2. **Einzelpedal und autorisierte Bass-/Tonabsicht.** Eigene Lebensdauer und
+   unabhängige Tonfolge bringen frühen gemeinsamen Nutzen. Kontinuierlich halten
+   und periodisch neu anschlagen unterscheiden; neue Harmonie muss nicht das Pedal
+   beenden. Erweiterte Akkordtypen/Skalen nur bei konkretem Bedarf, nicht als
+   Voraussetzung eines reinen Einzeltonfelds.
+3. **Materialidentität und begrenzte Einsatzpläne gemeinsam weiterverwenden.**
+   Zunächst eine Zelle bzw. eine gehaltene Grundlage plus einzelnes geplantes
+   Ereignis. S1/S6 müssen ohne Lead und ohne laufendes Arpeggio funktionieren;
+   Fortsetzung im unbegrenzten Modus bei statischem XYZ prüfen. Kein neuer
+   Universalplaner oder Ersatz des technischen Dispatchers.
+4. **Exakte Blocktransposition einer einzelnen Struktur** kann vor aufwendiger
+   Polychord-/Verschmelzungsplanung kommen. Gemeinsame Intervall-/Rhythmusidentität
+   und harmonische Legitimation sind Voraussetzung; zwei Komponenten noch nicht.
+5. **Expliziter Schichttausch, begrenzte Rollenwanderung und Rückkehr** bauen auf
+   Materialreferenz, passenden Instrumenten und kontrollierten Einsätzen auf.
+   Ein kleiner monodischer Transfer muss nicht auf unabhängige Zyklen warten.
+   Danach Kürzung/Verlängerung und Umfärbung gezielt, nicht alle S1–S8 gleichzeitig.
+6. **Komponenten-/Register-/Synchronitätspläne** bleiben für konkrete Herrmann- und
+   Williams-Polychorde nötig. **Triolen/Akzentgruppen** können bei Bedarf unabhängig
+   als kleiner Vorlagen-Verbraucherschritt folgen. **Eigene Perioden/Phasen** erst
+   bei belegter konkreter Vorlage mit Tests über Akkord-/Taktgrenzen; kein
+   Carpenter-Default und kein Zurücksetzen je Takt.
+7. **Längere Bögen und komplexe Entwicklung** später; keine feste
+   Steigerungs-Abbau-Kurve bei unverändertem XYZ. Echter kontinuierlicher
+   Klangwandel bleibt eine getrennte, noch nicht beschlossene Frage.
+
+Für jeden später freigegebenen Schritt: Produktions-MIDI unter statischem XYZ und
+Fahrten, tatsächlich verwendetes Material, Rollenfenster, Gate/Dauer und Stille
+prüfen; 12 Transpositionen, manuelle Spielweisen, Follow, Mute/Solo, Instrumenten-
+Eignung, Determinismus, Seek/Loop und Live/Export einschließen. Alle erhaltenen
+Rollen und Profile gezielt regressieren. Kein Dateizugriff/keine neue Allokation im
+Audiothread. Testkriterien sind keine Behauptung bereits bestandener Implementierung.
+
+### XYZ, Instrumentierung und weiterhin offene Grenzen
+
+X bleibt dunkel–hell, nicht negativ–positiv. Die erweiterte harmonische Bandbreite
+spricht gegen die frühe Verengung auf „X nicht Dur/Moll“: Harmoniequalität, Lage und
+Kontext können gemeinsam Farbe tragen; daraus folgt noch keine neue X-Zuordnung. Y ist Energie/Gewicht, nicht automatisch Schichtzahl oder Notendichte.
+Z kann regelmäßige mechanische oder ereignisarme psychologische Unruhe bedeuten.
+Das sind interne musikalische Strategien, kein zusätzlicher Regler und keine
+Beschädigung der bestehenden XYZ-Auswahl. Aus dunklen Forschungsankern dürfen auch
+hier keine versteckten Sperren für färbungsunabhängige Figuren entstehen.
+
+Die klare Registertrennung der Recherche ist als Underscoring-Ziel nützlich, aber
+kein Auftrag für einen Dialogdetektor oder eine dauerhafte Mittellagensperre.
+Die DAW meldet STROMSCORE aktuell nicht, wann jemand spricht. Sprache und geeignete
+Register müssen praktisch gehört werden; die Orchestrierung bleibt frei.
+Tempo kommt aus dem Host. Maschinenpuls/Handspiel ist nicht gleich globales
+Swing oder zufälliger Jitter aller Rollen. Kein Humanisierungsumbau in diesem Schritt.
+
+Die Forschung berichtet fehlende eigene Audioanalyse, nicht verfügbare Primärtexte
+und teils widersprüchliche Crowd-Tonartangaben. Genaue Harmonien, Akzentfolgen,
+Zellperioden und instrumentale Eignung können erst anhand der kanonischen Bibliothek
+verbindlich geprüft werden. Das gilt auch für untertaktige Wechsel oder zusätzliche
+Tonvorräte: jetzt keine Vorlagen vereinfachen oder vermeintliche Anforderungen erfinden.
+Filter-/CC74-Rampen, elektronische Percussion und weitere MIDI-Ziele bleiben offen.
+Vorhandene optionale Dynamics-/Expression-CC in `ScoreEngine::dynamicsCc` beweisen
+keine allgemeine rollenunabhängige Klangbewegung: der aktuelle Verlauf ist
+musikalisch gekoppelt und geteilter MIDI-Kanal bedeutet geteilte CC-Wirkung.
+Keine automatische Echo-/Hall-Notenerzeugung aus Produktionsbeschreibungen ableiten.
