@@ -2454,6 +2454,47 @@ private:
             mix(entry->heard.pad.n);for(int i=0;i<entry->heard.pad.n;++i)mix(entry->heard.pad.notes[i]);
             mix(entry->heard.bass);mix(entry->heard.root);mix(entry->heard.type);}
 
+        const auto* source=findHarmonyTemplate(W().id);
+        bool authored=source&&source->voicings[0].count&&s.genre==GenreScore&&!s.custom
+            &&s.follow[kFlaeche]&&(s.padPattern==PadAuto||s.padPattern==PadHeld);
+        int authoredBase=60+s.key;
+        const int authoredLo=rangeOn(o)?lo:-oct;
+        const int authoredHi=rangeOn(o)?hi:127-oct;
+        // Preserve the complete source register geometry. No individual octave folding.
+        // An unavailable source voicing falls back to the ordinary valid harmonic plan.
+        if(authored)
+        {
+            bool fits=false;
+            const auto capabilities=outputCatalog(s)[OutPadLong].track.instrument;
+            for(int shift:{0,-12,12,-24,24})
+            {
+                bool candidate=true;
+                for(int i=0;i<source->count;++i)
+                {
+                    const auto& v=source->voicings[static_cast<size_t>(i)];
+                    candidate&=v.count<=capabilities.polyphony;
+                    for(int n=0;n<v.count;++n){const int note=v.notes[static_cast<size_t>(n)]+60+s.key+shift;candidate&=note>=authoredLo&&note<=authoredHi;}
+                }
+                if(candidate){authoredBase+=shift;fits=true;break;}
+            }
+            authored=fits;
+            if(authored)
+            {
+                request.padRange={authoredLo,authoredHi};
+                // The old narrow default bass window is a preference, not an
+                // instrument limit. Allow the existing solver to keep close source
+                // root motion instead of octave-jumping at that soft boundary.
+                if(s.follow[kBass]&&(s.bassPattern==BassAuto||s.bassPattern==BassHeld))
+                    request.bassRange={s.rangeOn[1]?blo:-12*s.octave[kBass],s.rangeOn[1]?bhi:127-12*s.octave[kBass]};
+            }
+        }
+        bool authoredBass=authored&&s.follow[kBass]&&(s.bassPattern==BassAuto||s.bassPattern==BassHeld);
+        if(authoredBass)for(int i=0;i<source->count;++i)
+        {
+            const int note=60+s.key+source->voicings[static_cast<size_t>(i)].bass;
+            authoredBass&=note>=request.bassRange.low&&note<=request.bassRange.high;
+        }
+        mix(authored);mix(authoredBase);mix(authoredBass);mix(request.bassRange.low);mix(request.bassRange.high);
         const auto& w = W(); auto start = std::max(p.phraseStartTime,wendungTime);
         for (int i = 0; i < w.n; ++i)
         {
@@ -2480,7 +2521,15 @@ private:
                 mix(slot.bass);mix(static_cast<int>(slot.unavailable));
                 slot.enabled = ! pass || (composition::freeTransition(0,allowsPassingHarmony(s),s.y,still).kind==composition::TransitionKind::passingDominant);
                 slot.preservePad = s.genre == GenrePopRock && W().id == WendungId::popDrahtseil && ! s.custom;
-                mix(slot.preservePad);
+                if(authored&&!pass)
+                {
+                    const auto& v=source->voicings[static_cast<size_t>(i)];
+                    slot.pad={};slot.binding={};slot.preservePad=true;
+                    if(authoredBass)slot.bass=60+s.key+v.bass;
+                    for(int n=0;n<v.count;++n)slot.pad.notes[slot.pad.n++]=authoredBase+v.notes[static_cast<size_t>(n)];
+                    for(int n=0;n<v.heldCount;++n)slot.binding.required.notes[slot.binding.required.n++]=authoredBase+v.held[static_cast<size_t>(n)];
+                }
+                mix(slot.preservePad);mix(slot.bass);
                 if (slot.enabled) order[count++] = index;
             }
             if (i >= chordBase) start += musicaltime::fromGridStep(static_cast<int64_t>(w.ch[i].bars)*meter.len);
@@ -2497,7 +2546,7 @@ private:
         }
         harmonicPlan = composition::planHarmony(request);
         entryVoicingValid=false;
-        if(entry&&harmonicPlan.valid)
+        if(entry&&harmonicPlan.valid&&!authored)
         {
             composition::HarmonicEntry previous;
             previous.pad=entry->heard.pad;
@@ -2573,6 +2622,20 @@ private:
     void padChord (const Pos& p, const Settings& s, int o, int offset, musicaltime::Tick endTime, int velocity, EventList& out)
     {
         const auto voiced = padVoicing (p, s, o);
+        const auto* source=findHarmonyTemplate(W().id);
+        const bool orderedSource=o==OutPadLong&&source&&source->voicings[0].count;
+        auto releaseObsolete=[&]
+        {
+            for(int i=0;i<numActive;)
+            {
+                const auto& a=active[static_cast<size_t>(i)];bool wanted=false;
+                for(int j=0;j<voiced.n;++j)wanted|=a.note==sounding(o,voiced.notes[j]);
+                if(a.out==o&&!wanted)removeActive(i,offset,out);else ++i;
+            }
+        };
+        // A finite-polyphony instrument must not steal a bound common tone when
+        // transiently receiving the old and new chords at the same sample.
+        if(orderedSource)releaseObsolete();
         const bool saved = extendOnly;
         if (o == OutPadLong && ! peak) extendOnly = true;
         const auto chord = chordFor (p, kFlaeche, s);
@@ -2590,14 +2653,8 @@ private:
             if (root) mainRoot = false;
         }
         extendOnly = saved;
-        // Harmonic changes may leave an old colour note whose nominal duration has not ended yet.
-        if (o == OutPadLong)
-            for (int i = 0; i < numActive;)
-            {
-                const auto& a = active[(size_t) i]; bool wanted = false;
-                for (int j = 0; j < voiced.n; ++j) wanted = wanted || a.note == sounding (o, voiced.notes[j]);
-                if (a.out == o && ! wanted) removeActive (i, offset, out); else ++i;
-            }
+        // Historical paths retain their MIDI ordering; authored sources release first.
+        if(o==OutPadLong&&!orderedSource)releaseObsolete();
         if(on[kFlaeche])
         {
             voiceleading::ChordVoicing played;

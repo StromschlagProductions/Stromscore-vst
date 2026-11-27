@@ -58,3 +58,27 @@ Alle Laufzeitdaten sind unveränderlich und statisch. Keine Dateioperationen, Va
 Gezielte Tests: `HarmonyCatalogTests.cpp`, `HarmonyDataTests.py` (fehlerhafte Quellen, Reproduzierbarkeit, gemeinsam verwendete Einträge, großer kompilierter Katalog), `compare_harmony_data.py` und der vorhandene Gesamt-/Processor-Testbestand. Der große synthetische Test lässt sich mit `HARMONY_TEST_SANITIZE=1 ASAN_OPTIONS=detect_leaks=0 python3 Tests/HarmonyDataTests.py HarmonyDataTests.test_large_shared_catalog_compiles_and_selects` unter ASan/UBSan ausführen. Es werden dadurch keine neuen produktiven Vorlagen oder Profile angelegt.
 
 Abschlussprüfung: 30/30 CTest-Gesamttests bestanden (einschließlich bestehender Regressionen und neuer Datenpfadtests); Processor-Test mit Live-/Export- und Heap-Prüfungen bestanden; drei separate ASan/UBSan-Läufe für HarmonyCatalog, HarmonicProfile und Engine sowie der große synthetische Katalog ohne Befund; 7/7 Paketprüf-Fixtures bestanden. Linux-VST3 erfolgreich gebaut und Bundle/ELF/Versionsmetadaten geprüft. Kein Windows-Build oder pluginval-Lauf in diesem Auftrag, kein Releasepaket erzeugt. Die MIDI-Regressionszusammenfassung enthält 504 bytegleiche Vorher-/Nachher-Läufe und 1008 zusätzliche bytegleiche Blockgrößenvergleiche.
+
+## Optionale geschützte Quelllagen und Übergangsbindungen (Morricone P1)
+
+Eine Vorlage kann zusätzlich `voicings` enthalten, genau einen Eintrag pro
+Akkordslot. Jeder Eintrag hat `notes` (1–6 unterschiedliche sortierte
+Oberstimmentonhöhen), `held` (0–6 davon physisch durchzubindende Töne aus dem
+vorherigen Slot) und `bass` (notierte Ausgangslage des akkordgebundenen Basses).
+Alle Werte sind ganzzahlige Halbtonabstände relativ zur Vorlagentonika, aktuell
+−48 bis +48. Die erste Bindung beschreibt den zyklischen Übergang vom letzten Slot;
+ein erstmaliger Einstieg beginnt die aktuelle gültige Harmonie regulär.
+
+`voicings` erfordert geschützte Akkordfärbung. Die Offline-Validierung prüft jede
+Tonklasse, die vollständige Akkordidentität zusammen mit dem Bass, die explizite
+Bassklasse und die exakte Tonhöhenidentität der gebundenen Töne auf beiden Seiten.
+Eine fehlende None wird nicht ergänzt, eine Septime nicht durch einen ähnlich
+benannten Akkord ersetzt. Oktavdoppelungen sind erlaubt, identische Noten nicht.
+
+Die Laufzeitprojektion bleibt unveränderlich. Der gemeinsame Harmonieplan nutzt
+`voiceleading::VoiceBinding` für Pflichtbindungen bzw. optionale Präferenzen;
+aktuelle Morricone-Quellen verwenden ihre vollständigen festgelegten Quelllagen.
+Die reale Langfläche verlängert die bestehenden Notenansprüche. Bei ungeeignetem
+Benutzerregister entfällt die Quelllagenbindung zugunsten des gültigen bisherigen
+Harmoniepfads. Keine Dateizugriffe, Laufzeitdatenvalidierung oder Heap-Allokation im
+Audiothread. Details und bewusst begrenzte Anwendung: [Morricone P1](../research/ennio-morricone/P1.md).

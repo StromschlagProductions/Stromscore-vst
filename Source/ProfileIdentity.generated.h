@@ -2,12 +2,13 @@
 #pragma once
 #include <array>
 namespace stromscore::composition {
-enum class ProfileId { neutral=0,johnBarry=1,bernardHerrmann=2,johnWilliams=3 };
+enum class ProfileId { neutral=0,johnBarry=1,bernardHerrmann=2,johnWilliams=3,ennioMorricone=4 };
 struct ProfileIdentity {ProfileId id;const char* name;bool harmonySelectionOnly;};
-inline constexpr std::array<ProfileIdentity,4> profileIdentities {{
+inline constexpr std::array<ProfileIdentity,5> profileIdentities {{
 {ProfileId::neutral,"Neutral",false},
 {ProfileId::johnBarry,"John Barry",false},
 {ProfileId::bernardHerrmann,"Bernard Herrmann",true},
 {ProfileId::johnWilliams,"John Williams",false},
+{ProfileId::ennioMorricone,"Ennio Morricone",false},
 }};
 }

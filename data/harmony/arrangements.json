@@ -1742,6 +1742,188 @@
       ],
       "pad": "PadPulse",
       "hook": null
+    },
+    {
+      "id": "morricone_4",
+      "arp": [
+        "ArpUp",
+        "ArpCircle"
+      ],
+      "bass": [
+        "BassHeld",
+        "BassHeld"
+      ],
+      "pad": "PadHeld",
+      "hook": null
+    },
+    {
+      "id": "morricone_5",
+      "arp": [
+        "ArpUp",
+        "ArpCircle"
+      ],
+      "bass": [
+        "BassHeld",
+        "BassHeld"
+      ],
+      "pad": "PadHeld",
+      "hook": null
+    },
+    {
+      "id": "morricone_9",
+      "arp": [
+        "ArpUp",
+        "ArpCircle"
+      ],
+      "bass": [
+        "BassHeld",
+        "BassHeld"
+      ],
+      "pad": "PadHeld",
+      "hook": null
+    },
+    {
+      "id": "morricone_10",
+      "arp": [
+        "ArpUp",
+        "ArpCircle"
+      ],
+      "bass": [
+        "BassHeld",
+        "BassHeld"
+      ],
+      "pad": "PadHeld",
+      "hook": null
+    },
+    {
+      "id": "morricone_11",
+      "arp": [
+        "ArpUp",
+        "ArpCircle"
+      ],
+      "bass": [
+        "BassHeld",
+        "BassHeld"
+      ],
+      "pad": "PadHeld",
+      "hook": null
+    },
+    {
+      "id": "morricone_14",
+      "arp": [
+        "ArpUp",
+        "ArpCircle"
+      ],
+      "bass": [
+        "BassHeld",
+        "BassHeld"
+      ],
+      "pad": "PadHeld",
+      "hook": null
+    },
+    {
+      "id": "morricone_16",
+      "arp": [
+        "ArpUp",
+        "ArpCircle"
+      ],
+      "bass": [
+        "BassHeld",
+        "BassHeld"
+      ],
+      "pad": "PadHeld",
+      "hook": null
+    },
+    {
+      "id": "morricone_17",
+      "arp": [
+        "ArpUp",
+        "ArpCircle"
+      ],
+      "bass": [
+        "BassHeld",
+        "BassHeld"
+      ],
+      "pad": "PadHeld",
+      "hook": null
+    },
+    {
+      "id": "morricone_19",
+      "arp": [
+        "ArpUp",
+        "ArpCircle"
+      ],
+      "bass": [
+        "BassHeld",
+        "BassHeld"
+      ],
+      "pad": "PadHeld",
+      "hook": null
+    },
+    {
+      "id": "morricone_22",
+      "arp": [
+        "ArpUp",
+        "ArpCircle"
+      ],
+      "bass": [
+        "BassHeld",
+        "BassHeld"
+      ],
+      "pad": "PadHeld",
+      "hook": null
+    },
+    {
+      "id": "morricone_23",
+      "arp": [
+        "ArpUp",
+        "ArpCircle"
+      ],
+      "bass": [
+        "BassHeld",
+        "BassHeld"
+      ],
+      "pad": "PadHeld",
+      "hook": null
+    },
+    {
+      "id": "morricone_51",
+      "arp": [
+        "ArpUp",
+        "ArpCircle"
+      ],
+      "bass": [
+        "BassHeld",
+        "BassHeld"
+      ],
+      "pad": "PadHeld",
+      "hook": null
+    },
+    {
+      "id": "morricone_56",
+      "arp": [
+        "ArpUp",
+        "ArpCircle"
+      ],
+      "bass": [
+        "BassHeld",
+        "BassHeld"
+      ],
+      "pad": "PadHeld",
+      "hook": null
+    },
+    {
+      "id": "morricone_57",
+      "arp": [
+        "ArpUp",
+        "ArpCircle"
+      ],
+      "bass": [
+        "BassHeld",
+        "BassHeld"
+      ],
+      "pad": "PadHeld",
+      "hook": null
     }
   ],
   "bindings": [
@@ -2468,6 +2650,62 @@
     {
       "template_id": 40076,
       "recipe": "williams_76"
+    },
+    {
+      "template_id": 50004,
+      "recipe": "morricone_4"
+    },
+    {
+      "template_id": 50005,
+      "recipe": "morricone_5"
+    },
+    {
+      "template_id": 50009,
+      "recipe": "morricone_9"
+    },
+    {
+      "template_id": 50010,
+      "recipe": "morricone_10"
+    },
+    {
+      "template_id": 50011,
+      "recipe": "morricone_11"
+    },
+    {
+      "template_id": 50014,
+      "recipe": "morricone_14"
+    },
+    {
+      "template_id": 50016,
+      "recipe": "morricone_16"
+    },
+    {
+      "template_id": 50017,
+      "recipe": "morricone_17"
+    },
+    {
+      "template_id": 50019,
+      "recipe": "morricone_19"
+    },
+    {
+      "template_id": 50022,
+      "recipe": "morricone_22"
+    },
+    {
+      "template_id": 50023,
+      "recipe": "morricone_23"
+    },
+    {
+      "template_id": 50051,
+      "recipe": "morricone_51"
+    },
+    {
+      "template_id": 50056,
+      "recipe": "morricone_56"
+    },
+    {
+      "template_id": 50057,
+      "recipe": "morricone_57"
     }
   ]
 }

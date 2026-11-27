@@ -22,7 +22,9 @@ static int ons(const Notes& notes,int output)
 int main()
 {
     using namespace composition;
-    CHECK(compositionProfiles.size()==4);
+    CHECK(compositionProfiles.size()==5);
+    CHECK(findProfile(ProfileId::ennioMorricone)&&std::string(findProfile(ProfileId::ennioMorricone)->name)=="Ennio Morricone");
+    CHECK(policyForProfile(ProfileId::ennioMorricone)==&neutralFreePolicy);
     CHECK(findProfile(ProfileId::neutral)&&std::string(findProfile(ProfileId::neutral)->name)=="Neutral");
     CHECK(findProfile(ProfileId::johnBarry)&&std::string(findProfile(ProfileId::johnBarry)->name)=="John Barry");
     CHECK(findProfile(ProfileId::bernardHerrmann)&&std::string(findProfile(ProfileId::bernardHerrmann)->name)=="Bernard Herrmann");

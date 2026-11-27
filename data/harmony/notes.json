@@ -905,6 +905,76 @@
       "template_id": 40076,
       "idea": "Constructed Williams harmony; Pantriadisch chord relationship, not a shared role scale.",
       "instruments": "Independent of patch; long/short destinations retain their capabilities."
+    },
+    {
+      "template_id": 50004,
+      "idea": "wehmütige Kreisbewegung; kanonische konstruierte Studie, kein Filmzitat. Gemeinsamtöne gebunden; ohne Hauptmelodie und Arpeggio hörbar.",
+      "instruments": "Freie Instrumentierung; polyphone Langfläche und optionaler akkordgebundener Bass. Manuelle Spielweisen haben Vorrang."
+    },
+    {
+      "template_id": 50005,
+      "idea": "sinkende Sehnsucht; kanonische konstruierte Studie, kein Filmzitat. Gemeinsamtöne gebunden; ohne Hauptmelodie und Arpeggio hörbar.",
+      "instruments": "Freie Instrumentierung; polyphone Langfläche und optionaler akkordgebundener Bass. Manuelle Spielweisen haben Vorrang."
+    },
+    {
+      "template_id": 50009,
+      "idea": "sanft aufhellend, dann zurücksinkend; kanonische konstruierte Studie, kein Filmzitat. Gemeinsamtöne gebunden; ohne Hauptmelodie und Arpeggio hörbar.",
+      "instruments": "Freie Instrumentierung; polyphone Langfläche und optionaler akkordgebundener Bass. Manuelle Spielweisen haben Vorrang."
+    },
+    {
+      "template_id": 50010,
+      "idea": "weite, schwebende Landschaft; kanonische konstruierte Studie, kein Filmzitat. Gemeinsamtöne gebunden; ohne Hauptmelodie und Arpeggio hörbar.",
+      "instruments": "Freie Instrumentierung; polyphone Langfläche und optionaler akkordgebundener Bass. Manuelle Spielweisen haben Vorrang."
+    },
+    {
+      "template_id": 50011,
+      "idea": "bange Erwartung; kanonische konstruierte Studie, kein Filmzitat. Gemeinsamtöne gebunden; ohne Hauptmelodie und Arpeggio hörbar.",
+      "instruments": "Freie Instrumentierung; polyphone Langfläche und optionaler akkordgebundener Bass. Manuelle Spielweisen haben Vorrang."
+    },
+    {
+      "template_id": 50014,
+      "idea": "würdiger Abschluss ohne Dominante; kanonische konstruierte Studie, kein Filmzitat. Gemeinsamtöne gebunden; ohne Hauptmelodie und Arpeggio hörbar.",
+      "instruments": "Freie Instrumentierung; polyphone Langfläche und optionaler akkordgebundener Bass. Manuelle Spielweisen haben Vorrang."
+    },
+    {
+      "template_id": 50016,
+      "idea": "zärtlich, innig; kanonische konstruierte Studie, kein Filmzitat. Gemeinsamtöne gebunden; ohne Hauptmelodie und Arpeggio hörbar.",
+      "instruments": "Freie Instrumentierung; polyphone Langfläche und optionaler akkordgebundener Bass. Manuelle Spielweisen haben Vorrang."
+    },
+    {
+      "template_id": 50017,
+      "idea": "erinnernd, still; kanonische konstruierte Studie, kein Filmzitat. Gemeinsamtöne gebunden; ohne Hauptmelodie und Arpeggio hörbar.",
+      "instruments": "Freie Instrumentierung; polyphone Langfläche und optionaler akkordgebundener Bass. Manuelle Spielweisen haben Vorrang."
+    },
+    {
+      "template_id": 50019,
+      "idea": "offen fragend; kanonische konstruierte Studie, kein Filmzitat. Gemeinsamtöne gebunden; ohne Hauptmelodie und Arpeggio hörbar.",
+      "instruments": "Freie Instrumentierung; polyphone Langfläche und optionaler akkordgebundener Bass. Manuelle Spielweisen haben Vorrang."
+    },
+    {
+      "template_id": 50022,
+      "idea": "goldene Wehmut; kanonische konstruierte Studie, kein Filmzitat. Gemeinsamtöne gebunden; ohne Hauptmelodie und Arpeggio hörbar.",
+      "instruments": "Freie Instrumentierung; polyphone Langfläche und optionaler akkordgebundener Bass. Manuelle Spielweisen haben Vorrang."
+    },
+    {
+      "template_id": 50023,
+      "idea": "Wärme, die sich eintrübt; kanonische konstruierte Studie, kein Filmzitat. Gemeinsamtöne gebunden; ohne Hauptmelodie und Arpeggio hörbar.",
+      "instruments": "Freie Instrumentierung; polyphone Langfläche und optionaler akkordgebundener Bass. Manuelle Spielweisen haben Vorrang."
+    },
+    {
+      "template_id": 50051,
+      "idea": "fließende Melancholie; kanonische konstruierte Studie, kein Filmzitat. Gemeinsamtöne gebunden; ohne Hauptmelodie und Arpeggio hörbar.",
+      "instruments": "Freie Instrumentierung; polyphone Langfläche und optionaler akkordgebundener Bass. Manuelle Spielweisen haben Vorrang."
+    },
+    {
+      "template_id": 50056,
+      "idea": "dunkle Innigkeit; kanonische konstruierte Studie, kein Filmzitat. Gemeinsamtöne gebunden; ohne Hauptmelodie und Arpeggio hörbar.",
+      "instruments": "Freie Instrumentierung; polyphone Langfläche und optionaler akkordgebundener Bass. Manuelle Spielweisen haben Vorrang."
+    },
+    {
+      "template_id": 50057,
+      "idea": "Erinnerung, Glanz; kanonische konstruierte Studie, kein Filmzitat. Gemeinsamtöne gebunden; ohne Hauptmelodie und Arpeggio hörbar.",
+      "instruments": "Freie Instrumentierung; polyphone Langfläche und optionaler akkordgebundener Bass. Manuelle Spielweisen haben Vorrang."
     }
   ]
 }

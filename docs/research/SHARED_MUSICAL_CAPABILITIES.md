@@ -462,3 +462,24 @@ noch Funktionsfehler. Keine automatische Eskalation bei statischem XYZ.
 [Errata](ennio-morricone/ERRATA.md), [XYZ-Prüfung](ennio-morricone/XYZ_COMPATIBILITY.json).
 Sämtliche vier Künstler und zukünftige SYNTH-Profile verwenden denselben Kern.
 Keine GUI-/MIDI-Erweiterung, keine Engine-Änderung in diesem Archivierungsauftrag.
+
+## Umgesetzt: gemeinsame Übergangsgrammatik P1 und Morricone-Prototyp
+
+Nach dem Bestandsabgleich `3227315` wurde ein begrenzter erster Verbraucher
+implementiert; Details und Hörgrenzen: [Morricone P1](ennio-morricone/P1.md).
+
+- Gemeinsame typisierte Pflichtbindungen physischer Tonhöhen und optionale
+  Gemeinsamton-Präferenzen im vorhandenen Stimmführungs-/Harmonieplan.
+- Validierte geschützte Quelllagen mit expliziten Bindungen; keine automatische
+  Tonklassenrundung und kein Ersatz einer gehaltenen Note durch ihre andere Oktave.
+- Reale Durchbindung über den bestehenden Notenbesitz der Langfläche; bestehende
+  unabhängige Basspedale behalten ihren gesonderten musikalischen Lebensbereich.
+- Erster hörbarer Morricone-SCORE-Pool mit 14 achtaktigen lyrischen H-Folgen,
+  einschließlich H051 als gültigem Teil der S052-Orientierung. Keine Aktivierung
+  ungeklärter H053 oder pauschaler Import aller U-Vorlagen.
+
+Die Fähigkeit ist gemeinsam nutzbar; die konkrete H-Auswahl ist eine Stilpräferenz.
+Verzögerte Vorhaltsauflösungen, gestaffelte Einsätze und lokale Harmonieschichten
+bleiben eigenständige Folgeaufgaben. Die frühere Bestandsaufnahme wird dadurch
+nicht rückwirkend als bereits damals implementiert ausgegeben. Zunächst ist die
+musikalische Studio-One-Hörabnahme dieses P1-Standes vorgesehen.

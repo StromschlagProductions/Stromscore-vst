@@ -18,11 +18,20 @@ inline constexpr int coloredChordType(int type,float unrest,ChordColoration stra
     return type;
 }
 struct TemplateTonality {int center;composition::Mode mode;};
+// Authored pitches relative to the template tonic. Empty = generative voicing.
+// A whole-voicing octave displacement is allowed; individual pitch-class snapping is not.
+struct HarmonyVoicing
+{
+    int count=0;std::array<int,6> notes{};
+    int heldCount=0;std::array<int,6> held{};
+    int bass=0; // tonic-relative starting register, still chord-bound
+};
 struct HarmonyTemplate
 {
     WendungId id;const char* name;float x,y,z;int count;
     std::array<Chord,kMaxChords> chords;
     TemplateTonality tonality;unsigned genres;const char* sourceRef;
     ChordColoration coloration=ChordColoration::flexible;
+    std::array<HarmonyVoicing,kMaxChords> voicings{};
 };
 }

@@ -622,6 +622,7 @@ struct HarmonicSlot
     ResolutionIntent resolution;
     uint32_t unavailable = 0;
     bool enabled = true, preservePad = false;
+    voiceleading::VoiceBinding binding;
 };
 struct HarmonicRequest
 {
@@ -653,6 +654,14 @@ inline HarmonicPlan planHarmony (const HarmonicRequest& r)
         if (slot.pad.n < 0 || slot.pad.n > 6 || slot.bass < -128 || slot.bass > 255
             || slot.resolution.descendingSeventh < -1 || slot.resolution.descendingSeventh > 11
             || slot.resolution.ascendingThird < -1 || slot.resolution.ascendingThird > 11) return result;
+        if(slot.binding.required.n<0||slot.binding.required.n>6||slot.binding.preferred.n<0||slot.binding.preferred.n>6)return result;
+        for(const auto* tones:{&slot.binding.required,&slot.binding.preferred})
+            for(int n=0;n<tones->n;++n)
+            {
+                const int note=tones->notes[n];
+                if(note < -128 || note > 255 || (tones==&slot.binding.required&&(note<r.padRange.low||note>r.padRange.high)))return result;
+                for(int j=0;j<n;++j)if(note==tones->notes[j])return result;
+            }
         for (int n = 0; n < slot.pad.n; ++n)
             if (slot.pad.notes[static_cast<size_t> (n)] < -128 || slot.pad.notes[static_cast<size_t> (n)] > 255) return result;
         if (slot.enabled) last = i;
@@ -665,8 +674,11 @@ inline HarmonicPlan planHarmony (const HarmonicRequest& r)
         {
             const auto& in = r.slots[static_cast<size_t> (i)];
             if (! in.enabled) continue;
+            if(in.binding.required.n&&!voiceleading::satisfies(previous,in.binding.required))return HarmonicPlan{};
             previous = in.preservePad ? in.pad : voiceleading::lead(in.pad, previous,
-                r.padRange.low, r.padRange.high, in.resolution.descendingSeventh, in.resolution.ascendingThird);
+                r.padRange.low, r.padRange.high, in.resolution.descendingSeventh, in.resolution.ascendingThird,
+                in.binding.required.n||in.binding.preferred.n?&in.binding:nullptr);
+            if(in.binding.required.n&&!voiceleading::satisfies(previous,in.binding.required))return HarmonicPlan{};
             previousBass = voiceleading::bass(in.bass, previousBass, r.bassRange.low, r.bassRange.high);
             result.slots[static_cast<size_t> (i)] = { previous, previousBass, in.unavailable };
         }

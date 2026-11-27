@@ -706,6 +706,29 @@
         40069,
         40076
       ]
+    },
+    {
+      "id": 4,
+      "symbol": "ennioMorricone",
+      "name": "Ennio Morricone",
+      "harmony_selection_only": false,
+      "weights": [],
+      "score_pool": [
+        50004,
+        50005,
+        50009,
+        50010,
+        50011,
+        50014,
+        50016,
+        50017,
+        50019,
+        50022,
+        50023,
+        50051,
+        50056,
+        50057
+      ]
     }
   ]
 }

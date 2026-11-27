@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
-  "templates": 181,
+  "templates": 195,
   "chord_types": 27,
-  "profiles": 4,
+  "profiles": 5,
   "pools": {
     "score": 48,
     "pop_rock": 39
@@ -49,9 +49,9 @@
   "duplicate_policy": "warning only; preserve IDs, entry phase and independent strategies",
   "source_sha256": {
     "chord_types.json": "fdf47361493c72868badc931dab89cf0d768499c9a2d4f6b512396dae62749eb",
-    "catalog.json": "b151626c4c0b5db99d8cccbb9b1522f641363df08dbf8cd7c9697c6a169a1080",
-    "arrangements.json": "4132d2c5f9254f8da59aee8c96b45985be2b89316623d69dfd872dc35b3e8062",
-    "profiles.json": "cff91292079f4ab6ef2f8bc490b9cc1521052e1b8042b6feaa8c251e769fec53",
-    "notes.json": "6fe375dbd7fda1b45c341837890dc43e56fd04f8a44d66ce645a4226e5e260b9"
+    "catalog.json": "1aefd267ef598cd361ff8d9378eca9f1f792bb6b38351a0af33c16e12ea41f97",
+    "arrangements.json": "47a422cfcd279dc1872cf9d50e9aa43055f152b865d04e326a90898727e4ea1a",
+    "profiles.json": "45f717c3173e87e9210d2c6de3bf726ee008e6cbe329ff34daa1b656b39ba7b5",
+    "notes.json": "a5cbe6ea6783e4a541d2707e2bf9650284fac28bbaaed97fb01a70b311c30df3"
   }
 }

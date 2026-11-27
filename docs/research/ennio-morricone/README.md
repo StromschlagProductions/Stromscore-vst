@@ -70,3 +70,10 @@ Reproduktion: nacheinander `python3 audit.py`, `python3 assess.py`,
 `python3 compatibility.py`, danach `python3 verify.py` in diesem Ordner (oder über deren Repositorypfade).
 Die Skripte verändern ausschließlich unsere abgeleiteten Dokumente; der C++-Probe
 wird temporär gebaut. Keine Engine-/GUI-/Katalogdatei und kein Original werden verändert.
+
+## Implementierungsfortschritt
+
+[P1 – gemeinsame Übergangsgrammatik und hörbarer Prototyp](P1.md) dokumentiert
+den nachfolgenden Implementierungsschritt. Die obige Bestandsaufnahme bleibt
+eine historische Prüfung gegen `4c43bd2`; ihre Einstufungen werden nicht
+rückwirkend als damalige Engine-Fähigkeiten umgeschrieben.

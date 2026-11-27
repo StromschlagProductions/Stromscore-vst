@@ -1,116 +1,60 @@
-# STROMSCORE 2.2 DEV – John Barry: Hörtest in Studio One Pro 8
+# STROMSCORE 2.2 DEV – Morricone P1: Hörtest in Studio One Pro 8
 
-Musikalische Strategie: `24f3c13` (Barry Phase 2 und 3), ergänzt um die gezielte
-Korrektur der Profilwechsel-/Ruhemodus-Blockade nach `aaec260`. Branch
-`develop/composition-core-prototype`. Der Paket-Commit einschließlich dieser Anleitung
-steht in `BUILD.txt` und im Plugin als `v2.2 DEV <Commit>`. Kein offizielles Release.
+Dieser Entwicklungsbuild ergänzt die gemeinsame Oberstimmenbindung und einen
+begrenzten Morricone-SCORE-Prototyp. Die genaue Commit-ID steht in `BUILD.txt`
+und im Plugin als `v2.2 DEV <Commit>`. Kein offizielles Release.
 
-## Zuerst: Profilwechsel-Regression prüfen
+## Installation
 
-1. **4/4, D, 100 BPM**, Aufbau AUS, Auto-Spielweisen und „Folgt Akkorden“ EIN.
-   Neutral wählen, Host starten und Intensität auf **0,05** absenken.
-2. Bei laufender Wiedergabe **John Barry** wählen, Intensität noch einen Takt
-   niedrig lassen, dann auf **0,95** erhöhen; Färbung **0,85**, Unruhe **1,00**.
-3. Mindestens **32 Takte** weiterlaufen lassen (bei 100 BPM etwa **1:17 Minuten**).
-   Die Anzeige muss während der Host-Wiedergabe eine gültige Wendung und Akkorde
-   zeigen. Nach dem nächsten regulären Wechselpunkt muss die Harmonie wieder
-   fortschreiten können. Keine sofortige neue Note auf jedem Parameterwechsel
-   erwarten; der Ruhemodus und musikalische Pausen bleiben beabsichtigt.
-4. In umgekehrter Richtung wiederholen; danach mit Profilwechsel bei gestopptem
-   Host, Stop/Neustart, einem Positionssprung und Loop testen. Auch Pop/Rock
-   prüfen. Vorhören zunächst AUS lassen, damit eindeutig der Host-Pfad geprüft wird.
+Das GitHub-Actions-Artefakt herunterladen und das äußere ZIP entpacken, danach
+`Stromscore-2.2-DEV-<Commit>-Windows-x64-VST3.zip` entpacken. Studio One schließen,
+die bisherige Installation außerhalb der Suchpfade sichern und den **gesamten
+Ordner** `Stromscore.vst3` nach `C:\Program Files\Common Files\VST3\` kopieren.
+Neu scannen und DEV-Kennung prüfen. Stabile und DEV-Version haben dieselbe
+Plugin-ID: nicht gleichzeitig installieren. Bestehende Songs für den Test kopieren.
 
-Die Korrektur verändert **keine Barry-Rhythmusvorlagen oder Aktivitätsschwellen**.
-Eine weiterhin zu flächige Begleitstrategie bitte getrennt vom zuvor dauerhaft
-blockierten Wendungszustand beurteilen.
+## Grundeinstellung
 
-## Installation und MIDI
+- 4/4, D, 100 BPM; SCORE, KOMPONIST **Ennio Morricone**.
+- Aufbau AUS, Fahrt AUS, unbegrenzte Wiedergabe; Fläche/Bass Auto,
+  „Folgt Akkorden“ für beide EIN. Vorhören AUS, Host-Wiedergabe verwenden.
+- Zunächst Arpeggio, Akzente, Hauptmelodie und Gegenstimme muten. Die vorhandenen
+  Lang-Ausgänge der Fläche und des Basses mit geeigneten gehaltenen Klängen belegen.
+  Keine neue Kanalzuordnung: Fläche lang Kanal 1, Bass lang Kanal 3.
+- Ein Sustain-fähiger Patch ist notwendig, um MIDI-Bindungen auch akustisch zu hören.
+  Ein ausklingendes Klaviersample verhält sich anders als gehaltene Streicher.
 
-Das Actions-Artefakt `Stromscore-2.2-DEV-<Commit>-Windows-x64` herunterladen.
-Äußeres ZIP entpacken, danach das darin enthaltene Windows-VST3-ZIP entpacken.
-Studio One schließen und eine vorhandene Installation außerhalb der VST3-Suchpfade sichern.
-Den **gesamten Ordner** `Stromscore.vst3` nach
-`C:\Program Files\Common Files\VST3\Stromscore.vst3` kopieren, dann in Studio One
-neu scannen und die DEV-Kennung kontrollieren. Stabile und DEV-Version haben dieselbe
-Plugin-ID und sollen nicht gleichzeitig installiert sein. Zum Zurückwechseln den
-gesicherten Ordner wieder einsetzen. Bestehende Songs für den Hörtest kopieren.
+## Vier kurze Durchläufe
 
-Externe Instrumentenspuren mit Stromscore als MIDI-Eingang und dem jeweiligen Kanal
-verbinden; Monitoring einschalten. Nicht auf allen Zielspuren „Alle Kanäle“ verwenden.
+| Situation | Färbung X | Intensität Y | Unruhe Z | Worum es geht |
+|---|---:|---:|---:|---|
+| Wehmütige Kreisbewegung | 0,40 | 0,35 | 0,20 | Moll-add9, ♭VI-maj7, Mollsubdominante; gemeinsame Töne bleiben liegen. |
+| Helle plagale Terzkette | 0,75 | 0,30 | 0,15 | Dur-add9, vi-m7, IV-maj7; emotionale Umfärbung ohne Pflichtmelodie. |
+| Dur/Moll-Umfärbung | 0,60 | 0,30 | 0,25 | Dur-add9 gegen Moll-6-Subdominante; liegende None über wechselnder Funktion. |
+| Gemeinsamton-Kette | 0,45 | 0,30 | 0,20 | H051: Moll-add9 → ♭VII-add9 → ♭III-maj7 → ♭VI-maj7. |
 
-| MIDI-Ziel | Standardkanal |
-|---|---:|
-| Harmonie/Fläche lang / kurz | 1 / 2 |
-| Bass lang / kurz | 3 / 4 |
-| Arpeggio | 5 |
-| Tupfer / Stich | 6 / 7 |
-| Dialog/Gegenstimme | 8 |
-| Hauptmelodie | 9 |
+Für einen gezielten Quellentest „Abwechslung“ zunächst auf 0 stellen. Die Anzeige
+kontrollieren; in der unmittelbaren Nähe kann bei anderer Variation eine andere
+passende Folge erscheinen. Danach Abwechslung erhöhen, mehrere Variationen und
+langsame XYZ-Fahrten probieren. Pro Durchlauf mindestens **32 Takte** hören
+(bei 100 BPM etwa 1:17 Minuten), für Entwicklung bei konstantem XYZ **128 Takte**
+(etwa 5:07 Minuten). Die Harmonie darf sich auch bei unbewegtem Feld weiterentwickeln.
 
-Zunächst gut hörbare, tonhöhensteuerbare Sustain-Klänge für Dialog/Melodie und passende
-Kurz-Patches für kurze Begleitung verwenden. Legato steuert Notengates, keine Keyswitches.
-Stich kann eine feste Sample-Triggernote senden; externe Patch-Fähigkeiten werden nicht erkannt.
+Anschließend Melodie und Dialog einzeln sowie gemeinsam aktivieren und deren
+Motivschalter testen. Sie nutzen die bisherigen gemeinsamen Funktionen; neue
+Morricone-Motivvorlagen sind in P1 noch nicht enthalten. Arpeggio und Akzente sind
+optional. Manuelle rhythmische Flächenspielweisen dürfen ausdrücklich neu anschlagen;
+die kontinuierliche Oberstimmenbindung gilt für die geeignete Langfläche.
 
-## Gemeinsame Grundeinstellung
+## Vergleich und Rückmeldung
 
-- **Score**, **KOMPONIST: John Barry**, Tonart **C**, automatische Wendungsauswahl:
-  **keine eigene Akkordfolge** einstellen, damit das Barry-Harmoniematerial verwendet wird.
-- **Aufbau AUS**, Fahrt AUS, Szenenlänge 0/unbegrenzt, Szene beenden AUS.
-- Bass **Auto**, Arp-Figur **Auto**, Arp-Tempo **Auto**, „Folgt Akkorden“ für Harmonie/Bass EIN.
-- Abwechslung zunächst **0 %**, Swing **0 %**, Oktaven Normal, unveränderte Tonumfänge.
-  Für A/B denselben Wurf verwenden, etwa Wurf 3 über die DAW-Parameterliste.
-- Alle Mute-/Solo-Schalter lösen. Dialog **Motiv EIN**, **Legato EIN**.
-  Hauptmelodie zunächst **Aktiv AUS**. Keine zusätzliche CC-Lautstärkesteuerung zuschalten.
-- Hosttempo **120 BPM** als Vergleich; der Host bleibt maßgeblich. Taktart gemäß Tabelle.
-  XYZ bedeutet hier **Färbung / Intensität / Unruhe**, jeweils 0–1 (0,30 = 30 %).
+Neutral, Barry und Williams bei identischen Einstellungen und **denselben Patches**
+gegenhören. Bestehende Profile sollen ihre bisherige musikalische Funktion behalten.
+Nach Profilwechsel im Lauf, Stop/Neustart, Seek und einem Loop auf hängende Noten
+achten. Rückmeldung besonders zu gehaltenen Farbtönen, Bassbewegung, harmonischen
+Übergängen, Variation bei konstantem XYZ und zur Eignung ohne Vordergrundstimmen.
 
-## Empfohlene Hörkontexte
-
-Die Angaben sind Startpunkte, keine zugesagten Original-Cues oder exakten Motivfolgen.
-Harmonie, Register und Instrumentenfähigkeiten entscheiden, welche Vorlage spielbar ist.
-
-| Hörziel | Takt | XYZ | Worauf hören? |
-|---|---|---|---|
-| Dunkel und geheimnisvoll | 4/4 | **0,20 / 0,45 / 0,40**; danach Y auf 0,80 | Dunkle Farbakkorde, kurze Zeichen und Pausen; Unterschied zwischen ruhiger und energischer Ausgestaltung. |
-| Romantisch / warm | 4/4 | **0,80 / 0,30 / 0,10** | Warme Akkordfarben und Raum zwischen den Stimmen; kein erzwungener dichter Motor. |
-| Melancholisch | 4/4 | **0,35 / 0,40 / 0,15** | Mit dem warmen Kontext vergleichen: dunklere Färbung bei weiterhin ruhiger Bewegung. |
-| Kreisend, Richtung The Black Hole | **3/4** | **0,30 / 0,65 / 0,55**; ergänzend **0,30 / 0,50 / 0,40** | Gehaltenes Fundament, kreisende Oberfigur und mögliche Achtel-/Sechzehntelverdichtung. Im passenden Klangfeld kann die kurze M17-Geste auftreten. |
-| Dramatisch / bewegt, Richtung A View to a Kill | 4/4 | **0,35 / 0,60 / 0,50**; ergänzend **0,30 / 0,75 / 0,70** | Synkopierte Bewegung bzw. gestufte Verdichtung, koordinierter Bass und Freiräume für Motive. Keine Rekonstruktion des Zorin-Motivs. |
-
-Pro Kontext zunächst **64, besser 128 Takte** laufen lassen. Bei 120 BPM entsprechen
-64/128 Takten in 4/4 etwa **2:08 / 4:16 Minuten**, in 3/4 **1:36 / 3:12 Minuten**.
-Die Einführung allein zeigt weder Wiederkehr noch Varianten und Antwortverhalten.
-
-### Neutral gegen John Barry
-
-Gleiche Patches, Kanäle, XYZ, Tonart, Hosttempo/-takt, Wurf, Abwechslung und Schalter verwenden.
-Eine Passage mit **Neutral** aufnehmen, stoppen, zum Anfang zurückkehren, **John Barry**
-wählen und neu starten. Ein Neustart beginnt eine frische Szene mit neuem Motivgedächtnis.
-Die automatische harmonische Auswahl eingeschaltet lassen. Unterschiedliche Wendungen,
-Begleitfiguren und Motivgestalten sind beabsichtigt; Klangwechsel sind kein Stilnachweis.
-
-### Mit und ohne Hauptmelodie
-
-Jeden Kontext zuerst ohne Hauptmelodie hören. Danach stoppen, zum Anfang zurückkehren,
-Hauptmelodie **Aktiv EIN**, **Motiv EIN**, **Legato EIN** und neu starten; Dialog-Motiv bleibt EIN.
-Beide Zielspuren auf Kanal 8/9 müssen hörbar sein. Die Stimmen sollen sich abwechseln,
-nicht gleichzeitig dauerhaft führen. Geplante Motive können das automatische Arp kurz pausieren lassen.
-
-Zum Isolieren beide melodischen Rollen gemeinsam solo schalten; für reine Begleitung beide
-muten. Anschließend Solo/Mute wieder lösen. Motiv AUS liefert vorhandene freie Linien statt
-gezielter Wiederkehr. Legato EIN/AUS je Stimme getrennt vergleichen, jeweils mit Neustart.
-Die kurze Melodie–Dialog-Antwort ist nicht in jeder Phrase vorgesehen und kann bei ungeeigneter
-Harmonie ausbleiben; zum gezielten Vergleich **4/4, Aufbau AUS, beide Motivschalter EIN** lassen.
-
-## Rückmeldung und Grenzen
-
-Notieren: DEV-Commit, Kontext/XYZ, Taktart/Tempo, Wurf, Patches, aktive Rollen sowie Takt einer
-Auffälligkeit. Besonders auf Wiedererkennbarkeit, unnötige Dichte, lange Blockaden und Übergänge achten.
-Lange Sample-Releases/Hall können MIDI-Pausen überdecken. Ein kalter Einstieg mitten im Song
-besitzt keine zuvor gespielte musikalische Vorgeschichte; erste Vergleiche deshalb am Anfang starten.
-
-Nicht jede Forschungsvorlage ist bereits umgesetzt: Phase 3 nutzt 16 Rhythmus- und 20 kurze
-Motivvorlagen. Lange Melodiebögen, komplexe Chromatik und Formdramaturgie bleiben ausgenommen.
-Die konkreten Noten-/Rhythmusstudien sind Konstruktionen, keine Originaltranskriptionen.
-Automatisierte Tests belegen MIDI-Korrektheit; musikalische Qualität und Stilwirkung sind Gegenstand
-dieser Hörabnahme. Bis zu deren Ergebnis bleibt die Entwicklung gestoppt.
+P1 ist lyrisch ausgerichtet. Sehr intensive/unruhige Randbereiche sind harmonisch
+noch schwach besetzt; sie besitzen noch keine vollständige Morricone-Dramaturgie.
+EM-S052 dient nur als musikalische Orientierung: keine Lolita-Transkription,
+kein vollständiger Nachbau der Studie und kein Import ihrer ungeklärten H053.

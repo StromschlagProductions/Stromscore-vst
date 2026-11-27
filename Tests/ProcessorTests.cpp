@@ -154,16 +154,17 @@ static void testImportedCatalogExport(bool extended=false,int meter=0)
 #include "ProfileSwitchProcessorTests.h"
 
 // P3: actual processor/SMF path, including both melodic channels and their real note ledger.
-static int testWilliamsMotifsExport(bool pedals=false)
+static int testWilliamsMotifsExport(bool pedals=false,bool morricone=false)
 {
  using namespace stromscore;int cases=0;
- for(unsigned id:pedals?std::vector<unsigned>{40003u,40050u,40061u}:std::vector<unsigned>{40002u,40014u})for(int key:{0,11})for(float swing:{0.f,.3f}){
+ for(unsigned id:morricone?std::vector<unsigned>{50004u,50016u,50023u,50051u}:pedals?std::vector<unsigned>{40003u,40050u,40061u}:std::vector<unsigned>{40002u,40014u})for(int key:{0,11})for(float swing:{0.f,.3f}){
   const auto* h=findHarmonyTemplate(static_cast<WendungId>(id));CHECK(h);
   StromscoreProcessor q;FakeHost host;q.setPlayHead(&host);q.prepareToPlay(48000,512);
-  setParam(q,"komponist",3);setParam(q,"genre",0);setParam(q,"key",static_cast<float>(key));setParam(q,"aufbau",0);
+  setParam(q,"komponist",morricone?4.f:3.f);setParam(q,"genre",0);setParam(q,"key",static_cast<float>(key));setParam(q,"aufbau",0);
   setParam(q,"faerbung",h->x);setParam(q,"intensitaet",h->y);setParam(q,"unruhe",h->z);setParam(q,"abwechslung",0);
   setParam(q,"durchgaenge",1);setParam(q,"melodie",1);setParam(q,"motiv",1);setParam(q,"melodieMotiv",1);setParam(q,"swing",swing);
-  if(pedals){auto settings=q.currentSettings();bool found=false;for(int v=1;v<=16;++v){settings.variation=v;if(static_cast<unsigned>(wendungAt(settings.genre,Generator::pick(settings,0),settings.profile).id)==id){setParam(q,"variation",static_cast<float>(v));found=true;break;}}CHECK(found);}
+  if(morricone&&key==0){setParam(q,"melodie",0);setParam(q,"mute5",1);setParam(q,"mute3",1);setParam(q,"mute4",1);}
+  if(pedals||morricone){auto settings=q.currentSettings();bool found=false;for(int v=1;v<=16;++v){settings.variation=v;if(static_cast<unsigned>(wendungAt(settings.genre,Generator::pick(settings,0),settings.profile).id)==id){setParam(q,"variation",static_cast<float>(v));found=true;break;}}CHECK(found);}
   using Timed=std::tuple<long long,int,int,int,int>;std::vector<Timed> live,exported;
   auto add=[](std::vector<Timed>& target,const juce::MidiMessage& m,long long tick){
    if(m.isNoteOnOrOff())target.emplace_back(tick,m.isNoteOn()?1:0,m.getChannel(),m.getNoteNumber(),m.isNoteOn()?m.getVelocity():0);
@@ -177,16 +178,17 @@ static int testWilliamsMotifsExport(bool pedals=false)
    for(auto m:messages)add(live,m.getMessage(),std::llround((at+m.samplePosition)/25.));}
   host.playing=false;messages.clear();q.processBlock(audio,messages);collect(messages,ledger);for(auto m:messages)add(live,m.getMessage(),total/25);
   std::sort(live.begin(),live.end());std::sort(exported.begin(),exported.end());CHECK(live==exported&&!live.empty());CHECK(!ledger.broken&&ledger.ons==ledger.offs);
-  int melodic=0;for(auto e:live)if(std::get<1>(e)==1&&(std::get<2>(e)==q.currentSettings().channel[OutMelody]||std::get<2>(e)==q.currentSettings().channel[OutCounter]))++melodic;if(!pedals)CHECK(melodic>10);
+  int melodic=0;for(auto e:live)if(std::get<1>(e)==1&&(std::get<2>(e)==q.currentSettings().channel[OutMelody]||std::get<2>(e)==q.currentSettings().channel[OutCounter]))++melodic;if(!pedals&&!morricone)CHECK(melodic>10);
   if(pedals){std::vector<long long> attacks;for(auto e:live)if(std::get<1>(e)==1&&std::get<2>(e)==q.currentSettings().channel[OutBassLong]){attacks.push_back(std::get<0>(e));CHECK(std::get<3>(e)%12==key);}CHECK(attacks.size()==4);for(size_t i=1;i<attacks.size();++i)CHECK(attacks[i]-attacks[i-1]==16*4*960);}
   file.deleteFile();++cases;
  }
- std::cout<<(pedals?"Williams pedals real processor live/export: ":"Williams P3 real processor live/export: ")<<cases<<" cases, no hanging notes or process allocations\n";return 0;
+ std::cout<<(morricone?"Morricone P1 real processor live/export: ":pedals?"Williams pedals real processor live/export: ":"Williams P3 real processor live/export: ")<<cases<<" cases, no hanging notes or process allocations\n";return 0;
 }
 
 int main(int argc,char** argv)
 {
     juce::ScopedJuceInitialiser_GUI init;
+    if(argc==2&&std::string(argv[1])=="--morricone")return testWilliamsMotifsExport(false,true);
     if(argc==2&&std::string(argv[1])=="--pedals")return testWilliamsMotifsExport(true);
     if(argc==2&&std::string(argv[1])=="--williams-motifs")return testWilliamsMotifsExport();
     if(argc==2&&std::string(argv[1])=="--profile-switch")return testProfileSwitchProcessor();
@@ -1159,7 +1161,7 @@ int main(int argc,char** argv)
             for(auto* child:c.getChildren())find(*child);
         };find(*editor);
         CHECK(profile&&mood&&label&&score&&pop);
-        CHECK(profile->getNumItems()==4&&profile->getSelectedId()==1&&profile->getText()=="Neutral");
+        CHECK(profile->getNumItems()==5&&profile->getSelectedId()==1&&profile->getText()=="Neutral");
         CHECK(label->getText()=="KOMPONIST"&&label->getBounds()==juce::Rectangle<int>(256,82,142,18));
         CHECK(profile->getBounds()==juce::Rectangle<int>(256,102,142,24));
         CHECK(score->getBounds()==juce::Rectangle<int>(118,80,52,20)&&pop->getBounds()==juce::Rectangle<int>(172,80,60,20));
@@ -1176,7 +1178,7 @@ int main(int argc,char** argv)
         setParam(q,"aufbau",0);setParam(q,"faerbung",.2f);setParam(q,"intensitaet",.45f);setParam(q,"unruhe",.45f);
         q.prepareToPlay(48000,512);FakeHost host;q.setPlayHead(&host);juce::AudioBuffer<float> audio(2,512);juce::MidiBuffer midi;
         int phrase=0;
-        for(int item:{2,3,4,1})
+        for(int item:{2,3,4,5,1})
         {
             profile->setSelectedId(item,juce::sendNotificationSync);
             const auto settings=q.currentSettings();CHECK(static_cast<int>(settings.profile)==item-1);

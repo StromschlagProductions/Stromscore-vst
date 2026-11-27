@@ -8,6 +8,14 @@ namespace stromscore::voiceleading
 {
 // Sounding pitches before the layer octave offset. No heap, RNG or host calls.
 struct ChordVoicing { int n = 0; int notes[6] {}; };
+// Absolute pitches. Required tones must already be sounding in the preceding
+// harmony; preferred tones only affect cost. No implicit dissonance permission.
+struct VoiceBinding { ChordVoicing required, preferred; };
+inline bool satisfies(const ChordVoicing& v,const ChordVoicing& required)
+{
+    for(int i=0;i<required.n;++i){bool found=false;for(int j=0;j<v.n;++j)found|=v.notes[j]==required.notes[i];if(!found)return false;}
+    return true;
+}
 inline int motion (int a, int b)
 {
     const int d = std::abs (a - b);
@@ -58,10 +66,22 @@ inline int shapeCost (const ChordVoicing& v, const ChordVoicing& anchor)
 // Complete pitch-class membership is a hard constraint. Register, spacing and outer voices
 // are soft costs: this allows inversions without turning every chord into a close-position stack.
 inline ChordVoicing lead (ChordVoicing anchor, ChordVoicing previous, int lo, int hi,
-                          int resolvingSeventh = -1, int resolvingThird = -1)
+                          int resolvingSeventh = -1, int resolvingThird = -1, const VoiceBinding* binding = nullptr)
 {
     sort (anchor); sort (previous);
-    if (anchor.n == 0 || previous.n == 0) return anchor;
+    if (anchor.n == 0 || previous.n == 0) return binding&&binding->required.n?ChordVoicing{}:anchor;
+    if(binding)
+    {
+        if(binding->required.n<0||binding->required.n>6||binding->preferred.n<0||binding->preferred.n>6)return {};
+        for(int i=0;i<binding->required.n;++i)
+        {
+            const int note=binding->required.notes[i];int available=0,needed=0;
+            for(int j=0;j<anchor.n;++j)available+=(anchor.notes[j]%12+12)%12==(note%12+12)%12;
+            for(int j=0;j<binding->required.n;++j)needed+=(binding->required.notes[j]%12+12)%12==(note%12+12)%12;
+            if(!contains(previous,note)||note<lo||note>hi||available<needed)return {};
+            for(int j=0;j<i;++j)if(binding->required.notes[j]==note)return {};
+        }
+    }
     struct Node { ChordVoicing v; int score = 0; };
     std::array<Node, 24> beam {}, next {};
     int count = 1;
@@ -69,9 +89,13 @@ inline ChordVoicing lead (ChordVoicing anchor, ChordVoicing previous, int lo, in
     {
         int options[4] {}, scores[4] {}; int numOptions = 0;
         const int pc = (anchor.notes[role] % 12 + 12) % 12;
+        int forced=-1000, occurrence=0;
+        for(int j=0;j<role;++j)occurrence+=((anchor.notes[j]%12+12)%12)==pc;
+        if(binding)for(int j=0;j<binding->required.n;++j)
+            if((binding->required.notes[j]%12+12)%12==pc&&occurrence--==0){forced=binding->required.notes[j];break;}
         for (int note = lo; note <= hi; ++note)
         {
-            if ((note % 12 + 12) % 12 != pc) continue;
+            if ((note % 12 + 12) % 12 != pc || (forced!=-1000&&note!=forced)) continue;
             const int score = std::abs (note - anchor.notes[role]) + 2 * nearest (previous, note)
                             - (contains (previous, note) ? 36 : 0);
             int at = numOptions;
@@ -82,7 +106,7 @@ inline ChordVoicing lead (ChordVoicing anchor, ChordVoicing previous, int lo, in
             { options[at] = options[at - 1]; scores[at] = scores[at - 1]; --at; }
             options[at] = note; scores[at] = score;
         }
-        if (numOptions == 0) return anchor; // range folding was already performed by the caller
+        if (numOptions == 0) return binding ? ChordVoicing{} : anchor; // range folding was already performed by the caller
         int nextCount = 0;
         for (int b = 0; b < count; ++b)
             for (int q = 0; q < numOptions; ++q)
@@ -99,7 +123,7 @@ inline ChordVoicing lead (ChordVoicing anchor, ChordVoicing previous, int lo, in
                 { next[(size_t) at] = next[(size_t) at - 1]; --at; }
                 next[(size_t) at] = node;
             }
-        if (nextCount == 0) return anchor;
+        if (nextCount == 0) return binding ? ChordVoicing{} : anchor;
         beam = next; count = nextCount;
     }
     ChordVoicing best = anchor;
@@ -109,6 +133,7 @@ inline ChordVoicing lead (ChordVoicing anchor, ChordVoicing previous, int lo, in
         int score = distance (previous, v) + shapeCost (v, anchor);
         score += 2 * std::abs (v.notes[v.n - 1] - previous.notes[previous.n - 1]);
         for (int i = 0; i < v.n; ++i) if (contains (previous, v.notes[i])) score -= 48;
+        if(binding)for(int i=0;i<binding->preferred.n;++i)if(contains(v,binding->preferred.notes[i]))score-=24;
         // Contextual dominant resolution, never a global ban on held sevenths/colour notes.
         for (int i = 0; i < previous.n; ++i)
         {
@@ -118,13 +143,15 @@ inline ChordVoicing lead (ChordVoicing anchor, ChordVoicing previous, int lo, in
         }
         return score;
     };
-    int bestCost = cost (best);
+    int bestCost = binding&&!satisfies(best,binding->required)?100000000:cost(best);
     for (int b = 0; b < count; ++b)
     {
         auto v = beam[(size_t) b].v; sort (v);
+        if(binding&&!satisfies(v,binding->required))continue;
         const int score = cost (v);
         if (score < bestCost) { bestCost = score; best = v; }
     }
+    if(binding&&!satisfies(best,binding->required))return {};
     return best;
 }
 // Bass keeps the harmonic bass pitch class; no substitution by a nearby third or seventh.

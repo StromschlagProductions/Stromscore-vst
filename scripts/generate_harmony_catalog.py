@@ -48,7 +48,7 @@ def _validate(data):
   p=f'sources[{i}]';obj(s,['id','text','verification'],p);text(s['id'],p);text(s['text'],p);text(s['verification'],p);require(s['id'] not in sources,p,'duplicate source');sources[s['id']]=s
  templates={};symbols=set();require(type(cat['templates'])is list and len(cat['templates'])>0,'templates','nonempty array required')
  for i,t in enumerate(cat['templates']):
-  p=f'templates[{i}]';obj(t,['id','symbol','name','xyz','genres','tonality','source_ref','chords','coloration'],p)
+  p=f'templates[{i}]';obj(t,['id','symbol','name','xyz','genres','tonality','source_ref','chords','coloration']+(['voicings'] if 'voicings' in t else []),p)
   require(t['coloration'] in ('flexible','protected'),p+'.coloration','flexible or protected required')
   integer(t['id'],1,0xffffffff,p+'.id');require(t['id']!=65535,p,'reserved custom ID');require(t['id'] not in templates,p,'duplicate stable ID');identifier(t['symbol'],p+'.symbol');require(t['symbol'] not in symbols and t['symbol'] not in ('custom','invalid'),p,'duplicate/reserved symbol');symbols.add(t['symbol']);text(t['name'],p+'.name')
   sequence(t['xyz'],p+'.xyz');require(len(t['xyz'])==3,p,'three static coordinates required')
@@ -62,6 +62,20 @@ def _validate(data):
    if c['bass'] is not None:integer(c['bass'],0,11,q+'.bass')
    vocabulary|={(c['root']+n)%12 for n in definitions[c['type']]['intervals']};vocabulary.add(c['root'] if c['bass'] is None else c['bass'])
   require(duration==8,p,'total duration must be exactly eight integer bars')
+  if 'voicings' in t:
+   vs=t['voicings'];sequence(vs,p+'.voicings');require(len(vs)==len(t['chords']),p,'one authored voicing per chord required')
+   require(t['coloration']=='protected',p,'authored harmony requires protected colours')
+   for j,v in enumerate(vs):
+    q=p+'.voicings['+str(j)+']';obj(v,['notes','held','bass'],q)
+    for name in ('notes','held'):
+     sequence(v[name],q);require(len(v[name])<=6 and v[name]==sorted(set(v[name])),q,'sorted distinct pitches, at most six')
+     for n in v[name]:integer(n,-48,48,q+'.'+name)
+    require(1<=len(v['notes'])<=6,q,'nonempty voicing required')
+    integer(v['bass'],-48,48,q+'.bass')
+    c=t['chords'][j];pcs={(c['root']+n)%12 for n in definitions[c['type']]['intervals']};bass=c['root'] if c['bass'] is None else c['bass']
+    require(v['bass']%12==bass,q,'voiced bass disagrees with explicit harmonic bass')
+    require({n%12 for n in v['notes']}<=pcs and {n%12 for n in v['notes']}|{bass}==pcs|{bass},q,'voicing loses chord identity or adds unauthorised tones')
+    require(set(v['held'])<=set(v['notes'])&set(vs[(j-1)%len(vs)]['notes']),q,'required hold must be identical pitch in both adjacent voicings')
   mode=MODES[t['tonality']['mode']]
   if mode is not None:require(vocabulary<={(n+t['tonality']['center_pc'])%12 for n in mode},p,'declared mode incompatible with complete chord/bass vocabulary')
   templates[t['id']]=t
@@ -97,6 +111,7 @@ def _validate(data):
    sequence(o['xyz'],'override.xyz');require(len(o['xyz'])==3,'override.xyz','three static coordinates required')
    for v in o['xyz']:number(v,'override.xyz');require(0<=v<=1,'override.xyz','outside unit cube')
    require(o['coloration'] in ('flexible','protected') and o['source_ref'] in sources,'profile.override','invalid coloration/source');text(o['name'],'override.name')
+   require('voicings' not in templates[i] or o['coloration']=='protected','profile.override','authored voicings require protected colours in every profile view')
   # Derived numeric safety, not a fixed artistic weight cap.
   require(sum(max(1.,weights.get(i,1.)) for i in templates)<3.4028234663852886e38/4,'profile.weights','unsafe floating-point accumulator total');prefs[p['symbol']]=weights
  require(pids==set(range(len(pids))) and profiles['profiles'][0]['id']==0 and profiles['profiles'][0]['symbol']=='neutral','profiles','contiguous stable runtime indices with neutral=0 required')
@@ -133,7 +148,7 @@ def emit(data):
  pure=banner+'#include "HarmonyTypes.h"\nnamespace stromscore {\ninline constexpr std::array<HarmonyTemplate,'+str(len(ts))+'> harmonyTemplates {{\n'
  for t in ts:
   chords=','.join('{'+','.join([str(c['root']),c['type'],str(c['bars']),'-1' if c['bass']is None else str(c['bass'])])+'}' for c in t['chords'])
-  pure+='{WendungId::'+t['symbol']+','+string(t['name'])+','+','.join(flt(v) for v in t['xyz'])+','+str(len(t['chords']))+',{{'+chords+'}},{'+str(t['tonality']['center_pc'])+',composition::Mode::'+t['tonality']['mode']+'},'+str(sum(1 if g=='score' else 2 for g in t['genres']))+','+string(t['source_ref'])+',ChordColoration::'+('flexible' if t['coloration']=='flexible' else 'protectedColor')+'},\n'
+  pure+='{WendungId::'+t['symbol']+','+string(t['name'])+','+','.join(flt(v) for v in t['xyz'])+','+str(len(t['chords']))+',{{'+chords+'}},{'+str(t['tonality']['center_pc'])+',composition::Mode::'+t['tonality']['mode']+'},'+str(sum(1 if g=='score' else 2 for g in t['genres']))+','+string(t['source_ref'])+',ChordColoration::'+('flexible' if t['coloration']=='flexible' else 'protectedColor')+(' ,{{'+','.join('{'+str(len(v['notes']))+',{'+','.join(map(str,v['notes']))+'},'+str(len(v['held']))+',{'+','.join(map(str,v['held']))+'},'+str(v['bass'])+'}' for v in t['voicings'])+'}}' if 'voicings' in t else '')+'},\n'
  pure+='}};\ninline constexpr int harmonyIndex(WendungId id){\n int lo=0,hi=static_cast<int>(harmonyTemplates.size());while(lo<hi){int mid=lo+(hi-lo)/2;if(static_cast<uint32_t>(harmonyTemplates[mid].id)<static_cast<uint32_t>(id))lo=mid+1;else hi=mid;}return lo<static_cast<int>(harmonyTemplates.size())&&harmonyTemplates[lo].id==id?lo:-1;\n}\ninline constexpr const HarmonyTemplate* findHarmonyTemplate(WendungId id){int i=harmonyIndex(id);return i<0?nullptr:&harmonyTemplates[i];}\n}\n';out['Source/HarmonyCatalog.generated.h']=pure
  arr=banner+'#include "ArrangementTypes.h"\n#include "HarmonyCatalog.generated.h"\nnamespace stromscore {\ninline constexpr std::array<ArrangementRecipe,'+str(len(ts))+'> defaultArrangements {{\n'
  for t in ts:
