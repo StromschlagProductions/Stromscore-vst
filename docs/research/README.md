@@ -41,12 +41,12 @@ und ältere archivierte Fassungen werden dadurch nicht zu zusätzlichen Williams
 Der Upload `Bernard Herrmanns Spannungsgrammatik_ Musikwissenschaftliche
 Tiefenrecherche für STROMSCORE.md` ist bytegleich als
 [`bernard-herrmann/Spannungsgrammatik_Tiefenrecherche.md`](bernard-herrmann/Spannungsgrammatik_Tiefenrecherche.md)
-archiviert. Er ergänzt das bisherige Stilprofil. Konkrete validierte Herrmann-
-Vorlagen und Modellstudien stehen noch aus; er ist keine vollständige Importgrundlage.
+archiviert. Er ergänzt das bisherige Stilprofil. Die Tiefenrecherche allein ist keine vollständige Importgrundlage; die inzwischen
+vorliegende kanonische HE-Bibliothek ist unten separat ausgewiesen.
 N/I/H/E sind Evidenzangaben des Berichts, keine hier neu bestätigten Belege.
 
 Der [gemeinsame Fähigkeitsbericht](SHARED_MUSICAL_CAPABILITIES.md) gleicht Williams
-und Herrmann mit Engine `ddad94b` ab, dokumentiert offene Notations-/Evidenzfragen
+und Herrmann inzwischen mit Engine `023b0a6` einschließlich P2/P3 ab, dokumentiert offene Notations-/Evidenzfragen
 und empfiehlt kleine gemeinsame Erweiterungen. Originaltexte bleiben unverändert;
 Forschungsrezepte sind keine Aufträge für Engine-Änderungen. Die erste Williams-P1-Grundlage samt Arp-Phrasierung ist inzwischen positiv
 gehört; siehe [Abnahme 2c6f366](../development/ACCEPTED_REFERENCE_2c6f366.md).
@@ -54,3 +54,17 @@ Der neue [P2-Kontext](john-williams/P2_OCTATONIC.md) wartet auf seine eigene Hö
 [`docs/MUSICAL_DIRECTION.md`](../MUSICAL_DIRECTION.md).
 
 Williams P3: [48 Motiv-Einzelbewertungen, tatsächliche Produktionsverwendung und A/B-Hörbeispiele](john-williams/P3_MOTIFS.md). Die neue Motivik ist technisch geprüft und musikalisch noch nicht abgenommen; die akzeptierte Arpeggio-Phrasierung bleibt unverändert.
+
+## Bernard Herrmann – kanonische HE-Bibliothek, 27.11.2026
+
+Die [vier kanonischen Dateien](bernard-herrmann/README.md) bilden nun die maßgebliche
+Herrmann-Vorlagenbibliothek: 343 HE-IDs, 53 MIDI-Studien/5.328 Noten bei 960 PPQ.
+Originale sind bytegleich archiviert; die Tiefenrecherche bleibt separat.
+Für Herrmann hat diese Endfassung Vorrang vor älteren BH-Vokabularfassungen;
+diese bleiben historische Quellen und werden nicht zusätzlich importiert.
+[Einzelinventar](bernard-herrmann/TECHNICAL_INVENTORY.json),
+[BH-/HE-Abgleich](bernard-herrmann/BH_HE_CROSSWALK.md) und
+[Implementierungsfahrplan](bernard-herrmann/IMPLEMENTATION_PLAN.md) unterscheiden
+Darstellbarkeit, begrenzte Anbindung, neue gemeinsame Fähigkeiten und Klärungsbedarf.
+Keine HE-Vorlage ist dadurch im Plugin aktiviert. Williams P2/P3 warten weiter
+auf die musikalische Anwender-Hörabnahme.

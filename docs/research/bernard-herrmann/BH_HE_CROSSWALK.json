@@ -1,0 +1,4084 @@
+{
+  "source": "shared/Musikalisches_Vokabular_Gesamtfassung_2026-11-24.txt",
+  "scope": "Alle dort definierten BH-IDs einschließlich JB-Aliase. Keine Gleichsetzung mit numerischen Laufzeit-IDs. Exakte Harmonieüberdeckung unterscheidet obere Akkordtonmenge, Bass und Dauer; Verfahren bleiben eigenständig. Ähnlichkeit ist Suchhilfe, kein Importentscheid.",
+  "records": [
+    {
+      "bh_id": "BH-D01",
+      "historical_canonical_id": "BH-D01",
+      "name": "Zelle, Wiederholung, Stich",
+      "historical_line": 4013,
+      "equivalents": [],
+      "related": [],
+      "disposition": "Historisch erhalten, kein zusätzlicher Import. Kein vollständiges HE-Äquivalent durch den strikten Strukturvergleich nachgewiesen.",
+      "research_procedure_hints": [],
+      "research_procedure_hint_scope": "Forschungsinterner Verfahrenshinweis, keine Gleichheit von Tonfolge/Bass/Dauer oder Arrangement."
+    },
+    {
+      "bh_id": "BH-D02",
+      "historical_canonical_id": "BH-D02",
+      "name": "Schichtung ohne Tempoänderung",
+      "historical_line": 4027,
+      "equivalents": [],
+      "related": [],
+      "disposition": "Historisch erhalten, kein zusätzlicher Import. Kein vollständiges HE-Äquivalent durch den strikten Strukturvergleich nachgewiesen.",
+      "research_procedure_hints": [],
+      "research_procedure_hint_scope": "Forschungsinterner Verfahrenshinweis, keine Gleichheit von Tonfolge/Bass/Dauer oder Arrangement."
+    },
+    {
+      "bh_id": "BH-D03",
+      "historical_canonical_id": "BH-D03",
+      "name": "Blockumstellung",
+      "historical_line": 4041,
+      "equivalents": [],
+      "related": [],
+      "disposition": "Historisch erhalten, kein zusätzlicher Import. Kein vollständiges HE-Äquivalent durch den strikten Strukturvergleich nachgewiesen.",
+      "research_procedure_hints": [],
+      "research_procedure_hint_scope": "Forschungsinterner Verfahrenshinweis, keine Gleichheit von Tonfolge/Bass/Dauer oder Arrangement."
+    },
+    {
+      "bh_id": "BH-D04",
+      "historical_canonical_id": "BH-D04",
+      "name": "Lyrische Insel in der Spannung",
+      "historical_line": 4059,
+      "equivalents": [],
+      "related": [],
+      "disposition": "Historisch erhalten, kein zusätzlicher Import. Kein vollständiges HE-Äquivalent durch den strikten Strukturvergleich nachgewiesen.",
+      "research_procedure_hints": [],
+      "research_procedure_hint_scope": "Forschungsinterner Verfahrenshinweis, keine Gleichheit von Tonfolge/Bass/Dauer oder Arrangement."
+    },
+    {
+      "bh_id": "BH-D05",
+      "historical_canonical_id": "BH-D05",
+      "name": "Schock-Stille",
+      "historical_line": 4073,
+      "equivalents": [],
+      "related": [],
+      "disposition": "Historisch erhalten, kein zusätzlicher Import. Kein vollständiges HE-Äquivalent durch den strikten Strukturvergleich nachgewiesen.",
+      "research_procedure_hints": [],
+      "research_procedure_hint_scope": "Forschungsinterner Verfahrenshinweis, keine Gleichheit von Tonfolge/Bass/Dauer oder Arrangement."
+    },
+    {
+      "bh_id": "BH-D06",
+      "historical_canonical_id": "BH-D06",
+      "name": "Langer Spannungsbogen aus Blöcken",
+      "historical_line": 4087,
+      "equivalents": [],
+      "related": [],
+      "disposition": "Historisch erhalten, kein zusätzlicher Import. Kein vollständiges HE-Äquivalent durch den strikten Strukturvergleich nachgewiesen.",
+      "research_procedure_hints": [],
+      "research_procedure_hint_scope": "Forschungsinterner Verfahrenshinweis, keine Gleichheit von Tonfolge/Bass/Dauer oder Arrangement."
+    },
+    {
+      "bh_id": "BH-H01",
+      "historical_canonical_id": "JB-H01",
+      "name": "Ein-Akkord-Ostinato: Moll-Dur7",
+      "historical_line": 498,
+      "equivalents": [
+        {
+          "he_id": "HE-H01",
+          "transpose": 0,
+          "scope": "Obere Akkordtonklassen separat von Bass und Halb­takt-Dauerfolge; keine Gleichheit von Register/Rollen/Verfahren."
+        },
+        {
+          "he_id": "HE-H94",
+          "transpose": 0,
+          "scope": "Obere Akkordtonklassen separat von Bass und Halb­takt-Dauerfolge; keine Gleichheit von Register/Rollen/Verfahren."
+        }
+      ],
+      "related": [
+        {
+          "he_id": "HE-H18",
+          "transpose": 11,
+          "structural_similarity": 1.0
+        },
+        {
+          "he_id": "HE-H88",
+          "transpose": 0,
+          "structural_similarity": 0.92
+        },
+        {
+          "he_id": "HE-H04",
+          "transpose": 0,
+          "structural_similarity": 0.9
+        }
+      ],
+      "disposition": "Harmonische Überdeckung nachgewiesen. Nicht als zusätzliche Wendung importieren; Verfahren/optional andere Komponenten separat prüfen.",
+      "historical_chords": [
+        {
+          "pcs": [
+            0,
+            3,
+            7,
+            11
+          ],
+          "bass": 0,
+          "bars": 8.0,
+          "symbol": "CmM7",
+          "upper_pcs": [
+            0,
+            3,
+            7,
+            11
+          ]
+        }
+      ],
+      "research_procedure_hints": [
+        "HE-H01"
+      ],
+      "research_procedure_hint_scope": "Forschungsinterner Verfahrenshinweis, keine Gleichheit von Tonfolge/Bass/Dauer oder Arrangement."
+    },
+    {
+      "bh_id": "BH-H02",
+      "historical_canonical_id": "JB-H13",
+      "name": "Halbton-Pendel mM7",
+      "historical_line": 706,
+      "equivalents": [],
+      "related": [
+        {
+          "he_id": "HE-H36",
+          "transpose": 0,
+          "structural_similarity": 0.8
+        }
+      ],
+      "disposition": "Historisch erhalten, kein zusätzlicher Import. Kein vollständiges HE-Äquivalent durch den strikten Strukturvergleich nachgewiesen.",
+      "historical_chords": [
+        {
+          "pcs": [
+            0,
+            3,
+            7,
+            11
+          ],
+          "bass": 0,
+          "bars": 4.0,
+          "symbol": "CmM7",
+          "upper_pcs": [
+            0,
+            3,
+            7,
+            11
+          ]
+        },
+        {
+          "pcs": [
+            0,
+            1,
+            4,
+            8
+          ],
+          "bass": 1,
+          "bars": 4.0,
+          "symbol": "C#mM7",
+          "upper_pcs": [
+            0,
+            1,
+            4,
+            8
+          ]
+        }
+      ],
+      "research_procedure_hints": [
+        "HE-H03"
+      ],
+      "research_procedure_hint_scope": "Forschungsinterner Verfahrenshinweis, keine Gleichheit von Tonfolge/Bass/Dauer oder Arrangement."
+    },
+    {
+      "bh_id": "BH-H03",
+      "historical_canonical_id": "JB-H14",
+      "name": "Tritonus-Pendel Moll",
+      "historical_line": 726,
+      "equivalents": [],
+      "related": [
+        {
+          "he_id": "HE-H11",
+          "transpose": 0,
+          "structural_similarity": 0.8
+        }
+      ],
+      "disposition": "Historisch erhalten, kein zusätzlicher Import. Kein vollständiges HE-Äquivalent durch den strikten Strukturvergleich nachgewiesen.",
+      "historical_chords": [
+        {
+          "pcs": [
+            0,
+            3,
+            7
+          ],
+          "bass": 0,
+          "bars": 4.0,
+          "symbol": "Cm",
+          "upper_pcs": [
+            0,
+            3,
+            7
+          ]
+        },
+        {
+          "pcs": [
+            1,
+            6,
+            9
+          ],
+          "bass": 6,
+          "bars": 4.0,
+          "symbol": "F#m",
+          "upper_pcs": [
+            1,
+            6,
+            9
+          ]
+        }
+      ],
+      "research_procedure_hints": [
+        "HE-H79",
+        "HE-H11"
+      ],
+      "research_procedure_hint_scope": "Forschungsinterner Verfahrenshinweis, keine Gleichheit von Tonfolge/Bass/Dauer oder Arrangement."
+    },
+    {
+      "bh_id": "BH-H04",
+      "historical_canonical_id": "BH-H04",
+      "name": "Parallele Septakkorde abwärts",
+      "historical_line": 1343,
+      "equivalents": [
+        {
+          "he_id": "HE-H33",
+          "transpose": 0,
+          "scope": "Obere Akkordtonklassen separat von Bass und Halb­takt-Dauerfolge; keine Gleichheit von Register/Rollen/Verfahren."
+        },
+        {
+          "he_id": "HE-H65",
+          "transpose": 7,
+          "scope": "Obere Akkordtonklassen separat von Bass und Halb­takt-Dauerfolge; keine Gleichheit von Register/Rollen/Verfahren."
+        }
+      ],
+      "related": [],
+      "disposition": "Harmonische Überdeckung nachgewiesen. Nicht als zusätzliche Wendung importieren; Verfahren/optional andere Komponenten separat prüfen.",
+      "historical_chords": [
+        {
+          "pcs": [
+            0,
+            3,
+            7,
+            10
+          ],
+          "bass": 0,
+          "bars": 2.0,
+          "symbol": "Cm7",
+          "upper_pcs": [
+            0,
+            3,
+            7,
+            10
+          ]
+        },
+        {
+          "pcs": [
+            2,
+            6,
+            9,
+            11
+          ],
+          "bass": 11,
+          "bars": 2.0,
+          "symbol": "Bm7",
+          "upper_pcs": [
+            2,
+            6,
+            9,
+            11
+          ]
+        },
+        {
+          "pcs": [
+            1,
+            5,
+            8,
+            10
+          ],
+          "bass": 10,
+          "bars": 2.0,
+          "symbol": "Bbm7",
+          "upper_pcs": [
+            1,
+            5,
+            8,
+            10
+          ]
+        },
+        {
+          "pcs": [
+            0,
+            4,
+            7,
+            9
+          ],
+          "bass": 9,
+          "bars": 2.0,
+          "symbol": "Am7",
+          "upper_pcs": [
+            0,
+            4,
+            7,
+            9
+          ]
+        }
+      ],
+      "research_procedure_hints": [
+        "HE-H33"
+      ],
+      "research_procedure_hint_scope": "Forschungsinterner Verfahrenshinweis, keine Gleichheit von Tonfolge/Bass/Dauer oder Arrangement."
+    },
+    {
+      "bh_id": "BH-H05",
+      "historical_canonical_id": "BH-H05",
+      "name": "Halbton-Gleiten Dur",
+      "historical_line": 1362,
+      "equivalents": [
+        {
+          "he_id": "HE-H32",
+          "transpose": 0,
+          "scope": "Obere Akkordtonklassen separat von Bass und Halb­takt-Dauerfolge; keine Gleichheit von Register/Rollen/Verfahren."
+        }
+      ],
+      "related": [],
+      "disposition": "Harmonische Überdeckung nachgewiesen. Nicht als zusätzliche Wendung importieren; Verfahren/optional andere Komponenten separat prüfen.",
+      "historical_chords": [
+        {
+          "pcs": [
+            0,
+            4,
+            7,
+            11
+          ],
+          "bass": 0,
+          "bars": 2.0,
+          "symbol": "Cmaj7",
+          "upper_pcs": [
+            0,
+            4,
+            7,
+            11
+          ]
+        },
+        {
+          "pcs": [
+            3,
+            6,
+            10,
+            11
+          ],
+          "bass": 11,
+          "bars": 2.0,
+          "symbol": "Bmaj7",
+          "upper_pcs": [
+            3,
+            6,
+            10,
+            11
+          ]
+        },
+        {
+          "pcs": [
+            2,
+            5,
+            9,
+            10
+          ],
+          "bass": 10,
+          "bars": 2.0,
+          "symbol": "Bbmaj7",
+          "upper_pcs": [
+            2,
+            5,
+            9,
+            10
+          ]
+        },
+        {
+          "pcs": [
+            1,
+            4,
+            8,
+            9
+          ],
+          "bass": 9,
+          "bars": 2.0,
+          "symbol": "Amaj7",
+          "upper_pcs": [
+            1,
+            4,
+            8,
+            9
+          ]
+        }
+      ],
+      "research_procedure_hints": [
+        "HE-H32"
+      ],
+      "research_procedure_hint_scope": "Forschungsinterner Verfahrenshinweis, keine Gleichheit von Tonfolge/Bass/Dauer oder Arrangement."
+    },
+    {
+      "bh_id": "BH-H06",
+      "historical_canonical_id": "BH-H06",
+      "name": "Polychord Tritonus",
+      "historical_line": 1381,
+      "equivalents": [],
+      "related": [
+        {
+          "he_id": "HE-H89",
+          "transpose": 0,
+          "structural_similarity": 0.8
+        },
+        {
+          "he_id": "HE-H57",
+          "transpose": 0,
+          "structural_similarity": 0.8
+        },
+        {
+          "he_id": "HE-H25",
+          "transpose": 5,
+          "structural_similarity": 0.7733
+        }
+      ],
+      "disposition": "Historisch erhalten, kein zusätzlicher Import. Kein vollständiges HE-Äquivalent durch den strikten Strukturvergleich nachgewiesen.",
+      "historical_chords": [
+        {
+          "pcs": [
+            0,
+            1,
+            4,
+            6,
+            7,
+            10
+          ],
+          "bass": 0,
+          "bars": 4.0,
+          "symbol": "F#~C",
+          "upper_pcs": null
+        },
+        {
+          "pcs": [
+            0,
+            4,
+            7
+          ],
+          "bass": 0,
+          "bars": 4.0,
+          "symbol": "C",
+          "upper_pcs": [
+            0,
+            4,
+            7
+          ]
+        }
+      ],
+      "research_procedure_hints": [
+        "HE-H56",
+        "HE-H57",
+        "HE-H89"
+      ],
+      "research_procedure_hint_scope": "Forschungsinterner Verfahrenshinweis, keine Gleichheit von Tonfolge/Bass/Dauer oder Arrangement."
+    },
+    {
+      "bh_id": "BH-H07",
+      "historical_canonical_id": "BH-H07",
+      "name": "Pedal c mit Halbton-Aufsatz",
+      "historical_line": 1398,
+      "equivalents": [],
+      "related": [],
+      "disposition": "Historisch erhalten, kein zusätzlicher Import. Kein vollständiges HE-Äquivalent durch den strikten Strukturvergleich nachgewiesen.",
+      "historical_chords": [
+        {
+          "pcs": [
+            0,
+            1,
+            5,
+            8
+          ],
+          "bass": 0,
+          "bars": 2.0,
+          "symbol": "Db/C",
+          "upper_pcs": [
+            1,
+            5,
+            8
+          ]
+        },
+        {
+          "pcs": [
+            0,
+            4,
+            7
+          ],
+          "bass": 0,
+          "bars": 2.0,
+          "symbol": "C",
+          "upper_pcs": [
+            0,
+            4,
+            7
+          ]
+        },
+        {
+          "pcs": [
+            0,
+            1,
+            5,
+            8
+          ],
+          "bass": 0,
+          "bars": 2.0,
+          "symbol": "Db/C",
+          "upper_pcs": [
+            1,
+            5,
+            8
+          ]
+        },
+        {
+          "pcs": [
+            0,
+            4,
+            7
+          ],
+          "bass": 0,
+          "bars": 2.0,
+          "symbol": "C",
+          "upper_pcs": [
+            0,
+            4,
+            7
+          ]
+        }
+      ],
+      "research_procedure_hints": [
+        "HE-H43"
+      ],
+      "research_procedure_hint_scope": "Forschungsinterner Verfahrenshinweis, keine Gleichheit von Tonfolge/Bass/Dauer oder Arrangement."
+    },
+    {
+      "bh_id": "BH-H08",
+      "historical_canonical_id": "JB-H29",
+      "name": "Absteigende Moll-Kadenz i–♭VII–♭VI–V (Zentrum c oder a)",
+      "historical_line": 1000,
+      "equivalents": [],
+      "related": [
+        {
+          "he_id": "HE-H82",
+          "transpose": 0,
+          "structural_similarity": 0.7367
+        }
+      ],
+      "disposition": "Historisch erhalten, kein zusätzlicher Import. Kein vollständiges HE-Äquivalent durch den strikten Strukturvergleich nachgewiesen.",
+      "historical_chords": [
+        {
+          "pcs": [
+            0,
+            3,
+            7
+          ],
+          "bass": 0,
+          "bars": 2.0,
+          "symbol": "Cm",
+          "upper_pcs": [
+            0,
+            3,
+            7
+          ]
+        },
+        {
+          "pcs": [
+            2,
+            5,
+            10
+          ],
+          "bass": 10,
+          "bars": 2.0,
+          "symbol": "Bb",
+          "upper_pcs": [
+            2,
+            5,
+            10
+          ]
+        },
+        {
+          "pcs": [
+            0,
+            3,
+            8
+          ],
+          "bass": 8,
+          "bars": 2.0,
+          "symbol": "Ab",
+          "upper_pcs": [
+            0,
+            3,
+            8
+          ]
+        },
+        {
+          "pcs": [
+            2,
+            7,
+            11
+          ],
+          "bass": 7,
+          "bars": 2.0,
+          "symbol": "G",
+          "upper_pcs": [
+            2,
+            7,
+            11
+          ]
+        }
+      ],
+      "research_procedure_hints": [],
+      "research_procedure_hint_scope": "Forschungsinterner Verfahrenshinweis, keine Gleichheit von Tonfolge/Bass/Dauer oder Arrangement."
+    },
+    {
+      "bh_id": "BH-H09",
+      "historical_canonical_id": "BH-H09",
+      "name": "Lyrische Septakkord-Folge",
+      "historical_line": 1417,
+      "equivalents": [],
+      "related": [],
+      "disposition": "Historisch erhalten, kein zusätzlicher Import. Kein vollständiges HE-Äquivalent durch den strikten Strukturvergleich nachgewiesen.",
+      "historical_chords": [
+        {
+          "pcs": [
+            0,
+            4,
+            7,
+            11
+          ],
+          "bass": 0,
+          "bars": 4.0,
+          "symbol": "Cmaj7",
+          "upper_pcs": [
+            0,
+            4,
+            7,
+            11
+          ]
+        },
+        {
+          "pcs": [
+            0,
+            4,
+            7,
+            9
+          ],
+          "bass": 9,
+          "bars": 4.0,
+          "symbol": "Am7",
+          "upper_pcs": [
+            0,
+            4,
+            7,
+            9
+          ]
+        }
+      ],
+      "research_procedure_hints": [],
+      "research_procedure_hint_scope": "Forschungsinterner Verfahrenshinweis, keine Gleichheit von Tonfolge/Bass/Dauer oder Arrangement."
+    },
+    {
+      "bh_id": "BH-H10",
+      "historical_canonical_id": "BH-H10",
+      "name": "Terzzirkel (Vertigo-Schleife)",
+      "historical_line": 1434,
+      "equivalents": [],
+      "related": [
+        {
+          "he_id": "HE-H42",
+          "transpose": 0,
+          "structural_similarity": 0.85
+        }
+      ],
+      "disposition": "Historisch erhalten, kein zusätzlicher Import. Kein vollständiges HE-Äquivalent durch den strikten Strukturvergleich nachgewiesen.",
+      "historical_chords": [
+        {
+          "pcs": [
+            0,
+            4,
+            7
+          ],
+          "bass": 0,
+          "bars": 2.0,
+          "symbol": "C",
+          "upper_pcs": [
+            0,
+            4,
+            7
+          ]
+        },
+        {
+          "pcs": [
+            0,
+            3,
+            8
+          ],
+          "bass": 8,
+          "bars": 2.0,
+          "symbol": "Ab",
+          "upper_pcs": [
+            0,
+            3,
+            8
+          ]
+        },
+        {
+          "pcs": [
+            4,
+            8,
+            11
+          ],
+          "bass": 4,
+          "bars": 2.0,
+          "symbol": "E",
+          "upper_pcs": [
+            4,
+            8,
+            11
+          ]
+        },
+        {
+          "pcs": [
+            0,
+            4,
+            7
+          ],
+          "bass": 0,
+          "bars": 2.0,
+          "symbol": "C",
+          "upper_pcs": [
+            0,
+            4,
+            7
+          ]
+        }
+      ],
+      "research_procedure_hints": [
+        "HE-H41"
+      ],
+      "research_procedure_hint_scope": "Forschungsinterner Verfahrenshinweis, keine Gleichheit von Tonfolge/Bass/Dauer oder Arrangement."
+    },
+    {
+      "bh_id": "BH-H11",
+      "historical_canonical_id": "BH-H11",
+      "name": "Vertigo-Traumklang",
+      "historical_line": 1453,
+      "equivalents": [],
+      "related": [],
+      "disposition": "Historisch erhalten, kein zusätzlicher Import. Kein vollständiges HE-Äquivalent durch den strikten Strukturvergleich nachgewiesen.",
+      "historical_chords": [
+        {
+          "pcs": [
+            0,
+            4,
+            7,
+            11
+          ],
+          "bass": 0,
+          "bars": 4.0,
+          "symbol": "Cmaj7",
+          "upper_pcs": [
+            0,
+            4,
+            7,
+            11
+          ]
+        },
+        {
+          "pcs": [
+            2,
+            3,
+            6,
+            9,
+            10
+          ],
+          "bass": 3,
+          "bars": 4.0,
+          "symbol": "D~Ebm",
+          "upper_pcs": null
+        }
+      ],
+      "research_procedure_hints": [],
+      "research_procedure_hint_scope": "Forschungsinterner Verfahrenshinweis, keine Gleichheit von Tonfolge/Bass/Dauer oder Arrangement."
+    },
+    {
+      "bh_id": "BH-H12",
+      "historical_canonical_id": "BH-H12",
+      "name": "Lyrische Bassabsenkung",
+      "historical_line": 1470,
+      "equivalents": [],
+      "related": [],
+      "disposition": "Historisch erhalten, kein zusätzlicher Import. Kein vollständiges HE-Äquivalent durch den strikten Strukturvergleich nachgewiesen.",
+      "historical_chords": [
+        {
+          "pcs": [
+            0,
+            4,
+            5,
+            9
+          ],
+          "bass": 5,
+          "bars": 2.0,
+          "symbol": "Fmaj7",
+          "upper_pcs": [
+            0,
+            4,
+            5,
+            9
+          ]
+        },
+        {
+          "pcs": [
+            2,
+            4,
+            7,
+            11
+          ],
+          "bass": 4,
+          "bars": 2.0,
+          "symbol": "Em7",
+          "upper_pcs": [
+            2,
+            4,
+            7,
+            11
+          ]
+        },
+        {
+          "pcs": [
+            0,
+            2,
+            5,
+            9
+          ],
+          "bass": 2,
+          "bars": 2.0,
+          "symbol": "Dm7",
+          "upper_pcs": [
+            0,
+            2,
+            5,
+            9
+          ]
+        },
+        {
+          "pcs": [
+            0,
+            4,
+            7,
+            11
+          ],
+          "bass": 0,
+          "bars": 2.0,
+          "symbol": "Cmaj7",
+          "upper_pcs": [
+            0,
+            4,
+            7,
+            11
+          ]
+        }
+      ],
+      "research_procedure_hints": [],
+      "research_procedure_hint_scope": "Forschungsinterner Verfahrenshinweis, keine Gleichheit von Tonfolge/Bass/Dauer oder Arrangement."
+    },
+    {
+      "bh_id": "BH-H13",
+      "historical_canonical_id": "BH-H13",
+      "name": "Bittersüße Septakkorde (Taxi-Driver-Typ)",
+      "historical_line": 1489,
+      "equivalents": [],
+      "related": [],
+      "disposition": "Historisch erhalten, kein zusätzlicher Import. Kein vollständiges HE-Äquivalent durch den strikten Strukturvergleich nachgewiesen.",
+      "historical_chords": [
+        {
+          "pcs": [
+            0,
+            2,
+            4,
+            5,
+            9
+          ],
+          "bass": 2,
+          "bars": 4.0,
+          "symbol": "Dm9",
+          "upper_pcs": [
+            0,
+            2,
+            4,
+            5,
+            9
+          ]
+        },
+        {
+          "pcs": [
+            2,
+            3,
+            7,
+            10
+          ],
+          "bass": 3,
+          "bars": 4.0,
+          "symbol": "Ebmaj7",
+          "upper_pcs": [
+            2,
+            3,
+            7,
+            10
+          ]
+        }
+      ],
+      "research_procedure_hints": [],
+      "research_procedure_hint_scope": "Forschungsinterner Verfahrenshinweis, keine Gleichheit von Tonfolge/Bass/Dauer oder Arrangement."
+    },
+    {
+      "bh_id": "BH-H14",
+      "historical_canonical_id": "BH-H14",
+      "name": "Halbvermindert statisch",
+      "historical_line": 1506,
+      "equivalents": [
+        {
+          "he_id": "HE-H19",
+          "transpose": 0,
+          "scope": "Obere Akkordtonklassen separat von Bass und Halb­takt-Dauerfolge; keine Gleichheit von Register/Rollen/Verfahren."
+        }
+      ],
+      "related": [
+        {
+          "he_id": "HE-H20",
+          "transpose": 0,
+          "structural_similarity": 0.84
+        },
+        {
+          "he_id": "HE-H24",
+          "transpose": 0,
+          "structural_similarity": 0.74
+        },
+        {
+          "he_id": "HE-H84",
+          "transpose": 0,
+          "structural_similarity": 0.7067
+        }
+      ],
+      "disposition": "Harmonische Überdeckung nachgewiesen. Nicht als zusätzliche Wendung importieren; Verfahren/optional andere Komponenten separat prüfen.",
+      "historical_chords": [
+        {
+          "pcs": [
+            0,
+            3,
+            6,
+            10
+          ],
+          "bass": 0,
+          "bars": 8.0,
+          "symbol": "Cm7b5",
+          "upper_pcs": [
+            0,
+            3,
+            6,
+            10
+          ]
+        }
+      ],
+      "research_procedure_hints": [
+        "HE-H19"
+      ],
+      "research_procedure_hint_scope": "Forschungsinterner Verfahrenshinweis, keine Gleichheit von Tonfolge/Bass/Dauer oder Arrangement."
+    },
+    {
+      "bh_id": "BH-H15",
+      "historical_canonical_id": "BH-H15",
+      "name": "Exotische Fanfare",
+      "historical_line": 1522,
+      "equivalents": [],
+      "related": [],
+      "disposition": "Historisch erhalten, kein zusätzlicher Import. Kein vollständiges HE-Äquivalent durch den strikten Strukturvergleich nachgewiesen.",
+      "historical_chords": [
+        {
+          "pcs": [
+            0,
+            4,
+            7
+          ],
+          "bass": 0,
+          "bars": 2.0,
+          "symbol": "C",
+          "upper_pcs": [
+            0,
+            4,
+            7
+          ]
+        },
+        {
+          "pcs": [
+            2,
+            6,
+            9
+          ],
+          "bass": 2,
+          "bars": 2.0,
+          "symbol": "D",
+          "upper_pcs": [
+            2,
+            6,
+            9
+          ]
+        },
+        {
+          "pcs": [
+            2,
+            5,
+            10
+          ],
+          "bass": 10,
+          "bars": 2.0,
+          "symbol": "Bb",
+          "upper_pcs": [
+            2,
+            5,
+            10
+          ]
+        },
+        {
+          "pcs": [
+            0,
+            4,
+            7
+          ],
+          "bass": 0,
+          "bars": 2.0,
+          "symbol": "C",
+          "upper_pcs": [
+            0,
+            4,
+            7
+          ]
+        }
+      ],
+      "research_procedure_hints": [],
+      "research_procedure_hint_scope": "Forschungsinterner Verfahrenshinweis, keine Gleichheit von Tonfolge/Bass/Dauer oder Arrangement."
+    },
+    {
+      "bh_id": "BH-H16",
+      "historical_canonical_id": "BH-H16",
+      "name": "Cluster-Wechsel",
+      "historical_line": 1541,
+      "equivalents": [],
+      "related": [],
+      "disposition": "Historisch erhalten, kein zusätzlicher Import. Kein vollständiges HE-Äquivalent durch den strikten Strukturvergleich nachgewiesen.",
+      "historical_chords": [
+        {
+          "pcs": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "bass": 0,
+          "bars": 4.0,
+          "symbol": "Ccl",
+          "upper_pcs": null
+        },
+        {
+          "pcs": [
+            6,
+            7,
+            8,
+            9
+          ],
+          "bass": 6,
+          "bars": 4.0,
+          "symbol": "F#cl",
+          "upper_pcs": null
+        }
+      ],
+      "research_procedure_hints": [],
+      "research_procedure_hint_scope": "Forschungsinterner Verfahrenshinweis, keine Gleichheit von Tonfolge/Bass/Dauer oder Arrangement."
+    },
+    {
+      "bh_id": "BH-H17",
+      "historical_canonical_id": "BH-H17",
+      "name": "Neapolitanische Wendung",
+      "historical_line": 1558,
+      "equivalents": [],
+      "related": [
+        {
+          "he_id": "HE-H36",
+          "transpose": 0,
+          "structural_similarity": 0.7
+        }
+      ],
+      "disposition": "Historisch erhalten, kein zusätzlicher Import. Kein vollständiges HE-Äquivalent durch den strikten Strukturvergleich nachgewiesen.",
+      "historical_chords": [
+        {
+          "pcs": [
+            0,
+            3,
+            7
+          ],
+          "bass": 0,
+          "bars": 4.0,
+          "symbol": "Cm",
+          "upper_pcs": [
+            0,
+            3,
+            7
+          ]
+        },
+        {
+          "pcs": [
+            1,
+            5,
+            8
+          ],
+          "bass": 5,
+          "bars": 4.0,
+          "symbol": "Db/F",
+          "upper_pcs": [
+            1,
+            5,
+            8
+          ]
+        }
+      ],
+      "research_procedure_hints": [],
+      "research_procedure_hint_scope": "Forschungsinterner Verfahrenshinweis, keine Gleichheit von Tonfolge/Bass/Dauer oder Arrangement."
+    },
+    {
+      "bh_id": "BH-H18",
+      "historical_canonical_id": "BH-H18",
+      "name": "Verminderte Halbtonwechsel",
+      "historical_line": 1575,
+      "equivalents": [
+        {
+          "he_id": "HE-H21",
+          "transpose": 0,
+          "scope": "Obere Akkordtonklassen separat von Bass und Halb­takt-Dauerfolge; keine Gleichheit von Register/Rollen/Verfahren."
+        }
+      ],
+      "related": [],
+      "disposition": "Harmonische Überdeckung nachgewiesen. Nicht als zusätzliche Wendung importieren; Verfahren/optional andere Komponenten separat prüfen.",
+      "historical_chords": [
+        {
+          "pcs": [
+            0,
+            3,
+            6,
+            9
+          ],
+          "bass": 0,
+          "bars": 2.0,
+          "symbol": "Cdim7",
+          "upper_pcs": [
+            0,
+            3,
+            6,
+            9
+          ]
+        },
+        {
+          "pcs": [
+            1,
+            4,
+            7,
+            10
+          ],
+          "bass": 1,
+          "bars": 2.0,
+          "symbol": "C#dim7",
+          "upper_pcs": [
+            1,
+            4,
+            7,
+            10
+          ]
+        },
+        {
+          "pcs": [
+            0,
+            3,
+            6,
+            9
+          ],
+          "bass": 0,
+          "bars": 2.0,
+          "symbol": "Cdim7",
+          "upper_pcs": [
+            0,
+            3,
+            6,
+            9
+          ]
+        },
+        {
+          "pcs": [
+            1,
+            4,
+            7,
+            10
+          ],
+          "bass": 1,
+          "bars": 2.0,
+          "symbol": "C#dim7",
+          "upper_pcs": [
+            1,
+            4,
+            7,
+            10
+          ]
+        }
+      ],
+      "research_procedure_hints": [
+        "HE-H21"
+      ],
+      "research_procedure_hint_scope": "Forschungsinterner Verfahrenshinweis, keine Gleichheit von Tonfolge/Bass/Dauer oder Arrangement."
+    },
+    {
+      "bh_id": "BH-H19",
+      "historical_canonical_id": "BH-H19",
+      "name": "Moll-Gb-Wechsel",
+      "historical_line": 1594,
+      "equivalents": [],
+      "related": [],
+      "disposition": "Historisch erhalten, kein zusätzlicher Import. Kein vollständiges HE-Äquivalent durch den strikten Strukturvergleich nachgewiesen.",
+      "historical_chords": [
+        {
+          "pcs": [
+            0,
+            3,
+            7
+          ],
+          "bass": 0,
+          "bars": 4.0,
+          "symbol": "Cm",
+          "upper_pcs": [
+            0,
+            3,
+            7
+          ]
+        },
+        {
+          "pcs": [
+            1,
+            6,
+            10
+          ],
+          "bass": 6,
+          "bars": 4.0,
+          "symbol": "Gb",
+          "upper_pcs": [
+            1,
+            6,
+            10
+          ]
+        }
+      ],
+      "research_procedure_hints": [],
+      "research_procedure_hint_scope": "Forschungsinterner Verfahrenshinweis, keine Gleichheit von Tonfolge/Bass/Dauer oder Arrangement."
+    },
+    {
+      "bh_id": "BH-H20",
+      "historical_canonical_id": "BH-H20",
+      "name": "Quartenakkord statisch",
+      "historical_line": 1611,
+      "equivalents": [],
+      "related": [],
+      "disposition": "Historisch erhalten, kein zusätzlicher Import. Kein vollständiges HE-Äquivalent durch den strikten Strukturvergleich nachgewiesen.",
+      "historical_chords": [
+        {
+          "pcs": [
+            0,
+            3,
+            5,
+            10
+          ],
+          "bass": 0,
+          "bars": 8.0,
+          "symbol": "Cq4",
+          "upper_pcs": null
+        }
+      ],
+      "research_procedure_hints": [],
+      "research_procedure_hint_scope": "Forschungsinterner Verfahrenshinweis, keine Gleichheit von Tonfolge/Bass/Dauer oder Arrangement."
+    },
+    {
+      "bh_id": "BH-H21",
+      "historical_canonical_id": "BH-H21",
+      "name": "Quartenakkord wandernd",
+      "historical_line": 1627,
+      "equivalents": [],
+      "related": [],
+      "disposition": "Historisch erhalten, kein zusätzlicher Import. Kein vollständiges HE-Äquivalent durch den strikten Strukturvergleich nachgewiesen.",
+      "historical_chords": [
+        {
+          "pcs": [
+            0,
+            3,
+            5,
+            10
+          ],
+          "bass": 0,
+          "bars": 2.0,
+          "symbol": "Cq4",
+          "upper_pcs": null
+        },
+        {
+          "pcs": [
+            0,
+            2,
+            5,
+            7
+          ],
+          "bass": 2,
+          "bars": 2.0,
+          "symbol": "Dq4",
+          "upper_pcs": null
+        },
+        {
+          "pcs": [
+            1,
+            3,
+            6,
+            8
+          ],
+          "bass": 3,
+          "bars": 2.0,
+          "symbol": "Ebq4",
+          "upper_pcs": null
+        },
+        {
+          "pcs": [
+            0,
+            2,
+            5,
+            7
+          ],
+          "bass": 2,
+          "bars": 2.0,
+          "symbol": "Dq4",
+          "upper_pcs": null
+        }
+      ],
+      "research_procedure_hints": [],
+      "research_procedure_hint_scope": "Forschungsinterner Verfahrenshinweis, keine Gleichheit von Tonfolge/Bass/Dauer oder Arrangement."
+    },
+    {
+      "bh_id": "BH-H22",
+      "historical_canonical_id": "BH-H22",
+      "name": "Bass gegen Akkord verschoben",
+      "historical_line": 1646,
+      "equivalents": [],
+      "related": [],
+      "disposition": "Historisch erhalten, kein zusätzlicher Import. Kein vollständiges HE-Äquivalent durch den strikten Strukturvergleich nachgewiesen.",
+      "historical_chords": [
+        {
+          "pcs": [
+            0,
+            3,
+            5,
+            7
+          ],
+          "bass": 5,
+          "bars": 4.0,
+          "symbol": "Cm/F",
+          "upper_pcs": [
+            0,
+            3,
+            7
+          ]
+        },
+        {
+          "pcs": [
+            0,
+            5,
+            8
+          ],
+          "bass": 0,
+          "bars": 4.0,
+          "symbol": "Fm/C",
+          "upper_pcs": [
+            0,
+            5,
+            8
+          ]
+        }
+      ],
+      "research_procedure_hints": [],
+      "research_procedure_hint_scope": "Forschungsinterner Verfahrenshinweis, keine Gleichheit von Tonfolge/Bass/Dauer oder Arrangement."
+    },
+    {
+      "bh_id": "BH-H23",
+      "historical_canonical_id": "BH-H23",
+      "name": "Dur-Pedal ruhig",
+      "historical_line": 1664,
+      "equivalents": [],
+      "related": [],
+      "disposition": "Historisch erhalten, kein zusätzlicher Import. Kein vollständiges HE-Äquivalent durch den strikten Strukturvergleich nachgewiesen.",
+      "historical_chords": [
+        {
+          "pcs": [
+            0,
+            5,
+            9
+          ],
+          "bass": 0,
+          "bars": 8.0,
+          "symbol": "F/C",
+          "upper_pcs": [
+            0,
+            5,
+            9
+          ]
+        }
+      ],
+      "research_procedure_hints": [],
+      "research_procedure_hint_scope": "Forschungsinterner Verfahrenshinweis, keine Gleichheit von Tonfolge/Bass/Dauer oder Arrangement."
+    },
+    {
+      "bh_id": "BH-H24",
+      "historical_canonical_id": "BH-H24",
+      "name": "Parallelwechsel Dur-Moll",
+      "historical_line": 1681,
+      "equivalents": [
+        {
+          "he_id": "HE-H45",
+          "transpose": 0,
+          "scope": "Obere Akkordtonklassen separat von Bass und Halb­takt-Dauerfolge; keine Gleichheit von Register/Rollen/Verfahren."
+        }
+      ],
+      "related": [
+        {
+          "he_id": "HE-H68",
+          "transpose": 0,
+          "structural_similarity": 0.8
+        },
+        {
+          "he_id": "HE-H04",
+          "transpose": 0,
+          "structural_similarity": 0.73
+        }
+      ],
+      "disposition": "Harmonische Überdeckung nachgewiesen. Nicht als zusätzliche Wendung importieren; Verfahren/optional andere Komponenten separat prüfen.",
+      "historical_chords": [
+        {
+          "pcs": [
+            0,
+            4,
+            7
+          ],
+          "bass": 0,
+          "bars": 4.0,
+          "symbol": "C",
+          "upper_pcs": [
+            0,
+            4,
+            7
+          ]
+        },
+        {
+          "pcs": [
+            0,
+            3,
+            7
+          ],
+          "bass": 0,
+          "bars": 4.0,
+          "symbol": "Cm",
+          "upper_pcs": [
+            0,
+            3,
+            7
+          ]
+        }
+      ],
+      "research_procedure_hints": [],
+      "research_procedure_hint_scope": "Forschungsinterner Verfahrenshinweis, keine Gleichheit von Tonfolge/Bass/Dauer oder Arrangement."
+    },
+    {
+      "bh_id": "BH-H25",
+      "historical_canonical_id": "BH-H25",
+      "name": "Bitonale Fläche",
+      "historical_line": 1698,
+      "equivalents": [],
+      "related": [
+        {
+          "he_id": "HE-H38",
+          "transpose": 6,
+          "structural_similarity": 0.75
+        }
+      ],
+      "disposition": "Historisch erhalten, kein zusätzlicher Import. Kein vollständiges HE-Äquivalent durch den strikten Strukturvergleich nachgewiesen.",
+      "historical_chords": [
+        {
+          "pcs": [
+            0,
+            4,
+            7
+          ],
+          "bass": 0,
+          "bars": 4.0,
+          "symbol": "C",
+          "upper_pcs": [
+            0,
+            4,
+            7
+          ]
+        },
+        {
+          "pcs": [
+            1,
+            6,
+            10
+          ],
+          "bass": 6,
+          "bars": 4.0,
+          "symbol": "F#",
+          "upper_pcs": [
+            1,
+            6,
+            10
+          ]
+        }
+      ],
+      "research_procedure_hints": [
+        "HE-H38"
+      ],
+      "research_procedure_hint_scope": "Forschungsinterner Verfahrenshinweis, keine Gleichheit von Tonfolge/Bass/Dauer oder Arrangement."
+    },
+    {
+      "bh_id": "BH-H26",
+      "historical_canonical_id": "BH-H26",
+      "name": "Ganztönige Aufwärtsrückung",
+      "historical_line": 1715,
+      "equivalents": [],
+      "related": [],
+      "disposition": "Historisch erhalten, kein zusätzlicher Import. Kein vollständiges HE-Äquivalent durch den strikten Strukturvergleich nachgewiesen.",
+      "historical_chords": [
+        {
+          "pcs": [
+            0,
+            4,
+            8
+          ],
+          "bass": 0,
+          "bars": 4.0,
+          "symbol": "Caug",
+          "upper_pcs": [
+            0,
+            4,
+            8
+          ]
+        },
+        {
+          "pcs": [
+            2,
+            6,
+            10
+          ],
+          "bass": 2,
+          "bars": 4.0,
+          "symbol": "Daug",
+          "upper_pcs": [
+            2,
+            6,
+            10
+          ]
+        }
+      ],
+      "research_procedure_hints": [
+        "HE-H48"
+      ],
+      "research_procedure_hint_scope": "Forschungsinterner Verfahrenshinweis, keine Gleichheit von Tonfolge/Bass/Dauer oder Arrangement."
+    },
+    {
+      "bh_id": "BH-H27",
+      "historical_canonical_id": "BH-H27",
+      "name": "Maj7♯5 statisch",
+      "historical_line": 1732,
+      "equivalents": [
+        {
+          "he_id": "HE-H16",
+          "transpose": 0,
+          "scope": "Obere Akkordtonklassen separat von Bass und Halb­takt-Dauerfolge; keine Gleichheit von Register/Rollen/Verfahren."
+        }
+      ],
+      "related": [
+        {
+          "he_id": "HE-H92",
+          "transpose": 0,
+          "structural_similarity": 0.84
+        },
+        {
+          "he_id": "HE-H58",
+          "transpose": 0,
+          "structural_similarity": 0.84
+        },
+        {
+          "he_id": "HE-H13",
+          "transpose": 0,
+          "structural_similarity": 0.8
+        }
+      ],
+      "disposition": "Harmonische Überdeckung nachgewiesen. Nicht als zusätzliche Wendung importieren; Verfahren/optional andere Komponenten separat prüfen.",
+      "historical_chords": [
+        {
+          "pcs": [
+            0,
+            4,
+            8,
+            11
+          ],
+          "bass": 0,
+          "bars": 8.0,
+          "symbol": "Cmaj7#5",
+          "upper_pcs": [
+            0,
+            4,
+            8,
+            11
+          ]
+        }
+      ],
+      "research_procedure_hints": [],
+      "research_procedure_hint_scope": "Forschungsinterner Verfahrenshinweis, keine Gleichheit von Tonfolge/Bass/Dauer oder Arrangement."
+    },
+    {
+      "bh_id": "BH-H28",
+      "historical_canonical_id": "BH-H28",
+      "name": "Sus-Pedal-Wechsel",
+      "historical_line": 1748,
+      "equivalents": [],
+      "related": [
+        {
+          "he_id": "HE-H25",
+          "transpose": 5,
+          "structural_similarity": 0.72
+        }
+      ],
+      "disposition": "Historisch erhalten, kein zusätzlicher Import. Kein vollständiges HE-Äquivalent durch den strikten Strukturvergleich nachgewiesen.",
+      "historical_chords": [
+        {
+          "pcs": [
+            0,
+            5,
+            7,
+            10
+          ],
+          "bass": 0,
+          "bars": 4.0,
+          "symbol": "C7sus4",
+          "upper_pcs": [
+            0,
+            5,
+            7,
+            10
+          ]
+        },
+        {
+          "pcs": [
+            0,
+            4,
+            7,
+            10
+          ],
+          "bass": 0,
+          "bars": 4.0,
+          "symbol": "C7",
+          "upper_pcs": [
+            0,
+            4,
+            7,
+            10
+          ]
+        }
+      ],
+      "research_procedure_hints": [],
+      "research_procedure_hint_scope": "Forschungsinterner Verfahrenshinweis, keine Gleichheit von Tonfolge/Bass/Dauer oder Arrangement."
+    },
+    {
+      "bh_id": "BH-H29",
+      "historical_canonical_id": "BH-H29",
+      "name": "Chromatischer Bassfall unter Moll",
+      "historical_line": 1766,
+      "equivalents": [],
+      "related": [
+        {
+          "he_id": "HE-H07",
+          "transpose": 0,
+          "structural_similarity": 0.87
+        },
+        {
+          "he_id": "HE-H04",
+          "transpose": 0,
+          "structural_similarity": 0.72
+        },
+        {
+          "he_id": "HE-H68",
+          "transpose": 0,
+          "structural_similarity": 0.7
+        }
+      ],
+      "disposition": "Historisch erhalten, kein zusätzlicher Import. Kein vollständiges HE-Äquivalent durch den strikten Strukturvergleich nachgewiesen.",
+      "historical_chords": [
+        {
+          "pcs": [
+            0,
+            3,
+            7
+          ],
+          "bass": 0,
+          "bars": 2.0,
+          "symbol": "Cm",
+          "upper_pcs": [
+            0,
+            3,
+            7
+          ]
+        },
+        {
+          "pcs": [
+            0,
+            3,
+            7,
+            11
+          ],
+          "bass": 11,
+          "bars": 2.0,
+          "symbol": "Cm/B",
+          "upper_pcs": [
+            0,
+            3,
+            7
+          ]
+        },
+        {
+          "pcs": [
+            0,
+            3,
+            7,
+            10
+          ],
+          "bass": 10,
+          "bars": 2.0,
+          "symbol": "Cm/Bb",
+          "upper_pcs": [
+            0,
+            3,
+            7
+          ]
+        },
+        {
+          "pcs": [
+            0,
+            3,
+            7,
+            9
+          ],
+          "bass": 9,
+          "bars": 2.0,
+          "symbol": "Cm/A",
+          "upper_pcs": [
+            0,
+            3,
+            7
+          ]
+        }
+      ],
+      "research_procedure_hints": [
+        "HE-H07"
+      ],
+      "research_procedure_hint_scope": "Forschungsinterner Verfahrenshinweis, keine Gleichheit von Tonfolge/Bass/Dauer oder Arrangement."
+    },
+    {
+      "bh_id": "BH-H30",
+      "historical_canonical_id": "BH-H30",
+      "name": "Chromatischer Dur-Aufstieg",
+      "historical_line": 1786,
+      "equivalents": [],
+      "related": [],
+      "disposition": "Historisch erhalten, kein zusätzlicher Import. Kein vollständiges HE-Äquivalent durch den strikten Strukturvergleich nachgewiesen.",
+      "historical_chords": [
+        {
+          "pcs": [
+            0,
+            4,
+            7
+          ],
+          "bass": 0,
+          "bars": 2.0,
+          "symbol": "C",
+          "upper_pcs": [
+            0,
+            4,
+            7
+          ]
+        },
+        {
+          "pcs": [
+            1,
+            5,
+            8
+          ],
+          "bass": 1,
+          "bars": 2.0,
+          "symbol": "Db",
+          "upper_pcs": [
+            1,
+            5,
+            8
+          ]
+        },
+        {
+          "pcs": [
+            2,
+            6,
+            9
+          ],
+          "bass": 2,
+          "bars": 2.0,
+          "symbol": "D",
+          "upper_pcs": [
+            2,
+            6,
+            9
+          ]
+        },
+        {
+          "pcs": [
+            3,
+            7,
+            10
+          ],
+          "bass": 3,
+          "bars": 2.0,
+          "symbol": "Eb",
+          "upper_pcs": [
+            3,
+            7,
+            10
+          ]
+        }
+      ],
+      "research_procedure_hints": [],
+      "research_procedure_hint_scope": "Forschungsinterner Verfahrenshinweis, keine Gleichheit von Tonfolge/Bass/Dauer oder Arrangement."
+    },
+    {
+      "bh_id": "BH-H31",
+      "historical_canonical_id": "BH-H31",
+      "name": "Halbvermindert → vermindert",
+      "historical_line": 1805,
+      "equivalents": [],
+      "related": [
+        {
+          "he_id": "HE-H20",
+          "transpose": 0,
+          "structural_similarity": 0.84
+        },
+        {
+          "he_id": "HE-H19",
+          "transpose": 0,
+          "structural_similarity": 0.84
+        },
+        {
+          "he_id": "HE-H84",
+          "transpose": 0,
+          "structural_similarity": 0.7067
+        }
+      ],
+      "disposition": "Historisch erhalten, kein zusätzlicher Import. Kein vollständiges HE-Äquivalent durch den strikten Strukturvergleich nachgewiesen.",
+      "historical_chords": [
+        {
+          "pcs": [
+            0,
+            3,
+            6,
+            10
+          ],
+          "bass": 0,
+          "bars": 4.0,
+          "symbol": "Cm7b5",
+          "upper_pcs": [
+            0,
+            3,
+            6,
+            10
+          ]
+        },
+        {
+          "pcs": [
+            0,
+            3,
+            6,
+            9
+          ],
+          "bass": 0,
+          "bars": 4.0,
+          "symbol": "Cdim7",
+          "upper_pcs": [
+            0,
+            3,
+            6,
+            9
+          ]
+        }
+      ],
+      "research_procedure_hints": [
+        "HE-H20"
+      ],
+      "research_procedure_hint_scope": "Forschungsinterner Verfahrenshinweis, keine Gleichheit von Tonfolge/Bass/Dauer oder Arrangement."
+    },
+    {
+      "bh_id": "BH-H32",
+      "historical_canonical_id": "BH-H32",
+      "name": "Doppelpedal mit Dur-Aufsatz",
+      "historical_line": 1822,
+      "equivalents": [],
+      "related": [],
+      "disposition": "Historisch erhalten, kein zusätzlicher Import. Kein vollständiges HE-Äquivalent durch den strikten Strukturvergleich nachgewiesen.",
+      "historical_chords": [
+        {
+          "pcs": [
+            0,
+            3,
+            8
+          ],
+          "bass": 0,
+          "bars": 4.0,
+          "symbol": "Ab/C",
+          "upper_pcs": [
+            0,
+            3,
+            8
+          ]
+        },
+        {
+          "pcs": [
+            0,
+            2,
+            5,
+            10
+          ],
+          "bass": 0,
+          "bars": 4.0,
+          "symbol": "Bb/C",
+          "upper_pcs": [
+            2,
+            5,
+            10
+          ]
+        }
+      ],
+      "research_procedure_hints": [],
+      "research_procedure_hint_scope": "Forschungsinterner Verfahrenshinweis, keine Gleichheit von Tonfolge/Bass/Dauer oder Arrangement."
+    },
+    {
+      "bh_id": "BH-H33",
+      "historical_canonical_id": "BH-H33",
+      "name": "Ein Ton: Stille als Klang",
+      "historical_line": 1839,
+      "equivalents": [],
+      "related": [],
+      "disposition": "Historisch erhalten, kein zusätzlicher Import. Kein vollständiges HE-Äquivalent durch den strikten Strukturvergleich nachgewiesen.",
+      "historical_chords": [
+        {
+          "pcs": [
+            0
+          ],
+          "bass": 0,
+          "bars": 8.0,
+          "symbol": "C1",
+          "upper_pcs": null
+        }
+      ],
+      "research_procedure_hints": [],
+      "research_procedure_hint_scope": "Forschungsinterner Verfahrenshinweis, keine Gleichheit von Tonfolge/Bass/Dauer oder Arrangement."
+    },
+    {
+      "bh_id": "BH-H34",
+      "historical_canonical_id": "BH-H34",
+      "name": "Lyrische Zwei-Fünf-Eins",
+      "historical_line": 1855,
+      "equivalents": [],
+      "related": [],
+      "disposition": "Historisch erhalten, kein zusätzlicher Import. Kein vollständiges HE-Äquivalent durch den strikten Strukturvergleich nachgewiesen.",
+      "historical_chords": [
+        {
+          "pcs": [
+            0,
+            2,
+            5,
+            9
+          ],
+          "bass": 2,
+          "bars": 2.0,
+          "symbol": "Dm7",
+          "upper_pcs": [
+            0,
+            2,
+            5,
+            9
+          ]
+        },
+        {
+          "pcs": [
+            2,
+            5,
+            7,
+            11
+          ],
+          "bass": 7,
+          "bars": 2.0,
+          "symbol": "G7",
+          "upper_pcs": [
+            2,
+            5,
+            7,
+            11
+          ]
+        },
+        {
+          "pcs": [
+            0,
+            4,
+            7,
+            11
+          ],
+          "bass": 0,
+          "bars": 4.0,
+          "symbol": "Cmaj7",
+          "upper_pcs": [
+            0,
+            4,
+            7,
+            11
+          ]
+        }
+      ],
+      "research_procedure_hints": [],
+      "research_procedure_hint_scope": "Forschungsinterner Verfahrenshinweis, keine Gleichheit von Tonfolge/Bass/Dauer oder Arrangement."
+    },
+    {
+      "bh_id": "BH-H35",
+      "historical_canonical_id": "BH-H35",
+      "name": "Halbton-Aufhellung",
+      "historical_line": 1873,
+      "equivalents": [],
+      "related": [],
+      "disposition": "Historisch erhalten, kein zusätzlicher Import. Kein vollständiges HE-Äquivalent durch den strikten Strukturvergleich nachgewiesen.",
+      "historical_chords": [
+        {
+          "pcs": [
+            0,
+            4,
+            7,
+            11
+          ],
+          "bass": 0,
+          "bars": 4.0,
+          "symbol": "Cmaj7",
+          "upper_pcs": [
+            0,
+            4,
+            7,
+            11
+          ]
+        },
+        {
+          "pcs": [
+            3,
+            6,
+            10,
+            11
+          ],
+          "bass": 11,
+          "bars": 4.0,
+          "symbol": "Bmaj7",
+          "upper_pcs": [
+            3,
+            6,
+            10,
+            11
+          ]
+        }
+      ],
+      "research_procedure_hints": [],
+      "research_procedure_hint_scope": "Forschungsinterner Verfahrenshinweis, keine Gleichheit von Tonfolge/Bass/Dauer oder Arrangement."
+    },
+    {
+      "bh_id": "BH-H36",
+      "historical_canonical_id": "BH-H36",
+      "name": "Sus-Dur-Moll-Wechsel",
+      "historical_line": 1890,
+      "equivalents": [],
+      "related": [
+        {
+          "he_id": "HE-H68",
+          "transpose": 0,
+          "structural_similarity": 0.7
+        }
+      ],
+      "disposition": "Historisch erhalten, kein zusätzlicher Import. Kein vollständiges HE-Äquivalent durch den strikten Strukturvergleich nachgewiesen.",
+      "historical_chords": [
+        {
+          "pcs": [
+            0,
+            2,
+            7
+          ],
+          "bass": 0,
+          "bars": 2.0,
+          "symbol": "Csus2",
+          "upper_pcs": [
+            0,
+            2,
+            7
+          ]
+        },
+        {
+          "pcs": [
+            0,
+            3,
+            7
+          ],
+          "bass": 0,
+          "bars": 2.0,
+          "symbol": "Cm",
+          "upper_pcs": [
+            0,
+            3,
+            7
+          ]
+        },
+        {
+          "pcs": [
+            0,
+            5,
+            7
+          ],
+          "bass": 0,
+          "bars": 2.0,
+          "symbol": "Csus4",
+          "upper_pcs": [
+            0,
+            5,
+            7
+          ]
+        },
+        {
+          "pcs": [
+            0,
+            4,
+            7
+          ],
+          "bass": 0,
+          "bars": 2.0,
+          "symbol": "C",
+          "upper_pcs": [
+            0,
+            4,
+            7
+          ]
+        }
+      ],
+      "research_procedure_hints": [],
+      "research_procedure_hint_scope": "Forschungsinterner Verfahrenshinweis, keine Gleichheit von Tonfolge/Bass/Dauer oder Arrangement."
+    },
+    {
+      "bh_id": "BH-H37",
+      "historical_canonical_id": "BH-H37",
+      "name": "Moll-Coda",
+      "historical_line": 1909,
+      "equivalents": [],
+      "related": [
+        {
+          "he_id": "HE-H68",
+          "transpose": 0,
+          "structural_similarity": 0.95
+        },
+        {
+          "he_id": "HE-H94",
+          "transpose": 0,
+          "structural_similarity": 0.85
+        },
+        {
+          "he_id": "HE-H18",
+          "transpose": 11,
+          "structural_similarity": 0.85
+        }
+      ],
+      "disposition": "Historisch erhalten, kein zusätzlicher Import. Kein vollständiges HE-Äquivalent durch den strikten Strukturvergleich nachgewiesen.",
+      "historical_chords": [
+        {
+          "pcs": [
+            0,
+            3,
+            7
+          ],
+          "bass": 0,
+          "bars": 4.0,
+          "symbol": "Cm",
+          "upper_pcs": [
+            0,
+            3,
+            7
+          ]
+        },
+        {
+          "pcs": [
+            0,
+            3,
+            7,
+            11
+          ],
+          "bass": 0,
+          "bars": 2.0,
+          "symbol": "CmM7",
+          "upper_pcs": [
+            0,
+            3,
+            7,
+            11
+          ]
+        },
+        {
+          "pcs": [
+            0,
+            3,
+            7
+          ],
+          "bass": 0,
+          "bars": 2.0,
+          "symbol": "Cm",
+          "upper_pcs": [
+            0,
+            3,
+            7
+          ]
+        }
+      ],
+      "research_procedure_hints": [],
+      "research_procedure_hint_scope": "Forschungsinterner Verfahrenshinweis, keine Gleichheit von Tonfolge/Bass/Dauer oder Arrangement."
+    },
+    {
+      "bh_id": "BH-H38",
+      "historical_canonical_id": "BH-H38",
+      "name": "Leise Reibung",
+      "historical_line": 1927,
+      "equivalents": [],
+      "related": [
+        {
+          "he_id": "HE-H73",
+          "transpose": 0,
+          "structural_similarity": 0.8
+        },
+        {
+          "he_id": "HE-H71",
+          "transpose": 7,
+          "structural_similarity": 0.8
+        },
+        {
+          "he_id": "HE-H74",
+          "transpose": 1,
+          "structural_similarity": 0.71
+        }
+      ],
+      "disposition": "Historisch erhalten, kein zusätzlicher Import. Kein vollständiges HE-Äquivalent durch den strikten Strukturvergleich nachgewiesen.",
+      "historical_chords": [
+        {
+          "pcs": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "bass": 0,
+          "bars": 8.0,
+          "symbol": "Ccl",
+          "upper_pcs": null
+        }
+      ],
+      "research_procedure_hints": [],
+      "research_procedure_hint_scope": "Forschungsinterner Verfahrenshinweis, keine Gleichheit von Tonfolge/Bass/Dauer oder Arrangement."
+    },
+    {
+      "bh_id": "BH-H39",
+      "historical_canonical_id": "BH-H39",
+      "name": "Schleichender Halbton",
+      "historical_line": 1943,
+      "equivalents": [
+        {
+          "he_id": "HE-H36",
+          "transpose": 0,
+          "scope": "Obere Akkordtonklassen separat von Bass und Halb­takt-Dauerfolge; keine Gleichheit von Register/Rollen/Verfahren."
+        }
+      ],
+      "related": [
+        {
+          "he_id": "HE-H85",
+          "transpose": 0,
+          "structural_similarity": 0.7
+        }
+      ],
+      "disposition": "Harmonische Überdeckung nachgewiesen. Nicht als zusätzliche Wendung importieren; Verfahren/optional andere Komponenten separat prüfen.",
+      "historical_chords": [
+        {
+          "pcs": [
+            0,
+            3,
+            7
+          ],
+          "bass": 0,
+          "bars": 4.0,
+          "symbol": "Cm",
+          "upper_pcs": [
+            0,
+            3,
+            7
+          ]
+        },
+        {
+          "pcs": [
+            1,
+            4,
+            8
+          ],
+          "bass": 1,
+          "bars": 4.0,
+          "symbol": "C#m",
+          "upper_pcs": [
+            1,
+            4,
+            8
+          ]
+        }
+      ],
+      "research_procedure_hints": [],
+      "research_procedure_hint_scope": "Forschungsinterner Verfahrenshinweis, keine Gleichheit von Tonfolge/Bass/Dauer oder Arrangement."
+    },
+    {
+      "bh_id": "BH-H40",
+      "historical_canonical_id": "JB-H40",
+      "name": "Wuchtiges Moll-Pedal",
+      "historical_line": 1189,
+      "equivalents": [
+        {
+          "he_id": "HE-H68",
+          "transpose": 0,
+          "scope": "Obere Akkordtonklassen separat von Bass und Halb­takt-Dauerfolge; keine Gleichheit von Register/Rollen/Verfahren."
+        }
+      ],
+      "related": [
+        {
+          "he_id": "HE-H04",
+          "transpose": 0,
+          "structural_similarity": 0.9
+        },
+        {
+          "he_id": "HE-H94",
+          "transpose": 0,
+          "structural_similarity": 0.8
+        },
+        {
+          "he_id": "HE-H86",
+          "transpose": 0,
+          "structural_similarity": 0.8
+        }
+      ],
+      "disposition": "Harmonische Überdeckung nachgewiesen. Nicht als zusätzliche Wendung importieren; Verfahren/optional andere Komponenten separat prüfen.",
+      "historical_chords": [
+        {
+          "pcs": [
+            0,
+            3,
+            7
+          ],
+          "bass": 0,
+          "bars": 8.0,
+          "symbol": "Cm",
+          "upper_pcs": [
+            0,
+            3,
+            7
+          ]
+        }
+      ],
+      "research_procedure_hints": [],
+      "research_procedure_hint_scope": "Forschungsinterner Verfahrenshinweis, keine Gleichheit von Tonfolge/Bass/Dauer oder Arrangement."
+    },
+    {
+      "bh_id": "BH-H41",
+      "historical_canonical_id": "BH-H41",
+      "name": "Schwere Plagalparallelen",
+      "historical_line": 1960,
+      "equivalents": [],
+      "related": [
+        {
+          "he_id": "HE-H43",
+          "transpose": 0,
+          "structural_similarity": 0.8
+        }
+      ],
+      "disposition": "Historisch erhalten, kein zusätzlicher Import. Kein vollständiges HE-Äquivalent durch den strikten Strukturvergleich nachgewiesen.",
+      "historical_chords": [
+        {
+          "pcs": [
+            0,
+            3,
+            7
+          ],
+          "bass": 0,
+          "bars": 2.0,
+          "symbol": "Cm",
+          "upper_pcs": [
+            0,
+            3,
+            7
+          ]
+        },
+        {
+          "pcs": [
+            0,
+            5,
+            8
+          ],
+          "bass": 5,
+          "bars": 2.0,
+          "symbol": "Fm",
+          "upper_pcs": [
+            0,
+            5,
+            8
+          ]
+        },
+        {
+          "pcs": [
+            0,
+            3,
+            7
+          ],
+          "bass": 0,
+          "bars": 2.0,
+          "symbol": "Cm",
+          "upper_pcs": [
+            0,
+            3,
+            7
+          ]
+        },
+        {
+          "pcs": [
+            0,
+            5,
+            8
+          ],
+          "bass": 5,
+          "bars": 2.0,
+          "symbol": "Fm",
+          "upper_pcs": [
+            0,
+            5,
+            8
+          ]
+        }
+      ],
+      "research_procedure_hints": [],
+      "research_procedure_hint_scope": "Forschungsinterner Verfahrenshinweis, keine Gleichheit von Tonfolge/Bass/Dauer oder Arrangement."
+    },
+    {
+      "bh_id": "BH-H42",
+      "historical_canonical_id": "BH-H42",
+      "name": "Helles Flirren Dur",
+      "historical_line": 1980,
+      "equivalents": [],
+      "related": [
+        {
+          "he_id": "HE-H92",
+          "transpose": 0,
+          "structural_similarity": 0.76
+        },
+        {
+          "he_id": "HE-H58",
+          "transpose": 0,
+          "structural_similarity": 0.76
+        },
+        {
+          "he_id": "HE-H13",
+          "transpose": 0,
+          "structural_similarity": 0.76
+        }
+      ],
+      "disposition": "Historisch erhalten, kein zusätzlicher Import. Kein vollständiges HE-Äquivalent durch den strikten Strukturvergleich nachgewiesen.",
+      "historical_chords": [
+        {
+          "pcs": [
+            0,
+            4,
+            8
+          ],
+          "bass": 0,
+          "bars": 4.0,
+          "symbol": "Caug",
+          "upper_pcs": [
+            0,
+            4,
+            8
+          ]
+        },
+        {
+          "pcs": [
+            0,
+            4,
+            7,
+            11
+          ],
+          "bass": 0,
+          "bars": 4.0,
+          "symbol": "Cmaj7",
+          "upper_pcs": [
+            0,
+            4,
+            7,
+            11
+          ]
+        }
+      ],
+      "research_procedure_hints": [],
+      "research_procedure_hint_scope": "Forschungsinterner Verfahrenshinweis, keine Gleichheit von Tonfolge/Bass/Dauer oder Arrangement."
+    },
+    {
+      "bh_id": "BH-H43",
+      "historical_canonical_id": "BH-H43",
+      "name": "Helles Sus2-Flirren",
+      "historical_line": 1997,
+      "equivalents": [],
+      "related": [
+        {
+          "he_id": "HE-H10",
+          "transpose": 0,
+          "structural_similarity": 0.84
+        },
+        {
+          "he_id": "HE-H60",
+          "transpose": 0,
+          "structural_similarity": 0.7333
+        },
+        {
+          "he_id": "HE-H53",
+          "transpose": 0,
+          "structural_similarity": 0.7333
+        }
+      ],
+      "disposition": "Historisch erhalten, kein zusätzlicher Import. Kein vollständiges HE-Äquivalent durch den strikten Strukturvergleich nachgewiesen.",
+      "historical_chords": [
+        {
+          "pcs": [
+            0,
+            2,
+            7,
+            11
+          ],
+          "bass": 0,
+          "bars": 8.0,
+          "symbol": "Cmaj7sus2",
+          "upper_pcs": [
+            0,
+            2,
+            7,
+            11
+          ]
+        }
+      ],
+      "research_procedure_hints": [],
+      "research_procedure_hint_scope": "Forschungsinterner Verfahrenshinweis, keine Gleichheit von Tonfolge/Bass/Dauer oder Arrangement."
+    },
+    {
+      "bh_id": "BH-H44",
+      "historical_canonical_id": "JB-H45",
+      "name": "Triumph über Pedal",
+      "historical_line": 1279,
+      "equivalents": [],
+      "related": [],
+      "disposition": "Historisch erhalten, kein zusätzlicher Import. Kein vollständiges HE-Äquivalent durch den strikten Strukturvergleich nachgewiesen.",
+      "historical_chords": [
+        {
+          "pcs": [
+            0,
+            4,
+            7
+          ],
+          "bass": 0,
+          "bars": 4.0,
+          "symbol": "C",
+          "upper_pcs": [
+            0,
+            4,
+            7
+          ]
+        },
+        {
+          "pcs": [
+            0,
+            5,
+            9
+          ],
+          "bass": 0,
+          "bars": 4.0,
+          "symbol": "F/C",
+          "upper_pcs": [
+            0,
+            5,
+            9
+          ]
+        }
+      ],
+      "research_procedure_hints": [],
+      "research_procedure_hint_scope": "Forschungsinterner Verfahrenshinweis, keine Gleichheit von Tonfolge/Bass/Dauer oder Arrangement."
+    },
+    {
+      "bh_id": "BH-H45",
+      "historical_canonical_id": "JB-H44",
+      "name": "Fanfare statisch",
+      "historical_line": 1259,
+      "equivalents": [],
+      "related": [
+        {
+          "he_id": "HE-H77",
+          "transpose": 0,
+          "structural_similarity": 0.83
+        },
+        {
+          "he_id": "HE-H45",
+          "transpose": 0,
+          "structural_similarity": 0.8
+        },
+        {
+          "he_id": "HE-H38",
+          "transpose": 0,
+          "structural_similarity": 0.75
+        }
+      ],
+      "disposition": "Historisch erhalten, kein zusätzlicher Import. Kein vollständiges HE-Äquivalent durch den strikten Strukturvergleich nachgewiesen.",
+      "historical_chords": [
+        {
+          "pcs": [
+            0,
+            4,
+            7
+          ],
+          "bass": 0,
+          "bars": 8.0,
+          "symbol": "C",
+          "upper_pcs": [
+            0,
+            4,
+            7
+          ]
+        }
+      ],
+      "research_procedure_hints": [],
+      "research_procedure_hint_scope": "Forschungsinterner Verfahrenshinweis, keine Gleichheit von Tonfolge/Bass/Dauer oder Arrangement."
+    },
+    {
+      "bh_id": "BH-H46",
+      "historical_canonical_id": "BH-H46",
+      "name": "Helle Verfolgung",
+      "historical_line": 2013,
+      "equivalents": [],
+      "related": [],
+      "disposition": "Historisch erhalten, kein zusätzlicher Import. Kein vollständiges HE-Äquivalent durch den strikten Strukturvergleich nachgewiesen.",
+      "historical_chords": [
+        {
+          "pcs": [
+            0,
+            4,
+            7
+          ],
+          "bass": 0,
+          "bars": 2.0,
+          "symbol": "C",
+          "upper_pcs": [
+            0,
+            4,
+            7
+          ]
+        },
+        {
+          "pcs": [
+            2,
+            6,
+            9
+          ],
+          "bass": 2,
+          "bars": 2.0,
+          "symbol": "D",
+          "upper_pcs": [
+            2,
+            6,
+            9
+          ]
+        },
+        {
+          "pcs": [
+            4,
+            8,
+            11
+          ],
+          "bass": 4,
+          "bars": 2.0,
+          "symbol": "E",
+          "upper_pcs": [
+            4,
+            8,
+            11
+          ]
+        },
+        {
+          "pcs": [
+            1,
+            6,
+            10
+          ],
+          "bass": 6,
+          "bars": 2.0,
+          "symbol": "F#",
+          "upper_pcs": [
+            1,
+            6,
+            10
+          ]
+        }
+      ],
+      "research_procedure_hints": [],
+      "research_procedure_hint_scope": "Forschungsinterner Verfahrenshinweis, keine Gleichheit von Tonfolge/Bass/Dauer oder Arrangement."
+    },
+    {
+      "bh_id": "BH-H47",
+      "historical_canonical_id": "BH-H47",
+      "name": "Heller Cluster-Wechsel",
+      "historical_line": 2032,
+      "equivalents": [],
+      "related": [],
+      "disposition": "Historisch erhalten, kein zusätzlicher Import. Kein vollständiges HE-Äquivalent durch den strikten Strukturvergleich nachgewiesen.",
+      "historical_chords": [
+        {
+          "pcs": [
+            0,
+            4,
+            7,
+            11
+          ],
+          "bass": 0,
+          "bars": 2.0,
+          "symbol": "Cmaj7",
+          "upper_pcs": [
+            0,
+            4,
+            7,
+            11
+          ]
+        },
+        {
+          "pcs": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "bass": 0,
+          "bars": 2.0,
+          "symbol": "Ccl",
+          "upper_pcs": null
+        },
+        {
+          "pcs": [
+            0,
+            4,
+            7,
+            11
+          ],
+          "bass": 0,
+          "bars": 2.0,
+          "symbol": "Cmaj7",
+          "upper_pcs": [
+            0,
+            4,
+            7,
+            11
+          ]
+        },
+        {
+          "pcs": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "bass": 0,
+          "bars": 2.0,
+          "symbol": "Ccl",
+          "upper_pcs": null
+        }
+      ],
+      "research_procedure_hints": [],
+      "research_procedure_hint_scope": "Forschungsinterner Verfahrenshinweis, keine Gleichheit von Tonfolge/Bass/Dauer oder Arrangement."
+    },
+    {
+      "bh_id": "BH-L01",
+      "historical_canonical_id": "BH-L01",
+      "name": "Liebesthema (Muir-Typ), lang",
+      "historical_line": 3635,
+      "equivalents": [],
+      "related": [],
+      "disposition": "Historisch erhalten, kein zusätzlicher Import. Kein vollständiges HE-Äquivalent durch den strikten Strukturvergleich nachgewiesen.",
+      "research_procedure_hints": [],
+      "research_procedure_hint_scope": "Forschungsinterner Verfahrenshinweis, keine Gleichheit von Tonfolge/Bass/Dauer oder Arrangement."
+    },
+    {
+      "bh_id": "BH-L02",
+      "historical_canonical_id": "BH-L02",
+      "name": "Vertigo-Schleife (Terzkreis)",
+      "historical_line": 3652,
+      "equivalents": [],
+      "related": [],
+      "disposition": "Historisch erhalten, kein zusätzlicher Import. Kein vollständiges HE-Äquivalent durch den strikten Strukturvergleich nachgewiesen.",
+      "research_procedure_hints": [],
+      "research_procedure_hint_scope": "Forschungsinterner Verfahrenshinweis, keine Gleichheit von Tonfolge/Bass/Dauer oder Arrangement."
+    },
+    {
+      "bh_id": "BH-L03",
+      "historical_canonical_id": "BH-L03",
+      "name": "Liebesthema mit fallendem Bass, lang",
+      "historical_line": 3669,
+      "equivalents": [],
+      "related": [],
+      "disposition": "Historisch erhalten, kein zusätzlicher Import. Kein vollständiges HE-Äquivalent durch den strikten Strukturvergleich nachgewiesen.",
+      "research_procedure_hints": [],
+      "research_procedure_hint_scope": "Forschungsinterner Verfahrenshinweis, keine Gleichheit von Tonfolge/Bass/Dauer oder Arrangement."
+    },
+    {
+      "bh_id": "BH-L04",
+      "historical_canonical_id": "BH-L04",
+      "name": "Abenteuer-Thema",
+      "historical_line": 3686,
+      "equivalents": [],
+      "related": [],
+      "disposition": "Historisch erhalten, kein zusätzlicher Import. Kein vollständiges HE-Äquivalent durch den strikten Strukturvergleich nachgewiesen.",
+      "research_procedure_hints": [],
+      "research_procedure_hint_scope": "Forschungsinterner Verfahrenshinweis, keine Gleichheit von Tonfolge/Bass/Dauer oder Arrangement."
+    },
+    {
+      "bh_id": "BH-L05",
+      "historical_canonical_id": "BH-L05",
+      "name": "Saxophonlinie, lang",
+      "historical_line": 3703,
+      "equivalents": [],
+      "related": [],
+      "disposition": "Historisch erhalten, kein zusätzlicher Import. Kein vollständiges HE-Äquivalent durch den strikten Strukturvergleich nachgewiesen.",
+      "research_procedure_hints": [],
+      "research_procedure_hint_scope": "Forschungsinterner Verfahrenshinweis, keine Gleichheit von Tonfolge/Bass/Dauer oder Arrangement."
+    },
+    {
+      "bh_id": "BH-L06",
+      "historical_canonical_id": "BH-L06",
+      "name": "Märchenwald",
+      "historical_line": 3720,
+      "equivalents": [],
+      "related": [],
+      "disposition": "Historisch erhalten, kein zusätzlicher Import. Kein vollständiges HE-Äquivalent durch den strikten Strukturvergleich nachgewiesen.",
+      "research_procedure_hints": [],
+      "research_procedure_hint_scope": "Forschungsinterner Verfahrenshinweis, keine Gleichheit von Tonfolge/Bass/Dauer oder Arrangement."
+    },
+    {
+      "bh_id": "BH-M01",
+      "historical_canonical_id": "BH-M01",
+      "name": "Halbton-Zelle",
+      "historical_line": 3034,
+      "equivalents": [],
+      "related": [],
+      "disposition": "Historisch erhalten, kein zusätzlicher Import. Kein vollständiges HE-Äquivalent durch den strikten Strukturvergleich nachgewiesen.",
+      "historical_note_tokens": [
+        [
+          "C4",
+          "0",
+          "2"
+        ],
+        [
+          "C#4",
+          "2",
+          "2"
+        ],
+        [
+          "C4",
+          "4",
+          "2"
+        ],
+        [
+          "B3",
+          "6",
+          "2"
+        ]
+      ],
+      "research_procedure_hints": [],
+      "research_procedure_hint_scope": "Forschungsinterner Verfahrenshinweis, keine Gleichheit von Tonfolge/Bass/Dauer oder Arrangement."
+    },
+    {
+      "bh_id": "BH-M02",
+      "historical_canonical_id": "BH-M02",
+      "name": "Tritonus-Zelle",
+      "historical_line": 3043,
+      "equivalents": [],
+      "related": [],
+      "disposition": "Historisch erhalten, kein zusätzlicher Import. Kein vollständiges HE-Äquivalent durch den strikten Strukturvergleich nachgewiesen.",
+      "historical_note_tokens": [
+        [
+          "C4",
+          "0",
+          "4"
+        ],
+        [
+          "F#4",
+          "4",
+          "4"
+        ],
+        [
+          "C4",
+          "8",
+          "4"
+        ]
+      ],
+      "research_procedure_hints": [],
+      "research_procedure_hint_scope": "Forschungsinterner Verfahrenshinweis, keine Gleichheit von Tonfolge/Bass/Dauer oder Arrangement."
+    },
+    {
+      "bh_id": "BH-M03",
+      "historical_canonical_id": "BH-M03",
+      "name": "Hitchcock-Arpeggio punktiert",
+      "historical_line": 3052,
+      "equivalents": [],
+      "related": [],
+      "disposition": "Historisch erhalten, kein zusätzlicher Import. Kein vollständiges HE-Äquivalent durch den strikten Strukturvergleich nachgewiesen.",
+      "historical_note_tokens": [
+        [
+          "C4",
+          "0",
+          "3"
+        ],
+        [
+          "Eb4",
+          "3",
+          "1"
+        ],
+        [
+          "G4",
+          "4",
+          "3"
+        ],
+        [
+          "B4",
+          "7",
+          "1"
+        ],
+        [
+          "G4",
+          "8",
+          "4"
+        ],
+        [
+          "C4",
+          "12",
+          "4"
+        ]
+      ],
+      "research_procedure_hints": [],
+      "research_procedure_hint_scope": "Forschungsinterner Verfahrenshinweis, keine Gleichheit von Tonfolge/Bass/Dauer oder Arrangement."
+    },
+    {
+      "bh_id": "BH-M04",
+      "historical_canonical_id": "BH-M04",
+      "name": "Repetition mit Stich",
+      "historical_line": 3061,
+      "equivalents": [],
+      "related": [],
+      "disposition": "Historisch erhalten, kein zusätzlicher Import. Kein vollständiges HE-Äquivalent durch den strikten Strukturvergleich nachgewiesen.",
+      "historical_note_tokens": [
+        [
+          "G4",
+          "0",
+          "1"
+        ],
+        [
+          "G4",
+          "2",
+          "1"
+        ],
+        [
+          "G4",
+          "4",
+          "1"
+        ],
+        [
+          "G4",
+          "6",
+          "1"
+        ],
+        [
+          "F#4",
+          "8",
+          "4"
+        ]
+      ],
+      "research_procedure_hints": [],
+      "research_procedure_hint_scope": "Forschungsinterner Verfahrenshinweis, keine Gleichheit von Tonfolge/Bass/Dauer oder Arrangement."
+    },
+    {
+      "bh_id": "BH-M05",
+      "historical_canonical_id": "BH-M05",
+      "name": "Fallende Halbtonkette",
+      "historical_line": 3070,
+      "equivalents": [],
+      "related": [],
+      "disposition": "Historisch erhalten, kein zusätzlicher Import. Kein vollständiges HE-Äquivalent durch den strikten Strukturvergleich nachgewiesen.",
+      "historical_note_tokens": [
+        [
+          "G4",
+          "0",
+          "4"
+        ],
+        [
+          "F#4",
+          "4",
+          "4"
+        ],
+        [
+          "F4",
+          "8",
+          "4"
+        ],
+        [
+          "E4",
+          "12",
+          "4"
+        ]
+      ],
+      "research_procedure_hints": [],
+      "research_procedure_hint_scope": "Forschungsinterner Verfahrenshinweis, keine Gleichheit von Tonfolge/Bass/Dauer oder Arrangement."
+    },
+    {
+      "bh_id": "BH-M06",
+      "historical_canonical_id": "BH-M06",
+      "name": "Vertigo-Schlaufe",
+      "historical_line": 3079,
+      "equivalents": [],
+      "related": [],
+      "disposition": "Historisch erhalten, kein zusätzlicher Import. Kein vollständiges HE-Äquivalent durch den strikten Strukturvergleich nachgewiesen.",
+      "historical_note_tokens": [
+        [
+          "C4",
+          "0",
+          "4"
+        ],
+        [
+          "E4",
+          "4",
+          "4"
+        ],
+        [
+          "Ab4",
+          "8",
+          "4"
+        ],
+        [
+          "C5",
+          "12",
+          "4"
+        ]
+      ],
+      "research_procedure_hints": [],
+      "research_procedure_hint_scope": "Forschungsinterner Verfahrenshinweis, keine Gleichheit von Tonfolge/Bass/Dauer oder Arrangement."
+    },
+    {
+      "bh_id": "BH-M07",
+      "historical_canonical_id": "BH-M07",
+      "name": "Spirale abwärts",
+      "historical_line": 3088,
+      "equivalents": [],
+      "related": [],
+      "disposition": "Historisch erhalten, kein zusätzlicher Import. Kein vollständiges HE-Äquivalent durch den strikten Strukturvergleich nachgewiesen.",
+      "historical_note_tokens": [
+        [
+          "C5",
+          "0",
+          "2"
+        ],
+        [
+          "B4",
+          "2",
+          "2"
+        ],
+        [
+          "Bb4",
+          "4",
+          "2"
+        ],
+        [
+          "A4",
+          "6",
+          "2"
+        ],
+        [
+          "Ab4",
+          "8",
+          "2"
+        ],
+        [
+          "G4",
+          "10",
+          "2"
+        ]
+      ],
+      "research_procedure_hints": [],
+      "research_procedure_hint_scope": "Forschungsinterner Verfahrenshinweis, keine Gleichheit von Tonfolge/Bass/Dauer oder Arrangement."
+    },
+    {
+      "bh_id": "BH-M08",
+      "historical_canonical_id": "BH-M08",
+      "name": "Fandango-Motiv",
+      "historical_line": 3097,
+      "equivalents": [],
+      "related": [],
+      "disposition": "Historisch erhalten, kein zusätzlicher Import. Kein vollständiges HE-Äquivalent durch den strikten Strukturvergleich nachgewiesen.",
+      "historical_note_tokens": [
+        [
+          "A4",
+          "0",
+          "2"
+        ],
+        [
+          "B4",
+          "2",
+          "2"
+        ],
+        [
+          "C5",
+          "4",
+          "2"
+        ],
+        [
+          "B4",
+          "6",
+          "2"
+        ],
+        [
+          "A4",
+          "8",
+          "2"
+        ],
+        [
+          "E4",
+          "10",
+          "2"
+        ]
+      ],
+      "research_procedure_hints": [],
+      "research_procedure_hint_scope": "Forschungsinterner Verfahrenshinweis, keine Gleichheit von Tonfolge/Bass/Dauer oder Arrangement."
+    },
+    {
+      "bh_id": "BH-M09",
+      "historical_canonical_id": "BH-M09",
+      "name": "Lyrische Linie (Muir-Typ)",
+      "historical_line": 3106,
+      "equivalents": [],
+      "related": [],
+      "disposition": "Historisch erhalten, kein zusätzlicher Import. Kein vollständiges HE-Äquivalent durch den strikten Strukturvergleich nachgewiesen.",
+      "historical_note_tokens": [
+        [
+          "E5",
+          "0",
+          "6"
+        ],
+        [
+          "D5",
+          "6",
+          "2"
+        ],
+        [
+          "C5",
+          "8",
+          "4"
+        ],
+        [
+          "D5",
+          "12",
+          "4"
+        ],
+        [
+          "E5",
+          "16",
+          "16"
+        ]
+      ],
+      "research_procedure_hints": [],
+      "research_procedure_hint_scope": "Forschungsinterner Verfahrenshinweis, keine Gleichheit von Tonfolge/Bass/Dauer oder Arrangement."
+    },
+    {
+      "bh_id": "BH-M10",
+      "historical_canonical_id": "BH-M10",
+      "name": "Saxophon-Linie (Taxi-Typ)",
+      "historical_line": 3115,
+      "equivalents": [],
+      "related": [],
+      "disposition": "Historisch erhalten, kein zusätzlicher Import. Kein vollständiges HE-Äquivalent durch den strikten Strukturvergleich nachgewiesen.",
+      "historical_note_tokens": [
+        [
+          "F5",
+          "0",
+          "4"
+        ],
+        [
+          "Eb5",
+          "4",
+          "4"
+        ],
+        [
+          "D5",
+          "8",
+          "4"
+        ],
+        [
+          "C5",
+          "12",
+          "4"
+        ],
+        [
+          "D5",
+          "16",
+          "16"
+        ]
+      ],
+      "research_procedure_hints": [],
+      "research_procedure_hint_scope": "Forschungsinterner Verfahrenshinweis, keine Gleichheit von Tonfolge/Bass/Dauer oder Arrangement."
+    },
+    {
+      "bh_id": "BH-M11",
+      "historical_canonical_id": "BH-M11",
+      "name": "Abenteuer-Fanfare",
+      "historical_line": 3124,
+      "equivalents": [],
+      "related": [],
+      "disposition": "Historisch erhalten, kein zusätzlicher Import. Kein vollständiges HE-Äquivalent durch den strikten Strukturvergleich nachgewiesen.",
+      "historical_note_tokens": [
+        [
+          "C4",
+          "0",
+          "4"
+        ],
+        [
+          "G4",
+          "4",
+          "2"
+        ],
+        [
+          "C5",
+          "6",
+          "2"
+        ],
+        [
+          "E5",
+          "8",
+          "4"
+        ],
+        [
+          "D5",
+          "12",
+          "4"
+        ]
+      ],
+      "research_procedure_hints": [],
+      "research_procedure_hint_scope": "Forschungsinterner Verfahrenshinweis, keine Gleichheit von Tonfolge/Bass/Dauer oder Arrangement."
+    },
+    {
+      "bh_id": "BH-M12",
+      "historical_canonical_id": "BH-M12",
+      "name": "Dreiton-Fall",
+      "historical_line": 3133,
+      "equivalents": [],
+      "related": [],
+      "disposition": "Historisch erhalten, kein zusätzlicher Import. Kein vollständiges HE-Äquivalent durch den strikten Strukturvergleich nachgewiesen.",
+      "historical_note_tokens": [
+        [
+          "E4",
+          "0",
+          "2"
+        ],
+        [
+          "D4",
+          "2",
+          "2"
+        ],
+        [
+          "C4",
+          "4",
+          "8"
+        ]
+      ],
+      "research_procedure_hints": [],
+      "research_procedure_hint_scope": "Forschungsinterner Verfahrenshinweis, keine Gleichheit von Tonfolge/Bass/Dauer oder Arrangement."
+    },
+    {
+      "bh_id": "BH-M13",
+      "historical_canonical_id": "BH-M13",
+      "name": "Oktavsprung",
+      "historical_line": 3142,
+      "equivalents": [],
+      "related": [],
+      "disposition": "Historisch erhalten, kein zusätzlicher Import. Kein vollständiges HE-Äquivalent durch den strikten Strukturvergleich nachgewiesen.",
+      "historical_note_tokens": [
+        [
+          "C4",
+          "0",
+          "4"
+        ],
+        [
+          "C5",
+          "4",
+          "4"
+        ],
+        [
+          "B4",
+          "8",
+          "4"
+        ],
+        [
+          "Bb4",
+          "12",
+          "4"
+        ]
+      ],
+      "research_procedure_hints": [],
+      "research_procedure_hint_scope": "Forschungsinterner Verfahrenshinweis, keine Gleichheit von Tonfolge/Bass/Dauer oder Arrangement."
+    },
+    {
+      "bh_id": "BH-M14",
+      "historical_canonical_id": "BH-M14",
+      "name": "Quartenmotiv",
+      "historical_line": 3151,
+      "equivalents": [],
+      "related": [],
+      "disposition": "Historisch erhalten, kein zusätzlicher Import. Kein vollständiges HE-Äquivalent durch den strikten Strukturvergleich nachgewiesen.",
+      "historical_note_tokens": [
+        [
+          "C4",
+          "0",
+          "4"
+        ],
+        [
+          "F4",
+          "4",
+          "4"
+        ],
+        [
+          "Bb4",
+          "8",
+          "4"
+        ],
+        [
+          "Eb5",
+          "12",
+          "4"
+        ]
+      ],
+      "research_procedure_hints": [],
+      "research_procedure_hint_scope": "Forschungsinterner Verfahrenshinweis, keine Gleichheit von Tonfolge/Bass/Dauer oder Arrangement."
+    },
+    {
+      "bh_id": "BH-M15",
+      "historical_canonical_id": "BH-M15",
+      "name": "Cluster-Figur",
+      "historical_line": 3160,
+      "equivalents": [],
+      "related": [],
+      "disposition": "Historisch erhalten, kein zusätzlicher Import. Kein vollständiges HE-Äquivalent durch den strikten Strukturvergleich nachgewiesen.",
+      "historical_note_tokens": [
+        [
+          "C4",
+          "0",
+          "2"
+        ],
+        [
+          "C#4",
+          "2",
+          "2"
+        ],
+        [
+          "D4",
+          "4",
+          "2"
+        ],
+        [
+          "Eb4",
+          "6",
+          "2"
+        ],
+        [
+          "D4",
+          "8",
+          "2"
+        ],
+        [
+          "C#4",
+          "10",
+          "2"
+        ],
+        [
+          "C4",
+          "12",
+          "4"
+        ]
+      ],
+      "research_procedure_hints": [],
+      "research_procedure_hint_scope": "Forschungsinterner Verfahrenshinweis, keine Gleichheit von Tonfolge/Bass/Dauer oder Arrangement."
+    },
+    {
+      "bh_id": "BH-M16",
+      "historical_canonical_id": "BH-M16",
+      "name": "Klage in langen Tönen",
+      "historical_line": 3169,
+      "equivalents": [],
+      "related": [],
+      "disposition": "Historisch erhalten, kein zusätzlicher Import. Kein vollständiges HE-Äquivalent durch den strikten Strukturvergleich nachgewiesen.",
+      "historical_note_tokens": [
+        [
+          "G4",
+          "0",
+          "8"
+        ],
+        [
+          "F#4",
+          "8",
+          "8"
+        ],
+        [
+          "F4",
+          "16",
+          "8"
+        ],
+        [
+          "E4",
+          "24",
+          "8"
+        ]
+      ],
+      "research_procedure_hints": [],
+      "research_procedure_hint_scope": "Forschungsinterner Verfahrenshinweis, keine Gleichheit von Tonfolge/Bass/Dauer oder Arrangement."
+    },
+    {
+      "bh_id": "BH-M17",
+      "historical_canonical_id": "BH-M17",
+      "name": "Zitterzelle",
+      "historical_line": 3178,
+      "equivalents": [],
+      "related": [],
+      "disposition": "Historisch erhalten, kein zusätzlicher Import. Kein vollständiges HE-Äquivalent durch den strikten Strukturvergleich nachgewiesen.",
+      "historical_note_tokens": [
+        [
+          "C4",
+          "0",
+          "2"
+        ],
+        [
+          "B3",
+          "2",
+          "2"
+        ],
+        [
+          "C4",
+          "4",
+          "2"
+        ],
+        [
+          "B3",
+          "6",
+          "2"
+        ],
+        [
+          "C4",
+          "8",
+          "8"
+        ]
+      ],
+      "research_procedure_hints": [],
+      "research_procedure_hint_scope": "Forschungsinterner Verfahrenshinweis, keine Gleichheit von Tonfolge/Bass/Dauer oder Arrangement."
+    },
+    {
+      "bh_id": "BH-M18",
+      "historical_canonical_id": "BH-M18",
+      "name": "Block-Unisono",
+      "historical_line": 3187,
+      "equivalents": [],
+      "related": [],
+      "disposition": "Historisch erhalten, kein zusätzlicher Import. Kein vollständiges HE-Äquivalent durch den strikten Strukturvergleich nachgewiesen.",
+      "historical_note_tokens": [
+        [
+          "C3",
+          "0",
+          "8"
+        ],
+        [
+          "C3",
+          "8",
+          "4"
+        ],
+        [
+          "Bb2",
+          "12",
+          "4"
+        ]
+      ],
+      "research_procedure_hints": [],
+      "research_procedure_hint_scope": "Forschungsinterner Verfahrenshinweis, keine Gleichheit von Tonfolge/Bass/Dauer oder Arrangement."
+    },
+    {
+      "bh_id": "BH-M19",
+      "historical_canonical_id": "BH-M19",
+      "name": "Harfenflirren",
+      "historical_line": 3196,
+      "equivalents": [],
+      "related": [],
+      "disposition": "Historisch erhalten, kein zusätzlicher Import. Kein vollständiges HE-Äquivalent durch den strikten Strukturvergleich nachgewiesen.",
+      "historical_note_tokens": [
+        [
+          "C5",
+          "0",
+          "2"
+        ],
+        [
+          "E5",
+          "2",
+          "2"
+        ],
+        [
+          "B4",
+          "4",
+          "2"
+        ],
+        [
+          "E5",
+          "6",
+          "2"
+        ],
+        [
+          "C5",
+          "8",
+          "2"
+        ],
+        [
+          "E5",
+          "10",
+          "2"
+        ],
+        [
+          "B4",
+          "12",
+          "4"
+        ]
+      ],
+      "research_procedure_hints": [],
+      "research_procedure_hint_scope": "Forschungsinterner Verfahrenshinweis, keine Gleichheit von Tonfolge/Bass/Dauer oder Arrangement."
+    },
+    {
+      "bh_id": "BH-M20",
+      "historical_canonical_id": "BH-M20",
+      "name": "Heroischer Aufstieg",
+      "historical_line": 3205,
+      "equivalents": [],
+      "related": [],
+      "disposition": "Historisch erhalten, kein zusätzlicher Import. Kein vollständiges HE-Äquivalent durch den strikten Strukturvergleich nachgewiesen.",
+      "historical_note_tokens": [
+        [
+          "G3",
+          "0",
+          "4"
+        ],
+        [
+          "C4",
+          "4",
+          "4"
+        ],
+        [
+          "E4",
+          "8",
+          "4"
+        ],
+        [
+          "G4",
+          "12",
+          "4"
+        ],
+        [
+          "C5",
+          "16",
+          "16"
+        ]
+      ],
+      "research_procedure_hints": [],
+      "research_procedure_hint_scope": "Forschungsinterner Verfahrenshinweis, keine Gleichheit von Tonfolge/Bass/Dauer oder Arrangement."
+    },
+    {
+      "bh_id": "BH-M21",
+      "historical_canonical_id": "BH-M21",
+      "name": "Helle Chromatik",
+      "historical_line": 3214,
+      "equivalents": [],
+      "related": [],
+      "disposition": "Historisch erhalten, kein zusätzlicher Import. Kein vollständiges HE-Äquivalent durch den strikten Strukturvergleich nachgewiesen.",
+      "historical_note_tokens": [
+        [
+          "C5",
+          "0",
+          "1"
+        ],
+        [
+          "C#5",
+          "1",
+          "1"
+        ],
+        [
+          "D5",
+          "2",
+          "1"
+        ],
+        [
+          "D#5",
+          "3",
+          "1"
+        ],
+        [
+          "E5",
+          "4",
+          "1"
+        ],
+        [
+          "F5",
+          "5",
+          "1"
+        ],
+        [
+          "F#5",
+          "6",
+          "1"
+        ],
+        [
+          "G5",
+          "7",
+          "1"
+        ],
+        [
+          "G#5",
+          "8",
+          "4"
+        ],
+        [
+          "A5",
+          "12",
+          "4"
+        ]
+      ],
+      "research_procedure_hints": [],
+      "research_procedure_hint_scope": "Forschungsinterner Verfahrenshinweis, keine Gleichheit von Tonfolge/Bass/Dauer oder Arrangement."
+    },
+    {
+      "bh_id": "BH-M22",
+      "historical_canonical_id": "BH-M22",
+      "name": "Wiegende Terz",
+      "historical_line": 3223,
+      "equivalents": [],
+      "related": [],
+      "disposition": "Historisch erhalten, kein zusätzlicher Import. Kein vollständiges HE-Äquivalent durch den strikten Strukturvergleich nachgewiesen.",
+      "historical_note_tokens": [
+        [
+          "E4",
+          "0",
+          "4"
+        ],
+        [
+          "G4",
+          "4",
+          "4"
+        ],
+        [
+          "E4",
+          "8",
+          "4"
+        ],
+        [
+          "D4",
+          "12",
+          "4"
+        ]
+      ],
+      "research_procedure_hints": [],
+      "research_procedure_hint_scope": "Forschungsinterner Verfahrenshinweis, keine Gleichheit von Tonfolge/Bass/Dauer oder Arrangement."
+    },
+    {
+      "bh_id": "BH-P01",
+      "historical_canonical_id": "BH-P01",
+      "name": "Meeres-Sehnsucht (Muir-Typ)",
+      "historical_line": 3557,
+      "equivalents": [],
+      "related": [],
+      "disposition": "Historisch erhalten, kein zusätzlicher Import. Kein vollständiges HE-Äquivalent durch den strikten Strukturvergleich nachgewiesen.",
+      "research_procedure_hints": [],
+      "research_procedure_hint_scope": "Forschungsinterner Verfahrenshinweis, keine Gleichheit von Tonfolge/Bass/Dauer oder Arrangement."
+    },
+    {
+      "bh_id": "BH-P02",
+      "historical_canonical_id": "BH-P02",
+      "name": "Liebesthema mit fallendem Bass",
+      "historical_line": 3570,
+      "equivalents": [],
+      "related": [],
+      "disposition": "Historisch erhalten, kein zusätzlicher Import. Kein vollständiges HE-Äquivalent durch den strikten Strukturvergleich nachgewiesen.",
+      "research_procedure_hints": [],
+      "research_procedure_hint_scope": "Forschungsinterner Verfahrenshinweis, keine Gleichheit von Tonfolge/Bass/Dauer oder Arrangement."
+    },
+    {
+      "bh_id": "BH-P03",
+      "historical_canonical_id": "BH-P03",
+      "name": "Traumsequenz (Halbton-Gleiten)",
+      "historical_line": 3583,
+      "equivalents": [],
+      "related": [],
+      "disposition": "Historisch erhalten, kein zusätzlicher Import. Kein vollständiges HE-Äquivalent durch den strikten Strukturvergleich nachgewiesen.",
+      "research_procedure_hints": [],
+      "research_procedure_hint_scope": "Forschungsinterner Verfahrenshinweis, keine Gleichheit von Tonfolge/Bass/Dauer oder Arrangement."
+    },
+    {
+      "bh_id": "BH-P04",
+      "historical_canonical_id": "BH-P04",
+      "name": "Abenteuer-Ruf",
+      "historical_line": 3596,
+      "equivalents": [],
+      "related": [],
+      "disposition": "Historisch erhalten, kein zusätzlicher Import. Kein vollständiges HE-Äquivalent durch den strikten Strukturvergleich nachgewiesen.",
+      "research_procedure_hints": [],
+      "research_procedure_hint_scope": "Forschungsinterner Verfahrenshinweis, keine Gleichheit von Tonfolge/Bass/Dauer oder Arrangement."
+    },
+    {
+      "bh_id": "BH-P05",
+      "historical_canonical_id": "BH-P05",
+      "name": "Nächtliche Saxophonlinie",
+      "historical_line": 3609,
+      "equivalents": [],
+      "related": [],
+      "disposition": "Historisch erhalten, kein zusätzlicher Import. Kein vollständiges HE-Äquivalent durch den strikten Strukturvergleich nachgewiesen.",
+      "research_procedure_hints": [],
+      "research_procedure_hint_scope": "Forschungsinterner Verfahrenshinweis, keine Gleichheit von Tonfolge/Bass/Dauer oder Arrangement."
+    },
+    {
+      "bh_id": "BH-P06",
+      "historical_canonical_id": "BH-P06",
+      "name": "Märchenhafter Aufstieg",
+      "historical_line": 3622,
+      "equivalents": [],
+      "related": [],
+      "disposition": "Historisch erhalten, kein zusätzlicher Import. Kein vollständiges HE-Äquivalent durch den strikten Strukturvergleich nachgewiesen.",
+      "research_procedure_hints": [],
+      "research_procedure_hint_scope": "Forschungsinterner Verfahrenshinweis, keine Gleichheit von Tonfolge/Bass/Dauer oder Arrangement."
+    },
+    {
+      "bh_id": "BH-R01",
+      "historical_canonical_id": "JB-R03",
+      "name": "Achtel-Ostinato (Barry: Pendel-Ostinato, Herrmann: Staccato-Repetition)",
+      "historical_line": 2081,
+      "equivalents": [],
+      "related": [],
+      "disposition": "Historisch erhalten, kein zusätzlicher Import. Kein vollständiges HE-Äquivalent durch den strikten Strukturvergleich nachgewiesen.",
+      "research_procedure_hints": [],
+      "research_procedure_hint_scope": "Forschungsinterner Verfahrenshinweis, keine Gleichheit von Tonfolge/Bass/Dauer oder Arrangement."
+    },
+    {
+      "bh_id": "BH-R02",
+      "historical_canonical_id": "JB-R15",
+      "name": "Sechzehntel-Teppich (Barry: Motor, Herrmann: Tremolo)",
+      "historical_line": 2258,
+      "equivalents": [],
+      "related": [],
+      "disposition": "Historisch erhalten, kein zusätzlicher Import. Kein vollständiges HE-Äquivalent durch den strikten Strukturvergleich nachgewiesen.",
+      "research_procedure_hints": [],
+      "research_procedure_hint_scope": "Forschungsinterner Verfahrenshinweis, keine Gleichheit von Tonfolge/Bass/Dauer oder Arrangement."
+    },
+    {
+      "bh_id": "BH-R03",
+      "historical_canonical_id": "BH-R03",
+      "name": "Auftakt-Dreier",
+      "historical_line": 2396,
+      "equivalents": [],
+      "related": [],
+      "disposition": "Historisch erhalten, kein zusätzlicher Import. Kein vollständiges HE-Äquivalent durch den strikten Strukturvergleich nachgewiesen.",
+      "research_procedure_hints": [],
+      "research_procedure_hint_scope": "Forschungsinterner Verfahrenshinweis, keine Gleichheit von Tonfolge/Bass/Dauer oder Arrangement."
+    },
+    {
+      "bh_id": "BH-R04",
+      "historical_canonical_id": "BH-R04",
+      "name": "Fandango-Hemiola 3/8",
+      "historical_line": 2410,
+      "equivalents": [],
+      "related": [],
+      "disposition": "Historisch erhalten, kein zusätzlicher Import. Kein vollständiges HE-Äquivalent durch den strikten Strukturvergleich nachgewiesen.",
+      "research_procedure_hints": [],
+      "research_procedure_hint_scope": "Forschungsinterner Verfahrenshinweis, keine Gleichheit von Tonfolge/Bass/Dauer oder Arrangement."
+    },
+    {
+      "bh_id": "BH-R05",
+      "historical_canonical_id": "BH-R05",
+      "name": "Pauken-Pedal",
+      "historical_line": 2424,
+      "equivalents": [],
+      "related": [],
+      "disposition": "Historisch erhalten, kein zusätzlicher Import. Kein vollständiges HE-Äquivalent durch den strikten Strukturvergleich nachgewiesen.",
+      "research_procedure_hints": [],
+      "research_procedure_hint_scope": "Forschungsinterner Verfahrenshinweis, keine Gleichheit von Tonfolge/Bass/Dauer oder Arrangement."
+    },
+    {
+      "bh_id": "BH-R06",
+      "historical_canonical_id": "BH-R06",
+      "name": "Wiege 6/8 (Nachtstück)",
+      "historical_line": 2438,
+      "equivalents": [],
+      "related": [],
+      "disposition": "Historisch erhalten, kein zusätzlicher Import. Kein vollständiges HE-Äquivalent durch den strikten Strukturvergleich nachgewiesen.",
+      "research_procedure_hints": [],
+      "research_procedure_hint_scope": "Forschungsinterner Verfahrenshinweis, keine Gleichheit von Tonfolge/Bass/Dauer oder Arrangement."
+    },
+    {
+      "bh_id": "BH-R07",
+      "historical_canonical_id": "BH-R07",
+      "name": "Schwerer Marsch",
+      "historical_line": 2452,
+      "equivalents": [],
+      "related": [],
+      "disposition": "Historisch erhalten, kein zusätzlicher Import. Kein vollständiges HE-Äquivalent durch den strikten Strukturvergleich nachgewiesen.",
+      "research_procedure_hints": [],
+      "research_procedure_hint_scope": "Forschungsinterner Verfahrenshinweis, keine Gleichheit von Tonfolge/Bass/Dauer oder Arrangement."
+    },
+    {
+      "bh_id": "BH-R08",
+      "historical_canonical_id": "BH-R08",
+      "name": "Atmen (zwei Töne)",
+      "historical_line": 2466,
+      "equivalents": [],
+      "related": [],
+      "disposition": "Historisch erhalten, kein zusätzlicher Import. Kein vollständiges HE-Äquivalent durch den strikten Strukturvergleich nachgewiesen.",
+      "research_procedure_hints": [],
+      "research_procedure_hint_scope": "Forschungsinterner Verfahrenshinweis, keine Gleichheit von Tonfolge/Bass/Dauer oder Arrangement."
+    },
+    {
+      "bh_id": "BH-R09",
+      "historical_canonical_id": "BH-R09",
+      "name": "Spirale 3/4",
+      "historical_line": 2480,
+      "equivalents": [],
+      "related": [],
+      "disposition": "Historisch erhalten, kein zusätzlicher Import. Kein vollständiges HE-Äquivalent durch den strikten Strukturvergleich nachgewiesen.",
+      "research_procedure_hints": [],
+      "research_procedure_hint_scope": "Forschungsinterner Verfahrenshinweis, keine Gleichheit von Tonfolge/Bass/Dauer oder Arrangement."
+    },
+    {
+      "bh_id": "BH-R10",
+      "historical_canonical_id": "BH-R10",
+      "name": "Stringendo-Stau",
+      "historical_line": 2494,
+      "equivalents": [],
+      "related": [],
+      "disposition": "Historisch erhalten, kein zusätzlicher Import. Kein vollständiges HE-Äquivalent durch den strikten Strukturvergleich nachgewiesen.",
+      "research_procedure_hints": [],
+      "research_procedure_hint_scope": "Forschungsinterner Verfahrenshinweis, keine Gleichheit von Tonfolge/Bass/Dauer oder Arrangement."
+    },
+    {
+      "bh_id": "BH-R11",
+      "historical_canonical_id": "BH-R11",
+      "name": "Doppelsechzehntel-Wirbel",
+      "historical_line": 2508,
+      "equivalents": [],
+      "related": [],
+      "disposition": "Historisch erhalten, kein zusätzlicher Import. Kein vollständiges HE-Äquivalent durch den strikten Strukturvergleich nachgewiesen.",
+      "research_procedure_hints": [],
+      "research_procedure_hint_scope": "Forschungsinterner Verfahrenshinweis, keine Gleichheit von Tonfolge/Bass/Dauer oder Arrangement."
+    },
+    {
+      "bh_id": "BH-R12",
+      "historical_canonical_id": "BH-R12",
+      "name": "Schlag mit Echo",
+      "historical_line": 2522,
+      "equivalents": [],
+      "related": [],
+      "disposition": "Historisch erhalten, kein zusätzlicher Import. Kein vollständiges HE-Äquivalent durch den strikten Strukturvergleich nachgewiesen.",
+      "research_procedure_hints": [],
+      "research_procedure_hint_scope": "Forschungsinterner Verfahrenshinweis, keine Gleichheit von Tonfolge/Bass/Dauer oder Arrangement."
+    },
+    {
+      "bh_id": "BH-R13",
+      "historical_canonical_id": "BH-R13",
+      "name": "Ein-Schlag-Schock",
+      "historical_line": 2536,
+      "equivalents": [],
+      "related": [],
+      "disposition": "Historisch erhalten, kein zusätzlicher Import. Kein vollständiges HE-Äquivalent durch den strikten Strukturvergleich nachgewiesen.",
+      "research_procedure_hints": [],
+      "research_procedure_hint_scope": "Forschungsinterner Verfahrenshinweis, keine Gleichheit von Tonfolge/Bass/Dauer oder Arrangement."
+    },
+    {
+      "bh_id": "BH-R14",
+      "historical_canonical_id": "BH-R14",
+      "name": "Hemiole 3 gegen 4",
+      "historical_line": 2551,
+      "equivalents": [],
+      "related": [],
+      "disposition": "Historisch erhalten, kein zusätzlicher Import. Kein vollständiges HE-Äquivalent durch den strikten Strukturvergleich nachgewiesen.",
+      "research_procedure_hints": [],
+      "research_procedure_hint_scope": "Forschungsinterner Verfahrenshinweis, keine Gleichheit von Tonfolge/Bass/Dauer oder Arrangement."
+    },
+    {
+      "bh_id": "BH-R15",
+      "historical_canonical_id": "BH-R15",
+      "name": "Langsames Pulsieren",
+      "historical_line": 2565,
+      "equivalents": [],
+      "related": [],
+      "disposition": "Historisch erhalten, kein zusätzlicher Import. Kein vollständiges HE-Äquivalent durch den strikten Strukturvergleich nachgewiesen.",
+      "research_procedure_hints": [],
+      "research_procedure_hint_scope": "Forschungsinterner Verfahrenshinweis, keine Gleichheit von Tonfolge/Bass/Dauer oder Arrangement."
+    },
+    {
+      "bh_id": "BH-R16",
+      "historical_canonical_id": "BH-R16",
+      "name": "Schichtung (Fugato-Einsatz)",
+      "historical_line": 2579,
+      "equivalents": [],
+      "related": [],
+      "disposition": "Historisch erhalten, kein zusätzlicher Import. Kein vollständiges HE-Äquivalent durch den strikten Strukturvergleich nachgewiesen.",
+      "research_procedure_hints": [],
+      "research_procedure_hint_scope": "Forschungsinterner Verfahrenshinweis, keine Gleichheit von Tonfolge/Bass/Dauer oder Arrangement."
+    },
+    {
+      "bh_id": "BH-R17",
+      "historical_canonical_id": "BH-R17",
+      "name": "Blockwechsel A-A-B-A",
+      "historical_line": 2595,
+      "equivalents": [],
+      "related": [],
+      "disposition": "Historisch erhalten, kein zusätzlicher Import. Kein vollständiges HE-Äquivalent durch den strikten Strukturvergleich nachgewiesen.",
+      "research_procedure_hints": [],
+      "research_procedure_hint_scope": "Forschungsinterner Verfahrenshinweis, keine Gleichheit von Tonfolge/Bass/Dauer oder Arrangement."
+    },
+    {
+      "bh_id": "BH-R18",
+      "historical_canonical_id": "BH-R18",
+      "name": "Ausdünnung",
+      "historical_line": 2609,
+      "equivalents": [],
+      "related": [],
+      "disposition": "Historisch erhalten, kein zusätzlicher Import. Kein vollständiges HE-Äquivalent durch den strikten Strukturvergleich nachgewiesen.",
+      "research_procedure_hints": [],
+      "research_procedure_hint_scope": "Forschungsinterner Verfahrenshinweis, keine Gleichheit von Tonfolge/Bass/Dauer oder Arrangement."
+    },
+    {
+      "bh_id": "BH-R19",
+      "historical_canonical_id": "JB-R21",
+      "name": "Flirren / Schimmer (gleichmäßiger Achtel-Teppich)",
+      "historical_line": 2331,
+      "equivalents": [],
+      "related": [
+        {
+          "he_id": "HE-R01",
+          "scope": "Identische einzelne Rasterzeile; Meter, Rolle, Tonregel und weiterer Verlauf NICHT dadurch gleich."
+        },
+        {
+          "he_id": "HE-R33",
+          "scope": "Identische einzelne Rasterzeile; Meter, Rolle, Tonregel und weiterer Verlauf NICHT dadurch gleich."
+        },
+        {
+          "he_id": "HE-R47",
+          "scope": "Identische einzelne Rasterzeile; Meter, Rolle, Tonregel und weiterer Verlauf NICHT dadurch gleich."
+        }
+      ],
+      "disposition": "Historisch erhalten, kein zusätzlicher Import. Kein vollständiges HE-Äquivalent durch den strikten Strukturvergleich nachgewiesen.",
+      "research_procedure_hints": [],
+      "research_procedure_hint_scope": "Forschungsinterner Verfahrenshinweis, keine Gleichheit von Tonfolge/Bass/Dauer oder Arrangement."
+    },
+    {
+      "bh_id": "BH-R20",
+      "historical_canonical_id": "JB-R22",
+      "name": "Wucht-Viertel",
+      "historical_line": 2347,
+      "equivalents": [],
+      "related": [],
+      "disposition": "Historisch erhalten, kein zusätzlicher Import. Kein vollständiges HE-Äquivalent durch den strikten Strukturvergleich nachgewiesen.",
+      "research_procedure_hints": [],
+      "research_procedure_hint_scope": "Forschungsinterner Verfahrenshinweis, keine Gleichheit von Tonfolge/Bass/Dauer oder Arrangement."
+    },
+    {
+      "bh_id": "BH-R21",
+      "historical_canonical_id": "JB-R21",
+      "name": "Flirren / Schimmer (gleichmäßiger Achtel-Teppich)",
+      "historical_line": 2331,
+      "equivalents": [],
+      "related": [
+        {
+          "he_id": "HE-R01",
+          "scope": "Identische einzelne Rasterzeile; Meter, Rolle, Tonregel und weiterer Verlauf NICHT dadurch gleich."
+        },
+        {
+          "he_id": "HE-R33",
+          "scope": "Identische einzelne Rasterzeile; Meter, Rolle, Tonregel und weiterer Verlauf NICHT dadurch gleich."
+        },
+        {
+          "he_id": "HE-R47",
+          "scope": "Identische einzelne Rasterzeile; Meter, Rolle, Tonregel und weiterer Verlauf NICHT dadurch gleich."
+        }
+      ],
+      "disposition": "Historisch erhalten, kein zusätzlicher Import. Kein vollständiges HE-Äquivalent durch den strikten Strukturvergleich nachgewiesen.",
+      "research_procedure_hints": [],
+      "research_procedure_hint_scope": "Forschungsinterner Verfahrenshinweis, keine Gleichheit von Tonfolge/Bass/Dauer oder Arrangement."
+    },
+    {
+      "bh_id": "BH-R22",
+      "historical_canonical_id": "JB-R24",
+      "name": "Triumph-Marsch",
+      "historical_line": 2363,
+      "equivalents": [],
+      "related": [],
+      "disposition": "Historisch erhalten, kein zusätzlicher Import. Kein vollständiges HE-Äquivalent durch den strikten Strukturvergleich nachgewiesen.",
+      "research_procedure_hints": [],
+      "research_procedure_hint_scope": "Forschungsinterner Verfahrenshinweis, keine Gleichheit von Tonfolge/Bass/Dauer oder Arrangement."
+    },
+    {
+      "bh_id": "BH-R23",
+      "historical_canonical_id": "JB-R25",
+      "name": "Helle Hetzjagd",
+      "historical_line": 2379,
+      "equivalents": [],
+      "related": [],
+      "disposition": "Historisch erhalten, kein zusätzlicher Import. Kein vollständiges HE-Äquivalent durch den strikten Strukturvergleich nachgewiesen.",
+      "research_procedure_hints": [],
+      "research_procedure_hint_scope": "Forschungsinterner Verfahrenshinweis, keine Gleichheit von Tonfolge/Bass/Dauer oder Arrangement."
+    },
+    {
+      "bh_id": "BH-R24",
+      "historical_canonical_id": "BH-R24",
+      "name": "Harfen-Wiege",
+      "historical_line": 2623,
+      "equivalents": [],
+      "related": [],
+      "disposition": "Historisch erhalten, kein zusätzlicher Import. Kein vollständiges HE-Äquivalent durch den strikten Strukturvergleich nachgewiesen.",
+      "research_procedure_hints": [],
+      "research_procedure_hint_scope": "Forschungsinterner Verfahrenshinweis, keine Gleichheit von Tonfolge/Bass/Dauer oder Arrangement."
+    }
+  ]
+}

@@ -1,0 +1,2530 @@
+{
+  "engine_commit": "023b0a61c08797d72a746a44f9bffaa58e31b048",
+  "archived_files": {
+    "STROMSCORE_Bernard_Herrmann_Vokabular_Kanonisch.md": {
+      "bytes": 425328,
+      "sha256": "e44362747523c5f81a540dbf541e1e60bd37e98634e20857fbeb61f657cfeb4a"
+    },
+    "HE_Studien_Ereignisse.csv": {
+      "bytes": 143121,
+      "sha256": "97f776d0b13844521dd7b0fedd84b3c6cf7541ee397eaf654f50b020da6b7370"
+    },
+    "HE_Studien_MIDI.zip": {
+      "bytes": 19435,
+      "sha256": "aa1081b43fb41fafe3fcc799324dce93baea5fbaafdb789640da7951140de1ff"
+    },
+    "HE_Qualitaetspruefung.md": {
+      "bytes": 13349,
+      "sha256": "4e258bd8b6c6d801c07299968e75173502cf3cb59853c96c34bf87d440753083"
+    }
+  },
+  "counts": {
+    "H": 101,
+    "R": 66,
+    "B": 45,
+    "M": 57,
+    "P": 21,
+    "S": 40,
+    "T": 13
+  },
+  "classification_counts": {
+    "D": 34,
+    "K": 7,
+    "E": 230,
+    "A": 72
+  },
+  "catalog_templates": 181,
+  "chord_types": 27,
+  "missing_symbols": {
+    "Abit6": [
+      "HE-H31"
+    ],
+    "Bb7b5": [
+      "HE-H70"
+    ],
+    "Bm\\|Cm": [
+      "HE-H53",
+      "HE-H60",
+      "HE-H61",
+      "HE-H62"
+    ],
+    "Bm\\|Fm": [
+      "HE-H59"
+    ],
+    "C#m\\|Dm": [
+      "HE-H61"
+    ],
+    "C7b5": [
+      "HE-H29"
+    ],
+    "C9#5": [
+      "HE-H49",
+      "HE-H50",
+      "HE-H90"
+    ],
+    "Cadd#4": [
+      "HE-H77"
+    ],
+    "CdimM7": [
+      "HE-H84"
+    ],
+    "Cm(addb9)": [
+      "HE-H83"
+    ],
+    "CmM7b6": [
+      "HE-H12"
+    ],
+    "Cm\\|C#m": [
+      "HE-H61"
+    ],
+    "Db9#5": [
+      "HE-H50"
+    ],
+    "Db\\|C": [
+      "HE-H99"
+    ],
+    "Dbm\\|Cm": [
+      "HE-H54"
+    ],
+    "Dm\\|Ebm": [
+      "HE-H61"
+    ],
+    "E\\|C": [
+      "HE-H58",
+      "HE-H92"
+    ],
+    "Ebm\\|Am": [
+      "HE-H63"
+    ],
+    "Ebm\\|Em": [
+      "HE-H61"
+    ],
+    "Em\\|Fm": [
+      "HE-H61"
+    ],
+    "Em\\|{Ab C}": [
+      "HE-H55"
+    ],
+    "F#7b5": [
+      "HE-H26",
+      "HE-H27"
+    ],
+    "F#7b5/C": [
+      "HE-H44"
+    ],
+    "F#\\|C": [
+      "HE-H57",
+      "HE-H89"
+    ],
+    "F#m\\|Cm": [
+      "HE-H51",
+      "HE-H52"
+    ],
+    "F#m\\|Gm": [
+      "HE-H61"
+    ],
+    "Fm\\|F#m": [
+      "HE-H61"
+    ],
+    "Fm\\|{A Db}": [
+      "HE-H55"
+    ],
+    "{Ab Bb C D E}": [
+      "HE-H47"
+    ],
+    "{Ab G F# F}": [
+      "HE-H71"
+    ],
+    "{B C Db D}": [
+      "HE-H74"
+    ],
+    "{B C Db}": [
+      "HE-H74"
+    ],
+    "{B Db D Bb}": [
+      "HE-H34"
+    ],
+    "{B D}\\|{C Eb}": [
+      "HE-H62"
+    ],
+    "{B E A D#}": [
+      "HE-H101"
+    ],
+    "{Bb B C Db D}": [
+      "HE-H74"
+    ],
+    "{Bb C Db A}": [
+      "HE-H34"
+    ],
+    "{Bb Eb Ab D}": [
+      "HE-H101"
+    ],
+    "{C D Eb B}": [
+      "HE-H34"
+    ],
+    "{C Db D}": [
+      "HE-H73"
+    ],
+    "{C Db Eb E}": [
+      "HE-H95"
+    ],
+    "{C Db}": [
+      "HE-H74"
+    ],
+    "{C E Db F}": [
+      "HE-H75"
+    ],
+    "{C F# F B}": [
+      "HE-H72"
+    ],
+    "{C G Ab}": [
+      "HE-H81"
+    ],
+    "{C G D F#}": [
+      "HE-H97"
+    ],
+    "{D E F Db}": [
+      "HE-H34"
+    ],
+    "{Db Eb E C}": [
+      "HE-H34"
+    ]
+  },
+  "source_structure_findings": [],
+  "missing_references": [],
+  "midi": {
+    "files": 53,
+    "notes": 5328,
+    "ppq": 960,
+    "csv_equal": true,
+    "note_errors": [],
+    "fixed_stich_36": true,
+    "studies": {
+      "HE-S01": {
+        "notes": 20,
+        "end_tick": 30720,
+        "roles": {
+          "LB": {
+            "notes": 4,
+            "polyphony": 1,
+            "max_duration_ticks": 7680,
+            "pitch_min": 36,
+            "pitch_max": 36,
+            "channels": [
+              3
+            ]
+          },
+          "LF": {
+            "notes": 12,
+            "polyphony": 3,
+            "max_duration_ticks": 7680,
+            "pitch_min": 60,
+            "pitch_max": 67,
+            "channels": [
+              1
+            ]
+          },
+          "TU": {
+            "notes": 4,
+            "polyphony": 1,
+            "max_duration_ticks": 240,
+            "pitch_min": 84,
+            "pitch_max": 95,
+            "channels": [
+              6
+            ]
+          }
+        }
+      },
+      "HE-S02": {
+        "notes": 20,
+        "end_tick": 24960,
+        "roles": {
+          "KB": {
+            "notes": 4,
+            "polyphony": 1,
+            "max_duration_ticks": 1920,
+            "pitch_min": 36,
+            "pitch_max": 36,
+            "channels": [
+              4
+            ]
+          },
+          "KF": {
+            "notes": 12,
+            "polyphony": 3,
+            "max_duration_ticks": 1920,
+            "pitch_min": 60,
+            "pitch_max": 67,
+            "channels": [
+              2
+            ]
+          },
+          "TU": {
+            "notes": 4,
+            "polyphony": 1,
+            "max_duration_ticks": 1920,
+            "pitch_min": 72,
+            "pitch_max": 83,
+            "channels": [
+              6
+            ]
+          }
+        }
+      },
+      "HE-S03": {
+        "notes": 37,
+        "end_tick": 30720,
+        "roles": {
+          "LB": {
+            "notes": 4,
+            "polyphony": 1,
+            "max_duration_ticks": 7680,
+            "pitch_min": 30,
+            "pitch_max": 30,
+            "channels": [
+              3
+            ]
+          },
+          "LF": {
+            "notes": 12,
+            "polyphony": 3,
+            "max_duration_ticks": 7680,
+            "pitch_min": 60,
+            "pitch_max": 67,
+            "channels": [
+              1
+            ]
+          },
+          "TU": {
+            "notes": 21,
+            "polyphony": 1,
+            "max_duration_ticks": 240,
+            "pitch_min": 88,
+            "pitch_max": 88,
+            "channels": [
+              6
+            ]
+          }
+        }
+      },
+      "HE-S04": {
+        "notes": 156,
+        "end_tick": 30720,
+        "roles": {
+          "KF": {
+            "notes": 144,
+            "polyphony": 3,
+            "max_duration_ticks": 960,
+            "pitch_min": 60,
+            "pitch_max": 72,
+            "channels": [
+              2
+            ]
+          },
+          "LB": {
+            "notes": 4,
+            "polyphony": 1,
+            "max_duration_ticks": 7680,
+            "pitch_min": 40,
+            "pitch_max": 40,
+            "channels": [
+              3
+            ]
+          },
+          "TU": {
+            "notes": 8,
+            "polyphony": 1,
+            "max_duration_ticks": 240,
+            "pitch_min": 76,
+            "pitch_max": 76,
+            "channels": [
+              6
+            ]
+          }
+        }
+      },
+      "HE-S05": {
+        "notes": 22,
+        "end_tick": 30720,
+        "roles": {
+          "GS": {
+            "notes": 5,
+            "polyphony": 1,
+            "max_duration_ticks": 3840,
+            "pitch_min": 71,
+            "pitch_max": 75,
+            "channels": [
+              8
+            ]
+          },
+          "LB": {
+            "notes": 8,
+            "polyphony": 1,
+            "max_duration_ticks": 3840,
+            "pitch_min": 31,
+            "pitch_max": 36,
+            "channels": [
+              3
+            ]
+          },
+          "LF": {
+            "notes": 8,
+            "polyphony": 2,
+            "max_duration_ticks": 7680,
+            "pitch_min": 60,
+            "pitch_max": 63,
+            "channels": [
+              1
+            ]
+          },
+          "TU": {
+            "notes": 1,
+            "polyphony": 1,
+            "max_duration_ticks": 240,
+            "pitch_min": 95,
+            "pitch_max": 95,
+            "channels": [
+              6
+            ]
+          }
+        }
+      },
+      "HE-S06": {
+        "notes": 24,
+        "end_tick": 30720,
+        "roles": {
+          "AR": {
+            "notes": 12,
+            "polyphony": 1,
+            "max_duration_ticks": 960,
+            "pitch_min": 78,
+            "pitch_max": 85,
+            "channels": [
+              5
+            ]
+          },
+          "LF": {
+            "notes": 12,
+            "polyphony": 3,
+            "max_duration_ticks": 7680,
+            "pitch_min": 48,
+            "pitch_max": 55,
+            "channels": [
+              1
+            ]
+          }
+        }
+      },
+      "HE-S07": {
+        "notes": 24,
+        "end_tick": 24960,
+        "roles": {
+          "KF": {
+            "notes": 12,
+            "polyphony": 3,
+            "max_duration_ticks": 1920,
+            "pitch_min": 66,
+            "pitch_max": 73,
+            "channels": [
+              2
+            ]
+          },
+          "LF": {
+            "notes": 12,
+            "polyphony": 3,
+            "max_duration_ticks": 1920,
+            "pitch_min": 60,
+            "pitch_max": 67,
+            "channels": [
+              1
+            ]
+          }
+        }
+      },
+      "HE-S08": {
+        "notes": 70,
+        "end_tick": 30720,
+        "roles": {
+          "KF": {
+            "notes": 60,
+            "polyphony": 3,
+            "max_duration_ticks": 240,
+            "pitch_min": 64,
+            "pitch_max": 73,
+            "channels": [
+              2
+            ]
+          },
+          "LF": {
+            "notes": 10,
+            "polyphony": 3,
+            "max_duration_ticks": 7680,
+            "pitch_min": 44,
+            "pitch_max": 60,
+            "channels": [
+              1
+            ]
+          }
+        }
+      },
+      "HE-S09": {
+        "notes": 21,
+        "end_tick": 30720,
+        "roles": {
+          "LB": {
+            "notes": 8,
+            "polyphony": 2,
+            "max_duration_ticks": 7680,
+            "pitch_min": 24,
+            "pitch_max": 36,
+            "channels": [
+              3
+            ]
+          },
+          "LF": {
+            "notes": 9,
+            "polyphony": 3,
+            "max_duration_ticks": 6720,
+            "pitch_min": 54,
+            "pitch_max": 61,
+            "channels": [
+              1
+            ]
+          },
+          "TU": {
+            "notes": 4,
+            "polyphony": 1,
+            "max_duration_ticks": 7680,
+            "pitch_min": 84,
+            "pitch_max": 84,
+            "channels": [
+              6
+            ]
+          }
+        }
+      },
+      "HE-S10": {
+        "notes": 180,
+        "end_tick": 30720,
+        "roles": {
+          "AR": {
+            "notes": 96,
+            "polyphony": 1,
+            "max_duration_ticks": 320,
+            "pitch_min": 72,
+            "pitch_max": 94,
+            "channels": [
+              5
+            ]
+          },
+          "LF": {
+            "notes": 12,
+            "polyphony": 3,
+            "max_duration_ticks": 7680,
+            "pitch_min": 72,
+            "pitch_max": 82,
+            "channels": [
+              1
+            ]
+          },
+          "TU": {
+            "notes": 72,
+            "polyphony": 1,
+            "max_duration_ticks": 320,
+            "pitch_min": 84,
+            "pitch_max": 106,
+            "channels": [
+              6
+            ]
+          }
+        }
+      },
+      "HE-S11": {
+        "notes": 83,
+        "end_tick": 30480,
+        "roles": {
+          "AR": {
+            "notes": 64,
+            "polyphony": 1,
+            "max_duration_ticks": 240,
+            "pitch_min": 72,
+            "pitch_max": 83,
+            "channels": [
+              5
+            ]
+          },
+          "GS": {
+            "notes": 18,
+            "polyphony": 1,
+            "max_duration_ticks": 960,
+            "pitch_min": 72,
+            "pitch_max": 80,
+            "channels": [
+              8
+            ]
+          },
+          "KB": {
+            "notes": 1,
+            "polyphony": 1,
+            "max_duration_ticks": 240,
+            "pitch_min": 24,
+            "pitch_max": 24,
+            "channels": [
+              4
+            ]
+          }
+        }
+      },
+      "HE-S12": {
+        "notes": 48,
+        "end_tick": 30720,
+        "roles": {
+          "AR": {
+            "notes": 32,
+            "polyphony": 1,
+            "max_duration_ticks": 240,
+            "pitch_min": 68,
+            "pitch_max": 95,
+            "channels": [
+              5
+            ]
+          },
+          "LB": {
+            "notes": 4,
+            "polyphony": 1,
+            "max_duration_ticks": 7680,
+            "pitch_min": 24,
+            "pitch_max": 32,
+            "channels": [
+              3
+            ]
+          },
+          "LF": {
+            "notes": 12,
+            "polyphony": 3,
+            "max_duration_ticks": 7680,
+            "pitch_min": 56,
+            "pitch_max": 95,
+            "channels": [
+              1
+            ]
+          }
+        }
+      },
+      "HE-S13": {
+        "notes": 297,
+        "end_tick": 22800,
+        "roles": {
+          "KB": {
+            "notes": 8,
+            "polyphony": 1,
+            "max_duration_ticks": 240,
+            "pitch_min": 36,
+            "pitch_max": 36,
+            "channels": [
+              4
+            ]
+          },
+          "KF": {
+            "notes": 288,
+            "polyphony": 6,
+            "max_duration_ticks": 240,
+            "pitch_min": 60,
+            "pitch_max": 83,
+            "channels": [
+              2
+            ]
+          },
+          "ST": {
+            "notes": 1,
+            "polyphony": 1,
+            "max_duration_ticks": 240,
+            "pitch_min": 36,
+            "pitch_max": 36,
+            "channels": [
+              7
+            ]
+          }
+        }
+      },
+      "HE-S14": {
+        "notes": 48,
+        "end_tick": 30720,
+        "roles": {
+          "KB": {
+            "notes": 32,
+            "polyphony": 1,
+            "max_duration_ticks": 240,
+            "pitch_min": 36,
+            "pitch_max": 43,
+            "channels": [
+              4
+            ]
+          },
+          "LB": {
+            "notes": 4,
+            "polyphony": 1,
+            "max_duration_ticks": 7680,
+            "pitch_min": 24,
+            "pitch_max": 30,
+            "channels": [
+              3
+            ]
+          },
+          "LF": {
+            "notes": 12,
+            "polyphony": 3,
+            "max_duration_ticks": 7680,
+            "pitch_min": 48,
+            "pitch_max": 61,
+            "channels": [
+              1
+            ]
+          }
+        }
+      },
+      "HE-S15": {
+        "notes": 218,
+        "end_tick": 30480,
+        "roles": {
+          "AR": {
+            "notes": 1,
+            "polyphony": 1,
+            "max_duration_ticks": 5280,
+            "pitch_min": 78,
+            "pitch_max": 78,
+            "channels": [
+              5
+            ]
+          },
+          "KB": {
+            "notes": 22,
+            "polyphony": 1,
+            "max_duration_ticks": 4320,
+            "pitch_min": 24,
+            "pitch_max": 56,
+            "channels": [
+              4
+            ]
+          },
+          "KF": {
+            "notes": 193,
+            "polyphony": 4,
+            "max_duration_ticks": 4800,
+            "pitch_min": 60,
+            "pitch_max": 83,
+            "channels": [
+              2
+            ]
+          },
+          "ST": {
+            "notes": 1,
+            "polyphony": 1,
+            "max_duration_ticks": 240,
+            "pitch_min": 36,
+            "pitch_max": 36,
+            "channels": [
+              7
+            ]
+          },
+          "TU": {
+            "notes": 1,
+            "polyphony": 1,
+            "max_duration_ticks": 5760,
+            "pitch_min": 89,
+            "pitch_max": 89,
+            "channels": [
+              6
+            ]
+          }
+        }
+      },
+      "HE-S16": {
+        "notes": 34,
+        "end_tick": 30720,
+        "roles": {
+          "GS": {
+            "notes": 15,
+            "polyphony": 1,
+            "max_duration_ticks": 3840,
+            "pitch_min": 59,
+            "pitch_max": 68,
+            "channels": [
+              8
+            ]
+          },
+          "LB": {
+            "notes": 4,
+            "polyphony": 1,
+            "max_duration_ticks": 7680,
+            "pitch_min": 36,
+            "pitch_max": 44,
+            "channels": [
+              3
+            ]
+          },
+          "LF": {
+            "notes": 15,
+            "polyphony": 4,
+            "max_duration_ticks": 7680,
+            "pitch_min": 53,
+            "pitch_max": 71,
+            "channels": [
+              1
+            ]
+          }
+        }
+      },
+      "HE-S17": {
+        "notes": 156,
+        "end_tick": 30240,
+        "roles": {
+          "KB": {
+            "notes": 16,
+            "polyphony": 1,
+            "max_duration_ticks": 240,
+            "pitch_min": 36,
+            "pitch_max": 37,
+            "channels": [
+              4
+            ]
+          },
+          "KF": {
+            "notes": 132,
+            "polyphony": 3,
+            "max_duration_ticks": 240,
+            "pitch_min": 60,
+            "pitch_max": 68,
+            "channels": [
+              2
+            ]
+          },
+          "TU": {
+            "notes": 8,
+            "polyphony": 1,
+            "max_duration_ticks": 240,
+            "pitch_min": 85,
+            "pitch_max": 95,
+            "channels": [
+              6
+            ]
+          }
+        }
+      },
+      "HE-S18": {
+        "notes": 58,
+        "end_tick": 30720,
+        "roles": {
+          "AR": {
+            "notes": 32,
+            "polyphony": 1,
+            "max_duration_ticks": 240,
+            "pitch_min": 72,
+            "pitch_max": 93,
+            "channels": [
+              5
+            ]
+          },
+          "LB": {
+            "notes": 4,
+            "polyphony": 1,
+            "max_duration_ticks": 7680,
+            "pitch_min": 56,
+            "pitch_max": 56,
+            "channels": [
+              3
+            ]
+          },
+          "LF": {
+            "notes": 20,
+            "polyphony": 5,
+            "max_duration_ticks": 7680,
+            "pitch_min": 60,
+            "pitch_max": 71,
+            "channels": [
+              1
+            ]
+          },
+          "TU": {
+            "notes": 2,
+            "polyphony": 1,
+            "max_duration_ticks": 1440,
+            "pitch_min": 90,
+            "pitch_max": 90,
+            "channels": [
+              6
+            ]
+          }
+        }
+      },
+      "HE-S19": {
+        "notes": 112,
+        "end_tick": 30720,
+        "roles": {
+          "AR": {
+            "notes": 64,
+            "polyphony": 1,
+            "max_duration_ticks": 240,
+            "pitch_min": 55,
+            "pitch_max": 55,
+            "channels": [
+              5
+            ]
+          },
+          "LB": {
+            "notes": 4,
+            "polyphony": 1,
+            "max_duration_ticks": 7680,
+            "pitch_min": 36,
+            "pitch_max": 44,
+            "channels": [
+              3
+            ]
+          },
+          "LF": {
+            "notes": 12,
+            "polyphony": 3,
+            "max_duration_ticks": 7680,
+            "pitch_min": 51,
+            "pitch_max": 68,
+            "channels": [
+              1
+            ]
+          },
+          "TU": {
+            "notes": 32,
+            "polyphony": 1,
+            "max_duration_ticks": 240,
+            "pitch_min": 79,
+            "pitch_max": 79,
+            "channels": [
+              6
+            ]
+          }
+        }
+      },
+      "HE-S20": {
+        "notes": 132,
+        "end_tick": 30000,
+        "roles": {
+          "KF": {
+            "notes": 128,
+            "polyphony": 4,
+            "max_duration_ticks": 240,
+            "pitch_min": 60,
+            "pitch_max": 81,
+            "channels": [
+              2
+            ]
+          },
+          "TU": {
+            "notes": 4,
+            "polyphony": 1,
+            "max_duration_ticks": 480,
+            "pitch_min": 81,
+            "pitch_max": 93,
+            "channels": [
+              6
+            ]
+          }
+        }
+      },
+      "HE-S21": {
+        "notes": 227,
+        "end_tick": 61440,
+        "roles": {
+          "GS": {
+            "notes": 72,
+            "polyphony": 1,
+            "max_duration_ticks": 1920,
+            "pitch_min": 49,
+            "pitch_max": 67,
+            "channels": [
+              8
+            ]
+          },
+          "HM": {
+            "notes": 35,
+            "polyphony": 1,
+            "max_duration_ticks": 1920,
+            "pitch_min": 54,
+            "pitch_max": 79,
+            "channels": [
+              9
+            ]
+          },
+          "KB": {
+            "notes": 96,
+            "polyphony": 1,
+            "max_duration_ticks": 1920,
+            "pitch_min": 30,
+            "pitch_max": 48,
+            "channels": [
+              4
+            ]
+          },
+          "LB": {
+            "notes": 4,
+            "polyphony": 1,
+            "max_duration_ticks": 7680,
+            "pitch_min": 24,
+            "pitch_max": 24,
+            "channels": [
+              3
+            ]
+          },
+          "TU": {
+            "notes": 20,
+            "polyphony": 1,
+            "max_duration_ticks": 480,
+            "pitch_min": 78,
+            "pitch_max": 80,
+            "channels": [
+              6
+            ]
+          }
+        }
+      },
+      "HE-S22": {
+        "notes": 104,
+        "end_tick": 61440,
+        "roles": {
+          "KF": {
+            "notes": 48,
+            "polyphony": 3,
+            "max_duration_ticks": 1920,
+            "pitch_min": 47,
+            "pitch_max": 90,
+            "channels": [
+              2
+            ]
+          },
+          "LB": {
+            "notes": 8,
+            "polyphony": 1,
+            "max_duration_ticks": 7680,
+            "pitch_min": 36,
+            "pitch_max": 36,
+            "channels": [
+              3
+            ]
+          },
+          "LF": {
+            "notes": 48,
+            "polyphony": 3,
+            "max_duration_ticks": 3840,
+            "pitch_min": 48,
+            "pitch_max": 55,
+            "channels": [
+              1
+            ]
+          }
+        }
+      },
+      "HE-S23": {
+        "notes": 271,
+        "end_tick": 61440,
+        "roles": {
+          "KB": {
+            "notes": 28,
+            "polyphony": 1,
+            "max_duration_ticks": 240,
+            "pitch_min": 24,
+            "pitch_max": 39,
+            "channels": [
+              4
+            ]
+          },
+          "KF": {
+            "notes": 192,
+            "polyphony": 3,
+            "max_duration_ticks": 960,
+            "pitch_min": 49,
+            "pitch_max": 90,
+            "channels": [
+              2
+            ]
+          },
+          "LF": {
+            "notes": 48,
+            "polyphony": 3,
+            "max_duration_ticks": 3840,
+            "pitch_min": 48,
+            "pitch_max": 58,
+            "channels": [
+              1
+            ]
+          },
+          "ST": {
+            "notes": 1,
+            "polyphony": 1,
+            "max_duration_ticks": 240,
+            "pitch_min": 36,
+            "pitch_max": 36,
+            "channels": [
+              7
+            ]
+          },
+          "TU": {
+            "notes": 2,
+            "polyphony": 1,
+            "max_duration_ticks": 240,
+            "pitch_min": 98,
+            "pitch_max": 102,
+            "channels": [
+              6
+            ]
+          }
+        }
+      },
+      "HE-S24": {
+        "notes": 192,
+        "end_tick": 61440,
+        "roles": {
+          "AR": {
+            "notes": 88,
+            "polyphony": 1,
+            "max_duration_ticks": 240,
+            "pitch_min": 60,
+            "pitch_max": 80,
+            "channels": [
+              5
+            ]
+          },
+          "KB": {
+            "notes": 4,
+            "polyphony": 1,
+            "max_duration_ticks": 240,
+            "pitch_min": 43,
+            "pitch_max": 43,
+            "channels": [
+              4
+            ]
+          },
+          "KF": {
+            "notes": 92,
+            "polyphony": 4,
+            "max_duration_ticks": 720,
+            "pitch_min": 60,
+            "pitch_max": 74,
+            "channels": [
+              2
+            ]
+          },
+          "LB": {
+            "notes": 8,
+            "polyphony": 1,
+            "max_duration_ticks": 7680,
+            "pitch_min": 36,
+            "pitch_max": 36,
+            "channels": [
+              3
+            ]
+          }
+        }
+      },
+      "HE-S25": {
+        "notes": 450,
+        "end_tick": 122880,
+        "roles": {
+          "AR": {
+            "notes": 48,
+            "polyphony": 1,
+            "max_duration_ticks": 960,
+            "pitch_min": 72,
+            "pitch_max": 84,
+            "channels": [
+              5
+            ]
+          },
+          "GS": {
+            "notes": 10,
+            "polyphony": 1,
+            "max_duration_ticks": 1440,
+            "pitch_min": 64,
+            "pitch_max": 67,
+            "channels": [
+              8
+            ]
+          },
+          "KB": {
+            "notes": 48,
+            "polyphony": 1,
+            "max_duration_ticks": 240,
+            "pitch_min": 36,
+            "pitch_max": 43,
+            "channels": [
+              4
+            ]
+          },
+          "KF": {
+            "notes": 288,
+            "polyphony": 3,
+            "max_duration_ticks": 960,
+            "pitch_min": 60,
+            "pitch_max": 72,
+            "channels": [
+              2
+            ]
+          },
+          "LB": {
+            "notes": 16,
+            "polyphony": 1,
+            "max_duration_ticks": 7680,
+            "pitch_min": 40,
+            "pitch_max": 40,
+            "channels": [
+              3
+            ]
+          },
+          "LF": {
+            "notes": 24,
+            "polyphony": 3,
+            "max_duration_ticks": 7680,
+            "pitch_min": 60,
+            "pitch_max": 72,
+            "channels": [
+              1
+            ]
+          },
+          "TU": {
+            "notes": 16,
+            "polyphony": 1,
+            "max_duration_ticks": 240,
+            "pitch_min": 76,
+            "pitch_max": 76,
+            "channels": [
+              6
+            ]
+          }
+        }
+      },
+      "HE-S26": {
+        "notes": 81,
+        "end_tick": 122880,
+        "roles": {
+          "LB": {
+            "notes": 16,
+            "polyphony": 1,
+            "max_duration_ticks": 7680,
+            "pitch_min": 25,
+            "pitch_max": 36,
+            "channels": [
+              3
+            ]
+          },
+          "LF": {
+            "notes": 48,
+            "polyphony": 3,
+            "max_duration_ticks": 7680,
+            "pitch_min": 60,
+            "pitch_max": 67,
+            "channels": [
+              1
+            ]
+          },
+          "TU": {
+            "notes": 17,
+            "polyphony": 1,
+            "max_duration_ticks": 3600,
+            "pitch_min": 66,
+            "pitch_max": 87,
+            "channels": [
+              6
+            ]
+          }
+        }
+      },
+      "HE-S27": {
+        "notes": 96,
+        "end_tick": 59520,
+        "roles": {
+          "KF": {
+            "notes": 48,
+            "polyphony": 3,
+            "max_duration_ticks": 3840,
+            "pitch_min": 47,
+            "pitch_max": 90,
+            "channels": [
+              2
+            ]
+          },
+          "LF": {
+            "notes": 48,
+            "polyphony": 3,
+            "max_duration_ticks": 3840,
+            "pitch_min": 48,
+            "pitch_max": 55,
+            "channels": [
+              1
+            ]
+          }
+        }
+      },
+      "HE-S28": {
+        "notes": 46,
+        "end_tick": 30720,
+        "roles": {
+          "KB": {
+            "notes": 6,
+            "polyphony": 1,
+            "max_duration_ticks": 240,
+            "pitch_min": 36,
+            "pitch_max": 44,
+            "channels": [
+              4
+            ]
+          },
+          "KF": {
+            "notes": 28,
+            "polyphony": 4,
+            "max_duration_ticks": 240,
+            "pitch_min": 60,
+            "pitch_max": 75,
+            "channels": [
+              2
+            ]
+          },
+          "LF": {
+            "notes": 12,
+            "polyphony": 3,
+            "max_duration_ticks": 7680,
+            "pitch_min": 48,
+            "pitch_max": 63,
+            "channels": [
+              1
+            ]
+          }
+        }
+      },
+      "HE-S29": {
+        "notes": 42,
+        "end_tick": 30720,
+        "roles": {
+          "LB": {
+            "notes": 4,
+            "polyphony": 1,
+            "max_duration_ticks": 7680,
+            "pitch_min": 36,
+            "pitch_max": 36,
+            "channels": [
+              3
+            ]
+          },
+          "LF": {
+            "notes": 22,
+            "polyphony": 3,
+            "max_duration_ticks": 4800,
+            "pitch_min": 56,
+            "pitch_max": 76,
+            "channels": [
+              1
+            ]
+          },
+          "TU": {
+            "notes": 16,
+            "polyphony": 1,
+            "max_duration_ticks": 960,
+            "pitch_min": 74,
+            "pitch_max": 85,
+            "channels": [
+              6
+            ]
+          }
+        }
+      },
+      "HE-S30": {
+        "notes": 41,
+        "end_tick": 30720,
+        "roles": {
+          "GS": {
+            "notes": 7,
+            "polyphony": 1,
+            "max_duration_ticks": 3840,
+            "pitch_min": 55,
+            "pitch_max": 63,
+            "channels": [
+              8
+            ]
+          },
+          "HM": {
+            "notes": 15,
+            "polyphony": 1,
+            "max_duration_ticks": 3840,
+            "pitch_min": 62,
+            "pitch_max": 72,
+            "channels": [
+              9
+            ]
+          },
+          "LB": {
+            "notes": 4,
+            "polyphony": 1,
+            "max_duration_ticks": 7680,
+            "pitch_min": 36,
+            "pitch_max": 44,
+            "channels": [
+              3
+            ]
+          },
+          "LF": {
+            "notes": 15,
+            "polyphony": 4,
+            "max_duration_ticks": 7680,
+            "pitch_min": 53,
+            "pitch_max": 71,
+            "channels": [
+              1
+            ]
+          }
+        }
+      },
+      "HE-S31": {
+        "notes": 38,
+        "end_tick": 30720,
+        "roles": {
+          "LF": {
+            "notes": 36,
+            "polyphony": 3,
+            "max_duration_ticks": 1920,
+            "pitch_min": 48,
+            "pitch_max": 56,
+            "channels": [
+              1
+            ]
+          },
+          "TU": {
+            "notes": 2,
+            "polyphony": 1,
+            "max_duration_ticks": 240,
+            "pitch_min": 91,
+            "pitch_max": 92,
+            "channels": [
+              6
+            ]
+          }
+        }
+      },
+      "HE-S32": {
+        "notes": 31,
+        "end_tick": 30720,
+        "roles": {
+          "GS": {
+            "notes": 15,
+            "polyphony": 1,
+            "max_duration_ticks": 3840,
+            "pitch_min": 63,
+            "pitch_max": 70,
+            "channels": [
+              8
+            ]
+          },
+          "KF": {
+            "notes": 12,
+            "polyphony": 3,
+            "max_duration_ticks": 1920,
+            "pitch_min": 57,
+            "pitch_max": 64,
+            "channels": [
+              2
+            ]
+          },
+          "LB": {
+            "notes": 4,
+            "polyphony": 1,
+            "max_duration_ticks": 7680,
+            "pitch_min": 33,
+            "pitch_max": 33,
+            "channels": [
+              3
+            ]
+          }
+        }
+      },
+      "HE-S33": {
+        "notes": 168,
+        "end_tick": 22800,
+        "roles": {
+          "KB": {
+            "notes": 20,
+            "polyphony": 1,
+            "max_duration_ticks": 240,
+            "pitch_min": 36,
+            "pitch_max": 42,
+            "channels": [
+              4
+            ]
+          },
+          "KF": {
+            "notes": 144,
+            "polyphony": 3,
+            "max_duration_ticks": 240,
+            "pitch_min": 60,
+            "pitch_max": 73,
+            "channels": [
+              2
+            ]
+          },
+          "TU": {
+            "notes": 4,
+            "polyphony": 1,
+            "max_duration_ticks": 240,
+            "pitch_min": 84,
+            "pitch_max": 97,
+            "channels": [
+              6
+            ]
+          }
+        }
+      },
+      "HE-S34": {
+        "notes": 148,
+        "end_tick": 30720,
+        "roles": {
+          "AR": {
+            "notes": 64,
+            "polyphony": 1,
+            "max_duration_ticks": 240,
+            "pitch_min": 70,
+            "pitch_max": 95,
+            "channels": [
+              5
+            ]
+          },
+          "KB": {
+            "notes": 18,
+            "polyphony": 1,
+            "max_duration_ticks": 240,
+            "pitch_min": 36,
+            "pitch_max": 50,
+            "channels": [
+              4
+            ]
+          },
+          "KF": {
+            "notes": 64,
+            "polyphony": 4,
+            "max_duration_ticks": 240,
+            "pitch_min": 60,
+            "pitch_max": 73,
+            "channels": [
+              2
+            ]
+          },
+          "LB": {
+            "notes": 2,
+            "polyphony": 1,
+            "max_duration_ticks": 7680,
+            "pitch_min": 24,
+            "pitch_max": 34,
+            "channels": [
+              3
+            ]
+          }
+        }
+      },
+      "HE-S35": {
+        "notes": 26,
+        "end_tick": 30720,
+        "roles": {
+          "AR": {
+            "notes": 4,
+            "polyphony": 1,
+            "max_duration_ticks": 240,
+            "pitch_min": 87,
+            "pitch_max": 87,
+            "channels": [
+              5
+            ]
+          },
+          "LB": {
+            "notes": 2,
+            "polyphony": 1,
+            "max_duration_ticks": 7680,
+            "pitch_min": 36,
+            "pitch_max": 36,
+            "channels": [
+              3
+            ]
+          },
+          "LF": {
+            "notes": 16,
+            "polyphony": 4,
+            "max_duration_ticks": 7680,
+            "pitch_min": 59,
+            "pitch_max": 78,
+            "channels": [
+              1
+            ]
+          },
+          "TU": {
+            "notes": 4,
+            "polyphony": 1,
+            "max_duration_ticks": 2880,
+            "pitch_min": 83,
+            "pitch_max": 90,
+            "channels": [
+              6
+            ]
+          }
+        }
+      },
+      "HE-S36": {
+        "notes": 77,
+        "end_tick": 30720,
+        "roles": {
+          "AR": {
+            "notes": 48,
+            "polyphony": 1,
+            "max_duration_ticks": 320,
+            "pitch_min": 72,
+            "pitch_max": 95,
+            "channels": [
+              5
+            ]
+          },
+          "LF": {
+            "notes": 12,
+            "polyphony": 3,
+            "max_duration_ticks": 7680,
+            "pitch_min": 84,
+            "pitch_max": 89,
+            "channels": [
+              1
+            ]
+          },
+          "TU": {
+            "notes": 17,
+            "polyphony": 1,
+            "max_duration_ticks": 640,
+            "pitch_min": 81,
+            "pitch_max": 91,
+            "channels": [
+              6
+            ]
+          }
+        }
+      },
+      "HE-S37": {
+        "notes": 32,
+        "end_tick": 30720,
+        "roles": {
+          "KF": {
+            "notes": 12,
+            "polyphony": 3,
+            "max_duration_ticks": 7680,
+            "pitch_min": 59,
+            "pitch_max": 66,
+            "channels": [
+              2
+            ]
+          },
+          "LB": {
+            "notes": 8,
+            "polyphony": 2,
+            "max_duration_ticks": 7680,
+            "pitch_min": 27,
+            "pitch_max": 33,
+            "channels": [
+              3
+            ]
+          },
+          "LF": {
+            "notes": 12,
+            "polyphony": 3,
+            "max_duration_ticks": 7680,
+            "pitch_min": 53,
+            "pitch_max": 60,
+            "channels": [
+              1
+            ]
+          }
+        }
+      },
+      "HE-S38": {
+        "notes": 265,
+        "end_tick": 30720,
+        "roles": {
+          "GS": {
+            "notes": 8,
+            "polyphony": 1,
+            "max_duration_ticks": 3840,
+            "pitch_min": 79,
+            "pitch_max": 90,
+            "channels": [
+              8
+            ]
+          },
+          "KB": {
+            "notes": 16,
+            "polyphony": 1,
+            "max_duration_ticks": 240,
+            "pitch_min": 30,
+            "pitch_max": 30,
+            "channels": [
+              4
+            ]
+          },
+          "KF": {
+            "notes": 240,
+            "polyphony": 6,
+            "max_duration_ticks": 240,
+            "pitch_min": 72,
+            "pitch_max": 92,
+            "channels": [
+              2
+            ]
+          },
+          "ST": {
+            "notes": 1,
+            "polyphony": 1,
+            "max_duration_ticks": 240,
+            "pitch_min": 36,
+            "pitch_max": 36,
+            "channels": [
+              7
+            ]
+          }
+        }
+      },
+      "HE-S39": {
+        "notes": 58,
+        "end_tick": 30720,
+        "roles": {
+          "AR": {
+            "notes": 32,
+            "polyphony": 1,
+            "max_duration_ticks": 240,
+            "pitch_min": 72,
+            "pitch_max": 84,
+            "channels": [
+              5
+            ]
+          },
+          "GS": {
+            "notes": 6,
+            "polyphony": 1,
+            "max_duration_ticks": 3840,
+            "pitch_min": 72,
+            "pitch_max": 81,
+            "channels": [
+              8
+            ]
+          },
+          "LB": {
+            "notes": 4,
+            "polyphony": 1,
+            "max_duration_ticks": 7680,
+            "pitch_min": 24,
+            "pitch_max": 25,
+            "channels": [
+              3
+            ]
+          },
+          "LF": {
+            "notes": 16,
+            "polyphony": 4,
+            "max_duration_ticks": 7680,
+            "pitch_min": 60,
+            "pitch_max": 108,
+            "channels": [
+              1
+            ]
+          }
+        }
+      },
+      "HE-S40": {
+        "notes": 216,
+        "end_tick": 61440,
+        "roles": {
+          "AR": {
+            "notes": 96,
+            "polyphony": 1,
+            "max_duration_ticks": 320,
+            "pitch_min": 72,
+            "pitch_max": 106,
+            "channels": [
+              5
+            ]
+          },
+          "LF": {
+            "notes": 24,
+            "polyphony": 3,
+            "max_duration_ticks": 7680,
+            "pitch_min": 84,
+            "pitch_max": 94,
+            "channels": [
+              1
+            ]
+          },
+          "TU": {
+            "notes": 96,
+            "polyphony": 1,
+            "max_duration_ticks": 320,
+            "pitch_min": 72,
+            "pitch_max": 106,
+            "channels": [
+              6
+            ]
+          }
+        }
+      },
+      "HE-T01": {
+        "notes": 80,
+        "end_tick": 30720,
+        "roles": {
+          "AR": {
+            "notes": 40,
+            "polyphony": 1,
+            "max_duration_ticks": 240,
+            "pitch_min": 60,
+            "pitch_max": 79,
+            "channels": [
+              5
+            ]
+          },
+          "KF": {
+            "notes": 36,
+            "polyphony": 4,
+            "max_duration_ticks": 240,
+            "pitch_min": 60,
+            "pitch_max": 71,
+            "channels": [
+              2
+            ]
+          },
+          "LB": {
+            "notes": 4,
+            "polyphony": 1,
+            "max_duration_ticks": 7680,
+            "pitch_min": 36,
+            "pitch_max": 36,
+            "channels": [
+              3
+            ]
+          }
+        }
+      },
+      "HE-T02": {
+        "notes": 36,
+        "end_tick": 30720,
+        "roles": {
+          "GS": {
+            "notes": 15,
+            "polyphony": 1,
+            "max_duration_ticks": 1440,
+            "pitch_min": 63,
+            "pitch_max": 68,
+            "channels": [
+              8
+            ]
+          },
+          "LB": {
+            "notes": 4,
+            "polyphony": 1,
+            "max_duration_ticks": 7680,
+            "pitch_min": 36,
+            "pitch_max": 36,
+            "channels": [
+              3
+            ]
+          },
+          "LF": {
+            "notes": 12,
+            "polyphony": 3,
+            "max_duration_ticks": 7680,
+            "pitch_min": 48,
+            "pitch_max": 55,
+            "channels": [
+              1
+            ]
+          },
+          "TU": {
+            "notes": 5,
+            "polyphony": 1,
+            "max_duration_ticks": 1440,
+            "pitch_min": 78,
+            "pitch_max": 80,
+            "channels": [
+              6
+            ]
+          }
+        }
+      },
+      "HE-T03": {
+        "notes": 158,
+        "end_tick": 30720,
+        "roles": {
+          "KF": {
+            "notes": 150,
+            "polyphony": 3,
+            "max_duration_ticks": 960,
+            "pitch_min": 60,
+            "pitch_max": 84,
+            "channels": [
+              2
+            ]
+          },
+          "LB": {
+            "notes": 4,
+            "polyphony": 1,
+            "max_duration_ticks": 7680,
+            "pitch_min": 40,
+            "pitch_max": 40,
+            "channels": [
+              3
+            ]
+          },
+          "TU": {
+            "notes": 4,
+            "polyphony": 1,
+            "max_duration_ticks": 240,
+            "pitch_min": 76,
+            "pitch_max": 76,
+            "channels": [
+              6
+            ]
+          }
+        }
+      },
+      "HE-T04": {
+        "notes": 172,
+        "end_tick": 30720,
+        "roles": {
+          "KB": {
+            "notes": 16,
+            "polyphony": 1,
+            "max_duration_ticks": 240,
+            "pitch_min": 36,
+            "pitch_max": 37,
+            "channels": [
+              4
+            ]
+          },
+          "KF": {
+            "notes": 144,
+            "polyphony": 3,
+            "max_duration_ticks": 240,
+            "pitch_min": 60,
+            "pitch_max": 68,
+            "channels": [
+              2
+            ]
+          },
+          "LF": {
+            "notes": 12,
+            "polyphony": 3,
+            "max_duration_ticks": 7680,
+            "pitch_min": 48,
+            "pitch_max": 56,
+            "channels": [
+              1
+            ]
+          }
+        }
+      },
+      "HE-T05": {
+        "notes": 40,
+        "end_tick": 30720,
+        "roles": {
+          "GS": {
+            "notes": 24,
+            "polyphony": 1,
+            "max_duration_ticks": 1920,
+            "pitch_min": 63,
+            "pitch_max": 68,
+            "channels": [
+              8
+            ]
+          },
+          "LB": {
+            "notes": 4,
+            "polyphony": 1,
+            "max_duration_ticks": 7680,
+            "pitch_min": 36,
+            "pitch_max": 36,
+            "channels": [
+              3
+            ]
+          },
+          "LF": {
+            "notes": 12,
+            "polyphony": 3,
+            "max_duration_ticks": 7680,
+            "pitch_min": 48,
+            "pitch_max": 55,
+            "channels": [
+              1
+            ]
+          }
+        }
+      },
+      "HE-T06": {
+        "notes": 65,
+        "end_tick": 30720,
+        "roles": {
+          "AR": {
+            "notes": 64,
+            "polyphony": 1,
+            "max_duration_ticks": 240,
+            "pitch_min": 48,
+            "pitch_max": 91,
+            "channels": [
+              5
+            ]
+          },
+          "LB": {
+            "notes": 1,
+            "polyphony": 1,
+            "max_duration_ticks": 7680,
+            "pitch_min": 24,
+            "pitch_max": 24,
+            "channels": [
+              3
+            ]
+          }
+        }
+      },
+      "HE-T07": {
+        "notes": 41,
+        "end_tick": 30720,
+        "roles": {
+          "GS": {
+            "notes": 8,
+            "polyphony": 1,
+            "max_duration_ticks": 480,
+            "pitch_min": 63,
+            "pitch_max": 68,
+            "channels": [
+              8
+            ]
+          },
+          "KB": {
+            "notes": 13,
+            "polyphony": 1,
+            "max_duration_ticks": 3840,
+            "pitch_min": 36,
+            "pitch_max": 44,
+            "channels": [
+              4
+            ]
+          },
+          "LF": {
+            "notes": 12,
+            "polyphony": 3,
+            "max_duration_ticks": 7680,
+            "pitch_min": 48,
+            "pitch_max": 55,
+            "channels": [
+              1
+            ]
+          },
+          "TU": {
+            "notes": 8,
+            "polyphony": 1,
+            "max_duration_ticks": 480,
+            "pitch_min": 75,
+            "pitch_max": 80,
+            "channels": [
+              6
+            ]
+          }
+        }
+      },
+      "HE-T08": {
+        "notes": 48,
+        "end_tick": 30720,
+        "roles": {
+          "KF": {
+            "notes": 24,
+            "polyphony": 3,
+            "max_duration_ticks": 2880,
+            "pitch_min": 66,
+            "pitch_max": 85,
+            "channels": [
+              2
+            ]
+          },
+          "LF": {
+            "notes": 24,
+            "polyphony": 3,
+            "max_duration_ticks": 3840,
+            "pitch_min": 48,
+            "pitch_max": 67,
+            "channels": [
+              1
+            ]
+          }
+        }
+      },
+      "HE-T09": {
+        "notes": 139,
+        "end_tick": 30720,
+        "roles": {
+          "KF": {
+            "notes": 135,
+            "polyphony": 3,
+            "max_duration_ticks": 240,
+            "pitch_min": 60,
+            "pitch_max": 77,
+            "channels": [
+              2
+            ]
+          },
+          "LB": {
+            "notes": 4,
+            "polyphony": 1,
+            "max_duration_ticks": 7680,
+            "pitch_min": 36,
+            "pitch_max": 36,
+            "channels": [
+              3
+            ]
+          }
+        }
+      },
+      "HE-T10": {
+        "notes": 73,
+        "end_tick": 30720,
+        "roles": {
+          "KF": {
+            "notes": 48,
+            "polyphony": 3,
+            "max_duration_ticks": 1920,
+            "pitch_min": 47,
+            "pitch_max": 90,
+            "channels": [
+              2
+            ]
+          },
+          "LF": {
+            "notes": 24,
+            "polyphony": 3,
+            "max_duration_ticks": 3840,
+            "pitch_min": 48,
+            "pitch_max": 55,
+            "channels": [
+              1
+            ]
+          },
+          "ST": {
+            "notes": 1,
+            "polyphony": 1,
+            "max_duration_ticks": 240,
+            "pitch_min": 36,
+            "pitch_max": 36,
+            "channels": [
+              7
+            ]
+          }
+        }
+      },
+      "HE-T11": {
+        "notes": 71,
+        "end_tick": 30720,
+        "roles": {
+          "AR": {
+            "notes": 48,
+            "polyphony": 1,
+            "max_duration_ticks": 240,
+            "pitch_min": 60,
+            "pitch_max": 80,
+            "channels": [
+              5
+            ]
+          },
+          "KF": {
+            "notes": 20,
+            "polyphony": 4,
+            "max_duration_ticks": 240,
+            "pitch_min": 60,
+            "pitch_max": 71,
+            "channels": [
+              2
+            ]
+          },
+          "LB": {
+            "notes": 3,
+            "polyphony": 1,
+            "max_duration_ticks": 11520,
+            "pitch_min": 36,
+            "pitch_max": 36,
+            "channels": [
+              3
+            ]
+          }
+        }
+      },
+      "HE-T12": {
+        "notes": 11,
+        "end_tick": 30720,
+        "roles": {
+          "LB": {
+            "notes": 2,
+            "polyphony": 1,
+            "max_duration_ticks": 15360,
+            "pitch_min": 25,
+            "pitch_max": 36,
+            "channels": [
+              3
+            ]
+          },
+          "LF": {
+            "notes": 6,
+            "polyphony": 3,
+            "max_duration_ticks": 15360,
+            "pitch_min": 60,
+            "pitch_max": 67,
+            "channels": [
+              1
+            ]
+          },
+          "TU": {
+            "notes": 3,
+            "polyphony": 1,
+            "max_duration_ticks": 240,
+            "pitch_min": 87,
+            "pitch_max": 95,
+            "channels": [
+              6
+            ]
+          }
+        }
+      },
+      "HE-T13": {
+        "notes": 25,
+        "end_tick": 30720,
+        "roles": {
+          "KF": {
+            "notes": 12,
+            "polyphony": 3,
+            "max_duration_ticks": 1920,
+            "pitch_min": 59,
+            "pitch_max": 90,
+            "channels": [
+              2
+            ]
+          },
+          "LF": {
+            "notes": 12,
+            "polyphony": 3,
+            "max_duration_ticks": 7680,
+            "pitch_min": 60,
+            "pitch_max": 67,
+            "channels": [
+              1
+            ]
+          },
+          "ST": {
+            "notes": 1,
+            "polyphony": 1,
+            "max_duration_ticks": 240,
+            "pitch_min": 36,
+            "pitch_max": 36,
+            "channels": [
+              7
+            ]
+          }
+        }
+      }
+    }
+  },
+  "default_output_incompatibilities": [
+    {
+      "id": "HE-S02",
+      "role": "KB",
+      "kind": "duration",
+      "actual": 1920,
+      "assumed": 960
+    },
+    {
+      "id": "HE-S02",
+      "role": "KF",
+      "kind": "duration",
+      "actual": 1920,
+      "assumed": 720
+    },
+    {
+      "id": "HE-S02",
+      "role": "TU",
+      "kind": "duration",
+      "actual": 1920,
+      "assumed": 720
+    },
+    {
+      "id": "HE-S04",
+      "role": "KF",
+      "kind": "duration",
+      "actual": 960,
+      "assumed": 720
+    },
+    {
+      "id": "HE-S07",
+      "role": "KF",
+      "kind": "duration",
+      "actual": 1920,
+      "assumed": 720
+    },
+    {
+      "id": "HE-S09",
+      "role": "LB",
+      "kind": "polyphony",
+      "actual": 2,
+      "assumed": 1
+    },
+    {
+      "id": "HE-S09",
+      "role": "TU",
+      "kind": "duration",
+      "actual": 7680,
+      "assumed": 720
+    },
+    {
+      "id": "HE-S15",
+      "role": "KB",
+      "kind": "duration",
+      "actual": 4320,
+      "assumed": 960
+    },
+    {
+      "id": "HE-S15",
+      "role": "KF",
+      "kind": "duration",
+      "actual": 4800,
+      "assumed": 720
+    },
+    {
+      "id": "HE-S15",
+      "role": "TU",
+      "kind": "duration",
+      "actual": 5760,
+      "assumed": 720
+    },
+    {
+      "id": "HE-S18",
+      "role": "TU",
+      "kind": "duration",
+      "actual": 1440,
+      "assumed": 720
+    },
+    {
+      "id": "HE-S21",
+      "role": "KB",
+      "kind": "duration",
+      "actual": 1920,
+      "assumed": 960
+    },
+    {
+      "id": "HE-S22",
+      "role": "KF",
+      "kind": "duration",
+      "actual": 1920,
+      "assumed": 720
+    },
+    {
+      "id": "HE-S23",
+      "role": "KF",
+      "kind": "duration",
+      "actual": 960,
+      "assumed": 720
+    },
+    {
+      "id": "HE-S25",
+      "role": "KF",
+      "kind": "duration",
+      "actual": 960,
+      "assumed": 720
+    },
+    {
+      "id": "HE-S26",
+      "role": "TU",
+      "kind": "duration",
+      "actual": 3600,
+      "assumed": 720
+    },
+    {
+      "id": "HE-S27",
+      "role": "KF",
+      "kind": "duration",
+      "actual": 3840,
+      "assumed": 720
+    },
+    {
+      "id": "HE-S29",
+      "role": "TU",
+      "kind": "duration",
+      "actual": 960,
+      "assumed": 720
+    },
+    {
+      "id": "HE-S32",
+      "role": "KF",
+      "kind": "duration",
+      "actual": 1920,
+      "assumed": 720
+    },
+    {
+      "id": "HE-S35",
+      "role": "TU",
+      "kind": "duration",
+      "actual": 2880,
+      "assumed": 720
+    },
+    {
+      "id": "HE-S37",
+      "role": "KF",
+      "kind": "duration",
+      "actual": 7680,
+      "assumed": 720
+    },
+    {
+      "id": "HE-S37",
+      "role": "LB",
+      "kind": "polyphony",
+      "actual": 2,
+      "assumed": 1
+    },
+    {
+      "id": "HE-T02",
+      "role": "TU",
+      "kind": "duration",
+      "actual": 1440,
+      "assumed": 720
+    },
+    {
+      "id": "HE-T03",
+      "role": "KF",
+      "kind": "duration",
+      "actual": 960,
+      "assumed": 720
+    },
+    {
+      "id": "HE-T07",
+      "role": "KB",
+      "kind": "duration",
+      "actual": 3840,
+      "assumed": 960
+    },
+    {
+      "id": "HE-T08",
+      "role": "KF",
+      "kind": "duration",
+      "actual": 2880,
+      "assumed": 720
+    },
+    {
+      "id": "HE-T10",
+      "role": "KF",
+      "kind": "duration",
+      "actual": 1920,
+      "assumed": 720
+    },
+    {
+      "id": "HE-T13",
+      "role": "KF",
+      "kind": "duration",
+      "actual": 1920,
+      "assumed": 720
+    }
+  ],
+  "rhythm_duration_incompatibilities": [
+    {
+      "id": "HE-R03",
+      "role": "KF",
+      "max_ticks": 960,
+      "assumed_max": 720
+    },
+    {
+      "id": "HE-R21",
+      "role": "KF",
+      "max_ticks": 1920,
+      "assumed_max": 720
+    },
+    {
+      "id": "HE-R22",
+      "role": "KF",
+      "max_ticks": 3840,
+      "assumed_max": 720
+    },
+    {
+      "id": "HE-R25",
+      "role": "KF",
+      "max_ticks": 1920,
+      "assumed_max": 720
+    },
+    {
+      "id": "HE-R26",
+      "role": "KF",
+      "max_ticks": 3840,
+      "assumed_max": 720
+    },
+    {
+      "id": "HE-R32",
+      "role": "KF",
+      "max_ticks": 960,
+      "assumed_max": 720
+    },
+    {
+      "id": "HE-R41",
+      "role": "KF",
+      "max_ticks": 3840,
+      "assumed_max": 720
+    },
+    {
+      "id": "HE-R41",
+      "role": "KB",
+      "max_ticks": 3840,
+      "assumed_max": 960
+    },
+    {
+      "id": "HE-R51",
+      "role": "TU",
+      "max_ticks": 5760,
+      "assumed_max": 720
+    },
+    {
+      "id": "HE-R51",
+      "role": "KF",
+      "max_ticks": 4800,
+      "assumed_max": 720
+    },
+    {
+      "id": "HE-R51",
+      "role": "KB",
+      "max_ticks": 4320,
+      "assumed_max": 960
+    },
+    {
+      "id": "HE-R52",
+      "role": "KB",
+      "max_ticks": 5760,
+      "assumed_max": 960
+    },
+    {
+      "id": "HE-R52",
+      "role": "KF",
+      "max_ticks": 5280,
+      "assumed_max": 720
+    },
+    {
+      "id": "HE-R52",
+      "role": "TU",
+      "max_ticks": 4320,
+      "assumed_max": 720
+    },
+    {
+      "id": "HE-R53",
+      "role": "KF",
+      "max_ticks": 960,
+      "assumed_max": 720
+    },
+    {
+      "id": "HE-R66",
+      "role": "KF",
+      "max_ticks": 1440,
+      "assumed_max": 720
+    }
+  ],
+  "scope": "Offline-Dokumentanalyse; kein Engine-Rendering, keine externen Patchfähigkeiten verifiziert."
+}

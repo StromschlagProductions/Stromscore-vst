@@ -1,0 +1,3085 @@
+{
+  "classes": {
+    "D": "Direkt musikalisch korrekt mit bestehenden Mechanismen darstellbar; Datenimport/Profilanbindung trotzdem erforderlich.",
+    "A": "Bestehende musikalische Fähigkeit; begrenzte Daten-/Verbraucheranbindung oder strenge Kontext-/Registerprüfung erforderlich.",
+    "E": "Mindestens eine zusätzliche gemeinsame musikalische Fähigkeit nötig; unverfälschte Vorlage bis dahin zurückstellen.",
+    "K": "Wesentliche Notations-/Bedeutungsfrage vor einer Implementierung klären; weitere Fähigkeiten ggf. zusätzlich nötig."
+  },
+  "capabilities": {
+    "import": {
+      "description": "Validierter Datenimport, Profil-/XYZ-Zuordnung; keine neue Kompositionsregel.",
+      "existing": "HarmonyTypes.h; scripts/generate_harmony_catalog.py; CompositionPolicy.h; ScoreEngine.h::pick/candidates"
+    },
+    "rhythm_binding": {
+      "description": "Begrenzte Anbindung vorhandener exakter Raster, Register und Rollen; keine unabhängigen neuen Perioden.",
+      "existing": "RoleRhythm.h::planRoleRhythm (2 Takte,4/4,KF+Bass); BarryVocabulary::planBar; ScoreEngine.h::roleRhythm/authoredRhythmBar"
+    },
+    "authored_binding": {
+      "description": "Gemeinsame kurze Quellmotive, strikter Harmonie-/Bassbezug und unverändertes Original; HE-Pool anbinden.",
+      "existing": "AuthoredMotifSource.h::authoredPitchMask; ScoreEngine.h::authoredMotif/planMotifNote; CompositionCore.h::RememberedMotif"
+    },
+    "chord_objects": {
+      "description": "Exakte weitere Akkord-/Tonmengenobjekte; keine ungefähren Typ-Aliase.",
+      "existing": "data/harmony/chord_types.json (27 Typen); HarmonyTypes.h; geschützte Färbung vorhanden"
+    },
+    "note_intent": {
+      "description": "Per Note A/T/V/F/U, Ziel und Gültigkeitsintervall schützen; Auflösung verfolgen, beabsichtigte F/U nicht automatisch korrigieren.",
+      "existing": "AuthoredMotifSource melodic-Masken erlauben bereits lokale Zusatztöne; ModalContext.h unterscheidet chord/collection. Keine A/T/V/F/U-Semantik oder allgemeine Auflösungsverfolgung."
+    },
+    "pedal_lifetime": {
+      "description": "Unabhängiger tiefer/hoher/Binnen-Pedalplan mit eigener Lebensdauer über Akkord-/Modulgrenzen.",
+      "existing": "ScoreEngine.h::pedalRoot/BassPedal sind akkord-/phrasengebunden; Slash-Bass allein ist keine unabhängige Lebensdauer."
+    },
+    "bass_sequence": {
+      "description": "Autorisierte eigenständige Bass-Tonfolge einschließlich fixer/relativer und chromatischer Ziele, Register und beider Follow-Zustände.",
+      "existing": "CompositionCore.h::BassPhrase; ScoreEngine.h::melodicBassAllowed bisher Pop/Rock; RoleRhythmSource relative intervals[3]"
+    },
+    "collections": {
+      "description": "Explizit transponierbare Ganzton-/Hexatonik und ggf. weitere lokale Vorräte; nicht alle zwölf Töne für Chromatisch freigeben.",
+      "existing": "ModalContext.h: Ionisch/Mixolydisch/Dorisch/Äolisch/Oktatonik. Keine Ganzton-/Hexatonik-Modelle."
+    },
+    "exact_planing": {
+      "description": "Exakte gemeinsame chromatische Verschiebung einer Struktur mit erhaltenen Intervallen/Komponenten, nicht freie nächste Akkordlage.",
+      "existing": "VoiceLeading.h optimiert Lagen; CompositionCore.h::deriveMotif sequenziert/harmonisiert, garantiert keine chromatische Blocktransposition."
+    },
+    "components": {
+      "description": "Mehrere harmonische Komponenten mit eigenem Register, Artikulation und Synchronität; Vereinigungsmaske genügt nicht.",
+      "existing": "HarmonyTemplate ein Akkordobjekt je Slot, bis5 Intervalle/Typ; keine Komponentenidentität."
+    },
+    "register_sync": {
+      "description": "Geplante Registerverhältnisse, zeitlicher Versatz/gleicher Einsatz und variable Verschmelzung mehrerer Rollen.",
+      "existing": "InstrumentCapabilities/Ranges und Rollenpläne vorhanden; keine allgemeine komponentenbezogene Synchronisationsplanung."
+    },
+    "bass_polyphony": {
+      "description": "Mehrstimmiger Bass nur bei tatsächlich geeigneten Zielen; LB und KB standardmäßig je1. Keine automatische Summierung/Reroutung.",
+      "existing": "ScoreEngine.h::outputCatalog; CompositionCore.h::InstrumentCapabilities/suitable"
+    },
+    "duration_capability": {
+      "description": "Explizit geeignete Spielweise/Ziel für geforderte Dauern; aktuelle Kurz-Zielannahmen überschritten. Nicht still kürzen oder auf LF/LB umleiten.",
+      "existing": "ScoreEngine.h::outputCatalog KF720,KB960,TU720,ST480Ticks; minDuration240. Externe Patches unbekannt."
+    },
+    "modules": {
+      "description": "Identifizierbare kurze Module, Wiederholung/Kürzung/Verlängerung/Unterbrechung und Rückkehr; Entwicklung auch bei statischem XYZ.",
+      "existing": "MotifUse/Wiederkehr und ArpeggioPhrase.h bieten Teilverfahren, keine mehrere Rollen steuernde Modulabfolge."
+    },
+    "independent_cycles": {
+      "description": "Eigene Perioden/Phasen je Rhythmus-/Tonfolge; über Akkord-/Taktgrenzen fortführen statt Zurücksetzen.",
+      "existing": "MusicalTime.h 960PPQ und MusicalExecution.h können Zeiten abbilden; Musterverbraucher setzen vielfach taktbasiert an."
+    },
+    "triplets_grouping": {
+      "description": "Exakte Triolen-/3:2-Akzentdaten und metrische Gruppierung zu Verbrauchern führen; kein neuer Scheduler erforderlich.",
+      "existing": "960PPQ:320Ticks pro Achteltriole, 240 pro Sechzehntel; RoleRhythm/AuthoredMotifSource-Eingang noch Sechzehntelzählung."
+    },
+    "role_transfer": {
+      "description": "Explizite Rollenwanderung/Kanon/mehrstimmige Linienpläne mit unabhängigen Zuständen und passenden Instrumenten.",
+      "existing": "MusicalRole/RolePlan; Melodie→Dialog-Suffix und Dialog→Arp-Antwort vorhanden; kein allgemeiner Kanon/Rollenumlauf."
+    },
+    "long_phrase": {
+      "description": "Längere Ziel-/Spannungs-/Phrasenpläne ohne Abschneiden auf8Noten oder feste2Takte.",
+      "existing": "RememberedMotif maximal8Noten; AuthoredMotifSource2Harmoniekontexte; freie LinePhrase bis5Noten."
+    },
+    "clarify": {
+      "description": "Kanonischen Widerspruch bzw. fehlende zeitliche Zuordnung klären; Original unverändert archivieren.",
+      "existing": "Forschungsfrage, keine Engine-Korrektur."
+    },
+    "subbar_harmony": {
+      "description": "Nur bei bestätigter Quellenanforderung: untertaktige Harmoniedauern in den Vorlagendaten und deren Verbrauchern, vorhandene Tick-Zeit weiterverwenden.",
+      "existing": "HarmonyTypes.h::Chord.bars ist int; Harmoniezeitleiste bereits Tick. Kein neuer Scheduler nötig."
+    }
+  },
+  "scope": "Bewertet werden Grundform und zwingende musikalische Eigenschaften; optionale Varianten nicht still übernehmen. D bedeutet darstellbar, nicht bereits importiert/hörgeprüft. A ist keine Zusage beliebiger harmonischer Anpassung. E und K bis zur jeweiligen Fähigkeit/Klärung zurückstellen. Alle HE-Quellen sind derzeit inaktiv; CSV/MIDI sind Forschungsreferenzen, keine Engine-Renderings.",
+  "entries": {
+    "HE-H01": {
+      "classification": "D",
+      "reason": "Geschützte, ganzzahlige Acht-Takt-Akkordfolge mit vorhandenen exakten Typen und explizitem Bass darstellbar.",
+      "required_capabilities": [
+        "import"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-H02": {
+      "classification": "D",
+      "reason": "Geschützte, ganzzahlige Acht-Takt-Akkordfolge mit vorhandenen exakten Typen und explizitem Bass darstellbar.",
+      "required_capabilities": [
+        "import"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-H03": {
+      "classification": "D",
+      "reason": "Geschützte, ganzzahlige Acht-Takt-Akkordfolge mit vorhandenen exakten Typen und explizitem Bass darstellbar.",
+      "required_capabilities": [
+        "import"
+      ],
+      "optional_variants": "Grundform laut Akkordtabelle bewertet. Zusätzliche Pedal-, Halb­takt-, parallele Lagen-, Basslosigkeits- und Vorratsvarianten nicht automatisch mitfreigegeben. Ganzton/Hexatonik als Etikett verlangt für die reinen Akkordtöne noch keinen neuen Skalenverbraucher."
+    },
+    "HE-H04": {
+      "classification": "K",
+      "reason": "Tabelle erweitert Cm um B; der Text verlangt dagegen eine einzelne Stimme, die sich einen Halbton hebt. Welche Stimme? Akkordliste ist korrekt darstellbar, die geforderte Innenbewegung ist nicht eindeutig.",
+      "required_capabilities": [
+        "clarify"
+      ],
+      "optional_variants": "Septime nur im Tupfer oder B♭ sind ausdrücklich andere Varianten, keine stillen Korrekturen."
+    },
+    "HE-H05": {
+      "classification": "D",
+      "reason": "Geschützte, ganzzahlige Acht-Takt-Akkordfolge mit vorhandenen exakten Typen und explizitem Bass darstellbar.",
+      "required_capabilities": [
+        "import"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-H06": {
+      "classification": "D",
+      "reason": "Geschützte, ganzzahlige Acht-Takt-Akkordfolge mit vorhandenen exakten Typen und explizitem Bass darstellbar.",
+      "required_capabilities": [
+        "import"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-H07": {
+      "classification": "D",
+      "reason": "Geschützte, ganzzahlige Acht-Takt-Akkordfolge mit vorhandenen exakten Typen und explizitem Bass darstellbar.",
+      "required_capabilities": [
+        "import"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-H08": {
+      "classification": "E",
+      "reason": "Die Folge verlangt strukturgleiche chromatische/zyklische Blockführung; vorhandene Akkordtypen passen, freie Umkehrungsoptimierung garantiert die exakte Parallelstruktur nicht.",
+      "required_capabilities": [
+        "exact_planing"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-H09": {
+      "classification": "D",
+      "reason": "Geschützte, ganzzahlige Acht-Takt-Akkordfolge mit vorhandenen exakten Typen und explizitem Bass darstellbar.",
+      "required_capabilities": [
+        "import"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-H10": {
+      "classification": "A",
+      "reason": "Hohe CmM9-Schwebe ohne Tiefbass: vorhandener Typ, aber Register und Bassverfügbarkeit ausdrücklich anbinden.",
+      "required_capabilities": [
+        "import",
+        "rhythm_binding"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-H11": {
+      "classification": "D",
+      "reason": "Geschützte, ganzzahlige Acht-Takt-Akkordfolge mit vorhandenen exakten Typen und explizitem Bass darstellbar.",
+      "required_capabilities": [
+        "import"
+      ],
+      "optional_variants": "Grundform laut Akkordtabelle bewertet. Zusätzliche Pedal-, Halb­takt-, parallele Lagen-, Basslosigkeits- und Vorratsvarianten nicht automatisch mitfreigegeben. Ganzton/Hexatonik als Etikett verlangt für die reinen Akkordtöne noch keinen neuen Skalenverbraucher."
+    },
+    "HE-H12": {
+      "classification": "E",
+      "reason": "Die ausdrücklich notierte Tonmenge hat keinen exakten vorhandenen Akkordtyp; kein Ersatz durch ähnlich benannten Farbakkord.",
+      "required_capabilities": [
+        "chord_objects"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-H13": {
+      "classification": "D",
+      "reason": "Geschützte, ganzzahlige Acht-Takt-Akkordfolge mit vorhandenen exakten Typen und explizitem Bass darstellbar.",
+      "required_capabilities": [
+        "import"
+      ],
+      "optional_variants": "Grundform laut Akkordtabelle bewertet. Zusätzliche Pedal-, Halb­takt-, parallele Lagen-, Basslosigkeits- und Vorratsvarianten nicht automatisch mitfreigegeben. Ganzton/Hexatonik als Etikett verlangt für die reinen Akkordtöne noch keinen neuen Skalenverbraucher."
+    },
+    "HE-H14": {
+      "classification": "D",
+      "reason": "Geschützte, ganzzahlige Acht-Takt-Akkordfolge mit vorhandenen exakten Typen und explizitem Bass darstellbar.",
+      "required_capabilities": [
+        "import"
+      ],
+      "optional_variants": "Grundform laut Akkordtabelle bewertet. Zusätzliche Pedal-, Halb­takt-, parallele Lagen-, Basslosigkeits- und Vorratsvarianten nicht automatisch mitfreigegeben. Ganzton/Hexatonik als Etikett verlangt für die reinen Akkordtöne noch keinen neuen Skalenverbraucher."
+    },
+    "HE-H15": {
+      "classification": "E",
+      "reason": "Die Folge verlangt strukturgleiche chromatische/zyklische Blockführung; vorhandene Akkordtypen passen, freie Umkehrungsoptimierung garantiert die exakte Parallelstruktur nicht.",
+      "required_capabilities": [
+        "exact_planing"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-H16": {
+      "classification": "D",
+      "reason": "Geschützte, ganzzahlige Acht-Takt-Akkordfolge mit vorhandenen exakten Typen und explizitem Bass darstellbar.",
+      "required_capabilities": [
+        "import"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-H17": {
+      "classification": "D",
+      "reason": "Geschützte, ganzzahlige Acht-Takt-Akkordfolge mit vorhandenen exakten Typen und explizitem Bass darstellbar.",
+      "required_capabilities": [
+        "import"
+      ],
+      "optional_variants": "Grundform laut Akkordtabelle bewertet. Zusätzliche Pedal-, Halb­takt-, parallele Lagen-, Basslosigkeits- und Vorratsvarianten nicht automatisch mitfreigegeben. Ganzton/Hexatonik als Etikett verlangt für die reinen Akkordtöne noch keinen neuen Skalenverbraucher."
+    },
+    "HE-H18": {
+      "classification": "D",
+      "reason": "Geschützte, ganzzahlige Acht-Takt-Akkordfolge mit vorhandenen exakten Typen und explizitem Bass darstellbar.",
+      "required_capabilities": [
+        "import"
+      ],
+      "optional_variants": "Grundform laut Akkordtabelle bewertet. Zusätzliche Pedal-, Halb­takt-, parallele Lagen-, Basslosigkeits- und Vorratsvarianten nicht automatisch mitfreigegeben. Ganzton/Hexatonik als Etikett verlangt für die reinen Akkordtöne noch keinen neuen Skalenverbraucher."
+    },
+    "HE-H19": {
+      "classification": "D",
+      "reason": "Geschützte, ganzzahlige Acht-Takt-Akkordfolge mit vorhandenen exakten Typen und explizitem Bass darstellbar.",
+      "required_capabilities": [
+        "import"
+      ],
+      "optional_variants": "Grundform laut Akkordtabelle bewertet. Zusätzliche Pedal-, Halb­takt-, parallele Lagen-, Basslosigkeits- und Vorratsvarianten nicht automatisch mitfreigegeben. Ganzton/Hexatonik als Etikett verlangt für die reinen Akkordtöne noch keinen neuen Skalenverbraucher."
+    },
+    "HE-H20": {
+      "classification": "D",
+      "reason": "Geschützte, ganzzahlige Acht-Takt-Akkordfolge mit vorhandenen exakten Typen und explizitem Bass darstellbar.",
+      "required_capabilities": [
+        "import"
+      ],
+      "optional_variants": "Grundform laut Akkordtabelle bewertet. Zusätzliche Pedal-, Halb­takt-, parallele Lagen-, Basslosigkeits- und Vorratsvarianten nicht automatisch mitfreigegeben. Ganzton/Hexatonik als Etikett verlangt für die reinen Akkordtöne noch keinen neuen Skalenverbraucher."
+    },
+    "HE-H21": {
+      "classification": "E",
+      "reason": "Die Folge verlangt strukturgleiche chromatische/zyklische Blockführung; vorhandene Akkordtypen passen, freie Umkehrungsoptimierung garantiert die exakte Parallelstruktur nicht.",
+      "required_capabilities": [
+        "exact_planing"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-H22": {
+      "classification": "E",
+      "reason": "Die Folge verlangt strukturgleiche chromatische/zyklische Blockführung; vorhandene Akkordtypen passen, freie Umkehrungsoptimierung garantiert die exakte Parallelstruktur nicht.",
+      "required_capabilities": [
+        "exact_planing"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-H23": {
+      "classification": "E",
+      "reason": "Akkordfolge und Bassfeld allein erfassen das ausdrücklich gehaltene tiefe, hohe oder innere Pedal über wechselnden Klängen nicht.",
+      "required_capabilities": [
+        "pedal_lifetime"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-H24": {
+      "classification": "D",
+      "reason": "Geschützte, ganzzahlige Acht-Takt-Akkordfolge mit vorhandenen exakten Typen und explizitem Bass darstellbar.",
+      "required_capabilities": [
+        "import"
+      ],
+      "optional_variants": "Grundform laut Akkordtabelle bewertet. Zusätzliche Pedal-, Halb­takt-, parallele Lagen-, Basslosigkeits- und Vorratsvarianten nicht automatisch mitfreigegeben. Ganzton/Hexatonik als Etikett verlangt für die reinen Akkordtöne noch keinen neuen Skalenverbraucher."
+    },
+    "HE-H25": {
+      "classification": "D",
+      "reason": "Geschützte, ganzzahlige Acht-Takt-Akkordfolge mit vorhandenen exakten Typen und explizitem Bass darstellbar.",
+      "required_capabilities": [
+        "import"
+      ],
+      "optional_variants": "Grundform laut Akkordtabelle bewertet. Zusätzliche Pedal-, Halb­takt-, parallele Lagen-, Basslosigkeits- und Vorratsvarianten nicht automatisch mitfreigegeben. Ganzton/Hexatonik als Etikett verlangt für die reinen Akkordtöne noch keinen neuen Skalenverbraucher."
+    },
+    "HE-H26": {
+      "classification": "E",
+      "reason": "Die ausdrücklich notierte Tonmenge hat keinen exakten vorhandenen Akkordtyp; kein Ersatz durch ähnlich benannten Farbakkord.",
+      "required_capabilities": [
+        "chord_objects"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-H27": {
+      "classification": "E",
+      "reason": "C7/F♯7b5/Eaug über eigenständig gehaltenem E2-Binnenpedal; exakter7b5-Typ und unabhängige Pedallebensdauer fehlen.",
+      "required_capabilities": [
+        "chord_objects",
+        "pedal_lifetime"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-H28": {
+      "classification": "D",
+      "reason": "Geschützte, ganzzahlige Acht-Takt-Akkordfolge mit vorhandenen exakten Typen und explizitem Bass darstellbar.",
+      "required_capabilities": [
+        "import"
+      ],
+      "optional_variants": "Grundform laut Akkordtabelle bewertet. Zusätzliche Pedal-, Halb­takt-, parallele Lagen-, Basslosigkeits- und Vorratsvarianten nicht automatisch mitfreigegeben. Ganzton/Hexatonik als Etikett verlangt für die reinen Akkordtöne noch keinen neuen Skalenverbraucher."
+    },
+    "HE-H29": {
+      "classification": "E",
+      "reason": "Die ausdrücklich notierte Tonmenge hat keinen exakten vorhandenen Akkordtyp; kein Ersatz durch ähnlich benannten Farbakkord.",
+      "required_capabilities": [
+        "chord_objects"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-H30": {
+      "classification": "D",
+      "reason": "Geschützte, ganzzahlige Acht-Takt-Akkordfolge mit vorhandenen exakten Typen und explizitem Bass darstellbar.",
+      "required_capabilities": [
+        "import"
+      ],
+      "optional_variants": "Grundform laut Akkordtabelle bewertet. Zusätzliche Pedal-, Halb­takt-, parallele Lagen-, Basslosigkeits- und Vorratsvarianten nicht automatisch mitfreigegeben. Ganzton/Hexatonik als Etikett verlangt für die reinen Akkordtöne noch keinen neuen Skalenverbraucher."
+    },
+    "HE-H31": {
+      "classification": "E",
+      "reason": "Die ausdrücklich notierte Tonmenge hat keinen exakten vorhandenen Akkordtyp; kein Ersatz durch ähnlich benannten Farbakkord.",
+      "required_capabilities": [
+        "chord_objects"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-H32": {
+      "classification": "E",
+      "reason": "Die Folge verlangt strukturgleiche chromatische/zyklische Blockführung; vorhandene Akkordtypen passen, freie Umkehrungsoptimierung garantiert die exakte Parallelstruktur nicht.",
+      "required_capabilities": [
+        "exact_planing"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-H33": {
+      "classification": "E",
+      "reason": "Die Folge verlangt strukturgleiche chromatische/zyklische Blockführung; vorhandene Akkordtypen passen, freie Umkehrungsoptimierung garantiert die exakte Parallelstruktur nicht.",
+      "required_capabilities": [
+        "exact_planing"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-H34": {
+      "classification": "E",
+      "reason": "Die ausdrücklich notierte Tonmenge hat keinen exakten vorhandenen Akkordtyp; kein Ersatz durch ähnlich benannten Farbakkord.",
+      "required_capabilities": [
+        "chord_objects",
+        "exact_planing"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-H35": {
+      "classification": "E",
+      "reason": "Die Folge verlangt strukturgleiche chromatische/zyklische Blockführung; vorhandene Akkordtypen passen, freie Umkehrungsoptimierung garantiert die exakte Parallelstruktur nicht.",
+      "required_capabilities": [
+        "exact_planing"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-H36": {
+      "classification": "D",
+      "reason": "Geschützte, ganzzahlige Acht-Takt-Akkordfolge mit vorhandenen exakten Typen und explizitem Bass darstellbar.",
+      "required_capabilities": [
+        "import"
+      ],
+      "optional_variants": "Grundform laut Akkordtabelle bewertet. Zusätzliche Pedal-, Halb­takt-, parallele Lagen-, Basslosigkeits- und Vorratsvarianten nicht automatisch mitfreigegeben. Ganzton/Hexatonik als Etikett verlangt für die reinen Akkordtöne noch keinen neuen Skalenverbraucher."
+    },
+    "HE-H37": {
+      "classification": "D",
+      "reason": "Geschützte, ganzzahlige Acht-Takt-Akkordfolge mit vorhandenen exakten Typen und explizitem Bass darstellbar.",
+      "required_capabilities": [
+        "import"
+      ],
+      "optional_variants": "Grundform laut Akkordtabelle bewertet. Zusätzliche Pedal-, Halb­takt-, parallele Lagen-, Basslosigkeits- und Vorratsvarianten nicht automatisch mitfreigegeben. Ganzton/Hexatonik als Etikett verlangt für die reinen Akkordtöne noch keinen neuen Skalenverbraucher."
+    },
+    "HE-H38": {
+      "classification": "D",
+      "reason": "Geschützte, ganzzahlige Acht-Takt-Akkordfolge mit vorhandenen exakten Typen und explizitem Bass darstellbar.",
+      "required_capabilities": [
+        "import"
+      ],
+      "optional_variants": "Grundform laut Akkordtabelle bewertet. Zusätzliche Pedal-, Halb­takt-, parallele Lagen-, Basslosigkeits- und Vorratsvarianten nicht automatisch mitfreigegeben. Ganzton/Hexatonik als Etikett verlangt für die reinen Akkordtöne noch keinen neuen Skalenverbraucher."
+    },
+    "HE-H39": {
+      "classification": "D",
+      "reason": "Geschützte, ganzzahlige Acht-Takt-Akkordfolge mit vorhandenen exakten Typen und explizitem Bass darstellbar.",
+      "required_capabilities": [
+        "import"
+      ],
+      "optional_variants": "Grundform laut Akkordtabelle bewertet. Zusätzliche Pedal-, Halb­takt-, parallele Lagen-, Basslosigkeits- und Vorratsvarianten nicht automatisch mitfreigegeben. Ganzton/Hexatonik als Etikett verlangt für die reinen Akkordtöne noch keinen neuen Skalenverbraucher."
+    },
+    "HE-H40": {
+      "classification": "D",
+      "reason": "Geschützte, ganzzahlige Acht-Takt-Akkordfolge mit vorhandenen exakten Typen und explizitem Bass darstellbar.",
+      "required_capabilities": [
+        "import"
+      ],
+      "optional_variants": "Grundform laut Akkordtabelle bewertet. Zusätzliche Pedal-, Halb­takt-, parallele Lagen-, Basslosigkeits- und Vorratsvarianten nicht automatisch mitfreigegeben. Ganzton/Hexatonik als Etikett verlangt für die reinen Akkordtöne noch keinen neuen Skalenverbraucher."
+    },
+    "HE-H41": {
+      "classification": "D",
+      "reason": "Geschützte, ganzzahlige Acht-Takt-Akkordfolge mit vorhandenen exakten Typen und explizitem Bass darstellbar.",
+      "required_capabilities": [
+        "import"
+      ],
+      "optional_variants": "Grundform laut Akkordtabelle bewertet. Zusätzliche Pedal-, Halb­takt-, parallele Lagen-, Basslosigkeits- und Vorratsvarianten nicht automatisch mitfreigegeben. Ganzton/Hexatonik als Etikett verlangt für die reinen Akkordtöne noch keinen neuen Skalenverbraucher."
+    },
+    "HE-H42": {
+      "classification": "D",
+      "reason": "Geschützte, ganzzahlige Acht-Takt-Akkordfolge mit vorhandenen exakten Typen und explizitem Bass darstellbar.",
+      "required_capabilities": [
+        "import"
+      ],
+      "optional_variants": "Grundform laut Akkordtabelle bewertet. Zusätzliche Pedal-, Halb­takt-, parallele Lagen-, Basslosigkeits- und Vorratsvarianten nicht automatisch mitfreigegeben. Ganzton/Hexatonik als Etikett verlangt für die reinen Akkordtöne noch keinen neuen Skalenverbraucher."
+    },
+    "HE-H43": {
+      "classification": "E",
+      "reason": "Akkordfolge und Bassfeld allein erfassen das ausdrücklich gehaltene tiefe, hohe oder innere Pedal über wechselnden Klängen nicht.",
+      "required_capabilities": [
+        "pedal_lifetime"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-H44": {
+      "classification": "E",
+      "reason": "Die ausdrücklich notierte Tonmenge hat keinen exakten vorhandenen Akkordtyp; kein Ersatz durch ähnlich benannten Farbakkord.",
+      "required_capabilities": [
+        "chord_objects"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-H45": {
+      "classification": "D",
+      "reason": "Geschützte, ganzzahlige Acht-Takt-Akkordfolge mit vorhandenen exakten Typen und explizitem Bass darstellbar.",
+      "required_capabilities": [
+        "import"
+      ],
+      "optional_variants": "Grundform laut Akkordtabelle bewertet. Zusätzliche Pedal-, Halb­takt-, parallele Lagen-, Basslosigkeits- und Vorratsvarianten nicht automatisch mitfreigegeben. Ganzton/Hexatonik als Etikett verlangt für die reinen Akkordtöne noch keinen neuen Skalenverbraucher."
+    },
+    "HE-H46": {
+      "classification": "D",
+      "reason": "Geschützte, ganzzahlige Acht-Takt-Akkordfolge mit vorhandenen exakten Typen und explizitem Bass darstellbar.",
+      "required_capabilities": [
+        "import"
+      ],
+      "optional_variants": "Grundform laut Akkordtabelle bewertet. Zusätzliche Pedal-, Halb­takt-, parallele Lagen-, Basslosigkeits- und Vorratsvarianten nicht automatisch mitfreigegeben. Ganzton/Hexatonik als Etikett verlangt für die reinen Akkordtöne noch keinen neuen Skalenverbraucher."
+    },
+    "HE-H47": {
+      "classification": "E",
+      "reason": "Die ausdrücklich notierte Tonmenge hat keinen exakten vorhandenen Akkordtyp; kein Ersatz durch ähnlich benannten Farbakkord.",
+      "required_capabilities": [
+        "chord_objects"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-H48": {
+      "classification": "D",
+      "reason": "Geschützte, ganzzahlige Acht-Takt-Akkordfolge mit vorhandenen exakten Typen und explizitem Bass darstellbar.",
+      "required_capabilities": [
+        "import"
+      ],
+      "optional_variants": "Grundform laut Akkordtabelle bewertet. Zusätzliche Pedal-, Halb­takt-, parallele Lagen-, Basslosigkeits- und Vorratsvarianten nicht automatisch mitfreigegeben. Ganzton/Hexatonik als Etikett verlangt für die reinen Akkordtöne noch keinen neuen Skalenverbraucher."
+    },
+    "HE-H49": {
+      "classification": "E",
+      "reason": "Die ausdrücklich notierte Tonmenge hat keinen exakten vorhandenen Akkordtyp; kein Ersatz durch ähnlich benannten Farbakkord.",
+      "required_capabilities": [
+        "chord_objects"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-H50": {
+      "classification": "E",
+      "reason": "Die ausdrücklich notierte Tonmenge hat keinen exakten vorhandenen Akkordtyp; kein Ersatz durch ähnlich benannten Farbakkord.",
+      "required_capabilities": [
+        "chord_objects"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-H51": {
+      "classification": "E",
+      "reason": "Getrennte oder bewusst verschmolzene Komponenten sind wesentlich. Weder eine einzelne Akkordmaske noch das Entfernen einer Komponente bewahrt die Vorlage.",
+      "required_capabilities": [
+        "components",
+        "register_sync"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-H52": {
+      "classification": "E",
+      "reason": "Getrennte oder bewusst verschmolzene Komponenten sind wesentlich. Weder eine einzelne Akkordmaske noch das Entfernen einer Komponente bewahrt die Vorlage.",
+      "required_capabilities": [
+        "components",
+        "register_sync"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-H53": {
+      "classification": "E",
+      "reason": "Getrennte oder bewusst verschmolzene Komponenten sind wesentlich. Weder eine einzelne Akkordmaske noch das Entfernen einer Komponente bewahrt die Vorlage.",
+      "required_capabilities": [
+        "components",
+        "register_sync"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-H54": {
+      "classification": "E",
+      "reason": "Getrennte oder bewusst verschmolzene Komponenten sind wesentlich. Weder eine einzelne Akkordmaske noch das Entfernen einer Komponente bewahrt die Vorlage.",
+      "required_capabilities": [
+        "components",
+        "register_sync"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-H55": {
+      "classification": "E",
+      "reason": "Getrennte oder bewusst verschmolzene Komponenten sind wesentlich. Weder eine einzelne Akkordmaske noch das Entfernen einer Komponente bewahrt die Vorlage.",
+      "required_capabilities": [
+        "components",
+        "register_sync"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-H56": {
+      "classification": "E",
+      "reason": "Getrennte oder bewusst verschmolzene Komponenten sind wesentlich. Weder eine einzelne Akkordmaske noch das Entfernen einer Komponente bewahrt die Vorlage. Zusätzlich ausdrücklich mehrstimmiger Bass.",
+      "required_capabilities": [
+        "components",
+        "register_sync",
+        "bass_polyphony"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-H57": {
+      "classification": "E",
+      "reason": "Getrennte oder bewusst verschmolzene Komponenten sind wesentlich. Weder eine einzelne Akkordmaske noch das Entfernen einer Komponente bewahrt die Vorlage.",
+      "required_capabilities": [
+        "components",
+        "register_sync"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-H58": {
+      "classification": "E",
+      "reason": "Getrennte oder bewusst verschmolzene Komponenten sind wesentlich. Weder eine einzelne Akkordmaske noch das Entfernen einer Komponente bewahrt die Vorlage.",
+      "required_capabilities": [
+        "components",
+        "register_sync"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-H59": {
+      "classification": "E",
+      "reason": "Getrennte oder bewusst verschmolzene Komponenten sind wesentlich. Weder eine einzelne Akkordmaske noch das Entfernen einer Komponente bewahrt die Vorlage. Zusätzlich ausdrücklich mehrstimmiger Bass.",
+      "required_capabilities": [
+        "components",
+        "register_sync",
+        "bass_polyphony"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-H60": {
+      "classification": "E",
+      "reason": "Getrennte oder bewusst verschmolzene Komponenten sind wesentlich. Weder eine einzelne Akkordmaske noch das Entfernen einer Komponente bewahrt die Vorlage.",
+      "required_capabilities": [
+        "components",
+        "register_sync"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-H61": {
+      "classification": "E",
+      "reason": "Getrennte oder bewusst verschmolzene Komponenten sind wesentlich. Weder eine einzelne Akkordmaske noch das Entfernen einer Komponente bewahrt die Vorlage.",
+      "required_capabilities": [
+        "components",
+        "register_sync",
+        "exact_planing"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-H62": {
+      "classification": "E",
+      "reason": "Getrennte oder bewusst verschmolzene Komponenten sind wesentlich. Weder eine einzelne Akkordmaske noch das Entfernen einer Komponente bewahrt die Vorlage.",
+      "required_capabilities": [
+        "components",
+        "register_sync"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-H63": {
+      "classification": "E",
+      "reason": "Getrennte oder bewusst verschmolzene Komponenten sind wesentlich. Weder eine einzelne Akkordmaske noch das Entfernen einer Komponente bewahrt die Vorlage.",
+      "required_capabilities": [
+        "components",
+        "register_sync"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-H64": {
+      "classification": "E",
+      "reason": "Akkordfolge und Bassfeld allein erfassen das ausdrücklich gehaltene tiefe, hohe oder innere Pedal über wechselnden Klängen nicht.",
+      "required_capabilities": [
+        "pedal_lifetime"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-H65": {
+      "classification": "E",
+      "reason": "Akkordfolge und Bassfeld allein erfassen das ausdrücklich gehaltene tiefe, hohe oder innere Pedal über wechselnden Klängen nicht. Zusätzlich ausdrücklich mehrstimmiger Bass.",
+      "required_capabilities": [
+        "pedal_lifetime",
+        "bass_polyphony"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-H66": {
+      "classification": "D",
+      "reason": "Geschützte, ganzzahlige Acht-Takt-Akkordfolge mit vorhandenen exakten Typen und explizitem Bass darstellbar.",
+      "required_capabilities": [
+        "import"
+      ],
+      "optional_variants": "Grundform laut Akkordtabelle bewertet. Zusätzliche Pedal-, Halb­takt-, parallele Lagen-, Basslosigkeits- und Vorratsvarianten nicht automatisch mitfreigegeben. Ganzton/Hexatonik als Etikett verlangt für die reinen Akkordtöne noch keinen neuen Skalenverbraucher."
+    },
+    "HE-H67": {
+      "classification": "D",
+      "reason": "Geschützte, ganzzahlige Acht-Takt-Akkordfolge mit vorhandenen exakten Typen und explizitem Bass darstellbar.",
+      "required_capabilities": [
+        "import"
+      ],
+      "optional_variants": "Grundform laut Akkordtabelle bewertet. Zusätzliche Pedal-, Halb­takt-, parallele Lagen-, Basslosigkeits- und Vorratsvarianten nicht automatisch mitfreigegeben. Ganzton/Hexatonik als Etikett verlangt für die reinen Akkordtöne noch keinen neuen Skalenverbraucher."
+    },
+    "HE-H68": {
+      "classification": "E",
+      "reason": "Akkordfolge und Bassfeld allein erfassen das ausdrücklich gehaltene tiefe, hohe oder innere Pedal über wechselnden Klängen nicht.",
+      "required_capabilities": [
+        "pedal_lifetime"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-H69": {
+      "classification": "E",
+      "reason": "Akkordfolge und Bassfeld allein erfassen das ausdrücklich gehaltene tiefe, hohe oder innere Pedal über wechselnden Klängen nicht. Zusätzlich ausdrücklich mehrstimmiger Bass.",
+      "required_capabilities": [
+        "pedal_lifetime",
+        "bass_polyphony"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-H70": {
+      "classification": "E",
+      "reason": "Akkordfolge und Bassfeld allein erfassen das ausdrücklich gehaltene tiefe, hohe oder innere Pedal über wechselnden Klängen nicht.",
+      "required_capabilities": [
+        "pedal_lifetime",
+        "chord_objects"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-H71": {
+      "classification": "K",
+      "reason": "Bassspalte nennt A♭, der Text F2 als tiefsten Kaskadenton. Die Tonmenge ist eindeutig, Bass-/Registerdefinition vor Import klären.",
+      "required_capabilities": [
+        "clarify",
+        "chord_objects",
+        "register_sync"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-H72": {
+      "classification": "E",
+      "reason": "Die ausdrücklich notierte Tonmenge hat keinen exakten vorhandenen Akkordtyp; kein Ersatz durch ähnlich benannten Farbakkord.",
+      "required_capabilities": [
+        "chord_objects"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-H73": {
+      "classification": "E",
+      "reason": "Die ausdrücklich notierte Tonmenge hat keinen exakten vorhandenen Akkordtyp; kein Ersatz durch ähnlich benannten Farbakkord.",
+      "required_capabilities": [
+        "chord_objects"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-H74": {
+      "classification": "E",
+      "reason": "Die ausdrücklich notierte Tonmenge hat keinen exakten vorhandenen Akkordtyp; kein Ersatz durch ähnlich benannten Farbakkord.",
+      "required_capabilities": [
+        "chord_objects"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-H75": {
+      "classification": "E",
+      "reason": "Die ausdrücklich notierte Tonmenge hat keinen exakten vorhandenen Akkordtyp; kein Ersatz durch ähnlich benannten Farbakkord.",
+      "required_capabilities": [
+        "chord_objects"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-H76": {
+      "classification": "E",
+      "reason": "Die Folge verlangt strukturgleiche chromatische/zyklische Blockführung; vorhandene Akkordtypen passen, freie Umkehrungsoptimierung garantiert die exakte Parallelstruktur nicht.",
+      "required_capabilities": [
+        "exact_planing"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-H77": {
+      "classification": "E",
+      "reason": "Die ausdrücklich notierte Tonmenge hat keinen exakten vorhandenen Akkordtyp; kein Ersatz durch ähnlich benannten Farbakkord.",
+      "required_capabilities": [
+        "chord_objects"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-H78": {
+      "classification": "D",
+      "reason": "Geschützte, ganzzahlige Acht-Takt-Akkordfolge mit vorhandenen exakten Typen und explizitem Bass darstellbar.",
+      "required_capabilities": [
+        "import"
+      ],
+      "optional_variants": "Grundform laut Akkordtabelle bewertet. Zusätzliche Pedal-, Halb­takt-, parallele Lagen-, Basslosigkeits- und Vorratsvarianten nicht automatisch mitfreigegeben. Ganzton/Hexatonik als Etikett verlangt für die reinen Akkordtöne noch keinen neuen Skalenverbraucher."
+    },
+    "HE-H79": {
+      "classification": "E",
+      "reason": "Der ausdrücklich geforderte Oktav-/Dyadenbass überschreitet die monophonen LB-/KB-Standardziele; Tonklassenkompatibilität allein reicht nicht.",
+      "required_capabilities": [
+        "bass_polyphony"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-H80": {
+      "classification": "E",
+      "reason": "Der ausdrücklich geforderte Oktav-/Dyadenbass überschreitet die monophonen LB-/KB-Standardziele; Tonklassenkompatibilität allein reicht nicht.",
+      "required_capabilities": [
+        "bass_polyphony"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-H81": {
+      "classification": "E",
+      "reason": "Die ausdrücklich notierte Tonmenge hat keinen exakten vorhandenen Akkordtyp; kein Ersatz durch ähnlich benannten Farbakkord.",
+      "required_capabilities": [
+        "chord_objects"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-H82": {
+      "classification": "D",
+      "reason": "Geschützte, ganzzahlige Acht-Takt-Akkordfolge mit vorhandenen exakten Typen und explizitem Bass darstellbar.",
+      "required_capabilities": [
+        "import"
+      ],
+      "optional_variants": "Grundform laut Akkordtabelle bewertet. Zusätzliche Pedal-, Halb­takt-, parallele Lagen-, Basslosigkeits- und Vorratsvarianten nicht automatisch mitfreigegeben. Ganzton/Hexatonik als Etikett verlangt für die reinen Akkordtöne noch keinen neuen Skalenverbraucher."
+    },
+    "HE-H83": {
+      "classification": "E",
+      "reason": "Die ausdrücklich notierte Tonmenge hat keinen exakten vorhandenen Akkordtyp; kein Ersatz durch ähnlich benannten Farbakkord.",
+      "required_capabilities": [
+        "chord_objects"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-H84": {
+      "classification": "E",
+      "reason": "Die ausdrücklich notierte Tonmenge hat keinen exakten vorhandenen Akkordtyp; kein Ersatz durch ähnlich benannten Farbakkord.",
+      "required_capabilities": [
+        "chord_objects"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-H85": {
+      "classification": "D",
+      "reason": "Geschützte, ganzzahlige Acht-Takt-Akkordfolge mit vorhandenen exakten Typen und explizitem Bass darstellbar.",
+      "required_capabilities": [
+        "import"
+      ],
+      "optional_variants": "Grundform laut Akkordtabelle bewertet. Zusätzliche Pedal-, Halb­takt-, parallele Lagen-, Basslosigkeits- und Vorratsvarianten nicht automatisch mitfreigegeben. Ganzton/Hexatonik als Etikett verlangt für die reinen Akkordtöne noch keinen neuen Skalenverbraucher."
+    },
+    "HE-H86": {
+      "classification": "E",
+      "reason": "Der ausdrücklich geforderte Oktav-/Dyadenbass überschreitet die monophonen LB-/KB-Standardziele; Tonklassenkompatibilität allein reicht nicht.",
+      "required_capabilities": [
+        "bass_polyphony"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-H87": {
+      "classification": "A",
+      "reason": "Cm7b5/Bm7b5 in 3/4: Akkorddaten passen; ternäre Einsatz-/Hostmeterbindung statt4/4-Automatismus.",
+      "required_capabilities": [
+        "import",
+        "rhythm_binding"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-H88": {
+      "classification": "A",
+      "reason": "CmM7/AbmM7 über C in6/8: harmonische Daten passen; gewünschtes Halten und6/8-Begleitung gesondert verbinden.",
+      "required_capabilities": [
+        "import",
+        "rhythm_binding"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-H89": {
+      "classification": "E",
+      "reason": "Getrennte oder bewusst verschmolzene Komponenten sind wesentlich. Weder eine einzelne Akkordmaske noch das Entfernen einer Komponente bewahrt die Vorlage. Zusätzlich ausdrücklich mehrstimmiger Bass.",
+      "required_capabilities": [
+        "components",
+        "register_sync",
+        "bass_polyphony"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-H90": {
+      "classification": "E",
+      "reason": "Der ausdrücklich geforderte Oktav-/Dyadenbass überschreitet die monophonen LB-/KB-Standardziele; Tonklassenkompatibilität allein reicht nicht.",
+      "required_capabilities": [
+        "bass_polyphony",
+        "chord_objects"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-H91": {
+      "classification": "E",
+      "reason": "Der ausdrücklich geforderte Oktav-/Dyadenbass überschreitet die monophonen LB-/KB-Standardziele; Tonklassenkompatibilität allein reicht nicht.",
+      "required_capabilities": [
+        "bass_polyphony"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-H92": {
+      "classification": "E",
+      "reason": "Getrennte oder bewusst verschmolzene Komponenten sind wesentlich. Weder eine einzelne Akkordmaske noch das Entfernen einer Komponente bewahrt die Vorlage.",
+      "required_capabilities": [
+        "components",
+        "register_sync"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-H93": {
+      "classification": "E",
+      "reason": "Die Folge verlangt strukturgleiche chromatische/zyklische Blockführung; vorhandene Akkordtypen passen, freie Umkehrungsoptimierung garantiert die exakte Parallelstruktur nicht.",
+      "required_capabilities": [
+        "exact_planing"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-H94": {
+      "classification": "E",
+      "reason": "Der ausdrücklich geforderte Oktav-/Dyadenbass überschreitet die monophonen LB-/KB-Standardziele; Tonklassenkompatibilität allein reicht nicht.",
+      "required_capabilities": [
+        "bass_polyphony"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-H95": {
+      "classification": "E",
+      "reason": "Die ausdrücklich notierte Tonmenge hat keinen exakten vorhandenen Akkordtyp; kein Ersatz durch ähnlich benannten Farbakkord. Zusätzlich ausdrücklich mehrstimmiger Bass.",
+      "required_capabilities": [
+        "chord_objects",
+        "bass_polyphony"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-H96": {
+      "classification": "A",
+      "reason": "Dur über großer Septime im Bass ist als Slash-Bass darstellbar; hohe/statische Ausgestaltung ausdrücklich wählen.",
+      "required_capabilities": [
+        "import",
+        "rhythm_binding"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-H97": {
+      "classification": "E",
+      "reason": "Die ausdrücklich notierte Tonmenge hat keinen exakten vorhandenen Akkordtyp; kein Ersatz durch ähnlich benannten Farbakkord.",
+      "required_capabilities": [
+        "chord_objects"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-H98": {
+      "classification": "E",
+      "reason": "Der ausdrücklich geforderte Oktav-/Dyadenbass überschreitet die monophonen LB-/KB-Standardziele; Tonklassenkompatibilität allein reicht nicht.",
+      "required_capabilities": [
+        "bass_polyphony"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-H99": {
+      "classification": "E",
+      "reason": "Getrennte oder bewusst verschmolzene Komponenten sind wesentlich. Weder eine einzelne Akkordmaske noch das Entfernen einer Komponente bewahrt die Vorlage. Zusätzlich ausdrücklich mehrstimmiger Bass.",
+      "required_capabilities": [
+        "components",
+        "register_sync",
+        "bass_polyphony"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-H100": {
+      "classification": "E",
+      "reason": "Der ausdrücklich geforderte Oktav-/Dyadenbass überschreitet die monophonen LB-/KB-Standardziele; Tonklassenkompatibilität allein reicht nicht.",
+      "required_capabilities": [
+        "bass_polyphony"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-H101": {
+      "classification": "E",
+      "reason": "Die ausdrücklich notierte Tonmenge hat keinen exakten vorhandenen Akkordtyp; kein Ersatz durch ähnlich benannten Farbakkord.",
+      "required_capabilities": [
+        "chord_objects"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-R01": {
+      "classification": "A",
+      "reason": "Das konkrete endliche Raster ist mit vorhandenen Tick-Noten und passender Spielweise darstellbar; HE-Auswahl und rollen-/meterbezogene Datenanbindung fehlen.",
+      "required_capabilities": [
+        "rhythm_binding"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-R02": {
+      "classification": "A",
+      "reason": "Das konkrete endliche Raster ist mit vorhandenen Tick-Noten und passender Spielweise darstellbar; HE-Auswahl und rollen-/meterbezogene Datenanbindung fehlen.",
+      "required_capabilities": [
+        "rhythm_binding"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-R03": {
+      "classification": "E",
+      "reason": "Synkopen über eigenem Liegebass; außerdem überschreitet ein KF-Halt die aktuelle Kurz-Dauerannahme. Geforderte Notenlängen passen nicht zu mindestens einem angegebenen Kurz-Ausgang.",
+      "required_capabilities": [
+        "pedal_lifetime",
+        "duration_capability"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-R04": {
+      "classification": "E",
+      "reason": "Gehaltenes E1 und gepulstes F2 erfordern zwei unabhängige Basspläne, nicht eine globale Basswahl.",
+      "required_capabilities": [
+        "pedal_lifetime"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-R05": {
+      "classification": "E",
+      "reason": "4/4T-Zählung plus aab-Abfolge; nicht auf Sechzehntel runden.",
+      "required_capabilities": [
+        "triplets_grouping",
+        "modules"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-R06": {
+      "classification": "E",
+      "reason": "AR/TU setzen verschiedene Bestandteile eines Polychords versetzt ein.",
+      "required_capabilities": [
+        "components"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-R07": {
+      "classification": "E",
+      "reason": "Drei gegeneinander laufende Perioden dürfen an Takt-/Akkordgrenzen nicht neu starten.",
+      "required_capabilities": [
+        "independent_cycles"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-R08": {
+      "classification": "A",
+      "reason": "Das konkrete endliche Raster ist mit vorhandenen Tick-Noten und passender Spielweise darstellbar; HE-Auswahl und rollen-/meterbezogene Datenanbindung fehlen.",
+      "required_capabilities": [
+        "rhythm_binding"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-R09": {
+      "classification": "A",
+      "reason": "Das konkrete endliche Raster ist mit vorhandenen Tick-Noten und passender Spielweise darstellbar; HE-Auswahl und rollen-/meterbezogene Datenanbindung fehlen.",
+      "required_capabilities": [
+        "rhythm_binding"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-R10": {
+      "classification": "E",
+      "reason": "6/8- und3/4-Akzentgruppierung bei gleicher Taktlänge; Akzentsemantik statt Meterzahl allein.",
+      "required_capabilities": [
+        "triplets_grouping"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-R11": {
+      "classification": "E",
+      "reason": "3gegen4-Schichten benötigen eigene Phasen über gemeinsame Taktgrenzen.",
+      "required_capabilities": [
+        "independent_cycles"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-R12": {
+      "classification": "K",
+      "reason": "Dreiergruppierung wird beschrieben, das x-Raster selbst kodiert keine entsprechenden Akzente. Verbindliche Akzentfolge ergänzen, statt sie aus dem Namen zu erfinden.",
+      "required_capabilities": [
+        "clarify",
+        "rhythm_binding"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-R13": {
+      "classification": "E",
+      "reason": "Gegenläufige Spiralfiguren im Triolenraster benötigen exakte320Tick-Einsätze und koordinierte Tonfolgen.",
+      "required_capabilities": [
+        "triplets_grouping",
+        "role_transfer"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-R14": {
+      "classification": "A",
+      "reason": "Das konkrete endliche Raster ist mit vorhandenen Tick-Noten und passender Spielweise darstellbar; HE-Auswahl und rollen-/meterbezogene Datenanbindung fehlen.",
+      "required_capabilities": [
+        "rhythm_binding"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-R15": {
+      "classification": "A",
+      "reason": "Das konkrete endliche Raster ist mit vorhandenen Tick-Noten und passender Spielweise darstellbar; HE-Auswahl und rollen-/meterbezogene Datenanbindung fehlen.",
+      "required_capabilities": [
+        "rhythm_binding"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-R16": {
+      "classification": "A",
+      "reason": "Das konkrete endliche Raster ist mit vorhandenen Tick-Noten und passender Spielweise darstellbar; HE-Auswahl und rollen-/meterbezogene Datenanbindung fehlen.",
+      "required_capabilities": [
+        "rhythm_binding"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-R17": {
+      "classification": "A",
+      "reason": "Das konkrete endliche Raster ist mit vorhandenen Tick-Noten und passender Spielweise darstellbar; HE-Auswahl und rollen-/meterbezogene Datenanbindung fehlen.",
+      "required_capabilities": [
+        "rhythm_binding"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-R18": {
+      "classification": "A",
+      "reason": "Das konkrete endliche Raster ist mit vorhandenen Tick-Noten und passender Spielweise darstellbar; HE-Auswahl und rollen-/meterbezogene Datenanbindung fehlen.",
+      "required_capabilities": [
+        "rhythm_binding"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-R19": {
+      "classification": "E",
+      "reason": "Drei Zellenaussagen mit verschobenem drittem Einsatz müssen als zusammengehörige Abfolge geplant werden.",
+      "required_capabilities": [
+        "modules"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-R20": {
+      "classification": "A",
+      "reason": "Das konkrete endliche Raster ist mit vorhandenen Tick-Noten und passender Spielweise darstellbar; HE-Auswahl und rollen-/meterbezogene Datenanbindung fehlen.",
+      "required_capabilities": [
+        "rhythm_binding"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-R21": {
+      "classification": "E",
+      "reason": "Bewegungsmodul wird durch harmonisch bestimmte Interpunktion unterbrochen; unabhängige Zufallsmuster genügen nicht. Zusätzlich überschreitet eine vorgeschriebene Notendauer die Standardfähigkeit ihres Kurz-Ziels.",
+      "required_capabilities": [
+        "modules",
+        "duration_capability"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-R22": {
+      "classification": "E",
+      "reason": "aab-Modulform verlangt gemeinsame Wiederholungs-/Interpunktionsentscheidung. Zusätzlich überschreitet eine vorgeschriebene Notendauer die Standardfähigkeit ihres Kurz-Ziels.",
+      "required_capabilities": [
+        "modules",
+        "duration_capability"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-R23": {
+      "classification": "E",
+      "reason": "Progressive Kürzung betrifft Modullänge, nicht Tempo oder globale Ereignisdichte.",
+      "required_capabilities": [
+        "modules"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-R24": {
+      "classification": "E",
+      "reason": "Verlängerung muss Material und laufende Rollenbeziehungen fortführen.",
+      "required_capabilities": [
+        "modules"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-R25": {
+      "classification": "E",
+      "reason": "Dreitaktige Wiederholung darf nicht in einen Zweitaktverbraucher gepresst werden. Zusätzlich überschreitet eine vorgeschriebene Notendauer die Standardfähigkeit ihres Kurz-Ziels.",
+      "required_capabilities": [
+        "independent_cycles",
+        "duration_capability"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-R26": {
+      "classification": "E",
+      "reason": "Dreizehntaktige 4+4+4+1-Form braucht eine explizite Gelenk-/Abbruchplanung. Zusätzlich überschreitet eine vorgeschriebene Notendauer die Standardfähigkeit ihres Kurz-Ziels.",
+      "required_capabilities": [
+        "modules",
+        "duration_capability"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-R27": {
+      "classification": "A",
+      "reason": "Das konkrete endliche Raster ist mit vorhandenen Tick-Noten und passender Spielweise darstellbar; HE-Auswahl und rollen-/meterbezogene Datenanbindung fehlen.",
+      "required_capabilities": [
+        "rhythm_binding"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-R28": {
+      "classification": "A",
+      "reason": "Das konkrete endliche Raster ist mit vorhandenen Tick-Noten und passender Spielweise darstellbar; HE-Auswahl und rollen-/meterbezogene Datenanbindung fehlen.",
+      "required_capabilities": [
+        "rhythm_binding"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-R29": {
+      "classification": "E",
+      "reason": "Dreiergruppen kreuzen den Takt; Phase nicht je Takt zurücksetzen.",
+      "required_capabilities": [
+        "independent_cycles"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-R30": {
+      "classification": "E",
+      "reason": "Fünferzelle über fünf4/4-Takte benötigt eigene Periode.",
+      "required_capabilities": [
+        "independent_cycles"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-R31": {
+      "classification": "A",
+      "reason": "Das konkrete endliche Raster ist mit vorhandenen Tick-Noten und passender Spielweise darstellbar; HE-Auswahl und rollen-/meterbezogene Datenanbindung fehlen.",
+      "required_capabilities": [
+        "rhythm_binding"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-R32": {
+      "classification": "E",
+      "reason": "Das konkrete endliche Raster ist mit vorhandenen Tick-Noten und passender Spielweise darstellbar; HE-Auswahl und rollen-/meterbezogene Datenanbindung fehlen. Geforderte Notenlängen passen nicht zu mindestens einem angegebenen Kurz-Ausgang. Zusätzlich überschreitet eine vorgeschriebene Notendauer die Standardfähigkeit ihres Kurz-Ziels.",
+      "required_capabilities": [
+        "rhythm_binding",
+        "duration_capability"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-R33": {
+      "classification": "A",
+      "reason": "Das konkrete endliche Raster ist mit vorhandenen Tick-Noten und passender Spielweise darstellbar; HE-Auswahl und rollen-/meterbezogene Datenanbindung fehlen.",
+      "required_capabilities": [
+        "rhythm_binding"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-R34": {
+      "classification": "E",
+      "reason": "Vom Gleichschritt zur Entkopplung: relativen Einsatz beider Rollen als musikalischen Verlauf planen.",
+      "required_capabilities": [
+        "register_sync"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-R35": {
+      "classification": "A",
+      "reason": "Das konkrete endliche Raster ist mit vorhandenen Tick-Noten und passender Spielweise darstellbar; HE-Auswahl und rollen-/meterbezogene Datenanbindung fehlen.",
+      "required_capabilities": [
+        "rhythm_binding"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-R36": {
+      "classification": "A",
+      "reason": "Das konkrete endliche Raster ist mit vorhandenen Tick-Noten und passender Spielweise darstellbar; HE-Auswahl und rollen-/meterbezogene Datenanbindung fehlen.",
+      "required_capabilities": [
+        "rhythm_binding"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-R37": {
+      "classification": "A",
+      "reason": "Das konkrete endliche Raster ist mit vorhandenen Tick-Noten und passender Spielweise darstellbar; HE-Auswahl und rollen-/meterbezogene Datenanbindung fehlen.",
+      "required_capabilities": [
+        "rhythm_binding"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-R38": {
+      "classification": "A",
+      "reason": "Das konkrete endliche Raster ist mit vorhandenen Tick-Noten und passender Spielweise darstellbar; HE-Auswahl und rollen-/meterbezogene Datenanbindung fehlen.",
+      "required_capabilities": [
+        "rhythm_binding"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-R39": {
+      "classification": "E",
+      "reason": "Dichteaufbau der gleichen Zelle muss als nachvollziehbare Entwicklung erhalten bleiben.",
+      "required_capabilities": [
+        "modules"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-R40": {
+      "classification": "E",
+      "reason": "Gezielte Rücknahme einer wiedererkennbaren Figur ist keine beliebige Löschmaske.",
+      "required_capabilities": [
+        "modules"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-R41": {
+      "classification": "E",
+      "reason": "Das konkrete endliche Raster ist mit vorhandenen Tick-Noten und passender Spielweise darstellbar; HE-Auswahl und rollen-/meterbezogene Datenanbindung fehlen. Geforderte Notenlängen passen nicht zu mindestens einem angegebenen Kurz-Ausgang. Zusätzlich überschreitet eine vorgeschriebene Notendauer die Standardfähigkeit ihres Kurz-Ziels. Zusätzlich überschreitet eine vorgeschriebene Notendauer die Standardfähigkeit ihres Kurz-Ziels.",
+      "required_capabilities": [
+        "rhythm_binding",
+        "duration_capability"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-R42": {
+      "classification": "E",
+      "reason": "Drei komplementäre Rollen beziehen sich auf unterschiedliche harmonische Komponenten.",
+      "required_capabilities": [
+        "components"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-R43": {
+      "classification": "E",
+      "reason": "Viertaktversetzte Kanon-Einsätze verlangen einen expliziten mehrstimmigen Linienplan.",
+      "required_capabilities": [
+        "role_transfer"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-R44": {
+      "classification": "E",
+      "reason": "Versetzte Zellen gehören zu einer koordinierten Parallelstimmen-Struktur.",
+      "required_capabilities": [
+        "role_transfer"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-R45": {
+      "classification": "A",
+      "reason": "Das konkrete endliche Raster ist mit vorhandenen Tick-Noten und passender Spielweise darstellbar; HE-Auswahl und rollen-/meterbezogene Datenanbindung fehlen.",
+      "required_capabilities": [
+        "rhythm_binding"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-R46": {
+      "classification": "E",
+      "reason": "Seufzer-/Vorhaltsbewegung mit begleitenden Rollen braucht eine erhaltene Zielauflösung.",
+      "required_capabilities": [
+        "note_intent"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-R47": {
+      "classification": "A",
+      "reason": "Das konkrete endliche Raster ist mit vorhandenen Tick-Noten und passender Spielweise darstellbar; HE-Auswahl und rollen-/meterbezogene Datenanbindung fehlen.",
+      "required_capabilities": [
+        "rhythm_binding"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-R48": {
+      "classification": "E",
+      "reason": "Bass- und Gegenstimmenzelle teilen sich ein geplantes Fenster; bloße Addition wäre falsch.",
+      "required_capabilities": [
+        "modules"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-R49": {
+      "classification": "E",
+      "reason": "Stich36 genau am Entwicklungsereignis, nicht als bestehender zufälliger Stich-Puls.",
+      "required_capabilities": [
+        "modules"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-R50": {
+      "classification": "E",
+      "reason": "Polychordschlag mit Stich und Nachhall verlangt Komponenten- und Ereignisbindung.",
+      "required_capabilities": [
+        "components"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-R51": {
+      "classification": "E",
+      "reason": "Gestaffelte, weit gespreizte Kaskade muss als zusammengehöriges Ereignis gehalten werden. Geforderte Notenlängen passen nicht zu mindestens einem angegebenen Kurz-Ausgang. Zusätzlich überschreitet eine vorgeschriebene Notendauer die Standardfähigkeit ihres Kurz-Ziels. Zusätzlich überschreitet eine vorgeschriebene Notendauer die Standardfähigkeit ihres Kurz-Ziels. Zusätzlich überschreitet eine vorgeschriebene Notendauer die Standardfähigkeit ihres Kurz-Ziels.",
+      "required_capabilities": [
+        "register_sync",
+        "duration_capability"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-R52": {
+      "classification": "E",
+      "reason": "Umgekehrte Kaskade benötigt dieselbe Register-/Halte-/Synchronisationsplanung. Geforderte Notenlängen passen nicht zu mindestens einem angegebenen Kurz-Ausgang. Zusätzlich überschreitet eine vorgeschriebene Notendauer die Standardfähigkeit ihres Kurz-Ziels. Zusätzlich überschreitet eine vorgeschriebene Notendauer die Standardfähigkeit ihres Kurz-Ziels. Zusätzlich überschreitet eine vorgeschriebene Notendauer die Standardfähigkeit ihres Kurz-Ziels.",
+      "required_capabilities": [
+        "register_sync",
+        "duration_capability"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-R53": {
+      "classification": "E",
+      "reason": "Identische rhythmische Zelle wandert KF→AR→KB; keine getrennten Neuberechnungen. Zusätzlich überschreitet eine vorgeschriebene Notendauer die Standardfähigkeit ihres Kurz-Ziels.",
+      "required_capabilities": [
+        "role_transfer",
+        "duration_capability"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-R54": {
+      "classification": "A",
+      "reason": "Das konkrete endliche Raster ist mit vorhandenen Tick-Noten und passender Spielweise darstellbar; HE-Auswahl und rollen-/meterbezogene Datenanbindung fehlen.",
+      "required_capabilities": [
+        "rhythm_binding"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-R55": {
+      "classification": "A",
+      "reason": "Das konkrete endliche Raster ist mit vorhandenen Tick-Noten und passender Spielweise darstellbar; HE-Auswahl und rollen-/meterbezogene Datenanbindung fehlen.",
+      "required_capabilities": [
+        "rhythm_binding"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-R56": {
+      "classification": "A",
+      "reason": "Das konkrete endliche Raster ist mit vorhandenen Tick-Noten und passender Spielweise darstellbar; HE-Auswahl und rollen-/meterbezogene Datenanbindung fehlen.",
+      "required_capabilities": [
+        "rhythm_binding"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-R57": {
+      "classification": "E",
+      "reason": "Hemiolenwechsel3/4↔6/8 betrifft Akzentgruppen, nicht zufällige Geschwindigkeitswechsel.",
+      "required_capabilities": [
+        "triplets_grouping"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-R58": {
+      "classification": "A",
+      "reason": "Das konkrete endliche Raster ist mit vorhandenen Tick-Noten und passender Spielweise darstellbar; HE-Auswahl und rollen-/meterbezogene Datenanbindung fehlen.",
+      "required_capabilities": [
+        "rhythm_binding"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-R59": {
+      "classification": "A",
+      "reason": "Das konkrete endliche Raster ist mit vorhandenen Tick-Noten und passender Spielweise darstellbar; HE-Auswahl und rollen-/meterbezogene Datenanbindung fehlen.",
+      "required_capabilities": [
+        "rhythm_binding"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-R60": {
+      "classification": "A",
+      "reason": "Das konkrete endliche Raster ist mit vorhandenen Tick-Noten und passender Spielweise darstellbar; HE-Auswahl und rollen-/meterbezogene Datenanbindung fehlen.",
+      "required_capabilities": [
+        "rhythm_binding"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-R61": {
+      "classification": "E",
+      "reason": "Verkürzte Abstände einer Figur sind eine Entwicklung; keine Änderung des Hosttempos.",
+      "required_capabilities": [
+        "modules"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-R62": {
+      "classification": "E",
+      "reason": "Wachsende Abstände gehören zur Gestalt; Pausen nicht unabhängig auswürfeln.",
+      "required_capabilities": [
+        "modules"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-R63": {
+      "classification": "E",
+      "reason": "Fünftönige Tonfolge läuft gegen fortlaufende Achtel; Ton- und Rhythmusphase getrennt erhalten.",
+      "required_capabilities": [
+        "independent_cycles"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-R64": {
+      "classification": "A",
+      "reason": "Das konkrete endliche Raster ist mit vorhandenen Tick-Noten und passender Spielweise darstellbar; HE-Auswahl und rollen-/meterbezogene Datenanbindung fehlen.",
+      "required_capabilities": [
+        "rhythm_binding"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-R65": {
+      "classification": "E",
+      "reason": "Triolen mit wandernden Lücken plus langem Klang;320Ticks und gemeinsame Fenster nötig.",
+      "required_capabilities": [
+        "triplets_grouping"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-R66": {
+      "classification": "E",
+      "reason": "Das konkrete endliche Raster ist mit vorhandenen Tick-Noten und passender Spielweise darstellbar; HE-Auswahl und rollen-/meterbezogene Datenanbindung fehlen. Geforderte Notenlängen passen nicht zu mindestens einem angegebenen Kurz-Ausgang. Zusätzlich überschreitet eine vorgeschriebene Notendauer die Standardfähigkeit ihres Kurz-Ziels.",
+      "required_capabilities": [
+        "rhythm_binding",
+        "duration_capability"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-B01": {
+      "classification": "E",
+      "reason": "C-Orgelpunkt über vier Takte benötigt eigene Lebensdauer statt Akkord-Neuansatz.",
+      "required_capabilities": [
+        "pedal_lifetime"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-B02": {
+      "classification": "E",
+      "reason": "F♯1 als harmonisch unabhängiges Dissonanzpedal autorisieren und halten.",
+      "required_capabilities": [
+        "pedal_lifetime",
+        "note_intent"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-B03": {
+      "classification": "E",
+      "reason": "D♭1 darf bei wechselnden Akkorden weder ersetzt noch harmonisch korrigiert werden.",
+      "required_capabilities": [
+        "pedal_lifetime",
+        "note_intent"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-B04": {
+      "classification": "E",
+      "reason": "E1 gehalten plus F2-Viertel auf LB/KB: zwei eigene Pläne trotz physisch passender Einzelpolyphonie.",
+      "required_capabilities": [
+        "pedal_lifetime"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-B05": {
+      "classification": "E",
+      "reason": "Verspätetes C-Pedal über Abschnittsgrenzen braucht eigenen Beginn und eigenes Ende.",
+      "required_capabilities": [
+        "pedal_lifetime"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-B06": {
+      "classification": "E",
+      "reason": "Tiefes C1 und hohes C6 sind getrennte Pedale; der zusätzliche hohe Ton fehlt in der einzelnen Bassrasterzeile.",
+      "required_capabilities": [
+        "pedal_lifetime"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-B07": {
+      "classification": "E",
+      "reason": "C–B–B♭–B♭ mit hohem E-Pedal: notierte Basstonfolge und Oberpedal separat erhalten.",
+      "required_capabilities": [
+        "bass_sequence",
+        "note_intent"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-B08": {
+      "classification": "K",
+      "reason": "Fixe chromatische Folge G–G♯–A–B♭–B–C–C♯–D wird pauschal als relative Akkordtöne bezeichnet. Einsatz-/Harmoniezuordnung und Funktionslabels klären.",
+      "required_capabilities": [
+        "clarify",
+        "bass_sequence"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-B09": {
+      "classification": "E",
+      "reason": "Fixe chromatische Linie nicht auf Akkordgrundtöne oder nächste Akkordtöne reduzieren.",
+      "required_capabilities": [
+        "bass_sequence",
+        "note_intent"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-B10": {
+      "classification": "E",
+      "reason": "Reartikuliertes C2 bleibt unabhängig vom wechselnden Klang; Follow AUS ist kein Ersatz für einen expliziten Plan.",
+      "required_capabilities": [
+        "pedal_lifetime"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-B11": {
+      "classification": "A",
+      "reason": "Kurze relative Grundtonantwort im vorhandenen Register darstellbar; konkrete Pausen/Einsätze anbinden.",
+      "required_capabilities": [
+        "rhythm_binding"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-B12": {
+      "classification": "E",
+      "reason": "Relative Oktav-/Grundtonregel und fixe F♯/C-Töne gemischt: gemeinsame explizite Tonadressierung fehlt.",
+      "required_capabilities": [
+        "bass_sequence"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-B13": {
+      "classification": "E",
+      "reason": "C/B-Oktavbass verlangt notierte Folge und mehrstimmige Bassfähigkeit.",
+      "required_capabilities": [
+        "bass_sequence",
+        "bass_polyphony"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-B14": {
+      "classification": "E",
+      "reason": "C2/D♭2-Pendel unabhängig von aktuellen Akkordgrundtönen erhalten.",
+      "required_capabilities": [
+        "bass_sequence"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-B15": {
+      "classification": "E",
+      "reason": "C2/F♯1-Pendel einschließlich festem Registersprüngen erhalten.",
+      "required_capabilities": [
+        "bass_sequence"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-B16": {
+      "classification": "E",
+      "reason": "Fixer C2-Viertelpuls bleibt über Akkordwechsel hinweg derselbe Ton, kein transponiertes Rhythmusintervall.",
+      "required_capabilities": [
+        "pedal_lifetime"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-B17": {
+      "classification": "E",
+      "reason": "Grundton und notiertes F♯1 nicht als einheitliche akkordrelative Folge umdeuten.",
+      "required_capabilities": [
+        "bass_sequence"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-B18": {
+      "classification": "A",
+      "reason": "R,R,5,R ist eine endliche akkordrelative Figur; alle vier Ereignisse erhalten, nicht auf die derzeitige Dreier-Intervallliste kürzen.",
+      "required_capabilities": [
+        "rhythm_binding"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-B19": {
+      "classification": "E",
+      "reason": "Sparsame fixe C/F♯-Interpunktion unabhängig von Harmonie und Pausenlage planen.",
+      "required_capabilities": [
+        "bass_sequence",
+        "note_intent"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-B20": {
+      "classification": "E",
+      "reason": "Ein verspäteter tiefer C-Einsatz ist ein konkretes musikalisches Ereignis, kein Aktivitätswert.",
+      "required_capabilities": [
+        "bass_sequence"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-B21": {
+      "classification": "E",
+      "reason": "Vier Takte Stille vor dem Pedal gehören zum eigenen achtaktigen Lebensplan.",
+      "required_capabilities": [
+        "pedal_lifetime"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-B22": {
+      "classification": "E",
+      "reason": "Chromatische Dreitonfiguration C–D♭–D mit beabsichtigter Reibung erhalten.",
+      "required_capabilities": [
+        "bass_sequence",
+        "note_intent"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-B23": {
+      "classification": "E",
+      "reason": "Relative Grundtonfigur mit wechselnder3/4-/6/8-Akzentierung braucht metrikbezogene Daten.",
+      "required_capabilities": [
+        "triplets_grouping"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-B24": {
+      "classification": "E",
+      "reason": "Dreitöniger Pitchzyklus gegen16Anschläge: Tonphase unabhängig weiterführen.",
+      "required_capabilities": [
+        "independent_cycles"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-B25": {
+      "classification": "A",
+      "reason": "Relative gehaltene Grundtöne in vier Takten sind mit Long-Ziel darstellbar; exakte Zweitakt-Gates anbinden.",
+      "required_capabilities": [
+        "rhythm_binding"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-B26": {
+      "classification": "E",
+      "reason": "Fixe Ganztonlinie C–D–E–F♯–G♯–A♯–C–C erfordert explizite Tonfolge, nicht Akkordtonauswahl.",
+      "required_capabilities": [
+        "bass_sequence",
+        "note_intent"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-B27": {
+      "classification": "A",
+      "reason": "Relative R/R5-Antwortfigur in vier Takten ist begrenzt anbindbar; vollständiges Raster erhalten.",
+      "required_capabilities": [
+        "rhythm_binding"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-B28": {
+      "classification": "K",
+      "reason": "Fünfachtelzyklus enthält fixe D♭/G/A♭-Töne, während die Zusammenfassung relative Akkordtöne behauptet. Funktionen und Bezug zeitlich klären.",
+      "required_capabilities": [
+        "clarify",
+        "note_intent",
+        "bass_sequence"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-B29": {
+      "classification": "E",
+      "reason": "D♭→C ist eine geplante Bassauflösung; V muss sein Ziel erreichen.",
+      "required_capabilities": [
+        "note_intent"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-B30": {
+      "classification": "E",
+      "reason": "C–B–C darf als eingeführte Bassgestalt unter CmM7 erhalten bleiben; aktueller Score-Bass besitzt keine Quelltonfolge.",
+      "required_capabilities": [
+        "bass_sequence"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-B31": {
+      "classification": "E",
+      "reason": "Notierte absteigende Ganztonfolge samt Register und Reihenfolge fehlt als Bassplan.",
+      "required_capabilities": [
+        "bass_sequence"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-B32": {
+      "classification": "E",
+      "reason": "C2–A♭1–E1–C1 im Zweitaktabstand: feste Oktaven und Abwärtskontur nicht durch nächsten Grundton ersetzen.",
+      "required_capabilities": [
+        "bass_sequence"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-B33": {
+      "classification": "E",
+      "reason": "C2–E♭2–F♯2–A2 muss aufwärts steigen; gewöhnliche Bass-Oktavierung könnte die Kontur umkehren.",
+      "required_capabilities": [
+        "bass_sequence"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-B34": {
+      "classification": "A",
+      "reason": "Relative gehaltene Quinte mit bestehendem Long-Bass darstellbar; passende Harmonie und Register prüfen.",
+      "required_capabilities": [
+        "rhythm_binding"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-B35": {
+      "classification": "A",
+      "reason": "Kurze Grundtonakzente mit Pausen sind begrenzt anbindbar; keine zusätzlichen Tonregeln.",
+      "required_capabilities": [
+        "rhythm_binding"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-B36": {
+      "classification": "E",
+      "reason": "Chromatischer Vorgriff n muss zum nächsten Ziel auflösen; aktuelle Akkordwechsel-Quantisierung ersetzt die Zielverfolgung nicht.",
+      "required_capabilities": [
+        "note_intent"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-B37": {
+      "classification": "A",
+      "reason": "Durchgehende relative Sechzehntel sind vorhandene Spielweise. Keine Score-Mindestpausenstrategie auf das Ostinato anwenden.",
+      "required_capabilities": [
+        "rhythm_binding"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-B38": {
+      "classification": "E",
+      "reason": "Fixe C/F♯-Figur mit unterschiedlichen Gates braucht einen gemeinsamen Pitch-/Zeitplan.",
+      "required_capabilities": [
+        "bass_sequence",
+        "note_intent"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-B39": {
+      "classification": "K",
+      "reason": "Elfnotiges Fugatosubjekt ist eine konkrete chromatische Linie, keine pauschal relative Akkordtonfolge. Funktionszuordnung und Kanonbezug klären.",
+      "required_capabilities": [
+        "clarify",
+        "bass_sequence"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-B40": {
+      "classification": "E",
+      "reason": "Chromatischer oberer Nachbar R+1 muss zum zugehörigen Grundton zurückführen, nicht neu harmonisiert werden.",
+      "required_capabilities": [
+        "note_intent"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-B41": {
+      "classification": "E",
+      "reason": "13notige gerichtete chromatische Linie über vier Takte benötigt Basskontur-/Zielplanung.",
+      "required_capabilities": [
+        "bass_sequence"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-B42": {
+      "classification": "E",
+      "reason": "G3-Binnenpedal; bei Caug/Ganzton ausdrücklich G♯3. Keine automatische global gültige G-Freigabe.",
+      "required_capabilities": [
+        "pedal_lifetime"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-B43": {
+      "classification": "E",
+      "reason": "C1 plus gehaltenes G1 auf LB benötigt zwei Stimmen; das C-Raster allein beschreibt die Vorlage unvollständig.",
+      "required_capabilities": [
+        "bass_polyphony"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-B44": {
+      "classification": "E",
+      "reason": "F♯1 bleibt Dissonanzpedal unter heller Harmonik; weder Akkordgrundton noch frei ersetzbarer Füllton.",
+      "required_capabilities": [
+        "pedal_lifetime",
+        "note_intent"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-B45": {
+      "classification": "E",
+      "reason": "G♯3/A♯3 sind bewusste mittlere Pedaltöne des Ganztonkontexts mit eigenen Zwei-Takt-Dauern.",
+      "required_capabilities": [
+        "bass_sequence",
+        "note_intent"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-M01": {
+      "classification": "A",
+      "reason": "Kurze notierte Zelle passt in den bestehenden Quellmotivpfad. Wie Williams P3 nur für vollständig geprüften Originalkontext samt lokal erlaubten Zusatztönen anbinden; Original, Zielauflösung und vorgeschriebene Lage vollständig prüfen. Keine pauschale Freigabe für andere Harmonien.",
+      "required_capabilities": [
+        "authored_binding"
+      ],
+      "optional_variants": "Flexible Anpassung mit garantierter A/T/V/F/U-Bedeutung benötigt note_intent; nicht aus der Eignung des unveränderten Originals ableiten. Ausdrücklich geforderte Wiederholungs-/Rollenfolgen bleiben eigene spätere Aufgaben."
+    },
+    "HE-M02": {
+      "classification": "A",
+      "reason": "Kurze notierte Zelle passt in den bestehenden Quellmotivpfad. Wie Williams P3 nur für vollständig geprüften Originalkontext samt lokal erlaubten Zusatztönen anbinden; Original, Zielauflösung und vorgeschriebene Lage vollständig prüfen. Keine pauschale Freigabe für andere Harmonien.",
+      "required_capabilities": [
+        "authored_binding"
+      ],
+      "optional_variants": "Flexible Anpassung mit garantierter A/T/V/F/U-Bedeutung benötigt note_intent; nicht aus der Eignung des unveränderten Originals ableiten. Ausdrücklich geforderte Wiederholungs-/Rollenfolgen bleiben eigene spätere Aufgaben."
+    },
+    "HE-M03": {
+      "classification": "A",
+      "reason": "Kurze notierte Zelle passt in den bestehenden Quellmotivpfad. Wie Williams P3 nur für vollständig geprüften Originalkontext samt lokal erlaubten Zusatztönen anbinden; Original, Zielauflösung und vorgeschriebene Lage vollständig prüfen. Keine pauschale Freigabe für andere Harmonien.",
+      "required_capabilities": [
+        "authored_binding"
+      ],
+      "optional_variants": "Flexible Anpassung mit garantierter A/T/V/F/U-Bedeutung benötigt note_intent; nicht aus der Eignung des unveränderten Originals ableiten. Ausdrücklich geforderte Wiederholungs-/Rollenfolgen bleiben eigene spätere Aufgaben."
+    },
+    "HE-M04": {
+      "classification": "A",
+      "reason": "Kurze notierte Zelle passt in den bestehenden Quellmotivpfad. Wie Williams P3 nur für vollständig geprüften Originalkontext samt lokal erlaubten Zusatztönen anbinden; Original, Zielauflösung und vorgeschriebene Lage vollständig prüfen. Keine pauschale Freigabe für andere Harmonien.",
+      "required_capabilities": [
+        "authored_binding"
+      ],
+      "optional_variants": "Flexible Anpassung mit garantierter A/T/V/F/U-Bedeutung benötigt note_intent; nicht aus der Eignung des unveränderten Originals ableiten. Ausdrücklich geforderte Wiederholungs-/Rollenfolgen bleiben eigene spätere Aufgaben."
+    },
+    "HE-M05": {
+      "classification": "A",
+      "reason": "C–B–C unter CmM7: kurze Akkordtonzelle mit vorhandener Quellmotiv- und Wiederkehrarchitektur anbindbar.",
+      "required_capabilities": [
+        "authored_binding"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-M06": {
+      "classification": "E",
+      "reason": "Die notierte Zelle „D4/8 C4/8“ enthält funktional gebundene Nicht-Akkordtöne; aktuelle lokale Masken allein sichern deren Rolle und Auflösung bei Realisierung/Variation nicht.",
+      "required_capabilities": [
+        "note_intent",
+        "authored_binding",
+        "chord_objects"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-M07": {
+      "classification": "A",
+      "reason": "Kurze notierte Zelle passt in den bestehenden Quellmotivpfad. Wie Williams P3 nur für vollständig geprüften Originalkontext samt lokal erlaubten Zusatztönen anbinden; Original, Zielauflösung und vorgeschriebene Lage vollständig prüfen. Keine pauschale Freigabe für andere Harmonien.",
+      "required_capabilities": [
+        "authored_binding"
+      ],
+      "optional_variants": "Flexible Anpassung mit garantierter A/T/V/F/U-Bedeutung benötigt note_intent; nicht aus der Eignung des unveränderten Originals ableiten. Ausdrücklich geforderte Wiederholungs-/Rollenfolgen bleiben eigene spätere Aufgaben."
+    },
+    "HE-M08": {
+      "classification": "K",
+      "reason": "Ein Takt A♭–G–F♯ nennt zwei Kontextklänge CmM7/Cm7b5 ohne Wechselposition. Die Zuordnung von F♯ als Akkordton benötigt Cm7b5; vor Import festlegen, wann der Klang gilt.",
+      "required_capabilities": [
+        "clarify",
+        "note_intent",
+        "authored_binding"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe.",
+      "conditional_capabilities": {
+        "subbar_harmony": "Falls CmM7 bis einschließlich G und Cm7b5 ab F♯ im selben notierten Takt gemeint ist. Erst die Kontext-/Wechselposition klären."
+      }
+    },
+    "HE-M09": {
+      "classification": "A",
+      "reason": "Kurze notierte Zelle passt in den bestehenden Quellmotivpfad. Wie Williams P3 nur für vollständig geprüften Originalkontext samt lokal erlaubten Zusatztönen anbinden; Original, Zielauflösung und vorgeschriebene Lage vollständig prüfen. Keine pauschale Freigabe für andere Harmonien.",
+      "required_capabilities": [
+        "authored_binding"
+      ],
+      "optional_variants": "Flexible Anpassung mit garantierter A/T/V/F/U-Bedeutung benötigt note_intent; nicht aus der Eignung des unveränderten Originals ableiten. Ausdrücklich geforderte Wiederholungs-/Rollenfolgen bleiben eigene spätere Aufgaben."
+    },
+    "HE-M10": {
+      "classification": "E",
+      "reason": "Die notierte Zelle „F#4/2 G4/2 A4/4 G4/2 F#4/6“ enthält funktional gebundene Nicht-Akkordtöne; aktuelle lokale Masken allein sichern deren Rolle und Auflösung bei Realisierung/Variation nicht.",
+      "required_capabilities": [
+        "note_intent",
+        "authored_binding",
+        "chord_objects"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-M11": {
+      "classification": "A",
+      "reason": "Kurze notierte Zelle passt in den bestehenden Quellmotivpfad. Wie Williams P3 nur für vollständig geprüften Originalkontext samt lokal erlaubten Zusatztönen anbinden; Original, Zielauflösung und vorgeschriebene Lage vollständig prüfen. Keine pauschale Freigabe für andere Harmonien.",
+      "required_capabilities": [
+        "authored_binding"
+      ],
+      "optional_variants": "Flexible Anpassung mit garantierter A/T/V/F/U-Bedeutung benötigt note_intent; nicht aus der Eignung des unveränderten Originals ableiten. Ausdrücklich geforderte Wiederholungs-/Rollenfolgen bleiben eigene spätere Aufgaben."
+    },
+    "HE-M12": {
+      "classification": "E",
+      "reason": "Die kurze Tonfolge passt grundsätzlich in den Motivkern; der ausdrücklich vorausgesetzte exakte Kontextklang ist noch kein vorhandener Akkordtyp. Keine stillschweigende Umdeutung seiner Tonmenge.",
+      "required_capabilities": [
+        "chord_objects",
+        "authored_binding"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-M13": {
+      "classification": "A",
+      "reason": "C–E♭-Repetition: kurze akkordgebundene Zelle, unverändertes Original und Rhythmus im gemeinsamen Kern darstellbar.",
+      "required_capabilities": [
+        "authored_binding"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-M14": {
+      "classification": "A",
+      "reason": "Kurze notierte Zelle passt in den bestehenden Quellmotivpfad. Wie Williams P3 nur für vollständig geprüften Originalkontext samt lokal erlaubten Zusatztönen anbinden; Original, Zielauflösung und vorgeschriebene Lage vollständig prüfen. Keine pauschale Freigabe für andere Harmonien.",
+      "required_capabilities": [
+        "authored_binding"
+      ],
+      "optional_variants": "Flexible Anpassung mit garantierter A/T/V/F/U-Bedeutung benötigt note_intent; nicht aus der Eignung des unveränderten Originals ableiten. Ausdrücklich geforderte Wiederholungs-/Rollenfolgen bleiben eigene spätere Aufgaben."
+    },
+    "HE-M15": {
+      "classification": "A",
+      "reason": "Kurze notierte Zelle passt in den bestehenden Quellmotivpfad. Wie Williams P3 nur für vollständig geprüften Originalkontext samt lokal erlaubten Zusatztönen anbinden; Original, Zielauflösung und vorgeschriebene Lage vollständig prüfen. Keine pauschale Freigabe für andere Harmonien.",
+      "required_capabilities": [
+        "authored_binding"
+      ],
+      "optional_variants": "Flexible Anpassung mit garantierter A/T/V/F/U-Bedeutung benötigt note_intent; nicht aus der Eignung des unveränderten Originals ableiten. Ausdrücklich geforderte Wiederholungs-/Rollenfolgen bleiben eigene spätere Aufgaben."
+    },
+    "HE-M16": {
+      "classification": "A",
+      "reason": "Kurze notierte Zelle passt in den bestehenden Quellmotivpfad. Wie Williams P3 nur für vollständig geprüften Originalkontext samt lokal erlaubten Zusatztönen anbinden; Original, Zielauflösung und vorgeschriebene Lage vollständig prüfen. Keine pauschale Freigabe für andere Harmonien.",
+      "required_capabilities": [
+        "authored_binding"
+      ],
+      "optional_variants": "Flexible Anpassung mit garantierter A/T/V/F/U-Bedeutung benötigt note_intent; nicht aus der Eignung des unveränderten Originals ableiten. Ausdrücklich geforderte Wiederholungs-/Rollenfolgen bleiben eigene spätere Aufgaben."
+    },
+    "HE-M17": {
+      "classification": "E",
+      "reason": "Die notierte Zelle „Ab4/2 G4/2 F4/2 Eb4/2 D4/8“ enthält funktional gebundene Nicht-Akkordtöne; aktuelle lokale Masken allein sichern deren Rolle und Auflösung bei Realisierung/Variation nicht.",
+      "required_capabilities": [
+        "note_intent",
+        "authored_binding"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-M18": {
+      "classification": "E",
+      "reason": "Die notierte Zelle „C4/2 Db4/2 F4/2 E4/2 Eb4/2 C4/2 Db4/2 F4/2“ enthält funktional gebundene Nicht-Akkordtöne; aktuelle lokale Masken allein sichern deren Rolle und Auflösung bei Realisierung/Variation nicht. Fünftönige Zelle darf beim Taktwechsel nicht zurückgesetzt werden.",
+      "required_capabilities": [
+        "note_intent",
+        "authored_binding",
+        "independent_cycles",
+        "chord_objects"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-M19": {
+      "classification": "A",
+      "reason": "Kurze notierte Zelle passt in den bestehenden Quellmotivpfad. Wie Williams P3 nur für vollständig geprüften Originalkontext samt lokal erlaubten Zusatztönen anbinden; Original, Zielauflösung und vorgeschriebene Lage vollständig prüfen. Keine pauschale Freigabe für andere Harmonien.",
+      "required_capabilities": [
+        "authored_binding"
+      ],
+      "optional_variants": "Flexible Anpassung mit garantierter A/T/V/F/U-Bedeutung benötigt note_intent; nicht aus der Eignung des unveränderten Originals ableiten. Ausdrücklich geforderte Wiederholungs-/Rollenfolgen bleiben eigene spätere Aufgaben."
+    },
+    "HE-M20": {
+      "classification": "E",
+      "reason": "Die notierte Zelle „r/8 Eb4/2 Db4/6“ enthält funktional gebundene Nicht-Akkordtöne; aktuelle lokale Masken allein sichern deren Rolle und Auflösung bei Realisierung/Variation nicht. Reine Antwortfunktion braucht ausdrücklichen Auslöser.",
+      "required_capabilities": [
+        "note_intent",
+        "authored_binding",
+        "role_transfer"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-M21": {
+      "classification": "E",
+      "reason": "Die notierte Zelle „Ab4/2 G4/2 F4/2 Eb4/2 r/8 | Ab4/2 G4/2 F4/4 r/8 | Ab4/4 G4/4 r/8“ enthält funktional gebundene Nicht-Akkordtöne; aktuelle lokale Masken allein sichern deren Rolle und Auflösung bei Realisierung/Variation nicht. Die beschriebene Kürzungs-/Wiederholungs-/Unterbrechungsabfolge ist als zusammenhängender Modulverlauf zu erhalten. Mehr als acht Quellnoten nicht abschneiden.",
+      "required_capabilities": [
+        "note_intent",
+        "authored_binding",
+        "modules",
+        "long_phrase"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-M22": {
+      "classification": "E",
+      "reason": "Die notierte Zelle „Ab4/2 G4/2 F4/2 Eb4/2 F4/2 Eb4/2 D4/4“ enthält funktional gebundene Nicht-Akkordtöne; aktuelle lokale Masken allein sichern deren Rolle und Auflösung bei Realisierung/Variation nicht. Die beschriebene Kürzungs-/Wiederholungs-/Unterbrechungsabfolge ist als zusammenhängender Modulverlauf zu erhalten.",
+      "required_capabilities": [
+        "note_intent",
+        "authored_binding",
+        "modules"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-M23": {
+      "classification": "E",
+      "reason": "Die notierte Zelle „Ab4/3 G4/1 F4/3 Eb4/1 r/8“ enthält funktional gebundene Nicht-Akkordtöne; aktuelle lokale Masken allein sichern deren Rolle und Auflösung bei Realisierung/Variation nicht. Die beschriebene Kürzungs-/Wiederholungs-/Unterbrechungsabfolge ist als zusammenhängender Modulverlauf zu erhalten.",
+      "required_capabilities": [
+        "note_intent",
+        "authored_binding",
+        "modules"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-M24": {
+      "classification": "E",
+      "reason": "Die notierte Zelle „Ab4/8 G4/8 | F4/8 Eb4/8“ enthält funktional gebundene Nicht-Akkordtöne; aktuelle lokale Masken allein sichern deren Rolle und Auflösung bei Realisierung/Variation nicht. Die beschriebene Kürzungs-/Wiederholungs-/Unterbrechungsabfolge ist als zusammenhängender Modulverlauf zu erhalten.",
+      "required_capabilities": [
+        "note_intent",
+        "authored_binding",
+        "modules"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-M25": {
+      "classification": "E",
+      "reason": "Die notierte Zelle „Ab4/1 G4/1 F4/1 Eb4/1 r/12“ enthält funktional gebundene Nicht-Akkordtöne; aktuelle lokale Masken allein sichern deren Rolle und Auflösung bei Realisierung/Variation nicht. Die beschriebene Kürzungs-/Wiederholungs-/Unterbrechungsabfolge ist als zusammenhängender Modulverlauf zu erhalten.",
+      "required_capabilities": [
+        "note_intent",
+        "authored_binding",
+        "modules"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-M26": {
+      "classification": "E",
+      "reason": "Die notierte Zelle „Ab4/4 r/4 G4/6 F#4/2“ enthält funktional gebundene Nicht-Akkordtöne; aktuelle lokale Masken allein sichern deren Rolle und Auflösung bei Realisierung/Variation nicht. Die beschriebene Kürzungs-/Wiederholungs-/Unterbrechungsabfolge ist als zusammenhängender Modulverlauf zu erhalten.",
+      "required_capabilities": [
+        "note_intent",
+        "authored_binding",
+        "modules"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-M27": {
+      "classification": "A",
+      "reason": "Kurze notierte Zelle passt in den bestehenden Quellmotivpfad. Wie Williams P3 nur für vollständig geprüften Originalkontext samt lokal erlaubten Zusatztönen anbinden; Original, Zielauflösung und vorgeschriebene Lage vollständig prüfen. Keine pauschale Freigabe für andere Harmonien.",
+      "required_capabilities": [
+        "authored_binding"
+      ],
+      "optional_variants": "Flexible Anpassung mit garantierter A/T/V/F/U-Bedeutung benötigt note_intent; nicht aus der Eignung des unveränderten Originals ableiten. Ausdrücklich geforderte Wiederholungs-/Rollenfolgen bleiben eigene spätere Aufgaben."
+    },
+    "HE-M28": {
+      "classification": "E",
+      "reason": "Die kurze Tonfolge passt grundsätzlich in den Motivkern; der ausdrücklich vorausgesetzte exakte Kontextklang ist noch kein vorhandener Akkordtyp. Keine stillschweigende Umdeutung seiner Tonmenge.",
+      "required_capabilities": [
+        "chord_objects",
+        "authored_binding"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-M29": {
+      "classification": "E",
+      "reason": "Die notierte Zelle „C4/2 E4/2 G#4/2 E4/2 C4/2 E4/2 G#4/4“ enthält funktional gebundene Nicht-Akkordtöne; aktuelle lokale Masken allein sichern deren Rolle und Auflösung bei Realisierung/Variation nicht. Die beschriebene Kürzungs-/Wiederholungs-/Unterbrechungsabfolge ist als zusammenhängender Modulverlauf zu erhalten.",
+      "required_capabilities": [
+        "note_intent",
+        "authored_binding",
+        "modules"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-M30": {
+      "classification": "A",
+      "reason": "Kurze notierte Zelle passt in den bestehenden Quellmotivpfad. Wie Williams P3 nur für vollständig geprüften Originalkontext samt lokal erlaubten Zusatztönen anbinden; Original, Zielauflösung und vorgeschriebene Lage vollständig prüfen. Keine pauschale Freigabe für andere Harmonien.",
+      "required_capabilities": [
+        "authored_binding"
+      ],
+      "optional_variants": "Flexible Anpassung mit garantierter A/T/V/F/U-Bedeutung benötigt note_intent; nicht aus der Eignung des unveränderten Originals ableiten. Ausdrücklich geforderte Wiederholungs-/Rollenfolgen bleiben eigene spätere Aufgaben."
+    },
+    "HE-M31": {
+      "classification": "A",
+      "reason": "Kurze notierte Zelle passt in den bestehenden Quellmotivpfad. Wie Williams P3 nur für vollständig geprüften Originalkontext samt lokal erlaubten Zusatztönen anbinden; Original, Zielauflösung und vorgeschriebene Lage vollständig prüfen. Keine pauschale Freigabe für andere Harmonien.",
+      "required_capabilities": [
+        "authored_binding"
+      ],
+      "optional_variants": "Flexible Anpassung mit garantierter A/T/V/F/U-Bedeutung benötigt note_intent; nicht aus der Eignung des unveränderten Originals ableiten. Ausdrücklich geforderte Wiederholungs-/Rollenfolgen bleiben eigene spätere Aufgaben."
+    },
+    "HE-M32": {
+      "classification": "E",
+      "reason": "Die notierte Zelle „G4/8 F#4/8 | F4/8 E4/8 | Eb4/8 D4/8 | Db4/8 C4/8“ enthält funktional gebundene Nicht-Akkordtöne; aktuelle lokale Masken allein sichern deren Rolle und Auflösung bei Realisierung/Variation nicht. Gegenbewegung, Registerfolge bzw. Fugato sind nicht durch eine einzelne freie Stimme abgedeckt.",
+      "required_capabilities": [
+        "note_intent",
+        "authored_binding",
+        "role_transfer"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-M33": {
+      "classification": "E",
+      "reason": "Die kurze Tonfolge passt grundsätzlich in den Motivkern; der ausdrücklich vorausgesetzte exakte Kontextklang ist noch kein vorhandener Akkordtyp. Keine stillschweigende Umdeutung seiner Tonmenge.",
+      "required_capabilities": [
+        "chord_objects",
+        "authored_binding"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-M34": {
+      "classification": "A",
+      "reason": "Kurze notierte Zelle passt in den bestehenden Quellmotivpfad. Wie Williams P3 nur für vollständig geprüften Originalkontext samt lokal erlaubten Zusatztönen anbinden; Original, Zielauflösung und vorgeschriebene Lage vollständig prüfen. Keine pauschale Freigabe für andere Harmonien.",
+      "required_capabilities": [
+        "authored_binding"
+      ],
+      "optional_variants": "Flexible Anpassung mit garantierter A/T/V/F/U-Bedeutung benötigt note_intent; nicht aus der Eignung des unveränderten Originals ableiten. Ausdrücklich geforderte Wiederholungs-/Rollenfolgen bleiben eigene spätere Aufgaben."
+    },
+    "HE-M35": {
+      "classification": "E",
+      "reason": "Die notierte Zelle „G5/4 F#5/4 r/8 | G4/4 F#4/4 r/8 | G3/4 F#3/4 r/8“ enthält funktional gebundene Nicht-Akkordtöne; aktuelle lokale Masken allein sichern deren Rolle und Auflösung bei Realisierung/Variation nicht. Gegenbewegung, Registerfolge bzw. Fugato sind nicht durch eine einzelne freie Stimme abgedeckt.",
+      "required_capabilities": [
+        "note_intent",
+        "authored_binding",
+        "role_transfer"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-M36": {
+      "classification": "A",
+      "reason": "Kurze notierte Zelle passt in den bestehenden Quellmotivpfad. Wie Williams P3 nur für vollständig geprüften Originalkontext samt lokal erlaubten Zusatztönen anbinden; Original, Zielauflösung und vorgeschriebene Lage vollständig prüfen. Keine pauschale Freigabe für andere Harmonien.",
+      "required_capabilities": [
+        "authored_binding"
+      ],
+      "optional_variants": "Flexible Anpassung mit garantierter A/T/V/F/U-Bedeutung benötigt note_intent; nicht aus der Eignung des unveränderten Originals ableiten. Ausdrücklich geforderte Wiederholungs-/Rollenfolgen bleiben eigene spätere Aufgaben."
+    },
+    "HE-M37": {
+      "classification": "E",
+      "reason": "Die notierte Zelle „C4/2 Db4/2 r/12 | r/4 C4/2 Db4/2 r/8 | r/16 | C4/2 Db4/2 r/12“ enthält funktional gebundene Nicht-Akkordtöne; aktuelle lokale Masken allein sichern deren Rolle und Auflösung bei Realisierung/Variation nicht. Die beschriebene Kürzungs-/Wiederholungs-/Unterbrechungsabfolge ist als zusammenhängender Modulverlauf zu erhalten.",
+      "required_capabilities": [
+        "note_intent",
+        "authored_binding",
+        "modules"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-M38": {
+      "classification": "A",
+      "reason": "Kurze notierte Zelle passt in den bestehenden Quellmotivpfad. Wie Williams P3 nur für vollständig geprüften Originalkontext samt lokal erlaubten Zusatztönen anbinden; Original, Zielauflösung und vorgeschriebene Lage vollständig prüfen. Keine pauschale Freigabe für andere Harmonien.",
+      "required_capabilities": [
+        "authored_binding"
+      ],
+      "optional_variants": "Flexible Anpassung mit garantierter A/T/V/F/U-Bedeutung benötigt note_intent; nicht aus der Eignung des unveränderten Originals ableiten. Ausdrücklich geforderte Wiederholungs-/Rollenfolgen bleiben eigene spätere Aufgaben."
+    },
+    "HE-M39": {
+      "classification": "E",
+      "reason": "Die kurze Tonfolge passt grundsätzlich in den Motivkern; der ausdrücklich vorausgesetzte exakte Kontextklang ist noch kein vorhandener Akkordtyp. Keine stillschweigende Umdeutung seiner Tonmenge.",
+      "required_capabilities": [
+        "chord_objects",
+        "authored_binding"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-M40": {
+      "classification": "A",
+      "reason": "Kurze notierte Zelle passt in den bestehenden Quellmotivpfad. Wie Williams P3 nur für vollständig geprüften Originalkontext samt lokal erlaubten Zusatztönen anbinden; Original, Zielauflösung und vorgeschriebene Lage vollständig prüfen. Keine pauschale Freigabe für andere Harmonien.",
+      "required_capabilities": [
+        "authored_binding"
+      ],
+      "optional_variants": "Flexible Anpassung mit garantierter A/T/V/F/U-Bedeutung benötigt note_intent; nicht aus der Eignung des unveränderten Originals ableiten. Ausdrücklich geforderte Wiederholungs-/Rollenfolgen bleiben eigene spätere Aufgaben."
+    },
+    "HE-M41": {
+      "classification": "E",
+      "reason": "Die notierte Zelle „C3/2 Db3/2 C3/2 B2/2 Bb2/4 A2/4 | Ab2/2 G2/2 Ab2/2 G2/2 F#2/8“ enthält funktional gebundene Nicht-Akkordtöne; aktuelle lokale Masken allein sichern deren Rolle und Auflösung bei Realisierung/Variation nicht. Gegenbewegung, Registerfolge bzw. Fugato sind nicht durch eine einzelne freie Stimme abgedeckt. Mehr als acht Quellnoten nicht abschneiden.",
+      "required_capabilities": [
+        "note_intent",
+        "authored_binding",
+        "role_transfer",
+        "long_phrase"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-M42": {
+      "classification": "A",
+      "reason": "Kurze notierte Zelle passt in den bestehenden Quellmotivpfad. Wie Williams P3 nur für vollständig geprüften Originalkontext samt lokal erlaubten Zusatztönen anbinden; Original, Zielauflösung und vorgeschriebene Lage vollständig prüfen. Keine pauschale Freigabe für andere Harmonien.",
+      "required_capabilities": [
+        "authored_binding"
+      ],
+      "optional_variants": "Flexible Anpassung mit garantierter A/T/V/F/U-Bedeutung benötigt note_intent; nicht aus der Eignung des unveränderten Originals ableiten. Ausdrücklich geforderte Wiederholungs-/Rollenfolgen bleiben eigene spätere Aufgaben."
+    },
+    "HE-M43": {
+      "classification": "A",
+      "reason": "Kurze notierte Zelle passt in den bestehenden Quellmotivpfad. Wie Williams P3 nur für vollständig geprüften Originalkontext samt lokal erlaubten Zusatztönen anbinden; Original, Zielauflösung und vorgeschriebene Lage vollständig prüfen. Keine pauschale Freigabe für andere Harmonien.",
+      "required_capabilities": [
+        "authored_binding"
+      ],
+      "optional_variants": "Flexible Anpassung mit garantierter A/T/V/F/U-Bedeutung benötigt note_intent; nicht aus der Eignung des unveränderten Originals ableiten. Ausdrücklich geforderte Wiederholungs-/Rollenfolgen bleiben eigene spätere Aufgaben."
+    },
+    "HE-M44": {
+      "classification": "E",
+      "reason": "Die notierte Zelle „C4/2 C5/2 Db5/12“ enthält funktional gebundene Nicht-Akkordtöne; aktuelle lokale Masken allein sichern deren Rolle und Auflösung bei Realisierung/Variation nicht.",
+      "required_capabilities": [
+        "note_intent",
+        "authored_binding",
+        "chord_objects"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-M45": {
+      "classification": "E",
+      "reason": "Die notierte Zelle „C4/2 F4/2 C4/2 F4/2 Db4/2 F#4/2 Db4/2 F#4/2“ enthält funktional gebundene Nicht-Akkordtöne; aktuelle lokale Masken allein sichern deren Rolle und Auflösung bei Realisierung/Variation nicht.",
+      "required_capabilities": [
+        "note_intent",
+        "authored_binding",
+        "exact_planing"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-M46": {
+      "classification": "A",
+      "reason": "Kurze notierte Zelle passt in den bestehenden Quellmotivpfad. Wie Williams P3 nur für vollständig geprüften Originalkontext samt lokal erlaubten Zusatztönen anbinden; Original, Zielauflösung und vorgeschriebene Lage vollständig prüfen. Keine pauschale Freigabe für andere Harmonien.",
+      "required_capabilities": [
+        "authored_binding"
+      ],
+      "optional_variants": "Flexible Anpassung mit garantierter A/T/V/F/U-Bedeutung benötigt note_intent; nicht aus der Eignung des unveränderten Originals ableiten. Ausdrücklich geforderte Wiederholungs-/Rollenfolgen bleiben eigene spätere Aufgaben."
+    },
+    "HE-M47": {
+      "classification": "A",
+      "reason": "Kurze notierte Zelle passt in den bestehenden Quellmotivpfad. Wie Williams P3 nur für vollständig geprüften Originalkontext samt lokal erlaubten Zusatztönen anbinden; Original, Zielauflösung und vorgeschriebene Lage vollständig prüfen. Keine pauschale Freigabe für andere Harmonien.",
+      "required_capabilities": [
+        "authored_binding"
+      ],
+      "optional_variants": "Flexible Anpassung mit garantierter A/T/V/F/U-Bedeutung benötigt note_intent; nicht aus der Eignung des unveränderten Originals ableiten. Ausdrücklich geforderte Wiederholungs-/Rollenfolgen bleiben eigene spätere Aufgaben."
+    },
+    "HE-M48": {
+      "classification": "A",
+      "reason": "Kurze notierte Zelle passt in den bestehenden Quellmotivpfad. Wie Williams P3 nur für vollständig geprüften Originalkontext samt lokal erlaubten Zusatztönen anbinden; Original, Zielauflösung und vorgeschriebene Lage vollständig prüfen. Keine pauschale Freigabe für andere Harmonien.",
+      "required_capabilities": [
+        "authored_binding"
+      ],
+      "optional_variants": "Flexible Anpassung mit garantierter A/T/V/F/U-Bedeutung benötigt note_intent; nicht aus der Eignung des unveränderten Originals ableiten. Ausdrücklich geforderte Wiederholungs-/Rollenfolgen bleiben eigene spätere Aufgaben."
+    },
+    "HE-M49": {
+      "classification": "A",
+      "reason": "Kurze notierte Zelle passt in den bestehenden Quellmotivpfad. Wie Williams P3 nur für vollständig geprüften Originalkontext samt lokal erlaubten Zusatztönen anbinden; Original, Zielauflösung und vorgeschriebene Lage vollständig prüfen. Keine pauschale Freigabe für andere Harmonien.",
+      "required_capabilities": [
+        "authored_binding"
+      ],
+      "optional_variants": "Flexible Anpassung mit garantierter A/T/V/F/U-Bedeutung benötigt note_intent; nicht aus der Eignung des unveränderten Originals ableiten. Ausdrücklich geforderte Wiederholungs-/Rollenfolgen bleiben eigene spätere Aufgaben."
+    },
+    "HE-M50": {
+      "classification": "E",
+      "reason": "Die notierte Zelle „E5/4 D5/4 C5/4 Bb4/4 | Ab4/16“ enthält funktional gebundene Nicht-Akkordtöne; aktuelle lokale Masken allein sichern deren Rolle und Auflösung bei Realisierung/Variation nicht.",
+      "required_capabilities": [
+        "note_intent",
+        "authored_binding",
+        "chord_objects"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-M51": {
+      "classification": "A",
+      "reason": "Kurze notierte Zelle passt in den bestehenden Quellmotivpfad. Wie Williams P3 nur für vollständig geprüften Originalkontext samt lokal erlaubten Zusatztönen anbinden; Original, Zielauflösung und vorgeschriebene Lage vollständig prüfen. Keine pauschale Freigabe für andere Harmonien.",
+      "required_capabilities": [
+        "authored_binding"
+      ],
+      "optional_variants": "Flexible Anpassung mit garantierter A/T/V/F/U-Bedeutung benötigt note_intent; nicht aus der Eignung des unveränderten Originals ableiten. Ausdrücklich geforderte Wiederholungs-/Rollenfolgen bleiben eigene spätere Aufgaben."
+    },
+    "HE-M52": {
+      "classification": "A",
+      "reason": "Kurze notierte Zelle passt in den bestehenden Quellmotivpfad. Wie Williams P3 nur für vollständig geprüften Originalkontext samt lokal erlaubten Zusatztönen anbinden; Original, Zielauflösung und vorgeschriebene Lage vollständig prüfen. Keine pauschale Freigabe für andere Harmonien.",
+      "required_capabilities": [
+        "authored_binding"
+      ],
+      "optional_variants": "Flexible Anpassung mit garantierter A/T/V/F/U-Bedeutung benötigt note_intent; nicht aus der Eignung des unveränderten Originals ableiten. Ausdrücklich geforderte Wiederholungs-/Rollenfolgen bleiben eigene spätere Aufgaben."
+    },
+    "HE-M53": {
+      "classification": "E",
+      "reason": "Die kurze Tonfolge passt grundsätzlich in den Motivkern; der ausdrücklich vorausgesetzte exakte Kontextklang ist noch kein vorhandener Akkordtyp. Keine stillschweigende Umdeutung seiner Tonmenge. Die vorgeschriebene Hoch-/Tieflage nicht durch pauschale Oktavierung aufgeben.",
+      "required_capabilities": [
+        "chord_objects",
+        "authored_binding"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-M54": {
+      "classification": "E",
+      "reason": "Die notierte Zelle „C6/1 D6/1 E6/1 F#6/1 E6/1 D6/1 C6/1 Bb5/1 Ab5/1 Bb5/1 C6/2“ enthält funktional gebundene Nicht-Akkordtöne; aktuelle lokale Masken allein sichern deren Rolle und Auflösung bei Realisierung/Variation nicht. Mehr als acht Quellnoten nicht abschneiden. Ganztonspirale im4/4T-Raster.",
+      "required_capabilities": [
+        "note_intent",
+        "authored_binding",
+        "long_phrase",
+        "collections",
+        "triplets_grouping",
+        "chord_objects"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-M55": {
+      "classification": "A",
+      "reason": "Kurze notierte Zelle passt in den bestehenden Quellmotivpfad. Wie Williams P3 nur für vollständig geprüften Originalkontext samt lokal erlaubten Zusatztönen anbinden; Original, Zielauflösung und vorgeschriebene Lage vollständig prüfen. Keine pauschale Freigabe für andere Harmonien.",
+      "required_capabilities": [
+        "authored_binding"
+      ],
+      "optional_variants": "Flexible Anpassung mit garantierter A/T/V/F/U-Bedeutung benötigt note_intent; nicht aus der Eignung des unveränderten Originals ableiten. Ausdrücklich geforderte Wiederholungs-/Rollenfolgen bleiben eigene spätere Aufgaben."
+    },
+    "HE-M56": {
+      "classification": "A",
+      "reason": "C5–E5–G♯5 über CaugM7: drei Akkordtöne in zwei Takten, kein Hexatonik-Verbraucher für die Grundform nötig. Hohe bzw. ausdrücklich lizenzierte tiefere Registervariante prüfen.",
+      "required_capabilities": [
+        "authored_binding"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-M57": {
+      "classification": "A",
+      "reason": "Kurze notierte Zelle passt in den bestehenden Quellmotivpfad. Wie Williams P3 nur für vollständig geprüften Originalkontext samt lokal erlaubten Zusatztönen anbinden; Original, Zielauflösung und vorgeschriebene Lage vollständig prüfen. Keine pauschale Freigabe für andere Harmonien.",
+      "required_capabilities": [
+        "authored_binding"
+      ],
+      "optional_variants": "Flexible Anpassung mit garantierter A/T/V/F/U-Bedeutung benötigt note_intent; nicht aus der Eignung des unveränderten Originals ableiten. Ausdrücklich geforderte Wiederholungs-/Rollenfolgen bleiben eigene spätere Aufgaben."
+    },
+    "HE-P01": {
+      "classification": "E",
+      "reason": "Eigenständige Phrasenfunktion: aab aus zwei kurzen Aussagen und längerer Fortsetzung. Vorhandene kurze Motivwiederkehr ist ein Baustein, keine vollständige Umsetzung dieser Form.",
+      "required_capabilities": [
+        "long_phrase",
+        "modules",
+        "note_intent"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-P02": {
+      "classification": "E",
+      "reason": "Eigenständige Phrasenfunktion: Halbtonzelle, Erweiterung und ganzer Schlusstakt Stille. Vorhandene kurze Motivwiederkehr ist ein Baustein, keine vollständige Umsetzung dieser Form.",
+      "required_capabilities": [
+        "long_phrase",
+        "modules"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-P03": {
+      "classification": "E",
+      "reason": "Eigenständige Phrasenfunktion: achtaktiges verschachteltes Wachstum. Vorhandene kurze Motivwiederkehr ist ein Baustein, keine vollständige Umsetzung dieser Form.",
+      "required_capabilities": [
+        "long_phrase",
+        "modules",
+        "note_intent"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-P04": {
+      "classification": "E",
+      "reason": "Eigenständige Phrasenfunktion: gezielte Unterbrechung vor Wiederaufnahme. Vorhandene kurze Motivwiederkehr ist ein Baustein, keine vollständige Umsetzung dieser Form.",
+      "required_capabilities": [
+        "long_phrase",
+        "modules",
+        "note_intent"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-P05": {
+      "classification": "E",
+      "reason": "Eigenständige Phrasenfunktion: progressive Liquidation. Vorhandene kurze Motivwiederkehr ist ein Baustein, keine vollständige Umsetzung dieser Form.",
+      "required_capabilities": [
+        "long_phrase",
+        "modules",
+        "note_intent"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-P06": {
+      "classification": "E",
+      "reason": "Eigenständige Phrasenfunktion: Verlängerung des eingeführten Gedankens. Vorhandene kurze Motivwiederkehr ist ein Baustein, keine vollständige Umsetzung dieser Form.",
+      "required_capabilities": [
+        "long_phrase",
+        "modules",
+        "note_intent"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-P07": {
+      "classification": "E",
+      "reason": "Eigenständige Phrasenfunktion: Wiederkehr nach zwei vollständigen Leertakten. Vorhandene kurze Motivwiederkehr ist ein Baustein, keine vollständige Umsetzung dieser Form.",
+      "required_capabilities": [
+        "long_phrase",
+        "modules"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-P08": {
+      "classification": "E",
+      "reason": "Eigenständige Phrasenfunktion: Halbton wird zur abwärts gerichteten großen Septime bei gleichem Kopf. Vorhandene kurze Motivwiederkehr ist ein Baustein, keine vollständige Umsetzung dieser Form.",
+      "required_capabilities": [
+        "long_phrase",
+        "modules",
+        "note_intent"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-P09": {
+      "classification": "E",
+      "reason": "Eigenständige Phrasenfunktion: dreifache Register-/Rollenwanderung einer Seufzerzelle. Vorhandene kurze Motivwiederkehr ist ein Baustein, keine vollständige Umsetzung dieser Form.",
+      "required_capabilities": [
+        "long_phrase",
+        "modules",
+        "note_intent",
+        "role_transfer"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-P10": {
+      "classification": "E",
+      "reason": "Eigenständige Phrasenfunktion: dreitaktige absteigende Linie. Vorhandene kurze Motivwiederkehr ist ein Baustein, keine vollständige Umsetzung dieser Form.",
+      "required_capabilities": [
+        "long_phrase",
+        "modules",
+        "note_intent"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-P11": {
+      "classification": "E",
+      "reason": "Eigenständige Phrasenfunktion: verkürzte und verspätete Antwort. Vorhandene kurze Motivwiederkehr ist ein Baustein, keine vollständige Umsetzung dieser Form.",
+      "required_capabilities": [
+        "long_phrase",
+        "modules",
+        "note_intent",
+        "role_transfer"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-P12": {
+      "classification": "E",
+      "reason": "Eigenständige Phrasenfunktion: exakte chromatische Verschiebung der Zweitonfigur. Vorhandene kurze Motivwiederkehr ist ein Baustein, keine vollständige Umsetzung dieser Form.",
+      "required_capabilities": [
+        "long_phrase",
+        "modules",
+        "note_intent",
+        "exact_planing"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-P13": {
+      "classification": "E",
+      "reason": "Eigenständige Phrasenfunktion: lyrischer vier­taktiger Zielbogen. Vorhandene kurze Motivwiederkehr ist ein Baustein, keine vollständige Umsetzung dieser Form.",
+      "required_capabilities": [
+        "long_phrase",
+        "modules",
+        "note_intent"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-P14": {
+      "classification": "E",
+      "reason": "Eigenständige Phrasenfunktion: achtaktige Liquidation ohne Materialneubeginn. Vorhandene kurze Motivwiederkehr ist ein Baustein, keine vollständige Umsetzung dieser Form.",
+      "required_capabilities": [
+        "long_phrase",
+        "modules",
+        "note_intent"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-P15": {
+      "classification": "E",
+      "reason": "Eigenständige Phrasenfunktion: um einen Schlag verschobene dritte Aussage. Vorhandene kurze Motivwiederkehr ist ein Baustein, keine vollständige Umsetzung dieser Form.",
+      "required_capabilities": [
+        "long_phrase",
+        "modules",
+        "note_intent"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-P16": {
+      "classification": "E",
+      "reason": "Eigenständige Phrasenfunktion: halb­taktversetzter Kanon. Vorhandene kurze Motivwiederkehr ist ein Baustein, keine vollständige Umsetzung dieser Form.",
+      "required_capabilities": [
+        "long_phrase",
+        "modules",
+        "note_intent",
+        "role_transfer"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-P17": {
+      "classification": "E",
+      "reason": "Eigenständige Phrasenfunktion: Registerabstieg G5 bis G2. Vorhandene kurze Motivwiederkehr ist ein Baustein, keine vollständige Umsetzung dieser Form.",
+      "required_capabilities": [
+        "long_phrase",
+        "modules",
+        "note_intent",
+        "role_transfer"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-P18": {
+      "classification": "E",
+      "reason": "Eigenständige Phrasenfunktion: 13Takte als4+4+4+1. Vorhandene kurze Motivwiederkehr ist ein Baustein, keine vollständige Umsetzung dieser Form.",
+      "required_capabilities": [
+        "long_phrase",
+        "modules",
+        "note_intent"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-P19": {
+      "classification": "E",
+      "reason": "Eigenständige Phrasenfunktion: zweifacher Glockenruf und veränderter Schluss. Vorhandene kurze Motivwiederkehr ist ein Baustein, keine vollständige Umsetzung dieser Form.",
+      "required_capabilities": [
+        "long_phrase",
+        "modules",
+        "note_intent"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-P20": {
+      "classification": "E",
+      "reason": "Eigenständige Phrasenfunktion: triolische Ganztonspirale mit Abbruch und Systemwechsel. Vorhandene kurze Motivwiederkehr ist ein Baustein, keine vollständige Umsetzung dieser Form.",
+      "required_capabilities": [
+        "long_phrase",
+        "modules",
+        "note_intent",
+        "collections",
+        "triplets_grouping"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-P21": {
+      "classification": "E",
+      "reason": "Eigenständige Phrasenfunktion: kalte hohe Viertaktlinie mit absichtlicher Schlussdissonanz. Vorhandene kurze Motivwiederkehr ist ein Baustein, keine vollständige Umsetzung dieser Form.",
+      "required_capabilities": [
+        "long_phrase",
+        "modules",
+        "note_intent"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-S01": {
+      "classification": "A",
+      "reason": "Statisches CmM7 mit vorhandenem Long-Bass und sparsamen Tupfern; exaktes endliches Einsatz-/Registerrezept begrenzt anbinden.",
+      "required_capabilities": [
+        "rhythm_binding"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-S02": {
+      "classification": "E",
+      "reason": "Gleiches Material/Notenzahl wieS01, aber halbe Noten auf KF/KB/TU; aktuelle Kurz-Dauerannahmen reichen nicht.",
+      "required_capabilities": [
+        "duration_capability",
+        "register_sync"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-S03": {
+      "classification": "A",
+      "reason": "C-Dur/F♯ und hohes gemeinsames E sind darstellbar; konkrete Register und unveränderte Tupferfolge gezielt anbinden.",
+      "required_capabilities": [
+        "rhythm_binding"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-S04": {
+      "classification": "E",
+      "reason": "E-Binnenpedal plus unveränderliche Synkopen und spätere TU-Verdopplung. Zusätzlich überschreitet eine vorgeschriebene Notendauer die Standardfähigkeit ihres Kurz-Ziels.",
+      "required_capabilities": [
+        "pedal_lifetime",
+        "modules",
+        "duration_capability"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-S05": {
+      "classification": "E",
+      "reason": "Chromatisch steigender Bass und fallende GS treffen sich zielgerichtet in Takt6.",
+      "required_capabilities": [
+        "bass_sequence",
+        "note_intent",
+        "register_sync"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-S06": {
+      "classification": "E",
+      "reason": "Cm unten gehalten, F♯m oben gebrochen und versetzt.",
+      "required_capabilities": [
+        "components",
+        "register_sync"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-S07": {
+      "classification": "E",
+      "reason": "Identisches Polymaterial wieS06 in engem Register synchron; Halbe auf Kurz-Ziel.",
+      "required_capabilities": [
+        "components",
+        "register_sync",
+        "duration_capability"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-S08": {
+      "classification": "E",
+      "reason": "Dyade/Dreiklang tauschen Register bei unveränderter Periodik.",
+      "required_capabilities": [
+        "components",
+        "register_sync"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-S09": {
+      "classification": "E",
+      "reason": "Tiefes und hohes C-Pedal, verzögerter Mittelklang und lange Kurzrollen-Noten. Zusätzlich überschreitet eine vorgeschriebene Notendauer die Standardfähigkeit ihres Kurz-Ziels.",
+      "required_capabilities": [
+        "pedal_lifetime",
+        "bass_polyphony",
+        "duration_capability"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-S10": {
+      "classification": "E",
+      "reason": "Zwei gegenläufige Augment-Dreiklangs-Spiralen mit verzögertem Eintritt und ohne Tiefbass.",
+      "required_capabilities": [
+        "role_transfer",
+        "register_sync"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-S11": {
+      "classification": "E",
+      "reason": "Mechanische Brechung mit fremdem F♯ und Mediantwechsel, abgebrochene GS sowie Schlussbass.",
+      "required_capabilities": [
+        "chord_objects",
+        "note_intent",
+        "modules"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-S12": {
+      "classification": "A",
+      "reason": "Großterzzyklus ist mit vorhandenen Akkorden, weitem Voicing und ruhiger Viertelbrechung darstellbar; Mindestabstände und endliche Einsätze explizit anbinden.",
+      "required_capabilities": [
+        "rhythm_binding"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-S13": {
+      "classification": "E",
+      "reason": "C/E-Komponenten, alternierende3/4-/6/8-Akzente und ereignisgebundener Stich36.",
+      "required_capabilities": [
+        "components",
+        "triplets_grouping",
+        "modules"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-S14": {
+      "classification": "E",
+      "reason": "Tiefe enge Mollblöcke plus Oktavbass; aktuelle monophone Bassziele reichen nicht.",
+      "required_capabilities": [
+        "bass_polyphony",
+        "register_sync"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-S15": {
+      "classification": "E",
+      "reason": "Große-Septimen-Kaskade mit Halten, anschließend Tritonusblöcke und versetzter Bass. Zusätzlich überschreitet eine vorgeschriebene Notendauer die Standardfähigkeit ihres Kurz-Ziels. Zusätzlich überschreitet eine vorgeschriebene Notendauer die Standardfähigkeit ihres Kurz-Ziels. Zusätzlich überschreitet eine vorgeschriebene Notendauer die Standardfähigkeit ihres Kurz-Ziels.",
+      "required_capabilities": [
+        "register_sync",
+        "duration_capability",
+        "components",
+        "bass_sequence"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-S16": {
+      "classification": "E",
+      "reason": "Seufzerpaare mit funktionalen Nicht-Akkordtönen und bewusst offenem B-Schluss.",
+      "required_capabilities": [
+        "note_intent",
+        "long_phrase"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-S17": {
+      "classification": "E",
+      "reason": "Stockender Achtelfluss und unregelmäßige TU/KB über Halbtonpendel als abgestimmtes Rezept.",
+      "required_capabilities": [
+        "modules",
+        "register_sync"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-S18": {
+      "classification": "E",
+      "reason": "Ganztonfeld ohne Tiefbass wechselt System; rhythmisch eingeschränkte Brechung und fremde Hochebene. Zusätzlich überschreitet eine vorgeschriebene Notendauer die Standardfähigkeit ihres Kurz-Ziels.",
+      "required_capabilities": [
+        "collections",
+        "pedal_lifetime",
+        "register_sync",
+        "duration_capability"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-S19": {
+      "classification": "E",
+      "reason": "G bleibt oben und unten fix, während seine harmonische Funktion wechselt.",
+      "required_capabilities": [
+        "pedal_lifetime",
+        "bass_sequence",
+        "note_intent"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-S20": {
+      "classification": "E",
+      "reason": "Halbverminderte Blöcke chromatisch parallel; Viertelgates auf KF überschreiten720Ticks.",
+      "required_capabilities": [
+        "exact_planing",
+        "duration_capability"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-S21": {
+      "classification": "E",
+      "reason": "Mehrstimmiges Fugato mit11Noten, verfrühtem Kopfeinsatz, Kontrasubjekt und neuem Pedal. Zusätzlich überschreitet eine vorgeschriebene Notendauer die Standardfähigkeit ihres Kurz-Ziels.",
+      "required_capabilities": [
+        "role_transfer",
+        "long_phrase",
+        "bass_sequence",
+        "pedal_lifetime",
+        "duration_capability"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-S22": {
+      "classification": "E",
+      "reason": "Identisches Polymaterial sinkt über16Takte und wird zeitlich synchron; weder Dichte- noch Velocity-Rampe. Zusätzlich überschreitet eine vorgeschriebene Notendauer die Standardfähigkeit ihres Kurz-Ziels.",
+      "required_capabilities": [
+        "components",
+        "register_sync",
+        "duration_capability",
+        "modules"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-S23": {
+      "classification": "E",
+      "reason": "Vierstufig: Verschmelzung vor Dissonanzschärfe, dann Rhythmus/Dynamik. Zusätzlich überschreitet eine vorgeschriebene Notendauer die Standardfähigkeit ihres Kurz-Ziels.",
+      "required_capabilities": [
+        "components",
+        "register_sync",
+        "modules",
+        "exact_planing",
+        "duration_capability"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-S24": {
+      "classification": "E",
+      "reason": "Bewegung und zwei Interpunktionsmodule in variablen Abständen über eigenem C-Pedal.",
+      "required_capabilities": [
+        "modules",
+        "pedal_lifetime"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-S25": {
+      "classification": "E",
+      "reason": "32Takte mit unveränderter Zelle über KF→AR→KB→KF und E-Pedal. Zusätzlich überschreitet eine vorgeschriebene Notendauer die Standardfähigkeit ihres Kurz-Ziels.",
+      "required_capabilities": [
+        "role_transfer",
+        "modules",
+        "pedal_lifetime",
+        "duration_capability"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-S26": {
+      "classification": "E",
+      "reason": "Vier achtaktige Zustände bei konstanter Spannung mit wechselnden TU-Zellen. Zusätzlich überschreitet eine vorgeschriebene Notendauer die Standardfähigkeit ihres Kurz-Ziels.",
+      "required_capabilities": [
+        "modules",
+        "note_intent",
+        "duration_capability"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-S27": {
+      "classification": "E",
+      "reason": "Gleiches Polymaterial/Notenzahl/Velocity; nacheinander nur Register, dann Synchronität, dann Artikulation. Zusätzlich überschreitet eine vorgeschriebene Notendauer die Standardfähigkeit ihres Kurz-Ziels.",
+      "required_capabilities": [
+        "components",
+        "register_sync",
+        "duration_capability",
+        "modules"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-S28": {
+      "classification": "E",
+      "reason": "KF-Frage und spätere kürzere KB-Antwort bei offenem G7b9-Ende.",
+      "required_capabilities": [
+        "modules",
+        "register_sync"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-S29": {
+      "classification": "E",
+      "reason": "C-Pedal mit vier harmonischen Funktionen,5+3-Viertel-Atem und TU-Doppelnachbar. Zusätzlich überschreitet eine vorgeschriebene Notendauer die Standardfähigkeit ihres Kurz-Ziels.",
+      "required_capabilities": [
+        "pedal_lifetime",
+        "note_intent",
+        "rhythm_binding",
+        "duration_capability"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-S30": {
+      "classification": "E",
+      "reason": "Lyrischer Hauptbogen plus Seufzerantwort, während HM liegt; kein heutiges exklusives Vordergrundfenster.",
+      "required_capabilities": [
+        "long_phrase",
+        "note_intent",
+        "role_transfer"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-S31": {
+      "classification": "E",
+      "reason": "Offene Quinte mit absichtlichem A♭-Nachbarn, unvorhersehbarer Leerstelle und sehr sparsamen Tupfern.",
+      "required_capabilities": [
+        "chord_objects",
+        "note_intent",
+        "modules"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-S32": {
+      "classification": "E",
+      "reason": "GS als obere Es-Moll-Komponente über A-Moll mit verändertem Versatz. Zusätzlich überschreitet eine vorgeschriebene Notendauer die Standardfähigkeit ihres Kurz-Ziels.",
+      "required_capabilities": [
+        "components",
+        "register_sync",
+        "role_transfer",
+        "duration_capability"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-S33": {
+      "classification": "E",
+      "reason": "Gegensätzliche3/4-/6/8-Akzentlesarten von KF und KB im Tritonuspendel.",
+      "required_capabilities": [
+        "triplets_grouping",
+        "register_sync"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-S34": {
+      "classification": "E",
+      "reason": "Erst Gleichschritt, dann Dreiergruppen, danach AR-Sechzehntel über gehaltenem Bass.",
+      "required_capabilities": [
+        "independent_cycles",
+        "modules"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-S35": {
+      "classification": "E",
+      "reason": "Terzfreies kaltes Quart-/Quintobjekt, nach4Takten Bassentzug und Halbtonwechsel, gezielte TU-Rufe. Zusätzlich überschreitet eine vorgeschriebene Notendauer die Standardfähigkeit ihres Kurz-Ziels.",
+      "required_capabilities": [
+        "chord_objects",
+        "register_sync",
+        "note_intent",
+        "duration_capability"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-S36": {
+      "classification": "E",
+      "reason": "Zwei Ganztonsysteme, wandernde Triolenlücken und abgebrochene TU-Spirale.",
+      "required_capabilities": [
+        "collections",
+        "triplets_grouping",
+        "modules"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-S37": {
+      "classification": "E",
+      "reason": "Tritonusdyade im Bass plus Fm/Bm-Komponenten über zwei Takte synchron halten. Zusätzlich überschreitet eine vorgeschriebene Notendauer die Standardfähigkeit ihres Kurz-Ziels.",
+      "required_capabilities": [
+        "bass_polyphony",
+        "components",
+        "duration_capability",
+        "register_sync"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-S38": {
+      "classification": "E",
+      "reason": "Helle C/Db-Verschmelzung über F♯-Pedal mit hoher nicht-heroischer Zelle und Stichereignis.",
+      "required_capabilities": [
+        "components",
+        "pedal_lifetime",
+        "note_intent",
+        "modules"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-S39": {
+      "classification": "E",
+      "reason": "AugM7-Säulen in weiter hoher Lage über Oktavbass; langsame Brechung und Großterzlinie.",
+      "required_capabilities": [
+        "bass_polyphony",
+        "register_sync",
+        "authored_binding"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-S40": {
+      "classification": "E",
+      "reason": "Bei statischem XYZ über16Takte Rolle, Richtung und Register tauschen; zwölf Triolen bleiben exakt erhalten.",
+      "required_capabilities": [
+        "triplets_grouping",
+        "role_transfer",
+        "modules",
+        "register_sync"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-T01": {
+      "classification": "E",
+      "reason": "Bewegungsmodul3→2Takte und Interpunktion5→3→1Schläge; keine Tempoänderung.",
+      "required_capabilities": [
+        "modules"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-T02": {
+      "classification": "E",
+      "reason": "Fragmentkopf bleibt rhythmisch/melodisch identisch, Teile wechseln GS/TU; bestehende Fragmentierung allein reicht nicht. Zusätzlich überschreitet eine vorgeschriebene Notendauer die Standardfähigkeit ihres Kurz-Ziels.",
+      "required_capabilities": [
+        "role_transfer",
+        "duration_capability"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-T03": {
+      "classification": "E",
+      "reason": "Bei statischem XYZ höchstens ein Parameter pro Durchgang, ohne gerichtete Eskalation; dazu E-Pedal. Zusätzlich überschreitet eine vorgeschriebene Notendauer die Standardfähigkeit ihres Kurz-Ziels.",
+      "required_capabilities": [
+        "modules",
+        "duration_capability"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-T04": {
+      "classification": "E",
+      "reason": "Ganzes Klangobjekt exakt um Halbton verschieben; heutige Sequenzierung harmonisiert und erhält dies nicht automatisch.",
+      "required_capabilities": [
+        "exact_planing"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-T05": {
+      "classification": "E",
+      "reason": "Tonfolge oder Rhythmus einzeln ändern; koordinierte Modulform statt gleichzeitiger Zufallsvariation.",
+      "required_capabilities": [
+        "modules"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-T06": {
+      "classification": "E",
+      "reason": "Eigenständige Registerverschiebung bei gleichbleibendem Material; Oktavierung ist vorhanden, übergreifender Registerplan fehlt.",
+      "required_capabilities": [
+        "register_sync"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-T07": {
+      "classification": "E",
+      "reason": "Zelle ohne Überlappung zwischen geeigneten Rollen übergeben; heutiger HM→GS-Suffix ist enger. Zusätzlich überschreitet eine vorgeschriebene Notendauer die Standardfähigkeit ihres Kurz-Ziels.",
+      "required_capabilities": [
+        "role_transfer",
+        "duration_capability"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-T08": {
+      "classification": "E",
+      "reason": "Getrennte Komponenten über Zeit, Lage und Dauer verschmelzen; drei unabhängige Parameter.",
+      "required_capabilities": [
+        "components",
+        "duration_capability"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-T09": {
+      "classification": "E",
+      "reason": "Vorhandene Ereignisdichte ist Teilfähigkeit; konkrete Verdichtung/Ausdünnung bei erhaltenem Pedal und Klang muss geplant werden.",
+      "required_capabilities": [
+        "modules"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-T10": {
+      "classification": "E",
+      "reason": "Fünf musikalische Hebel in begründeter Reihenfolge; keine universelle Lautheits-/Dichterampe. Zusätzlich überschreitet eine vorgeschriebene Notendauer die Standardfähigkeit ihres Kurz-Ziels.",
+      "required_capabilities": [
+        "modules",
+        "duration_capability"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-T11": {
+      "classification": "E",
+      "reason": "Interpunktion und Leere unterbrechen ein wiedererkennbares Modul, das identisch zurückkehrt.",
+      "required_capabilities": [
+        "modules"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-T12": {
+      "classification": "E",
+      "reason": "Nach Pause dasselbe Modul mit genau einer Bassänderung; Material und Pausenabsicht erhalten.",
+      "required_capabilities": [
+        "modules"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    },
+    "HE-T13": {
+      "classification": "E",
+      "reason": "Verschmelzungsgrad nach Höhepunkt gezielt senken, ohne Materialwechsel oder obligatorische Beruhigung. Zusätzlich überschreitet eine vorgeschriebene Notendauer die Standardfähigkeit ihres Kurz-Ziels.",
+      "required_capabilities": [
+        "components",
+        "duration_capability"
+      ],
+      "optional_variants": "Optionale Umkehrung, andere Besetzung oder Transformation erst nach eigener Prüfung; kein Bestandteil dieser Freigabe."
+    }
+  }
+}

@@ -1,0 +1,3678 @@
+{
+  "engine_commit": "023b0a6",
+  "method": "21³ points per pool and Variety0/.5/1; actual Generator::weight/keepRatio; pick cutoff without candidates-display epsilon; neutral source preferences (no invented HE weights). Pools separate, not a simulated active combined catalog.",
+  "scope": "Geometry only: several candidates may be same chord material or require unavailable musical facilities. No production selection or hearing proof.",
+  "harmonic_pools": {
+    "current_score_geometry": {
+      "pool_size": 48,
+      "summary": [
+        {
+          "variety": 0.0,
+          "points": 9261,
+          "min_candidates": 1,
+          "mean_candidates": 1.0070186804880683,
+          "max_candidates": 2,
+          "single_candidate_points": 9196,
+          "fewer_than_three": 9261,
+          "weighted_distance_max": 0.672923,
+          "absolute_distance_max": 0.801561,
+          "distance_over_035": 1369,
+          "reachable": 48,
+          "unreached": [],
+          "corners": {
+            "0.0/0.0/0.0": {
+              "candidates": 1,
+              "ids": [
+                "1004"
+              ],
+              "weighted_distance": 0.305812,
+              "absolute_distance": 0.327567
+            },
+            "0.0/0.0/1.0": {
+              "candidates": 1,
+              "ids": [
+                "1001"
+              ],
+              "weighted_distance": 0.313847,
+              "absolute_distance": 0.408534
+            },
+            "0.0/1.0/0.0": {
+              "candidates": 1,
+              "ids": [
+                "1017"
+              ],
+              "weighted_distance": 0.398278,
+              "absolute_distance": 0.452659
+            },
+            "0.0/1.0/1.0": {
+              "candidates": 1,
+              "ids": [
+                "1013"
+              ],
+              "weighted_distance": 0.150572,
+              "absolute_distance": 0.187617
+            },
+            "1.0/0.0/0.0": {
+              "candidates": 1,
+              "ids": [
+                "1038"
+              ],
+              "weighted_distance": 0.236381,
+              "absolute_distance": 0.269072
+            },
+            "1.0/0.0/1.0": {
+              "candidates": 1,
+              "ids": [
+                "1028"
+              ],
+              "weighted_distance": 0.672923,
+              "absolute_distance": 0.801561
+            },
+            "1.0/1.0/0.0": {
+              "candidates": 1,
+              "ids": [
+                "1048"
+              ],
+              "weighted_distance": 0.138333,
+              "absolute_distance": 0.152643
+            },
+            "1.0/1.0/1.0": {
+              "candidates": 1,
+              "ids": [
+                "1042"
+              ],
+              "weighted_distance": 0.664963,
+              "absolute_distance": 0.777817
+            }
+          },
+          "worst": [
+            {
+              "xyz": [
+                1.0,
+                0.0,
+                1.0
+              ],
+              "weighted_distance": 0.672923,
+              "absolute_distance": 0.801561,
+              "candidates": 1
+            },
+            {
+              "xyz": [
+                1.0,
+                1.0,
+                1.0
+              ],
+              "weighted_distance": 0.664963,
+              "absolute_distance": 0.777817,
+              "candidates": 1
+            },
+            {
+              "xyz": [
+                1.0,
+                0.05,
+                1.0
+              ],
+              "weighted_distance": 0.657267,
+              "absolute_distance": 0.784219,
+              "candidates": 1
+            },
+            {
+              "xyz": [
+                1.0,
+                0.95,
+                1.0
+              ],
+              "weighted_distance": 0.654004,
+              "absolute_distance": 0.776209,
+              "candidates": 1
+            },
+            {
+              "xyz": [
+                1.0,
+                0.0,
+                0.95
+              ],
+              "weighted_distance": 0.647476,
+              "absolute_distance": 0.771362,
+              "candidates": 1
+            },
+            {
+              "xyz": [
+                0.95,
+                1.0,
+                1.0
+              ],
+              "weighted_distance": 0.645504,
+              "absolute_distance": 0.729726,
+              "candidates": 1
+            },
+            {
+              "xyz": [
+                1.0,
+                0.9,
+                1.0
+              ],
+              "weighted_distance": 0.64476,
+              "absolute_distance": 0.777817,
+              "candidates": 1
+            },
+            {
+              "xyz": [
+                0.95,
+                0.0,
+                1.0
+              ],
+              "weighted_distance": 0.644457,
+              "absolute_distance": 0.768115,
+              "candidates": 1
+            }
+          ]
+        },
+        {
+          "variety": 0.5,
+          "points": 9261,
+          "min_candidates": 1,
+          "mean_candidates": 3.149119965446496,
+          "max_candidates": 14,
+          "single_candidate_points": 2410,
+          "fewer_than_three": 4793,
+          "weighted_distance_max": 0.672923,
+          "absolute_distance_max": 0.801561,
+          "distance_over_035": 1369,
+          "reachable": 48,
+          "unreached": [],
+          "corners": {
+            "0.0/0.0/0.0": {
+              "candidates": 1,
+              "ids": [
+                "1004"
+              ],
+              "weighted_distance": 0.305812,
+              "absolute_distance": 0.327567
+            },
+            "0.0/0.0/1.0": {
+              "candidates": 2,
+              "ids": [
+                "1001",
+                "1003"
+              ],
+              "weighted_distance": 0.313847,
+              "absolute_distance": 0.408534
+            },
+            "0.0/1.0/0.0": {
+              "candidates": 1,
+              "ids": [
+                "1017"
+              ],
+              "weighted_distance": 0.398278,
+              "absolute_distance": 0.452659
+            },
+            "0.0/1.0/1.0": {
+              "candidates": 1,
+              "ids": [
+                "1013"
+              ],
+              "weighted_distance": 0.150572,
+              "absolute_distance": 0.187617
+            },
+            "1.0/0.0/0.0": {
+              "candidates": 1,
+              "ids": [
+                "1038"
+              ],
+              "weighted_distance": 0.236381,
+              "absolute_distance": 0.269072
+            },
+            "1.0/0.0/1.0": {
+              "candidates": 1,
+              "ids": [
+                "1028"
+              ],
+              "weighted_distance": 0.672923,
+              "absolute_distance": 0.801561
+            },
+            "1.0/1.0/0.0": {
+              "candidates": 1,
+              "ids": [
+                "1048"
+              ],
+              "weighted_distance": 0.138333,
+              "absolute_distance": 0.152643
+            },
+            "1.0/1.0/1.0": {
+              "candidates": 1,
+              "ids": [
+                "1042"
+              ],
+              "weighted_distance": 0.664963,
+              "absolute_distance": 0.777817
+            }
+          },
+          "worst": [
+            {
+              "xyz": [
+                1.0,
+                0.0,
+                1.0
+              ],
+              "weighted_distance": 0.672923,
+              "absolute_distance": 0.801561,
+              "candidates": 1
+            },
+            {
+              "xyz": [
+                1.0,
+                1.0,
+                1.0
+              ],
+              "weighted_distance": 0.664963,
+              "absolute_distance": 0.777817,
+              "candidates": 1
+            },
+            {
+              "xyz": [
+                1.0,
+                0.05,
+                1.0
+              ],
+              "weighted_distance": 0.657267,
+              "absolute_distance": 0.784219,
+              "candidates": 1
+            },
+            {
+              "xyz": [
+                1.0,
+                0.95,
+                1.0
+              ],
+              "weighted_distance": 0.654004,
+              "absolute_distance": 0.776209,
+              "candidates": 1
+            },
+            {
+              "xyz": [
+                1.0,
+                0.0,
+                0.95
+              ],
+              "weighted_distance": 0.647476,
+              "absolute_distance": 0.771362,
+              "candidates": 1
+            },
+            {
+              "xyz": [
+                0.95,
+                1.0,
+                1.0
+              ],
+              "weighted_distance": 0.645504,
+              "absolute_distance": 0.729726,
+              "candidates": 1
+            },
+            {
+              "xyz": [
+                1.0,
+                0.9,
+                1.0
+              ],
+              "weighted_distance": 0.64476,
+              "absolute_distance": 0.777817,
+              "candidates": 1
+            },
+            {
+              "xyz": [
+                0.95,
+                0.0,
+                1.0
+              ],
+              "weighted_distance": 0.644457,
+              "absolute_distance": 0.768115,
+              "candidates": 1
+            }
+          ]
+        },
+        {
+          "variety": 1.0,
+          "points": 9261,
+          "min_candidates": 1,
+          "mean_candidates": 10.287873879710615,
+          "max_candidates": 31,
+          "single_candidate_points": 23,
+          "fewer_than_three": 528,
+          "weighted_distance_max": 0.672923,
+          "absolute_distance_max": 0.801561,
+          "distance_over_035": 1369,
+          "reachable": 48,
+          "unreached": [],
+          "corners": {
+            "0.0/0.0/0.0": {
+              "candidates": 1,
+              "ids": [
+                "1004"
+              ],
+              "weighted_distance": 0.305812,
+              "absolute_distance": 0.327567
+            },
+            "0.0/0.0/1.0": {
+              "candidates": 2,
+              "ids": [
+                "1001",
+                "1003"
+              ],
+              "weighted_distance": 0.313847,
+              "absolute_distance": 0.408534
+            },
+            "0.0/1.0/0.0": {
+              "candidates": 3,
+              "ids": [
+                "1007",
+                "1017",
+                "1020"
+              ],
+              "weighted_distance": 0.398278,
+              "absolute_distance": 0.452659
+            },
+            "0.0/1.0/1.0": {
+              "candidates": 3,
+              "ids": [
+                "1013",
+                "1014",
+                "1015"
+              ],
+              "weighted_distance": 0.150572,
+              "absolute_distance": 0.187617
+            },
+            "1.0/0.0/0.0": {
+              "candidates": 6,
+              "ids": [
+                "1035",
+                "1036",
+                "1037",
+                "1038",
+                "1039",
+                "1040"
+              ],
+              "weighted_distance": 0.236381,
+              "absolute_distance": 0.269072
+            },
+            "1.0/0.0/1.0": {
+              "candidates": 2,
+              "ids": [
+                "1027",
+                "1028"
+              ],
+              "weighted_distance": 0.672923,
+              "absolute_distance": 0.801561
+            },
+            "1.0/1.0/0.0": {
+              "candidates": 2,
+              "ids": [
+                "1047",
+                "1048"
+              ],
+              "weighted_distance": 0.138333,
+              "absolute_distance": 0.152643
+            },
+            "1.0/1.0/1.0": {
+              "candidates": 3,
+              "ids": [
+                "1028",
+                "1042",
+                "1046"
+              ],
+              "weighted_distance": 0.664963,
+              "absolute_distance": 0.777817
+            }
+          },
+          "worst": [
+            {
+              "xyz": [
+                1.0,
+                0.0,
+                1.0
+              ],
+              "weighted_distance": 0.672923,
+              "absolute_distance": 0.801561,
+              "candidates": 2
+            },
+            {
+              "xyz": [
+                1.0,
+                1.0,
+                1.0
+              ],
+              "weighted_distance": 0.664963,
+              "absolute_distance": 0.777817,
+              "candidates": 3
+            },
+            {
+              "xyz": [
+                1.0,
+                0.05,
+                1.0
+              ],
+              "weighted_distance": 0.657267,
+              "absolute_distance": 0.784219,
+              "candidates": 2
+            },
+            {
+              "xyz": [
+                1.0,
+                0.95,
+                1.0
+              ],
+              "weighted_distance": 0.654004,
+              "absolute_distance": 0.776209,
+              "candidates": 3
+            },
+            {
+              "xyz": [
+                1.0,
+                0.0,
+                0.95
+              ],
+              "weighted_distance": 0.647476,
+              "absolute_distance": 0.771362,
+              "candidates": 2
+            },
+            {
+              "xyz": [
+                0.95,
+                1.0,
+                1.0
+              ],
+              "weighted_distance": 0.645504,
+              "absolute_distance": 0.729726,
+              "candidates": 3
+            },
+            {
+              "xyz": [
+                1.0,
+                0.9,
+                1.0
+              ],
+              "weighted_distance": 0.64476,
+              "absolute_distance": 0.777817,
+              "candidates": 3
+            },
+            {
+              "xyz": [
+                0.95,
+                0.0,
+                1.0
+              ],
+              "weighted_distance": 0.644457,
+              "absolute_distance": 0.768115,
+              "candidates": 2
+            }
+          ]
+        }
+      ]
+    },
+    "he_all_geometry": {
+      "pool_size": 101,
+      "summary": [
+        {
+          "variety": 0.0,
+          "points": 9261,
+          "min_candidates": 1,
+          "mean_candidates": 1.0132815030774214,
+          "max_candidates": 3,
+          "single_candidate_points": 9139,
+          "fewer_than_three": 9260,
+          "weighted_distance_max": 0.516841,
+          "absolute_distance_max": 0.622495,
+          "distance_over_035": 324,
+          "reachable": 101,
+          "unreached": [],
+          "corners": {
+            "0.0/0.0/0.0": {
+              "candidates": 1,
+              "ids": [
+                "HE-H46"
+              ],
+              "weighted_distance": 0.376431,
+              "absolute_distance": 0.469042
+            },
+            "0.0/0.0/1.0": {
+              "candidates": 1,
+              "ids": [
+                "HE-H05"
+              ],
+              "weighted_distance": 0.306757,
+              "absolute_distance": 0.403113
+            },
+            "0.0/1.0/0.0": {
+              "candidates": 1,
+              "ids": [
+                "HE-H79"
+              ],
+              "weighted_distance": 0.280401,
+              "absolute_distance": 0.35
+            },
+            "0.0/1.0/1.0": {
+              "candidates": 1,
+              "ids": [
+                "HE-H54"
+              ],
+              "weighted_distance": 0.189737,
+              "absolute_distance": 0.244949
+            },
+            "1.0/0.0/0.0": {
+              "candidates": 1,
+              "ids": [
+                "HE-H76"
+              ],
+              "weighted_distance": 0.371483,
+              "absolute_distance": 0.45
+            },
+            "1.0/0.0/1.0": {
+              "candidates": 1,
+              "ids": [
+                "HE-H77"
+              ],
+              "weighted_distance": 0.516841,
+              "absolute_distance": 0.622495
+            },
+            "1.0/1.0/0.0": {
+              "candidates": 1,
+              "ids": [
+                "HE-H89"
+              ],
+              "weighted_distance": 0.446122,
+              "absolute_distance": 0.524404
+            },
+            "1.0/1.0/1.0": {
+              "candidates": 1,
+              "ids": [
+                "HE-H57"
+              ],
+              "weighted_distance": 0.386782,
+              "absolute_distance": 0.438748
+            }
+          },
+          "worst": [
+            {
+              "xyz": [
+                1.0,
+                0.0,
+                1.0
+              ],
+              "weighted_distance": 0.516841,
+              "absolute_distance": 0.622495,
+              "candidates": 1
+            },
+            {
+              "xyz": [
+                1.0,
+                0.05,
+                1.0
+              ],
+              "weighted_distance": 0.510882,
+              "absolute_distance": 0.612372,
+              "candidates": 1
+            },
+            {
+              "xyz": [
+                1.0,
+                0.25,
+                1.0
+              ],
+              "weighted_distance": 0.510882,
+              "absolute_distance": 0.60208,
+              "candidates": 1
+            },
+            {
+              "xyz": [
+                1.0,
+                0.1,
+                1.0
+              ],
+              "weighted_distance": 0.507272,
+              "absolute_distance": 0.606218,
+              "candidates": 1
+            },
+            {
+              "xyz": [
+                1.0,
+                0.2,
+                1.0
+              ],
+              "weighted_distance": 0.507272,
+              "absolute_distance": 0.604152,
+              "candidates": 1
+            },
+            {
+              "xyz": [
+                1.0,
+                0.15,
+                1.0
+              ],
+              "weighted_distance": 0.506063,
+              "absolute_distance": 0.604152,
+              "candidates": 1
+            },
+            {
+              "xyz": [
+                1.0,
+                0.3,
+                1.0
+              ],
+              "weighted_distance": 0.496815,
+              "absolute_distance": 0.604152,
+              "candidates": 1
+            },
+            {
+              "xyz": [
+                0.95,
+                0.0,
+                1.0
+              ],
+              "weighted_distance": 0.494596,
+              "absolute_distance": 0.604152,
+              "candidates": 1
+            }
+          ]
+        },
+        {
+          "variety": 0.5,
+          "points": 9261,
+          "min_candidates": 1,
+          "mean_candidates": 6.479321887485153,
+          "max_candidates": 43,
+          "single_candidate_points": 752,
+          "fewer_than_three": 1946,
+          "weighted_distance_max": 0.516841,
+          "absolute_distance_max": 0.622495,
+          "distance_over_035": 324,
+          "reachable": 101,
+          "unreached": [],
+          "corners": {
+            "0.0/0.0/0.0": {
+              "candidates": 3,
+              "ids": [
+                "HE-H04",
+                "HE-H46",
+                "HE-H81"
+              ],
+              "weighted_distance": 0.376431,
+              "absolute_distance": 0.469042
+            },
+            "0.0/0.0/1.0": {
+              "candidates": 1,
+              "ids": [
+                "HE-H05"
+              ],
+              "weighted_distance": 0.306757,
+              "absolute_distance": 0.403113
+            },
+            "0.0/1.0/0.0": {
+              "candidates": 3,
+              "ids": [
+                "HE-H79",
+                "HE-H80",
+                "HE-H94"
+              ],
+              "weighted_distance": 0.280401,
+              "absolute_distance": 0.35
+            },
+            "0.0/1.0/1.0": {
+              "candidates": 1,
+              "ids": [
+                "HE-H54"
+              ],
+              "weighted_distance": 0.189737,
+              "absolute_distance": 0.244949
+            },
+            "1.0/0.0/0.0": {
+              "candidates": 1,
+              "ids": [
+                "HE-H76"
+              ],
+              "weighted_distance": 0.371483,
+              "absolute_distance": 0.45
+            },
+            "1.0/0.0/1.0": {
+              "candidates": 1,
+              "ids": [
+                "HE-H77"
+              ],
+              "weighted_distance": 0.516841,
+              "absolute_distance": 0.622495
+            },
+            "1.0/1.0/0.0": {
+              "candidates": 1,
+              "ids": [
+                "HE-H89"
+              ],
+              "weighted_distance": 0.446122,
+              "absolute_distance": 0.524404
+            },
+            "1.0/1.0/1.0": {
+              "candidates": 2,
+              "ids": [
+                "HE-H57",
+                "HE-H93"
+              ],
+              "weighted_distance": 0.386782,
+              "absolute_distance": 0.438748
+            }
+          },
+          "worst": [
+            {
+              "xyz": [
+                1.0,
+                0.0,
+                1.0
+              ],
+              "weighted_distance": 0.516841,
+              "absolute_distance": 0.622495,
+              "candidates": 1
+            },
+            {
+              "xyz": [
+                1.0,
+                0.05,
+                1.0
+              ],
+              "weighted_distance": 0.510882,
+              "absolute_distance": 0.612372,
+              "candidates": 1
+            },
+            {
+              "xyz": [
+                1.0,
+                0.25,
+                1.0
+              ],
+              "weighted_distance": 0.510882,
+              "absolute_distance": 0.60208,
+              "candidates": 3
+            },
+            {
+              "xyz": [
+                1.0,
+                0.1,
+                1.0
+              ],
+              "weighted_distance": 0.507272,
+              "absolute_distance": 0.606218,
+              "candidates": 1
+            },
+            {
+              "xyz": [
+                1.0,
+                0.2,
+                1.0
+              ],
+              "weighted_distance": 0.507272,
+              "absolute_distance": 0.604152,
+              "candidates": 1
+            },
+            {
+              "xyz": [
+                1.0,
+                0.15,
+                1.0
+              ],
+              "weighted_distance": 0.506063,
+              "absolute_distance": 0.604152,
+              "candidates": 1
+            },
+            {
+              "xyz": [
+                1.0,
+                0.3,
+                1.0
+              ],
+              "weighted_distance": 0.496815,
+              "absolute_distance": 0.604152,
+              "candidates": 4
+            },
+            {
+              "xyz": [
+                0.95,
+                0.0,
+                1.0
+              ],
+              "weighted_distance": 0.494596,
+              "absolute_distance": 0.604152,
+              "candidates": 1
+            }
+          ]
+        },
+        {
+          "variety": 1.0,
+          "points": 9261,
+          "min_candidates": 3,
+          "mean_candidates": 23.293380844401252,
+          "max_candidates": 85,
+          "single_candidate_points": 0,
+          "fewer_than_three": 0,
+          "weighted_distance_max": 0.516841,
+          "absolute_distance_max": 0.622495,
+          "distance_over_035": 324,
+          "reachable": 101,
+          "unreached": [],
+          "corners": {
+            "0.0/0.0/0.0": {
+              "candidates": 13,
+              "ids": [
+                "HE-H01",
+                "HE-H04",
+                "HE-H09",
+                "HE-H19",
+                "HE-H31",
+                "HE-H43",
+                "HE-H46",
+                "HE-H64",
+                "HE-H73",
+                "HE-H78",
+                "HE-H81",
+                "HE-H87",
+                "HE-H88"
+              ],
+              "weighted_distance": 0.376431,
+              "absolute_distance": 0.469042
+            },
+            "0.0/0.0/1.0": {
+              "candidates": 12,
+              "ids": [
+                "HE-H03",
+                "HE-H05",
+                "HE-H07",
+                "HE-H12",
+                "HE-H18",
+                "HE-H23",
+                "HE-H51",
+                "HE-H53",
+                "HE-H63",
+                "HE-H67",
+                "HE-H73",
+                "HE-H83"
+              ],
+              "weighted_distance": 0.306757,
+              "absolute_distance": 0.403113
+            },
+            "0.0/1.0/0.0": {
+              "candidates": 5,
+              "ids": [
+                "HE-H79",
+                "HE-H80",
+                "HE-H94",
+                "HE-H95",
+                "HE-H98"
+              ],
+              "weighted_distance": 0.280401,
+              "absolute_distance": 0.35
+            },
+            "0.0/1.0/1.0": {
+              "candidates": 8,
+              "ids": [
+                "HE-H11",
+                "HE-H34",
+                "HE-H52",
+                "HE-H54",
+                "HE-H59",
+                "HE-H61",
+                "HE-H71",
+                "HE-H72"
+              ],
+              "weighted_distance": 0.189737,
+              "absolute_distance": 0.244949
+            },
+            "1.0/0.0/0.0": {
+              "candidates": 4,
+              "ids": [
+                "HE-H76",
+                "HE-H77",
+                "HE-H97",
+                "HE-H101"
+              ],
+              "weighted_distance": 0.371483,
+              "absolute_distance": 0.45
+            },
+            "1.0/0.0/1.0": {
+              "candidates": 5,
+              "ids": [
+                "HE-H56",
+                "HE-H66",
+                "HE-H76",
+                "HE-H77",
+                "HE-H101"
+              ],
+              "weighted_distance": 0.516841,
+              "absolute_distance": 0.622495
+            },
+            "1.0/1.0/0.0": {
+              "candidates": 6,
+              "ids": [
+                "HE-H41",
+                "HE-H89",
+                "HE-H90",
+                "HE-H91",
+                "HE-H99",
+                "HE-H100"
+              ],
+              "weighted_distance": 0.446122,
+              "absolute_distance": 0.524404
+            },
+            "1.0/1.0/1.0": {
+              "candidates": 3,
+              "ids": [
+                "HE-H57",
+                "HE-H92",
+                "HE-H93"
+              ],
+              "weighted_distance": 0.386782,
+              "absolute_distance": 0.438748
+            }
+          },
+          "worst": [
+            {
+              "xyz": [
+                1.0,
+                0.0,
+                1.0
+              ],
+              "weighted_distance": 0.516841,
+              "absolute_distance": 0.622495,
+              "candidates": 5
+            },
+            {
+              "xyz": [
+                1.0,
+                0.05,
+                1.0
+              ],
+              "weighted_distance": 0.510882,
+              "absolute_distance": 0.612372,
+              "candidates": 7
+            },
+            {
+              "xyz": [
+                1.0,
+                0.25,
+                1.0
+              ],
+              "weighted_distance": 0.510882,
+              "absolute_distance": 0.60208,
+              "candidates": 14
+            },
+            {
+              "xyz": [
+                1.0,
+                0.1,
+                1.0
+              ],
+              "weighted_distance": 0.507272,
+              "absolute_distance": 0.606218,
+              "candidates": 8
+            },
+            {
+              "xyz": [
+                1.0,
+                0.2,
+                1.0
+              ],
+              "weighted_distance": 0.507272,
+              "absolute_distance": 0.604152,
+              "candidates": 13
+            },
+            {
+              "xyz": [
+                1.0,
+                0.15,
+                1.0
+              ],
+              "weighted_distance": 0.506063,
+              "absolute_distance": 0.604152,
+              "candidates": 10
+            },
+            {
+              "xyz": [
+                1.0,
+                0.3,
+                1.0
+              ],
+              "weighted_distance": 0.496815,
+              "absolute_distance": 0.604152,
+              "candidates": 14
+            },
+            {
+              "xyz": [
+                0.95,
+                0.0,
+                1.0
+              ],
+              "weighted_distance": 0.494596,
+              "absolute_distance": 0.604152,
+              "candidates": 9
+            }
+          ]
+        }
+      ]
+    },
+    "he_chord_data_fit": {
+      "pool_size": 62,
+      "summary": [
+        {
+          "variety": 0.0,
+          "points": 9261,
+          "min_candidates": 1,
+          "mean_candidates": 1.0176006910700788,
+          "max_candidates": 3,
+          "single_candidate_points": 9104,
+          "fewer_than_three": 9255,
+          "weighted_distance_max": 0.574456,
+          "absolute_distance_max": 0.65192,
+          "distance_over_035": 490,
+          "reachable": 62,
+          "unreached": [],
+          "corners": {
+            "0.0/0.0/0.0": {
+              "candidates": 1,
+              "ids": [
+                "HE-H46"
+              ],
+              "weighted_distance": 0.376431,
+              "absolute_distance": 0.469042
+            },
+            "0.0/0.0/1.0": {
+              "candidates": 1,
+              "ids": [
+                "HE-H05"
+              ],
+              "weighted_distance": 0.306757,
+              "absolute_distance": 0.403113
+            },
+            "0.0/1.0/0.0": {
+              "candidates": 1,
+              "ids": [
+                "HE-H79"
+              ],
+              "weighted_distance": 0.280401,
+              "absolute_distance": 0.35
+            },
+            "0.0/1.0/1.0": {
+              "candidates": 1,
+              "ids": [
+                "HE-H11"
+              ],
+              "weighted_distance": 0.355668,
+              "absolute_distance": 0.471699
+            },
+            "1.0/0.0/0.0": {
+              "candidates": 1,
+              "ids": [
+                "HE-H76"
+              ],
+              "weighted_distance": 0.371483,
+              "absolute_distance": 0.45
+            },
+            "1.0/0.0/1.0": {
+              "candidates": 1,
+              "ids": [
+                "HE-H76"
+              ],
+              "weighted_distance": 0.574456,
+              "absolute_distance": 0.65192
+            },
+            "1.0/1.0/0.0": {
+              "candidates": 1,
+              "ids": [
+                "HE-H41"
+              ],
+              "weighted_distance": 0.490025,
+              "absolute_distance": 0.559017
+            },
+            "1.0/1.0/1.0": {
+              "candidates": 1,
+              "ids": [
+                "HE-H93"
+              ],
+              "weighted_distance": 0.409512,
+              "absolute_distance": 0.45
+            }
+          },
+          "worst": [
+            {
+              "xyz": [
+                1.0,
+                0.0,
+                1.0
+              ],
+              "weighted_distance": 0.574456,
+              "absolute_distance": 0.65192,
+              "candidates": 1
+            },
+            {
+              "xyz": [
+                1.0,
+                0.05,
+                1.0
+              ],
+              "weighted_distance": 0.566944,
+              "absolute_distance": 0.634429,
+              "candidates": 1
+            },
+            {
+              "xyz": [
+                1.0,
+                0.1,
+                1.0
+              ],
+              "weighted_distance": 0.561516,
+              "absolute_distance": 0.620484,
+              "candidates": 1
+            },
+            {
+              "xyz": [
+                1.0,
+                0.15,
+                1.0
+              ],
+              "weighted_distance": 0.556597,
+              "absolute_distance": 0.610328,
+              "candidates": 1
+            },
+            {
+              "xyz": [
+                1.0,
+                0.2,
+                1.0
+              ],
+              "weighted_distance": 0.553286,
+              "absolute_distance": 0.604152,
+              "candidates": 1
+            },
+            {
+              "xyz": [
+                1.0,
+                0.25,
+                1.0
+              ],
+              "weighted_distance": 0.544357,
+              "absolute_distance": 0.60208,
+              "candidates": 1
+            },
+            {
+              "xyz": [
+                0.95,
+                0.0,
+                1.0
+              ],
+              "weighted_distance": 0.541318,
+              "absolute_distance": 0.618466,
+              "candidates": 1
+            },
+            {
+              "xyz": [
+                1.0,
+                0.0,
+                0.95
+              ],
+              "weighted_distance": 0.538517,
+              "absolute_distance": 0.622495,
+              "candidates": 1
+            }
+          ]
+        },
+        {
+          "variety": 0.5,
+          "points": 9261,
+          "min_candidates": 1,
+          "mean_candidates": 4.778641615376309,
+          "max_candidates": 31,
+          "single_candidate_points": 2136,
+          "fewer_than_three": 3801,
+          "weighted_distance_max": 0.574456,
+          "absolute_distance_max": 0.65192,
+          "distance_over_035": 490,
+          "reachable": 62,
+          "unreached": [],
+          "corners": {
+            "0.0/0.0/0.0": {
+              "candidates": 2,
+              "ids": [
+                "HE-H04",
+                "HE-H46"
+              ],
+              "weighted_distance": 0.376431,
+              "absolute_distance": 0.469042
+            },
+            "0.0/0.0/1.0": {
+              "candidates": 1,
+              "ids": [
+                "HE-H05"
+              ],
+              "weighted_distance": 0.306757,
+              "absolute_distance": 0.403113
+            },
+            "0.0/1.0/0.0": {
+              "candidates": 3,
+              "ids": [
+                "HE-H79",
+                "HE-H80",
+                "HE-H94"
+              ],
+              "weighted_distance": 0.280401,
+              "absolute_distance": 0.35
+            },
+            "0.0/1.0/1.0": {
+              "candidates": 2,
+              "ids": [
+                "HE-H11",
+                "HE-H35"
+              ],
+              "weighted_distance": 0.355668,
+              "absolute_distance": 0.471699
+            },
+            "1.0/0.0/0.0": {
+              "candidates": 1,
+              "ids": [
+                "HE-H76"
+              ],
+              "weighted_distance": 0.371483,
+              "absolute_distance": 0.45
+            },
+            "1.0/0.0/1.0": {
+              "candidates": 3,
+              "ids": [
+                "HE-H56",
+                "HE-H66",
+                "HE-H76"
+              ],
+              "weighted_distance": 0.574456,
+              "absolute_distance": 0.65192
+            },
+            "1.0/1.0/0.0": {
+              "candidates": 3,
+              "ids": [
+                "HE-H41",
+                "HE-H91",
+                "HE-H100"
+              ],
+              "weighted_distance": 0.490025,
+              "absolute_distance": 0.559017
+            },
+            "1.0/1.0/1.0": {
+              "candidates": 1,
+              "ids": [
+                "HE-H93"
+              ],
+              "weighted_distance": 0.409512,
+              "absolute_distance": 0.45
+            }
+          },
+          "worst": [
+            {
+              "xyz": [
+                1.0,
+                0.0,
+                1.0
+              ],
+              "weighted_distance": 0.574456,
+              "absolute_distance": 0.65192,
+              "candidates": 3
+            },
+            {
+              "xyz": [
+                1.0,
+                0.05,
+                1.0
+              ],
+              "weighted_distance": 0.566944,
+              "absolute_distance": 0.634429,
+              "candidates": 3
+            },
+            {
+              "xyz": [
+                1.0,
+                0.1,
+                1.0
+              ],
+              "weighted_distance": 0.561516,
+              "absolute_distance": 0.620484,
+              "candidates": 3
+            },
+            {
+              "xyz": [
+                1.0,
+                0.15,
+                1.0
+              ],
+              "weighted_distance": 0.556597,
+              "absolute_distance": 0.610328,
+              "candidates": 4
+            },
+            {
+              "xyz": [
+                1.0,
+                0.2,
+                1.0
+              ],
+              "weighted_distance": 0.553286,
+              "absolute_distance": 0.604152,
+              "candidates": 5
+            },
+            {
+              "xyz": [
+                1.0,
+                0.25,
+                1.0
+              ],
+              "weighted_distance": 0.544357,
+              "absolute_distance": 0.60208,
+              "candidates": 4
+            },
+            {
+              "xyz": [
+                0.95,
+                0.0,
+                1.0
+              ],
+              "weighted_distance": 0.541318,
+              "absolute_distance": 0.618466,
+              "candidates": 4
+            },
+            {
+              "xyz": [
+                1.0,
+                0.0,
+                0.95
+              ],
+              "weighted_distance": 0.538517,
+              "absolute_distance": 0.622495,
+              "candidates": 3
+            }
+          ]
+        },
+        {
+          "variety": 1.0,
+          "points": 9261,
+          "min_candidates": 1,
+          "mean_candidates": 15.650901630493466,
+          "max_candidates": 58,
+          "single_candidate_points": 509,
+          "fewer_than_three": 774,
+          "weighted_distance_max": 0.574456,
+          "absolute_distance_max": 0.65192,
+          "distance_over_035": 490,
+          "reachable": 62,
+          "unreached": [],
+          "corners": {
+            "0.0/0.0/0.0": {
+              "candidates": 10,
+              "ids": [
+                "HE-H01",
+                "HE-H04",
+                "HE-H09",
+                "HE-H19",
+                "HE-H43",
+                "HE-H46",
+                "HE-H64",
+                "HE-H78",
+                "HE-H87",
+                "HE-H88"
+              ],
+              "weighted_distance": 0.376431,
+              "absolute_distance": 0.469042
+            },
+            "0.0/0.0/1.0": {
+              "candidates": 6,
+              "ids": [
+                "HE-H03",
+                "HE-H05",
+                "HE-H07",
+                "HE-H18",
+                "HE-H23",
+                "HE-H67"
+              ],
+              "weighted_distance": 0.306757,
+              "absolute_distance": 0.403113
+            },
+            "0.0/1.0/0.0": {
+              "candidates": 4,
+              "ids": [
+                "HE-H79",
+                "HE-H80",
+                "HE-H94",
+                "HE-H98"
+              ],
+              "weighted_distance": 0.280401,
+              "absolute_distance": 0.35
+            },
+            "0.0/1.0/1.0": {
+              "candidates": 5,
+              "ids": [
+                "HE-H08",
+                "HE-H11",
+                "HE-H21",
+                "HE-H28",
+                "HE-H35"
+              ],
+              "weighted_distance": 0.355668,
+              "absolute_distance": 0.471699
+            },
+            "1.0/0.0/0.0": {
+              "candidates": 1,
+              "ids": [
+                "HE-H76"
+              ],
+              "weighted_distance": 0.371483,
+              "absolute_distance": 0.45
+            },
+            "1.0/0.0/1.0": {
+              "candidates": 9,
+              "ids": [
+                "HE-H10",
+                "HE-H16",
+                "HE-H32",
+                "HE-H38",
+                "HE-H48",
+                "HE-H56",
+                "HE-H66",
+                "HE-H76",
+                "HE-H96"
+              ],
+              "weighted_distance": 0.574456,
+              "absolute_distance": 0.65192
+            },
+            "1.0/1.0/0.0": {
+              "candidates": 3,
+              "ids": [
+                "HE-H41",
+                "HE-H91",
+                "HE-H100"
+              ],
+              "weighted_distance": 0.490025,
+              "absolute_distance": 0.559017
+            },
+            "1.0/1.0/1.0": {
+              "candidates": 1,
+              "ids": [
+                "HE-H93"
+              ],
+              "weighted_distance": 0.409512,
+              "absolute_distance": 0.45
+            }
+          },
+          "worst": [
+            {
+              "xyz": [
+                1.0,
+                0.0,
+                1.0
+              ],
+              "weighted_distance": 0.574456,
+              "absolute_distance": 0.65192,
+              "candidates": 9
+            },
+            {
+              "xyz": [
+                1.0,
+                0.05,
+                1.0
+              ],
+              "weighted_distance": 0.566944,
+              "absolute_distance": 0.634429,
+              "candidates": 9
+            },
+            {
+              "xyz": [
+                1.0,
+                0.1,
+                1.0
+              ],
+              "weighted_distance": 0.561516,
+              "absolute_distance": 0.620484,
+              "candidates": 10
+            },
+            {
+              "xyz": [
+                1.0,
+                0.15,
+                1.0
+              ],
+              "weighted_distance": 0.556597,
+              "absolute_distance": 0.610328,
+              "candidates": 11
+            },
+            {
+              "xyz": [
+                1.0,
+                0.2,
+                1.0
+              ],
+              "weighted_distance": 0.553286,
+              "absolute_distance": 0.604152,
+              "candidates": 12
+            },
+            {
+              "xyz": [
+                1.0,
+                0.25,
+                1.0
+              ],
+              "weighted_distance": 0.544357,
+              "absolute_distance": 0.60208,
+              "candidates": 11
+            },
+            {
+              "xyz": [
+                0.95,
+                0.0,
+                1.0
+              ],
+              "weighted_distance": 0.541318,
+              "absolute_distance": 0.618466,
+              "candidates": 9
+            },
+            {
+              "xyz": [
+                1.0,
+                0.0,
+                0.95
+              ],
+              "weighted_distance": 0.538517,
+              "absolute_distance": 0.622495,
+              "candidates": 8
+            }
+          ]
+        }
+      ]
+    },
+    "he_complete_D_A": {
+      "pool_size": 38,
+      "summary": [
+        {
+          "variety": 0.0,
+          "points": 9261,
+          "min_candidates": 1,
+          "mean_candidates": 1.0102580714825613,
+          "max_candidates": 2,
+          "single_candidate_points": 9166,
+          "fewer_than_three": 9261,
+          "weighted_distance_max": 0.657362,
+          "absolute_distance_max": 0.829156,
+          "distance_over_035": 1968,
+          "reachable": 38,
+          "unreached": [],
+          "corners": {
+            "0.0/0.0/0.0": {
+              "candidates": 1,
+              "ids": [
+                "HE-H46"
+              ],
+              "weighted_distance": 0.376431,
+              "absolute_distance": 0.469042
+            },
+            "0.0/0.0/1.0": {
+              "candidates": 1,
+              "ids": [
+                "HE-H05"
+              ],
+              "weighted_distance": 0.306757,
+              "absolute_distance": 0.403113
+            },
+            "0.0/1.0/0.0": {
+              "candidates": 1,
+              "ids": [
+                "HE-H78"
+              ],
+              "weighted_distance": 0.56921,
+              "absolute_distance": 0.734847
+            },
+            "0.0/1.0/1.0": {
+              "candidates": 1,
+              "ids": [
+                "HE-H11"
+              ],
+              "weighted_distance": 0.355668,
+              "absolute_distance": 0.471699
+            },
+            "1.0/0.0/0.0": {
+              "candidates": 1,
+              "ids": [
+                "HE-H96"
+              ],
+              "weighted_distance": 0.485721,
+              "absolute_distance": 0.552268
+            },
+            "1.0/0.0/1.0": {
+              "candidates": 1,
+              "ids": [
+                "HE-H66"
+              ],
+              "weighted_distance": 0.579245,
+              "absolute_distance": 0.65192
+            },
+            "1.0/1.0/0.0": {
+              "candidates": 1,
+              "ids": [
+                "HE-H41"
+              ],
+              "weighted_distance": 0.490025,
+              "absolute_distance": 0.622495
+            },
+            "1.0/1.0/1.0": {
+              "candidates": 1,
+              "ids": [
+                "HE-H41"
+              ],
+              "weighted_distance": 0.657362,
+              "absolute_distance": 0.829156
+            }
+          },
+          "worst": [
+            {
+              "xyz": [
+                1.0,
+                1.0,
+                1.0
+              ],
+              "weighted_distance": 0.657362,
+              "absolute_distance": 0.829156,
+              "candidates": 1
+            },
+            {
+              "xyz": [
+                1.0,
+                0.95,
+                1.0
+              ],
+              "weighted_distance": 0.641327,
+              "absolute_distance": 0.803119,
+              "candidates": 1
+            },
+            {
+              "xyz": [
+                0.95,
+                1.0,
+                1.0
+              ],
+              "weighted_distance": 0.64002,
+              "absolute_distance": 0.815475,
+              "candidates": 1
+            },
+            {
+              "xyz": [
+                1.0,
+                0.9,
+                1.0
+              ],
+              "weighted_distance": 0.626837,
+              "absolute_distance": 0.779423,
+              "candidates": 1
+            },
+            {
+              "xyz": [
+                0.9,
+                1.0,
+                1.0
+              ],
+              "weighted_distance": 0.626199,
+              "absolute_distance": 0.804674,
+              "candidates": 1
+            },
+            {
+              "xyz": [
+                1.0,
+                1.0,
+                0.95
+              ],
+              "weighted_distance": 0.626199,
+              "absolute_distance": 0.790569,
+              "candidates": 1
+            },
+            {
+              "xyz": [
+                0.95,
+                0.95,
+                1.0
+              ],
+              "weighted_distance": 0.623538,
+              "absolute_distance": 0.788987,
+              "candidates": 1
+            },
+            {
+              "xyz": [
+                0.85,
+                1.0,
+                1.0
+              ],
+              "weighted_distance": 0.616137,
+              "absolute_distance": 0.790569,
+              "candidates": 1
+            }
+          ]
+        },
+        {
+          "variety": 0.5,
+          "points": 9261,
+          "min_candidates": 1,
+          "mean_candidates": 3.6949573480185727,
+          "max_candidates": 23,
+          "single_candidate_points": 3565,
+          "fewer_than_three": 5186,
+          "weighted_distance_max": 0.657362,
+          "absolute_distance_max": 0.829156,
+          "distance_over_035": 1968,
+          "reachable": 38,
+          "unreached": [],
+          "corners": {
+            "0.0/0.0/0.0": {
+              "candidates": 1,
+              "ids": [
+                "HE-H46"
+              ],
+              "weighted_distance": 0.376431,
+              "absolute_distance": 0.469042
+            },
+            "0.0/0.0/1.0": {
+              "candidates": 1,
+              "ids": [
+                "HE-H05"
+              ],
+              "weighted_distance": 0.306757,
+              "absolute_distance": 0.403113
+            },
+            "0.0/1.0/0.0": {
+              "candidates": 2,
+              "ids": [
+                "HE-H46",
+                "HE-H78"
+              ],
+              "weighted_distance": 0.56921,
+              "absolute_distance": 0.734847
+            },
+            "0.0/1.0/1.0": {
+              "candidates": 1,
+              "ids": [
+                "HE-H11"
+              ],
+              "weighted_distance": 0.355668,
+              "absolute_distance": 0.471699
+            },
+            "1.0/0.0/0.0": {
+              "candidates": 1,
+              "ids": [
+                "HE-H96"
+              ],
+              "weighted_distance": 0.485721,
+              "absolute_distance": 0.552268
+            },
+            "1.0/0.0/1.0": {
+              "candidates": 2,
+              "ids": [
+                "HE-H16",
+                "HE-H66"
+              ],
+              "weighted_distance": 0.579245,
+              "absolute_distance": 0.65192
+            },
+            "1.0/1.0/0.0": {
+              "candidates": 1,
+              "ids": [
+                "HE-H41"
+              ],
+              "weighted_distance": 0.490025,
+              "absolute_distance": 0.622495
+            },
+            "1.0/1.0/1.0": {
+              "candidates": 1,
+              "ids": [
+                "HE-H41"
+              ],
+              "weighted_distance": 0.657362,
+              "absolute_distance": 0.829156
+            }
+          },
+          "worst": [
+            {
+              "xyz": [
+                1.0,
+                1.0,
+                1.0
+              ],
+              "weighted_distance": 0.657362,
+              "absolute_distance": 0.829156,
+              "candidates": 1
+            },
+            {
+              "xyz": [
+                1.0,
+                0.95,
+                1.0
+              ],
+              "weighted_distance": 0.641327,
+              "absolute_distance": 0.803119,
+              "candidates": 1
+            },
+            {
+              "xyz": [
+                0.95,
+                1.0,
+                1.0
+              ],
+              "weighted_distance": 0.64002,
+              "absolute_distance": 0.815475,
+              "candidates": 1
+            },
+            {
+              "xyz": [
+                1.0,
+                0.9,
+                1.0
+              ],
+              "weighted_distance": 0.626837,
+              "absolute_distance": 0.779423,
+              "candidates": 1
+            },
+            {
+              "xyz": [
+                0.9,
+                1.0,
+                1.0
+              ],
+              "weighted_distance": 0.626199,
+              "absolute_distance": 0.804674,
+              "candidates": 1
+            },
+            {
+              "xyz": [
+                1.0,
+                1.0,
+                0.95
+              ],
+              "weighted_distance": 0.626199,
+              "absolute_distance": 0.790569,
+              "candidates": 1
+            },
+            {
+              "xyz": [
+                0.95,
+                0.95,
+                1.0
+              ],
+              "weighted_distance": 0.623538,
+              "absolute_distance": 0.788987,
+              "candidates": 1
+            },
+            {
+              "xyz": [
+                0.85,
+                1.0,
+                1.0
+              ],
+              "weighted_distance": 0.616137,
+              "absolute_distance": 0.790569,
+              "candidates": 1
+            }
+          ]
+        },
+        {
+          "variety": 1.0,
+          "points": 9261,
+          "min_candidates": 1,
+          "mean_candidates": 12.085519922254615,
+          "max_candidates": 36,
+          "single_candidate_points": 1236,
+          "fewer_than_three": 1659,
+          "weighted_distance_max": 0.657362,
+          "absolute_distance_max": 0.829156,
+          "distance_over_035": 1968,
+          "reachable": 38,
+          "unreached": [],
+          "corners": {
+            "0.0/0.0/0.0": {
+              "candidates": 7,
+              "ids": [
+                "HE-H01",
+                "HE-H09",
+                "HE-H19",
+                "HE-H46",
+                "HE-H78",
+                "HE-H87",
+                "HE-H88"
+              ],
+              "weighted_distance": 0.376431,
+              "absolute_distance": 0.469042
+            },
+            "0.0/0.0/1.0": {
+              "candidates": 5,
+              "ids": [
+                "HE-H03",
+                "HE-H05",
+                "HE-H07",
+                "HE-H18",
+                "HE-H67"
+              ],
+              "weighted_distance": 0.306757,
+              "absolute_distance": 0.403113
+            },
+            "0.0/1.0/0.0": {
+              "candidates": 8,
+              "ids": [
+                "HE-H01",
+                "HE-H30",
+                "HE-H36",
+                "HE-H37",
+                "HE-H39",
+                "HE-H46",
+                "HE-H78",
+                "HE-H82"
+              ],
+              "weighted_distance": 0.56921,
+              "absolute_distance": 0.734847
+            },
+            "0.0/1.0/1.0": {
+              "candidates": 2,
+              "ids": [
+                "HE-H11",
+                "HE-H28"
+              ],
+              "weighted_distance": 0.355668,
+              "absolute_distance": 0.471699
+            },
+            "1.0/0.0/0.0": {
+              "candidates": 2,
+              "ids": [
+                "HE-H41",
+                "HE-H96"
+              ],
+              "weighted_distance": 0.485721,
+              "absolute_distance": 0.552268
+            },
+            "1.0/0.0/1.0": {
+              "candidates": 6,
+              "ids": [
+                "HE-H10",
+                "HE-H16",
+                "HE-H38",
+                "HE-H48",
+                "HE-H66",
+                "HE-H96"
+              ],
+              "weighted_distance": 0.579245,
+              "absolute_distance": 0.65192
+            },
+            "1.0/1.0/0.0": {
+              "candidates": 1,
+              "ids": [
+                "HE-H41"
+              ],
+              "weighted_distance": 0.490025,
+              "absolute_distance": 0.622495
+            },
+            "1.0/1.0/1.0": {
+              "candidates": 1,
+              "ids": [
+                "HE-H41"
+              ],
+              "weighted_distance": 0.657362,
+              "absolute_distance": 0.829156
+            }
+          },
+          "worst": [
+            {
+              "xyz": [
+                1.0,
+                1.0,
+                1.0
+              ],
+              "weighted_distance": 0.657362,
+              "absolute_distance": 0.829156,
+              "candidates": 1
+            },
+            {
+              "xyz": [
+                1.0,
+                0.95,
+                1.0
+              ],
+              "weighted_distance": 0.641327,
+              "absolute_distance": 0.803119,
+              "candidates": 1
+            },
+            {
+              "xyz": [
+                0.95,
+                1.0,
+                1.0
+              ],
+              "weighted_distance": 0.64002,
+              "absolute_distance": 0.815475,
+              "candidates": 1
+            },
+            {
+              "xyz": [
+                1.0,
+                0.9,
+                1.0
+              ],
+              "weighted_distance": 0.626837,
+              "absolute_distance": 0.779423,
+              "candidates": 1
+            },
+            {
+              "xyz": [
+                0.9,
+                1.0,
+                1.0
+              ],
+              "weighted_distance": 0.626199,
+              "absolute_distance": 0.804674,
+              "candidates": 1
+            },
+            {
+              "xyz": [
+                1.0,
+                1.0,
+                0.95
+              ],
+              "weighted_distance": 0.626199,
+              "absolute_distance": 0.790569,
+              "candidates": 1
+            },
+            {
+              "xyz": [
+                0.95,
+                0.95,
+                1.0
+              ],
+              "weighted_distance": 0.623538,
+              "absolute_distance": 0.788987,
+              "candidates": 1
+            },
+            {
+              "xyz": [
+                0.85,
+                1.0,
+                1.0
+              ],
+              "weighted_distance": 0.616137,
+              "absolute_distance": 0.790569,
+              "candidates": 3
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "colour_scopes": [
+    {
+      "id": "HE-R01",
+      "kind": "independent",
+      "raw": "färbungsunabhängig – X wird über Harmonik und Lage gewählt",
+      "anchor_x": 0.25
+    },
+    {
+      "id": "HE-R02",
+      "kind": "independent",
+      "raw": "färbungsunabhängig – X wird über Harmonik und Lage gewählt",
+      "anchor_x": 0.25
+    },
+    {
+      "id": "HE-R03",
+      "kind": "independent",
+      "raw": "färbungsunabhängig – X wird über Harmonik und Lage gewählt",
+      "anchor_x": 0.25
+    },
+    {
+      "id": "HE-R04",
+      "kind": "independent",
+      "raw": "färbungsunabhängig – X wird über Harmonik und Lage gewählt",
+      "anchor_x": 0.2
+    },
+    {
+      "id": "HE-R05",
+      "kind": "independent",
+      "raw": "färbungsunabhängig – X wird über Harmonik und Lage gewählt",
+      "anchor_x": 0.25
+    },
+    {
+      "id": "HE-R06",
+      "kind": "independent",
+      "raw": "färbungsunabhängig – X wird über Harmonik und Lage gewählt",
+      "anchor_x": 0.25
+    },
+    {
+      "id": "HE-R07",
+      "kind": "independent",
+      "raw": "färbungsunabhängig – X wird über Harmonik und Lage gewählt",
+      "anchor_x": 0.25
+    },
+    {
+      "id": "HE-R08",
+      "kind": "soft_or_conditional",
+      "raw": "bevorzugt X ≤ 0,5 (schwere tiefe Schläge); unter hellem Klang in hoher Lage wird daraus ein mechanischer Puls – dann leiser einsetzen",
+      "anchor_x": 0.1
+    },
+    {
+      "id": "HE-R09",
+      "kind": "soft_or_conditional",
+      "raw": "bevorzugt X ≤ 0,5 (Marschschritt in tiefer Lage)",
+      "anchor_x": 0.15
+    },
+    {
+      "id": "HE-R10",
+      "kind": "independent",
+      "raw": "färbungsunabhängig – X wird über Harmonik und Lage gewählt",
+      "anchor_x": 0.35
+    },
+    {
+      "id": "HE-R11",
+      "kind": "independent",
+      "raw": "färbungsunabhängig – X wird über Harmonik und Lage gewählt",
+      "anchor_x": 0.3
+    },
+    {
+      "id": "HE-R12",
+      "kind": "independent",
+      "raw": "färbungsunabhängig – X wird über Harmonik und Lage gewählt",
+      "anchor_x": 0.15
+    },
+    {
+      "id": "HE-R13",
+      "kind": "soft_or_conditional",
+      "raw": "X ≥ 0,3: die Spiralen brauchen symmetrische, eher helle Klänge",
+      "anchor_x": 0.45
+    },
+    {
+      "id": "HE-R14",
+      "kind": "independent",
+      "raw": "färbungsunabhängig – X wird über Harmonik und Lage gewählt",
+      "anchor_x": 0.2
+    },
+    {
+      "id": "HE-R15",
+      "kind": "independent",
+      "raw": "färbungsunabhängig – X wird über Harmonik und Lage gewählt",
+      "anchor_x": 0.25
+    },
+    {
+      "id": "HE-R16",
+      "kind": "independent",
+      "raw": "färbungsunabhängig – X wird über Harmonik und Lage gewählt",
+      "anchor_x": 0.2
+    },
+    {
+      "id": "HE-R17",
+      "kind": "independent",
+      "raw": "färbungsunabhängig – X wird über Harmonik und Lage gewählt",
+      "anchor_x": 0.25
+    },
+    {
+      "id": "HE-R18",
+      "kind": "independent",
+      "raw": "färbungsunabhängig – X wird über Harmonik und Lage gewählt",
+      "anchor_x": 0.3
+    },
+    {
+      "id": "HE-R19",
+      "kind": "independent",
+      "raw": "färbungsunabhängig – X wird über Harmonik und Lage gewählt",
+      "anchor_x": 0.25
+    },
+    {
+      "id": "HE-R20",
+      "kind": "independent",
+      "raw": "färbungsunabhängig – X wird über Harmonik und Lage gewählt",
+      "anchor_x": 0.25
+    },
+    {
+      "id": "HE-R21",
+      "kind": "independent",
+      "raw": "färbungsunabhängig – X wird über Harmonik und Lage gewählt",
+      "anchor_x": 0.25
+    },
+    {
+      "id": "HE-R22",
+      "kind": "independent",
+      "raw": "färbungsunabhängig – X wird über Harmonik und Lage gewählt",
+      "anchor_x": 0.25
+    },
+    {
+      "id": "HE-R23",
+      "kind": "independent",
+      "raw": "färbungsunabhängig – X wird über Harmonik und Lage gewählt",
+      "anchor_x": 0.25
+    },
+    {
+      "id": "HE-R24",
+      "kind": "independent",
+      "raw": "färbungsunabhängig – X wird über Harmonik und Lage gewählt",
+      "anchor_x": 0.25
+    },
+    {
+      "id": "HE-R25",
+      "kind": "independent",
+      "raw": "färbungsunabhängig – X wird über Harmonik und Lage gewählt",
+      "anchor_x": 0.2
+    },
+    {
+      "id": "HE-R26",
+      "kind": "independent",
+      "raw": "färbungsunabhängig – X wird über Harmonik und Lage gewählt",
+      "anchor_x": 0.25
+    },
+    {
+      "id": "HE-R27",
+      "kind": "independent",
+      "raw": "färbungsunabhängig – X wird über Harmonik und Lage gewählt",
+      "anchor_x": 0.25
+    },
+    {
+      "id": "HE-R28",
+      "kind": "independent",
+      "raw": "färbungsunabhängig – X wird über Harmonik und Lage gewählt",
+      "anchor_x": 0.3
+    },
+    {
+      "id": "HE-R29",
+      "kind": "independent",
+      "raw": "färbungsunabhängig – X wird über Harmonik und Lage gewählt",
+      "anchor_x": 0.2
+    },
+    {
+      "id": "HE-R30",
+      "kind": "independent",
+      "raw": "färbungsunabhängig – X wird über Harmonik und Lage gewählt",
+      "anchor_x": 0.3
+    },
+    {
+      "id": "HE-R31",
+      "kind": "independent",
+      "raw": "färbungsunabhängig – X wird über Harmonik und Lage gewählt",
+      "anchor_x": 0.25
+    },
+    {
+      "id": "HE-R32",
+      "kind": "independent",
+      "raw": "färbungsunabhängig – X wird über Harmonik und Lage gewählt",
+      "anchor_x": 0.25
+    },
+    {
+      "id": "HE-R33",
+      "kind": "independent",
+      "raw": "färbungsunabhängig – X wird über Harmonik und Lage gewählt",
+      "anchor_x": 0.15
+    },
+    {
+      "id": "HE-R34",
+      "kind": "independent",
+      "raw": "färbungsunabhängig – X wird über Harmonik und Lage gewählt",
+      "anchor_x": 0.25
+    },
+    {
+      "id": "HE-R35",
+      "kind": "independent",
+      "raw": "färbungsunabhängig – X wird über Harmonik und Lage gewählt",
+      "anchor_x": 0.2
+    },
+    {
+      "id": "HE-R36",
+      "kind": "independent",
+      "raw": "alle X: in hellem Kontext Hochlage (Glockenfunktion), in dunklem Mittellage",
+      "anchor_x": 0.4
+    },
+    {
+      "id": "HE-R37",
+      "kind": "restricted_or_clarify",
+      "raw": "X ≤ 0,6 (Tanz ohne Leben verliert in hellem Kontext seine Schwere)",
+      "anchor_x": 0.25
+    },
+    {
+      "id": "HE-R38",
+      "kind": "restricted_or_clarify",
+      "raw": "X ≤ 0,6",
+      "anchor_x": 0.25
+    },
+    {
+      "id": "HE-R39",
+      "kind": "independent",
+      "raw": "färbungsunabhängig – X wird über Harmonik und Lage gewählt",
+      "anchor_x": 0.25
+    },
+    {
+      "id": "HE-R40",
+      "kind": "independent",
+      "raw": "färbungsunabhängig – X wird über Harmonik und Lage gewählt",
+      "anchor_x": 0.25
+    },
+    {
+      "id": "HE-R41",
+      "kind": "independent",
+      "raw": "alle X: tief und eng = dunkle Mauer, hoch und weit = helle Säule",
+      "anchor_x": 0.1
+    },
+    {
+      "id": "HE-R42",
+      "kind": "independent",
+      "raw": "färbungsunabhängig – X wird über Harmonik und Lage gewählt",
+      "anchor_x": 0.25
+    },
+    {
+      "id": "HE-R43",
+      "kind": "independent",
+      "raw": "färbungsunabhängig – X wird über Harmonik und Lage gewählt",
+      "anchor_x": 0.2
+    },
+    {
+      "id": "HE-R44",
+      "kind": "independent",
+      "raw": "färbungsunabhängig – X wird über Harmonik und Lage gewählt",
+      "anchor_x": 0.2
+    },
+    {
+      "id": "HE-R45",
+      "kind": "independent",
+      "raw": "färbungsunabhängig – X wird über Harmonik und Lage gewählt",
+      "anchor_x": 0.2
+    },
+    {
+      "id": "HE-R46",
+      "kind": "independent",
+      "raw": "färbungsunabhängig – X wird über Harmonik und Lage gewählt",
+      "anchor_x": 0.25
+    },
+    {
+      "id": "HE-R47",
+      "kind": "independent",
+      "raw": "färbungsunabhängig – X wird über Harmonik und Lage gewählt",
+      "anchor_x": 0.3
+    },
+    {
+      "id": "HE-R48",
+      "kind": "independent",
+      "raw": "färbungsunabhängig – X wird über Harmonik und Lage gewählt",
+      "anchor_x": 0.3
+    },
+    {
+      "id": "HE-R49",
+      "kind": "independent",
+      "raw": "färbungsunabhängig – X wird über Harmonik und Lage gewählt",
+      "anchor_x": 0.2
+    },
+    {
+      "id": "HE-R50",
+      "kind": "independent",
+      "raw": "färbungsunabhängig – X wird über Harmonik und Lage gewählt",
+      "anchor_x": 0.15
+    },
+    {
+      "id": "HE-R51",
+      "kind": "independent",
+      "raw": "färbungsunabhängig – X wird über Harmonik und Lage gewählt",
+      "anchor_x": 0.15
+    },
+    {
+      "id": "HE-R52",
+      "kind": "independent",
+      "raw": "färbungsunabhängig – X wird über Harmonik und Lage gewählt",
+      "anchor_x": 0.2
+    },
+    {
+      "id": "HE-R53",
+      "kind": "independent",
+      "raw": "färbungsunabhängig – X wird über Harmonik und Lage gewählt",
+      "anchor_x": 0.25
+    },
+    {
+      "id": "HE-R54",
+      "kind": "independent",
+      "raw": "färbungsunabhängig – X wird über Harmonik und Lage gewählt",
+      "anchor_x": 0.4
+    },
+    {
+      "id": "HE-R55",
+      "kind": "restricted_or_clarify",
+      "raw": "X ≥ 0,4 (Hochlage)",
+      "anchor_x": 0.45
+    },
+    {
+      "id": "HE-R56",
+      "kind": "restricted_or_clarify",
+      "raw": "X ≤ 0,6",
+      "anchor_x": 0.25
+    },
+    {
+      "id": "HE-R57",
+      "kind": "independent",
+      "raw": "färbungsunabhängig – X wird über Harmonik und Lage gewählt",
+      "anchor_x": 0.4
+    },
+    {
+      "id": "HE-R58",
+      "kind": "independent",
+      "raw": "färbungsunabhängig – X wird über Harmonik und Lage gewählt",
+      "anchor_x": 0.2
+    },
+    {
+      "id": "HE-R59",
+      "kind": "independent",
+      "raw": "färbungsunabhängig – X wird über Harmonik und Lage gewählt",
+      "anchor_x": 0.25
+    },
+    {
+      "id": "HE-R60",
+      "kind": "independent",
+      "raw": "färbungsunabhängig – X wird über Harmonik und Lage gewählt",
+      "anchor_x": 0.25
+    },
+    {
+      "id": "HE-R61",
+      "kind": "independent",
+      "raw": "färbungsunabhängig – X wird über Harmonik und Lage gewählt",
+      "anchor_x": 0.25
+    },
+    {
+      "id": "HE-R62",
+      "kind": "independent",
+      "raw": "färbungsunabhängig – X wird über Harmonik und Lage gewählt",
+      "anchor_x": 0.25
+    },
+    {
+      "id": "HE-R63",
+      "kind": "independent",
+      "raw": "färbungsunabhängig – X wird über Harmonik und Lage gewählt",
+      "anchor_x": 0.3
+    },
+    {
+      "id": "HE-R64",
+      "kind": "restricted_or_clarify",
+      "raw": "X ≥ 0,4 (Hochlage)",
+      "anchor_x": 0.65
+    },
+    {
+      "id": "HE-R65",
+      "kind": "restricted_or_clarify",
+      "raw": "X ≥ 0,4",
+      "anchor_x": 0.6
+    },
+    {
+      "id": "HE-R66",
+      "kind": "independent",
+      "raw": "alle X: tief und eng = dunkle Mauer, hoch und weit = helle Säule",
+      "anchor_x": 0.3
+    },
+    {
+      "id": "HE-B01",
+      "kind": "independent",
+      "raw": "alle X",
+      "anchor_x": 0.2
+    },
+    {
+      "id": "HE-B02",
+      "kind": "soft_or_conditional",
+      "raw": "eher X ≤ 0,6; in hellen Kontexten leiser oder eine Oktave höher",
+      "anchor_x": 0.15
+    },
+    {
+      "id": "HE-B03",
+      "kind": "soft_or_conditional",
+      "raw": "eher X ≤ 0,6; in hellen Kontexten leiser oder eine Oktave höher",
+      "anchor_x": 0.15
+    },
+    {
+      "id": "HE-B04",
+      "kind": "independent",
+      "raw": "alle X",
+      "anchor_x": 0.2
+    },
+    {
+      "id": "HE-B05",
+      "kind": "independent",
+      "raw": "alle X",
+      "anchor_x": 0.2
+    },
+    {
+      "id": "HE-B06",
+      "kind": "soft_or_conditional",
+      "raw": "eher X ≤ 0,6; in hellen Kontexten leiser oder eine Oktave höher",
+      "anchor_x": 0.45
+    },
+    {
+      "id": "HE-B07",
+      "kind": "soft_or_conditional",
+      "raw": "eher X ≤ 0,6; in hellen Kontexten leiser oder eine Oktave höher",
+      "anchor_x": 0.25
+    },
+    {
+      "id": "HE-B08",
+      "kind": "soft_or_conditional",
+      "raw": "eher X ≤ 0,6; in hellen Kontexten leiser oder eine Oktave höher",
+      "anchor_x": 0.2
+    },
+    {
+      "id": "HE-B09",
+      "kind": "independent",
+      "raw": "alle X",
+      "anchor_x": 0.15
+    },
+    {
+      "id": "HE-B10",
+      "kind": "independent",
+      "raw": "alle X",
+      "anchor_x": 0.2
+    },
+    {
+      "id": "HE-B11",
+      "kind": "independent",
+      "raw": "alle X; die Lage der Rolle bestimmt die Färbung (tief = dunkel)",
+      "anchor_x": 0.2
+    },
+    {
+      "id": "HE-B12",
+      "kind": "soft_or_conditional",
+      "raw": "eher X ≤ 0,6; in hellen Kontexten leiser oder eine Oktave höher",
+      "anchor_x": 0.15
+    },
+    {
+      "id": "HE-B13",
+      "kind": "soft_or_conditional",
+      "raw": "eher X ≤ 0,6; in hellen Kontexten leiser oder eine Oktave höher",
+      "anchor_x": 0.1
+    },
+    {
+      "id": "HE-B14",
+      "kind": "independent",
+      "raw": "alle X",
+      "anchor_x": 0.2
+    },
+    {
+      "id": "HE-B15",
+      "kind": "soft_or_conditional",
+      "raw": "eher X ≤ 0,6; in hellen Kontexten leiser oder eine Oktave höher",
+      "anchor_x": 0.15
+    },
+    {
+      "id": "HE-B16",
+      "kind": "independent",
+      "raw": "alle X",
+      "anchor_x": 0.2
+    },
+    {
+      "id": "HE-B17",
+      "kind": "soft_or_conditional",
+      "raw": "eher X ≤ 0,6; in hellen Kontexten leiser oder eine Oktave höher",
+      "anchor_x": 0.15
+    },
+    {
+      "id": "HE-B18",
+      "kind": "independent",
+      "raw": "alle X; die Lage der Rolle bestimmt die Färbung (tief = dunkel)",
+      "anchor_x": 0.1
+    },
+    {
+      "id": "HE-B19",
+      "kind": "soft_or_conditional",
+      "raw": "eher X ≤ 0,6; in hellen Kontexten leiser oder eine Oktave höher",
+      "anchor_x": 0.1
+    },
+    {
+      "id": "HE-B20",
+      "kind": "soft_or_conditional",
+      "raw": "eher X ≤ 0,6; in hellen Kontexten leiser oder eine Oktave höher",
+      "anchor_x": 0.1
+    },
+    {
+      "id": "HE-B21",
+      "kind": "independent",
+      "raw": "alle X",
+      "anchor_x": 0.3
+    },
+    {
+      "id": "HE-B22",
+      "kind": "independent",
+      "raw": "alle X",
+      "anchor_x": 0.15
+    },
+    {
+      "id": "HE-B23",
+      "kind": "independent",
+      "raw": "alle X; die Lage der Rolle bestimmt die Färbung (tief = dunkel)",
+      "anchor_x": 0.3
+    },
+    {
+      "id": "HE-B24",
+      "kind": "independent",
+      "raw": "alle X; die Lage der Rolle bestimmt die Färbung (tief = dunkel)",
+      "anchor_x": 0.2
+    },
+    {
+      "id": "HE-B25",
+      "kind": "independent",
+      "raw": "alle X; die Lage der Rolle bestimmt die Färbung (tief = dunkel)",
+      "anchor_x": 0.2
+    },
+    {
+      "id": "HE-B26",
+      "kind": "independent",
+      "raw": "alle X",
+      "anchor_x": 0.3
+    },
+    {
+      "id": "HE-B27",
+      "kind": "independent",
+      "raw": "alle X; die Lage der Rolle bestimmt die Färbung (tief = dunkel)",
+      "anchor_x": 0.25
+    },
+    {
+      "id": "HE-B28",
+      "kind": "soft_or_conditional",
+      "raw": "eher X ≤ 0,6; in hellen Kontexten leiser oder eine Oktave höher",
+      "anchor_x": 0.2
+    },
+    {
+      "id": "HE-B29",
+      "kind": "independent",
+      "raw": "alle X",
+      "anchor_x": 0.15
+    },
+    {
+      "id": "HE-B30",
+      "kind": "soft_or_conditional",
+      "raw": "eher X ≤ 0,6; in hellen Kontexten leiser oder eine Oktave höher",
+      "anchor_x": 0.2
+    },
+    {
+      "id": "HE-B31",
+      "kind": "soft_or_conditional",
+      "raw": "eher X ≤ 0,6; in hellen Kontexten leiser oder eine Oktave höher",
+      "anchor_x": 0.25
+    },
+    {
+      "id": "HE-B32",
+      "kind": "soft_or_conditional",
+      "raw": "eher X ≤ 0,6; in hellen Kontexten leiser oder eine Oktave höher",
+      "anchor_x": 0.3
+    },
+    {
+      "id": "HE-B33",
+      "kind": "independent",
+      "raw": "alle X",
+      "anchor_x": 0.2
+    },
+    {
+      "id": "HE-B34",
+      "kind": "independent",
+      "raw": "alle X; die Lage der Rolle bestimmt die Färbung (tief = dunkel)",
+      "anchor_x": 0.25
+    },
+    {
+      "id": "HE-B35",
+      "kind": "independent",
+      "raw": "alle X; die Lage der Rolle bestimmt die Färbung (tief = dunkel)",
+      "anchor_x": 0.2
+    },
+    {
+      "id": "HE-B36",
+      "kind": "independent",
+      "raw": "alle X; die Lage der Rolle bestimmt die Färbung (tief = dunkel)",
+      "anchor_x": 0.25
+    },
+    {
+      "id": "HE-B37",
+      "kind": "independent",
+      "raw": "alle X; die Lage der Rolle bestimmt die Färbung (tief = dunkel)",
+      "anchor_x": 0.1
+    },
+    {
+      "id": "HE-B38",
+      "kind": "soft_or_conditional",
+      "raw": "eher X ≤ 0,6; in hellen Kontexten leiser oder eine Oktave höher",
+      "anchor_x": 0.2
+    },
+    {
+      "id": "HE-B39",
+      "kind": "soft_or_conditional",
+      "raw": "eher X ≤ 0,6; in hellen Kontexten leiser oder eine Oktave höher",
+      "anchor_x": 0.2
+    },
+    {
+      "id": "HE-B40",
+      "kind": "independent",
+      "raw": "alle X; die Lage der Rolle bestimmt die Färbung (tief = dunkel)",
+      "anchor_x": 0.2
+    },
+    {
+      "id": "HE-B41",
+      "kind": "soft_or_conditional",
+      "raw": "eher X ≤ 0,6; in hellen Kontexten leiser oder eine Oktave höher",
+      "anchor_x": 0.2
+    },
+    {
+      "id": "HE-B42",
+      "kind": "restricted_or_clarify",
+      "raw": "X ≥ 0,4 (bassloser Boden)",
+      "anchor_x": 0.55
+    },
+    {
+      "id": "HE-B43",
+      "kind": "independent",
+      "raw": "alle X: unter dunklen Säulen tief, unter hellen Säulen leiser",
+      "anchor_x": 0.4
+    },
+    {
+      "id": "HE-B44",
+      "kind": "restricted_or_clarify",
+      "raw": "X ≥ 0,5: Tritonusboden unter hellen Schlägen",
+      "anchor_x": 0.65
+    },
+    {
+      "id": "HE-B45",
+      "kind": "restricted_or_clarify",
+      "raw": "X ≥ 0,4 (bassloser Boden)",
+      "anchor_x": 0.6
+    },
+    {
+      "id": "HE-M01",
+      "kind": "independent",
+      "raw": "alle X; Oktavlage nach X wählen (hoch = hell, tief = dunkel)",
+      "anchor_x": 0.2
+    },
+    {
+      "id": "HE-M02",
+      "kind": "independent",
+      "raw": "alle X; Oktavlage nach X wählen (hoch = hell, tief = dunkel)",
+      "anchor_x": 0.25
+    },
+    {
+      "id": "HE-M03",
+      "kind": "independent",
+      "raw": "alle X; Oktavlage nach X wählen (hoch = hell, tief = dunkel)",
+      "anchor_x": 0.25
+    },
+    {
+      "id": "HE-M04",
+      "kind": "independent",
+      "raw": "alle X; Oktavlage nach X wählen (hoch = hell, tief = dunkel)",
+      "anchor_x": 0.25
+    },
+    {
+      "id": "HE-M05",
+      "kind": "independent",
+      "raw": "alle X; Oktavlage nach X wählen (hoch = hell, tief = dunkel)",
+      "anchor_x": 0.2
+    },
+    {
+      "id": "HE-M06",
+      "kind": "independent",
+      "raw": "alle X; Oktavlage nach X wählen (hoch = hell, tief = dunkel)",
+      "anchor_x": 0.3
+    },
+    {
+      "id": "HE-M07",
+      "kind": "independent",
+      "raw": "alle X; Oktavlage nach X wählen (hoch = hell, tief = dunkel)",
+      "anchor_x": 0.35
+    },
+    {
+      "id": "HE-M08",
+      "kind": "independent",
+      "raw": "alle X; Oktavlage nach X wählen (hoch = hell, tief = dunkel)",
+      "anchor_x": 0.2
+    },
+    {
+      "id": "HE-M09",
+      "kind": "independent",
+      "raw": "alle X; Oktavlage nach X wählen (hoch = hell, tief = dunkel)",
+      "anchor_x": 0.25
+    },
+    {
+      "id": "HE-M10",
+      "kind": "independent",
+      "raw": "alle X; Oktavlage nach X wählen (hoch = hell, tief = dunkel)",
+      "anchor_x": 0.3
+    },
+    {
+      "id": "HE-M11",
+      "kind": "independent",
+      "raw": "alle X; Oktavlage nach X wählen (hoch = hell, tief = dunkel)",
+      "anchor_x": 0.2
+    },
+    {
+      "id": "HE-M12",
+      "kind": "independent",
+      "raw": "alle X; Oktavlage nach X wählen (hoch = hell, tief = dunkel)",
+      "anchor_x": 0.25
+    },
+    {
+      "id": "HE-M13",
+      "kind": "independent",
+      "raw": "alle X; Oktavlage nach X wählen (hoch = hell, tief = dunkel)",
+      "anchor_x": 0.25
+    },
+    {
+      "id": "HE-M14",
+      "kind": "independent",
+      "raw": "alle X; Oktavlage nach X wählen (hoch = hell, tief = dunkel)",
+      "anchor_x": 0.2
+    },
+    {
+      "id": "HE-M15",
+      "kind": "independent",
+      "raw": "alle X; Oktavlage nach X wählen (hoch = hell, tief = dunkel)",
+      "anchor_x": 0.25
+    },
+    {
+      "id": "HE-M16",
+      "kind": "independent",
+      "raw": "alle X; Oktavlage nach X wählen (hoch = hell, tief = dunkel)",
+      "anchor_x": 0.2
+    },
+    {
+      "id": "HE-M17",
+      "kind": "independent",
+      "raw": "alle X; Oktavlage nach X wählen (hoch = hell, tief = dunkel)",
+      "anchor_x": 0.25
+    },
+    {
+      "id": "HE-M18",
+      "kind": "independent",
+      "raw": "alle X; Oktavlage nach X wählen (hoch = hell, tief = dunkel)",
+      "anchor_x": 0.3
+    },
+    {
+      "id": "HE-M19",
+      "kind": "independent",
+      "raw": "alle X; Oktavlage nach X wählen (hoch = hell, tief = dunkel)",
+      "anchor_x": 0.3
+    },
+    {
+      "id": "HE-M20",
+      "kind": "independent",
+      "raw": "alle X; Oktavlage nach X wählen (hoch = hell, tief = dunkel)",
+      "anchor_x": 0.25
+    },
+    {
+      "id": "HE-M21",
+      "kind": "independent",
+      "raw": "alle X; Oktavlage nach X wählen (hoch = hell, tief = dunkel)",
+      "anchor_x": 0.25
+    },
+    {
+      "id": "HE-M22",
+      "kind": "independent",
+      "raw": "alle X; Oktavlage nach X wählen (hoch = hell, tief = dunkel)",
+      "anchor_x": 0.25
+    },
+    {
+      "id": "HE-M23",
+      "kind": "independent",
+      "raw": "alle X; Oktavlage nach X wählen (hoch = hell, tief = dunkel)",
+      "anchor_x": 0.25
+    },
+    {
+      "id": "HE-M24",
+      "kind": "independent",
+      "raw": "alle X; Oktavlage nach X wählen (hoch = hell, tief = dunkel)",
+      "anchor_x": 0.2
+    },
+    {
+      "id": "HE-M25",
+      "kind": "independent",
+      "raw": "alle X; Oktavlage nach X wählen (hoch = hell, tief = dunkel)",
+      "anchor_x": 0.25
+    },
+    {
+      "id": "HE-M26",
+      "kind": "independent",
+      "raw": "alle X; Oktavlage nach X wählen (hoch = hell, tief = dunkel)",
+      "anchor_x": 0.25
+    },
+    {
+      "id": "HE-M27",
+      "kind": "independent",
+      "raw": "alle X; Oktavlage nach X wählen (hoch = hell, tief = dunkel)",
+      "anchor_x": 0.2
+    },
+    {
+      "id": "HE-M28",
+      "kind": "independent",
+      "raw": "alle X; Oktavlage nach X wählen (hoch = hell, tief = dunkel)",
+      "anchor_x": 0.45
+    },
+    {
+      "id": "HE-M29",
+      "kind": "independent",
+      "raw": "alle X; Oktavlage nach X wählen (hoch = hell, tief = dunkel)",
+      "anchor_x": 0.45
+    },
+    {
+      "id": "HE-M30",
+      "kind": "restricted_or_clarify",
+      "raw": "X ≤ 0,5 (Sehnsucht, Trauer)",
+      "anchor_x": 0.35
+    },
+    {
+      "id": "HE-M31",
+      "kind": "independent",
+      "raw": "alle X; Oktavlage nach X wählen (hoch = hell, tief = dunkel)",
+      "anchor_x": 0.2
+    },
+    {
+      "id": "HE-M32",
+      "kind": "independent",
+      "raw": "alle X; Oktavlage nach X wählen (hoch = hell, tief = dunkel)",
+      "anchor_x": 0.2
+    },
+    {
+      "id": "HE-M33",
+      "kind": "independent",
+      "raw": "alle X; Oktavlage nach X wählen (hoch = hell, tief = dunkel)",
+      "anchor_x": 0.3
+    },
+    {
+      "id": "HE-M34",
+      "kind": "independent",
+      "raw": "alle X; Oktavlage nach X wählen (hoch = hell, tief = dunkel)",
+      "anchor_x": 0.15
+    },
+    {
+      "id": "HE-M35",
+      "kind": "independent",
+      "raw": "alle X; Oktavlage nach X wählen (hoch = hell, tief = dunkel)",
+      "anchor_x": 0.2
+    },
+    {
+      "id": "HE-M36",
+      "kind": "soft_or_conditional",
+      "raw": "X ≥ 0,5 (Hochlage); für dunkle Kontexte eine oder zwei Oktaven tiefer legen",
+      "anchor_x": 0.5
+    },
+    {
+      "id": "HE-M37",
+      "kind": "independent",
+      "raw": "alle X; Oktavlage nach X wählen (hoch = hell, tief = dunkel)",
+      "anchor_x": 0.2
+    },
+    {
+      "id": "HE-M38",
+      "kind": "independent",
+      "raw": "alle X; Oktavlage nach X wählen (hoch = hell, tief = dunkel)",
+      "anchor_x": 0.2
+    },
+    {
+      "id": "HE-M39",
+      "kind": "restricted_or_clarify",
+      "raw": "X ≥ 0,6 (Spieluhrfarbe)",
+      "anchor_x": 0.75
+    },
+    {
+      "id": "HE-M40",
+      "kind": "restricted_or_clarify",
+      "raw": "X ≤ 0,5 (Klage)",
+      "anchor_x": 0.25
+    },
+    {
+      "id": "HE-M41",
+      "kind": "restricted_or_clarify",
+      "raw": "X ≤ 0,4 (Tiefe); für helle Kontexte nicht geeignet",
+      "anchor_x": 0.2
+    },
+    {
+      "id": "HE-M42",
+      "kind": "independent",
+      "raw": "alle X; Oktavlage nach X wählen (hoch = hell, tief = dunkel)",
+      "anchor_x": 0.2
+    },
+    {
+      "id": "HE-M43",
+      "kind": "independent",
+      "raw": "alle X; Oktavlage nach X wählen (hoch = hell, tief = dunkel)",
+      "anchor_x": 0.2
+    },
+    {
+      "id": "HE-M44",
+      "kind": "independent",
+      "raw": "alle X; Oktavlage nach X wählen (hoch = hell, tief = dunkel)",
+      "anchor_x": 0.2
+    },
+    {
+      "id": "HE-M45",
+      "kind": "independent",
+      "raw": "alle X; Oktavlage nach X wählen (hoch = hell, tief = dunkel)",
+      "anchor_x": 0.25
+    },
+    {
+      "id": "HE-M46",
+      "kind": "independent",
+      "raw": "alle X; Oktavlage nach X wählen (hoch = hell, tief = dunkel)",
+      "anchor_x": 0.25
+    },
+    {
+      "id": "HE-M47",
+      "kind": "independent",
+      "raw": "alle X; Oktavlage nach X wählen (hoch = hell, tief = dunkel)",
+      "anchor_x": 0.35
+    },
+    {
+      "id": "HE-M48",
+      "kind": "soft_or_conditional",
+      "raw": "X ≥ 0,5 (Hochlage); für dunkle Kontexte eine oder zwei Oktaven tiefer legen",
+      "anchor_x": 0.55
+    },
+    {
+      "id": "HE-M49",
+      "kind": "restricted_or_clarify",
+      "raw": "X ≤ 0,3 (tiefe Mollzelle)",
+      "anchor_x": 0.1
+    },
+    {
+      "id": "HE-M50",
+      "kind": "independent",
+      "raw": "alle X; Oktavlage nach X wählen (hoch = hell, tief = dunkel)",
+      "anchor_x": 0.6
+    },
+    {
+      "id": "HE-M51",
+      "kind": "independent",
+      "raw": "alle X; Oktavlage nach X wählen (hoch = hell, tief = dunkel)",
+      "anchor_x": 0.25
+    },
+    {
+      "id": "HE-M52",
+      "kind": "independent",
+      "raw": "alle X; Oktavlage nach X wählen (hoch = hell, tief = dunkel)",
+      "anchor_x": 0.25
+    },
+    {
+      "id": "HE-M53",
+      "kind": "restricted_or_clarify",
+      "raw": "X ≥ 0,5 (Hochlage); tiefer gelegt verliert die Zelle ihre Kälte",
+      "anchor_x": 0.7
+    },
+    {
+      "id": "HE-M54",
+      "kind": "soft_or_conditional",
+      "raw": "X ≥ 0,5 (Hochlage); für dunkle Kontexte eine oder zwei Oktaven tiefer legen",
+      "anchor_x": 0.65
+    },
+    {
+      "id": "HE-M55",
+      "kind": "restricted_or_clarify",
+      "raw": "X ≥ 0,5; in dunklem Kontext eine Oktave tiefer als Drohruf verwendbar",
+      "anchor_x": 0.7
+    },
+    {
+      "id": "HE-M56",
+      "kind": "soft_or_conditional",
+      "raw": "X ≥ 0,5 (Hochlage); für dunkle Kontexte eine oder zwei Oktaven tiefer legen",
+      "anchor_x": 0.6
+    },
+    {
+      "id": "HE-M57",
+      "kind": "soft_or_conditional",
+      "raw": "X ≥ 0,5 (Hochlage); für dunkle Kontexte eine oder zwei Oktaven tiefer legen",
+      "anchor_x": 0.75
+    },
+    {
+      "id": "HE-P01",
+      "kind": "independent",
+      "raw": "alle X; Oktavlage nach X wählen (hoch = hell, tief = dunkel)",
+      "anchor_x": 0.25
+    },
+    {
+      "id": "HE-P02",
+      "kind": "independent",
+      "raw": "alle X; Oktavlage nach X wählen (hoch = hell, tief = dunkel)",
+      "anchor_x": 0.2
+    },
+    {
+      "id": "HE-P03",
+      "kind": "independent",
+      "raw": "alle X; Oktavlage nach X wählen (hoch = hell, tief = dunkel)",
+      "anchor_x": 0.2
+    },
+    {
+      "id": "HE-P04",
+      "kind": "independent",
+      "raw": "alle X; Oktavlage nach X wählen (hoch = hell, tief = dunkel)",
+      "anchor_x": 0.25
+    },
+    {
+      "id": "HE-P05",
+      "kind": "independent",
+      "raw": "alle X; Oktavlage nach X wählen (hoch = hell, tief = dunkel)",
+      "anchor_x": 0.2
+    },
+    {
+      "id": "HE-P06",
+      "kind": "independent",
+      "raw": "alle X; Oktavlage nach X wählen (hoch = hell, tief = dunkel)",
+      "anchor_x": 0.25
+    },
+    {
+      "id": "HE-P07",
+      "kind": "independent",
+      "raw": "alle X; Oktavlage nach X wählen (hoch = hell, tief = dunkel)",
+      "anchor_x": 0.2
+    },
+    {
+      "id": "HE-P08",
+      "kind": "independent",
+      "raw": "alle X; Oktavlage nach X wählen (hoch = hell, tief = dunkel)",
+      "anchor_x": 0.2
+    },
+    {
+      "id": "HE-P09",
+      "kind": "independent",
+      "raw": "alle X; Oktavlage nach X wählen (hoch = hell, tief = dunkel)",
+      "anchor_x": 0.25
+    },
+    {
+      "id": "HE-P10",
+      "kind": "independent",
+      "raw": "alle X; Oktavlage nach X wählen (hoch = hell, tief = dunkel)",
+      "anchor_x": 0.2
+    },
+    {
+      "id": "HE-P11",
+      "kind": "independent",
+      "raw": "alle X; Oktavlage nach X wählen (hoch = hell, tief = dunkel)",
+      "anchor_x": 0.25
+    },
+    {
+      "id": "HE-P12",
+      "kind": "independent",
+      "raw": "alle X; Oktavlage nach X wählen (hoch = hell, tief = dunkel)",
+      "anchor_x": 0.2
+    },
+    {
+      "id": "HE-P13",
+      "kind": "independent",
+      "raw": "alle X; Oktavlage nach X wählen (hoch = hell, tief = dunkel)",
+      "anchor_x": 0.3
+    },
+    {
+      "id": "HE-P14",
+      "kind": "independent",
+      "raw": "alle X; Oktavlage nach X wählen (hoch = hell, tief = dunkel)",
+      "anchor_x": 0.2
+    },
+    {
+      "id": "HE-P15",
+      "kind": "independent",
+      "raw": "alle X; Oktavlage nach X wählen (hoch = hell, tief = dunkel)",
+      "anchor_x": 0.25
+    },
+    {
+      "id": "HE-P16",
+      "kind": "independent",
+      "raw": "alle X; Oktavlage nach X wählen (hoch = hell, tief = dunkel)",
+      "anchor_x": 0.2
+    },
+    {
+      "id": "HE-P17",
+      "kind": "independent",
+      "raw": "alle X; Oktavlage nach X wählen (hoch = hell, tief = dunkel)",
+      "anchor_x": 0.15
+    },
+    {
+      "id": "HE-P18",
+      "kind": "independent",
+      "raw": "alle X; Oktavlage nach X wählen (hoch = hell, tief = dunkel)",
+      "anchor_x": 0.25
+    },
+    {
+      "id": "HE-P19",
+      "kind": "soft_or_conditional",
+      "raw": "X ≥ 0,5 (Hochlage); für dunkle Kontexte eine oder zwei Oktaven tiefer legen",
+      "anchor_x": 0.7
+    },
+    {
+      "id": "HE-P20",
+      "kind": "soft_or_conditional",
+      "raw": "X ≥ 0,5 (Hochlage); für dunkle Kontexte eine oder zwei Oktaven tiefer legen",
+      "anchor_x": 0.6
+    },
+    {
+      "id": "HE-P21",
+      "kind": "soft_or_conditional",
+      "raw": "X ≥ 0,5 (Hochlage); für dunkle Kontexte eine oder zwei Oktaven tiefer legen",
+      "anchor_x": 0.7
+    }
+  ],
+  "colour_summary": {
+    "R": {
+      "independent": 57,
+      "soft_or_conditional": 3,
+      "restricted_or_clarify": 6
+    },
+    "B": {
+      "independent": 24,
+      "soft_or_conditional": 18,
+      "restricted_or_clarify": 3
+    },
+    "M": {
+      "independent": 45,
+      "restricted_or_clarify": 7,
+      "soft_or_conditional": 5
+    },
+    "P": {
+      "independent": 18,
+      "soft_or_conditional": 3
+    }
+  },
+  "role_anchor_diagnostics": [
+    {
+      "kind": "R",
+      "x": 0,
+      "independent_sources": 57,
+      "excluded_even_at_own_yz": 3,
+      "excluded_ids": [
+        "HE-R36",
+        "HE-R54",
+        "HE-R57"
+      ],
+      "radius_squared": 0.16
+    },
+    {
+      "kind": "R",
+      "x": 0.25,
+      "independent_sources": 57,
+      "excluded_even_at_own_yz": 0,
+      "excluded_ids": [],
+      "radius_squared": 0.16
+    },
+    {
+      "kind": "R",
+      "x": 0.5,
+      "independent_sources": 57,
+      "excluded_even_at_own_yz": 1,
+      "excluded_ids": [
+        "HE-R41"
+      ],
+      "radius_squared": 0.16
+    },
+    {
+      "kind": "R",
+      "x": 0.75,
+      "independent_sources": 57,
+      "excluded_even_at_own_yz": 54,
+      "excluded_ids": [
+        "HE-R01",
+        "HE-R02",
+        "HE-R03",
+        "HE-R04",
+        "HE-R05",
+        "HE-R06",
+        "HE-R07",
+        "HE-R10",
+        "HE-R11",
+        "HE-R12",
+        "HE-R14",
+        "HE-R15",
+        "HE-R16",
+        "HE-R17",
+        "HE-R18",
+        "HE-R19",
+        "HE-R20",
+        "HE-R21",
+        "HE-R22",
+        "HE-R23",
+        "HE-R24",
+        "HE-R25",
+        "HE-R26",
+        "HE-R27",
+        "HE-R28",
+        "HE-R29",
+        "HE-R30",
+        "HE-R31",
+        "HE-R32",
+        "HE-R33",
+        "HE-R34",
+        "HE-R35",
+        "HE-R39",
+        "HE-R40",
+        "HE-R41",
+        "HE-R42",
+        "HE-R43",
+        "HE-R44",
+        "HE-R45",
+        "HE-R46",
+        "HE-R47",
+        "HE-R48",
+        "HE-R49",
+        "HE-R50",
+        "HE-R51",
+        "HE-R52",
+        "HE-R53",
+        "HE-R58",
+        "HE-R59",
+        "HE-R60",
+        "HE-R61",
+        "HE-R62",
+        "HE-R63",
+        "HE-R66"
+      ],
+      "radius_squared": 0.16
+    },
+    {
+      "kind": "R",
+      "x": 1,
+      "independent_sources": 57,
+      "excluded_even_at_own_yz": 57,
+      "excluded_ids": [
+        "HE-R01",
+        "HE-R02",
+        "HE-R03",
+        "HE-R04",
+        "HE-R05",
+        "HE-R06",
+        "HE-R07",
+        "HE-R10",
+        "HE-R11",
+        "HE-R12",
+        "HE-R14",
+        "HE-R15",
+        "HE-R16",
+        "HE-R17",
+        "HE-R18",
+        "HE-R19",
+        "HE-R20",
+        "HE-R21",
+        "HE-R22",
+        "HE-R23",
+        "HE-R24",
+        "HE-R25",
+        "HE-R26",
+        "HE-R27",
+        "HE-R28",
+        "HE-R29",
+        "HE-R30",
+        "HE-R31",
+        "HE-R32",
+        "HE-R33",
+        "HE-R34",
+        "HE-R35",
+        "HE-R36",
+        "HE-R39",
+        "HE-R40",
+        "HE-R41",
+        "HE-R42",
+        "HE-R43",
+        "HE-R44",
+        "HE-R45",
+        "HE-R46",
+        "HE-R47",
+        "HE-R48",
+        "HE-R49",
+        "HE-R50",
+        "HE-R51",
+        "HE-R52",
+        "HE-R53",
+        "HE-R54",
+        "HE-R57",
+        "HE-R58",
+        "HE-R59",
+        "HE-R60",
+        "HE-R61",
+        "HE-R62",
+        "HE-R63",
+        "HE-R66"
+      ],
+      "radius_squared": 0.16
+    },
+    {
+      "kind": "B",
+      "x": 0,
+      "independent_sources": 24,
+      "excluded_even_at_own_yz": 1,
+      "excluded_ids": [
+        "HE-B43"
+      ],
+      "radius_squared": 0.16
+    },
+    {
+      "kind": "B",
+      "x": 0.25,
+      "independent_sources": 24,
+      "excluded_even_at_own_yz": 0,
+      "excluded_ids": [],
+      "radius_squared": 0.16
+    },
+    {
+      "kind": "B",
+      "x": 0.5,
+      "independent_sources": 24,
+      "excluded_even_at_own_yz": 2,
+      "excluded_ids": [
+        "HE-B18",
+        "HE-B37"
+      ],
+      "radius_squared": 0.16
+    },
+    {
+      "kind": "B",
+      "x": 0.75,
+      "independent_sources": 24,
+      "excluded_even_at_own_yz": 23,
+      "excluded_ids": [
+        "HE-B01",
+        "HE-B04",
+        "HE-B05",
+        "HE-B09",
+        "HE-B10",
+        "HE-B11",
+        "HE-B14",
+        "HE-B16",
+        "HE-B18",
+        "HE-B21",
+        "HE-B22",
+        "HE-B23",
+        "HE-B24",
+        "HE-B25",
+        "HE-B26",
+        "HE-B27",
+        "HE-B29",
+        "HE-B33",
+        "HE-B34",
+        "HE-B35",
+        "HE-B36",
+        "HE-B37",
+        "HE-B40"
+      ],
+      "radius_squared": 0.16
+    },
+    {
+      "kind": "B",
+      "x": 1,
+      "independent_sources": 24,
+      "excluded_even_at_own_yz": 24,
+      "excluded_ids": [
+        "HE-B01",
+        "HE-B04",
+        "HE-B05",
+        "HE-B09",
+        "HE-B10",
+        "HE-B11",
+        "HE-B14",
+        "HE-B16",
+        "HE-B18",
+        "HE-B21",
+        "HE-B22",
+        "HE-B23",
+        "HE-B24",
+        "HE-B25",
+        "HE-B26",
+        "HE-B27",
+        "HE-B29",
+        "HE-B33",
+        "HE-B34",
+        "HE-B35",
+        "HE-B36",
+        "HE-B37",
+        "HE-B40",
+        "HE-B43"
+      ],
+      "radius_squared": 0.16
+    },
+    {
+      "kind": "M",
+      "x": 0,
+      "independent_sources": 45,
+      "excluded_even_at_own_yz": 10,
+      "excluded_ids": [
+        "HE-M06",
+        "HE-M07",
+        "HE-M10",
+        "HE-M18",
+        "HE-M19",
+        "HE-M28",
+        "HE-M29",
+        "HE-M33",
+        "HE-M47",
+        "HE-M50"
+      ],
+      "radius_squared": 0.0625
+    },
+    {
+      "kind": "M",
+      "x": 0.25,
+      "independent_sources": 45,
+      "excluded_even_at_own_yz": 1,
+      "excluded_ids": [
+        "HE-M50"
+      ],
+      "radius_squared": 0.0625
+    },
+    {
+      "kind": "M",
+      "x": 0.5,
+      "independent_sources": 45,
+      "excluded_even_at_own_yz": 17,
+      "excluded_ids": [
+        "HE-M01",
+        "HE-M05",
+        "HE-M08",
+        "HE-M11",
+        "HE-M14",
+        "HE-M16",
+        "HE-M24",
+        "HE-M27",
+        "HE-M31",
+        "HE-M32",
+        "HE-M34",
+        "HE-M35",
+        "HE-M37",
+        "HE-M38",
+        "HE-M42",
+        "HE-M43",
+        "HE-M44"
+      ],
+      "radius_squared": 0.0625
+    },
+    {
+      "kind": "M",
+      "x": 0.75,
+      "independent_sources": 45,
+      "excluded_even_at_own_yz": 44,
+      "excluded_ids": [
+        "HE-M01",
+        "HE-M02",
+        "HE-M03",
+        "HE-M04",
+        "HE-M05",
+        "HE-M06",
+        "HE-M07",
+        "HE-M08",
+        "HE-M09",
+        "HE-M10",
+        "HE-M11",
+        "HE-M12",
+        "HE-M13",
+        "HE-M14",
+        "HE-M15",
+        "HE-M16",
+        "HE-M17",
+        "HE-M18",
+        "HE-M19",
+        "HE-M20",
+        "HE-M21",
+        "HE-M22",
+        "HE-M23",
+        "HE-M24",
+        "HE-M25",
+        "HE-M26",
+        "HE-M27",
+        "HE-M28",
+        "HE-M29",
+        "HE-M31",
+        "HE-M32",
+        "HE-M33",
+        "HE-M34",
+        "HE-M35",
+        "HE-M37",
+        "HE-M38",
+        "HE-M42",
+        "HE-M43",
+        "HE-M44",
+        "HE-M45",
+        "HE-M46",
+        "HE-M47",
+        "HE-M51",
+        "HE-M52"
+      ],
+      "radius_squared": 0.0625
+    },
+    {
+      "kind": "M",
+      "x": 1,
+      "independent_sources": 45,
+      "excluded_even_at_own_yz": 45,
+      "excluded_ids": [
+        "HE-M01",
+        "HE-M02",
+        "HE-M03",
+        "HE-M04",
+        "HE-M05",
+        "HE-M06",
+        "HE-M07",
+        "HE-M08",
+        "HE-M09",
+        "HE-M10",
+        "HE-M11",
+        "HE-M12",
+        "HE-M13",
+        "HE-M14",
+        "HE-M15",
+        "HE-M16",
+        "HE-M17",
+        "HE-M18",
+        "HE-M19",
+        "HE-M20",
+        "HE-M21",
+        "HE-M22",
+        "HE-M23",
+        "HE-M24",
+        "HE-M25",
+        "HE-M26",
+        "HE-M27",
+        "HE-M28",
+        "HE-M29",
+        "HE-M31",
+        "HE-M32",
+        "HE-M33",
+        "HE-M34",
+        "HE-M35",
+        "HE-M37",
+        "HE-M38",
+        "HE-M42",
+        "HE-M43",
+        "HE-M44",
+        "HE-M45",
+        "HE-M46",
+        "HE-M47",
+        "HE-M50",
+        "HE-M51",
+        "HE-M52"
+      ],
+      "radius_squared": 0.0625
+    }
+  ]
+}

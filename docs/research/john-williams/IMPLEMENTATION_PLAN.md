@@ -55,6 +55,22 @@ begründet zurückgestellt. Registrierung und tatsächliche Produktionsverwendun
 werden im P3-Bericht getrennt ausgewiesen. Keine neue Langphrasen-, Kanon- oder
 Parallelstimmenengine. P2/P3 benötigen weiterhin die musikalische Hörabnahme.
 
+### Gemeinsame Fortschreibung mit kanonischem Herrmann, 27.11.2026
+
+Abgleich bei `023b0a6` einschließlich P2/P3 und `.as_posix()`-Build-Fix:
+Die [343 HE-Einzelbewertungen](../bernard-herrmann/TECHNICAL_INVENTORY.json) ergänzen
+die bisherige Tiefenrecherche. [Gemeinsamer Fähigkeitsbericht](../SHARED_MUSICAL_CAPABILITIES.md)
+und [HE-Fahrplan](../bernard-herrmann/IMPLEMENTATION_PLAN.md) priorisieren jetzt
+unabhängiges Einzelpedal/Bassfolge, lokale A/T/V/F/U-Absicht, Ganzton/Hexatonik und
+kurze Module vor langen Phrasensystemen. P3 hat bereits kurze Quellmotive angebunden;
+weitere kontextkompatible Zellen müssen nicht auf alle Erweiterungen warten.
+Lokale Quellmasken sind dafür vorhanden, eine flexible Funktions-/Auflösungssemantik
+fehlt noch. Polychorde benötigen Komponenten-/Register-/Synchronitätspläne und
+geeignete Instrumentendauern; keine Komponente entfernen. Triolen sind in 960 PPQ
+darstellbar, erfordern aber exakte Vorlagen-Verbraucher. Kein neuer Scheduler.
+Diese Anpassung betrifft ausschließlich die Planung. P2/P3 bleiben musikalisch
+unabgenommen; keine Implementierung und keine weitere Arp-Optimierung.
+
 ## 1. Ergebnis und Bedeutung der Einstufungen
 
 Die Forschung ist wesentlich breiter als ein Akkord-Preset. Die Engine bietet dafür

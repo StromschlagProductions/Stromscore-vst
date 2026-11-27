@@ -5,3 +5,8 @@ docs/research/john-williams/JW_Studien_MIDI_Kanonisch.zip -text
 docs/research/john-williams/JW_Qualitaetspruefung_und_Aenderungen.md -text
 # Additional research upload, preserved byte-for-byte.
 docs/research/bernard-herrmann/Spannungsgrammatik_Tiefenrecherche.md -text
+# Canonical Herrmann uploads, preserved byte-for-byte on every checkout.
+docs/research/bernard-herrmann/STROMSCORE_Bernard_Herrmann_Vokabular_Kanonisch.md -text
+docs/research/bernard-herrmann/HE_Studien_Ereignisse.csv -text
+docs/research/bernard-herrmann/HE_Studien_MIDI.zip -text
+docs/research/bernard-herrmann/HE_Qualitaetspruefung.md -text
