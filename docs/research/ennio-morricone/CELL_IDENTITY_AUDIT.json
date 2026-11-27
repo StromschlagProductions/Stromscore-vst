@@ -1,0 +1,8677 @@
+[
+  {
+    "id": "EM-C001",
+    "type": "MENGE",
+    "pcs": [
+      0,
+      3
+    ],
+    "prime_source": [
+      0,
+      3
+    ],
+    "prime_packed_right": [
+      0,
+      3
+    ],
+    "prime_equivalent": true,
+    "iv_source": [
+      0,
+      0,
+      1,
+      0,
+      0,
+      0
+    ],
+    "iv_actual": [
+      0,
+      0,
+      1,
+      0,
+      0,
+      0
+    ],
+    "reference_events": 6,
+    "exchange_tones": [],
+    "permitted_pc_variants": [
+      [
+        0,
+        3
+      ]
+    ],
+    "changed_aggregate_examples": [],
+    "scope": "CSV rel is relative to global tonic. Aggregate changes prove the literal global PC-set differs, not which unexported permutation event caused the change. Transposition is analyzed separately; local harmony is not silently unioned.",
+    "per_context_evidence": [
+      {
+        "study": "EM-S002",
+        "role": "TU",
+        "context": "0:madd9",
+        "actual_pcs": [
+          0,
+          3
+        ],
+        "events": 3,
+        "same_tni_class": true,
+        "exchange_authorized": false,
+        "first_events": [
+          {
+            "tick": 15360,
+            "pitch": 24,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 38400,
+            "pitch": 15,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 53760,
+            "pitch": 15,
+            "duration": 216,
+            "function": "A"
+          }
+        ]
+      },
+      {
+        "study": "EM-S002",
+        "role": "TU",
+        "context": "8:maj7#11",
+        "actual_pcs": [
+          3
+        ],
+        "events": 1,
+        "same_tni_class": false,
+        "exchange_authorized": false,
+        "first_events": [
+          {
+            "tick": 23040,
+            "pitch": 15,
+            "duration": 216,
+            "function": "A"
+          }
+        ]
+      },
+      {
+        "study": "EM-S002",
+        "role": "TU",
+        "context": "10:add9",
+        "actual_pcs": [
+          0
+        ],
+        "events": 1,
+        "same_tni_class": false,
+        "exchange_authorized": false,
+        "first_events": [
+          {
+            "tick": 30720,
+            "pitch": 24,
+            "duration": 216,
+            "function": "A"
+          }
+        ]
+      },
+      {
+        "study": "EM-S002",
+        "role": "TU",
+        "context": "5:m6",
+        "actual_pcs": [
+          0
+        ],
+        "events": 1,
+        "same_tni_class": false,
+        "exchange_authorized": false,
+        "first_events": [
+          {
+            "tick": 46080,
+            "pitch": 24,
+            "duration": 216,
+            "function": "A"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "EM-C002",
+    "type": "MENGE",
+    "pcs": [
+      0,
+      2
+    ],
+    "prime_source": [
+      0,
+      2
+    ],
+    "prime_packed_right": [
+      0,
+      2
+    ],
+    "prime_equivalent": true,
+    "iv_source": [
+      0,
+      1,
+      0,
+      0,
+      0,
+      0
+    ],
+    "iv_actual": [
+      0,
+      1,
+      0,
+      0,
+      0,
+      0
+    ],
+    "reference_events": 0,
+    "exchange_tones": [],
+    "permitted_pc_variants": [
+      [
+        0,
+        2
+      ]
+    ],
+    "changed_aggregate_examples": [],
+    "scope": "CSV rel is relative to global tonic. Aggregate changes prove the literal global PC-set differs, not which unexported permutation event caused the change. Transposition is analyzed separately; local harmony is not silently unioned.",
+    "per_context_evidence": []
+  },
+  {
+    "id": "EM-C003",
+    "type": "MENGE",
+    "pcs": [
+      0,
+      5
+    ],
+    "prime_source": [
+      0,
+      5
+    ],
+    "prime_packed_right": [
+      0,
+      5
+    ],
+    "prime_equivalent": true,
+    "iv_source": [
+      0,
+      0,
+      0,
+      0,
+      1,
+      0
+    ],
+    "iv_actual": [
+      0,
+      0,
+      0,
+      0,
+      1,
+      0
+    ],
+    "reference_events": 0,
+    "exchange_tones": [],
+    "permitted_pc_variants": [
+      [
+        0,
+        5
+      ]
+    ],
+    "changed_aggregate_examples": [],
+    "scope": "CSV rel is relative to global tonic. Aggregate changes prove the literal global PC-set differs, not which unexported permutation event caused the change. Transposition is analyzed separately; local harmony is not silently unioned.",
+    "per_context_evidence": []
+  },
+  {
+    "id": "EM-C004",
+    "type": "MENGE",
+    "pcs": [
+      0,
+      1
+    ],
+    "prime_source": [
+      0,
+      1
+    ],
+    "prime_packed_right": [
+      0,
+      1
+    ],
+    "prime_equivalent": true,
+    "iv_source": [
+      1,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "iv_actual": [
+      1,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "reference_events": 0,
+    "exchange_tones": [],
+    "permitted_pc_variants": [
+      [
+        0,
+        1
+      ]
+    ],
+    "changed_aggregate_examples": [],
+    "scope": "CSV rel is relative to global tonic. Aggregate changes prove the literal global PC-set differs, not which unexported permutation event caused the change. Transposition is analyzed separately; local harmony is not silently unioned.",
+    "per_context_evidence": []
+  },
+  {
+    "id": "EM-C005",
+    "type": "MENGE",
+    "pcs": [
+      0,
+      6
+    ],
+    "prime_source": [
+      0,
+      6
+    ],
+    "prime_packed_right": [
+      0,
+      6
+    ],
+    "prime_equivalent": true,
+    "iv_source": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      1
+    ],
+    "iv_actual": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      1
+    ],
+    "reference_events": 20,
+    "exchange_tones": [],
+    "permitted_pc_variants": [
+      [
+        0,
+        6
+      ]
+    ],
+    "changed_aggregate_examples": [],
+    "scope": "CSV rel is relative to global tonic. Aggregate changes prove the literal global PC-set differs, not which unexported permutation event caused the change. Transposition is analyzed separately; local harmony is not silently unioned.",
+    "per_context_evidence": [
+      {
+        "study": "EM-S025",
+        "role": "TU",
+        "context": "ohne Akkordkontext (Tonvorrat)",
+        "actual_pcs": [
+          0,
+          6
+        ],
+        "events": 20,
+        "same_tni_class": true,
+        "exchange_authorized": false,
+        "first_events": [
+          {
+            "tick": 92160,
+            "pitch": 12,
+            "duration": 1017,
+            "function": "T"
+          },
+          {
+            "tick": 93290,
+            "pitch": 18,
+            "duration": 1656,
+            "function": "U"
+          },
+          {
+            "tick": 95130,
+            "pitch": 12,
+            "duration": 1728,
+            "function": "T"
+          },
+          {
+            "tick": 97370,
+            "pitch": 18,
+            "duration": 1602,
+            "function": "U"
+          },
+          {
+            "tick": 99150,
+            "pitch": 12,
+            "duration": 621,
+            "function": "T"
+          },
+          {
+            "tick": 99840,
+            "pitch": 18,
+            "duration": 1017,
+            "function": "U"
+          },
+          {
+            "tick": 100970,
+            "pitch": 12,
+            "duration": 1656,
+            "function": "T"
+          },
+          {
+            "tick": 102810,
+            "pitch": 18,
+            "duration": 1728,
+            "function": "U"
+          },
+          {
+            "tick": 105050,
+            "pitch": 12,
+            "duration": 1602,
+            "function": "T"
+          },
+          {
+            "tick": 106830,
+            "pitch": 18,
+            "duration": 621,
+            "function": "U"
+          },
+          {
+            "tick": 107520,
+            "pitch": 12,
+            "duration": 1017,
+            "function": "T"
+          },
+          {
+            "tick": 108650,
+            "pitch": 18,
+            "duration": 1656,
+            "function": "U"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "EM-C006",
+    "type": "KLASSE",
+    "pcs": [
+      0,
+      11,
+      7
+    ],
+    "prime_source": [
+      0,
+      1,
+      5
+    ],
+    "prime_packed_right": [
+      0,
+      1,
+      5
+    ],
+    "prime_equivalent": true,
+    "iv_source": [
+      1,
+      0,
+      0,
+      1,
+      1,
+      0
+    ],
+    "iv_actual": [
+      1,
+      0,
+      0,
+      1,
+      1,
+      0
+    ],
+    "reference_events": 0,
+    "exchange_tones": [],
+    "permitted_pc_variants": [
+      [
+        0,
+        7,
+        11
+      ]
+    ],
+    "changed_aggregate_examples": [],
+    "scope": "CSV rel is relative to global tonic. Aggregate changes prove the literal global PC-set differs, not which unexported permutation event caused the change. Transposition is analyzed separately; local harmony is not silently unioned.",
+    "per_context_evidence": []
+  },
+  {
+    "id": "EM-C007",
+    "type": "MENGE",
+    "pcs": [
+      0,
+      2,
+      7
+    ],
+    "prime_source": [
+      0,
+      2,
+      7
+    ],
+    "prime_packed_right": [
+      0,
+      2,
+      7
+    ],
+    "prime_equivalent": true,
+    "iv_source": [
+      0,
+      1,
+      0,
+      0,
+      2,
+      0
+    ],
+    "iv_actual": [
+      0,
+      1,
+      0,
+      0,
+      2,
+      0
+    ],
+    "reference_events": 85,
+    "exchange_tones": [],
+    "permitted_pc_variants": [
+      [
+        0,
+        2,
+        7
+      ]
+    ],
+    "changed_aggregate_examples": [],
+    "scope": "CSV rel is relative to global tonic. Aggregate changes prove the literal global PC-set differs, not which unexported permutation event caused the change. Transposition is analyzed separately; local harmony is not silently unioned.",
+    "per_context_evidence": [
+      {
+        "study": "EM-S018",
+        "role": "AR",
+        "context": "0:madd9",
+        "actual_pcs": [
+          0,
+          2,
+          7
+        ],
+        "events": 85,
+        "same_tni_class": true,
+        "exchange_authorized": false,
+        "first_events": [
+          {
+            "tick": 30720,
+            "pitch": 12,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 31200,
+            "pitch": 14,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 31440,
+            "pitch": 19,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 31920,
+            "pitch": 12,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 32160,
+            "pitch": 14,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 32640,
+            "pitch": 19,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 32880,
+            "pitch": 12,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 33360,
+            "pitch": 14,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 33600,
+            "pitch": 19,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 34080,
+            "pitch": 12,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 34320,
+            "pitch": 14,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 34800,
+            "pitch": 19,
+            "duration": 216,
+            "function": "A"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "EM-C008",
+    "type": "MENGE",
+    "pcs": [
+      0,
+      3,
+      7
+    ],
+    "prime_source": [
+      0,
+      3,
+      7
+    ],
+    "prime_packed_right": [
+      0,
+      3,
+      7
+    ],
+    "prime_equivalent": true,
+    "iv_source": [
+      0,
+      0,
+      1,
+      1,
+      1,
+      0
+    ],
+    "iv_actual": [
+      0,
+      0,
+      1,
+      1,
+      1,
+      0
+    ],
+    "reference_events": 0,
+    "exchange_tones": [],
+    "permitted_pc_variants": [
+      [
+        0,
+        3,
+        7
+      ]
+    ],
+    "changed_aggregate_examples": [],
+    "scope": "CSV rel is relative to global tonic. Aggregate changes prove the literal global PC-set differs, not which unexported permutation event caused the change. Transposition is analyzed separately; local harmony is not silently unioned.",
+    "per_context_evidence": []
+  },
+  {
+    "id": "EM-C009",
+    "type": "MENGE",
+    "pcs": [
+      0,
+      2,
+      3
+    ],
+    "prime_source": [
+      0,
+      1,
+      3
+    ],
+    "prime_packed_right": [
+      0,
+      1,
+      3
+    ],
+    "prime_equivalent": true,
+    "iv_source": [
+      1,
+      1,
+      1,
+      0,
+      0,
+      0
+    ],
+    "iv_actual": [
+      1,
+      1,
+      1,
+      0,
+      0,
+      0
+    ],
+    "reference_events": 210,
+    "exchange_tones": [],
+    "permitted_pc_variants": [
+      [
+        0,
+        2,
+        3
+      ]
+    ],
+    "changed_aggregate_examples": [],
+    "scope": "CSV rel is relative to global tonic. Aggregate changes prove the literal global PC-set differs, not which unexported permutation event caused the change. Transposition is analyzed separately; local harmony is not silently unioned.",
+    "per_context_evidence": [
+      {
+        "study": "EM-S001",
+        "role": "TU",
+        "context": "8:maj7",
+        "actual_pcs": [
+          0,
+          2,
+          3
+        ],
+        "events": 8,
+        "same_tni_class": true,
+        "exchange_authorized": false,
+        "first_events": [
+          {
+            "tick": 7680,
+            "pitch": 12,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 10320,
+            "pitch": 14,
+            "duration": 216,
+            "function": "T"
+          },
+          {
+            "tick": 11520,
+            "pitch": 15,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 14160,
+            "pitch": 12,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 38400,
+            "pitch": 14,
+            "duration": 216,
+            "function": "T"
+          },
+          {
+            "tick": 41040,
+            "pitch": 15,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 42240,
+            "pitch": 12,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 44880,
+            "pitch": 14,
+            "duration": 216,
+            "function": "T"
+          }
+        ]
+      },
+      {
+        "study": "EM-S001",
+        "role": "TU",
+        "context": "5:madd9",
+        "actual_pcs": [
+          0,
+          2,
+          3
+        ],
+        "events": 8,
+        "same_tni_class": true,
+        "exchange_authorized": false,
+        "first_events": [
+          {
+            "tick": 15360,
+            "pitch": 14,
+            "duration": 216,
+            "function": "T"
+          },
+          {
+            "tick": 18000,
+            "pitch": 15,
+            "duration": 216,
+            "function": "T"
+          },
+          {
+            "tick": 19200,
+            "pitch": 12,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 21840,
+            "pitch": 14,
+            "duration": 216,
+            "function": "T"
+          },
+          {
+            "tick": 46080,
+            "pitch": 15,
+            "duration": 216,
+            "function": "T"
+          },
+          {
+            "tick": 48720,
+            "pitch": 12,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 49920,
+            "pitch": 14,
+            "duration": 216,
+            "function": "T"
+          },
+          {
+            "tick": 52560,
+            "pitch": 15,
+            "duration": 216,
+            "function": "T"
+          }
+        ]
+      },
+      {
+        "study": "EM-S001",
+        "role": "TU",
+        "context": "0:madd9",
+        "actual_pcs": [
+          0,
+          2,
+          3
+        ],
+        "events": 12,
+        "same_tni_class": true,
+        "exchange_authorized": false,
+        "first_events": [
+          {
+            "tick": 23040,
+            "pitch": 14,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 25680,
+            "pitch": 12,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 26880,
+            "pitch": 15,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 29520,
+            "pitch": 14,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 30720,
+            "pitch": 12,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 33360,
+            "pitch": 15,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 34560,
+            "pitch": 14,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 37200,
+            "pitch": 12,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 53760,
+            "pitch": 15,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 56400,
+            "pitch": 12,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 57600,
+            "pitch": 14,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 60240,
+            "pitch": 15,
+            "duration": 216,
+            "function": "A"
+          }
+        ]
+      },
+      {
+        "study": "EM-S008",
+        "role": "TU",
+        "context": "0:madd9",
+        "actual_pcs": [
+          0,
+          2,
+          3
+        ],
+        "events": 32,
+        "same_tni_class": true,
+        "exchange_authorized": false,
+        "first_events": [
+          {
+            "tick": 0,
+            "pitch": 24,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 1440,
+            "pitch": 14,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 3840,
+            "pitch": 15,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 6480,
+            "pitch": 24,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 7680,
+            "pitch": 14,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 9120,
+            "pitch": 15,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 11520,
+            "pitch": 24,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 14160,
+            "pitch": 14,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 15360,
+            "pitch": 15,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 16800,
+            "pitch": 24,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 19200,
+            "pitch": 14,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 21840,
+            "pitch": 15,
+            "duration": 216,
+            "function": "A"
+          }
+        ]
+      },
+      {
+        "study": "EM-S018",
+        "role": "TU",
+        "context": "0:madd9",
+        "actual_pcs": [
+          0,
+          2,
+          3
+        ],
+        "events": 16,
+        "same_tni_class": true,
+        "exchange_authorized": false,
+        "first_events": [
+          {
+            "tick": 0,
+            "pitch": 12,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 2640,
+            "pitch": 14,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 3840,
+            "pitch": 15,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 6480,
+            "pitch": 12,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 7680,
+            "pitch": 14,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 10320,
+            "pitch": 15,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 11520,
+            "pitch": 12,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 14160,
+            "pitch": 14,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 15360,
+            "pitch": 15,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 18000,
+            "pitch": 12,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 19200,
+            "pitch": 14,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 21840,
+            "pitch": 15,
+            "duration": 216,
+            "function": "A"
+          }
+        ]
+      },
+      {
+        "study": "EM-S024",
+        "role": "TU",
+        "context": "0:madd9",
+        "actual_pcs": [
+          0,
+          2,
+          3
+        ],
+        "events": 48,
+        "same_tni_class": true,
+        "exchange_authorized": false,
+        "first_events": [
+          {
+            "tick": 0,
+            "pitch": 24,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 2640,
+            "pitch": 14,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 3840,
+            "pitch": 15,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 6480,
+            "pitch": 24,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 15360,
+            "pitch": 15,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 18000,
+            "pitch": 24,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 19200,
+            "pitch": 14,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 21840,
+            "pitch": 15,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 30720,
+            "pitch": 24,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 33360,
+            "pitch": 15,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 34560,
+            "pitch": 14,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 37200,
+            "pitch": 24,
+            "duration": 216,
+            "function": "A"
+          }
+        ]
+      },
+      {
+        "study": "EM-S024",
+        "role": "TU",
+        "context": "5:add9",
+        "actual_pcs": [
+          0,
+          2,
+          3
+        ],
+        "events": 48,
+        "same_tni_class": true,
+        "exchange_authorized": false,
+        "first_events": [
+          {
+            "tick": 7680,
+            "pitch": 14,
+            "duration": 216,
+            "function": "T"
+          },
+          {
+            "tick": 10320,
+            "pitch": 15,
+            "duration": 216,
+            "function": "T"
+          },
+          {
+            "tick": 11520,
+            "pitch": 24,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 14160,
+            "pitch": 14,
+            "duration": 216,
+            "function": "T"
+          },
+          {
+            "tick": 23040,
+            "pitch": 24,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 25680,
+            "pitch": 14,
+            "duration": 216,
+            "function": "T"
+          },
+          {
+            "tick": 26880,
+            "pitch": 15,
+            "duration": 216,
+            "function": "T"
+          },
+          {
+            "tick": 29520,
+            "pitch": 24,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 38400,
+            "pitch": 15,
+            "duration": 216,
+            "function": "T"
+          },
+          {
+            "tick": 41040,
+            "pitch": 14,
+            "duration": 216,
+            "function": "T"
+          },
+          {
+            "tick": 42240,
+            "pitch": 24,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 44880,
+            "pitch": 15,
+            "duration": 216,
+            "function": "T"
+          }
+        ]
+      },
+      {
+        "study": "EM-S025",
+        "role": "TU",
+        "context": "0:madd9",
+        "actual_pcs": [
+          0,
+          2,
+          3
+        ],
+        "events": 16,
+        "same_tni_class": true,
+        "exchange_authorized": false,
+        "first_events": [
+          {
+            "tick": 30720,
+            "pitch": 12,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 33360,
+            "pitch": 14,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 34560,
+            "pitch": 15,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 37200,
+            "pitch": 12,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 38400,
+            "pitch": 14,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 41040,
+            "pitch": 15,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 42240,
+            "pitch": 12,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 44880,
+            "pitch": 14,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 46080,
+            "pitch": 15,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 48720,
+            "pitch": 12,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 49920,
+            "pitch": 14,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 52560,
+            "pitch": 15,
+            "duration": 216,
+            "function": "A"
+          }
+        ]
+      },
+      {
+        "study": "EM-S028",
+        "role": "TU",
+        "context": "0:madd9",
+        "actual_pcs": [
+          0,
+          2,
+          3
+        ],
+        "events": 4,
+        "same_tni_class": true,
+        "exchange_authorized": false,
+        "first_events": [
+          {
+            "tick": 0,
+            "pitch": 24,
+            "duration": 1728,
+            "function": "A"
+          },
+          {
+            "tick": 3360,
+            "pitch": 14,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 3840,
+            "pitch": 15,
+            "duration": 1728,
+            "function": "A"
+          },
+          {
+            "tick": 7200,
+            "pitch": 24,
+            "duration": 216,
+            "function": "A"
+          }
+        ]
+      },
+      {
+        "study": "EM-S028",
+        "role": "TU",
+        "context": "2:m7b5",
+        "actual_pcs": [
+          0,
+          2,
+          3
+        ],
+        "events": 4,
+        "same_tni_class": true,
+        "exchange_authorized": false,
+        "first_events": [
+          {
+            "tick": 7680,
+            "pitch": 14,
+            "duration": 1728,
+            "function": "A"
+          },
+          {
+            "tick": 11040,
+            "pitch": 15,
+            "duration": 216,
+            "function": "T"
+          },
+          {
+            "tick": 11520,
+            "pitch": 24,
+            "duration": 1728,
+            "function": "A"
+          },
+          {
+            "tick": 14880,
+            "pitch": 14,
+            "duration": 216,
+            "function": "A"
+          }
+        ]
+      },
+      {
+        "study": "EM-S028",
+        "role": "TU",
+        "context": "7:7sus4",
+        "actual_pcs": [
+          0,
+          2,
+          3
+        ],
+        "events": 4,
+        "same_tni_class": true,
+        "exchange_authorized": false,
+        "first_events": [
+          {
+            "tick": 15360,
+            "pitch": 15,
+            "duration": 1728,
+            "function": "T"
+          },
+          {
+            "tick": 18720,
+            "pitch": 24,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 19200,
+            "pitch": 14,
+            "duration": 1728,
+            "function": "A"
+          },
+          {
+            "tick": 22560,
+            "pitch": 15,
+            "duration": 216,
+            "function": "T"
+          }
+        ]
+      },
+      {
+        "study": "EM-S028",
+        "role": "TU",
+        "context": "7:7",
+        "actual_pcs": [
+          0,
+          2,
+          3
+        ],
+        "events": 4,
+        "same_tni_class": true,
+        "exchange_authorized": false,
+        "first_events": [
+          {
+            "tick": 23040,
+            "pitch": 24,
+            "duration": 1728,
+            "function": "T"
+          },
+          {
+            "tick": 26400,
+            "pitch": 14,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 26880,
+            "pitch": 15,
+            "duration": 1728,
+            "function": "T"
+          },
+          {
+            "tick": 30240,
+            "pitch": 24,
+            "duration": 216,
+            "function": "T"
+          }
+        ]
+      },
+      {
+        "study": "EM-S053",
+        "role": "TU",
+        "context": "8:maj7/0",
+        "actual_pcs": [
+          0,
+          2,
+          3
+        ],
+        "events": 4,
+        "same_tni_class": true,
+        "exchange_authorized": false,
+        "first_events": [
+          {
+            "tick": 15360,
+            "pitch": 12,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 23040,
+            "pitch": 14,
+            "duration": 216,
+            "function": "T"
+          },
+          {
+            "tick": 46080,
+            "pitch": 14,
+            "duration": 216,
+            "function": "T"
+          },
+          {
+            "tick": 53760,
+            "pitch": 15,
+            "duration": 216,
+            "function": "A"
+          }
+        ]
+      },
+      {
+        "study": "EM-S053",
+        "role": "TU",
+        "context": "0:madd9",
+        "actual_pcs": [
+          0,
+          3
+        ],
+        "events": 2,
+        "same_tni_class": false,
+        "exchange_authorized": false,
+        "first_events": [
+          {
+            "tick": 30720,
+            "pitch": 15,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 38400,
+            "pitch": 12,
+            "duration": 216,
+            "function": "A"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "EM-C010",
+    "type": "MENGE",
+    "pcs": [
+      0,
+      2,
+      3,
+      7
+    ],
+    "prime_source": [
+      0,
+      2,
+      3,
+      7
+    ],
+    "prime_packed_right": [
+      0,
+      2,
+      3,
+      7
+    ],
+    "prime_equivalent": true,
+    "iv_source": [
+      1,
+      1,
+      1,
+      1,
+      2,
+      0
+    ],
+    "iv_actual": [
+      1,
+      1,
+      1,
+      1,
+      2,
+      0
+    ],
+    "reference_events": 502,
+    "exchange_tones": [],
+    "permitted_pc_variants": [
+      [
+        0,
+        2,
+        3,
+        7
+      ]
+    ],
+    "changed_aggregate_examples": [
+      {
+        "study": "EM-S016",
+        "expected_pcs": [
+          0,
+          2,
+          3,
+          7
+        ],
+        "actual_pcs": [
+          0,
+          2,
+          3,
+          5,
+          7,
+          8,
+          10
+        ],
+        "outside": [
+          5,
+          8,
+          10
+        ],
+        "expected_prime": [
+          0,
+          2,
+          3,
+          7
+        ],
+        "actual_prime": [
+          0,
+          1,
+          3,
+          5,
+          6,
+          8,
+          10
+        ],
+        "same_tni_class": false
+      },
+      {
+        "study": "EM-S044",
+        "expected_pcs": [
+          0,
+          2,
+          3,
+          7
+        ],
+        "actual_pcs": [
+          0,
+          2,
+          3,
+          5,
+          7,
+          8
+        ],
+        "outside": [
+          5,
+          8
+        ],
+        "expected_prime": [
+          0,
+          2,
+          3,
+          7
+        ],
+        "actual_prime": [
+          0,
+          1,
+          3,
+          5,
+          6,
+          8
+        ],
+        "same_tni_class": false
+      }
+    ],
+    "scope": "CSV rel is relative to global tonic. Aggregate changes prove the literal global PC-set differs, not which unexported permutation event caused the change. Transposition is analyzed separately; local harmony is not silently unioned.",
+    "per_context_evidence": [
+      {
+        "study": "EM-S016",
+        "role": "AR",
+        "context": "0:madd9",
+        "actual_pcs": [
+          0,
+          2,
+          3,
+          7
+        ],
+        "events": 48,
+        "same_tni_class": true,
+        "exchange_authorized": false,
+        "first_events": [
+          {
+            "tick": 0,
+            "pitch": 12,
+            "duration": 288,
+            "function": "A"
+          },
+          {
+            "tick": 320,
+            "pitch": 14,
+            "duration": 288,
+            "function": "A"
+          },
+          {
+            "tick": 640,
+            "pitch": 15,
+            "duration": 288,
+            "function": "A"
+          },
+          {
+            "tick": 960,
+            "pitch": 19,
+            "duration": 288,
+            "function": "A"
+          },
+          {
+            "tick": 1280,
+            "pitch": 12,
+            "duration": 288,
+            "function": "A"
+          },
+          {
+            "tick": 1600,
+            "pitch": 14,
+            "duration": 288,
+            "function": "A"
+          },
+          {
+            "tick": 1920,
+            "pitch": 15,
+            "duration": 288,
+            "function": "A"
+          },
+          {
+            "tick": 2240,
+            "pitch": 19,
+            "duration": 288,
+            "function": "A"
+          },
+          {
+            "tick": 2560,
+            "pitch": 12,
+            "duration": 288,
+            "function": "A"
+          },
+          {
+            "tick": 2880,
+            "pitch": 14,
+            "duration": 288,
+            "function": "A"
+          },
+          {
+            "tick": 3200,
+            "pitch": 15,
+            "duration": 288,
+            "function": "A"
+          },
+          {
+            "tick": 3520,
+            "pitch": 19,
+            "duration": 288,
+            "function": "A"
+          }
+        ]
+      },
+      {
+        "study": "EM-S016",
+        "role": "AR",
+        "context": "10:add9",
+        "actual_pcs": [
+          0,
+          5,
+          10
+        ],
+        "events": 48,
+        "same_tni_class": false,
+        "exchange_authorized": false,
+        "first_events": [
+          {
+            "tick": 7680,
+            "pitch": 22,
+            "duration": 288,
+            "function": "A"
+          },
+          {
+            "tick": 8000,
+            "pitch": 12,
+            "duration": 288,
+            "function": "A"
+          },
+          {
+            "tick": 8320,
+            "pitch": 12,
+            "duration": 288,
+            "function": "A"
+          },
+          {
+            "tick": 8640,
+            "pitch": 17,
+            "duration": 288,
+            "function": "A"
+          },
+          {
+            "tick": 8960,
+            "pitch": 22,
+            "duration": 288,
+            "function": "A"
+          },
+          {
+            "tick": 9280,
+            "pitch": 12,
+            "duration": 288,
+            "function": "A"
+          },
+          {
+            "tick": 9600,
+            "pitch": 12,
+            "duration": 288,
+            "function": "A"
+          },
+          {
+            "tick": 9920,
+            "pitch": 17,
+            "duration": 288,
+            "function": "A"
+          },
+          {
+            "tick": 10240,
+            "pitch": 22,
+            "duration": 288,
+            "function": "A"
+          },
+          {
+            "tick": 10560,
+            "pitch": 12,
+            "duration": 288,
+            "function": "A"
+          },
+          {
+            "tick": 10880,
+            "pitch": 12,
+            "duration": 288,
+            "function": "A"
+          },
+          {
+            "tick": 11200,
+            "pitch": 17,
+            "duration": 288,
+            "function": "A"
+          }
+        ]
+      },
+      {
+        "study": "EM-S016",
+        "role": "AR",
+        "context": "8:add9",
+        "actual_pcs": [
+          0,
+          3,
+          8,
+          10
+        ],
+        "events": 48,
+        "same_tni_class": false,
+        "exchange_authorized": false,
+        "first_events": [
+          {
+            "tick": 15360,
+            "pitch": 20,
+            "duration": 288,
+            "function": "A"
+          },
+          {
+            "tick": 15680,
+            "pitch": 22,
+            "duration": 288,
+            "function": "A"
+          },
+          {
+            "tick": 16000,
+            "pitch": 12,
+            "duration": 288,
+            "function": "A"
+          },
+          {
+            "tick": 16320,
+            "pitch": 15,
+            "duration": 288,
+            "function": "A"
+          },
+          {
+            "tick": 16640,
+            "pitch": 20,
+            "duration": 288,
+            "function": "A"
+          },
+          {
+            "tick": 16960,
+            "pitch": 22,
+            "duration": 288,
+            "function": "A"
+          },
+          {
+            "tick": 17280,
+            "pitch": 12,
+            "duration": 288,
+            "function": "A"
+          },
+          {
+            "tick": 17600,
+            "pitch": 15,
+            "duration": 288,
+            "function": "A"
+          },
+          {
+            "tick": 17920,
+            "pitch": 20,
+            "duration": 288,
+            "function": "A"
+          },
+          {
+            "tick": 18240,
+            "pitch": 22,
+            "duration": 288,
+            "function": "A"
+          },
+          {
+            "tick": 18560,
+            "pitch": 12,
+            "duration": 288,
+            "function": "A"
+          },
+          {
+            "tick": 18880,
+            "pitch": 15,
+            "duration": 288,
+            "function": "A"
+          }
+        ]
+      },
+      {
+        "study": "EM-S016",
+        "role": "AR",
+        "context": "7:m7",
+        "actual_pcs": [
+          2,
+          7,
+          10
+        ],
+        "events": 48,
+        "same_tni_class": false,
+        "exchange_authorized": false,
+        "first_events": [
+          {
+            "tick": 23040,
+            "pitch": 19,
+            "duration": 288,
+            "function": "A"
+          },
+          {
+            "tick": 23360,
+            "pitch": 22,
+            "duration": 288,
+            "function": "A"
+          },
+          {
+            "tick": 23680,
+            "pitch": 22,
+            "duration": 288,
+            "function": "A"
+          },
+          {
+            "tick": 24000,
+            "pitch": 14,
+            "duration": 288,
+            "function": "A"
+          },
+          {
+            "tick": 24320,
+            "pitch": 19,
+            "duration": 288,
+            "function": "A"
+          },
+          {
+            "tick": 24640,
+            "pitch": 22,
+            "duration": 288,
+            "function": "A"
+          },
+          {
+            "tick": 24960,
+            "pitch": 22,
+            "duration": 288,
+            "function": "A"
+          },
+          {
+            "tick": 25280,
+            "pitch": 14,
+            "duration": 288,
+            "function": "A"
+          },
+          {
+            "tick": 25600,
+            "pitch": 19,
+            "duration": 288,
+            "function": "A"
+          },
+          {
+            "tick": 25920,
+            "pitch": 22,
+            "duration": 288,
+            "function": "A"
+          },
+          {
+            "tick": 26240,
+            "pitch": 22,
+            "duration": 288,
+            "function": "A"
+          },
+          {
+            "tick": 26560,
+            "pitch": 14,
+            "duration": 288,
+            "function": "A"
+          }
+        ]
+      },
+      {
+        "study": "EM-S018",
+        "role": "AR",
+        "context": "0:madd9",
+        "actual_pcs": [
+          0,
+          2,
+          3,
+          7
+        ],
+        "events": 22,
+        "same_tni_class": true,
+        "exchange_authorized": false,
+        "first_events": [
+          {
+            "tick": 61440,
+            "pitch": 12,
+            "duration": 432,
+            "function": "A"
+          },
+          {
+            "tick": 62400,
+            "pitch": 14,
+            "duration": 432,
+            "function": "A"
+          },
+          {
+            "tick": 62880,
+            "pitch": 15,
+            "duration": 432,
+            "function": "A"
+          },
+          {
+            "tick": 63840,
+            "pitch": 19,
+            "duration": 432,
+            "function": "A"
+          },
+          {
+            "tick": 64320,
+            "pitch": 12,
+            "duration": 432,
+            "function": "A"
+          },
+          {
+            "tick": 65280,
+            "pitch": 14,
+            "duration": 432,
+            "function": "A"
+          },
+          {
+            "tick": 65760,
+            "pitch": 15,
+            "duration": 432,
+            "function": "A"
+          },
+          {
+            "tick": 66720,
+            "pitch": 19,
+            "duration": 432,
+            "function": "A"
+          },
+          {
+            "tick": 67200,
+            "pitch": 12,
+            "duration": 432,
+            "function": "A"
+          },
+          {
+            "tick": 68160,
+            "pitch": 14,
+            "duration": 432,
+            "function": "A"
+          },
+          {
+            "tick": 68640,
+            "pitch": 15,
+            "duration": 432,
+            "function": "A"
+          },
+          {
+            "tick": 76800,
+            "pitch": 14,
+            "duration": 432,
+            "function": "A"
+          }
+        ]
+      },
+      {
+        "study": "EM-S018",
+        "role": "AR",
+        "context": "5:add9",
+        "actual_pcs": [
+          0,
+          2,
+          3,
+          7
+        ],
+        "events": 21,
+        "same_tni_class": true,
+        "exchange_authorized": false,
+        "first_events": [
+          {
+            "tick": 69600,
+            "pitch": 19,
+            "duration": 432,
+            "function": "A"
+          },
+          {
+            "tick": 70080,
+            "pitch": 12,
+            "duration": 432,
+            "function": "A"
+          },
+          {
+            "tick": 71040,
+            "pitch": 14,
+            "duration": 432,
+            "function": "T"
+          },
+          {
+            "tick": 71520,
+            "pitch": 15,
+            "duration": 432,
+            "function": "T"
+          },
+          {
+            "tick": 72480,
+            "pitch": 19,
+            "duration": 432,
+            "function": "A"
+          },
+          {
+            "tick": 72960,
+            "pitch": 12,
+            "duration": 432,
+            "function": "A"
+          },
+          {
+            "tick": 73920,
+            "pitch": 14,
+            "duration": 432,
+            "function": "T"
+          },
+          {
+            "tick": 74400,
+            "pitch": 15,
+            "duration": 432,
+            "function": "T"
+          },
+          {
+            "tick": 75360,
+            "pitch": 19,
+            "duration": 432,
+            "function": "A"
+          },
+          {
+            "tick": 75840,
+            "pitch": 12,
+            "duration": 432,
+            "function": "A"
+          },
+          {
+            "tick": 84480,
+            "pitch": 12,
+            "duration": 432,
+            "function": "A"
+          },
+          {
+            "tick": 85440,
+            "pitch": 14,
+            "duration": 432,
+            "function": "T"
+          }
+        ]
+      },
+      {
+        "study": "EM-S020",
+        "role": "TU",
+        "context": "0:madd9",
+        "actual_pcs": [
+          0,
+          2,
+          3,
+          7
+        ],
+        "events": 32,
+        "same_tni_class": true,
+        "exchange_authorized": false,
+        "first_events": [
+          {
+            "tick": 30720,
+            "pitch": 12,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 33360,
+            "pitch": 14,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 34560,
+            "pitch": 15,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 37200,
+            "pitch": 19,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 61440,
+            "pitch": 14,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 64080,
+            "pitch": 12,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 65280,
+            "pitch": 19,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 67920,
+            "pitch": 15,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 92160,
+            "pitch": 19,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 94800,
+            "pitch": 15,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 96000,
+            "pitch": 14,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 98640,
+            "pitch": 12,
+            "duration": 216,
+            "function": "A"
+          }
+        ]
+      },
+      {
+        "study": "EM-S020",
+        "role": "TU",
+        "context": "7:m7",
+        "actual_pcs": [
+          0,
+          2,
+          3,
+          7
+        ],
+        "events": 8,
+        "same_tni_class": true,
+        "exchange_authorized": false,
+        "first_events": [
+          {
+            "tick": 38400,
+            "pitch": 12,
+            "duration": 216,
+            "function": "T"
+          },
+          {
+            "tick": 41040,
+            "pitch": 14,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 42240,
+            "pitch": 15,
+            "duration": 216,
+            "function": "T"
+          },
+          {
+            "tick": 44880,
+            "pitch": 19,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 161280,
+            "pitch": 12,
+            "duration": 216,
+            "function": "T"
+          },
+          {
+            "tick": 163920,
+            "pitch": 19,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 165120,
+            "pitch": 14,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 167760,
+            "pitch": 15,
+            "duration": 216,
+            "function": "T"
+          }
+        ]
+      },
+      {
+        "study": "EM-S020",
+        "role": "TU",
+        "context": "8:maj7",
+        "actual_pcs": [
+          0,
+          2,
+          3,
+          7
+        ],
+        "events": 16,
+        "same_tni_class": true,
+        "exchange_authorized": false,
+        "first_events": [
+          {
+            "tick": 46080,
+            "pitch": 12,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 48720,
+            "pitch": 14,
+            "duration": 216,
+            "function": "T"
+          },
+          {
+            "tick": 49920,
+            "pitch": 15,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 52560,
+            "pitch": 19,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 69120,
+            "pitch": 14,
+            "duration": 216,
+            "function": "T"
+          },
+          {
+            "tick": 71760,
+            "pitch": 12,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 72960,
+            "pitch": 19,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 75600,
+            "pitch": 15,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 168960,
+            "pitch": 12,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 171600,
+            "pitch": 19,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 172800,
+            "pitch": 14,
+            "duration": 216,
+            "function": "T"
+          },
+          {
+            "tick": 175440,
+            "pitch": 15,
+            "duration": 216,
+            "function": "A"
+          }
+        ]
+      },
+      {
+        "study": "EM-S020",
+        "role": "TU",
+        "context": "3:add9",
+        "actual_pcs": [
+          0,
+          2,
+          3,
+          7
+        ],
+        "events": 8,
+        "same_tni_class": true,
+        "exchange_authorized": false,
+        "first_events": [
+          {
+            "tick": 53760,
+            "pitch": 12,
+            "duration": 216,
+            "function": "T"
+          },
+          {
+            "tick": 56400,
+            "pitch": 14,
+            "duration": 216,
+            "function": "T"
+          },
+          {
+            "tick": 57600,
+            "pitch": 15,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 60240,
+            "pitch": 19,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 176640,
+            "pitch": 12,
+            "duration": 216,
+            "function": "T"
+          },
+          {
+            "tick": 179280,
+            "pitch": 19,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 180480,
+            "pitch": 14,
+            "duration": 216,
+            "function": "T"
+          },
+          {
+            "tick": 183120,
+            "pitch": 15,
+            "duration": 216,
+            "function": "A"
+          }
+        ]
+      },
+      {
+        "study": "EM-S020",
+        "role": "TU",
+        "context": "5:madd9",
+        "actual_pcs": [
+          0,
+          2,
+          3,
+          7
+        ],
+        "events": 8,
+        "same_tni_class": true,
+        "exchange_authorized": false,
+        "first_events": [
+          {
+            "tick": 76800,
+            "pitch": 14,
+            "duration": 216,
+            "function": "T"
+          },
+          {
+            "tick": 79440,
+            "pitch": 12,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 80640,
+            "pitch": 19,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 83280,
+            "pitch": 15,
+            "duration": 216,
+            "function": "T"
+          },
+          {
+            "tick": 199680,
+            "pitch": 12,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 202320,
+            "pitch": 19,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 203520,
+            "pitch": 15,
+            "duration": 216,
+            "function": "T"
+          },
+          {
+            "tick": 206160,
+            "pitch": 14,
+            "duration": 216,
+            "function": "T"
+          }
+        ]
+      },
+      {
+        "study": "EM-S020",
+        "role": "TU",
+        "context": "0:min",
+        "actual_pcs": [
+          0,
+          2,
+          3,
+          7
+        ],
+        "events": 8,
+        "same_tni_class": true,
+        "exchange_authorized": false,
+        "first_events": [
+          {
+            "tick": 84480,
+            "pitch": 14,
+            "duration": 216,
+            "function": "T"
+          },
+          {
+            "tick": 87120,
+            "pitch": 12,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 88320,
+            "pitch": 19,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 90960,
+            "pitch": 15,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 207360,
+            "pitch": 12,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 210000,
+            "pitch": 19,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 211200,
+            "pitch": 15,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 213840,
+            "pitch": 14,
+            "duration": 216,
+            "function": "T"
+          }
+        ]
+      },
+      {
+        "study": "EM-S020",
+        "role": "TU",
+        "context": "3:maj7",
+        "actual_pcs": [
+          0,
+          2,
+          3,
+          7
+        ],
+        "events": 8,
+        "same_tni_class": true,
+        "exchange_authorized": false,
+        "first_events": [
+          {
+            "tick": 99840,
+            "pitch": 19,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 102480,
+            "pitch": 15,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 103680,
+            "pitch": 14,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 106320,
+            "pitch": 12,
+            "duration": 216,
+            "function": "T"
+          },
+          {
+            "tick": 222720,
+            "pitch": 14,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 225360,
+            "pitch": 15,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 226560,
+            "pitch": 19,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 229200,
+            "pitch": 12,
+            "duration": 216,
+            "function": "T"
+          }
+        ]
+      },
+      {
+        "study": "EM-S020",
+        "role": "TU",
+        "context": "5:m7",
+        "actual_pcs": [
+          0,
+          2,
+          3,
+          7
+        ],
+        "events": 8,
+        "same_tni_class": true,
+        "exchange_authorized": false,
+        "first_events": [
+          {
+            "tick": 107520,
+            "pitch": 19,
+            "duration": 216,
+            "function": "T"
+          },
+          {
+            "tick": 110160,
+            "pitch": 15,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 111360,
+            "pitch": 14,
+            "duration": 216,
+            "function": "T"
+          },
+          {
+            "tick": 114000,
+            "pitch": 12,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 230400,
+            "pitch": 14,
+            "duration": 216,
+            "function": "T"
+          },
+          {
+            "tick": 233040,
+            "pitch": 15,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 234240,
+            "pitch": 19,
+            "duration": 216,
+            "function": "T"
+          },
+          {
+            "tick": 236880,
+            "pitch": 12,
+            "duration": 216,
+            "function": "A"
+          }
+        ]
+      },
+      {
+        "study": "EM-S025",
+        "role": "AR",
+        "context": "0:madd9",
+        "actual_pcs": [
+          0,
+          2,
+          3,
+          7
+        ],
+        "events": 43,
+        "same_tni_class": true,
+        "exchange_authorized": false,
+        "first_events": [
+          {
+            "tick": 122880,
+            "pitch": 12,
+            "duration": 432,
+            "function": "A"
+          },
+          {
+            "tick": 123840,
+            "pitch": 14,
+            "duration": 432,
+            "function": "A"
+          },
+          {
+            "tick": 124320,
+            "pitch": 15,
+            "duration": 432,
+            "function": "A"
+          },
+          {
+            "tick": 125280,
+            "pitch": 19,
+            "duration": 432,
+            "function": "A"
+          },
+          {
+            "tick": 125760,
+            "pitch": 12,
+            "duration": 432,
+            "function": "A"
+          },
+          {
+            "tick": 126720,
+            "pitch": 14,
+            "duration": 432,
+            "function": "A"
+          },
+          {
+            "tick": 127200,
+            "pitch": 15,
+            "duration": 432,
+            "function": "A"
+          },
+          {
+            "tick": 128160,
+            "pitch": 19,
+            "duration": 432,
+            "function": "A"
+          },
+          {
+            "tick": 128640,
+            "pitch": 12,
+            "duration": 432,
+            "function": "A"
+          },
+          {
+            "tick": 129600,
+            "pitch": 14,
+            "duration": 432,
+            "function": "A"
+          },
+          {
+            "tick": 130080,
+            "pitch": 15,
+            "duration": 432,
+            "function": "A"
+          },
+          {
+            "tick": 131040,
+            "pitch": 19,
+            "duration": 432,
+            "function": "A"
+          }
+        ]
+      },
+      {
+        "study": "EM-S044",
+        "role": "AR",
+        "context": "5:m6",
+        "actual_pcs": [
+          0,
+          5,
+          8
+        ],
+        "events": 64,
+        "same_tni_class": false,
+        "exchange_authorized": false,
+        "first_events": [
+          {
+            "tick": 0,
+            "pitch": 17,
+            "duration": 432,
+            "function": "A"
+          },
+          {
+            "tick": 960,
+            "pitch": 20,
+            "duration": 432,
+            "function": "A"
+          },
+          {
+            "tick": 1440,
+            "pitch": 20,
+            "duration": 432,
+            "function": "A"
+          },
+          {
+            "tick": 2400,
+            "pitch": 12,
+            "duration": 432,
+            "function": "A"
+          },
+          {
+            "tick": 2880,
+            "pitch": 17,
+            "duration": 432,
+            "function": "A"
+          },
+          {
+            "tick": 3840,
+            "pitch": 20,
+            "duration": 432,
+            "function": "A"
+          },
+          {
+            "tick": 4320,
+            "pitch": 20,
+            "duration": 432,
+            "function": "A"
+          },
+          {
+            "tick": 5280,
+            "pitch": 12,
+            "duration": 432,
+            "function": "A"
+          },
+          {
+            "tick": 5760,
+            "pitch": 17,
+            "duration": 432,
+            "function": "A"
+          },
+          {
+            "tick": 6720,
+            "pitch": 20,
+            "duration": 432,
+            "function": "A"
+          },
+          {
+            "tick": 7200,
+            "pitch": 20,
+            "duration": 432,
+            "function": "A"
+          },
+          {
+            "tick": 15360,
+            "pitch": 20,
+            "duration": 432,
+            "function": "A"
+          }
+        ]
+      },
+      {
+        "study": "EM-S044",
+        "role": "AR",
+        "context": "0:madd9",
+        "actual_pcs": [
+          0,
+          2,
+          3,
+          7
+        ],
+        "events": 64,
+        "same_tni_class": true,
+        "exchange_authorized": false,
+        "first_events": [
+          {
+            "tick": 8160,
+            "pitch": 19,
+            "duration": 432,
+            "function": "A"
+          },
+          {
+            "tick": 8640,
+            "pitch": 12,
+            "duration": 432,
+            "function": "A"
+          },
+          {
+            "tick": 9600,
+            "pitch": 14,
+            "duration": 432,
+            "function": "A"
+          },
+          {
+            "tick": 10080,
+            "pitch": 15,
+            "duration": 432,
+            "function": "A"
+          },
+          {
+            "tick": 11040,
+            "pitch": 19,
+            "duration": 432,
+            "function": "A"
+          },
+          {
+            "tick": 11520,
+            "pitch": 12,
+            "duration": 432,
+            "function": "A"
+          },
+          {
+            "tick": 12480,
+            "pitch": 14,
+            "duration": 432,
+            "function": "A"
+          },
+          {
+            "tick": 12960,
+            "pitch": 15,
+            "duration": 432,
+            "function": "A"
+          },
+          {
+            "tick": 13920,
+            "pitch": 19,
+            "duration": 432,
+            "function": "A"
+          },
+          {
+            "tick": 14400,
+            "pitch": 12,
+            "duration": 432,
+            "function": "A"
+          },
+          {
+            "tick": 23040,
+            "pitch": 12,
+            "duration": 432,
+            "function": "A"
+          },
+          {
+            "tick": 24000,
+            "pitch": 14,
+            "duration": 432,
+            "function": "A"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "EM-C011",
+    "type": "MENGE",
+    "pcs": [
+      0,
+      5,
+      7
+    ],
+    "prime_source": [
+      0,
+      2,
+      7
+    ],
+    "prime_packed_right": [
+      0,
+      2,
+      7
+    ],
+    "prime_equivalent": true,
+    "iv_source": [
+      0,
+      1,
+      0,
+      0,
+      2,
+      0
+    ],
+    "iv_actual": [
+      0,
+      1,
+      0,
+      0,
+      2,
+      0
+    ],
+    "reference_events": 1440,
+    "exchange_tones": [],
+    "permitted_pc_variants": [
+      [
+        0,
+        5,
+        7
+      ]
+    ],
+    "changed_aggregate_examples": [],
+    "scope": "CSV rel is relative to global tonic. Aggregate changes prove the literal global PC-set differs, not which unexported permutation event caused the change. Transposition is analyzed separately; local harmony is not silently unioned.",
+    "per_context_evidence": [
+      {
+        "study": "EM-S015",
+        "role": "AR",
+        "context": "0:madd9",
+        "actual_pcs": [
+          0,
+          5,
+          7
+        ],
+        "events": 256,
+        "same_tni_class": true,
+        "exchange_authorized": false,
+        "first_events": [
+          {
+            "tick": 0,
+            "pitch": 12,
+            "duration": 144,
+            "function": "A"
+          },
+          {
+            "tick": 240,
+            "pitch": 17,
+            "duration": 144,
+            "function": "T"
+          },
+          {
+            "tick": 480,
+            "pitch": 19,
+            "duration": 144,
+            "function": "A"
+          },
+          {
+            "tick": 720,
+            "pitch": 12,
+            "duration": 144,
+            "function": "A"
+          },
+          {
+            "tick": 960,
+            "pitch": 17,
+            "duration": 144,
+            "function": "T"
+          },
+          {
+            "tick": 1200,
+            "pitch": 19,
+            "duration": 144,
+            "function": "A"
+          },
+          {
+            "tick": 1440,
+            "pitch": 12,
+            "duration": 144,
+            "function": "A"
+          },
+          {
+            "tick": 1680,
+            "pitch": 17,
+            "duration": 144,
+            "function": "T"
+          },
+          {
+            "tick": 1920,
+            "pitch": 19,
+            "duration": 144,
+            "function": "A"
+          },
+          {
+            "tick": 2160,
+            "pitch": 12,
+            "duration": 144,
+            "function": "A"
+          },
+          {
+            "tick": 2400,
+            "pitch": 17,
+            "duration": 144,
+            "function": "T"
+          },
+          {
+            "tick": 2640,
+            "pitch": 19,
+            "duration": 144,
+            "function": "A"
+          }
+        ]
+      },
+      {
+        "study": "EM-S015",
+        "role": "AR",
+        "context": "10:add9/0",
+        "actual_pcs": [
+          0,
+          5,
+          7
+        ],
+        "events": 256,
+        "same_tni_class": true,
+        "exchange_authorized": false,
+        "first_events": [
+          {
+            "tick": 7680,
+            "pitch": 19,
+            "duration": 144,
+            "function": "T"
+          },
+          {
+            "tick": 7920,
+            "pitch": 12,
+            "duration": 144,
+            "function": "A"
+          },
+          {
+            "tick": 8160,
+            "pitch": 17,
+            "duration": 144,
+            "function": "A"
+          },
+          {
+            "tick": 8400,
+            "pitch": 19,
+            "duration": 144,
+            "function": "T"
+          },
+          {
+            "tick": 8640,
+            "pitch": 12,
+            "duration": 144,
+            "function": "A"
+          },
+          {
+            "tick": 8880,
+            "pitch": 17,
+            "duration": 144,
+            "function": "A"
+          },
+          {
+            "tick": 9120,
+            "pitch": 19,
+            "duration": 144,
+            "function": "T"
+          },
+          {
+            "tick": 9360,
+            "pitch": 12,
+            "duration": 144,
+            "function": "A"
+          },
+          {
+            "tick": 9600,
+            "pitch": 17,
+            "duration": 144,
+            "function": "A"
+          },
+          {
+            "tick": 9840,
+            "pitch": 19,
+            "duration": 144,
+            "function": "T"
+          },
+          {
+            "tick": 10080,
+            "pitch": 12,
+            "duration": 144,
+            "function": "A"
+          },
+          {
+            "tick": 10320,
+            "pitch": 17,
+            "duration": 144,
+            "function": "A"
+          }
+        ]
+      },
+      {
+        "study": "EM-S023",
+        "role": "AR",
+        "context": "0:madd9",
+        "actual_pcs": [
+          0,
+          5,
+          7
+        ],
+        "events": 448,
+        "same_tni_class": true,
+        "exchange_authorized": false,
+        "first_events": [
+          {
+            "tick": 15360,
+            "pitch": 12,
+            "duration": 144,
+            "function": "A"
+          },
+          {
+            "tick": 15600,
+            "pitch": 17,
+            "duration": 144,
+            "function": "T"
+          },
+          {
+            "tick": 15840,
+            "pitch": 19,
+            "duration": 144,
+            "function": "A"
+          },
+          {
+            "tick": 16080,
+            "pitch": 12,
+            "duration": 144,
+            "function": "A"
+          },
+          {
+            "tick": 16320,
+            "pitch": 17,
+            "duration": 144,
+            "function": "T"
+          },
+          {
+            "tick": 16560,
+            "pitch": 19,
+            "duration": 144,
+            "function": "A"
+          },
+          {
+            "tick": 16800,
+            "pitch": 12,
+            "duration": 144,
+            "function": "A"
+          },
+          {
+            "tick": 17040,
+            "pitch": 17,
+            "duration": 144,
+            "function": "T"
+          },
+          {
+            "tick": 17280,
+            "pitch": 19,
+            "duration": 144,
+            "function": "A"
+          },
+          {
+            "tick": 17520,
+            "pitch": 12,
+            "duration": 144,
+            "function": "A"
+          },
+          {
+            "tick": 17760,
+            "pitch": 17,
+            "duration": 144,
+            "function": "T"
+          },
+          {
+            "tick": 18000,
+            "pitch": 19,
+            "duration": 144,
+            "function": "A"
+          }
+        ]
+      },
+      {
+        "study": "EM-S023",
+        "role": "AR",
+        "context": "10:add9/0",
+        "actual_pcs": [
+          0,
+          5,
+          7
+        ],
+        "events": 480,
+        "same_tni_class": true,
+        "exchange_authorized": false,
+        "first_events": [
+          {
+            "tick": 23040,
+            "pitch": 19,
+            "duration": 144,
+            "function": "T"
+          },
+          {
+            "tick": 23280,
+            "pitch": 12,
+            "duration": 144,
+            "function": "A"
+          },
+          {
+            "tick": 23520,
+            "pitch": 17,
+            "duration": 144,
+            "function": "A"
+          },
+          {
+            "tick": 23760,
+            "pitch": 19,
+            "duration": 144,
+            "function": "T"
+          },
+          {
+            "tick": 24000,
+            "pitch": 12,
+            "duration": 144,
+            "function": "A"
+          },
+          {
+            "tick": 24240,
+            "pitch": 17,
+            "duration": 144,
+            "function": "A"
+          },
+          {
+            "tick": 24480,
+            "pitch": 19,
+            "duration": 144,
+            "function": "T"
+          },
+          {
+            "tick": 24720,
+            "pitch": 12,
+            "duration": 144,
+            "function": "A"
+          },
+          {
+            "tick": 24960,
+            "pitch": 17,
+            "duration": 144,
+            "function": "A"
+          },
+          {
+            "tick": 25200,
+            "pitch": 19,
+            "duration": 144,
+            "function": "T"
+          },
+          {
+            "tick": 25440,
+            "pitch": 12,
+            "duration": 144,
+            "function": "A"
+          },
+          {
+            "tick": 25680,
+            "pitch": 17,
+            "duration": 144,
+            "function": "A"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "EM-C012",
+    "type": "MENGE",
+    "pcs": [
+      0,
+      2,
+      5
+    ],
+    "prime_source": [
+      0,
+      2,
+      5
+    ],
+    "prime_packed_right": [
+      0,
+      2,
+      5
+    ],
+    "prime_equivalent": true,
+    "iv_source": [
+      0,
+      1,
+      1,
+      0,
+      1,
+      0
+    ],
+    "iv_actual": [
+      0,
+      1,
+      1,
+      0,
+      1,
+      0
+    ],
+    "reference_events": 0,
+    "exchange_tones": [],
+    "permitted_pc_variants": [
+      [
+        0,
+        2,
+        5
+      ]
+    ],
+    "changed_aggregate_examples": [],
+    "scope": "CSV rel is relative to global tonic. Aggregate changes prove the literal global PC-set differs, not which unexported permutation event caused the change. Transposition is analyzed separately; local harmony is not silently unioned.",
+    "per_context_evidence": []
+  },
+  {
+    "id": "EM-C013",
+    "type": "MENGE",
+    "pcs": [
+      0,
+      3,
+      5
+    ],
+    "prime_source": [
+      0,
+      2,
+      5
+    ],
+    "prime_packed_right": [
+      0,
+      2,
+      5
+    ],
+    "prime_equivalent": true,
+    "iv_source": [
+      0,
+      1,
+      1,
+      0,
+      1,
+      0
+    ],
+    "iv_actual": [
+      0,
+      1,
+      1,
+      0,
+      1,
+      0
+    ],
+    "reference_events": 0,
+    "exchange_tones": [],
+    "permitted_pc_variants": [
+      [
+        0,
+        3,
+        5
+      ]
+    ],
+    "changed_aggregate_examples": [],
+    "scope": "CSV rel is relative to global tonic. Aggregate changes prove the literal global PC-set differs, not which unexported permutation event caused the change. Transposition is analyzed separately; local harmony is not silently unioned.",
+    "per_context_evidence": []
+  },
+  {
+    "id": "EM-C014",
+    "type": "MENGE",
+    "pcs": [
+      0,
+      1,
+      3
+    ],
+    "prime_source": [
+      0,
+      1,
+      3
+    ],
+    "prime_packed_right": [
+      0,
+      1,
+      3
+    ],
+    "prime_equivalent": true,
+    "iv_source": [
+      1,
+      1,
+      1,
+      0,
+      0,
+      0
+    ],
+    "iv_actual": [
+      1,
+      1,
+      1,
+      0,
+      0,
+      0
+    ],
+    "reference_events": 80,
+    "exchange_tones": [],
+    "permitted_pc_variants": [
+      [
+        0,
+        1,
+        3
+      ]
+    ],
+    "changed_aggregate_examples": [],
+    "scope": "CSV rel is relative to global tonic. Aggregate changes prove the literal global PC-set differs, not which unexported permutation event caused the change. Transposition is analyzed separately; local harmony is not silently unioned.",
+    "per_context_evidence": [
+      {
+        "study": "EM-S022",
+        "role": "TU",
+        "context": "Quinte+♭9",
+        "actual_pcs": [
+          0,
+          1,
+          3
+        ],
+        "events": 80,
+        "same_tni_class": true,
+        "exchange_authorized": false,
+        "first_events": [
+          {
+            "tick": 122880,
+            "pitch": 24,
+            "duration": 1017,
+            "function": "A"
+          },
+          {
+            "tick": 124010,
+            "pitch": 25,
+            "duration": 1656,
+            "function": "A"
+          },
+          {
+            "tick": 125850,
+            "pitch": 27,
+            "duration": 1728,
+            "function": "T"
+          },
+          {
+            "tick": 128090,
+            "pitch": 24,
+            "duration": 1602,
+            "function": "A"
+          },
+          {
+            "tick": 129870,
+            "pitch": 25,
+            "duration": 621,
+            "function": "A"
+          },
+          {
+            "tick": 130560,
+            "pitch": 27,
+            "duration": 1017,
+            "function": "T"
+          },
+          {
+            "tick": 131690,
+            "pitch": 24,
+            "duration": 1656,
+            "function": "A"
+          },
+          {
+            "tick": 133530,
+            "pitch": 25,
+            "duration": 1728,
+            "function": "A"
+          },
+          {
+            "tick": 135770,
+            "pitch": 27,
+            "duration": 1602,
+            "function": "T"
+          },
+          {
+            "tick": 137550,
+            "pitch": 24,
+            "duration": 621,
+            "function": "A"
+          },
+          {
+            "tick": 138240,
+            "pitch": 25,
+            "duration": 1017,
+            "function": "A"
+          },
+          {
+            "tick": 139370,
+            "pitch": 27,
+            "duration": 1656,
+            "function": "T"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "EM-C015",
+    "type": "KLASSE",
+    "pcs": [
+      0,
+      1,
+      6
+    ],
+    "prime_source": [
+      0,
+      1,
+      6
+    ],
+    "prime_packed_right": [
+      0,
+      1,
+      6
+    ],
+    "prime_equivalent": true,
+    "iv_source": [
+      1,
+      0,
+      0,
+      0,
+      1,
+      1
+    ],
+    "iv_actual": [
+      1,
+      0,
+      0,
+      0,
+      1,
+      1
+    ],
+    "reference_events": 16,
+    "exchange_tones": [],
+    "permitted_pc_variants": [
+      [
+        0,
+        1,
+        6
+      ]
+    ],
+    "changed_aggregate_examples": [],
+    "scope": "CSV rel is relative to global tonic. Aggregate changes prove the literal global PC-set differs, not which unexported permutation event caused the change. Transposition is analyzed separately; local harmony is not silently unioned.",
+    "per_context_evidence": [
+      {
+        "study": "EM-S049",
+        "role": "TU",
+        "context": "0:min",
+        "actual_pcs": [
+          0,
+          1,
+          6
+        ],
+        "events": 4,
+        "same_tni_class": true,
+        "exchange_authorized": false,
+        "first_events": [
+          {
+            "tick": 0,
+            "pitch": 24,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 2640,
+            "pitch": 25,
+            "duration": 216,
+            "function": "U"
+          },
+          {
+            "tick": 15360,
+            "pitch": 18,
+            "duration": 216,
+            "function": "U"
+          },
+          {
+            "tick": 18000,
+            "pitch": 24,
+            "duration": 216,
+            "function": "A"
+          }
+        ]
+      },
+      {
+        "study": "EM-S049",
+        "role": "TU",
+        "context": "Klangobjekt",
+        "actual_pcs": [
+          0,
+          1,
+          6
+        ],
+        "events": 8,
+        "same_tni_class": true,
+        "exchange_authorized": false,
+        "first_events": [
+          {
+            "tick": 3840,
+            "pitch": 18,
+            "duration": 216,
+            "function": "U"
+          },
+          {
+            "tick": 6480,
+            "pitch": 24,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 7680,
+            "pitch": 25,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 10320,
+            "pitch": 18,
+            "duration": 216,
+            "function": "U"
+          },
+          {
+            "tick": 19200,
+            "pitch": 25,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 21840,
+            "pitch": 18,
+            "duration": 216,
+            "function": "U"
+          },
+          {
+            "tick": 23040,
+            "pitch": 24,
+            "duration": 216,
+            "function": "U"
+          },
+          {
+            "tick": 25680,
+            "pitch": 25,
+            "duration": 216,
+            "function": "A"
+          }
+        ]
+      },
+      {
+        "study": "EM-S049",
+        "role": "TU",
+        "context": "0:madd9",
+        "actual_pcs": [
+          0,
+          1,
+          6
+        ],
+        "events": 4,
+        "same_tni_class": true,
+        "exchange_authorized": false,
+        "first_events": [
+          {
+            "tick": 11520,
+            "pitch": 24,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 14160,
+            "pitch": 25,
+            "duration": 216,
+            "function": "U"
+          },
+          {
+            "tick": 26880,
+            "pitch": 18,
+            "duration": 216,
+            "function": "U"
+          },
+          {
+            "tick": 29520,
+            "pitch": 24,
+            "duration": 216,
+            "function": "A"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "EM-C016",
+    "type": "KLASSE",
+    "pcs": [
+      0,
+      1,
+      4
+    ],
+    "prime_source": [
+      0,
+      1,
+      4
+    ],
+    "prime_packed_right": [
+      0,
+      1,
+      4
+    ],
+    "prime_equivalent": true,
+    "iv_source": [
+      1,
+      0,
+      1,
+      1,
+      0,
+      0
+    ],
+    "iv_actual": [
+      1,
+      0,
+      1,
+      1,
+      0,
+      0
+    ],
+    "reference_events": 0,
+    "exchange_tones": [],
+    "permitted_pc_variants": [
+      [
+        0,
+        1,
+        4
+      ]
+    ],
+    "changed_aggregate_examples": [],
+    "scope": "CSV rel is relative to global tonic. Aggregate changes prove the literal global PC-set differs, not which unexported permutation event caused the change. Transposition is analyzed separately; local harmony is not silently unioned.",
+    "per_context_evidence": []
+  },
+  {
+    "id": "EM-C017",
+    "type": "KLASSE",
+    "pcs": [
+      0,
+      4,
+      8
+    ],
+    "prime_source": [
+      0,
+      4,
+      8
+    ],
+    "prime_packed_right": [
+      0,
+      4,
+      8
+    ],
+    "prime_equivalent": true,
+    "iv_source": [
+      0,
+      0,
+      0,
+      3,
+      0,
+      0
+    ],
+    "iv_actual": [
+      0,
+      0,
+      0,
+      3,
+      0,
+      0
+    ],
+    "reference_events": 0,
+    "exchange_tones": [],
+    "permitted_pc_variants": [
+      [
+        0,
+        4,
+        8
+      ]
+    ],
+    "changed_aggregate_examples": [],
+    "scope": "CSV rel is relative to global tonic. Aggregate changes prove the literal global PC-set differs, not which unexported permutation event caused the change. Transposition is analyzed separately; local harmony is not silently unioned.",
+    "per_context_evidence": []
+  },
+  {
+    "id": "EM-C018",
+    "type": "KLASSE",
+    "pcs": [
+      0,
+      3,
+      6
+    ],
+    "prime_source": [
+      0,
+      3,
+      6
+    ],
+    "prime_packed_right": [
+      0,
+      3,
+      6
+    ],
+    "prime_equivalent": true,
+    "iv_source": [
+      0,
+      0,
+      2,
+      0,
+      0,
+      1
+    ],
+    "iv_actual": [
+      0,
+      0,
+      2,
+      0,
+      0,
+      1
+    ],
+    "reference_events": 0,
+    "exchange_tones": [],
+    "permitted_pc_variants": [
+      [
+        0,
+        3,
+        6
+      ]
+    ],
+    "changed_aggregate_examples": [],
+    "scope": "CSV rel is relative to global tonic. Aggregate changes prove the literal global PC-set differs, not which unexported permutation event caused the change. Transposition is analyzed separately; local harmony is not silently unioned.",
+    "per_context_evidence": []
+  },
+  {
+    "id": "EM-C019",
+    "type": "MENGE",
+    "pcs": [
+      0,
+      1,
+      2
+    ],
+    "prime_source": [
+      0,
+      1,
+      2
+    ],
+    "prime_packed_right": [
+      0,
+      1,
+      2
+    ],
+    "prime_equivalent": true,
+    "iv_source": [
+      2,
+      1,
+      0,
+      0,
+      0,
+      0
+    ],
+    "iv_actual": [
+      2,
+      1,
+      0,
+      0,
+      0,
+      0
+    ],
+    "reference_events": 0,
+    "exchange_tones": [],
+    "permitted_pc_variants": [
+      [
+        0,
+        1,
+        2
+      ]
+    ],
+    "changed_aggregate_examples": [],
+    "scope": "CSV rel is relative to global tonic. Aggregate changes prove the literal global PC-set differs, not which unexported permutation event caused the change. Transposition is analyzed separately; local harmony is not silently unioned.",
+    "per_context_evidence": []
+  },
+  {
+    "id": "EM-C020",
+    "type": "MENGE",
+    "pcs": [
+      0,
+      2,
+      4
+    ],
+    "prime_source": [
+      0,
+      2,
+      4
+    ],
+    "prime_packed_right": [
+      0,
+      2,
+      4
+    ],
+    "prime_equivalent": true,
+    "iv_source": [
+      0,
+      2,
+      0,
+      1,
+      0,
+      0
+    ],
+    "iv_actual": [
+      0,
+      2,
+      0,
+      1,
+      0,
+      0
+    ],
+    "reference_events": 269,
+    "exchange_tones": [],
+    "permitted_pc_variants": [
+      [
+        0,
+        2,
+        4
+      ]
+    ],
+    "changed_aggregate_examples": [],
+    "scope": "CSV rel is relative to global tonic. Aggregate changes prove the literal global PC-set differs, not which unexported permutation event caused the change. Transposition is analyzed separately; local harmony is not silently unioned.",
+    "per_context_evidence": [
+      {
+        "study": "EM-S012",
+        "role": "TU",
+        "context": "0:sus2",
+        "actual_pcs": [
+          0,
+          2
+        ],
+        "events": 3,
+        "same_tni_class": false,
+        "exchange_authorized": false,
+        "first_events": [
+          {
+            "tick": 0,
+            "pitch": 36,
+            "duration": 864,
+            "function": "A"
+          },
+          {
+            "tick": 4800,
+            "pitch": 26,
+            "duration": 864,
+            "function": "A"
+          },
+          {
+            "tick": 33600,
+            "pitch": 26,
+            "duration": 864,
+            "function": "A"
+          }
+        ]
+      },
+      {
+        "study": "EM-S012",
+        "role": "TU",
+        "context": "0:sus2/10",
+        "actual_pcs": [
+          0,
+          4
+        ],
+        "events": 4,
+        "same_tni_class": false,
+        "exchange_authorized": false,
+        "first_events": [
+          {
+            "tick": 9600,
+            "pitch": 28,
+            "duration": 864,
+            "function": "T"
+          },
+          {
+            "tick": 14400,
+            "pitch": 24,
+            "duration": 864,
+            "function": "A"
+          },
+          {
+            "tick": 38400,
+            "pitch": 28,
+            "duration": 864,
+            "function": "T"
+          },
+          {
+            "tick": 43200,
+            "pitch": 24,
+            "duration": 864,
+            "function": "A"
+          }
+        ]
+      },
+      {
+        "study": "EM-S012",
+        "role": "TU",
+        "context": "0:sus2/8",
+        "actual_pcs": [
+          2,
+          4
+        ],
+        "events": 3,
+        "same_tni_class": false,
+        "exchange_authorized": false,
+        "first_events": [
+          {
+            "tick": 19200,
+            "pitch": 26,
+            "duration": 864,
+            "function": "A"
+          },
+          {
+            "tick": 48000,
+            "pitch": 26,
+            "duration": 864,
+            "function": "A"
+          },
+          {
+            "tick": 52800,
+            "pitch": 28,
+            "duration": 864,
+            "function": "T"
+          }
+        ]
+      },
+      {
+        "study": "EM-S012",
+        "role": "TU",
+        "context": "0:sus2/6",
+        "actual_pcs": [
+          0,
+          4
+        ],
+        "events": 3,
+        "same_tni_class": false,
+        "exchange_authorized": false,
+        "first_events": [
+          {
+            "tick": 24000,
+            "pitch": 40,
+            "duration": 864,
+            "function": "T"
+          },
+          {
+            "tick": 28800,
+            "pitch": 24,
+            "duration": 864,
+            "function": "A"
+          },
+          {
+            "tick": 57600,
+            "pitch": 24,
+            "duration": 864,
+            "function": "A"
+          }
+        ]
+      },
+      {
+        "study": "EM-S057",
+        "role": "AR",
+        "context": "0:maj",
+        "actual_pcs": [
+          0,
+          2,
+          4
+        ],
+        "events": 64,
+        "same_tni_class": true,
+        "exchange_authorized": false,
+        "first_events": [
+          {
+            "tick": 0,
+            "pitch": 12,
+            "duration": 144,
+            "function": "A"
+          },
+          {
+            "tick": 240,
+            "pitch": 14,
+            "duration": 144,
+            "function": "T"
+          },
+          {
+            "tick": 480,
+            "pitch": 16,
+            "duration": 144,
+            "function": "A"
+          },
+          {
+            "tick": 720,
+            "pitch": 12,
+            "duration": 144,
+            "function": "A"
+          },
+          {
+            "tick": 960,
+            "pitch": 14,
+            "duration": 144,
+            "function": "T"
+          },
+          {
+            "tick": 1200,
+            "pitch": 16,
+            "duration": 144,
+            "function": "A"
+          },
+          {
+            "tick": 1440,
+            "pitch": 12,
+            "duration": 144,
+            "function": "A"
+          },
+          {
+            "tick": 1680,
+            "pitch": 14,
+            "duration": 144,
+            "function": "T"
+          },
+          {
+            "tick": 1920,
+            "pitch": 16,
+            "duration": 144,
+            "function": "A"
+          },
+          {
+            "tick": 2160,
+            "pitch": 12,
+            "duration": 144,
+            "function": "A"
+          },
+          {
+            "tick": 2400,
+            "pitch": 14,
+            "duration": 144,
+            "function": "T"
+          },
+          {
+            "tick": 2640,
+            "pitch": 16,
+            "duration": 144,
+            "function": "A"
+          }
+        ]
+      },
+      {
+        "study": "EM-S057",
+        "role": "AR",
+        "context": "2:maj",
+        "actual_pcs": [
+          0,
+          2,
+          4
+        ],
+        "events": 64,
+        "same_tni_class": true,
+        "exchange_authorized": false,
+        "first_events": [
+          {
+            "tick": 3840,
+            "pitch": 14,
+            "duration": 144,
+            "function": "A"
+          },
+          {
+            "tick": 4080,
+            "pitch": 16,
+            "duration": 144,
+            "function": "T"
+          },
+          {
+            "tick": 4320,
+            "pitch": 12,
+            "duration": 144,
+            "function": "T"
+          },
+          {
+            "tick": 4560,
+            "pitch": 14,
+            "duration": 144,
+            "function": "A"
+          },
+          {
+            "tick": 4800,
+            "pitch": 16,
+            "duration": 144,
+            "function": "T"
+          },
+          {
+            "tick": 5040,
+            "pitch": 12,
+            "duration": 144,
+            "function": "T"
+          },
+          {
+            "tick": 5280,
+            "pitch": 14,
+            "duration": 144,
+            "function": "A"
+          },
+          {
+            "tick": 5520,
+            "pitch": 16,
+            "duration": 144,
+            "function": "T"
+          },
+          {
+            "tick": 5760,
+            "pitch": 12,
+            "duration": 144,
+            "function": "T"
+          },
+          {
+            "tick": 6000,
+            "pitch": 14,
+            "duration": 144,
+            "function": "A"
+          },
+          {
+            "tick": 6240,
+            "pitch": 16,
+            "duration": 144,
+            "function": "T"
+          },
+          {
+            "tick": 6480,
+            "pitch": 12,
+            "duration": 144,
+            "function": "T"
+          }
+        ]
+      },
+      {
+        "study": "EM-S057",
+        "role": "AR",
+        "context": "4:maj",
+        "actual_pcs": [
+          0,
+          2,
+          4
+        ],
+        "events": 64,
+        "same_tni_class": true,
+        "exchange_authorized": false,
+        "first_events": [
+          {
+            "tick": 7680,
+            "pitch": 16,
+            "duration": 144,
+            "function": "A"
+          },
+          {
+            "tick": 7920,
+            "pitch": 12,
+            "duration": 144,
+            "function": "T"
+          },
+          {
+            "tick": 8160,
+            "pitch": 14,
+            "duration": 144,
+            "function": "T"
+          },
+          {
+            "tick": 8400,
+            "pitch": 16,
+            "duration": 144,
+            "function": "A"
+          },
+          {
+            "tick": 8640,
+            "pitch": 12,
+            "duration": 144,
+            "function": "T"
+          },
+          {
+            "tick": 8880,
+            "pitch": 14,
+            "duration": 144,
+            "function": "T"
+          },
+          {
+            "tick": 9120,
+            "pitch": 16,
+            "duration": 144,
+            "function": "A"
+          },
+          {
+            "tick": 9360,
+            "pitch": 12,
+            "duration": 144,
+            "function": "T"
+          },
+          {
+            "tick": 9600,
+            "pitch": 14,
+            "duration": 144,
+            "function": "T"
+          },
+          {
+            "tick": 9840,
+            "pitch": 16,
+            "duration": 144,
+            "function": "A"
+          },
+          {
+            "tick": 10080,
+            "pitch": 12,
+            "duration": 144,
+            "function": "T"
+          },
+          {
+            "tick": 10320,
+            "pitch": 14,
+            "duration": 144,
+            "function": "T"
+          }
+        ]
+      },
+      {
+        "study": "EM-S057",
+        "role": "AR",
+        "context": "6:maj",
+        "actual_pcs": [
+          0,
+          2,
+          4
+        ],
+        "events": 64,
+        "same_tni_class": true,
+        "exchange_authorized": false,
+        "first_events": [
+          {
+            "tick": 11520,
+            "pitch": 12,
+            "duration": 144,
+            "function": "T"
+          },
+          {
+            "tick": 11760,
+            "pitch": 14,
+            "duration": 144,
+            "function": "T"
+          },
+          {
+            "tick": 12000,
+            "pitch": 16,
+            "duration": 144,
+            "function": "T"
+          },
+          {
+            "tick": 12240,
+            "pitch": 12,
+            "duration": 144,
+            "function": "T"
+          },
+          {
+            "tick": 12480,
+            "pitch": 14,
+            "duration": 144,
+            "function": "T"
+          },
+          {
+            "tick": 12720,
+            "pitch": 16,
+            "duration": 144,
+            "function": "T"
+          },
+          {
+            "tick": 12960,
+            "pitch": 12,
+            "duration": 144,
+            "function": "T"
+          },
+          {
+            "tick": 13200,
+            "pitch": 14,
+            "duration": 144,
+            "function": "T"
+          },
+          {
+            "tick": 13440,
+            "pitch": 16,
+            "duration": 144,
+            "function": "T"
+          },
+          {
+            "tick": 13680,
+            "pitch": 12,
+            "duration": 144,
+            "function": "T"
+          },
+          {
+            "tick": 13920,
+            "pitch": 14,
+            "duration": 144,
+            "function": "T"
+          },
+          {
+            "tick": 14160,
+            "pitch": 16,
+            "duration": 144,
+            "function": "T"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "EM-C021",
+    "type": "MENGE",
+    "pcs": [
+      0,
+      4,
+      5,
+      6
+    ],
+    "prime_source": [
+      0,
+      1,
+      2,
+      6
+    ],
+    "prime_packed_right": [
+      0,
+      1,
+      2,
+      6
+    ],
+    "prime_equivalent": true,
+    "iv_source": [
+      2,
+      1,
+      0,
+      1,
+      1,
+      1
+    ],
+    "iv_actual": [
+      2,
+      1,
+      0,
+      1,
+      1,
+      1
+    ],
+    "reference_events": 0,
+    "exchange_tones": [],
+    "permitted_pc_variants": [
+      [
+        0,
+        4,
+        5,
+        6
+      ]
+    ],
+    "changed_aggregate_examples": [],
+    "scope": "CSV rel is relative to global tonic. Aggregate changes prove the literal global PC-set differs, not which unexported permutation event caused the change. Transposition is analyzed separately; local harmony is not silently unioned.",
+    "per_context_evidence": []
+  },
+  {
+    "id": "EM-C022",
+    "type": "ORD",
+    "pcs": [
+      10,
+      9,
+      0,
+      11
+    ],
+    "prime_source": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "prime_packed_right": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "prime_equivalent": true,
+    "iv_source": [
+      3,
+      2,
+      1,
+      0,
+      0,
+      0
+    ],
+    "iv_actual": [
+      3,
+      2,
+      1,
+      0,
+      0,
+      0
+    ],
+    "reference_events": 16,
+    "exchange_tones": [],
+    "permitted_pc_variants": [
+      [
+        0,
+        9,
+        10,
+        11
+      ]
+    ],
+    "changed_aggregate_examples": [],
+    "scope": "CSV rel is relative to global tonic. Aggregate changes prove the literal global PC-set differs, not which unexported permutation event caused the change. Transposition is analyzed separately; local harmony is not silently unioned.",
+    "per_context_evidence": [
+      {
+        "study": "EM-S043",
+        "role": "GS",
+        "context": "BACH",
+        "actual_pcs": [
+          0,
+          9,
+          10,
+          11
+        ],
+        "events": 16,
+        "same_tni_class": true,
+        "exchange_authorized": false,
+        "first_events": [
+          {
+            "tick": 0,
+            "pitch": 22,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 2640,
+            "pitch": 21,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 3840,
+            "pitch": 12,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 6480,
+            "pitch": 23,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 7680,
+            "pitch": 22,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 10320,
+            "pitch": 21,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 11520,
+            "pitch": 12,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 14160,
+            "pitch": 23,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 15360,
+            "pitch": 22,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 18000,
+            "pitch": 21,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 19200,
+            "pitch": 12,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 21840,
+            "pitch": 23,
+            "duration": 216,
+            "function": "A"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "EM-C023",
+    "type": "MENGE",
+    "pcs": [
+      9,
+      10,
+      11,
+      0
+    ],
+    "prime_source": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "prime_packed_right": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "prime_equivalent": true,
+    "iv_source": [
+      3,
+      2,
+      1,
+      0,
+      0,
+      0
+    ],
+    "iv_actual": [
+      3,
+      2,
+      1,
+      0,
+      0,
+      0
+    ],
+    "reference_events": 0,
+    "exchange_tones": [],
+    "permitted_pc_variants": [
+      [
+        0,
+        9,
+        10,
+        11
+      ]
+    ],
+    "changed_aggregate_examples": [],
+    "scope": "CSV rel is relative to global tonic. Aggregate changes prove the literal global PC-set differs, not which unexported permutation event caused the change. Transposition is analyzed separately; local harmony is not silently unioned.",
+    "per_context_evidence": []
+  },
+  {
+    "id": "EM-C024",
+    "type": "ORD",
+    "pcs": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5
+    ],
+    "prime_source": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5
+    ],
+    "prime_packed_right": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5
+    ],
+    "prime_equivalent": true,
+    "iv_source": [
+      5,
+      4,
+      3,
+      2,
+      1,
+      0
+    ],
+    "iv_actual": [
+      5,
+      4,
+      3,
+      2,
+      1,
+      0
+    ],
+    "reference_events": 0,
+    "exchange_tones": [],
+    "permitted_pc_variants": [
+      [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5
+      ]
+    ],
+    "changed_aggregate_examples": [],
+    "scope": "CSV rel is relative to global tonic. Aggregate changes prove the literal global PC-set differs, not which unexported permutation event caused the change. Transposition is analyzed separately; local harmony is not silently unioned.",
+    "per_context_evidence": []
+  },
+  {
+    "id": "EM-C025",
+    "type": "KERN",
+    "pcs": [
+      0,
+      3,
+      5,
+      7,
+      8,
+      10
+    ],
+    "prime_source": [
+      0,
+      2,
+      4,
+      5,
+      7,
+      9
+    ],
+    "prime_packed_right": [
+      0,
+      2,
+      4,
+      5,
+      7,
+      9
+    ],
+    "prime_equivalent": true,
+    "iv_source": [
+      1,
+      4,
+      3,
+      2,
+      5,
+      0
+    ],
+    "iv_actual": [
+      1,
+      4,
+      3,
+      2,
+      5,
+      0
+    ],
+    "reference_events": 0,
+    "exchange_tones": [
+      2,
+      1
+    ],
+    "permitted_pc_variants": [
+      [
+        0,
+        2,
+        3,
+        5,
+        7,
+        8,
+        10
+      ],
+      [
+        0,
+        1,
+        3,
+        5,
+        7,
+        8,
+        10
+      ]
+    ],
+    "changed_aggregate_examples": [],
+    "scope": "CSV rel is relative to global tonic. Aggregate changes prove the literal global PC-set differs, not which unexported permutation event caused the change. Transposition is analyzed separately; local harmony is not silently unioned.",
+    "per_context_evidence": []
+  },
+  {
+    "id": "EM-C026",
+    "type": "KERN",
+    "pcs": [
+      0,
+      2,
+      3,
+      5,
+      7,
+      10
+    ],
+    "prime_source": [
+      0,
+      2,
+      4,
+      5,
+      7,
+      9
+    ],
+    "prime_packed_right": [
+      0,
+      2,
+      4,
+      5,
+      7,
+      9
+    ],
+    "prime_equivalent": true,
+    "iv_source": [
+      1,
+      4,
+      3,
+      2,
+      5,
+      0
+    ],
+    "iv_actual": [
+      1,
+      4,
+      3,
+      2,
+      5,
+      0
+    ],
+    "reference_events": 113,
+    "exchange_tones": [
+      9,
+      8
+    ],
+    "permitted_pc_variants": [
+      [
+        0,
+        2,
+        3,
+        5,
+        7,
+        9,
+        10
+      ],
+      [
+        0,
+        2,
+        3,
+        5,
+        7,
+        8,
+        10
+      ]
+    ],
+    "changed_aggregate_examples": [],
+    "scope": "CSV rel is relative to global tonic. Aggregate changes prove the literal global PC-set differs, not which unexported permutation event caused the change. Transposition is analyzed separately; local harmony is not silently unioned.",
+    "per_context_evidence": [
+      {
+        "study": "EM-S006",
+        "role": "TU",
+        "context": "0:madd9",
+        "actual_pcs": [
+          0,
+          2,
+          3,
+          5,
+          7,
+          8,
+          9,
+          10
+        ],
+        "events": 19,
+        "same_tni_class": false,
+        "exchange_authorized": true,
+        "first_events": [
+          {
+            "tick": 15360,
+            "pitch": 12,
+            "duration": 864,
+            "function": "A"
+          },
+          {
+            "tick": 18240,
+            "pitch": 14,
+            "duration": 864,
+            "function": "A"
+          },
+          {
+            "tick": 21120,
+            "pitch": 15,
+            "duration": 864,
+            "function": "A"
+          },
+          {
+            "tick": 32640,
+            "pitch": 21,
+            "duration": 864,
+            "function": "T"
+          },
+          {
+            "tick": 35520,
+            "pitch": 12,
+            "duration": 864,
+            "function": "A"
+          },
+          {
+            "tick": 47040,
+            "pitch": 19,
+            "duration": 864,
+            "function": "A"
+          },
+          {
+            "tick": 49920,
+            "pitch": 22,
+            "duration": 864,
+            "function": "T"
+          },
+          {
+            "tick": 52800,
+            "pitch": 20,
+            "duration": 864,
+            "function": "F"
+          },
+          {
+            "tick": 61440,
+            "pitch": 15,
+            "duration": 864,
+            "function": "A"
+          },
+          {
+            "tick": 64320,
+            "pitch": 17,
+            "duration": 864,
+            "function": "T"
+          },
+          {
+            "tick": 67200,
+            "pitch": 19,
+            "duration": 864,
+            "function": "A"
+          },
+          {
+            "tick": 78720,
+            "pitch": 14,
+            "duration": 864,
+            "function": "A"
+          }
+        ]
+      },
+      {
+        "study": "EM-S006",
+        "role": "TU",
+        "context": "5:add9",
+        "actual_pcs": [
+          0,
+          2,
+          3,
+          5,
+          7,
+          8,
+          10
+        ],
+        "events": 19,
+        "same_tni_class": false,
+        "exchange_authorized": true,
+        "first_events": [
+          {
+            "tick": 24000,
+            "pitch": 17,
+            "duration": 864,
+            "function": "A"
+          },
+          {
+            "tick": 26880,
+            "pitch": 19,
+            "duration": 864,
+            "function": "A"
+          },
+          {
+            "tick": 29760,
+            "pitch": 22,
+            "duration": 864,
+            "function": "T"
+          },
+          {
+            "tick": 38400,
+            "pitch": 14,
+            "duration": 864,
+            "function": "T"
+          },
+          {
+            "tick": 41280,
+            "pitch": 15,
+            "duration": 864,
+            "function": "T"
+          },
+          {
+            "tick": 44160,
+            "pitch": 17,
+            "duration": 864,
+            "function": "A"
+          },
+          {
+            "tick": 55680,
+            "pitch": 12,
+            "duration": 864,
+            "function": "A"
+          },
+          {
+            "tick": 58560,
+            "pitch": 14,
+            "duration": 864,
+            "function": "T"
+          },
+          {
+            "tick": 70080,
+            "pitch": 22,
+            "duration": 864,
+            "function": "T"
+          },
+          {
+            "tick": 72960,
+            "pitch": 20,
+            "duration": 864,
+            "function": "F"
+          },
+          {
+            "tick": 75840,
+            "pitch": 12,
+            "duration": 864,
+            "function": "A"
+          },
+          {
+            "tick": 84480,
+            "pitch": 17,
+            "duration": 864,
+            "function": "A"
+          }
+        ]
+      },
+      {
+        "study": "EM-S021",
+        "role": "TU",
+        "context": "0:m9",
+        "actual_pcs": [
+          0,
+          2,
+          3,
+          5,
+          7,
+          8,
+          9,
+          10
+        ],
+        "events": 38,
+        "same_tni_class": false,
+        "exchange_authorized": true,
+        "first_events": [
+          {
+            "tick": 30720,
+            "pitch": 12,
+            "duration": 864,
+            "function": "A"
+          },
+          {
+            "tick": 33600,
+            "pitch": 14,
+            "duration": 864,
+            "function": "A"
+          },
+          {
+            "tick": 36480,
+            "pitch": 15,
+            "duration": 864,
+            "function": "A"
+          },
+          {
+            "tick": 39360,
+            "pitch": 17,
+            "duration": 864,
+            "function": "T"
+          },
+          {
+            "tick": 42240,
+            "pitch": 19,
+            "duration": 864,
+            "function": "A"
+          },
+          {
+            "tick": 45120,
+            "pitch": 22,
+            "duration": 864,
+            "function": "A"
+          },
+          {
+            "tick": 62400,
+            "pitch": 19,
+            "duration": 864,
+            "function": "A"
+          },
+          {
+            "tick": 65280,
+            "pitch": 22,
+            "duration": 864,
+            "function": "A"
+          },
+          {
+            "tick": 68160,
+            "pitch": 21,
+            "duration": 864,
+            "function": "T"
+          },
+          {
+            "tick": 71040,
+            "pitch": 12,
+            "duration": 864,
+            "function": "A"
+          },
+          {
+            "tick": 73920,
+            "pitch": 14,
+            "duration": 864,
+            "function": "A"
+          },
+          {
+            "tick": 94080,
+            "pitch": 14,
+            "duration": 864,
+            "function": "A"
+          }
+        ]
+      },
+      {
+        "study": "EM-S021",
+        "role": "TU",
+        "context": "3:maj7",
+        "actual_pcs": [
+          0,
+          2,
+          3,
+          5,
+          7,
+          8,
+          9,
+          10
+        ],
+        "events": 37,
+        "same_tni_class": false,
+        "exchange_authorized": true,
+        "first_events": [
+          {
+            "tick": 48000,
+            "pitch": 21,
+            "duration": 864,
+            "function": "T"
+          },
+          {
+            "tick": 50880,
+            "pitch": 12,
+            "duration": 864,
+            "function": "T"
+          },
+          {
+            "tick": 53760,
+            "pitch": 14,
+            "duration": 864,
+            "function": "A"
+          },
+          {
+            "tick": 56640,
+            "pitch": 15,
+            "duration": 864,
+            "function": "A"
+          },
+          {
+            "tick": 59520,
+            "pitch": 17,
+            "duration": 864,
+            "function": "T"
+          },
+          {
+            "tick": 76800,
+            "pitch": 15,
+            "duration": 864,
+            "function": "A"
+          },
+          {
+            "tick": 79680,
+            "pitch": 17,
+            "duration": 864,
+            "function": "T"
+          },
+          {
+            "tick": 82560,
+            "pitch": 19,
+            "duration": 864,
+            "function": "A"
+          },
+          {
+            "tick": 85440,
+            "pitch": 22,
+            "duration": 864,
+            "function": "A"
+          },
+          {
+            "tick": 88320,
+            "pitch": 21,
+            "duration": 864,
+            "function": "T"
+          },
+          {
+            "tick": 91200,
+            "pitch": 12,
+            "duration": 864,
+            "function": "T"
+          },
+          {
+            "tick": 108480,
+            "pitch": 20,
+            "duration": 864,
+            "function": "F"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "EM-C027",
+    "type": "ORD",
+    "pcs": [
+      0,
+      3,
+      5,
+      8
+    ],
+    "prime_source": [
+      0,
+      3,
+      5,
+      8
+    ],
+    "prime_packed_right": [
+      0,
+      3,
+      5,
+      8
+    ],
+    "prime_equivalent": true,
+    "iv_source": [
+      0,
+      1,
+      2,
+      1,
+      2,
+      0
+    ],
+    "iv_actual": [
+      0,
+      1,
+      2,
+      1,
+      2,
+      0
+    ],
+    "reference_events": 51,
+    "exchange_tones": [],
+    "permitted_pc_variants": [
+      [
+        0,
+        3,
+        5,
+        8
+      ]
+    ],
+    "changed_aggregate_examples": [],
+    "scope": "CSV rel is relative to global tonic. Aggregate changes prove the literal global PC-set differs, not which unexported permutation event caused the change. Transposition is analyzed separately; local harmony is not silently unioned.",
+    "per_context_evidence": [
+      {
+        "study": "EM-S025",
+        "role": "AR",
+        "context": "0:madd9",
+        "actual_pcs": [
+          0,
+          3,
+          5,
+          8
+        ],
+        "events": 51,
+        "same_tni_class": true,
+        "exchange_authorized": false,
+        "first_events": [
+          {
+            "tick": 61440,
+            "pitch": 12,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 62400,
+            "pitch": 15,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 63360,
+            "pitch": 17,
+            "duration": 216,
+            "function": "T"
+          },
+          {
+            "tick": 64080,
+            "pitch": 20,
+            "duration": 216,
+            "function": "T"
+          },
+          {
+            "tick": 64800,
+            "pitch": 12,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 65280,
+            "pitch": 15,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 65760,
+            "pitch": 17,
+            "duration": 216,
+            "function": "T"
+          },
+          {
+            "tick": 66240,
+            "pitch": 20,
+            "duration": 216,
+            "function": "T"
+          },
+          {
+            "tick": 66480,
+            "pitch": 12,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 66720,
+            "pitch": 15,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 67680,
+            "pitch": 17,
+            "duration": 216,
+            "function": "T"
+          },
+          {
+            "tick": 68640,
+            "pitch": 20,
+            "duration": 216,
+            "function": "T"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "EM-C028",
+    "type": "MENGE",
+    "pcs": [
+      0,
+      2,
+      3,
+      5,
+      7
+    ],
+    "prime_source": [
+      0,
+      2,
+      3,
+      5,
+      7
+    ],
+    "prime_packed_right": [
+      0,
+      2,
+      3,
+      5,
+      7
+    ],
+    "prime_equivalent": true,
+    "iv_source": [
+      1,
+      3,
+      2,
+      1,
+      3,
+      0
+    ],
+    "iv_actual": [
+      1,
+      3,
+      2,
+      1,
+      3,
+      0
+    ],
+    "reference_events": 0,
+    "exchange_tones": [],
+    "permitted_pc_variants": [
+      [
+        0,
+        2,
+        3,
+        5,
+        7
+      ]
+    ],
+    "changed_aggregate_examples": [],
+    "scope": "CSV rel is relative to global tonic. Aggregate changes prove the literal global PC-set differs, not which unexported permutation event caused the change. Transposition is analyzed separately; local harmony is not silently unioned.",
+    "per_context_evidence": []
+  },
+  {
+    "id": "EM-C029",
+    "type": "MENGE",
+    "pcs": [
+      0,
+      2,
+      4,
+      7,
+      9
+    ],
+    "prime_source": [
+      0,
+      2,
+      4,
+      7,
+      9
+    ],
+    "prime_packed_right": [
+      0,
+      2,
+      4,
+      7,
+      9
+    ],
+    "prime_equivalent": true,
+    "iv_source": [
+      0,
+      3,
+      2,
+      1,
+      4,
+      0
+    ],
+    "iv_actual": [
+      0,
+      3,
+      2,
+      1,
+      4,
+      0
+    ],
+    "reference_events": 116,
+    "exchange_tones": [],
+    "permitted_pc_variants": [
+      [
+        0,
+        2,
+        4,
+        7,
+        9
+      ]
+    ],
+    "changed_aggregate_examples": [],
+    "scope": "CSV rel is relative to global tonic. Aggregate changes prove the literal global PC-set differs, not which unexported permutation event caused the change. Transposition is analyzed separately; local harmony is not silently unioned.",
+    "per_context_evidence": [
+      {
+        "study": "EM-S005",
+        "role": "TU",
+        "context": "0:add9",
+        "actual_pcs": [
+          0,
+          2,
+          4,
+          9
+        ],
+        "events": 6,
+        "same_tni_class": false,
+        "exchange_authorized": false,
+        "first_events": [
+          {
+            "tick": 23040,
+            "pitch": 24,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 24000,
+            "pitch": 26,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 42240,
+            "pitch": 26,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 43200,
+            "pitch": 24,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 46080,
+            "pitch": 21,
+            "duration": 216,
+            "function": "T"
+          },
+          {
+            "tick": 47040,
+            "pitch": 28,
+            "duration": 216,
+            "function": "A"
+          }
+        ]
+      },
+      {
+        "study": "EM-S005",
+        "role": "TU",
+        "context": "9:m7",
+        "actual_pcs": [
+          0,
+          2,
+          4,
+          7,
+          9
+        ],
+        "events": 8,
+        "same_tni_class": true,
+        "exchange_authorized": false,
+        "first_events": [
+          {
+            "tick": 26880,
+            "pitch": 28,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 27840,
+            "pitch": 19,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 30720,
+            "pitch": 21,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 31680,
+            "pitch": 24,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 49920,
+            "pitch": 19,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 50880,
+            "pitch": 26,
+            "duration": 216,
+            "function": "T"
+          },
+          {
+            "tick": 53760,
+            "pitch": 24,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 54720,
+            "pitch": 26,
+            "duration": 216,
+            "function": "T"
+          }
+        ]
+      },
+      {
+        "study": "EM-S005",
+        "role": "TU",
+        "context": "5:maj7",
+        "actual_pcs": [
+          2,
+          4,
+          7,
+          9
+        ],
+        "events": 6,
+        "same_tni_class": false,
+        "exchange_authorized": false,
+        "first_events": [
+          {
+            "tick": 34560,
+            "pitch": 26,
+            "duration": 216,
+            "function": "T"
+          },
+          {
+            "tick": 35520,
+            "pitch": 28,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 38400,
+            "pitch": 28,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 39360,
+            "pitch": 19,
+            "duration": 216,
+            "function": "T"
+          },
+          {
+            "tick": 57600,
+            "pitch": 19,
+            "duration": 216,
+            "function": "T"
+          },
+          {
+            "tick": 58560,
+            "pitch": 21,
+            "duration": 216,
+            "function": "A"
+          }
+        ]
+      },
+      {
+        "study": "EM-S026",
+        "role": "TU",
+        "context": "0:add9",
+        "actual_pcs": [
+          0,
+          2,
+          4,
+          7,
+          9
+        ],
+        "events": 44,
+        "same_tni_class": true,
+        "exchange_authorized": false,
+        "first_events": [
+          {
+            "tick": 30720,
+            "pitch": 24,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 31680,
+            "pitch": 26,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 34560,
+            "pitch": 28,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 35520,
+            "pitch": 19,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 53760,
+            "pitch": 28,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 54720,
+            "pitch": 19,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 57600,
+            "pitch": 21,
+            "duration": 216,
+            "function": "T"
+          },
+          {
+            "tick": 58560,
+            "pitch": 24,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 65280,
+            "pitch": 24,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 66240,
+            "pitch": 26,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 69120,
+            "pitch": 21,
+            "duration": 216,
+            "function": "T"
+          },
+          {
+            "tick": 70080,
+            "pitch": 19,
+            "duration": 216,
+            "function": "A"
+          }
+        ]
+      },
+      {
+        "study": "EM-S026",
+        "role": "TU",
+        "context": "9:m7",
+        "actual_pcs": [
+          0,
+          2,
+          4,
+          7,
+          9
+        ],
+        "events": 22,
+        "same_tni_class": true,
+        "exchange_authorized": false,
+        "first_events": [
+          {
+            "tick": 38400,
+            "pitch": 21,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 39360,
+            "pitch": 24,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 42240,
+            "pitch": 26,
+            "duration": 216,
+            "function": "T"
+          },
+          {
+            "tick": 43200,
+            "pitch": 28,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 72960,
+            "pitch": 28,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 73920,
+            "pitch": 24,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 76800,
+            "pitch": 26,
+            "duration": 216,
+            "function": "T"
+          },
+          {
+            "tick": 77760,
+            "pitch": 21,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 107520,
+            "pitch": 19,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 108480,
+            "pitch": 24,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 111360,
+            "pitch": 21,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 112320,
+            "pitch": 26,
+            "duration": 216,
+            "function": "T"
+          }
+        ]
+      },
+      {
+        "study": "EM-S026",
+        "role": "TU",
+        "context": "5:maj7",
+        "actual_pcs": [
+          0,
+          2,
+          4,
+          7,
+          9
+        ],
+        "events": 20,
+        "same_tni_class": true,
+        "exchange_authorized": false,
+        "first_events": [
+          {
+            "tick": 46080,
+            "pitch": 19,
+            "duration": 216,
+            "function": "T"
+          },
+          {
+            "tick": 47040,
+            "pitch": 21,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 49920,
+            "pitch": 24,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 50880,
+            "pitch": 26,
+            "duration": 216,
+            "function": "T"
+          },
+          {
+            "tick": 80640,
+            "pitch": 19,
+            "duration": 216,
+            "function": "T"
+          },
+          {
+            "tick": 81600,
+            "pitch": 28,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 84480,
+            "pitch": 24,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 85440,
+            "pitch": 26,
+            "duration": 216,
+            "function": "T"
+          },
+          {
+            "tick": 115200,
+            "pitch": 28,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 116160,
+            "pitch": 19,
+            "duration": 216,
+            "function": "T"
+          },
+          {
+            "tick": 119040,
+            "pitch": 24,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 120000,
+            "pitch": 21,
+            "duration": 216,
+            "function": "A"
+          }
+        ]
+      },
+      {
+        "study": "EM-S026",
+        "role": "TU",
+        "context": "5:add9",
+        "actual_pcs": [
+          0,
+          2,
+          4,
+          7,
+          9
+        ],
+        "events": 10,
+        "same_tni_class": true,
+        "exchange_authorized": false,
+        "first_events": [
+          {
+            "tick": 61440,
+            "pitch": 19,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 62400,
+            "pitch": 28,
+            "duration": 216,
+            "function": "T"
+          },
+          {
+            "tick": 96000,
+            "pitch": 28,
+            "duration": 216,
+            "function": "T"
+          },
+          {
+            "tick": 96960,
+            "pitch": 19,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 130560,
+            "pitch": 21,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 131520,
+            "pitch": 26,
+            "duration": 216,
+            "function": "T"
+          },
+          {
+            "tick": 165120,
+            "pitch": 19,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 166080,
+            "pitch": 26,
+            "duration": 216,
+            "function": "T"
+          },
+          {
+            "tick": 199680,
+            "pitch": 24,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 200640,
+            "pitch": 26,
+            "duration": 216,
+            "function": "T"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "EM-C030",
+    "type": "MENGE",
+    "pcs": [
+      0,
+      8
+    ],
+    "prime_source": [
+      0,
+      4
+    ],
+    "prime_packed_right": [
+      0,
+      4
+    ],
+    "prime_equivalent": true,
+    "iv_source": [
+      0,
+      0,
+      0,
+      1,
+      0,
+      0
+    ],
+    "iv_actual": [
+      0,
+      0,
+      0,
+      1,
+      0,
+      0
+    ],
+    "reference_events": 34,
+    "exchange_tones": [],
+    "permitted_pc_variants": [
+      [
+        0,
+        8
+      ]
+    ],
+    "changed_aggregate_examples": [],
+    "scope": "CSV rel is relative to global tonic. Aggregate changes prove the literal global PC-set differs, not which unexported permutation event caused the change. Transposition is analyzed separately; local harmony is not silently unioned.",
+    "per_context_evidence": [
+      {
+        "study": "EM-S018",
+        "role": "TU",
+        "context": "0:madd9",
+        "actual_pcs": [
+          0,
+          8
+        ],
+        "events": 4,
+        "same_tni_class": true,
+        "exchange_authorized": false,
+        "first_events": [
+          {
+            "tick": 92160,
+            "pitch": 12,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 99840,
+            "pitch": 20,
+            "duration": 216,
+            "function": "T"
+          },
+          {
+            "tick": 107520,
+            "pitch": 12,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 115200,
+            "pitch": 20,
+            "duration": 216,
+            "function": "T"
+          }
+        ]
+      },
+      {
+        "study": "EM-S025",
+        "role": "TU",
+        "context": "0:madd9",
+        "actual_pcs": [
+          0,
+          8
+        ],
+        "events": 8,
+        "same_tni_class": true,
+        "exchange_authorized": false,
+        "first_events": [
+          {
+            "tick": 0,
+            "pitch": 12,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 7680,
+            "pitch": 20,
+            "duration": 216,
+            "function": "T"
+          },
+          {
+            "tick": 15360,
+            "pitch": 12,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 23040,
+            "pitch": 20,
+            "duration": 216,
+            "function": "T"
+          },
+          {
+            "tick": 215040,
+            "pitch": 12,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 222720,
+            "pitch": 20,
+            "duration": 216,
+            "function": "T"
+          },
+          {
+            "tick": 230400,
+            "pitch": 12,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 238080,
+            "pitch": 20,
+            "duration": 216,
+            "function": "T"
+          }
+        ]
+      },
+      {
+        "study": "EM-EF16",
+        "role": "TU",
+        "context": "Quinte+♭9",
+        "actual_pcs": [
+          0,
+          8
+        ],
+        "events": 22,
+        "same_tni_class": true,
+        "exchange_authorized": false,
+        "first_events": [
+          {
+            "tick": 0,
+            "pitch": 12,
+            "duration": 864,
+            "function": "A"
+          },
+          {
+            "tick": 2880,
+            "pitch": 20,
+            "duration": 864,
+            "function": "T"
+          },
+          {
+            "tick": 5760,
+            "pitch": 12,
+            "duration": 864,
+            "function": "A"
+          },
+          {
+            "tick": 8640,
+            "pitch": 20,
+            "duration": 864,
+            "function": "T"
+          },
+          {
+            "tick": 11520,
+            "pitch": 12,
+            "duration": 864,
+            "function": "A"
+          },
+          {
+            "tick": 14400,
+            "pitch": 20,
+            "duration": 864,
+            "function": "T"
+          },
+          {
+            "tick": 17280,
+            "pitch": 12,
+            "duration": 864,
+            "function": "A"
+          },
+          {
+            "tick": 20160,
+            "pitch": 20,
+            "duration": 864,
+            "function": "T"
+          },
+          {
+            "tick": 23040,
+            "pitch": 12,
+            "duration": 864,
+            "function": "A"
+          },
+          {
+            "tick": 25920,
+            "pitch": 20,
+            "duration": 864,
+            "function": "T"
+          },
+          {
+            "tick": 28800,
+            "pitch": 12,
+            "duration": 864,
+            "function": "A"
+          },
+          {
+            "tick": 31680,
+            "pitch": 20,
+            "duration": 864,
+            "function": "T"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "EM-C031",
+    "type": "MENGE",
+    "pcs": [
+      0,
+      2,
+      7,
+      9
+    ],
+    "prime_source": [
+      0,
+      2,
+      5,
+      7
+    ],
+    "prime_packed_right": [
+      0,
+      2,
+      5,
+      7
+    ],
+    "prime_equivalent": true,
+    "iv_source": [
+      0,
+      2,
+      1,
+      0,
+      3,
+      0
+    ],
+    "iv_actual": [
+      0,
+      2,
+      1,
+      0,
+      3,
+      0
+    ],
+    "reference_events": 13,
+    "exchange_tones": [],
+    "permitted_pc_variants": [
+      [
+        0,
+        2,
+        7,
+        9
+      ]
+    ],
+    "changed_aggregate_examples": [],
+    "scope": "CSV rel is relative to global tonic. Aggregate changes prove the literal global PC-set differs, not which unexported permutation event caused the change. Transposition is analyzed separately; local harmony is not silently unioned.",
+    "per_context_evidence": [
+      {
+        "study": "EM-S047",
+        "role": "TU",
+        "context": "0:maj7",
+        "actual_pcs": [
+          0,
+          7,
+          9
+        ],
+        "events": 3,
+        "same_tni_class": false,
+        "exchange_authorized": false,
+        "first_events": [
+          {
+            "tick": 0,
+            "pitch": 24,
+            "duration": 864,
+            "function": "A"
+          },
+          {
+            "tick": 33600,
+            "pitch": 21,
+            "duration": 864,
+            "function": "T"
+          },
+          {
+            "tick": 48000,
+            "pitch": 31,
+            "duration": 864,
+            "function": "A"
+          }
+        ]
+      },
+      {
+        "study": "EM-S047",
+        "role": "TU",
+        "context": "0:maj7/11",
+        "actual_pcs": [
+          0,
+          2,
+          9
+        ],
+        "events": 3,
+        "same_tni_class": false,
+        "exchange_authorized": false,
+        "first_events": [
+          {
+            "tick": 4800,
+            "pitch": 26,
+            "duration": 864,
+            "function": "T"
+          },
+          {
+            "tick": 19200,
+            "pitch": 24,
+            "duration": 864,
+            "function": "A"
+          },
+          {
+            "tick": 52800,
+            "pitch": 21,
+            "duration": 864,
+            "function": "T"
+          }
+        ]
+      },
+      {
+        "study": "EM-S047",
+        "role": "TU",
+        "context": "0:maj7/10",
+        "actual_pcs": [
+          0,
+          2,
+          7
+        ],
+        "events": 3,
+        "same_tni_class": false,
+        "exchange_authorized": false,
+        "first_events": [
+          {
+            "tick": 9600,
+            "pitch": 31,
+            "duration": 864,
+            "function": "A"
+          },
+          {
+            "tick": 24000,
+            "pitch": 26,
+            "duration": 864,
+            "function": "T"
+          },
+          {
+            "tick": 38400,
+            "pitch": 24,
+            "duration": 864,
+            "function": "A"
+          }
+        ]
+      },
+      {
+        "study": "EM-S047",
+        "role": "TU",
+        "context": "0:maj7/9",
+        "actual_pcs": [
+          0,
+          2,
+          7,
+          9
+        ],
+        "events": 4,
+        "same_tni_class": true,
+        "exchange_authorized": false,
+        "first_events": [
+          {
+            "tick": 14400,
+            "pitch": 21,
+            "duration": 864,
+            "function": "T"
+          },
+          {
+            "tick": 28800,
+            "pitch": 31,
+            "duration": 864,
+            "function": "A"
+          },
+          {
+            "tick": 43200,
+            "pitch": 26,
+            "duration": 864,
+            "function": "T"
+          },
+          {
+            "tick": 57600,
+            "pitch": 24,
+            "duration": 864,
+            "function": "A"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "EM-C032",
+    "type": "MENGE",
+    "pcs": [
+      0,
+      3,
+      7,
+      8
+    ],
+    "prime_source": [
+      0,
+      1,
+      5,
+      8
+    ],
+    "prime_packed_right": [
+      0,
+      1,
+      5,
+      8
+    ],
+    "prime_equivalent": true,
+    "iv_source": [
+      1,
+      0,
+      1,
+      2,
+      2,
+      0
+    ],
+    "iv_actual": [
+      1,
+      0,
+      1,
+      2,
+      2,
+      0
+    ],
+    "reference_events": 0,
+    "exchange_tones": [],
+    "permitted_pc_variants": [
+      [
+        0,
+        3,
+        7,
+        8
+      ]
+    ],
+    "changed_aggregate_examples": [],
+    "scope": "CSV rel is relative to global tonic. Aggregate changes prove the literal global PC-set differs, not which unexported permutation event caused the change. Transposition is analyzed separately; local harmony is not silently unioned.",
+    "per_context_evidence": []
+  },
+  {
+    "id": "EM-C033",
+    "type": "MENGE",
+    "pcs": [
+      0,
+      3,
+      4,
+      7
+    ],
+    "prime_source": [
+      0,
+      3,
+      4,
+      7
+    ],
+    "prime_packed_right": [
+      0,
+      3,
+      4,
+      7
+    ],
+    "prime_equivalent": true,
+    "iv_source": [
+      1,
+      0,
+      2,
+      2,
+      1,
+      0
+    ],
+    "iv_actual": [
+      1,
+      0,
+      2,
+      2,
+      1,
+      0
+    ],
+    "reference_events": 8,
+    "exchange_tones": [],
+    "permitted_pc_variants": [
+      [
+        0,
+        3,
+        4,
+        7
+      ]
+    ],
+    "changed_aggregate_examples": [],
+    "scope": "CSV rel is relative to global tonic. Aggregate changes prove the literal global PC-set differs, not which unexported permutation event caused the change. Transposition is analyzed separately; local harmony is not silently unioned.",
+    "per_context_evidence": [
+      {
+        "study": "EM-S030",
+        "role": "TU",
+        "context": "0:add9",
+        "actual_pcs": [
+          0,
+          4
+        ],
+        "events": 4,
+        "same_tni_class": false,
+        "exchange_authorized": false,
+        "first_events": [
+          {
+            "tick": 0,
+            "pitch": 24,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 15360,
+            "pitch": 28,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 30720,
+            "pitch": 24,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 46080,
+            "pitch": 28,
+            "duration": 216,
+            "function": "A"
+          }
+        ]
+      },
+      {
+        "study": "EM-S030",
+        "role": "TU",
+        "context": "0:madd9",
+        "actual_pcs": [
+          3,
+          7
+        ],
+        "events": 4,
+        "same_tni_class": false,
+        "exchange_authorized": false,
+        "first_events": [
+          {
+            "tick": 7680,
+            "pitch": 27,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 23040,
+            "pitch": 19,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 38400,
+            "pitch": 27,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 53760,
+            "pitch": 19,
+            "duration": 216,
+            "function": "A"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "EM-C034",
+    "type": "MENGE",
+    "pcs": [
+      0,
+      4,
+      6,
+      7
+    ],
+    "prime_source": [
+      0,
+      1,
+      3,
+      7
+    ],
+    "prime_packed_right": [
+      0,
+      1,
+      3,
+      7
+    ],
+    "prime_equivalent": true,
+    "iv_source": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "iv_actual": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "reference_events": 172,
+    "exchange_tones": [],
+    "permitted_pc_variants": [
+      [
+        0,
+        4,
+        6,
+        7
+      ]
+    ],
+    "changed_aggregate_examples": [],
+    "scope": "CSV rel is relative to global tonic. Aggregate changes prove the literal global PC-set differs, not which unexported permutation event caused the change. Transposition is analyzed separately; local harmony is not silently unioned.",
+    "per_context_evidence": [
+      {
+        "study": "EM-S032",
+        "role": "AR",
+        "context": "0:maj7",
+        "actual_pcs": [
+          0,
+          4,
+          6,
+          7
+        ],
+        "events": 72,
+        "same_tni_class": true,
+        "exchange_authorized": false,
+        "first_events": [
+          {
+            "tick": 15360,
+            "pitch": 24,
+            "duration": 288,
+            "function": "A"
+          },
+          {
+            "tick": 15680,
+            "pitch": 28,
+            "duration": 288,
+            "function": "A"
+          },
+          {
+            "tick": 16000,
+            "pitch": 30,
+            "duration": 288,
+            "function": "T"
+          },
+          {
+            "tick": 16320,
+            "pitch": 19,
+            "duration": 288,
+            "function": "A"
+          },
+          {
+            "tick": 16640,
+            "pitch": 24,
+            "duration": 288,
+            "function": "A"
+          },
+          {
+            "tick": 16960,
+            "pitch": 28,
+            "duration": 288,
+            "function": "A"
+          },
+          {
+            "tick": 17280,
+            "pitch": 30,
+            "duration": 288,
+            "function": "T"
+          },
+          {
+            "tick": 17600,
+            "pitch": 19,
+            "duration": 288,
+            "function": "A"
+          },
+          {
+            "tick": 17920,
+            "pitch": 24,
+            "duration": 288,
+            "function": "A"
+          },
+          {
+            "tick": 18240,
+            "pitch": 28,
+            "duration": 288,
+            "function": "A"
+          },
+          {
+            "tick": 18560,
+            "pitch": 30,
+            "duration": 288,
+            "function": "T"
+          },
+          {
+            "tick": 18880,
+            "pitch": 19,
+            "duration": 288,
+            "function": "A"
+          }
+        ]
+      },
+      {
+        "study": "EM-S032",
+        "role": "AR",
+        "context": "5:maj7#11",
+        "actual_pcs": [
+          0,
+          4,
+          6,
+          7
+        ],
+        "events": 72,
+        "same_tni_class": true,
+        "exchange_authorized": false,
+        "first_events": [
+          {
+            "tick": 23040,
+            "pitch": 24,
+            "duration": 288,
+            "function": "A"
+          },
+          {
+            "tick": 23360,
+            "pitch": 28,
+            "duration": 288,
+            "function": "A"
+          },
+          {
+            "tick": 23680,
+            "pitch": 30,
+            "duration": 288,
+            "function": "T"
+          },
+          {
+            "tick": 24000,
+            "pitch": 19,
+            "duration": 288,
+            "function": "T"
+          },
+          {
+            "tick": 24320,
+            "pitch": 24,
+            "duration": 288,
+            "function": "A"
+          },
+          {
+            "tick": 24640,
+            "pitch": 28,
+            "duration": 288,
+            "function": "A"
+          },
+          {
+            "tick": 24960,
+            "pitch": 30,
+            "duration": 288,
+            "function": "T"
+          },
+          {
+            "tick": 25280,
+            "pitch": 19,
+            "duration": 288,
+            "function": "T"
+          },
+          {
+            "tick": 25600,
+            "pitch": 24,
+            "duration": 288,
+            "function": "A"
+          },
+          {
+            "tick": 25920,
+            "pitch": 28,
+            "duration": 288,
+            "function": "A"
+          },
+          {
+            "tick": 26240,
+            "pitch": 30,
+            "duration": 288,
+            "function": "T"
+          },
+          {
+            "tick": 26560,
+            "pitch": 19,
+            "duration": 288,
+            "function": "T"
+          }
+        ]
+      },
+      {
+        "study": "EM-S055",
+        "role": "TU",
+        "context": "lydischer Reibungsklang",
+        "actual_pcs": [
+          0,
+          4,
+          6,
+          7
+        ],
+        "events": 16,
+        "same_tni_class": true,
+        "exchange_authorized": false,
+        "first_events": [
+          {
+            "tick": 7680,
+            "pitch": 36,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 9120,
+            "pitch": 40,
+            "duration": 216,
+            "function": "T"
+          },
+          {
+            "tick": 11520,
+            "pitch": 18,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 14160,
+            "pitch": 7,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 23040,
+            "pitch": 24,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 24480,
+            "pitch": 40,
+            "duration": 216,
+            "function": "T"
+          },
+          {
+            "tick": 26880,
+            "pitch": 30,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 29520,
+            "pitch": 19,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 38400,
+            "pitch": 24,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 39840,
+            "pitch": 28,
+            "duration": 216,
+            "function": "T"
+          },
+          {
+            "tick": 42240,
+            "pitch": 18,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 44880,
+            "pitch": 7,
+            "duration": 216,
+            "function": "A"
+          }
+        ]
+      },
+      {
+        "study": "EM-S055",
+        "role": "TU",
+        "context": "0:maj7",
+        "actual_pcs": [
+          0,
+          4,
+          6,
+          7
+        ],
+        "events": 12,
+        "same_tni_class": true,
+        "exchange_authorized": false,
+        "first_events": [
+          {
+            "tick": 15360,
+            "pitch": 24,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 16800,
+            "pitch": 28,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 19200,
+            "pitch": 30,
+            "duration": 216,
+            "function": "T"
+          },
+          {
+            "tick": 21840,
+            "pitch": 19,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 30720,
+            "pitch": 24,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 32160,
+            "pitch": 16,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 34560,
+            "pitch": 18,
+            "duration": 216,
+            "function": "T"
+          },
+          {
+            "tick": 37200,
+            "pitch": 7,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 46080,
+            "pitch": 24,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 47520,
+            "pitch": 40,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 49920,
+            "pitch": 30,
+            "duration": 216,
+            "function": "T"
+          },
+          {
+            "tick": 52560,
+            "pitch": 31,
+            "duration": 216,
+            "function": "A"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "EM-C035",
+    "type": "KLASSE",
+    "pcs": [
+      0,
+      1,
+      4,
+      5,
+      6,
+      9,
+      11
+    ],
+    "prime_source": [
+      0,
+      1,
+      2,
+      4,
+      7,
+      8,
+      9
+    ],
+    "prime_packed_right": [
+      0,
+      1,
+      2,
+      5,
+      6,
+      7,
+      9
+    ],
+    "prime_equivalent": true,
+    "iv_source": [
+      4,
+      3,
+      3,
+      4,
+      5,
+      2
+    ],
+    "iv_actual": [
+      4,
+      3,
+      3,
+      4,
+      5,
+      2
+    ],
+    "reference_events": 36,
+    "exchange_tones": [],
+    "permitted_pc_variants": [
+      [
+        0,
+        1,
+        4,
+        5,
+        6,
+        9,
+        11
+      ]
+    ],
+    "changed_aggregate_examples": [],
+    "scope": "CSV rel is relative to global tonic. Aggregate changes prove the literal global PC-set differs, not which unexported permutation event caused the change. Transposition is analyzed separately; local harmony is not silently unioned.",
+    "per_context_evidence": [
+      {
+        "study": "EM-S025",
+        "role": "TU",
+        "context": "Pool7",
+        "actual_pcs": [
+          0,
+          1,
+          4,
+          5,
+          6,
+          9,
+          11
+        ],
+        "events": 36,
+        "same_tni_class": true,
+        "exchange_authorized": false,
+        "first_events": [
+          {
+            "tick": 153600,
+            "pitch": 12,
+            "duration": 369,
+            "function": "A"
+          },
+          {
+            "tick": 154010,
+            "pitch": 13,
+            "duration": 765,
+            "function": "A"
+          },
+          {
+            "tick": 154860,
+            "pitch": 16,
+            "duration": 288,
+            "function": "A"
+          },
+          {
+            "tick": 155180,
+            "pitch": 17,
+            "duration": 1188,
+            "function": "A"
+          },
+          {
+            "tick": 156500,
+            "pitch": 18,
+            "duration": 369,
+            "function": "A"
+          },
+          {
+            "tick": 156910,
+            "pitch": 21,
+            "duration": 1404,
+            "function": "A"
+          },
+          {
+            "tick": 158470,
+            "pitch": 23,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 158620,
+            "pitch": 12,
+            "duration": 1242,
+            "function": "A"
+          },
+          {
+            "tick": 160000,
+            "pitch": 13,
+            "duration": 1152,
+            "function": "A"
+          },
+          {
+            "tick": 161280,
+            "pitch": 16,
+            "duration": 369,
+            "function": "A"
+          },
+          {
+            "tick": 161690,
+            "pitch": 17,
+            "duration": 765,
+            "function": "A"
+          },
+          {
+            "tick": 162540,
+            "pitch": 18,
+            "duration": 288,
+            "function": "A"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "EM-C036",
+    "type": "KLASSE",
+    "pcs": [
+      0,
+      1,
+      4,
+      6
+    ],
+    "prime_source": [
+      0,
+      1,
+      4,
+      6
+    ],
+    "prime_packed_right": [
+      0,
+      1,
+      4,
+      6
+    ],
+    "prime_equivalent": true,
+    "iv_source": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "iv_actual": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "reference_events": 0,
+    "exchange_tones": [],
+    "permitted_pc_variants": [
+      [
+        0,
+        1,
+        4,
+        6
+      ]
+    ],
+    "changed_aggregate_examples": [],
+    "scope": "CSV rel is relative to global tonic. Aggregate changes prove the literal global PC-set differs, not which unexported permutation event caused the change. Transposition is analyzed separately; local harmony is not silently unioned.",
+    "per_context_evidence": []
+  },
+  {
+    "id": "EM-C037",
+    "type": "KLASSE",
+    "pcs": [
+      0,
+      1,
+      5,
+      6
+    ],
+    "prime_source": [
+      0,
+      1,
+      5,
+      6
+    ],
+    "prime_packed_right": [
+      0,
+      1,
+      5,
+      6
+    ],
+    "prime_equivalent": true,
+    "iv_source": [
+      2,
+      0,
+      0,
+      1,
+      2,
+      1
+    ],
+    "iv_actual": [
+      2,
+      0,
+      0,
+      1,
+      2,
+      1
+    ],
+    "reference_events": 0,
+    "exchange_tones": [],
+    "permitted_pc_variants": [
+      [
+        0,
+        1,
+        5,
+        6
+      ]
+    ],
+    "changed_aggregate_examples": [],
+    "scope": "CSV rel is relative to global tonic. Aggregate changes prove the literal global PC-set differs, not which unexported permutation event caused the change. Transposition is analyzed separately; local harmony is not silently unioned.",
+    "per_context_evidence": []
+  },
+  {
+    "id": "EM-C038",
+    "type": "KLASSE",
+    "pcs": [
+      0,
+      2,
+      6,
+      8
+    ],
+    "prime_source": [
+      0,
+      2,
+      6,
+      8
+    ],
+    "prime_packed_right": [
+      0,
+      2,
+      6,
+      8
+    ],
+    "prime_equivalent": true,
+    "iv_source": [
+      0,
+      2,
+      0,
+      2,
+      0,
+      2
+    ],
+    "iv_actual": [
+      0,
+      2,
+      0,
+      2,
+      0,
+      2
+    ],
+    "reference_events": 0,
+    "exchange_tones": [],
+    "permitted_pc_variants": [
+      [
+        0,
+        2,
+        6,
+        8
+      ]
+    ],
+    "changed_aggregate_examples": [],
+    "scope": "CSV rel is relative to global tonic. Aggregate changes prove the literal global PC-set differs, not which unexported permutation event caused the change. Transposition is analyzed separately; local harmony is not silently unioned.",
+    "per_context_evidence": []
+  },
+  {
+    "id": "EM-C039",
+    "type": "ORD",
+    "pcs": [
+      7,
+      5,
+      3,
+      2,
+      0
+    ],
+    "prime_source": [
+      0,
+      2,
+      3,
+      5,
+      7
+    ],
+    "prime_packed_right": [
+      0,
+      2,
+      3,
+      5,
+      7
+    ],
+    "prime_equivalent": true,
+    "iv_source": [
+      1,
+      3,
+      2,
+      1,
+      3,
+      0
+    ],
+    "iv_actual": [
+      1,
+      3,
+      2,
+      1,
+      3,
+      0
+    ],
+    "reference_events": 0,
+    "exchange_tones": [],
+    "permitted_pc_variants": [
+      [
+        0,
+        2,
+        3,
+        5,
+        7
+      ]
+    ],
+    "changed_aggregate_examples": [],
+    "scope": "CSV rel is relative to global tonic. Aggregate changes prove the literal global PC-set differs, not which unexported permutation event caused the change. Transposition is analyzed separately; local harmony is not silently unioned.",
+    "per_context_evidence": []
+  },
+  {
+    "id": "EM-C040",
+    "type": "ORD",
+    "pcs": [
+      0,
+      5,
+      7
+    ],
+    "prime_source": [
+      0,
+      2,
+      7
+    ],
+    "prime_packed_right": [
+      0,
+      2,
+      7
+    ],
+    "prime_equivalent": true,
+    "iv_source": [
+      0,
+      1,
+      0,
+      0,
+      2,
+      0
+    ],
+    "iv_actual": [
+      0,
+      1,
+      0,
+      0,
+      2,
+      0
+    ],
+    "reference_events": 0,
+    "exchange_tones": [],
+    "permitted_pc_variants": [
+      [
+        0,
+        5,
+        7
+      ]
+    ],
+    "changed_aggregate_examples": [],
+    "scope": "CSV rel is relative to global tonic. Aggregate changes prove the literal global PC-set differs, not which unexported permutation event caused the change. Transposition is analyzed separately; local harmony is not silently unioned.",
+    "per_context_evidence": []
+  },
+  {
+    "id": "EM-C041",
+    "type": "MENGE",
+    "pcs": [
+      0,
+      4,
+      7,
+      11
+    ],
+    "prime_source": [
+      0,
+      1,
+      5,
+      8
+    ],
+    "prime_packed_right": [
+      0,
+      1,
+      5,
+      8
+    ],
+    "prime_equivalent": true,
+    "iv_source": [
+      1,
+      0,
+      1,
+      2,
+      2,
+      0
+    ],
+    "iv_actual": [
+      1,
+      0,
+      1,
+      2,
+      2,
+      0
+    ],
+    "reference_events": 0,
+    "exchange_tones": [],
+    "permitted_pc_variants": [
+      [
+        0,
+        4,
+        7,
+        11
+      ]
+    ],
+    "changed_aggregate_examples": [],
+    "scope": "CSV rel is relative to global tonic. Aggregate changes prove the literal global PC-set differs, not which unexported permutation event caused the change. Transposition is analyzed separately; local harmony is not silently unioned.",
+    "per_context_evidence": []
+  },
+  {
+    "id": "EM-C042",
+    "type": "MENGE",
+    "pcs": [
+      0,
+      3,
+      7,
+      10
+    ],
+    "prime_source": [
+      0,
+      3,
+      5,
+      8
+    ],
+    "prime_packed_right": [
+      0,
+      3,
+      5,
+      8
+    ],
+    "prime_equivalent": true,
+    "iv_source": [
+      0,
+      1,
+      2,
+      1,
+      2,
+      0
+    ],
+    "iv_actual": [
+      0,
+      1,
+      2,
+      1,
+      2,
+      0
+    ],
+    "reference_events": 0,
+    "exchange_tones": [],
+    "permitted_pc_variants": [
+      [
+        0,
+        3,
+        7,
+        10
+      ]
+    ],
+    "changed_aggregate_examples": [],
+    "scope": "CSV rel is relative to global tonic. Aggregate changes prove the literal global PC-set differs, not which unexported permutation event caused the change. Transposition is analyzed separately; local harmony is not silently unioned.",
+    "per_context_evidence": []
+  },
+  {
+    "id": "EM-C043",
+    "type": "MENGE",
+    "pcs": [
+      0,
+      2,
+      3,
+      5,
+      7,
+      8,
+      10
+    ],
+    "prime_source": [
+      0,
+      1,
+      3,
+      5,
+      6,
+      8,
+      10
+    ],
+    "prime_packed_right": [
+      0,
+      1,
+      3,
+      5,
+      6,
+      8,
+      10
+    ],
+    "prime_equivalent": true,
+    "iv_source": [
+      2,
+      5,
+      4,
+      3,
+      6,
+      1
+    ],
+    "iv_actual": [
+      2,
+      5,
+      4,
+      3,
+      6,
+      1
+    ],
+    "reference_events": 0,
+    "exchange_tones": [],
+    "permitted_pc_variants": [
+      [
+        0,
+        2,
+        3,
+        5,
+        7,
+        8,
+        10
+      ]
+    ],
+    "changed_aggregate_examples": [],
+    "scope": "CSV rel is relative to global tonic. Aggregate changes prove the literal global PC-set differs, not which unexported permutation event caused the change. Transposition is analyzed separately; local harmony is not silently unioned.",
+    "per_context_evidence": []
+  },
+  {
+    "id": "EM-C044",
+    "type": "KLASSE",
+    "pcs": [
+      0,
+      1,
+      3,
+      4
+    ],
+    "prime_source": [
+      0,
+      1,
+      3,
+      4
+    ],
+    "prime_packed_right": [
+      0,
+      1,
+      3,
+      4
+    ],
+    "prime_equivalent": true,
+    "iv_source": [
+      2,
+      1,
+      2,
+      1,
+      0,
+      0
+    ],
+    "iv_actual": [
+      2,
+      1,
+      2,
+      1,
+      0,
+      0
+    ],
+    "reference_events": 256,
+    "exchange_tones": [],
+    "permitted_pc_variants": [
+      [
+        0,
+        1,
+        3,
+        4
+      ]
+    ],
+    "changed_aggregate_examples": [],
+    "scope": "CSV rel is relative to global tonic. Aggregate changes prove the literal global PC-set differs, not which unexported permutation event caused the change. Transposition is analyzed separately; local harmony is not silently unioned.",
+    "per_context_evidence": [
+      {
+        "study": "EM-S039",
+        "role": "AR",
+        "context": "Oktatonik",
+        "actual_pcs": [
+          0,
+          1,
+          3,
+          4
+        ],
+        "events": 256,
+        "same_tni_class": true,
+        "exchange_authorized": false,
+        "first_events": [
+          {
+            "tick": 0,
+            "pitch": 12,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 240,
+            "pitch": 13,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 480,
+            "pitch": 15,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 720,
+            "pitch": 16,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 960,
+            "pitch": 12,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 1200,
+            "pitch": 13,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 1440,
+            "pitch": 15,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 1680,
+            "pitch": 16,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 1920,
+            "pitch": 12,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 2160,
+            "pitch": 13,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 2400,
+            "pitch": 15,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 2640,
+            "pitch": 16,
+            "duration": 216,
+            "function": "A"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "EM-C045",
+    "type": "MENGE",
+    "pcs": [
+      0,
+      2,
+      3,
+      8
+    ],
+    "prime_source": [
+      0,
+      1,
+      3,
+      7
+    ],
+    "prime_packed_right": [
+      0,
+      1,
+      3,
+      7
+    ],
+    "prime_equivalent": true,
+    "iv_source": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "iv_actual": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "reference_events": 56,
+    "exchange_tones": [],
+    "permitted_pc_variants": [
+      [
+        0,
+        2,
+        3,
+        8
+      ]
+    ],
+    "changed_aggregate_examples": [],
+    "scope": "CSV rel is relative to global tonic. Aggregate changes prove the literal global PC-set differs, not which unexported permutation event caused the change. Transposition is analyzed separately; local harmony is not silently unioned.",
+    "per_context_evidence": [
+      {
+        "study": "EM-S052",
+        "role": "TU",
+        "context": "3:maj7",
+        "actual_pcs": [
+          0,
+          2,
+          3,
+          8
+        ],
+        "events": 8,
+        "same_tni_class": true,
+        "exchange_authorized": false,
+        "first_events": [
+          {
+            "tick": 15360,
+            "pitch": 24,
+            "duration": 216,
+            "function": "T"
+          },
+          {
+            "tick": 16320,
+            "pitch": 14,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 19200,
+            "pitch": 15,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 20160,
+            "pitch": 20,
+            "duration": 216,
+            "function": "T"
+          },
+          {
+            "tick": 76800,
+            "pitch": 20,
+            "duration": 216,
+            "function": "T"
+          },
+          {
+            "tick": 77760,
+            "pitch": 24,
+            "duration": 216,
+            "function": "T"
+          },
+          {
+            "tick": 80640,
+            "pitch": 14,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 81600,
+            "pitch": 15,
+            "duration": 216,
+            "function": "A"
+          }
+        ]
+      },
+      {
+        "study": "EM-S052",
+        "role": "TU",
+        "context": "8:maj7",
+        "actual_pcs": [
+          0,
+          2,
+          3,
+          8
+        ],
+        "events": 8,
+        "same_tni_class": true,
+        "exchange_authorized": false,
+        "first_events": [
+          {
+            "tick": 23040,
+            "pitch": 24,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 24000,
+            "pitch": 14,
+            "duration": 216,
+            "function": "T"
+          },
+          {
+            "tick": 26880,
+            "pitch": 15,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 27840,
+            "pitch": 20,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 84480,
+            "pitch": 20,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 85440,
+            "pitch": 24,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 88320,
+            "pitch": 14,
+            "duration": 216,
+            "function": "T"
+          },
+          {
+            "tick": 89280,
+            "pitch": 15,
+            "duration": 216,
+            "function": "A"
+          }
+        ]
+      },
+      {
+        "study": "EM-S052",
+        "role": "TU",
+        "context": "0:madd9",
+        "actual_pcs": [
+          0,
+          2,
+          3,
+          8
+        ],
+        "events": 12,
+        "same_tni_class": true,
+        "exchange_authorized": false,
+        "first_events": [
+          {
+            "tick": 30720,
+            "pitch": 24,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 31680,
+            "pitch": 14,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 34560,
+            "pitch": 15,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 35520,
+            "pitch": 20,
+            "duration": 216,
+            "function": "T"
+          },
+          {
+            "tick": 61440,
+            "pitch": 15,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 62400,
+            "pitch": 20,
+            "duration": 216,
+            "function": "T"
+          },
+          {
+            "tick": 65280,
+            "pitch": 24,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 66240,
+            "pitch": 14,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 92160,
+            "pitch": 20,
+            "duration": 216,
+            "function": "T"
+          },
+          {
+            "tick": 93120,
+            "pitch": 24,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 96000,
+            "pitch": 14,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 96960,
+            "pitch": 15,
+            "duration": 216,
+            "function": "A"
+          }
+        ]
+      },
+      {
+        "study": "EM-S052",
+        "role": "TU",
+        "context": "5:m7",
+        "actual_pcs": [
+          0,
+          2,
+          3,
+          8
+        ],
+        "events": 8,
+        "same_tni_class": true,
+        "exchange_authorized": false,
+        "first_events": [
+          {
+            "tick": 38400,
+            "pitch": 24,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 39360,
+            "pitch": 14,
+            "duration": 216,
+            "function": "T"
+          },
+          {
+            "tick": 42240,
+            "pitch": 15,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 43200,
+            "pitch": 20,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 99840,
+            "pitch": 20,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 100800,
+            "pitch": 24,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 103680,
+            "pitch": 14,
+            "duration": 216,
+            "function": "T"
+          },
+          {
+            "tick": 104640,
+            "pitch": 15,
+            "duration": 216,
+            "function": "A"
+          }
+        ]
+      },
+      {
+        "study": "EM-S052",
+        "role": "TU",
+        "context": "8:maj7#11",
+        "actual_pcs": [
+          0,
+          2,
+          3,
+          8
+        ],
+        "events": 8,
+        "same_tni_class": true,
+        "exchange_authorized": false,
+        "first_events": [
+          {
+            "tick": 46080,
+            "pitch": 15,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 47040,
+            "pitch": 20,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 49920,
+            "pitch": 24,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 50880,
+            "pitch": 14,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 107520,
+            "pitch": 14,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 108480,
+            "pitch": 15,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 111360,
+            "pitch": 20,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 112320,
+            "pitch": 24,
+            "duration": 216,
+            "function": "A"
+          }
+        ]
+      },
+      {
+        "study": "EM-S052",
+        "role": "TU",
+        "context": "10:add9",
+        "actual_pcs": [
+          0,
+          2,
+          3,
+          8
+        ],
+        "events": 12,
+        "same_tni_class": true,
+        "exchange_authorized": false,
+        "first_events": [
+          {
+            "tick": 53760,
+            "pitch": 15,
+            "duration": 216,
+            "function": "T"
+          },
+          {
+            "tick": 54720,
+            "pitch": 20,
+            "duration": 216,
+            "function": "T"
+          },
+          {
+            "tick": 57600,
+            "pitch": 24,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 58560,
+            "pitch": 14,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 69120,
+            "pitch": 15,
+            "duration": 216,
+            "function": "T"
+          },
+          {
+            "tick": 70080,
+            "pitch": 20,
+            "duration": 216,
+            "function": "T"
+          },
+          {
+            "tick": 72960,
+            "pitch": 24,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 73920,
+            "pitch": 14,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 115200,
+            "pitch": 14,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 116160,
+            "pitch": 15,
+            "duration": 216,
+            "function": "T"
+          },
+          {
+            "tick": 119040,
+            "pitch": 20,
+            "duration": 216,
+            "function": "T"
+          },
+          {
+            "tick": 120000,
+            "pitch": 24,
+            "duration": 216,
+            "function": "A"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "EM-C046",
+    "type": "RHY",
+    "pcs": [
+      0,
+      1
+    ],
+    "prime_source": [
+      0,
+      1
+    ],
+    "prime_packed_right": [
+      0,
+      1
+    ],
+    "prime_equivalent": true,
+    "iv_source": [
+      1,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "iv_actual": [
+      1,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "reference_events": 160,
+    "exchange_tones": [],
+    "permitted_pc_variants": [
+      [
+        0,
+        1
+      ]
+    ],
+    "changed_aggregate_examples": [],
+    "scope": "CSV rel is relative to global tonic. Aggregate changes prove the literal global PC-set differs, not which unexported permutation event caused the change. Transposition is analyzed separately; local harmony is not silently unioned.",
+    "per_context_evidence": [
+      {
+        "study": "EM-S013",
+        "role": "AR",
+        "context": "Quinte+♭9",
+        "actual_pcs": [
+          0,
+          1
+        ],
+        "events": 56,
+        "same_tni_class": true,
+        "exchange_authorized": false,
+        "first_events": [
+          {
+            "tick": 15360,
+            "pitch": 12,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 17280,
+            "pitch": 13,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 19200,
+            "pitch": 12,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 21120,
+            "pitch": 13,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 23040,
+            "pitch": 12,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 24960,
+            "pitch": 13,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 26880,
+            "pitch": 12,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 28800,
+            "pitch": 13,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 30720,
+            "pitch": 12,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 32640,
+            "pitch": 13,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 34560,
+            "pitch": 12,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 36480,
+            "pitch": 13,
+            "duration": 216,
+            "function": "A"
+          }
+        ]
+      },
+      {
+        "study": "EM-S022",
+        "role": "AR",
+        "context": "Quinte+♭9",
+        "actual_pcs": [
+          0,
+          1
+        ],
+        "events": 88,
+        "same_tni_class": true,
+        "exchange_authorized": false,
+        "first_events": [
+          {
+            "tick": 30720,
+            "pitch": 12,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 32640,
+            "pitch": 13,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 34560,
+            "pitch": 12,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 36480,
+            "pitch": 13,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 38400,
+            "pitch": 12,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 40320,
+            "pitch": 13,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 42240,
+            "pitch": 12,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 44160,
+            "pitch": 13,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 46080,
+            "pitch": 12,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 48000,
+            "pitch": 13,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 49920,
+            "pitch": 12,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 51840,
+            "pitch": 13,
+            "duration": 216,
+            "function": "A"
+          }
+        ]
+      },
+      {
+        "study": "EM-S025",
+        "role": "AR",
+        "context": "0:madd9",
+        "actual_pcs": [
+          0,
+          1
+        ],
+        "events": 16,
+        "same_tni_class": true,
+        "exchange_authorized": false,
+        "first_events": [
+          {
+            "tick": 184320,
+            "pitch": 12,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 186240,
+            "pitch": 13,
+            "duration": 216,
+            "function": "U"
+          },
+          {
+            "tick": 188160,
+            "pitch": 12,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 190080,
+            "pitch": 13,
+            "duration": 216,
+            "function": "U"
+          },
+          {
+            "tick": 192000,
+            "pitch": 12,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 193920,
+            "pitch": 13,
+            "duration": 216,
+            "function": "U"
+          },
+          {
+            "tick": 195840,
+            "pitch": 12,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 197760,
+            "pitch": 13,
+            "duration": 216,
+            "function": "U"
+          },
+          {
+            "tick": 199680,
+            "pitch": 12,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 201600,
+            "pitch": 13,
+            "duration": 216,
+            "function": "U"
+          },
+          {
+            "tick": 203520,
+            "pitch": 12,
+            "duration": 216,
+            "function": "A"
+          },
+          {
+            "tick": 205440,
+            "pitch": 13,
+            "duration": 216,
+            "function": "U"
+          }
+        ]
+      }
+    ]
+  }
+]

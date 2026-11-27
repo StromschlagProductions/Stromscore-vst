@@ -717,3 +717,16 @@ Keine zusätzliche Engine-Regression erforderlich: `Source/`, Laufzeitdaten, GUI
 ## Fortschreibung: unabhängiges Einzelpedal
 
 Der erste begrenzte gemeinsame Pedalpfad ist mit JW-H03/H50/H61 verbunden. Modell, Autorisierungsgrenzen, tatsächliche MIDI-Vergleiche und noch offene Bass-/Pedalfähigkeiten stehen in [INDEPENDENT_PEDALS.md](INDEPENDENT_PEDALS.md). Dies ersetzt keine vollständige Implementierung des übrigen Bassvokabulars oder der Modellstudien. Williams P2/P3 wurde separat am Windows-Stand 023b0a6 musikalisch positiv gehört.
+
+
+## Gemeinsame Fortschreibung mit Morricone, 27.11.2026
+
+Die [534-ID-Bestandsaufnahme](../ennio-morricone/IMPLEMENTATION_PLAN.md) schlägt
+früh begrenzte Pflicht-Gemeinsamtöne im vorhandenen Stimmführungs-/Pad-Claim-Pfad
+vor, anschließend ein explizites Vorhaltsziel und gestaffelte Einsätze. Das kann
+auch Williams' warme/monumentale Harmonik erweitern, ohne seine abgenommene
+Arpeggio-Phrasierung zu verändern. Lokale Tonabsichten, Pedal-/Bassbindung,
+Zellidentitäten und Module bleiben gemeinsame Fähigkeiten gemäß
+[gemeinsamem Bericht](../SHARED_MUSICAL_CAPABILITIES.md). Keine zusätzliche Engine,
+keine jetzt freigegebene oder begonnene Implementierungsphase; aktueller
+Pedal-Hörstand `4c43bd2` unverändert.

@@ -1,0 +1,48 @@
+{
+  "base": "4c43bd2",
+  "files": [
+    {
+      "archived": "EM_Qualitaetspruefung.md",
+      "uploaded": "EM_Qualitaetspruefung.md",
+      "bytes": 22620,
+      "sha256": "d1daa94d4b0d1260ed6d0a2f5ad5f9fa51d2ff17e08273e2abe56ce8c19a91e2"
+    },
+    {
+      "archived": "EM_Studien_Ereignisse.csv",
+      "uploaded": "EM_Studien_Ereignisse.csv",
+      "bytes": 1473484,
+      "sha256": "7a5afeb7e7e1dd7fdf32eac1b7a12f37a82c30f0dfc4aa0760fb3d0305a5240c"
+    },
+    {
+      "archived": "EM_Studien_MIDI.zip",
+      "uploaded": "EM_Studien_MIDI.zip",
+      "bytes": 39891,
+      "sha256": "79157fab4f72edfab855e956cac72316b6cdaab192563e3b2c5e2e7cce9d4d48"
+    },
+    {
+      "archived": "STROMSCORE_Ennio_Morricone_Nachtrag_Lolita_Lyrik.md",
+      "uploaded": "STROMSCORE_Ennio_Morricone_Nachtrag_Lolita_Lyrik.md",
+      "bytes": 31660,
+      "sha256": "513c15066c8a9bf59f879910d17163329fd7ed5718e0df9309e9126bb9ac2dab"
+    },
+    {
+      "archived": "STROMSCORE_Ennio_Morricone_Vokabular_Kanonisch.md",
+      "uploaded": "STROMSCORE_Ennio_Morricone_Vokabular_Kanonisch.md",
+      "bytes": 737768,
+      "sha256": "3f883e11412e41ad4c10bb4f947def2557a802b62f6ec645b41853f65e80fcc9"
+    },
+    {
+      "archived": "STROMSCORE_Ennio_Morricone_Tiefenrecherche.md",
+      "uploaded": "Ennio Morricone Stilprofil für STROMSCORE_ Mikrozelle, immobilità dinamica und partitura multipla.md",
+      "bytes": 44147,
+      "sha256": "64d1cce5a981b8a9d7abace694bf052c18d6665ad147bba8626af818ecc9daf1"
+    },
+    {
+      "archived": "STROMSCORE_Ennio_Morricone_Tiefenrecherche_Vertiefung.md",
+      "uploaded": "Ennio Morricone für STROMSCORE_ Mikrozellen, Partitura multipla und rhythmische Schichtung.md",
+      "bytes": 46152,
+      "sha256": "20c22fbff0feeeb5cd28030aa1d25f7715eed04fb10c94becae657e69127fde3"
+    }
+  ],
+  "lolita_archived_once": true
+}

@@ -1,0 +1,824 @@
+{
+  "triples": 8436,
+  "necessary_constraints_pass": 644,
+  "no_triple_certified_playable": true,
+  "asymmetric_source_pairs": [
+    {
+      "ids": [
+        "EM-K013",
+        "EM-K020"
+      ],
+      "tags": [
+        "unspecified",
+        "conditional"
+      ]
+    },
+    {
+      "ids": [
+        "EM-K013",
+        "EM-K021"
+      ],
+      "tags": [
+        "unspecified",
+        "conditional"
+      ]
+    },
+    {
+      "ids": [
+        "EM-K013",
+        "EM-K022"
+      ],
+      "tags": [
+        "unspecified",
+        "conditional"
+      ]
+    },
+    {
+      "ids": [
+        "EM-K013",
+        "EM-K023"
+      ],
+      "tags": [
+        "unspecified",
+        "conditional"
+      ]
+    },
+    {
+      "ids": [
+        "EM-K013",
+        "EM-K030"
+      ],
+      "tags": [
+        "unspecified",
+        "conditional"
+      ]
+    },
+    {
+      "ids": [
+        "EM-K013",
+        "EM-K031"
+      ],
+      "tags": [
+        "unspecified",
+        "conditional"
+      ]
+    },
+    {
+      "ids": [
+        "EM-K013",
+        "EM-K032"
+      ],
+      "tags": [
+        "unspecified",
+        "conditional"
+      ]
+    },
+    {
+      "ids": [
+        "EM-K013",
+        "EM-K033"
+      ],
+      "tags": [
+        "unspecified",
+        "conditional"
+      ]
+    },
+    {
+      "ids": [
+        "EM-K013",
+        "EM-K035"
+      ],
+      "tags": [
+        "unspecified",
+        "conditional"
+      ]
+    },
+    {
+      "ids": [
+        "EM-K013",
+        "EM-K036"
+      ],
+      "tags": [
+        "unspecified",
+        "conditional"
+      ]
+    },
+    {
+      "ids": [
+        "EM-K016",
+        "EM-K017"
+      ],
+      "tags": [
+        "conditional",
+        "unspecified"
+      ]
+    },
+    {
+      "ids": [
+        "EM-K016",
+        "EM-K018"
+      ],
+      "tags": [
+        "conditional",
+        "unspecified"
+      ]
+    },
+    {
+      "ids": [
+        "EM-K016",
+        "EM-K019"
+      ],
+      "tags": [
+        "conditional",
+        "unspecified"
+      ]
+    },
+    {
+      "ids": [
+        "EM-K016",
+        "EM-K021"
+      ],
+      "tags": [
+        "conditional",
+        "unspecified"
+      ]
+    },
+    {
+      "ids": [
+        "EM-K016",
+        "EM-K038"
+      ],
+      "tags": [
+        "unspecified",
+        "conditional"
+      ]
+    },
+    {
+      "ids": [
+        "EM-K017",
+        "EM-K020"
+      ],
+      "tags": [
+        "unspecified",
+        "conditional"
+      ]
+    },
+    {
+      "ids": [
+        "EM-K017",
+        "EM-K022"
+      ],
+      "tags": [
+        "unspecified",
+        "conditional"
+      ]
+    },
+    {
+      "ids": [
+        "EM-K017",
+        "EM-K023"
+      ],
+      "tags": [
+        "unspecified",
+        "conditional"
+      ]
+    },
+    {
+      "ids": [
+        "EM-K017",
+        "EM-K024"
+      ],
+      "tags": [
+        "unspecified",
+        "conditional"
+      ]
+    },
+    {
+      "ids": [
+        "EM-K017",
+        "EM-K025"
+      ],
+      "tags": [
+        "unspecified",
+        "conditional"
+      ]
+    },
+    {
+      "ids": [
+        "EM-K017",
+        "EM-K026"
+      ],
+      "tags": [
+        "unspecified",
+        "conditional"
+      ]
+    },
+    {
+      "ids": [
+        "EM-K017",
+        "EM-K030"
+      ],
+      "tags": [
+        "unspecified",
+        "conditional"
+      ]
+    },
+    {
+      "ids": [
+        "EM-K017",
+        "EM-K031"
+      ],
+      "tags": [
+        "unspecified",
+        "conditional"
+      ]
+    },
+    {
+      "ids": [
+        "EM-K017",
+        "EM-K032"
+      ],
+      "tags": [
+        "unspecified",
+        "conditional"
+      ]
+    },
+    {
+      "ids": [
+        "EM-K017",
+        "EM-K033"
+      ],
+      "tags": [
+        "unspecified",
+        "conditional"
+      ]
+    },
+    {
+      "ids": [
+        "EM-K017",
+        "EM-K035"
+      ],
+      "tags": [
+        "unspecified",
+        "conditional"
+      ]
+    },
+    {
+      "ids": [
+        "EM-K017",
+        "EM-K036"
+      ],
+      "tags": [
+        "unspecified",
+        "conditional"
+      ]
+    },
+    {
+      "ids": [
+        "EM-K018",
+        "EM-K020"
+      ],
+      "tags": [
+        "unspecified",
+        "conditional"
+      ]
+    },
+    {
+      "ids": [
+        "EM-K018",
+        "EM-K022"
+      ],
+      "tags": [
+        "unspecified",
+        "conditional"
+      ]
+    },
+    {
+      "ids": [
+        "EM-K018",
+        "EM-K023"
+      ],
+      "tags": [
+        "unspecified",
+        "conditional"
+      ]
+    },
+    {
+      "ids": [
+        "EM-K018",
+        "EM-K024"
+      ],
+      "tags": [
+        "unspecified",
+        "conditional"
+      ]
+    },
+    {
+      "ids": [
+        "EM-K018",
+        "EM-K025"
+      ],
+      "tags": [
+        "unspecified",
+        "conditional"
+      ]
+    },
+    {
+      "ids": [
+        "EM-K018",
+        "EM-K026"
+      ],
+      "tags": [
+        "unspecified",
+        "conditional"
+      ]
+    },
+    {
+      "ids": [
+        "EM-K018",
+        "EM-K030"
+      ],
+      "tags": [
+        "unspecified",
+        "conditional"
+      ]
+    },
+    {
+      "ids": [
+        "EM-K018",
+        "EM-K031"
+      ],
+      "tags": [
+        "unspecified",
+        "conditional"
+      ]
+    },
+    {
+      "ids": [
+        "EM-K018",
+        "EM-K032"
+      ],
+      "tags": [
+        "unspecified",
+        "conditional"
+      ]
+    },
+    {
+      "ids": [
+        "EM-K018",
+        "EM-K033"
+      ],
+      "tags": [
+        "unspecified",
+        "conditional"
+      ]
+    },
+    {
+      "ids": [
+        "EM-K018",
+        "EM-K035"
+      ],
+      "tags": [
+        "unspecified",
+        "conditional"
+      ]
+    },
+    {
+      "ids": [
+        "EM-K018",
+        "EM-K036"
+      ],
+      "tags": [
+        "unspecified",
+        "conditional"
+      ]
+    },
+    {
+      "ids": [
+        "EM-K019",
+        "EM-K020"
+      ],
+      "tags": [
+        "unspecified",
+        "conditional"
+      ]
+    },
+    {
+      "ids": [
+        "EM-K019",
+        "EM-K022"
+      ],
+      "tags": [
+        "unspecified",
+        "conditional"
+      ]
+    },
+    {
+      "ids": [
+        "EM-K019",
+        "EM-K023"
+      ],
+      "tags": [
+        "unspecified",
+        "conditional"
+      ]
+    },
+    {
+      "ids": [
+        "EM-K019",
+        "EM-K024"
+      ],
+      "tags": [
+        "unspecified",
+        "conditional"
+      ]
+    },
+    {
+      "ids": [
+        "EM-K019",
+        "EM-K025"
+      ],
+      "tags": [
+        "unspecified",
+        "conditional"
+      ]
+    },
+    {
+      "ids": [
+        "EM-K019",
+        "EM-K026"
+      ],
+      "tags": [
+        "unspecified",
+        "conditional"
+      ]
+    },
+    {
+      "ids": [
+        "EM-K019",
+        "EM-K030"
+      ],
+      "tags": [
+        "unspecified",
+        "conditional"
+      ]
+    },
+    {
+      "ids": [
+        "EM-K019",
+        "EM-K031"
+      ],
+      "tags": [
+        "unspecified",
+        "conditional"
+      ]
+    },
+    {
+      "ids": [
+        "EM-K019",
+        "EM-K032"
+      ],
+      "tags": [
+        "unspecified",
+        "conditional"
+      ]
+    },
+    {
+      "ids": [
+        "EM-K019",
+        "EM-K033"
+      ],
+      "tags": [
+        "unspecified",
+        "conditional"
+      ]
+    },
+    {
+      "ids": [
+        "EM-K019",
+        "EM-K035"
+      ],
+      "tags": [
+        "unspecified",
+        "conditional"
+      ]
+    },
+    {
+      "ids": [
+        "EM-K019",
+        "EM-K036"
+      ],
+      "tags": [
+        "unspecified",
+        "conditional"
+      ]
+    },
+    {
+      "ids": [
+        "EM-K020",
+        "EM-K021"
+      ],
+      "tags": [
+        "conditional",
+        "unspecified"
+      ]
+    },
+    {
+      "ids": [
+        "EM-K020",
+        "EM-K038"
+      ],
+      "tags": [
+        "conditional",
+        "unspecified"
+      ]
+    },
+    {
+      "ids": [
+        "EM-K021",
+        "EM-K022"
+      ],
+      "tags": [
+        "unspecified",
+        "conditional"
+      ]
+    },
+    {
+      "ids": [
+        "EM-K021",
+        "EM-K023"
+      ],
+      "tags": [
+        "unspecified",
+        "conditional"
+      ]
+    },
+    {
+      "ids": [
+        "EM-K021",
+        "EM-K024"
+      ],
+      "tags": [
+        "unspecified",
+        "conditional"
+      ]
+    },
+    {
+      "ids": [
+        "EM-K021",
+        "EM-K025"
+      ],
+      "tags": [
+        "unspecified",
+        "conditional"
+      ]
+    },
+    {
+      "ids": [
+        "EM-K021",
+        "EM-K026"
+      ],
+      "tags": [
+        "unspecified",
+        "conditional"
+      ]
+    },
+    {
+      "ids": [
+        "EM-K021",
+        "EM-K030"
+      ],
+      "tags": [
+        "unspecified",
+        "conditional"
+      ]
+    },
+    {
+      "ids": [
+        "EM-K021",
+        "EM-K031"
+      ],
+      "tags": [
+        "unspecified",
+        "conditional"
+      ]
+    },
+    {
+      "ids": [
+        "EM-K021",
+        "EM-K032"
+      ],
+      "tags": [
+        "unspecified",
+        "conditional"
+      ]
+    },
+    {
+      "ids": [
+        "EM-K021",
+        "EM-K033"
+      ],
+      "tags": [
+        "unspecified",
+        "conditional"
+      ]
+    },
+    {
+      "ids": [
+        "EM-K021",
+        "EM-K035"
+      ],
+      "tags": [
+        "unspecified",
+        "conditional"
+      ]
+    },
+    {
+      "ids": [
+        "EM-K021",
+        "EM-K036"
+      ],
+      "tags": [
+        "unspecified",
+        "conditional"
+      ]
+    },
+    {
+      "ids": [
+        "EM-K022",
+        "EM-K038"
+      ],
+      "tags": [
+        "conditional",
+        "unspecified"
+      ]
+    },
+    {
+      "ids": [
+        "EM-K023",
+        "EM-K026"
+      ],
+      "tags": [
+        "conditional",
+        "unspecified"
+      ]
+    },
+    {
+      "ids": [
+        "EM-K024",
+        "EM-K026"
+      ],
+      "tags": [
+        "conditional",
+        "unspecified"
+      ]
+    },
+    {
+      "ids": [
+        "EM-K024",
+        "EM-K038"
+      ],
+      "tags": [
+        "conditional",
+        "unspecified"
+      ]
+    },
+    {
+      "ids": [
+        "EM-K025",
+        "EM-K026"
+      ],
+      "tags": [
+        "conditional",
+        "unspecified"
+      ]
+    },
+    {
+      "ids": [
+        "EM-K025",
+        "EM-K038"
+      ],
+      "tags": [
+        "conditional",
+        "unspecified"
+      ]
+    },
+    {
+      "ids": [
+        "EM-K026",
+        "EM-K027"
+      ],
+      "tags": [
+        "unspecified",
+        "conditional"
+      ]
+    },
+    {
+      "ids": [
+        "EM-K026",
+        "EM-K029"
+      ],
+      "tags": [
+        "unspecified",
+        "conditional"
+      ]
+    },
+    {
+      "ids": [
+        "EM-K026",
+        "EM-K035"
+      ],
+      "tags": [
+        "unspecified",
+        "conditional"
+      ]
+    },
+    {
+      "ids": [
+        "EM-K026",
+        "EM-K036"
+      ],
+      "tags": [
+        "unspecified",
+        "conditional"
+      ]
+    },
+    {
+      "ids": [
+        "EM-K027",
+        "EM-K036"
+      ],
+      "tags": [
+        "unspecified",
+        "conditional"
+      ]
+    },
+    {
+      "ids": [
+        "EM-K030",
+        "EM-K038"
+      ],
+      "tags": [
+        "conditional",
+        "unspecified"
+      ]
+    },
+    {
+      "ids": [
+        "EM-K031",
+        "EM-K038"
+      ],
+      "tags": [
+        "conditional",
+        "unspecified"
+      ]
+    },
+    {
+      "ids": [
+        "EM-K032",
+        "EM-K038"
+      ],
+      "tags": [
+        "conditional",
+        "unspecified"
+      ]
+    },
+    {
+      "ids": [
+        "EM-K033",
+        "EM-K038"
+      ],
+      "tags": [
+        "conditional",
+        "unspecified"
+      ]
+    },
+    {
+      "ids": [
+        "EM-K035",
+        "EM-K038"
+      ],
+      "tags": [
+        "conditional",
+        "unspecified"
+      ]
+    },
+    {
+      "ids": [
+        "EM-K036",
+        "EM-K038"
+      ],
+      "tags": [
+        "conditional",
+        "unspecified"
+      ]
+    }
+  ],
+  "flags": {
+    "pair_rejected": 2346,
+    "summed_polyphony_needs_timeline_check": 2391,
+    "source_domains_disjoint": 4773,
+    "conditional_or_unspecified_pair": 4687
+  },
+  "limits": "Pairwise approvals and summed declared polyphony are preliminary filters. Sum above capacity does not prove simultaneous overflow; complementary timing could avoid it. No claim of simultaneous pitch/harmony/gate validity; module references are not playable runtime data. No resetting independent cycles at bar boundaries. Unperiodic modules remain lifecycle-bound, not forced into periodicity."
+}

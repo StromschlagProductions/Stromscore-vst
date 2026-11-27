@@ -18,3 +18,12 @@ docs/research/john-carpenter/STROMSCORE_John_Carpenter_Vokabular_Kanonisch.md -t
 docs/research/john-carpenter/JC_Studien_Ereignisse.csv -text
 docs/research/john-carpenter/JC_Studien_MIDI.zip -text
 docs/research/john-carpenter/JC_Qualitaetspruefung.md -text
+
+# Morricone research and canonical uploads, byte-preserved on every checkout.
+docs/research/ennio-morricone/EM_Qualitaetspruefung.md -text
+docs/research/ennio-morricone/EM_Studien_Ereignisse.csv -text
+docs/research/ennio-morricone/EM_Studien_MIDI.zip -text
+docs/research/ennio-morricone/STROMSCORE_Ennio_Morricone_Nachtrag_Lolita_Lyrik.md -text
+docs/research/ennio-morricone/STROMSCORE_Ennio_Morricone_Vokabular_Kanonisch.md -text
+docs/research/ennio-morricone/STROMSCORE_Ennio_Morricone_Tiefenrecherche.md -text
+docs/research/ennio-morricone/STROMSCORE_Ennio_Morricone_Tiefenrecherche_Vertiefung.md -text

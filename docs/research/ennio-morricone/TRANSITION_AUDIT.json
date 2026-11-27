@@ -1,0 +1,7652 @@
+[
+  {
+    "id": "EM-U001",
+    "states": [
+      {
+        "Zustand": "0",
+        "Tick": "0",
+        "Harmonie": "[1] Moll-add9",
+        "Funktion": "t (Tonika)",
+        "Bass": "-12",
+        "Oberstimmen (rel)": "[+0, +3, +7, +14]",
+        "Rollen im Akkord": "1, ♭3, 5, 9",
+        "pitches": [
+          0,
+          3,
+          7,
+          14
+        ],
+        "bass": -12,
+        "tick": 0,
+        "duration": 3840,
+        "pc_set": [
+          0,
+          2,
+          3,
+          7
+        ],
+        "matching_types_any_root": [
+          {
+            "root": 0,
+            "type": "MinorAdd9"
+          }
+        ],
+        "root": 0,
+        "types_at_declared_root": [
+          "MinorAdd9"
+        ],
+        "unrooted_object": false
+      },
+      {
+        "Zustand": "1",
+        "Tick": "3840",
+        "Harmonie": "[♭7] Dur-add9",
+        "Funktion": "♭VII (modale Subtonika)",
+        "Bass": "-14",
+        "Oberstimmen (rel)": "[+0, +2, +5, +14]",
+        "Rollen im Akkord": "9, 3, 5, 3",
+        "pitches": [
+          0,
+          2,
+          5,
+          14
+        ],
+        "bass": -14,
+        "tick": 3840,
+        "duration": 3840,
+        "pc_set": [
+          0,
+          2,
+          5,
+          10
+        ],
+        "matching_types_any_root": [
+          {
+            "root": 10,
+            "type": "Add9"
+          }
+        ],
+        "root": 10,
+        "types_at_declared_root": [
+          "Add9"
+        ],
+        "unrooted_object": false
+      }
+    ],
+    "transitions": [
+      {
+        "source_tick": 0,
+        "target_tick": 3840,
+        "from_pitches": [
+          0,
+          3,
+          7,
+          14
+        ],
+        "to_pitches": [
+          0,
+          2,
+          5,
+          14
+        ],
+        "matching": [
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            2,
+            2
+          ],
+          [
+            3,
+            3
+          ]
+        ],
+        "held": [
+          0,
+          14
+        ],
+        "movements": [
+          0,
+          -1,
+          -2,
+          0
+        ],
+        "parallel_pairs": [],
+        "unheld_required": 0,
+        "required_held": [
+          0,
+          14
+        ],
+        "large_leaps": 0,
+        "new_voices": 0,
+        "removed_voices": 0,
+        "scope": "Existence of a monotone partial assignment; no claim this is the unprovided author solver or current engine assignment."
+      }
+    ],
+    "rendered_csv_notes": 0,
+    "csv_multicontext_lf_notes": 0,
+    "explicit_suspension": null,
+    "resolution_intent": "modale Fortsetzung, keine Auflösungspflicht"
+  },
+  {
+    "id": "EM-U002",
+    "states": [
+      {
+        "Zustand": "0",
+        "Tick": "0",
+        "Harmonie": "[1] Moll-add9",
+        "Funktion": "t",
+        "Bass": "-12",
+        "Oberstimmen (rel)": "[+0, +3, +7, +14]",
+        "Rollen im Akkord": "1, ♭3, 5, 9",
+        "pitches": [
+          0,
+          3,
+          7,
+          14
+        ],
+        "bass": -12,
+        "tick": 0,
+        "duration": 3840,
+        "pc_set": [
+          0,
+          2,
+          3,
+          7
+        ],
+        "matching_types_any_root": [
+          {
+            "root": 0,
+            "type": "MinorAdd9"
+          }
+        ],
+        "root": 0,
+        "types_at_declared_root": [
+          "MinorAdd9"
+        ],
+        "unrooted_object": false
+      },
+      {
+        "Zustand": "1",
+        "Tick": "3840",
+        "Harmonie": "[♭6] große Septime",
+        "Funktion": "♭VI (Tonikagegenklang)",
+        "Bass": "-16",
+        "Oberstimmen (rel)": "[+0, +3, +7, +15]",
+        "Rollen im Akkord": "3, 5, 7, 5",
+        "pitches": [
+          0,
+          3,
+          7,
+          15
+        ],
+        "bass": -16,
+        "tick": 3840,
+        "duration": 3840,
+        "pc_set": [
+          0,
+          3,
+          7,
+          8
+        ],
+        "matching_types_any_root": [
+          {
+            "root": 8,
+            "type": "Maj7"
+          }
+        ],
+        "root": 8,
+        "types_at_declared_root": [
+          "Maj7"
+        ],
+        "unrooted_object": false
+      }
+    ],
+    "transitions": [
+      {
+        "source_tick": 0,
+        "target_tick": 3840,
+        "from_pitches": [
+          0,
+          3,
+          7,
+          14
+        ],
+        "to_pitches": [
+          0,
+          3,
+          7,
+          15
+        ],
+        "matching": [
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            2,
+            2
+          ],
+          [
+            3,
+            3
+          ]
+        ],
+        "held": [
+          0,
+          3,
+          7
+        ],
+        "movements": [
+          0,
+          0,
+          0,
+          1
+        ],
+        "parallel_pairs": [],
+        "unheld_required": 0,
+        "required_held": [
+          0,
+          3,
+          7
+        ],
+        "large_leaps": 0,
+        "new_voices": 0,
+        "removed_voices": 0,
+        "scope": "Existence of a monotone partial assignment; no claim this is the unprovided author solver or current engine assignment."
+      }
+    ],
+    "rendered_csv_notes": 35,
+    "csv_multicontext_lf_notes": 3,
+    "explicit_suspension": null,
+    "resolution_intent": "weiches Absinken ohne Auflösungsziel"
+  },
+  {
+    "id": "EM-U003",
+    "states": [
+      {
+        "Zustand": "0",
+        "Tick": "0",
+        "Harmonie": "[1] Moll-add9",
+        "Funktion": "t",
+        "Bass": "-12",
+        "Oberstimmen (rel)": "[-5, +2, +3, +7]",
+        "Rollen im Akkord": "5, 9, ♭3, 5",
+        "pitches": [
+          -5,
+          2,
+          3,
+          7
+        ],
+        "bass": -12,
+        "tick": 0,
+        "duration": 3840,
+        "pc_set": [
+          0,
+          2,
+          3,
+          7
+        ],
+        "matching_types_any_root": [
+          {
+            "root": 0,
+            "type": "MinorAdd9"
+          }
+        ],
+        "root": 0,
+        "types_at_declared_root": [
+          "MinorAdd9"
+        ],
+        "unrooted_object": false
+      },
+      {
+        "Zustand": "1",
+        "Tick": "3840",
+        "Harmonie": "[4] Moll-add9",
+        "Funktion": "s (Mollsubdominante)",
+        "Bass": "-7",
+        "Oberstimmen (rel)": "[-5, +0, +7, +8]",
+        "Rollen im Akkord": "9, 5, 9, ♭3",
+        "pitches": [
+          -5,
+          0,
+          7,
+          8
+        ],
+        "bass": -7,
+        "tick": 3840,
+        "duration": 3840,
+        "pc_set": [
+          0,
+          5,
+          7,
+          8
+        ],
+        "matching_types_any_root": [
+          {
+            "root": 5,
+            "type": "MinorAdd9"
+          }
+        ],
+        "root": 5,
+        "types_at_declared_root": [
+          "MinorAdd9"
+        ],
+        "unrooted_object": false
+      }
+    ],
+    "transitions": [
+      {
+        "source_tick": 0,
+        "target_tick": 3840,
+        "from_pitches": [
+          -5,
+          2,
+          3,
+          7
+        ],
+        "to_pitches": [
+          -5,
+          0,
+          7,
+          8
+        ],
+        "matching": [
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            2,
+            2
+          ],
+          [
+            3,
+            3
+          ]
+        ],
+        "held": [
+          -5
+        ],
+        "movements": [
+          0,
+          -2,
+          4,
+          1
+        ],
+        "parallel_pairs": [],
+        "unheld_required": 0,
+        "required_held": [
+          -5
+        ],
+        "large_leaps": 0,
+        "new_voices": 0,
+        "removed_voices": 0,
+        "scope": "Existence of a monotone partial assignment; no claim this is the unprovided author solver or current engine assignment."
+      }
+    ],
+    "rendered_csv_notes": 0,
+    "csv_multicontext_lf_notes": 0,
+    "explicit_suspension": null,
+    "resolution_intent": "plagale Bewegung, offen für Rückkehr"
+  },
+  {
+    "id": "EM-U004",
+    "states": [
+      {
+        "Zustand": "0",
+        "Tick": "0",
+        "Harmonie": "[1] Moll-add9",
+        "Funktion": "t",
+        "Bass": "-12",
+        "Oberstimmen (rel)": "[+0, +3, +7, +14]",
+        "Rollen im Akkord": "1, ♭3, 5, 9",
+        "pitches": [
+          0,
+          3,
+          7,
+          14
+        ],
+        "bass": -12,
+        "tick": 0,
+        "duration": 3840,
+        "pc_set": [
+          0,
+          2,
+          3,
+          7
+        ],
+        "matching_types_any_root": [
+          {
+            "root": 0,
+            "type": "MinorAdd9"
+          }
+        ],
+        "root": 0,
+        "types_at_declared_root": [
+          "MinorAdd9"
+        ],
+        "unrooted_object": false
+      },
+      {
+        "Zustand": "1",
+        "Tick": "3840",
+        "Harmonie": "[4] Dur-add9",
+        "Funktion": "S (Dur-Subdominante, dorisch)",
+        "Bass": "-7",
+        "Oberstimmen (rel)": "[+0, +5, +7, +9]",
+        "Rollen im Akkord": "5, 1, 9, 3",
+        "pitches": [
+          0,
+          5,
+          7,
+          9
+        ],
+        "bass": -7,
+        "tick": 3840,
+        "duration": 3840,
+        "pc_set": [
+          0,
+          5,
+          7,
+          9
+        ],
+        "matching_types_any_root": [
+          {
+            "root": 5,
+            "type": "Add9"
+          }
+        ],
+        "root": 5,
+        "types_at_declared_root": [
+          "Add9"
+        ],
+        "unrooted_object": false
+      }
+    ],
+    "transitions": [
+      {
+        "source_tick": 0,
+        "target_tick": 3840,
+        "from_pitches": [
+          0,
+          3,
+          7,
+          14
+        ],
+        "to_pitches": [
+          0,
+          5,
+          7,
+          9
+        ],
+        "matching": [
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            2,
+            2
+          ],
+          [
+            3,
+            3
+          ]
+        ],
+        "held": [
+          0,
+          7
+        ],
+        "movements": [
+          0,
+          2,
+          0,
+          -5
+        ],
+        "parallel_pairs": [],
+        "unheld_required": 0,
+        "required_held": [
+          0,
+          7
+        ],
+        "large_leaps": 0,
+        "new_voices": 0,
+        "removed_voices": 0,
+        "scope": "Existence of a monotone partial assignment; no claim this is the unprovided author solver or current engine assignment."
+      }
+    ],
+    "rendered_csv_notes": 0,
+    "csv_multicontext_lf_notes": 0,
+    "explicit_suspension": null,
+    "resolution_intent": "Umfärbung ♭3→♮6-Raum, kein Ziel"
+  },
+  {
+    "id": "EM-U005",
+    "states": [
+      {
+        "Zustand": "0",
+        "Tick": "0",
+        "Harmonie": "[1] Moll-add9",
+        "Funktion": "t",
+        "Bass": "-12",
+        "Oberstimmen (rel)": "[-5, +2, +3, +7]",
+        "Rollen im Akkord": "5, 9, ♭3, 5",
+        "pitches": [
+          -5,
+          2,
+          3,
+          7
+        ],
+        "bass": -12,
+        "tick": 0,
+        "duration": 3840,
+        "pc_set": [
+          0,
+          2,
+          3,
+          7
+        ],
+        "matching_types_any_root": [
+          {
+            "root": 0,
+            "type": "MinorAdd9"
+          }
+        ],
+        "root": 0,
+        "types_at_declared_root": [
+          "MinorAdd9"
+        ],
+        "unrooted_object": false
+      },
+      {
+        "Zustand": "1",
+        "Tick": "3840",
+        "Harmonie": "[1] Moll-add9",
+        "Funktion": "t⁶ (Tonika, Terz im Bass)",
+        "Bass": "-9",
+        "Oberstimmen (rel)": "[-5, +2, +3, +12]",
+        "Rollen im Akkord": "5, 9, ♭3, 1",
+        "pitches": [
+          -5,
+          2,
+          3,
+          12
+        ],
+        "bass": -9,
+        "tick": 3840,
+        "duration": 3840,
+        "pc_set": [
+          0,
+          2,
+          3,
+          7
+        ],
+        "matching_types_any_root": [
+          {
+            "root": 0,
+            "type": "MinorAdd9"
+          }
+        ],
+        "root": 0,
+        "types_at_declared_root": [
+          "MinorAdd9"
+        ],
+        "unrooted_object": false
+      }
+    ],
+    "transitions": [
+      {
+        "source_tick": 0,
+        "target_tick": 3840,
+        "from_pitches": [
+          -5,
+          2,
+          3,
+          7
+        ],
+        "to_pitches": [
+          -5,
+          2,
+          3,
+          12
+        ],
+        "matching": [
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            2,
+            2
+          ],
+          [
+            3,
+            3
+          ]
+        ],
+        "held": [
+          -5,
+          2,
+          3
+        ],
+        "movements": [
+          0,
+          0,
+          0,
+          5
+        ],
+        "parallel_pairs": [],
+        "unheld_required": 0,
+        "required_held": [
+          -5,
+          2,
+          3
+        ],
+        "large_leaps": 0,
+        "new_voices": 0,
+        "removed_voices": 0,
+        "scope": "Existence of a monotone partial assignment; no claim this is the unprovided author solver or current engine assignment."
+      }
+    ],
+    "rendered_csv_notes": 0,
+    "csv_multicontext_lf_notes": 0,
+    "explicit_suspension": null,
+    "resolution_intent": "Bewegung nur im Bass, Klangidentität bleibt"
+  },
+  {
+    "id": "EM-U006",
+    "states": [
+      {
+        "Zustand": "0",
+        "Tick": "0",
+        "Harmonie": "[4] Moll-Sexte",
+        "Funktion": "s⁶ (dorische Subdominante)",
+        "Bass": "-7",
+        "Oberstimmen (rel)": "[+0, +2, +5, +8]",
+        "Rollen im Akkord": "5, 6/13, 1, ♭3",
+        "pitches": [
+          0,
+          2,
+          5,
+          8
+        ],
+        "bass": -7,
+        "tick": 0,
+        "duration": 3840,
+        "pc_set": [
+          0,
+          2,
+          5,
+          8
+        ],
+        "matching_types_any_root": [
+          {
+            "root": 2,
+            "type": "HalfDim"
+          },
+          {
+            "root": 5,
+            "type": "Min6"
+          }
+        ],
+        "root": 5,
+        "types_at_declared_root": [
+          "Min6"
+        ],
+        "unrooted_object": false
+      },
+      {
+        "Zustand": "1",
+        "Tick": "3840",
+        "Harmonie": "[1] Moll-add9",
+        "Funktion": "t",
+        "Bass": "-12",
+        "Oberstimmen (rel)": "[+0, +2, +3, +7]",
+        "Rollen im Akkord": "1, 9, ♭3, 5",
+        "pitches": [
+          0,
+          2,
+          3,
+          7
+        ],
+        "bass": -12,
+        "tick": 3840,
+        "duration": 3840,
+        "pc_set": [
+          0,
+          2,
+          3,
+          7
+        ],
+        "matching_types_any_root": [
+          {
+            "root": 0,
+            "type": "MinorAdd9"
+          }
+        ],
+        "root": 0,
+        "types_at_declared_root": [
+          "MinorAdd9"
+        ],
+        "unrooted_object": false
+      }
+    ],
+    "transitions": [
+      {
+        "source_tick": 0,
+        "target_tick": 3840,
+        "from_pitches": [
+          0,
+          2,
+          5,
+          8
+        ],
+        "to_pitches": [
+          0,
+          2,
+          3,
+          7
+        ],
+        "matching": [
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            2,
+            2
+          ],
+          [
+            3,
+            3
+          ]
+        ],
+        "held": [
+          0,
+          2
+        ],
+        "movements": [
+          0,
+          0,
+          -2,
+          -1
+        ],
+        "parallel_pairs": [],
+        "unheld_required": 0,
+        "required_held": [
+          0,
+          2
+        ],
+        "large_leaps": 0,
+        "new_voices": 0,
+        "removed_voices": 0,
+        "scope": "Existence of a monotone partial assignment; no claim this is the unprovided author solver or current engine assignment."
+      }
+    ],
+    "rendered_csv_notes": 0,
+    "csv_multicontext_lf_notes": 0,
+    "explicit_suspension": null,
+    "resolution_intent": "plagale Rückkehr, sanft"
+  },
+  {
+    "id": "EM-U007",
+    "states": [
+      {
+        "Zustand": "0",
+        "Tick": "0",
+        "Harmonie": "[1] Dur-add9",
+        "Funktion": "T",
+        "Bass": "-12",
+        "Oberstimmen (rel)": "[-5, +2, +4, +12]",
+        "Rollen im Akkord": "5, 9, 3, 1",
+        "pitches": [
+          -5,
+          2,
+          4,
+          12
+        ],
+        "bass": -12,
+        "tick": 0,
+        "duration": 3840,
+        "pc_set": [
+          0,
+          2,
+          4,
+          7
+        ],
+        "matching_types_any_root": [
+          {
+            "root": 0,
+            "type": "Add9"
+          }
+        ],
+        "root": 0,
+        "types_at_declared_root": [
+          "Add9"
+        ],
+        "unrooted_object": false
+      },
+      {
+        "Zustand": "1",
+        "Tick": "3840",
+        "Harmonie": "[6] Moll-Sept",
+        "Funktion": "Tp (Tonikaparallele)",
+        "Bass": "-15",
+        "Oberstimmen (rel)": "[-5, +0, +4, +12]",
+        "Rollen im Akkord": "♭7, ♭3, 5, ♭3",
+        "pitches": [
+          -5,
+          0,
+          4,
+          12
+        ],
+        "bass": -15,
+        "tick": 3840,
+        "duration": 3840,
+        "pc_set": [
+          0,
+          4,
+          7,
+          9
+        ],
+        "matching_types_any_root": [
+          {
+            "root": 0,
+            "type": "Major6"
+          },
+          {
+            "root": 9,
+            "type": "Min7"
+          }
+        ],
+        "root": 9,
+        "types_at_declared_root": [
+          "Min7"
+        ],
+        "unrooted_object": false
+      }
+    ],
+    "transitions": [
+      {
+        "source_tick": 0,
+        "target_tick": 3840,
+        "from_pitches": [
+          -5,
+          2,
+          4,
+          12
+        ],
+        "to_pitches": [
+          -5,
+          0,
+          4,
+          12
+        ],
+        "matching": [
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            2,
+            2
+          ],
+          [
+            3,
+            3
+          ]
+        ],
+        "held": [
+          -5,
+          4,
+          12
+        ],
+        "movements": [
+          0,
+          -2,
+          0,
+          0
+        ],
+        "parallel_pairs": [],
+        "unheld_required": 0,
+        "required_held": [
+          -5,
+          4,
+          12
+        ],
+        "large_leaps": 0,
+        "new_voices": 0,
+        "removed_voices": 0,
+        "scope": "Existence of a monotone partial assignment; no claim this is the unprovided author solver or current engine assignment."
+      }
+    ],
+    "rendered_csv_notes": 73,
+    "csv_multicontext_lf_notes": 48,
+    "explicit_suspension": null,
+    "resolution_intent": "Terzfall im Bass, Fortsetzung zu IV erwartet"
+  },
+  {
+    "id": "EM-U008",
+    "states": [
+      {
+        "Zustand": "0",
+        "Tick": "0",
+        "Harmonie": "[6] Moll-Sept",
+        "Funktion": "Tp",
+        "Bass": "-15",
+        "Oberstimmen (rel)": "[-5, +0, +4, +9]",
+        "Rollen im Akkord": "♭7, ♭3, 5, 1",
+        "pitches": [
+          -5,
+          0,
+          4,
+          9
+        ],
+        "bass": -15,
+        "tick": 0,
+        "duration": 3840,
+        "pc_set": [
+          0,
+          4,
+          7,
+          9
+        ],
+        "matching_types_any_root": [
+          {
+            "root": 0,
+            "type": "Major6"
+          },
+          {
+            "root": 9,
+            "type": "Min7"
+          }
+        ],
+        "root": 9,
+        "types_at_declared_root": [
+          "Min7"
+        ],
+        "unrooted_object": false
+      },
+      {
+        "Zustand": "1",
+        "Tick": "3840",
+        "Harmonie": "[4] große Septime",
+        "Funktion": "S",
+        "Bass": "-19",
+        "Oberstimmen (rel)": "[-7, +0, +4, +9]",
+        "Rollen im Akkord": "1, 5, 7, 3",
+        "pitches": [
+          -7,
+          0,
+          4,
+          9
+        ],
+        "bass": -19,
+        "tick": 3840,
+        "duration": 3840,
+        "pc_set": [
+          0,
+          4,
+          5,
+          9
+        ],
+        "matching_types_any_root": [
+          {
+            "root": 5,
+            "type": "Maj7"
+          }
+        ],
+        "root": 5,
+        "types_at_declared_root": [
+          "Maj7"
+        ],
+        "unrooted_object": false
+      }
+    ],
+    "transitions": [
+      {
+        "source_tick": 0,
+        "target_tick": 3840,
+        "from_pitches": [
+          -5,
+          0,
+          4,
+          9
+        ],
+        "to_pitches": [
+          -7,
+          0,
+          4,
+          9
+        ],
+        "matching": [
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            2,
+            2
+          ],
+          [
+            3,
+            3
+          ]
+        ],
+        "held": [
+          0,
+          4,
+          9
+        ],
+        "movements": [
+          -2,
+          0,
+          0,
+          0
+        ],
+        "parallel_pairs": [],
+        "unheld_required": 0,
+        "required_held": [
+          0,
+          4,
+          9
+        ],
+        "large_leaps": 0,
+        "new_voices": 0,
+        "removed_voices": 0,
+        "scope": "Existence of a monotone partial assignment; no claim this is the unprovided author solver or current engine assignment."
+      }
+    ],
+    "rendered_csv_notes": 68,
+    "csv_multicontext_lf_notes": 38,
+    "explicit_suspension": null,
+    "resolution_intent": "weiterer Terzfall, offen"
+  },
+  {
+    "id": "EM-U009",
+    "states": [
+      {
+        "Zustand": "0",
+        "Tick": "0",
+        "Harmonie": "[4] große Septime",
+        "Funktion": "S",
+        "Bass": "-19",
+        "Oberstimmen (rel)": "[-3, +0, +4, +9]",
+        "Rollen im Akkord": "3, 5, 7, 3",
+        "pitches": [
+          -3,
+          0,
+          4,
+          9
+        ],
+        "bass": -19,
+        "tick": 0,
+        "duration": 3840,
+        "pc_set": [
+          0,
+          4,
+          5,
+          9
+        ],
+        "matching_types_any_root": [
+          {
+            "root": 5,
+            "type": "Maj7"
+          }
+        ],
+        "root": 5,
+        "types_at_declared_root": [
+          "Maj7"
+        ],
+        "unrooted_object": false
+      },
+      {
+        "Zustand": "1",
+        "Tick": "3840",
+        "Harmonie": "[1] Dur-add9",
+        "Funktion": "T",
+        "Bass": "-12",
+        "Oberstimmen (rel)": "[-5, +0, +4, +14]",
+        "Rollen im Akkord": "5, 1, 3, 9",
+        "pitches": [
+          -5,
+          0,
+          4,
+          14
+        ],
+        "bass": -12,
+        "tick": 3840,
+        "duration": 3840,
+        "pc_set": [
+          0,
+          2,
+          4,
+          7
+        ],
+        "matching_types_any_root": [
+          {
+            "root": 0,
+            "type": "Add9"
+          }
+        ],
+        "root": 0,
+        "types_at_declared_root": [
+          "Add9"
+        ],
+        "unrooted_object": false
+      }
+    ],
+    "transitions": [
+      {
+        "source_tick": 0,
+        "target_tick": 3840,
+        "from_pitches": [
+          -3,
+          0,
+          4,
+          9
+        ],
+        "to_pitches": [
+          -5,
+          0,
+          4,
+          14
+        ],
+        "matching": [
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            2,
+            2
+          ],
+          [
+            3,
+            3
+          ]
+        ],
+        "held": [
+          0,
+          4
+        ],
+        "movements": [
+          -2,
+          0,
+          0,
+          5
+        ],
+        "parallel_pairs": [],
+        "unheld_required": 0,
+        "required_held": [
+          0,
+          4
+        ],
+        "large_leaps": 0,
+        "new_voices": 0,
+        "removed_voices": 0,
+        "scope": "Existence of a monotone partial assignment; no claim this is the unprovided author solver or current engine assignment."
+      }
+    ],
+    "rendered_csv_notes": 71,
+    "csv_multicontext_lf_notes": 35,
+    "explicit_suspension": null,
+    "resolution_intent": "plagaler Schluss, ruhig"
+  },
+  {
+    "id": "EM-U010",
+    "states": [
+      {
+        "Zustand": "0",
+        "Tick": "0",
+        "Harmonie": "[6] Moll-Sept",
+        "Funktion": "Tp",
+        "Bass": "-15",
+        "Oberstimmen (rel)": "[-5, +0, +4, +9]",
+        "Rollen im Akkord": "♭7, ♭3, 5, 1",
+        "pitches": [
+          -5,
+          0,
+          4,
+          9
+        ],
+        "bass": -15,
+        "tick": 0,
+        "duration": 3840,
+        "pc_set": [
+          0,
+          4,
+          7,
+          9
+        ],
+        "matching_types_any_root": [
+          {
+            "root": 0,
+            "type": "Major6"
+          },
+          {
+            "root": 9,
+            "type": "Min7"
+          }
+        ],
+        "root": 9,
+        "types_at_declared_root": [
+          "Min7"
+        ],
+        "unrooted_object": false
+      },
+      {
+        "Zustand": "1",
+        "Tick": "3840",
+        "Harmonie": "[3] Moll-Sept",
+        "Funktion": "Dp (Dominantparallele)",
+        "Bass": "-8",
+        "Oberstimmen (rel)": "[-5, +2, +4, +11]",
+        "Rollen im Akkord": "♭3, ♭7, 1, 5",
+        "pitches": [
+          -5,
+          2,
+          4,
+          11
+        ],
+        "bass": -8,
+        "tick": 3840,
+        "duration": 3840,
+        "pc_set": [
+          2,
+          4,
+          7,
+          11
+        ],
+        "matching_types_any_root": [
+          {
+            "root": 4,
+            "type": "Min7"
+          },
+          {
+            "root": 7,
+            "type": "Major6"
+          }
+        ],
+        "root": 4,
+        "types_at_declared_root": [
+          "Min7"
+        ],
+        "unrooted_object": false
+      }
+    ],
+    "transitions": [
+      {
+        "source_tick": 0,
+        "target_tick": 3840,
+        "from_pitches": [
+          -5,
+          0,
+          4,
+          9
+        ],
+        "to_pitches": [
+          -5,
+          2,
+          4,
+          11
+        ],
+        "matching": [
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            2,
+            2
+          ],
+          [
+            3,
+            3
+          ]
+        ],
+        "held": [
+          -5,
+          4
+        ],
+        "movements": [
+          0,
+          2,
+          0,
+          2
+        ],
+        "parallel_pairs": [],
+        "unheld_required": 0,
+        "required_held": [
+          -5,
+          4
+        ],
+        "large_leaps": 0,
+        "new_voices": 0,
+        "removed_voices": 0,
+        "scope": "Existence of a monotone partial assignment; no claim this is the unprovided author solver or current engine assignment."
+      }
+    ],
+    "rendered_csv_notes": 0,
+    "csv_multicontext_lf_notes": 0,
+    "explicit_suspension": null,
+    "resolution_intent": "Zwischenstation zur IV"
+  },
+  {
+    "id": "EM-U011",
+    "states": [
+      {
+        "Zustand": "0",
+        "Tick": "0",
+        "Harmonie": "[1] Dur-add9",
+        "Funktion": "T",
+        "Bass": "-12",
+        "Oberstimmen (rel)": "[-5, +2, +4, +12]",
+        "Rollen im Akkord": "5, 9, 3, 1",
+        "pitches": [
+          -5,
+          2,
+          4,
+          12
+        ],
+        "bass": -12,
+        "tick": 0,
+        "duration": 3840,
+        "pc_set": [
+          0,
+          2,
+          4,
+          7
+        ],
+        "matching_types_any_root": [
+          {
+            "root": 0,
+            "type": "Add9"
+          }
+        ],
+        "root": 0,
+        "types_at_declared_root": [
+          "Add9"
+        ],
+        "unrooted_object": false
+      },
+      {
+        "Zustand": "1",
+        "Tick": "3840",
+        "Harmonie": "[5] Dur",
+        "Funktion": "D⁶ (Durchgang)",
+        "Bass": "-13",
+        "Oberstimmen (rel)": "[-5, +2, +7, +11]",
+        "Rollen im Akkord": "1, 5, 1, 3",
+        "pitches": [
+          -5,
+          2,
+          7,
+          11
+        ],
+        "bass": -13,
+        "tick": 3840,
+        "duration": 3840,
+        "pc_set": [
+          2,
+          7,
+          11
+        ],
+        "matching_types_any_root": [
+          {
+            "root": 7,
+            "type": "Maj"
+          }
+        ],
+        "root": 7,
+        "types_at_declared_root": [
+          "Maj"
+        ],
+        "unrooted_object": false
+      }
+    ],
+    "transitions": [
+      {
+        "source_tick": 0,
+        "target_tick": 3840,
+        "from_pitches": [
+          -5,
+          2,
+          4,
+          12
+        ],
+        "to_pitches": [
+          -5,
+          2,
+          7,
+          11
+        ],
+        "matching": [
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            2,
+            2
+          ],
+          [
+            3,
+            3
+          ]
+        ],
+        "held": [
+          -5,
+          2
+        ],
+        "movements": [
+          0,
+          0,
+          3,
+          -1
+        ],
+        "parallel_pairs": [],
+        "unheld_required": 0,
+        "required_held": [
+          -5,
+          2
+        ],
+        "large_leaps": 0,
+        "new_voices": 0,
+        "removed_voices": 0,
+        "scope": "Existence of a monotone partial assignment; no claim this is the unprovided author solver or current engine assignment."
+      }
+    ],
+    "rendered_csv_notes": 0,
+    "csv_multicontext_lf_notes": 0,
+    "explicit_suspension": null,
+    "resolution_intent": "Durchgangsakkord, Bass weiter abwärts erwartet"
+  },
+  {
+    "id": "EM-U012",
+    "states": [
+      {
+        "Zustand": "0",
+        "Tick": "0",
+        "Harmonie": "[5] Dur-add9",
+        "Funktion": "D⁶ (Durchgang)",
+        "Bass": "-13",
+        "Oberstimmen (rel)": "[-5, +2, +9, +11]",
+        "Rollen im Akkord": "1, 5, 9, 3",
+        "pitches": [
+          -5,
+          2,
+          9,
+          11
+        ],
+        "bass": -13,
+        "tick": 0,
+        "duration": 3840,
+        "pc_set": [
+          2,
+          7,
+          9,
+          11
+        ],
+        "matching_types_any_root": [
+          {
+            "root": 7,
+            "type": "Add9"
+          }
+        ],
+        "root": 7,
+        "types_at_declared_root": [
+          "Add9"
+        ],
+        "unrooted_object": false
+      },
+      {
+        "Zustand": "1",
+        "Tick": "3840",
+        "Harmonie": "[6] Moll-Sept",
+        "Funktion": "Tp",
+        "Bass": "-15",
+        "Oberstimmen (rel)": "[-5, +4, +9, +12]",
+        "Rollen im Akkord": "♭7, 5, 1, ♭3",
+        "pitches": [
+          -5,
+          4,
+          9,
+          12
+        ],
+        "bass": -15,
+        "tick": 3840,
+        "duration": 3840,
+        "pc_set": [
+          0,
+          4,
+          7,
+          9
+        ],
+        "matching_types_any_root": [
+          {
+            "root": 0,
+            "type": "Major6"
+          },
+          {
+            "root": 9,
+            "type": "Min7"
+          }
+        ],
+        "root": 9,
+        "types_at_declared_root": [
+          "Min7"
+        ],
+        "unrooted_object": false
+      }
+    ],
+    "transitions": [
+      {
+        "source_tick": 0,
+        "target_tick": 3840,
+        "from_pitches": [
+          -5,
+          2,
+          9,
+          11
+        ],
+        "to_pitches": [
+          -5,
+          4,
+          9,
+          12
+        ],
+        "matching": [
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            2,
+            2
+          ],
+          [
+            3,
+            3
+          ]
+        ],
+        "held": [
+          -5,
+          9
+        ],
+        "movements": [
+          0,
+          2,
+          0,
+          1
+        ],
+        "parallel_pairs": [],
+        "unheld_required": 0,
+        "required_held": [
+          -5,
+          9
+        ],
+        "large_leaps": 0,
+        "new_voices": 0,
+        "removed_voices": 0,
+        "scope": "Existence of a monotone partial assignment; no claim this is the unprovided author solver or current engine assignment."
+      }
+    ],
+    "rendered_csv_notes": 0,
+    "csv_multicontext_lf_notes": 0,
+    "explicit_suspension": null,
+    "resolution_intent": "Bassschritt 7→6, Oberstimmen fast liegend"
+  },
+  {
+    "id": "EM-U013",
+    "states": [
+      {
+        "Zustand": "0",
+        "Tick": "0",
+        "Harmonie": "[2] Moll-Sept",
+        "Funktion": "Sp",
+        "Bass": "-10",
+        "Oberstimmen (rel)": "[+0, +5, +9, +14]",
+        "Rollen im Akkord": "♭7, ♭3, 5, 1",
+        "pitches": [
+          0,
+          5,
+          9,
+          14
+        ],
+        "bass": -10,
+        "tick": 0,
+        "duration": 3840,
+        "pc_set": [
+          0,
+          2,
+          5,
+          9
+        ],
+        "matching_types_any_root": [
+          {
+            "root": 2,
+            "type": "Min7"
+          },
+          {
+            "root": 5,
+            "type": "Major6"
+          }
+        ],
+        "root": 2,
+        "types_at_declared_root": [
+          "Min7"
+        ],
+        "unrooted_object": false
+      },
+      {
+        "Zustand": "1",
+        "Tick": "3840",
+        "Harmonie": "[5] Sept-sus4",
+        "Funktion": "D (sus, Halbschluss)",
+        "Bass": "-17",
+        "Oberstimmen (rel)": "[+0, +5, +7, +14]",
+        "Rollen im Akkord": "4/11, ♭7, 1, 5",
+        "pitches": [
+          0,
+          5,
+          7,
+          14
+        ],
+        "bass": -17,
+        "tick": 3840,
+        "duration": 3840,
+        "pc_set": [
+          0,
+          2,
+          5,
+          7
+        ],
+        "matching_types_any_root": [
+          {
+            "root": 2,
+            "type": "Quartal"
+          },
+          {
+            "root": 7,
+            "type": "Dominant7Sus4"
+          }
+        ],
+        "root": 7,
+        "types_at_declared_root": [
+          "Dominant7Sus4"
+        ],
+        "unrooted_object": false
+      }
+    ],
+    "transitions": [
+      {
+        "source_tick": 0,
+        "target_tick": 3840,
+        "from_pitches": [
+          0,
+          5,
+          9,
+          14
+        ],
+        "to_pitches": [
+          0,
+          5,
+          7,
+          14
+        ],
+        "matching": [
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            2,
+            2
+          ],
+          [
+            3,
+            3
+          ]
+        ],
+        "held": [
+          0,
+          5,
+          14
+        ],
+        "movements": [
+          0,
+          0,
+          -2,
+          0
+        ],
+        "parallel_pairs": [],
+        "unheld_required": 0,
+        "required_held": [
+          0,
+          5,
+          14
+        ],
+        "large_leaps": 0,
+        "new_voices": 0,
+        "removed_voices": 0,
+        "scope": "Existence of a monotone partial assignment; no claim this is the unprovided author solver or current engine assignment."
+      }
+    ],
+    "rendered_csv_notes": 12,
+    "csv_multicontext_lf_notes": 6,
+    "explicit_suspension": null,
+    "resolution_intent": "Halbschluss, Auflösung aufgeschoben"
+  },
+  {
+    "id": "EM-U014",
+    "states": [
+      {
+        "Zustand": "0",
+        "Tick": "0",
+        "Harmonie": "[5] Sept-sus4",
+        "Funktion": "D (sus)",
+        "Bass": "-17",
+        "Oberstimmen (rel)": "[+0, +5, +7, +14]",
+        "Rollen im Akkord": "4/11, ♭7, 1, 5",
+        "pitches": [
+          0,
+          5,
+          7,
+          14
+        ],
+        "bass": -17,
+        "tick": 0,
+        "duration": 3840,
+        "pc_set": [
+          0,
+          2,
+          5,
+          7
+        ],
+        "matching_types_any_root": [
+          {
+            "root": 2,
+            "type": "Quartal"
+          },
+          {
+            "root": 7,
+            "type": "Dominant7Sus4"
+          }
+        ],
+        "root": 7,
+        "types_at_declared_root": [
+          "Dominant7Sus4"
+        ],
+        "unrooted_object": false
+      },
+      {
+        "Zustand": "1",
+        "Tick": "3840",
+        "Harmonie": "[5] Dominantsept",
+        "Funktion": "D⁷",
+        "Bass": "-17",
+        "Oberstimmen (rel)": "[-1, +5, +7, +14]",
+        "Rollen im Akkord": "3, ♭7, 1, 5",
+        "pitches": [
+          -1,
+          5,
+          7,
+          14
+        ],
+        "bass": -17,
+        "tick": 3840,
+        "duration": 3840,
+        "pc_set": [
+          2,
+          5,
+          7,
+          11
+        ],
+        "matching_types_any_root": [
+          {
+            "root": 7,
+            "type": "Dom7"
+          }
+        ],
+        "root": 7,
+        "types_at_declared_root": [
+          "Dom7"
+        ],
+        "unrooted_object": false
+      }
+    ],
+    "transitions": [
+      {
+        "source_tick": 0,
+        "target_tick": 3840,
+        "from_pitches": [
+          0,
+          5,
+          7,
+          14
+        ],
+        "to_pitches": [
+          -1,
+          5,
+          7,
+          14
+        ],
+        "matching": [
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            2,
+            2
+          ],
+          [
+            3,
+            3
+          ]
+        ],
+        "held": [
+          5,
+          7,
+          14
+        ],
+        "movements": [
+          -1,
+          0,
+          0,
+          0
+        ],
+        "parallel_pairs": [],
+        "unheld_required": 0,
+        "required_held": [
+          5,
+          7,
+          14
+        ],
+        "large_leaps": 0,
+        "new_voices": 0,
+        "removed_voices": 0,
+        "scope": "Existence of a monotone partial assignment; no claim this is the unprovided author solver or current engine assignment."
+      }
+    ],
+    "rendered_csv_notes": 12,
+    "csv_multicontext_lf_notes": 6,
+    "explicit_suspension": "in Zustand 1 erklingt +0 statt -1 (Funktion V), Auflösung nach 1920 Ticks auf -1",
+    "resolution_intent": "Vorhalt C→H löst nach einem halben Takt auf"
+  },
+  {
+    "id": "EM-U015",
+    "states": [
+      {
+        "Zustand": "0",
+        "Tick": "0",
+        "Harmonie": "[5] Sept-sus4",
+        "Funktion": "D (sus)",
+        "Bass": "-17",
+        "Oberstimmen (rel)": "[+0, +5, +7, +14]",
+        "Rollen im Akkord": "4/11, ♭7, 1, 5",
+        "pitches": [
+          0,
+          5,
+          7,
+          14
+        ],
+        "bass": -17,
+        "tick": 0,
+        "duration": 3840,
+        "pc_set": [
+          0,
+          2,
+          5,
+          7
+        ],
+        "matching_types_any_root": [
+          {
+            "root": 2,
+            "type": "Quartal"
+          },
+          {
+            "root": 7,
+            "type": "Dominant7Sus4"
+          }
+        ],
+        "root": 7,
+        "types_at_declared_root": [
+          "Dominant7Sus4"
+        ],
+        "unrooted_object": false
+      },
+      {
+        "Zustand": "1",
+        "Tick": "3840",
+        "Harmonie": "[1] Dur-add9",
+        "Funktion": "T",
+        "Bass": "-12",
+        "Oberstimmen (rel)": "[+0, +4, +7, +14]",
+        "Rollen im Akkord": "1, 3, 5, 9",
+        "pitches": [
+          0,
+          4,
+          7,
+          14
+        ],
+        "bass": -12,
+        "tick": 3840,
+        "duration": 3840,
+        "pc_set": [
+          0,
+          2,
+          4,
+          7
+        ],
+        "matching_types_any_root": [
+          {
+            "root": 0,
+            "type": "Add9"
+          }
+        ],
+        "root": 0,
+        "types_at_declared_root": [
+          "Add9"
+        ],
+        "unrooted_object": false
+      }
+    ],
+    "transitions": [
+      {
+        "source_tick": 0,
+        "target_tick": 3840,
+        "from_pitches": [
+          0,
+          5,
+          7,
+          14
+        ],
+        "to_pitches": [
+          0,
+          4,
+          7,
+          14
+        ],
+        "matching": [
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            2,
+            2
+          ],
+          [
+            3,
+            3
+          ]
+        ],
+        "held": [
+          0,
+          7,
+          14
+        ],
+        "movements": [
+          0,
+          -1,
+          0,
+          0
+        ],
+        "parallel_pairs": [],
+        "unheld_required": 0,
+        "required_held": [
+          0,
+          7,
+          14
+        ],
+        "large_leaps": 0,
+        "new_voices": 0,
+        "removed_voices": 0,
+        "scope": "Existence of a monotone partial assignment; no claim this is the unprovided author solver or current engine assignment."
+      }
+    ],
+    "rendered_csv_notes": 0,
+    "csv_multicontext_lf_notes": 0,
+    "explicit_suspension": null,
+    "resolution_intent": "funktionale Auflösung, sparsam einsetzen"
+  },
+  {
+    "id": "EM-U016",
+    "states": [
+      {
+        "Zustand": "0",
+        "Tick": "0",
+        "Harmonie": "[1] Dur-add9",
+        "Funktion": "T (Dur)",
+        "Bass": "-12",
+        "Oberstimmen (rel)": "[-5, +2, +4, +12]",
+        "Rollen im Akkord": "5, 9, 3, 1",
+        "pitches": [
+          -5,
+          2,
+          4,
+          12
+        ],
+        "bass": -12,
+        "tick": 0,
+        "duration": 3840,
+        "pc_set": [
+          0,
+          2,
+          4,
+          7
+        ],
+        "matching_types_any_root": [
+          {
+            "root": 0,
+            "type": "Add9"
+          }
+        ],
+        "root": 0,
+        "types_at_declared_root": [
+          "Add9"
+        ],
+        "unrooted_object": false
+      },
+      {
+        "Zustand": "1",
+        "Tick": "3840",
+        "Harmonie": "[1] Moll-add9",
+        "Funktion": "t (Moll)",
+        "Bass": "-12",
+        "Oberstimmen (rel)": "[-5, +2, +3, +12]",
+        "Rollen im Akkord": "5, 9, ♭3, 1",
+        "pitches": [
+          -5,
+          2,
+          3,
+          12
+        ],
+        "bass": -12,
+        "tick": 3840,
+        "duration": 3840,
+        "pc_set": [
+          0,
+          2,
+          3,
+          7
+        ],
+        "matching_types_any_root": [
+          {
+            "root": 0,
+            "type": "MinorAdd9"
+          }
+        ],
+        "root": 0,
+        "types_at_declared_root": [
+          "MinorAdd9"
+        ],
+        "unrooted_object": false
+      }
+    ],
+    "transitions": [
+      {
+        "source_tick": 0,
+        "target_tick": 3840,
+        "from_pitches": [
+          -5,
+          2,
+          4,
+          12
+        ],
+        "to_pitches": [
+          -5,
+          2,
+          3,
+          12
+        ],
+        "matching": [
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            2,
+            2
+          ],
+          [
+            3,
+            3
+          ]
+        ],
+        "held": [
+          -5,
+          2,
+          12
+        ],
+        "movements": [
+          0,
+          0,
+          -1,
+          0
+        ],
+        "parallel_pairs": [],
+        "unheld_required": 0,
+        "required_held": [
+          -5,
+          2,
+          12
+        ],
+        "large_leaps": 0,
+        "new_voices": 0,
+        "removed_voices": 0,
+        "scope": "Existence of a monotone partial assignment; no claim this is the unprovided author solver or current engine assignment."
+      }
+    ],
+    "rendered_csv_notes": 0,
+    "csv_multicontext_lf_notes": 0,
+    "explicit_suspension": null,
+    "resolution_intent": "Umfärbung, kein Funktionswechsel"
+  },
+  {
+    "id": "EM-U017",
+    "states": [
+      {
+        "Zustand": "0",
+        "Tick": "0",
+        "Harmonie": "[1] Moll-add9",
+        "Funktion": "t",
+        "Bass": "-12",
+        "Oberstimmen (rel)": "[-5, +2, +3, +12]",
+        "Rollen im Akkord": "5, 9, ♭3, 1",
+        "pitches": [
+          -5,
+          2,
+          3,
+          12
+        ],
+        "bass": -12,
+        "tick": 0,
+        "duration": 3840,
+        "pc_set": [
+          0,
+          2,
+          3,
+          7
+        ],
+        "matching_types_any_root": [
+          {
+            "root": 0,
+            "type": "MinorAdd9"
+          }
+        ],
+        "root": 0,
+        "types_at_declared_root": [
+          "MinorAdd9"
+        ],
+        "unrooted_object": false
+      },
+      {
+        "Zustand": "1",
+        "Tick": "3840",
+        "Harmonie": "[1] Dur-add9",
+        "Funktion": "T",
+        "Bass": "-12",
+        "Oberstimmen (rel)": "[-5, +2, +4, +12]",
+        "Rollen im Akkord": "5, 9, 3, 1",
+        "pitches": [
+          -5,
+          2,
+          4,
+          12
+        ],
+        "bass": -12,
+        "tick": 3840,
+        "duration": 3840,
+        "pc_set": [
+          0,
+          2,
+          4,
+          7
+        ],
+        "matching_types_any_root": [
+          {
+            "root": 0,
+            "type": "Add9"
+          }
+        ],
+        "root": 0,
+        "types_at_declared_root": [
+          "Add9"
+        ],
+        "unrooted_object": false
+      }
+    ],
+    "transitions": [
+      {
+        "source_tick": 0,
+        "target_tick": 3840,
+        "from_pitches": [
+          -5,
+          2,
+          3,
+          12
+        ],
+        "to_pitches": [
+          -5,
+          2,
+          4,
+          12
+        ],
+        "matching": [
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            2,
+            2
+          ],
+          [
+            3,
+            3
+          ]
+        ],
+        "held": [
+          -5,
+          2,
+          12
+        ],
+        "movements": [
+          0,
+          0,
+          1,
+          0
+        ],
+        "parallel_pairs": [],
+        "unheld_required": 0,
+        "required_held": [
+          -5,
+          2,
+          12
+        ],
+        "large_leaps": 0,
+        "new_voices": 0,
+        "removed_voices": 0,
+        "scope": "Existence of a monotone partial assignment; no claim this is the unprovided author solver or current engine assignment."
+      }
+    ],
+    "rendered_csv_notes": 0,
+    "csv_multicontext_lf_notes": 0,
+    "explicit_suspension": null,
+    "resolution_intent": "Aufhellung ohne Triumph"
+  },
+  {
+    "id": "EM-U018",
+    "states": [
+      {
+        "Zustand": "0",
+        "Tick": "0",
+        "Harmonie": "[1] große Septime",
+        "Funktion": "T⁷",
+        "Bass": "-12",
+        "Oberstimmen (rel)": "[-5, +4, +7, +11]",
+        "Rollen im Akkord": "5, 3, 5, 7",
+        "pitches": [
+          -5,
+          4,
+          7,
+          11
+        ],
+        "bass": -12,
+        "tick": 0,
+        "duration": 3840,
+        "pc_set": [
+          0,
+          4,
+          7,
+          11
+        ],
+        "matching_types_any_root": [
+          {
+            "root": 0,
+            "type": "Maj7"
+          }
+        ],
+        "root": 0,
+        "types_at_declared_root": [
+          "Maj7"
+        ],
+        "unrooted_object": false
+      },
+      {
+        "Zustand": "1",
+        "Tick": "3840",
+        "Harmonie": "[1] Moll mit gr. Septime",
+        "Funktion": "t (mit gr. Septime)",
+        "Bass": "-12",
+        "Oberstimmen (rel)": "[-5, +3, +7, +11]",
+        "Rollen im Akkord": "5, ♭3, 5, 7",
+        "pitches": [
+          -5,
+          3,
+          7,
+          11
+        ],
+        "bass": -12,
+        "tick": 3840,
+        "duration": 3840,
+        "pc_set": [
+          0,
+          3,
+          7,
+          11
+        ],
+        "matching_types_any_root": [
+          {
+            "root": 0,
+            "type": "MinMaj7"
+          }
+        ],
+        "root": 0,
+        "types_at_declared_root": [
+          "MinMaj7"
+        ],
+        "unrooted_object": false
+      }
+    ],
+    "transitions": [
+      {
+        "source_tick": 0,
+        "target_tick": 3840,
+        "from_pitches": [
+          -5,
+          4,
+          7,
+          11
+        ],
+        "to_pitches": [
+          -5,
+          3,
+          7,
+          11
+        ],
+        "matching": [
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            2,
+            2
+          ],
+          [
+            3,
+            3
+          ]
+        ],
+        "held": [
+          -5,
+          7,
+          11
+        ],
+        "movements": [
+          0,
+          -1,
+          0,
+          0
+        ],
+        "parallel_pairs": [],
+        "unheld_required": 0,
+        "required_held": [
+          -5,
+          7,
+          11
+        ],
+        "large_leaps": 0,
+        "new_voices": 0,
+        "removed_voices": 0,
+        "scope": "Existence of a monotone partial assignment; no claim this is the unprovided author solver or current engine assignment."
+      }
+    ],
+    "rendered_csv_notes": 0,
+    "csv_multicontext_lf_notes": 0,
+    "explicit_suspension": null,
+    "resolution_intent": "Verdunklung, Septime bleibt als Fremdheitsfarbe"
+  },
+  {
+    "id": "EM-U019",
+    "states": [
+      {
+        "Zustand": "0",
+        "Tick": "0",
+        "Harmonie": "[1] Moll-add9",
+        "Funktion": "t",
+        "Bass": "-12",
+        "Oberstimmen (rel)": "[+0, +3, +7, +14]",
+        "Rollen im Akkord": "1, ♭3, 5, 9",
+        "pitches": [
+          0,
+          3,
+          7,
+          14
+        ],
+        "bass": -12,
+        "tick": 0,
+        "duration": 3840,
+        "pc_set": [
+          0,
+          2,
+          3,
+          7
+        ],
+        "matching_types_any_root": [
+          {
+            "root": 0,
+            "type": "MinorAdd9"
+          }
+        ],
+        "root": 0,
+        "types_at_declared_root": [
+          "MinorAdd9"
+        ],
+        "unrooted_object": false
+      },
+      {
+        "Zustand": "1",
+        "Tick": "3840",
+        "Harmonie": "[♭6] Dur-add9",
+        "Funktion": "♭VI",
+        "Bass": "-16",
+        "Oberstimmen (rel)": "[+0, +3, +8, +10]",
+        "Rollen im Akkord": "3, 5, 1, 9",
+        "pitches": [
+          0,
+          3,
+          8,
+          10
+        ],
+        "bass": -16,
+        "tick": 3840,
+        "duration": 3840,
+        "pc_set": [
+          0,
+          3,
+          8,
+          10
+        ],
+        "matching_types_any_root": [
+          {
+            "root": 8,
+            "type": "Add9"
+          }
+        ],
+        "root": 8,
+        "types_at_declared_root": [
+          "Add9"
+        ],
+        "unrooted_object": false
+      }
+    ],
+    "transitions": [
+      {
+        "source_tick": 0,
+        "target_tick": 3840,
+        "from_pitches": [
+          0,
+          3,
+          7,
+          14
+        ],
+        "to_pitches": [
+          0,
+          3,
+          8,
+          10
+        ],
+        "matching": [
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            2,
+            2
+          ],
+          [
+            3,
+            3
+          ]
+        ],
+        "held": [
+          0,
+          3
+        ],
+        "movements": [
+          0,
+          0,
+          1,
+          -4
+        ],
+        "parallel_pairs": [],
+        "unheld_required": 0,
+        "required_held": [
+          0,
+          3
+        ],
+        "large_leaps": 0,
+        "new_voices": 0,
+        "removed_voices": 0,
+        "scope": "Existence of a monotone partial assignment; no claim this is the unprovided author solver or current engine assignment."
+      }
+    ],
+    "rendered_csv_notes": 0,
+    "csv_multicontext_lf_notes": 0,
+    "explicit_suspension": null,
+    "resolution_intent": "Abdunkeln nach unten, offen"
+  },
+  {
+    "id": "EM-U020",
+    "states": [
+      {
+        "Zustand": "0",
+        "Tick": "0",
+        "Harmonie": "[1] Moll-add9",
+        "Funktion": "t",
+        "Bass": "-12",
+        "Oberstimmen (rel)": "[-5, +2, +3, +7]",
+        "Rollen im Akkord": "5, 9, ♭3, 5",
+        "pitches": [
+          -5,
+          2,
+          3,
+          7
+        ],
+        "bass": -12,
+        "tick": 0,
+        "duration": 3840,
+        "pc_set": [
+          0,
+          2,
+          3,
+          7
+        ],
+        "matching_types_any_root": [
+          {
+            "root": 0,
+            "type": "MinorAdd9"
+          }
+        ],
+        "root": 0,
+        "types_at_declared_root": [
+          "MinorAdd9"
+        ],
+        "unrooted_object": false
+      },
+      {
+        "Zustand": "1",
+        "Tick": "3840",
+        "Harmonie": "[1] Moll-None",
+        "Funktion": "t⁷ (Septime im Bass, Durchgang)",
+        "Bass": "-14",
+        "Oberstimmen (rel)": "[-5, +2, +3, +12]",
+        "Rollen im Akkord": "5, 9, ♭3, 1",
+        "pitches": [
+          -5,
+          2,
+          3,
+          12
+        ],
+        "bass": -14,
+        "tick": 3840,
+        "duration": 3840,
+        "pc_set": [
+          0,
+          2,
+          3,
+          7,
+          10
+        ],
+        "matching_types_any_root": [
+          {
+            "root": 0,
+            "type": "Min9"
+          }
+        ],
+        "root": 0,
+        "types_at_declared_root": [
+          "Min9",
+          "MinorAdd9"
+        ],
+        "unrooted_object": false
+      }
+    ],
+    "transitions": [
+      {
+        "source_tick": 0,
+        "target_tick": 3840,
+        "from_pitches": [
+          -5,
+          2,
+          3,
+          7
+        ],
+        "to_pitches": [
+          -5,
+          2,
+          3,
+          12
+        ],
+        "matching": [
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            2,
+            2
+          ],
+          [
+            3,
+            3
+          ]
+        ],
+        "held": [
+          -5,
+          2,
+          3
+        ],
+        "movements": [
+          0,
+          0,
+          0,
+          5
+        ],
+        "parallel_pairs": [],
+        "unheld_required": 0,
+        "required_held": [
+          -5,
+          2,
+          3
+        ],
+        "large_leaps": 0,
+        "new_voices": 0,
+        "removed_voices": 0,
+        "scope": "Existence of a monotone partial assignment; no claim this is the unprovided author solver or current engine assignment."
+      }
+    ],
+    "rendered_csv_notes": 14,
+    "csv_multicontext_lf_notes": 8,
+    "explicit_suspension": null,
+    "resolution_intent": "Bass setzt Abstieg fort"
+  },
+  {
+    "id": "EM-U021",
+    "states": [
+      {
+        "Zustand": "0",
+        "Tick": "0",
+        "Harmonie": "[1] Moll-None",
+        "Funktion": "t⁷",
+        "Bass": "-14",
+        "Oberstimmen (rel)": "[-5, +2, +3, +12]",
+        "Rollen im Akkord": "5, 9, ♭3, 1",
+        "pitches": [
+          -5,
+          2,
+          3,
+          12
+        ],
+        "bass": -14,
+        "tick": 0,
+        "duration": 3840,
+        "pc_set": [
+          0,
+          2,
+          3,
+          7,
+          10
+        ],
+        "matching_types_any_root": [
+          {
+            "root": 0,
+            "type": "Min9"
+          }
+        ],
+        "root": 0,
+        "types_at_declared_root": [
+          "Min9",
+          "MinorAdd9"
+        ],
+        "unrooted_object": false
+      },
+      {
+        "Zustand": "1",
+        "Tick": "3840",
+        "Harmonie": "[4] Dur",
+        "Funktion": "S³ (IV mit Terz im Bass)",
+        "Bass": "-15",
+        "Oberstimmen (rel)": "[-3, +0, +5, +12]",
+        "Rollen im Akkord": "3, 5, 1, 5",
+        "pitches": [
+          -3,
+          0,
+          5,
+          12
+        ],
+        "bass": -15,
+        "tick": 3840,
+        "duration": 3840,
+        "pc_set": [
+          0,
+          5,
+          9
+        ],
+        "matching_types_any_root": [
+          {
+            "root": 5,
+            "type": "Maj"
+          }
+        ],
+        "root": 5,
+        "types_at_declared_root": [
+          "Maj"
+        ],
+        "unrooted_object": false
+      }
+    ],
+    "transitions": [
+      {
+        "source_tick": 0,
+        "target_tick": 3840,
+        "from_pitches": [
+          -5,
+          2,
+          3,
+          12
+        ],
+        "to_pitches": [
+          -3,
+          0,
+          5,
+          12
+        ],
+        "matching": [
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            2,
+            2
+          ],
+          [
+            3,
+            3
+          ]
+        ],
+        "held": [
+          12
+        ],
+        "movements": [
+          2,
+          -2,
+          2,
+          0
+        ],
+        "parallel_pairs": [],
+        "unheld_required": 0,
+        "required_held": [
+          12
+        ],
+        "large_leaps": 0,
+        "new_voices": 0,
+        "removed_voices": 0,
+        "scope": "Existence of a monotone partial assignment; no claim this is the unprovided author solver or current engine assignment."
+      }
+    ],
+    "rendered_csv_notes": 18,
+    "csv_multicontext_lf_notes": 14,
+    "explicit_suspension": null,
+    "resolution_intent": "chromatischer Abstieg geht weiter"
+  },
+  {
+    "id": "EM-U022",
+    "states": [
+      {
+        "Zustand": "0",
+        "Tick": "0",
+        "Harmonie": "[4] Dur",
+        "Funktion": "S³",
+        "Bass": "-15",
+        "Oberstimmen (rel)": "[-3, +0, +5, +9]",
+        "Rollen im Akkord": "3, 5, 1, 3",
+        "pitches": [
+          -3,
+          0,
+          5,
+          9
+        ],
+        "bass": -15,
+        "tick": 0,
+        "duration": 3840,
+        "pc_set": [
+          0,
+          5,
+          9
+        ],
+        "matching_types_any_root": [
+          {
+            "root": 5,
+            "type": "Maj"
+          }
+        ],
+        "root": 5,
+        "types_at_declared_root": [
+          "Maj"
+        ],
+        "unrooted_object": false
+      },
+      {
+        "Zustand": "1",
+        "Tick": "3840",
+        "Harmonie": "[4] Moll",
+        "Funktion": "s³",
+        "Bass": "-16",
+        "Oberstimmen (rel)": "[-4, +0, +5, +12]",
+        "Rollen im Akkord": "♭3, 5, 1, 5",
+        "pitches": [
+          -4,
+          0,
+          5,
+          12
+        ],
+        "bass": -16,
+        "tick": 3840,
+        "duration": 3840,
+        "pc_set": [
+          0,
+          5,
+          8
+        ],
+        "matching_types_any_root": [
+          {
+            "root": 5,
+            "type": "Min"
+          }
+        ],
+        "root": 5,
+        "types_at_declared_root": [
+          "Min"
+        ],
+        "unrooted_object": false
+      }
+    ],
+    "transitions": [
+      {
+        "source_tick": 0,
+        "target_tick": 3840,
+        "from_pitches": [
+          -3,
+          0,
+          5,
+          9
+        ],
+        "to_pitches": [
+          -4,
+          0,
+          5,
+          12
+        ],
+        "matching": [
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            2,
+            2
+          ],
+          [
+            3,
+            3
+          ]
+        ],
+        "held": [
+          0,
+          5
+        ],
+        "movements": [
+          -1,
+          0,
+          0,
+          3
+        ],
+        "parallel_pairs": [],
+        "unheld_required": 0,
+        "required_held": [
+          0,
+          5
+        ],
+        "large_leaps": 0,
+        "new_voices": 0,
+        "removed_voices": 0,
+        "scope": "Existence of a monotone partial assignment; no claim this is the unprovided author solver or current engine assignment."
+      }
+    ],
+    "rendered_csv_notes": 16,
+    "csv_multicontext_lf_notes": 8,
+    "explicit_suspension": null,
+    "resolution_intent": "Schmerzspitze, weiter zur Dominante"
+  },
+  {
+    "id": "EM-U023",
+    "states": [
+      {
+        "Zustand": "0",
+        "Tick": "0",
+        "Harmonie": "[4] Moll",
+        "Funktion": "s³",
+        "Bass": "-16",
+        "Oberstimmen (rel)": "[-4, +0, +5, +8]",
+        "Rollen im Akkord": "♭3, 5, 1, ♭3",
+        "pitches": [
+          -4,
+          0,
+          5,
+          8
+        ],
+        "bass": -16,
+        "tick": 0,
+        "duration": 3840,
+        "pc_set": [
+          0,
+          5,
+          8
+        ],
+        "matching_types_any_root": [
+          {
+            "root": 5,
+            "type": "Min"
+          }
+        ],
+        "root": 5,
+        "types_at_declared_root": [
+          "Min"
+        ],
+        "unrooted_object": false
+      },
+      {
+        "Zustand": "1",
+        "Tick": "3840",
+        "Harmonie": "[5] sus4",
+        "Funktion": "D (sus)",
+        "Bass": "-17",
+        "Oberstimmen (rel)": "[-5, +0, +2, +12]",
+        "Rollen im Akkord": "1, 4/11, 5, 4/11",
+        "pitches": [
+          -5,
+          0,
+          2,
+          12
+        ],
+        "bass": -17,
+        "tick": 3840,
+        "duration": 3840,
+        "pc_set": [
+          0,
+          2,
+          7
+        ],
+        "matching_types_any_root": [
+          {
+            "root": 0,
+            "type": "Sus2"
+          },
+          {
+            "root": 7,
+            "type": "Sus4"
+          }
+        ],
+        "root": 7,
+        "types_at_declared_root": [
+          "Sus4"
+        ],
+        "unrooted_object": false
+      }
+    ],
+    "transitions": [
+      {
+        "source_tick": 0,
+        "target_tick": 3840,
+        "from_pitches": [
+          -4,
+          0,
+          5,
+          8
+        ],
+        "to_pitches": [
+          -5,
+          0,
+          2,
+          12
+        ],
+        "matching": [
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            2,
+            2
+          ],
+          [
+            3,
+            3
+          ]
+        ],
+        "held": [
+          0
+        ],
+        "movements": [
+          -1,
+          0,
+          -3,
+          4
+        ],
+        "parallel_pairs": [],
+        "unheld_required": 0,
+        "required_held": [
+          0
+        ],
+        "large_leaps": 0,
+        "new_voices": 0,
+        "removed_voices": 0,
+        "scope": "Existence of a monotone partial assignment; no claim this is the unprovided author solver or current engine assignment."
+      }
+    ],
+    "rendered_csv_notes": 18,
+    "csv_multicontext_lf_notes": 7,
+    "explicit_suspension": null,
+    "resolution_intent": "Halbschluss mit Vorhalt, Auflösung offen"
+  },
+  {
+    "id": "EM-U024",
+    "states": [
+      {
+        "Zustand": "0",
+        "Tick": "0",
+        "Harmonie": "[1] Moll-add9",
+        "Funktion": "t",
+        "Bass": "-12",
+        "Oberstimmen (rel)": "[+0, +3, +7, +14]",
+        "Rollen im Akkord": "1, ♭3, 5, 9",
+        "pitches": [
+          0,
+          3,
+          7,
+          14
+        ],
+        "bass": -12,
+        "tick": 0,
+        "duration": 3840,
+        "pc_set": [
+          0,
+          2,
+          3,
+          7
+        ],
+        "matching_types_any_root": [
+          {
+            "root": 0,
+            "type": "MinorAdd9"
+          }
+        ],
+        "root": 0,
+        "types_at_declared_root": [
+          "MinorAdd9"
+        ],
+        "unrooted_object": false
+      },
+      {
+        "Zustand": "1",
+        "Tick": "3840",
+        "Harmonie": "[2] halbvermindert",
+        "Funktion": "sø (halbverminderte Subdominante)",
+        "Bass": "-10",
+        "Oberstimmen (rel)": "[+0, +5, +8, +14]",
+        "Rollen im Akkord": "♭7, ♭3, ♯11/♭5, 1",
+        "pitches": [
+          0,
+          5,
+          8,
+          14
+        ],
+        "bass": -10,
+        "tick": 3840,
+        "duration": 3840,
+        "pc_set": [
+          0,
+          2,
+          5,
+          8
+        ],
+        "matching_types_any_root": [
+          {
+            "root": 2,
+            "type": "HalfDim"
+          },
+          {
+            "root": 5,
+            "type": "Min6"
+          }
+        ],
+        "root": 2,
+        "types_at_declared_root": [
+          "HalfDim"
+        ],
+        "unrooted_object": false
+      }
+    ],
+    "transitions": [
+      {
+        "source_tick": 0,
+        "target_tick": 3840,
+        "from_pitches": [
+          0,
+          3,
+          7,
+          14
+        ],
+        "to_pitches": [
+          0,
+          5,
+          8,
+          14
+        ],
+        "matching": [
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            2,
+            2
+          ],
+          [
+            3,
+            3
+          ]
+        ],
+        "held": [
+          0,
+          14
+        ],
+        "movements": [
+          0,
+          2,
+          1,
+          0
+        ],
+        "parallel_pairs": [],
+        "unheld_required": 0,
+        "required_held": [
+          0,
+          14
+        ],
+        "large_leaps": 0,
+        "new_voices": 0,
+        "removed_voices": 0,
+        "scope": "Existence of a monotone partial assignment; no claim this is the unprovided author solver or current engine assignment."
+      }
+    ],
+    "rendered_csv_notes": 0,
+    "csv_multicontext_lf_notes": 0,
+    "explicit_suspension": null,
+    "resolution_intent": "Spannung, Dominante erwartet"
+  },
+  {
+    "id": "EM-U025",
+    "states": [
+      {
+        "Zustand": "0",
+        "Tick": "0",
+        "Harmonie": "[2] halbvermindert",
+        "Funktion": "sø",
+        "Bass": "-10",
+        "Oberstimmen (rel)": "[+0, +5, +8, +14]",
+        "Rollen im Akkord": "♭7, ♭3, ♯11/♭5, 1",
+        "pitches": [
+          0,
+          5,
+          8,
+          14
+        ],
+        "bass": -10,
+        "tick": 0,
+        "duration": 3840,
+        "pc_set": [
+          0,
+          2,
+          5,
+          8
+        ],
+        "matching_types_any_root": [
+          {
+            "root": 2,
+            "type": "HalfDim"
+          },
+          {
+            "root": 5,
+            "type": "Min6"
+          }
+        ],
+        "root": 2,
+        "types_at_declared_root": [
+          "HalfDim"
+        ],
+        "unrooted_object": false
+      },
+      {
+        "Zustand": "1",
+        "Tick": "3840",
+        "Harmonie": "[5] Sept-♭9",
+        "Funktion": "D⁷♭⁹",
+        "Bass": "-17",
+        "Oberstimmen (rel)": "[-1, +5, +8, +14]",
+        "Rollen im Akkord": "3, ♭7, ♭9, 5",
+        "pitches": [
+          -1,
+          5,
+          8,
+          14
+        ],
+        "bass": -17,
+        "tick": 3840,
+        "duration": 3840,
+        "pc_set": [
+          2,
+          5,
+          7,
+          8,
+          11
+        ],
+        "matching_types_any_root": [
+          {
+            "root": 7,
+            "type": "Dom7b9"
+          }
+        ],
+        "root": 7,
+        "types_at_declared_root": [
+          "Dom7b9"
+        ],
+        "unrooted_object": false
+      }
+    ],
+    "transitions": [
+      {
+        "source_tick": 0,
+        "target_tick": 3840,
+        "from_pitches": [
+          0,
+          5,
+          8,
+          14
+        ],
+        "to_pitches": [
+          -1,
+          5,
+          8,
+          14
+        ],
+        "matching": [
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            2,
+            2
+          ],
+          [
+            3,
+            3
+          ]
+        ],
+        "held": [
+          5,
+          8,
+          14
+        ],
+        "movements": [
+          -1,
+          0,
+          0,
+          0
+        ],
+        "parallel_pairs": [],
+        "unheld_required": 0,
+        "required_held": [
+          5,
+          8,
+          14
+        ],
+        "large_leaps": 0,
+        "new_voices": 0,
+        "removed_voices": 0,
+        "scope": "Existence of a monotone partial assignment; no claim this is the unprovided author solver or current engine assignment."
+      }
+    ],
+    "rendered_csv_notes": 0,
+    "csv_multicontext_lf_notes": 0,
+    "explicit_suspension": null,
+    "resolution_intent": "Dominantspannung, Auflösung optional"
+  },
+  {
+    "id": "EM-U026",
+    "states": [
+      {
+        "Zustand": "0",
+        "Tick": "0",
+        "Harmonie": "[5] Sept-♭9",
+        "Funktion": "D⁷♭⁹",
+        "Bass": "-17",
+        "Oberstimmen (rel)": "[-1, +5, +8, +14]",
+        "Rollen im Akkord": "3, ♭7, ♭9, 5",
+        "pitches": [
+          -1,
+          5,
+          8,
+          14
+        ],
+        "bass": -17,
+        "tick": 0,
+        "duration": 3840,
+        "pc_set": [
+          2,
+          5,
+          7,
+          8,
+          11
+        ],
+        "matching_types_any_root": [
+          {
+            "root": 7,
+            "type": "Dom7b9"
+          }
+        ],
+        "root": 7,
+        "types_at_declared_root": [
+          "Dom7b9"
+        ],
+        "unrooted_object": false
+      },
+      {
+        "Zustand": "1",
+        "Tick": "3840",
+        "Harmonie": "[1] Moll-add9",
+        "Funktion": "t",
+        "Bass": "-12",
+        "Oberstimmen (rel)": "[+0, +3, +7, +14]",
+        "Rollen im Akkord": "1, ♭3, 5, 9",
+        "pitches": [
+          0,
+          3,
+          7,
+          14
+        ],
+        "bass": -12,
+        "tick": 3840,
+        "duration": 3840,
+        "pc_set": [
+          0,
+          2,
+          3,
+          7
+        ],
+        "matching_types_any_root": [
+          {
+            "root": 0,
+            "type": "MinorAdd9"
+          }
+        ],
+        "root": 0,
+        "types_at_declared_root": [
+          "MinorAdd9"
+        ],
+        "unrooted_object": false
+      }
+    ],
+    "transitions": [
+      {
+        "source_tick": 0,
+        "target_tick": 3840,
+        "from_pitches": [
+          -1,
+          5,
+          8,
+          14
+        ],
+        "to_pitches": [
+          0,
+          3,
+          7,
+          14
+        ],
+        "matching": [
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            2,
+            2
+          ],
+          [
+            3,
+            3
+          ]
+        ],
+        "held": [
+          14
+        ],
+        "movements": [
+          1,
+          -2,
+          -1,
+          0
+        ],
+        "parallel_pairs": [],
+        "unheld_required": 0,
+        "required_held": [
+          14
+        ],
+        "large_leaps": 0,
+        "new_voices": 0,
+        "removed_voices": 0,
+        "scope": "Existence of a monotone partial assignment; no claim this is the unprovided author solver or current engine assignment."
+      }
+    ],
+    "rendered_csv_notes": 0,
+    "csv_multicontext_lf_notes": 0,
+    "explicit_suspension": null,
+    "resolution_intent": "echte Auflösung (G♯→A, F→E), sparsam"
+  },
+  {
+    "id": "EM-U027",
+    "states": [
+      {
+        "Zustand": "0",
+        "Tick": "0",
+        "Harmonie": "[1] Moll-add9",
+        "Funktion": "t",
+        "Bass": "-12",
+        "Oberstimmen (rel)": "[-5, +2, +3, +7]",
+        "Rollen im Akkord": "5, 9, ♭3, 5",
+        "pitches": [
+          -5,
+          2,
+          3,
+          7
+        ],
+        "bass": -12,
+        "tick": 0,
+        "duration": 3840,
+        "pc_set": [
+          0,
+          2,
+          3,
+          7
+        ],
+        "matching_types_any_root": [
+          {
+            "root": 0,
+            "type": "MinorAdd9"
+          }
+        ],
+        "root": 0,
+        "types_at_declared_root": [
+          "MinorAdd9"
+        ],
+        "unrooted_object": false
+      },
+      {
+        "Zustand": "1",
+        "Tick": "3840",
+        "Harmonie": "[♭7] Dur-add9",
+        "Funktion": "♭VII über Pedal",
+        "Bass": "-12",
+        "Oberstimmen (rel)": "[-7, +2, +5, +10]",
+        "Rollen im Akkord": "5, 3, 5, 1",
+        "pitches": [
+          -7,
+          2,
+          5,
+          10
+        ],
+        "bass": -12,
+        "tick": 3840,
+        "duration": 3840,
+        "pc_set": [
+          0,
+          2,
+          5,
+          10
+        ],
+        "matching_types_any_root": [
+          {
+            "root": 10,
+            "type": "Add9"
+          }
+        ],
+        "root": 10,
+        "types_at_declared_root": [
+          "Maj",
+          "Add9"
+        ],
+        "unrooted_object": false
+      }
+    ],
+    "transitions": [
+      {
+        "source_tick": 0,
+        "target_tick": 3840,
+        "from_pitches": [
+          -5,
+          2,
+          3,
+          7
+        ],
+        "to_pitches": [
+          -7,
+          2,
+          5,
+          10
+        ],
+        "matching": [
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            2,
+            2
+          ],
+          [
+            3,
+            3
+          ]
+        ],
+        "held": [
+          2
+        ],
+        "movements": [
+          -2,
+          0,
+          2,
+          3
+        ],
+        "parallel_pairs": [],
+        "unheld_required": 0,
+        "required_held": [
+          2
+        ],
+        "large_leaps": 0,
+        "new_voices": 0,
+        "removed_voices": 0,
+        "scope": "Existence of a monotone partial assignment; no claim this is the unprovided author solver or current engine assignment."
+      }
+    ],
+    "rendered_csv_notes": 0,
+    "csv_multicontext_lf_notes": 0,
+    "explicit_suspension": null,
+    "resolution_intent": "Pendel, Rückkehr erwartet"
+  },
+  {
+    "id": "EM-U028",
+    "states": [
+      {
+        "Zustand": "0",
+        "Tick": "0",
+        "Harmonie": "[1] Moll",
+        "Funktion": "t⁶₄ über Pedal",
+        "Bass": "-17",
+        "Oberstimmen (rel)": "[+0, +3, +7, +12]",
+        "Rollen im Akkord": "1, ♭3, 5, 1",
+        "pitches": [
+          0,
+          3,
+          7,
+          12
+        ],
+        "bass": -17,
+        "tick": 0,
+        "duration": 3840,
+        "pc_set": [
+          0,
+          3,
+          7
+        ],
+        "matching_types_any_root": [
+          {
+            "root": 0,
+            "type": "Min"
+          }
+        ],
+        "root": 0,
+        "types_at_declared_root": [
+          "Min"
+        ],
+        "unrooted_object": false
+      },
+      {
+        "Zustand": "1",
+        "Tick": "3840",
+        "Harmonie": "[4] Moll",
+        "Funktion": "s über Dominantpedal",
+        "Bass": "-17",
+        "Oberstimmen (rel)": "[+0, +5, +8, +12]",
+        "Rollen im Akkord": "5, 1, ♭3, 5",
+        "pitches": [
+          0,
+          5,
+          8,
+          12
+        ],
+        "bass": -17,
+        "tick": 3840,
+        "duration": 3840,
+        "pc_set": [
+          0,
+          5,
+          7,
+          8
+        ],
+        "matching_types_any_root": [
+          {
+            "root": 5,
+            "type": "MinorAdd9"
+          }
+        ],
+        "root": 5,
+        "types_at_declared_root": [
+          "Min",
+          "MinorAdd9"
+        ],
+        "unrooted_object": false
+      }
+    ],
+    "transitions": [
+      {
+        "source_tick": 0,
+        "target_tick": 3840,
+        "from_pitches": [
+          0,
+          3,
+          7,
+          12
+        ],
+        "to_pitches": [
+          0,
+          5,
+          8,
+          12
+        ],
+        "matching": [
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            2,
+            2
+          ],
+          [
+            3,
+            3
+          ]
+        ],
+        "held": [
+          0,
+          12
+        ],
+        "movements": [
+          0,
+          2,
+          1,
+          0
+        ],
+        "parallel_pairs": [],
+        "unheld_required": 0,
+        "required_held": [
+          0,
+          12
+        ],
+        "large_leaps": 0,
+        "new_voices": 0,
+        "removed_voices": 0,
+        "scope": "Existence of a monotone partial assignment; no claim this is the unprovided author solver or current engine assignment."
+      }
+    ],
+    "rendered_csv_notes": 0,
+    "csv_multicontext_lf_notes": 0,
+    "explicit_suspension": null,
+    "resolution_intent": "Druck auf die Dominante, Auflösung offen"
+  },
+  {
+    "id": "EM-U029",
+    "states": [
+      {
+        "Zustand": "0",
+        "Tick": "0",
+        "Harmonie": "[1] Moll-add9",
+        "Funktion": "t (H = 9)",
+        "Bass": "-12",
+        "Oberstimmen (rel)": "[+0, +3, +7, +14]",
+        "Rollen im Akkord": "1, ♭3, 5, 9",
+        "pitches": [
+          0,
+          3,
+          7,
+          14
+        ],
+        "bass": -12,
+        "tick": 0,
+        "duration": 3840,
+        "pc_set": [
+          0,
+          2,
+          3,
+          7
+        ],
+        "matching_types_any_root": [
+          {
+            "root": 0,
+            "type": "MinorAdd9"
+          }
+        ],
+        "root": 0,
+        "types_at_declared_root": [
+          "MinorAdd9"
+        ],
+        "unrooted_object": false
+      },
+      {
+        "Zustand": "1",
+        "Tick": "3840",
+        "Harmonie": "[♭6] maj7♯11",
+        "Funktion": "♭VI (H = ♯11)",
+        "Bass": "-16",
+        "Oberstimmen (rel)": "[+0, +3, +7, +14]",
+        "Rollen im Akkord": "3, 5, 7, ♯11/♭5",
+        "pitches": [
+          0,
+          3,
+          7,
+          14
+        ],
+        "bass": -16,
+        "tick": 3840,
+        "duration": 3840,
+        "pc_set": [
+          0,
+          2,
+          3,
+          7,
+          8
+        ],
+        "matching_types_any_root": [
+          {
+            "root": 8,
+            "type": "Major7Sharp11"
+          }
+        ],
+        "root": 8,
+        "types_at_declared_root": [
+          "Major7Sharp11"
+        ],
+        "unrooted_object": false
+      },
+      {
+        "Zustand": "2",
+        "Tick": "7680",
+        "Harmonie": "[4] Moll-Sexte",
+        "Funktion": "s (H = 6)",
+        "Bass": "-19",
+        "Oberstimmen (rel)": "[+0, +5, +8, +14]",
+        "Rollen im Akkord": "5, 1, ♭3, 6/13",
+        "pitches": [
+          0,
+          5,
+          8,
+          14
+        ],
+        "bass": -19,
+        "tick": 7680,
+        "duration": 3840,
+        "pc_set": [
+          0,
+          2,
+          5,
+          8
+        ],
+        "matching_types_any_root": [
+          {
+            "root": 2,
+            "type": "HalfDim"
+          },
+          {
+            "root": 5,
+            "type": "Min6"
+          }
+        ],
+        "root": 5,
+        "types_at_declared_root": [
+          "Min6"
+        ],
+        "unrooted_object": false
+      },
+      {
+        "Zustand": "3",
+        "Tick": "11520",
+        "Harmonie": "[♭7] Dur-add9",
+        "Funktion": "♭VII (H = 3)",
+        "Bass": "-14",
+        "Oberstimmen (rel)": "[+0, +5, +10, +14]",
+        "Rollen im Akkord": "9, 5, 1, 3",
+        "pitches": [
+          0,
+          5,
+          10,
+          14
+        ],
+        "bass": -14,
+        "tick": 11520,
+        "duration": 3840,
+        "pc_set": [
+          0,
+          2,
+          5,
+          10
+        ],
+        "matching_types_any_root": [
+          {
+            "root": 10,
+            "type": "Add9"
+          }
+        ],
+        "root": 10,
+        "types_at_declared_root": [
+          "Add9"
+        ],
+        "unrooted_object": false
+      },
+      {
+        "Zustand": "4",
+        "Tick": "15360",
+        "Harmonie": "[1] Moll-add9",
+        "Funktion": "t (H = 9)",
+        "Bass": "-12",
+        "Oberstimmen (rel)": "[+0, +3, +7, +14]",
+        "Rollen im Akkord": "1, ♭3, 5, 9",
+        "pitches": [
+          0,
+          3,
+          7,
+          14
+        ],
+        "bass": -12,
+        "tick": 15360,
+        "duration": 3840,
+        "pc_set": [
+          0,
+          2,
+          3,
+          7
+        ],
+        "matching_types_any_root": [
+          {
+            "root": 0,
+            "type": "MinorAdd9"
+          }
+        ],
+        "root": 0,
+        "types_at_declared_root": [
+          "MinorAdd9"
+        ],
+        "unrooted_object": false
+      }
+    ],
+    "transitions": [
+      {
+        "source_tick": 0,
+        "target_tick": 3840,
+        "from_pitches": [
+          0,
+          3,
+          7,
+          14
+        ],
+        "to_pitches": [
+          0,
+          3,
+          7,
+          14
+        ],
+        "matching": [
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            2,
+            2
+          ],
+          [
+            3,
+            3
+          ]
+        ],
+        "held": [
+          0,
+          3,
+          7,
+          14
+        ],
+        "movements": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "parallel_pairs": [],
+        "unheld_required": 0,
+        "required_held": [
+          0,
+          3,
+          7,
+          14
+        ],
+        "large_leaps": 0,
+        "new_voices": 0,
+        "removed_voices": 0,
+        "scope": "Existence of a monotone partial assignment; no claim this is the unprovided author solver or current engine assignment."
+      },
+      {
+        "source_tick": 3840,
+        "target_tick": 7680,
+        "from_pitches": [
+          0,
+          3,
+          7,
+          14
+        ],
+        "to_pitches": [
+          0,
+          5,
+          8,
+          14
+        ],
+        "matching": [
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            2,
+            2
+          ],
+          [
+            3,
+            3
+          ]
+        ],
+        "held": [
+          0,
+          14
+        ],
+        "movements": [
+          0,
+          2,
+          1,
+          0
+        ],
+        "parallel_pairs": [],
+        "unheld_required": 0,
+        "required_held": [
+          0,
+          14
+        ],
+        "large_leaps": 0,
+        "new_voices": 0,
+        "removed_voices": 0,
+        "scope": "Existence of a monotone partial assignment; no claim this is the unprovided author solver or current engine assignment."
+      },
+      {
+        "source_tick": 7680,
+        "target_tick": 11520,
+        "from_pitches": [
+          0,
+          5,
+          8,
+          14
+        ],
+        "to_pitches": [
+          0,
+          5,
+          10,
+          14
+        ],
+        "matching": [
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            2,
+            2
+          ],
+          [
+            3,
+            3
+          ]
+        ],
+        "held": [
+          0,
+          5,
+          14
+        ],
+        "movements": [
+          0,
+          0,
+          2,
+          0
+        ],
+        "parallel_pairs": [],
+        "unheld_required": 0,
+        "required_held": [
+          0,
+          5,
+          14
+        ],
+        "large_leaps": 0,
+        "new_voices": 0,
+        "removed_voices": 0,
+        "scope": "Existence of a monotone partial assignment; no claim this is the unprovided author solver or current engine assignment."
+      },
+      {
+        "source_tick": 11520,
+        "target_tick": 15360,
+        "from_pitches": [
+          0,
+          5,
+          10,
+          14
+        ],
+        "to_pitches": [
+          0,
+          3,
+          7,
+          14
+        ],
+        "matching": [
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            2,
+            2
+          ],
+          [
+            3,
+            3
+          ]
+        ],
+        "held": [
+          0,
+          14
+        ],
+        "movements": [
+          0,
+          -2,
+          -3,
+          0
+        ],
+        "parallel_pairs": [],
+        "unheld_required": 0,
+        "required_held": [
+          0,
+          14
+        ],
+        "large_leaps": 0,
+        "new_voices": 0,
+        "removed_voices": 0,
+        "scope": "Existence of a monotone partial assignment; no claim this is the unprovided author solver or current engine assignment."
+      }
+    ],
+    "rendered_csv_notes": 32,
+    "csv_multicontext_lf_notes": 13,
+    "explicit_suspension": null,
+    "resolution_intent": "gleicher Ton, fünf Bedeutungen; kein Schlussziel"
+  },
+  {
+    "id": "EM-U030",
+    "states": [
+      {
+        "Zustand": "0",
+        "Tick": "0",
+        "Harmonie": "[1] Dur-add9",
+        "Funktion": "T (E = 3)",
+        "Bass": "-12",
+        "Oberstimmen (rel)": "[-5, +2, +7, +16]",
+        "Rollen im Akkord": "5, 9, 5, 3",
+        "pitches": [
+          -5,
+          2,
+          7,
+          16
+        ],
+        "bass": -12,
+        "tick": 0,
+        "duration": 3840,
+        "pc_set": [
+          0,
+          2,
+          4,
+          7
+        ],
+        "matching_types_any_root": [
+          {
+            "root": 0,
+            "type": "Add9"
+          }
+        ],
+        "root": 0,
+        "types_at_declared_root": [
+          "Add9"
+        ],
+        "unrooted_object": false
+      },
+      {
+        "Zustand": "1",
+        "Tick": "3840",
+        "Harmonie": "[6] Moll-Sept",
+        "Funktion": "Tp (E = 5)",
+        "Bass": "-15",
+        "Oberstimmen (rel)": "[-5, +0, +7, +16]",
+        "Rollen im Akkord": "♭7, ♭3, ♭7, 5",
+        "pitches": [
+          -5,
+          0,
+          7,
+          16
+        ],
+        "bass": -15,
+        "tick": 3840,
+        "duration": 3840,
+        "pc_set": [
+          0,
+          4,
+          7,
+          9
+        ],
+        "matching_types_any_root": [
+          {
+            "root": 0,
+            "type": "Major6"
+          },
+          {
+            "root": 9,
+            "type": "Min7"
+          }
+        ],
+        "root": 9,
+        "types_at_declared_root": [
+          "Min7"
+        ],
+        "unrooted_object": false
+      },
+      {
+        "Zustand": "2",
+        "Tick": "7680",
+        "Harmonie": "[4] große Septime",
+        "Funktion": "S (E = 7)",
+        "Bass": "-19",
+        "Oberstimmen (rel)": "[-7, +0, +9, +16]",
+        "Rollen im Akkord": "1, 5, 3, 7",
+        "pitches": [
+          -7,
+          0,
+          9,
+          16
+        ],
+        "bass": -19,
+        "tick": 7680,
+        "duration": 3840,
+        "pc_set": [
+          0,
+          4,
+          5,
+          9
+        ],
+        "matching_types_any_root": [
+          {
+            "root": 5,
+            "type": "Maj7"
+          }
+        ],
+        "root": 5,
+        "types_at_declared_root": [
+          "Maj7"
+        ],
+        "unrooted_object": false
+      },
+      {
+        "Zustand": "3",
+        "Tick": "11520",
+        "Harmonie": "[2] Moll-None",
+        "Funktion": "Sp (E = 9)",
+        "Bass": "-10",
+        "Oberstimmen (rel)": "[-7, +0, +9, +16]",
+        "Rollen im Akkord": "♭3, ♭7, 5, 9",
+        "pitches": [
+          -7,
+          0,
+          9,
+          16
+        ],
+        "bass": -10,
+        "tick": 11520,
+        "duration": 3840,
+        "pc_set": [
+          0,
+          2,
+          4,
+          5,
+          9
+        ],
+        "matching_types_any_root": [
+          {
+            "root": 2,
+            "type": "Min9"
+          }
+        ],
+        "root": 2,
+        "types_at_declared_root": [
+          "Min9"
+        ],
+        "unrooted_object": false
+      },
+      {
+        "Zustand": "4",
+        "Tick": "15360",
+        "Harmonie": "[1] Dur-add9",
+        "Funktion": "T (E = 3)",
+        "Bass": "-12",
+        "Oberstimmen (rel)": "[-8, +2, +7, +16]",
+        "Rollen im Akkord": "3, 9, 5, 3",
+        "pitches": [
+          -8,
+          2,
+          7,
+          16
+        ],
+        "bass": -12,
+        "tick": 15360,
+        "duration": 3840,
+        "pc_set": [
+          0,
+          2,
+          4,
+          7
+        ],
+        "matching_types_any_root": [
+          {
+            "root": 0,
+            "type": "Add9"
+          }
+        ],
+        "root": 0,
+        "types_at_declared_root": [
+          "Add9"
+        ],
+        "unrooted_object": false
+      }
+    ],
+    "transitions": [
+      {
+        "source_tick": 0,
+        "target_tick": 3840,
+        "from_pitches": [
+          -5,
+          2,
+          7,
+          16
+        ],
+        "to_pitches": [
+          -5,
+          0,
+          7,
+          16
+        ],
+        "matching": [
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            2,
+            2
+          ],
+          [
+            3,
+            3
+          ]
+        ],
+        "held": [
+          -5,
+          7,
+          16
+        ],
+        "movements": [
+          0,
+          -2,
+          0,
+          0
+        ],
+        "parallel_pairs": [],
+        "unheld_required": 0,
+        "required_held": [
+          -5,
+          7,
+          16
+        ],
+        "large_leaps": 0,
+        "new_voices": 0,
+        "removed_voices": 0,
+        "scope": "Existence of a monotone partial assignment; no claim this is the unprovided author solver or current engine assignment."
+      },
+      {
+        "source_tick": 3840,
+        "target_tick": 7680,
+        "from_pitches": [
+          -5,
+          0,
+          7,
+          16
+        ],
+        "to_pitches": [
+          -7,
+          0,
+          9,
+          16
+        ],
+        "matching": [
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            2,
+            2
+          ],
+          [
+            3,
+            3
+          ]
+        ],
+        "held": [
+          0,
+          16
+        ],
+        "movements": [
+          -2,
+          0,
+          2,
+          0
+        ],
+        "parallel_pairs": [],
+        "unheld_required": 0,
+        "required_held": [
+          0,
+          16
+        ],
+        "large_leaps": 0,
+        "new_voices": 0,
+        "removed_voices": 0,
+        "scope": "Existence of a monotone partial assignment; no claim this is the unprovided author solver or current engine assignment."
+      },
+      {
+        "source_tick": 7680,
+        "target_tick": 11520,
+        "from_pitches": [
+          -7,
+          0,
+          9,
+          16
+        ],
+        "to_pitches": [
+          -7,
+          0,
+          9,
+          16
+        ],
+        "matching": [
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            2,
+            2
+          ],
+          [
+            3,
+            3
+          ]
+        ],
+        "held": [
+          -7,
+          0,
+          9,
+          16
+        ],
+        "movements": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "parallel_pairs": [],
+        "unheld_required": 0,
+        "required_held": [
+          -7,
+          0,
+          9,
+          16
+        ],
+        "large_leaps": 0,
+        "new_voices": 0,
+        "removed_voices": 0,
+        "scope": "Existence of a monotone partial assignment; no claim this is the unprovided author solver or current engine assignment."
+      },
+      {
+        "source_tick": 11520,
+        "target_tick": 15360,
+        "from_pitches": [
+          -7,
+          0,
+          9,
+          16
+        ],
+        "to_pitches": [
+          -8,
+          2,
+          7,
+          16
+        ],
+        "matching": [
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            2,
+            2
+          ],
+          [
+            3,
+            3
+          ]
+        ],
+        "held": [
+          16
+        ],
+        "movements": [
+          -1,
+          2,
+          -2,
+          0
+        ],
+        "parallel_pairs": [],
+        "unheld_required": 0,
+        "required_held": [
+          16
+        ],
+        "large_leaps": 0,
+        "new_voices": 0,
+        "removed_voices": 0,
+        "scope": "Existence of a monotone partial assignment; no claim this is the unprovided author solver or current engine assignment."
+      }
+    ],
+    "rendered_csv_notes": 38,
+    "csv_multicontext_lf_notes": 20,
+    "explicit_suspension": null,
+    "resolution_intent": "Melodieton bleibt, Harmonie erzählt"
+  },
+  {
+    "id": "EM-U031",
+    "states": [
+      {
+        "Zustand": "0",
+        "Tick": "0",
+        "Harmonie": "[1] große Septime",
+        "Funktion": "T⁷",
+        "Bass": "-12",
+        "Oberstimmen (rel)": "[-5, +4, +7, +11]",
+        "Rollen im Akkord": "5, 3, 5, 7",
+        "pitches": [
+          -5,
+          4,
+          7,
+          11
+        ],
+        "bass": -12,
+        "tick": 0,
+        "duration": 3840,
+        "pc_set": [
+          0,
+          4,
+          7,
+          11
+        ],
+        "matching_types_any_root": [
+          {
+            "root": 0,
+            "type": "Maj7"
+          }
+        ],
+        "root": 0,
+        "types_at_declared_root": [
+          "Maj7"
+        ],
+        "unrooted_object": false
+      },
+      {
+        "Zustand": "1",
+        "Tick": "3840",
+        "Harmonie": "[6] Moll-None",
+        "Funktion": "Tp⁹",
+        "Bass": "-15",
+        "Oberstimmen (rel)": "[-5, +4, +11, +12]",
+        "Rollen im Akkord": "♭7, 5, 9, ♭3",
+        "pitches": [
+          -5,
+          4,
+          11,
+          12
+        ],
+        "bass": -15,
+        "tick": 3840,
+        "duration": 3840,
+        "pc_set": [
+          0,
+          4,
+          7,
+          9,
+          11
+        ],
+        "matching_types_any_root": [
+          {
+            "root": 9,
+            "type": "Min9"
+          }
+        ],
+        "root": 9,
+        "types_at_declared_root": [
+          "Min9"
+        ],
+        "unrooted_object": false
+      }
+    ],
+    "transitions": [
+      {
+        "source_tick": 0,
+        "target_tick": 3840,
+        "from_pitches": [
+          -5,
+          4,
+          7,
+          11
+        ],
+        "to_pitches": [
+          -5,
+          4,
+          11,
+          12
+        ],
+        "matching": [
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            2,
+            2
+          ],
+          [
+            3,
+            3
+          ]
+        ],
+        "held": [
+          -5,
+          4
+        ],
+        "movements": [
+          0,
+          0,
+          4,
+          1
+        ],
+        "parallel_pairs": [],
+        "unheld_required": 0,
+        "required_held": [
+          -5,
+          4
+        ],
+        "large_leaps": 0,
+        "new_voices": 0,
+        "removed_voices": 0,
+        "scope": "Existence of a monotone partial assignment; no claim this is the unprovided author solver or current engine assignment."
+      }
+    ],
+    "rendered_csv_notes": 0,
+    "csv_multicontext_lf_notes": 0,
+    "explicit_suspension": null,
+    "resolution_intent": "Umdeutung ohne Oberstimmenbewegung"
+  },
+  {
+    "id": "EM-U032",
+    "states": [
+      {
+        "Zustand": "0",
+        "Tick": "0",
+        "Harmonie": "[1] Moll-Sexte",
+        "Funktion": "t⁶",
+        "Bass": "-12",
+        "Oberstimmen (rel)": "[-5, +3, +7, +9]",
+        "Rollen im Akkord": "5, ♭3, 5, 6/13",
+        "pitches": [
+          -5,
+          3,
+          7,
+          9
+        ],
+        "bass": -12,
+        "tick": 0,
+        "duration": 3840,
+        "pc_set": [
+          0,
+          3,
+          7,
+          9
+        ],
+        "matching_types_any_root": [
+          {
+            "root": 0,
+            "type": "Min6"
+          },
+          {
+            "root": 9,
+            "type": "HalfDim"
+          }
+        ],
+        "root": 0,
+        "types_at_declared_root": [
+          "Min6"
+        ],
+        "unrooted_object": false
+      },
+      {
+        "Zustand": "1",
+        "Tick": "3840",
+        "Harmonie": "[4] Dominant-None",
+        "Funktion": "S⁹",
+        "Bass": "-7",
+        "Oberstimmen (rel)": "[-5, +3, +9, +12]",
+        "Rollen im Akkord": "9, ♭7, 3, 5",
+        "pitches": [
+          -5,
+          3,
+          9,
+          12
+        ],
+        "bass": -7,
+        "tick": 3840,
+        "duration": 3840,
+        "pc_set": [
+          0,
+          3,
+          5,
+          7,
+          9
+        ],
+        "matching_types_any_root": [
+          {
+            "root": 5,
+            "type": "Dominant9"
+          }
+        ],
+        "root": 5,
+        "types_at_declared_root": [
+          "Dominant9"
+        ],
+        "unrooted_object": false
+      }
+    ],
+    "transitions": [
+      {
+        "source_tick": 0,
+        "target_tick": 3840,
+        "from_pitches": [
+          -5,
+          3,
+          7,
+          9
+        ],
+        "to_pitches": [
+          -5,
+          3,
+          9,
+          12
+        ],
+        "matching": [
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            2,
+            2
+          ],
+          [
+            3,
+            3
+          ]
+        ],
+        "held": [
+          -5,
+          3
+        ],
+        "movements": [
+          0,
+          0,
+          2,
+          3
+        ],
+        "parallel_pairs": [],
+        "unheld_required": 0,
+        "required_held": [
+          -5,
+          3
+        ],
+        "large_leaps": 0,
+        "new_voices": 0,
+        "removed_voices": 0,
+        "scope": "Existence of a monotone partial assignment; no claim this is the unprovided author solver or current engine assignment."
+      }
+    ],
+    "rendered_csv_notes": 0,
+    "csv_multicontext_lf_notes": 0,
+    "explicit_suspension": null,
+    "resolution_intent": "Aufhellung durch Bass, Oberstimmen liegen"
+  },
+  {
+    "id": "EM-U033",
+    "states": [
+      {
+        "Zustand": "0",
+        "Tick": "0",
+        "Harmonie": "[1] Moll-add9",
+        "Funktion": "t",
+        "Bass": "-12",
+        "Oberstimmen (rel)": "[+0, +3, +7, +14]",
+        "Rollen im Akkord": "1, ♭3, 5, 9",
+        "pitches": [
+          0,
+          3,
+          7,
+          14
+        ],
+        "bass": -12,
+        "tick": 0,
+        "duration": 3840,
+        "pc_set": [
+          0,
+          2,
+          3,
+          7
+        ],
+        "matching_types_any_root": [
+          {
+            "root": 0,
+            "type": "MinorAdd9"
+          }
+        ],
+        "root": 0,
+        "types_at_declared_root": [
+          "MinorAdd9"
+        ],
+        "unrooted_object": false
+      },
+      {
+        "Zustand": "1",
+        "Tick": "3840",
+        "Harmonie": "[♭3] große Septime",
+        "Funktion": "tP (♭III)",
+        "Bass": "-9",
+        "Oberstimmen (rel)": "[-2, +3, +7, +14]",
+        "Rollen im Akkord": "5, 1, 3, 7",
+        "pitches": [
+          -2,
+          3,
+          7,
+          14
+        ],
+        "bass": -9,
+        "tick": 3840,
+        "duration": 3840,
+        "pc_set": [
+          2,
+          3,
+          7,
+          10
+        ],
+        "matching_types_any_root": [
+          {
+            "root": 3,
+            "type": "Maj7"
+          }
+        ],
+        "root": 3,
+        "types_at_declared_root": [
+          "Maj7"
+        ],
+        "unrooted_object": false
+      }
+    ],
+    "transitions": [
+      {
+        "source_tick": 0,
+        "target_tick": 3840,
+        "from_pitches": [
+          0,
+          3,
+          7,
+          14
+        ],
+        "to_pitches": [
+          -2,
+          3,
+          7,
+          14
+        ],
+        "matching": [
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            2,
+            2
+          ],
+          [
+            3,
+            3
+          ]
+        ],
+        "held": [
+          3,
+          7,
+          14
+        ],
+        "movements": [
+          -2,
+          0,
+          0,
+          0
+        ],
+        "parallel_pairs": [],
+        "unheld_required": 0,
+        "required_held": [
+          3,
+          7,
+          14
+        ],
+        "large_leaps": 0,
+        "new_voices": 0,
+        "removed_voices": 0,
+        "scope": "Existence of a monotone partial assignment; no claim this is the unprovided author solver or current engine assignment."
+      }
+    ],
+    "rendered_csv_notes": 0,
+    "csv_multicontext_lf_notes": 0,
+    "explicit_suspension": null,
+    "resolution_intent": "Klang baut sich stimmweise um"
+  },
+  {
+    "id": "EM-U034",
+    "states": [
+      {
+        "Zustand": "0",
+        "Tick": "0",
+        "Harmonie": "[4] Dur-add9",
+        "Funktion": "S",
+        "Bass": "-19",
+        "Oberstimmen (rel)": "[-3, +0, +5, +7]",
+        "Rollen im Akkord": "3, 5, 1, 9",
+        "pitches": [
+          -3,
+          0,
+          5,
+          7
+        ],
+        "bass": -19,
+        "tick": 0,
+        "duration": 3840,
+        "pc_set": [
+          0,
+          5,
+          7,
+          9
+        ],
+        "matching_types_any_root": [
+          {
+            "root": 5,
+            "type": "Add9"
+          }
+        ],
+        "root": 5,
+        "types_at_declared_root": [
+          "Add9"
+        ],
+        "unrooted_object": false
+      },
+      {
+        "Zustand": "1",
+        "Tick": "3840",
+        "Harmonie": "[1] Dur-add9",
+        "Funktion": "T",
+        "Bass": "-12",
+        "Oberstimmen (rel)": "[+0, +2, +4, +7]",
+        "Rollen im Akkord": "1, 9, 3, 5",
+        "pitches": [
+          0,
+          2,
+          4,
+          7
+        ],
+        "bass": -12,
+        "tick": 3840,
+        "duration": 3840,
+        "pc_set": [
+          0,
+          2,
+          4,
+          7
+        ],
+        "matching_types_any_root": [
+          {
+            "root": 0,
+            "type": "Add9"
+          }
+        ],
+        "root": 0,
+        "types_at_declared_root": [
+          "Add9"
+        ],
+        "unrooted_object": false
+      }
+    ],
+    "transitions": [
+      {
+        "source_tick": 0,
+        "target_tick": 3840,
+        "from_pitches": [
+          -3,
+          0,
+          5,
+          7
+        ],
+        "to_pitches": [
+          0,
+          2,
+          4,
+          7
+        ],
+        "matching": [
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            2,
+            2
+          ],
+          [
+            3,
+            3
+          ]
+        ],
+        "held": [
+          7
+        ],
+        "movements": [
+          3,
+          2,
+          -1,
+          0
+        ],
+        "parallel_pairs": [],
+        "unheld_required": 0,
+        "required_held": [
+          7
+        ],
+        "large_leaps": 0,
+        "new_voices": 0,
+        "removed_voices": 0,
+        "scope": "Existence of a monotone partial assignment; no claim this is the unprovided author solver or current engine assignment."
+      }
+    ],
+    "rendered_csv_notes": 20,
+    "csv_multicontext_lf_notes": 6,
+    "explicit_suspension": null,
+    "resolution_intent": "plagale Rückkehr, Stimme für Stimme"
+  },
+  {
+    "id": "EM-U035",
+    "states": [
+      {
+        "Zustand": "0",
+        "Tick": "0",
+        "Harmonie": "[1] Moll-add9",
+        "Funktion": "t (mit None)",
+        "Bass": "-12",
+        "Oberstimmen (rel)": "[-5, +3, +7, +14]",
+        "Rollen im Akkord": "5, ♭3, 5, 9",
+        "pitches": [
+          -5,
+          3,
+          7,
+          14
+        ],
+        "bass": -12,
+        "tick": 0,
+        "duration": 3840,
+        "pc_set": [
+          0,
+          2,
+          3,
+          7
+        ],
+        "matching_types_any_root": [
+          {
+            "root": 0,
+            "type": "MinorAdd9"
+          }
+        ],
+        "root": 0,
+        "types_at_declared_root": [
+          "MinorAdd9"
+        ],
+        "unrooted_object": false
+      },
+      {
+        "Zustand": "1",
+        "Tick": "3840",
+        "Harmonie": "[1] Moll",
+        "Funktion": "t (rein)",
+        "Bass": "-12",
+        "Oberstimmen (rel)": "[-5, +3, +7, +12]",
+        "Rollen im Akkord": "5, ♭3, 5, 1",
+        "pitches": [
+          -5,
+          3,
+          7,
+          12
+        ],
+        "bass": -12,
+        "tick": 3840,
+        "duration": 3840,
+        "pc_set": [
+          0,
+          3,
+          7
+        ],
+        "matching_types_any_root": [
+          {
+            "root": 0,
+            "type": "Min"
+          }
+        ],
+        "root": 0,
+        "types_at_declared_root": [
+          "Min"
+        ],
+        "unrooted_object": false
+      }
+    ],
+    "transitions": [
+      {
+        "source_tick": 0,
+        "target_tick": 3840,
+        "from_pitches": [
+          -5,
+          3,
+          7,
+          14
+        ],
+        "to_pitches": [
+          -5,
+          3,
+          7,
+          12
+        ],
+        "matching": [
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            2,
+            2
+          ],
+          [
+            3,
+            3
+          ]
+        ],
+        "held": [
+          -5,
+          3,
+          7
+        ],
+        "movements": [
+          0,
+          0,
+          0,
+          -2
+        ],
+        "parallel_pairs": [],
+        "unheld_required": 0,
+        "required_held": [
+          -5,
+          3,
+          7
+        ],
+        "large_leaps": 0,
+        "new_voices": 0,
+        "removed_voices": 0,
+        "scope": "Existence of a monotone partial assignment; no claim this is the unprovided author solver or current engine assignment."
+      }
+    ],
+    "rendered_csv_notes": 0,
+    "csv_multicontext_lf_notes": 0,
+    "explicit_suspension": null,
+    "resolution_intent": "echte Auflösung 9→8 am Taktbeginn"
+  },
+  {
+    "id": "EM-U036",
+    "states": [
+      {
+        "Zustand": "0",
+        "Tick": "0",
+        "Harmonie": "[1] sus4",
+        "Funktion": "t (sus)",
+        "Bass": "-12",
+        "Oberstimmen (rel)": "[-5, +0, +5, +7]",
+        "Rollen im Akkord": "5, 1, 4/11, 5",
+        "pitches": [
+          -5,
+          0,
+          5,
+          7
+        ],
+        "bass": -12,
+        "tick": 0,
+        "duration": 3840,
+        "pc_set": [
+          0,
+          5,
+          7
+        ],
+        "matching_types_any_root": [
+          {
+            "root": 0,
+            "type": "Sus4"
+          },
+          {
+            "root": 5,
+            "type": "Sus2"
+          }
+        ],
+        "root": 0,
+        "types_at_declared_root": [
+          "Sus4"
+        ],
+        "unrooted_object": false
+      },
+      {
+        "Zustand": "1",
+        "Tick": "3840",
+        "Harmonie": "[1] Moll",
+        "Funktion": "t",
+        "Bass": "-12",
+        "Oberstimmen (rel)": "[-5, +0, +3, +7]",
+        "Rollen im Akkord": "5, 1, ♭3, 5",
+        "pitches": [
+          -5,
+          0,
+          3,
+          7
+        ],
+        "bass": -12,
+        "tick": 3840,
+        "duration": 3840,
+        "pc_set": [
+          0,
+          3,
+          7
+        ],
+        "matching_types_any_root": [
+          {
+            "root": 0,
+            "type": "Min"
+          }
+        ],
+        "root": 0,
+        "types_at_declared_root": [
+          "Min"
+        ],
+        "unrooted_object": false
+      }
+    ],
+    "transitions": [
+      {
+        "source_tick": 0,
+        "target_tick": 3840,
+        "from_pitches": [
+          -5,
+          0,
+          5,
+          7
+        ],
+        "to_pitches": [
+          -5,
+          0,
+          3,
+          7
+        ],
+        "matching": [
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            2,
+            2
+          ],
+          [
+            3,
+            3
+          ]
+        ],
+        "held": [
+          -5,
+          0,
+          7
+        ],
+        "movements": [
+          0,
+          0,
+          -2,
+          0
+        ],
+        "parallel_pairs": [],
+        "unheld_required": 0,
+        "required_held": [
+          -5,
+          0,
+          7
+        ],
+        "large_leaps": 0,
+        "new_voices": 0,
+        "removed_voices": 0,
+        "scope": "Existence of a monotone partial assignment; no claim this is the unprovided author solver or current engine assignment."
+      }
+    ],
+    "rendered_csv_notes": 0,
+    "csv_multicontext_lf_notes": 0,
+    "explicit_suspension": "in Zustand 1 erklingt +5 statt +3 (Funktion V), Auflösung nach 2880 Ticks auf +3",
+    "resolution_intent": "Auflösung D→C erst auf Schlag 4 des Zieltakts"
+  },
+  {
+    "id": "EM-U037",
+    "states": [
+      {
+        "Zustand": "0",
+        "Tick": "0",
+        "Harmonie": "[5] Sept-sus4",
+        "Funktion": "D (sus)",
+        "Bass": "-17",
+        "Oberstimmen (rel)": "[+0, +5, +7, +14]",
+        "Rollen im Akkord": "4/11, ♭7, 1, 5",
+        "pitches": [
+          0,
+          5,
+          7,
+          14
+        ],
+        "bass": -17,
+        "tick": 0,
+        "duration": 3840,
+        "pc_set": [
+          0,
+          2,
+          5,
+          7
+        ],
+        "matching_types_any_root": [
+          {
+            "root": 2,
+            "type": "Quartal"
+          },
+          {
+            "root": 7,
+            "type": "Dominant7Sus4"
+          }
+        ],
+        "root": 7,
+        "types_at_declared_root": [
+          "Dominant7Sus4"
+        ],
+        "unrooted_object": false
+      },
+      {
+        "Zustand": "1",
+        "Tick": "3840",
+        "Harmonie": "[♭6] große Septime",
+        "Funktion": "♭VI",
+        "Bass": "-16",
+        "Oberstimmen (rel)": "[+0, +3, +7, +15]",
+        "Rollen im Akkord": "3, 5, 7, 5",
+        "pitches": [
+          0,
+          3,
+          7,
+          15
+        ],
+        "bass": -16,
+        "tick": 3840,
+        "duration": 3840,
+        "pc_set": [
+          0,
+          3,
+          7,
+          8
+        ],
+        "matching_types_any_root": [
+          {
+            "root": 8,
+            "type": "Maj7"
+          }
+        ],
+        "root": 8,
+        "types_at_declared_root": [
+          "Maj7"
+        ],
+        "unrooted_object": false
+      }
+    ],
+    "transitions": [
+      {
+        "source_tick": 0,
+        "target_tick": 3840,
+        "from_pitches": [
+          0,
+          5,
+          7,
+          14
+        ],
+        "to_pitches": [
+          0,
+          3,
+          7,
+          15
+        ],
+        "matching": [
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            2,
+            2
+          ],
+          [
+            3,
+            3
+          ]
+        ],
+        "held": [
+          0,
+          7
+        ],
+        "movements": [
+          0,
+          -2,
+          0,
+          1
+        ],
+        "parallel_pairs": [],
+        "unheld_required": 0,
+        "required_held": [
+          0,
+          7
+        ],
+        "large_leaps": 0,
+        "new_voices": 0,
+        "removed_voices": 0,
+        "scope": "Existence of a monotone partial assignment; no claim this is the unprovided author solver or current engine assignment."
+      }
+    ],
+    "rendered_csv_notes": 0,
+    "csv_multicontext_lf_notes": 0,
+    "explicit_suspension": null,
+    "resolution_intent": "Vorhaltston A wird Terz von F – Auflösung bleibt aus"
+  },
+  {
+    "id": "EM-U038",
+    "states": [
+      {
+        "Zustand": "0",
+        "Tick": "0",
+        "Harmonie": "[4] Moll",
+        "Funktion": "s (äolisch)",
+        "Bass": "-19",
+        "Oberstimmen (rel)": "[-4, +0, +5, +12]",
+        "Rollen im Akkord": "♭3, 5, 1, 5",
+        "pitches": [
+          -4,
+          0,
+          5,
+          12
+        ],
+        "bass": -19,
+        "tick": 0,
+        "duration": 3840,
+        "pc_set": [
+          0,
+          5,
+          8
+        ],
+        "matching_types_any_root": [
+          {
+            "root": 5,
+            "type": "Min"
+          }
+        ],
+        "root": 5,
+        "types_at_declared_root": [
+          "Min"
+        ],
+        "unrooted_object": false
+      },
+      {
+        "Zustand": "1",
+        "Tick": "3840",
+        "Harmonie": "[4] Dur",
+        "Funktion": "S (dorisch)",
+        "Bass": "-19",
+        "Oberstimmen (rel)": "[-3, +0, +5, +12]",
+        "Rollen im Akkord": "3, 5, 1, 5",
+        "pitches": [
+          -3,
+          0,
+          5,
+          12
+        ],
+        "bass": -19,
+        "tick": 3840,
+        "duration": 3840,
+        "pc_set": [
+          0,
+          5,
+          9
+        ],
+        "matching_types_any_root": [
+          {
+            "root": 5,
+            "type": "Maj"
+          }
+        ],
+        "root": 5,
+        "types_at_declared_root": [
+          "Maj"
+        ],
+        "unrooted_object": false
+      }
+    ],
+    "transitions": [
+      {
+        "source_tick": 0,
+        "target_tick": 3840,
+        "from_pitches": [
+          -4,
+          0,
+          5,
+          12
+        ],
+        "to_pitches": [
+          -3,
+          0,
+          5,
+          12
+        ],
+        "matching": [
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            2,
+            2
+          ],
+          [
+            3,
+            3
+          ]
+        ],
+        "held": [
+          0,
+          5,
+          12
+        ],
+        "movements": [
+          1,
+          0,
+          0,
+          0
+        ],
+        "parallel_pairs": [],
+        "unheld_required": 0,
+        "required_held": [
+          0,
+          5,
+          12
+        ],
+        "large_leaps": 0,
+        "new_voices": 0,
+        "removed_voices": 0,
+        "scope": "Existence of a monotone partial assignment; no claim this is the unprovided author solver or current engine assignment."
+      }
+    ],
+    "rendered_csv_notes": 0,
+    "csv_multicontext_lf_notes": 0,
+    "explicit_suspension": null,
+    "resolution_intent": "Aufhellung eines Klangs, Funktion bleibt"
+  },
+  {
+    "id": "EM-U039",
+    "states": [
+      {
+        "Zustand": "0",
+        "Tick": "0",
+        "Harmonie": "[1] Moll-add9",
+        "Funktion": "t (add9)",
+        "Bass": "-12",
+        "Oberstimmen (rel)": "[-5, +2, +3, +7]",
+        "Rollen im Akkord": "5, 9, ♭3, 5",
+        "pitches": [
+          -5,
+          2,
+          3,
+          7
+        ],
+        "bass": -12,
+        "tick": 0,
+        "duration": 3840,
+        "pc_set": [
+          0,
+          2,
+          3,
+          7
+        ],
+        "matching_types_any_root": [
+          {
+            "root": 0,
+            "type": "MinorAdd9"
+          }
+        ],
+        "root": 0,
+        "types_at_declared_root": [
+          "MinorAdd9"
+        ],
+        "unrooted_object": false
+      },
+      {
+        "Zustand": "1",
+        "Tick": "3840",
+        "Harmonie": "Klangobjekt „Klangobjekt“ {1, ♭2, ♭3, 5}",
+        "Funktion": "t mit ♭9 (bewusst unaufgelöst)",
+        "Bass": "-12",
+        "Oberstimmen (rel)": "[-5, +1, +3, +7]",
+        "Rollen im Akkord": "5, ♭2, ♭3, 5",
+        "pitches": [
+          -5,
+          1,
+          3,
+          7
+        ],
+        "bass": -12,
+        "tick": 3840,
+        "duration": 3840,
+        "pc_set": [
+          0,
+          1,
+          3,
+          7
+        ],
+        "matching_types_any_root": [],
+        "root": null,
+        "types_at_declared_root": [],
+        "unrooted_object": true
+      }
+    ],
+    "transitions": [
+      {
+        "source_tick": 0,
+        "target_tick": 3840,
+        "from_pitches": [
+          -5,
+          2,
+          3,
+          7
+        ],
+        "to_pitches": [
+          -5,
+          1,
+          3,
+          7
+        ],
+        "matching": [
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            2,
+            2
+          ],
+          [
+            3,
+            3
+          ]
+        ],
+        "held": [
+          -5,
+          3,
+          7
+        ],
+        "movements": [
+          0,
+          -1,
+          0,
+          0
+        ],
+        "parallel_pairs": [],
+        "unheld_required": 0,
+        "required_held": [
+          -5,
+          3,
+          7
+        ],
+        "large_leaps": 0,
+        "new_voices": 0,
+        "removed_voices": 0,
+        "scope": "Existence of a monotone partial assignment; no claim this is the unprovided author solver or current engine assignment."
+      }
+    ],
+    "rendered_csv_notes": 0,
+    "csv_multicontext_lf_notes": 0,
+    "explicit_suspension": null,
+    "resolution_intent": "Dissonanz bleibt stehen (U)"
+  },
+  {
+    "id": "EM-U040",
+    "states": [
+      {
+        "Zustand": "0",
+        "Tick": "0",
+        "Harmonie": "[1] Moll",
+        "Funktion": "t",
+        "Bass": "-12",
+        "Oberstimmen (rel)": "[-5, +0, +3, +12]",
+        "Rollen im Akkord": "5, 1, ♭3, 1",
+        "pitches": [
+          -5,
+          0,
+          3,
+          12
+        ],
+        "bass": -12,
+        "tick": 0,
+        "duration": 3840,
+        "pc_set": [
+          0,
+          3,
+          7
+        ],
+        "matching_types_any_root": [
+          {
+            "root": 0,
+            "type": "Min"
+          }
+        ],
+        "root": 0,
+        "types_at_declared_root": [
+          "Min"
+        ],
+        "unrooted_object": false
+      },
+      {
+        "Zustand": "1",
+        "Tick": "3840",
+        "Harmonie": "[♭6] Dur",
+        "Funktion": "♭VI/1",
+        "Bass": "-12",
+        "Oberstimmen (rel)": "[-4, +0, +3, +12]",
+        "Rollen im Akkord": "1, 3, 5, 3",
+        "pitches": [
+          -4,
+          0,
+          3,
+          12
+        ],
+        "bass": -12,
+        "tick": 3840,
+        "duration": 3840,
+        "pc_set": [
+          0,
+          3,
+          8
+        ],
+        "matching_types_any_root": [
+          {
+            "root": 8,
+            "type": "Maj"
+          }
+        ],
+        "root": 8,
+        "types_at_declared_root": [
+          "Maj"
+        ],
+        "unrooted_object": false
+      },
+      {
+        "Zustand": "2",
+        "Tick": "7680",
+        "Harmonie": "[4] Dur",
+        "Funktion": "IV/1",
+        "Bass": "-12",
+        "Oberstimmen (rel)": "[-3, +0, +5, +12]",
+        "Rollen im Akkord": "3, 5, 1, 5",
+        "pitches": [
+          -3,
+          0,
+          5,
+          12
+        ],
+        "bass": -12,
+        "tick": 7680,
+        "duration": 3840,
+        "pc_set": [
+          0,
+          5,
+          9
+        ],
+        "matching_types_any_root": [
+          {
+            "root": 5,
+            "type": "Maj"
+          }
+        ],
+        "root": 5,
+        "types_at_declared_root": [
+          "Maj"
+        ],
+        "unrooted_object": false
+      },
+      {
+        "Zustand": "3",
+        "Tick": "11520",
+        "Harmonie": "[1] Moll-Sept",
+        "Funktion": "t⁷",
+        "Bass": "-12",
+        "Oberstimmen (rel)": "[-2, +0, +7, +15]",
+        "Rollen im Akkord": "♭7, 1, 5, ♭3",
+        "pitches": [
+          -2,
+          0,
+          7,
+          15
+        ],
+        "bass": -12,
+        "tick": 11520,
+        "duration": 3840,
+        "pc_set": [
+          0,
+          3,
+          7,
+          10
+        ],
+        "matching_types_any_root": [
+          {
+            "root": 0,
+            "type": "Min7"
+          },
+          {
+            "root": 3,
+            "type": "Major6"
+          }
+        ],
+        "root": 0,
+        "types_at_declared_root": [
+          "Min7"
+        ],
+        "unrooted_object": false
+      }
+    ],
+    "transitions": [
+      {
+        "source_tick": 0,
+        "target_tick": 3840,
+        "from_pitches": [
+          -5,
+          0,
+          3,
+          12
+        ],
+        "to_pitches": [
+          -4,
+          0,
+          3,
+          12
+        ],
+        "matching": [
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            2,
+            2
+          ],
+          [
+            3,
+            3
+          ]
+        ],
+        "held": [
+          0,
+          3,
+          12
+        ],
+        "movements": [
+          1,
+          0,
+          0,
+          0
+        ],
+        "parallel_pairs": [],
+        "unheld_required": 0,
+        "required_held": [
+          0,
+          3,
+          12
+        ],
+        "large_leaps": 0,
+        "new_voices": 0,
+        "removed_voices": 0,
+        "scope": "Existence of a monotone partial assignment; no claim this is the unprovided author solver or current engine assignment."
+      },
+      {
+        "source_tick": 3840,
+        "target_tick": 7680,
+        "from_pitches": [
+          -4,
+          0,
+          3,
+          12
+        ],
+        "to_pitches": [
+          -3,
+          0,
+          5,
+          12
+        ],
+        "matching": [
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            2,
+            2
+          ],
+          [
+            3,
+            3
+          ]
+        ],
+        "held": [
+          0,
+          12
+        ],
+        "movements": [
+          1,
+          0,
+          2,
+          0
+        ],
+        "parallel_pairs": [],
+        "unheld_required": 0,
+        "required_held": [
+          0,
+          12
+        ],
+        "large_leaps": 0,
+        "new_voices": 0,
+        "removed_voices": 0,
+        "scope": "Existence of a monotone partial assignment; no claim this is the unprovided author solver or current engine assignment."
+      },
+      {
+        "source_tick": 7680,
+        "target_tick": 11520,
+        "from_pitches": [
+          -3,
+          0,
+          5,
+          12
+        ],
+        "to_pitches": [
+          -2,
+          0,
+          7,
+          15
+        ],
+        "matching": [
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            2,
+            2
+          ],
+          [
+            3,
+            3
+          ]
+        ],
+        "held": [
+          0
+        ],
+        "movements": [
+          1,
+          0,
+          2,
+          3
+        ],
+        "parallel_pairs": [],
+        "unheld_required": 0,
+        "required_held": [
+          0
+        ],
+        "large_leaps": 0,
+        "new_voices": 0,
+        "removed_voices": 0,
+        "scope": "Existence of a monotone partial assignment; no claim this is the unprovided author solver or current engine assignment."
+      }
+    ],
+    "rendered_csv_notes": 38,
+    "csv_multicontext_lf_notes": 9,
+    "explicit_suspension": null,
+    "resolution_intent": "Linie trägt die Harmonie, kein Ziel"
+  },
+  {
+    "id": "EM-U041",
+    "states": [
+      {
+        "Zustand": "0",
+        "Tick": "0",
+        "Harmonie": "[1] Dur-add9",
+        "Funktion": "T",
+        "Bass": "-12",
+        "Oberstimmen (rel)": "[-5, +2, +4, +12]",
+        "Rollen im Akkord": "5, 9, 3, 1",
+        "pitches": [
+          -5,
+          2,
+          4,
+          12
+        ],
+        "bass": -12,
+        "tick": 0,
+        "duration": 3840,
+        "pc_set": [
+          0,
+          2,
+          4,
+          7
+        ],
+        "matching_types_any_root": [
+          {
+            "root": 0,
+            "type": "Add9"
+          }
+        ],
+        "root": 0,
+        "types_at_declared_root": [
+          "Add9"
+        ],
+        "unrooted_object": false
+      },
+      {
+        "Zustand": "1",
+        "Tick": "3840",
+        "Harmonie": "[4] Dur-add9",
+        "Funktion": "S⁶₄ (Nachbarklang)",
+        "Bass": "-12",
+        "Oberstimmen (rel)": "[-5, -3, +5, +12]",
+        "Rollen im Akkord": "9, 3, 1, 5",
+        "pitches": [
+          -5,
+          -3,
+          5,
+          12
+        ],
+        "bass": -12,
+        "tick": 3840,
+        "duration": 3840,
+        "pc_set": [
+          0,
+          5,
+          7,
+          9
+        ],
+        "matching_types_any_root": [
+          {
+            "root": 5,
+            "type": "Add9"
+          }
+        ],
+        "root": 5,
+        "types_at_declared_root": [
+          "Add9"
+        ],
+        "unrooted_object": false
+      },
+      {
+        "Zustand": "2",
+        "Tick": "7680",
+        "Harmonie": "[1] Dur-add9",
+        "Funktion": "T",
+        "Bass": "-12",
+        "Oberstimmen (rel)": "[-5, +2, +4, +12]",
+        "Rollen im Akkord": "5, 9, 3, 1",
+        "pitches": [
+          -5,
+          2,
+          4,
+          12
+        ],
+        "bass": -12,
+        "tick": 7680,
+        "duration": 3840,
+        "pc_set": [
+          0,
+          2,
+          4,
+          7
+        ],
+        "matching_types_any_root": [
+          {
+            "root": 0,
+            "type": "Add9"
+          }
+        ],
+        "root": 0,
+        "types_at_declared_root": [
+          "Add9"
+        ],
+        "unrooted_object": false
+      }
+    ],
+    "transitions": [
+      {
+        "source_tick": 0,
+        "target_tick": 3840,
+        "from_pitches": [
+          -5,
+          2,
+          4,
+          12
+        ],
+        "to_pitches": [
+          -5,
+          -3,
+          5,
+          12
+        ],
+        "matching": [
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            2,
+            2
+          ],
+          [
+            3,
+            3
+          ]
+        ],
+        "held": [
+          -5,
+          12
+        ],
+        "movements": [
+          0,
+          -5,
+          1,
+          0
+        ],
+        "parallel_pairs": [],
+        "unheld_required": 0,
+        "required_held": [
+          -5,
+          12
+        ],
+        "large_leaps": 0,
+        "new_voices": 0,
+        "removed_voices": 0,
+        "scope": "Existence of a monotone partial assignment; no claim this is the unprovided author solver or current engine assignment."
+      },
+      {
+        "source_tick": 3840,
+        "target_tick": 7680,
+        "from_pitches": [
+          -5,
+          -3,
+          5,
+          12
+        ],
+        "to_pitches": [
+          -5,
+          2,
+          4,
+          12
+        ],
+        "matching": [
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            2,
+            2
+          ],
+          [
+            3,
+            3
+          ]
+        ],
+        "held": [
+          -5,
+          12
+        ],
+        "movements": [
+          0,
+          5,
+          -1,
+          0
+        ],
+        "parallel_pairs": [],
+        "unheld_required": 0,
+        "required_held": [
+          -5,
+          12
+        ],
+        "large_leaps": 0,
+        "new_voices": 0,
+        "removed_voices": 0,
+        "scope": "Existence of a monotone partial assignment; no claim this is the unprovided author solver or current engine assignment."
+      }
+    ],
+    "rendered_csv_notes": 71,
+    "csv_multicontext_lf_notes": 35,
+    "explicit_suspension": null,
+    "resolution_intent": "Pendel, ruhig atmend"
+  },
+  {
+    "id": "EM-U042",
+    "states": [
+      {
+        "Zustand": "0",
+        "Tick": "0",
+        "Harmonie": "[4] große Septime",
+        "Funktion": "S",
+        "Bass": "-19",
+        "Oberstimmen (rel)": "[-3, +0, +4, +9]",
+        "Rollen im Akkord": "3, 5, 7, 3",
+        "pitches": [
+          -3,
+          0,
+          4,
+          9
+        ],
+        "bass": -19,
+        "tick": 0,
+        "duration": 3840,
+        "pc_set": [
+          0,
+          4,
+          5,
+          9
+        ],
+        "matching_types_any_root": [
+          {
+            "root": 5,
+            "type": "Maj7"
+          }
+        ],
+        "root": 5,
+        "types_at_declared_root": [
+          "Maj7"
+        ],
+        "unrooted_object": false
+      },
+      {
+        "Zustand": "1",
+        "Tick": "3840",
+        "Harmonie": "[5] sus4",
+        "Funktion": "D (sus)",
+        "Bass": "-17",
+        "Oberstimmen (rel)": "[-5, +0, +7, +14]",
+        "Rollen im Akkord": "1, 4/11, 1, 5",
+        "pitches": [
+          -5,
+          0,
+          7,
+          14
+        ],
+        "bass": -17,
+        "tick": 3840,
+        "duration": 3840,
+        "pc_set": [
+          0,
+          2,
+          7
+        ],
+        "matching_types_any_root": [
+          {
+            "root": 0,
+            "type": "Sus2"
+          },
+          {
+            "root": 7,
+            "type": "Sus4"
+          }
+        ],
+        "root": 7,
+        "types_at_declared_root": [
+          "Sus4"
+        ],
+        "unrooted_object": false
+      }
+    ],
+    "transitions": [
+      {
+        "source_tick": 0,
+        "target_tick": 3840,
+        "from_pitches": [
+          -3,
+          0,
+          4,
+          9
+        ],
+        "to_pitches": [
+          -5,
+          0,
+          7,
+          14
+        ],
+        "matching": [
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            2,
+            2
+          ],
+          [
+            3,
+            3
+          ]
+        ],
+        "held": [
+          0
+        ],
+        "movements": [
+          -2,
+          0,
+          3,
+          5
+        ],
+        "parallel_pairs": [],
+        "unheld_required": 0,
+        "required_held": [
+          0
+        ],
+        "large_leaps": 0,
+        "new_voices": 0,
+        "removed_voices": 0,
+        "scope": "Existence of a monotone partial assignment; no claim this is the unprovided author solver or current engine assignment."
+      }
+    ],
+    "rendered_csv_notes": 0,
+    "csv_multicontext_lf_notes": 0,
+    "explicit_suspension": null,
+    "resolution_intent": "Halbschluss, bleibt offen"
+  },
+  {
+    "id": "EM-U043",
+    "states": [
+      {
+        "Zustand": "0",
+        "Tick": "0",
+        "Harmonie": "[4] Moll-add9",
+        "Funktion": "s",
+        "Bass": "-19",
+        "Oberstimmen (rel)": "[-5, +0, +7, +8]",
+        "Rollen im Akkord": "9, 5, 9, ♭3",
+        "pitches": [
+          -5,
+          0,
+          7,
+          8
+        ],
+        "bass": -19,
+        "tick": 0,
+        "duration": 3840,
+        "pc_set": [
+          0,
+          5,
+          7,
+          8
+        ],
+        "matching_types_any_root": [
+          {
+            "root": 5,
+            "type": "MinorAdd9"
+          }
+        ],
+        "root": 5,
+        "types_at_declared_root": [
+          "MinorAdd9"
+        ],
+        "unrooted_object": false
+      },
+      {
+        "Zustand": "1",
+        "Tick": "3840",
+        "Harmonie": "[5] Dur",
+        "Funktion": "D",
+        "Bass": "-17",
+        "Oberstimmen (rel)": "[-5, +2, +7, +11]",
+        "Rollen im Akkord": "1, 5, 1, 3",
+        "pitches": [
+          -5,
+          2,
+          7,
+          11
+        ],
+        "bass": -17,
+        "tick": 3840,
+        "duration": 3840,
+        "pc_set": [
+          2,
+          7,
+          11
+        ],
+        "matching_types_any_root": [
+          {
+            "root": 7,
+            "type": "Maj"
+          }
+        ],
+        "root": 7,
+        "types_at_declared_root": [
+          "Maj"
+        ],
+        "unrooted_object": false
+      }
+    ],
+    "transitions": [
+      {
+        "source_tick": 0,
+        "target_tick": 3840,
+        "from_pitches": [
+          -5,
+          0,
+          7,
+          8
+        ],
+        "to_pitches": [
+          -5,
+          2,
+          7,
+          11
+        ],
+        "matching": [
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            2,
+            2
+          ],
+          [
+            3,
+            3
+          ]
+        ],
+        "held": [
+          -5,
+          7
+        ],
+        "movements": [
+          0,
+          2,
+          0,
+          3
+        ],
+        "parallel_pairs": [],
+        "unheld_required": 0,
+        "required_held": [
+          -5,
+          7
+        ],
+        "large_leaps": 0,
+        "new_voices": 0,
+        "removed_voices": 0,
+        "scope": "Existence of a monotone partial assignment; no claim this is the unprovided author solver or current engine assignment."
+      }
+    ],
+    "rendered_csv_notes": 0,
+    "csv_multicontext_lf_notes": 0,
+    "explicit_suspension": null,
+    "resolution_intent": "Halbschluss, Dominante steht"
+  },
+  {
+    "id": "EM-U044",
+    "states": [
+      {
+        "Zustand": "0",
+        "Tick": "0",
+        "Harmonie": "[1] Dur-add9",
+        "Funktion": "T",
+        "Bass": "-12",
+        "Oberstimmen (rel)": "[-5, +2, +4, +12]",
+        "Rollen im Akkord": "5, 9, 3, 1",
+        "pitches": [
+          -5,
+          2,
+          4,
+          12
+        ],
+        "bass": -12,
+        "tick": 0,
+        "duration": 3840,
+        "pc_set": [
+          0,
+          2,
+          4,
+          7
+        ],
+        "matching_types_any_root": [
+          {
+            "root": 0,
+            "type": "Add9"
+          }
+        ],
+        "root": 0,
+        "types_at_declared_root": [
+          "Add9"
+        ],
+        "unrooted_object": false
+      },
+      {
+        "Zustand": "1",
+        "Tick": "3840",
+        "Harmonie": "[♭6] Dur-add9",
+        "Funktion": "♭VI (Variante)",
+        "Bass": "-16",
+        "Oberstimmen (rel)": "[-4, -2, +3, +12]",
+        "Rollen im Akkord": "1, 9, 5, 3",
+        "pitches": [
+          -4,
+          -2,
+          3,
+          12
+        ],
+        "bass": -16,
+        "tick": 3840,
+        "duration": 3840,
+        "pc_set": [
+          0,
+          3,
+          8,
+          10
+        ],
+        "matching_types_any_root": [
+          {
+            "root": 8,
+            "type": "Add9"
+          }
+        ],
+        "root": 8,
+        "types_at_declared_root": [
+          "Add9"
+        ],
+        "unrooted_object": false
+      }
+    ],
+    "transitions": [
+      {
+        "source_tick": 0,
+        "target_tick": 3840,
+        "from_pitches": [
+          -5,
+          2,
+          4,
+          12
+        ],
+        "to_pitches": [
+          -4,
+          -2,
+          3,
+          12
+        ],
+        "matching": [
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            2,
+            2
+          ],
+          [
+            3,
+            3
+          ]
+        ],
+        "held": [
+          12
+        ],
+        "movements": [
+          1,
+          -4,
+          -1,
+          0
+        ],
+        "parallel_pairs": [],
+        "unheld_required": 0,
+        "required_held": [
+          12
+        ],
+        "large_leaps": 0,
+        "new_voices": 0,
+        "removed_voices": 0,
+        "scope": "Existence of a monotone partial assignment; no claim this is the unprovided author solver or current engine assignment."
+      }
+    ],
+    "rendered_csv_notes": 0,
+    "csv_multicontext_lf_notes": 0,
+    "explicit_suspension": null,
+    "resolution_intent": "Farbwechsel, Rückkehr oder Weiterführung"
+  },
+  {
+    "id": "EM-U045",
+    "states": [
+      {
+        "Zustand": "0",
+        "Tick": "0",
+        "Harmonie": "[1] Moll",
+        "Funktion": "t",
+        "Bass": "-12",
+        "Oberstimmen (rel)": "[-5, +0, +3, +7]",
+        "Rollen im Akkord": "5, 1, ♭3, 5",
+        "pitches": [
+          -5,
+          0,
+          3,
+          7
+        ],
+        "bass": -12,
+        "tick": 0,
+        "duration": 3840,
+        "pc_set": [
+          0,
+          3,
+          7
+        ],
+        "matching_types_any_root": [
+          {
+            "root": 0,
+            "type": "Min"
+          }
+        ],
+        "root": 0,
+        "types_at_declared_root": [
+          "Min"
+        ],
+        "unrooted_object": false
+      },
+      {
+        "Zustand": "1",
+        "Tick": "3840",
+        "Harmonie": "[♭2] große Septime",
+        "Funktion": "♭II (neapolitanisch)",
+        "Bass": "-11",
+        "Oberstimmen (rel)": "[-4, +0, +1, +5]",
+        "Rollen im Akkord": "5, 7, 1, 3",
+        "pitches": [
+          -4,
+          0,
+          1,
+          5
+        ],
+        "bass": -11,
+        "tick": 3840,
+        "duration": 3840,
+        "pc_set": [
+          0,
+          1,
+          5,
+          8
+        ],
+        "matching_types_any_root": [
+          {
+            "root": 1,
+            "type": "Maj7"
+          }
+        ],
+        "root": 1,
+        "types_at_declared_root": [
+          "Maj7"
+        ],
+        "unrooted_object": false
+      }
+    ],
+    "transitions": [
+      {
+        "source_tick": 0,
+        "target_tick": 3840,
+        "from_pitches": [
+          -5,
+          0,
+          3,
+          7
+        ],
+        "to_pitches": [
+          -4,
+          0,
+          1,
+          5
+        ],
+        "matching": [
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            2,
+            2
+          ],
+          [
+            3,
+            3
+          ]
+        ],
+        "held": [
+          0
+        ],
+        "movements": [
+          1,
+          0,
+          -2,
+          -2
+        ],
+        "parallel_pairs": [],
+        "unheld_required": 0,
+        "required_held": [
+          0
+        ],
+        "large_leaps": 0,
+        "new_voices": 0,
+        "removed_voices": 0,
+        "scope": "Existence of a monotone partial assignment; no claim this is the unprovided author solver or current engine assignment."
+      }
+    ],
+    "rendered_csv_notes": 0,
+    "csv_multicontext_lf_notes": 0,
+    "explicit_suspension": null,
+    "resolution_intent": "Schicksalsgeste, Rückkehr erwartet"
+  },
+  {
+    "id": "EM-U046",
+    "states": [
+      {
+        "Zustand": "0",
+        "Tick": "0",
+        "Harmonie": "[1] Moll-add9",
+        "Funktion": "t",
+        "Bass": "-12",
+        "Oberstimmen (rel)": "[-5, +2, +3, +7]",
+        "Rollen im Akkord": "5, 9, ♭3, 5",
+        "pitches": [
+          -5,
+          2,
+          3,
+          7
+        ],
+        "bass": -12,
+        "tick": 0,
+        "duration": 3840,
+        "pc_set": [
+          0,
+          2,
+          3,
+          7
+        ],
+        "matching_types_any_root": [
+          {
+            "root": 0,
+            "type": "MinorAdd9"
+          }
+        ],
+        "root": 0,
+        "types_at_declared_root": [
+          "MinorAdd9"
+        ],
+        "unrooted_object": false
+      },
+      {
+        "Zustand": "1",
+        "Tick": "3840",
+        "Harmonie": "[5] Moll-Sept",
+        "Funktion": "d (Moll-Dominante)",
+        "Bass": "-17",
+        "Oberstimmen (rel)": "[-5, +2, +5, +10]",
+        "Rollen im Akkord": "1, 5, ♭7, ♭3",
+        "pitches": [
+          -5,
+          2,
+          5,
+          10
+        ],
+        "bass": -17,
+        "tick": 3840,
+        "duration": 3840,
+        "pc_set": [
+          2,
+          5,
+          7,
+          10
+        ],
+        "matching_types_any_root": [
+          {
+            "root": 7,
+            "type": "Min7"
+          },
+          {
+            "root": 10,
+            "type": "Major6"
+          }
+        ],
+        "root": 7,
+        "types_at_declared_root": [
+          "Min7"
+        ],
+        "unrooted_object": false
+      }
+    ],
+    "transitions": [
+      {
+        "source_tick": 0,
+        "target_tick": 3840,
+        "from_pitches": [
+          -5,
+          2,
+          3,
+          7
+        ],
+        "to_pitches": [
+          -5,
+          2,
+          5,
+          10
+        ],
+        "matching": [
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            2,
+            2
+          ],
+          [
+            3,
+            3
+          ]
+        ],
+        "held": [
+          -5,
+          2
+        ],
+        "movements": [
+          0,
+          0,
+          2,
+          3
+        ],
+        "parallel_pairs": [],
+        "unheld_required": 0,
+        "required_held": [
+          -5,
+          2
+        ],
+        "large_leaps": 0,
+        "new_voices": 0,
+        "removed_voices": 0,
+        "scope": "Existence of a monotone partial assignment; no claim this is the unprovided author solver or current engine assignment."
+      }
+    ],
+    "rendered_csv_notes": 0,
+    "csv_multicontext_lf_notes": 0,
+    "explicit_suspension": null,
+    "resolution_intent": "weiche Spannung ohne Leitton"
+  },
+  {
+    "id": "EM-U047",
+    "states": [
+      {
+        "Zustand": "0",
+        "Tick": "0",
+        "Harmonie": "Klangobjekt „Klangobjekt“ {♭2, 2, ♭3, 5}",
+        "Funktion": "Klangobjekt (U)",
+        "Bass": "-12",
+        "Oberstimmen (rel)": "[+1, +2, +3, +7]",
+        "Rollen im Akkord": "♭2, 2, ♭3, 5",
+        "pitches": [
+          1,
+          2,
+          3,
+          7
+        ],
+        "bass": -12,
+        "tick": 0,
+        "duration": 3840,
+        "pc_set": [
+          0,
+          1,
+          2,
+          3,
+          7
+        ],
+        "matching_types_any_root": [],
+        "root": null,
+        "types_at_declared_root": [],
+        "unrooted_object": true
+      },
+      {
+        "Zustand": "1",
+        "Tick": "3840",
+        "Harmonie": "[1] Moll-add9",
+        "Funktion": "t",
+        "Bass": "-12",
+        "Oberstimmen (rel)": "[+0, +2, +3, +7]",
+        "Rollen im Akkord": "1, 9, ♭3, 5",
+        "pitches": [
+          0,
+          2,
+          3,
+          7
+        ],
+        "bass": -12,
+        "tick": 3840,
+        "duration": 3840,
+        "pc_set": [
+          0,
+          2,
+          3,
+          7
+        ],
+        "matching_types_any_root": [
+          {
+            "root": 0,
+            "type": "MinorAdd9"
+          }
+        ],
+        "root": 0,
+        "types_at_declared_root": [
+          "MinorAdd9"
+        ],
+        "unrooted_object": false
+      }
+    ],
+    "transitions": [
+      {
+        "source_tick": 0,
+        "target_tick": 3840,
+        "from_pitches": [
+          1,
+          2,
+          3,
+          7
+        ],
+        "to_pitches": [
+          0,
+          2,
+          3,
+          7
+        ],
+        "matching": [
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            2,
+            2
+          ],
+          [
+            3,
+            3
+          ]
+        ],
+        "held": [
+          2,
+          3,
+          7
+        ],
+        "movements": [
+          -1,
+          0,
+          0,
+          0
+        ],
+        "parallel_pairs": [],
+        "unheld_required": 0,
+        "required_held": [
+          2,
+          3,
+          7
+        ],
+        "large_leaps": 0,
+        "new_voices": 0,
+        "removed_voices": 0,
+        "scope": "Existence of a monotone partial assignment; no claim this is the unprovided author solver or current engine assignment."
+      }
+    ],
+    "rendered_csv_notes": 11,
+    "csv_multicontext_lf_notes": 6,
+    "explicit_suspension": null,
+    "resolution_intent": "Auflösung der Ballung in Tonalität"
+  },
+  {
+    "id": "EM-U048",
+    "states": [
+      {
+        "Zustand": "0",
+        "Tick": "0",
+        "Harmonie": "[1] Moll",
+        "Funktion": "t",
+        "Bass": "-12",
+        "Oberstimmen (rel)": "[-5, +0, +3, +7]",
+        "Rollen im Akkord": "5, 1, ♭3, 5",
+        "pitches": [
+          -5,
+          0,
+          3,
+          7
+        ],
+        "bass": -12,
+        "tick": 0,
+        "duration": 3840,
+        "pc_set": [
+          0,
+          3,
+          7
+        ],
+        "matching_types_any_root": [
+          {
+            "root": 0,
+            "type": "Min"
+          }
+        ],
+        "root": 0,
+        "types_at_declared_root": [
+          "Min"
+        ],
+        "unrooted_object": false
+      },
+      {
+        "Zustand": "1",
+        "Tick": "3840",
+        "Harmonie": "Klangobjekt „Klangobjekt“ {1, ♭2, ♭3, 4, 5, ♭6}",
+        "Funktion": "Polychord i/♭II (U)",
+        "Bass": "-12",
+        "Oberstimmen (rel)": "[-5, -4, +0, +3, +13, +17]",
+        "Rollen im Akkord": "5, ♭6, 1, ♭3, ♭2, 4",
+        "pitches": [
+          -5,
+          -4,
+          0,
+          3,
+          13,
+          17
+        ],
+        "bass": -12,
+        "tick": 3840,
+        "duration": 3840,
+        "pc_set": [
+          0,
+          1,
+          3,
+          5,
+          7,
+          8
+        ],
+        "matching_types_any_root": [],
+        "root": null,
+        "types_at_declared_root": [],
+        "unrooted_object": true
+      }
+    ],
+    "transitions": [
+      {
+        "source_tick": 0,
+        "target_tick": 3840,
+        "from_pitches": [
+          -5,
+          0,
+          3,
+          7
+        ],
+        "to_pitches": [
+          -5,
+          -4,
+          0,
+          3,
+          13,
+          17
+        ],
+        "matching": [
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            2
+          ],
+          [
+            2,
+            3
+          ],
+          [
+            3,
+            4
+          ]
+        ],
+        "held": [
+          -5,
+          0,
+          3
+        ],
+        "movements": [
+          0,
+          0,
+          0,
+          6
+        ],
+        "parallel_pairs": [],
+        "unheld_required": 0,
+        "required_held": [
+          -5,
+          0,
+          3
+        ],
+        "large_leaps": 0,
+        "new_voices": 2,
+        "removed_voices": 0,
+        "scope": "Existence of a monotone partial assignment; no claim this is the unprovided author solver or current engine assignment."
+      }
+    ],
+    "rendered_csv_notes": 19,
+    "csv_multicontext_lf_notes": 4,
+    "explicit_suspension": null,
+    "resolution_intent": "Bedrohung tritt hinzu, nichts löst sich"
+  },
+  {
+    "id": "EM-U049",
+    "states": [
+      {
+        "Zustand": "0",
+        "Tick": "0",
+        "Harmonie": "[4] Moll-add9",
+        "Funktion": "s",
+        "Bass": "-19",
+        "Oberstimmen (rel)": "[-5, +0, +7, +8]",
+        "Rollen im Akkord": "9, 5, 9, ♭3",
+        "pitches": [
+          -5,
+          0,
+          7,
+          8
+        ],
+        "bass": -19,
+        "tick": 0,
+        "duration": 3840,
+        "pc_set": [
+          0,
+          5,
+          7,
+          8
+        ],
+        "matching_types_any_root": [
+          {
+            "root": 5,
+            "type": "MinorAdd9"
+          }
+        ],
+        "root": 5,
+        "types_at_declared_root": [
+          "MinorAdd9"
+        ],
+        "unrooted_object": false
+      },
+      {
+        "Zustand": "1",
+        "Tick": "3840",
+        "Harmonie": "[1] Moll-add9",
+        "Funktion": "t",
+        "Bass": "-12",
+        "Oberstimmen (rel)": "[-5, +0, +2, +3]",
+        "Rollen im Akkord": "5, 1, 9, ♭3",
+        "pitches": [
+          -5,
+          0,
+          2,
+          3
+        ],
+        "bass": -12,
+        "tick": 3840,
+        "duration": 3840,
+        "pc_set": [
+          0,
+          2,
+          3,
+          7
+        ],
+        "matching_types_any_root": [
+          {
+            "root": 0,
+            "type": "MinorAdd9"
+          }
+        ],
+        "root": 0,
+        "types_at_declared_root": [
+          "MinorAdd9"
+        ],
+        "unrooted_object": false
+      }
+    ],
+    "transitions": [
+      {
+        "source_tick": 0,
+        "target_tick": 3840,
+        "from_pitches": [
+          -5,
+          0,
+          7,
+          8
+        ],
+        "to_pitches": [
+          -5,
+          0,
+          2,
+          3
+        ],
+        "matching": [
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            2,
+            2
+          ],
+          [
+            3,
+            3
+          ]
+        ],
+        "held": [
+          -5,
+          0
+        ],
+        "movements": [
+          0,
+          0,
+          -5,
+          -5
+        ],
+        "parallel_pairs": [],
+        "unheld_required": 0,
+        "required_held": [
+          -5,
+          0
+        ],
+        "large_leaps": 0,
+        "new_voices": 0,
+        "removed_voices": 0,
+        "scope": "Existence of a monotone partial assignment; no claim this is the unprovided author solver or current engine assignment."
+      }
+    ],
+    "rendered_csv_notes": 0,
+    "csv_multicontext_lf_notes": 0,
+    "explicit_suspension": null,
+    "resolution_intent": "plagaler Schluss, weich"
+  },
+  {
+    "id": "EM-U050",
+    "states": [
+      {
+        "Zustand": "0",
+        "Tick": "0",
+        "Harmonie": "[1] Dur-Sexte",
+        "Funktion": "T⁶ (Terz im Bass)",
+        "Bass": "-8",
+        "Oberstimmen (rel)": "[-3, +0, +7, +9]",
+        "Rollen im Akkord": "6/13, 1, 5, 6/13",
+        "pitches": [
+          -3,
+          0,
+          7,
+          9
+        ],
+        "bass": -8,
+        "tick": 0,
+        "duration": 3840,
+        "pc_set": [
+          0,
+          4,
+          7,
+          9
+        ],
+        "matching_types_any_root": [
+          {
+            "root": 0,
+            "type": "Major6"
+          },
+          {
+            "root": 9,
+            "type": "Min7"
+          }
+        ],
+        "root": 0,
+        "types_at_declared_root": [
+          "Major6"
+        ],
+        "unrooted_object": false
+      },
+      {
+        "Zustand": "1",
+        "Tick": "3840",
+        "Harmonie": "[4] große Septime",
+        "Funktion": "S⁷",
+        "Bass": "-7",
+        "Oberstimmen (rel)": "[-3, +0, +4, +9]",
+        "Rollen im Akkord": "3, 5, 7, 3",
+        "pitches": [
+          -3,
+          0,
+          4,
+          9
+        ],
+        "bass": -7,
+        "tick": 3840,
+        "duration": 3840,
+        "pc_set": [
+          0,
+          4,
+          5,
+          9
+        ],
+        "matching_types_any_root": [
+          {
+            "root": 5,
+            "type": "Maj7"
+          }
+        ],
+        "root": 5,
+        "types_at_declared_root": [
+          "Maj7"
+        ],
+        "unrooted_object": false
+      }
+    ],
+    "transitions": [
+      {
+        "source_tick": 0,
+        "target_tick": 3840,
+        "from_pitches": [
+          -3,
+          0,
+          7,
+          9
+        ],
+        "to_pitches": [
+          -3,
+          0,
+          4,
+          9
+        ],
+        "matching": [
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            1
+          ],
+          [
+            2,
+            2
+          ],
+          [
+            3,
+            3
+          ]
+        ],
+        "held": [
+          -3,
+          0,
+          9
+        ],
+        "movements": [
+          0,
+          0,
+          -3,
+          0
+        ],
+        "parallel_pairs": [],
+        "unheld_required": 0,
+        "required_held": [
+          -3,
+          0,
+          9
+        ],
+        "large_leaps": 0,
+        "new_voices": 0,
+        "removed_voices": 0,
+        "scope": "Existence of a monotone partial assignment; no claim this is the unprovided author solver or current engine assignment."
+      }
+    ],
+    "rendered_csv_notes": 0,
+    "csv_multicontext_lf_notes": 0,
+    "explicit_suspension": null,
+    "resolution_intent": "Bass im Halbtonschritt, warm"
+  }
+]

@@ -1,7 +1,7 @@
-# Gemeinsame musikalische Fähigkeiten – Williams, Herrmann, Carpenter und SYNTH
+# Gemeinsame musikalische Fähigkeiten – Williams, Herrmann, Carpenter, Morricone und SYNTH
 
 Stand: 27.11.2026 · `develop/composition-core-prototype` · musikalisch abgenommene
-Grundlage `023b0a6`, aktueller Implementierungs-Ausgang `1d3c1d5`.
+Grundlage `023b0a6`, aktueller Analyse-Ausgang `4c43bd2`.
 Williams P2-Oktatonik und P3-Motive wurden vom Anwender in Studio One ausdrücklich
 positiv gehört; [Reichweite der Abnahme](../development/ACCEPTED_REFERENCE_023b0a6.md).
 Die positiv gehörte Arpeggio-Phrasierung `2c6f366` bleibt unverändert.
@@ -385,3 +385,80 @@ Freihaltung der Mitte. Der User-Schalter Follow wird nicht aus einem Quellwort
 „eigenständig“ automatisch überschrieben. TU bleibt tonal, ST fest 36. CC, elektronische
 Percussion und zusätzliche Ausgänge sind weiter nicht beschlossen. Keine musikalische
 Verhaltensänderung in diesem Dokumentationsstand.
+
+
+## Morricone: Übergangsabsichten früh hörbar machen (27.11.2026)
+
+Die [kanonische Morricone-Bibliothek](ennio-morricone/README.md) ergänzt534IDs und
+73Studien/9752Noten. Die [vollständige Bestandsaufnahme](ennio-morricone/TECHNICAL_INVENTORY.md)
+bezieht sich auf den unveränderten Kern `4c43bd2` einschließlich des ersten
+unabhängigen Einzelpedals. Originale bleiben unverändert, Morricone ist nicht
+aktiviert. Persönliche Priorität: **Lolita / Love in the Morning und The Untouchables**.
+Ein Profil umfasst Lyrik, Spannung und Experiment; keine zusätzliche Betriebsart
+oder Säulen-Auswahl und keine vorgeschriebenen Instrumente.
+
+### Gemeinsam nötig, stilistisch unterschiedlich gewichtet
+
+| Gemeinsame Fähigkeit | Vorhandener Anknüpfungspunkt | Fehlende Bedeutung / gemeinsamer Nutzen |
+|---|---|---|
+| Harmonieübergangsabsicht und Pflicht-Gemeinsamtöne | `ResolutionIntent/TransitionIntent`, `planHarmony/leadEntry`, Beam-Stimmführung mit Gemeinsamtonkosten | Konkrete klingende Oberstimme muss bleiben dürfen/müssen; Quell-/Zielharmonie und Rollenwechsel9→3→7 als Daten. Morricone lyrisch, Herrmann Spannung/Stasis, Williams warme/monumentale Felder, Carpenter ruhige Schichten. Keine neue Harmonieengine. |
+| Gebundener Notenbesitz | `Active`-Ansprüche, `padChord::extendOnly`, neuer `PedalPlan` | Reale Tonhöhe, Stimme, Dauer und Funktion über mehrere Harmonien; Basspedal ist kein automatisch beliebiges hohes/inneres Pedal. Bestehende Claim-Liste erweitern, nicht duplizieren. |
+| Vorhalt mit Zielzeit / bewusst ohne Ziel | Lokale Linien-Vorhalte und kontrollierter Durchgang, kein allgemeiner Pad-Vorhalt | Temporär klingender Ton, Zielton und Zielzeit getrennt vom neuen Akkord. Aufgeschobene Auflösung eignet sich unmittelbar für leise Mystery; nicht bloß Wahrscheinlichkeiten von V–I erhöhen. |
+| Gestaffelte Akkordeinsätze | Bestehender Tick-Dispatcher, gleichzeitige `padChord`-Ausgabe | Einzelne Stimmen einsetzen/ablösen, Klangidentität erhalten. Morricone-Atmung, Williams-/Herrmann-Schichtaufbau und spätere SYNTH-Felder. Kein neuer Zeitscheduler. |
+| Geschützte Zellen | Unveränderliche Motivmaterialien und Varianten, aber geordnete Motividentität | MENGE, KLASSE, ORD, RHY und KERN unterscheiden; Permutation, zulässige Inversion/Rotation und Farbtonaustausch sind verschiedene Operationen. Kein Akkordton-Snapping geschützter Mengen. Für Morricone, Herrmann und Carpenter gemeinsam. |
+| Lokale/globale Tonabsichten | Akkord-/Vorratsmitgliedschaft, Quellenmasken, Pedalberechtigungen | Noch kein allgemeines A/T/V/F/U pro Ton und Zeitraum. Konsonante Schicht kann gegen andere Harmonik dissonant bleiben; D-Schicht wird nicht pauschal „korrigiert“. Polychordkomponenten dürfen nicht verschwinden. |
+| Explizite Ton-/Rhythmuszyklen | 960PPQ, vorhandene Rhythmus-/Bassbausteine, begrenzte Autorenformate | Autonome Phasen, Triplet-/ametrische Daten und vollständiges kgV. Zeitauflösung allein führt keine beliebige Vorlage aus. Carpenter-Sequenzen, Herrmann-Module und Morricone-Polyperiodik benötigen denselben Verbraucher. |
+| Module und längere Entwicklung | Motivwiederkehr, wenige Antwortfenster, Arp-Phrasierung | Mehrfachkompatibilität statt paarweiser Freigabe; eigene Perioden/Lifetimes, additive Enthüllung, gezielte Kopfverkürzung, Reduktion und Wiederaufnahme. Keine obligatorische Lead-, Puls- oder Ankerschicht. |
+| Pulslose Antwortfelder | Vorhandene Pausen, Rollen-/Antwortfenster und Akzentgenerator | Unregelmäßige Ereignisse, Mindestabstände, explizite Imitation/Widerspruch/Schweigen; keine als Feld umbenannte Folge zufälliger Akzente. |
+
+**Kein Neubau der Stimmführung:** Im Offline-Probe708U-Grenztranspositionen bleiben
+alle Ziel-PCs erhalten. U040 verliert aber in zwei Fällen den zwingend gehaltenen
+konkreten C-Ton zugunsten eines anderen C-Registers. Soft-Präferenz ist keine
+harte Bindung; hier liegt eine kleine präzise Ausbaustelle. Die existierende
+Langflächen-Notenverlängerung kann weiterverwendet werden.
+
+**Keine globale „harmonische Glättung“:** Die Referenzstudien S016/S044 verändern
+C010s Zellklasse bzw. reduzieren vier auf drei Tonklassen. Das darf kein Vorbild
+für einen geschützten Zellverbraucher sein. C026s erlaubter Farbtonaustausch und
+C035s TnI-äquivalente Normalformkonvention sind andere Sachverhalte.
+
+**Kompatibilität ist mehr als Zählen:** 16.280formale H/B/C/M-Paare und8436
+Moduldreiergruppen wurden untersucht. Es gibt Instrumenten-/Gatekonflikte,
+auseinanderfallende Quellbereiche und gerichtete Kompatibilitätsangaben.
+644Dreiergruppen passieren einen strengen Vorfilter, keine ist damit vollständig
+musikalisch/instrumental zertifiziert. Tonhöhen oder Zyklen werden nicht verändert,
+um diese Zahl zu erhöhen. Die32H-Vorlagen ohne vollständigen
+bestehenden Typvertrag werden nicht durch ähnlich benannte Akkorde ersetzt.
+
+### Fortschreibung der gemeinsamen Reihenfolge
+
+Die älteren Listen oben bleiben historische Planungsstände. Unter Berücksichtigung
+der inzwischen positiven Williams-P2/P3-Abnahme und des implementierten, separat
+in Hörabnahme befindlichen Pedalkerns gilt als neue Empfehlung:
+
+1. Quellenklärungen gezielt erledigen; keine Änderung der laufenden Hörreferenz.
+2. **Früh zwei klar begrenzte lyrische U-Übergänge (U001/U002)** mit harten
+   Oberstimmenbindungen im bestehenden Solver/Pad-Claim-Pfad. Ohne HM/GS/AR
+   hörbar; ungeeignete Startlage/Register ablehnen. Registerangepasste Ableitungen
+   nicht als identische kanonische U-Lagen deklarieren.
+3. Danach ein Vorhalt mit exaktem Zielzeitpunkt, anschließend ein gestaffelter
+   Einsatz. Jeder Teil separat musikalisch und technisch prüfen.
+4. Quellengetreue Einzelpedalbindungen, dann eine eigenständige Bassfolge und
+   geschützte Zellidentität. Kein komplettes Formsystem als Voraussetzung.
+5. Tickgenaue Autorenereignisse/Phasen, nötige Tonvorräte/Klangobjekte und lokale
+   Schichten nach konkretem Material. Kein pauschaler Wunschlistenimport.
+6. Kleine nachweislich kompatible Mehrfachmodule, danach Rollenwanderung,
+   additive Enthüllung/Kopfverkürzung und pulslose Antwortlogik; lange Themen-
+   /Gegenmotiventwicklung erst bei vollständig erhaltenem Material.
+
+So verdrängt die experimentelle Bibliothek die lyrische Übergangsgrammatik nicht.
+Die persönlichen Morricone-Referenzen liefern Präferenzen, keine starren Verbote.
+Die bestehende globale XYZ-Steuerung bleibt: „beliebig“ bei R/B/C braucht später
+passende dimensionenbezogene Auswahl, nicht einen erfundenen dunklen X-Anker.
+An Grenzpositionen sind ein Kandidat oder eine leere M-Rolle weder Vielfaltbeweis
+noch Funktionsfehler. Keine automatische Eskalation bei statischem XYZ.
+
+[Morricone-Plan mit Tests und Unsicherheiten](ennio-morricone/IMPLEMENTATION_PLAN.md),
+[Errata](ennio-morricone/ERRATA.md), [XYZ-Prüfung](ennio-morricone/XYZ_COMPATIBILITY.json).
+Sämtliche vier Künstler und zukünftige SYNTH-Profile verwenden denselben Kern.
+Keine GUI-/MIDI-Erweiterung, keine Engine-Änderung in diesem Archivierungsauftrag.

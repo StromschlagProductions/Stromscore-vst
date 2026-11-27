@@ -1,0 +1,86 @@
+{
+  "base": "4c43bd2",
+  "total": 534,
+  "classification": {
+    "E": 439,
+    "K": 30,
+    "A": 64,
+    "D": 1
+  },
+  "by_kind": {
+    "H": {
+      "E": 110,
+      "K": 9
+    },
+    "U": {
+      "E": 50
+    },
+    "R": {
+      "A": 31,
+      "E": 28,
+      "K": 5
+    },
+    "B": {
+      "A": 4,
+      "E": 44,
+      "K": 3,
+      "D": 1
+    },
+    "C": {
+      "E": 46
+    },
+    "M": {
+      "A": 29,
+      "E": 21
+    },
+    "P": {
+      "E": 21,
+      "K": 1
+    },
+    "K": {
+      "E": 34,
+      "K": 4
+    },
+    "EF": {
+      "E": 16
+    },
+    "T": {
+      "E": 20
+    },
+    "S": {
+      "E": 49,
+      "K": 8
+    }
+  },
+  "harmonic_pc_data_ready": 87,
+  "u_referenced_in_exported_csv": [
+    "EM-U002",
+    "EM-U007",
+    "EM-U008",
+    "EM-U009",
+    "EM-U013",
+    "EM-U014",
+    "EM-U020",
+    "EM-U021",
+    "EM-U022",
+    "EM-U023",
+    "EM-U029",
+    "EM-U030",
+    "EM-U034",
+    "EM-U040",
+    "EM-U041",
+    "EM-U047",
+    "EM-U048"
+  ],
+  "u_probe_total_boundaries": 59,
+  "reference_functions": {
+    "A": 7104,
+    "T": 2148,
+    "F": 79,
+    "U": 139,
+    "ST": 280,
+    "V": 2
+  },
+  "canonical_m_cell_subset_failures": [],
+  "reference_studies_with_instrument_conflict": 50
+}

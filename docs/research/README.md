@@ -84,3 +84,20 @@ Die kanonische Carpenter-Vorlagenbibliothek ist inzwischen separat archiviert;
 der [vollständige405-ID-Abgleich](john-carpenter/IMPLEMENTATION_PLAN.md) konkretisiert
 diese Forschungsphase. Keine Aktivierung oder Festlegung von Profilgewichten. Keine separate SYNTH-Engine; CC, elektronische
 Percussion und zusätzliche MIDI-Ziele sind weiterhin nicht beschlossen.
+
+
+## Ennio Morricone – kanonisches Archiv und Übergangsgrammatik
+
+[Sieben unveränderte Originaldateien](ennio-morricone/README.md), darunter der
+Lolita-Nachtrag nur einmal. Die maßgebliche Bibliothek umfasst534IDs,73MIDI-Studien
+und9752Noten; EF-Definition/Studie und CSV/MIDI werden nicht doppelt gezählt.
+[Einzelinventar](ennio-morricone/TECHNICAL_INVENTORY.md),
+[Quellenklärungen](ennio-morricone/ERRATA.md) und
+[Implementierungsfahrplan](ennio-morricone/IMPLEMENTATION_PLAN.md) unterscheiden
+Darstellbarkeit, Daten-/Rollenanbindung, fehlende gemeinsame Fähigkeiten und
+Widersprüche. Lolita/Love in the Morning und The Untouchables haben persönliche
+Priorität, ohne ein separates Lyrik-/Experiment-Profil zu erzeugen.
+Der [gemeinsame Fähigkeitsbericht](SHARED_MUSICAL_CAPABILITIES.md) priorisiert
+frühe gebundene harmonische Übergänge neben den gemeinsamen Spannungsverfahren.
+Engine-Ausgang `4c43bd2` einschließlich unabhängigem Pedal berücksichtigt;
+Morricone ist nicht aktiviert. Keine musikalische Veränderung der laufenden Hörabnahme.

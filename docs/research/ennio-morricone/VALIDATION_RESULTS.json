@@ -1,0 +1,2462 @@
+{
+  "base": "4c43bd2",
+  "definitions": 534,
+  "counts": {
+    "H": 119,
+    "U": 50,
+    "R": 64,
+    "B": 52,
+    "C": 46,
+    "M": 50,
+    "P": 22,
+    "K": 38,
+    "EF": 16,
+    "S": 57,
+    "T": 20
+  },
+  "ef_counted_once": true,
+  "zip_crc_ok": true,
+  "studies": 73,
+  "csv_notes": 9752,
+  "midi_notes": 9752,
+  "ppq": 960,
+  "csv_midi_equal": true,
+  "physical_note_balance_ok": true,
+  "stich_notes": 280,
+  "stich_fixed36": true,
+  "reference_channels": {
+    "LF": [
+      1
+    ],
+    "LB": [
+      3
+    ],
+    "TU": [
+      6
+    ],
+    "HM": [
+      8
+    ],
+    "KF": [
+      2
+    ],
+    "AR": [
+      5
+    ],
+    "KB": [
+      4
+    ],
+    "ST": [
+      10
+    ],
+    "GS": [
+      7
+    ]
+  },
+  "prime_mismatches": [
+    "EM-C035"
+  ],
+  "iv_mismatches": [],
+  "studies_detail": {
+    "EM-S001": {
+      "file": "EM-S001_Lyrische_Melancholie_ohne_Hauptmelodie.mid",
+      "end_tick": 61440,
+      "notes": 64,
+      "roles": {
+        "LB": {
+          "notes": 7,
+          "polyphony": 1,
+          "low": 38,
+          "high": 45,
+          "min_duration": 7680,
+          "max_duration": 15360
+        },
+        "LF": {
+          "notes": 29,
+          "polyphony": 4,
+          "low": 52,
+          "high": 74,
+          "min_duration": 6240,
+          "max_duration": 23040
+        },
+        "TU": {
+          "notes": 28,
+          "polyphony": 1,
+          "low": 69,
+          "high": 72,
+          "min_duration": 216,
+          "max_duration": 216
+        }
+      }
+    },
+    "EM-S002": {
+      "file": "EM-S002_Moll_add9_mit_liegenden_Gemeinsamtoenen_liegendes_H_fuenf_Be.mid",
+      "end_tick": 61440,
+      "notes": 38,
+      "roles": {
+        "LB": {
+          "notes": 13,
+          "polyphony": 1,
+          "low": 38,
+          "high": 45,
+          "min_duration": 3840,
+          "max_duration": 7680
+        },
+        "LF": {
+          "notes": 19,
+          "polyphony": 4,
+          "low": 57,
+          "high": 71,
+          "min_duration": 3840,
+          "max_duration": 61440
+        },
+        "TU": {
+          "notes": 6,
+          "polyphony": 1,
+          "low": 72,
+          "high": 81,
+          "min_duration": 216,
+          "max_duration": 216
+        }
+      }
+    },
+    "EM-S003": {
+      "file": "EM-S003_Gestaffelte_Streicherklaenge.mid",
+      "end_tick": 61440,
+      "notes": 36,
+      "roles": {
+        "LB": {
+          "notes": 8,
+          "polyphony": 1,
+          "low": 41,
+          "high": 50,
+          "min_duration": 7680,
+          "max_duration": 7680
+        },
+        "LF": {
+          "notes": 28,
+          "polyphony": 4,
+          "low": 57,
+          "high": 79,
+          "min_duration": 4800,
+          "max_duration": 23040
+        }
+      }
+    },
+    "EM-S004": {
+      "file": "EM-S004_Sanfte_chromatische_Stimmfuehrung_ueber_Tonikabass.mid",
+      "end_tick": 61440,
+      "notes": 38,
+      "roles": {
+        "LB": {
+          "notes": 1,
+          "polyphony": 1,
+          "low": 40,
+          "high": 40,
+          "min_duration": 61440,
+          "max_duration": 61440
+        },
+        "LF": {
+          "notes": 37,
+          "polyphony": 4,
+          "low": 47,
+          "high": 67,
+          "min_duration": 3840,
+          "max_duration": 61440
+        }
+      }
+    },
+    "EM-S005": {
+      "file": "EM-S005_Plagale_Terzkette_mit_Gemeinsamton_Bindung.mid",
+      "end_tick": 61440,
+      "notes": 52,
+      "roles": {
+        "LB": {
+          "notes": 9,
+          "polyphony": 1,
+          "low": 43,
+          "high": 50,
+          "min_duration": 3840,
+          "max_duration": 7680
+        },
+        "LF": {
+          "notes": 23,
+          "polyphony": 4,
+          "low": 55,
+          "high": 76,
+          "min_duration": 3840,
+          "max_duration": 61440
+        },
+        "TU": {
+          "notes": 20,
+          "polyphony": 1,
+          "low": 81,
+          "high": 90,
+          "min_duration": 216,
+          "max_duration": 216
+        }
+      }
+    },
+    "EM-S006": {
+      "file": "EM-S006_Dorisches_Pendel_mit_Austauschton.mid",
+      "end_tick": 122880,
+      "notes": 151,
+      "roles": {
+        "LB": {
+          "notes": 64,
+          "polyphony": 1,
+          "low": 35,
+          "high": 40,
+          "min_duration": 1920,
+          "max_duration": 1920
+        },
+        "LF": {
+          "notes": 49,
+          "polyphony": 4,
+          "low": 47,
+          "high": 69,
+          "min_duration": 7680,
+          "max_duration": 122880
+        },
+        "TU": {
+          "notes": 38,
+          "polyphony": 1,
+          "low": 64,
+          "high": 74,
+          "min_duration": 864,
+          "max_duration": 864
+        }
+      }
+    },
+    "EM-S007": {
+      "file": "EM-S007_Tragische_Monumentalitaet.mid",
+      "end_tick": 61440,
+      "notes": 64,
+      "roles": {
+        "HM": {
+          "notes": 12,
+          "polyphony": 1,
+          "low": 71,
+          "high": 84,
+          "min_duration": 912,
+          "max_duration": 7296
+        },
+        "LB": {
+          "notes": 32,
+          "polyphony": 1,
+          "low": 36,
+          "high": 48,
+          "min_duration": 1920,
+          "max_duration": 1920
+        },
+        "LF": {
+          "notes": 20,
+          "polyphony": 4,
+          "low": 53,
+          "high": 75,
+          "min_duration": 7680,
+          "max_duration": 23040
+        }
+      }
+    },
+    "EM-S008": {
+      "file": "EM-S008_Schoenheit_und_Bedrohung_Moll_add9_ueber_tiefem_Cluster.mid",
+      "end_tick": 61440,
+      "notes": 49,
+      "roles": {
+        "KF": {
+          "notes": 12,
+          "polyphony": 3,
+          "low": 34,
+          "high": 36,
+          "min_duration": 15360,
+          "max_duration": 15360
+        },
+        "LB": {
+          "notes": 1,
+          "polyphony": 1,
+          "low": 45,
+          "high": 45,
+          "min_duration": 61440,
+          "max_duration": 61440
+        },
+        "LF": {
+          "notes": 4,
+          "polyphony": 4,
+          "low": 52,
+          "high": 72,
+          "min_duration": 61440,
+          "max_duration": 61440
+        },
+        "TU": {
+          "notes": 32,
+          "polyphony": 1,
+          "low": 71,
+          "high": 81,
+          "min_duration": 216,
+          "max_duration": 216
+        }
+      }
+    },
+    "EM-S009": {
+      "file": "EM-S009_Konsonante_Spieluhr_ueber_dissonanter_Flaeche.mid",
+      "end_tick": 61440,
+      "notes": 118,
+      "roles": {
+        "AR": {
+          "notes": 98,
+          "polyphony": 1,
+          "low": 69,
+          "high": 74,
+          "min_duration": 456,
+          "max_duration": 912
+        },
+        "KF": {
+          "notes": 16,
+          "polyphony": 4,
+          "low": 47,
+          "high": 72,
+          "min_duration": 15360,
+          "max_duration": 15360
+        },
+        "LB": {
+          "notes": 4,
+          "polyphony": 1,
+          "low": 35,
+          "high": 35,
+          "min_duration": 15360,
+          "max_duration": 15360
+        }
+      }
+    },
+    "EM-S010": {
+      "file": "EM-S010_Experimentelles_Klangfeld_komponierte_Unordnung.mid",
+      "end_tick": 61440,
+      "notes": 111,
+      "roles": {
+        "KF": {
+          "notes": 46,
+          "polyphony": 2,
+          "low": 54,
+          "high": 80,
+          "min_duration": 480,
+          "max_duration": 480
+        },
+        "LF": {
+          "notes": 6,
+          "polyphony": 6,
+          "low": 52,
+          "high": 77,
+          "min_duration": 61440,
+          "max_duration": 61440
+        },
+        "TU": {
+          "notes": 59,
+          "polyphony": 2,
+          "low": 56,
+          "high": 94,
+          "min_duration": 480,
+          "max_duration": 480
+        }
+      }
+    },
+    "EM-S011": {
+      "file": "EM-S011_Atonale_Textur_mit_Zellkohaerenz.mid",
+      "end_tick": 61440,
+      "notes": 50,
+      "roles": {
+        "KF": {
+          "notes": 19,
+          "polyphony": 1,
+          "low": 56,
+          "high": 72,
+          "min_duration": 480,
+          "max_duration": 600
+        },
+        "LF": {
+          "notes": 6,
+          "polyphony": 6,
+          "low": 51,
+          "high": 69,
+          "min_duration": 61440,
+          "max_duration": 61440
+        },
+        "TU": {
+          "notes": 25,
+          "polyphony": 1,
+          "low": 54,
+          "high": 90,
+          "min_duration": 480,
+          "max_duration": 600
+        }
+      }
+    },
+    "EM-S012": {
+      "file": "EM-S012_Pulslose_Mystery_kalt_hell.mid",
+      "end_tick": 61440,
+      "notes": 25,
+      "roles": {
+        "LB": {
+          "notes": 8,
+          "polyphony": 1,
+          "low": 34,
+          "high": 40,
+          "min_duration": 7680,
+          "max_duration": 7680
+        },
+        "LF": {
+          "notes": 4,
+          "polyphony": 4,
+          "low": 47,
+          "high": 71,
+          "min_duration": 61440,
+          "max_duration": 61440
+        },
+        "TU": {
+          "notes": 13,
+          "polyphony": 1,
+          "low": 76,
+          "high": 92,
+          "min_duration": 864,
+          "max_duration": 864
+        }
+      }
+    },
+    "EM-S013": {
+      "file": "EM-S013_Elektronische_Zweitonzellen_ueber_Basspuls.mid",
+      "end_tick": 122880,
+      "notes": 283,
+      "roles": {
+        "AR": {
+          "notes": 56,
+          "polyphony": 1,
+          "low": 64,
+          "high": 65,
+          "min_duration": 216,
+          "max_duration": 216
+        },
+        "KB": {
+          "notes": 224,
+          "polyphony": 1,
+          "low": 40,
+          "high": 40,
+          "min_duration": 408,
+          "max_duration": 408
+        },
+        "LF": {
+          "notes": 3,
+          "polyphony": 3,
+          "low": 47,
+          "high": 64,
+          "min_duration": 122880,
+          "max_duration": 122880
+        }
+      }
+    },
+    "EM-S014": {
+      "file": "EM-S014_Orchestrale_Spannung_Schichtzuwachs_muendet_in_Ballung.mid",
+      "end_tick": 61440,
+      "notes": 58,
+      "roles": {
+        "LB": {
+          "notes": 4,
+          "polyphony": 1,
+          "low": 50,
+          "high": 50,
+          "min_duration": 15360,
+          "max_duration": 15360
+        },
+        "LF": {
+          "notes": 30,
+          "polyphony": 5,
+          "low": 56,
+          "high": 82,
+          "min_duration": 7680,
+          "max_duration": 7680
+        },
+        "ST": {
+          "notes": 24,
+          "polyphony": 1,
+          "low": 36,
+          "high": 36,
+          "min_duration": 120,
+          "max_duration": 120
+        }
+      }
+    },
+    "EM-S015": {
+      "file": "EM-S015_Rhythmische_Kraft_ohne_Hektik_Untouchables_Prinzip_eigene_To.mid",
+      "end_tick": 122880,
+      "notes": 892,
+      "roles": {
+        "AR": {
+          "notes": 512,
+          "polyphony": 1,
+          "low": 74,
+          "high": 81,
+          "min_duration": 144,
+          "max_duration": 144
+        },
+        "HM": {
+          "notes": 16,
+          "polyphony": 1,
+          "low": 76,
+          "high": 81,
+          "min_duration": 3648,
+          "max_duration": 7296
+        },
+        "KB": {
+          "notes": 270,
+          "polyphony": 2,
+          "low": 33,
+          "high": 53,
+          "min_duration": 204,
+          "max_duration": 204
+        },
+        "LF": {
+          "notes": 34,
+          "polyphony": 4,
+          "low": 57,
+          "high": 79,
+          "min_duration": 7680,
+          "max_duration": 122880
+        },
+        "ST": {
+          "notes": 60,
+          "polyphony": 1,
+          "low": 36,
+          "high": 36,
+          "min_duration": 120,
+          "max_duration": 120
+        }
+      }
+    },
+    "EM-S016": {
+      "file": "EM-S016_Langsame_Oberstimme_ueber_bewegter_Unterschicht.mid",
+      "end_tick": 61440,
+      "notes": 231,
+      "roles": {
+        "AR": {
+          "notes": 192,
+          "polyphony": 1,
+          "low": 67,
+          "high": 77,
+          "min_duration": 288,
+          "max_duration": 288
+        },
+        "HM": {
+          "notes": 8,
+          "polyphony": 1,
+          "low": 69,
+          "high": 74,
+          "min_duration": 3648,
+          "max_duration": 7296
+        },
+        "LB": {
+          "notes": 8,
+          "polyphony": 1,
+          "low": 38,
+          "high": 43,
+          "min_duration": 7680,
+          "max_duration": 7680
+        },
+        "LF": {
+          "notes": 23,
+          "polyphony": 4,
+          "low": 48,
+          "high": 72,
+          "min_duration": 7680,
+          "max_duration": 23040
+        }
+      }
+    },
+    "EM-S017": {
+      "file": "EM-S017_Additive_Motiventhuellung.mid",
+      "end_tick": 61440,
+      "notes": 118,
+      "roles": {
+        "HM": {
+          "notes": 14,
+          "polyphony": 1,
+          "low": 67,
+          "high": 79,
+          "min_duration": 912,
+          "max_duration": 1824
+        },
+        "KB": {
+          "notes": 48,
+          "polyphony": 1,
+          "low": 48,
+          "high": 48,
+          "min_duration": 408,
+          "max_duration": 408
+        },
+        "LF": {
+          "notes": 18,
+          "polyphony": 4,
+          "low": 55,
+          "high": 77,
+          "min_duration": 7680,
+          "max_duration": 61440
+        },
+        "TU": {
+          "notes": 38,
+          "polyphony": 1,
+          "low": 70,
+          "high": 79,
+          "min_duration": 912,
+          "max_duration": 1824
+        }
+      }
+    },
+    "EM-S018": {
+      "file": "EM-S018_Kombinierbare_modulare_Textur_32_Takte.mid",
+      "end_tick": 122880,
+      "notes": 186,
+      "roles": {
+        "AR": {
+          "notes": 128,
+          "polyphony": 1,
+          "low": 69,
+          "high": 76,
+          "min_duration": 216,
+          "max_duration": 432
+        },
+        "KB": {
+          "notes": 16,
+          "polyphony": 1,
+          "low": 45,
+          "high": 45,
+          "min_duration": 204,
+          "max_duration": 204
+        },
+        "LB": {
+          "notes": 6,
+          "polyphony": 1,
+          "low": 33,
+          "high": 45,
+          "min_duration": 15360,
+          "max_duration": 15360
+        },
+        "LF": {
+          "notes": 16,
+          "polyphony": 4,
+          "low": 52,
+          "high": 74,
+          "min_duration": 7680,
+          "max_duration": 122880
+        },
+        "TU": {
+          "notes": 20,
+          "polyphony": 1,
+          "low": 69,
+          "high": 77,
+          "min_duration": 216,
+          "max_duration": 216
+        }
+      }
+    },
+    "EM-S019": {
+      "file": "EM-S019_Laengere_lyrische_Entwicklung_16_Takte.mid",
+      "end_tick": 61440,
+      "notes": 69,
+      "roles": {
+        "HM": {
+          "notes": 28,
+          "polyphony": 1,
+          "low": 65,
+          "high": 79,
+          "min_duration": 912,
+          "max_duration": 3648
+        },
+        "LB": {
+          "notes": 16,
+          "polyphony": 1,
+          "low": 31,
+          "high": 41,
+          "min_duration": 3840,
+          "max_duration": 3840
+        },
+        "LF": {
+          "notes": 25,
+          "polyphony": 4,
+          "low": 48,
+          "high": 70,
+          "min_duration": 3840,
+          "max_duration": 26880
+        }
+      }
+    },
+    "EM-S020": {
+      "file": "EM-S020_64_Takte_Moll_Lyrik_mit_Rotation_und_Reduktion.mid",
+      "end_tick": 245760,
+      "notes": 230,
+      "roles": {
+        "GS": {
+          "notes": 16,
+          "polyphony": 1,
+          "low": 71,
+          "high": 72,
+          "min_duration": 912,
+          "max_duration": 2736
+        },
+        "LB": {
+          "notes": 26,
+          "polyphony": 1,
+          "low": 36,
+          "high": 50,
+          "min_duration": 7680,
+          "max_duration": 15360
+        },
+        "LF": {
+          "notes": 92,
+          "polyphony": 4,
+          "low": 52,
+          "high": 77,
+          "min_duration": 6240,
+          "max_duration": 84480
+        },
+        "TU": {
+          "notes": 96,
+          "polyphony": 1,
+          "low": 69,
+          "high": 76,
+          "min_duration": 216,
+          "max_duration": 216
+        }
+      }
+    },
+    "EM-S021": {
+      "file": "EM-S021_64_Takte_Dorische_Atmung_mit_Farbtonwechsel.mid",
+      "end_tick": 245760,
+      "notes": 217,
+      "roles": {
+        "LB": {
+          "notes": 128,
+          "polyphony": 1,
+          "low": 45,
+          "high": 50,
+          "min_duration": 1920,
+          "max_duration": 1920
+        },
+        "LF": {
+          "notes": 14,
+          "polyphony": 4,
+          "low": 60,
+          "high": 77,
+          "min_duration": 15360,
+          "max_duration": 245760
+        },
+        "TU": {
+          "notes": 75,
+          "polyphony": 1,
+          "low": 74,
+          "high": 84,
+          "min_duration": 864,
+          "max_duration": 864
+        }
+      }
+    },
+    "EM-S022": {
+      "file": "EM-S022_64_Takte_Elektronischer_Puls_mit_Reduktion_und_Wiederaufnahm.mid",
+      "end_tick": 245760,
+      "notes": 651,
+      "roles": {
+        "AR": {
+          "notes": 88,
+          "polyphony": 1,
+          "low": 64,
+          "high": 65,
+          "min_duration": 216,
+          "max_duration": 216
+        },
+        "KB": {
+          "notes": 480,
+          "polyphony": 1,
+          "low": 40,
+          "high": 40,
+          "min_duration": 408,
+          "max_duration": 408
+        },
+        "LF": {
+          "notes": 3,
+          "polyphony": 3,
+          "low": 47,
+          "high": 64,
+          "min_duration": 245760,
+          "max_duration": 245760
+        },
+        "TU": {
+          "notes": 80,
+          "polyphony": 1,
+          "low": 76,
+          "high": 79,
+          "min_duration": 621,
+          "max_duration": 1728
+        }
+      }
+    },
+    "EM-S023": {
+      "file": "EM-S023_64_Takte_Kraft_ohne_Hektik_mit_additiver_Enthuellung.mid",
+      "end_tick": 245760,
+      "notes": 1528,
+      "roles": {
+        "AR": {
+          "notes": 928,
+          "polyphony": 1,
+          "low": 74,
+          "high": 81,
+          "min_duration": 144,
+          "max_duration": 144
+        },
+        "HM": {
+          "notes": 16,
+          "polyphony": 1,
+          "low": 76,
+          "high": 81,
+          "min_duration": 3648,
+          "max_duration": 7296
+        },
+        "KB": {
+          "notes": 310,
+          "polyphony": 1,
+          "low": 45,
+          "high": 53,
+          "min_duration": 204,
+          "max_duration": 204
+        },
+        "LF": {
+          "notes": 66,
+          "polyphony": 4,
+          "low": 57,
+          "high": 79,
+          "min_duration": 7680,
+          "max_duration": 245760
+        },
+        "ST": {
+          "notes": 116,
+          "polyphony": 1,
+          "low": 36,
+          "high": 36,
+          "min_duration": 120,
+          "max_duration": 120
+        },
+        "TU": {
+          "notes": 92,
+          "polyphony": 1,
+          "low": 69,
+          "high": 81,
+          "min_duration": 912,
+          "max_duration": 1824
+        }
+      }
+    },
+    "EM-S024": {
+      "file": "EM-S024_64_Takte_Schoenheit_und_Bedrohung_im_Wechselgespraech.mid",
+      "end_tick": 245760,
+      "notes": 340,
+      "roles": {
+        "GS": {
+          "notes": 17,
+          "polyphony": 1,
+          "low": 59,
+          "high": 70,
+          "min_duration": 480,
+          "max_duration": 1440
+        },
+        "KF": {
+          "notes": 80,
+          "polyphony": 5,
+          "low": 65,
+          "high": 75,
+          "min_duration": 15360,
+          "max_duration": 15360
+        },
+        "LB": {
+          "notes": 32,
+          "polyphony": 1,
+          "low": 40,
+          "high": 45,
+          "min_duration": 7680,
+          "max_duration": 7680
+        },
+        "LF": {
+          "notes": 97,
+          "polyphony": 4,
+          "low": 47,
+          "high": 69,
+          "min_duration": 7680,
+          "max_duration": 245760
+        },
+        "TU": {
+          "notes": 114,
+          "polyphony": 2,
+          "low": 59,
+          "high": 78,
+          "min_duration": 216,
+          "max_duration": 1440
+        }
+      }
+    },
+    "EM-S025": {
+      "file": "EM-S025_64_Takte_Partitura_multipla_Rotation.mid",
+      "end_tick": 245760,
+      "notes": 417,
+      "roles": {
+        "AR": {
+          "notes": 110,
+          "polyphony": 1,
+          "low": 69,
+          "high": 77,
+          "min_duration": 216,
+          "max_duration": 432
+        },
+        "KB": {
+          "notes": 183,
+          "polyphony": 1,
+          "low": 43,
+          "high": 50,
+          "min_duration": 204,
+          "max_duration": 408
+        },
+        "KF": {
+          "notes": 8,
+          "polyphony": 4,
+          "low": 51,
+          "high": 76,
+          "min_duration": 15360,
+          "max_duration": 15360
+        },
+        "LB": {
+          "notes": 10,
+          "polyphony": 1,
+          "low": 33,
+          "high": 46,
+          "min_duration": 15360,
+          "max_duration": 15360
+        },
+        "LF": {
+          "notes": 26,
+          "polyphony": 6,
+          "low": 50,
+          "high": 75,
+          "min_duration": 30720,
+          "max_duration": 61440
+        },
+        "TU": {
+          "notes": 80,
+          "polyphony": 2,
+          "low": 69,
+          "high": 80,
+          "min_duration": 216,
+          "max_duration": 1728
+        }
+      }
+    },
+    "EM-S026": {
+      "file": "EM-S026_64_Takte_Plagale_Erinnerung_in_Dur.mid",
+      "end_tick": 245760,
+      "notes": 238,
+      "roles": {
+        "GS": {
+          "notes": 32,
+          "polyphony": 1,
+          "low": 76,
+          "high": 79,
+          "min_duration": 912,
+          "max_duration": 3648
+        },
+        "LB": {
+          "notes": 22,
+          "polyphony": 1,
+          "low": 43,
+          "high": 50,
+          "min_duration": 3840,
+          "max_duration": 19200
+        },
+        "LF": {
+          "notes": 88,
+          "polyphony": 4,
+          "low": 55,
+          "high": 76,
+          "min_duration": 3840,
+          "max_duration": 30720
+        },
+        "TU": {
+          "notes": 96,
+          "polyphony": 1,
+          "low": 81,
+          "high": 90,
+          "min_duration": 216,
+          "max_duration": 216
+        }
+      }
+    },
+    "EM-S027": {
+      "file": "EM-S027_Moll_add9_in_drei_Lagen_eng_offen_Terzbass.mid",
+      "end_tick": 61440,
+      "notes": 21,
+      "roles": {
+        "LB": {
+          "notes": 3,
+          "polyphony": 1,
+          "low": 47,
+          "high": 50,
+          "min_duration": 7680,
+          "max_duration": 38400
+        },
+        "LF": {
+          "notes": 18,
+          "polyphony": 4,
+          "low": 54,
+          "high": 74,
+          "min_duration": 6240,
+          "max_duration": 30720
+        }
+      }
+    },
+    "EM-S028": {
+      "file": "EM-S028_Halbverminderter_Weg_zum_offenen_Halbschluss.mid",
+      "end_tick": 30720,
+      "notes": 27,
+      "roles": {
+        "LB": {
+          "notes": 3,
+          "polyphony": 1,
+          "low": 38,
+          "high": 45,
+          "min_duration": 7680,
+          "max_duration": 15360
+        },
+        "LF": {
+          "notes": 8,
+          "polyphony": 4,
+          "low": 50,
+          "high": 72,
+          "min_duration": 7680,
+          "max_duration": 30720
+        },
+        "TU": {
+          "notes": 16,
+          "polyphony": 1,
+          "low": 69,
+          "high": 79,
+          "min_duration": 216,
+          "max_duration": 1728
+        }
+      }
+    },
+    "EM-S029": {
+      "file": "EM-S029_Chromatisches_Lamento_mit_Gegenstimme.mid",
+      "end_tick": 61440,
+      "notes": 53,
+      "roles": {
+        "GS": {
+          "notes": 14,
+          "polyphony": 1,
+          "low": 71,
+          "high": 77,
+          "min_duration": 1824,
+          "max_duration": 3648
+        },
+        "LB": {
+          "notes": 10,
+          "polyphony": 1,
+          "low": 40,
+          "high": 45,
+          "min_duration": 3840,
+          "max_duration": 7680
+        },
+        "LF": {
+          "notes": 29,
+          "polyphony": 4,
+          "low": 52,
+          "high": 69,
+          "min_duration": 3840,
+          "max_duration": 19200
+        }
+      }
+    },
+    "EM-S030": {
+      "file": "EM-S030_Dur_Moll_Umfaerbung_bei_gleichem_Grundton.mid",
+      "end_tick": 61440,
+      "notes": 34,
+      "roles": {
+        "LB": {
+          "notes": 1,
+          "polyphony": 1,
+          "low": 48,
+          "high": 48,
+          "min_duration": 61440,
+          "max_duration": 61440
+        },
+        "LF": {
+          "notes": 25,
+          "polyphony": 4,
+          "low": 55,
+          "high": 76,
+          "min_duration": 6240,
+          "max_duration": 61440
+        },
+        "TU": {
+          "notes": 8,
+          "polyphony": 1,
+          "low": 79,
+          "high": 88,
+          "min_duration": 216,
+          "max_duration": 216
+        }
+      }
+    },
+    "EM-S031": {
+      "file": "EM-S031_Reharmonisierung_eines_liegenden_Melodietons_Dur.mid",
+      "end_tick": 61440,
+      "notes": 38,
+      "roles": {
+        "LB": {
+          "notes": 13,
+          "polyphony": 1,
+          "low": 44,
+          "high": 53,
+          "min_duration": 3840,
+          "max_duration": 7680
+        },
+        "LF": {
+          "notes": 25,
+          "polyphony": 4,
+          "low": 55,
+          "high": 79,
+          "min_duration": 3840,
+          "max_duration": 61440
+        }
+      }
+    },
+    "EM-S032": {
+      "file": "EM-S032_Lydisches_Licht_hell_nicht_froehlich.mid",
+      "end_tick": 61440,
+      "notes": 184,
+      "roles": {
+        "AR": {
+          "notes": 144,
+          "polyphony": 1,
+          "low": 72,
+          "high": 83,
+          "min_duration": 288,
+          "max_duration": 288
+        },
+        "LB": {
+          "notes": 8,
+          "polyphony": 1,
+          "low": 41,
+          "high": 46,
+          "min_duration": 7680,
+          "max_duration": 7680
+        },
+        "LF": {
+          "notes": 32,
+          "polyphony": 4,
+          "low": 48,
+          "high": 69,
+          "min_duration": 4800,
+          "max_duration": 7680
+        }
+      }
+    },
+    "EM-S033": {
+      "file": "EM-S033_Dominantpedal_Drang.mid",
+      "end_tick": 61440,
+      "notes": 114,
+      "roles": {
+        "KB": {
+          "notes": 96,
+          "polyphony": 1,
+          "low": 50,
+          "high": 50,
+          "min_duration": 408,
+          "max_duration": 408
+        },
+        "LB": {
+          "notes": 1,
+          "polyphony": 1,
+          "low": 45,
+          "high": 45,
+          "min_duration": 61440,
+          "max_duration": 61440
+        },
+        "LF": {
+          "notes": 17,
+          "polyphony": 4,
+          "low": 61,
+          "high": 76,
+          "min_duration": 7680,
+          "max_duration": 23040
+        }
+      }
+    },
+    "EM-S034": {
+      "file": "EM-S034_Vorhaltstudie_Halbschluss_und_verzoegerte_Aufloesung.mid",
+      "end_tick": 30720,
+      "notes": 16,
+      "roles": {
+        "LB": {
+          "notes": 4,
+          "polyphony": 1,
+          "low": 43,
+          "high": 50,
+          "min_duration": 3840,
+          "max_duration": 11520
+        },
+        "LF": {
+          "notes": 12,
+          "polyphony": 4,
+          "low": 59,
+          "high": 74,
+          "min_duration": 1920,
+          "max_duration": 30720
+        }
+      }
+    },
+    "EM-S035": {
+      "file": "EM-S035_Bewusst_offene_Schluesse_mit_Fragmenten.mid",
+      "end_tick": 30720,
+      "notes": 16,
+      "roles": {
+        "LB": {
+          "notes": 4,
+          "polyphony": 1,
+          "low": 41,
+          "high": 48,
+          "min_duration": 7680,
+          "max_duration": 7680
+        },
+        "LF": {
+          "notes": 11,
+          "polyphony": 4,
+          "low": 52,
+          "high": 72,
+          "min_duration": 7680,
+          "max_duration": 15360
+        },
+        "TU": {
+          "notes": 1,
+          "polyphony": 1,
+          "low": 74,
+          "high": 74,
+          "min_duration": 3648,
+          "max_duration": 3648
+        }
+      }
+    },
+    "EM-S036": {
+      "file": "EM-S036_Frage_und_Antwort_zwischen_HM_und_GS.mid",
+      "end_tick": 30720,
+      "notes": 36,
+      "roles": {
+        "GS": {
+          "notes": 10,
+          "polyphony": 1,
+          "low": 64,
+          "high": 69,
+          "min_duration": 912,
+          "max_duration": 3648
+        },
+        "HM": {
+          "notes": 9,
+          "polyphony": 1,
+          "low": 64,
+          "high": 71,
+          "min_duration": 912,
+          "max_duration": 3648
+        },
+        "LB": {
+          "notes": 4,
+          "polyphony": 1,
+          "low": 40,
+          "high": 45,
+          "min_duration": 7680,
+          "max_duration": 7680
+        },
+        "LF": {
+          "notes": 13,
+          "polyphony": 4,
+          "low": 47,
+          "high": 69,
+          "min_duration": 7680,
+          "max_duration": 30720
+        }
+      }
+    },
+    "EM-S037": {
+      "file": "EM-S037_Kontrapunkt_lange_Linie_gegen_bewegtes_Gegenmotiv.mid",
+      "end_tick": 30720,
+      "notes": 54,
+      "roles": {
+        "GS": {
+          "notes": 20,
+          "polyphony": 1,
+          "low": 55,
+          "high": 63,
+          "min_duration": 912,
+          "max_duration": 3648
+        },
+        "HM": {
+          "notes": 18,
+          "polyphony": 1,
+          "low": 65,
+          "high": 75,
+          "min_duration": 912,
+          "max_duration": 3648
+        },
+        "LB": {
+          "notes": 4,
+          "polyphony": 1,
+          "low": 38,
+          "high": 43,
+          "min_duration": 7680,
+          "max_duration": 7680
+        },
+        "LF": {
+          "notes": 12,
+          "polyphony": 4,
+          "low": 48,
+          "high": 72,
+          "min_duration": 7680,
+          "max_duration": 23040
+        }
+      }
+    },
+    "EM-S038": {
+      "file": "EM-S038_Paranoia_bei_geringer_Notendichte.mid",
+      "end_tick": 61440,
+      "notes": 28,
+      "roles": {
+        "KB": {
+          "notes": 16,
+          "polyphony": 1,
+          "low": 49,
+          "high": 49,
+          "min_duration": 204,
+          "max_duration": 204
+        },
+        "LF": {
+          "notes": 10,
+          "polyphony": 4,
+          "low": 54,
+          "high": 81,
+          "min_duration": 15360,
+          "max_duration": 61440
+        },
+        "TU": {
+          "notes": 2,
+          "polyphony": 1,
+          "low": 73,
+          "high": 86,
+          "min_duration": 1440,
+          "max_duration": 1440
+        }
+      }
+    },
+    "EM-S039": {
+      "file": "EM-S039_Mechanische_Unruhe_Akzentwanderung.mid",
+      "end_tick": 61440,
+      "notes": 365,
+      "roles": {
+        "AR": {
+          "notes": 256,
+          "polyphony": 1,
+          "low": 65,
+          "high": 69,
+          "min_duration": 216,
+          "max_duration": 216
+        },
+        "KB": {
+          "notes": 103,
+          "polyphony": 1,
+          "low": 41,
+          "high": 50,
+          "min_duration": 204,
+          "max_duration": 204
+        },
+        "LF": {
+          "notes": 6,
+          "polyphony": 6,
+          "low": 50,
+          "high": 68,
+          "min_duration": 61440,
+          "max_duration": 61440
+        }
+      }
+    },
+    "EM-S040": {
+      "file": "EM-S040_Akuter_Horror_Ballung_Stich_Stille.mid",
+      "end_tick": 30720,
+      "notes": 50,
+      "roles": {
+        "KF": {
+          "notes": 13,
+          "polyphony": 1,
+          "low": 50,
+          "high": 86,
+          "min_duration": 480,
+          "max_duration": 480
+        },
+        "LB": {
+          "notes": 8,
+          "polyphony": 1,
+          "low": 46,
+          "high": 49,
+          "min_duration": 3840,
+          "max_duration": 3840
+        },
+        "ST": {
+          "notes": 29,
+          "polyphony": 1,
+          "low": 36,
+          "high": 36,
+          "min_duration": 120,
+          "max_duration": 120
+        }
+      }
+    },
+    "EM-S041": {
+      "file": "EM-S041_Spieluhr_gegen_Stoerfeld.mid",
+      "end_tick": 30720,
+      "notes": 73,
+      "roles": {
+        "AR": {
+          "notes": 56,
+          "polyphony": 1,
+          "low": 71,
+          "high": 76,
+          "min_duration": 456,
+          "max_duration": 912
+        },
+        "KF": {
+          "notes": 6,
+          "polyphony": 3,
+          "low": 68,
+          "high": 85,
+          "min_duration": 15360,
+          "max_duration": 15360
+        },
+        "LB": {
+          "notes": 1,
+          "polyphony": 1,
+          "low": 43,
+          "high": 43,
+          "min_duration": 30720,
+          "max_duration": 30720
+        },
+        "LF": {
+          "notes": 10,
+          "polyphony": 4,
+          "low": 55,
+          "high": 67,
+          "min_duration": 7680,
+          "max_duration": 30720
+        }
+      }
+    },
+    "EM-S042": {
+      "file": "EM-S042_Giallo_inspirierter_Groove_mit_Einwuerfen.mid",
+      "end_tick": 61440,
+      "notes": 121,
+      "roles": {
+        "KB": {
+          "notes": 80,
+          "polyphony": 1,
+          "low": 40,
+          "high": 52,
+          "min_duration": 204,
+          "max_duration": 204
+        },
+        "LF": {
+          "notes": 32,
+          "polyphony": 4,
+          "low": 48,
+          "high": 65,
+          "min_duration": 7680,
+          "max_duration": 7680
+        },
+        "TU": {
+          "notes": 9,
+          "polyphony": 1,
+          "low": 64,
+          "high": 79,
+          "min_duration": 960,
+          "max_duration": 1440
+        }
+      }
+    },
+    "EM-S043": {
+      "file": "EM-S043_B_A_C_H_Ordnung_ueber_Drone.mid",
+      "end_tick": 30720,
+      "notes": 23,
+      "roles": {
+        "GS": {
+          "notes": 16,
+          "polyphony": 1,
+          "low": 72,
+          "high": 83,
+          "min_duration": 216,
+          "max_duration": 216
+        },
+        "LB": {
+          "notes": 3,
+          "polyphony": 1,
+          "low": 48,
+          "high": 49,
+          "min_duration": 3840,
+          "max_duration": 15360
+        },
+        "LF": {
+          "notes": 4,
+          "polyphony": 4,
+          "low": 58,
+          "high": 81,
+          "min_duration": 30720,
+          "max_duration": 30720
+        }
+      }
+    },
+    "EM-S044": {
+      "file": "EM-S044_Ternaere_Sinnlichkeit_12_8.mid",
+      "end_tick": 92160,
+      "notes": 282,
+      "roles": {
+        "AR": {
+          "notes": 128,
+          "polyphony": 1,
+          "low": 69,
+          "high": 77,
+          "min_duration": 432,
+          "max_duration": 432
+        },
+        "KB": {
+          "notes": 128,
+          "polyphony": 1,
+          "low": 45,
+          "high": 57,
+          "min_duration": 408,
+          "max_duration": 408
+        },
+        "LF": {
+          "notes": 26,
+          "polyphony": 4,
+          "low": 57,
+          "high": 71,
+          "min_duration": 7680,
+          "max_duration": 92160
+        }
+      }
+    },
+    "EM-S045": {
+      "file": "EM-S045_Tragische_Pendelterz_mit_schweren_Halben.mid",
+      "end_tick": 61440,
+      "notes": 211,
+      "roles": {
+        "KF": {
+          "notes": 192,
+          "polyphony": 4,
+          "low": 48,
+          "high": 70,
+          "min_duration": 192,
+          "max_duration": 192
+        },
+        "LB": {
+          "notes": 8,
+          "polyphony": 1,
+          "low": 37,
+          "high": 41,
+          "min_duration": 7680,
+          "max_duration": 7680
+        },
+        "LF": {
+          "notes": 11,
+          "polyphony": 4,
+          "low": 48,
+          "high": 68,
+          "min_duration": 7680,
+          "max_duration": 61440
+        }
+      }
+    },
+    "EM-S046": {
+      "file": "EM-S046_Gestaffelte_plagale_Rueckkehr_in_Dur.mid",
+      "end_tick": 30720,
+      "notes": 28,
+      "roles": {
+        "LB": {
+          "notes": 4,
+          "polyphony": 1,
+          "low": 36,
+          "high": 43,
+          "min_duration": 3840,
+          "max_duration": 15360
+        },
+        "LF": {
+          "notes": 24,
+          "polyphony": 4,
+          "low": 50,
+          "high": 67,
+          "min_duration": 1920,
+          "max_duration": 11520
+        }
+      }
+    },
+    "EM-S047": {
+      "file": "EM-S047_Kalte_Mystery_lydisches_Licht_ueber_fallendem_Bass.mid",
+      "end_tick": 61440,
+      "notes": 33,
+      "roles": {
+        "LB": {
+          "notes": 16,
+          "polyphony": 1,
+          "low": 47,
+          "high": 50,
+          "min_duration": 3840,
+          "max_duration": 3840
+        },
+        "LF": {
+          "notes": 4,
+          "polyphony": 4,
+          "low": 57,
+          "high": 78,
+          "min_duration": 61440,
+          "max_duration": 61440
+        },
+        "TU": {
+          "notes": 13,
+          "polyphony": 1,
+          "low": 83,
+          "high": 93,
+          "min_duration": 864,
+          "max_duration": 864
+        }
+      }
+    },
+    "EM-S048": {
+      "file": "EM-S048_Kraftvoll_ohne_Hektik_lyrisch_erhaben.mid",
+      "end_tick": 61440,
+      "notes": 51,
+      "roles": {
+        "HM": {
+          "notes": 20,
+          "polyphony": 1,
+          "low": 74,
+          "high": 81,
+          "min_duration": 912,
+          "max_duration": 3648
+        },
+        "LB": {
+          "notes": 8,
+          "polyphony": 1,
+          "low": 48,
+          "high": 55,
+          "min_duration": 7680,
+          "max_duration": 7680
+        },
+        "LF": {
+          "notes": 23,
+          "polyphony": 4,
+          "low": 57,
+          "high": 79,
+          "min_duration": 7680,
+          "max_duration": 15360
+        }
+      }
+    },
+    "EM-S049": {
+      "file": "EM-S049_Polychord_Schatten_und_Rueckweg.mid",
+      "end_tick": 30720,
+      "notes": 43,
+      "roles": {
+        "LB": {
+          "notes": 1,
+          "polyphony": 1,
+          "low": 45,
+          "high": 45,
+          "min_duration": 30720,
+          "max_duration": 30720
+        },
+        "LF": {
+          "notes": 26,
+          "polyphony": 6,
+          "low": 52,
+          "high": 74,
+          "min_duration": 3840,
+          "max_duration": 11520
+        },
+        "TU": {
+          "notes": 16,
+          "polyphony": 1,
+          "low": 75,
+          "high": 82,
+          "min_duration": 216,
+          "max_duration": 216
+        }
+      }
+    },
+    "EM-S050": {
+      "file": "EM-S050_Truegerische_Helle_Dur_add9_ueber_Tritonuspedal.mid",
+      "end_tick": 61440,
+      "notes": 93,
+      "roles": {
+        "AR": {
+          "notes": 84,
+          "polyphony": 1,
+          "low": 76,
+          "high": 81,
+          "min_duration": 456,
+          "max_duration": 912
+        },
+        "KB": {
+          "notes": 4,
+          "polyphony": 1,
+          "low": 42,
+          "high": 42,
+          "min_duration": 15360,
+          "max_duration": 15360
+        },
+        "LB": {
+          "notes": 1,
+          "polyphony": 1,
+          "low": 48,
+          "high": 48,
+          "min_duration": 61440,
+          "max_duration": 61440
+        },
+        "LF": {
+          "notes": 4,
+          "polyphony": 4,
+          "low": 55,
+          "high": 76,
+          "min_duration": 61440,
+          "max_duration": 61440
+        }
+      }
+    },
+    "EM-S051": {
+      "file": "EM-S051_64_Takte_Pulslose_Mystery_mit_seltenem_Stich.mid",
+      "end_tick": 245760,
+      "notes": 91,
+      "roles": {
+        "LF": {
+          "notes": 8,
+          "polyphony": 4,
+          "low": 52,
+          "high": 70,
+          "min_duration": 92160,
+          "max_duration": 138240
+        },
+        "ST": {
+          "notes": 12,
+          "polyphony": 1,
+          "low": 36,
+          "high": 36,
+          "min_duration": 120,
+          "max_duration": 120
+        },
+        "TU": {
+          "notes": 71,
+          "polyphony": 1,
+          "low": 64,
+          "high": 88,
+          "min_duration": 480,
+          "max_duration": 960
+        }
+      }
+    },
+    "EM-S052": {
+      "file": "EM-S052_Morgendliche_Zaertlichkeit_Ableitung_aus_der_werkuebergreife.mid",
+      "end_tick": 122880,
+      "notes": 132,
+      "roles": {
+        "LB": {
+          "notes": 16,
+          "polyphony": 1,
+          "low": 37,
+          "high": 46,
+          "min_duration": 7680,
+          "max_duration": 7680
+        },
+        "LF": {
+          "notes": 60,
+          "polyphony": 4,
+          "low": 46,
+          "high": 68,
+          "min_duration": 6240,
+          "max_duration": 23040
+        },
+        "TU": {
+          "notes": 56,
+          "polyphony": 1,
+          "low": 67,
+          "high": 77,
+          "min_duration": 216,
+          "max_duration": 216
+        }
+      }
+    },
+    "EM-S053": {
+      "file": "EM-S053_Dunkle_stehende_Bedrohung_tief_leise_stabil.mid",
+      "end_tick": 61440,
+      "notes": 20,
+      "roles": {
+        "LB": {
+          "notes": 4,
+          "polyphony": 1,
+          "low": 38,
+          "high": 45,
+          "min_duration": 15360,
+          "max_duration": 15360
+        },
+        "LF": {
+          "notes": 10,
+          "polyphony": 4,
+          "low": 57,
+          "high": 77,
+          "min_duration": 15360,
+          "max_duration": 61440
+        },
+        "TU": {
+          "notes": 6,
+          "polyphony": 1,
+          "low": 74,
+          "high": 77,
+          "min_duration": 216,
+          "max_duration": 216
+        }
+      }
+    },
+    "EM-S054": {
+      "file": "EM-S054_Dunkle_Monumentalitaet_ohne_Hektik.mid",
+      "end_tick": 61440,
+      "notes": 76,
+      "roles": {
+        "GS": {
+          "notes": 15,
+          "polyphony": 1,
+          "low": 72,
+          "high": 84,
+          "min_duration": 1824,
+          "max_duration": 7296
+        },
+        "LB": {
+          "notes": 32,
+          "polyphony": 1,
+          "low": 36,
+          "high": 48,
+          "min_duration": 1920,
+          "max_duration": 1920
+        },
+        "LF": {
+          "notes": 29,
+          "polyphony": 4,
+          "low": 55,
+          "high": 79,
+          "min_duration": 6240,
+          "max_duration": 15360
+        }
+      }
+    },
+    "EM-S055": {
+      "file": "EM-S055_Kaltes_gestoertes_Licht_hell_leise_unruhig.mid",
+      "end_tick": 61440,
+      "notes": 40,
+      "roles": {
+        "LB": {
+          "notes": 1,
+          "polyphony": 1,
+          "low": 40,
+          "high": 40,
+          "min_duration": 61440,
+          "max_duration": 61440
+        },
+        "LF": {
+          "notes": 11,
+          "polyphony": 4,
+          "low": 47,
+          "high": 70,
+          "min_duration": 7680,
+          "max_duration": 61440
+        },
+        "TU": {
+          "notes": 28,
+          "polyphony": 1,
+          "low": 59,
+          "high": 92,
+          "min_duration": 216,
+          "max_duration": 216
+        }
+      }
+    },
+    "EM-S056": {
+      "file": "EM-S056_Helle_hymnische_Kraft_hell_kraftvoll_stabil.mid",
+      "end_tick": 61440,
+      "notes": 62,
+      "roles": {
+        "HM": {
+          "notes": 18,
+          "polyphony": 1,
+          "low": 72,
+          "high": 81,
+          "min_duration": 1824,
+          "max_duration": 3648
+        },
+        "LB": {
+          "notes": 16,
+          "polyphony": 1,
+          "low": 48,
+          "high": 55,
+          "min_duration": 3840,
+          "max_duration": 3840
+        },
+        "LF": {
+          "notes": 28,
+          "polyphony": 4,
+          "low": 53,
+          "high": 77,
+          "min_duration": 6240,
+          "max_duration": 23040
+        }
+      }
+    },
+    "EM-S057": {
+      "file": "EM-S057_Helle_mechanische_Unruhe_hell_kraftvoll_unruhig.mid",
+      "end_tick": 61440,
+      "notes": 424,
+      "roles": {
+        "AR": {
+          "notes": 256,
+          "polyphony": 1,
+          "low": 72,
+          "high": 76,
+          "min_duration": 144,
+          "max_duration": 144
+        },
+        "KB": {
+          "notes": 80,
+          "polyphony": 1,
+          "low": 48,
+          "high": 60,
+          "min_duration": 204,
+          "max_duration": 204
+        },
+        "KF": {
+          "notes": 64,
+          "polyphony": 4,
+          "low": 57,
+          "high": 74,
+          "min_duration": 3840,
+          "max_duration": 3840
+        },
+        "ST": {
+          "notes": 24,
+          "polyphony": 1,
+          "low": 36,
+          "high": 36,
+          "min_duration": 120,
+          "max_duration": 120
+        }
+      }
+    },
+    "EM-EF01": {
+      "file": "EM-EF01_Ereignisfeld_Pulsloses_Moll_add9_Feld_mit_seltenen_Tupfern.mid",
+      "end_tick": 61440,
+      "notes": 15,
+      "roles": {
+        "LB": {
+          "notes": 1,
+          "polyphony": 1,
+          "low": 45,
+          "high": 45,
+          "min_duration": 61440,
+          "max_duration": 61440
+        },
+        "LF": {
+          "notes": 4,
+          "polyphony": 4,
+          "low": 52,
+          "high": 72,
+          "min_duration": 61440,
+          "max_duration": 61440
+        },
+        "TU": {
+          "notes": 10,
+          "polyphony": 1,
+          "low": 71,
+          "high": 88,
+          "min_duration": 480,
+          "max_duration": 1440
+        }
+      }
+    },
+    "EM-EF02": {
+      "file": "EM-EF02_Ereignisfeld_Ereignis_und_Echo.mid",
+      "end_tick": 61440,
+      "notes": 28,
+      "roles": {
+        "KF": {
+          "notes": 12,
+          "polyphony": 1,
+          "low": 74,
+          "high": 86,
+          "min_duration": 480,
+          "max_duration": 1920
+        },
+        "LB": {
+          "notes": 4,
+          "polyphony": 1,
+          "low": 50,
+          "high": 50,
+          "min_duration": 15360,
+          "max_duration": 15360
+        },
+        "TU": {
+          "notes": 12,
+          "polyphony": 1,
+          "low": 74,
+          "high": 86,
+          "min_duration": 480,
+          "max_duration": 1920
+        }
+      }
+    },
+    "EM-EF03": {
+      "file": "EM-EF03_Ereignisfeld_Ruf_und_Zustimmung.mid",
+      "end_tick": 61440,
+      "notes": 64,
+      "roles": {
+        "GS": {
+          "notes": 13,
+          "polyphony": 1,
+          "low": 59,
+          "high": 78,
+          "min_duration": 332,
+          "max_duration": 1920
+        },
+        "LB": {
+          "notes": 8,
+          "polyphony": 1,
+          "low": 40,
+          "high": 45,
+          "min_duration": 7680,
+          "max_duration": 7680
+        },
+        "LF": {
+          "notes": 25,
+          "polyphony": 4,
+          "low": 47,
+          "high": 69,
+          "min_duration": 7680,
+          "max_duration": 61440
+        },
+        "TU": {
+          "notes": 18,
+          "polyphony": 1,
+          "low": 59,
+          "high": 78,
+          "min_duration": 480,
+          "max_duration": 1920
+        }
+      }
+    },
+    "EM-EF04": {
+      "file": "EM-EF04_Ereignisfeld_Ruf_und_Widerspruch.mid",
+      "end_tick": 61440,
+      "notes": 37,
+      "roles": {
+        "GS": {
+          "notes": 15,
+          "polyphony": 1,
+          "low": 66,
+          "high": 83,
+          "min_duration": 480,
+          "max_duration": 1440
+        },
+        "LB": {
+          "notes": 1,
+          "polyphony": 1,
+          "low": 47,
+          "high": 47,
+          "min_duration": 61440,
+          "max_duration": 61440
+        },
+        "LF": {
+          "notes": 4,
+          "polyphony": 4,
+          "low": 61,
+          "high": 71,
+          "min_duration": 61440,
+          "max_duration": 61440
+        },
+        "TU": {
+          "notes": 17,
+          "polyphony": 1,
+          "low": 66,
+          "high": 86,
+          "min_duration": 480,
+          "max_duration": 1440
+        }
+      }
+    },
+    "EM-EF05": {
+      "file": "EM-EF05_Ereignisfeld_Ausbleibende_Antwort.mid",
+      "end_tick": 54000,
+      "notes": 5,
+      "roles": {
+        "TU": {
+          "notes": 5,
+          "polyphony": 1,
+          "low": 67,
+          "high": 91,
+          "min_duration": 480,
+          "max_duration": 1920
+        }
+      }
+    },
+    "EM-EF06": {
+      "file": "EM-EF06_Ereignisfeld_Konsonanter_Anker_experimentelle_Umgebung.mid",
+      "end_tick": 61440,
+      "notes": 45,
+      "roles": {
+        "KF": {
+          "notes": 16,
+          "polyphony": 2,
+          "low": 55,
+          "high": 74,
+          "min_duration": 480,
+          "max_duration": 720
+        },
+        "LB": {
+          "notes": 1,
+          "polyphony": 1,
+          "low": 38,
+          "high": 38,
+          "min_duration": 61440,
+          "max_duration": 61440
+        },
+        "LF": {
+          "notes": 4,
+          "polyphony": 4,
+          "low": 45,
+          "high": 72,
+          "min_duration": 61440,
+          "max_duration": 61440
+        },
+        "TU": {
+          "notes": 24,
+          "polyphony": 1,
+          "low": 52,
+          "high": 86,
+          "min_duration": 480,
+          "max_duration": 720
+        }
+      }
+    },
+    "EM-EF07": {
+      "file": "EM-EF07_Ereignisfeld_Dissonanter_Anker_Tritonus_Pedal.mid",
+      "end_tick": 61440,
+      "notes": 15,
+      "roles": {
+        "LB": {
+          "notes": 4,
+          "polyphony": 1,
+          "low": 34,
+          "high": 34,
+          "min_duration": 15360,
+          "max_duration": 15360
+        },
+        "TU": {
+          "notes": 11,
+          "polyphony": 1,
+          "low": 64,
+          "high": 79,
+          "min_duration": 480,
+          "max_duration": 1440
+        }
+      }
+    },
+    "EM-EF08": {
+      "file": "EM-EF08_Ereignisfeld_Ankerlose_kohaerente_Textur_eine_Zelle.mid",
+      "end_tick": 58836,
+      "notes": 48,
+      "roles": {
+        "KF": {
+          "notes": 24,
+          "polyphony": 1,
+          "low": 56,
+          "high": 71,
+          "min_duration": 480,
+          "max_duration": 600
+        },
+        "TU": {
+          "notes": 24,
+          "polyphony": 1,
+          "low": 55,
+          "high": 91,
+          "min_duration": 480,
+          "max_duration": 600
+        }
+      }
+    },
+    "EM-EF09": {
+      "file": "EM-EF09_Ereignisfeld_Lange_Stille_mit_Einzelglocke.mid",
+      "end_tick": 38000,
+      "notes": 2,
+      "roles": {
+        "TU": {
+          "notes": 2,
+          "polyphony": 1,
+          "low": 69,
+          "high": 81,
+          "min_duration": 480,
+          "max_duration": 480
+        }
+      }
+    },
+    "EM-EF10": {
+      "file": "EM-EF10_Ereignisfeld_Gestaffelte_Klangereignisse_Akkord_tropft.mid",
+      "end_tick": 61440,
+      "notes": 66,
+      "roles": {
+        "TU": {
+          "notes": 66,
+          "polyphony": 4,
+          "low": 60,
+          "high": 79,
+          "min_duration": 240,
+          "max_duration": 1920
+        }
+      }
+    },
+    "EM-EF11": {
+      "file": "EM-EF11_Ereignisfeld_Lyrische_Einzelereignisse_Seufzer_Splitter.mid",
+      "end_tick": 61440,
+      "notes": 48,
+      "roles": {
+        "GS": {
+          "notes": 5,
+          "polyphony": 1,
+          "low": 76,
+          "high": 86,
+          "min_duration": 480,
+          "max_duration": 1440
+        },
+        "LB": {
+          "notes": 16,
+          "polyphony": 1,
+          "low": 46,
+          "high": 50,
+          "min_duration": 3840,
+          "max_duration": 3840
+        },
+        "LF": {
+          "notes": 19,
+          "polyphony": 4,
+          "low": 62,
+          "high": 77,
+          "min_duration": 3840,
+          "max_duration": 61440
+        },
+        "TU": {
+          "notes": 8,
+          "polyphony": 1,
+          "low": 74,
+          "high": 89,
+          "min_duration": 480,
+          "max_duration": 1440
+        }
+      }
+    },
+    "EM-EF12": {
+      "file": "EM-EF12_Ereignisfeld_Kontrast_hoch_gegen_tief.mid",
+      "end_tick": 59781,
+      "notes": 36,
+      "roles": {
+        "KF": {
+          "notes": 18,
+          "polyphony": 1,
+          "low": 45,
+          "high": 53,
+          "min_duration": 480,
+          "max_duration": 1440
+        },
+        "TU": {
+          "notes": 18,
+          "polyphony": 1,
+          "low": 42,
+          "high": 83,
+          "min_duration": 480,
+          "max_duration": 1440
+        }
+      }
+    },
+    "EM-EF13": {
+      "file": "EM-EF13_Ereignisfeld_Kontrolliert_chaotische_Textur_komponierte_Unor.mid",
+      "end_tick": 61440,
+      "notes": 130,
+      "roles": {
+        "KF": {
+          "notes": 53,
+          "polyphony": 2,
+          "low": 54,
+          "high": 82,
+          "min_duration": 143,
+          "max_duration": 480
+        },
+        "LF": {
+          "notes": 6,
+          "polyphony": 6,
+          "low": 52,
+          "high": 77,
+          "min_duration": 61440,
+          "max_duration": 61440
+        },
+        "TU": {
+          "notes": 71,
+          "polyphony": 2,
+          "low": 56,
+          "high": 94,
+          "min_duration": 240,
+          "max_duration": 480
+        }
+      }
+    },
+    "EM-EF14": {
+      "file": "EM-EF14_Ereignisfeld_B_A_C_H_Streuung_ametrisch.mid",
+      "end_tick": 58560,
+      "notes": 21,
+      "roles": {
+        "TU": {
+          "notes": 21,
+          "polyphony": 1,
+          "low": 69,
+          "high": 84,
+          "min_duration": 480,
+          "max_duration": 960
+        }
+      }
+    },
+    "EM-EF15": {
+      "file": "EM-EF15_Ereignisfeld_Akuter_Horror_Ballung_und_Stich.mid",
+      "end_tick": 61440,
+      "notes": 40,
+      "roles": {
+        "KF": {
+          "notes": 25,
+          "polyphony": 1,
+          "low": 46,
+          "high": 86,
+          "min_duration": 480,
+          "max_duration": 480
+        },
+        "ST": {
+          "notes": 15,
+          "polyphony": 1,
+          "low": 36,
+          "high": 36,
+          "min_duration": 120,
+          "max_duration": 120
+        }
+      }
+    },
+    "EM-EF16": {
+      "file": "EM-EF16_Ereignisfeld_Gespraechsfeld_mit_Kleinsext_Anker_Bird_Prinzip.mid",
+      "end_tick": 61440,
+      "notes": 59,
+      "roles": {
+        "KF": {
+          "notes": 15,
+          "polyphony": 1,
+          "low": 55,
+          "high": 78,
+          "min_duration": 480,
+          "max_duration": 960
+        },
+        "LF": {
+          "notes": 3,
+          "polyphony": 3,
+          "low": 52,
+          "high": 69,
+          "min_duration": 61440,
+          "max_duration": 61440
+        },
+        "TU": {
+          "notes": 41,
+          "polyphony": 2,
+          "low": 56,
+          "high": 86,
+          "min_duration": 480,
+          "max_duration": 960
+        }
+      }
+    }
+  },
+  "v_target_checks": [
+    {
+      "study": "EM-S034",
+      "source": "EM-U014",
+      "at": 11520,
+      "target_at": 13440,
+      "target_midi": 59,
+      "target_functions": [
+        "A"
+      ]
+    },
+    {
+      "study": "EM-S034",
+      "source": "EM-U014",
+      "at": 26880,
+      "target_at": 28800,
+      "target_midi": 59,
+      "target_functions": [
+        "A"
+      ]
+    }
+  ],
+  "u_ids_referenced_in_csv": [
+    "EM-U002",
+    "EM-U007",
+    "EM-U008",
+    "EM-U009",
+    "EM-U013",
+    "EM-U014",
+    "EM-U020",
+    "EM-U021",
+    "EM-U022",
+    "EM-U023",
+    "EM-U029",
+    "EM-U030",
+    "EM-U034",
+    "EM-U040",
+    "EM-U041",
+    "EM-U047",
+    "EM-U048"
+  ],
+  "rhythm_all_layers_and_joint_cycles_match": true,
+  "motif_lengths_and_declared_cell_subsets_match": true,
+  "long_note_function_strings": {
+    "A→A": 188,
+    "A→A→A": 73,
+    "A→A→A→A→A→A→A→A→A→A→A→A→A→A→A→A": 18,
+    "A→A→A→A→A": 28,
+    "A→A→A→A": 58,
+    "A→A→A→A→A→A→A→A": 28,
+    "A→A→A→A→A→A→A→A→A→A": 1,
+    "A→A→A→A→A→A→A": 11,
+    "A→A→A→A→A→A→A→A→A→A→A": 1,
+    "A→A→A→A→A→A→A→A→A→A→A→A→A→A→A→A→A→A→A→A→A→A→A→A→A→A→A→A→A→A→A→A": 3,
+    "F→F": 88,
+    "T→A": 3,
+    "A→T": 3,
+    "A→T→A→A→A→T→A→A": 1,
+    "T→T": 2,
+    "A→A→A→A→A→A→A→A→A→A→A→A": 2,
+    "A→A→T→A→A→A→T→A": 1,
+    "A→A→A→A→A→A": 4,
+    "A→A→A→A→A→A→A→A→A": 4
+  },
+  "full_function_timeline_limit": "CSV function chains have no segment timestamps. Do not count them as an independently reconstructed per-note local/global harmonic timeline. SOURCE_RECORDS has complete H/U states and explicit targets; formal pair checks cover their written spans. The unprovided renderer is not the engine."
+}

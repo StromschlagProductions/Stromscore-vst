@@ -1,0 +1,1517 @@
+{
+  "base": "4c43bd2",
+  "limits": {
+    "LF": [
+      6,
+      240,
+      4026531840
+    ],
+    "KF": [
+      9,
+      240,
+      720
+    ],
+    "LB": [
+      1,
+      240,
+      4026531840
+    ],
+    "KB": [
+      1,
+      240,
+      960
+    ],
+    "AR": [
+      1,
+      240,
+      7680
+    ],
+    "TU": [
+      4,
+      240,
+      720
+    ],
+    "ST": [
+      1,
+      240,
+      480
+    ],
+    "GS": [
+      2,
+      240,
+      4026531840
+    ],
+    "HM": [
+      1,
+      240,
+      4026531840
+    ]
+  },
+  "study_violations": [
+    {
+      "id": "EM-S001",
+      "role": "TU",
+      "issues": [
+        "minDuration"
+      ],
+      "actual": {
+        "notes": 28,
+        "polyphony": 1,
+        "low": 69,
+        "high": 72,
+        "min_duration": 216,
+        "max_duration": 216
+      },
+      "engine_assumption": {
+        "polyphony": 4,
+        "minDuration": 240,
+        "maxDuration": 720
+      }
+    },
+    {
+      "id": "EM-S002",
+      "role": "TU",
+      "issues": [
+        "minDuration"
+      ],
+      "actual": {
+        "notes": 6,
+        "polyphony": 1,
+        "low": 72,
+        "high": 81,
+        "min_duration": 216,
+        "max_duration": 216
+      },
+      "engine_assumption": {
+        "polyphony": 4,
+        "minDuration": 240,
+        "maxDuration": 720
+      }
+    },
+    {
+      "id": "EM-S005",
+      "role": "TU",
+      "issues": [
+        "minDuration"
+      ],
+      "actual": {
+        "notes": 20,
+        "polyphony": 1,
+        "low": 81,
+        "high": 90,
+        "min_duration": 216,
+        "max_duration": 216
+      },
+      "engine_assumption": {
+        "polyphony": 4,
+        "minDuration": 240,
+        "maxDuration": 720
+      }
+    },
+    {
+      "id": "EM-S006",
+      "role": "TU",
+      "issues": [
+        "maxDuration"
+      ],
+      "actual": {
+        "notes": 38,
+        "polyphony": 1,
+        "low": 64,
+        "high": 74,
+        "min_duration": 864,
+        "max_duration": 864
+      },
+      "engine_assumption": {
+        "polyphony": 4,
+        "minDuration": 240,
+        "maxDuration": 720
+      }
+    },
+    {
+      "id": "EM-S008",
+      "role": "KF",
+      "issues": [
+        "maxDuration"
+      ],
+      "actual": {
+        "notes": 12,
+        "polyphony": 3,
+        "low": 34,
+        "high": 36,
+        "min_duration": 15360,
+        "max_duration": 15360
+      },
+      "engine_assumption": {
+        "polyphony": 9,
+        "minDuration": 240,
+        "maxDuration": 720
+      }
+    },
+    {
+      "id": "EM-S008",
+      "role": "TU",
+      "issues": [
+        "minDuration"
+      ],
+      "actual": {
+        "notes": 32,
+        "polyphony": 1,
+        "low": 71,
+        "high": 81,
+        "min_duration": 216,
+        "max_duration": 216
+      },
+      "engine_assumption": {
+        "polyphony": 4,
+        "minDuration": 240,
+        "maxDuration": 720
+      }
+    },
+    {
+      "id": "EM-S009",
+      "role": "KF",
+      "issues": [
+        "maxDuration"
+      ],
+      "actual": {
+        "notes": 16,
+        "polyphony": 4,
+        "low": 47,
+        "high": 72,
+        "min_duration": 15360,
+        "max_duration": 15360
+      },
+      "engine_assumption": {
+        "polyphony": 9,
+        "minDuration": 240,
+        "maxDuration": 720
+      }
+    },
+    {
+      "id": "EM-S012",
+      "role": "TU",
+      "issues": [
+        "maxDuration"
+      ],
+      "actual": {
+        "notes": 13,
+        "polyphony": 1,
+        "low": 76,
+        "high": 92,
+        "min_duration": 864,
+        "max_duration": 864
+      },
+      "engine_assumption": {
+        "polyphony": 4,
+        "minDuration": 240,
+        "maxDuration": 720
+      }
+    },
+    {
+      "id": "EM-S013",
+      "role": "AR",
+      "issues": [
+        "minDuration"
+      ],
+      "actual": {
+        "notes": 56,
+        "polyphony": 1,
+        "low": 64,
+        "high": 65,
+        "min_duration": 216,
+        "max_duration": 216
+      },
+      "engine_assumption": {
+        "polyphony": 1,
+        "minDuration": 240,
+        "maxDuration": 7680
+      }
+    },
+    {
+      "id": "EM-S014",
+      "role": "ST",
+      "issues": [
+        "minDuration"
+      ],
+      "actual": {
+        "notes": 24,
+        "polyphony": 1,
+        "low": 36,
+        "high": 36,
+        "min_duration": 120,
+        "max_duration": 120
+      },
+      "engine_assumption": {
+        "polyphony": 1,
+        "minDuration": 240,
+        "maxDuration": 480
+      }
+    },
+    {
+      "id": "EM-S015",
+      "role": "AR",
+      "issues": [
+        "minDuration"
+      ],
+      "actual": {
+        "notes": 512,
+        "polyphony": 1,
+        "low": 74,
+        "high": 81,
+        "min_duration": 144,
+        "max_duration": 144
+      },
+      "engine_assumption": {
+        "polyphony": 1,
+        "minDuration": 240,
+        "maxDuration": 7680
+      }
+    },
+    {
+      "id": "EM-S015",
+      "role": "KB",
+      "issues": [
+        "polyphony",
+        "minDuration"
+      ],
+      "actual": {
+        "notes": 270,
+        "polyphony": 2,
+        "low": 33,
+        "high": 53,
+        "min_duration": 204,
+        "max_duration": 204
+      },
+      "engine_assumption": {
+        "polyphony": 1,
+        "minDuration": 240,
+        "maxDuration": 960
+      }
+    },
+    {
+      "id": "EM-S015",
+      "role": "ST",
+      "issues": [
+        "minDuration"
+      ],
+      "actual": {
+        "notes": 60,
+        "polyphony": 1,
+        "low": 36,
+        "high": 36,
+        "min_duration": 120,
+        "max_duration": 120
+      },
+      "engine_assumption": {
+        "polyphony": 1,
+        "minDuration": 240,
+        "maxDuration": 480
+      }
+    },
+    {
+      "id": "EM-S017",
+      "role": "TU",
+      "issues": [
+        "maxDuration"
+      ],
+      "actual": {
+        "notes": 38,
+        "polyphony": 1,
+        "low": 70,
+        "high": 79,
+        "min_duration": 912,
+        "max_duration": 1824
+      },
+      "engine_assumption": {
+        "polyphony": 4,
+        "minDuration": 240,
+        "maxDuration": 720
+      }
+    },
+    {
+      "id": "EM-S018",
+      "role": "AR",
+      "issues": [
+        "minDuration"
+      ],
+      "actual": {
+        "notes": 128,
+        "polyphony": 1,
+        "low": 69,
+        "high": 76,
+        "min_duration": 216,
+        "max_duration": 432
+      },
+      "engine_assumption": {
+        "polyphony": 1,
+        "minDuration": 240,
+        "maxDuration": 7680
+      }
+    },
+    {
+      "id": "EM-S018",
+      "role": "KB",
+      "issues": [
+        "minDuration"
+      ],
+      "actual": {
+        "notes": 16,
+        "polyphony": 1,
+        "low": 45,
+        "high": 45,
+        "min_duration": 204,
+        "max_duration": 204
+      },
+      "engine_assumption": {
+        "polyphony": 1,
+        "minDuration": 240,
+        "maxDuration": 960
+      }
+    },
+    {
+      "id": "EM-S018",
+      "role": "TU",
+      "issues": [
+        "minDuration"
+      ],
+      "actual": {
+        "notes": 20,
+        "polyphony": 1,
+        "low": 69,
+        "high": 77,
+        "min_duration": 216,
+        "max_duration": 216
+      },
+      "engine_assumption": {
+        "polyphony": 4,
+        "minDuration": 240,
+        "maxDuration": 720
+      }
+    },
+    {
+      "id": "EM-S020",
+      "role": "TU",
+      "issues": [
+        "minDuration"
+      ],
+      "actual": {
+        "notes": 96,
+        "polyphony": 1,
+        "low": 69,
+        "high": 76,
+        "min_duration": 216,
+        "max_duration": 216
+      },
+      "engine_assumption": {
+        "polyphony": 4,
+        "minDuration": 240,
+        "maxDuration": 720
+      }
+    },
+    {
+      "id": "EM-S021",
+      "role": "TU",
+      "issues": [
+        "maxDuration"
+      ],
+      "actual": {
+        "notes": 75,
+        "polyphony": 1,
+        "low": 74,
+        "high": 84,
+        "min_duration": 864,
+        "max_duration": 864
+      },
+      "engine_assumption": {
+        "polyphony": 4,
+        "minDuration": 240,
+        "maxDuration": 720
+      }
+    },
+    {
+      "id": "EM-S022",
+      "role": "AR",
+      "issues": [
+        "minDuration"
+      ],
+      "actual": {
+        "notes": 88,
+        "polyphony": 1,
+        "low": 64,
+        "high": 65,
+        "min_duration": 216,
+        "max_duration": 216
+      },
+      "engine_assumption": {
+        "polyphony": 1,
+        "minDuration": 240,
+        "maxDuration": 7680
+      }
+    },
+    {
+      "id": "EM-S022",
+      "role": "TU",
+      "issues": [
+        "maxDuration"
+      ],
+      "actual": {
+        "notes": 80,
+        "polyphony": 1,
+        "low": 76,
+        "high": 79,
+        "min_duration": 621,
+        "max_duration": 1728
+      },
+      "engine_assumption": {
+        "polyphony": 4,
+        "minDuration": 240,
+        "maxDuration": 720
+      }
+    },
+    {
+      "id": "EM-S023",
+      "role": "AR",
+      "issues": [
+        "minDuration"
+      ],
+      "actual": {
+        "notes": 928,
+        "polyphony": 1,
+        "low": 74,
+        "high": 81,
+        "min_duration": 144,
+        "max_duration": 144
+      },
+      "engine_assumption": {
+        "polyphony": 1,
+        "minDuration": 240,
+        "maxDuration": 7680
+      }
+    },
+    {
+      "id": "EM-S023",
+      "role": "KB",
+      "issues": [
+        "minDuration"
+      ],
+      "actual": {
+        "notes": 310,
+        "polyphony": 1,
+        "low": 45,
+        "high": 53,
+        "min_duration": 204,
+        "max_duration": 204
+      },
+      "engine_assumption": {
+        "polyphony": 1,
+        "minDuration": 240,
+        "maxDuration": 960
+      }
+    },
+    {
+      "id": "EM-S023",
+      "role": "ST",
+      "issues": [
+        "minDuration"
+      ],
+      "actual": {
+        "notes": 116,
+        "polyphony": 1,
+        "low": 36,
+        "high": 36,
+        "min_duration": 120,
+        "max_duration": 120
+      },
+      "engine_assumption": {
+        "polyphony": 1,
+        "minDuration": 240,
+        "maxDuration": 480
+      }
+    },
+    {
+      "id": "EM-S023",
+      "role": "TU",
+      "issues": [
+        "maxDuration"
+      ],
+      "actual": {
+        "notes": 92,
+        "polyphony": 1,
+        "low": 69,
+        "high": 81,
+        "min_duration": 912,
+        "max_duration": 1824
+      },
+      "engine_assumption": {
+        "polyphony": 4,
+        "minDuration": 240,
+        "maxDuration": 720
+      }
+    },
+    {
+      "id": "EM-S024",
+      "role": "KF",
+      "issues": [
+        "maxDuration"
+      ],
+      "actual": {
+        "notes": 80,
+        "polyphony": 5,
+        "low": 65,
+        "high": 75,
+        "min_duration": 15360,
+        "max_duration": 15360
+      },
+      "engine_assumption": {
+        "polyphony": 9,
+        "minDuration": 240,
+        "maxDuration": 720
+      }
+    },
+    {
+      "id": "EM-S024",
+      "role": "TU",
+      "issues": [
+        "minDuration",
+        "maxDuration"
+      ],
+      "actual": {
+        "notes": 114,
+        "polyphony": 2,
+        "low": 59,
+        "high": 78,
+        "min_duration": 216,
+        "max_duration": 1440
+      },
+      "engine_assumption": {
+        "polyphony": 4,
+        "minDuration": 240,
+        "maxDuration": 720
+      }
+    },
+    {
+      "id": "EM-S025",
+      "role": "AR",
+      "issues": [
+        "minDuration"
+      ],
+      "actual": {
+        "notes": 110,
+        "polyphony": 1,
+        "low": 69,
+        "high": 77,
+        "min_duration": 216,
+        "max_duration": 432
+      },
+      "engine_assumption": {
+        "polyphony": 1,
+        "minDuration": 240,
+        "maxDuration": 7680
+      }
+    },
+    {
+      "id": "EM-S025",
+      "role": "KB",
+      "issues": [
+        "minDuration"
+      ],
+      "actual": {
+        "notes": 183,
+        "polyphony": 1,
+        "low": 43,
+        "high": 50,
+        "min_duration": 204,
+        "max_duration": 408
+      },
+      "engine_assumption": {
+        "polyphony": 1,
+        "minDuration": 240,
+        "maxDuration": 960
+      }
+    },
+    {
+      "id": "EM-S025",
+      "role": "KF",
+      "issues": [
+        "maxDuration"
+      ],
+      "actual": {
+        "notes": 8,
+        "polyphony": 4,
+        "low": 51,
+        "high": 76,
+        "min_duration": 15360,
+        "max_duration": 15360
+      },
+      "engine_assumption": {
+        "polyphony": 9,
+        "minDuration": 240,
+        "maxDuration": 720
+      }
+    },
+    {
+      "id": "EM-S025",
+      "role": "TU",
+      "issues": [
+        "minDuration",
+        "maxDuration"
+      ],
+      "actual": {
+        "notes": 80,
+        "polyphony": 2,
+        "low": 69,
+        "high": 80,
+        "min_duration": 216,
+        "max_duration": 1728
+      },
+      "engine_assumption": {
+        "polyphony": 4,
+        "minDuration": 240,
+        "maxDuration": 720
+      }
+    },
+    {
+      "id": "EM-S026",
+      "role": "TU",
+      "issues": [
+        "minDuration"
+      ],
+      "actual": {
+        "notes": 96,
+        "polyphony": 1,
+        "low": 81,
+        "high": 90,
+        "min_duration": 216,
+        "max_duration": 216
+      },
+      "engine_assumption": {
+        "polyphony": 4,
+        "minDuration": 240,
+        "maxDuration": 720
+      }
+    },
+    {
+      "id": "EM-S028",
+      "role": "TU",
+      "issues": [
+        "minDuration",
+        "maxDuration"
+      ],
+      "actual": {
+        "notes": 16,
+        "polyphony": 1,
+        "low": 69,
+        "high": 79,
+        "min_duration": 216,
+        "max_duration": 1728
+      },
+      "engine_assumption": {
+        "polyphony": 4,
+        "minDuration": 240,
+        "maxDuration": 720
+      }
+    },
+    {
+      "id": "EM-S030",
+      "role": "TU",
+      "issues": [
+        "minDuration"
+      ],
+      "actual": {
+        "notes": 8,
+        "polyphony": 1,
+        "low": 79,
+        "high": 88,
+        "min_duration": 216,
+        "max_duration": 216
+      },
+      "engine_assumption": {
+        "polyphony": 4,
+        "minDuration": 240,
+        "maxDuration": 720
+      }
+    },
+    {
+      "id": "EM-S035",
+      "role": "TU",
+      "issues": [
+        "maxDuration"
+      ],
+      "actual": {
+        "notes": 1,
+        "polyphony": 1,
+        "low": 74,
+        "high": 74,
+        "min_duration": 3648,
+        "max_duration": 3648
+      },
+      "engine_assumption": {
+        "polyphony": 4,
+        "minDuration": 240,
+        "maxDuration": 720
+      }
+    },
+    {
+      "id": "EM-S038",
+      "role": "KB",
+      "issues": [
+        "minDuration"
+      ],
+      "actual": {
+        "notes": 16,
+        "polyphony": 1,
+        "low": 49,
+        "high": 49,
+        "min_duration": 204,
+        "max_duration": 204
+      },
+      "engine_assumption": {
+        "polyphony": 1,
+        "minDuration": 240,
+        "maxDuration": 960
+      }
+    },
+    {
+      "id": "EM-S038",
+      "role": "TU",
+      "issues": [
+        "maxDuration"
+      ],
+      "actual": {
+        "notes": 2,
+        "polyphony": 1,
+        "low": 73,
+        "high": 86,
+        "min_duration": 1440,
+        "max_duration": 1440
+      },
+      "engine_assumption": {
+        "polyphony": 4,
+        "minDuration": 240,
+        "maxDuration": 720
+      }
+    },
+    {
+      "id": "EM-S039",
+      "role": "AR",
+      "issues": [
+        "minDuration"
+      ],
+      "actual": {
+        "notes": 256,
+        "polyphony": 1,
+        "low": 65,
+        "high": 69,
+        "min_duration": 216,
+        "max_duration": 216
+      },
+      "engine_assumption": {
+        "polyphony": 1,
+        "minDuration": 240,
+        "maxDuration": 7680
+      }
+    },
+    {
+      "id": "EM-S039",
+      "role": "KB",
+      "issues": [
+        "minDuration"
+      ],
+      "actual": {
+        "notes": 103,
+        "polyphony": 1,
+        "low": 41,
+        "high": 50,
+        "min_duration": 204,
+        "max_duration": 204
+      },
+      "engine_assumption": {
+        "polyphony": 1,
+        "minDuration": 240,
+        "maxDuration": 960
+      }
+    },
+    {
+      "id": "EM-S040",
+      "role": "ST",
+      "issues": [
+        "minDuration"
+      ],
+      "actual": {
+        "notes": 29,
+        "polyphony": 1,
+        "low": 36,
+        "high": 36,
+        "min_duration": 120,
+        "max_duration": 120
+      },
+      "engine_assumption": {
+        "polyphony": 1,
+        "minDuration": 240,
+        "maxDuration": 480
+      }
+    },
+    {
+      "id": "EM-S041",
+      "role": "KF",
+      "issues": [
+        "maxDuration"
+      ],
+      "actual": {
+        "notes": 6,
+        "polyphony": 3,
+        "low": 68,
+        "high": 85,
+        "min_duration": 15360,
+        "max_duration": 15360
+      },
+      "engine_assumption": {
+        "polyphony": 9,
+        "minDuration": 240,
+        "maxDuration": 720
+      }
+    },
+    {
+      "id": "EM-S042",
+      "role": "KB",
+      "issues": [
+        "minDuration"
+      ],
+      "actual": {
+        "notes": 80,
+        "polyphony": 1,
+        "low": 40,
+        "high": 52,
+        "min_duration": 204,
+        "max_duration": 204
+      },
+      "engine_assumption": {
+        "polyphony": 1,
+        "minDuration": 240,
+        "maxDuration": 960
+      }
+    },
+    {
+      "id": "EM-S042",
+      "role": "TU",
+      "issues": [
+        "maxDuration"
+      ],
+      "actual": {
+        "notes": 9,
+        "polyphony": 1,
+        "low": 64,
+        "high": 79,
+        "min_duration": 960,
+        "max_duration": 1440
+      },
+      "engine_assumption": {
+        "polyphony": 4,
+        "minDuration": 240,
+        "maxDuration": 720
+      }
+    },
+    {
+      "id": "EM-S043",
+      "role": "GS",
+      "issues": [
+        "minDuration"
+      ],
+      "actual": {
+        "notes": 16,
+        "polyphony": 1,
+        "low": 72,
+        "high": 83,
+        "min_duration": 216,
+        "max_duration": 216
+      },
+      "engine_assumption": {
+        "polyphony": 2,
+        "minDuration": 240,
+        "maxDuration": 4026531840
+      }
+    },
+    {
+      "id": "EM-S045",
+      "role": "KF",
+      "issues": [
+        "minDuration"
+      ],
+      "actual": {
+        "notes": 192,
+        "polyphony": 4,
+        "low": 48,
+        "high": 70,
+        "min_duration": 192,
+        "max_duration": 192
+      },
+      "engine_assumption": {
+        "polyphony": 9,
+        "minDuration": 240,
+        "maxDuration": 720
+      }
+    },
+    {
+      "id": "EM-S047",
+      "role": "TU",
+      "issues": [
+        "maxDuration"
+      ],
+      "actual": {
+        "notes": 13,
+        "polyphony": 1,
+        "low": 83,
+        "high": 93,
+        "min_duration": 864,
+        "max_duration": 864
+      },
+      "engine_assumption": {
+        "polyphony": 4,
+        "minDuration": 240,
+        "maxDuration": 720
+      }
+    },
+    {
+      "id": "EM-S049",
+      "role": "TU",
+      "issues": [
+        "minDuration"
+      ],
+      "actual": {
+        "notes": 16,
+        "polyphony": 1,
+        "low": 75,
+        "high": 82,
+        "min_duration": 216,
+        "max_duration": 216
+      },
+      "engine_assumption": {
+        "polyphony": 4,
+        "minDuration": 240,
+        "maxDuration": 720
+      }
+    },
+    {
+      "id": "EM-S050",
+      "role": "KB",
+      "issues": [
+        "maxDuration"
+      ],
+      "actual": {
+        "notes": 4,
+        "polyphony": 1,
+        "low": 42,
+        "high": 42,
+        "min_duration": 15360,
+        "max_duration": 15360
+      },
+      "engine_assumption": {
+        "polyphony": 1,
+        "minDuration": 240,
+        "maxDuration": 960
+      }
+    },
+    {
+      "id": "EM-S051",
+      "role": "ST",
+      "issues": [
+        "minDuration"
+      ],
+      "actual": {
+        "notes": 12,
+        "polyphony": 1,
+        "low": 36,
+        "high": 36,
+        "min_duration": 120,
+        "max_duration": 120
+      },
+      "engine_assumption": {
+        "polyphony": 1,
+        "minDuration": 240,
+        "maxDuration": 480
+      }
+    },
+    {
+      "id": "EM-S051",
+      "role": "TU",
+      "issues": [
+        "maxDuration"
+      ],
+      "actual": {
+        "notes": 71,
+        "polyphony": 1,
+        "low": 64,
+        "high": 88,
+        "min_duration": 480,
+        "max_duration": 960
+      },
+      "engine_assumption": {
+        "polyphony": 4,
+        "minDuration": 240,
+        "maxDuration": 720
+      }
+    },
+    {
+      "id": "EM-S052",
+      "role": "TU",
+      "issues": [
+        "minDuration"
+      ],
+      "actual": {
+        "notes": 56,
+        "polyphony": 1,
+        "low": 67,
+        "high": 77,
+        "min_duration": 216,
+        "max_duration": 216
+      },
+      "engine_assumption": {
+        "polyphony": 4,
+        "minDuration": 240,
+        "maxDuration": 720
+      }
+    },
+    {
+      "id": "EM-S053",
+      "role": "TU",
+      "issues": [
+        "minDuration"
+      ],
+      "actual": {
+        "notes": 6,
+        "polyphony": 1,
+        "low": 74,
+        "high": 77,
+        "min_duration": 216,
+        "max_duration": 216
+      },
+      "engine_assumption": {
+        "polyphony": 4,
+        "minDuration": 240,
+        "maxDuration": 720
+      }
+    },
+    {
+      "id": "EM-S055",
+      "role": "TU",
+      "issues": [
+        "minDuration"
+      ],
+      "actual": {
+        "notes": 28,
+        "polyphony": 1,
+        "low": 59,
+        "high": 92,
+        "min_duration": 216,
+        "max_duration": 216
+      },
+      "engine_assumption": {
+        "polyphony": 4,
+        "minDuration": 240,
+        "maxDuration": 720
+      }
+    },
+    {
+      "id": "EM-S057",
+      "role": "AR",
+      "issues": [
+        "minDuration"
+      ],
+      "actual": {
+        "notes": 256,
+        "polyphony": 1,
+        "low": 72,
+        "high": 76,
+        "min_duration": 144,
+        "max_duration": 144
+      },
+      "engine_assumption": {
+        "polyphony": 1,
+        "minDuration": 240,
+        "maxDuration": 7680
+      }
+    },
+    {
+      "id": "EM-S057",
+      "role": "KB",
+      "issues": [
+        "minDuration"
+      ],
+      "actual": {
+        "notes": 80,
+        "polyphony": 1,
+        "low": 48,
+        "high": 60,
+        "min_duration": 204,
+        "max_duration": 204
+      },
+      "engine_assumption": {
+        "polyphony": 1,
+        "minDuration": 240,
+        "maxDuration": 960
+      }
+    },
+    {
+      "id": "EM-S057",
+      "role": "KF",
+      "issues": [
+        "maxDuration"
+      ],
+      "actual": {
+        "notes": 64,
+        "polyphony": 4,
+        "low": 57,
+        "high": 74,
+        "min_duration": 3840,
+        "max_duration": 3840
+      },
+      "engine_assumption": {
+        "polyphony": 9,
+        "minDuration": 240,
+        "maxDuration": 720
+      }
+    },
+    {
+      "id": "EM-S057",
+      "role": "ST",
+      "issues": [
+        "minDuration"
+      ],
+      "actual": {
+        "notes": 24,
+        "polyphony": 1,
+        "low": 36,
+        "high": 36,
+        "min_duration": 120,
+        "max_duration": 120
+      },
+      "engine_assumption": {
+        "polyphony": 1,
+        "minDuration": 240,
+        "maxDuration": 480
+      }
+    },
+    {
+      "id": "EM-EF01",
+      "role": "TU",
+      "issues": [
+        "maxDuration"
+      ],
+      "actual": {
+        "notes": 10,
+        "polyphony": 1,
+        "low": 71,
+        "high": 88,
+        "min_duration": 480,
+        "max_duration": 1440
+      },
+      "engine_assumption": {
+        "polyphony": 4,
+        "minDuration": 240,
+        "maxDuration": 720
+      }
+    },
+    {
+      "id": "EM-EF02",
+      "role": "KF",
+      "issues": [
+        "maxDuration"
+      ],
+      "actual": {
+        "notes": 12,
+        "polyphony": 1,
+        "low": 74,
+        "high": 86,
+        "min_duration": 480,
+        "max_duration": 1920
+      },
+      "engine_assumption": {
+        "polyphony": 9,
+        "minDuration": 240,
+        "maxDuration": 720
+      }
+    },
+    {
+      "id": "EM-EF02",
+      "role": "TU",
+      "issues": [
+        "maxDuration"
+      ],
+      "actual": {
+        "notes": 12,
+        "polyphony": 1,
+        "low": 74,
+        "high": 86,
+        "min_duration": 480,
+        "max_duration": 1920
+      },
+      "engine_assumption": {
+        "polyphony": 4,
+        "minDuration": 240,
+        "maxDuration": 720
+      }
+    },
+    {
+      "id": "EM-EF03",
+      "role": "TU",
+      "issues": [
+        "maxDuration"
+      ],
+      "actual": {
+        "notes": 18,
+        "polyphony": 1,
+        "low": 59,
+        "high": 78,
+        "min_duration": 480,
+        "max_duration": 1920
+      },
+      "engine_assumption": {
+        "polyphony": 4,
+        "minDuration": 240,
+        "maxDuration": 720
+      }
+    },
+    {
+      "id": "EM-EF04",
+      "role": "TU",
+      "issues": [
+        "maxDuration"
+      ],
+      "actual": {
+        "notes": 17,
+        "polyphony": 1,
+        "low": 66,
+        "high": 86,
+        "min_duration": 480,
+        "max_duration": 1440
+      },
+      "engine_assumption": {
+        "polyphony": 4,
+        "minDuration": 240,
+        "maxDuration": 720
+      }
+    },
+    {
+      "id": "EM-EF05",
+      "role": "TU",
+      "issues": [
+        "maxDuration"
+      ],
+      "actual": {
+        "notes": 5,
+        "polyphony": 1,
+        "low": 67,
+        "high": 91,
+        "min_duration": 480,
+        "max_duration": 1920
+      },
+      "engine_assumption": {
+        "polyphony": 4,
+        "minDuration": 240,
+        "maxDuration": 720
+      }
+    },
+    {
+      "id": "EM-EF07",
+      "role": "TU",
+      "issues": [
+        "maxDuration"
+      ],
+      "actual": {
+        "notes": 11,
+        "polyphony": 1,
+        "low": 64,
+        "high": 79,
+        "min_duration": 480,
+        "max_duration": 1440
+      },
+      "engine_assumption": {
+        "polyphony": 4,
+        "minDuration": 240,
+        "maxDuration": 720
+      }
+    },
+    {
+      "id": "EM-EF10",
+      "role": "TU",
+      "issues": [
+        "maxDuration"
+      ],
+      "actual": {
+        "notes": 66,
+        "polyphony": 4,
+        "low": 60,
+        "high": 79,
+        "min_duration": 240,
+        "max_duration": 1920
+      },
+      "engine_assumption": {
+        "polyphony": 4,
+        "minDuration": 240,
+        "maxDuration": 720
+      }
+    },
+    {
+      "id": "EM-EF11",
+      "role": "TU",
+      "issues": [
+        "maxDuration"
+      ],
+      "actual": {
+        "notes": 8,
+        "polyphony": 1,
+        "low": 74,
+        "high": 89,
+        "min_duration": 480,
+        "max_duration": 1440
+      },
+      "engine_assumption": {
+        "polyphony": 4,
+        "minDuration": 240,
+        "maxDuration": 720
+      }
+    },
+    {
+      "id": "EM-EF12",
+      "role": "KF",
+      "issues": [
+        "maxDuration"
+      ],
+      "actual": {
+        "notes": 18,
+        "polyphony": 1,
+        "low": 45,
+        "high": 53,
+        "min_duration": 480,
+        "max_duration": 1440
+      },
+      "engine_assumption": {
+        "polyphony": 9,
+        "minDuration": 240,
+        "maxDuration": 720
+      }
+    },
+    {
+      "id": "EM-EF12",
+      "role": "TU",
+      "issues": [
+        "maxDuration"
+      ],
+      "actual": {
+        "notes": 18,
+        "polyphony": 1,
+        "low": 42,
+        "high": 83,
+        "min_duration": 480,
+        "max_duration": 1440
+      },
+      "engine_assumption": {
+        "polyphony": 4,
+        "minDuration": 240,
+        "maxDuration": 720
+      }
+    },
+    {
+      "id": "EM-EF13",
+      "role": "KF",
+      "issues": [
+        "minDuration"
+      ],
+      "actual": {
+        "notes": 53,
+        "polyphony": 2,
+        "low": 54,
+        "high": 82,
+        "min_duration": 143,
+        "max_duration": 480
+      },
+      "engine_assumption": {
+        "polyphony": 9,
+        "minDuration": 240,
+        "maxDuration": 720
+      }
+    },
+    {
+      "id": "EM-EF14",
+      "role": "TU",
+      "issues": [
+        "maxDuration"
+      ],
+      "actual": {
+        "notes": 21,
+        "polyphony": 1,
+        "low": 69,
+        "high": 84,
+        "min_duration": 480,
+        "max_duration": 960
+      },
+      "engine_assumption": {
+        "polyphony": 4,
+        "minDuration": 240,
+        "maxDuration": 720
+      }
+    },
+    {
+      "id": "EM-EF15",
+      "role": "ST",
+      "issues": [
+        "minDuration"
+      ],
+      "actual": {
+        "notes": 15,
+        "polyphony": 1,
+        "low": 36,
+        "high": 36,
+        "min_duration": 120,
+        "max_duration": 120
+      },
+      "engine_assumption": {
+        "polyphony": 1,
+        "minDuration": 240,
+        "maxDuration": 480
+      }
+    },
+    {
+      "id": "EM-EF16",
+      "role": "KF",
+      "issues": [
+        "maxDuration"
+      ],
+      "actual": {
+        "notes": 15,
+        "polyphony": 1,
+        "low": 55,
+        "high": 78,
+        "min_duration": 480,
+        "max_duration": 960
+      },
+      "engine_assumption": {
+        "polyphony": 9,
+        "minDuration": 240,
+        "maxDuration": 720
+      }
+    },
+    {
+      "id": "EM-EF16",
+      "role": "TU",
+      "issues": [
+        "maxDuration"
+      ],
+      "actual": {
+        "notes": 41,
+        "polyphony": 2,
+        "low": 56,
+        "high": 86,
+        "min_duration": 480,
+        "max_duration": 960
+      },
+      "engine_assumption": {
+        "polyphony": 4,
+        "minDuration": 240,
+        "maxDuration": 720
+      }
+    }
+  ],
+  "warning": "Generator assumptions, not externally detected patches. Reassigning a role or changing an assumed articulation needs an explicit decision; do not drop or shorten notes to inflate compatibility."
+}
