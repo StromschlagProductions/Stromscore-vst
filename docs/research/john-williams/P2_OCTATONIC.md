@@ -4,6 +4,10 @@ Basis: musikalisch abgenommenes `2c6f366`, siehe
 [Anwenderabnahme](../../development/ACCEPTED_REFERENCE_2c6f366.md).
 Nur der freigegebene erste Tonvorratsschritt. Die Arp-Phrasierung bleibt unverändert.
 
+> Fortschreibung: Williams P2/P3 im Build `023b0a6` wurden positiv vom Anwender
+> gehört und als Entwicklungsgrundlage akzeptiert. Siehe
+> [Hörabnahme](../../development/ACCEPTED_REFERENCE_44d2404.md).
+
 ## Gemeinsames Modell und vorhandene Daten
 
 `ModalContext.h::Mode::octatonic` erweitert den vorhandenen transponierbaren

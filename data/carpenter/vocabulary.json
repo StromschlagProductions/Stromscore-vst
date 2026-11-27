@@ -1,0 +1,7287 @@
+{
+  "schema_version": 1,
+  "source_sha256": "8c6946e307ef9bbdcbfcf4a907237cdfed158adc6736d4960ca65a839093d8fa",
+  "harmonies": [
+    "JC-H001",
+    "JC-H003",
+    "JC-H004",
+    "JC-H006",
+    "JC-H007",
+    "JC-H015",
+    "JC-H017",
+    "JC-H018",
+    "JC-H023",
+    "JC-H024",
+    "JC-H026",
+    "JC-H027",
+    "JC-H029",
+    "JC-H030",
+    "JC-H031",
+    "JC-H032",
+    "JC-H033",
+    "JC-H035",
+    "JC-H037",
+    "JC-H039",
+    "JC-H040",
+    "JC-H041",
+    "JC-H054",
+    "JC-H063",
+    "JC-H064",
+    "JC-H065",
+    "JC-H066",
+    "JC-H068",
+    "JC-H074",
+    "JC-H084"
+  ],
+  "sequences": [
+    {
+      "id": "JC-Q001",
+      "kind": "Q",
+      "number": 1,
+      "name": "Einzelton-Achtelstrom",
+      "xyz": [
+        0.5,
+        0.5,
+        0.35
+      ],
+      "domains": [
+        [
+          0.0,
+          1.0
+        ],
+        [
+          0.2,
+          0.8
+        ],
+        [
+          0.1,
+          0.6
+        ]
+      ],
+      "rhythm_id": "JC-R002",
+      "rhythm_domains": [
+        [
+          0.0,
+          1.0
+        ],
+        [
+          0.3,
+          0.9
+        ],
+        [
+          0.2,
+          0.6
+        ]
+      ],
+      "period": 3840,
+      "pitches": [
+        0
+      ],
+      "functions": [
+        "A"
+      ],
+      "events": [
+        {
+          "at": 0,
+          "duration": 216,
+          "accent": "x"
+        },
+        {
+          "at": 480,
+          "duration": 216,
+          "accent": "x"
+        },
+        {
+          "at": 960,
+          "duration": 216,
+          "accent": "x"
+        },
+        {
+          "at": 1440,
+          "duration": 216,
+          "accent": "x"
+        },
+        {
+          "at": 1920,
+          "duration": 216,
+          "accent": "x"
+        },
+        {
+          "at": 2400,
+          "duration": 216,
+          "accent": "x"
+        },
+        {
+          "at": 2880,
+          "duration": 216,
+          "accent": "x"
+        },
+        {
+          "at": 3360,
+          "duration": 216,
+          "accent": "x"
+        }
+      ],
+      "chord_bound": false,
+      "major": false,
+      "dorian": false,
+      "block_transpose": true
+    },
+    {
+      "id": "JC-Q002",
+      "kind": "Q",
+      "number": 2,
+      "name": "Betonte Quint-Repetition",
+      "xyz": [
+        0.5,
+        0.6,
+        0.3
+      ],
+      "domains": [
+        [
+          0.0,
+          1.0
+        ],
+        [
+          0.3,
+          0.9
+        ],
+        [
+          0.1,
+          0.5
+        ]
+      ],
+      "rhythm_id": "JC-R004",
+      "rhythm_domains": [
+        [
+          0.0,
+          1.0
+        ],
+        [
+          0.3,
+          0.9
+        ],
+        [
+          0.1,
+          0.5
+        ]
+      ],
+      "period": 3840,
+      "pitches": [
+        7
+      ],
+      "functions": [
+        "A"
+      ],
+      "events": [
+        {
+          "at": 0,
+          "duration": 216,
+          "accent": "X"
+        },
+        {
+          "at": 480,
+          "duration": 216,
+          "accent": "x"
+        },
+        {
+          "at": 960,
+          "duration": 216,
+          "accent": "x"
+        },
+        {
+          "at": 1440,
+          "duration": 216,
+          "accent": "x"
+        },
+        {
+          "at": 1920,
+          "duration": 216,
+          "accent": "x"
+        },
+        {
+          "at": 2400,
+          "duration": 216,
+          "accent": "x"
+        },
+        {
+          "at": 2880,
+          "duration": 216,
+          "accent": "x"
+        },
+        {
+          "at": 3360,
+          "duration": 216,
+          "accent": "x"
+        }
+      ],
+      "chord_bound": false,
+      "major": false,
+      "dorian": false,
+      "block_transpose": true
+    },
+    {
+      "id": "JC-Q004",
+      "kind": "Q",
+      "number": 4,
+      "name": "Oktav-Wiege",
+      "xyz": [
+        0.5,
+        0.6,
+        0.4
+      ],
+      "domains": [
+        [
+          0.0,
+          1.0
+        ],
+        [
+          0.3,
+          0.9
+        ],
+        [
+          0.2,
+          0.6
+        ]
+      ],
+      "rhythm_id": "JC-R002",
+      "rhythm_domains": [
+        [
+          0.0,
+          1.0
+        ],
+        [
+          0.3,
+          0.9
+        ],
+        [
+          0.2,
+          0.6
+        ]
+      ],
+      "period": 3840,
+      "pitches": [
+        0,
+        12
+      ],
+      "functions": [
+        "A",
+        "A"
+      ],
+      "events": [
+        {
+          "at": 0,
+          "duration": 216,
+          "accent": "x"
+        },
+        {
+          "at": 480,
+          "duration": 216,
+          "accent": "x"
+        },
+        {
+          "at": 960,
+          "duration": 216,
+          "accent": "x"
+        },
+        {
+          "at": 1440,
+          "duration": 216,
+          "accent": "x"
+        },
+        {
+          "at": 1920,
+          "duration": 216,
+          "accent": "x"
+        },
+        {
+          "at": 2400,
+          "duration": 216,
+          "accent": "x"
+        },
+        {
+          "at": 2880,
+          "duration": 216,
+          "accent": "x"
+        },
+        {
+          "at": 3360,
+          "duration": 216,
+          "accent": "x"
+        }
+      ],
+      "chord_bound": false,
+      "major": false,
+      "dorian": false,
+      "block_transpose": true
+    },
+    {
+      "id": "JC-Q005",
+      "kind": "Q",
+      "number": 5,
+      "name": "Quint-Wiege",
+      "xyz": [
+        0.5,
+        0.55,
+        0.3
+      ],
+      "domains": [
+        [
+          0.0,
+          1.0
+        ],
+        [
+          0.2,
+          0.9
+        ],
+        [
+          0.1,
+          0.5
+        ]
+      ],
+      "rhythm_id": "JC-R002",
+      "rhythm_domains": [
+        [
+          0.0,
+          1.0
+        ],
+        [
+          0.3,
+          0.9
+        ],
+        [
+          0.2,
+          0.6
+        ]
+      ],
+      "period": 3840,
+      "pitches": [
+        0,
+        7
+      ],
+      "functions": [
+        "A",
+        "A"
+      ],
+      "events": [
+        {
+          "at": 0,
+          "duration": 216,
+          "accent": "x"
+        },
+        {
+          "at": 480,
+          "duration": 216,
+          "accent": "x"
+        },
+        {
+          "at": 960,
+          "duration": 216,
+          "accent": "x"
+        },
+        {
+          "at": 1440,
+          "duration": 216,
+          "accent": "x"
+        },
+        {
+          "at": 1920,
+          "duration": 216,
+          "accent": "x"
+        },
+        {
+          "at": 2400,
+          "duration": 216,
+          "accent": "x"
+        },
+        {
+          "at": 2880,
+          "duration": 216,
+          "accent": "x"
+        },
+        {
+          "at": 3360,
+          "duration": 216,
+          "accent": "x"
+        }
+      ],
+      "chord_bound": false,
+      "major": false,
+      "dorian": false,
+      "block_transpose": true
+    },
+    {
+      "id": "JC-Q006",
+      "kind": "Q",
+      "number": 6,
+      "name": "Quartfall-Staccato",
+      "xyz": [
+        0.5,
+        0.5,
+        0.4
+      ],
+      "domains": [
+        [
+          0.0,
+          1.0
+        ],
+        [
+          0.2,
+          0.8
+        ],
+        [
+          0.2,
+          0.6
+        ]
+      ],
+      "rhythm_id": "JC-R013",
+      "rhythm_domains": [
+        [
+          0.0,
+          1.0
+        ],
+        [
+          0.2,
+          0.8
+        ],
+        [
+          0.3,
+          0.8
+        ]
+      ],
+      "period": 3840,
+      "pitches": [
+        0,
+        -5
+      ],
+      "functions": [
+        "A",
+        "A"
+      ],
+      "events": [
+        {
+          "at": 0,
+          "duration": 106,
+          "accent": "x"
+        },
+        {
+          "at": 480,
+          "duration": 106,
+          "accent": "x"
+        },
+        {
+          "at": 960,
+          "duration": 106,
+          "accent": "x"
+        },
+        {
+          "at": 1440,
+          "duration": 106,
+          "accent": "x"
+        },
+        {
+          "at": 1920,
+          "duration": 106,
+          "accent": "x"
+        },
+        {
+          "at": 2400,
+          "duration": 106,
+          "accent": "x"
+        },
+        {
+          "at": 2880,
+          "duration": 106,
+          "accent": "x"
+        },
+        {
+          "at": 3360,
+          "duration": 106,
+          "accent": "x"
+        }
+      ],
+      "chord_bound": false,
+      "major": false,
+      "dorian": false,
+      "block_transpose": true
+    },
+    {
+      "id": "JC-Q007",
+      "kind": "Q",
+      "number": 7,
+      "name": "Halbton-Wiege",
+      "xyz": [
+        0.2,
+        0.65,
+        0.8
+      ],
+      "domains": [
+        [
+          0.0,
+          0.4
+        ],
+        [
+          0.3,
+          1.0
+        ],
+        [
+          0.6,
+          1.0
+        ]
+      ],
+      "rhythm_id": "JC-R003",
+      "rhythm_domains": [
+        [
+          0.0,
+          1.0
+        ],
+        [
+          0.4,
+          1.0
+        ],
+        [
+          0.4,
+          1.0
+        ]
+      ],
+      "period": 3840,
+      "pitches": [
+        0,
+        1
+      ],
+      "functions": [
+        "A",
+        "U"
+      ],
+      "events": [
+        {
+          "at": 0,
+          "duration": 84,
+          "accent": "x"
+        },
+        {
+          "at": 240,
+          "duration": 84,
+          "accent": "x"
+        },
+        {
+          "at": 480,
+          "duration": 84,
+          "accent": "x"
+        },
+        {
+          "at": 720,
+          "duration": 84,
+          "accent": "x"
+        },
+        {
+          "at": 960,
+          "duration": 84,
+          "accent": "x"
+        },
+        {
+          "at": 1200,
+          "duration": 84,
+          "accent": "x"
+        },
+        {
+          "at": 1440,
+          "duration": 84,
+          "accent": "x"
+        },
+        {
+          "at": 1680,
+          "duration": 84,
+          "accent": "x"
+        },
+        {
+          "at": 1920,
+          "duration": 84,
+          "accent": "x"
+        },
+        {
+          "at": 2160,
+          "duration": 84,
+          "accent": "x"
+        },
+        {
+          "at": 2400,
+          "duration": 84,
+          "accent": "x"
+        },
+        {
+          "at": 2640,
+          "duration": 84,
+          "accent": "x"
+        },
+        {
+          "at": 2880,
+          "duration": 84,
+          "accent": "x"
+        },
+        {
+          "at": 3120,
+          "duration": 84,
+          "accent": "x"
+        },
+        {
+          "at": 3360,
+          "duration": 84,
+          "accent": "x"
+        },
+        {
+          "at": 3600,
+          "duration": 84,
+          "accent": "x"
+        }
+      ],
+      "chord_bound": false,
+      "major": false,
+      "dorian": false,
+      "block_transpose": true
+    },
+    {
+      "id": "JC-Q008",
+      "kind": "Q",
+      "number": 8,
+      "name": "Ganzton-Wiege",
+      "xyz": [
+        0.55,
+        0.4,
+        0.4
+      ],
+      "domains": [
+        [
+          0.3,
+          0.8
+        ],
+        [
+          0.1,
+          0.7
+        ],
+        [
+          0.2,
+          0.6
+        ]
+      ],
+      "rhythm_id": "JC-R014",
+      "rhythm_domains": [
+        [
+          0.0,
+          1.0
+        ],
+        [
+          0.3,
+          0.9
+        ],
+        [
+          0.0,
+          0.4
+        ]
+      ],
+      "period": 3840,
+      "pitches": [
+        0,
+        2
+      ],
+      "functions": [
+        "A",
+        "T"
+      ],
+      "events": [
+        {
+          "at": 0,
+          "duration": 456,
+          "accent": "x"
+        },
+        {
+          "at": 480,
+          "duration": 456,
+          "accent": "x"
+        },
+        {
+          "at": 960,
+          "duration": 456,
+          "accent": "x"
+        },
+        {
+          "at": 1440,
+          "duration": 456,
+          "accent": "x"
+        },
+        {
+          "at": 1920,
+          "duration": 456,
+          "accent": "x"
+        },
+        {
+          "at": 2400,
+          "duration": 456,
+          "accent": "x"
+        },
+        {
+          "at": 2880,
+          "duration": 456,
+          "accent": "x"
+        },
+        {
+          "at": 3360,
+          "duration": 456,
+          "accent": "x"
+        }
+      ],
+      "chord_bound": false,
+      "major": false,
+      "dorian": false,
+      "block_transpose": true
+    },
+    {
+      "id": "JC-Q009",
+      "kind": "Q",
+      "number": 9,
+      "name": "Kleinterz im Tresillo",
+      "xyz": [
+        0.35,
+        0.6,
+        0.4
+      ],
+      "domains": [
+        [
+          0.1,
+          0.6
+        ],
+        [
+          0.3,
+          0.9
+        ],
+        [
+          0.2,
+          0.6
+        ]
+      ],
+      "rhythm_id": "JC-R020",
+      "rhythm_domains": [
+        [
+          0.0,
+          1.0
+        ],
+        [
+          0.3,
+          0.9
+        ],
+        [
+          0.2,
+          0.6
+        ]
+      ],
+      "period": 3840,
+      "pitches": [
+        0,
+        3,
+        0
+      ],
+      "functions": [
+        "A",
+        "A",
+        "A"
+      ],
+      "events": [
+        {
+          "at": 0,
+          "duration": 192,
+          "accent": "X"
+        },
+        {
+          "at": 1440,
+          "duration": 192,
+          "accent": "x"
+        },
+        {
+          "at": 2880,
+          "duration": 192,
+          "accent": "x"
+        }
+      ],
+      "chord_bound": false,
+      "major": false,
+      "dorian": false,
+      "block_transpose": true
+    },
+    {
+      "id": "JC-Q011",
+      "kind": "Q",
+      "number": 11,
+      "name": "Quint–Oktav–Quint",
+      "xyz": [
+        0.5,
+        0.65,
+        0.5
+      ],
+      "domains": [
+        [
+          0.0,
+          1.0
+        ],
+        [
+          0.3,
+          1.0
+        ],
+        [
+          0.3,
+          0.7
+        ]
+      ],
+      "rhythm_id": "JC-R003",
+      "rhythm_domains": [
+        [
+          0.0,
+          1.0
+        ],
+        [
+          0.4,
+          1.0
+        ],
+        [
+          0.4,
+          1.0
+        ]
+      ],
+      "period": 3840,
+      "pitches": [
+        0,
+        7,
+        12,
+        7
+      ],
+      "functions": [
+        "A",
+        "A",
+        "A",
+        "A"
+      ],
+      "events": [
+        {
+          "at": 0,
+          "duration": 84,
+          "accent": "x"
+        },
+        {
+          "at": 240,
+          "duration": 84,
+          "accent": "x"
+        },
+        {
+          "at": 480,
+          "duration": 84,
+          "accent": "x"
+        },
+        {
+          "at": 720,
+          "duration": 84,
+          "accent": "x"
+        },
+        {
+          "at": 960,
+          "duration": 84,
+          "accent": "x"
+        },
+        {
+          "at": 1200,
+          "duration": 84,
+          "accent": "x"
+        },
+        {
+          "at": 1440,
+          "duration": 84,
+          "accent": "x"
+        },
+        {
+          "at": 1680,
+          "duration": 84,
+          "accent": "x"
+        },
+        {
+          "at": 1920,
+          "duration": 84,
+          "accent": "x"
+        },
+        {
+          "at": 2160,
+          "duration": 84,
+          "accent": "x"
+        },
+        {
+          "at": 2400,
+          "duration": 84,
+          "accent": "x"
+        },
+        {
+          "at": 2640,
+          "duration": 84,
+          "accent": "x"
+        },
+        {
+          "at": 2880,
+          "duration": 84,
+          "accent": "x"
+        },
+        {
+          "at": 3120,
+          "duration": 84,
+          "accent": "x"
+        },
+        {
+          "at": 3360,
+          "duration": 84,
+          "accent": "x"
+        },
+        {
+          "at": 3600,
+          "duration": 84,
+          "accent": "x"
+        }
+      ],
+      "chord_bound": false,
+      "major": false,
+      "dorian": false,
+      "block_transpose": true
+    },
+    {
+      "id": "JC-Q012",
+      "kind": "Q",
+      "number": 12,
+      "name": "Moll-Triolenaufstieg",
+      "xyz": [
+        0.4,
+        0.6,
+        0.4
+      ],
+      "domains": [
+        [
+          0.2,
+          0.6
+        ],
+        [
+          0.3,
+          0.9
+        ],
+        [
+          0.2,
+          0.6
+        ]
+      ],
+      "rhythm_id": "JC-R032",
+      "rhythm_domains": [
+        [
+          0.0,
+          1.0
+        ],
+        [
+          0.3,
+          0.9
+        ],
+        [
+          0.2,
+          0.6
+        ]
+      ],
+      "period": 3840,
+      "pitches": [
+        0,
+        3,
+        7
+      ],
+      "functions": [
+        "A",
+        "A",
+        "A"
+      ],
+      "events": [
+        {
+          "at": 0,
+          "duration": 122,
+          "accent": "X"
+        },
+        {
+          "at": 320,
+          "duration": 122,
+          "accent": "x"
+        },
+        {
+          "at": 640,
+          "duration": 122,
+          "accent": "x"
+        },
+        {
+          "at": 960,
+          "duration": 122,
+          "accent": "X"
+        },
+        {
+          "at": 1280,
+          "duration": 122,
+          "accent": "x"
+        },
+        {
+          "at": 1600,
+          "duration": 122,
+          "accent": "x"
+        },
+        {
+          "at": 1920,
+          "duration": 122,
+          "accent": "X"
+        },
+        {
+          "at": 2240,
+          "duration": 122,
+          "accent": "x"
+        },
+        {
+          "at": 2560,
+          "duration": 122,
+          "accent": "x"
+        },
+        {
+          "at": 2880,
+          "duration": 122,
+          "accent": "X"
+        },
+        {
+          "at": 3200,
+          "duration": 122,
+          "accent": "x"
+        },
+        {
+          "at": 3520,
+          "duration": 122,
+          "accent": "x"
+        }
+      ],
+      "chord_bound": false,
+      "major": false,
+      "dorian": false,
+      "block_transpose": true
+    },
+    {
+      "id": "JC-Q013",
+      "kind": "Q",
+      "number": 13,
+      "name": "Quinte mit Halbtonschatten",
+      "xyz": [
+        0.25,
+        0.65,
+        0.6
+      ],
+      "domains": [
+        [
+          0.0,
+          0.5
+        ],
+        [
+          0.3,
+          1.0
+        ],
+        [
+          0.4,
+          0.8
+        ]
+      ],
+      "rhythm_id": "JC-R003",
+      "rhythm_domains": [
+        [
+          0.0,
+          1.0
+        ],
+        [
+          0.4,
+          1.0
+        ],
+        [
+          0.4,
+          1.0
+        ]
+      ],
+      "period": 3840,
+      "pitches": [
+        0,
+        7,
+        8,
+        7
+      ],
+      "functions": [
+        "A",
+        "A",
+        "T",
+        "A"
+      ],
+      "events": [
+        {
+          "at": 0,
+          "duration": 84,
+          "accent": "x"
+        },
+        {
+          "at": 240,
+          "duration": 84,
+          "accent": "x"
+        },
+        {
+          "at": 480,
+          "duration": 84,
+          "accent": "x"
+        },
+        {
+          "at": 720,
+          "duration": 84,
+          "accent": "x"
+        },
+        {
+          "at": 960,
+          "duration": 84,
+          "accent": "x"
+        },
+        {
+          "at": 1200,
+          "duration": 84,
+          "accent": "x"
+        },
+        {
+          "at": 1440,
+          "duration": 84,
+          "accent": "x"
+        },
+        {
+          "at": 1680,
+          "duration": 84,
+          "accent": "x"
+        },
+        {
+          "at": 1920,
+          "duration": 84,
+          "accent": "x"
+        },
+        {
+          "at": 2160,
+          "duration": 84,
+          "accent": "x"
+        },
+        {
+          "at": 2400,
+          "duration": 84,
+          "accent": "x"
+        },
+        {
+          "at": 2640,
+          "duration": 84,
+          "accent": "x"
+        },
+        {
+          "at": 2880,
+          "duration": 84,
+          "accent": "x"
+        },
+        {
+          "at": 3120,
+          "duration": 84,
+          "accent": "x"
+        },
+        {
+          "at": 3360,
+          "duration": 84,
+          "accent": "x"
+        },
+        {
+          "at": 3600,
+          "duration": 84,
+          "accent": "x"
+        }
+      ],
+      "chord_bound": false,
+      "major": false,
+      "dorian": false,
+      "block_transpose": true
+    },
+    {
+      "id": "JC-Q015",
+      "kind": "Q",
+      "number": 15,
+      "name": "Uhrwerk-Quinte",
+      "xyz": [
+        0.5,
+        0.5,
+        0.7
+      ],
+      "domains": [
+        [
+          0.0,
+          1.0
+        ],
+        [
+          0.2,
+          0.8
+        ],
+        [
+          0.5,
+          0.9
+        ]
+      ],
+      "rhythm_id": "JC-R061",
+      "rhythm_domains": [
+        [
+          0.0,
+          1.0
+        ],
+        [
+          0.2,
+          0.8
+        ],
+        [
+          0.5,
+          0.9
+        ]
+      ],
+      "period": 3840,
+      "pitches": [
+        0,
+        7,
+        0,
+        7,
+        0,
+        7,
+        0,
+        8
+      ],
+      "functions": [
+        "A",
+        "A",
+        "A",
+        "A",
+        "A",
+        "A",
+        "A",
+        "T"
+      ],
+      "events": [
+        {
+          "at": 0,
+          "duration": 48,
+          "accent": "X"
+        },
+        {
+          "at": 240,
+          "duration": 48,
+          "accent": "o"
+        },
+        {
+          "at": 480,
+          "duration": 48,
+          "accent": "x"
+        },
+        {
+          "at": 720,
+          "duration": 48,
+          "accent": "o"
+        },
+        {
+          "at": 960,
+          "duration": 48,
+          "accent": "X"
+        },
+        {
+          "at": 1200,
+          "duration": 48,
+          "accent": "o"
+        },
+        {
+          "at": 1440,
+          "duration": 48,
+          "accent": "x"
+        },
+        {
+          "at": 1680,
+          "duration": 48,
+          "accent": "o"
+        },
+        {
+          "at": 1920,
+          "duration": 48,
+          "accent": "X"
+        },
+        {
+          "at": 2160,
+          "duration": 48,
+          "accent": "o"
+        },
+        {
+          "at": 2400,
+          "duration": 48,
+          "accent": "x"
+        },
+        {
+          "at": 2640,
+          "duration": 48,
+          "accent": "o"
+        },
+        {
+          "at": 2880,
+          "duration": 48,
+          "accent": "X"
+        },
+        {
+          "at": 3120,
+          "duration": 48,
+          "accent": "o"
+        },
+        {
+          "at": 3360,
+          "duration": 48,
+          "accent": "x"
+        },
+        {
+          "at": 3600,
+          "duration": 48,
+          "accent": "o"
+        }
+      ],
+      "chord_bound": false,
+      "major": false,
+      "dorian": false,
+      "block_transpose": true
+    },
+    {
+      "id": "JC-Q016",
+      "kind": "Q",
+      "number": 16,
+      "name": "Fallendes Uhrwerk",
+      "xyz": [
+        0.3,
+        0.5,
+        0.7
+      ],
+      "domains": [
+        [
+          0.0,
+          0.6
+        ],
+        [
+          0.2,
+          0.8
+        ],
+        [
+          0.5,
+          0.9
+        ]
+      ],
+      "rhythm_id": "JC-R061",
+      "rhythm_domains": [
+        [
+          0.0,
+          1.0
+        ],
+        [
+          0.2,
+          0.8
+        ],
+        [
+          0.5,
+          0.9
+        ]
+      ],
+      "period": 3840,
+      "pitches": [
+        12,
+        10,
+        8,
+        7
+      ],
+      "functions": [
+        "A",
+        "T",
+        "T",
+        "A"
+      ],
+      "events": [
+        {
+          "at": 0,
+          "duration": 48,
+          "accent": "X"
+        },
+        {
+          "at": 240,
+          "duration": 48,
+          "accent": "o"
+        },
+        {
+          "at": 480,
+          "duration": 48,
+          "accent": "x"
+        },
+        {
+          "at": 720,
+          "duration": 48,
+          "accent": "o"
+        },
+        {
+          "at": 960,
+          "duration": 48,
+          "accent": "X"
+        },
+        {
+          "at": 1200,
+          "duration": 48,
+          "accent": "o"
+        },
+        {
+          "at": 1440,
+          "duration": 48,
+          "accent": "x"
+        },
+        {
+          "at": 1680,
+          "duration": 48,
+          "accent": "o"
+        },
+        {
+          "at": 1920,
+          "duration": 48,
+          "accent": "X"
+        },
+        {
+          "at": 2160,
+          "duration": 48,
+          "accent": "o"
+        },
+        {
+          "at": 2400,
+          "duration": 48,
+          "accent": "x"
+        },
+        {
+          "at": 2640,
+          "duration": 48,
+          "accent": "o"
+        },
+        {
+          "at": 2880,
+          "duration": 48,
+          "accent": "X"
+        },
+        {
+          "at": 3120,
+          "duration": 48,
+          "accent": "o"
+        },
+        {
+          "at": 3360,
+          "duration": 48,
+          "accent": "x"
+        },
+        {
+          "at": 3600,
+          "duration": 48,
+          "accent": "o"
+        }
+      ],
+      "chord_bound": false,
+      "major": false,
+      "dorian": false,
+      "block_transpose": true
+    },
+    {
+      "id": "JC-Q017",
+      "kind": "Q",
+      "number": 17,
+      "name": "Melancholische Achtelkette",
+      "xyz": [
+        0.5,
+        0.3,
+        0.2
+      ],
+      "domains": [
+        [
+          0.3,
+          0.7
+        ],
+        [
+          0.0,
+          0.6
+        ],
+        [
+          0.0,
+          0.4
+        ]
+      ],
+      "rhythm_id": "JC-R014",
+      "rhythm_domains": [
+        [
+          0.0,
+          1.0
+        ],
+        [
+          0.3,
+          0.9
+        ],
+        [
+          0.0,
+          0.4
+        ]
+      ],
+      "period": 3840,
+      "pitches": [
+        7,
+        3,
+        0,
+        3,
+        7,
+        3,
+        2,
+        3
+      ],
+      "functions": [
+        "A",
+        "A",
+        "A",
+        "A",
+        "A",
+        "A",
+        "T",
+        "A"
+      ],
+      "events": [
+        {
+          "at": 0,
+          "duration": 456,
+          "accent": "x"
+        },
+        {
+          "at": 480,
+          "duration": 456,
+          "accent": "x"
+        },
+        {
+          "at": 960,
+          "duration": 456,
+          "accent": "x"
+        },
+        {
+          "at": 1440,
+          "duration": 456,
+          "accent": "x"
+        },
+        {
+          "at": 1920,
+          "duration": 456,
+          "accent": "x"
+        },
+        {
+          "at": 2400,
+          "duration": 456,
+          "accent": "x"
+        },
+        {
+          "at": 2880,
+          "duration": 456,
+          "accent": "x"
+        },
+        {
+          "at": 3360,
+          "duration": 456,
+          "accent": "x"
+        }
+      ],
+      "chord_bound": false,
+      "major": false,
+      "dorian": false,
+      "block_transpose": false
+    },
+    {
+      "id": "JC-Q018",
+      "kind": "Q",
+      "number": 18,
+      "name": "Dur-Wiege",
+      "xyz": [
+        0.8,
+        0.4,
+        0.2
+      ],
+      "domains": [
+        [
+          0.6,
+          1.0
+        ],
+        [
+          0.1,
+          0.7
+        ],
+        [
+          0.0,
+          0.4
+        ]
+      ],
+      "rhythm_id": "JC-R002",
+      "rhythm_domains": [
+        [
+          0.0,
+          1.0
+        ],
+        [
+          0.3,
+          0.9
+        ],
+        [
+          0.2,
+          0.6
+        ]
+      ],
+      "period": 3840,
+      "pitches": [
+        0,
+        4,
+        7,
+        4
+      ],
+      "functions": [
+        "A",
+        "A",
+        "A",
+        "A"
+      ],
+      "events": [
+        {
+          "at": 0,
+          "duration": 216,
+          "accent": "x"
+        },
+        {
+          "at": 480,
+          "duration": 216,
+          "accent": "x"
+        },
+        {
+          "at": 960,
+          "duration": 216,
+          "accent": "x"
+        },
+        {
+          "at": 1440,
+          "duration": 216,
+          "accent": "x"
+        },
+        {
+          "at": 1920,
+          "duration": 216,
+          "accent": "x"
+        },
+        {
+          "at": 2400,
+          "duration": 216,
+          "accent": "x"
+        },
+        {
+          "at": 2880,
+          "duration": 216,
+          "accent": "x"
+        },
+        {
+          "at": 3360,
+          "duration": 216,
+          "accent": "x"
+        }
+      ],
+      "chord_bound": false,
+      "major": true,
+      "dorian": false,
+      "block_transpose": true
+    },
+    {
+      "id": "JC-Q019",
+      "kind": "Q",
+      "number": 19,
+      "name": "Paarweise Tonwechsel",
+      "xyz": [
+        0.5,
+        0.6,
+        0.4
+      ],
+      "domains": [
+        [
+          0.0,
+          1.0
+        ],
+        [
+          0.3,
+          0.9
+        ],
+        [
+          0.2,
+          0.6
+        ]
+      ],
+      "rhythm_id": "JC-R002",
+      "rhythm_domains": [
+        [
+          0.0,
+          1.0
+        ],
+        [
+          0.3,
+          0.9
+        ],
+        [
+          0.2,
+          0.6
+        ]
+      ],
+      "period": 3840,
+      "pitches": [
+        0,
+        0,
+        3,
+        3,
+        5,
+        5,
+        3,
+        3
+      ],
+      "functions": [
+        "A",
+        "A",
+        "A",
+        "A",
+        "T",
+        "T",
+        "A",
+        "A"
+      ],
+      "events": [
+        {
+          "at": 0,
+          "duration": 216,
+          "accent": "x"
+        },
+        {
+          "at": 480,
+          "duration": 216,
+          "accent": "x"
+        },
+        {
+          "at": 960,
+          "duration": 216,
+          "accent": "x"
+        },
+        {
+          "at": 1440,
+          "duration": 216,
+          "accent": "x"
+        },
+        {
+          "at": 1920,
+          "duration": 216,
+          "accent": "x"
+        },
+        {
+          "at": 2400,
+          "duration": 216,
+          "accent": "x"
+        },
+        {
+          "at": 2880,
+          "duration": 216,
+          "accent": "x"
+        },
+        {
+          "at": 3360,
+          "duration": 216,
+          "accent": "x"
+        }
+      ],
+      "chord_bound": false,
+      "major": false,
+      "dorian": false,
+      "block_transpose": true
+    },
+    {
+      "id": "JC-Q020",
+      "kind": "Q",
+      "number": 20,
+      "name": "Wandernde Betonung",
+      "xyz": [
+        0.5,
+        0.6,
+        0.6
+      ],
+      "domains": [
+        [
+          0.0,
+          1.0
+        ],
+        [
+          0.3,
+          0.9
+        ],
+        [
+          0.4,
+          0.8
+        ]
+      ],
+      "rhythm_id": "JC-R059",
+      "rhythm_domains": [
+        [
+          0.0,
+          1.0
+        ],
+        [
+          0.3,
+          0.9
+        ],
+        [
+          0.4,
+          0.8
+        ]
+      ],
+      "period": 15360,
+      "pitches": [
+        0,
+        7,
+        12,
+        7
+      ],
+      "functions": [
+        "A",
+        "A",
+        "A",
+        "A"
+      ],
+      "events": [
+        {
+          "at": 0,
+          "duration": 202,
+          "accent": "X"
+        },
+        {
+          "at": 480,
+          "duration": 202,
+          "accent": "x"
+        },
+        {
+          "at": 960,
+          "duration": 202,
+          "accent": "x"
+        },
+        {
+          "at": 1440,
+          "duration": 202,
+          "accent": "x"
+        },
+        {
+          "at": 1920,
+          "duration": 202,
+          "accent": "x"
+        },
+        {
+          "at": 2400,
+          "duration": 202,
+          "accent": "x"
+        },
+        {
+          "at": 2880,
+          "duration": 202,
+          "accent": "x"
+        },
+        {
+          "at": 3360,
+          "duration": 202,
+          "accent": "x"
+        },
+        {
+          "at": 3840,
+          "duration": 202,
+          "accent": "x"
+        },
+        {
+          "at": 4320,
+          "duration": 202,
+          "accent": "X"
+        },
+        {
+          "at": 4800,
+          "duration": 202,
+          "accent": "x"
+        },
+        {
+          "at": 5280,
+          "duration": 202,
+          "accent": "x"
+        },
+        {
+          "at": 5760,
+          "duration": 202,
+          "accent": "x"
+        },
+        {
+          "at": 6240,
+          "duration": 202,
+          "accent": "x"
+        },
+        {
+          "at": 6720,
+          "duration": 202,
+          "accent": "x"
+        },
+        {
+          "at": 7200,
+          "duration": 202,
+          "accent": "x"
+        },
+        {
+          "at": 7680,
+          "duration": 202,
+          "accent": "x"
+        },
+        {
+          "at": 8160,
+          "duration": 202,
+          "accent": "x"
+        },
+        {
+          "at": 8640,
+          "duration": 202,
+          "accent": "X"
+        },
+        {
+          "at": 9120,
+          "duration": 202,
+          "accent": "x"
+        },
+        {
+          "at": 9600,
+          "duration": 202,
+          "accent": "x"
+        },
+        {
+          "at": 10080,
+          "duration": 202,
+          "accent": "x"
+        },
+        {
+          "at": 10560,
+          "duration": 202,
+          "accent": "x"
+        },
+        {
+          "at": 11040,
+          "duration": 202,
+          "accent": "x"
+        },
+        {
+          "at": 11520,
+          "duration": 202,
+          "accent": "x"
+        },
+        {
+          "at": 12000,
+          "duration": 202,
+          "accent": "x"
+        },
+        {
+          "at": 12480,
+          "duration": 202,
+          "accent": "x"
+        },
+        {
+          "at": 12960,
+          "duration": 202,
+          "accent": "X"
+        },
+        {
+          "at": 13440,
+          "duration": 202,
+          "accent": "x"
+        },
+        {
+          "at": 13920,
+          "duration": 202,
+          "accent": "x"
+        },
+        {
+          "at": 14400,
+          "duration": 202,
+          "accent": "x"
+        },
+        {
+          "at": 14880,
+          "duration": 202,
+          "accent": "x"
+        }
+      ],
+      "chord_bound": false,
+      "major": false,
+      "dorian": false,
+      "block_transpose": true
+    },
+    {
+      "id": "JC-Q021",
+      "kind": "Q",
+      "number": 21,
+      "name": "Blockzelle Oktave–Quarte",
+      "xyz": [
+        0.35,
+        0.65,
+        0.55
+      ],
+      "domains": [
+        [
+          0.0,
+          0.7
+        ],
+        [
+          0.3,
+          1.0
+        ],
+        [
+          0.3,
+          0.8
+        ]
+      ],
+      "rhythm_id": "JC-R003",
+      "rhythm_domains": [
+        [
+          0.0,
+          1.0
+        ],
+        [
+          0.4,
+          1.0
+        ],
+        [
+          0.4,
+          1.0
+        ]
+      ],
+      "period": 3840,
+      "pitches": [
+        0,
+        12,
+        5,
+        12
+      ],
+      "functions": [
+        "A",
+        "A",
+        "T",
+        "A"
+      ],
+      "events": [
+        {
+          "at": 0,
+          "duration": 84,
+          "accent": "x"
+        },
+        {
+          "at": 240,
+          "duration": 84,
+          "accent": "x"
+        },
+        {
+          "at": 480,
+          "duration": 84,
+          "accent": "x"
+        },
+        {
+          "at": 720,
+          "duration": 84,
+          "accent": "x"
+        },
+        {
+          "at": 960,
+          "duration": 84,
+          "accent": "x"
+        },
+        {
+          "at": 1200,
+          "duration": 84,
+          "accent": "x"
+        },
+        {
+          "at": 1440,
+          "duration": 84,
+          "accent": "x"
+        },
+        {
+          "at": 1680,
+          "duration": 84,
+          "accent": "x"
+        },
+        {
+          "at": 1920,
+          "duration": 84,
+          "accent": "x"
+        },
+        {
+          "at": 2160,
+          "duration": 84,
+          "accent": "x"
+        },
+        {
+          "at": 2400,
+          "duration": 84,
+          "accent": "x"
+        },
+        {
+          "at": 2640,
+          "duration": 84,
+          "accent": "x"
+        },
+        {
+          "at": 2880,
+          "duration": 84,
+          "accent": "x"
+        },
+        {
+          "at": 3120,
+          "duration": 84,
+          "accent": "x"
+        },
+        {
+          "at": 3360,
+          "duration": 84,
+          "accent": "x"
+        },
+        {
+          "at": 3600,
+          "duration": 84,
+          "accent": "x"
+        }
+      ],
+      "chord_bound": false,
+      "major": false,
+      "dorian": false,
+      "block_transpose": true
+    },
+    {
+      "id": "JC-Q022",
+      "kind": "Q",
+      "number": 22,
+      "name": "Zelle mit Einzeltonvariation",
+      "xyz": [
+        0.35,
+        0.6,
+        0.5
+      ],
+      "domains": [
+        [
+          0.0,
+          0.7
+        ],
+        [
+          0.3,
+          0.9
+        ],
+        [
+          0.3,
+          0.7
+        ]
+      ],
+      "rhythm_id": "JC-R003",
+      "rhythm_domains": [
+        [
+          0.0,
+          1.0
+        ],
+        [
+          0.4,
+          1.0
+        ],
+        [
+          0.4,
+          1.0
+        ]
+      ],
+      "period": 3840,
+      "pitches": [
+        0,
+        7,
+        3,
+        7,
+        0,
+        7,
+        3,
+        8
+      ],
+      "functions": [
+        "A",
+        "A",
+        "A",
+        "A",
+        "A",
+        "A",
+        "A",
+        "T"
+      ],
+      "events": [
+        {
+          "at": 0,
+          "duration": 84,
+          "accent": "x"
+        },
+        {
+          "at": 240,
+          "duration": 84,
+          "accent": "x"
+        },
+        {
+          "at": 480,
+          "duration": 84,
+          "accent": "x"
+        },
+        {
+          "at": 720,
+          "duration": 84,
+          "accent": "x"
+        },
+        {
+          "at": 960,
+          "duration": 84,
+          "accent": "x"
+        },
+        {
+          "at": 1200,
+          "duration": 84,
+          "accent": "x"
+        },
+        {
+          "at": 1440,
+          "duration": 84,
+          "accent": "x"
+        },
+        {
+          "at": 1680,
+          "duration": 84,
+          "accent": "x"
+        },
+        {
+          "at": 1920,
+          "duration": 84,
+          "accent": "x"
+        },
+        {
+          "at": 2160,
+          "duration": 84,
+          "accent": "x"
+        },
+        {
+          "at": 2400,
+          "duration": 84,
+          "accent": "x"
+        },
+        {
+          "at": 2640,
+          "duration": 84,
+          "accent": "x"
+        },
+        {
+          "at": 2880,
+          "duration": 84,
+          "accent": "x"
+        },
+        {
+          "at": 3120,
+          "duration": 84,
+          "accent": "x"
+        },
+        {
+          "at": 3360,
+          "duration": 84,
+          "accent": "x"
+        },
+        {
+          "at": 3600,
+          "duration": 84,
+          "accent": "x"
+        }
+      ],
+      "chord_bound": false,
+      "major": false,
+      "dorian": false,
+      "block_transpose": true
+    },
+    {
+      "id": "JC-Q023",
+      "kind": "Q",
+      "number": 23,
+      "name": "Achsenpendel",
+      "xyz": [
+        0.5,
+        0.5,
+        0.3
+      ],
+      "domains": [
+        [
+          0.0,
+          1.0
+        ],
+        [
+          0.2,
+          0.8
+        ],
+        [
+          0.1,
+          0.5
+        ]
+      ],
+      "rhythm_id": "JC-R014",
+      "rhythm_domains": [
+        [
+          0.0,
+          1.0
+        ],
+        [
+          0.3,
+          0.9
+        ],
+        [
+          0.0,
+          0.4
+        ]
+      ],
+      "period": 3840,
+      "pitches": [
+        0,
+        7,
+        0,
+        12
+      ],
+      "functions": [
+        "A",
+        "A",
+        "A",
+        "A"
+      ],
+      "events": [
+        {
+          "at": 0,
+          "duration": 456,
+          "accent": "x"
+        },
+        {
+          "at": 480,
+          "duration": 456,
+          "accent": "x"
+        },
+        {
+          "at": 960,
+          "duration": 456,
+          "accent": "x"
+        },
+        {
+          "at": 1440,
+          "duration": 456,
+          "accent": "x"
+        },
+        {
+          "at": 1920,
+          "duration": 456,
+          "accent": "x"
+        },
+        {
+          "at": 2400,
+          "duration": 456,
+          "accent": "x"
+        },
+        {
+          "at": 2880,
+          "duration": 456,
+          "accent": "x"
+        },
+        {
+          "at": 3360,
+          "duration": 456,
+          "accent": "x"
+        }
+      ],
+      "chord_bound": false,
+      "major": false,
+      "dorian": false,
+      "block_transpose": false
+    },
+    {
+      "id": "JC-Q024",
+      "kind": "Q",
+      "number": 24,
+      "name": "Komplementär-Sequenz A",
+      "xyz": [
+        0.5,
+        0.6,
+        0.4
+      ],
+      "domains": [
+        [
+          0.0,
+          1.0
+        ],
+        [
+          0.3,
+          0.9
+        ],
+        [
+          0.2,
+          0.6
+        ]
+      ],
+      "rhythm_id": "JC-R052",
+      "rhythm_domains": [
+        [
+          0.0,
+          1.0
+        ],
+        [
+          0.3,
+          0.9
+        ],
+        [
+          0.2,
+          0.6
+        ]
+      ],
+      "period": 3840,
+      "pitches": [
+        0,
+        12
+      ],
+      "functions": [
+        "A",
+        "A"
+      ],
+      "events": [
+        {
+          "at": 0,
+          "duration": 216,
+          "accent": "x"
+        },
+        {
+          "at": 960,
+          "duration": 216,
+          "accent": "x"
+        },
+        {
+          "at": 1920,
+          "duration": 216,
+          "accent": "x"
+        },
+        {
+          "at": 2880,
+          "duration": 216,
+          "accent": "x"
+        }
+      ],
+      "chord_bound": false,
+      "major": false,
+      "dorian": false,
+      "block_transpose": true
+    },
+    {
+      "id": "JC-Q025",
+      "kind": "Q",
+      "number": 25,
+      "name": "Komplementär-Sequenz B",
+      "xyz": [
+        0.5,
+        0.6,
+        0.4
+      ],
+      "domains": [
+        [
+          0.0,
+          1.0
+        ],
+        [
+          0.3,
+          0.9
+        ],
+        [
+          0.2,
+          0.6
+        ]
+      ],
+      "rhythm_id": "JC-R053",
+      "rhythm_domains": [
+        [
+          0.0,
+          1.0
+        ],
+        [
+          0.3,
+          0.9
+        ],
+        [
+          0.2,
+          0.6
+        ]
+      ],
+      "period": 3840,
+      "pitches": [
+        7,
+        3
+      ],
+      "functions": [
+        "A",
+        "A"
+      ],
+      "events": [
+        {
+          "at": 480,
+          "duration": 216,
+          "accent": "x"
+        },
+        {
+          "at": 1440,
+          "duration": 216,
+          "accent": "x"
+        },
+        {
+          "at": 2400,
+          "duration": 216,
+          "accent": "x"
+        },
+        {
+          "at": 3360,
+          "duration": 216,
+          "accent": "x"
+        }
+      ],
+      "chord_bound": false,
+      "major": false,
+      "dorian": false,
+      "block_transpose": true
+    },
+    {
+      "id": "JC-Q026",
+      "kind": "Q",
+      "number": 26,
+      "name": "Endlosband",
+      "xyz": [
+        0.5,
+        0.6,
+        0.4
+      ],
+      "domains": [
+        [
+          0.0,
+          1.0
+        ],
+        [
+          0.3,
+          0.9
+        ],
+        [
+          0.2,
+          0.6
+        ]
+      ],
+      "rhythm_id": "JC-R003",
+      "rhythm_domains": [
+        [
+          0.0,
+          1.0
+        ],
+        [
+          0.4,
+          1.0
+        ],
+        [
+          0.4,
+          1.0
+        ]
+      ],
+      "period": 3840,
+      "pitches": [
+        0,
+        12,
+        7,
+        12,
+        0,
+        12,
+        7,
+        10
+      ],
+      "functions": [
+        "A",
+        "A",
+        "A",
+        "A",
+        "A",
+        "A",
+        "A",
+        "T"
+      ],
+      "events": [
+        {
+          "at": 0,
+          "duration": 84,
+          "accent": "x"
+        },
+        {
+          "at": 240,
+          "duration": 84,
+          "accent": "x"
+        },
+        {
+          "at": 480,
+          "duration": 84,
+          "accent": "x"
+        },
+        {
+          "at": 720,
+          "duration": 84,
+          "accent": "x"
+        },
+        {
+          "at": 960,
+          "duration": 84,
+          "accent": "x"
+        },
+        {
+          "at": 1200,
+          "duration": 84,
+          "accent": "x"
+        },
+        {
+          "at": 1440,
+          "duration": 84,
+          "accent": "x"
+        },
+        {
+          "at": 1680,
+          "duration": 84,
+          "accent": "x"
+        },
+        {
+          "at": 1920,
+          "duration": 84,
+          "accent": "x"
+        },
+        {
+          "at": 2160,
+          "duration": 84,
+          "accent": "x"
+        },
+        {
+          "at": 2400,
+          "duration": 84,
+          "accent": "x"
+        },
+        {
+          "at": 2640,
+          "duration": 84,
+          "accent": "x"
+        },
+        {
+          "at": 2880,
+          "duration": 84,
+          "accent": "x"
+        },
+        {
+          "at": 3120,
+          "duration": 84,
+          "accent": "x"
+        },
+        {
+          "at": 3360,
+          "duration": 84,
+          "accent": "x"
+        },
+        {
+          "at": 3600,
+          "duration": 84,
+          "accent": "x"
+        }
+      ],
+      "chord_bound": false,
+      "major": false,
+      "dorian": false,
+      "block_transpose": true
+    },
+    {
+      "id": "JC-Q029",
+      "kind": "Q",
+      "number": 29,
+      "name": "Chromatische Umspielung",
+      "xyz": [
+        0.2,
+        0.65,
+        0.8
+      ],
+      "domains": [
+        [
+          0.0,
+          0.4
+        ],
+        [
+          0.3,
+          1.0
+        ],
+        [
+          0.6,
+          1.0
+        ]
+      ],
+      "rhythm_id": "JC-R003",
+      "rhythm_domains": [
+        [
+          0.0,
+          1.0
+        ],
+        [
+          0.4,
+          1.0
+        ],
+        [
+          0.4,
+          1.0
+        ]
+      ],
+      "period": 3840,
+      "pitches": [
+        0,
+        1,
+        2,
+        1
+      ],
+      "functions": [
+        "A",
+        "U",
+        "T",
+        "U"
+      ],
+      "events": [
+        {
+          "at": 0,
+          "duration": 84,
+          "accent": "x"
+        },
+        {
+          "at": 240,
+          "duration": 84,
+          "accent": "x"
+        },
+        {
+          "at": 480,
+          "duration": 84,
+          "accent": "x"
+        },
+        {
+          "at": 720,
+          "duration": 84,
+          "accent": "x"
+        },
+        {
+          "at": 960,
+          "duration": 84,
+          "accent": "x"
+        },
+        {
+          "at": 1200,
+          "duration": 84,
+          "accent": "x"
+        },
+        {
+          "at": 1440,
+          "duration": 84,
+          "accent": "x"
+        },
+        {
+          "at": 1680,
+          "duration": 84,
+          "accent": "x"
+        },
+        {
+          "at": 1920,
+          "duration": 84,
+          "accent": "x"
+        },
+        {
+          "at": 2160,
+          "duration": 84,
+          "accent": "x"
+        },
+        {
+          "at": 2400,
+          "duration": 84,
+          "accent": "x"
+        },
+        {
+          "at": 2640,
+          "duration": 84,
+          "accent": "x"
+        },
+        {
+          "at": 2880,
+          "duration": 84,
+          "accent": "x"
+        },
+        {
+          "at": 3120,
+          "duration": 84,
+          "accent": "x"
+        },
+        {
+          "at": 3360,
+          "duration": 84,
+          "accent": "x"
+        },
+        {
+          "at": 3600,
+          "duration": 84,
+          "accent": "x"
+        }
+      ],
+      "chord_bound": false,
+      "major": false,
+      "dorian": false,
+      "block_transpose": true
+    },
+    {
+      "id": "JC-Q031",
+      "kind": "Q",
+      "number": 31,
+      "name": "Tritonus-Wippe",
+      "xyz": [
+        0.15,
+        0.6,
+        0.85
+      ],
+      "domains": [
+        [
+          0.0,
+          0.3
+        ],
+        [
+          0.3,
+          0.9
+        ],
+        [
+          0.7,
+          1.0
+        ]
+      ],
+      "rhythm_id": "JC-R013",
+      "rhythm_domains": [
+        [
+          0.0,
+          1.0
+        ],
+        [
+          0.2,
+          0.8
+        ],
+        [
+          0.3,
+          0.8
+        ]
+      ],
+      "period": 3840,
+      "pitches": [
+        0,
+        6
+      ],
+      "functions": [
+        "A",
+        "U"
+      ],
+      "events": [
+        {
+          "at": 0,
+          "duration": 106,
+          "accent": "x"
+        },
+        {
+          "at": 480,
+          "duration": 106,
+          "accent": "x"
+        },
+        {
+          "at": 960,
+          "duration": 106,
+          "accent": "x"
+        },
+        {
+          "at": 1440,
+          "duration": 106,
+          "accent": "x"
+        },
+        {
+          "at": 1920,
+          "duration": 106,
+          "accent": "x"
+        },
+        {
+          "at": 2400,
+          "duration": 106,
+          "accent": "x"
+        },
+        {
+          "at": 2880,
+          "duration": 106,
+          "accent": "x"
+        },
+        {
+          "at": 3360,
+          "duration": 106,
+          "accent": "x"
+        }
+      ],
+      "chord_bound": false,
+      "major": false,
+      "dorian": false,
+      "block_transpose": true
+    },
+    {
+      "id": "JC-Q032",
+      "kind": "Q",
+      "number": 32,
+      "name": "Quart-Quint-Leiter",
+      "xyz": [
+        0.5,
+        0.65,
+        0.4
+      ],
+      "domains": [
+        [
+          0.0,
+          1.0
+        ],
+        [
+          0.3,
+          1.0
+        ],
+        [
+          0.2,
+          0.6
+        ]
+      ],
+      "rhythm_id": "JC-R003",
+      "rhythm_domains": [
+        [
+          0.0,
+          1.0
+        ],
+        [
+          0.4,
+          1.0
+        ],
+        [
+          0.4,
+          1.0
+        ]
+      ],
+      "period": 3840,
+      "pitches": [
+        0,
+        5,
+        7,
+        12
+      ],
+      "functions": [
+        "A",
+        "T",
+        "A",
+        "A"
+      ],
+      "events": [
+        {
+          "at": 0,
+          "duration": 84,
+          "accent": "x"
+        },
+        {
+          "at": 240,
+          "duration": 84,
+          "accent": "x"
+        },
+        {
+          "at": 480,
+          "duration": 84,
+          "accent": "x"
+        },
+        {
+          "at": 720,
+          "duration": 84,
+          "accent": "x"
+        },
+        {
+          "at": 960,
+          "duration": 84,
+          "accent": "x"
+        },
+        {
+          "at": 1200,
+          "duration": 84,
+          "accent": "x"
+        },
+        {
+          "at": 1440,
+          "duration": 84,
+          "accent": "x"
+        },
+        {
+          "at": 1680,
+          "duration": 84,
+          "accent": "x"
+        },
+        {
+          "at": 1920,
+          "duration": 84,
+          "accent": "x"
+        },
+        {
+          "at": 2160,
+          "duration": 84,
+          "accent": "x"
+        },
+        {
+          "at": 2400,
+          "duration": 84,
+          "accent": "x"
+        },
+        {
+          "at": 2640,
+          "duration": 84,
+          "accent": "x"
+        },
+        {
+          "at": 2880,
+          "duration": 84,
+          "accent": "x"
+        },
+        {
+          "at": 3120,
+          "duration": 84,
+          "accent": "x"
+        },
+        {
+          "at": 3360,
+          "duration": 84,
+          "accent": "x"
+        },
+        {
+          "at": 3600,
+          "duration": 84,
+          "accent": "x"
+        }
+      ],
+      "chord_bound": false,
+      "major": false,
+      "dorian": false,
+      "block_transpose": true
+    },
+    {
+      "id": "JC-Q033",
+      "kind": "Q",
+      "number": 33,
+      "name": "Hohe Glockenfigur",
+      "xyz": [
+        0.8,
+        0.3,
+        0.3
+      ],
+      "domains": [
+        [
+          0.6,
+          1.0
+        ],
+        [
+          0.0,
+          0.6
+        ],
+        [
+          0.1,
+          0.5
+        ]
+      ],
+      "rhythm_id": "JC-R016",
+      "rhythm_domains": [
+        [
+          0.0,
+          1.0
+        ],
+        [
+          0.4,
+          1.0
+        ],
+        [
+          0.3,
+          0.8
+        ]
+      ],
+      "period": 3840,
+      "pitches": [
+        12,
+        19,
+        24,
+        19
+      ],
+      "functions": [
+        "A",
+        "A",
+        "A",
+        "A"
+      ],
+      "events": [
+        {
+          "at": 0,
+          "duration": 128,
+          "accent": "x"
+        },
+        {
+          "at": 320,
+          "duration": 128,
+          "accent": "x"
+        },
+        {
+          "at": 640,
+          "duration": 128,
+          "accent": "x"
+        },
+        {
+          "at": 960,
+          "duration": 128,
+          "accent": "x"
+        },
+        {
+          "at": 1280,
+          "duration": 128,
+          "accent": "x"
+        },
+        {
+          "at": 1600,
+          "duration": 128,
+          "accent": "x"
+        },
+        {
+          "at": 1920,
+          "duration": 128,
+          "accent": "x"
+        },
+        {
+          "at": 2240,
+          "duration": 128,
+          "accent": "x"
+        },
+        {
+          "at": 2560,
+          "duration": 128,
+          "accent": "x"
+        },
+        {
+          "at": 2880,
+          "duration": 128,
+          "accent": "x"
+        },
+        {
+          "at": 3200,
+          "duration": 128,
+          "accent": "x"
+        },
+        {
+          "at": 3520,
+          "duration": 128,
+          "accent": "x"
+        }
+      ],
+      "chord_bound": false,
+      "major": false,
+      "dorian": false,
+      "block_transpose": false
+    },
+    {
+      "id": "JC-Q036",
+      "kind": "Q",
+      "number": 36,
+      "name": "Dorische Helle",
+      "xyz": [
+        0.7,
+        0.35,
+        0.3
+      ],
+      "domains": [
+        [
+          0.5,
+          0.9
+        ],
+        [
+          0.1,
+          0.6
+        ],
+        [
+          0.1,
+          0.5
+        ]
+      ],
+      "rhythm_id": "JC-R014",
+      "rhythm_domains": [
+        [
+          0.0,
+          1.0
+        ],
+        [
+          0.3,
+          0.9
+        ],
+        [
+          0.0,
+          0.4
+        ]
+      ],
+      "period": 3840,
+      "pitches": [
+        0,
+        9,
+        7,
+        3
+      ],
+      "functions": [
+        "A",
+        "T",
+        "A",
+        "A"
+      ],
+      "events": [
+        {
+          "at": 0,
+          "duration": 456,
+          "accent": "x"
+        },
+        {
+          "at": 480,
+          "duration": 456,
+          "accent": "x"
+        },
+        {
+          "at": 960,
+          "duration": 456,
+          "accent": "x"
+        },
+        {
+          "at": 1440,
+          "duration": 456,
+          "accent": "x"
+        },
+        {
+          "at": 1920,
+          "duration": 456,
+          "accent": "x"
+        },
+        {
+          "at": 2400,
+          "duration": 456,
+          "accent": "x"
+        },
+        {
+          "at": 2880,
+          "duration": 456,
+          "accent": "x"
+        },
+        {
+          "at": 3360,
+          "duration": 456,
+          "accent": "x"
+        }
+      ],
+      "chord_bound": false,
+      "major": false,
+      "dorian": true,
+      "block_transpose": false
+    },
+    {
+      "id": "JC-Q038",
+      "kind": "Q",
+      "number": 38,
+      "name": "Kleinterz-Riff",
+      "xyz": [
+        0.3,
+        0.75,
+        0.4
+      ],
+      "domains": [
+        [
+          0.1,
+          0.5
+        ],
+        [
+          0.5,
+          1.0
+        ],
+        [
+          0.2,
+          0.6
+        ]
+      ],
+      "rhythm_id": "JC-R002",
+      "rhythm_domains": [
+        [
+          0.0,
+          1.0
+        ],
+        [
+          0.3,
+          0.9
+        ],
+        [
+          0.2,
+          0.6
+        ]
+      ],
+      "period": 3840,
+      "pitches": [
+        0,
+        0,
+        3,
+        0,
+        5,
+        0,
+        3,
+        0
+      ],
+      "functions": [
+        "A",
+        "A",
+        "A",
+        "A",
+        "T",
+        "A",
+        "A",
+        "A"
+      ],
+      "events": [
+        {
+          "at": 0,
+          "duration": 216,
+          "accent": "x"
+        },
+        {
+          "at": 480,
+          "duration": 216,
+          "accent": "x"
+        },
+        {
+          "at": 960,
+          "duration": 216,
+          "accent": "x"
+        },
+        {
+          "at": 1440,
+          "duration": 216,
+          "accent": "x"
+        },
+        {
+          "at": 1920,
+          "duration": 216,
+          "accent": "x"
+        },
+        {
+          "at": 2400,
+          "duration": 216,
+          "accent": "x"
+        },
+        {
+          "at": 2880,
+          "duration": 216,
+          "accent": "x"
+        },
+        {
+          "at": 3360,
+          "duration": 216,
+          "accent": "x"
+        }
+      ],
+      "chord_bound": false,
+      "major": false,
+      "dorian": false,
+      "block_transpose": true
+    },
+    {
+      "id": "JC-Q039",
+      "kind": "Q",
+      "number": 39,
+      "name": "Herzschlag-Quinte",
+      "xyz": [
+        0.5,
+        0.45,
+        0.45
+      ],
+      "domains": [
+        [
+          0.0,
+          1.0
+        ],
+        [
+          0.1,
+          0.8
+        ],
+        [
+          0.2,
+          0.7
+        ]
+      ],
+      "rhythm_id": "JC-R008",
+      "rhythm_domains": [
+        [
+          0.0,
+          1.0
+        ],
+        [
+          0.1,
+          0.8
+        ],
+        [
+          0.2,
+          0.7
+        ]
+      ],
+      "period": 3840,
+      "pitches": [
+        0,
+        7
+      ],
+      "functions": [
+        "A",
+        "A"
+      ],
+      "events": [
+        {
+          "at": 0,
+          "duration": 72,
+          "accent": "X"
+        },
+        {
+          "at": 720,
+          "duration": 72,
+          "accent": "x"
+        }
+      ],
+      "chord_bound": false,
+      "major": false,
+      "dorian": false,
+      "block_transpose": true
+    },
+    {
+      "id": "JC-Q040",
+      "kind": "Q",
+      "number": 40,
+      "name": "Triolen gegen Viertel",
+      "xyz": [
+        0.35,
+        0.4,
+        0.5
+      ],
+      "domains": [
+        [
+          0.0,
+          0.7
+        ],
+        [
+          0.1,
+          0.7
+        ],
+        [
+          0.3,
+          0.7
+        ]
+      ],
+      "rhythm_id": "JC-R017",
+      "rhythm_domains": [
+        [
+          0.0,
+          1.0
+        ],
+        [
+          0.1,
+          0.7
+        ],
+        [
+          0.2,
+          0.6
+        ]
+      ],
+      "period": 3840,
+      "pitches": [
+        0,
+        7,
+        3
+      ],
+      "functions": [
+        "A",
+        "A",
+        "A"
+      ],
+      "events": [
+        {
+          "at": 0,
+          "duration": 384,
+          "accent": "X"
+        },
+        {
+          "at": 640,
+          "duration": 384,
+          "accent": "x"
+        },
+        {
+          "at": 1280,
+          "duration": 384,
+          "accent": "x"
+        },
+        {
+          "at": 1920,
+          "duration": 384,
+          "accent": "x"
+        },
+        {
+          "at": 2560,
+          "duration": 384,
+          "accent": "x"
+        },
+        {
+          "at": 3200,
+          "duration": 384,
+          "accent": "x"
+        }
+      ],
+      "chord_bound": false,
+      "major": false,
+      "dorian": false,
+      "block_transpose": true
+    },
+    {
+      "id": "JC-Q041",
+      "kind": "Q",
+      "number": 41,
+      "name": "Sequenz mit Atemloch",
+      "xyz": [
+        0.5,
+        0.6,
+        0.4
+      ],
+      "domains": [
+        [
+          0.0,
+          1.0
+        ],
+        [
+          0.3,
+          0.9
+        ],
+        [
+          0.2,
+          0.6
+        ]
+      ],
+      "rhythm_id": "JC-R041",
+      "rhythm_domains": [
+        [
+          0.0,
+          1.0
+        ],
+        [
+          0.2,
+          0.9
+        ],
+        [
+          0.2,
+          0.6
+        ]
+      ],
+      "period": 15360,
+      "pitches": [
+        0,
+        7,
+        12,
+        7
+      ],
+      "functions": [
+        "A",
+        "A",
+        "A",
+        "A"
+      ],
+      "events": [
+        {
+          "at": 0,
+          "duration": 216,
+          "accent": "x"
+        },
+        {
+          "at": 480,
+          "duration": 216,
+          "accent": "x"
+        },
+        {
+          "at": 960,
+          "duration": 216,
+          "accent": "x"
+        },
+        {
+          "at": 1440,
+          "duration": 216,
+          "accent": "x"
+        },
+        {
+          "at": 1920,
+          "duration": 216,
+          "accent": "x"
+        },
+        {
+          "at": 2400,
+          "duration": 216,
+          "accent": "x"
+        },
+        {
+          "at": 2880,
+          "duration": 216,
+          "accent": "x"
+        },
+        {
+          "at": 3360,
+          "duration": 216,
+          "accent": "x"
+        },
+        {
+          "at": 3840,
+          "duration": 216,
+          "accent": "x"
+        },
+        {
+          "at": 4320,
+          "duration": 216,
+          "accent": "x"
+        },
+        {
+          "at": 4800,
+          "duration": 216,
+          "accent": "x"
+        },
+        {
+          "at": 5280,
+          "duration": 216,
+          "accent": "x"
+        },
+        {
+          "at": 5760,
+          "duration": 216,
+          "accent": "x"
+        },
+        {
+          "at": 6240,
+          "duration": 216,
+          "accent": "x"
+        },
+        {
+          "at": 6720,
+          "duration": 216,
+          "accent": "x"
+        },
+        {
+          "at": 7200,
+          "duration": 216,
+          "accent": "x"
+        },
+        {
+          "at": 7680,
+          "duration": 216,
+          "accent": "x"
+        },
+        {
+          "at": 8160,
+          "duration": 216,
+          "accent": "x"
+        },
+        {
+          "at": 8640,
+          "duration": 216,
+          "accent": "x"
+        },
+        {
+          "at": 9120,
+          "duration": 216,
+          "accent": "x"
+        },
+        {
+          "at": 9600,
+          "duration": 216,
+          "accent": "x"
+        },
+        {
+          "at": 10080,
+          "duration": 216,
+          "accent": "x"
+        },
+        {
+          "at": 10560,
+          "duration": 216,
+          "accent": "x"
+        },
+        {
+          "at": 11040,
+          "duration": 216,
+          "accent": "x"
+        }
+      ],
+      "chord_bound": false,
+      "major": false,
+      "dorian": false,
+      "block_transpose": true
+    },
+    {
+      "id": "JC-Q042",
+      "kind": "Q",
+      "number": 42,
+      "name": "Zelle mit wandernder Lücke",
+      "xyz": [
+        0.4,
+        0.6,
+        0.6
+      ],
+      "domains": [
+        [
+          0.0,
+          0.8
+        ],
+        [
+          0.3,
+          0.9
+        ],
+        [
+          0.4,
+          0.8
+        ]
+      ],
+      "rhythm_id": "JC-R060",
+      "rhythm_domains": [
+        [
+          0.0,
+          1.0
+        ],
+        [
+          0.3,
+          0.9
+        ],
+        [
+          0.4,
+          0.8
+        ]
+      ],
+      "period": 15360,
+      "pitches": [
+        0,
+        3,
+        7,
+        3
+      ],
+      "functions": [
+        "A",
+        "A",
+        "A",
+        "A"
+      ],
+      "events": [
+        {
+          "at": 480,
+          "duration": 202,
+          "accent": "x"
+        },
+        {
+          "at": 960,
+          "duration": 202,
+          "accent": "x"
+        },
+        {
+          "at": 1440,
+          "duration": 202,
+          "accent": "x"
+        },
+        {
+          "at": 1920,
+          "duration": 202,
+          "accent": "x"
+        },
+        {
+          "at": 2400,
+          "duration": 202,
+          "accent": "x"
+        },
+        {
+          "at": 2880,
+          "duration": 202,
+          "accent": "x"
+        },
+        {
+          "at": 3360,
+          "duration": 202,
+          "accent": "x"
+        },
+        {
+          "at": 3840,
+          "duration": 202,
+          "accent": "x"
+        },
+        {
+          "at": 4320,
+          "duration": 202,
+          "accent": "x"
+        },
+        {
+          "at": 5280,
+          "duration": 202,
+          "accent": "x"
+        },
+        {
+          "at": 5760,
+          "duration": 202,
+          "accent": "x"
+        },
+        {
+          "at": 6240,
+          "duration": 202,
+          "accent": "x"
+        },
+        {
+          "at": 6720,
+          "duration": 202,
+          "accent": "x"
+        },
+        {
+          "at": 7200,
+          "duration": 202,
+          "accent": "x"
+        },
+        {
+          "at": 7680,
+          "duration": 202,
+          "accent": "x"
+        },
+        {
+          "at": 8160,
+          "duration": 202,
+          "accent": "x"
+        },
+        {
+          "at": 8640,
+          "duration": 202,
+          "accent": "x"
+        },
+        {
+          "at": 9120,
+          "duration": 202,
+          "accent": "x"
+        },
+        {
+          "at": 10080,
+          "duration": 202,
+          "accent": "x"
+        },
+        {
+          "at": 10560,
+          "duration": 202,
+          "accent": "x"
+        },
+        {
+          "at": 11040,
+          "duration": 202,
+          "accent": "x"
+        },
+        {
+          "at": 11520,
+          "duration": 202,
+          "accent": "x"
+        },
+        {
+          "at": 12000,
+          "duration": 202,
+          "accent": "x"
+        },
+        {
+          "at": 12480,
+          "duration": 202,
+          "accent": "x"
+        },
+        {
+          "at": 12960,
+          "duration": 202,
+          "accent": "x"
+        },
+        {
+          "at": 13440,
+          "duration": 202,
+          "accent": "x"
+        },
+        {
+          "at": 13920,
+          "duration": 202,
+          "accent": "x"
+        },
+        {
+          "at": 14880,
+          "duration": 202,
+          "accent": "x"
+        }
+      ],
+      "chord_bound": false,
+      "major": false,
+      "dorian": false,
+      "block_transpose": true
+    },
+    {
+      "id": "JC-Q054",
+      "kind": "Q",
+      "number": 54,
+      "name": "Langsame Halbe-Zelle",
+      "xyz": [
+        0.3,
+        0.3,
+        0.4
+      ],
+      "domains": [
+        [
+          0.0,
+          0.6
+        ],
+        [
+          0.0,
+          0.6
+        ],
+        [
+          0.2,
+          0.6
+        ]
+      ],
+      "rhythm_id": "JC-R006",
+      "rhythm_domains": [
+        [
+          0.0,
+          1.0
+        ],
+        [
+          0.0,
+          1.0
+        ],
+        [
+          0.0,
+          0.3
+        ]
+      ],
+      "period": 3840,
+      "pitches": [
+        0,
+        7,
+        8,
+        7
+      ],
+      "functions": [
+        "A",
+        "A",
+        "T",
+        "A"
+      ],
+      "events": [
+        {
+          "at": 0,
+          "duration": 1632,
+          "accent": "x"
+        },
+        {
+          "at": 1920,
+          "duration": 1632,
+          "accent": "x"
+        }
+      ],
+      "chord_bound": false,
+      "major": false,
+      "dorian": false,
+      "block_transpose": true
+    },
+    {
+      "id": "JC-Q055",
+      "kind": "Q",
+      "number": 55,
+      "name": "Langsame Abstiegsglocke",
+      "xyz": [
+        0.55,
+        0.25,
+        0.2
+      ],
+      "domains": [
+        [
+          0.3,
+          0.8
+        ],
+        [
+          0.0,
+          0.5
+        ],
+        [
+          0.0,
+          0.4
+        ]
+      ],
+      "rhythm_id": "JC-R019",
+      "rhythm_domains": [
+        [
+          0.0,
+          1.0
+        ],
+        [
+          0.0,
+          1.0
+        ],
+        [
+          0.0,
+          0.2
+        ]
+      ],
+      "period": 3840,
+      "pitches": [
+        0,
+        -2,
+        -4,
+        -5
+      ],
+      "functions": [
+        "A",
+        "T",
+        "T",
+        "A"
+      ],
+      "events": [
+        {
+          "at": 0,
+          "duration": 3763,
+          "accent": "x"
+        }
+      ],
+      "chord_bound": false,
+      "major": false,
+      "dorian": false,
+      "block_transpose": false
+    },
+    {
+      "id": "JC-Q063",
+      "kind": "Q",
+      "number": 63,
+      "name": "Zweitakt-Wanderung",
+      "xyz": [
+        0.45,
+        0.7,
+        0.5
+      ],
+      "domains": [
+        [
+          0.2,
+          0.7
+        ],
+        [
+          0.4,
+          1.0
+        ],
+        [
+          0.3,
+          0.7
+        ]
+      ],
+      "rhythm_id": "JC-R003",
+      "rhythm_domains": [
+        [
+          0.0,
+          1.0
+        ],
+        [
+          0.4,
+          1.0
+        ],
+        [
+          0.4,
+          1.0
+        ]
+      ],
+      "period": 3840,
+      "pitches": [
+        0,
+        3,
+        7,
+        12,
+        7,
+        3,
+        0,
+        3,
+        0,
+        3,
+        7,
+        12,
+        7,
+        3,
+        0,
+        3,
+        0,
+        3,
+        8,
+        12,
+        8,
+        3,
+        0,
+        3,
+        0,
+        2,
+        7,
+        10,
+        7,
+        2,
+        0,
+        2
+      ],
+      "functions": [
+        "A",
+        "A",
+        "A",
+        "A",
+        "A",
+        "A",
+        "A",
+        "A",
+        "A",
+        "A",
+        "A",
+        "A",
+        "A",
+        "A",
+        "A",
+        "A",
+        "A",
+        "A",
+        "T",
+        "A",
+        "T",
+        "A",
+        "A",
+        "A",
+        "A",
+        "T",
+        "A",
+        "T",
+        "A",
+        "T",
+        "A",
+        "T"
+      ],
+      "events": [
+        {
+          "at": 0,
+          "duration": 84,
+          "accent": "x"
+        },
+        {
+          "at": 240,
+          "duration": 84,
+          "accent": "x"
+        },
+        {
+          "at": 480,
+          "duration": 84,
+          "accent": "x"
+        },
+        {
+          "at": 720,
+          "duration": 84,
+          "accent": "x"
+        },
+        {
+          "at": 960,
+          "duration": 84,
+          "accent": "x"
+        },
+        {
+          "at": 1200,
+          "duration": 84,
+          "accent": "x"
+        },
+        {
+          "at": 1440,
+          "duration": 84,
+          "accent": "x"
+        },
+        {
+          "at": 1680,
+          "duration": 84,
+          "accent": "x"
+        },
+        {
+          "at": 1920,
+          "duration": 84,
+          "accent": "x"
+        },
+        {
+          "at": 2160,
+          "duration": 84,
+          "accent": "x"
+        },
+        {
+          "at": 2400,
+          "duration": 84,
+          "accent": "x"
+        },
+        {
+          "at": 2640,
+          "duration": 84,
+          "accent": "x"
+        },
+        {
+          "at": 2880,
+          "duration": 84,
+          "accent": "x"
+        },
+        {
+          "at": 3120,
+          "duration": 84,
+          "accent": "x"
+        },
+        {
+          "at": 3360,
+          "duration": 84,
+          "accent": "x"
+        },
+        {
+          "at": 3600,
+          "duration": 84,
+          "accent": "x"
+        }
+      ],
+      "chord_bound": false,
+      "major": false,
+      "dorian": false,
+      "block_transpose": true
+    },
+    {
+      "id": "JC-B009",
+      "kind": "B",
+      "number": 9,
+      "name": "Pulsierender Achtelbass",
+      "xyz": [
+        0.5,
+        0.65,
+        0.45
+      ],
+      "domains": [
+        [
+          0.0,
+          1.0
+        ],
+        [
+          0.3,
+          1.0
+        ],
+        [
+          0.2,
+          0.7
+        ]
+      ],
+      "rhythm_id": "JC-R002",
+      "rhythm_domains": [
+        [
+          0.0,
+          1.0
+        ],
+        [
+          0.3,
+          0.9
+        ],
+        [
+          0.2,
+          0.6
+        ]
+      ],
+      "period": 3840,
+      "pitches": [
+        0
+      ],
+      "functions": [
+        "A"
+      ],
+      "events": [
+        {
+          "at": 0,
+          "duration": 216,
+          "accent": "x"
+        },
+        {
+          "at": 480,
+          "duration": 216,
+          "accent": "x"
+        },
+        {
+          "at": 960,
+          "duration": 216,
+          "accent": "x"
+        },
+        {
+          "at": 1440,
+          "duration": 216,
+          "accent": "x"
+        },
+        {
+          "at": 1920,
+          "duration": 216,
+          "accent": "x"
+        },
+        {
+          "at": 2400,
+          "duration": 216,
+          "accent": "x"
+        },
+        {
+          "at": 2880,
+          "duration": 216,
+          "accent": "x"
+        },
+        {
+          "at": 3360,
+          "duration": 216,
+          "accent": "x"
+        }
+      ],
+      "chord_bound": true,
+      "major": false,
+      "dorian": false,
+      "block_transpose": true
+    },
+    {
+      "id": "JC-B010",
+      "kind": "B",
+      "number": 10,
+      "name": "Stoischer Achtelbass",
+      "xyz": [
+        0.5,
+        0.65,
+        0.45
+      ],
+      "domains": [
+        [
+          0.0,
+          1.0
+        ],
+        [
+          0.3,
+          1.0
+        ],
+        [
+          0.2,
+          0.7
+        ]
+      ],
+      "rhythm_id": "JC-R002",
+      "rhythm_domains": [
+        [
+          0.0,
+          1.0
+        ],
+        [
+          0.3,
+          0.9
+        ],
+        [
+          0.2,
+          0.6
+        ]
+      ],
+      "period": 3840,
+      "pitches": [
+        0
+      ],
+      "functions": [
+        "A"
+      ],
+      "events": [
+        {
+          "at": 0,
+          "duration": 216,
+          "accent": "x"
+        },
+        {
+          "at": 480,
+          "duration": 216,
+          "accent": "x"
+        },
+        {
+          "at": 960,
+          "duration": 216,
+          "accent": "x"
+        },
+        {
+          "at": 1440,
+          "duration": 216,
+          "accent": "x"
+        },
+        {
+          "at": 1920,
+          "duration": 216,
+          "accent": "x"
+        },
+        {
+          "at": 2400,
+          "duration": 216,
+          "accent": "x"
+        },
+        {
+          "at": 2880,
+          "duration": 216,
+          "accent": "x"
+        },
+        {
+          "at": 3360,
+          "duration": 216,
+          "accent": "x"
+        }
+      ],
+      "chord_bound": false,
+      "major": false,
+      "dorian": false,
+      "block_transpose": true
+    },
+    {
+      "id": "JC-B011",
+      "kind": "B",
+      "number": 11,
+      "name": "Tiefer Viertelpuls",
+      "xyz": [
+        0.5,
+        0.6,
+        0.25
+      ],
+      "domains": [
+        [
+          0.0,
+          1.0
+        ],
+        [
+          0.2,
+          1.0
+        ],
+        [
+          0.0,
+          0.5
+        ]
+      ],
+      "rhythm_id": "JC-R001",
+      "rhythm_domains": [
+        [
+          0.0,
+          1.0
+        ],
+        [
+          0.2,
+          1.0
+        ],
+        [
+          0.0,
+          0.4
+        ]
+      ],
+      "period": 3840,
+      "pitches": [
+        0
+      ],
+      "functions": [
+        "A"
+      ],
+      "events": [
+        {
+          "at": 0,
+          "duration": 480,
+          "accent": "x"
+        },
+        {
+          "at": 960,
+          "duration": 480,
+          "accent": "x"
+        },
+        {
+          "at": 1920,
+          "duration": 480,
+          "accent": "x"
+        },
+        {
+          "at": 2880,
+          "duration": 480,
+          "accent": "x"
+        }
+      ],
+      "chord_bound": true,
+      "major": false,
+      "dorian": false,
+      "block_transpose": false
+    },
+    {
+      "id": "JC-B012",
+      "kind": "B",
+      "number": 12,
+      "name": "Sechzehntelbass",
+      "xyz": [
+        0.5,
+        0.75,
+        0.7
+      ],
+      "domains": [
+        [
+          0.0,
+          1.0
+        ],
+        [
+          0.5,
+          1.0
+        ],
+        [
+          0.4,
+          1.0
+        ]
+      ],
+      "rhythm_id": "JC-R003",
+      "rhythm_domains": [
+        [
+          0.0,
+          1.0
+        ],
+        [
+          0.4,
+          1.0
+        ],
+        [
+          0.4,
+          1.0
+        ]
+      ],
+      "period": 3840,
+      "pitches": [
+        0
+      ],
+      "functions": [
+        "A"
+      ],
+      "events": [
+        {
+          "at": 0,
+          "duration": 84,
+          "accent": "x"
+        },
+        {
+          "at": 240,
+          "duration": 84,
+          "accent": "x"
+        },
+        {
+          "at": 480,
+          "duration": 84,
+          "accent": "x"
+        },
+        {
+          "at": 720,
+          "duration": 84,
+          "accent": "x"
+        },
+        {
+          "at": 960,
+          "duration": 84,
+          "accent": "x"
+        },
+        {
+          "at": 1200,
+          "duration": 84,
+          "accent": "x"
+        },
+        {
+          "at": 1440,
+          "duration": 84,
+          "accent": "x"
+        },
+        {
+          "at": 1680,
+          "duration": 84,
+          "accent": "x"
+        },
+        {
+          "at": 1920,
+          "duration": 84,
+          "accent": "x"
+        },
+        {
+          "at": 2160,
+          "duration": 84,
+          "accent": "x"
+        },
+        {
+          "at": 2400,
+          "duration": 84,
+          "accent": "x"
+        },
+        {
+          "at": 2640,
+          "duration": 84,
+          "accent": "x"
+        },
+        {
+          "at": 2880,
+          "duration": 84,
+          "accent": "x"
+        },
+        {
+          "at": 3120,
+          "duration": 84,
+          "accent": "x"
+        },
+        {
+          "at": 3360,
+          "duration": 84,
+          "accent": "x"
+        },
+        {
+          "at": 3600,
+          "duration": 84,
+          "accent": "x"
+        }
+      ],
+      "chord_bound": true,
+      "major": false,
+      "dorian": false,
+      "block_transpose": false
+    },
+    {
+      "id": "JC-B013",
+      "kind": "B",
+      "number": 13,
+      "name": "Herzschlag-Bass",
+      "xyz": [
+        0.5,
+        0.45,
+        0.45
+      ],
+      "domains": [
+        [
+          0.0,
+          1.0
+        ],
+        [
+          0.1,
+          0.8
+        ],
+        [
+          0.2,
+          0.7
+        ]
+      ],
+      "rhythm_id": "JC-R008",
+      "rhythm_domains": [
+        [
+          0.0,
+          1.0
+        ],
+        [
+          0.1,
+          0.8
+        ],
+        [
+          0.2,
+          0.7
+        ]
+      ],
+      "period": 3840,
+      "pitches": [
+        0,
+        0
+      ],
+      "functions": [
+        "A",
+        "A"
+      ],
+      "events": [
+        {
+          "at": 0,
+          "duration": 72,
+          "accent": "X"
+        },
+        {
+          "at": 720,
+          "duration": 72,
+          "accent": "x"
+        }
+      ],
+      "chord_bound": false,
+      "major": false,
+      "dorian": false,
+      "block_transpose": false
+    },
+    {
+      "id": "JC-B014",
+      "kind": "B",
+      "number": 14,
+      "name": "Langsamer Herzschlag-Bass",
+      "xyz": [
+        0.5,
+        0.3,
+        0.5
+      ],
+      "domains": [
+        [
+          0.0,
+          1.0
+        ],
+        [
+          0.0,
+          0.6
+        ],
+        [
+          0.1,
+          0.9
+        ]
+      ],
+      "rhythm_id": "JC-R009",
+      "rhythm_domains": [
+        [
+          0.0,
+          1.0
+        ],
+        [
+          0.0,
+          0.6
+        ],
+        [
+          0.1,
+          0.5
+        ]
+      ],
+      "period": 7680,
+      "pitches": [
+        0,
+        0
+      ],
+      "functions": [
+        "A",
+        "A"
+      ],
+      "events": [
+        {
+          "at": 0,
+          "duration": 72,
+          "accent": "X"
+        },
+        {
+          "at": 720,
+          "duration": 72,
+          "accent": "x"
+        }
+      ],
+      "chord_bound": false,
+      "major": false,
+      "dorian": false,
+      "block_transpose": false
+    },
+    {
+      "id": "JC-B015",
+      "kind": "B",
+      "number": 15,
+      "name": "Offbeat-Bass",
+      "xyz": [
+        0.5,
+        0.6,
+        0.5
+      ],
+      "domains": [
+        [
+          0.0,
+          1.0
+        ],
+        [
+          0.3,
+          0.9
+        ],
+        [
+          0.3,
+          0.7
+        ]
+      ],
+      "rhythm_id": "JC-R053",
+      "rhythm_domains": [
+        [
+          0.0,
+          1.0
+        ],
+        [
+          0.3,
+          0.9
+        ],
+        [
+          0.2,
+          0.6
+        ]
+      ],
+      "period": 3840,
+      "pitches": [
+        0
+      ],
+      "functions": [
+        "A"
+      ],
+      "events": [
+        {
+          "at": 480,
+          "duration": 216,
+          "accent": "x"
+        },
+        {
+          "at": 1440,
+          "duration": 216,
+          "accent": "x"
+        },
+        {
+          "at": 2400,
+          "duration": 216,
+          "accent": "x"
+        },
+        {
+          "at": 3360,
+          "duration": 216,
+          "accent": "x"
+        }
+      ],
+      "chord_bound": true,
+      "major": false,
+      "dorian": false,
+      "block_transpose": false
+    },
+    {
+      "id": "JC-B016",
+      "kind": "B",
+      "number": 16,
+      "name": "Tresillo-Grundton",
+      "xyz": [
+        0.5,
+        0.6,
+        0.4
+      ],
+      "domains": [
+        [
+          0.0,
+          1.0
+        ],
+        [
+          0.3,
+          0.9
+        ],
+        [
+          0.2,
+          0.6
+        ]
+      ],
+      "rhythm_id": "JC-R020",
+      "rhythm_domains": [
+        [
+          0.0,
+          1.0
+        ],
+        [
+          0.3,
+          0.9
+        ],
+        [
+          0.2,
+          0.6
+        ]
+      ],
+      "period": 3840,
+      "pitches": [
+        0
+      ],
+      "functions": [
+        "A"
+      ],
+      "events": [
+        {
+          "at": 0,
+          "duration": 192,
+          "accent": "X"
+        },
+        {
+          "at": 1440,
+          "duration": 192,
+          "accent": "x"
+        },
+        {
+          "at": 2880,
+          "duration": 192,
+          "accent": "x"
+        }
+      ],
+      "chord_bound": true,
+      "major": false,
+      "dorian": false,
+      "block_transpose": false
+    },
+    {
+      "id": "JC-B017",
+      "kind": "B",
+      "number": 17,
+      "name": "Galopp-Bass",
+      "xyz": [
+        0.5,
+        0.8,
+        0.75
+      ],
+      "domains": [
+        [
+          0.0,
+          1.0
+        ],
+        [
+          0.6,
+          1.0
+        ],
+        [
+          0.5,
+          1.0
+        ]
+      ],
+      "rhythm_id": "JC-R015",
+      "rhythm_domains": [
+        [
+          0.0,
+          1.0
+        ],
+        [
+          0.5,
+          1.0
+        ],
+        [
+          0.5,
+          1.0
+        ]
+      ],
+      "period": 3840,
+      "pitches": [
+        0
+      ],
+      "functions": [
+        "A"
+      ],
+      "events": [
+        {
+          "at": 0,
+          "duration": 96,
+          "accent": "x"
+        },
+        {
+          "at": 480,
+          "duration": 96,
+          "accent": "x"
+        },
+        {
+          "at": 720,
+          "duration": 96,
+          "accent": "x"
+        },
+        {
+          "at": 960,
+          "duration": 96,
+          "accent": "x"
+        },
+        {
+          "at": 1440,
+          "duration": 96,
+          "accent": "x"
+        },
+        {
+          "at": 1680,
+          "duration": 96,
+          "accent": "x"
+        },
+        {
+          "at": 1920,
+          "duration": 96,
+          "accent": "x"
+        },
+        {
+          "at": 2400,
+          "duration": 96,
+          "accent": "x"
+        },
+        {
+          "at": 2640,
+          "duration": 96,
+          "accent": "x"
+        },
+        {
+          "at": 2880,
+          "duration": 96,
+          "accent": "x"
+        },
+        {
+          "at": 3360,
+          "duration": 96,
+          "accent": "x"
+        },
+        {
+          "at": 3600,
+          "duration": 96,
+          "accent": "x"
+        }
+      ],
+      "chord_bound": true,
+      "major": false,
+      "dorian": false,
+      "block_transpose": false
+    },
+    {
+      "id": "JC-B018",
+      "kind": "B",
+      "number": 18,
+      "name": "Stolper-Bass",
+      "xyz": [
+        0.5,
+        0.6,
+        0.7
+      ],
+      "domains": [
+        [
+          0.0,
+          1.0
+        ],
+        [
+          0.3,
+          0.9
+        ],
+        [
+          0.5,
+          0.9
+        ]
+      ],
+      "rhythm_id": "JC-R058",
+      "rhythm_domains": [
+        [
+          0.0,
+          1.0
+        ],
+        [
+          0.3,
+          1.0
+        ],
+        [
+          0.5,
+          1.0
+        ]
+      ],
+      "period": 3840,
+      "pitches": [
+        0
+      ],
+      "functions": [
+        "A"
+      ],
+      "events": [
+        {
+          "at": 0,
+          "duration": 84,
+          "accent": "x"
+        },
+        {
+          "at": 480,
+          "duration": 84,
+          "accent": "x"
+        },
+        {
+          "at": 960,
+          "duration": 84,
+          "accent": "x"
+        },
+        {
+          "at": 1440,
+          "duration": 84,
+          "accent": "x"
+        },
+        {
+          "at": 2160,
+          "duration": 84,
+          "accent": "x"
+        },
+        {
+          "at": 2400,
+          "duration": 84,
+          "accent": "x"
+        },
+        {
+          "at": 2880,
+          "duration": 84,
+          "accent": "x"
+        },
+        {
+          "at": 3360,
+          "duration": 84,
+          "accent": "x"
+        }
+      ],
+      "chord_bound": false,
+      "major": false,
+      "dorian": false,
+      "block_transpose": false
+    },
+    {
+      "id": "JC-B019",
+      "kind": "B",
+      "number": 19,
+      "name": "Fünfer-Akzentbass",
+      "xyz": [
+        0.5,
+        0.7,
+        0.65
+      ],
+      "domains": [
+        [
+          0.0,
+          1.0
+        ],
+        [
+          0.4,
+          1.0
+        ],
+        [
+          0.4,
+          0.9
+        ]
+      ],
+      "rhythm_id": "JC-R024",
+      "rhythm_domains": [
+        [
+          0.0,
+          1.0
+        ],
+        [
+          0.3,
+          1.0
+        ],
+        [
+          0.4,
+          0.9
+        ]
+      ],
+      "period": 4800,
+      "pitches": [
+        0
+      ],
+      "functions": [
+        "A"
+      ],
+      "events": [
+        {
+          "at": 0,
+          "duration": 192,
+          "accent": "X"
+        },
+        {
+          "at": 480,
+          "duration": 192,
+          "accent": "x"
+        },
+        {
+          "at": 960,
+          "duration": 192,
+          "accent": "x"
+        },
+        {
+          "at": 1440,
+          "duration": 192,
+          "accent": "X"
+        },
+        {
+          "at": 1920,
+          "duration": 192,
+          "accent": "x"
+        },
+        {
+          "at": 2400,
+          "duration": 192,
+          "accent": "x"
+        },
+        {
+          "at": 2880,
+          "duration": 192,
+          "accent": "X"
+        },
+        {
+          "at": 3360,
+          "duration": 192,
+          "accent": "x"
+        },
+        {
+          "at": 3840,
+          "duration": 192,
+          "accent": "X"
+        },
+        {
+          "at": 4320,
+          "duration": 192,
+          "accent": "x"
+        }
+      ],
+      "chord_bound": false,
+      "major": false,
+      "dorian": false,
+      "block_transpose": false
+    },
+    {
+      "id": "JC-B021",
+      "kind": "B",
+      "number": 21,
+      "name": "Moll-Riff",
+      "xyz": [
+        0.35,
+        0.75,
+        0.4
+      ],
+      "domains": [
+        [
+          0.1,
+          0.6
+        ],
+        [
+          0.5,
+          1.0
+        ],
+        [
+          0.2,
+          0.6
+        ]
+      ],
+      "rhythm_id": "JC-R002",
+      "rhythm_domains": [
+        [
+          0.0,
+          1.0
+        ],
+        [
+          0.3,
+          0.9
+        ],
+        [
+          0.2,
+          0.6
+        ]
+      ],
+      "period": 3840,
+      "pitches": [
+        0,
+        0,
+        3,
+        0,
+        5,
+        3,
+        0,
+        -2
+      ],
+      "functions": [
+        "A",
+        "A",
+        "A",
+        "A",
+        "T",
+        "A",
+        "A",
+        "T"
+      ],
+      "events": [
+        {
+          "at": 0,
+          "duration": 216,
+          "accent": "x"
+        },
+        {
+          "at": 480,
+          "duration": 216,
+          "accent": "x"
+        },
+        {
+          "at": 960,
+          "duration": 216,
+          "accent": "x"
+        },
+        {
+          "at": 1440,
+          "duration": 216,
+          "accent": "x"
+        },
+        {
+          "at": 1920,
+          "duration": 216,
+          "accent": "x"
+        },
+        {
+          "at": 2400,
+          "duration": 216,
+          "accent": "x"
+        },
+        {
+          "at": 2880,
+          "duration": 216,
+          "accent": "x"
+        },
+        {
+          "at": 3360,
+          "duration": 216,
+          "accent": "x"
+        }
+      ],
+      "chord_bound": false,
+      "major": false,
+      "dorian": false,
+      "block_transpose": true
+    },
+    {
+      "id": "JC-B022",
+      "kind": "B",
+      "number": 22,
+      "name": "Quart-Riff",
+      "xyz": [
+        0.35,
+        0.75,
+        0.4
+      ],
+      "domains": [
+        [
+          0.1,
+          0.6
+        ],
+        [
+          0.5,
+          1.0
+        ],
+        [
+          0.2,
+          0.6
+        ]
+      ],
+      "rhythm_id": "JC-R002",
+      "rhythm_domains": [
+        [
+          0.0,
+          1.0
+        ],
+        [
+          0.3,
+          0.9
+        ],
+        [
+          0.2,
+          0.6
+        ]
+      ],
+      "period": 3840,
+      "pitches": [
+        0,
+        5,
+        0,
+        7,
+        0,
+        5,
+        3,
+        0
+      ],
+      "functions": [
+        "A",
+        "T",
+        "A",
+        "A",
+        "A",
+        "T",
+        "A",
+        "A"
+      ],
+      "events": [
+        {
+          "at": 0,
+          "duration": 216,
+          "accent": "x"
+        },
+        {
+          "at": 480,
+          "duration": 216,
+          "accent": "x"
+        },
+        {
+          "at": 960,
+          "duration": 216,
+          "accent": "x"
+        },
+        {
+          "at": 1440,
+          "duration": 216,
+          "accent": "x"
+        },
+        {
+          "at": 1920,
+          "duration": 216,
+          "accent": "x"
+        },
+        {
+          "at": 2400,
+          "duration": 216,
+          "accent": "x"
+        },
+        {
+          "at": 2880,
+          "duration": 216,
+          "accent": "x"
+        },
+        {
+          "at": 3360,
+          "duration": 216,
+          "accent": "x"
+        }
+      ],
+      "chord_bound": false,
+      "major": false,
+      "dorian": false,
+      "block_transpose": true
+    },
+    {
+      "id": "JC-B023",
+      "kind": "B",
+      "number": 23,
+      "name": "Paarweise fallende Basssequenz",
+      "xyz": [
+        0.35,
+        0.7,
+        0.3
+      ],
+      "domains": [
+        [
+          0.1,
+          0.6
+        ],
+        [
+          0.4,
+          1.0
+        ],
+        [
+          0.1,
+          0.5
+        ]
+      ],
+      "rhythm_id": "JC-R002",
+      "rhythm_domains": [
+        [
+          0.0,
+          1.0
+        ],
+        [
+          0.3,
+          0.9
+        ],
+        [
+          0.2,
+          0.6
+        ]
+      ],
+      "period": 3840,
+      "pitches": [
+        0,
+        0,
+        -2,
+        -2,
+        -4,
+        -4,
+        -5,
+        -5
+      ],
+      "functions": [
+        "A",
+        "A",
+        "T",
+        "T",
+        "T",
+        "T",
+        "A",
+        "A"
+      ],
+      "events": [
+        {
+          "at": 0,
+          "duration": 216,
+          "accent": "x"
+        },
+        {
+          "at": 480,
+          "duration": 216,
+          "accent": "x"
+        },
+        {
+          "at": 960,
+          "duration": 216,
+          "accent": "x"
+        },
+        {
+          "at": 1440,
+          "duration": 216,
+          "accent": "x"
+        },
+        {
+          "at": 1920,
+          "duration": 216,
+          "accent": "x"
+        },
+        {
+          "at": 2400,
+          "duration": 216,
+          "accent": "x"
+        },
+        {
+          "at": 2880,
+          "duration": 216,
+          "accent": "x"
+        },
+        {
+          "at": 3360,
+          "duration": 216,
+          "accent": "x"
+        }
+      ],
+      "chord_bound": false,
+      "major": false,
+      "dorian": false,
+      "block_transpose": true
+    },
+    {
+      "id": "JC-B024",
+      "kind": "B",
+      "number": 24,
+      "name": "Kreisender Triolenbass",
+      "xyz": [
+        0.4,
+        0.65,
+        0.4
+      ],
+      "domains": [
+        [
+          0.2,
+          0.6
+        ],
+        [
+          0.4,
+          0.9
+        ],
+        [
+          0.2,
+          0.6
+        ]
+      ],
+      "rhythm_id": "JC-R032",
+      "rhythm_domains": [
+        [
+          0.0,
+          1.0
+        ],
+        [
+          0.3,
+          0.9
+        ],
+        [
+          0.2,
+          0.6
+        ]
+      ],
+      "period": 3840,
+      "pitches": [
+        0,
+        3,
+        5,
+        7,
+        5,
+        3
+      ],
+      "functions": [
+        "A",
+        "A",
+        "T",
+        "A",
+        "T",
+        "A"
+      ],
+      "events": [
+        {
+          "at": 0,
+          "duration": 122,
+          "accent": "X"
+        },
+        {
+          "at": 320,
+          "duration": 122,
+          "accent": "x"
+        },
+        {
+          "at": 640,
+          "duration": 122,
+          "accent": "x"
+        },
+        {
+          "at": 960,
+          "duration": 122,
+          "accent": "X"
+        },
+        {
+          "at": 1280,
+          "duration": 122,
+          "accent": "x"
+        },
+        {
+          "at": 1600,
+          "duration": 122,
+          "accent": "x"
+        },
+        {
+          "at": 1920,
+          "duration": 122,
+          "accent": "X"
+        },
+        {
+          "at": 2240,
+          "duration": 122,
+          "accent": "x"
+        },
+        {
+          "at": 2560,
+          "duration": 122,
+          "accent": "x"
+        },
+        {
+          "at": 2880,
+          "duration": 122,
+          "accent": "X"
+        },
+        {
+          "at": 3200,
+          "duration": 122,
+          "accent": "x"
+        },
+        {
+          "at": 3520,
+          "duration": 122,
+          "accent": "x"
+        }
+      ],
+      "chord_bound": false,
+      "major": false,
+      "dorian": false,
+      "block_transpose": true
+    },
+    {
+      "id": "JC-B026",
+      "kind": "B",
+      "number": 26,
+      "name": "Oktav-Achtelbass",
+      "xyz": [
+        0.5,
+        0.7,
+        0.4
+      ],
+      "domains": [
+        [
+          0.0,
+          1.0
+        ],
+        [
+          0.4,
+          1.0
+        ],
+        [
+          0.2,
+          0.6
+        ]
+      ],
+      "rhythm_id": "JC-R002",
+      "rhythm_domains": [
+        [
+          0.0,
+          1.0
+        ],
+        [
+          0.3,
+          0.9
+        ],
+        [
+          0.2,
+          0.6
+        ]
+      ],
+      "period": 3840,
+      "pitches": [
+        0,
+        12
+      ],
+      "functions": [
+        "A",
+        "A"
+      ],
+      "events": [
+        {
+          "at": 0,
+          "duration": 216,
+          "accent": "x"
+        },
+        {
+          "at": 480,
+          "duration": 216,
+          "accent": "x"
+        },
+        {
+          "at": 960,
+          "duration": 216,
+          "accent": "x"
+        },
+        {
+          "at": 1440,
+          "duration": 216,
+          "accent": "x"
+        },
+        {
+          "at": 1920,
+          "duration": 216,
+          "accent": "x"
+        },
+        {
+          "at": 2400,
+          "duration": 216,
+          "accent": "x"
+        },
+        {
+          "at": 2880,
+          "duration": 216,
+          "accent": "x"
+        },
+        {
+          "at": 3360,
+          "duration": 216,
+          "accent": "x"
+        }
+      ],
+      "chord_bound": true,
+      "major": false,
+      "dorian": false,
+      "block_transpose": true
+    },
+    {
+      "id": "JC-B027",
+      "kind": "B",
+      "number": 27,
+      "name": "Oktavsprung-Viertel",
+      "xyz": [
+        0.5,
+        0.6,
+        0.3
+      ],
+      "domains": [
+        [
+          0.0,
+          1.0
+        ],
+        [
+          0.3,
+          0.9
+        ],
+        [
+          0.1,
+          0.5
+        ]
+      ],
+      "rhythm_id": "JC-R001",
+      "rhythm_domains": [
+        [
+          0.0,
+          1.0
+        ],
+        [
+          0.2,
+          1.0
+        ],
+        [
+          0.0,
+          0.4
+        ]
+      ],
+      "period": 3840,
+      "pitches": [
+        0,
+        12
+      ],
+      "functions": [
+        "A",
+        "A"
+      ],
+      "events": [
+        {
+          "at": 0,
+          "duration": 480,
+          "accent": "x"
+        },
+        {
+          "at": 960,
+          "duration": 480,
+          "accent": "x"
+        },
+        {
+          "at": 1920,
+          "duration": 480,
+          "accent": "x"
+        },
+        {
+          "at": 2880,
+          "duration": 480,
+          "accent": "x"
+        }
+      ],
+      "chord_bound": true,
+      "major": false,
+      "dorian": false,
+      "block_transpose": true
+    },
+    {
+      "id": "JC-B028",
+      "kind": "B",
+      "number": 28,
+      "name": "Oktav-Tresillo",
+      "xyz": [
+        0.5,
+        0.7,
+        0.4
+      ],
+      "domains": [
+        [
+          0.0,
+          1.0
+        ],
+        [
+          0.4,
+          1.0
+        ],
+        [
+          0.2,
+          0.6
+        ]
+      ],
+      "rhythm_id": "JC-R020",
+      "rhythm_domains": [
+        [
+          0.0,
+          1.0
+        ],
+        [
+          0.3,
+          0.9
+        ],
+        [
+          0.2,
+          0.6
+        ]
+      ],
+      "period": 3840,
+      "pitches": [
+        0,
+        0,
+        12
+      ],
+      "functions": [
+        "A",
+        "A",
+        "A"
+      ],
+      "events": [
+        {
+          "at": 0,
+          "duration": 192,
+          "accent": "X"
+        },
+        {
+          "at": 1440,
+          "duration": 192,
+          "accent": "x"
+        },
+        {
+          "at": 2880,
+          "duration": 192,
+          "accent": "x"
+        }
+      ],
+      "chord_bound": true,
+      "major": false,
+      "dorian": false,
+      "block_transpose": true
+    },
+    {
+      "id": "JC-B033",
+      "kind": "B",
+      "number": 33,
+      "name": "Schreitender Bass abwärts",
+      "xyz": [
+        0.45,
+        0.4,
+        0.2
+      ],
+      "domains": [
+        [
+          0.2,
+          0.7
+        ],
+        [
+          0.1,
+          0.7
+        ],
+        [
+          0.0,
+          0.4
+        ]
+      ],
+      "rhythm_id": "JC-R006",
+      "rhythm_domains": [
+        [
+          0.0,
+          1.0
+        ],
+        [
+          0.0,
+          1.0
+        ],
+        [
+          0.0,
+          0.3
+        ]
+      ],
+      "period": 3840,
+      "pitches": [
+        0,
+        -2,
+        -4,
+        -5,
+        -7,
+        -5,
+        -4,
+        -2
+      ],
+      "functions": [
+        "A",
+        "T",
+        "T",
+        "A",
+        "T",
+        "A",
+        "T",
+        "T"
+      ],
+      "events": [
+        {
+          "at": 0,
+          "duration": 1632,
+          "accent": "x"
+        },
+        {
+          "at": 1920,
+          "duration": 1632,
+          "accent": "x"
+        }
+      ],
+      "chord_bound": false,
+      "major": false,
+      "dorian": false,
+      "block_transpose": false
+    },
+    {
+      "id": "JC-B036",
+      "kind": "B",
+      "number": 36,
+      "name": "Bewegter Bass unter Fläche",
+      "xyz": [
+        0.45,
+        0.5,
+        0.3
+      ],
+      "domains": [
+        [
+          0.2,
+          0.7
+        ],
+        [
+          0.2,
+          0.8
+        ],
+        [
+          0.1,
+          0.5
+        ]
+      ],
+      "rhythm_id": "JC-R001",
+      "rhythm_domains": [
+        [
+          0.0,
+          1.0
+        ],
+        [
+          0.2,
+          1.0
+        ],
+        [
+          0.0,
+          0.4
+        ]
+      ],
+      "period": 3840,
+      "pitches": [
+        0,
+        3,
+        5,
+        3
+      ],
+      "functions": [
+        "A",
+        "A",
+        "T",
+        "A"
+      ],
+      "events": [
+        {
+          "at": 0,
+          "duration": 480,
+          "accent": "x"
+        },
+        {
+          "at": 960,
+          "duration": 480,
+          "accent": "x"
+        },
+        {
+          "at": 1920,
+          "duration": 480,
+          "accent": "x"
+        },
+        {
+          "at": 2880,
+          "duration": 480,
+          "accent": "x"
+        }
+      ],
+      "chord_bound": false,
+      "major": false,
+      "dorian": false,
+      "block_transpose": true
+    },
+    {
+      "id": "JC-B037",
+      "kind": "B",
+      "number": 37,
+      "name": "Quint-Quart-Wechsel",
+      "xyz": [
+        0.45,
+        0.55,
+        0.2
+      ],
+      "domains": [
+        [
+          0.2,
+          0.7
+        ],
+        [
+          0.3,
+          0.8
+        ],
+        [
+          0.0,
+          0.4
+        ]
+      ],
+      "rhythm_id": "JC-R001",
+      "rhythm_domains": [
+        [
+          0.0,
+          1.0
+        ],
+        [
+          0.2,
+          1.0
+        ],
+        [
+          0.0,
+          0.4
+        ]
+      ],
+      "period": 3840,
+      "pitches": [
+        0,
+        7,
+        5,
+        7
+      ],
+      "functions": [
+        "A",
+        "A",
+        "T",
+        "A"
+      ],
+      "events": [
+        {
+          "at": 0,
+          "duration": 480,
+          "accent": "x"
+        },
+        {
+          "at": 960,
+          "duration": 480,
+          "accent": "x"
+        },
+        {
+          "at": 1920,
+          "duration": 480,
+          "accent": "x"
+        },
+        {
+          "at": 2880,
+          "duration": 480,
+          "accent": "x"
+        }
+      ],
+      "chord_bound": false,
+      "major": false,
+      "dorian": false,
+      "block_transpose": true
+    },
+    {
+      "id": "JC-B038",
+      "kind": "B",
+      "number": 38,
+      "name": "Bass auf Schlag",
+      "xyz": [
+        0.5,
+        0.6,
+        0.4
+      ],
+      "domains": [
+        [
+          0.0,
+          1.0
+        ],
+        [
+          0.3,
+          0.9
+        ],
+        [
+          0.2,
+          0.6
+        ]
+      ],
+      "rhythm_id": "JC-R052",
+      "rhythm_domains": [
+        [
+          0.0,
+          1.0
+        ],
+        [
+          0.3,
+          0.9
+        ],
+        [
+          0.2,
+          0.6
+        ]
+      ],
+      "period": 3840,
+      "pitches": [
+        0
+      ],
+      "functions": [
+        "A"
+      ],
+      "events": [
+        {
+          "at": 0,
+          "duration": 216,
+          "accent": "x"
+        },
+        {
+          "at": 960,
+          "duration": 216,
+          "accent": "x"
+        },
+        {
+          "at": 1920,
+          "duration": 216,
+          "accent": "x"
+        },
+        {
+          "at": 2880,
+          "duration": 216,
+          "accent": "x"
+        }
+      ],
+      "chord_bound": true,
+      "major": false,
+      "dorian": false,
+      "block_transpose": false
+    },
+    {
+      "id": "JC-B039",
+      "kind": "B",
+      "number": 39,
+      "name": "Tresillo-Komplementbass",
+      "xyz": [
+        0.5,
+        0.6,
+        0.5
+      ],
+      "domains": [
+        [
+          0.0,
+          1.0
+        ],
+        [
+          0.3,
+          0.9
+        ],
+        [
+          0.3,
+          0.7
+        ]
+      ],
+      "rhythm_id": "JC-R054",
+      "rhythm_domains": [
+        [
+          0.0,
+          1.0
+        ],
+        [
+          0.3,
+          0.9
+        ],
+        [
+          0.3,
+          0.7
+        ]
+      ],
+      "period": 3840,
+      "pitches": [
+        0
+      ],
+      "functions": [
+        "A"
+      ],
+      "events": [
+        {
+          "at": 480,
+          "duration": 192,
+          "accent": "x"
+        },
+        {
+          "at": 960,
+          "duration": 192,
+          "accent": "x"
+        },
+        {
+          "at": 1920,
+          "duration": 192,
+          "accent": "x"
+        },
+        {
+          "at": 2400,
+          "duration": 192,
+          "accent": "x"
+        },
+        {
+          "at": 3360,
+          "duration": 192,
+          "accent": "x"
+        }
+      ],
+      "chord_bound": true,
+      "major": false,
+      "dorian": false,
+      "block_transpose": false
+    },
+    {
+      "id": "JC-B040",
+      "kind": "B",
+      "number": 40,
+      "name": "Kreuz-Bass",
+      "xyz": [
+        0.5,
+        0.7,
+        0.6
+      ],
+      "domains": [
+        [
+          0.0,
+          1.0
+        ],
+        [
+          0.4,
+          1.0
+        ],
+        [
+          0.4,
+          0.8
+        ]
+      ],
+      "rhythm_id": "JC-R055",
+      "rhythm_domains": [
+        [
+          0.0,
+          1.0
+        ],
+        [
+          0.4,
+          1.0
+        ],
+        [
+          0.4,
+          0.8
+        ]
+      ],
+      "period": 3840,
+      "pitches": [
+        0,
+        0,
+        12,
+        0
+      ],
+      "functions": [
+        "A",
+        "A",
+        "A",
+        "A"
+      ],
+      "events": [
+        {
+          "at": 0,
+          "duration": 84,
+          "accent": "x"
+        },
+        {
+          "at": 480,
+          "duration": 84,
+          "accent": "x"
+        },
+        {
+          "at": 1200,
+          "duration": 84,
+          "accent": "x"
+        },
+        {
+          "at": 1680,
+          "duration": 84,
+          "accent": "x"
+        }
+      ],
+      "chord_bound": true,
+      "major": false,
+      "dorian": false,
+      "block_transpose": false
+    },
+    {
+      "id": "JC-B042",
+      "kind": "B",
+      "number": 42,
+      "name": "Herzschlag mit Oktave",
+      "xyz": [
+        0.5,
+        0.6,
+        0.5
+      ],
+      "domains": [
+        [
+          0.0,
+          1.0
+        ],
+        [
+          0.3,
+          0.9
+        ],
+        [
+          0.3,
+          0.7
+        ]
+      ],
+      "rhythm_id": "JC-R008",
+      "rhythm_domains": [
+        [
+          0.0,
+          1.0
+        ],
+        [
+          0.1,
+          0.8
+        ],
+        [
+          0.2,
+          0.7
+        ]
+      ],
+      "period": 3840,
+      "pitches": [
+        12,
+        0
+      ],
+      "functions": [
+        "A",
+        "A"
+      ],
+      "events": [
+        {
+          "at": 0,
+          "duration": 72,
+          "accent": "X"
+        },
+        {
+          "at": 720,
+          "duration": 72,
+          "accent": "x"
+        }
+      ],
+      "chord_bound": false,
+      "major": false,
+      "dorian": false,
+      "block_transpose": false
+    },
+    {
+      "id": "JC-B043",
+      "kind": "B",
+      "number": 43,
+      "name": "Gedämpfter Einzelschlag-Bass",
+      "xyz": [
+        0.5,
+        0.2,
+        0.25
+      ],
+      "domains": [
+        [
+          0.0,
+          1.0
+        ],
+        [
+          0.0,
+          0.4
+        ],
+        [
+          0.0,
+          0.5
+        ]
+      ],
+      "rhythm_id": "JC-R012",
+      "rhythm_domains": [
+        [
+          0.0,
+          1.0
+        ],
+        [
+          0.0,
+          0.4
+        ],
+        [
+          0.0,
+          0.4
+        ]
+      ],
+      "period": 7680,
+      "pitches": [
+        0,
+        0
+      ],
+      "functions": [
+        "A",
+        "A"
+      ],
+      "events": [
+        {
+          "at": 0,
+          "duration": 84,
+          "accent": "o"
+        },
+        {
+          "at": 1920,
+          "duration": 84,
+          "accent": "o"
+        }
+      ],
+      "chord_bound": false,
+      "major": false,
+      "dorian": false,
+      "block_transpose": false
+    },
+    {
+      "id": "JC-B044",
+      "kind": "B",
+      "number": 44,
+      "name": "Ein Bassschlag pro Takt",
+      "xyz": [
+        0.5,
+        0.3,
+        0.2
+      ],
+      "domains": [
+        [
+          0.0,
+          1.0
+        ],
+        [
+          0.0,
+          0.6
+        ],
+        [
+          0.0,
+          0.4
+        ]
+      ],
+      "rhythm_id": "JC-R007",
+      "rhythm_domains": [
+        [
+          0.0,
+          1.0
+        ],
+        [
+          0.0,
+          0.5
+        ],
+        [
+          0.0,
+          0.4
+        ]
+      ],
+      "period": 3840,
+      "pitches": [
+        0
+      ],
+      "functions": [
+        "A"
+      ],
+      "events": [
+        {
+          "at": 0,
+          "duration": 768,
+          "accent": "x"
+        }
+      ],
+      "chord_bound": true,
+      "major": false,
+      "dorian": false,
+      "block_transpose": false
+    },
+    {
+      "id": "JC-B046",
+      "kind": "B",
+      "number": 46,
+      "name": "Uhrwerk-Bass",
+      "xyz": [
+        0.5,
+        0.6,
+        0.7
+      ],
+      "domains": [
+        [
+          0.0,
+          1.0
+        ],
+        [
+          0.3,
+          0.9
+        ],
+        [
+          0.5,
+          0.9
+        ]
+      ],
+      "rhythm_id": "JC-R061",
+      "rhythm_domains": [
+        [
+          0.0,
+          1.0
+        ],
+        [
+          0.2,
+          0.8
+        ],
+        [
+          0.5,
+          0.9
+        ]
+      ],
+      "period": 3840,
+      "pitches": [
+        0,
+        0,
+        12,
+        0
+      ],
+      "functions": [
+        "A",
+        "A",
+        "A",
+        "A"
+      ],
+      "events": [
+        {
+          "at": 0,
+          "duration": 48,
+          "accent": "X"
+        },
+        {
+          "at": 240,
+          "duration": 48,
+          "accent": "o"
+        },
+        {
+          "at": 480,
+          "duration": 48,
+          "accent": "x"
+        },
+        {
+          "at": 720,
+          "duration": 48,
+          "accent": "o"
+        },
+        {
+          "at": 960,
+          "duration": 48,
+          "accent": "X"
+        },
+        {
+          "at": 1200,
+          "duration": 48,
+          "accent": "o"
+        },
+        {
+          "at": 1440,
+          "duration": 48,
+          "accent": "x"
+        },
+        {
+          "at": 1680,
+          "duration": 48,
+          "accent": "o"
+        },
+        {
+          "at": 1920,
+          "duration": 48,
+          "accent": "X"
+        },
+        {
+          "at": 2160,
+          "duration": 48,
+          "accent": "o"
+        },
+        {
+          "at": 2400,
+          "duration": 48,
+          "accent": "x"
+        },
+        {
+          "at": 2640,
+          "duration": 48,
+          "accent": "o"
+        },
+        {
+          "at": 2880,
+          "duration": 48,
+          "accent": "X"
+        },
+        {
+          "at": 3120,
+          "duration": 48,
+          "accent": "o"
+        },
+        {
+          "at": 3360,
+          "duration": 48,
+          "accent": "x"
+        },
+        {
+          "at": 3600,
+          "duration": 48,
+          "accent": "o"
+        }
+      ],
+      "chord_bound": false,
+      "major": false,
+      "dorian": false,
+      "block_transpose": false
+    },
+    {
+      "id": "JC-B048",
+      "kind": "B",
+      "number": 48,
+      "name": "Achtelbass mit Atemloch",
+      "xyz": [
+        0.5,
+        0.6,
+        0.3
+      ],
+      "domains": [
+        [
+          0.0,
+          1.0
+        ],
+        [
+          0.3,
+          0.9
+        ],
+        [
+          0.1,
+          0.5
+        ]
+      ],
+      "rhythm_id": "JC-R044",
+      "rhythm_domains": [
+        [
+          0.0,
+          1.0
+        ],
+        [
+          0.2,
+          0.9
+        ],
+        [
+          0.1,
+          0.5
+        ]
+      ],
+      "period": 30720,
+      "pitches": [
+        0
+      ],
+      "functions": [
+        "A"
+      ],
+      "events": [
+        {
+          "at": 0,
+          "duration": 216,
+          "accent": "x"
+        },
+        {
+          "at": 480,
+          "duration": 216,
+          "accent": "x"
+        },
+        {
+          "at": 960,
+          "duration": 216,
+          "accent": "x"
+        },
+        {
+          "at": 1440,
+          "duration": 216,
+          "accent": "x"
+        },
+        {
+          "at": 1920,
+          "duration": 216,
+          "accent": "x"
+        },
+        {
+          "at": 2400,
+          "duration": 216,
+          "accent": "x"
+        },
+        {
+          "at": 2880,
+          "duration": 216,
+          "accent": "x"
+        },
+        {
+          "at": 3360,
+          "duration": 216,
+          "accent": "x"
+        },
+        {
+          "at": 3840,
+          "duration": 216,
+          "accent": "x"
+        },
+        {
+          "at": 4320,
+          "duration": 216,
+          "accent": "x"
+        },
+        {
+          "at": 4800,
+          "duration": 216,
+          "accent": "x"
+        },
+        {
+          "at": 5280,
+          "duration": 216,
+          "accent": "x"
+        },
+        {
+          "at": 5760,
+          "duration": 216,
+          "accent": "x"
+        },
+        {
+          "at": 6240,
+          "duration": 216,
+          "accent": "x"
+        },
+        {
+          "at": 6720,
+          "duration": 216,
+          "accent": "x"
+        },
+        {
+          "at": 7200,
+          "duration": 216,
+          "accent": "x"
+        },
+        {
+          "at": 7680,
+          "duration": 216,
+          "accent": "x"
+        },
+        {
+          "at": 8160,
+          "duration": 216,
+          "accent": "x"
+        },
+        {
+          "at": 8640,
+          "duration": 216,
+          "accent": "x"
+        },
+        {
+          "at": 9120,
+          "duration": 216,
+          "accent": "x"
+        },
+        {
+          "at": 9600,
+          "duration": 216,
+          "accent": "x"
+        },
+        {
+          "at": 10080,
+          "duration": 216,
+          "accent": "x"
+        },
+        {
+          "at": 10560,
+          "duration": 216,
+          "accent": "x"
+        },
+        {
+          "at": 11040,
+          "duration": 216,
+          "accent": "x"
+        },
+        {
+          "at": 11520,
+          "duration": 216,
+          "accent": "x"
+        },
+        {
+          "at": 12000,
+          "duration": 216,
+          "accent": "x"
+        },
+        {
+          "at": 12480,
+          "duration": 216,
+          "accent": "x"
+        },
+        {
+          "at": 12960,
+          "duration": 216,
+          "accent": "x"
+        },
+        {
+          "at": 13440,
+          "duration": 216,
+          "accent": "x"
+        },
+        {
+          "at": 13920,
+          "duration": 216,
+          "accent": "x"
+        },
+        {
+          "at": 14400,
+          "duration": 216,
+          "accent": "x"
+        },
+        {
+          "at": 14880,
+          "duration": 216,
+          "accent": "x"
+        },
+        {
+          "at": 15360,
+          "duration": 216,
+          "accent": "x"
+        },
+        {
+          "at": 15840,
+          "duration": 216,
+          "accent": "x"
+        },
+        {
+          "at": 16320,
+          "duration": 216,
+          "accent": "x"
+        },
+        {
+          "at": 16800,
+          "duration": 216,
+          "accent": "x"
+        },
+        {
+          "at": 17280,
+          "duration": 216,
+          "accent": "x"
+        },
+        {
+          "at": 17760,
+          "duration": 216,
+          "accent": "x"
+        },
+        {
+          "at": 18240,
+          "duration": 216,
+          "accent": "x"
+        },
+        {
+          "at": 18720,
+          "duration": 216,
+          "accent": "x"
+        },
+        {
+          "at": 19200,
+          "duration": 216,
+          "accent": "x"
+        },
+        {
+          "at": 19680,
+          "duration": 216,
+          "accent": "x"
+        },
+        {
+          "at": 20160,
+          "duration": 216,
+          "accent": "x"
+        },
+        {
+          "at": 20640,
+          "duration": 216,
+          "accent": "x"
+        },
+        {
+          "at": 21120,
+          "duration": 216,
+          "accent": "x"
+        },
+        {
+          "at": 21600,
+          "duration": 216,
+          "accent": "x"
+        },
+        {
+          "at": 22080,
+          "duration": 216,
+          "accent": "x"
+        },
+        {
+          "at": 22560,
+          "duration": 216,
+          "accent": "x"
+        },
+        {
+          "at": 23040,
+          "duration": 216,
+          "accent": "x"
+        },
+        {
+          "at": 23520,
+          "duration": 216,
+          "accent": "x"
+        },
+        {
+          "at": 24000,
+          "duration": 216,
+          "accent": "x"
+        },
+        {
+          "at": 24480,
+          "duration": 216,
+          "accent": "x"
+        },
+        {
+          "at": 24960,
+          "duration": 216,
+          "accent": "x"
+        },
+        {
+          "at": 25440,
+          "duration": 216,
+          "accent": "x"
+        },
+        {
+          "at": 25920,
+          "duration": 216,
+          "accent": "x"
+        },
+        {
+          "at": 26400,
+          "duration": 216,
+          "accent": "x"
+        }
+      ],
+      "chord_bound": true,
+      "major": false,
+      "dorian": false,
+      "block_transpose": false
+    },
+    {
+      "id": "JC-B052",
+      "kind": "B",
+      "number": 52,
+      "name": "Zweitakt-Bassriff",
+      "xyz": [
+        0.35,
+        0.75,
+        0.4
+      ],
+      "domains": [
+        [
+          0.1,
+          0.6
+        ],
+        [
+          0.5,
+          1.0
+        ],
+        [
+          0.2,
+          0.6
+        ]
+      ],
+      "rhythm_id": "JC-R002",
+      "rhythm_domains": [
+        [
+          0.0,
+          1.0
+        ],
+        [
+          0.3,
+          0.9
+        ],
+        [
+          0.2,
+          0.6
+        ]
+      ],
+      "period": 3840,
+      "pitches": [
+        0,
+        0,
+        12,
+        0,
+        10,
+        0,
+        7,
+        8,
+        0,
+        0,
+        12,
+        0,
+        10,
+        0,
+        7,
+        5
+      ],
+      "functions": [
+        "A",
+        "A",
+        "A",
+        "A",
+        "T",
+        "A",
+        "A",
+        "T",
+        "A",
+        "A",
+        "A",
+        "A",
+        "T",
+        "A",
+        "A",
+        "T"
+      ],
+      "events": [
+        {
+          "at": 0,
+          "duration": 216,
+          "accent": "x"
+        },
+        {
+          "at": 480,
+          "duration": 216,
+          "accent": "x"
+        },
+        {
+          "at": 960,
+          "duration": 216,
+          "accent": "x"
+        },
+        {
+          "at": 1440,
+          "duration": 216,
+          "accent": "x"
+        },
+        {
+          "at": 1920,
+          "duration": 216,
+          "accent": "x"
+        },
+        {
+          "at": 2400,
+          "duration": 216,
+          "accent": "x"
+        },
+        {
+          "at": 2880,
+          "duration": 216,
+          "accent": "x"
+        },
+        {
+          "at": 3360,
+          "duration": 216,
+          "accent": "x"
+        }
+      ],
+      "chord_bound": false,
+      "major": false,
+      "dorian": false,
+      "block_transpose": true
+    }
+  ],
+  "events": [
+    {
+      "id": "JC-M004",
+      "kind": "M",
+      "name": "Fernes Echo",
+      "source_line": 4142,
+      "xyz": [
+        0.7,
+        0.2,
+        0.35
+      ],
+      "xyz_ranges": [
+        [
+          0.4,
+          1.0
+        ],
+        [
+          0.0,
+          0.4
+        ],
+        [
+          0.1,
+          0.6
+        ]
+      ],
+      "source_fields": {
+        "Charakter": "Drei gleiche Töne, jeder leiser; Echo ohne Delay-Effekt, als komponierte Dynamik.",
+        "Noten (3)": "1+2Okt @ 0 Ticks, 480 Ticks; 1+2Okt @ 1440 Ticks, 480 Ticks, v60; 1+2Okt @ 2880 Ticks, 480 Ticks, v40",
+        "Länge": "3360 Ticks (0,88 Takte 4/4)",
+        "Intervalle": "Prime, Prime",
+        "Rollen": "TU; **Identität:** Erhalten: Einsatzpositionen und Akzente. Variabel: Tonhöhen (einzeln oder paarweise), Oktave.",
+        "Variation": "JC-T003 Oktavverlagerung, JC-T009 Gate-Veränderung",
+        "XYZ": "Anker (0,70 / 0,20 / 0,35); gültig X: 0,40–1,00 · Y: 0,00–0,40 · Z: 0,10–0,60; Z-Charakter psychologisch",
+        "Evidenz": "Verfahren E – eigenständige Gestaltung; Tonfolge E"
+      },
+      "refs": [
+        "JC-T003",
+        "JC-T009"
+      ],
+      "production_active": false,
+      "notes": [
+        {
+          "degree": "1+2Okt",
+          "pitch": 24,
+          "at": 0,
+          "duration": 480,
+          "velocity_override": null
+        },
+        {
+          "degree": "1+2Okt",
+          "pitch": 24,
+          "at": 1440,
+          "duration": 480,
+          "velocity_override": 60
+        },
+        {
+          "degree": "1+2Okt",
+          "pitch": 24,
+          "at": 2880,
+          "duration": 480,
+          "velocity_override": 40
+        }
+      ],
+      "length_ticks": 3360,
+      "declared_roles": [
+        "TU"
+      ],
+      "function_annotations": [
+        [
+          "1+2Okt",
+          "A"
+        ],
+        [
+          "1+2Okt",
+          "A"
+        ],
+        [
+          "1+2Okt",
+          "A"
+        ]
+      ],
+      "register_projection": {
+        "TU": {
+          "valid_target_keys": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11
+          ],
+          "pitch_min_C": 84,
+          "pitch_max_C": 84
+        }
+      },
+      "target_requirements": {
+        "TU": {
+          "min_duration": 480,
+          "max_duration": 480,
+          "default_duration_compatible": true,
+          "scope": "Not a statement about an externally loaded patch. Held drone has separately unbounded intended lifetime."
+        }
+      },
+      "classification": "E",
+      "reason": "Figur 24@0+480, 24@1440+480, 24@2880+480; RollenTU. Der kurze Quellenmotivpfad deckt diese Dauer/Einzelfigur/Zielrolle nicht vollständig ab.",
+      "required_capabilities": [
+        "bind",
+        "event"
+      ],
+      "scope": "Grundform und zwingende Eigenschaften; optionale Transformationen sind keine automatisch freigegebenen Varianten."
+    }
+  ],
+  "deferred": "All unlisted IDs are not activated; no implicit replacement of unclear sources."
+}

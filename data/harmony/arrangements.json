@@ -1924,6 +1924,396 @@
       ],
       "pad": "PadHeld",
       "hook": null
+    },
+    {
+      "id": "carpenter_001",
+      "arp": [
+        "ArpCircle",
+        "ArpCell"
+      ],
+      "bass": [
+        "BassHeld",
+        "BassPedal"
+      ],
+      "pad": "PadHeld",
+      "hook": null
+    },
+    {
+      "id": "carpenter_003",
+      "arp": [
+        "ArpCircle",
+        "ArpCell"
+      ],
+      "bass": [
+        "BassHeld",
+        "BassPedal"
+      ],
+      "pad": "PadHeld",
+      "hook": null
+    },
+    {
+      "id": "carpenter_004",
+      "arp": [
+        "ArpCircle",
+        "ArpCell"
+      ],
+      "bass": [
+        "BassHeld",
+        "BassPedal"
+      ],
+      "pad": "PadHeld",
+      "hook": null
+    },
+    {
+      "id": "carpenter_006",
+      "arp": [
+        "ArpCircle",
+        "ArpCell"
+      ],
+      "bass": [
+        "BassHeld",
+        "BassPedal"
+      ],
+      "pad": "PadHeld",
+      "hook": null
+    },
+    {
+      "id": "carpenter_007",
+      "arp": [
+        "ArpCircle",
+        "ArpCell"
+      ],
+      "bass": [
+        "BassHeld",
+        "BassPedal"
+      ],
+      "pad": "PadHeld",
+      "hook": null
+    },
+    {
+      "id": "carpenter_015",
+      "arp": [
+        "ArpCircle",
+        "ArpCell"
+      ],
+      "bass": [
+        "BassHeld",
+        "BassPedal"
+      ],
+      "pad": "PadHeld",
+      "hook": null
+    },
+    {
+      "id": "carpenter_017",
+      "arp": [
+        "ArpCircle",
+        "ArpCell"
+      ],
+      "bass": [
+        "BassHeld",
+        "BassPedal"
+      ],
+      "pad": "PadHeld",
+      "hook": null
+    },
+    {
+      "id": "carpenter_018",
+      "arp": [
+        "ArpCircle",
+        "ArpCell"
+      ],
+      "bass": [
+        "BassHeld",
+        "BassPedal"
+      ],
+      "pad": "PadHeld",
+      "hook": null
+    },
+    {
+      "id": "carpenter_023",
+      "arp": [
+        "ArpCircle",
+        "ArpCell"
+      ],
+      "bass": [
+        "BassHeld",
+        "BassPedal"
+      ],
+      "pad": "PadHeld",
+      "hook": null
+    },
+    {
+      "id": "carpenter_024",
+      "arp": [
+        "ArpCircle",
+        "ArpCell"
+      ],
+      "bass": [
+        "BassHeld",
+        "BassPedal"
+      ],
+      "pad": "PadHeld",
+      "hook": null
+    },
+    {
+      "id": "carpenter_026",
+      "arp": [
+        "ArpCircle",
+        "ArpCell"
+      ],
+      "bass": [
+        "BassHeld",
+        "BassPedal"
+      ],
+      "pad": "PadHeld",
+      "hook": null
+    },
+    {
+      "id": "carpenter_027",
+      "arp": [
+        "ArpCircle",
+        "ArpCell"
+      ],
+      "bass": [
+        "BassHeld",
+        "BassPedal"
+      ],
+      "pad": "PadHeld",
+      "hook": null
+    },
+    {
+      "id": "carpenter_029",
+      "arp": [
+        "ArpCircle",
+        "ArpCell"
+      ],
+      "bass": [
+        "BassHeld",
+        "BassPedal"
+      ],
+      "pad": "PadHeld",
+      "hook": null
+    },
+    {
+      "id": "carpenter_030",
+      "arp": [
+        "ArpCircle",
+        "ArpCell"
+      ],
+      "bass": [
+        "BassHeld",
+        "BassPedal"
+      ],
+      "pad": "PadHeld",
+      "hook": null
+    },
+    {
+      "id": "carpenter_031",
+      "arp": [
+        "ArpCircle",
+        "ArpCell"
+      ],
+      "bass": [
+        "BassHeld",
+        "BassPedal"
+      ],
+      "pad": "PadHeld",
+      "hook": null
+    },
+    {
+      "id": "carpenter_032",
+      "arp": [
+        "ArpCircle",
+        "ArpCell"
+      ],
+      "bass": [
+        "BassHeld",
+        "BassPedal"
+      ],
+      "pad": "PadHeld",
+      "hook": null
+    },
+    {
+      "id": "carpenter_033",
+      "arp": [
+        "ArpCircle",
+        "ArpCell"
+      ],
+      "bass": [
+        "BassHeld",
+        "BassPedal"
+      ],
+      "pad": "PadHeld",
+      "hook": null
+    },
+    {
+      "id": "carpenter_035",
+      "arp": [
+        "ArpCircle",
+        "ArpCell"
+      ],
+      "bass": [
+        "BassHeld",
+        "BassPedal"
+      ],
+      "pad": "PadHeld",
+      "hook": null
+    },
+    {
+      "id": "carpenter_037",
+      "arp": [
+        "ArpCircle",
+        "ArpCell"
+      ],
+      "bass": [
+        "BassHeld",
+        "BassPedal"
+      ],
+      "pad": "PadHeld",
+      "hook": null
+    },
+    {
+      "id": "carpenter_039",
+      "arp": [
+        "ArpCircle",
+        "ArpCell"
+      ],
+      "bass": [
+        "BassHeld",
+        "BassPedal"
+      ],
+      "pad": "PadHeld",
+      "hook": null
+    },
+    {
+      "id": "carpenter_040",
+      "arp": [
+        "ArpCircle",
+        "ArpCell"
+      ],
+      "bass": [
+        "BassHeld",
+        "BassPedal"
+      ],
+      "pad": "PadHeld",
+      "hook": null
+    },
+    {
+      "id": "carpenter_041",
+      "arp": [
+        "ArpCircle",
+        "ArpCell"
+      ],
+      "bass": [
+        "BassHeld",
+        "BassPedal"
+      ],
+      "pad": "PadHeld",
+      "hook": null
+    },
+    {
+      "id": "carpenter_054",
+      "arp": [
+        "ArpCircle",
+        "ArpCell"
+      ],
+      "bass": [
+        "BassHeld",
+        "BassPedal"
+      ],
+      "pad": "PadHeld",
+      "hook": null
+    },
+    {
+      "id": "carpenter_063",
+      "arp": [
+        "ArpCircle",
+        "ArpCell"
+      ],
+      "bass": [
+        "BassHeld",
+        "BassPedal"
+      ],
+      "pad": "PadHeld",
+      "hook": null
+    },
+    {
+      "id": "carpenter_064",
+      "arp": [
+        "ArpCircle",
+        "ArpCell"
+      ],
+      "bass": [
+        "BassHeld",
+        "BassPedal"
+      ],
+      "pad": "PadHeld",
+      "hook": null
+    },
+    {
+      "id": "carpenter_065",
+      "arp": [
+        "ArpCircle",
+        "ArpCell"
+      ],
+      "bass": [
+        "BassHeld",
+        "BassPedal"
+      ],
+      "pad": "PadHeld",
+      "hook": null
+    },
+    {
+      "id": "carpenter_066",
+      "arp": [
+        "ArpCircle",
+        "ArpCell"
+      ],
+      "bass": [
+        "BassHeld",
+        "BassPedal"
+      ],
+      "pad": "PadHeld",
+      "hook": null
+    },
+    {
+      "id": "carpenter_068",
+      "arp": [
+        "ArpCircle",
+        "ArpCell"
+      ],
+      "bass": [
+        "BassHeld",
+        "BassPedal"
+      ],
+      "pad": "PadHeld",
+      "hook": null
+    },
+    {
+      "id": "carpenter_074",
+      "arp": [
+        "ArpCircle",
+        "ArpCell"
+      ],
+      "bass": [
+        "BassHeld",
+        "BassPedal"
+      ],
+      "pad": "PadHeld",
+      "hook": null
+    },
+    {
+      "id": "carpenter_084",
+      "arp": [
+        "ArpCircle",
+        "ArpCell"
+      ],
+      "bass": [
+        "BassHeld",
+        "BassPedal"
+      ],
+      "pad": "PadHeld",
+      "hook": null
     }
   ],
   "bindings": [
@@ -2706,6 +3096,126 @@
     {
       "template_id": 50057,
       "recipe": "morricone_57"
+    },
+    {
+      "template_id": 60001,
+      "recipe": "carpenter_001"
+    },
+    {
+      "template_id": 60003,
+      "recipe": "carpenter_003"
+    },
+    {
+      "template_id": 60004,
+      "recipe": "carpenter_004"
+    },
+    {
+      "template_id": 60006,
+      "recipe": "carpenter_006"
+    },
+    {
+      "template_id": 60007,
+      "recipe": "carpenter_007"
+    },
+    {
+      "template_id": 60015,
+      "recipe": "carpenter_015"
+    },
+    {
+      "template_id": 60017,
+      "recipe": "carpenter_017"
+    },
+    {
+      "template_id": 60018,
+      "recipe": "carpenter_018"
+    },
+    {
+      "template_id": 60023,
+      "recipe": "carpenter_023"
+    },
+    {
+      "template_id": 60024,
+      "recipe": "carpenter_024"
+    },
+    {
+      "template_id": 60026,
+      "recipe": "carpenter_026"
+    },
+    {
+      "template_id": 60027,
+      "recipe": "carpenter_027"
+    },
+    {
+      "template_id": 60029,
+      "recipe": "carpenter_029"
+    },
+    {
+      "template_id": 60030,
+      "recipe": "carpenter_030"
+    },
+    {
+      "template_id": 60031,
+      "recipe": "carpenter_031"
+    },
+    {
+      "template_id": 60032,
+      "recipe": "carpenter_032"
+    },
+    {
+      "template_id": 60033,
+      "recipe": "carpenter_033"
+    },
+    {
+      "template_id": 60035,
+      "recipe": "carpenter_035"
+    },
+    {
+      "template_id": 60037,
+      "recipe": "carpenter_037"
+    },
+    {
+      "template_id": 60039,
+      "recipe": "carpenter_039"
+    },
+    {
+      "template_id": 60040,
+      "recipe": "carpenter_040"
+    },
+    {
+      "template_id": 60041,
+      "recipe": "carpenter_041"
+    },
+    {
+      "template_id": 60054,
+      "recipe": "carpenter_054"
+    },
+    {
+      "template_id": 60063,
+      "recipe": "carpenter_063"
+    },
+    {
+      "template_id": 60064,
+      "recipe": "carpenter_064"
+    },
+    {
+      "template_id": 60065,
+      "recipe": "carpenter_065"
+    },
+    {
+      "template_id": 60066,
+      "recipe": "carpenter_066"
+    },
+    {
+      "template_id": 60068,
+      "recipe": "carpenter_068"
+    },
+    {
+      "template_id": 60074,
+      "recipe": "carpenter_074"
+    },
+    {
+      "template_id": 60084,
+      "recipe": "carpenter_084"
     }
   ]
 }

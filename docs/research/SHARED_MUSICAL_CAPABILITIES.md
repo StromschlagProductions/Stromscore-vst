@@ -483,3 +483,23 @@ Verzögerte Vorhaltsauflösungen, gestaffelte Einsätze und lokale Harmonieschic
 bleiben eigenständige Folgeaufgaben. Die frühere Bestandsaufnahme wird dadurch
 nicht rückwirkend als bereits damals implementiert ausgegeben. Zunächst ist die
 musikalische Studio-One-Hörabnahme dieses P1-Standes vorgesehen.
+
+## Carpenter P1 – gemeinsame Figurenstrategie
+
+Die verbindliche Architekturentscheidung ist inzwischen Variante C: ein Kern,
+individuelle Profile, optionale Oberflächensammlungen, Instrumentierung in der DAW.
+Ein kompletter Genre-Umbau wurde nicht vorgezogen. POP/ROCK mit 39 Wendungen bleibt
+unverändert. Details und Grenzen im [P1-Bericht](john-carpenter/P1.md).
+
+Neu gemeinsam darstellbar sind vollständige geordnete Ton-/Rhythmuszyklen mit
+unabhängigen Verwendungen, Bass-Sequenz neben gehaltenem Pedal, GS als geeignete
+Begleitsequenz, quellautorisierte Blocktransposition sowie begrenzte zyklische
+Schichtung. Datenansichten in der Profil-Policy aktivieren denselben Adapter;
+keine eigene elektronische Engine und keine neue technische Clock.
+
+Die neue musikalische Nutzung ist zunächst Carpenter/4/4 vorbehalten. Allgemeine
+Rollenwanderung, Polychorde, beliebige Ereignisfelder und vollständige Langformen
+bleiben separate gemeinsame Folgefähigkeiten. Die Herrmann-/Williams-/Morricone-
+Originalrecherchen werden dadurch nicht pauschal als implementiert ausgegeben.
+Morricone P1 und Williams P2/P3 sind positiv vom Anwender gehört; Carpenter P1
+wartet nach der technischen Auslieferung auf die musikalische Abnahme.

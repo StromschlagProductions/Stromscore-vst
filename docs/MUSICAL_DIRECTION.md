@@ -27,13 +27,21 @@ leiser Bedrohung sind für den tatsächlichen Einsatz besonders wertvoll. Die
 Priorisierung ist **keine Laufzeitquote**, keine neue GUI-Einstellung und kein Grund,
 bestehende warme Vorlagen zu löschen oder fremde XYZ-Anker umzusetzen.
 
-## Langfristige Betriebsarten: SCORE, SYNTH und POP/ROCK
+## Verbindliche Stilarchitektur: ein Kern, individuelle Profile
 
-Verbindliche Projektentscheidung vom 26. November 2026: STROMSCORE soll langfristig
-drei musikalische Betriebsarten anbieten: **SCORE**, **SYNTH** und **POP/ROCK**.
-Alle verwenden denselben gemeinsamen Kompositionskern, jedoch unterschiedliche
-musikalische Strategien, Vokabulare und Künstlerprofile. SYNTH ist eine zukünftige
-Betriebsart und im aktuellen Entwicklungsstand noch nicht implementiert.
+Fortgeschriebene Anwenderentscheidung vom 27.11.2026: **Variante C** der
+[Architekturanalyse](research/OPERATING_MODES_AND_STYLE_ARCHITECTURE.md).
+Ein gemeinsamer Kompositionskern trägt individuelle musikalische Stilprofile
+und flexibel verwendete MIDI-Rollen. SCORE, SYNTH und POP/ROCK dürfen der
+Oberflächenorganisation dienen; sie sind keine drei separaten Engines und
+keine vorgeschriebenen Instrumentierungen. ORCHESTRAL/ELECTRONIC wird nicht
+als starre technische Trennung eingeführt.
+
+Das bisherige POP/ROCK mit seinen 39 Wendungen, Hooks, Bass- und Rhythmusverfahren
+bleibt vollständig erhalten. Seine spätere Darstellung als „Pop/Rock Mix“ in
+einer Filmmusik-/Score-Sammlung ist möglich, aber kein bloßes Umschalten auf die
+heutigen Score-Regeln. Carpenter P1 benötigt keinen vollständigen Genre-Umbau;
+vorerst bleibt es ein Profil im vorhandenen SCORE-Auswahlpfad.
 
 Geplante SYNTH-Profile:
 
@@ -82,9 +90,8 @@ Die vorhandenen neun MIDI-Ausgabeziele sollen möglichst erhalten bleiben.
 musikwissenschaftlichen Recherche entschieden; aus dieser Ausrichtung folgt
 keine jetzige Routing- oder Artikulationserweiterung.
 
-Die Entscheidung wird zunächst ausschließlich dokumentiert. Keine Änderung an
-Engine, GUI, MIDI-Ausgängen, XYZ-Steuerung oder aktuellem musikalischem Verhalten;
-keine vorsorglichen Architekturumbauten. Die erste Williams-P1-Grundlage und ihre Arp-Phrasierung sind inzwischen
+Die Entscheidung wird schrittweise umgesetzt; kein vorsorglicher Gesamtumbau.
+Neue musikalische Fähigkeiten werden nur gezielt angeschlossen. Die erste Williams-P1-Grundlage und ihre Arp-Phrasierung sind inzwischen
 positiv gehört; das vollständige Stilprofil bleibt weiter auszuarbeiten. Gemeinsame Anknüpfungspunkte stehen im
 [musikalischen Fähigkeitsbericht](research/SHARED_MUSICAL_CAPABILITIES.md).
 

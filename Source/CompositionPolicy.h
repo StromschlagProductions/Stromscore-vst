@@ -1,5 +1,6 @@
 #pragma once
 #include "ModalContext.h"
+#include "CarpenterVocabulary.generated.h"
 #include "ArpeggioPhrase.h"
 #include "RhythmPlan.h"
 #include "ChordDisposition.h"
@@ -74,7 +75,21 @@ inline bool valid(const AutoAccompanimentPolicy& p)
 {return p.fastestArp==musicaltime::sixteenth||p.fastestArp==2*musicaltime::sixteenth||p.fastestArp==musicaltime::quarter;}
 struct PedalPolicy { bool enabled=false; int lifetimeBars=16; };
 inline bool valid(const PedalPolicy& p){return p.lifetimeBars>=1&&p.lifetimeBars<=64;}
-struct FreeCompositionPolicy { PedalPolicy pedal; ArpeggioPhrasePolicy arpeggioPhrase; AutoAccompanimentPolicy accompaniment; TexturePolicy texture; PopRolePolicy popRoles; MotifRecurrencePolicy motif; HookPolicy popHooks; PassingPolicy passing; BassPhrasePolicy bass; RhythmCoordinationPolicy rhythm; ChordDispositionPolicy chords; };
+struct SequencePolicy {
+    bool enabled=false,chordPulse=false;
+    const SequenceSource* sources=nullptr;int count=0;
+    const FigureHarmonyBinding* harmonies=nullptr;int harmonyCount=0;
+    const SequenceSource* event=nullptr;
+    musicaltime::Tick eventSpacing=64*musicaltime::quarter;
+};
+inline bool valid(const SequencePolicy& p)
+{
+    if(!p.enabled)return true;
+    if(!p.sources||p.count<1||p.harmonyCount<0||(p.harmonyCount&&!p.harmonies)||p.eventSpacing<musicaltime::Tick{1})return false;
+    for(int i=0;i<p.count;++i)if(!valid(p.sources[i]))return false;
+    return !p.event||(valid(*p.event)&&p.eventSpacing>=p.event->period);
+}
+struct FreeCompositionPolicy { SequencePolicy sequences; PedalPolicy pedal; ArpeggioPhrasePolicy arpeggioPhrase; AutoAccompanimentPolicy accompaniment; TexturePolicy texture; PopRolePolicy popRoles; MotifRecurrencePolicy motif; HookPolicy popHooks; PassingPolicy passing; BassPhrasePolicy bass; RhythmCoordinationPolicy rhythm; ChordDispositionPolicy chords; };
 inline constexpr FreeCompositionPolicy neutralFreePolicy {};
 inline constexpr auto barryPolicy=[] {
     auto p=neutralFreePolicy;p.accompaniment.fieldAndOstinato=true;p.accompaniment.authoredCells=true;
@@ -85,6 +100,10 @@ inline constexpr auto barryPolicy=[] {
     return p;
 }();
 inline constexpr auto williamsPolicy=[] {auto p=neutralFreePolicy;p.arpeggioPhrase.enabled=true;p.pedal.enabled=true;return p;}();
+inline constexpr auto carpenterPolicy=[] {auto p=neutralFreePolicy;p.sequences.enabled=true;p.sequences.chordPulse=true;
+    p.sequences.sources=carpenter::sources;p.sequences.count=static_cast<int>(std::size(carpenter::sources));
+    p.sequences.harmonies=carpenter::harmonies;p.sequences.harmonyCount=static_cast<int>(std::size(carpenter::harmonies));
+    p.sequences.event=&carpenter::echo;p.pedal.enabled=true;p.texture.activityStart={{0.f,0.f,.2f,.15f,.25f,.25f}};return p;}();
 // Each profile supplies data to the same planning and rendering mechanisms.
 struct CompositionProfile
 {
@@ -95,7 +114,7 @@ struct CompositionProfile
 };
 inline constexpr auto compositionProfiles=[] {
     std::array<CompositionProfile,profileIdentities.size()> result {};
-    for(size_t i=0;i<result.size();++i){const auto& p=profileIdentities[i];result[i]={p.id,p.name,p.id==ProfileId::johnBarry?&barryPolicy:p.id==ProfileId::johnWilliams?&williamsPolicy:&neutralFreePolicy,p.harmonySelectionOnly};}
+    for(size_t i=0;i<result.size();++i){const auto& p=profileIdentities[i];result[i]={p.id,p.name,p.id==ProfileId::johnCarpenter?&carpenterPolicy:p.id==ProfileId::johnBarry?&barryPolicy:p.id==ProfileId::johnWilliams?&williamsPolicy:&neutralFreePolicy,p.harmonySelectionOnly};}
     return result;
 }();
 inline constexpr const CompositionProfile* findProfile(ProfileId id)

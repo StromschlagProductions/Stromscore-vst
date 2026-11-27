@@ -4,7 +4,7 @@
 using namespace stromscore;
 int main()
 {
- CHECK(harmonyTemplates.size()==195&&kNumWendungen==48&&kNumPopWendungen==39);
+ CHECK(harmonyTemplates.size()==225&&kNumWendungen==48&&kNumPopWendungen==39);
  CHECK(kMaxWendungen==49&&kCustomWendung>=kMaxWendungen);
  CHECK(!findHarmonyTemplate(WendungId::custom)&&!findHarmonyTemplate(WendungId::invalid));
  for(const auto& h:harmonyTemplates)

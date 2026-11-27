@@ -5,6 +5,10 @@ geprüft, aber noch nicht musikalisch abgenommen. Die positive Anwenderabnahme d
 Arpeggio-Phrasierung `2c6f366` bleibt gültig; P3 ist ein eigener Hörschritt.
 Kein Push, kein Release, keine GUI- oder Ausgangserweiterung.
 
+> Fortschreibung: Williams P2/P3 wurden im Build `023b0a6` positiv vom Anwender
+> gehört und als Entwicklungsgrundlage akzeptiert; keine exhaustive Parameterabnahme.
+> Siehe [Referenz](../../development/ACCEPTED_REFERENCE_44d2404.md).
+
 ## Umfang und musikalische Bedeutung
 
 Alle 48 kanonischen M-Grundvorlagen wurden einzeln geprüft. **32 vollständige

@@ -338,7 +338,9 @@ Akkorde werden nicht ersetzt, ihr automatischer Begleitstil kann sich jedoch än
 
 Die verbindliche [musikalische Projektausrichtung](docs/MUSICAL_DIRECTION.md) priorisiert spannungsorientiertes Hörspiel-Underscoring bei erhaltener Gesamtbandbreite.
 
-Langfristig sind **SCORE, SYNTH und POP/ROCK** mit gemeinsamem Kompositionskern und
-unterschiedlichen musikalischen Strategien geplant. SYNTH ist noch nicht
-implementiert; John Carpenter hat für KADAITCHA besondere Forschungspriorität.
-Die geplanten Profile und Grenzen stehen in der Projektausrichtung.
+Die verbindliche Stilarchitektur verwendet **einen gemeinsamen Kompositionskern
+mit individuellen Profilen**. SCORE, SYNTH und POP/ROCK können der Orientierung
+in der Oberfläche dienen; Instrumente bleiben frei wählbar. Das vollständige
+Pop/Rock-Mischvokabular bleibt erhalten. Carpenter P1 ist zunächst im bestehenden
+SCORE-Komponistenmenü auswählbar. Kein vollständiger Genre-Umbau und keine separate
+SYNTH-Engine. Details: [Projektausrichtung](docs/MUSICAL_DIRECTION.md).

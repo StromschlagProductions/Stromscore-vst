@@ -1,3 +1,30 @@
+# Aktueller Hörschritt: John Carpenter P1
+
+Im bestehenden **SCORE → KOMPONIST → John Carpenter** wählen. Zunächst 4/4,
+D, 100 BPM, Aufbau/Fahrt AUS, unbegrenzte Wiedergabe, Auto-Spielweisen und Follow
+EIN; Hauptmelodie zunächst AUS. GS arbeitet hier als zweiter Sequencer.
+Standardkanäle: LF1/KF2/LB3/KB4/AR5/TU6/ST7/GS8/HM9. Geeignete Lang-/Kurz-Patches
+in der DAW verwenden; ST im festen Modus mit Standardtaste36.
+
+- Drone/Bassfigur: X/Y/Z = 0,25/0,30/0,20; zunächst AR/GS muten.
+- Zwei Sequencer: 0,30/0,55/0,30; AR/GS einschalten, Variation3 testen.
+- Pulsfreies Klangfeld mit Echo: 0,40/0,15/0,10; Bass/AR/GS muten, LF/TU hören.
+- Melancholisch: 0,70/0,35/0,20.
+- Intensive Spannung: 0,20/0,90/1,00; leise abhören und passende kurze Patches wählen.
+- Anschließend HM mit Motiv einschalten und freie XYZ-Fahrten vergleichen.
+
+Pro Position 64, besser 128 Takte (rund 2:34/5:07 bei 100 BPM). Die neue Figurenstrategie
+ist zunächst 4/4-spezifisch; andere unterstützte Taktarten verwenden die sichere
+bisherige Ausgestaltung des Carpenter-Harmoniematerials. ST wird im neuen Pfad
+nicht als tonale Ersatzstimme ausgeführt. Bei geteilter Kanalbelegung können
+unabhängige Figuren entfallen. Noch keine musikalische Abnahme von Carpenter P1.
+
+Vollständige Anleitung und echte MIDI-Hörstudien liegen im Repository unter
+`docs/research/john-carpenter/P1_STUDIO_ONE.md` und `P1_MIDI_LISTENING.zip`.
+Die folgenden allgemeinen Installations-/Transporthinweise gelten weiter.
+
+---
+
 # STROMSCORE 2.2 DEV – Morricone P1: Hörtest in Studio One Pro 8
 
 Dieser Entwicklungsbuild ergänzt die gemeinsame Oberstimmenbindung und einen

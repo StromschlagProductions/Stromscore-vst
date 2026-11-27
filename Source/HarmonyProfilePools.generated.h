@@ -8,15 +8,19 @@ inline constexpr auto profileScore3=[] {auto result=playbackPool(std::array<int,
 return result;}();
 inline constexpr auto profileScore4=[] {auto result=playbackPool(std::array<int,14>{{181,182,183,184,185,186,187,188,189,190,191,192,193,194}});
 return result;}();
+inline constexpr auto profileScore5=[] {auto result=playbackPool(std::array<int,30>{{195,196,197,198,199,200,201,202,203,204,205,206,207,208,209,210,211,212,213,214,215,216,217,218,219,220,221,222,223,224}});
+return result;}();
 inline constexpr int profilePoolCapacity=49;
 inline constexpr const Wendung* scoreProfileTable(composition::ProfileId id){switch(id){
 case composition::ProfileId::johnBarry:return profileScore1.data();
 case composition::ProfileId::johnWilliams:return profileScore3.data();
 case composition::ProfileId::ennioMorricone:return profileScore4.data();
+case composition::ProfileId::johnCarpenter:return profileScore5.data();
 default:return kWendungen.data();}}
 inline constexpr int scoreProfileCount(composition::ProfileId id){switch(id){
 case composition::ProfileId::johnBarry:return profileScore1.size();
 case composition::ProfileId::johnWilliams:return profileScore3.size();
 case composition::ProfileId::ennioMorricone:return profileScore4.size();
+case composition::ProfileId::johnCarpenter:return profileScore5.size();
 default:return kNumWendungen;}}
 }

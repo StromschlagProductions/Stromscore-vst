@@ -124,3 +124,13 @@ Archivebytes/Git-Blobs, SHA-256, vollständige IDs, alle acht Strategiezuordnung
 Dateilinks, reproduzierbare Ausgaben und Dokumentationsumfang wurden geprüft.
 Kein neuer Engine-/VST3-/Sanitizerlauf für reine Dokumentation; keine Aktivierung,
 kein Push, kein Release.
+
+## Carpenter P1 – Fortschreibung
+
+Die erste begrenzte Profilimplementierung nutzt den gemeinsamen Kern und ist
+im bestehenden SCORE-Komponistenmenü wählbar. Kanonische Originale bleiben
+unverändert; alte technische Klassifikationen sind historische Bestandsaufnahmen.
+Aktueller Umfang und Grenzen: [P1.md](P1.md), vollständige ID-Zuordnung
+[P1_IMPLEMENTED_IDS.json](P1_IMPLEMENTED_IDS.json),
+[Studio-One-Hörtest](P1_STUDIO_ONE.md) und
+[MIDI-Hörstudien](P1_MIDI_LISTENING.zip). Noch keine Anwender-Hörabnahme von P1.

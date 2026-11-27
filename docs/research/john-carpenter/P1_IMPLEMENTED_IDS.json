@@ -1,0 +1,4063 @@
+{
+  "base": "44d2404",
+  "scope": "P1 ground forms and explicit partial components, not the complete optional instructions of every canonical ID",
+  "counts": {
+    "partially_integrated": 35,
+    "deferred": 274,
+    "integrated_ground_form": 96
+  },
+  "source_data": "data/carpenter/vocabulary.json",
+  "hearing_counts_available": true,
+  "ids": [
+    {
+      "id": "JC-H001",
+      "kind": "H",
+      "name": "Kalte Quintleere",
+      "status": "partially_integrated",
+      "reason": "Exakte harmonische Grundform und gedruckte Akkordlagen importiert; optionale Strategien nicht vollständig.",
+      "component": "harmonic_chords_and_voicings_complete",
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 98
+    },
+    {
+      "id": "JC-H002",
+      "kind": "H",
+      "name": "Oktavsäule",
+      "status": "deferred",
+      "reason": "Nicht als exakt darstellbarer vorhandener Akkordtyp freigegeben; kein ähnlicher Akkord als Ersatz.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 112
+    },
+    {
+      "id": "JC-H003",
+      "kind": "H",
+      "name": "Quint-Oktav-Turm",
+      "status": "partially_integrated",
+      "reason": "Exakte harmonische Grundform und gedruckte Akkordlagen importiert; optionale Strategien nicht vollständig.",
+      "component": "harmonic_chords_and_voicings_complete",
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 126
+    },
+    {
+      "id": "JC-H004",
+      "kind": "H",
+      "name": "Quintenstapel mit None",
+      "status": "partially_integrated",
+      "reason": "Exakte harmonische Grundform und gedruckte Akkordlagen importiert; optionale Strategien nicht vollständig.",
+      "component": "harmonic_chords_and_voicings_complete",
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 140
+    },
+    {
+      "id": "JC-H005",
+      "kind": "H",
+      "name": "Quartleere",
+      "status": "deferred",
+      "reason": "Nicht als exakt darstellbarer vorhandener Akkordtyp freigegeben; kein ähnlicher Akkord als Ersatz.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 154
+    },
+    {
+      "id": "JC-H006",
+      "kind": "H",
+      "name": "Quintpendel Grundton–♭VI",
+      "status": "partially_integrated",
+      "reason": "Exakte harmonische Grundform und gedruckte Akkordlagen importiert; optionale Strategien nicht vollständig.",
+      "component": "harmonic_chords_and_voicings_complete",
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 168
+    },
+    {
+      "id": "JC-H007",
+      "kind": "H",
+      "name": "Quintpendel Grundton–♭VII",
+      "status": "partially_integrated",
+      "reason": "Exakte harmonische Grundform und gedruckte Akkordlagen importiert; optionale Strategien nicht vollständig.",
+      "component": "harmonic_chords_and_voicings_complete",
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 183
+    },
+    {
+      "id": "JC-H008",
+      "kind": "H",
+      "name": "Weite Quinte",
+      "status": "deferred",
+      "reason": "Die eigenständige Harmonieperiode passt nicht zum aktuellen achtaktigen Importmodell; nicht auf acht Takte umgeschrieben.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 198
+    },
+    {
+      "id": "JC-H009",
+      "kind": "H",
+      "name": "Quinte mit ♭2",
+      "status": "deferred",
+      "reason": "Nicht als exakt darstellbarer vorhandener Akkordtyp freigegeben; kein ähnlicher Akkord als Ersatz.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 214
+    },
+    {
+      "id": "JC-H010",
+      "kind": "H",
+      "name": "Quinte mit ♭6-Nachbar",
+      "status": "deferred",
+      "reason": "Nicht als exakt darstellbarer vorhandener Akkordtyp freigegeben; kein ähnlicher Akkord als Ersatz.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 228
+    },
+    {
+      "id": "JC-H011",
+      "kind": "H",
+      "name": "Quinte mit großer Septime",
+      "status": "deferred",
+      "reason": "Nicht als exakt darstellbarer vorhandener Akkordtyp freigegeben; kein ähnlicher Akkord als Ersatz.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 242
+    },
+    {
+      "id": "JC-H012",
+      "kind": "H",
+      "name": "Oktave mit Tritonus",
+      "status": "deferred",
+      "reason": "Nicht als exakt darstellbarer vorhandener Akkordtyp freigegeben; kein ähnlicher Akkord als Ersatz.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 256
+    },
+    {
+      "id": "JC-H013",
+      "kind": "H",
+      "name": "Moll mit ♭2 oben",
+      "status": "deferred",
+      "reason": "Nicht als exakt darstellbarer vorhandener Akkordtyp freigegeben; kein ähnlicher Akkord als Ersatz.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 270
+    },
+    {
+      "id": "JC-H014",
+      "kind": "H",
+      "name": "Doppelte Halbtonreibung",
+      "status": "deferred",
+      "reason": "Nicht als exakt darstellbarer vorhandener Akkordtyp freigegeben; kein ähnlicher Akkord als Ersatz.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 284
+    },
+    {
+      "id": "JC-H015",
+      "kind": "H",
+      "name": "Halbton-Blockpendel der Quinte",
+      "status": "partially_integrated",
+      "reason": "Exakte harmonische Grundform und gedruckte Akkordlagen importiert; optionale Strategien nicht vollständig.",
+      "component": "harmonic_chords_and_voicings_complete",
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 298
+    },
+    {
+      "id": "JC-H016",
+      "kind": "H",
+      "name": "Wandernder Reibungston",
+      "status": "deferred",
+      "reason": "Nicht als exakt darstellbarer vorhandener Akkordtyp freigegeben; kein ähnlicher Akkord als Ersatz.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 313
+    },
+    {
+      "id": "JC-H017",
+      "kind": "H",
+      "name": "Moll-Grundklang für Pulse",
+      "status": "partially_integrated",
+      "reason": "Exakte harmonische Grundform und gedruckte Akkordlagen importiert; optionale Strategien nicht vollständig.",
+      "component": "harmonic_chords_and_voicings_complete",
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 330
+    },
+    {
+      "id": "JC-H018",
+      "kind": "H",
+      "name": "Offener Moll für Pulse",
+      "status": "partially_integrated",
+      "reason": "Exakte harmonische Grundform und gedruckte Akkordlagen importiert; optionale Strategien nicht vollständig.",
+      "component": "harmonic_chords_and_voicings_complete",
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 344
+    },
+    {
+      "id": "JC-H019",
+      "kind": "H",
+      "name": "Mollpuls i–♭VI",
+      "status": "deferred",
+      "reason": "Die eigenständige Harmonieperiode passt nicht zum aktuellen achtaktigen Importmodell; nicht auf acht Takte umgeschrieben.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 358
+    },
+    {
+      "id": "JC-H020",
+      "kind": "H",
+      "name": "Mollpuls i–iv",
+      "status": "deferred",
+      "reason": "Die eigenständige Harmonieperiode passt nicht zum aktuellen achtaktigen Importmodell; nicht auf acht Takte umgeschrieben.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 373
+    },
+    {
+      "id": "JC-H021",
+      "kind": "H",
+      "name": "Mollpuls i–♭II",
+      "status": "deferred",
+      "reason": "Die eigenständige Harmonieperiode passt nicht zum aktuellen achtaktigen Importmodell; nicht auf acht Takte umgeschrieben.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 388
+    },
+    {
+      "id": "JC-H022",
+      "kind": "H",
+      "name": "Mollpuls i–v",
+      "status": "deferred",
+      "reason": "Die eigenständige Harmonieperiode passt nicht zum aktuellen achtaktigen Importmodell; nicht auf acht Takte umgeschrieben.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 403
+    },
+    {
+      "id": "JC-H023",
+      "kind": "H",
+      "name": "Äolischer Kreis",
+      "status": "partially_integrated",
+      "reason": "Exakte harmonische Grundform und gedruckte Akkordlagen importiert; optionale Strategien nicht vollständig.",
+      "component": "harmonic_chords_and_voicings_complete",
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 420
+    },
+    {
+      "id": "JC-H024",
+      "kind": "H",
+      "name": "Kreis mit vermindertem ii",
+      "status": "partially_integrated",
+      "reason": "Exakte harmonische Grundform und gedruckte Akkordlagen importiert; optionale Strategien nicht vollständig.",
+      "component": "harmonic_chords_and_voicings_complete",
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 437
+    },
+    {
+      "id": "JC-H025",
+      "kind": "H",
+      "name": "Fünfgliedriger Kreis",
+      "status": "deferred",
+      "reason": "Die eigenständige Harmonieperiode passt nicht zum aktuellen achtaktigen Importmodell; nicht auf acht Takte umgeschrieben.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 454
+    },
+    {
+      "id": "JC-H026",
+      "kind": "H",
+      "name": "Abwärts-Kreis ♭VII–♭VI",
+      "status": "partially_integrated",
+      "reason": "Exakte harmonische Grundform und gedruckte Akkordlagen importiert; optionale Strategien nicht vollständig.",
+      "component": "harmonic_chords_and_voicings_complete",
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 472
+    },
+    {
+      "id": "JC-H027",
+      "kind": "H",
+      "name": "Kreis i–iv–♭VII–♭III",
+      "status": "partially_integrated",
+      "reason": "Exakte harmonische Grundform und gedruckte Akkordlagen importiert; optionale Strategien nicht vollständig.",
+      "component": "harmonic_chords_and_voicings_complete",
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 489
+    },
+    {
+      "id": "JC-H028",
+      "kind": "H",
+      "name": "Langsamer Zweiklang-Kreis",
+      "status": "deferred",
+      "reason": "Die eigenständige Harmonieperiode passt nicht zum aktuellen achtaktigen Importmodell; nicht auf acht Takte umgeschrieben.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 506
+    },
+    {
+      "id": "JC-H029",
+      "kind": "H",
+      "name": "Kreis i–♭III–♭VII–iv",
+      "status": "partially_integrated",
+      "reason": "Exakte harmonische Grundform und gedruckte Akkordlagen importiert; optionale Strategien nicht vollständig.",
+      "component": "harmonic_chords_and_voicings_complete",
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 521
+    },
+    {
+      "id": "JC-H030",
+      "kind": "H",
+      "name": "Kreis mit unaufgelöster Dominante",
+      "status": "partially_integrated",
+      "reason": "Exakte harmonische Grundform und gedruckte Akkordlagen importiert; optionale Strategien nicht vollständig.",
+      "component": "harmonic_chords_and_voicings_complete",
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 538
+    },
+    {
+      "id": "JC-H031",
+      "kind": "H",
+      "name": "Phrygischer Abstieg",
+      "status": "partially_integrated",
+      "reason": "Exakte harmonische Grundform und gedruckte Akkordlagen importiert; optionale Strategien nicht vollständig.",
+      "component": "harmonic_chords_and_voicings_complete",
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 557
+    },
+    {
+      "id": "JC-H032",
+      "kind": "H",
+      "name": "Aufwärts schreitend",
+      "status": "partially_integrated",
+      "reason": "Exakte harmonische Grundform und gedruckte Akkordlagen importiert; optionale Strategien nicht vollständig.",
+      "component": "harmonic_chords_and_voicings_complete",
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 574
+    },
+    {
+      "id": "JC-H033",
+      "kind": "H",
+      "name": "Schreitende leere Quinten abwärts",
+      "status": "partially_integrated",
+      "reason": "Exakte harmonische Grundform und gedruckte Akkordlagen importiert; optionale Strategien nicht vollständig.",
+      "component": "harmonic_chords_and_voicings_complete",
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 591
+    },
+    {
+      "id": "JC-H034",
+      "kind": "H",
+      "name": "Schreitend über Pedal",
+      "status": "deferred",
+      "reason": "Die eigenständige Harmonieperiode passt nicht zum aktuellen achtaktigen Importmodell; nicht auf acht Takte umgeschrieben.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 608
+    },
+    {
+      "id": "JC-H035",
+      "kind": "H",
+      "name": "Chromatische Moll-Parallelen",
+      "status": "partially_integrated",
+      "reason": "Exakte harmonische Grundform und gedruckte Akkordlagen importiert; optionale Strategien nicht vollständig.",
+      "component": "harmonic_chords_and_voicings_complete",
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 625
+    },
+    {
+      "id": "JC-H036",
+      "kind": "H",
+      "name": "Terzschritte i–♭III–v–♭VII",
+      "status": "deferred",
+      "reason": "Die eigenständige Harmonieperiode passt nicht zum aktuellen achtaktigen Importmodell; nicht auf acht Takte umgeschrieben.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 642
+    },
+    {
+      "id": "JC-H037",
+      "kind": "H",
+      "name": "Moll wird Dur",
+      "status": "partially_integrated",
+      "reason": "Exakte harmonische Grundform und gedruckte Akkordlagen importiert; optionale Strategien nicht vollständig.",
+      "component": "harmonic_chords_and_voicings_complete",
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 661
+    },
+    {
+      "id": "JC-H038",
+      "kind": "H",
+      "name": "Dur-Ziel einen Ganzton höher",
+      "status": "deferred",
+      "reason": "Die eigenständige Harmonieperiode passt nicht zum aktuellen achtaktigen Importmodell; nicht auf acht Takte umgeschrieben.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 676
+    },
+    {
+      "id": "JC-H039",
+      "kind": "H",
+      "name": "Dur wird Moll",
+      "status": "partially_integrated",
+      "reason": "Exakte harmonische Grundform und gedruckte Akkordlagen importiert; optionale Strategien nicht vollständig.",
+      "component": "harmonic_chords_and_voicings_complete",
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 691
+    },
+    {
+      "id": "JC-H040",
+      "kind": "H",
+      "name": "Moll und Dur-IV",
+      "status": "partially_integrated",
+      "reason": "Exakte harmonische Grundform und gedruckte Akkordlagen importiert; optionale Strategien nicht vollständig.",
+      "component": "harmonic_chords_and_voicings_complete",
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 706
+    },
+    {
+      "id": "JC-H041",
+      "kind": "H",
+      "name": "Kalte Mediante",
+      "status": "partially_integrated",
+      "reason": "Exakte harmonische Grundform und gedruckte Akkordlagen importiert; optionale Strategien nicht vollständig.",
+      "component": "harmonic_chords_and_voicings_complete",
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 721
+    },
+    {
+      "id": "JC-H042",
+      "kind": "H",
+      "name": "Dur-Lichtung",
+      "status": "deferred",
+      "reason": "Die eigenständige Harmonieperiode passt nicht zum aktuellen achtaktigen Importmodell; nicht auf acht Takte umgeschrieben.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 736
+    },
+    {
+      "id": "JC-H043",
+      "kind": "H",
+      "name": "Moll add9 Fläche",
+      "status": "deferred",
+      "reason": "Die eigenständige Harmonieperiode passt nicht zum aktuellen achtaktigen Importmodell; nicht auf acht Takte umgeschrieben.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 753
+    },
+    {
+      "id": "JC-H044",
+      "kind": "H",
+      "name": "Kalter sus2",
+      "status": "deferred",
+      "reason": "Die eigenständige Harmonieperiode passt nicht zum aktuellen achtaktigen Importmodell; nicht auf acht Takte umgeschrieben.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 767
+    },
+    {
+      "id": "JC-H045",
+      "kind": "H",
+      "name": "Gehaltener sus4",
+      "status": "deferred",
+      "reason": "Die eigenständige Harmonieperiode passt nicht zum aktuellen achtaktigen Importmodell; nicht auf acht Takte umgeschrieben.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 781
+    },
+    {
+      "id": "JC-H046",
+      "kind": "H",
+      "name": "Breiter Moll mit Doppeloktave",
+      "status": "deferred",
+      "reason": "Die eigenständige Harmonieperiode passt nicht zum aktuellen achtaktigen Importmodell; nicht auf acht Takte umgeschrieben.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 795
+    },
+    {
+      "id": "JC-H047",
+      "kind": "H",
+      "name": "Moll mit ♭6 oben",
+      "status": "deferred",
+      "reason": "Die eigenständige Harmonieperiode passt nicht zum aktuellen achtaktigen Importmodell; nicht auf acht Takte umgeschrieben.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 809
+    },
+    {
+      "id": "JC-H048",
+      "kind": "H",
+      "name": "Moll-Septakkord",
+      "status": "deferred",
+      "reason": "Die eigenständige Harmonieperiode passt nicht zum aktuellen achtaktigen Importmodell; nicht auf acht Takte umgeschrieben.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 823
+    },
+    {
+      "id": "JC-H049",
+      "kind": "H",
+      "name": "Moll mit großer Septime",
+      "status": "deferred",
+      "reason": "Die eigenständige Harmonieperiode passt nicht zum aktuellen achtaktigen Importmodell; nicht auf acht Takte umgeschrieben.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 837
+    },
+    {
+      "id": "JC-H050",
+      "kind": "H",
+      "name": "Quartenstapel",
+      "status": "deferred",
+      "reason": "Die eigenständige Harmonieperiode passt nicht zum aktuellen achtaktigen Importmodell; nicht auf acht Takte umgeschrieben.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 851
+    },
+    {
+      "id": "JC-H051",
+      "kind": "H",
+      "name": "Achse Grundton",
+      "status": "deferred",
+      "reason": "Die eigenständige Harmonieperiode passt nicht zum aktuellen achtaktigen Importmodell; nicht auf acht Takte umgeschrieben.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 867
+    },
+    {
+      "id": "JC-H052",
+      "kind": "H",
+      "name": "Achse Quinte",
+      "status": "deferred",
+      "reason": "Die eigenständige Harmonieperiode passt nicht zum aktuellen achtaktigen Importmodell; nicht auf acht Takte umgeschrieben.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 884
+    },
+    {
+      "id": "JC-H053",
+      "kind": "H",
+      "name": "Achse kleine Terz",
+      "status": "deferred",
+      "reason": "Die eigenständige Harmonieperiode passt nicht zum aktuellen achtaktigen Importmodell; nicht auf acht Takte umgeschrieben.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 901
+    },
+    {
+      "id": "JC-H054",
+      "kind": "H",
+      "name": "Achse Quinte, Dur/Moll/sus4",
+      "status": "partially_integrated",
+      "reason": "Exakte harmonische Grundform und gedruckte Akkordlagen importiert; optionale Strategien nicht vollständig.",
+      "component": "harmonic_chords_and_voicings_complete",
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 918
+    },
+    {
+      "id": "JC-H055",
+      "kind": "H",
+      "name": "Achse ♭6, phrygisch",
+      "status": "deferred",
+      "reason": "Die eigenständige Harmonieperiode passt nicht zum aktuellen achtaktigen Importmodell; nicht auf acht Takte umgeschrieben.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 935
+    },
+    {
+      "id": "JC-H056",
+      "kind": "H",
+      "name": "Achse ♭7",
+      "status": "deferred",
+      "reason": "Die eigenständige Harmonieperiode passt nicht zum aktuellen achtaktigen Importmodell; nicht auf acht Takte umgeschrieben.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 952
+    },
+    {
+      "id": "JC-H057",
+      "kind": "H",
+      "name": "Enger Halbtoncluster",
+      "status": "deferred",
+      "reason": "Die eigenständige Harmonieperiode passt nicht zum aktuellen achtaktigen Importmodell; nicht auf acht Takte umgeschrieben.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 971
+    },
+    {
+      "id": "JC-H058",
+      "kind": "H",
+      "name": "Ganztoncluster",
+      "status": "deferred",
+      "reason": "Die eigenständige Harmonieperiode passt nicht zum aktuellen achtaktigen Importmodell; nicht auf acht Takte umgeschrieben.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 985
+    },
+    {
+      "id": "JC-H059",
+      "kind": "H",
+      "name": "Spiegelcluster um die Oktave",
+      "status": "deferred",
+      "reason": "Die eigenständige Harmonieperiode passt nicht zum aktuellen achtaktigen Importmodell; nicht auf acht Takte umgeschrieben.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 999
+    },
+    {
+      "id": "JC-H060",
+      "kind": "H",
+      "name": "Doppeltritonus",
+      "status": "deferred",
+      "reason": "Die eigenständige Harmonieperiode passt nicht zum aktuellen achtaktigen Importmodell; nicht auf acht Takte umgeschrieben.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 1013
+    },
+    {
+      "id": "JC-H061",
+      "kind": "H",
+      "name": "Quartklang mit Reibung",
+      "status": "deferred",
+      "reason": "Die eigenständige Harmonieperiode passt nicht zum aktuellen achtaktigen Importmodell; nicht auf acht Takte umgeschrieben.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 1027
+    },
+    {
+      "id": "JC-H062",
+      "kind": "H",
+      "name": "Wanderndes Cluster",
+      "status": "deferred",
+      "reason": "Die eigenständige Harmonieperiode passt nicht zum aktuellen achtaktigen Importmodell; nicht auf acht Takte umgeschrieben.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 1041
+    },
+    {
+      "id": "JC-H063",
+      "kind": "H",
+      "name": "Kleinterz-Pendel der Quinten",
+      "status": "partially_integrated",
+      "reason": "Exakte harmonische Grundform und gedruckte Akkordlagen importiert; optionale Strategien nicht vollständig.",
+      "component": "harmonic_chords_and_voicings_complete",
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 1060
+    },
+    {
+      "id": "JC-H064",
+      "kind": "H",
+      "name": "Quinten i–iv",
+      "status": "partially_integrated",
+      "reason": "Exakte harmonische Grundform und gedruckte Akkordlagen importiert; optionale Strategien nicht vollständig.",
+      "component": "harmonic_chords_and_voicings_complete",
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 1075
+    },
+    {
+      "id": "JC-H065",
+      "kind": "H",
+      "name": "Kleinterzkette",
+      "status": "partially_integrated",
+      "reason": "Exakte harmonische Grundform und gedruckte Akkordlagen importiert; optionale Strategien nicht vollständig.",
+      "component": "harmonic_chords_and_voicings_complete",
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 1090
+    },
+    {
+      "id": "JC-H066",
+      "kind": "H",
+      "name": "Riffgerüst i–♭VII–♭VI",
+      "status": "partially_integrated",
+      "reason": "Exakte harmonische Grundform und gedruckte Akkordlagen importiert; optionale Strategien nicht vollständig.",
+      "component": "harmonic_chords_and_voicings_complete",
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 1107
+    },
+    {
+      "id": "JC-H067",
+      "kind": "H",
+      "name": "Moll-Pentatonik-Feld",
+      "status": "deferred",
+      "reason": "Die eigenständige Harmonieperiode passt nicht zum aktuellen achtaktigen Importmodell; nicht auf acht Takte umgeschrieben.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 1123
+    },
+    {
+      "id": "JC-H068",
+      "kind": "H",
+      "name": "Dur über fremdem Pedal",
+      "status": "partially_integrated",
+      "reason": "Exakte harmonische Grundform und gedruckte Akkordlagen importiert; optionale Strategien nicht vollständig.",
+      "component": "harmonic_chords_and_voicings_complete",
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 1139
+    },
+    {
+      "id": "JC-H069",
+      "kind": "H",
+      "name": "Hoher kalter Durklang",
+      "status": "deferred",
+      "reason": "Die eigenständige Harmonieperiode passt nicht zum aktuellen achtaktigen Importmodell; nicht auf acht Takte umgeschrieben.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 1153
+    },
+    {
+      "id": "JC-H070",
+      "kind": "H",
+      "name": "Gespreizter Moll",
+      "status": "deferred",
+      "reason": "Die eigenständige Harmonieperiode passt nicht zum aktuellen achtaktigen Importmodell; nicht auf acht Takte umgeschrieben.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 1167
+    },
+    {
+      "id": "JC-H071",
+      "kind": "H",
+      "name": "♭VI als Zentrum",
+      "status": "deferred",
+      "reason": "Die eigenständige Harmonieperiode passt nicht zum aktuellen achtaktigen Importmodell; nicht auf acht Takte umgeschrieben.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 1181
+    },
+    {
+      "id": "JC-H072",
+      "kind": "H",
+      "name": "Lydische Helle",
+      "status": "deferred",
+      "reason": "Die eigenständige Harmonieperiode passt nicht zum aktuellen achtaktigen Importmodell; nicht auf acht Takte umgeschrieben.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 1195
+    },
+    {
+      "id": "JC-H073",
+      "kind": "H",
+      "name": "Glasiges Dur add9",
+      "status": "deferred",
+      "reason": "Die eigenständige Harmonieperiode passt nicht zum aktuellen achtaktigen Importmodell; nicht auf acht Takte umgeschrieben.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 1209
+    },
+    {
+      "id": "JC-H074",
+      "kind": "H",
+      "name": "Phrygische Mystery",
+      "status": "partially_integrated",
+      "reason": "Exakte harmonische Grundform und gedruckte Akkordlagen importiert; optionale Strategien nicht vollständig.",
+      "component": "harmonic_chords_and_voicings_complete",
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 1225
+    },
+    {
+      "id": "JC-H075",
+      "kind": "H",
+      "name": "Dorische Kälte",
+      "status": "deferred",
+      "reason": "Die eigenständige Harmonieperiode passt nicht zum aktuellen achtaktigen Importmodell; nicht auf acht Takte umgeschrieben.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 1240
+    },
+    {
+      "id": "JC-H076",
+      "kind": "H",
+      "name": "Übermäßiger Schatten",
+      "status": "deferred",
+      "reason": "Die eigenständige Harmonieperiode passt nicht zum aktuellen achtaktigen Importmodell; nicht auf acht Takte umgeschrieben.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 1254
+    },
+    {
+      "id": "JC-H077",
+      "kind": "H",
+      "name": "Melancholischer Kreis",
+      "status": "deferred",
+      "reason": "Die eigenständige Harmonieperiode passt nicht zum aktuellen achtaktigen Importmodell; nicht auf acht Takte umgeschrieben.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 1269
+    },
+    {
+      "id": "JC-H078",
+      "kind": "H",
+      "name": "Melancholie add9 nach ♭VI maj7",
+      "status": "deferred",
+      "reason": "Die eigenständige Harmonieperiode passt nicht zum aktuellen achtaktigen Importmodell; nicht auf acht Takte umgeschrieben.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 1286
+    },
+    {
+      "id": "JC-H079",
+      "kind": "H",
+      "name": "Lokrische Leere",
+      "status": "deferred",
+      "reason": "Die eigenständige Harmonieperiode passt nicht zum aktuellen achtaktigen Importmodell; nicht auf acht Takte umgeschrieben.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 1301
+    },
+    {
+      "id": "JC-H080",
+      "kind": "H",
+      "name": "Übermäßige Schwebe",
+      "status": "deferred",
+      "reason": "Die eigenständige Harmonieperiode passt nicht zum aktuellen achtaktigen Importmodell; nicht auf acht Takte umgeschrieben.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 1315
+    },
+    {
+      "id": "JC-H081",
+      "kind": "H",
+      "name": "Heller Quint-Oktav-Turm",
+      "status": "deferred",
+      "reason": "Die eigenständige Harmonieperiode passt nicht zum aktuellen achtaktigen Importmodell; nicht auf acht Takte umgeschrieben.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 1329
+    },
+    {
+      "id": "JC-H082",
+      "kind": "H",
+      "name": "Kraftvolles offenes Dur",
+      "status": "deferred",
+      "reason": "Die eigenständige Harmonieperiode passt nicht zum aktuellen achtaktigen Importmodell; nicht auf acht Takte umgeschrieben.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 1343
+    },
+    {
+      "id": "JC-H083",
+      "kind": "H",
+      "name": "Lydischer Klangwechsel",
+      "status": "deferred",
+      "reason": "Nicht als exakt darstellbarer vorhandener Akkordtyp freigegeben; kein ähnlicher Akkord als Ersatz.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 1357
+    },
+    {
+      "id": "JC-H084",
+      "kind": "H",
+      "name": "Helles Halbton-Blockpendel",
+      "status": "partially_integrated",
+      "reason": "Exakte harmonische Grundform und gedruckte Akkordlagen importiert; optionale Strategien nicht vollständig.",
+      "component": "harmonic_chords_and_voicings_complete",
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 1372
+    },
+    {
+      "id": "JC-H085",
+      "kind": "H",
+      "name": "Großterz-Zyklus",
+      "status": "deferred",
+      "reason": "Die eigenständige Harmonieperiode passt nicht zum aktuellen achtaktigen Importmodell; nicht auf acht Takte umgeschrieben.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 1387
+    },
+    {
+      "id": "JC-H086",
+      "kind": "H",
+      "name": "Gläserne Reibung",
+      "status": "deferred",
+      "reason": "Die eigenständige Harmonieperiode passt nicht zum aktuellen achtaktigen Importmodell; nicht auf acht Takte umgeschrieben.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 1403
+    },
+    {
+      "id": "JC-H087",
+      "kind": "H",
+      "name": "Heller Ganztoncluster",
+      "status": "deferred",
+      "reason": "Die eigenständige Harmonieperiode passt nicht zum aktuellen achtaktigen Importmodell; nicht auf acht Takte umgeschrieben.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 1417
+    },
+    {
+      "id": "JC-H088",
+      "kind": "H",
+      "name": "Tiefe Mollsäule",
+      "status": "deferred",
+      "reason": "Die eigenständige Harmonieperiode passt nicht zum aktuellen achtaktigen Importmodell; nicht auf acht Takte umgeschrieben.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 1431
+    },
+    {
+      "id": "JC-R001",
+      "kind": "R",
+      "name": "Viertelpuls",
+      "status": "integrated_ground_form",
+      "reason": "Vollständige referenzierte Ereignisfolge; kein globaler Ersatz für sämtliche rhythmischen Rollen.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 1449
+    },
+    {
+      "id": "JC-R002",
+      "kind": "R",
+      "name": "Achtelpuls",
+      "status": "integrated_ground_form",
+      "reason": "Vollständige referenzierte Ereignisfolge; kein globaler Ersatz für sämtliche rhythmischen Rollen.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 1460
+    },
+    {
+      "id": "JC-R003",
+      "kind": "R",
+      "name": "Sechzehntelpuls",
+      "status": "integrated_ground_form",
+      "reason": "Vollständige referenzierte Ereignisfolge; kein globaler Ersatz für sämtliche rhythmischen Rollen.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 1471
+    },
+    {
+      "id": "JC-R004",
+      "kind": "R",
+      "name": "Achtel mit Taktakzent",
+      "status": "integrated_ground_form",
+      "reason": "Vollständige referenzierte Ereignisfolge; kein globaler Ersatz für sämtliche rhythmischen Rollen.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 1482
+    },
+    {
+      "id": "JC-R005",
+      "kind": "R",
+      "name": "Achtel mit Offbeat-Akzent",
+      "status": "deferred",
+      "reason": "Nicht Bestandteil der repräsentativen P1-Auswahl; keine Umdeutung der Originalquelle.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 1493
+    },
+    {
+      "id": "JC-R006",
+      "kind": "R",
+      "name": "Halbe-Puls",
+      "status": "integrated_ground_form",
+      "reason": "Vollständige referenzierte Ereignisfolge; kein globaler Ersatz für sämtliche rhythmischen Rollen.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 1504
+    },
+    {
+      "id": "JC-R007",
+      "kind": "R",
+      "name": "Ein Schlag pro Takt",
+      "status": "integrated_ground_form",
+      "reason": "Vollständige referenzierte Ereignisfolge; kein globaler Ersatz für sämtliche rhythmischen Rollen.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 1515
+    },
+    {
+      "id": "JC-R008",
+      "kind": "R",
+      "name": "Herzschlag",
+      "status": "integrated_ground_form",
+      "reason": "Vollständige referenzierte Ereignisfolge; kein globaler Ersatz für sämtliche rhythmischen Rollen.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 1526
+    },
+    {
+      "id": "JC-R009",
+      "kind": "R",
+      "name": "Langsamer Herzschlag",
+      "status": "integrated_ground_form",
+      "reason": "Vollständige referenzierte Ereignisfolge; kein globaler Ersatz für sämtliche rhythmischen Rollen.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 1537
+    },
+    {
+      "id": "JC-R010",
+      "kind": "R",
+      "name": "Doppelter Herzschlag",
+      "status": "deferred",
+      "reason": "Nicht Bestandteil der repräsentativen P1-Auswahl; keine Umdeutung der Originalquelle.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 1548
+    },
+    {
+      "id": "JC-R011",
+      "kind": "R",
+      "name": "Stockender Herzschlag",
+      "status": "deferred",
+      "reason": "Nicht Bestandteil der repräsentativen P1-Auswahl; keine Umdeutung der Originalquelle.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 1559
+    },
+    {
+      "id": "JC-R012",
+      "kind": "R",
+      "name": "Gedämpfter Einzelschlag",
+      "status": "integrated_ground_form",
+      "reason": "Vollständige referenzierte Ereignisfolge; kein globaler Ersatz für sämtliche rhythmischen Rollen.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 1570
+    },
+    {
+      "id": "JC-R013",
+      "kind": "R",
+      "name": "Staccato-Achtel",
+      "status": "integrated_ground_form",
+      "reason": "Vollständige referenzierte Ereignisfolge; kein globaler Ersatz für sämtliche rhythmischen Rollen.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 1581
+    },
+    {
+      "id": "JC-R014",
+      "kind": "R",
+      "name": "Legato-Achtel",
+      "status": "integrated_ground_form",
+      "reason": "Vollständige referenzierte Ereignisfolge; kein globaler Ersatz für sämtliche rhythmischen Rollen.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 1592
+    },
+    {
+      "id": "JC-R015",
+      "kind": "R",
+      "name": "Galopp",
+      "status": "integrated_ground_form",
+      "reason": "Vollständige referenzierte Ereignisfolge; kein globaler Ersatz für sämtliche rhythmischen Rollen.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 1603
+    },
+    {
+      "id": "JC-R016",
+      "kind": "R",
+      "name": "Triolen-Repetition",
+      "status": "integrated_ground_form",
+      "reason": "Vollständige referenzierte Ereignisfolge; kein globaler Ersatz für sämtliche rhythmischen Rollen.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 1614
+    },
+    {
+      "id": "JC-R017",
+      "kind": "R",
+      "name": "Viertel-Triolen",
+      "status": "integrated_ground_form",
+      "reason": "Vollständige referenzierte Ereignisfolge; kein globaler Ersatz für sämtliche rhythmischen Rollen.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 1625
+    },
+    {
+      "id": "JC-R018",
+      "kind": "R",
+      "name": "Punktierte Viertel",
+      "status": "deferred",
+      "reason": "Nicht Bestandteil der repräsentativen P1-Auswahl; keine Umdeutung der Originalquelle.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 1636
+    },
+    {
+      "id": "JC-R019",
+      "kind": "R",
+      "name": "Ganze Noten",
+      "status": "integrated_ground_form",
+      "reason": "Vollständige referenzierte Ereignisfolge; kein globaler Ersatz für sämtliche rhythmischen Rollen.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 1647
+    },
+    {
+      "id": "JC-R020",
+      "kind": "R",
+      "name": "Tresillo",
+      "status": "integrated_ground_form",
+      "reason": "Vollständige referenzierte Ereignisfolge; kein globaler Ersatz für sämtliche rhythmischen Rollen.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 1658
+    },
+    {
+      "id": "JC-R021",
+      "kind": "R",
+      "name": "Synkope über den Taktstrich",
+      "status": "deferred",
+      "reason": "Nicht Bestandteil der repräsentativen P1-Auswahl; keine Umdeutung der Originalquelle.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 1669
+    },
+    {
+      "id": "JC-R022",
+      "kind": "R",
+      "name": "Vorgezogener Schlag",
+      "status": "deferred",
+      "reason": "Nicht Bestandteil der repräsentativen P1-Auswahl; keine Umdeutung der Originalquelle.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 1680
+    },
+    {
+      "id": "JC-R023",
+      "kind": "R",
+      "name": "Sechzehntel-Synkope",
+      "status": "deferred",
+      "reason": "Nicht Bestandteil der repräsentativen P1-Auswahl; keine Umdeutung der Originalquelle.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 1691
+    },
+    {
+      "id": "JC-R024",
+      "kind": "R",
+      "name": "5/4 als 3+3+2+2",
+      "status": "integrated_ground_form",
+      "reason": "Vollständige referenzierte Ereignisfolge; kein globaler Ersatz für sämtliche rhythmischen Rollen.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 1702
+    },
+    {
+      "id": "JC-R025",
+      "kind": "R",
+      "name": "5/4 als 2+3 Viertel",
+      "status": "deferred",
+      "reason": "Nicht Bestandteil der repräsentativen P1-Auswahl; keine Umdeutung der Originalquelle.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 1713
+    },
+    {
+      "id": "JC-R026",
+      "kind": "R",
+      "name": "7/8 als 2+2+3",
+      "status": "deferred",
+      "reason": "Nicht Bestandteil der repräsentativen P1-Auswahl; keine Umdeutung der Originalquelle.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 1724
+    },
+    {
+      "id": "JC-R027",
+      "kind": "R",
+      "name": "7/8 als 3+2+2",
+      "status": "deferred",
+      "reason": "Nicht Bestandteil der repräsentativen P1-Auswahl; keine Umdeutung der Originalquelle.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 1735
+    },
+    {
+      "id": "JC-R028",
+      "kind": "R",
+      "name": "4/4 als 3+3+3+3+2+2",
+      "status": "deferred",
+      "reason": "Nicht Bestandteil der repräsentativen P1-Auswahl; keine Umdeutung der Originalquelle.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 1746
+    },
+    {
+      "id": "JC-R029",
+      "kind": "R",
+      "name": "4/4 als 3+3+2 Achtel",
+      "status": "deferred",
+      "reason": "Nicht Bestandteil der repräsentativen P1-Auswahl; keine Umdeutung der Originalquelle.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 1757
+    },
+    {
+      "id": "JC-R030",
+      "kind": "R",
+      "name": "9/8 als 2+2+2+3",
+      "status": "deferred",
+      "reason": "Nicht Bestandteil der repräsentativen P1-Auswahl; keine Umdeutung der Originalquelle.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 1768
+    },
+    {
+      "id": "JC-R031",
+      "kind": "R",
+      "name": "6/8-Hemiole",
+      "status": "deferred",
+      "reason": "Nicht Bestandteil der repräsentativen P1-Auswahl; keine Umdeutung der Originalquelle.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 1779
+    },
+    {
+      "id": "JC-R032",
+      "kind": "R",
+      "name": "Achteltriolen betont",
+      "status": "integrated_ground_form",
+      "reason": "Vollständige referenzierte Ereignisfolge; kein globaler Ersatz für sämtliche rhythmischen Rollen.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 1790
+    },
+    {
+      "id": "JC-R033",
+      "kind": "R",
+      "name": "Triolen mit Lücke",
+      "status": "deferred",
+      "reason": "Nicht Bestandteil der repräsentativen P1-Auswahl; keine Umdeutung der Originalquelle.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 1801
+    },
+    {
+      "id": "JC-R034",
+      "kind": "R",
+      "name": "Kriechende Triolen",
+      "status": "deferred",
+      "reason": "Nicht Bestandteil der repräsentativen P1-Auswahl; keine Umdeutung der Originalquelle.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 1812
+    },
+    {
+      "id": "JC-R035",
+      "kind": "R",
+      "name": "Triolen-Herzschlag",
+      "status": "deferred",
+      "reason": "Nicht Bestandteil der repräsentativen P1-Auswahl; keine Umdeutung der Originalquelle.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 1823
+    },
+    {
+      "id": "JC-R036",
+      "kind": "R",
+      "name": "12/8 schreitend",
+      "status": "deferred",
+      "reason": "Nicht Bestandteil der repräsentativen P1-Auswahl; keine Umdeutung der Originalquelle.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 1834
+    },
+    {
+      "id": "JC-R037",
+      "kind": "R",
+      "name": "Staccatissimo-Achtel",
+      "status": "deferred",
+      "reason": "Nicht Bestandteil der repräsentativen P1-Auswahl; keine Umdeutung der Originalquelle.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 1845
+    },
+    {
+      "id": "JC-R038",
+      "kind": "R",
+      "name": "Gate-Wechsel lang–kurz",
+      "status": "deferred",
+      "reason": "Gatefolge/Startphase gemäß ERRATA noch nicht eindeutig; keine erfundene Zuordnung.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 1856
+    },
+    {
+      "id": "JC-R039",
+      "kind": "R",
+      "name": "Wachsendes Gate",
+      "status": "deferred",
+      "reason": "Gatefolge/Startphase gemäß ERRATA noch nicht eindeutig; keine erfundene Zuordnung.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 1867
+    },
+    {
+      "id": "JC-R040",
+      "kind": "R",
+      "name": "Schrumpfendes Gate",
+      "status": "deferred",
+      "reason": "Gatefolge/Startphase gemäß ERRATA noch nicht eindeutig; keine erfundene Zuordnung.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 1878
+    },
+    {
+      "id": "JC-R041",
+      "kind": "R",
+      "name": "Drei Takte an, einer aus",
+      "status": "integrated_ground_form",
+      "reason": "Vollständige referenzierte Ereignisfolge; kein globaler Ersatz für sämtliche rhythmischen Rollen.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 1889
+    },
+    {
+      "id": "JC-R042",
+      "kind": "R",
+      "name": "Zwei an, zwei aus",
+      "status": "deferred",
+      "reason": "Nicht Bestandteil der repräsentativen P1-Auswahl; keine Umdeutung der Originalquelle.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 1900
+    },
+    {
+      "id": "JC-R043",
+      "kind": "R",
+      "name": "Fehlende Zählzeit",
+      "status": "deferred",
+      "reason": "Nicht Bestandteil der repräsentativen P1-Auswahl; keine Umdeutung der Originalquelle.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 1911
+    },
+    {
+      "id": "JC-R044",
+      "kind": "R",
+      "name": "Sieben an, einer aus",
+      "status": "integrated_ground_form",
+      "reason": "Vollständige referenzierte Ereignisfolge; kein globaler Ersatz für sämtliche rhythmischen Rollen.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 1922
+    },
+    {
+      "id": "JC-R045",
+      "kind": "R",
+      "name": "Ein Ton alle zwei Takte",
+      "status": "deferred",
+      "reason": "Nicht Bestandteil der repräsentativen P1-Auswahl; keine Umdeutung der Originalquelle.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 1933
+    },
+    {
+      "id": "JC-R046",
+      "kind": "R",
+      "name": "Einsamer Offbeat",
+      "status": "deferred",
+      "reason": "Nicht Bestandteil der repräsentativen P1-Auswahl; keine Umdeutung der Originalquelle.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 1944
+    },
+    {
+      "id": "JC-R047",
+      "kind": "R",
+      "name": "Halber Takt, dann Stille",
+      "status": "deferred",
+      "reason": "Nicht Bestandteil der repräsentativen P1-Auswahl; keine Umdeutung der Originalquelle.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 1955
+    },
+    {
+      "id": "JC-R048",
+      "kind": "R",
+      "name": "Abstandsreihe 5-3-7",
+      "status": "deferred",
+      "reason": "Nicht Bestandteil der repräsentativen P1-Auswahl; keine Umdeutung der Originalquelle.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 1966
+    },
+    {
+      "id": "JC-R049",
+      "kind": "R",
+      "name": "Abstandsreihe 7-11",
+      "status": "deferred",
+      "reason": "Nicht Bestandteil der repräsentativen P1-Auswahl; keine Umdeutung der Originalquelle.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 1977
+    },
+    {
+      "id": "JC-R050",
+      "kind": "R",
+      "name": "Verschobenes Einzelereignis",
+      "status": "deferred",
+      "reason": "Nicht Bestandteil der repräsentativen P1-Auswahl; keine Umdeutung der Originalquelle.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 1988
+    },
+    {
+      "id": "JC-R051",
+      "kind": "R",
+      "name": "Seltenes Doppelereignis",
+      "status": "deferred",
+      "reason": "Nicht Bestandteil der repräsentativen P1-Auswahl; keine Umdeutung der Originalquelle.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 1999
+    },
+    {
+      "id": "JC-R052",
+      "kind": "R",
+      "name": "Komplement A: Schlag",
+      "status": "integrated_ground_form",
+      "reason": "Vollständige referenzierte Ereignisfolge; kein globaler Ersatz für sämtliche rhythmischen Rollen.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 2010
+    },
+    {
+      "id": "JC-R053",
+      "kind": "R",
+      "name": "Komplement B: Offbeat",
+      "status": "integrated_ground_form",
+      "reason": "Vollständige referenzierte Ereignisfolge; kein globaler Ersatz für sämtliche rhythmischen Rollen.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 2021
+    },
+    {
+      "id": "JC-R054",
+      "kind": "R",
+      "name": "Tresillo-Komplement",
+      "status": "integrated_ground_form",
+      "reason": "Vollständige referenzierte Ereignisfolge; kein globaler Ersatz für sämtliche rhythmischen Rollen.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 2032
+    },
+    {
+      "id": "JC-R055",
+      "kind": "R",
+      "name": "Kreuz A",
+      "status": "integrated_ground_form",
+      "reason": "Vollständige referenzierte Ereignisfolge; kein globaler Ersatz für sämtliche rhythmischen Rollen.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 2043
+    },
+    {
+      "id": "JC-R056",
+      "kind": "R",
+      "name": "Kreuz B",
+      "status": "deferred",
+      "reason": "Nicht Bestandteil der repräsentativen P1-Auswahl; keine Umdeutung der Originalquelle.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 2054
+    },
+    {
+      "id": "JC-R057",
+      "kind": "R",
+      "name": "Verdichtungsleiter",
+      "status": "deferred",
+      "reason": "Nicht Bestandteil der repräsentativen P1-Auswahl; keine Umdeutung der Originalquelle.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 2065
+    },
+    {
+      "id": "JC-R058",
+      "kind": "R",
+      "name": "Stolper-Achtel",
+      "status": "integrated_ground_form",
+      "reason": "Vollständige referenzierte Ereignisfolge; kein globaler Ersatz für sämtliche rhythmischen Rollen.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 2076
+    },
+    {
+      "id": "JC-R059",
+      "kind": "R",
+      "name": "Wandernder Akzent",
+      "status": "integrated_ground_form",
+      "reason": "Vollständige referenzierte Ereignisfolge; kein globaler Ersatz für sämtliche rhythmischen Rollen.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 2087
+    },
+    {
+      "id": "JC-R060",
+      "kind": "R",
+      "name": "Rotierende Lücke",
+      "status": "integrated_ground_form",
+      "reason": "Vollständige referenzierte Ereignisfolge; kein globaler Ersatz für sämtliche rhythmischen Rollen.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 2098
+    },
+    {
+      "id": "JC-R061",
+      "kind": "R",
+      "name": "Uhrwerk tick-tack",
+      "status": "integrated_ground_form",
+      "reason": "Vollständige referenzierte Ereignisfolge; kein globaler Ersatz für sämtliche rhythmischen Rollen.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 2109
+    },
+    {
+      "id": "JC-R062",
+      "kind": "R",
+      "name": "Dreier-Uhrwerk im Vierer",
+      "status": "deferred",
+      "reason": "Nicht Bestandteil der repräsentativen P1-Auswahl; keine Umdeutung der Originalquelle.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 2120
+    },
+    {
+      "id": "JC-R063",
+      "kind": "R",
+      "name": "Fünfer-Uhrwerk im Vierer",
+      "status": "deferred",
+      "reason": "Nicht Bestandteil der repräsentativen P1-Auswahl; keine Umdeutung der Originalquelle.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 2131
+    },
+    {
+      "id": "JC-R064",
+      "kind": "R",
+      "name": "Zweitakt-Ostinato",
+      "status": "deferred",
+      "reason": "Nicht Bestandteil der repräsentativen P1-Auswahl; keine Umdeutung der Originalquelle.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 2142
+    },
+    {
+      "id": "JC-R065",
+      "kind": "R",
+      "name": "Viertakt-Phrase mit Schlussluft",
+      "status": "deferred",
+      "reason": "Nicht Bestandteil der repräsentativen P1-Auswahl; keine Umdeutung der Originalquelle.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 2153
+    },
+    {
+      "id": "JC-R066",
+      "kind": "R",
+      "name": "Schwere Halbe und Viertel",
+      "status": "deferred",
+      "reason": "Nicht Bestandteil der repräsentativen P1-Auswahl; keine Umdeutung der Originalquelle.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 2164
+    },
+    {
+      "id": "JC-R067",
+      "kind": "R",
+      "name": "Galopp-Triole",
+      "status": "deferred",
+      "reason": "Nicht Bestandteil der repräsentativen P1-Auswahl; keine Umdeutung der Originalquelle.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 2175
+    },
+    {
+      "id": "JC-Q001",
+      "kind": "Q",
+      "name": "Einzelton-Achtelstrom",
+      "status": "integrated_ground_form",
+      "reason": "Vollständige geordnete Tonfolge mit sämtlichen Einsätzen, Gates und Akzenten; nur bei passender Harmonie, Domain, Route und Register zugelassen.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": 0,
+      "source_line": 2190
+    },
+    {
+      "id": "JC-Q002",
+      "kind": "Q",
+      "name": "Betonte Quint-Repetition",
+      "status": "integrated_ground_form",
+      "reason": "Vollständige geordnete Tonfolge mit sämtlichen Einsätzen, Gates und Akzenten; nur bei passender Harmonie, Domain, Route und Register zugelassen.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": 341,
+      "source_line": 2205
+    },
+    {
+      "id": "JC-Q003",
+      "kind": "Q",
+      "name": "Reibungs-Repetition ♭2",
+      "status": "deferred",
+      "reason": "Nicht Bestandteil der repräsentativen P1-Auswahl; keine Umdeutung der Originalquelle.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": 0,
+      "source_line": 2220
+    },
+    {
+      "id": "JC-Q004",
+      "kind": "Q",
+      "name": "Oktav-Wiege",
+      "status": "integrated_ground_form",
+      "reason": "Vollständige geordnete Tonfolge mit sämtlichen Einsätzen, Gates und Akzenten; nur bei passender Harmonie, Domain, Route und Register zugelassen.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": 0,
+      "source_line": 2235
+    },
+    {
+      "id": "JC-Q005",
+      "kind": "Q",
+      "name": "Quint-Wiege",
+      "status": "integrated_ground_form",
+      "reason": "Vollständige geordnete Tonfolge mit sämtlichen Einsätzen, Gates und Akzenten; nur bei passender Harmonie, Domain, Route und Register zugelassen.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": 0,
+      "source_line": 2251
+    },
+    {
+      "id": "JC-Q006",
+      "kind": "Q",
+      "name": "Quartfall-Staccato",
+      "status": "integrated_ground_form",
+      "reason": "Vollständige geordnete Tonfolge mit sämtlichen Einsätzen, Gates und Akzenten; nur bei passender Harmonie, Domain, Route und Register zugelassen.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": 0,
+      "source_line": 2267
+    },
+    {
+      "id": "JC-Q007",
+      "kind": "Q",
+      "name": "Halbton-Wiege",
+      "status": "integrated_ground_form",
+      "reason": "Vollständige geordnete Tonfolge mit sämtlichen Einsätzen, Gates und Akzenten; nur bei passender Harmonie, Domain, Route und Register zugelassen.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": 2852,
+      "source_line": 2283
+    },
+    {
+      "id": "JC-Q008",
+      "kind": "Q",
+      "name": "Ganzton-Wiege",
+      "status": "integrated_ground_form",
+      "reason": "Vollständige geordnete Tonfolge mit sämtlichen Einsätzen, Gates und Akzenten; nur bei passender Harmonie, Domain, Route und Register zugelassen.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": 0,
+      "source_line": 2299
+    },
+    {
+      "id": "JC-Q009",
+      "kind": "Q",
+      "name": "Kleinterz im Tresillo",
+      "status": "integrated_ground_form",
+      "reason": "Vollständige geordnete Tonfolge mit sämtlichen Einsätzen, Gates und Akzenten; nur bei passender Harmonie, Domain, Route und Register zugelassen.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": 0,
+      "source_line": 2315
+    },
+    {
+      "id": "JC-Q010",
+      "kind": "Q",
+      "name": "Leitton-Zucken",
+      "status": "deferred",
+      "reason": "Nicht Bestandteil der repräsentativen P1-Auswahl; keine Umdeutung der Originalquelle.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": 0,
+      "source_line": 2331
+    },
+    {
+      "id": "JC-Q011",
+      "kind": "Q",
+      "name": "Quint–Oktav–Quint",
+      "status": "integrated_ground_form",
+      "reason": "Vollständige geordnete Tonfolge mit sämtlichen Einsätzen, Gates und Akzenten; nur bei passender Harmonie, Domain, Route und Register zugelassen.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": 96,
+      "source_line": 2347
+    },
+    {
+      "id": "JC-Q012",
+      "kind": "Q",
+      "name": "Moll-Triolenaufstieg",
+      "status": "integrated_ground_form",
+      "reason": "Vollständige geordnete Tonfolge mit sämtlichen Einsätzen, Gates und Akzenten; nur bei passender Harmonie, Domain, Route und Register zugelassen.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": 1176,
+      "source_line": 2363
+    },
+    {
+      "id": "JC-Q013",
+      "kind": "Q",
+      "name": "Quinte mit Halbtonschatten",
+      "status": "integrated_ground_form",
+      "reason": "Vollständige geordnete Tonfolge mit sämtlichen Einsätzen, Gates und Akzenten; nur bei passender Harmonie, Domain, Route und Register zugelassen.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": 12,
+      "source_line": 2379
+    },
+    {
+      "id": "JC-Q014",
+      "kind": "Q",
+      "name": "Fünfer-Zelle 3+3+2+2",
+      "status": "deferred",
+      "reason": "Nicht Bestandteil der repräsentativen P1-Auswahl; keine Umdeutung der Originalquelle.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": 0,
+      "source_line": 2395
+    },
+    {
+      "id": "JC-Q015",
+      "kind": "Q",
+      "name": "Uhrwerk-Quinte",
+      "status": "integrated_ground_form",
+      "reason": "Vollständige geordnete Tonfolge mit sämtlichen Einsätzen, Gates und Akzenten; nur bei passender Harmonie, Domain, Route und Register zugelassen.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": 0,
+      "source_line": 2411
+    },
+    {
+      "id": "JC-Q016",
+      "kind": "Q",
+      "name": "Fallendes Uhrwerk",
+      "status": "integrated_ground_form",
+      "reason": "Vollständige geordnete Tonfolge mit sämtlichen Einsätzen, Gates und Akzenten; nur bei passender Harmonie, Domain, Route und Register zugelassen.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": 0,
+      "source_line": 2427
+    },
+    {
+      "id": "JC-Q017",
+      "kind": "Q",
+      "name": "Melancholische Achtelkette",
+      "status": "integrated_ground_form",
+      "reason": "Vollständige geordnete Tonfolge mit sämtlichen Einsätzen, Gates und Akzenten; nur bei passender Harmonie, Domain, Route und Register zugelassen.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": 16,
+      "source_line": 2443
+    },
+    {
+      "id": "JC-Q018",
+      "kind": "Q",
+      "name": "Dur-Wiege",
+      "status": "integrated_ground_form",
+      "reason": "Vollständige geordnete Tonfolge mit sämtlichen Einsätzen, Gates und Akzenten; nur bei passender Harmonie, Domain, Route und Register zugelassen.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": 392,
+      "source_line": 2459
+    },
+    {
+      "id": "JC-Q019",
+      "kind": "Q",
+      "name": "Paarweise Tonwechsel",
+      "status": "integrated_ground_form",
+      "reason": "Vollständige geordnete Tonfolge mit sämtlichen Einsätzen, Gates und Akzenten; nur bei passender Harmonie, Domain, Route und Register zugelassen.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": 0,
+      "source_line": 2475
+    },
+    {
+      "id": "JC-Q020",
+      "kind": "Q",
+      "name": "Wandernde Betonung",
+      "status": "integrated_ground_form",
+      "reason": "Vollständige geordnete Tonfolge mit sämtlichen Einsätzen, Gates und Akzenten; nur bei passender Harmonie, Domain, Route und Register zugelassen.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": 471,
+      "source_line": 2491
+    },
+    {
+      "id": "JC-Q021",
+      "kind": "Q",
+      "name": "Blockzelle Oktave–Quarte",
+      "status": "integrated_ground_form",
+      "reason": "Vollständige geordnete Tonfolge mit sämtlichen Einsätzen, Gates und Akzenten; nur bei passender Harmonie, Domain, Route und Register zugelassen.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": 32,
+      "source_line": 2507
+    },
+    {
+      "id": "JC-Q022",
+      "kind": "Q",
+      "name": "Zelle mit Einzeltonvariation",
+      "status": "integrated_ground_form",
+      "reason": "Vollständige geordnete Tonfolge mit sämtlichen Einsätzen, Gates und Akzenten; nur bei passender Harmonie, Domain, Route und Register zugelassen.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": 0,
+      "source_line": 2523
+    },
+    {
+      "id": "JC-Q023",
+      "kind": "Q",
+      "name": "Achsenpendel",
+      "status": "integrated_ground_form",
+      "reason": "Vollständige geordnete Tonfolge mit sämtlichen Einsätzen, Gates und Akzenten; nur bei passender Harmonie, Domain, Route und Register zugelassen.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": 154,
+      "source_line": 2539
+    },
+    {
+      "id": "JC-Q024",
+      "kind": "Q",
+      "name": "Komplementär-Sequenz A",
+      "status": "integrated_ground_form",
+      "reason": "Vollständige geordnete Tonfolge mit sämtlichen Einsätzen, Gates und Akzenten; nur bei passender Harmonie, Domain, Route und Register zugelassen.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": 1813,
+      "source_line": 2555
+    },
+    {
+      "id": "JC-Q025",
+      "kind": "Q",
+      "name": "Komplementär-Sequenz B",
+      "status": "integrated_ground_form",
+      "reason": "Vollständige geordnete Tonfolge mit sämtlichen Einsätzen, Gates und Akzenten; nur bei passender Harmonie, Domain, Route und Register zugelassen.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": 1082,
+      "source_line": 2571
+    },
+    {
+      "id": "JC-Q026",
+      "kind": "Q",
+      "name": "Endlosband",
+      "status": "integrated_ground_form",
+      "reason": "Vollständige geordnete Tonfolge mit sämtlichen Einsätzen, Gates und Akzenten; nur bei passender Harmonie, Domain, Route und Register zugelassen.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": 0,
+      "source_line": 2587
+    },
+    {
+      "id": "JC-Q027",
+      "kind": "Q",
+      "name": "Lange Sechzehntelreise",
+      "status": "deferred",
+      "reason": "Nicht Bestandteil der repräsentativen P1-Auswahl; keine Umdeutung der Originalquelle.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": 0,
+      "source_line": 2603
+    },
+    {
+      "id": "JC-Q028",
+      "kind": "Q",
+      "name": "Fallende Triolenkette",
+      "status": "deferred",
+      "reason": "Nicht Bestandteil der repräsentativen P1-Auswahl; keine Umdeutung der Originalquelle.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": 0,
+      "source_line": 2619
+    },
+    {
+      "id": "JC-Q029",
+      "kind": "Q",
+      "name": "Chromatische Umspielung",
+      "status": "integrated_ground_form",
+      "reason": "Vollständige geordnete Tonfolge mit sämtlichen Einsätzen, Gates und Akzenten; nur bei passender Harmonie, Domain, Route und Register zugelassen.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": 0,
+      "source_line": 2635
+    },
+    {
+      "id": "JC-Q030",
+      "kind": "Q",
+      "name": "Kriechende Chromatik oben",
+      "status": "deferred",
+      "reason": "Nicht Bestandteil der repräsentativen P1-Auswahl; keine Umdeutung der Originalquelle.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": 0,
+      "source_line": 2651
+    },
+    {
+      "id": "JC-Q031",
+      "kind": "Q",
+      "name": "Tritonus-Wippe",
+      "status": "integrated_ground_form",
+      "reason": "Vollständige geordnete Tonfolge mit sämtlichen Einsätzen, Gates und Akzenten; nur bei passender Harmonie, Domain, Route und Register zugelassen.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": 16,
+      "source_line": 2667
+    },
+    {
+      "id": "JC-Q032",
+      "kind": "Q",
+      "name": "Quart-Quint-Leiter",
+      "status": "integrated_ground_form",
+      "reason": "Vollständige geordnete Tonfolge mit sämtlichen Einsätzen, Gates und Akzenten; nur bei passender Harmonie, Domain, Route und Register zugelassen.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": 0,
+      "source_line": 2683
+    },
+    {
+      "id": "JC-Q033",
+      "kind": "Q",
+      "name": "Hohe Glockenfigur",
+      "status": "integrated_ground_form",
+      "reason": "Vollständige geordnete Tonfolge mit sämtlichen Einsätzen, Gates und Akzenten; nur bei passender Harmonie, Domain, Route und Register zugelassen.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": 0,
+      "source_line": 2699
+    },
+    {
+      "id": "JC-Q034",
+      "kind": "Q",
+      "name": "Lydisches Glas",
+      "status": "deferred",
+      "reason": "Nicht Bestandteil der repräsentativen P1-Auswahl; keine Umdeutung der Originalquelle.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": 0,
+      "source_line": 2715
+    },
+    {
+      "id": "JC-Q035",
+      "kind": "Q",
+      "name": "Phrygische Zelle",
+      "status": "deferred",
+      "reason": "Nicht Bestandteil der repräsentativen P1-Auswahl; keine Umdeutung der Originalquelle.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": 0,
+      "source_line": 2731
+    },
+    {
+      "id": "JC-Q036",
+      "kind": "Q",
+      "name": "Dorische Helle",
+      "status": "integrated_ground_form",
+      "reason": "Vollständige geordnete Tonfolge mit sämtlichen Einsätzen, Gates und Akzenten; nur bei passender Harmonie, Domain, Route und Register zugelassen.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": 32,
+      "source_line": 2747
+    },
+    {
+      "id": "JC-Q037",
+      "kind": "Q",
+      "name": "Leitton unter der Quinte",
+      "status": "deferred",
+      "reason": "Nicht Bestandteil der repräsentativen P1-Auswahl; keine Umdeutung der Originalquelle.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": 0,
+      "source_line": 2763
+    },
+    {
+      "id": "JC-Q038",
+      "kind": "Q",
+      "name": "Kleinterz-Riff",
+      "status": "integrated_ground_form",
+      "reason": "Vollständige geordnete Tonfolge mit sämtlichen Einsätzen, Gates und Akzenten; nur bei passender Harmonie, Domain, Route und Register zugelassen.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": 0,
+      "source_line": 2779
+    },
+    {
+      "id": "JC-Q039",
+      "kind": "Q",
+      "name": "Herzschlag-Quinte",
+      "status": "integrated_ground_form",
+      "reason": "Vollständige geordnete Tonfolge mit sämtlichen Einsätzen, Gates und Akzenten; nur bei passender Harmonie, Domain, Route und Register zugelassen.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": 148,
+      "source_line": 2795
+    },
+    {
+      "id": "JC-Q040",
+      "kind": "Q",
+      "name": "Triolen gegen Viertel",
+      "status": "integrated_ground_form",
+      "reason": "Vollständige geordnete Tonfolge mit sämtlichen Einsätzen, Gates und Akzenten; nur bei passender Harmonie, Domain, Route und Register zugelassen.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": 0,
+      "source_line": 2811
+    },
+    {
+      "id": "JC-Q041",
+      "kind": "Q",
+      "name": "Sequenz mit Atemloch",
+      "status": "integrated_ground_form",
+      "reason": "Vollständige geordnete Tonfolge mit sämtlichen Einsätzen, Gates und Akzenten; nur bei passender Harmonie, Domain, Route und Register zugelassen.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": 0,
+      "source_line": 2827
+    },
+    {
+      "id": "JC-Q042",
+      "kind": "Q",
+      "name": "Zelle mit wandernder Lücke",
+      "status": "integrated_ground_form",
+      "reason": "Vollständige geordnete Tonfolge mit sämtlichen Einsätzen, Gates und Akzenten; nur bei passender Harmonie, Domain, Route und Register zugelassen.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": 0,
+      "source_line": 2843
+    },
+    {
+      "id": "JC-Q043",
+      "kind": "Q",
+      "name": "Phasenzelle 5 gegen 16",
+      "status": "deferred",
+      "reason": "Optionale allgemeine SYNTH-Phasenhypothese, nicht gesicherter Carpenter-Default. Der gemeinsame Figurenplan kann eigene Perioden ausdrücken; diese Quelle ist nicht aktiviert.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": 0,
+      "source_line": 2859
+    },
+    {
+      "id": "JC-Q044",
+      "kind": "Q",
+      "name": "Dreierschleife",
+      "status": "deferred",
+      "reason": "Optionale allgemeine SYNTH-Phasenhypothese, nicht gesicherter Carpenter-Default. Der gemeinsame Figurenplan kann eigene Perioden ausdrücken; diese Quelle ist nicht aktiviert.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": 0,
+      "source_line": 2875
+    },
+    {
+      "id": "JC-Q045",
+      "kind": "Q",
+      "name": "Siebener-Kette",
+      "status": "deferred",
+      "reason": "Nicht Bestandteil der repräsentativen P1-Auswahl; keine Umdeutung der Originalquelle.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": 0,
+      "source_line": 2891
+    },
+    {
+      "id": "JC-Q046",
+      "kind": "Q",
+      "name": "Neuner-Bogen",
+      "status": "deferred",
+      "reason": "Nicht Bestandteil der repräsentativen P1-Auswahl; keine Umdeutung der Originalquelle.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": 0,
+      "source_line": 2907
+    },
+    {
+      "id": "JC-Q047",
+      "kind": "Q",
+      "name": "Stolper-Oktave",
+      "status": "deferred",
+      "reason": "Nicht Bestandteil der repräsentativen P1-Auswahl; keine Umdeutung der Originalquelle.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": 0,
+      "source_line": 2923
+    },
+    {
+      "id": "JC-Q048",
+      "kind": "Q",
+      "name": "Galopp-Quinte",
+      "status": "deferred",
+      "reason": "Nicht Bestandteil der repräsentativen P1-Auswahl; keine Umdeutung der Originalquelle.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": 0,
+      "source_line": 2939
+    },
+    {
+      "id": "JC-Q049",
+      "kind": "Q",
+      "name": "Hohe Klingel-Arpeggien",
+      "status": "deferred",
+      "reason": "Nicht Bestandteil der repräsentativen P1-Auswahl; keine Umdeutung der Originalquelle.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": 0,
+      "source_line": 2955
+    },
+    {
+      "id": "JC-Q050",
+      "kind": "Q",
+      "name": "Melancholische Abwärtslinie",
+      "status": "deferred",
+      "reason": "Nicht Bestandteil der repräsentativen P1-Auswahl; keine Umdeutung der Originalquelle.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": 0,
+      "source_line": 2971
+    },
+    {
+      "id": "JC-Q051",
+      "kind": "Q",
+      "name": "Kleinsext-Wiege",
+      "status": "deferred",
+      "reason": "Nicht Bestandteil der repräsentativen P1-Auswahl; keine Umdeutung der Originalquelle.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": 0,
+      "source_line": 2987
+    },
+    {
+      "id": "JC-Q052",
+      "kind": "Q",
+      "name": "Oktavleiter",
+      "status": "deferred",
+      "reason": "Nicht Bestandteil der repräsentativen P1-Auswahl; keine Umdeutung der Originalquelle.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": 0,
+      "source_line": 3003
+    },
+    {
+      "id": "JC-Q053",
+      "kind": "Q",
+      "name": "Nadelstich-Repetition",
+      "status": "deferred",
+      "reason": "Nicht Bestandteil der repräsentativen P1-Auswahl; keine Umdeutung der Originalquelle.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": 0,
+      "source_line": 3019
+    },
+    {
+      "id": "JC-Q054",
+      "kind": "Q",
+      "name": "Langsame Halbe-Zelle",
+      "status": "integrated_ground_form",
+      "reason": "Vollständige geordnete Tonfolge mit sämtlichen Einsätzen, Gates und Akzenten; nur bei passender Harmonie, Domain, Route und Register zugelassen.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": 0,
+      "source_line": 3034
+    },
+    {
+      "id": "JC-Q055",
+      "kind": "Q",
+      "name": "Langsame Abstiegsglocke",
+      "status": "integrated_ground_form",
+      "reason": "Vollständige geordnete Tonfolge mit sämtlichen Einsätzen, Gates und Akzenten; nur bei passender Harmonie, Domain, Route und Register zugelassen.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": 3,
+      "source_line": 3050
+    },
+    {
+      "id": "JC-Q056",
+      "kind": "Q",
+      "name": "Uhrwerk mit Fehlschlag",
+      "status": "deferred",
+      "reason": "Nicht Bestandteil der repräsentativen P1-Auswahl; keine Umdeutung der Originalquelle.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": 0,
+      "source_line": 3066
+    },
+    {
+      "id": "JC-Q057",
+      "kind": "Q",
+      "name": "Asymmetrische Achtelzelle",
+      "status": "deferred",
+      "reason": "Nicht Bestandteil der repräsentativen P1-Auswahl; keine Umdeutung der Originalquelle.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": 0,
+      "source_line": 3082
+    },
+    {
+      "id": "JC-Q058",
+      "kind": "Q",
+      "name": "Kreuz-Sequenz A",
+      "status": "deferred",
+      "reason": "Nicht Bestandteil der repräsentativen P1-Auswahl; keine Umdeutung der Originalquelle.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": 0,
+      "source_line": 3098
+    },
+    {
+      "id": "JC-Q059",
+      "kind": "Q",
+      "name": "Kreuz-Sequenz B",
+      "status": "deferred",
+      "reason": "Nicht Bestandteil der repräsentativen P1-Auswahl; keine Umdeutung der Originalquelle.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": 0,
+      "source_line": 3114
+    },
+    {
+      "id": "JC-Q060",
+      "kind": "Q",
+      "name": "Terz-Quint-Achse",
+      "status": "deferred",
+      "reason": "Nicht Bestandteil der repräsentativen P1-Auswahl; keine Umdeutung der Originalquelle.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": 0,
+      "source_line": 3130
+    },
+    {
+      "id": "JC-Q061",
+      "kind": "Q",
+      "name": "Halbton-Umspielung",
+      "status": "deferred",
+      "reason": "Nicht Bestandteil der repräsentativen P1-Auswahl; keine Umdeutung der Originalquelle.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": 0,
+      "source_line": 3146
+    },
+    {
+      "id": "JC-Q062",
+      "kind": "Q",
+      "name": "Septimen-Wippe",
+      "status": "deferred",
+      "reason": "Nicht Bestandteil der repräsentativen P1-Auswahl; keine Umdeutung der Originalquelle.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": 0,
+      "source_line": 3162
+    },
+    {
+      "id": "JC-Q063",
+      "kind": "Q",
+      "name": "Zweitakt-Wanderung",
+      "status": "integrated_ground_form",
+      "reason": "Vollständige geordnete Tonfolge mit sämtlichen Einsätzen, Gates und Akzenten; nur bei passender Harmonie, Domain, Route und Register zugelassen.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": 0,
+      "source_line": 3178
+    },
+    {
+      "id": "JC-Q064",
+      "kind": "Q",
+      "name": "Sextklage",
+      "status": "deferred",
+      "reason": "Nicht Bestandteil der repräsentativen P1-Auswahl; keine Umdeutung der Originalquelle.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": 0,
+      "source_line": 3194
+    },
+    {
+      "id": "JC-Q065",
+      "kind": "Q",
+      "name": "Triolenpaar",
+      "status": "deferred",
+      "reason": "Nicht Bestandteil der repräsentativen P1-Auswahl; keine Umdeutung der Originalquelle.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": 0,
+      "source_line": 3210
+    },
+    {
+      "id": "JC-Q066",
+      "kind": "Q",
+      "name": "Ganzton-Glocke",
+      "status": "deferred",
+      "reason": "Nicht Bestandteil der repräsentativen P1-Auswahl; keine Umdeutung der Originalquelle.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": 0,
+      "source_line": 3226
+    },
+    {
+      "id": "JC-Q067",
+      "kind": "Q",
+      "name": "Oktav-Synkope",
+      "status": "deferred",
+      "reason": "Nicht Bestandteil der repräsentativen P1-Auswahl; keine Umdeutung der Originalquelle.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": 0,
+      "source_line": 3242
+    },
+    {
+      "id": "JC-B001",
+      "kind": "B",
+      "name": "Tiefer Grundton-Drone",
+      "status": "integrated_ground_form",
+      "reason": "Vollständige Bassfigur bzw. eigener Pedalanspruch; akkordgebundene und unabhängige Bindung getrennt.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": 26,
+      "source_line": 3264
+    },
+    {
+      "id": "JC-B002",
+      "kind": "B",
+      "name": "Quint-Drone",
+      "status": "deferred",
+      "reason": "Nicht Bestandteil der repräsentativen P1-Auswahl; keine Umdeutung der Originalquelle.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": 0,
+      "source_line": 3278
+    },
+    {
+      "id": "JC-B003",
+      "kind": "B",
+      "name": "Drone mit Neuanschlag",
+      "status": "deferred",
+      "reason": "Nicht Bestandteil der repräsentativen P1-Auswahl; keine Umdeutung der Originalquelle.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": 0,
+      "source_line": 3292
+    },
+    {
+      "id": "JC-B004",
+      "kind": "B",
+      "name": "Atmender Drone",
+      "status": "deferred",
+      "reason": "Nicht Bestandteil der repräsentativen P1-Auswahl; keine Umdeutung der Originalquelle.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": 0,
+      "source_line": 3306
+    },
+    {
+      "id": "JC-B005",
+      "kind": "B",
+      "name": "Unabhängiges Pedal",
+      "status": "deferred",
+      "reason": "Nicht Bestandteil der repräsentativen P1-Auswahl; keine Umdeutung der Originalquelle.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": 0,
+      "source_line": 3320
+    },
+    {
+      "id": "JC-B006",
+      "kind": "B",
+      "name": "Fremdpedal ♭2",
+      "status": "deferred",
+      "reason": "Nicht Bestandteil der repräsentativen P1-Auswahl; keine Umdeutung der Originalquelle.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": 0,
+      "source_line": 3334
+    },
+    {
+      "id": "JC-B007",
+      "kind": "B",
+      "name": "Quint-Pedal",
+      "status": "deferred",
+      "reason": "Nicht Bestandteil der repräsentativen P1-Auswahl; keine Umdeutung der Originalquelle.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": 0,
+      "source_line": 3348
+    },
+    {
+      "id": "JC-B008",
+      "kind": "B",
+      "name": "Tritonus-Pedal",
+      "status": "deferred",
+      "reason": "Nicht Bestandteil der repräsentativen P1-Auswahl; keine Umdeutung der Originalquelle.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": 0,
+      "source_line": 3362
+    },
+    {
+      "id": "JC-B009",
+      "kind": "B",
+      "name": "Pulsierender Achtelbass",
+      "status": "integrated_ground_form",
+      "reason": "Vollständige Bassfigur bzw. eigener Pedalanspruch; akkordgebundene und unabhängige Bindung getrennt.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": 12,
+      "source_line": 3376
+    },
+    {
+      "id": "JC-B010",
+      "kind": "B",
+      "name": "Stoischer Achtelbass",
+      "status": "integrated_ground_form",
+      "reason": "Vollständige Bassfigur bzw. eigener Pedalanspruch; akkordgebundene und unabhängige Bindung getrennt.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": 0,
+      "source_line": 3392
+    },
+    {
+      "id": "JC-B011",
+      "kind": "B",
+      "name": "Tiefer Viertelpuls",
+      "status": "integrated_ground_form",
+      "reason": "Vollständige Bassfigur bzw. eigener Pedalanspruch; akkordgebundene und unabhängige Bindung getrennt.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": 176,
+      "source_line": 3408
+    },
+    {
+      "id": "JC-B012",
+      "kind": "B",
+      "name": "Sechzehntelbass",
+      "status": "integrated_ground_form",
+      "reason": "Vollständige Bassfigur bzw. eigener Pedalanspruch; akkordgebundene und unabhängige Bindung getrennt.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": 2860,
+      "source_line": 3424
+    },
+    {
+      "id": "JC-B013",
+      "kind": "B",
+      "name": "Herzschlag-Bass",
+      "status": "integrated_ground_form",
+      "reason": "Vollständige Bassfigur bzw. eigener Pedalanspruch; akkordgebundene und unabhängige Bindung getrennt.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": 8,
+      "source_line": 3440
+    },
+    {
+      "id": "JC-B014",
+      "kind": "B",
+      "name": "Langsamer Herzschlag-Bass",
+      "status": "integrated_ground_form",
+      "reason": "Vollständige Bassfigur bzw. eigener Pedalanspruch; akkordgebundene und unabhängige Bindung getrennt.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": 2,
+      "source_line": 3457
+    },
+    {
+      "id": "JC-B015",
+      "kind": "B",
+      "name": "Offbeat-Bass",
+      "status": "integrated_ground_form",
+      "reason": "Vollständige Bassfigur bzw. eigener Pedalanspruch; akkordgebundene und unabhängige Bindung getrennt.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": 0,
+      "source_line": 3474
+    },
+    {
+      "id": "JC-B016",
+      "kind": "B",
+      "name": "Tresillo-Grundton",
+      "status": "integrated_ground_form",
+      "reason": "Vollständige Bassfigur bzw. eigener Pedalanspruch; akkordgebundene und unabhängige Bindung getrennt.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": 0,
+      "source_line": 3490
+    },
+    {
+      "id": "JC-B017",
+      "kind": "B",
+      "name": "Galopp-Bass",
+      "status": "integrated_ground_form",
+      "reason": "Vollständige Bassfigur bzw. eigener Pedalanspruch; akkordgebundene und unabhängige Bindung getrennt.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": 0,
+      "source_line": 3506
+    },
+    {
+      "id": "JC-B018",
+      "kind": "B",
+      "name": "Stolper-Bass",
+      "status": "integrated_ground_form",
+      "reason": "Vollständige Bassfigur bzw. eigener Pedalanspruch; akkordgebundene und unabhängige Bindung getrennt.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": 126,
+      "source_line": 3522
+    },
+    {
+      "id": "JC-B019",
+      "kind": "B",
+      "name": "Fünfer-Akzentbass",
+      "status": "integrated_ground_form",
+      "reason": "Vollständige Bassfigur bzw. eigener Pedalanspruch; akkordgebundene und unabhängige Bindung getrennt.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": 2,
+      "source_line": 3538
+    },
+    {
+      "id": "JC-B020",
+      "kind": "B",
+      "name": "Synkopen-Bass",
+      "status": "deferred",
+      "reason": "Nicht Bestandteil der repräsentativen P1-Auswahl; keine Umdeutung der Originalquelle.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": 0,
+      "source_line": 3554
+    },
+    {
+      "id": "JC-B021",
+      "kind": "B",
+      "name": "Moll-Riff",
+      "status": "integrated_ground_form",
+      "reason": "Vollständige Bassfigur bzw. eigener Pedalanspruch; akkordgebundene und unabhängige Bindung getrennt.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": 0,
+      "source_line": 3571
+    },
+    {
+      "id": "JC-B022",
+      "kind": "B",
+      "name": "Quart-Riff",
+      "status": "integrated_ground_form",
+      "reason": "Vollständige Bassfigur bzw. eigener Pedalanspruch; akkordgebundene und unabhängige Bindung getrennt.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": 0,
+      "source_line": 3588
+    },
+    {
+      "id": "JC-B023",
+      "kind": "B",
+      "name": "Paarweise fallende Basssequenz",
+      "status": "integrated_ground_form",
+      "reason": "Vollständige Bassfigur bzw. eigener Pedalanspruch; akkordgebundene und unabhängige Bindung getrennt.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": 92,
+      "source_line": 3605
+    },
+    {
+      "id": "JC-B024",
+      "kind": "B",
+      "name": "Kreisender Triolenbass",
+      "status": "integrated_ground_form",
+      "reason": "Vollständige Bassfigur bzw. eigener Pedalanspruch; akkordgebundene und unabhängige Bindung getrennt.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": 3996,
+      "source_line": 3622
+    },
+    {
+      "id": "JC-B025",
+      "kind": "B",
+      "name": "Fünfer-Basssequenz",
+      "status": "deferred",
+      "reason": "Nicht Bestandteil der repräsentativen P1-Auswahl; keine Umdeutung der Originalquelle.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": 0,
+      "source_line": 3639
+    },
+    {
+      "id": "JC-B026",
+      "kind": "B",
+      "name": "Oktav-Achtelbass",
+      "status": "integrated_ground_form",
+      "reason": "Vollständige Bassfigur bzw. eigener Pedalanspruch; akkordgebundene und unabhängige Bindung getrennt.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": 0,
+      "source_line": 3656
+    },
+    {
+      "id": "JC-B027",
+      "kind": "B",
+      "name": "Oktavsprung-Viertel",
+      "status": "integrated_ground_form",
+      "reason": "Vollständige Bassfigur bzw. eigener Pedalanspruch; akkordgebundene und unabhängige Bindung getrennt.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": 0,
+      "source_line": 3673
+    },
+    {
+      "id": "JC-B028",
+      "kind": "B",
+      "name": "Oktav-Tresillo",
+      "status": "integrated_ground_form",
+      "reason": "Vollständige Bassfigur bzw. eigener Pedalanspruch; akkordgebundene und unabhängige Bindung getrennt.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": 55,
+      "source_line": 3690
+    },
+    {
+      "id": "JC-B029",
+      "kind": "B",
+      "name": "Chromatischer Kriechbass aufwärts",
+      "status": "deferred",
+      "reason": "Nicht Bestandteil der repräsentativen P1-Auswahl; keine Umdeutung der Originalquelle.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": 0,
+      "source_line": 3707
+    },
+    {
+      "id": "JC-B030",
+      "kind": "B",
+      "name": "Chromatischer Kriechbass abwärts",
+      "status": "deferred",
+      "reason": "Nicht Bestandteil der repräsentativen P1-Auswahl; keine Umdeutung der Originalquelle.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": 0,
+      "source_line": 3724
+    },
+    {
+      "id": "JC-B031",
+      "kind": "B",
+      "name": "Halbtonversetzter Achtelbass",
+      "status": "deferred",
+      "reason": "Nicht Bestandteil der repräsentativen P1-Auswahl; keine Umdeutung der Originalquelle.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": 0,
+      "source_line": 3741
+    },
+    {
+      "id": "JC-B032",
+      "kind": "B",
+      "name": "Kriechen um kleine Terz und Halbton",
+      "status": "deferred",
+      "reason": "Nicht Bestandteil der repräsentativen P1-Auswahl; keine Umdeutung der Originalquelle.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": 0,
+      "source_line": 3758
+    },
+    {
+      "id": "JC-B033",
+      "kind": "B",
+      "name": "Schreitender Bass abwärts",
+      "status": "integrated_ground_form",
+      "reason": "Vollständige Bassfigur bzw. eigener Pedalanspruch; akkordgebundene und unabhängige Bindung getrennt.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": 0,
+      "source_line": 3775
+    },
+    {
+      "id": "JC-B034",
+      "kind": "B",
+      "name": "Schreitender Bass aufwärts",
+      "status": "deferred",
+      "reason": "Nicht Bestandteil der repräsentativen P1-Auswahl; keine Umdeutung der Originalquelle.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": 0,
+      "source_line": 3792
+    },
+    {
+      "id": "JC-B035",
+      "kind": "B",
+      "name": "Quintfall-Schritte",
+      "status": "deferred",
+      "reason": "Nicht Bestandteil der repräsentativen P1-Auswahl; keine Umdeutung der Originalquelle.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": 0,
+      "source_line": 3809
+    },
+    {
+      "id": "JC-B036",
+      "kind": "B",
+      "name": "Bewegter Bass unter Fläche",
+      "status": "integrated_ground_form",
+      "reason": "Vollständige Bassfigur bzw. eigener Pedalanspruch; akkordgebundene und unabhängige Bindung getrennt.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": 0,
+      "source_line": 3826
+    },
+    {
+      "id": "JC-B037",
+      "kind": "B",
+      "name": "Quint-Quart-Wechsel",
+      "status": "integrated_ground_form",
+      "reason": "Vollständige Bassfigur bzw. eigener Pedalanspruch; akkordgebundene und unabhängige Bindung getrennt.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": 20,
+      "source_line": 3843
+    },
+    {
+      "id": "JC-B038",
+      "kind": "B",
+      "name": "Bass auf Schlag",
+      "status": "integrated_ground_form",
+      "reason": "Vollständige Bassfigur bzw. eigener Pedalanspruch; akkordgebundene und unabhängige Bindung getrennt.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": 28,
+      "source_line": 3860
+    },
+    {
+      "id": "JC-B039",
+      "kind": "B",
+      "name": "Tresillo-Komplementbass",
+      "status": "integrated_ground_form",
+      "reason": "Vollständige Bassfigur bzw. eigener Pedalanspruch; akkordgebundene und unabhängige Bindung getrennt.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": 621,
+      "source_line": 3876
+    },
+    {
+      "id": "JC-B040",
+      "kind": "B",
+      "name": "Kreuz-Bass",
+      "status": "integrated_ground_form",
+      "reason": "Vollständige Bassfigur bzw. eigener Pedalanspruch; akkordgebundene und unabhängige Bindung getrennt.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": 68,
+      "source_line": 3892
+    },
+    {
+      "id": "JC-B041",
+      "kind": "B",
+      "name": "Bewusster Bassverzicht",
+      "status": "deferred",
+      "reason": "Nicht Bestandteil der repräsentativen P1-Auswahl; keine Umdeutung der Originalquelle.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": 0,
+      "source_line": 3909
+    },
+    {
+      "id": "JC-B042",
+      "kind": "B",
+      "name": "Herzschlag mit Oktave",
+      "status": "integrated_ground_form",
+      "reason": "Vollständige Bassfigur bzw. eigener Pedalanspruch; akkordgebundene und unabhängige Bindung getrennt.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": 4,
+      "source_line": 3917
+    },
+    {
+      "id": "JC-B043",
+      "kind": "B",
+      "name": "Gedämpfter Einzelschlag-Bass",
+      "status": "integrated_ground_form",
+      "reason": "Vollständige Bassfigur bzw. eigener Pedalanspruch; akkordgebundene und unabhängige Bindung getrennt.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": 0,
+      "source_line": 3934
+    },
+    {
+      "id": "JC-B044",
+      "kind": "B",
+      "name": "Ein Bassschlag pro Takt",
+      "status": "integrated_ground_form",
+      "reason": "Vollständige Bassfigur bzw. eigener Pedalanspruch; akkordgebundene und unabhängige Bindung getrennt.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": 197,
+      "source_line": 3951
+    },
+    {
+      "id": "JC-B045",
+      "kind": "B",
+      "name": "Halbe Grundton–Quinte",
+      "status": "deferred",
+      "reason": "Nicht Bestandteil der repräsentativen P1-Auswahl; keine Umdeutung der Originalquelle.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": 0,
+      "source_line": 3967
+    },
+    {
+      "id": "JC-B046",
+      "kind": "B",
+      "name": "Uhrwerk-Bass",
+      "status": "integrated_ground_form",
+      "reason": "Vollständige Bassfigur bzw. eigener Pedalanspruch; akkordgebundene und unabhängige Bindung getrennt.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": 0,
+      "source_line": 3984
+    },
+    {
+      "id": "JC-B047",
+      "kind": "B",
+      "name": "Kriechende Triolen tief",
+      "status": "deferred",
+      "reason": "Nicht Bestandteil der repräsentativen P1-Auswahl; keine Umdeutung der Originalquelle.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": 0,
+      "source_line": 4001
+    },
+    {
+      "id": "JC-B048",
+      "kind": "B",
+      "name": "Achtelbass mit Atemloch",
+      "status": "integrated_ground_form",
+      "reason": "Vollständige Bassfigur bzw. eigener Pedalanspruch; akkordgebundene und unabhängige Bindung getrennt.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": 22,
+      "source_line": 4018
+    },
+    {
+      "id": "JC-B049",
+      "kind": "B",
+      "name": "Lang–kurz-Bass",
+      "status": "deferred",
+      "reason": "Gatefolge/Startphase gemäß ERRATA noch nicht eindeutig; keine erfundene Zuordnung.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": 0,
+      "source_line": 4034
+    },
+    {
+      "id": "JC-B050",
+      "kind": "B",
+      "name": "Synkopiertes Riff",
+      "status": "deferred",
+      "reason": "Nicht Bestandteil der repräsentativen P1-Auswahl; keine Umdeutung der Originalquelle.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": 0,
+      "source_line": 4050
+    },
+    {
+      "id": "JC-B051",
+      "kind": "B",
+      "name": "Blue-Note-Bass",
+      "status": "deferred",
+      "reason": "Nicht Bestandteil der repräsentativen P1-Auswahl; keine Umdeutung der Originalquelle.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": 0,
+      "source_line": 4067
+    },
+    {
+      "id": "JC-B052",
+      "kind": "B",
+      "name": "Zweitakt-Bassriff",
+      "status": "integrated_ground_form",
+      "reason": "Vollständige Bassfigur bzw. eigener Pedalanspruch; akkordgebundene und unabhängige Bindung getrennt.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": 2,
+      "source_line": 4084
+    },
+    {
+      "id": "JC-M001",
+      "kind": "M",
+      "name": "Einsamer hoher Ruf",
+      "status": "deferred",
+      "reason": "Nicht Bestandteil der repräsentativen P1-Auswahl; keine Umdeutung der Originalquelle.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 4107
+    },
+    {
+      "id": "JC-M002",
+      "kind": "M",
+      "name": "Ruf mit Halbtonfall",
+      "status": "deferred",
+      "reason": "Nicht Bestandteil der repräsentativen P1-Auswahl; keine Umdeutung der Originalquelle.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 4118
+    },
+    {
+      "id": "JC-M003",
+      "kind": "M",
+      "name": "Oktave sinkt zur Quinte",
+      "status": "deferred",
+      "reason": "Nicht Bestandteil der repräsentativen P1-Auswahl; keine Umdeutung der Originalquelle.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 4130
+    },
+    {
+      "id": "JC-M004",
+      "kind": "M",
+      "name": "Fernes Echo",
+      "status": "integrated_ground_form",
+      "reason": "Exakte TU-Echofigur, getrennt von ihrem sparsamen Wiederkehrfenster.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": 48,
+      "source_line": 4142
+    },
+    {
+      "id": "JC-M005",
+      "kind": "M",
+      "name": "Mechanischer Dreiton",
+      "status": "deferred",
+      "reason": "Nicht Bestandteil der repräsentativen P1-Auswahl; keine Umdeutung der Originalquelle.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 4154
+    },
+    {
+      "id": "JC-M006",
+      "kind": "M",
+      "name": "Melancholische Zelle",
+      "status": "deferred",
+      "reason": "Nicht Bestandteil der repräsentativen P1-Auswahl; keine Umdeutung der Originalquelle.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 4166
+    },
+    {
+      "id": "JC-M007",
+      "kind": "M",
+      "name": "Melancholische Zelle in Dur",
+      "status": "deferred",
+      "reason": "Nicht Bestandteil der repräsentativen P1-Auswahl; keine Umdeutung der Originalquelle.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 4178
+    },
+    {
+      "id": "JC-M008",
+      "kind": "M",
+      "name": "Sextsprung",
+      "status": "deferred",
+      "reason": "Nicht Bestandteil der repräsentativen P1-Auswahl; keine Umdeutung der Originalquelle.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 4190
+    },
+    {
+      "id": "JC-M009",
+      "kind": "M",
+      "name": "Tritonus-Ruf",
+      "status": "deferred",
+      "reason": "Nicht Bestandteil der repräsentativen P1-Auswahl; keine Umdeutung der Originalquelle.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 4202
+    },
+    {
+      "id": "JC-M010",
+      "kind": "M",
+      "name": "Halbton-Seufzer",
+      "status": "deferred",
+      "reason": "Nicht Bestandteil der repräsentativen P1-Auswahl; keine Umdeutung der Originalquelle.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 4214
+    },
+    {
+      "id": "JC-M011",
+      "kind": "M",
+      "name": "Sechston-Fragment",
+      "status": "deferred",
+      "reason": "Nicht Bestandteil der repräsentativen P1-Auswahl; keine Umdeutung der Originalquelle.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 4226
+    },
+    {
+      "id": "JC-M012",
+      "kind": "M",
+      "name": "Lyrische Linie",
+      "status": "deferred",
+      "reason": "Nicht Bestandteil der repräsentativen P1-Auswahl; keine Umdeutung der Originalquelle.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 4238
+    },
+    {
+      "id": "JC-M013",
+      "kind": "M",
+      "name": "Frage und Antwort",
+      "status": "deferred",
+      "reason": "Nicht Bestandteil der repräsentativen P1-Auswahl; keine Umdeutung der Originalquelle.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 4250
+    },
+    {
+      "id": "JC-M014",
+      "kind": "M",
+      "name": "Blockverschiebungs-Motiv",
+      "status": "deferred",
+      "reason": "Nicht Bestandteil der repräsentativen P1-Auswahl; keine Umdeutung der Originalquelle.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 4262
+    },
+    {
+      "id": "JC-M015",
+      "kind": "M",
+      "name": "Wiederholung mit Einzeltonvariation",
+      "status": "deferred",
+      "reason": "Nicht Bestandteil der repräsentativen P1-Auswahl; keine Umdeutung der Originalquelle.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 4274
+    },
+    {
+      "id": "JC-M016",
+      "kind": "M",
+      "name": "Wanderzelle",
+      "status": "deferred",
+      "reason": "Nicht Bestandteil der repräsentativen P1-Auswahl; keine Umdeutung der Originalquelle.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 4286
+    },
+    {
+      "id": "JC-M017",
+      "kind": "M",
+      "name": "Achsenmotiv",
+      "status": "deferred",
+      "reason": "Nicht Bestandteil der repräsentativen P1-Auswahl; keine Umdeutung der Originalquelle.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 4298
+    },
+    {
+      "id": "JC-M018",
+      "kind": "M",
+      "name": "Glocken-Kanonkopf",
+      "status": "deferred",
+      "reason": "Nicht Bestandteil der repräsentativen P1-Auswahl; keine Umdeutung der Originalquelle.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 4310
+    },
+    {
+      "id": "JC-M019",
+      "kind": "M",
+      "name": "Hohe Klage",
+      "status": "deferred",
+      "reason": "Nicht Bestandteil der repräsentativen P1-Auswahl; keine Umdeutung der Originalquelle.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 4322
+    },
+    {
+      "id": "JC-M020",
+      "kind": "M",
+      "name": "Tiefes Grollmotiv",
+      "status": "deferred",
+      "reason": "Nicht Bestandteil der repräsentativen P1-Auswahl; keine Umdeutung der Originalquelle.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 4334
+    },
+    {
+      "id": "JC-M021",
+      "kind": "M",
+      "name": "Uhrwerk-Signal",
+      "status": "deferred",
+      "reason": "Nicht Bestandteil der repräsentativen P1-Auswahl; keine Umdeutung der Originalquelle.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 4346
+    },
+    {
+      "id": "JC-M022",
+      "kind": "M",
+      "name": "Nachklang-Melodie",
+      "status": "deferred",
+      "reason": "Nicht Bestandteil der repräsentativen P1-Auswahl; keine Umdeutung der Originalquelle.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 4358
+    },
+    {
+      "id": "JC-M023",
+      "kind": "M",
+      "name": "Zögernde Klavierfigur",
+      "status": "deferred",
+      "reason": "Nicht Bestandteil der repräsentativen P1-Auswahl; keine Umdeutung der Originalquelle.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 4370
+    },
+    {
+      "id": "JC-M024",
+      "kind": "M",
+      "name": "Langsamer Zweiton",
+      "status": "deferred",
+      "reason": "Nicht Bestandteil der repräsentativen P1-Auswahl; keine Umdeutung der Originalquelle.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 4382
+    },
+    {
+      "id": "JC-M025",
+      "kind": "M",
+      "name": "Dur-Licht-Motiv",
+      "status": "deferred",
+      "reason": "Nicht Bestandteil der repräsentativen P1-Auswahl; keine Umdeutung der Originalquelle.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 4394
+    },
+    {
+      "id": "JC-M026",
+      "kind": "M",
+      "name": "Phrygischer Ruf",
+      "status": "deferred",
+      "reason": "Nicht Bestandteil der repräsentativen P1-Auswahl; keine Umdeutung der Originalquelle.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 4406
+    },
+    {
+      "id": "JC-M027",
+      "kind": "M",
+      "name": "Dorischer Aufstieg",
+      "status": "deferred",
+      "reason": "Nicht Bestandteil der repräsentativen P1-Auswahl; keine Umdeutung der Originalquelle.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 4418
+    },
+    {
+      "id": "JC-M028",
+      "kind": "M",
+      "name": "Quintsprung-Signal",
+      "status": "deferred",
+      "reason": "Nicht Bestandteil der repräsentativen P1-Auswahl; keine Umdeutung der Originalquelle.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 4430
+    },
+    {
+      "id": "JC-M029",
+      "kind": "M",
+      "name": "Oktavsprung-Signal",
+      "status": "deferred",
+      "reason": "Nicht Bestandteil der repräsentativen P1-Auswahl; keine Umdeutung der Originalquelle.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 4442
+    },
+    {
+      "id": "JC-M030",
+      "kind": "M",
+      "name": "Breiter Vierton-Abstieg",
+      "status": "deferred",
+      "reason": "Nicht Bestandteil der repräsentativen P1-Auswahl; keine Umdeutung der Originalquelle.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 4454
+    },
+    {
+      "id": "JC-M031",
+      "kind": "M",
+      "name": "Fragmentkern",
+      "status": "deferred",
+      "reason": "Nicht Bestandteil der repräsentativen P1-Auswahl; keine Umdeutung der Originalquelle.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 4466
+    },
+    {
+      "id": "JC-M032",
+      "kind": "M",
+      "name": "Synkopiertes Fragment",
+      "status": "deferred",
+      "reason": "Nicht Bestandteil der repräsentativen P1-Auswahl; keine Umdeutung der Originalquelle.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 4478
+    },
+    {
+      "id": "JC-M033",
+      "kind": "M",
+      "name": "Stockendes Fragment",
+      "status": "deferred",
+      "reason": "Nicht Bestandteil der repräsentativen P1-Auswahl; keine Umdeutung der Originalquelle.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 4490
+    },
+    {
+      "id": "JC-M034",
+      "kind": "M",
+      "name": "Weite Klage",
+      "status": "deferred",
+      "reason": "Nicht Bestandteil der repräsentativen P1-Auswahl; keine Umdeutung der Originalquelle.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 4502
+    },
+    {
+      "id": "JC-M035",
+      "kind": "M",
+      "name": "Tiefe Echo-Antwort",
+      "status": "deferred",
+      "reason": "Nicht Bestandteil der repräsentativen P1-Auswahl; keine Umdeutung der Originalquelle.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 4514
+    },
+    {
+      "id": "JC-M036",
+      "kind": "M",
+      "name": "Chromatischer Schatten",
+      "status": "deferred",
+      "reason": "Nicht Bestandteil der repräsentativen P1-Auswahl; keine Umdeutung der Originalquelle.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 4526
+    },
+    {
+      "id": "JC-M037",
+      "kind": "M",
+      "name": "Leittonsuche",
+      "status": "deferred",
+      "reason": "Nicht Bestandteil der repräsentativen P1-Auswahl; keine Umdeutung der Originalquelle.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 4538
+    },
+    {
+      "id": "JC-M038",
+      "kind": "M",
+      "name": "Melancholie in Halben",
+      "status": "deferred",
+      "reason": "Nicht Bestandteil der repräsentativen P1-Auswahl; keine Umdeutung der Originalquelle.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 4550
+    },
+    {
+      "id": "JC-M039",
+      "kind": "M",
+      "name": "Hoher Ton mit Nachschlag",
+      "status": "deferred",
+      "reason": "Nicht Bestandteil der repräsentativen P1-Auswahl; keine Umdeutung der Originalquelle.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 4562
+    },
+    {
+      "id": "JC-M040",
+      "kind": "M",
+      "name": "Drei Glocken",
+      "status": "deferred",
+      "reason": "Nicht Bestandteil der repräsentativen P1-Auswahl; keine Umdeutung der Originalquelle.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 4574
+    },
+    {
+      "id": "JC-M041",
+      "kind": "M",
+      "name": "Offene Frage",
+      "status": "deferred",
+      "reason": "Nicht Bestandteil der repräsentativen P1-Auswahl; keine Umdeutung der Originalquelle.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 4586
+    },
+    {
+      "id": "JC-M042",
+      "kind": "M",
+      "name": "Kreisen um die Quinte",
+      "status": "deferred",
+      "reason": "Nicht Bestandteil der repräsentativen P1-Auswahl; keine Umdeutung der Originalquelle.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 4598
+    },
+    {
+      "id": "JC-M043",
+      "kind": "M",
+      "name": "Langer Choralton",
+      "status": "deferred",
+      "reason": "Nicht Bestandteil der repräsentativen P1-Auswahl; keine Umdeutung der Originalquelle.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 4610
+    },
+    {
+      "id": "JC-M044",
+      "kind": "M",
+      "name": "Zweiton-Stoß",
+      "status": "deferred",
+      "reason": "Nicht Bestandteil der repräsentativen P1-Auswahl; keine Umdeutung der Originalquelle.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 4621
+    },
+    {
+      "id": "JC-M045",
+      "kind": "M",
+      "name": "Rückkehr nach Pause",
+      "status": "deferred",
+      "reason": "Nicht Bestandteil der repräsentativen P1-Auswahl; keine Umdeutung der Originalquelle.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 4633
+    },
+    {
+      "id": "JC-P001",
+      "kind": "P",
+      "name": "Wiederaufnahme nach Atemloch",
+      "status": "deferred",
+      "reason": "Keine vollständige Quell-Szene/Phrase/Ereignisfeldplanung importiert; ähnliche P1-Hörstudien sind kein Ersatz für diese ID.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 4647
+    },
+    {
+      "id": "JC-P002",
+      "kind": "P",
+      "name": "Fragmentierung eines Motivs",
+      "status": "deferred",
+      "reason": "Keine vollständige Quell-Szene/Phrase/Ereignisfeldplanung importiert; ähnliche P1-Hörstudien sind kein Ersatz für diese ID.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 4657
+    },
+    {
+      "id": "JC-P003",
+      "kind": "P",
+      "name": "Verlängerung durch Haltedauer",
+      "status": "deferred",
+      "reason": "Keine vollständige Quell-Szene/Phrase/Ereignisfeldplanung importiert; ähnliche P1-Hörstudien sind kein Ersatz für diese ID.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 4668
+    },
+    {
+      "id": "JC-P004",
+      "kind": "P",
+      "name": "Verkürzung durch Abbruch",
+      "status": "deferred",
+      "reason": "Keine vollständige Quell-Szene/Phrase/Ereignisfeldplanung importiert; ähnliche P1-Hörstudien sind kein Ersatz für diese ID.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 4678
+    },
+    {
+      "id": "JC-P005",
+      "kind": "P",
+      "name": "Wiederkehr nach langer Pause",
+      "status": "deferred",
+      "reason": "Keine vollständige Quell-Szene/Phrase/Ereignisfeldplanung importiert; ähnliche P1-Hörstudien sind kein Ersatz für diese ID.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 4688
+    },
+    {
+      "id": "JC-P006",
+      "kind": "P",
+      "name": "Melodische Umfärbung",
+      "status": "deferred",
+      "reason": "Keine vollständige Quell-Szene/Phrase/Ereignisfeldplanung importiert; ähnliche P1-Hörstudien sind kein Ersatz für diese ID.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 4698
+    },
+    {
+      "id": "JC-P007",
+      "kind": "P",
+      "name": "Rollenwechsel HM → TU → GS",
+      "status": "deferred",
+      "reason": "Keine vollständige Quell-Szene/Phrase/Ereignisfeldplanung importiert; ähnliche P1-Hörstudien sind kein Ersatz für diese ID.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 4708
+    },
+    {
+      "id": "JC-P008",
+      "kind": "P",
+      "name": "Lyrische elektronische Entwicklung",
+      "status": "deferred",
+      "reason": "Keine vollständige Quell-Szene/Phrase/Ereignisfeldplanung importiert; ähnliche P1-Hörstudien sind kein Ersatz für diese ID.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 4719
+    },
+    {
+      "id": "JC-P009",
+      "kind": "P",
+      "name": "Gleichbleibende Spannung durch Rotation",
+      "status": "deferred",
+      "reason": "Keine vollständige Quell-Szene/Phrase/Ereignisfeldplanung importiert; ähnliche P1-Hörstudien sind kein Ersatz für diese ID.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 4730
+    },
+    {
+      "id": "JC-P010",
+      "kind": "P",
+      "name": "Frage ohne Antwort",
+      "status": "deferred",
+      "reason": "Keine vollständige Quell-Szene/Phrase/Ereignisfeldplanung importiert; ähnliche P1-Hörstudien sind kein Ersatz für diese ID.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 4740
+    },
+    {
+      "id": "JC-P011",
+      "kind": "P",
+      "name": "Echo-Antwort aus der Tiefe",
+      "status": "deferred",
+      "reason": "Keine vollständige Quell-Szene/Phrase/Ereignisfeldplanung importiert; ähnliche P1-Hörstudien sind kein Ersatz für diese ID.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 4750
+    },
+    {
+      "id": "JC-P012",
+      "kind": "P",
+      "name": "Blockverschiebung als Phrase",
+      "status": "deferred",
+      "reason": "Keine vollständige Quell-Szene/Phrase/Ereignisfeldplanung importiert; ähnliche P1-Hörstudien sind kein Ersatz für diese ID.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 4760
+    },
+    {
+      "id": "JC-P013",
+      "kind": "P",
+      "name": "Kanoneinsatz",
+      "status": "deferred",
+      "reason": "Keine vollständige Quell-Szene/Phrase/Ereignisfeldplanung importiert; ähnliche P1-Hörstudien sind kein Ersatz für diese ID.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 4771
+    },
+    {
+      "id": "JC-P014",
+      "kind": "P",
+      "name": "Nachklang nach dem Ereignis",
+      "status": "deferred",
+      "reason": "Keine vollständige Quell-Szene/Phrase/Ereignisfeldplanung importiert; ähnliche P1-Hörstudien sind kein Ersatz für diese ID.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 4781
+    },
+    {
+      "id": "JC-P015",
+      "kind": "P",
+      "name": "Verdichtungsleiter mit Rückfall",
+      "status": "deferred",
+      "reason": "Keine vollständige Quell-Szene/Phrase/Ereignisfeldplanung importiert; ähnliche P1-Hörstudien sind kein Ersatz für diese ID.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 4792
+    },
+    {
+      "id": "JC-P016",
+      "kind": "P",
+      "name": "Ruhige Antwort auf Unruhe",
+      "status": "deferred",
+      "reason": "Keine vollständige Quell-Szene/Phrase/Ereignisfeldplanung importiert; ähnliche P1-Hörstudien sind kein Ersatz für diese ID.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 4803
+    },
+    {
+      "id": "JC-T001",
+      "kind": "T",
+      "name": "Blocktransposition",
+      "status": "partially_integrated",
+      "reason": "Quellautorisierte Blocktransposition einer Figur; keine pauschale Transposition aller Schichten.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 4815
+    },
+    {
+      "id": "JC-T002",
+      "kind": "T",
+      "name": "Einzeltonvariation",
+      "status": "deferred",
+      "reason": "Keine vollständige Aktivierung dieses Transformationsverfahrens; konkrete Voraussetzungen separat prüfen.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 4826
+    },
+    {
+      "id": "JC-T003",
+      "kind": "T",
+      "name": "Oktavverlagerung",
+      "status": "partially_integrated",
+      "reason": "Registeranpassung als ganze Oktavverschiebung und bestehende manuelle Oktaven; keine freie Rollenwanderung.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 4837
+    },
+    {
+      "id": "JC-T004",
+      "kind": "T",
+      "name": "Rhythmische Transformation",
+      "status": "deferred",
+      "reason": "Keine vollständige Aktivierung dieses Transformationsverfahrens; konkrete Voraussetzungen separat prüfen.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 4847
+    },
+    {
+      "id": "JC-T005",
+      "kind": "T",
+      "name": "Motivfragmentierung",
+      "status": "deferred",
+      "reason": "Keine vollständige Aktivierung dieses Transformationsverfahrens; konkrete Voraussetzungen separat prüfen.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 4858
+    },
+    {
+      "id": "JC-T006",
+      "kind": "T",
+      "name": "Rollenwanderung",
+      "status": "deferred",
+      "reason": "Keine vollständige Aktivierung dieses Transformationsverfahrens; konkrete Voraussetzungen separat prüfen.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 4868
+    },
+    {
+      "id": "JC-T007",
+      "kind": "T",
+      "name": "Schichtrotation",
+      "status": "partially_integrated",
+      "reason": "Begrenzte zyklische Schichtablösung; keine Übernahme der widersprüchlichen S35-Konstantdichte.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 4879
+    },
+    {
+      "id": "JC-T008",
+      "kind": "T",
+      "name": "Harmonische Umfärbung",
+      "status": "deferred",
+      "reason": "Keine vollständige Aktivierung dieses Transformationsverfahrens; konkrete Voraussetzungen separat prüfen.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 4889
+    },
+    {
+      "id": "JC-T009",
+      "kind": "T",
+      "name": "Gate-Veränderung",
+      "status": "deferred",
+      "reason": "Keine vollständige Aktivierung dieses Transformationsverfahrens; konkrete Voraussetzungen separat prüfen.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 4899
+    },
+    {
+      "id": "JC-T010",
+      "kind": "T",
+      "name": "Akzentgruppen-Variation",
+      "status": "deferred",
+      "reason": "Keine vollständige Aktivierung dieses Transformationsverfahrens; konkrete Voraussetzungen separat prüfen.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 4909
+    },
+    {
+      "id": "JC-T011",
+      "kind": "T",
+      "name": "Unterbrechung und Wiederaufnahme",
+      "status": "partially_integrated",
+      "reason": "Ganze Figuren können pausieren und wiederaufgenommen werden; keine vollständige kanonische Szenengrammatik.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 4919
+    },
+    {
+      "id": "JC-T012",
+      "kind": "T",
+      "name": "Langfristige Stasis",
+      "status": "partially_integrated",
+      "reason": "Stabile Felder und unabhängige Pedallebensdauer; keine Vollimplementierung jedes zugehörigen Modells.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 4929
+    },
+    {
+      "id": "JC-T013",
+      "kind": "T",
+      "name": "Kontrollierte Verdichtung",
+      "status": "deferred",
+      "reason": "Keine vollständige Aktivierung dieses Transformationsverfahrens; konkrete Voraussetzungen separat prüfen.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 4939
+    },
+    {
+      "id": "JC-T014",
+      "kind": "T",
+      "name": "Kontrollierte Reduktion",
+      "status": "deferred",
+      "reason": "Keine vollständige Aktivierung dieses Transformationsverfahrens; konkrete Voraussetzungen separat prüfen.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 4949
+    },
+    {
+      "id": "JC-T015",
+      "kind": "T",
+      "name": "Phasenversatz",
+      "status": "deferred",
+      "reason": "Keine vollständige Aktivierung dieses Transformationsverfahrens; konkrete Voraussetzungen separat prüfen.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 4958
+    },
+    {
+      "id": "JC-T016",
+      "kind": "T",
+      "name": "Velocity-Atmung",
+      "status": "deferred",
+      "reason": "Keine vollständige Aktivierung dieses Transformationsverfahrens; konkrete Voraussetzungen separat prüfen.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 4967
+    },
+    {
+      "id": "JC-EF01",
+      "kind": "EF",
+      "name": "Tiefer Grund, ferne Glocke",
+      "status": "deferred",
+      "reason": "Keine vollständige Quell-Szene/Phrase/Ereignisfeldplanung importiert; ähnliche P1-Hörstudien sind kein Ersatz für diese ID.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 4981
+    },
+    {
+      "id": "JC-EF02",
+      "kind": "EF",
+      "name": "Reibungsfeld ♭2",
+      "status": "deferred",
+      "reason": "Keine vollständige Quell-Szene/Phrase/Ereignisfeldplanung importiert; ähnliche P1-Hörstudien sind kein Ersatz für diese ID.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 4995
+    },
+    {
+      "id": "JC-EF03",
+      "kind": "EF",
+      "name": "Paranoia-Feld",
+      "status": "deferred",
+      "reason": "Keine vollständige Quell-Szene/Phrase/Ereignisfeldplanung importiert; ähnliche P1-Hörstudien sind kein Ersatz für diese ID.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 5009
+    },
+    {
+      "id": "JC-EF04",
+      "kind": "EF",
+      "name": "Kaltes Licht",
+      "status": "deferred",
+      "reason": "Keine vollständige Quell-Szene/Phrase/Ereignisfeldplanung importiert; ähnliche P1-Hörstudien sind kein Ersatz für diese ID.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 5023
+    },
+    {
+      "id": "JC-EF05",
+      "kind": "EF",
+      "name": "Melancholisches Feld",
+      "status": "deferred",
+      "reason": "Keine vollständige Quell-Szene/Phrase/Ereignisfeldplanung importiert; ähnliche P1-Hörstudien sind kein Ersatz für diese ID.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 5037
+    },
+    {
+      "id": "JC-EF06",
+      "kind": "EF",
+      "name": "Herzschlag im Nebel",
+      "status": "deferred",
+      "reason": "Keine vollständige Quell-Szene/Phrase/Ereignisfeldplanung importiert; ähnliche P1-Hörstudien sind kein Ersatz für diese ID.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 5051
+    },
+    {
+      "id": "JC-EF07",
+      "kind": "EF",
+      "name": "Grollen",
+      "status": "deferred",
+      "reason": "Keine vollständige Quell-Szene/Phrase/Ereignisfeldplanung importiert; ähnliche P1-Hörstudien sind kein Ersatz für diese ID.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 5065
+    },
+    {
+      "id": "JC-EF08",
+      "kind": "EF",
+      "name": "Akkordwechsel als Ereignis",
+      "status": "deferred",
+      "reason": "Keine vollständige Quell-Szene/Phrase/Ereignisfeldplanung importiert; ähnliche P1-Hörstudien sind kein Ersatz für diese ID.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 5079
+    },
+    {
+      "id": "JC-EF09",
+      "kind": "EF",
+      "name": "Kraftvolles Feld ohne Bewegung",
+      "status": "deferred",
+      "reason": "Keine vollständige Quell-Szene/Phrase/Ereignisfeldplanung importiert; ähnliche P1-Hörstudien sind kein Ersatz für diese ID.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 5093
+    },
+    {
+      "id": "JC-EF10",
+      "kind": "EF",
+      "name": "Leerraum mit Wiederkehr",
+      "status": "deferred",
+      "reason": "Keine vollständige Quell-Szene/Phrase/Ereignisfeldplanung importiert; ähnliche P1-Hörstudien sind kein Ersatz für diese ID.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 5107
+    },
+    {
+      "id": "JC-EF11",
+      "kind": "EF",
+      "name": "Uhr im leeren Haus",
+      "status": "deferred",
+      "reason": "Keine vollständige Quell-Szene/Phrase/Ereignisfeldplanung importiert; ähnliche P1-Hörstudien sind kein Ersatz für diese ID.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 5121
+    },
+    {
+      "id": "JC-EF12",
+      "kind": "EF",
+      "name": "Fernes Echo über Dur-Fremdklang",
+      "status": "deferred",
+      "reason": "Offene Hierarchie lokaler Tonvorräte gemäß ERRATA; Gesamtvorlage nicht aktiviert.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 5135
+    },
+    {
+      "id": "JC-S01",
+      "kind": "S",
+      "name": "Drone allein",
+      "status": "deferred",
+      "reason": "Keine vollständige Quell-Szene/Phrase/Ereignisfeldplanung importiert; ähnliche P1-Hörstudien sind kein Ersatz für diese ID.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 5153
+    },
+    {
+      "id": "JC-S02",
+      "kind": "S",
+      "name": "Drone mit seltenen Einzelereignissen",
+      "status": "deferred",
+      "reason": "Keine vollständige Quell-Szene/Phrase/Ereignisfeldplanung importiert; ähnliche P1-Hörstudien sind kein Ersatz für diese ID.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 5167
+    },
+    {
+      "id": "JC-S03",
+      "kind": "S",
+      "name": "Hoher Einzelton über tiefem Feld",
+      "status": "deferred",
+      "reason": "Keine vollständige Quell-Szene/Phrase/Ereignisfeldplanung importiert; ähnliche P1-Hörstudien sind kein Ersatz für diese ID.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 5183
+    },
+    {
+      "id": "JC-S04",
+      "kind": "S",
+      "name": "Puls allein",
+      "status": "deferred",
+      "reason": "Keine vollständige Quell-Szene/Phrase/Ereignisfeldplanung importiert; ähnliche P1-Hörstudien sind kein Ersatz für diese ID.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 5198
+    },
+    {
+      "id": "JC-S05",
+      "kind": "S",
+      "name": "Puls und Drone",
+      "status": "deferred",
+      "reason": "Keine vollständige Quell-Szene/Phrase/Ereignisfeldplanung importiert; ähnliche P1-Hörstudien sind kein Ersatz für diese ID.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 5211
+    },
+    {
+      "id": "JC-S06",
+      "kind": "S",
+      "name": "Basssequenz und statische Fläche",
+      "status": "deferred",
+      "reason": "Keine vollständige Quell-Szene/Phrase/Ereignisfeldplanung importiert; ähnliche P1-Hörstudien sind kein Ersatz für diese ID.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 5225
+    },
+    {
+      "id": "JC-S07",
+      "kind": "S",
+      "name": "Basssequenz und höherer Sequencer",
+      "status": "deferred",
+      "reason": "Keine vollständige Quell-Szene/Phrase/Ereignisfeldplanung importiert; ähnliche P1-Hörstudien sind kein Ersatz für diese ID.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 5239
+    },
+    {
+      "id": "JC-S08",
+      "kind": "S",
+      "name": "Komplementäre repetitive Schichten",
+      "status": "deferred",
+      "reason": "Keine vollständige Quell-Szene/Phrase/Ereignisfeldplanung importiert; ähnliche P1-Hörstudien sind kein Ersatz für diese ID.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 5255
+    },
+    {
+      "id": "JC-S09",
+      "kind": "S",
+      "name": "Pulslose Mystery",
+      "status": "deferred",
+      "reason": "Keine vollständige Quell-Szene/Phrase/Ereignisfeldplanung importiert; ähnliche P1-Hörstudien sind kein Ersatz für diese ID.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 5270
+    },
+    {
+      "id": "JC-S10",
+      "kind": "S",
+      "name": "Gehaltene, mehrstimmige Klangfelder",
+      "status": "deferred",
+      "reason": "Keine vollständige Quell-Szene/Phrase/Ereignisfeldplanung importiert; ähnliche P1-Hörstudien sind kein Ersatz für diese ID.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 5285
+    },
+    {
+      "id": "JC-S11",
+      "kind": "S",
+      "name": "Melancholie mit lyrischer Linie",
+      "status": "deferred",
+      "reason": "Keine vollständige Quell-Szene/Phrase/Ereignisfeldplanung importiert; ähnliche P1-Hörstudien sind kein Ersatz für diese ID.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 5299
+    },
+    {
+      "id": "JC-S12",
+      "kind": "S",
+      "name": "Melancholie ohne Melodie",
+      "status": "deferred",
+      "reason": "Keine vollständige Quell-Szene/Phrase/Ereignisfeldplanung importiert; ähnliche P1-Hörstudien sind kein Ersatz für diese ID.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 5315
+    },
+    {
+      "id": "JC-S13",
+      "kind": "S",
+      "name": "Glocken- und Kanonstruktur",
+      "status": "deferred",
+      "reason": "Keine vollständige Quell-Szene/Phrase/Ereignisfeldplanung importiert; ähnliche P1-Hörstudien sind kein Ersatz für diese ID.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 5330
+    },
+    {
+      "id": "JC-S14",
+      "kind": "S",
+      "name": "Kraft ohne Notendichte",
+      "status": "deferred",
+      "reason": "Keine vollständige Quell-Szene/Phrase/Ereignisfeldplanung importiert; ähnliche P1-Hörstudien sind kein Ersatz für diese ID.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 5345
+    },
+    {
+      "id": "JC-S15",
+      "kind": "S",
+      "name": "Psychologische Unruhe ohne Sequencer",
+      "status": "deferred",
+      "reason": "Keine vollständige Quell-Szene/Phrase/Ereignisfeldplanung importiert; ähnliche P1-Hörstudien sind kein Ersatz für diese ID.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 5361
+    },
+    {
+      "id": "JC-S16",
+      "kind": "S",
+      "name": "Mechanische Unruhe",
+      "status": "deferred",
+      "reason": "Keine vollständige Quell-Szene/Phrase/Ereignisfeldplanung importiert; ähnliche P1-Hörstudien sind kein Ersatz für diese ID.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 5378
+    },
+    {
+      "id": "JC-S17",
+      "kind": "S",
+      "name": "Akuter Horror durch Reduktion",
+      "status": "deferred",
+      "reason": "Keine vollständige Quell-Szene/Phrase/Ereignisfeldplanung importiert; ähnliche P1-Hörstudien sind kein Ersatz für diese ID.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 5395
+    },
+    {
+      "id": "JC-S18",
+      "kind": "S",
+      "name": "Akuter Horror durch Verdichtung",
+      "status": "deferred",
+      "reason": "Offene Hierarchie lokaler Tonvorräte gemäß ERRATA; Gesamtvorlage nicht aktiviert.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 5413
+    },
+    {
+      "id": "JC-S19",
+      "kind": "S",
+      "name": "Entwicklung durch Schichtung bei unveränderter Harmonik",
+      "status": "deferred",
+      "reason": "Keine vollständige Quell-Szene/Phrase/Ereignisfeldplanung importiert; ähnliche P1-Hörstudien sind kein Ersatz für diese ID.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 5430
+    },
+    {
+      "id": "JC-S20",
+      "kind": "S",
+      "name": "Hypnotische Stasis",
+      "status": "deferred",
+      "reason": "Keine vollständige Quell-Szene/Phrase/Ereignisfeldplanung importiert; ähnliche P1-Hörstudien sind kein Ersatz für diese ID.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 5448
+    },
+    {
+      "id": "JC-S21",
+      "kind": "S",
+      "name": "Bedrohliche Action",
+      "status": "deferred",
+      "reason": "Keine vollständige Quell-Szene/Phrase/Ereignisfeldplanung importiert; ähnliche P1-Hörstudien sind kein Ersatz für diese ID.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 5463
+    },
+    {
+      "id": "JC-S22",
+      "kind": "S",
+      "name": "Fünfer-Zelle mit Blockverschiebung",
+      "status": "deferred",
+      "reason": "Keine vollständige Quell-Szene/Phrase/Ereignisfeldplanung importiert; ähnliche P1-Hörstudien sind kein Ersatz für diese ID.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 5480
+    },
+    {
+      "id": "JC-S23",
+      "kind": "S",
+      "name": "Hohe Arpeggien über tiefer Resonanz",
+      "status": "deferred",
+      "reason": "Keine vollständige Quell-Szene/Phrase/Ereignisfeldplanung importiert; ähnliche P1-Hörstudien sind kein Ersatz für diese ID.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 5495
+    },
+    {
+      "id": "JC-S24",
+      "kind": "S",
+      "name": "Schreitende Akkorde unter Klavier",
+      "status": "deferred",
+      "reason": "Keine vollständige Quell-Szene/Phrase/Ereignisfeldplanung importiert; ähnliche P1-Hörstudien sind kein Ersatz für diese ID.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 5511
+    },
+    {
+      "id": "JC-S25",
+      "kind": "S",
+      "name": "Uhrwerk der verrinnenden Zeit",
+      "status": "deferred",
+      "reason": "Keine vollständige Quell-Szene/Phrase/Ereignisfeldplanung importiert; ähnliche P1-Hörstudien sind kein Ersatz für diese ID.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 5526
+    },
+    {
+      "id": "JC-S26",
+      "kind": "S",
+      "name": "Herzschlag unter Mollkreis",
+      "status": "deferred",
+      "reason": "Keine vollständige Quell-Szene/Phrase/Ereignisfeldplanung importiert; ähnliche P1-Hörstudien sind kein Ersatz für diese ID.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 5541
+    },
+    {
+      "id": "JC-S27",
+      "kind": "S",
+      "name": "Obsession: Wanderzelle mit Umfärbung",
+      "status": "deferred",
+      "reason": "Keine vollständige Quell-Szene/Phrase/Ereignisfeldplanung importiert; ähnliche P1-Hörstudien sind kein Ersatz für diese ID.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 5555
+    },
+    {
+      "id": "JC-S28",
+      "kind": "S",
+      "name": "Hell und bedrohlich",
+      "status": "deferred",
+      "reason": "Offene Hierarchie lokaler Tonvorräte gemäß ERRATA; Gesamtvorlage nicht aktiviert.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 5572
+    },
+    {
+      "id": "JC-S29",
+      "kind": "S",
+      "name": "Kriechende Triolen und langfristige Bedrohung",
+      "status": "deferred",
+      "reason": "Keine vollständige Quell-Szene/Phrase/Ereignisfeldplanung importiert; ähnliche P1-Hörstudien sind kein Ersatz für diese ID.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 5587
+    },
+    {
+      "id": "JC-S30",
+      "kind": "S",
+      "name": "Warme Mollfläche mit Uhrwerk",
+      "status": "deferred",
+      "reason": "Keine vollständige Quell-Szene/Phrase/Ereignisfeldplanung importiert; ähnliche P1-Hörstudien sind kein Ersatz für diese ID.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 5603
+    },
+    {
+      "id": "JC-S31",
+      "kind": "S",
+      "name": "Kalter Leitton und lyrische Linie",
+      "status": "deferred",
+      "reason": "Keine vollständige Quell-Szene/Phrase/Ereignisfeldplanung importiert; ähnliche P1-Hörstudien sind kein Ersatz für diese ID.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 5618
+    },
+    {
+      "id": "JC-S32",
+      "kind": "S",
+      "name": "Moll-Kreis mit Zweiton-Stampfen",
+      "status": "deferred",
+      "reason": "Keine vollständige Quell-Szene/Phrase/Ereignisfeldplanung importiert; ähnliche P1-Hörstudien sind kein Ersatz für diese ID.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 5634
+    },
+    {
+      "id": "JC-S33",
+      "kind": "S",
+      "name": "Herzschlag allein, hohe Klagelaute",
+      "status": "deferred",
+      "reason": "Keine vollständige Quell-Szene/Phrase/Ereignisfeldplanung importiert; ähnliche P1-Hörstudien sind kein Ersatz für diese ID.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 5649
+    },
+    {
+      "id": "JC-S34",
+      "kind": "S",
+      "name": "Dur-Lichtung",
+      "status": "deferred",
+      "reason": "Keine vollständige Quell-Szene/Phrase/Ereignisfeldplanung importiert; ähnliche P1-Hörstudien sind kein Ersatz für diese ID.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 5663
+    },
+    {
+      "id": "JC-S35",
+      "kind": "S",
+      "name": "Atmung: Pulsschichten kommen und gehen",
+      "status": "deferred",
+      "reason": "Rollen-/Dichtebeschreibung widerspricht der Studie; keine künstlich ergänzte zweite Schicht.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 5678
+    },
+    {
+      "id": "JC-S36",
+      "kind": "S",
+      "name": "Reduktion und Wiederaufnahme",
+      "status": "deferred",
+      "reason": "Keine vollständige Quell-Szene/Phrase/Ereignisfeldplanung importiert; ähnliche P1-Hörstudien sind kein Ersatz für diese ID.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 5696
+    },
+    {
+      "id": "JC-S37",
+      "kind": "S",
+      "name": "Wandernde Lücke",
+      "status": "deferred",
+      "reason": "Keine vollständige Quell-Szene/Phrase/Ereignisfeldplanung importiert; ähnliche P1-Hörstudien sind kein Ersatz für diese ID.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 5712
+    },
+    {
+      "id": "JC-S38",
+      "kind": "S",
+      "name": "Phasenzelle (gemeinsame SYNTH-Fähigkeit)",
+      "status": "deferred",
+      "reason": "Keine vollständige Quell-Szene/Phrase/Ereignisfeldplanung importiert; ähnliche P1-Hörstudien sind kein Ersatz für diese ID.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 5728
+    },
+    {
+      "id": "JC-S39",
+      "kind": "S",
+      "name": "Siebener-Kette im 7/8",
+      "status": "deferred",
+      "reason": "Keine vollständige Quell-Szene/Phrase/Ereignisfeldplanung importiert; ähnliche P1-Hörstudien sind kein Ersatz für diese ID.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 5743
+    },
+    {
+      "id": "JC-S40",
+      "kind": "S",
+      "name": "Cluster-Feld mit Kriechbass",
+      "status": "deferred",
+      "reason": "Offene Hierarchie lokaler Tonvorräte gemäß ERRATA; Gesamtvorlage nicht aktiviert.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 5759
+    },
+    {
+      "id": "JC-S41",
+      "kind": "S",
+      "name": "Lydisches Glas über Pedal",
+      "status": "deferred",
+      "reason": "Keine vollständige Quell-Szene/Phrase/Ereignisfeldplanung importiert; ähnliche P1-Hörstudien sind kein Ersatz für diese ID.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 5774
+    },
+    {
+      "id": "JC-S42",
+      "kind": "S",
+      "name": "Bluesiges Riffgerüst",
+      "status": "deferred",
+      "reason": "Keine vollständige Quell-Szene/Phrase/Ereignisfeldplanung importiert; ähnliche P1-Hörstudien sind kein Ersatz für diese ID.",
+      "component": null,
+      "observed_note_ons_in_hearing_studies": null,
+      "source_line": 5789
+    }
+  ]
+}

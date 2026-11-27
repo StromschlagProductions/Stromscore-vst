@@ -6,7 +6,7 @@ using namespace stromscore;
 using namespace stromscore::composition;
 int main()
 {
- CHECK(templatePreferences.size()==195);std::set<WendungId> ids;
+ CHECK(templatePreferences.size()==225);std::set<WendungId> ids;
  for(const auto& p:templatePreferences){CHECK(ids.insert(p.id).second&&findWendung(p.id));for(float w:p.weights)CHECK(w>0&&std::isfinite(w));CHECK(p.weights[0]==1.f);}
  CHECK(wendungCount(GenreScore)==48&&wendungCount(GenreScore,ProfileId::johnBarry)==46);
  int different=0;

@@ -975,6 +975,156 @@
       "template_id": 50057,
       "idea": "Erinnerung, Glanz; kanonische konstruierte Studie, kein Filmzitat. Gemeinsamtöne gebunden; ohne Hauptmelodie und Arpeggio hörbar.",
       "instruments": "Freie Instrumentierung; polyphone Langfläche und optionaler akkordgebundener Bass. Manuelle Spielweisen haben Vorrang."
+    },
+    {
+      "template_id": 60001,
+      "idea": "Eine leere Quinte als vollständiges harmonisches Material, beliebig lang haltbar. Kanonische Konstruktion; Evidenz: Verfahren N – nachgewiesenes Verfahren; Konstruktion E",
+      "instruments": "Instrumentierung frei; passende sustained/detached Patches und Tonumfänge in der DAW wählen."
+    },
+    {
+      "template_id": 60003,
+      "idea": "Breiter Turm aus Quinten und Oktaven; Kraft ohne Bewegung. Kanonische Konstruktion; Evidenz: Verfahren N – nachgewiesenes Verfahren; Konstruktion E",
+      "instruments": "Instrumentierung frei; passende sustained/detached Patches und Tonumfänge in der DAW wählen."
+    },
+    {
+      "template_id": 60004,
+      "idea": "Zwei Quinten übereinander; die None klingt hell und kalt, nicht süß. Kanonische Konstruktion; Evidenz: Verfahren I – begründete Interpretation; Konstruktion E",
+      "instruments": "Instrumentierung frei; passende sustained/detached Patches und Tonumfänge in der DAW wählen."
+    },
+    {
+      "template_id": 60006,
+      "idea": "Zwei leere Quinten im Kleinsexten-Abstand; dunkel, kein Tongeschlecht. Kanonische Konstruktion; Evidenz: Verfahren I – begründete Interpretation; Konstruktion E",
+      "instruments": "Instrumentierung frei; passende sustained/detached Patches und Tonumfänge in der DAW wählen."
+    },
+    {
+      "template_id": 60007,
+      "idea": "Leere Quinten im Ganztonabstand; rockige Herkunft, ruhig gehalten. Kanonische Konstruktion; Evidenz: Verfahren I – begründete Interpretation; Konstruktion E",
+      "instruments": "Instrumentierung frei; passende sustained/detached Patches und Tonumfänge in der DAW wählen."
+    },
+    {
+      "template_id": 60015,
+      "idea": "Die ganze leere Quinte rückt einen Halbton hoch und wieder zurück. Kanonische Konstruktion; Evidenz: Verfahren N – nachgewiesenes Verfahren; Konstruktion E",
+      "instruments": "Instrumentierung frei; passende sustained/detached Patches und Tonumfänge in der DAW wählen."
+    },
+    {
+      "template_id": 60017,
+      "idea": "Schlichter Mollklang für kurze Akkordpulse (KF). Kanonische Konstruktion; Evidenz: Verfahren N – nachgewiesenes Verfahren; Konstruktion E",
+      "instruments": "Instrumentierung frei; passende sustained/detached Patches und Tonumfänge in der DAW wählen."
+    },
+    {
+      "template_id": 60018,
+      "idea": "Moll mit Terz eine Oktave höher; weniger dumpf als enge Lage. Kanonische Konstruktion; Evidenz: Verfahren N – nachgewiesenes Verfahren; Konstruktion E",
+      "instruments": "Instrumentierung frei; passende sustained/detached Patches und Tonumfänge in der DAW wählen."
+    },
+    {
+      "template_id": 60023,
+      "idea": "Vier diatonische Klänge ohne V–I; kreist statt zu schließen. Kanonische Konstruktion; Evidenz: Verfahren N – nachgewiesenes Verfahren; Konstruktion E",
+      "instruments": "Instrumentierung frei; passende sustained/detached Patches und Tonumfänge in der DAW wählen."
+    },
+    {
+      "template_id": 60024,
+      "idea": "Der verminderte Klang am Ende öffnet den Kreis, statt ihn zu schließen. Kanonische Konstruktion; Evidenz: Verfahren N – nachgewiesenes Verfahren; Konstruktion E",
+      "instruments": "Instrumentierung frei; passende sustained/detached Patches und Tonumfänge in der DAW wählen."
+    },
+    {
+      "template_id": 60026,
+      "idea": "Rockige Moll-Kreisfolge, kraftvoll und gerade. Kanonische Konstruktion; Evidenz: Verfahren I – begründete Interpretation; Konstruktion E",
+      "instruments": "Instrumentierung frei; passende sustained/detached Patches und Tonumfänge in der DAW wählen."
+    },
+    {
+      "template_id": 60027,
+      "idea": "Quartschritte aufwärts; heller, fast heroisch. Kanonische Konstruktion; Evidenz: Verfahren I – begründete Interpretation; Konstruktion E",
+      "instruments": "Instrumentierung frei; passende sustained/detached Patches und Tonumfänge in der DAW wählen."
+    },
+    {
+      "template_id": 60029,
+      "idea": "Durlastige Moll-Zirkulation; melancholisch hell. Kanonische Konstruktion; Evidenz: Verfahren I – begründete Interpretation; Konstruktion E",
+      "instruments": "Instrumentierung frei; passende sustained/detached Patches und Tonumfänge in der DAW wählen."
+    },
+    {
+      "template_id": 60030,
+      "idea": "Dur-Dominante, die trugschlüssig nach ♭VI weicht; markierte Ableitung. Kanonische Konstruktion; Evidenz: Verfahren H – Hypothese (markierte Ableitung); Konstruktion E",
+      "instruments": "Instrumentierung frei; passende sustained/detached Patches und Tonumfänge in der DAW wählen."
+    },
+    {
+      "template_id": 60031,
+      "idea": "Absteigender Bass in Stufen bis zur Dur-Quinte; endet offen. Kanonische Konstruktion; Evidenz: Verfahren H – Hypothese (markierte Ableitung); Konstruktion E",
+      "instruments": "Instrumentierung frei; passende sustained/detached Patches und Tonumfänge in der DAW wählen."
+    },
+    {
+      "template_id": 60032,
+      "idea": "Bass steigt stufenweise; jeder Schritt wird heller. Kanonische Konstruktion; Evidenz: Verfahren I – begründete Interpretation; Konstruktion E",
+      "instruments": "Instrumentierung frei; passende sustained/detached Patches und Tonumfänge in der DAW wählen."
+    },
+    {
+      "template_id": 60033,
+      "idea": "Power-Quinten schreiten nach unten; dunkel und schwer. Kanonische Konstruktion; Evidenz: Verfahren N – nachgewiesenes Verfahren; Konstruktion E",
+      "instruments": "Instrumentierung frei; passende sustained/detached Patches und Tonumfänge in der DAW wählen."
+    },
+    {
+      "template_id": 60035,
+      "idea": "Parallel gleitende Molldreiklänge; unheimlich, nicht belegt. Kanonische Konstruktion; Evidenz: Verfahren E – eigenständige Gestaltung; Konstruktion E",
+      "instruments": "Instrumentierung frei; passende sustained/detached Patches und Tonumfänge in der DAW wählen."
+    },
+    {
+      "template_id": 60037,
+      "idea": "Nur die Terz wechselt; Licht ohne Auflösung. Kanonische Konstruktion; Evidenz: Verfahren I – begründete Interpretation; Konstruktion E",
+      "instruments": "Instrumentierung frei; passende sustained/detached Patches und Tonumfänge in der DAW wählen."
+    },
+    {
+      "template_id": 60039,
+      "idea": "Verdunkelung durch die Terz allein. Kanonische Konstruktion; Evidenz: Verfahren I – begründete Interpretation; Konstruktion E",
+      "instruments": "Instrumentierung frei; passende sustained/detached Patches und Tonumfänge in der DAW wählen."
+    },
+    {
+      "template_id": 60040,
+      "idea": "Dorische Dur-Subdominante; kühl und hell. Kanonische Konstruktion; Evidenz: Verfahren I – begründete Interpretation; Konstruktion E",
+      "instruments": "Instrumentierung frei; passende sustained/detached Patches und Tonumfänge in der DAW wählen."
+    },
+    {
+      "template_id": 60041,
+      "idea": "Moll zur Dur-Mediante; glasig, entrückt. Nicht belegt. Kanonische Konstruktion; Evidenz: Verfahren E – eigenständige Gestaltung; Konstruktion E",
+      "instruments": "Instrumentierung frei; passende sustained/detached Patches und Tonumfänge in der DAW wählen."
+    },
+    {
+      "template_id": 60054,
+      "idea": "Grundton und Quinte bleiben, nur die Terz wechselt. Kanonische Konstruktion; Evidenz: Verfahren I – begründete Interpretation; Konstruktion E",
+      "instruments": "Instrumentierung frei; passende sustained/detached Patches und Tonumfänge in der DAW wählen."
+    },
+    {
+      "template_id": 60063,
+      "idea": "Leere Quinten im Kleinterzabstand; Riff-Grundlage. Kanonische Konstruktion; Evidenz: Verfahren N – nachgewiesenes Verfahren; Konstruktion E",
+      "instruments": "Instrumentierung frei; passende sustained/detached Patches und Tonumfänge in der DAW wählen."
+    },
+    {
+      "template_id": 60064,
+      "idea": "Power-Quinten auf Grundton und Quarte. Kanonische Konstruktion; Evidenz: Verfahren N – nachgewiesenes Verfahren; Konstruktion E",
+      "instruments": "Instrumentierung frei; passende sustained/detached Patches und Tonumfänge in der DAW wählen."
+    },
+    {
+      "template_id": 60065,
+      "idea": "Quinten auf Grundton, ♭3 und ♭5; bluesige Chromatik, markiert. Kanonische Konstruktion; Evidenz: Verfahren H – Hypothese (markierte Ableitung); Konstruktion E",
+      "instruments": "Instrumentierung frei; passende sustained/detached Patches und Tonumfänge in der DAW wählen."
+    },
+    {
+      "template_id": 60066,
+      "idea": "Tragendes Gerüst für Bassriffs; gerade und schwer. Kanonische Konstruktion; Evidenz: Verfahren I – begründete Interpretation; Konstruktion E",
+      "instruments": "Instrumentierung frei; passende sustained/detached Patches und Tonumfänge in der DAW wählen."
+    },
+    {
+      "template_id": 60068,
+      "idea": "Reiner Durklang einen Ganzton über dem gehaltenen Grundton. Kanonische Konstruktion; Evidenz: Verfahren I – begründete Interpretation; Konstruktion E",
+      "instruments": "Instrumentierung frei; passende sustained/detached Patches und Tonumfänge in der DAW wählen."
+    },
+    {
+      "template_id": 60074,
+      "idea": "♭II-Dur über Moll im Wechsel; fremd, aber ruhig. Kanonische Konstruktion; Evidenz: Verfahren H – Hypothese (markierte Ableitung); Konstruktion E",
+      "instruments": "Instrumentierung frei; passende sustained/detached Patches und Tonumfänge in der DAW wählen."
+    },
+    {
+      "template_id": 60084,
+      "idea": "sus2-Klang rückt einen Halbton hoch und zurück; helle Variante der Blockverschiebung. Kanonische Konstruktion; Evidenz: Verfahren E – eigenständige Gestaltung; Konstruktion E",
+      "instruments": "Instrumentierung frei; passende sustained/detached Patches und Tonumfänge in der DAW wählen."
     }
   ]
 }

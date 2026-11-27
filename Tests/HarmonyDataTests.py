@@ -9,8 +9,8 @@ class HarmonyDataTests(unittest.TestCase):
   data=copy.deepcopy(self.original);mutate(data)
   with self.assertRaises(gen.ValidationError):gen.validate(data)
  def test_existing_and_reproducible(self):
-  m=gen.validate(self.original);self.assertEqual(len(m['templates']),195);self.assertEqual(len(m['profiles']),5)
-  self.assertEqual(set(m['templates']),set(range(1001,1049))|set(range(2001,2040))|{30000+n for n in range(1,48) if n not in (33,40)}|set(self.original['profiles.json']['profiles'][3]['score_pool'])|set(self.original['profiles.json']['profiles'][4]['score_pool']))
+  m=gen.validate(self.original);self.assertEqual(len(m['templates']),225);self.assertEqual(len(m['profiles']),6)
+  self.assertEqual(set(m['templates']),set(range(1001,1049))|set(range(2001,2040))|{30000+n for n in range(1,48) if n not in (33,40)}|set(self.original['profiles.json']['profiles'][3]['score_pool'])|set(self.original['profiles.json']['profiles'][4]['score_pool'])|set(self.original['profiles.json']['profiles'][5]['score_pool']))
   self.assertIn([1047,2015,2019],m['duplicate_groups'])
   for path,content in gen.emit(self.original).items():self.assertEqual((root/path).read_text(encoding='utf-8'),content)
  def test_authored_voicings_and_hard_transition_contract(self):
@@ -18,7 +18,7 @@ class HarmonyDataTests(unittest.TestCase):
   by={r['id']:r for r in rs}
   assessed={r['id']:r['assessment']['status']for r in json.loads((root/'docs/research/ennio-morricone/TECHNICAL_INVENTORY.json').read_text(encoding='utf-8'))['records']}
   templates=self.original['catalog.json']['templates']
-  authored=[t for t in templates if 'voicings' in t]
+  authored=[t for t in templates if 'voicings' in t and t['source_ref'] in by]
   self.assertEqual(len(authored),14)
   for t in authored:
    source=by[t['source_ref']]
@@ -37,6 +37,24 @@ class HarmonyDataTests(unittest.TestCase):
   self.rejected(lambda d:d['profiles.json']['profiles'][4].update(score_overrides=[{'template_id':50004,'xyz':[.4,.35,.2],'coloration':'flexible','source_ref':'EM-H004','name':'Invalid unprotected view'}]))
   self.rejected(lambda d:d['catalog.json']['templates'][index]['voicings'].pop())
   self.rejected(lambda d:d['catalog.json']['templates'][index]['voicings'][0].update(notes=[-5,2,15]))
+ def test_carpenter_canonical_ground_forms(self):
+  source=json.loads((root/'docs/research/john-carpenter/TECHNICAL_INVENTORY.json').read_text(encoding='utf-8'))['templates']
+  by={r['id']:r for r in source}
+  pool=self.original['profiles.json']['profiles'][5]['score_pool'];self.assertEqual(len(pool),30)
+  templates={t['id']:t for t in self.original['catalog.json']['templates']}
+  for id in pool:
+   h=templates[id];r=by['JC-H'+str(id-60000).zfill(3)]
+   self.assertEqual(h['coloration'],'protected');self.assertEqual(h['xyz'],r['xyz'])
+   self.assertEqual([c['root']for c in h['chords']],[c['root']for c in r['segments']])
+   self.assertEqual([c['type']for c in h['chords']],[c['exact_pc_types'][0]for c in r['segments']])
+   self.assertEqual([c['bars']for c in h['chords']],[c['end_bar']-c['start_bar']+1 for c in r['segments']])
+   self.assertEqual([v['notes']for v in h['voicings']],[[n['pitch']-12 for n in c['tones']]for c in r['segments']])
+  vocabulary=json.loads((root/'data/carpenter/vocabulary.json').read_text(encoding='utf-8'))
+  self.assertEqual(len(vocabulary['sequences']),66)
+  for r in vocabulary['sequences']:
+   self.assertEqual(r['pitches'],by[r['id']]['pitches'])
+   self.assertEqual(r['events'],by[r['rhythm_id']]['events'])
+   self.assertEqual(r['functions'],[f[1]for f in by[r['id']]['function_annotations']])
  def test_explicit_octatonic_harmonic_and_bass_context(self):
   templates={t['id']:t for t in self.original['catalog.json']['templates']}
   expected={40012,40014,40015,40016,40017,40019,40046,40054}
@@ -148,17 +166,17 @@ class HarmonyDataTests(unittest.TestCase):
    t=copy.deepcopy(cat['templates'][0]);t.update(id=3000+i,symbol='synthetic'+str(i),name='Synthetic '+str(i),xyz=[.5,.5,.5],genres=['score'],chords=[{'root':0,'type':'Maj','bars':8,'bass':None}],tonality={'center_pc':0,'mode':'mixolydian'});cat['templates'].append(t);cat['pools']['score'].append(t['id']);d['arrangements.json']['bindings'].append({'template_id':t['id'],'recipe':binding});d['notes.json']['entries'].append({'template_id':t['id'],'idea':'Synthetic test only','instruments':'Independent'})
   cat['templates'][0]['genres'].append('pop_rock');cat['pools']['pop_rock'].append(1001)
   for i in range(len(d['profiles.json']['profiles']),40):d['profiles.json']['profiles'].append({'id':i,'symbol':'testProfile'+str(i),'name':'Test '+str(i),'harmony_selection_only':True,'weights':[{'template_id':3000,'factor':2}]})
-  m=gen.validate(d);self.assertEqual(len(m['templates']),1395);self.assertEqual(len(m['profiles']),40);self.assertTrue(any(len(g)>=1200 for g in m['duplicate_groups']))
+  m=gen.validate(d);self.assertEqual(len(m['templates']),1425);self.assertEqual(len(m['profiles']),40);self.assertTrue(any(len(g)>=1200 for g in m['duplicate_groups']))
   with tempfile.TemporaryDirectory() as tmp:
    p=pathlib.Path(tmp);source=p/'Source';source.mkdir()
    for f in (root/'Source').glob('*.h'):shutil.copyfile(f,source/f.name)
-   for name,content in gen.emit(d).items():target=p/name;target.parent.mkdir(parents=True,exist_ok=True);target.write_text(content)
+   for name,content in gen.emit(d).items():target=p/name;target.parent.mkdir(parents=True,exist_ok=True);target.write_text(content,encoding="utf-8")
    code=p/'test.cpp';code.write_text('''#include "ScoreEngine.h"
 #include "TestSupport.h"
 #include <memory>
 using namespace stromscore;
 int main(){static_assert(kMaxWendungen==1248);static_assert(kCustomWendung>=kMaxWendungen);
-CHECK(harmonyTemplates.size()==1395);CHECK(composition::compositionProfiles.size()==40);
+CHECK(harmonyTemplates.size()==1425);CHECK(composition::compositionProfiles.size()==40);
 CHECK(findHarmonyTemplate(static_cast<WendungId>(3000))->tonality.mode==composition::Mode::mixolydian);
 CHECK(wendungIndex(GenrePopRock,WendungId::scoreHalbtonNachbarn)>=0);
 CHECK(composition::harmonicPreference(static_cast<composition::ProfileId>(39),static_cast<WendungId>(3000))==2.f);

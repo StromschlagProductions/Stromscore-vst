@@ -3,7 +3,7 @@
 #include "ArrangementTypes.h"
 #include "HarmonyCatalog.generated.h"
 namespace stromscore {
-inline constexpr std::array<ArrangementRecipe,195> defaultArrangements {{
+inline constexpr std::array<ArrangementRecipe,225> defaultArrangements {{
 {{ArpCircle,ArpCell},{BassPendulum,BassHeld},PadHeld,-1},
 {{ArpCircle,ArpDown},{BassPulse,BassEighth},PadHeld,-1},
 {{ArpCircle,ArpCell},{BassHeld,BassPendulum},PadHeld,-1},
@@ -199,6 +199,36 @@ inline constexpr std::array<ArrangementRecipe,195> defaultArrangements {{
 {{ArpUp,ArpCircle},{BassHeld,BassHeld},PadHeld,-1},
 {{ArpUp,ArpCircle},{BassHeld,BassHeld},PadHeld,-1},
 {{ArpUp,ArpCircle},{BassHeld,BassHeld},PadHeld,-1},
+{{ArpCircle,ArpCell},{BassHeld,BassPedal},PadHeld,-1},
+{{ArpCircle,ArpCell},{BassHeld,BassPedal},PadHeld,-1},
+{{ArpCircle,ArpCell},{BassHeld,BassPedal},PadHeld,-1},
+{{ArpCircle,ArpCell},{BassHeld,BassPedal},PadHeld,-1},
+{{ArpCircle,ArpCell},{BassHeld,BassPedal},PadHeld,-1},
+{{ArpCircle,ArpCell},{BassHeld,BassPedal},PadHeld,-1},
+{{ArpCircle,ArpCell},{BassHeld,BassPedal},PadHeld,-1},
+{{ArpCircle,ArpCell},{BassHeld,BassPedal},PadHeld,-1},
+{{ArpCircle,ArpCell},{BassHeld,BassPedal},PadHeld,-1},
+{{ArpCircle,ArpCell},{BassHeld,BassPedal},PadHeld,-1},
+{{ArpCircle,ArpCell},{BassHeld,BassPedal},PadHeld,-1},
+{{ArpCircle,ArpCell},{BassHeld,BassPedal},PadHeld,-1},
+{{ArpCircle,ArpCell},{BassHeld,BassPedal},PadHeld,-1},
+{{ArpCircle,ArpCell},{BassHeld,BassPedal},PadHeld,-1},
+{{ArpCircle,ArpCell},{BassHeld,BassPedal},PadHeld,-1},
+{{ArpCircle,ArpCell},{BassHeld,BassPedal},PadHeld,-1},
+{{ArpCircle,ArpCell},{BassHeld,BassPedal},PadHeld,-1},
+{{ArpCircle,ArpCell},{BassHeld,BassPedal},PadHeld,-1},
+{{ArpCircle,ArpCell},{BassHeld,BassPedal},PadHeld,-1},
+{{ArpCircle,ArpCell},{BassHeld,BassPedal},PadHeld,-1},
+{{ArpCircle,ArpCell},{BassHeld,BassPedal},PadHeld,-1},
+{{ArpCircle,ArpCell},{BassHeld,BassPedal},PadHeld,-1},
+{{ArpCircle,ArpCell},{BassHeld,BassPedal},PadHeld,-1},
+{{ArpCircle,ArpCell},{BassHeld,BassPedal},PadHeld,-1},
+{{ArpCircle,ArpCell},{BassHeld,BassPedal},PadHeld,-1},
+{{ArpCircle,ArpCell},{BassHeld,BassPedal},PadHeld,-1},
+{{ArpCircle,ArpCell},{BassHeld,BassPedal},PadHeld,-1},
+{{ArpCircle,ArpCell},{BassHeld,BassPedal},PadHeld,-1},
+{{ArpCircle,ArpCell},{BassHeld,BassPedal},PadHeld,-1},
+{{ArpCircle,ArpCell},{BassHeld,BassPedal},PadHeld,-1},
 }};
 inline constexpr int popHookPattern(WendungId id){int i=harmonyIndex(id);return i<0?-1:defaultArrangements[i].hook;}
 inline constexpr std::array<int,48> kWendungenIndices {{0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47}};
