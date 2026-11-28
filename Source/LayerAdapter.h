@@ -44,13 +44,13 @@ int layerPitch(const composition::LayerAttack& hit,const Chord& c,const Settings
 }
 bool layerPlayable(int output,int pitch,musicaltime::Tick duration,const Settings& s)const
 {
- const auto c=outputCatalog(s)[output].track.instrument;pitch+=12*octaveOf(output);
+ const auto c=outputDescription(s,output).track.instrument;pitch+=12*octaveOf(output);
  return pitch>=c.range.low&&pitch<=c.range.high&&pitch>=0&&pitch<=127&&duration>=c.minDuration&&duration<=c.maxDuration&&layerRoute(output,s);
 }
 bool layerPolyphony(const composition::LayerFigure& source,musicaltime::Tick begin,const Settings& s,int output)const
 {
  if(output!=OutPadLong)return true;const auto* h=findHarmonyTemplate(W().id);if(!h||!h->voicings[0].count)return true;
- const auto cap=outputCatalog(s)[output].track.instrument;int shift=0;bool available=false;
+ const auto cap=outputDescription(s,output).track.instrument;int shift=0;bool available=false;
  for(int oct:{0,-12,12,-24,24}){bool fits=true;for(int i=0;i<h->count;++i)for(int n=0;n<h->voicings[i].count;++n){const int pitch=60+s.key+oct+h->voicings[i].notes[n]+12*octaveOf(output);fits&=pitch>=cap.range.low&&pitch<=cap.range.high;}
   if(fits){shift=oct;available=true;break;}}
  if(!available)return false;
@@ -68,7 +68,7 @@ bool layerPolyphony(const composition::LayerFigure& source,musicaltime::Tick beg
 std::optional<int> layerRangeShift(int output,int low,int high,const Settings& s)const
 {
  if(!s.rangeOn[kOutputRange[output]])return 0;
- const auto range=outputCatalog(s)[output].track.instrument.range;
+ const auto range=outputDescription(s,output).track.instrument.range;
  for(int oct=0;oct<=10;++oct)for(int sign:{1,-1}){const int shift=sign*oct*12;if(low+shift>=range.low&&high+shift<=range.high)return shift;}
  return std::nullopt;
 }
@@ -83,7 +83,7 @@ bool layerFits(const composition::LayerFigure& source,musicaltime::Tick begin,co
 {
  using namespace composition;
  if(!layerRoute(output,s)||!layerPolyphony(source,begin,s,output))return false;
- const auto capability=outputCatalog(s)[output].track.instrument;
+ const auto capability=outputDescription(s,output).track.instrument;
  const auto modal=modalContextFor(s);const int octave=12*octaveOf(output);
  int shift=0;
  if(s.rangeOn[kOutputRange[output]]&&source.attacks[0].reference!=PitchReference::chord){
@@ -100,7 +100,7 @@ bool layerFits(const composition::LayerFigure& source,musicaltime::Tick begin,co
  for(int i=0;i<source.count;++i){const auto& hit=source.attacks[i];const auto at=begin+hit.at;auto cursor=at;const auto until=at+hit.duration;
   const auto reference=chordFor(locate(at),kOutputLayer[output],s);const int note=layerPitch(hit,reference,s,output,at)+shift;
   if(hit.reference==PitchReference::chord){
-   const auto cap=outputCatalog(s)[output].track.instrument;if(hit.duration<cap.minDuration||hit.duration>cap.maxDuration)return false;
+   const auto cap=outputDescription(s,output).track.instrument;if(hit.duration<cap.minDuration||hit.duration>cap.maxDuration)return false;
    auto cursor=at;const auto required=layerChordMask(reference,s);
    while(cursor<until){const auto pos=locate(cursor);const auto c=chordFor(pos,kOutputLayer[output],s);if(required&~layerChordMask(c,s))return false;if(pos.chordEndTime<=cursor)return false;cursor=std::min(until,pos.chordEndTime);}continue;
   }

@@ -404,7 +404,7 @@ struct PlayingTrack
     NoteAddressing addressing=NoteAddressing::pitchedNotes;
     unsigned roles=0; bool available=true;
 };
-inline unsigned roleBit(MusicalRole r){return 1u<<static_cast<unsigned>(r);}
+inline constexpr unsigned roleBit(MusicalRole r){return 1u<<static_cast<unsigned>(r);}
 struct RoleNeed
 {
     MusicalRole role=MusicalRole::lead; PlayingStyle style=PlayingStyle::sustained;

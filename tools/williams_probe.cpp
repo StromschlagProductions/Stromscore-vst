@@ -120,6 +120,7 @@ int main(int argc,char** argv){
  if(argc>26)s.octave[kArp]=std::atoi(argv[26]);
  if(argc>28){s.rangeOn[2]=std::atoi(argv[27])>=0;s.rangeLo[2]=std::atoi(argv[27]);s.rangeHi[2]=std::atoi(argv[28]);}
  if(argc>29)s.follow[kArp]=std::atoi(argv[29])!=0;
+ if(argc>30)s.dynamics=std::atoi(argv[30])!=0;
  Generator g;Transport t;t.playing=true;t.bpm=argc>18?std::atof(argv[18]):100;
  const double samplesPerQuarter=48000.*60/t.bpm;EventList es;long long total=static_cast<long long>(bars*4.*s.meterNum/s.meterDen*samplesPerQuarter);int last=-2;
  for(long long at=0;at<total;){

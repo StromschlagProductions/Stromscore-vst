@@ -78,7 +78,7 @@ void prepareFigureEvent(musicaltime::Tick time,const Settings& s,int offset,Even
    if(best<0){
     // Reuse the shared contour-preserving realization, with per-note intent
     // masks. F/U retain their recorded class; no arbitrary dissonance repair.
-    const auto cap=outputCatalog(s)[OutTupfer].track.instrument;
+    const auto cap=outputDescription(s,OutTupfer).track.instrument;
     for(int root:{0,chord.root})for(int shift:composition::figureOctaves){
      if(best>=8.5f)break; // Maximum score: later equal placements cannot replace it.
      const int anchor=48+s.key+root+shift,oct=12*octaveOf(OutTupfer);
@@ -213,7 +213,7 @@ void prepareSequencePedal(musicaltime::Tick time,const Settings& s,int offset,Ev
   eligible&=permits(plan,{tones,bass,authorized});
  }
  if(sceneEndTime)plan.end=std::min(plan.end,*sceneEndTime);
- int physical=24+s.key+12*s.octave[kBass];auto track=outputCatalog(s)[OutBassLong].track;
+ int physical=24+s.key+12*s.octave[kBass];auto track=outputDescription(s,OutBassLong).track;
  while(physical<track.instrument.range.low)physical+=12;
  while(physical>track.instrument.range.high)physical-=12;
  bool continuing=false;for(int i=0;i<numActive;++i)continuing|=active[i].pedalOwner&&active[i].note==physical&&active[i].channel==s.channel[OutBassLong];
@@ -259,7 +259,7 @@ bool sequencePitch(const composition::SequenceSource& source,int tone,const Chor
 }
 bool sequenceFits(const composition::SequenceUse& use,musicaltime::Tick begin,const Settings& s,int output)const
 {
- using namespace composition;const auto& source=*use.source;auto track=outputCatalog(s)[output].track;
+ using namespace composition;const auto& source=*use.source;auto track=outputDescription(s,output).track;
  RoleNeed need;need.role=output==OutMelody?MusicalRole::lead:MusicalRole::accompaniment;need.style=track.style;
  int lo=127,hi=0;auto min=source.attacks[0].duration,max=min;
  for(int n=0;n<source.tones;++n){const int pitch=use.base+source.pitch(n,begin,use.origin)+12*octaveOf(output);lo=std::min(lo,pitch);hi=std::max(hi,pitch);}
@@ -330,7 +330,7 @@ void prepareSequences(musicaltime::Tick time,const Settings& s,int offset,EventL
 }
 bool sequenceCanHold(int physical,int output,musicaltime::Tick at,musicaltime::Tick end,const Settings& s)const
 {
- if(physical<0||end-at>outputCatalog(s)[output].track.instrument.maxDuration)return false;
+ if(physical<0||end-at>outputDescription(s,output).track.instrument.maxDuration)return false;
  while(at<end){const auto p=locate(at);const auto chord=chordFor(p,kOutputLayer[output],s);unsigned mask=0;
   for(int n=0;n<kShapes[chord.type].n;++n)mask|=composition::pitchBit(s.key+chord.root+kShapes[chord.type].iv[n]);
   if(!(mask&composition::pitchBit(physical))||p.chordEndTime<=at)return false;at=std::min(end,p.chordEndTime);

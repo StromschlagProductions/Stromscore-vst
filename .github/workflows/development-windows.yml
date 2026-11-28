@@ -32,6 +32,8 @@ jobs:
           New-Item -ItemType Directory -Force package | Out-Null
           @("STROMSCORE 2.2 DEVELOPMENT TEST BUILD", "Commit: $env:GITHUB_SHA", "Source: $env:GITHUB_SHA (see MUSICAL_TIME_BASE.md for migration review)", "Branch: $env:GITHUB_REF_NAME", "No release. Same plugin ID as stable: temporarily replace, do not install both.") | Set-Content package/BUILD.txt
           Copy-Item docs/development/STUDIO_ONE_TESTBUILD.md package/HOERTEST.md
+          Copy-Item docs/development/REALTIME_PERFORMANCE.md package/PERFORMANCE.md
+          Copy-Item docs/development/realtime-performance package/realtime-performance -Recurse
           Copy-Item docs/development/MUSICAL_TIME_BASE.md package/MUSICAL_TIME_BASE.md
           Copy-Item docs/research/dark-synth/P2.md package/DARK_SYNTH_P2.md
           Copy-Item docs/research/dark-synth/P2_MIDI_LISTENING.zip package/DARK_SYNTH_P2_MIDI.zip

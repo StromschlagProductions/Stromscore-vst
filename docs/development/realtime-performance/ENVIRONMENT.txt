@@ -1,0 +1,14 @@
+Reference: b969932
+Compiler flags standalone: -O3 -DNDEBUG -std=c++17
+Plugin configuration: Release, recommended JUCE LTO
+Sample rate: 48000 Hz
+Host simulation: 4/4, D, 100 BPM, no drive, no build, unlimited
+Linux 6.18.57
+c++ (Debian 14.2.0-19) 14.2.0
+200000 100000
+3
+
+model name	: INTEL(R) XEON(R) PLATINUM 8573C
+CPU affinity: [0, 1, 2]
+MemTotal:       10207480 kB
+cgroup memory.max: 8589934592

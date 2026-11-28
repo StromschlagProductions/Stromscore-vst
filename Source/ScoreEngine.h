@@ -149,12 +149,12 @@ inline bool hasSolo(const Settings& s)
 
 // The only standard capability definitions for the current generator outputs.
 // These describe emitted MIDI, never verified external patch capabilities.
-inline std::array<composition::OutputDescription,kNumOutputs> outputCatalog(const Settings& s)
+inline composition::OutputDescription outputDescription(const Settings& s,int o,bool anySolo)
 {
     using namespace composition;
     struct Standard { PlayingStyle style; int voices; musicaltime::Tick maxDuration; unsigned roles; };
     const auto accompaniment=roleBit(MusicalRole::accompaniment);
-    const Standard standards[kNumOutputs]={
+    static constexpr Standard standards[kNumOutputs]={
         {PlayingStyle::sustained,6,musicaltime::sixteenth*(1<<24),accompaniment},
         {PlayingStyle::detached,9,musicaltime::sixteenth*(3),accompaniment},
         {PlayingStyle::sustained,1,musicaltime::sixteenth*(1<<24),accompaniment},
@@ -164,13 +164,11 @@ inline std::array<composition::OutputDescription,kNumOutputs> outputCatalog(cons
         {PlayingStyle::detached,1,musicaltime::sixteenth*(2),accompaniment},
         {PlayingStyle::sustained,2,musicaltime::sixteenth*(1<<24),roleBit(MusicalRole::lead)|roleBit(MusicalRole::answer)},
         {PlayingStyle::sustained,1,musicaltime::sixteenth*(1<<24),roleBit(MusicalRole::lead)} };
-    const char* uses[kNumOutputs]={"Gehaltene Harmonie","Akkordimpulse und Riss","Bassfundament und Pedal",
+    static constexpr const char* uses[kNumOutputs]={"Gehaltene Harmonie","Akkordimpulse und Riss","Bassfundament und Pedal",
         "Rhythmische Bassfigur","Arpeggio, Figur und Antwort","Farbiger Einwurf","Akzentschlag","Melodielinie, Motiv und Frage","Optionale Vordergrundmelodie"};
-    std::array<OutputDescription,kNumOutputs> result {};
-    const bool anySolo=hasSolo(s);
-    for(int o=0;o<kNumOutputs;++o)
+    OutputDescription entry {};
     {
-        auto& entry=result[static_cast<size_t>(o)];auto& track=entry.track;
+        auto& track=entry.track;
         const auto& standard=standards[o];const int layer=kOutputLayer[o],range=kOutputRange[o];
         entry.standardUse=uses[o];entry.target={o,s.channel[o],s.stichNote};track.id={1000+o};
         track.style=standard.style;track.roles=standard.roles;
@@ -192,6 +190,15 @@ inline std::array<composition::OutputDescription,kNumOutputs> outputCatalog(cons
             c.range={s.stichNote,s.stichNote};
         }
     }
+    return entry;
+}
+inline composition::OutputDescription outputDescription(const Settings& s,int output)
+{return outputDescription(s,output,hasSolo(s));}
+inline std::array<composition::OutputDescription,kNumOutputs> outputCatalog(const Settings& s)
+{
+    std::array<composition::OutputDescription,kNumOutputs> result {};
+    const bool anySolo=hasSolo(s);
+    for(int output=0;output<kNumOutputs;++output)result[static_cast<size_t>(output)]=outputDescription(s,output,anySolo);
     return result;
 }
 
@@ -1146,7 +1153,7 @@ private:
             int64_t(meter.len),int64_t(phraseBars),int64_t(allowsPassingHarmony(s)&&s.y>=.6f)})add(value);
         const auto& w=W();for(int i=0;i<w.n;++i){add(w.ch[i].root);add(w.ch[i].type);add(w.ch[i].bars);}
         const auto tonal=modalContextFor(s);add(static_cast<int>(tonal.mode));add(tonal.mask);
-        const auto c=outputCatalog(s)[output].track.instrument;
+        const auto c=outputDescription(s,output).track.instrument;
         add(c.range.low);add(c.range.high);add(c.minDuration.value);add(c.maxDuration.value);
         const auto& policy=s.genre==GenrePopRock&&output==OutCounter?s.policy.popHooks.recurrence:s.policy.motif;
         add(policy.establishOriginal);add(policy.preserveContour);
@@ -1157,7 +1164,7 @@ private:
     // keep a begun thought only if all its remaining attacks/gates still fit.
     bool remainingMotifFits(const composition::MotifOccurrence& plan,musicaltime::Tick time,const Settings& s,int output)const
     {
-        const auto capability=outputCatalog(s)[output].track.instrument;
+        const auto capability=outputDescription(s,output).track.instrument;
         for(int i=0;i<plan.figure.count;++i)
         {
             const auto& n=plan.figure.notes[i];auto at=plan.begin+n.at;
@@ -1201,7 +1208,7 @@ private:
         if(previous.figure.passingIndex>=0||previous.figure.variation!=composition::MotifVariation::original)return {};
         auto figure=composition::deriveMotif(memory,composition::MotifVariation::original);
         if(figure.count!=previous.figure.count)return {};
-        const auto capability=outputCatalog(s)[output].track.instrument;
+        const auto capability=outputDescription(s,output).track.instrument;
         unsigned masks[10]{};musicaltime::Tick limits[10]{};int fixed[10];int prefix=0;
         const auto& heard=voice(output).reprise;
         for(int i=0;i<figure.count;++i)
@@ -1279,7 +1286,7 @@ private:
             ||occurrence.figure.variation!=composition::MotifVariation::original||occurrence.ordinal%policy.opportunityStride)return;
         auto& figure=occurrence.figure;if(figure.count>=10)return;
         if(context.status!=composition::ModalStatus::unique)return;
-        const auto capabilities=outputCatalog(s)[output].track.instrument;
+        const auto capabilities=outputDescription(s,output).track.instrument;
         for(int i=0;i+1<figure.count;++i)
         {
             const auto source=figure.notes[i],target=figure.notes[i+1];if(target.at-source.at<policy.minGap)continue;
@@ -1305,7 +1312,7 @@ private:
         // introduction: its published material also drives existing Arp reservations.
         if(output==OutMelody&&on[kGegenstimme]&&s.motif&&!voice(OutCounter).motif.material(motifCatalog).complete)
         {
-            const auto p=locate(nowTime);const auto c=outputCatalog(s)[OutCounter].track.instrument;int playable=0;
+            const auto p=locate(nowTime);const auto c=outputDescription(s,OutCounter).track.instrument;int playable=0;
             for(int i=0;i<initialMotifSlots(s);++i){const auto n=planMotifNote(i,p,s,OutCounter,nullptr,false);const int pitch=n.pitch+12*octaveOf(OutCounter);
                 playable+=n.valid&&pitch>=c.range.low&&pitch<=c.range.high&&n.length>=c.minDuration&&n.length<=c.maxDuration;}
             if(playable>=2)return false;
@@ -1509,7 +1516,7 @@ private:
         // A free prefix is already real material. A newly compatible template
         // cannot retrospectively claim it or splice a different cell into it.
         if((s.profile==composition::ProfileId::johnWilliams||layerStrategy(s))&&recorded.count&&!recorded.vocabularyId)return {};
-        const auto track=outputCatalog(s)[output].track;composition::RoleNeed need;need.range=track.instrument.range;
+        const auto track=outputDescription(s,output).track;composition::RoleNeed need;need.range=track.instrument.range;
         if(!composition::suitable(track,need))return {};
         AuthoredMotif result;float best=1e9f;
         const bool williams=s.profile==composition::ProfileId::johnWilliams||layerStrategy(s);
@@ -1551,26 +1558,18 @@ private:
             }
             if(!valid)continue;
             const int preferred=s.key+source.pitches[0]+(output==OutMelody?12:0)+12*octaveOf(output)-(source.registerByColor&&s.x<.4f?12:0);
-            int chosen=-1,cost=10000;
-            for(int base=0;base<128;++base)
+            int fixed=-1;
+            if(recorded.vocabularyId)
             {
-                if(williams&&(base-preferred)%12!=0)continue;
-                if(recorded.vocabularyId)
-                {
-                    // A late activation can first hear the middle of a cell. Its
-                    // recorded origin is that actual note, not the template's first pitch.
-                    int first=-1;for(int j=0;j<source.count;++j)
-                        if(recorded.notes[0].at==musicaltime::sixteenth*source.at[j])first=j;
-                    if(first<0||base!=recorded.origin-source.pitches[first]+source.pitches[0])continue;
-                }
-                bool fits=true;
-                for(int i=0;i<source.count;++i)
-                {
-                    const int pitch=base+source.pitches[i]-source.pitches[0];
-                    if(pitch<track.instrument.range.low||pitch>track.instrument.range.high||pitch<0||pitch>127||!(masks[i]&composition::pitchBit(pitch))){fits=false;break;}
-                }
-                if(fits&&std::abs(base-preferred)<cost){cost=std::abs(base-preferred);chosen=base;}
+                // Resolve the existing provenance lock once, not for each base.
+                int first=-1;for(int j=0;j<source.count;++j)
+                    if(recorded.notes[0].at==musicaltime::sixteenth*source.at[j])first=j;
+                if(first<0)continue;
+                fixed=recorded.origin-source.pitches[first]+source.pitches[0];
+                if(fixed<0||fixed>127)continue;
             }
+            const auto placement=composition::placeAuthoredMotif(source,masks,track.instrument.range.low,track.instrument.range.high,preferred,williams,fixed);
+            const int chosen=placement.base,cost=placement.cost;
             if(chosen<0)continue;
             const float score=composition::barry::distance(layerStrategy(s)?source.x:s.x,s.y,s.z,source.x,source.y,source.z)+.0001f*cost;
             if(williams&&!layerStrategy(s)&&!recorded.vocabularyId&&score>.25f*.25f)continue;
@@ -1714,7 +1713,7 @@ private:
         const auto& state=voice(OutCounter);
         if(!on[kGegenstimme]||state.motif.material(motifCatalog).complete)return false;
         if(state.capture.active)return true;
-        const auto capability=outputCatalog(s)[OutCounter].track.instrument;int playable=0;
+        const auto capability=outputDescription(s,OutCounter).track.instrument;int playable=0;
         const auto bar=musicaltime::sixteenth*meter.len;
         for(auto at=p.phraseStartTime;at<p.phraseStartTime+2*bar;at+=musicaltime::sixteenth)
         {const auto n=hookNote(at,locate(at),s);const int pitch=sounding(OutCounter,n.pitch);
@@ -1732,7 +1731,7 @@ private:
             ||(!leadState.motif.material(motifCatalog).complete&&leadState.motif.material(motifCatalog).count>0
                 &&p.phrase-phraseOf(sceneTime)==leadState.motif.introduction);
         if(!inProgress&&popHookIntroductionPending(p,s))return {};
-        const auto track=outputCatalog(s)[OutMelody].track;
+        const auto track=outputDescription(s,OutMelody).track;
         if(!composition::planForeground(s.melody,track).foreground)return {};
         const auto bar=musicaltime::sixteenth*meter.len;
         if(s.melodyMotif)
@@ -1854,7 +1853,7 @@ private:
             const auto& material=*motifCatalog.find(response.plan.reference.material);
             const auto& last=material.notes[static_cast<size_t>(material.count-1)];
             const auto end=response.plan.end-(!s.legato&&last.length>composition::motifQuantum?composition::motifQuantum:musicaltime::Tick{});
-            return composition::reserveMotifWindow(outputCatalog(s)[OutCounter].track.id,response.plan.count,
+            return composition::reserveMotifWindow(outputDescription(s,OutCounter).track.id,response.plan.count,
                 response.origin+response.plan.begin,response.origin+end);
         }
         return {};
@@ -2131,7 +2130,7 @@ private:
         r.end=r.middle+musicaltime::fromGridStep(static_cast<int64_t>(w.ch[first+1].bars)*meter.len);r.barDuration=musicaltime::fromGridStep(meter.len);r.modal=modalContextFor(s);r.maxLeap=s.policy.bass.maxLeap;
         for(int j=0;j<2;++j){const auto c=w.ch[first+j];r.bass[j]=harmonicPlan.slots[(first+j)*2].bass+12*s.octave[kBass];r.root[j]=(s.key+c.root)%12;for(int n=0;n<kShapes[c.type].n;++n)r.chords[j]|=composition::pitchBit(s.key+c.root+kShapes[c.type].iv[n]);}
         r.range=s.rangeOn[kBass]?composition::Range{s.rangeLo[kBass],s.rangeHi[kBass]}:composition::Range{std::max(0,std::min(r.bass[0],r.bass[1])-7),std::min(127,std::max(r.bass[0],r.bass[1])+12)};
-        const auto c=outputCatalog(s)[OutBassShort].track.instrument;r.minDuration=c.minDuration;r.maxDuration=c.maxDuration;
+        const auto c=outputDescription(s,OutBassShort).track.instrument;r.minDuration=c.minDuration;r.maxDuration=c.maxDuration;
         bassPhrase=composition::planBassPhrase(r);
     }
 
@@ -2260,7 +2259,7 @@ private:
             else return {};
             if(attack)request.reference|=static_cast<uint16_t>(1u<<pos);
         }
-        const auto cap=outputCatalog(s)[OutArp].track.instrument;
+        const auto cap=outputDescription(s,OutArp).track.instrument;
         request.minDuration=cap.minDuration;request.maxDuration=cap.maxDuration;
         return composition::planRhythmicInterlock(request,s.policy.rhythm);
     }
@@ -2550,7 +2549,7 @@ private:
         if(authored)
         {
             bool fits=false;
-            const auto capabilities=outputCatalog(s)[OutPadLong].track.instrument;
+            const auto capabilities=outputDescription(s,OutPadLong).track.instrument;
             for(int shift:{0,-12,12,-24,24})
             {
                 bool candidate=true;
@@ -2663,7 +2662,7 @@ private:
         if(s.genre!=GenrePopRock||!s.policy.chords.enabled||s.padPattern!=PadAuto||!on[kFlaeche]||s.scene||s.sceneBars>0
             ||manualEndTime.has_value()||s.endRequested||s.passing||still||padShy||peak||padGrow||W().id==WendungId::popDrahtseil)return original;
         for(int o=0;o<kNumOutputs;++o)if(o!=output&&s.channel[o]==s.channel[output])return original;
-        const auto cap=outputCatalog(s)[output].track.instrument;
+        const auto cap=outputDescription(s,output).track.instrument;
         const int oct=12*s.octave[kFlaeche];
         const int lo=s.rangeOn[0]?s.rangeLo[0]-oct:std::max(-oct,padLow(s)-18);
         const int hi=s.rangeOn[0]?s.rangeHi[0]-oct:std::min(127-oct,padLow(s)+24);
@@ -2820,7 +2819,7 @@ private:
     }
 
     // Stich: ein einzelner Schlag. Fest: die gewaehlte Taste. Akkord: der Grundton (MIDI 50 bis 61, unter der Gegenstimme).
-    static int stichTone (const Settings& s, int pitch) { return composition::addressedPitch(outputCatalog(s)[OutStich], place(pitch,stichLow(s))); }
+    static int stichTone (const Settings& s, int pitch) { return composition::addressedPitch(outputDescription(s,OutStich), place(pitch,stichLow(s))); }
     void stich (const Pos& p, const Settings& s, int offset, long long len, int boost, EventList& out)
     {
         const Chord c = chordFor (p, kAkzent, s);
@@ -2935,7 +2934,7 @@ private:
             if(!permits(candidate,{tones,bass,source}))eligible=false;
         }
         int physical=place(s.key,bassLow(s))+12*s.octave[kBass];
-        const auto track=outputCatalog(s)[OutBassLong].track;
+        const auto track=outputDescription(s,OutBassLong).track;
         while(physical<track.instrument.range.low)physical+=12;
         while(physical>track.instrument.range.high)physical-=12;
         // Once heard, the register belongs to the pedal's lifetime. XYZ may
@@ -3416,7 +3415,7 @@ private:
         const auto& plan=playable.plan;if(!plan.active)return false;
         const int base=playable.base,oct=12*octaveOf(OutCounter);
         const auto relative=time-playable.origin;
-        const auto capability=outputCatalog(s)[OutCounter].track.instrument;
+        const auto capability=outputDescription(s,OutCounter).track.instrument;
         auto& answer=voice(OutCounter).answer;
         if(answer.reference.value!=plan.reference.material.value||answer.introduction!=plan.reference.introduction)
             if(!answer.adopt(plan.reference,motifCatalog))return false;

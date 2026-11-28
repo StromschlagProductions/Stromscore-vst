@@ -1,0 +1,842 @@
+Flat profile:
+
+Each sample counts as 0.01 seconds.
+  %   cumulative   self              self     total           
+ time   seconds   seconds    calls  us/call  us/call  name    
+ 19.48      0.52     0.52 27038027     0.02     0.02  frame_dummy
+ 17.23      0.98     0.46  1148384     0.40     0.57  stromscore::Generator::playableMelodyHandoff(stromscore::musicaltime::Tick, stromscore::Generator::Pos const&, stromscore::Settings const&, bool)
+ 13.11      1.33     0.35  1208141     0.29     0.85  stromscore::Generator::layerFits(stromscore::composition::LayerFigure const&, stromscore::musicaltime::Tick, stromscore::Settings const&, int, int*) const
+ 13.11      1.68     0.35 32153848     0.01     0.01  stromscore::Generator::locate(stromscore::musicaltime::Tick) const
+  5.99      1.84     0.16  4526720     0.04     0.04  stromscore::outputCatalog(stromscore::Settings const&)
+  5.62      1.99     0.15  3907034     0.04     0.08  stromscore::Generator::motifOccurrence(stromscore::musicaltime::Tick, stromscore::Generator::Pos const&, stromscore::Settings const&, int, bool, bool)
+  5.24      2.13     0.14   117973     1.19     1.45  stromscore::Generator::prepareVoicingPlan(stromscore::Generator::Pos const&, stromscore::Settings const&)
+  3.00      2.21     0.08   579702     0.14     2.05  stromscore::Generator::nextOnset(stromscore::musicaltime::Tick, stromscore::Settings const&)
+  2.25      2.27     0.06   116320     0.52     9.36  stromscore::Generator::prepareLayers(stromscore::musicaltime::Tick, stromscore::Settings const&, int, stromscore::EventList&)
+  1.87      2.32     0.05   116320     0.43     2.06  stromscore::Generator::renderLayerHarmony(stromscore::musicaltime::Tick, stromscore::Generator::Pos const&, stromscore::Settings const&, int, stromscore::EventList&)
+  1.50      2.36     0.04   115201     0.35    22.92  stromscore::Generator::process(stromscore::Transport const&, stromscore::Settings const&, int, stromscore::EventList&)
+  1.12      2.39     0.03  6183376     0.00     0.00  stromscore::outputDescription(stromscore::Settings const&, int)
+  1.12      2.42     0.03   117935     0.25    11.58  stromscore::Generator::renderLayers(stromscore::musicaltime::Tick, stromscore::Generator::Pos const&, stromscore::Settings const&, int, stromscore::EventList&, bool)
+  1.12      2.45     0.03                             _init
+  0.75      2.47     0.02  6815230     0.00     0.00  stromscore::Generator::performanceMaterial(int, stromscore::Settings const&) const
+  0.75      2.49     0.02   582751     0.03     0.89  stromscore::Generator::dialogueMayLead(stromscore::Generator::Pos const&, stromscore::Settings const&)
+  0.37      2.50     0.01  4127036     0.00     0.00  stromscore::Generator::motifAvailableUntil(stromscore::Settings const&, int) const
+  0.37      2.51     0.01  1899460     0.01     0.01  stromscore::composition::recurrenceSlot(stromscore::composition::MotifRecurrencePolicy const&, long, float, float)
+  0.37      2.52     0.01  1663923     0.01     0.13  stromscore::Generator::motifVoiceWindow(stromscore::Generator::Pos const&, stromscore::Settings const&, int, bool, bool)
+  0.37      2.53     0.01  1109148     0.01     0.01  stromscore::Generator::chooseBass(stromscore::Settings const&, long long) const
+  0.37      2.54     0.01  1108443     0.01     0.01  stromscore::Generator::roleRhythm(stromscore::Generator::Pos const&, stromscore::Settings const&) const
+  0.37      2.55     0.01  1108138     0.01     0.01  stromscore::Generator::authoredRhythm(stromscore::Settings const&) const
+  0.37      2.56     0.01  1108138     0.01     0.02  stromscore::Generator::authoredRhythmBar(stromscore::Generator::Pos const&, stromscore::Settings const&, bool) const
+  0.37      2.57     0.01  1106218     0.01     0.05  stromscore::Generator::templateOnset(stromscore::Generator::Pos const&, stromscore::Settings const&)
+  0.37      2.58     0.01   579702     0.02     0.02  stromscore::Generator::layerBinding(stromscore::Settings const&) const
+  0.37      2.59     0.01   466702     0.02     0.02  stromscore::Generator::noteOn(int, int, int, stromscore::musicaltime::Tick, int, stromscore::EventList&, bool, bool)
+  0.37      2.60     0.01   464817     0.02     0.04  stromscore::Generator::layerEmit(int, int, int, stromscore::musicaltime::Tick, int, stromscore::Settings const&, stromscore::EventList&, bool)
+  0.37      2.61     0.01   116321     0.09     0.09  stromscore::Generator::updateScene(stromscore::musicaltime::Tick, stromscore::Generator::Pos const&, stromscore::Settings const&, bool, int, stromscore::EventList&)
+  0.37      2.62     0.01    53470     0.19     0.20  stromscore::Generator::motifOccurrence(stromscore::musicaltime::Tick, stromscore::Generator::Pos const&, stromscore::Settings const&, int, bool, bool)::{lambda(stromscore::composition::MotifVariation, bool, int)#1}::operator()(stromscore::composition::MotifVariation, bool, int) const::{lambda(stromscore::musicaltime::Tick)#1}::operator()(stromscore::musicaltime::Tick) const
+  0.37      2.63     0.01    23991     0.42     0.42  stromscore::composition::deriveMotif(stromscore::composition::RememberedMotif const&, stromscore::composition::MotifVariation, int)
+  0.37      2.64     0.01     2486     4.02     4.70  stromscore::Generator::motifWindow(stromscore::Generator::Pos const&, stromscore::Settings const&)
+  0.37      2.65     0.01     2324     4.30     5.26  stromscore::voiceleading::lead(stromscore::voiceleading::ChordVoicing, stromscore::voiceleading::ChordVoicing, int, int, int, int, stromscore::voiceleading::VoiceBinding const*)
+  0.37      2.66     0.01     1440     6.94     6.99  stromscore::Generator::playArpeggio(stromscore::musicaltime::Tick, int, stromscore::Generator::Pos const&, long long, stromscore::Settings const&, stromscore::EventList&)
+  0.19      2.67     0.01  9091603     0.00     0.00  stromscore::Generator::W() const
+  0.19      2.67     0.01      305    16.39    16.39  stromscore::Generator::pick(stromscore::Settings const&, long long)
+  0.00      2.67     0.00  2204698     0.00     0.00  stromscore::composition::suitable(stromscore::composition::PlayingTrack const&, stromscore::composition::RoleNeed const&)
+  0.00      2.67     0.00  1849503     0.00     0.00  stromscore::execution::quarters(stromscore::musicaltime::Tick, stromscore::execution::Timing, float)
+  0.00      2.67     0.00  1688807     0.00     0.16  stromscore::Generator::melodicRoleWindow(int, stromscore::Generator::Pos const&, stromscore::Settings const&)
+  0.00      2.67     0.00  1004937     0.00     0.00  stromscore::Generator::movementRhythm(stromscore::Generator::Pos const&, stromscore::Settings const&) const
+  0.00      2.67     0.00   993841     0.00     0.01  stromscore::Generator::planMotifNote(int, stromscore::Generator::Pos const&, stromscore::Settings const&, int, stromscore::composition::RememberedMotif const*, bool, stromscore::composition::MotifOccurrence const*) const
+  0.00      2.67     0.00   919991     0.00     0.00  stromscore::Generator::arpeggioPeriod(stromscore::Settings const&, long long) const
+  0.00      2.67     0.00   828009     0.00     0.00  stromscore::Generator::tupferAt(long long, stromscore::Settings const&) const
+  0.00      2.67     0.00   581160     0.00     0.00  stromscore::Generator::capturePerformance(double, double, double, stromscore::Settings const&, stromscore::EventList const&)
+  0.00      2.67     0.00   464516     0.00     0.00  stromscore::Generator::fitRange(int, int) const
+  0.00      2.67     0.00   437370     0.00     0.00  stromscore::Generator::authoredMotif(stromscore::Generator::Pos const&, stromscore::Settings const&, int) const
+  0.00      2.67     0.00   230402     0.00     0.00  stromscore::composition::valid(stromscore::composition::MotifRecurrencePolicy const&)
+  0.00      2.67     0.00   123275     0.00     0.00  stromscore::sequenceStrategy(stromscore::Settings const&)
+  0.00      2.67     0.00   117936     0.00     0.00  stromscore::Generator::applyDrive(stromscore::musicaltime::Tick, stromscore::Settings&, float, float)
+  0.00      2.67     0.00   117936     0.00     0.00  stromscore::Generator::prepareBassPhrase(stromscore::Generator::Pos const&, stromscore::Settings const&)
+  0.00      2.67     0.00   117935     0.00    11.77  stromscore::Generator::render(stromscore::musicaltime::Tick, int, stromscore::Generator::Pos const&, bool, long long, stromscore::Settings const&, stromscore::EventList&, bool, bool)
+  0.00      2.67     0.00   116532     0.00     1.45  stromscore::Generator::padVoicing(stromscore::Generator::Pos const&, stromscore::Settings const&, int)
+  0.00      2.67     0.00   116321     0.00     0.00  stromscore::Generator::ensurePhrase(long long, stromscore::Settings const&)
+  0.00      2.67     0.00   116321     0.00     0.00  stromscore::Generator::prepareLeadEvent(stromscore::musicaltime::Tick, stromscore::Settings const&, int, stromscore::EventList&)
+  0.00      2.67     0.00   116321     0.00     0.00  stromscore::Generator::prepareSequences(stromscore::musicaltime::Tick, stromscore::Settings const&, int, stromscore::EventList&)
+  0.00      2.67     0.00   116321     0.00     0.00  stromscore::Generator::prepareFigureEvent(stromscore::musicaltime::Tick, stromscore::Settings const&, int, stromscore::EventList&)
+  0.00      2.67     0.00   116320     0.00    11.93  stromscore::Generator::prepareAt(stromscore::musicaltime::Tick, int, stromscore::Settings const&, stromscore::EventList&)
+  0.00      2.67     0.00   114875     0.00     0.00  stromscore::Generator::releaseAt(double, int, stromscore::EventList&, bool)
+  0.00      2.67     0.00    51900     0.00     0.02  stromscore::voiceleading::lead(stromscore::voiceleading::ChordVoicing, stromscore::voiceleading::ChordVoicing, int, int, int, int, stromscore::voiceleading::VoiceBinding const*)::{lambda(stromscore::voiceleading::ChordVoicing)#1}::operator()(stromscore::voiceleading::ChordVoicing) const
+  0.00      2.67     0.00    47211     0.00     0.00  stromscore::Generator::freeLinePhrase(stromscore::Generator::Pos const&, stromscore::Settings const&) const
+  0.00      2.67     0.00    23991     0.00     0.87  stromscore::Generator::motifOccurrence(stromscore::musicaltime::Tick, stromscore::Generator::Pos const&, stromscore::Settings const&, int, bool, bool)::{lambda(stromscore::composition::MotifVariation, bool, int)#1}::operator()(stromscore::composition::MotifVariation, bool, int) const
+  0.00      2.67     0.00    20784     0.00     0.00  stromscore::Generator::scoreMotifAdaptation(stromscore::Settings const&, int) const
+  0.00      2.67     0.00    16214     0.00     0.00  stromscore::Generator::layerOwns(int, stromscore::Settings const&) const
+  0.00      2.67     0.00     3101     0.00     0.52  stromscore::Generator::counterLine(stromscore::musicaltime::Tick, stromscore::Generator::Pos const&, stromscore::Settings const&, int, bool, stromscore::EventList&, int)
+  0.00      2.67     0.00     3101     0.00     0.08  stromscore::Generator::motifStep(stromscore::musicaltime::Tick, stromscore::Generator::Pos const&, stromscore::Settings const&, int, stromscore::EventList&, int)
+  0.00      2.67     0.00     1616     0.00     0.57  stromscore::Generator::melodyHandoff(stromscore::musicaltime::Tick, stromscore::Generator::Pos const&, stromscore::Settings const&, int, stromscore::EventList&, bool)
+  0.00      2.67     0.00     1615     0.00     0.00  stromscore::Generator::accents(stromscore::musicaltime::Tick, stromscore::Generator::Pos const&, stromscore::Settings const&, int, stromscore::EventList&)
+  0.00      2.67     0.00     1615     0.00     0.00  stromscore::Generator::melodicBassAllowed(stromscore::Settings const&) const
+  0.00      2.67     0.00     1615     0.00     0.00  stromscore::Generator::choosePad(stromscore::Settings const&) const
+  0.00      2.67     0.00     1546     0.00     7.06  stromscore::composition::planHarmony(stromscore::composition::HarmonicRequest const&)
+  0.00      2.67     0.00     1538     0.00     0.00  stromscore::Generator::dialogueArp(stromscore::musicaltime::Tick, stromscore::Generator::Pos const&, stromscore::Settings const&, int, stromscore::EventList&, bool)
+  0.00      2.67     0.00      980     0.00     0.00  stromscore::voiceleading::distance(stromscore::voiceleading::ChordVoicing const&, stromscore::voiceleading::ChordVoicing const&)
+  0.00      2.67     0.00      877     0.00     0.00  stromscore::Generator::removeActive(int, int, stromscore::EventList&)
+  0.00      2.67     0.00      490     0.00     0.00  stromscore::voiceleading::shapeCost(stromscore::voiceleading::ChordVoicing const&, stromscore::voiceleading::ChordVoicing const&)
+  0.00      2.67     0.00      305     0.00     0.00  stromscore::Generator::padChord(stromscore::Generator::Pos const&, stromscore::Settings const&, int, int, stromscore::musicaltime::Tick, int, stromscore::EventList&)
+  0.00      2.67     0.00      305     0.00     0.63  stromscore::Generator::sustained(stromscore::Generator::Pos const&, stromscore::Settings const&, int, stromscore::EventList&, bool, unsigned int)
+  0.00      2.67     0.00      141     0.00     0.00  stromscore::Generator::layerPlayable(int, int, stromscore::musicaltime::Tick, stromscore::Settings const&) const
+  0.00      2.67     0.00       75     0.00     0.00  stromscore::Generator::cut(int, stromscore::musicaltime::Tick, stromscore::musicaltime::Tick, int, stromscore::EventList&)
+  0.00      2.67     0.00       62     0.00     0.89  stromscore::Generator::freePhraseStep(stromscore::musicaltime::Tick, stromscore::Generator::Pos const&, stromscore::Settings const&, int, stromscore::EventList&, bool)
+  0.00      2.67     0.00       30     0.00     0.02  stromscore::Generator::remainingMotifFits(stromscore::composition::MotifOccurrence const&, stromscore::musicaltime::Tick, stromscore::Settings const&, int) const
+  0.00      2.67     0.00       22     0.00     0.00  stromscore::Generator::releaseOthers(int, int, int, stromscore::EventList&)
+  0.00      2.67     0.00        6     0.00     1.45  stromscore::Generator::nextBassPlacement(stromscore::Generator::Pos const&, stromscore::Settings const&)
+  0.00      2.67     0.00        2     0.00     0.02  rtprobe::Series::print(double)
+  0.00      2.67     0.00        2     0.00     0.00  std::vector<double, std::allocator<double> >::reserve(unsigned long)
+  0.00      2.67     0.00        1     0.00     1.30  stromscore::Generator::chaseMotif(stromscore::musicaltime::Tick, stromscore::Generator::Pos const&, stromscore::Settings const&, stromscore::EventList&)
+  0.00      2.67     0.00        1     0.00     7.34  stromscore::Generator::chase(double, stromscore::Settings const&, stromscore::EventList&)
+  0.00      2.67     0.00        1     0.00     0.00  stromscore::Generator::autoEntry(stromscore::Settings const&)
+  0.00      2.67     0.00        1     0.00     0.00  std::vector<std::unique_ptr<stromscore::EventList, std::default_delete<stromscore::EventList> >, std::allocator<std::unique_ptr<stromscore::EventList, std::default_delete<stromscore::EventList> > > >::~vector()
+  0.00      2.67     0.00        1     0.00     0.00  std::vector<std::unique_ptr<stromscore::Generator, std::default_delete<stromscore::Generator> >, std::allocator<std::unique_ptr<stromscore::Generator, std::default_delete<stromscore::Generator> > > >::~vector()
+
+ %         the percentage of the total running time of the
+time       program used by this function.
+
+cumulative a running sum of the number of seconds accounted
+ seconds   for by this function and those listed above it.
+
+ self      the number of seconds accounted for by this
+seconds    function alone.  This is the major sort for this
+           listing.
+
+calls      the number of times this function was invoked, if
+           this function is profiled, else blank.
+
+ self      the average number of milliseconds spent in this
+ms/call    function per call, if this function is profiled,
+	   else blank.
+
+ total     the average number of milliseconds spent in this
+ms/call    function and its descendents per call, if this
+	   function is profiled, else blank.
+
+name       the name of the function.  This is the minor sort
+           for this listing. The index shows the location of
+	   the function in the gprof listing. If the index is
+	   in parenthesis it shows where it would appear in
+	   the gprof listing if it were to be printed.
+
+Copyright (C) 2012-2025 Free Software Foundation, Inc.
+
+Copying and distribution of this file, with or without modification,
+are permitted in any medium without royalty provided the copyright
+notice and this notice are preserved.
+
+		     Call graph (explanation follows)
+
+
+granularity: each sample hit covers 2 byte(s) for 0.37% of 2.67 seconds
+
+index % time    self  children    called     name
+                                                 <spontaneous>
+[1]     98.9    0.00    2.64                 main [1]
+                0.04    2.60  115201/115201      stromscore::Generator::process(stromscore::Transport const&, stromscore::Settings const&, int, stromscore::EventList&) [2]
+                0.00    0.00       2/2           rtprobe::Series::print(double) [57]
+                0.00    0.00       2/2           std::vector<double, std::allocator<double> >::reserve(unsigned long) [91]
+                0.00    0.00       1/1           std::vector<std::unique_ptr<stromscore::EventList, std::default_delete<stromscore::EventList> >, std::allocator<std::unique_ptr<stromscore::EventList, std::default_delete<stromscore::EventList> > > >::~vector() [93]
+                0.00    0.00       1/1           std::vector<std::unique_ptr<stromscore::Generator, std::default_delete<stromscore::Generator> >, std::allocator<std::unique_ptr<stromscore::Generator, std::default_delete<stromscore::Generator> > > >::~vector() [94]
+-----------------------------------------------
+                0.04    2.60  115201/115201      main [1]
+[2]     98.9    0.04    2.60  115201         stromscore::Generator::process(stromscore::Transport const&, stromscore::Settings const&, int, stromscore::EventList&) [2]
+                0.00    1.39  116320/116320      stromscore::Generator::prepareAt(stromscore::musicaltime::Tick, int, stromscore::Settings const&, stromscore::EventList&) [4]
+                0.08    1.11  579700/579702      stromscore::Generator::nextOnset(stromscore::musicaltime::Tick, stromscore::Settings const&) [6]
+                0.00    0.02    1615/117935      stromscore::Generator::render(stromscore::musicaltime::Tick, int, stromscore::Generator::Pos const&, bool, long long, stromscore::Settings const&, stromscore::EventList&, bool, bool) [3]
+                0.00    0.00  233305/32153848     stromscore::Generator::locate(stromscore::musicaltime::Tick) const [12]
+                0.00    0.00    1615/3101        stromscore::Generator::counterLine(stromscore::musicaltime::Tick, stromscore::Generator::Pos const&, stromscore::Settings const&, int, bool, stromscore::EventList&, int) [44]
+                0.00    0.00       1/1           stromscore::Generator::chase(double, stromscore::Settings const&, stromscore::EventList&) [53]
+                0.00    0.00  925209/1849503     stromscore::execution::quarters(stromscore::musicaltime::Tick, stromscore::execution::Timing, float) [64]
+                0.00    0.00  581160/581160      stromscore::Generator::capturePerformance(double, double, double, stromscore::Settings const&, stromscore::EventList const&) [68]
+                0.00    0.00  230402/230402      stromscore::composition::valid(stromscore::composition::MotifRecurrencePolicy const&) [70]
+                0.00    0.00  117936/117936      stromscore::Generator::applyDrive(stromscore::musicaltime::Tick, stromscore::Settings&, float, float) [72]
+                0.00    0.00  115200/123275      stromscore::sequenceStrategy(stromscore::Settings const&) [71]
+                0.00    0.00  114875/114875      stromscore::Generator::releaseAt(double, int, stromscore::EventList&, bool) [77]
+                0.00    0.00      15/877         stromscore::Generator::removeActive(int, int, stromscore::EventList&) [85]
+-----------------------------------------------
+                0.00    0.02    1615/117935      stromscore::Generator::process(stromscore::Transport const&, stromscore::Settings const&, int, stromscore::EventList&) [2]
+                0.00    1.37  116320/117935      stromscore::Generator::prepareAt(stromscore::musicaltime::Tick, int, stromscore::Settings const&, stromscore::EventList&) [4]
+[3]     52.0    0.00    1.39  117935         stromscore::Generator::render(stromscore::musicaltime::Tick, int, stromscore::Generator::Pos const&, bool, long long, stromscore::Settings const&, stromscore::EventList&, bool, bool) [3]
+                0.03    1.34  117935/117935      stromscore::Generator::renderLayers(stromscore::musicaltime::Tick, stromscore::Generator::Pos const&, stromscore::Settings const&, int, stromscore::EventList&, bool) [5]
+                0.01    0.00    1440/1440        stromscore::Generator::playArpeggio(stromscore::musicaltime::Tick, int, stromscore::Generator::Pos const&, long long, stromscore::Settings const&, stromscore::EventList&) [31]
+                0.01    0.00    1538/2486        stromscore::Generator::motifWindow(stromscore::Generator::Pos const&, stromscore::Settings const&) [28]
+                0.00    0.00    1315/117973      stromscore::Generator::prepareVoicingPlan(stromscore::Generator::Pos const&, stromscore::Settings const&) [17]
+                0.00    0.00    1561/582751      stromscore::Generator::dialogueMayLead(stromscore::Generator::Pos const&, stromscore::Settings const&) [11]
+                0.00    0.00    1615/1616        stromscore::Generator::melodyHandoff(stromscore::musicaltime::Tick, stromscore::Generator::Pos const&, stromscore::Settings const&, int, stromscore::EventList&, bool) [46]
+                0.00    0.00    1486/3101        stromscore::Generator::counterLine(stromscore::musicaltime::Tick, stromscore::Generator::Pos const&, stromscore::Settings const&, int, bool, stromscore::EventList&, int) [44]
+                0.00    0.00    1615/4526720     stromscore::outputCatalog(stromscore::Settings const&) [19]
+                0.00    0.00    1615/27038027     frame_dummy [10]
+                0.00    0.00    1615/1108138     stromscore::Generator::authoredRhythmBar(stromscore::Generator::Pos const&, stromscore::Settings const&, bool) const [25]
+                0.00    0.00    2930/1109148     stromscore::Generator::chooseBass(stromscore::Settings const&, long long) const [34]
+                0.00    0.00    1615/1108443     stromscore::Generator::roleRhythm(stromscore::Generator::Pos const&, stromscore::Settings const&) const [35]
+                0.00    0.00     410/466702      stromscore::Generator::noteOn(int, int, int, stromscore::musicaltime::Tick, int, stromscore::EventList&, bool, bool) [37]
+                0.00    0.00       6/6           stromscore::Generator::nextBassPlacement(stromscore::Generator::Pos const&, stromscore::Settings const&) [52]
+                0.00    0.00    1615/1615        stromscore::Generator::accents(stromscore::musicaltime::Tick, stromscore::Generator::Pos const&, stromscore::Settings const&, int, stromscore::EventList&) [54]
+                0.00    0.00    1915/9091603     stromscore::Generator::W() const [42]
+                0.00    0.00  117935/117936      stromscore::Generator::prepareBassPhrase(stromscore::Generator::Pos const&, stromscore::Settings const&) [73]
+                0.00    0.00    8075/123275      stromscore::sequenceStrategy(stromscore::Settings const&) [71]
+                0.00    0.00    1615/1615        stromscore::Generator::choosePad(stromscore::Settings const&) const [82]
+                0.00    0.00    1615/2204698     stromscore::composition::suitable(stromscore::composition::PlayingTrack const&, stromscore::composition::RoleNeed const&) [63]
+                0.00    0.00    1615/1615        stromscore::Generator::melodicBassAllowed(stromscore::Settings const&) const [81]
+                0.00    0.00    1538/1538        stromscore::Generator::dialogueArp(stromscore::musicaltime::Tick, stromscore::Generator::Pos const&, stromscore::Settings const&, int, stromscore::EventList&, bool) [83]
+                0.00    0.00      75/75          stromscore::Generator::cut(int, stromscore::musicaltime::Tick, stromscore::musicaltime::Tick, int, stromscore::EventList&) [89]
+-----------------------------------------------
+                0.00    1.39  116320/116320      stromscore::Generator::process(stromscore::Transport const&, stromscore::Settings const&, int, stromscore::EventList&) [2]
+[4]     52.0    0.00    1.39  116320         stromscore::Generator::prepareAt(stromscore::musicaltime::Tick, int, stromscore::Settings const&, stromscore::EventList&) [4]
+                0.00    1.37  116320/117935      stromscore::Generator::render(stromscore::musicaltime::Tick, int, stromscore::Generator::Pos const&, bool, long long, stromscore::Settings const&, stromscore::EventList&, bool, bool) [3]
+                0.01    0.00  116320/116321      stromscore::Generator::updateScene(stromscore::musicaltime::Tick, stromscore::Generator::Pos const&, stromscore::Settings const&, bool, int, stromscore::EventList&) [38]
+                0.00    0.00     289/305         stromscore::Generator::pick(stromscore::Settings const&, long long) [43]
+                0.00    0.00  116320/27038027     frame_dummy [10]
+                0.00    0.00  116609/32153848     stromscore::Generator::locate(stromscore::musicaltime::Tick) const [12]
+                0.00    0.00  116320/116321      stromscore::Generator::ensurePhrase(long long, stromscore::Settings const&) [48]
+                0.00    0.00     305/305         stromscore::Generator::sustained(stromscore::Generator::Pos const&, stromscore::Settings const&, int, stromscore::EventList&, bool, unsigned int) [50]
+                0.00    0.00  116320/116321      stromscore::Generator::prepareSequences(stromscore::musicaltime::Tick, stromscore::Settings const&, int, stromscore::EventList&) [75]
+                0.00    0.00  116320/116321      stromscore::Generator::prepareFigureEvent(stromscore::musicaltime::Tick, stromscore::Settings const&, int, stromscore::EventList&) [76]
+                0.00    0.00  116320/116321      stromscore::Generator::prepareLeadEvent(stromscore::musicaltime::Tick, stromscore::Settings const&, int, stromscore::EventList&) [74]
+-----------------------------------------------
+                0.03    1.34  117935/117935      stromscore::Generator::render(stromscore::musicaltime::Tick, int, stromscore::Generator::Pos const&, bool, long long, stromscore::Settings const&, stromscore::EventList&, bool, bool) [3]
+[5]     51.1    0.03    1.34  117935         stromscore::Generator::renderLayers(stromscore::musicaltime::Tick, stromscore::Generator::Pos const&, stromscore::Settings const&, int, stromscore::EventList&, bool) [5]
+                0.06    1.03  116320/116320      stromscore::Generator::prepareLayers(stromscore::musicaltime::Tick, stromscore::Settings const&, int, stromscore::EventList&) [7]
+                0.05    0.19  116320/116320      stromscore::Generator::renderLayerHarmony(stromscore::musicaltime::Tick, stromscore::Generator::Pos const&, stromscore::Settings const&, int, stromscore::EventList&) [15]
+                0.00    0.00     948/2486        stromscore::Generator::motifWindow(stromscore::Generator::Pos const&, stromscore::Settings const&) [28]
+                0.00    0.00   46216/27038027     frame_dummy [10]
+                0.00    0.00   16649/464817      stromscore::Generator::layerEmit(int, int, int, stromscore::musicaltime::Tick, int, stromscore::Settings const&, stromscore::EventList&, bool) [26]
+                0.00    0.00     212/116532      stromscore::Generator::padVoicing(stromscore::Generator::Pos const&, stromscore::Settings const&, int) [18]
+                0.00    0.00   16214/16214       stromscore::Generator::layerOwns(int, stromscore::Settings const&) const [80]
+                0.00    0.00     141/141         stromscore::Generator::layerPlayable(int, int, stromscore::musicaltime::Tick, stromscore::Settings const&) const [88]
+                0.00    0.00     129/877         stromscore::Generator::removeActive(int, int, stromscore::EventList&) [85]
+-----------------------------------------------
+                0.00    0.00       2/579702      stromscore::Generator::chase(double, stromscore::Settings const&, stromscore::EventList&) [53]
+                0.08    1.11  579700/579702      stromscore::Generator::process(stromscore::Transport const&, stromscore::Settings const&, int, stromscore::EventList&) [2]
+[6]     44.6    0.08    1.11  579702         stromscore::Generator::nextOnset(stromscore::musicaltime::Tick, stromscore::Settings const&) [6]
+                0.02    0.50  579702/582751      stromscore::Generator::dialogueMayLead(stromscore::Generator::Pos const&, stromscore::Settings const&) [11]
+                0.23    0.10  579702/1148384     stromscore::Generator::playableMelodyHandoff(stromscore::musicaltime::Tick, stromscore::Generator::Pos const&, stromscore::Settings const&, bool) [9]
+                0.00    0.09  579702/1688807     stromscore::Generator::melodicRoleWindow(int, stromscore::Generator::Pos const&, stromscore::Settings const&) [14]
+                0.04    0.04 1091665/3907034     stromscore::Generator::motifOccurrence(stromscore::musicaltime::Tick, stromscore::Generator::Pos const&, stromscore::Settings const&, int, bool, bool) [13]
+                0.01    0.04 1106218/1106218     stromscore::Generator::templateOnset(stromscore::Generator::Pos const&, stromscore::Settings const&) [20]
+                0.02    0.00 1685920/32153848     stromscore::Generator::locate(stromscore::musicaltime::Tick) const [12]
+                0.01    0.00  579702/579702      stromscore::Generator::layerBinding(stromscore::Settings const&) const [36]
+                0.00    0.00 1111444/6815230     stromscore::Generator::performanceMaterial(int, stromscore::Settings const&) const [24]
+                0.00    0.00  398824/993841      stromscore::Generator::planMotifNote(int, stromscore::Generator::Pos const&, stromscore::Settings const&, int, stromscore::composition::RememberedMotif const*, bool, stromscore::composition::MotifOccurrence const*) const [41]
+                0.00    0.00  467263/9091603     stromscore::Generator::W() const [42]
+                0.00    0.00  579702/1004937     stromscore::Generator::movementRhythm(stromscore::Generator::Pos const&, stromscore::Settings const&) const [65]
+                0.00    0.00  496196/919991      stromscore::Generator::arpeggioPeriod(stromscore::Settings const&, long long) const [66]
+                0.00    0.00   19779/47211       stromscore::Generator::freeLinePhrase(stromscore::Generator::Pos const&, stromscore::Settings const&) const [78]
+-----------------------------------------------
+                0.06    1.03  116320/116320      stromscore::Generator::renderLayers(stromscore::musicaltime::Tick, stromscore::Generator::Pos const&, stromscore::Settings const&, int, stromscore::EventList&, bool) [5]
+[7]     40.8    0.06    1.03  116320         stromscore::Generator::prepareLayers(stromscore::musicaltime::Tick, stromscore::Settings const&, int, stromscore::EventList&) [7]
+                0.35    0.68 1208141/1208141     stromscore::Generator::layerFits(stromscore::composition::LayerFigure const&, stromscore::musicaltime::Tick, stromscore::Settings const&, int, int*) const [8]
+                0.00    0.00      43/877         stromscore::Generator::removeActive(int, int, stromscore::EventList&) [85]
+-----------------------------------------------
+                0.35    0.68 1208141/1208141     stromscore::Generator::prepareLayers(stromscore::musicaltime::Tick, stromscore::Settings const&, int, stromscore::EventList&) [7]
+[8]     38.5    0.35    0.68 1208141         stromscore::Generator::layerFits(stromscore::composition::LayerFigure const&, stromscore::musicaltime::Tick, stromscore::Settings const&, int, int*) const [8]
+                0.41    0.04 21393347/27038027     frame_dummy [10]
+                0.22    0.00 20404246/32153848     stromscore::Generator::locate(stromscore::musicaltime::Tick) const [12]
+                0.01    0.00 1831232/6183376     stromscore::outputDescription(stromscore::Settings const&, int) [21]
+-----------------------------------------------
+                0.00    0.00       1/1148384     stromscore::Generator::chaseMotif(stromscore::musicaltime::Tick, stromscore::Generator::Pos const&, stromscore::Settings const&, stromscore::EventList&) [55]
+                0.00    0.00      62/1148384     stromscore::Generator::freePhraseStep(stromscore::musicaltime::Tick, stromscore::Generator::Pos const&, stromscore::Settings const&, int, stromscore::EventList&, bool) [51]
+                0.00    0.00    1616/1148384     stromscore::Generator::melodyHandoff(stromscore::musicaltime::Tick, stromscore::Generator::Pos const&, stromscore::Settings const&, int, stromscore::EventList&, bool) [46]
+                0.00    0.00    2414/1148384     stromscore::Generator::motifWindow(stromscore::Generator::Pos const&, stromscore::Settings const&) [28]
+                0.23    0.09  564589/1148384     stromscore::Generator::dialogueMayLead(stromscore::Generator::Pos const&, stromscore::Settings const&) [11]
+                0.23    0.10  579702/1148384     stromscore::Generator::nextOnset(stromscore::musicaltime::Tick, stromscore::Settings const&) [6]
+[9]     24.4    0.46    0.19 1148384         stromscore::Generator::playableMelodyHandoff(stromscore::musicaltime::Tick, stromscore::Generator::Pos const&, stromscore::Settings const&, bool) [9]
+                0.04    0.04 1148384/3907034     stromscore::Generator::motifOccurrence(stromscore::musicaltime::Tick, stromscore::Generator::Pos const&, stromscore::Settings const&, int, bool, bool) [13]
+                0.05    0.00 4987830/32153848     stromscore::Generator::locate(stromscore::musicaltime::Tick) const [12]
+                0.04    0.00 1148384/4526720     stromscore::outputCatalog(stromscore::Settings const&) [19]
+                0.01    0.00 1847730/1899460     stromscore::composition::recurrenceSlot(stromscore::composition::MotifRecurrencePolicy const&, long, float, float) [33]
+                0.00    0.00  284731/4127036     stromscore::Generator::motifAvailableUntil(stromscore::Settings const&, int) const [32]
+                0.00    0.00 1058341/2204698     stromscore::composition::suitable(stromscore::composition::PlayingTrack const&, stromscore::composition::RoleNeed const&) [63]
+-----------------------------------------------
+                               23853             frame_dummy [10]
+                0.00    0.00       1/27038027     stromscore::Generator::chase(double, stromscore::Settings const&, stromscore::EventList&) [53]
+                0.00    0.00       2/27038027     rtprobe::Series::print(double) [57]
+                0.00    0.00      18/27038027     stromscore::Generator::accents(stromscore::musicaltime::Tick, stromscore::Generator::Pos const&, stromscore::Settings const&, int, stromscore::EventList&) [54]
+                0.00    0.00      26/27038027     stromscore::Generator::counterLine(stromscore::musicaltime::Tick, stromscore::Generator::Pos const&, stromscore::Settings const&, int, bool, stromscore::EventList&, int) [44]
+                0.00    0.00     120/27038027     stromscore::Generator::sustained(stromscore::Generator::Pos const&, stromscore::Settings const&, int, stromscore::EventList&, bool, unsigned int) [50]
+                0.00    0.00    1382/27038027     stromscore::Generator::playArpeggio(stromscore::musicaltime::Tick, int, stromscore::Generator::Pos const&, long long, stromscore::Settings const&, stromscore::EventList&) [31]
+                0.00    0.00    1615/27038027     stromscore::Generator::render(stromscore::musicaltime::Tick, int, stromscore::Generator::Pos const&, bool, long long, stromscore::Settings const&, stromscore::EventList&, bool, bool) [3]
+                0.00    0.00    6208/27038027     stromscore::Generator::authoredMotif(stromscore::Generator::Pos const&, stromscore::Settings const&, int) const [47]
+                0.00    0.00   27370/27038027     stromscore::Generator::melodicRoleWindow(int, stromscore::Generator::Pos const&, stromscore::Settings const&) [14]
+                0.00    0.00   46216/27038027     stromscore::Generator::renderLayers(stromscore::musicaltime::Tick, stromscore::Generator::Pos const&, stromscore::Settings const&, int, stromscore::EventList&, bool) [5]
+                0.00    0.00   51900/27038027     stromscore::voiceleading::lead(stromscore::voiceleading::ChordVoicing, stromscore::voiceleading::ChordVoicing, int, int, int, int, stromscore::voiceleading::VoiceBinding const*)::{lambda(stromscore::voiceleading::ChordVoicing)#1}::operator()(stromscore::voiceleading::ChordVoicing) const [45]
+                0.00    0.00   54224/27038027     stromscore::voiceleading::lead(stromscore::voiceleading::ChordVoicing, stromscore::voiceleading::ChordVoicing, int, int, int, int, stromscore::voiceleading::VoiceBinding const*) [27]
+                0.00    0.00  116320/27038027     stromscore::Generator::prepareAt(stromscore::musicaltime::Tick, int, stromscore::Settings const&, stromscore::EventList&) [4]
+                0.00    0.00  253873/27038027     stromscore::Generator::motifVoiceWindow(stromscore::Generator::Pos const&, stromscore::Settings const&, int, bool, bool) [16]
+                0.01    0.00  330370/27038027     stromscore::Generator::planMotifNote(int, stromscore::Generator::Pos const&, stromscore::Settings const&, int, stromscore::composition::RememberedMotif const*, bool, stromscore::composition::MotifOccurrence const*) const [41]
+                0.02    0.00  893546/27038027     stromscore::Generator::prepareVoicingPlan(stromscore::Generator::Pos const&, stromscore::Settings const&) [17]
+                0.07    0.01 3861489/27038027     stromscore::Generator::motifOccurrence(stromscore::musicaltime::Tick, stromscore::Generator::Pos const&, stromscore::Settings const&, int, bool, bool) [13]
+                0.41    0.04 21393347/27038027     stromscore::Generator::layerFits(stromscore::composition::LayerFigure const&, stromscore::musicaltime::Tick, stromscore::Settings const&, int, int*) const [8]
+[10]    21.2    0.52    0.05 27038027+23853   frame_dummy [10]
+                0.04    0.00 4020563/32153848     stromscore::Generator::locate(stromscore::musicaltime::Tick) const [12]
+                0.00    0.00 3632708/9091603     stromscore::Generator::W() const [42]
+                               23853             frame_dummy [10]
+-----------------------------------------------
+                0.00    0.00       2/582751      stromscore::Generator::chase(double, stromscore::Settings const&, stromscore::EventList&) [53]
+                0.00    0.00    1486/582751      stromscore::Generator::counterLine(stromscore::musicaltime::Tick, stromscore::Generator::Pos const&, stromscore::Settings const&, int, bool, stromscore::EventList&, int) [44]
+                0.00    0.00    1561/582751      stromscore::Generator::render(stromscore::musicaltime::Tick, int, stromscore::Generator::Pos const&, bool, long long, stromscore::Settings const&, stromscore::EventList&, bool, bool) [3]
+                0.02    0.50  579702/582751      stromscore::Generator::nextOnset(stromscore::musicaltime::Tick, stromscore::Settings const&) [6]
+[11]    19.5    0.02    0.50  582751         stromscore::Generator::dialogueMayLead(stromscore::Generator::Pos const&, stromscore::Settings const&) [11]
+                0.23    0.09  564589/1148384     stromscore::Generator::playableMelodyHandoff(stromscore::musicaltime::Tick, stromscore::Generator::Pos const&, stromscore::Settings const&, bool) [9]
+                0.00    0.18 1108980/1688807     stromscore::Generator::melodicRoleWindow(int, stromscore::Generator::Pos const&, stromscore::Settings const&) [14]
+-----------------------------------------------
+                0.00    0.00       3/32153848     stromscore::Generator::chase(double, stromscore::Settings const&, stromscore::EventList&) [53]
+                0.00    0.00      52/32153848     stromscore::Generator::remainingMotifFits(stromscore::composition::MotifOccurrence const&, stromscore::musicaltime::Tick, stromscore::Settings const&, int) const [56]
+                0.00    0.00   26735/32153848     stromscore::Generator::motifOccurrence(stromscore::musicaltime::Tick, stromscore::Generator::Pos const&, stromscore::Settings const&, int, bool, bool)::{lambda(stromscore::composition::MotifVariation, bool, int)#1}::operator()(stromscore::composition::MotifVariation, bool, int) const [23]
+                0.00    0.00   35696/32153848     stromscore::Generator::authoredMotif(stromscore::Generator::Pos const&, stromscore::Settings const&, int) const [47]
+                0.00    0.00   48435/32153848     stromscore::Generator::motifOccurrence(stromscore::musicaltime::Tick, stromscore::Generator::Pos const&, stromscore::Settings const&, int, bool, bool)::{lambda(stromscore::composition::MotifVariation, bool, int)#1}::operator()(stromscore::composition::MotifVariation, bool, int) const::{lambda(stromscore::musicaltime::Tick)#1}::operator()(stromscore::musicaltime::Tick) const [30]
+                0.00    0.00  116609/32153848     stromscore::Generator::prepareAt(stromscore::musicaltime::Tick, int, stromscore::Settings const&, stromscore::EventList&) [4]
+                0.00    0.00  233305/32153848     stromscore::Generator::process(stromscore::Transport const&, stromscore::Settings const&, int, stromscore::EventList&) [2]
+                0.01    0.00  594454/32153848     stromscore::Generator::motifVoiceWindow(stromscore::Generator::Pos const&, stromscore::Settings const&, int, bool, bool) [16]
+                0.02    0.00 1685920/32153848     stromscore::Generator::nextOnset(stromscore::musicaltime::Tick, stromscore::Settings const&) [6]
+                0.04    0.00 4020563/32153848     frame_dummy [10]
+                0.05    0.00 4987830/32153848     stromscore::Generator::playableMelodyHandoff(stromscore::musicaltime::Tick, stromscore::Generator::Pos const&, stromscore::Settings const&, bool) [9]
+                0.22    0.00 20404246/32153848     stromscore::Generator::layerFits(stromscore::composition::LayerFigure const&, stromscore::musicaltime::Tick, stromscore::Settings const&, int, int*) const [8]
+[12]    13.1    0.35    0.00 32153848         stromscore::Generator::locate(stromscore::musicaltime::Tick) const [12]
+-----------------------------------------------
+                0.00    0.00    3062/3907034     stromscore::Generator::motifStep(stromscore::musicaltime::Tick, stromscore::Generator::Pos const&, stromscore::Settings const&, int, stromscore::EventList&, int) [49]
+                0.04    0.04 1091665/3907034     stromscore::Generator::nextOnset(stromscore::musicaltime::Tick, stromscore::Settings const&) [6]
+                0.04    0.04 1148384/3907034     stromscore::Generator::playableMelodyHandoff(stromscore::musicaltime::Tick, stromscore::Generator::Pos const&, stromscore::Settings const&, bool) [9]
+                0.06    0.06 1663923/3907034     stromscore::Generator::motifVoiceWindow(stromscore::Generator::Pos const&, stromscore::Settings const&, int, bool, bool) [16]
+[13]    11.0    0.15    0.14 3907034         stromscore::Generator::motifOccurrence(stromscore::musicaltime::Tick, stromscore::Generator::Pos const&, stromscore::Settings const&, int, bool, bool) [13]
+                0.07    0.01 3861489/27038027     frame_dummy [10]
+                0.00    0.02   23991/23991       stromscore::Generator::motifOccurrence(stromscore::musicaltime::Tick, stromscore::Generator::Pos const&, stromscore::Settings const&, int, bool, bool)::{lambda(stromscore::composition::MotifVariation, bool, int)#1}::operator()(stromscore::composition::MotifVariation, bool, int) const [23]
+                0.02    0.00 3861489/6183376     stromscore::outputDescription(stromscore::Settings const&, int) [21]
+                0.01    0.00 3907034/6815230     stromscore::Generator::performanceMaterial(int, stromscore::Settings const&) const [24]
+                0.01    0.00 3833769/4127036     stromscore::Generator::motifAvailableUntil(stromscore::Settings const&, int) const [32]
+                0.00    0.00 3861489/9091603     stromscore::Generator::W() const [42]
+                0.00    0.00   23991/4526720     stromscore::outputCatalog(stromscore::Settings const&) [19]
+                0.00    0.00   51730/1899460     stromscore::composition::recurrenceSlot(stromscore::composition::MotifRecurrencePolicy const&, long, float, float) [33]
+                0.00    0.00      30/30          stromscore::Generator::remainingMotifFits(stromscore::composition::MotifOccurrence const&, stromscore::musicaltime::Tick, stromscore::Settings const&, int) const [56]
+                0.00    0.00   20784/20784       stromscore::Generator::scoreMotifAdaptation(stromscore::Settings const&, int) const [79]
+-----------------------------------------------
+                0.00    0.00       1/1688807     stromscore::Generator::chaseMotif(stromscore::musicaltime::Tick, stromscore::Generator::Pos const&, stromscore::Settings const&, stromscore::EventList&) [55]
+                0.00    0.00     124/1688807     stromscore::Generator::freePhraseStep(stromscore::musicaltime::Tick, stromscore::Generator::Pos const&, stromscore::Settings const&, int, stromscore::EventList&, bool) [51]
+                0.00    0.09  579702/1688807     stromscore::Generator::nextOnset(stromscore::musicaltime::Tick, stromscore::Settings const&) [6]
+                0.00    0.18 1108980/1688807     stromscore::Generator::dialogueMayLead(stromscore::Generator::Pos const&, stromscore::Settings const&) [11]
+[14]    10.3    0.00    0.28 1688807         stromscore::Generator::melodicRoleWindow(int, stromscore::Generator::Pos const&, stromscore::Settings const&) [14]
+                0.01    0.20 1661437/1663923     stromscore::Generator::motifVoiceWindow(stromscore::Generator::Pos const&, stromscore::Settings const&, int, bool, bool) [16]
+                0.06    0.00 1688807/4526720     stromscore::outputCatalog(stromscore::Settings const&) [19]
+                0.00    0.00 1688807/6815230     stromscore::Generator::performanceMaterial(int, stromscore::Settings const&) const [24]
+                0.00    0.00   27370/27038027     frame_dummy [10]
+                0.00    0.00 1144354/2204698     stromscore::composition::suitable(stromscore::composition::PlayingTrack const&, stromscore::composition::RoleNeed const&) [63]
+                0.00    0.00   27370/47211       stromscore::Generator::freeLinePhrase(stromscore::Generator::Pos const&, stromscore::Settings const&) const [78]
+-----------------------------------------------
+                0.05    0.19  116320/116320      stromscore::Generator::renderLayers(stromscore::musicaltime::Tick, stromscore::Generator::Pos const&, stromscore::Settings const&, int, stromscore::EventList&, bool) [5]
+[15]     9.0    0.05    0.19  116320         stromscore::Generator::renderLayerHarmony(stromscore::musicaltime::Tick, stromscore::Generator::Pos const&, stromscore::Settings const&, int, stromscore::EventList&) [15]
+                0.00    0.17  116320/116532      stromscore::Generator::padVoicing(stromscore::Generator::Pos const&, stromscore::Settings const&, int) [18]
+                0.01    0.01  448168/464817      stromscore::Generator::layerEmit(int, int, int, stromscore::musicaltime::Tick, int, stromscore::Settings const&, stromscore::EventList&, bool) [26]
+                0.00    0.00  393338/6183376     stromscore::outputDescription(stromscore::Settings const&, int) [21]
+                0.00    0.00   15137/9091603     stromscore::Generator::W() const [42]
+                0.00    0.00     690/877         stromscore::Generator::removeActive(int, int, stromscore::EventList&) [85]
+-----------------------------------------------
+                0.00    0.00    2486/1663923     stromscore::Generator::motifWindow(stromscore::Generator::Pos const&, stromscore::Settings const&) [28]
+                0.01    0.20 1661437/1663923     stromscore::Generator::melodicRoleWindow(int, stromscore::Generator::Pos const&, stromscore::Settings const&) [14]
+[16]     7.9    0.01    0.20 1663923         stromscore::Generator::motifVoiceWindow(stromscore::Generator::Pos const&, stromscore::Settings const&, int, bool, bool) [16]
+                0.06    0.06 1663923/3907034     stromscore::Generator::motifOccurrence(stromscore::musicaltime::Tick, stromscore::Generator::Pos const&, stromscore::Settings const&, int, bool, bool) [13]
+                0.06    0.00 1663923/4526720     stromscore::outputCatalog(stromscore::Settings const&) [19]
+                0.01    0.00  594454/32153848     stromscore::Generator::locate(stromscore::musicaltime::Tick) const [12]
+                0.00    0.00  253873/27038027     frame_dummy [10]
+                0.00    0.00  594454/993841      stromscore::Generator::planMotifNote(int, stromscore::Generator::Pos const&, stromscore::Settings const&, int, stromscore::composition::RememberedMotif const*, bool, stromscore::composition::MotifOccurrence const*) const [41]
+                0.00    0.00  107945/6815230     stromscore::Generator::performanceMaterial(int, stromscore::Settings const&) const [24]
+                0.00    0.00  145944/437370      stromscore::Generator::authoredMotif(stromscore::Generator::Pos const&, stromscore::Settings const&, int) const [47]
+-----------------------------------------------
+                0.00    0.00       6/117973      stromscore::Generator::nextBassPlacement(stromscore::Generator::Pos const&, stromscore::Settings const&) [52]
+                0.00    0.00     120/117973      stromscore::Generator::sustained(stromscore::Generator::Pos const&, stromscore::Settings const&, int, stromscore::EventList&, bool, unsigned int) [50]
+                0.00    0.00    1315/117973      stromscore::Generator::render(stromscore::musicaltime::Tick, int, stromscore::Generator::Pos const&, bool, long long, stromscore::Settings const&, stromscore::EventList&, bool, bool) [3]
+                0.14    0.03  116532/117973      stromscore::Generator::padVoicing(stromscore::Generator::Pos const&, stromscore::Settings const&, int) [18]
+[17]     6.4    0.14    0.03  117973         stromscore::Generator::prepareVoicingPlan(stromscore::Generator::Pos const&, stromscore::Settings const&) [17]
+                0.02    0.00  893546/27038027     frame_dummy [10]
+                0.00    0.01    1546/1546        stromscore::composition::planHarmony(stromscore::composition::HarmonicRequest const&) [29]
+                0.00    0.00     248/2324        stromscore::voiceleading::lead(stromscore::voiceleading::ChordVoicing, stromscore::voiceleading::ChordVoicing, int, int, int, int, stromscore::voiceleading::VoiceBinding const*) [27]
+                0.00    0.00   96703/6183376     stromscore::outputDescription(stromscore::Settings const&, int) [21]
+                0.00    0.00     980/980         stromscore::voiceleading::distance(stromscore::voiceleading::ChordVoicing const&, stromscore::voiceleading::ChordVoicing const&) [84]
+                0.00    0.00     490/490         stromscore::voiceleading::shapeCost(stromscore::voiceleading::ChordVoicing const&, stromscore::voiceleading::ChordVoicing const&) [86]
+-----------------------------------------------
+                0.00    0.00     212/116532      stromscore::Generator::renderLayers(stromscore::musicaltime::Tick, stromscore::Generator::Pos const&, stromscore::Settings const&, int, stromscore::EventList&, bool) [5]
+                0.00    0.17  116320/116532      stromscore::Generator::renderLayerHarmony(stromscore::musicaltime::Tick, stromscore::Generator::Pos const&, stromscore::Settings const&, int, stromscore::EventList&) [15]
+[18]     6.3    0.00    0.17  116532         stromscore::Generator::padVoicing(stromscore::Generator::Pos const&, stromscore::Settings const&, int) [18]
+                0.14    0.03  116532/117973      stromscore::Generator::prepareVoicingPlan(stromscore::Generator::Pos const&, stromscore::Settings const&) [17]
+-----------------------------------------------
+                0.00    0.00    1615/4526720     stromscore::Generator::render(stromscore::musicaltime::Tick, int, stromscore::Generator::Pos const&, bool, long long, stromscore::Settings const&, stromscore::EventList&, bool, bool) [3]
+                0.00    0.00   23991/4526720     stromscore::Generator::motifOccurrence(stromscore::musicaltime::Tick, stromscore::Generator::Pos const&, stromscore::Settings const&, int, bool, bool) [13]
+                0.04    0.00 1148384/4526720     stromscore::Generator::playableMelodyHandoff(stromscore::musicaltime::Tick, stromscore::Generator::Pos const&, stromscore::Settings const&, bool) [9]
+                0.06    0.00 1663923/4526720     stromscore::Generator::motifVoiceWindow(stromscore::Generator::Pos const&, stromscore::Settings const&, int, bool, bool) [16]
+                0.06    0.00 1688807/4526720     stromscore::Generator::melodicRoleWindow(int, stromscore::Generator::Pos const&, stromscore::Settings const&) [14]
+[19]     6.0    0.16    0.00 4526720         stromscore::outputCatalog(stromscore::Settings const&) [19]
+-----------------------------------------------
+                0.01    0.04 1106218/1106218     stromscore::Generator::nextOnset(stromscore::musicaltime::Tick, stromscore::Settings const&) [6]
+[20]     1.9    0.01    0.04 1106218         stromscore::Generator::templateOnset(stromscore::Generator::Pos const&, stromscore::Settings const&) [20]
+                0.01    0.01 1106218/1108138     stromscore::Generator::authoredRhythmBar(stromscore::Generator::Pos const&, stromscore::Settings const&, bool) const [25]
+                0.01    0.00 1106218/1108443     stromscore::Generator::roleRhythm(stromscore::Generator::Pos const&, stromscore::Settings const&) const [35]
+                0.01    0.00 1106218/1109148     stromscore::Generator::chooseBass(stromscore::Settings const&, long long) const [34]
+                0.00    0.00 1112516/9091603     stromscore::Generator::W() const [42]
+                0.00    0.00  825424/828009      stromscore::Generator::tupferAt(long long, stromscore::Settings const&) const [67]
+                0.00    0.00  423795/1004937     stromscore::Generator::movementRhythm(stromscore::Generator::Pos const&, stromscore::Settings const&) const [65]
+                0.00    0.00  423795/919991      stromscore::Generator::arpeggioPeriod(stromscore::Settings const&, long long) const [66]
+-----------------------------------------------
+                0.00    0.00      30/6183376     stromscore::Generator::remainingMotifFits(stromscore::composition::MotifOccurrence const&, stromscore::musicaltime::Tick, stromscore::Settings const&, int) const [56]
+                0.00    0.00      76/6183376     stromscore::Generator::motifWindow(stromscore::Generator::Pos const&, stromscore::Settings const&) [28]
+                0.00    0.00     120/6183376     stromscore::Generator::accents(stromscore::musicaltime::Tick, stromscore::Generator::Pos const&, stromscore::Settings const&, int, stromscore::EventList&) [54]
+                0.00    0.00     388/6183376     stromscore::Generator::authoredMotif(stromscore::Generator::Pos const&, stromscore::Settings const&, int) const [47]
+                0.00    0.00   96703/6183376     stromscore::Generator::prepareVoicingPlan(stromscore::Generator::Pos const&, stromscore::Settings const&) [17]
+                0.00    0.00  393338/6183376     stromscore::Generator::renderLayerHarmony(stromscore::musicaltime::Tick, stromscore::Generator::Pos const&, stromscore::Settings const&, int, stromscore::EventList&) [15]
+                0.01    0.00 1831232/6183376     stromscore::Generator::layerFits(stromscore::composition::LayerFigure const&, stromscore::musicaltime::Tick, stromscore::Settings const&, int, int*) const [8]
+                0.02    0.00 3861489/6183376     stromscore::Generator::motifOccurrence(stromscore::musicaltime::Tick, stromscore::Generator::Pos const&, stromscore::Settings const&, int, bool, bool) [13]
+[21]     1.1    0.03    0.00 6183376         stromscore::outputDescription(stromscore::Settings const&, int) [21]
+-----------------------------------------------
+                                                 <spontaneous>
+[22]     1.1    0.03    0.00                 _init [22]
+-----------------------------------------------
+                0.00    0.02   23991/23991       stromscore::Generator::motifOccurrence(stromscore::musicaltime::Tick, stromscore::Generator::Pos const&, stromscore::Settings const&, int, bool, bool) [13]
+[23]     0.8    0.00    0.02   23991         stromscore::Generator::motifOccurrence(stromscore::musicaltime::Tick, stromscore::Generator::Pos const&, stromscore::Settings const&, int, bool, bool)::{lambda(stromscore::composition::MotifVariation, bool, int)#1}::operator()(stromscore::composition::MotifVariation, bool, int) const [23]
+                0.01    0.00   53470/53470       stromscore::Generator::motifOccurrence(stromscore::musicaltime::Tick, stromscore::Generator::Pos const&, stromscore::Settings const&, int, bool, bool)::{lambda(stromscore::composition::MotifVariation, bool, int)#1}::operator()(stromscore::composition::MotifVariation, bool, int) const::{lambda(stromscore::musicaltime::Tick)#1}::operator()(stromscore::musicaltime::Tick) const [30]
+                0.01    0.00   23991/23991       stromscore::composition::deriveMotif(stromscore::composition::RememberedMotif const&, stromscore::composition::MotifVariation, int) [39]
+                0.00    0.00   26735/32153848     stromscore::Generator::locate(stromscore::musicaltime::Tick) const [12]
+-----------------------------------------------
+                0.00    0.00  107945/6815230     stromscore::Generator::motifVoiceWindow(stromscore::Generator::Pos const&, stromscore::Settings const&, int, bool, bool) [16]
+                0.00    0.00 1111444/6815230     stromscore::Generator::nextOnset(stromscore::musicaltime::Tick, stromscore::Settings const&) [6]
+                0.00    0.00 1688807/6815230     stromscore::Generator::melodicRoleWindow(int, stromscore::Generator::Pos const&, stromscore::Settings const&) [14]
+                0.01    0.00 3907034/6815230     stromscore::Generator::motifOccurrence(stromscore::musicaltime::Tick, stromscore::Generator::Pos const&, stromscore::Settings const&, int, bool, bool) [13]
+[24]     0.7    0.02    0.00 6815230         stromscore::Generator::performanceMaterial(int, stromscore::Settings const&) const [24]
+-----------------------------------------------
+                0.00    0.00     305/1108138     stromscore::Generator::sustained(stromscore::Generator::Pos const&, stromscore::Settings const&, int, stromscore::EventList&, bool, unsigned int) [50]
+                0.00    0.00    1615/1108138     stromscore::Generator::render(stromscore::musicaltime::Tick, int, stromscore::Generator::Pos const&, bool, long long, stromscore::Settings const&, stromscore::EventList&, bool, bool) [3]
+                0.01    0.01 1106218/1108138     stromscore::Generator::templateOnset(stromscore::Generator::Pos const&, stromscore::Settings const&) [20]
+[25]     0.7    0.01    0.01 1108138         stromscore::Generator::authoredRhythmBar(stromscore::Generator::Pos const&, stromscore::Settings const&, bool) const [25]
+                0.01    0.00 1108138/1108138     stromscore::Generator::authoredRhythm(stromscore::Settings const&) const [40]
+-----------------------------------------------
+                0.00    0.00   16649/464817      stromscore::Generator::renderLayers(stromscore::musicaltime::Tick, stromscore::Generator::Pos const&, stromscore::Settings const&, int, stromscore::EventList&, bool) [5]
+                0.01    0.01  448168/464817      stromscore::Generator::renderLayerHarmony(stromscore::musicaltime::Tick, stromscore::Generator::Pos const&, stromscore::Settings const&, int, stromscore::EventList&) [15]
+[26]     0.7    0.01    0.01  464817         stromscore::Generator::layerEmit(int, int, int, stromscore::musicaltime::Tick, int, stromscore::Settings const&, stromscore::EventList&, bool) [26]
+                0.01    0.00  464471/466702      stromscore::Generator::noteOn(int, int, int, stromscore::musicaltime::Tick, int, stromscore::EventList&, bool, bool) [37]
+-----------------------------------------------
+                0.00    0.00     248/2324        stromscore::Generator::prepareVoicingPlan(stromscore::Generator::Pos const&, stromscore::Settings const&) [17]
+                0.01    0.00    2076/2324        stromscore::composition::planHarmony(stromscore::composition::HarmonicRequest const&) [29]
+[27]     0.5    0.01    0.00    2324         stromscore::voiceleading::lead(stromscore::voiceleading::ChordVoicing, stromscore::voiceleading::ChordVoicing, int, int, int, int, stromscore::voiceleading::VoiceBinding const*) [27]
+                0.00    0.00   54224/27038027     frame_dummy [10]
+                0.00    0.00   51900/51900       stromscore::voiceleading::lead(stromscore::voiceleading::ChordVoicing, stromscore::voiceleading::ChordVoicing, int, int, int, int, stromscore::voiceleading::VoiceBinding const*)::{lambda(stromscore::voiceleading::ChordVoicing)#1}::operator()(stromscore::voiceleading::ChordVoicing) const [45]
+-----------------------------------------------
+                0.00    0.00     948/2486        stromscore::Generator::renderLayers(stromscore::musicaltime::Tick, stromscore::Generator::Pos const&, stromscore::Settings const&, int, stromscore::EventList&, bool) [5]
+                0.01    0.00    1538/2486        stromscore::Generator::render(stromscore::musicaltime::Tick, int, stromscore::Generator::Pos const&, bool, long long, stromscore::Settings const&, stromscore::EventList&, bool, bool) [3]
+[28]     0.4    0.01    0.00    2486         stromscore::Generator::motifWindow(stromscore::Generator::Pos const&, stromscore::Settings const&) [28]
+                0.00    0.00    2414/1148384     stromscore::Generator::playableMelodyHandoff(stromscore::musicaltime::Tick, stromscore::Generator::Pos const&, stromscore::Settings const&, bool) [9]
+                0.00    0.00    2486/1663923     stromscore::Generator::motifVoiceWindow(stromscore::Generator::Pos const&, stromscore::Settings const&, int, bool, bool) [16]
+                0.00    0.00      76/6183376     stromscore::outputDescription(stromscore::Settings const&, int) [21]
+-----------------------------------------------
+                0.00    0.01    1546/1546        stromscore::Generator::prepareVoicingPlan(stromscore::Generator::Pos const&, stromscore::Settings const&) [17]
+[29]     0.4    0.00    0.01    1546         stromscore::composition::planHarmony(stromscore::composition::HarmonicRequest const&) [29]
+                0.01    0.00    2076/2324        stromscore::voiceleading::lead(stromscore::voiceleading::ChordVoicing, stromscore::voiceleading::ChordVoicing, int, int, int, int, stromscore::voiceleading::VoiceBinding const*) [27]
+-----------------------------------------------
+                0.01    0.00   53470/53470       stromscore::Generator::motifOccurrence(stromscore::musicaltime::Tick, stromscore::Generator::Pos const&, stromscore::Settings const&, int, bool, bool)::{lambda(stromscore::composition::MotifVariation, bool, int)#1}::operator()(stromscore::composition::MotifVariation, bool, int) const [23]
+[30]     0.4    0.01    0.00   53470         stromscore::Generator::motifOccurrence(stromscore::musicaltime::Tick, stromscore::Generator::Pos const&, stromscore::Settings const&, int, bool, bool)::{lambda(stromscore::composition::MotifVariation, bool, int)#1}::operator()(stromscore::composition::MotifVariation, bool, int) const::{lambda(stromscore::musicaltime::Tick)#1}::operator()(stromscore::musicaltime::Tick) const [30]
+                0.00    0.00   48435/32153848     stromscore::Generator::locate(stromscore::musicaltime::Tick) const [12]
+-----------------------------------------------
+                0.01    0.00    1440/1440        stromscore::Generator::render(stromscore::musicaltime::Tick, int, stromscore::Generator::Pos const&, bool, long long, stromscore::Settings const&, stromscore::EventList&, bool, bool) [3]
+[31]     0.4    0.01    0.00    1440         stromscore::Generator::playArpeggio(stromscore::musicaltime::Tick, int, stromscore::Generator::Pos const&, long long, stromscore::Settings const&, stromscore::EventList&) [31]
+                0.00    0.00    1382/466702      stromscore::Generator::noteOn(int, int, int, stromscore::musicaltime::Tick, int, stromscore::EventList&, bool, bool) [37]
+                0.00    0.00    1382/27038027     frame_dummy [10]
+                0.00    0.00    1440/1004937     stromscore::Generator::movementRhythm(stromscore::Generator::Pos const&, stromscore::Settings const&) const [65]
+-----------------------------------------------
+                0.00    0.00    8536/4127036     stromscore::Generator::authoredMotif(stromscore::Generator::Pos const&, stromscore::Settings const&, int) const [47]
+                0.00    0.00  284731/4127036     stromscore::Generator::playableMelodyHandoff(stromscore::musicaltime::Tick, stromscore::Generator::Pos const&, stromscore::Settings const&, bool) [9]
+                0.01    0.00 3833769/4127036     stromscore::Generator::motifOccurrence(stromscore::musicaltime::Tick, stromscore::Generator::Pos const&, stromscore::Settings const&, int, bool, bool) [13]
+[32]     0.4    0.01    0.00 4127036         stromscore::Generator::motifAvailableUntil(stromscore::Settings const&, int) const [32]
+-----------------------------------------------
+                0.00    0.00   51730/1899460     stromscore::Generator::motifOccurrence(stromscore::musicaltime::Tick, stromscore::Generator::Pos const&, stromscore::Settings const&, int, bool, bool) [13]
+                0.01    0.00 1847730/1899460     stromscore::Generator::playableMelodyHandoff(stromscore::musicaltime::Tick, stromscore::Generator::Pos const&, stromscore::Settings const&, bool) [9]
+[33]     0.4    0.01    0.00 1899460         stromscore::composition::recurrenceSlot(stromscore::composition::MotifRecurrencePolicy const&, long, float, float) [33]
+-----------------------------------------------
+                0.00    0.00    2930/1109148     stromscore::Generator::render(stromscore::musicaltime::Tick, int, stromscore::Generator::Pos const&, bool, long long, stromscore::Settings const&, stromscore::EventList&, bool, bool) [3]
+                0.01    0.00 1106218/1109148     stromscore::Generator::templateOnset(stromscore::Generator::Pos const&, stromscore::Settings const&) [20]
+[34]     0.4    0.01    0.00 1109148         stromscore::Generator::chooseBass(stromscore::Settings const&, long long) const [34]
+-----------------------------------------------
+                0.00    0.00     610/1108443     stromscore::Generator::sustained(stromscore::Generator::Pos const&, stromscore::Settings const&, int, stromscore::EventList&, bool, unsigned int) [50]
+                0.00    0.00    1615/1108443     stromscore::Generator::render(stromscore::musicaltime::Tick, int, stromscore::Generator::Pos const&, bool, long long, stromscore::Settings const&, stromscore::EventList&, bool, bool) [3]
+                0.01    0.00 1106218/1108443     stromscore::Generator::templateOnset(stromscore::Generator::Pos const&, stromscore::Settings const&) [20]
+[35]     0.4    0.01    0.00 1108443         stromscore::Generator::roleRhythm(stromscore::Generator::Pos const&, stromscore::Settings const&) const [35]
+-----------------------------------------------
+                0.01    0.00  579702/579702      stromscore::Generator::nextOnset(stromscore::musicaltime::Tick, stromscore::Settings const&) [6]
+[36]     0.4    0.01    0.00  579702         stromscore::Generator::layerBinding(stromscore::Settings const&) const [36]
+-----------------------------------------------
+                0.00    0.00      14/466702      stromscore::Generator::melodyHandoff(stromscore::musicaltime::Tick, stromscore::Generator::Pos const&, stromscore::Settings const&, int, stromscore::EventList&, bool) [46]
+                0.00    0.00      14/466702      stromscore::Generator::motifStep(stromscore::musicaltime::Tick, stromscore::Generator::Pos const&, stromscore::Settings const&, int, stromscore::EventList&, int) [49]
+                0.00    0.00      17/466702      stromscore::Generator::counterLine(stromscore::musicaltime::Tick, stromscore::Generator::Pos const&, stromscore::Settings const&, int, bool, stromscore::EventList&, int) [44]
+                0.00    0.00     191/466702      stromscore::Generator::sustained(stromscore::Generator::Pos const&, stromscore::Settings const&, int, stromscore::EventList&, bool, unsigned int) [50]
+                0.00    0.00     203/466702      stromscore::Generator::accents(stromscore::musicaltime::Tick, stromscore::Generator::Pos const&, stromscore::Settings const&, int, stromscore::EventList&) [54]
+                0.00    0.00     410/466702      stromscore::Generator::render(stromscore::musicaltime::Tick, int, stromscore::Generator::Pos const&, bool, long long, stromscore::Settings const&, stromscore::EventList&, bool, bool) [3]
+                0.00    0.00    1382/466702      stromscore::Generator::playArpeggio(stromscore::musicaltime::Tick, int, stromscore::Generator::Pos const&, long long, stromscore::Settings const&, stromscore::EventList&) [31]
+                0.01    0.00  464471/466702      stromscore::Generator::layerEmit(int, int, int, stromscore::musicaltime::Tick, int, stromscore::Settings const&, stromscore::EventList&, bool) [26]
+[37]     0.4    0.01    0.00  466702         stromscore::Generator::noteOn(int, int, int, stromscore::musicaltime::Tick, int, stromscore::EventList&, bool, bool) [37]
+                0.00    0.00  924294/1849503     stromscore::execution::quarters(stromscore::musicaltime::Tick, stromscore::execution::Timing, float) [64]
+                0.00    0.00  464516/464516      stromscore::Generator::fitRange(int, int) const [69]
+-----------------------------------------------
+                0.00    0.00       1/116321      stromscore::Generator::chase(double, stromscore::Settings const&, stromscore::EventList&) [53]
+                0.01    0.00  116320/116321      stromscore::Generator::prepareAt(stromscore::musicaltime::Tick, int, stromscore::Settings const&, stromscore::EventList&) [4]
+[38]     0.4    0.01    0.00  116321         stromscore::Generator::updateScene(stromscore::musicaltime::Tick, stromscore::Generator::Pos const&, stromscore::Settings const&, bool, int, stromscore::EventList&) [38]
+                0.00    0.00       1/1           stromscore::Generator::autoEntry(stromscore::Settings const&) [92]
+-----------------------------------------------
+                0.01    0.00   23991/23991       stromscore::Generator::motifOccurrence(stromscore::musicaltime::Tick, stromscore::Generator::Pos const&, stromscore::Settings const&, int, bool, bool)::{lambda(stromscore::composition::MotifVariation, bool, int)#1}::operator()(stromscore::composition::MotifVariation, bool, int) const [23]
+[39]     0.4    0.01    0.00   23991         stromscore::composition::deriveMotif(stromscore::composition::RememberedMotif const&, stromscore::composition::MotifVariation, int) [39]
+-----------------------------------------------
+                0.01    0.00 1108138/1108138     stromscore::Generator::authoredRhythmBar(stromscore::Generator::Pos const&, stromscore::Settings const&, bool) const [25]
+[40]     0.4    0.01    0.00 1108138         stromscore::Generator::authoredRhythm(stromscore::Settings const&) const [40]
+-----------------------------------------------
+                0.00    0.00     563/993841      stromscore::Generator::motifStep(stromscore::musicaltime::Tick, stromscore::Generator::Pos const&, stromscore::Settings const&, int, stromscore::EventList&, int) [49]
+                0.00    0.00  398824/993841      stromscore::Generator::nextOnset(stromscore::musicaltime::Tick, stromscore::Settings const&) [6]
+                0.00    0.00  594454/993841      stromscore::Generator::motifVoiceWindow(stromscore::Generator::Pos const&, stromscore::Settings const&, int, bool, bool) [16]
+[41]     0.3    0.00    0.01  993841         stromscore::Generator::planMotifNote(int, stromscore::Generator::Pos const&, stromscore::Settings const&, int, stromscore::composition::RememberedMotif const*, bool, stromscore::composition::MotifOccurrence const*) const [41]
+                0.01    0.00  330370/27038027     frame_dummy [10]
+                0.00    0.00  291416/437370      stromscore::Generator::authoredMotif(stromscore::Generator::Pos const&, stromscore::Settings const&, int) const [47]
+-----------------------------------------------
+                0.00    0.00      18/9091603     stromscore::Generator::accents(stromscore::musicaltime::Tick, stromscore::Generator::Pos const&, stromscore::Settings const&, int, stromscore::EventList&) [54]
+                0.00    0.00     557/9091603     stromscore::Generator::sustained(stromscore::Generator::Pos const&, stromscore::Settings const&, int, stromscore::EventList&, bool, unsigned int) [50]
+                0.00    0.00    1915/9091603     stromscore::Generator::render(stromscore::musicaltime::Tick, int, stromscore::Generator::Pos const&, bool, long long, stromscore::Settings const&, stromscore::EventList&, bool, bool) [3]
+                0.00    0.00   15137/9091603     stromscore::Generator::renderLayerHarmony(stromscore::musicaltime::Tick, stromscore::Generator::Pos const&, stromscore::Settings const&, int, stromscore::EventList&) [15]
+                0.00    0.00  467263/9091603     stromscore::Generator::nextOnset(stromscore::musicaltime::Tick, stromscore::Settings const&) [6]
+                0.00    0.00 1112516/9091603     stromscore::Generator::templateOnset(stromscore::Generator::Pos const&, stromscore::Settings const&) [20]
+                0.00    0.00 3632708/9091603     frame_dummy [10]
+                0.00    0.00 3861489/9091603     stromscore::Generator::motifOccurrence(stromscore::musicaltime::Tick, stromscore::Generator::Pos const&, stromscore::Settings const&, int, bool, bool) [13]
+[42]     0.2    0.01    0.00 9091603         stromscore::Generator::W() const [42]
+-----------------------------------------------
+                0.00    0.00      16/305         stromscore::Generator::ensurePhrase(long long, stromscore::Settings const&) [48]
+                0.00    0.00     289/305         stromscore::Generator::prepareAt(stromscore::musicaltime::Tick, int, stromscore::Settings const&, stromscore::EventList&) [4]
+[43]     0.2    0.01    0.00     305         stromscore::Generator::pick(stromscore::Settings const&, long long) [43]
+-----------------------------------------------
+                0.00    0.00    1486/3101        stromscore::Generator::render(stromscore::musicaltime::Tick, int, stromscore::Generator::Pos const&, bool, long long, stromscore::Settings const&, stromscore::EventList&, bool, bool) [3]
+                0.00    0.00    1615/3101        stromscore::Generator::process(stromscore::Transport const&, stromscore::Settings const&, int, stromscore::EventList&) [2]
+[44]     0.1    0.00    0.00    3101         stromscore::Generator::counterLine(stromscore::musicaltime::Tick, stromscore::Generator::Pos const&, stromscore::Settings const&, int, bool, stromscore::EventList&, int) [44]
+                0.00    0.00    1486/582751      stromscore::Generator::dialogueMayLead(stromscore::Generator::Pos const&, stromscore::Settings const&) [11]
+                0.00    0.00    3101/3101        stromscore::Generator::motifStep(stromscore::musicaltime::Tick, stromscore::Generator::Pos const&, stromscore::Settings const&, int, stromscore::EventList&, int) [49]
+                0.00    0.00      62/62          stromscore::Generator::freePhraseStep(stromscore::musicaltime::Tick, stromscore::Generator::Pos const&, stromscore::Settings const&, int, stromscore::EventList&, bool) [51]
+                0.00    0.00      26/27038027     frame_dummy [10]
+                0.00    0.00      17/466702      stromscore::Generator::noteOn(int, int, int, stromscore::musicaltime::Tick, int, stromscore::EventList&, bool, bool) [37]
+                0.00    0.00      17/22          stromscore::Generator::releaseOthers(int, int, int, stromscore::EventList&) [90]
+-----------------------------------------------
+                0.00    0.00   51900/51900       stromscore::voiceleading::lead(stromscore::voiceleading::ChordVoicing, stromscore::voiceleading::ChordVoicing, int, int, int, int, stromscore::voiceleading::VoiceBinding const*) [27]
+[45]     0.0    0.00    0.00   51900         stromscore::voiceleading::lead(stromscore::voiceleading::ChordVoicing, stromscore::voiceleading::ChordVoicing, int, int, int, int, stromscore::voiceleading::VoiceBinding const*)::{lambda(stromscore::voiceleading::ChordVoicing)#1}::operator()(stromscore::voiceleading::ChordVoicing) const [45]
+                0.00    0.00   51900/27038027     frame_dummy [10]
+-----------------------------------------------
+                0.00    0.00       1/1616        stromscore::Generator::chaseMotif(stromscore::musicaltime::Tick, stromscore::Generator::Pos const&, stromscore::Settings const&, stromscore::EventList&) [55]
+                0.00    0.00    1615/1616        stromscore::Generator::render(stromscore::musicaltime::Tick, int, stromscore::Generator::Pos const&, bool, long long, stromscore::Settings const&, stromscore::EventList&, bool, bool) [3]
+[46]     0.0    0.00    0.00    1616         stromscore::Generator::melodyHandoff(stromscore::musicaltime::Tick, stromscore::Generator::Pos const&, stromscore::Settings const&, int, stromscore::EventList&, bool) [46]
+                0.00    0.00    1616/1148384     stromscore::Generator::playableMelodyHandoff(stromscore::musicaltime::Tick, stromscore::Generator::Pos const&, stromscore::Settings const&, bool) [9]
+                0.00    0.00      14/466702      stromscore::Generator::noteOn(int, int, int, stromscore::musicaltime::Tick, int, stromscore::EventList&, bool, bool) [37]
+-----------------------------------------------
+                0.00    0.00      10/437370      stromscore::Generator::motifStep(stromscore::musicaltime::Tick, stromscore::Generator::Pos const&, stromscore::Settings const&, int, stromscore::EventList&, int) [49]
+                0.00    0.00  145944/437370      stromscore::Generator::motifVoiceWindow(stromscore::Generator::Pos const&, stromscore::Settings const&, int, bool, bool) [16]
+                0.00    0.00  291416/437370      stromscore::Generator::planMotifNote(int, stromscore::Generator::Pos const&, stromscore::Settings const&, int, stromscore::composition::RememberedMotif const*, bool, stromscore::composition::MotifOccurrence const*) const [41]
+[47]     0.0    0.00    0.00  437370         stromscore::Generator::authoredMotif(stromscore::Generator::Pos const&, stromscore::Settings const&, int) const [47]
+                0.00    0.00   35696/32153848     stromscore::Generator::locate(stromscore::musicaltime::Tick) const [12]
+                0.00    0.00    6208/27038027     frame_dummy [10]
+                0.00    0.00    8536/4127036     stromscore::Generator::motifAvailableUntil(stromscore::Settings const&, int) const [32]
+                0.00    0.00     388/6183376     stromscore::outputDescription(stromscore::Settings const&, int) [21]
+                0.00    0.00     388/2204698     stromscore::composition::suitable(stromscore::composition::PlayingTrack const&, stromscore::composition::RoleNeed const&) [63]
+-----------------------------------------------
+                0.00    0.00       1/116321      stromscore::Generator::chase(double, stromscore::Settings const&, stromscore::EventList&) [53]
+                0.00    0.00  116320/116321      stromscore::Generator::prepareAt(stromscore::musicaltime::Tick, int, stromscore::Settings const&, stromscore::EventList&) [4]
+[48]     0.0    0.00    0.00  116321         stromscore::Generator::ensurePhrase(long long, stromscore::Settings const&) [48]
+                0.00    0.00      16/305         stromscore::Generator::pick(stromscore::Settings const&, long long) [43]
+-----------------------------------------------
+                0.00    0.00    3101/3101        stromscore::Generator::counterLine(stromscore::musicaltime::Tick, stromscore::Generator::Pos const&, stromscore::Settings const&, int, bool, stromscore::EventList&, int) [44]
+[49]     0.0    0.00    0.00    3101         stromscore::Generator::motifStep(stromscore::musicaltime::Tick, stromscore::Generator::Pos const&, stromscore::Settings const&, int, stromscore::EventList&, int) [49]
+                0.00    0.00    3062/3907034     stromscore::Generator::motifOccurrence(stromscore::musicaltime::Tick, stromscore::Generator::Pos const&, stromscore::Settings const&, int, bool, bool) [13]
+                0.00    0.00     563/993841      stromscore::Generator::planMotifNote(int, stromscore::Generator::Pos const&, stromscore::Settings const&, int, stromscore::composition::RememberedMotif const*, bool, stromscore::composition::MotifOccurrence const*) const [41]
+                0.00    0.00      14/466702      stromscore::Generator::noteOn(int, int, int, stromscore::musicaltime::Tick, int, stromscore::EventList&, bool, bool) [37]
+                0.00    0.00      10/437370      stromscore::Generator::authoredMotif(stromscore::Generator::Pos const&, stromscore::Settings const&, int) const [47]
+                0.00    0.00       5/22          stromscore::Generator::releaseOthers(int, int, int, stromscore::EventList&) [90]
+-----------------------------------------------
+                0.00    0.00     305/305         stromscore::Generator::prepareAt(stromscore::musicaltime::Tick, int, stromscore::Settings const&, stromscore::EventList&) [4]
+[50]     0.0    0.00    0.00     305         stromscore::Generator::sustained(stromscore::Generator::Pos const&, stromscore::Settings const&, int, stromscore::EventList&, bool, unsigned int) [50]
+                0.00    0.00     120/117973      stromscore::Generator::prepareVoicingPlan(stromscore::Generator::Pos const&, stromscore::Settings const&) [17]
+                0.00    0.00     305/1108138     stromscore::Generator::authoredRhythmBar(stromscore::Generator::Pos const&, stromscore::Settings const&, bool) const [25]
+                0.00    0.00     610/1108443     stromscore::Generator::roleRhythm(stromscore::Generator::Pos const&, stromscore::Settings const&) const [35]
+                0.00    0.00     191/466702      stromscore::Generator::noteOn(int, int, int, stromscore::musicaltime::Tick, int, stromscore::EventList&, bool, bool) [37]
+                0.00    0.00     120/27038027     frame_dummy [10]
+                0.00    0.00     557/9091603     stromscore::Generator::W() const [42]
+                0.00    0.00     305/305         stromscore::Generator::padChord(stromscore::Generator::Pos const&, stromscore::Settings const&, int, int, stromscore::musicaltime::Tick, int, stromscore::EventList&) [87]
+-----------------------------------------------
+                0.00    0.00      62/62          stromscore::Generator::counterLine(stromscore::musicaltime::Tick, stromscore::Generator::Pos const&, stromscore::Settings const&, int, bool, stromscore::EventList&, int) [44]
+[51]     0.0    0.00    0.00      62         stromscore::Generator::freePhraseStep(stromscore::musicaltime::Tick, stromscore::Generator::Pos const&, stromscore::Settings const&, int, stromscore::EventList&, bool) [51]
+                0.00    0.00      62/1148384     stromscore::Generator::playableMelodyHandoff(stromscore::musicaltime::Tick, stromscore::Generator::Pos const&, stromscore::Settings const&, bool) [9]
+                0.00    0.00     124/1688807     stromscore::Generator::melodicRoleWindow(int, stromscore::Generator::Pos const&, stromscore::Settings const&) [14]
+                0.00    0.00      62/47211       stromscore::Generator::freeLinePhrase(stromscore::Generator::Pos const&, stromscore::Settings const&) const [78]
+-----------------------------------------------
+                0.00    0.00       6/6           stromscore::Generator::render(stromscore::musicaltime::Tick, int, stromscore::Generator::Pos const&, bool, long long, stromscore::Settings const&, stromscore::EventList&, bool, bool) [3]
+[52]     0.0    0.00    0.00       6         stromscore::Generator::nextBassPlacement(stromscore::Generator::Pos const&, stromscore::Settings const&) [52]
+                0.00    0.00       6/117973      stromscore::Generator::prepareVoicingPlan(stromscore::Generator::Pos const&, stromscore::Settings const&) [17]
+-----------------------------------------------
+                0.00    0.00       1/1           stromscore::Generator::process(stromscore::Transport const&, stromscore::Settings const&, int, stromscore::EventList&) [2]
+[53]     0.0    0.00    0.00       1         stromscore::Generator::chase(double, stromscore::Settings const&, stromscore::EventList&) [53]
+                0.00    0.00       2/579702      stromscore::Generator::nextOnset(stromscore::musicaltime::Tick, stromscore::Settings const&) [6]
+                0.00    0.00       2/582751      stromscore::Generator::dialogueMayLead(stromscore::Generator::Pos const&, stromscore::Settings const&) [11]
+                0.00    0.00       1/1           stromscore::Generator::chaseMotif(stromscore::musicaltime::Tick, stromscore::Generator::Pos const&, stromscore::Settings const&, stromscore::EventList&) [55]
+                0.00    0.00       1/116321      stromscore::Generator::updateScene(stromscore::musicaltime::Tick, stromscore::Generator::Pos const&, stromscore::Settings const&, bool, int, stromscore::EventList&) [38]
+                0.00    0.00       3/32153848     stromscore::Generator::locate(stromscore::musicaltime::Tick) const [12]
+                0.00    0.00       1/27038027     frame_dummy [10]
+                0.00    0.00       1/116321      stromscore::Generator::ensurePhrase(long long, stromscore::Settings const&) [48]
+                0.00    0.00       1/116321      stromscore::Generator::prepareSequences(stromscore::musicaltime::Tick, stromscore::Settings const&, int, stromscore::EventList&) [75]
+                0.00    0.00       1/116321      stromscore::Generator::prepareFigureEvent(stromscore::musicaltime::Tick, stromscore::Settings const&, int, stromscore::EventList&) [76]
+                0.00    0.00       1/116321      stromscore::Generator::prepareLeadEvent(stromscore::musicaltime::Tick, stromscore::Settings const&, int, stromscore::EventList&) [74]
+                0.00    0.00       1/117936      stromscore::Generator::prepareBassPhrase(stromscore::Generator::Pos const&, stromscore::Settings const&) [73]
+-----------------------------------------------
+                0.00    0.00    1615/1615        stromscore::Generator::render(stromscore::musicaltime::Tick, int, stromscore::Generator::Pos const&, bool, long long, stromscore::Settings const&, stromscore::EventList&, bool, bool) [3]
+[54]     0.0    0.00    0.00    1615         stromscore::Generator::accents(stromscore::musicaltime::Tick, stromscore::Generator::Pos const&, stromscore::Settings const&, int, stromscore::EventList&) [54]
+                0.00    0.00     203/466702      stromscore::Generator::noteOn(int, int, int, stromscore::musicaltime::Tick, int, stromscore::EventList&, bool, bool) [37]
+                0.00    0.00     120/6183376     stromscore::outputDescription(stromscore::Settings const&, int) [21]
+                0.00    0.00      18/27038027     frame_dummy [10]
+                0.00    0.00      18/9091603     stromscore::Generator::W() const [42]
+                0.00    0.00    2585/828009      stromscore::Generator::tupferAt(long long, stromscore::Settings const&) const [67]
+-----------------------------------------------
+                0.00    0.00       1/1           stromscore::Generator::chase(double, stromscore::Settings const&, stromscore::EventList&) [53]
+[55]     0.0    0.00    0.00       1         stromscore::Generator::chaseMotif(stromscore::musicaltime::Tick, stromscore::Generator::Pos const&, stromscore::Settings const&, stromscore::EventList&) [55]
+                0.00    0.00       1/1616        stromscore::Generator::melodyHandoff(stromscore::musicaltime::Tick, stromscore::Generator::Pos const&, stromscore::Settings const&, int, stromscore::EventList&, bool) [46]
+                0.00    0.00       1/1148384     stromscore::Generator::playableMelodyHandoff(stromscore::musicaltime::Tick, stromscore::Generator::Pos const&, stromscore::Settings const&, bool) [9]
+                0.00    0.00       1/1688807     stromscore::Generator::melodicRoleWindow(int, stromscore::Generator::Pos const&, stromscore::Settings const&) [14]
+-----------------------------------------------
+                0.00    0.00      30/30          stromscore::Generator::motifOccurrence(stromscore::musicaltime::Tick, stromscore::Generator::Pos const&, stromscore::Settings const&, int, bool, bool) [13]
+[56]     0.0    0.00    0.00      30         stromscore::Generator::remainingMotifFits(stromscore::composition::MotifOccurrence const&, stromscore::musicaltime::Tick, stromscore::Settings const&, int) const [56]
+                0.00    0.00      52/32153848     stromscore::Generator::locate(stromscore::musicaltime::Tick) const [12]
+                0.00    0.00      30/6183376     stromscore::outputDescription(stromscore::Settings const&, int) [21]
+-----------------------------------------------
+                0.00    0.00       2/2           main [1]
+[57]     0.0    0.00    0.00       2         rtprobe::Series::print(double) [57]
+                0.00    0.00       2/27038027     frame_dummy [10]
+-----------------------------------------------
+                0.00    0.00     388/2204698     stromscore::Generator::authoredMotif(stromscore::Generator::Pos const&, stromscore::Settings const&, int) const [47]
+                0.00    0.00    1615/2204698     stromscore::Generator::render(stromscore::musicaltime::Tick, int, stromscore::Generator::Pos const&, bool, long long, stromscore::Settings const&, stromscore::EventList&, bool, bool) [3]
+                0.00    0.00 1058341/2204698     stromscore::Generator::playableMelodyHandoff(stromscore::musicaltime::Tick, stromscore::Generator::Pos const&, stromscore::Settings const&, bool) [9]
+                0.00    0.00 1144354/2204698     stromscore::Generator::melodicRoleWindow(int, stromscore::Generator::Pos const&, stromscore::Settings const&) [14]
+[63]     0.0    0.00    0.00 2204698         stromscore::composition::suitable(stromscore::composition::PlayingTrack const&, stromscore::composition::RoleNeed const&) [63]
+-----------------------------------------------
+                0.00    0.00  924294/1849503     stromscore::Generator::noteOn(int, int, int, stromscore::musicaltime::Tick, int, stromscore::EventList&, bool, bool) [37]
+                0.00    0.00  925209/1849503     stromscore::Generator::process(stromscore::Transport const&, stromscore::Settings const&, int, stromscore::EventList&) [2]
+[64]     0.0    0.00    0.00 1849503         stromscore::execution::quarters(stromscore::musicaltime::Tick, stromscore::execution::Timing, float) [64]
+-----------------------------------------------
+                0.00    0.00    1440/1004937     stromscore::Generator::playArpeggio(stromscore::musicaltime::Tick, int, stromscore::Generator::Pos const&, long long, stromscore::Settings const&, stromscore::EventList&) [31]
+                0.00    0.00  423795/1004937     stromscore::Generator::templateOnset(stromscore::Generator::Pos const&, stromscore::Settings const&) [20]
+                0.00    0.00  579702/1004937     stromscore::Generator::nextOnset(stromscore::musicaltime::Tick, stromscore::Settings const&) [6]
+[65]     0.0    0.00    0.00 1004937         stromscore::Generator::movementRhythm(stromscore::Generator::Pos const&, stromscore::Settings const&) const [65]
+-----------------------------------------------
+                0.00    0.00  423795/919991      stromscore::Generator::templateOnset(stromscore::Generator::Pos const&, stromscore::Settings const&) [20]
+                0.00    0.00  496196/919991      stromscore::Generator::nextOnset(stromscore::musicaltime::Tick, stromscore::Settings const&) [6]
+[66]     0.0    0.00    0.00  919991         stromscore::Generator::arpeggioPeriod(stromscore::Settings const&, long long) const [66]
+-----------------------------------------------
+                0.00    0.00    2585/828009      stromscore::Generator::accents(stromscore::musicaltime::Tick, stromscore::Generator::Pos const&, stromscore::Settings const&, int, stromscore::EventList&) [54]
+                0.00    0.00  825424/828009      stromscore::Generator::templateOnset(stromscore::Generator::Pos const&, stromscore::Settings const&) [20]
+[67]     0.0    0.00    0.00  828009         stromscore::Generator::tupferAt(long long, stromscore::Settings const&) const [67]
+-----------------------------------------------
+                0.00    0.00  581160/581160      stromscore::Generator::process(stromscore::Transport const&, stromscore::Settings const&, int, stromscore::EventList&) [2]
+[68]     0.0    0.00    0.00  581160         stromscore::Generator::capturePerformance(double, double, double, stromscore::Settings const&, stromscore::EventList const&) [68]
+-----------------------------------------------
+                0.00    0.00  464516/464516      stromscore::Generator::noteOn(int, int, int, stromscore::musicaltime::Tick, int, stromscore::EventList&, bool, bool) [37]
+[69]     0.0    0.00    0.00  464516         stromscore::Generator::fitRange(int, int) const [69]
+-----------------------------------------------
+                0.00    0.00  230402/230402      stromscore::Generator::process(stromscore::Transport const&, stromscore::Settings const&, int, stromscore::EventList&) [2]
+[70]     0.0    0.00    0.00  230402         stromscore::composition::valid(stromscore::composition::MotifRecurrencePolicy const&) [70]
+-----------------------------------------------
+                0.00    0.00    8075/123275      stromscore::Generator::render(stromscore::musicaltime::Tick, int, stromscore::Generator::Pos const&, bool, long long, stromscore::Settings const&, stromscore::EventList&, bool, bool) [3]
+                0.00    0.00  115200/123275      stromscore::Generator::process(stromscore::Transport const&, stromscore::Settings const&, int, stromscore::EventList&) [2]
+[71]     0.0    0.00    0.00  123275         stromscore::sequenceStrategy(stromscore::Settings const&) [71]
+-----------------------------------------------
+                0.00    0.00  117936/117936      stromscore::Generator::process(stromscore::Transport const&, stromscore::Settings const&, int, stromscore::EventList&) [2]
+[72]     0.0    0.00    0.00  117936         stromscore::Generator::applyDrive(stromscore::musicaltime::Tick, stromscore::Settings&, float, float) [72]
+-----------------------------------------------
+                0.00    0.00       1/117936      stromscore::Generator::chase(double, stromscore::Settings const&, stromscore::EventList&) [53]
+                0.00    0.00  117935/117936      stromscore::Generator::render(stromscore::musicaltime::Tick, int, stromscore::Generator::Pos const&, bool, long long, stromscore::Settings const&, stromscore::EventList&, bool, bool) [3]
+[73]     0.0    0.00    0.00  117936         stromscore::Generator::prepareBassPhrase(stromscore::Generator::Pos const&, stromscore::Settings const&) [73]
+-----------------------------------------------
+                0.00    0.00       1/116321      stromscore::Generator::chase(double, stromscore::Settings const&, stromscore::EventList&) [53]
+                0.00    0.00  116320/116321      stromscore::Generator::prepareAt(stromscore::musicaltime::Tick, int, stromscore::Settings const&, stromscore::EventList&) [4]
+[74]     0.0    0.00    0.00  116321         stromscore::Generator::prepareLeadEvent(stromscore::musicaltime::Tick, stromscore::Settings const&, int, stromscore::EventList&) [74]
+-----------------------------------------------
+                0.00    0.00       1/116321      stromscore::Generator::chase(double, stromscore::Settings const&, stromscore::EventList&) [53]
+                0.00    0.00  116320/116321      stromscore::Generator::prepareAt(stromscore::musicaltime::Tick, int, stromscore::Settings const&, stromscore::EventList&) [4]
+[75]     0.0    0.00    0.00  116321         stromscore::Generator::prepareSequences(stromscore::musicaltime::Tick, stromscore::Settings const&, int, stromscore::EventList&) [75]
+-----------------------------------------------
+                0.00    0.00       1/116321      stromscore::Generator::chase(double, stromscore::Settings const&, stromscore::EventList&) [53]
+                0.00    0.00  116320/116321      stromscore::Generator::prepareAt(stromscore::musicaltime::Tick, int, stromscore::Settings const&, stromscore::EventList&) [4]
+[76]     0.0    0.00    0.00  116321         stromscore::Generator::prepareFigureEvent(stromscore::musicaltime::Tick, stromscore::Settings const&, int, stromscore::EventList&) [76]
+-----------------------------------------------
+                0.00    0.00  114875/114875      stromscore::Generator::process(stromscore::Transport const&, stromscore::Settings const&, int, stromscore::EventList&) [2]
+[77]     0.0    0.00    0.00  114875         stromscore::Generator::releaseAt(double, int, stromscore::EventList&, bool) [77]
+-----------------------------------------------
+                0.00    0.00      62/47211       stromscore::Generator::freePhraseStep(stromscore::musicaltime::Tick, stromscore::Generator::Pos const&, stromscore::Settings const&, int, stromscore::EventList&, bool) [51]
+                0.00    0.00   19779/47211       stromscore::Generator::nextOnset(stromscore::musicaltime::Tick, stromscore::Settings const&) [6]
+                0.00    0.00   27370/47211       stromscore::Generator::melodicRoleWindow(int, stromscore::Generator::Pos const&, stromscore::Settings const&) [14]
+[78]     0.0    0.00    0.00   47211         stromscore::Generator::freeLinePhrase(stromscore::Generator::Pos const&, stromscore::Settings const&) const [78]
+-----------------------------------------------
+                0.00    0.00   20784/20784       stromscore::Generator::motifOccurrence(stromscore::musicaltime::Tick, stromscore::Generator::Pos const&, stromscore::Settings const&, int, bool, bool) [13]
+[79]     0.0    0.00    0.00   20784         stromscore::Generator::scoreMotifAdaptation(stromscore::Settings const&, int) const [79]
+-----------------------------------------------
+                0.00    0.00   16214/16214       stromscore::Generator::renderLayers(stromscore::musicaltime::Tick, stromscore::Generator::Pos const&, stromscore::Settings const&, int, stromscore::EventList&, bool) [5]
+[80]     0.0    0.00    0.00   16214         stromscore::Generator::layerOwns(int, stromscore::Settings const&) const [80]
+-----------------------------------------------
+                0.00    0.00    1615/1615        stromscore::Generator::render(stromscore::musicaltime::Tick, int, stromscore::Generator::Pos const&, bool, long long, stromscore::Settings const&, stromscore::EventList&, bool, bool) [3]
+[81]     0.0    0.00    0.00    1615         stromscore::Generator::melodicBassAllowed(stromscore::Settings const&) const [81]
+-----------------------------------------------
+                0.00    0.00    1615/1615        stromscore::Generator::render(stromscore::musicaltime::Tick, int, stromscore::Generator::Pos const&, bool, long long, stromscore::Settings const&, stromscore::EventList&, bool, bool) [3]
+[82]     0.0    0.00    0.00    1615         stromscore::Generator::choosePad(stromscore::Settings const&) const [82]
+-----------------------------------------------
+                0.00    0.00    1538/1538        stromscore::Generator::render(stromscore::musicaltime::Tick, int, stromscore::Generator::Pos const&, bool, long long, stromscore::Settings const&, stromscore::EventList&, bool, bool) [3]
+[83]     0.0    0.00    0.00    1538         stromscore::Generator::dialogueArp(stromscore::musicaltime::Tick, stromscore::Generator::Pos const&, stromscore::Settings const&, int, stromscore::EventList&, bool) [83]
+-----------------------------------------------
+                0.00    0.00     980/980         stromscore::Generator::prepareVoicingPlan(stromscore::Generator::Pos const&, stromscore::Settings const&) [17]
+[84]     0.0    0.00    0.00     980         stromscore::voiceleading::distance(stromscore::voiceleading::ChordVoicing const&, stromscore::voiceleading::ChordVoicing const&) [84]
+-----------------------------------------------
+                0.00    0.00      15/877         stromscore::Generator::process(stromscore::Transport const&, stromscore::Settings const&, int, stromscore::EventList&) [2]
+                0.00    0.00      43/877         stromscore::Generator::prepareLayers(stromscore::musicaltime::Tick, stromscore::Settings const&, int, stromscore::EventList&) [7]
+                0.00    0.00     129/877         stromscore::Generator::renderLayers(stromscore::musicaltime::Tick, stromscore::Generator::Pos const&, stromscore::Settings const&, int, stromscore::EventList&, bool) [5]
+                0.00    0.00     690/877         stromscore::Generator::renderLayerHarmony(stromscore::musicaltime::Tick, stromscore::Generator::Pos const&, stromscore::Settings const&, int, stromscore::EventList&) [15]
+[85]     0.0    0.00    0.00     877         stromscore::Generator::removeActive(int, int, stromscore::EventList&) [85]
+-----------------------------------------------
+                0.00    0.00     490/490         stromscore::Generator::prepareVoicingPlan(stromscore::Generator::Pos const&, stromscore::Settings const&) [17]
+[86]     0.0    0.00    0.00     490         stromscore::voiceleading::shapeCost(stromscore::voiceleading::ChordVoicing const&, stromscore::voiceleading::ChordVoicing const&) [86]
+-----------------------------------------------
+                0.00    0.00     305/305         stromscore::Generator::sustained(stromscore::Generator::Pos const&, stromscore::Settings const&, int, stromscore::EventList&, bool, unsigned int) [50]
+[87]     0.0    0.00    0.00     305         stromscore::Generator::padChord(stromscore::Generator::Pos const&, stromscore::Settings const&, int, int, stromscore::musicaltime::Tick, int, stromscore::EventList&) [87]
+-----------------------------------------------
+                0.00    0.00     141/141         stromscore::Generator::renderLayers(stromscore::musicaltime::Tick, stromscore::Generator::Pos const&, stromscore::Settings const&, int, stromscore::EventList&, bool) [5]
+[88]     0.0    0.00    0.00     141         stromscore::Generator::layerPlayable(int, int, stromscore::musicaltime::Tick, stromscore::Settings const&) const [88]
+-----------------------------------------------
+                0.00    0.00      75/75          stromscore::Generator::render(stromscore::musicaltime::Tick, int, stromscore::Generator::Pos const&, bool, long long, stromscore::Settings const&, stromscore::EventList&, bool, bool) [3]
+[89]     0.0    0.00    0.00      75         stromscore::Generator::cut(int, stromscore::musicaltime::Tick, stromscore::musicaltime::Tick, int, stromscore::EventList&) [89]
+-----------------------------------------------
+                0.00    0.00       5/22          stromscore::Generator::motifStep(stromscore::musicaltime::Tick, stromscore::Generator::Pos const&, stromscore::Settings const&, int, stromscore::EventList&, int) [49]
+                0.00    0.00      17/22          stromscore::Generator::counterLine(stromscore::musicaltime::Tick, stromscore::Generator::Pos const&, stromscore::Settings const&, int, bool, stromscore::EventList&, int) [44]
+[90]     0.0    0.00    0.00      22         stromscore::Generator::releaseOthers(int, int, int, stromscore::EventList&) [90]
+-----------------------------------------------
+                0.00    0.00       2/2           main [1]
+[91]     0.0    0.00    0.00       2         std::vector<double, std::allocator<double> >::reserve(unsigned long) [91]
+-----------------------------------------------
+                0.00    0.00       1/1           stromscore::Generator::updateScene(stromscore::musicaltime::Tick, stromscore::Generator::Pos const&, stromscore::Settings const&, bool, int, stromscore::EventList&) [38]
+[92]     0.0    0.00    0.00       1         stromscore::Generator::autoEntry(stromscore::Settings const&) [92]
+-----------------------------------------------
+                0.00    0.00       1/1           main [1]
+[93]     0.0    0.00    0.00       1         std::vector<std::unique_ptr<stromscore::EventList, std::default_delete<stromscore::EventList> >, std::allocator<std::unique_ptr<stromscore::EventList, std::default_delete<stromscore::EventList> > > >::~vector() [93]
+-----------------------------------------------
+                0.00    0.00       1/1           main [1]
+[94]     0.0    0.00    0.00       1         std::vector<std::unique_ptr<stromscore::Generator, std::default_delete<stromscore::Generator> >, std::allocator<std::unique_ptr<stromscore::Generator, std::default_delete<stromscore::Generator> > > >::~vector() [94]
+-----------------------------------------------
+
+ This table describes the call tree of the program, and was sorted by
+ the total amount of time spent in each function and its children.
+
+ Each entry in this table consists of several lines.  The line with the
+ index number at the left hand margin lists the current function.
+ The lines above it list the functions that called this function,
+ and the lines below it list the functions this one called.
+ This line lists:
+     index	A unique number given to each element of the table.
+		Index numbers are sorted numerically.
+		The index number is printed next to every function name so
+		it is easier to look up where the function is in the table.
+
+     % time	This is the percentage of the `total' time that was spent
+		in this function and its children.  Note that due to
+		different viewpoints, functions excluded by options, etc,
+		these numbers will NOT add up to 100%.
+
+     self	This is the total amount of time spent in this function.
+
+     children	This is the total amount of time propagated into this
+		function by its children.
+
+     called	This is the number of times the function was called.
+		If the function called itself recursively, the number
+		only includes non-recursive calls, and is followed by
+		a `+' and the number of recursive calls.
+
+     name	The name of the current function.  The index number is
+		printed after it.  If the function is a member of a
+		cycle, the cycle number is printed between the
+		function's name and the index number.
+
+
+ For the function's parents, the fields have the following meanings:
+
+     self	This is the amount of time that was propagated directly
+		from the function into this parent.
+
+     children	This is the amount of time that was propagated from
+		the function's children into this parent.
+
+     called	This is the number of times this parent called the
+		function `/' the total number of times the function
+		was called.  Recursive calls to the function are not
+		included in the number after the `/'.
+
+     name	This is the name of the parent.  The parent's index
+		number is printed after it.  If the parent is a
+		member of a cycle, the cycle number is printed between
+		the name and the index number.
+
+ If the parents of the function cannot be determined, the word
+ `<spontaneous>' is printed in the `name' field, and all the other
+ fields are blank.
+
+ For the function's children, the fields have the following meanings:
+
+     self	This is the amount of time that was propagated directly
+		from the child into the function.
+
+     children	This is the amount of time that was propagated from the
+		child's children to the function.
+
+     called	This is the number of times the function called
+		this child `/' the total number of times the child
+		was called.  Recursive calls by the child are not
+		listed in the number after the `/'.
+
+     name	This is the name of the child.  The child's index
+		number is printed after it.  If the child is a
+		member of a cycle, the cycle number is printed
+		between the name and the index number.
+
+ If there are any cycles (circles) in the call graph, there is an
+ entry for the cycle-as-a-whole.  This entry shows who called the
+ cycle (as parents) and the members of the cycle (as children.)
+ The `+' recursive calls entry shows the number of function calls that
+ were internal to the cycle, and the calls entry for each member shows,
+ for that member, how many times it was called from other members of
+ the cycle.
+
+Copyright (C) 2012-2025 Free Software Foundation, Inc.
+
+Copying and distribution of this file, with or without modification,
+are permitted in any medium without royalty provided the copyright
+notice and this notice are preserved.
+
+Index by function name
+
+  [39] stromscore::composition::deriveMotif(stromscore::composition::RememberedMotif const&, stromscore::composition::MotifVariation, int) [74] stromscore::Generator::prepareLeadEvent(stromscore::musicaltime::Tick, stromscore::Settings const&, int, stromscore::EventList&) [47] stromscore::Generator::authoredMotif(stromscore::Generator::Pos const&, stromscore::Settings const&, int) const
+  [29] stromscore::composition::planHarmony(stromscore::composition::HarmonicRequest const&) [75] stromscore::Generator::prepareSequences(stromscore::musicaltime::Tick, stromscore::Settings const&, int, stromscore::EventList&) [88] stromscore::Generator::layerPlayable(int, int, stromscore::musicaltime::Tick, stromscore::Settings const&) const
+  [33] stromscore::composition::recurrenceSlot(stromscore::composition::MotifRecurrencePolicy const&, long, float, float) [14] stromscore::Generator::melodicRoleWindow(int, stromscore::Generator::Pos const&, stromscore::Settings const&) [41] stromscore::Generator::planMotifNote(int, stromscore::Generator::Pos const&, stromscore::Settings const&, int, stromscore::composition::RememberedMotif const*, bool, stromscore::composition::MotifOccurrence const*) const
+  [70] stromscore::composition::valid(stromscore::composition::MotifRecurrencePolicy const&) [52] stromscore::Generator::nextBassPlacement(stromscore::Generator::Pos const&, stromscore::Settings const&) [66] stromscore::Generator::arpeggioPeriod(stromscore::Settings const&, long long) const
+  [63] stromscore::composition::suitable(stromscore::composition::PlayingTrack const&, stromscore::composition::RoleNeed const&) [73] stromscore::Generator::prepareBassPhrase(stromscore::Generator::Pos const&, stromscore::Settings const&) [40] stromscore::Generator::authoredRhythm(stromscore::Settings const&) const
+  [27] stromscore::voiceleading::lead(stromscore::voiceleading::ChordVoicing, stromscore::voiceleading::ChordVoicing, int, int, int, int, stromscore::voiceleading::VoiceBinding const*) [68] stromscore::Generator::capturePerformance(double, double, double, stromscore::Settings const&, stromscore::EventList const&) [78] stromscore::Generator::freeLinePhrase(stromscore::Generator::Pos const&, stromscore::Settings const&) const
+  [84] stromscore::voiceleading::distance(stromscore::voiceleading::ChordVoicing const&, stromscore::voiceleading::ChordVoicing const&) [76] stromscore::Generator::prepareFigureEvent(stromscore::musicaltime::Tick, stromscore::Settings const&, int, stromscore::EventList&) [65] stromscore::Generator::movementRhythm(stromscore::Generator::Pos const&, stromscore::Settings const&) const
+  [86] stromscore::voiceleading::shapeCost(stromscore::voiceleading::ChordVoicing const&, stromscore::voiceleading::ChordVoicing const&) [17] stromscore::Generator::prepareVoicingPlan(stromscore::Generator::Pos const&, stromscore::Settings const&) [25] stromscore::Generator::authoredRhythmBar(stromscore::Generator::Pos const&, stromscore::Settings const&, bool) const
+  [19] stromscore::outputCatalog(stromscore::Settings const&) [15] stromscore::Generator::renderLayerHarmony(stromscore::musicaltime::Tick, stromscore::Generator::Pos const&, stromscore::Settings const&, int, stromscore::EventList&) [81] stromscore::Generator::melodicBassAllowed(stromscore::Settings const&) const
+  [71] stromscore::sequenceStrategy(stromscore::Settings const&) [9] stromscore::Generator::playableMelodyHandoff(stromscore::musicaltime::Tick, stromscore::Generator::Pos const&, stromscore::Settings const&, bool) [56] stromscore::Generator::remainingMotifFits(stromscore::composition::MotifOccurrence const&, stromscore::musicaltime::Tick, stromscore::Settings const&, int) const
+  [21] stromscore::outputDescription(stromscore::Settings const&, int) [89] stromscore::Generator::cut(int, stromscore::musicaltime::Tick, stromscore::musicaltime::Tick, int, stromscore::EventList&) [32] stromscore::Generator::motifAvailableUntil(stromscore::Settings const&, int) const
+  [72] stromscore::Generator::applyDrive(stromscore::musicaltime::Tick, stromscore::Settings&, float, float) [43] stromscore::Generator::pick(stromscore::Settings const&, long long) [24] stromscore::Generator::performanceMaterial(int, stromscore::Settings const&) const
+  [55] stromscore::Generator::chaseMotif(stromscore::musicaltime::Tick, stromscore::Generator::Pos const&, stromscore::Settings const&, stromscore::EventList&) [53] stromscore::Generator::chase(double, stromscore::Settings const&, stromscore::EventList&) [42] stromscore::Generator::W() const
+  [18] stromscore::Generator::padVoicing(stromscore::Generator::Pos const&, stromscore::Settings const&, int) [37] stromscore::Generator::noteOn(int, int, int, stromscore::musicaltime::Tick, int, stromscore::EventList&, bool, bool) [79] stromscore::Generator::scoreMotifAdaptation(stromscore::Settings const&, int) const
+  [44] stromscore::Generator::counterLine(stromscore::musicaltime::Tick, stromscore::Generator::Pos const&, stromscore::Settings const&, int, bool, stromscore::EventList&, int) [3] stromscore::Generator::render(stromscore::musicaltime::Tick, int, stromscore::Generator::Pos const&, bool, long long, stromscore::Settings const&, stromscore::EventList&, bool, bool) [12] stromscore::Generator::locate(stromscore::musicaltime::Tick) const
+  [83] stromscore::Generator::dialogueArp(stromscore::musicaltime::Tick, stromscore::Generator::Pos const&, stromscore::Settings const&, int, stromscore::EventList&, bool) [54] stromscore::Generator::accents(stromscore::musicaltime::Tick, stromscore::Generator::Pos const&, stromscore::Settings const&, int, stromscore::EventList&) [69] stromscore::Generator::fitRange(int, int) const
+  [28] stromscore::Generator::motifWindow(stromscore::Generator::Pos const&, stromscore::Settings const&) [2] stromscore::Generator::process(stromscore::Transport const&, stromscore::Settings const&, int, stromscore::EventList&) [67] stromscore::Generator::tupferAt(long long, stromscore::Settings const&) const
+  [38] stromscore::Generator::updateScene(stromscore::musicaltime::Tick, stromscore::Generator::Pos const&, stromscore::Settings const&, bool, int, stromscore::EventList&) [87] stromscore::Generator::padChord(stromscore::Generator::Pos const&, stromscore::Settings const&, int, int, stromscore::musicaltime::Tick, int, stromscore::EventList&) [82] stromscore::Generator::choosePad(stromscore::Settings const&) const
+  [48] stromscore::Generator::ensurePhrase(long long, stromscore::Settings const&) [92] stromscore::Generator::autoEntry(stromscore::Settings const&) [8] stromscore::Generator::layerFits(stromscore::composition::LayerFigure const&, stromscore::musicaltime::Tick, stromscore::Settings const&, int, int*) const
+  [31] stromscore::Generator::playArpeggio(stromscore::musicaltime::Tick, int, stromscore::Generator::Pos const&, long long, stromscore::Settings const&, stromscore::EventList&) [26] stromscore::Generator::layerEmit(int, int, int, stromscore::musicaltime::Tick, int, stromscore::Settings const&, stromscore::EventList&, bool) [80] stromscore::Generator::layerOwns(int, stromscore::Settings const&) const
+  [85] stromscore::Generator::removeActive(int, int, stromscore::EventList&) [49] stromscore::Generator::motifStep(stromscore::musicaltime::Tick, stromscore::Generator::Pos const&, stromscore::Settings const&, int, stromscore::EventList&, int) [93] std::vector<std::unique_ptr<stromscore::EventList, std::default_delete<stromscore::EventList> >, std::allocator<std::unique_ptr<stromscore::EventList, std::default_delete<stromscore::EventList> > > >::~vector()
+   [5] stromscore::Generator::renderLayers(stromscore::musicaltime::Tick, stromscore::Generator::Pos const&, stromscore::Settings const&, int, stromscore::EventList&, bool) [6] stromscore::Generator::nextOnset(stromscore::musicaltime::Tick, stromscore::Settings const&) [94] std::vector<std::unique_ptr<stromscore::Generator, std::default_delete<stromscore::Generator> >, std::allocator<std::unique_ptr<stromscore::Generator, std::default_delete<stromscore::Generator> > > >::~vector()
+  [46] stromscore::Generator::melodyHandoff(stromscore::musicaltime::Tick, stromscore::Generator::Pos const&, stromscore::Settings const&, int, stromscore::EventList&, bool) [4] stromscore::Generator::prepareAt(stromscore::musicaltime::Tick, int, stromscore::Settings const&, stromscore::EventList&) [91] std::vector<double, std::allocator<double> >::reserve(unsigned long)
+   [7] stromscore::Generator::prepareLayers(stromscore::musicaltime::Tick, stromscore::Settings const&, int, stromscore::EventList&) [77] stromscore::Generator::releaseAt(double, int, stromscore::EventList&, bool) [45] stromscore::voiceleading::lead(stromscore::voiceleading::ChordVoicing, stromscore::voiceleading::ChordVoicing, int, int, int, int, stromscore::voiceleading::VoiceBinding const*)::{lambda(stromscore::voiceleading::ChordVoicing)#1}::operator()(stromscore::voiceleading::ChordVoicing) const
+  [90] stromscore::Generator::releaseOthers(int, int, int, stromscore::EventList&) [50] stromscore::Generator::sustained(stromscore::Generator::Pos const&, stromscore::Settings const&, int, stromscore::EventList&, bool, unsigned int) [23] stromscore::Generator::motifOccurrence(stromscore::musicaltime::Tick, stromscore::Generator::Pos const&, stromscore::Settings const&, int, bool, bool)::{lambda(stromscore::composition::MotifVariation, bool, int)#1}::operator()(stromscore::composition::MotifVariation, bool, int) const
+  [20] stromscore::Generator::templateOnset(stromscore::Generator::Pos const&, stromscore::Settings const&) [64] stromscore::execution::quarters(stromscore::musicaltime::Tick, stromscore::execution::Timing, float) [30] stromscore::Generator::motifOccurrence(stromscore::musicaltime::Tick, stromscore::Generator::Pos const&, stromscore::Settings const&, int, bool, bool)::{lambda(stromscore::composition::MotifVariation, bool, int)#1}::operator()(stromscore::composition::MotifVariation, bool, int) const::{lambda(stromscore::musicaltime::Tick)#1}::operator()(stromscore::musicaltime::Tick) const
+  [51] stromscore::Generator::freePhraseStep(stromscore::musicaltime::Tick, stromscore::Generator::Pos const&, stromscore::Settings const&, int, stromscore::EventList&, bool) [57] rtprobe::Series::print(double) [22] _init
+  [11] stromscore::Generator::dialogueMayLead(stromscore::Generator::Pos const&, stromscore::Settings const&) [34] stromscore::Generator::chooseBass(stromscore::Settings const&, long long) const [10] frame_dummy
+  [13] stromscore::Generator::motifOccurrence(stromscore::musicaltime::Tick, stromscore::Generator::Pos const&, stromscore::Settings const&, int, bool, bool) [35] stromscore::Generator::roleRhythm(stromscore::Generator::Pos const&, stromscore::Settings const&) const
+  [16] stromscore::Generator::motifVoiceWindow(stromscore::Generator::Pos const&, stromscore::Settings const&, int, bool, bool) [36] stromscore::Generator::layerBinding(stromscore::Settings const&) const

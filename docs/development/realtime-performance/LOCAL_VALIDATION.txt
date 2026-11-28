@@ -1,0 +1,43 @@
+Validation logs for frozen runtime sources (see PROVENANCE.json).
+
+core-tests.log
+64/68 Test #15: ScoreRealization .................   Passed    0.01 sec
+      Start 36: RhythmPlan
+65/68 Test #16: MotifConsistency .................   Passed    0.01 sec
+      Start 48: WendungIds
+66/68 Test #36: RhythmPlan .......................   Passed    0.01 sec
+      Start  9: RealtimeNeutrality
+67/68 Test #48: WendungIds .......................   Passed    0.00 sec
+68/68 Test  #9: RealtimeNeutrality ...............   Passed    0.08 sec
+
+100% tests passed out of 68
+
+Total Test time (real) = 1464.79 sec
+
+processor-tests.log
+      Start 76: ProcessorCcOutput
+ 8/11 Test #76: ProcessorCcOutput ................   Passed    3.70 sec
+      Start 77: ProcessorDarkSynth
+ 9/11 Test #77: ProcessorDarkSynth ...............   Passed   21.38 sec
+      Start 78: ProcessorHerrmannArQuiet
+10/11 Test #78: ProcessorHerrmannArQuiet .........   Passed   70.91 sec
+      Start 79: ProcessorWilliamsMotifs
+11/11 Test #79: ProcessorWilliamsMotifs ..........   Passed   16.42 sec
+
+100% tests passed out of 11
+
+Total Test time (real) = 317.99 sec
+
+asan-tests.log
+ 8/12 Test #21: MotifReprise .....................   Passed    0.33 sec
+      Start 41: CompositionCore
+ 9/12 Test #41: CompositionCore ..................   Passed    0.87 sec
+      Start 15: ScoreRealization
+10/12 Test #15: ScoreRealization .................   Passed    0.06 sec
+      Start  9: RealtimeNeutrality
+11/12 Test  #9: RealtimeNeutrality ...............   Passed    0.20 sec
+12/12 Test #11: HarmonicLayers ...................   Passed  333.74 sec
+
+100% tests passed out of 12
+
+Total Test time (real) = 333.75 sec

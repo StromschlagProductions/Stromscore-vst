@@ -1,3 +1,20 @@
+# Aktueller DEV-Test – Echtzeit-Performance
+
+Musikalische Referenz bleibt **b969932**. Dieser Build verändert weder das Dark-Synth-Vokabular noch die übrigen musikalischen Profile. Die Dark-Synth-Hörabnahme bleibt offen. Details und vollständige Messdaten stehen in `PERFORMANCE.md` und `realtime-performance/` im Paket.
+
+Studio One schließen, bisherigen VST3-Ordner sichern und durch die Fassung aus dem inneren DEV-VST3-ZIP ersetzen. Gleiche Plugin-ID: beide Versionen nicht parallel installieren. Danach bei Bedarf neu scannen.
+
+Für den technischen Vergleich dieselbe Szene und Instrumentierung verwenden, zunächst 48 kHz, 4/4, D, 100 BPM, Aufbau/Fahrt AUS und unbegrenzte Wiedergabe. Beide motivischen Stimmen für den Belastungstest aktivieren. Alle Profile sowie POP/ROCK prüfen; für eine musikalische Abnahme sind andere Rollenbesetzungen weiterhin sinnvoll.
+
+1. Gerätepuffer nacheinander 64, 128, 256, 512 und 1024 Samples. Einstellungen des Studio-One-Dropoutschutzes beim Vergleich gleich halten und notieren: Gerätepuffer und tatsächlicher Plugin-Verarbeitungsblock können voneinander abweichen.
+2. Statisches XYZ (ruhig und intensiv), schnelle XYZ-Bewegungen und längere Wiedergabe. Nicht nur den durchschnittlichen CPU-Balken, sondern Aussetzer und Spitzen beachten.
+3. Profilwechsel, Stop/Neustart, Seek und Loop testen; auf hängende Noten achten. CC mehrfach ein-/ausschalten, auch gestoppt, und den bestehenden Reset gegenprüfen.
+4. Eine, danach zwei beziehungsweise vier Instanzen gleichzeitig starten. GUI offen/geschlossen vergleichen. Externe Instrumente selbst können einen erheblichen Teil der Gesamtlast verursachen; deren Konfiguration im A/B unverändert lassen.
+
+Die Messumgebung liefert keine Garantie für jeden 64-/128-Sample-Betrieb. Es wurden keine Noten, Controllerwerte oder musikalischen Entscheidungen zur Entlastung entfernt. Die folgenden Dark-Synth-MIDI-Hörbeispiele sind die unveränderten bisherigen P1/P2-Studien, keine musikalisch unterschiedlichen Performance-A/B-Versionen.
+
+---
+
 # Aktueller Hörtest – Dark Synth P2
 
 Im bestehenden Komponistenmenü **Dark Synth** wählen (ersetzt John Carpenter). 4/4, D, 100 BPM, Aufbau/Fahrt AUS, unbegrenzte Wiedergabe, automatische Spielweisen und Follow EIN. Zunächst 512 Samples als Vergleichspuffer. Vorhandene neun MIDI-Ziele unverändert auf geeignete externe Instrumente routen; Kanalnummern, klingende Tonumfänge und Benutzeroktaven kontrollieren. Die Patchfähigkeiten werden nicht automatisch erkannt.
