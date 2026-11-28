@@ -7,7 +7,7 @@ struct ProfileIdentity {ProfileId id;const char* name;bool harmonySelectionOnly;
 inline constexpr std::array<ProfileIdentity,6> profileIdentities {{
 {ProfileId::neutral,"Neutral",false},
 {ProfileId::johnBarry,"John Barry",false},
-{ProfileId::bernardHerrmann,"Bernard Herrmann",true},
+{ProfileId::bernardHerrmann,"Bernard Herrmann",false},
 {ProfileId::johnWilliams,"John Williams",false},
 {ProfileId::ennioMorricone,"Ennio Morricone",false},
 {ProfileId::johnCarpenter,"John Carpenter",false},

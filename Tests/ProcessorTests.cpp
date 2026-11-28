@@ -154,17 +154,17 @@ static void testImportedCatalogExport(bool extended=false,int meter=0)
 #include "ProfileSwitchProcessorTests.h"
 
 // P3: actual processor/SMF path, including both melodic channels and their real note ledger.
-static int testWilliamsMotifsExport(bool pedals=false,bool morricone=false,bool carpenter=false)
+static int testWilliamsMotifsExport(bool pedals=false,bool morricone=false,bool carpenter=false,bool herrmann=false)
 {
  using namespace stromscore;int cases=0;
- for(unsigned id:carpenter?std::vector<unsigned>{60001u,60017u,60023u,60068u,60084u}:morricone?std::vector<unsigned>{50004u,50016u,50023u,50051u}:pedals?std::vector<unsigned>{40003u,40050u,40061u}:std::vector<unsigned>{40002u,40014u})for(int key:{0,11})for(float swing:{0.f,.3f}){
+ for(unsigned id:herrmann?std::vector<unsigned>{70003u,70023u,70051u,70053u,70057u,70064u,70068u}:carpenter?std::vector<unsigned>{60001u,60017u,60023u,60068u,60084u}:morricone?std::vector<unsigned>{50004u,50016u,50023u,50051u}:pedals?std::vector<unsigned>{40003u,40050u,40061u}:std::vector<unsigned>{40002u,40014u})for(int key:{0,11})for(float swing:{0.f,.3f}){
   const auto* h=findHarmonyTemplate(static_cast<WendungId>(id));CHECK(h);
   StromscoreProcessor q;FakeHost host;q.setPlayHead(&host);q.prepareToPlay(48000,512);
-  setParam(q,"komponist",carpenter?5.f:morricone?4.f:3.f);setParam(q,"genre",0);setParam(q,"key",static_cast<float>(key));setParam(q,"aufbau",0);
+  setParam(q,"komponist",herrmann?2.f:carpenter?5.f:morricone?4.f:3.f);setParam(q,"genre",0);setParam(q,"key",static_cast<float>(key));setParam(q,"aufbau",0);
   setParam(q,"faerbung",h->x);setParam(q,"intensitaet",h->y);setParam(q,"unruhe",h->z);setParam(q,"abwechslung",0);
   setParam(q,"durchgaenge",1);setParam(q,"melodie",1);setParam(q,"motiv",1);setParam(q,"melodieMotiv",1);setParam(q,"swing",swing);
   if(morricone&&key==0){setParam(q,"melodie",0);setParam(q,"mute5",1);setParam(q,"mute3",1);setParam(q,"mute4",1);}
-  if(pedals||morricone||carpenter){auto settings=q.currentSettings();bool found=false;for(int v=1;v<=16;++v){settings.variation=v;if(static_cast<unsigned>(wendungAt(settings.genre,Generator::pick(settings,0),settings.profile).id)==id){setParam(q,"variation",static_cast<float>(v));found=true;break;}}CHECK(found);}
+  if(pedals||morricone||carpenter||herrmann){auto settings=q.currentSettings();bool found=false;for(int v=1;v<=16;++v){settings.variation=v;if(static_cast<unsigned>(wendungAt(settings.genre,Generator::pick(settings,0),settings.profile).id)==id){setParam(q,"variation",static_cast<float>(v));found=true;break;}}CHECK(found);}
   using Timed=std::tuple<long long,int,int,int,int>;std::vector<Timed> live,exported;
   auto add=[](std::vector<Timed>& target,const juce::MidiMessage& m,long long tick){
    if(m.isNoteOnOrOff())target.emplace_back(tick,m.isNoteOn()?1:0,m.getChannel(),m.getNoteNumber(),m.isNoteOn()?m.getVelocity():0);
@@ -178,16 +178,17 @@ static int testWilliamsMotifsExport(bool pedals=false,bool morricone=false,bool 
    for(auto m:messages)add(live,m.getMessage(),std::llround((at+m.samplePosition)/25.));}
   host.playing=false;messages.clear();q.processBlock(audio,messages);collect(messages,ledger);for(auto m:messages)add(live,m.getMessage(),total/25);
   std::sort(live.begin(),live.end());std::sort(exported.begin(),exported.end());CHECK(live==exported&&!live.empty());CHECK(!ledger.broken&&ledger.ons==ledger.offs);
-  int melodic=0;for(auto e:live)if(std::get<1>(e)==1&&(std::get<2>(e)==q.currentSettings().channel[OutMelody]||std::get<2>(e)==q.currentSettings().channel[OutCounter]))++melodic;if(!pedals&&!morricone&&!carpenter)CHECK(melodic>10);
+  int melodic=0;for(auto e:live)if(std::get<1>(e)==1&&(std::get<2>(e)==q.currentSettings().channel[OutMelody]||std::get<2>(e)==q.currentSettings().channel[OutCounter]))++melodic;if(!pedals&&!morricone&&!carpenter&&!herrmann)CHECK(melodic>10);
   if(pedals){std::vector<long long> attacks;for(auto e:live)if(std::get<1>(e)==1&&std::get<2>(e)==q.currentSettings().channel[OutBassLong]){attacks.push_back(std::get<0>(e));CHECK(std::get<3>(e)%12==key);}CHECK(attacks.size()==4);for(size_t i=1;i<attacks.size();++i)CHECK(attacks[i]-attacks[i-1]==16*4*960);}
   file.deleteFile();++cases;
  }
- std::cout<<(carpenter?"Carpenter P1 real processor live/export: ":morricone?"Morricone P1 real processor live/export: ":pedals?"Williams pedals real processor live/export: ":"Williams P3 real processor live/export: ")<<cases<<" cases, no hanging notes or process allocations\n";return 0;
+ std::cout<<(herrmann?"Herrmann P1 real processor live/export: ":carpenter?"Carpenter P1 real processor live/export: ":morricone?"Morricone P1 real processor live/export: ":pedals?"Williams pedals real processor live/export: ":"Williams P3 real processor live/export: ")<<cases<<" cases, no hanging notes or process allocations\n";return 0;
 }
 
 int main(int argc,char** argv)
 {
     juce::ScopedJuceInitialiser_GUI init;
+    if(argc==2&&std::string(argv[1])=="--herrmann")return testWilliamsMotifsExport(false,false,false,true);
     if(argc==2&&std::string(argv[1])=="--carpenter")return testWilliamsMotifsExport(false,false,true);
     if(argc==2&&std::string(argv[1])=="--morricone")return testWilliamsMotifsExport(false,true);
     if(argc==2&&std::string(argv[1])=="--pedals")return testWilliamsMotifsExport(true);

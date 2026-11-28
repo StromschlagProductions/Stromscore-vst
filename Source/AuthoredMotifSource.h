@@ -9,6 +9,7 @@ struct AuthoredMotifSource {
  // the established chord-tone-only authoring behavior (Barry).
  unsigned harmony[2]{}, melodic[2]{};int bass[2]{};
  bool dialogOnly=false,octatonic=false,singleIntroduction=false;
+ char functions[8]{};int targets[8]{};float xLow=0.f,xHigh=1.f;bool registerByColor=false; // Optional explicit A/T/V/F/U source intent.
 };
 inline unsigned transposePitchMask(unsigned mask,int key) {
  unsigned result=0;for(int pc=0;pc<12;++pc)if(mask&(1u<<pc))result|=pitchBit(pc+key);return result;

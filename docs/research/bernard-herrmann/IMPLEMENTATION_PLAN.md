@@ -1,3 +1,5 @@
+> Herrmann P1 wurde anschließend umgesetzt. Tatsächlicher Umfang und zurückgestellte Fähigkeiten: [P1.md](P1.md). Dieser Plan dokumentiert den vorausgehenden Vorschlag.
+
 # Bernard Herrmann – aktualisierter Implementierungsplan
 
 28.11.2026 · `develop/composition-core-prototype` · geprüfter Quellstand **`58ea29d`**.

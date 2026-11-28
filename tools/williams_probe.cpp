@@ -58,6 +58,9 @@ int main(int argc,char** argv){
  if(argc>14)s.arpFigure=std::atoi(argv[14]);if(argc>15)s.arpRate=std::atoi(argv[15]);
  if(argc>16)s.key=std::atoi(argv[16]);if(argc>17)s.seed=std::atoi(argv[17]);
  if(argc>19){int mask=std::atoi(argv[19]);for(int l=0;l<kNumLayers;++l)s.mute[l]=s.mute[l]||((mask>>l)&1);}
+ #ifdef LAYER_DIAGNOSTICS
+ std::cerr<<"S,"<<s.variation<<','<<s.x<<','<<s.y<<','<<s.z<<'\n';
+#endif
  Generator g;Transport t;t.playing=true;t.bpm=argc>18?std::atof(argv[18]):100;
  const double samplesPerQuarter=48000.*60/t.bpm;EventList es;long long total=static_cast<long long>(bars*4.*s.meterNum/s.meterDen*samplesPerQuarter);int last=-2;
  for(long long at=0;at<total;){
@@ -71,6 +74,10 @@ int main(int argc,char** argv){
   es.clear();g.process(t,s,n,es);if(es.overflow)return 3;
   if(g.wendung()!=last){last=g.wendung();std::cerr<<"H,"<<at<<','<<(last<0?-1:static_cast<int>(wendungAt(s.genre,last,s.profile).id))<<'\n';}
   for(int i=0;i<es.size;++i){const auto& e=es.events[i];std::cout<<at+e.offset<<','<<int(e.out)<<','<<int(e.channel)<<','<<int(e.note)<<','<<int(e.velocity)<<','<<int(e.type)<<'\n';
+#ifdef LAYER_DIAGNOSTICS
+   if(!e.type&&e.velocity&&(e.out==OutMelody||e.out==OutCounter)){const auto& m=g.inspectMotif(e.out);std::cerr<<"P,"<<at+e.offset<<','<<int(e.out)<<','<<m.vocabularyId<<','<<m.identity<<','<<m.count<<','<<m.complete<<'\n';}
+   if(!e.type&&e.velocity){const auto& use=g.inspectLayers()[e.out];if(use.source)std::cerr<<"L,"<<at+e.offset<<','<<int(e.out)<<','<<use.source->reference<<','<<use.origin.value<<'\n';}
+#endif
 #ifdef SEQUENCE_DIAGNOSTICS
    if(e.type==0&&e.velocity&&(e.out==OutBassShort||e.out==OutArp||e.out==OutCounter)){
     const auto& use=g.inspectSequences()[e.out==OutBassShort?0:e.out==OutArp?1:2];

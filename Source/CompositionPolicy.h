@@ -1,5 +1,7 @@
 #pragma once
 #include "ModalContext.h"
+#include "LayerPlan.h"
+#include "HerrmannVocabulary.generated.h"
 #include "CarpenterVocabulary.generated.h"
 #include "ArpeggioPhrase.h"
 #include "RhythmPlan.h"
@@ -89,7 +91,7 @@ inline bool valid(const SequencePolicy& p)
     for(int i=0;i<p.count;++i)if(!valid(p.sources[i]))return false;
     return !p.event||(valid(*p.event)&&p.eventSpacing>=p.event->period);
 }
-struct FreeCompositionPolicy { SequencePolicy sequences; PedalPolicy pedal; ArpeggioPhrasePolicy arpeggioPhrase; AutoAccompanimentPolicy accompaniment; TexturePolicy texture; PopRolePolicy popRoles; MotifRecurrencePolicy motif; HookPolicy popHooks; PassingPolicy passing; BassPhrasePolicy bass; RhythmCoordinationPolicy rhythm; ChordDispositionPolicy chords; };
+struct FreeCompositionPolicy { LayerPolicy layers; const AuthoredMotifSource* authoredSources=nullptr;int authoredCount=0; SequencePolicy sequences; PedalPolicy pedal; ArpeggioPhrasePolicy arpeggioPhrase; AutoAccompanimentPolicy accompaniment; TexturePolicy texture; PopRolePolicy popRoles; MotifRecurrencePolicy motif; HookPolicy popHooks; PassingPolicy passing; BassPhrasePolicy bass; RhythmCoordinationPolicy rhythm; ChordDispositionPolicy chords; };
 inline constexpr FreeCompositionPolicy neutralFreePolicy {};
 inline constexpr auto barryPolicy=[] {
     auto p=neutralFreePolicy;p.accompaniment.fieldAndOstinato=true;p.accompaniment.authoredCells=true;
@@ -100,6 +102,11 @@ inline constexpr auto barryPolicy=[] {
     return p;
 }();
 inline constexpr auto williamsPolicy=[] {auto p=neutralFreePolicy;p.arpeggioPhrase.enabled=true;p.pedal.enabled=true;return p;}();
+inline constexpr auto herrmannPolicy=[] {auto p=neutralFreePolicy;
+    p.layers={true,herrmann::figures,static_cast<int>(std::size(herrmann::figures)),herrmann::harmonies,static_cast<int>(std::size(herrmann::harmonies))};
+    p.authoredSources=herrmann::motifs;p.authoredCount=static_cast<int>(std::size(herrmann::motifs));
+    p.motif.adaptChordTones=false;for(auto& v:p.motif.variations)v=MotifVariation::original;p.motif.variations[5]=MotifVariation::rhythm;
+    return p;}();
 inline constexpr auto carpenterPolicy=[] {auto p=neutralFreePolicy;p.sequences.enabled=true;p.sequences.chordPulse=true;
     p.sequences.sources=carpenter::sources;p.sequences.count=static_cast<int>(std::size(carpenter::sources));
     p.sequences.harmonies=carpenter::harmonies;p.sequences.harmonyCount=static_cast<int>(std::size(carpenter::harmonies));
@@ -114,7 +121,7 @@ struct CompositionProfile
 };
 inline constexpr auto compositionProfiles=[] {
     std::array<CompositionProfile,profileIdentities.size()> result {};
-    for(size_t i=0;i<result.size();++i){const auto& p=profileIdentities[i];result[i]={p.id,p.name,p.id==ProfileId::johnCarpenter?&carpenterPolicy:p.id==ProfileId::johnBarry?&barryPolicy:p.id==ProfileId::johnWilliams?&williamsPolicy:&neutralFreePolicy,p.harmonySelectionOnly};}
+    for(size_t i=0;i<result.size();++i){const auto& p=profileIdentities[i];result[i]={p.id,p.name,p.id==ProfileId::bernardHerrmann?&herrmannPolicy:p.id==ProfileId::johnCarpenter?&carpenterPolicy:p.id==ProfileId::johnBarry?&barryPolicy:p.id==ProfileId::johnWilliams?&williamsPolicy:&neutralFreePolicy,p.harmonySelectionOnly};}
     return result;
 }();
 inline constexpr const CompositionProfile* findProfile(ProfileId id)

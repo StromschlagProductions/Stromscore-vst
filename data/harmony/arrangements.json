@@ -2314,6 +2314,669 @@
       ],
       "pad": "PadHeld",
       "hook": null
+    },
+    {
+      "id": "herrmann_02",
+      "arp": [
+        "ArpCircle",
+        "ArpCell"
+      ],
+      "bass": [
+        "BassHeld",
+        "BassPedal"
+      ],
+      "pad": "PadHeld",
+      "hook": null
+    },
+    {
+      "id": "herrmann_03",
+      "arp": [
+        "ArpCircle",
+        "ArpCell"
+      ],
+      "bass": [
+        "BassHeld",
+        "BassPedal"
+      ],
+      "pad": "PadHeld",
+      "hook": null
+    },
+    {
+      "id": "herrmann_05",
+      "arp": [
+        "ArpCircle",
+        "ArpCell"
+      ],
+      "bass": [
+        "BassHeld",
+        "BassPedal"
+      ],
+      "pad": "PadHeld",
+      "hook": null
+    },
+    {
+      "id": "herrmann_06",
+      "arp": [
+        "ArpCircle",
+        "ArpCell"
+      ],
+      "bass": [
+        "BassHeld",
+        "BassPedal"
+      ],
+      "pad": "PadHeld",
+      "hook": null
+    },
+    {
+      "id": "herrmann_07",
+      "arp": [
+        "ArpCircle",
+        "ArpCell"
+      ],
+      "bass": [
+        "BassHeld",
+        "BassPedal"
+      ],
+      "pad": "PadHeld",
+      "hook": null
+    },
+    {
+      "id": "herrmann_08",
+      "arp": [
+        "ArpCircle",
+        "ArpCell"
+      ],
+      "bass": [
+        "BassHeld",
+        "BassPedal"
+      ],
+      "pad": "PadHeld",
+      "hook": null
+    },
+    {
+      "id": "herrmann_09",
+      "arp": [
+        "ArpCircle",
+        "ArpCell"
+      ],
+      "bass": [
+        "BassHeld",
+        "BassPedal"
+      ],
+      "pad": "PadHeld",
+      "hook": null
+    },
+    {
+      "id": "herrmann_10",
+      "arp": [
+        "ArpCircle",
+        "ArpCell"
+      ],
+      "bass": [
+        "BassHeld",
+        "BassPedal"
+      ],
+      "pad": "PadHeld",
+      "hook": null
+    },
+    {
+      "id": "herrmann_11",
+      "arp": [
+        "ArpCircle",
+        "ArpCell"
+      ],
+      "bass": [
+        "BassHeld",
+        "BassPedal"
+      ],
+      "pad": "PadHeld",
+      "hook": null
+    },
+    {
+      "id": "herrmann_13",
+      "arp": [
+        "ArpCircle",
+        "ArpCell"
+      ],
+      "bass": [
+        "BassHeld",
+        "BassPedal"
+      ],
+      "pad": "PadHeld",
+      "hook": null
+    },
+    {
+      "id": "herrmann_14",
+      "arp": [
+        "ArpCircle",
+        "ArpCell"
+      ],
+      "bass": [
+        "BassHeld",
+        "BassPedal"
+      ],
+      "pad": "PadHeld",
+      "hook": null
+    },
+    {
+      "id": "herrmann_15",
+      "arp": [
+        "ArpCircle",
+        "ArpCell"
+      ],
+      "bass": [
+        "BassHeld",
+        "BassPedal"
+      ],
+      "pad": "PadHeld",
+      "hook": null
+    },
+    {
+      "id": "herrmann_16",
+      "arp": [
+        "ArpCircle",
+        "ArpCell"
+      ],
+      "bass": [
+        "BassHeld",
+        "BassPedal"
+      ],
+      "pad": "PadHeld",
+      "hook": null
+    },
+    {
+      "id": "herrmann_17",
+      "arp": [
+        "ArpCircle",
+        "ArpCell"
+      ],
+      "bass": [
+        "BassHeld",
+        "BassPedal"
+      ],
+      "pad": "PadHeld",
+      "hook": null
+    },
+    {
+      "id": "herrmann_18",
+      "arp": [
+        "ArpCircle",
+        "ArpCell"
+      ],
+      "bass": [
+        "BassHeld",
+        "BassPedal"
+      ],
+      "pad": "PadHeld",
+      "hook": null
+    },
+    {
+      "id": "herrmann_19",
+      "arp": [
+        "ArpCircle",
+        "ArpCell"
+      ],
+      "bass": [
+        "BassHeld",
+        "BassPedal"
+      ],
+      "pad": "PadHeld",
+      "hook": null
+    },
+    {
+      "id": "herrmann_20",
+      "arp": [
+        "ArpCircle",
+        "ArpCell"
+      ],
+      "bass": [
+        "BassHeld",
+        "BassPedal"
+      ],
+      "pad": "PadHeld",
+      "hook": null
+    },
+    {
+      "id": "herrmann_21",
+      "arp": [
+        "ArpCircle",
+        "ArpCell"
+      ],
+      "bass": [
+        "BassHeld",
+        "BassPedal"
+      ],
+      "pad": "PadHeld",
+      "hook": null
+    },
+    {
+      "id": "herrmann_22",
+      "arp": [
+        "ArpCircle",
+        "ArpCell"
+      ],
+      "bass": [
+        "BassHeld",
+        "BassPedal"
+      ],
+      "pad": "PadHeld",
+      "hook": null
+    },
+    {
+      "id": "herrmann_23",
+      "arp": [
+        "ArpCircle",
+        "ArpCell"
+      ],
+      "bass": [
+        "BassHeld",
+        "BassPedal"
+      ],
+      "pad": "PadHeld",
+      "hook": null
+    },
+    {
+      "id": "herrmann_24",
+      "arp": [
+        "ArpCircle",
+        "ArpCell"
+      ],
+      "bass": [
+        "BassHeld",
+        "BassPedal"
+      ],
+      "pad": "PadHeld",
+      "hook": null
+    },
+    {
+      "id": "herrmann_25",
+      "arp": [
+        "ArpCircle",
+        "ArpCell"
+      ],
+      "bass": [
+        "BassHeld",
+        "BassPedal"
+      ],
+      "pad": "PadHeld",
+      "hook": null
+    },
+    {
+      "id": "herrmann_28",
+      "arp": [
+        "ArpCircle",
+        "ArpCell"
+      ],
+      "bass": [
+        "BassHeld",
+        "BassPedal"
+      ],
+      "pad": "PadHeld",
+      "hook": null
+    },
+    {
+      "id": "herrmann_30",
+      "arp": [
+        "ArpCircle",
+        "ArpCell"
+      ],
+      "bass": [
+        "BassHeld",
+        "BassPedal"
+      ],
+      "pad": "PadHeld",
+      "hook": null
+    },
+    {
+      "id": "herrmann_32",
+      "arp": [
+        "ArpCircle",
+        "ArpCell"
+      ],
+      "bass": [
+        "BassHeld",
+        "BassPedal"
+      ],
+      "pad": "PadHeld",
+      "hook": null
+    },
+    {
+      "id": "herrmann_33",
+      "arp": [
+        "ArpCircle",
+        "ArpCell"
+      ],
+      "bass": [
+        "BassHeld",
+        "BassPedal"
+      ],
+      "pad": "PadHeld",
+      "hook": null
+    },
+    {
+      "id": "herrmann_35",
+      "arp": [
+        "ArpCircle",
+        "ArpCell"
+      ],
+      "bass": [
+        "BassHeld",
+        "BassPedal"
+      ],
+      "pad": "PadHeld",
+      "hook": null
+    },
+    {
+      "id": "herrmann_36",
+      "arp": [
+        "ArpCircle",
+        "ArpCell"
+      ],
+      "bass": [
+        "BassHeld",
+        "BassPedal"
+      ],
+      "pad": "PadHeld",
+      "hook": null
+    },
+    {
+      "id": "herrmann_37",
+      "arp": [
+        "ArpCircle",
+        "ArpCell"
+      ],
+      "bass": [
+        "BassHeld",
+        "BassPedal"
+      ],
+      "pad": "PadHeld",
+      "hook": null
+    },
+    {
+      "id": "herrmann_38",
+      "arp": [
+        "ArpCircle",
+        "ArpCell"
+      ],
+      "bass": [
+        "BassHeld",
+        "BassPedal"
+      ],
+      "pad": "PadHeld",
+      "hook": null
+    },
+    {
+      "id": "herrmann_39",
+      "arp": [
+        "ArpCircle",
+        "ArpCell"
+      ],
+      "bass": [
+        "BassHeld",
+        "BassPedal"
+      ],
+      "pad": "PadHeld",
+      "hook": null
+    },
+    {
+      "id": "herrmann_40",
+      "arp": [
+        "ArpCircle",
+        "ArpCell"
+      ],
+      "bass": [
+        "BassHeld",
+        "BassPedal"
+      ],
+      "pad": "PadHeld",
+      "hook": null
+    },
+    {
+      "id": "herrmann_43",
+      "arp": [
+        "ArpCircle",
+        "ArpCell"
+      ],
+      "bass": [
+        "BassHeld",
+        "BassPedal"
+      ],
+      "pad": "PadHeld",
+      "hook": null
+    },
+    {
+      "id": "herrmann_45",
+      "arp": [
+        "ArpCircle",
+        "ArpCell"
+      ],
+      "bass": [
+        "BassHeld",
+        "BassPedal"
+      ],
+      "pad": "PadHeld",
+      "hook": null
+    },
+    {
+      "id": "herrmann_46",
+      "arp": [
+        "ArpCircle",
+        "ArpCell"
+      ],
+      "bass": [
+        "BassHeld",
+        "BassPedal"
+      ],
+      "pad": "PadHeld",
+      "hook": null
+    },
+    {
+      "id": "herrmann_48",
+      "arp": [
+        "ArpCircle",
+        "ArpCell"
+      ],
+      "bass": [
+        "BassHeld",
+        "BassPedal"
+      ],
+      "pad": "PadHeld",
+      "hook": null
+    },
+    {
+      "id": "herrmann_66",
+      "arp": [
+        "ArpCircle",
+        "ArpCell"
+      ],
+      "bass": [
+        "BassHeld",
+        "BassPedal"
+      ],
+      "pad": "PadHeld",
+      "hook": null
+    },
+    {
+      "id": "herrmann_67",
+      "arp": [
+        "ArpCircle",
+        "ArpCell"
+      ],
+      "bass": [
+        "BassHeld",
+        "BassPedal"
+      ],
+      "pad": "PadHeld",
+      "hook": null
+    },
+    {
+      "id": "herrmann_76",
+      "arp": [
+        "ArpCircle",
+        "ArpCell"
+      ],
+      "bass": [
+        "BassHeld",
+        "BassPedal"
+      ],
+      "pad": "PadHeld",
+      "hook": null
+    },
+    {
+      "id": "herrmann_78",
+      "arp": [
+        "ArpCircle",
+        "ArpCell"
+      ],
+      "bass": [
+        "BassHeld",
+        "BassPedal"
+      ],
+      "pad": "PadHeld",
+      "hook": null
+    },
+    {
+      "id": "herrmann_82",
+      "arp": [
+        "ArpCircle",
+        "ArpCell"
+      ],
+      "bass": [
+        "BassHeld",
+        "BassPedal"
+      ],
+      "pad": "PadHeld",
+      "hook": null
+    },
+    {
+      "id": "herrmann_85",
+      "arp": [
+        "ArpCircle",
+        "ArpCell"
+      ],
+      "bass": [
+        "BassHeld",
+        "BassPedal"
+      ],
+      "pad": "PadHeld",
+      "hook": null
+    },
+    {
+      "id": "herrmann_93",
+      "arp": [
+        "ArpCircle",
+        "ArpCell"
+      ],
+      "bass": [
+        "BassHeld",
+        "BassPedal"
+      ],
+      "pad": "PadHeld",
+      "hook": null
+    },
+    {
+      "id": "herrmann_96",
+      "arp": [
+        "ArpCircle",
+        "ArpCell"
+      ],
+      "bass": [
+        "BassHeld",
+        "BassPedal"
+      ],
+      "pad": "PadHeld",
+      "hook": null
+    },
+    {
+      "id": "herrmann_51",
+      "arp": [
+        "ArpCircle",
+        "ArpCell"
+      ],
+      "bass": [
+        "BassHeld",
+        "BassPedal"
+      ],
+      "pad": "PadHeld",
+      "hook": null
+    },
+    {
+      "id": "herrmann_53",
+      "arp": [
+        "ArpCircle",
+        "ArpCell"
+      ],
+      "bass": [
+        "BassHeld",
+        "BassPedal"
+      ],
+      "pad": "PadHeld",
+      "hook": null
+    },
+    {
+      "id": "herrmann_57",
+      "arp": [
+        "ArpCircle",
+        "ArpCell"
+      ],
+      "bass": [
+        "BassHeld",
+        "BassPedal"
+      ],
+      "pad": "PadHeld",
+      "hook": null
+    },
+    {
+      "id": "herrmann_58",
+      "arp": [
+        "ArpCircle",
+        "ArpCell"
+      ],
+      "bass": [
+        "BassHeld",
+        "BassPedal"
+      ],
+      "pad": "PadHeld",
+      "hook": null
+    },
+    {
+      "id": "herrmann_60",
+      "arp": [
+        "ArpCircle",
+        "ArpCell"
+      ],
+      "bass": [
+        "BassHeld",
+        "BassPedal"
+      ],
+      "pad": "PadHeld",
+      "hook": null
+    },
+    {
+      "id": "herrmann_64",
+      "arp": [
+        "ArpCircle",
+        "ArpCell"
+      ],
+      "bass": [
+        "BassHeld",
+        "BassPedal"
+      ],
+      "pad": "PadHeld",
+      "hook": null
+    },
+    {
+      "id": "herrmann_68",
+      "arp": [
+        "ArpCircle",
+        "ArpCell"
+      ],
+      "bass": [
+        "BassHeld",
+        "BassPedal"
+      ],
+      "pad": "PadHeld",
+      "hook": null
     }
   ],
   "bindings": [
@@ -3216,6 +3879,210 @@
     {
       "template_id": 60084,
       "recipe": "carpenter_084"
+    },
+    {
+      "template_id": 70002,
+      "recipe": "herrmann_02"
+    },
+    {
+      "template_id": 70003,
+      "recipe": "herrmann_03"
+    },
+    {
+      "template_id": 70005,
+      "recipe": "herrmann_05"
+    },
+    {
+      "template_id": 70006,
+      "recipe": "herrmann_06"
+    },
+    {
+      "template_id": 70007,
+      "recipe": "herrmann_07"
+    },
+    {
+      "template_id": 70008,
+      "recipe": "herrmann_08"
+    },
+    {
+      "template_id": 70009,
+      "recipe": "herrmann_09"
+    },
+    {
+      "template_id": 70010,
+      "recipe": "herrmann_10"
+    },
+    {
+      "template_id": 70011,
+      "recipe": "herrmann_11"
+    },
+    {
+      "template_id": 70013,
+      "recipe": "herrmann_13"
+    },
+    {
+      "template_id": 70014,
+      "recipe": "herrmann_14"
+    },
+    {
+      "template_id": 70015,
+      "recipe": "herrmann_15"
+    },
+    {
+      "template_id": 70016,
+      "recipe": "herrmann_16"
+    },
+    {
+      "template_id": 70017,
+      "recipe": "herrmann_17"
+    },
+    {
+      "template_id": 70018,
+      "recipe": "herrmann_18"
+    },
+    {
+      "template_id": 70019,
+      "recipe": "herrmann_19"
+    },
+    {
+      "template_id": 70020,
+      "recipe": "herrmann_20"
+    },
+    {
+      "template_id": 70021,
+      "recipe": "herrmann_21"
+    },
+    {
+      "template_id": 70022,
+      "recipe": "herrmann_22"
+    },
+    {
+      "template_id": 70023,
+      "recipe": "herrmann_23"
+    },
+    {
+      "template_id": 70024,
+      "recipe": "herrmann_24"
+    },
+    {
+      "template_id": 70025,
+      "recipe": "herrmann_25"
+    },
+    {
+      "template_id": 70028,
+      "recipe": "herrmann_28"
+    },
+    {
+      "template_id": 70030,
+      "recipe": "herrmann_30"
+    },
+    {
+      "template_id": 70032,
+      "recipe": "herrmann_32"
+    },
+    {
+      "template_id": 70033,
+      "recipe": "herrmann_33"
+    },
+    {
+      "template_id": 70035,
+      "recipe": "herrmann_35"
+    },
+    {
+      "template_id": 70036,
+      "recipe": "herrmann_36"
+    },
+    {
+      "template_id": 70037,
+      "recipe": "herrmann_37"
+    },
+    {
+      "template_id": 70038,
+      "recipe": "herrmann_38"
+    },
+    {
+      "template_id": 70039,
+      "recipe": "herrmann_39"
+    },
+    {
+      "template_id": 70040,
+      "recipe": "herrmann_40"
+    },
+    {
+      "template_id": 70043,
+      "recipe": "herrmann_43"
+    },
+    {
+      "template_id": 70045,
+      "recipe": "herrmann_45"
+    },
+    {
+      "template_id": 70046,
+      "recipe": "herrmann_46"
+    },
+    {
+      "template_id": 70048,
+      "recipe": "herrmann_48"
+    },
+    {
+      "template_id": 70066,
+      "recipe": "herrmann_66"
+    },
+    {
+      "template_id": 70067,
+      "recipe": "herrmann_67"
+    },
+    {
+      "template_id": 70076,
+      "recipe": "herrmann_76"
+    },
+    {
+      "template_id": 70078,
+      "recipe": "herrmann_78"
+    },
+    {
+      "template_id": 70082,
+      "recipe": "herrmann_82"
+    },
+    {
+      "template_id": 70085,
+      "recipe": "herrmann_85"
+    },
+    {
+      "template_id": 70093,
+      "recipe": "herrmann_93"
+    },
+    {
+      "template_id": 70096,
+      "recipe": "herrmann_96"
+    },
+    {
+      "template_id": 70051,
+      "recipe": "herrmann_51"
+    },
+    {
+      "template_id": 70053,
+      "recipe": "herrmann_53"
+    },
+    {
+      "template_id": 70057,
+      "recipe": "herrmann_57"
+    },
+    {
+      "template_id": 70058,
+      "recipe": "herrmann_58"
+    },
+    {
+      "template_id": 70060,
+      "recipe": "herrmann_60"
+    },
+    {
+      "template_id": 70064,
+      "recipe": "herrmann_64"
+    },
+    {
+      "template_id": 70068,
+      "recipe": "herrmann_68"
     }
   ]
 }

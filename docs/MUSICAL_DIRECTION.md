@@ -125,3 +125,16 @@ Neue Profile müssen auch ohne beide Melodierollen charakteristisch funktioniere
 Studien sind musikalische Referenzen und Prüfgrundlagen, keine statischen MIDI-
 Clips für die Produktwiedergabe. Musikalische Qualität wird nach technischen
 Prüfungen vom Anwender gehört; Auswahlstatistiken allein genügen nicht.
+
+### Fortschreibung 28.11.2026
+
+Carpenter P1 `58ea29d` ist vom Anwender in Studio One vorläufig positiv gehört:
+interessant und praktisch brauchbar, eigenständige elektronische Arbeitsweise.
+XYZ-Vielfalt, Hauptmelodie und Instrumentierung/Klangbalance sind noch nicht
+abschließend beurteilt. Einzelheiten:
+[vorläufige Rückmeldung](development/ACCEPTED_REFERENCE_58ea29d.md).
+
+Optionale rollenbezogene MIDI-CC-Klangmodulation ist eine zukünftige gemeinsame
+Fähigkeit. Sie ist nicht Bestandteil von Herrmann P1; kein zusätzlicher Ausgang,
+keine CC-Implementierung und keine neuen kreativen Parameter werden daraus
+vorsorglich abgeleitet. Kompositionsprofil und Instrumentierung bleiben getrennt.

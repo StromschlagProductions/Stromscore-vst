@@ -600,6 +600,11 @@
       "id": "carpenter_canonical_p1",
       "text": "docs/research/john-carpenter/STROMSCORE_John_Carpenter_Vokabular_Kanonisch.md; source constructions, not film transcriptions; P1 source-specific projection",
       "verification": "canonical_research_constructions"
+    },
+    {
+      "id": "herrmann_canonical_p1",
+      "text": "docs/research/bernard-herrmann/STROMSCORE_Bernard_Herrmann_Vokabular_Kanonisch.md; canonical constructed material, not film transcriptions",
+      "verification": "canonical_research_constructions"
     }
   ],
   "templates": [
@@ -12535,6 +12540,3552 @@
           ],
           "held": [],
           "bass": -35
+        }
+      ]
+    },
+    {
+      "id": 70002,
+      "symbol": "herrmannH02",
+      "name": "HE-H02 – Moll-Dur-Septakkord über der Quinte",
+      "xyz": [
+        0.2,
+        0.35,
+        0.55
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "herrmann_canonical_p1",
+      "chords": [
+        {
+          "root": 0,
+          "type": "MinMaj7",
+          "bars": 8,
+          "bass": 7
+        }
+      ],
+      "coloration": "protected",
+      "voicings": [
+        {
+          "notes": [
+            0,
+            3,
+            7,
+            11
+          ],
+          "held": [],
+          "bass": -29
+        }
+      ]
+    },
+    {
+      "id": 70003,
+      "symbol": "herrmannH03",
+      "name": "HE-H03 – Halbtonpendel zweier Moll-Dur-Septakkorde",
+      "xyz": [
+        0.15,
+        0.45,
+        0.7
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "herrmann_canonical_p1",
+      "chords": [
+        {
+          "root": 0,
+          "type": "MinMaj7",
+          "bars": 2,
+          "bass": 0
+        },
+        {
+          "root": 1,
+          "type": "MinMaj7",
+          "bars": 2,
+          "bass": 1
+        },
+        {
+          "root": 0,
+          "type": "MinMaj7",
+          "bars": 2,
+          "bass": 0
+        },
+        {
+          "root": 1,
+          "type": "MinMaj7",
+          "bars": 2,
+          "bass": 1
+        }
+      ],
+      "coloration": "protected",
+      "voicings": [
+        {
+          "notes": [
+            0,
+            3,
+            7,
+            11
+          ],
+          "held": [
+            0
+          ],
+          "bass": -24
+        },
+        {
+          "notes": [
+            0,
+            1,
+            4,
+            8
+          ],
+          "held": [
+            0
+          ],
+          "bass": -23
+        },
+        {
+          "notes": [
+            0,
+            3,
+            7,
+            11
+          ],
+          "held": [
+            0
+          ],
+          "bass": -24
+        },
+        {
+          "notes": [
+            0,
+            1,
+            4,
+            8
+          ],
+          "held": [
+            0
+          ],
+          "bass": -23
+        }
+      ]
+    },
+    {
+      "id": 70005,
+      "symbol": "herrmannH05",
+      "name": "HE-H05 – Moll-Dur-Septakkord über Tritonusbass",
+      "xyz": [
+        0.1,
+        0.3,
+        0.75
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "herrmann_canonical_p1",
+      "chords": [
+        {
+          "root": 0,
+          "type": "MinMaj7",
+          "bars": 8,
+          "bass": 6
+        }
+      ],
+      "coloration": "protected",
+      "voicings": [
+        {
+          "notes": [
+            0,
+            3,
+            7,
+            11
+          ],
+          "held": [],
+          "bass": -30
+        }
+      ]
+    },
+    {
+      "id": 70006,
+      "symbol": "herrmannH06",
+      "name": "HE-H06 – Moll-Dur-Septakkord ↔ übermäßiger Dreiklang",
+      "xyz": [
+        0.3,
+        0.25,
+        0.55
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "herrmann_canonical_p1",
+      "chords": [
+        {
+          "root": 0,
+          "type": "MinMaj7",
+          "bars": 2,
+          "bass": 0
+        },
+        {
+          "root": 3,
+          "type": "Aug",
+          "bars": 2,
+          "bass": 3
+        },
+        {
+          "root": 0,
+          "type": "MinMaj7",
+          "bars": 2,
+          "bass": 0
+        },
+        {
+          "root": 3,
+          "type": "Aug",
+          "bars": 2,
+          "bass": 3
+        }
+      ],
+      "coloration": "protected",
+      "voicings": [
+        {
+          "notes": [
+            0,
+            3,
+            7,
+            11
+          ],
+          "held": [],
+          "bass": -24
+        },
+        {
+          "notes": [
+            3,
+            7,
+            11
+          ],
+          "held": [],
+          "bass": -21
+        },
+        {
+          "notes": [
+            0,
+            3,
+            7,
+            11
+          ],
+          "held": [],
+          "bass": -24
+        },
+        {
+          "notes": [
+            3,
+            7,
+            11
+          ],
+          "held": [],
+          "bass": -21
+        }
+      ]
+    },
+    {
+      "id": 70007,
+      "symbol": "herrmannH07",
+      "name": "HE-H07 – Liegender Hitchcock-Klang über fallendem Bass",
+      "xyz": [
+        0.15,
+        0.35,
+        0.6
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "herrmann_canonical_p1",
+      "chords": [
+        {
+          "root": 0,
+          "type": "MinMaj7",
+          "bars": 2,
+          "bass": 0
+        },
+        {
+          "root": 0,
+          "type": "MinMaj7",
+          "bars": 2,
+          "bass": 11
+        },
+        {
+          "root": 0,
+          "type": "MinMaj7",
+          "bars": 2,
+          "bass": 10
+        },
+        {
+          "root": 0,
+          "type": "MinMaj7",
+          "bars": 2,
+          "bass": 9
+        }
+      ],
+      "coloration": "protected",
+      "voicings": [
+        {
+          "notes": [
+            0,
+            3,
+            7,
+            11
+          ],
+          "held": [
+            0,
+            3,
+            7,
+            11
+          ],
+          "bass": -24
+        },
+        {
+          "notes": [
+            0,
+            3,
+            7,
+            11
+          ],
+          "held": [
+            0,
+            3,
+            7,
+            11
+          ],
+          "bass": -25
+        },
+        {
+          "notes": [
+            0,
+            3,
+            7,
+            11
+          ],
+          "held": [
+            0,
+            3,
+            7,
+            11
+          ],
+          "bass": -26
+        },
+        {
+          "notes": [
+            0,
+            3,
+            7,
+            11
+          ],
+          "held": [
+            0,
+            3,
+            7,
+            11
+          ],
+          "bass": -27
+        }
+      ]
+    },
+    {
+      "id": 70008,
+      "symbol": "herrmannH08",
+      "name": "HE-H08 – Moll-Dur-Septakkorde in kleinen Terzen",
+      "xyz": [
+        0.2,
+        0.55,
+        0.7
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "herrmann_canonical_p1",
+      "chords": [
+        {
+          "root": 0,
+          "type": "MinMaj7",
+          "bars": 2,
+          "bass": 0
+        },
+        {
+          "root": 3,
+          "type": "MinMaj7",
+          "bars": 2,
+          "bass": 3
+        },
+        {
+          "root": 6,
+          "type": "MinMaj7",
+          "bars": 2,
+          "bass": 6
+        },
+        {
+          "root": 9,
+          "type": "MinMaj7",
+          "bars": 2,
+          "bass": 9
+        }
+      ],
+      "coloration": "protected",
+      "voicings": [
+        {
+          "notes": [
+            0,
+            3,
+            7,
+            11
+          ],
+          "held": [],
+          "bass": -24
+        },
+        {
+          "notes": [
+            3,
+            6,
+            10,
+            14
+          ],
+          "held": [],
+          "bass": -21
+        },
+        {
+          "notes": [
+            6,
+            9,
+            13,
+            17
+          ],
+          "held": [],
+          "bass": -18
+        },
+        {
+          "notes": [
+            9,
+            12,
+            16,
+            20
+          ],
+          "held": [],
+          "bass": -15
+        }
+      ]
+    },
+    {
+      "id": 70009,
+      "symbol": "herrmannH09",
+      "name": "HE-H09 – Mollphrase endet auf dem Hitchcock-Klang",
+      "xyz": [
+        0.25,
+        0.3,
+        0.45
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "herrmann_canonical_p1",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Min",
+          "bars": 2,
+          "bass": 0
+        },
+        {
+          "root": 5,
+          "type": "Min",
+          "bars": 2,
+          "bass": 5
+        },
+        {
+          "root": 8,
+          "type": "Maj",
+          "bars": 2,
+          "bass": 8
+        },
+        {
+          "root": 0,
+          "type": "MinMaj7",
+          "bars": 2,
+          "bass": 0
+        }
+      ],
+      "coloration": "protected",
+      "voicings": [
+        {
+          "notes": [
+            0,
+            3,
+            7
+          ],
+          "held": [],
+          "bass": -24
+        },
+        {
+          "notes": [
+            5,
+            8,
+            12
+          ],
+          "held": [],
+          "bass": -19
+        },
+        {
+          "notes": [
+            8,
+            12,
+            15
+          ],
+          "held": [],
+          "bass": -16
+        },
+        {
+          "notes": [
+            0,
+            3,
+            7,
+            11
+          ],
+          "held": [],
+          "bass": -12
+        }
+      ]
+    },
+    {
+      "id": 70010,
+      "symbol": "herrmannH10",
+      "name": "HE-H10 – Moll-Dur-Septnonakkord in hoher Lage",
+      "xyz": [
+        0.55,
+        0.2,
+        0.45
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "herrmann_canonical_p1",
+      "chords": [
+        {
+          "root": 0,
+          "type": "MinMaj9",
+          "bars": 8,
+          "bass": 0
+        }
+      ],
+      "coloration": "protected",
+      "voicings": [
+        {
+          "notes": [
+            12,
+            15,
+            19,
+            23,
+            26
+          ],
+          "held": [],
+          "bass": -24
+        }
+      ]
+    },
+    {
+      "id": 70011,
+      "symbol": "herrmannH11",
+      "name": "HE-H11 – Tritonuspendel des Moll-Dur-Septakkords",
+      "xyz": [
+        0.15,
+        0.6,
+        0.8
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "herrmann_canonical_p1",
+      "chords": [
+        {
+          "root": 0,
+          "type": "MinMaj7",
+          "bars": 4,
+          "bass": 0
+        },
+        {
+          "root": 6,
+          "type": "MinMaj7",
+          "bars": 4,
+          "bass": 6
+        }
+      ],
+      "coloration": "protected",
+      "voicings": [
+        {
+          "notes": [
+            0,
+            3,
+            7,
+            11
+          ],
+          "held": [],
+          "bass": -24
+        },
+        {
+          "notes": [
+            6,
+            9,
+            13,
+            17
+          ],
+          "held": [],
+          "bass": -18
+        }
+      ]
+    },
+    {
+      "id": 70013,
+      "symbol": "herrmannH13",
+      "name": "HE-H13 – Übermäßiger Dreiklang als Achse",
+      "xyz": [
+        0.45,
+        0.2,
+        0.55
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "herrmann_canonical_p1",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Aug",
+          "bars": 8,
+          "bass": 0
+        }
+      ],
+      "coloration": "protected",
+      "voicings": [
+        {
+          "notes": [
+            0,
+            4,
+            8
+          ],
+          "held": [],
+          "bass": -24
+        }
+      ]
+    },
+    {
+      "id": 70014,
+      "symbol": "herrmannH14",
+      "name": "HE-H14 – Kippende Achse",
+      "xyz": [
+        0.35,
+        0.25,
+        0.5
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "herrmann_canonical_p1",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Aug",
+          "bars": 2,
+          "bass": 0
+        },
+        {
+          "root": 9,
+          "type": "Min",
+          "bars": 2,
+          "bass": 0
+        },
+        {
+          "root": 0,
+          "type": "Aug",
+          "bars": 2,
+          "bass": 0
+        },
+        {
+          "root": 8,
+          "type": "Maj",
+          "bars": 2,
+          "bass": 0
+        }
+      ],
+      "coloration": "protected",
+      "voicings": [
+        {
+          "notes": [
+            0,
+            4,
+            8
+          ],
+          "held": [],
+          "bass": -24
+        },
+        {
+          "notes": [
+            9,
+            12,
+            16
+          ],
+          "held": [],
+          "bass": -24
+        },
+        {
+          "notes": [
+            0,
+            4,
+            8
+          ],
+          "held": [],
+          "bass": -24
+        },
+        {
+          "notes": [
+            8,
+            12,
+            15
+          ],
+          "held": [],
+          "bass": -24
+        }
+      ]
+    },
+    {
+      "id": 70015,
+      "symbol": "herrmannH15",
+      "name": "HE-H15 – Übermäßige Dreiklänge chromatisch abwärts",
+      "xyz": [
+        0.35,
+        0.45,
+        0.7
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "herrmann_canonical_p1",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Aug",
+          "bars": 2,
+          "bass": 0
+        },
+        {
+          "root": 11,
+          "type": "Aug",
+          "bars": 2,
+          "bass": 11
+        },
+        {
+          "root": 10,
+          "type": "Aug",
+          "bars": 2,
+          "bass": 10
+        },
+        {
+          "root": 9,
+          "type": "Aug",
+          "bars": 2,
+          "bass": 9
+        }
+      ],
+      "coloration": "protected",
+      "voicings": [
+        {
+          "notes": [
+            0,
+            4,
+            8
+          ],
+          "held": [],
+          "bass": -24
+        },
+        {
+          "notes": [
+            -1,
+            3,
+            7
+          ],
+          "held": [],
+          "bass": -25
+        },
+        {
+          "notes": [
+            -2,
+            2,
+            6
+          ],
+          "held": [],
+          "bass": -26
+        },
+        {
+          "notes": [
+            -3,
+            1,
+            5
+          ],
+          "held": [],
+          "bass": -27
+        }
+      ]
+    },
+    {
+      "id": 70016,
+      "symbol": "herrmannH16",
+      "name": "HE-H16 – Übermäßiger Dreiklang mit großer Septime",
+      "xyz": [
+        0.55,
+        0.25,
+        0.55
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "herrmann_canonical_p1",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Major7Sharp5",
+          "bars": 8,
+          "bass": 0
+        }
+      ],
+      "coloration": "protected",
+      "voicings": [
+        {
+          "notes": [
+            0,
+            4,
+            8,
+            11
+          ],
+          "held": [],
+          "bass": -24
+        }
+      ]
+    },
+    {
+      "id": 70017,
+      "symbol": "herrmannH17",
+      "name": "HE-H17 – Übermäßig ↔ Moll mit zwei gemeinsamen Tönen",
+      "xyz": [
+        0.3,
+        0.3,
+        0.45
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "herrmann_canonical_p1",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Aug",
+          "bars": 2,
+          "bass": 0
+        },
+        {
+          "root": 5,
+          "type": "Min",
+          "bars": 2,
+          "bass": 0
+        },
+        {
+          "root": 0,
+          "type": "Aug",
+          "bars": 2,
+          "bass": 0
+        },
+        {
+          "root": 5,
+          "type": "Min",
+          "bars": 2,
+          "bass": 0
+        }
+      ],
+      "coloration": "protected",
+      "voicings": [
+        {
+          "notes": [
+            0,
+            4,
+            8
+          ],
+          "held": [
+            0,
+            8
+          ],
+          "bass": -24
+        },
+        {
+          "notes": [
+            0,
+            5,
+            8
+          ],
+          "held": [
+            0,
+            8
+          ],
+          "bass": -24
+        },
+        {
+          "notes": [
+            0,
+            4,
+            8
+          ],
+          "held": [
+            0,
+            8
+          ],
+          "bass": -24
+        },
+        {
+          "notes": [
+            0,
+            5,
+            8
+          ],
+          "held": [
+            0,
+            8
+          ],
+          "bass": -24
+        }
+      ]
+    },
+    {
+      "id": 70018,
+      "symbol": "herrmannH18",
+      "name": "HE-H18 – Übermäßiger Dreiklang über Halbtonpedal",
+      "xyz": [
+        0.2,
+        0.35,
+        0.7
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "herrmann_canonical_p1",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Aug",
+          "bars": 8,
+          "bass": 1
+        }
+      ],
+      "coloration": "protected",
+      "voicings": [
+        {
+          "notes": [
+            0,
+            4,
+            8
+          ],
+          "held": [],
+          "bass": -35
+        }
+      ]
+    },
+    {
+      "id": 70019,
+      "symbol": "herrmannH19",
+      "name": "HE-H19 – Halbverminderter Liegeklang",
+      "xyz": [
+        0.25,
+        0.2,
+        0.45
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "herrmann_canonical_p1",
+      "chords": [
+        {
+          "root": 0,
+          "type": "HalfDim",
+          "bars": 8,
+          "bass": 0
+        }
+      ],
+      "coloration": "protected",
+      "voicings": [
+        {
+          "notes": [
+            0,
+            3,
+            6,
+            10
+          ],
+          "held": [],
+          "bass": -24
+        }
+      ]
+    },
+    {
+      "id": 70020,
+      "symbol": "herrmannH20",
+      "name": "HE-H20 – Vermindert färbt sich halbvermindert",
+      "xyz": [
+        0.25,
+        0.35,
+        0.55
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "herrmann_canonical_p1",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Dim7",
+          "bars": 2,
+          "bass": 0
+        },
+        {
+          "root": 0,
+          "type": "HalfDim",
+          "bars": 2,
+          "bass": 0
+        },
+        {
+          "root": 0,
+          "type": "Dim7",
+          "bars": 2,
+          "bass": 0
+        },
+        {
+          "root": 0,
+          "type": "HalfDim",
+          "bars": 2,
+          "bass": 0
+        }
+      ],
+      "coloration": "protected",
+      "voicings": [
+        {
+          "notes": [
+            0,
+            3,
+            6,
+            9
+          ],
+          "held": [],
+          "bass": -24
+        },
+        {
+          "notes": [
+            0,
+            3,
+            6,
+            10
+          ],
+          "held": [],
+          "bass": -24
+        },
+        {
+          "notes": [
+            0,
+            3,
+            6,
+            9
+          ],
+          "held": [],
+          "bass": -24
+        },
+        {
+          "notes": [
+            0,
+            3,
+            6,
+            10
+          ],
+          "held": [],
+          "bass": -24
+        }
+      ]
+    },
+    {
+      "id": 70021,
+      "symbol": "herrmannH21",
+      "name": "HE-H21 – Zwei verminderte Septakkorde im Halbtonabstand",
+      "xyz": [
+        0.2,
+        0.55,
+        0.75
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "herrmann_canonical_p1",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Dim7",
+          "bars": 2,
+          "bass": 0
+        },
+        {
+          "root": 1,
+          "type": "Dim7",
+          "bars": 2,
+          "bass": 1
+        },
+        {
+          "root": 0,
+          "type": "Dim7",
+          "bars": 2,
+          "bass": 0
+        },
+        {
+          "root": 1,
+          "type": "Dim7",
+          "bars": 2,
+          "bass": 1
+        }
+      ],
+      "coloration": "protected",
+      "voicings": [
+        {
+          "notes": [
+            0,
+            3,
+            6,
+            9
+          ],
+          "held": [],
+          "bass": -24
+        },
+        {
+          "notes": [
+            1,
+            4,
+            7,
+            10
+          ],
+          "held": [],
+          "bass": -23
+        },
+        {
+          "notes": [
+            0,
+            3,
+            6,
+            9
+          ],
+          "held": [],
+          "bass": -24
+        },
+        {
+          "notes": [
+            1,
+            4,
+            7,
+            10
+          ],
+          "held": [],
+          "bass": -23
+        }
+      ]
+    },
+    {
+      "id": 70022,
+      "symbol": "herrmannH22",
+      "name": "HE-H22 – Halbverminderte Akkorde parallel abwärts",
+      "xyz": [
+        0.2,
+        0.45,
+        0.65
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "herrmann_canonical_p1",
+      "chords": [
+        {
+          "root": 0,
+          "type": "HalfDim",
+          "bars": 2,
+          "bass": 0
+        },
+        {
+          "root": 11,
+          "type": "HalfDim",
+          "bars": 2,
+          "bass": 11
+        },
+        {
+          "root": 10,
+          "type": "HalfDim",
+          "bars": 2,
+          "bass": 10
+        },
+        {
+          "root": 9,
+          "type": "HalfDim",
+          "bars": 2,
+          "bass": 9
+        }
+      ],
+      "coloration": "protected",
+      "voicings": [
+        {
+          "notes": [
+            0,
+            3,
+            6,
+            10
+          ],
+          "held": [],
+          "bass": -24
+        },
+        {
+          "notes": [
+            -1,
+            2,
+            5,
+            9
+          ],
+          "held": [],
+          "bass": -25
+        },
+        {
+          "notes": [
+            -2,
+            1,
+            4,
+            8
+          ],
+          "held": [],
+          "bass": -26
+        },
+        {
+          "notes": [
+            -3,
+            0,
+            3,
+            7
+          ],
+          "held": [],
+          "bass": -27
+        }
+      ]
+    },
+    {
+      "id": 70023,
+      "symbol": "herrmannH23",
+      "name": "HE-H23 – Verminderte Septakkorde über festem Pedal",
+      "xyz": [
+        0.2,
+        0.4,
+        0.7
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "herrmann_canonical_p1",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Dim7",
+          "bars": 2,
+          "bass": 0
+        },
+        {
+          "root": 1,
+          "type": "Dim7",
+          "bars": 2,
+          "bass": 0
+        },
+        {
+          "root": 2,
+          "type": "Dim7",
+          "bars": 2,
+          "bass": 0
+        },
+        {
+          "root": 1,
+          "type": "Dim7",
+          "bars": 2,
+          "bass": 0
+        }
+      ],
+      "coloration": "protected",
+      "voicings": [
+        {
+          "notes": [
+            0,
+            3,
+            6,
+            9
+          ],
+          "held": [],
+          "bass": -24
+        },
+        {
+          "notes": [
+            1,
+            4,
+            7,
+            10
+          ],
+          "held": [],
+          "bass": -24
+        },
+        {
+          "notes": [
+            2,
+            5,
+            8,
+            11
+          ],
+          "held": [],
+          "bass": -24
+        },
+        {
+          "notes": [
+            1,
+            4,
+            7,
+            10
+          ],
+          "held": [],
+          "bass": -24
+        }
+      ]
+    },
+    {
+      "id": 70024,
+      "symbol": "herrmannH24",
+      "name": "HE-H24 – Halbvermindert ↔ Moll-Dur-Septakkord",
+      "xyz": [
+        0.25,
+        0.25,
+        0.5
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "herrmann_canonical_p1",
+      "chords": [
+        {
+          "root": 0,
+          "type": "HalfDim",
+          "bars": 2,
+          "bass": 0
+        },
+        {
+          "root": 3,
+          "type": "MinMaj7",
+          "bars": 2,
+          "bass": 3
+        },
+        {
+          "root": 0,
+          "type": "HalfDim",
+          "bars": 2,
+          "bass": 0
+        },
+        {
+          "root": 3,
+          "type": "MinMaj7",
+          "bars": 2,
+          "bass": 3
+        }
+      ],
+      "coloration": "protected",
+      "voicings": [
+        {
+          "notes": [
+            0,
+            3,
+            6,
+            10
+          ],
+          "held": [],
+          "bass": -24
+        },
+        {
+          "notes": [
+            3,
+            6,
+            10,
+            14
+          ],
+          "held": [],
+          "bass": -21
+        },
+        {
+          "notes": [
+            0,
+            3,
+            6,
+            10
+          ],
+          "held": [],
+          "bass": -24
+        },
+        {
+          "notes": [
+            3,
+            6,
+            10,
+            14
+          ],
+          "held": [],
+          "bass": -21
+        }
+      ]
+    },
+    {
+      "id": 70025,
+      "symbol": "herrmannH25",
+      "name": "HE-H25 – Dominantsept mit kleiner None, nicht aufgelöst",
+      "xyz": [
+        0.25,
+        0.4,
+        0.6
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "herrmann_canonical_p1",
+      "chords": [
+        {
+          "root": 7,
+          "type": "Dom7b9",
+          "bars": 8,
+          "bass": 7
+        }
+      ],
+      "coloration": "protected",
+      "voicings": [
+        {
+          "notes": [
+            7,
+            11,
+            14,
+            17,
+            20
+          ],
+          "held": [],
+          "bass": -29
+        }
+      ]
+    },
+    {
+      "id": 70028,
+      "symbol": "herrmannH28",
+      "name": "HE-H28 – Dominantsept mit kleiner None in Halbtonrückung",
+      "xyz": [
+        0.25,
+        0.55,
+        0.75
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "herrmann_canonical_p1",
+      "chords": [
+        {
+          "root": 7,
+          "type": "Dom7b9",
+          "bars": 2,
+          "bass": 7
+        },
+        {
+          "root": 8,
+          "type": "Dom7b9",
+          "bars": 2,
+          "bass": 8
+        },
+        {
+          "root": 7,
+          "type": "Dom7b9",
+          "bars": 2,
+          "bass": 7
+        },
+        {
+          "root": 8,
+          "type": "Dom7b9",
+          "bars": 2,
+          "bass": 8
+        }
+      ],
+      "coloration": "protected",
+      "voicings": [
+        {
+          "notes": [
+            7,
+            11,
+            14,
+            17,
+            20
+          ],
+          "held": [],
+          "bass": -17
+        },
+        {
+          "notes": [
+            8,
+            12,
+            15,
+            18,
+            21
+          ],
+          "held": [],
+          "bass": -16
+        },
+        {
+          "notes": [
+            7,
+            11,
+            14,
+            17,
+            20
+          ],
+          "held": [],
+          "bass": -17
+        },
+        {
+          "notes": [
+            8,
+            12,
+            15,
+            18,
+            21
+          ],
+          "held": [],
+          "bass": -16
+        }
+      ]
+    },
+    {
+      "id": 70030,
+      "symbol": "herrmannH30",
+      "name": "HE-H30 – Übermäßige Sexte ohne Dominante",
+      "xyz": [
+        0.25,
+        0.35,
+        0.45
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "herrmann_canonical_p1",
+      "chords": [
+        {
+          "root": 8,
+          "type": "Dom7",
+          "bars": 2,
+          "bass": 8
+        },
+        {
+          "root": 0,
+          "type": "Min",
+          "bars": 2,
+          "bass": 7
+        },
+        {
+          "root": 8,
+          "type": "Dom7",
+          "bars": 2,
+          "bass": 8
+        },
+        {
+          "root": 0,
+          "type": "Min",
+          "bars": 2,
+          "bass": 7
+        }
+      ],
+      "coloration": "protected",
+      "voicings": [
+        {
+          "notes": [
+            8,
+            12,
+            15,
+            18
+          ],
+          "held": [],
+          "bass": -16
+        },
+        {
+          "notes": [
+            0,
+            3,
+            7
+          ],
+          "held": [],
+          "bass": -17
+        },
+        {
+          "notes": [
+            8,
+            12,
+            15,
+            18
+          ],
+          "held": [],
+          "bass": -16
+        },
+        {
+          "notes": [
+            0,
+            3,
+            7
+          ],
+          "held": [],
+          "bass": -17
+        }
+      ]
+    },
+    {
+      "id": 70032,
+      "symbol": "herrmannH32",
+      "name": "HE-H32 – Große Septakkorde gleiten abwärts",
+      "xyz": [
+        0.55,
+        0.35,
+        0.55
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "herrmann_canonical_p1",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Maj7",
+          "bars": 2,
+          "bass": 0
+        },
+        {
+          "root": 11,
+          "type": "Maj7",
+          "bars": 2,
+          "bass": 11
+        },
+        {
+          "root": 10,
+          "type": "Maj7",
+          "bars": 2,
+          "bass": 10
+        },
+        {
+          "root": 9,
+          "type": "Maj7",
+          "bars": 2,
+          "bass": 9
+        }
+      ],
+      "coloration": "protected",
+      "voicings": [
+        {
+          "notes": [
+            0,
+            4,
+            7,
+            11
+          ],
+          "held": [],
+          "bass": -24
+        },
+        {
+          "notes": [
+            -1,
+            3,
+            6,
+            10
+          ],
+          "held": [],
+          "bass": -25
+        },
+        {
+          "notes": [
+            -2,
+            2,
+            5,
+            9
+          ],
+          "held": [],
+          "bass": -26
+        },
+        {
+          "notes": [
+            -3,
+            1,
+            4,
+            8
+          ],
+          "held": [],
+          "bass": -27
+        }
+      ]
+    },
+    {
+      "id": 70033,
+      "symbol": "herrmannH33",
+      "name": "HE-H33 – Moll-Septakkorde parallel abwärts",
+      "xyz": [
+        0.2,
+        0.35,
+        0.55
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "herrmann_canonical_p1",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Min7",
+          "bars": 2,
+          "bass": 0
+        },
+        {
+          "root": 11,
+          "type": "Min7",
+          "bars": 2,
+          "bass": 11
+        },
+        {
+          "root": 10,
+          "type": "Min7",
+          "bars": 2,
+          "bass": 10
+        },
+        {
+          "root": 9,
+          "type": "Min7",
+          "bars": 2,
+          "bass": 9
+        }
+      ],
+      "coloration": "protected",
+      "voicings": [
+        {
+          "notes": [
+            0,
+            3,
+            7,
+            10
+          ],
+          "held": [],
+          "bass": -24
+        },
+        {
+          "notes": [
+            -1,
+            2,
+            6,
+            9
+          ],
+          "held": [],
+          "bass": -25
+        },
+        {
+          "notes": [
+            -2,
+            1,
+            5,
+            8
+          ],
+          "held": [],
+          "bass": -26
+        },
+        {
+          "notes": [
+            -3,
+            0,
+            4,
+            7
+          ],
+          "held": [],
+          "bass": -27
+        }
+      ]
+    },
+    {
+      "id": 70035,
+      "symbol": "herrmannH35",
+      "name": "HE-H35 – Parallele Molldreiklänge chromatisch steigend",
+      "xyz": [
+        0.2,
+        0.65,
+        0.75
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "herrmann_canonical_p1",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Min",
+          "bars": 1,
+          "bass": 0
+        },
+        {
+          "root": 1,
+          "type": "Min",
+          "bars": 1,
+          "bass": 1
+        },
+        {
+          "root": 2,
+          "type": "Min",
+          "bars": 1,
+          "bass": 2
+        },
+        {
+          "root": 3,
+          "type": "Min",
+          "bars": 1,
+          "bass": 3
+        },
+        {
+          "root": 4,
+          "type": "Min",
+          "bars": 1,
+          "bass": 4
+        },
+        {
+          "root": 5,
+          "type": "Min",
+          "bars": 1,
+          "bass": 5
+        },
+        {
+          "root": 6,
+          "type": "Min",
+          "bars": 1,
+          "bass": 6
+        },
+        {
+          "root": 7,
+          "type": "Min",
+          "bars": 1,
+          "bass": 7
+        }
+      ],
+      "coloration": "protected",
+      "voicings": [
+        {
+          "notes": [
+            0,
+            3,
+            7
+          ],
+          "held": [],
+          "bass": -24
+        },
+        {
+          "notes": [
+            1,
+            4,
+            8
+          ],
+          "held": [],
+          "bass": -23
+        },
+        {
+          "notes": [
+            2,
+            5,
+            9
+          ],
+          "held": [],
+          "bass": -22
+        },
+        {
+          "notes": [
+            3,
+            6,
+            10
+          ],
+          "held": [],
+          "bass": -21
+        },
+        {
+          "notes": [
+            4,
+            7,
+            11
+          ],
+          "held": [],
+          "bass": -20
+        },
+        {
+          "notes": [
+            5,
+            8,
+            12
+          ],
+          "held": [],
+          "bass": -19
+        },
+        {
+          "notes": [
+            6,
+            9,
+            13
+          ],
+          "held": [],
+          "bass": -18
+        },
+        {
+          "notes": [
+            7,
+            10,
+            14
+          ],
+          "held": [],
+          "bass": -17
+        }
+      ]
+    },
+    {
+      "id": 70036,
+      "symbol": "herrmannH36",
+      "name": "HE-H36 – Halbtonpendel ganzer Molltonarten",
+      "xyz": [
+        0.2,
+        0.45,
+        0.6
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "herrmann_canonical_p1",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Min",
+          "bars": 4,
+          "bass": 0
+        },
+        {
+          "root": 1,
+          "type": "Min",
+          "bars": 4,
+          "bass": 1
+        }
+      ],
+      "coloration": "protected",
+      "voicings": [
+        {
+          "notes": [
+            0,
+            3,
+            7
+          ],
+          "held": [],
+          "bass": -24
+        },
+        {
+          "notes": [
+            1,
+            4,
+            8
+          ],
+          "held": [],
+          "bass": -23
+        }
+      ]
+    },
+    {
+      "id": 70037,
+      "symbol": "herrmannH37",
+      "name": "HE-H37 – Moll in Ganztönen abwärts",
+      "xyz": [
+        0.15,
+        0.4,
+        0.55
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "herrmann_canonical_p1",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Min",
+          "bars": 2,
+          "bass": 0
+        },
+        {
+          "root": 10,
+          "type": "Min",
+          "bars": 2,
+          "bass": 10
+        },
+        {
+          "root": 8,
+          "type": "Min",
+          "bars": 2,
+          "bass": 8
+        },
+        {
+          "root": 6,
+          "type": "Min",
+          "bars": 2,
+          "bass": 6
+        }
+      ],
+      "coloration": "protected",
+      "voicings": [
+        {
+          "notes": [
+            0,
+            3,
+            7
+          ],
+          "held": [],
+          "bass": -24
+        },
+        {
+          "notes": [
+            10,
+            13,
+            17
+          ],
+          "held": [],
+          "bass": -26
+        },
+        {
+          "notes": [
+            8,
+            11,
+            15
+          ],
+          "held": [],
+          "bass": -28
+        },
+        {
+          "notes": [
+            6,
+            9,
+            13
+          ],
+          "held": [],
+          "bass": -30
+        }
+      ]
+    },
+    {
+      "id": 70038,
+      "symbol": "herrmannH38",
+      "name": "HE-H38 – Dur-Tritonuspolarität",
+      "xyz": [
+        0.55,
+        0.3,
+        0.55
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "herrmann_canonical_p1",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Maj",
+          "bars": 2,
+          "bass": 0
+        },
+        {
+          "root": 6,
+          "type": "Maj",
+          "bars": 2,
+          "bass": 6
+        },
+        {
+          "root": 0,
+          "type": "Maj",
+          "bars": 4,
+          "bass": 0
+        }
+      ],
+      "coloration": "protected",
+      "voicings": [
+        {
+          "notes": [
+            0,
+            4,
+            7
+          ],
+          "held": [],
+          "bass": -24
+        },
+        {
+          "notes": [
+            6,
+            10,
+            13
+          ],
+          "held": [],
+          "bass": -30
+        },
+        {
+          "notes": [
+            0,
+            4,
+            7
+          ],
+          "held": [],
+          "bass": -24
+        }
+      ]
+    },
+    {
+      "id": 70039,
+      "symbol": "herrmannH39",
+      "name": "HE-H39 – Mollklänge in kleinen Terzen",
+      "xyz": [
+        0.2,
+        0.4,
+        0.55
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "herrmann_canonical_p1",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Min",
+          "bars": 2,
+          "bass": 0
+        },
+        {
+          "root": 3,
+          "type": "Min",
+          "bars": 2,
+          "bass": 3
+        },
+        {
+          "root": 6,
+          "type": "Min",
+          "bars": 2,
+          "bass": 6
+        },
+        {
+          "root": 9,
+          "type": "Min",
+          "bars": 2,
+          "bass": 9
+        }
+      ],
+      "coloration": "protected",
+      "voicings": [
+        {
+          "notes": [
+            0,
+            3,
+            7
+          ],
+          "held": [],
+          "bass": -24
+        },
+        {
+          "notes": [
+            3,
+            6,
+            10
+          ],
+          "held": [],
+          "bass": -21
+        },
+        {
+          "notes": [
+            6,
+            9,
+            13
+          ],
+          "held": [],
+          "bass": -18
+        },
+        {
+          "notes": [
+            9,
+            12,
+            16
+          ],
+          "held": [],
+          "bass": -15
+        }
+      ]
+    },
+    {
+      "id": 70040,
+      "symbol": "herrmannH40",
+      "name": "HE-H40 – Hexatonischer Pol",
+      "xyz": [
+        0.4,
+        0.3,
+        0.55
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "herrmann_canonical_p1",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Maj",
+          "bars": 4,
+          "bass": 0
+        },
+        {
+          "root": 8,
+          "type": "Min",
+          "bars": 4,
+          "bass": 8
+        }
+      ],
+      "coloration": "protected",
+      "voicings": [
+        {
+          "notes": [
+            0,
+            4,
+            7
+          ],
+          "held": [],
+          "bass": -24
+        },
+        {
+          "notes": [
+            8,
+            11,
+            15
+          ],
+          "held": [],
+          "bass": -28
+        }
+      ]
+    },
+    {
+      "id": 70043,
+      "symbol": "herrmannH43",
+      "name": "HE-H43 – Neapolitanischer Schatten ohne Kadenz",
+      "xyz": [
+        0.2,
+        0.25,
+        0.45
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "herrmann_canonical_p1",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Min",
+          "bars": 2,
+          "bass": 0
+        },
+        {
+          "root": 1,
+          "type": "Maj",
+          "bars": 2,
+          "bass": 0
+        },
+        {
+          "root": 0,
+          "type": "Min",
+          "bars": 2,
+          "bass": 0
+        },
+        {
+          "root": 1,
+          "type": "Maj",
+          "bars": 2,
+          "bass": 0
+        }
+      ],
+      "coloration": "protected",
+      "voicings": [
+        {
+          "notes": [
+            0,
+            3,
+            7
+          ],
+          "held": [],
+          "bass": -24
+        },
+        {
+          "notes": [
+            1,
+            5,
+            8
+          ],
+          "held": [],
+          "bass": -24
+        },
+        {
+          "notes": [
+            0,
+            3,
+            7
+          ],
+          "held": [],
+          "bass": -24
+        },
+        {
+          "notes": [
+            1,
+            5,
+            8
+          ],
+          "held": [],
+          "bass": -24
+        }
+      ]
+    },
+    {
+      "id": 70045,
+      "symbol": "herrmannH45",
+      "name": "HE-H45 – Dur-Moll-Umfärbung gleichen Grundtons",
+      "xyz": [
+        0.4,
+        0.2,
+        0.35
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "herrmann_canonical_p1",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Maj",
+          "bars": 4,
+          "bass": 0
+        },
+        {
+          "root": 0,
+          "type": "Min",
+          "bars": 4,
+          "bass": 0
+        }
+      ],
+      "coloration": "protected",
+      "voicings": [
+        {
+          "notes": [
+            0,
+            4,
+            7
+          ],
+          "held": [],
+          "bass": -24
+        },
+        {
+          "notes": [
+            0,
+            3,
+            7
+          ],
+          "held": [],
+          "bass": -24
+        }
+      ]
+    },
+    {
+      "id": 70046,
+      "symbol": "herrmannH46",
+      "name": "HE-H46 – Mollfolge mit offenem Ausgang",
+      "xyz": [
+        0.2,
+        0.3,
+        0.3
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "herrmann_canonical_p1",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Min",
+          "bars": 2,
+          "bass": 0
+        },
+        {
+          "root": 8,
+          "type": "Maj7",
+          "bars": 2,
+          "bass": 8
+        },
+        {
+          "root": 5,
+          "type": "Min6",
+          "bars": 2,
+          "bass": 5
+        },
+        {
+          "root": 0,
+          "type": "MinMaj7",
+          "bars": 2,
+          "bass": 0
+        }
+      ],
+      "coloration": "protected",
+      "voicings": [
+        {
+          "notes": [
+            0,
+            3,
+            7
+          ],
+          "held": [],
+          "bass": -24
+        },
+        {
+          "notes": [
+            8,
+            12,
+            15,
+            19
+          ],
+          "held": [],
+          "bass": -28
+        },
+        {
+          "notes": [
+            5,
+            8,
+            12,
+            14
+          ],
+          "held": [],
+          "bass": -31
+        },
+        {
+          "notes": [
+            0,
+            3,
+            7,
+            11
+          ],
+          "held": [],
+          "bass": -36
+        }
+      ]
+    },
+    {
+      "id": 70048,
+      "symbol": "herrmannH48",
+      "name": "HE-H48 – Übermäßige Dreiklänge im Ganztonabstand",
+      "xyz": [
+        0.5,
+        0.3,
+        0.55
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "herrmann_canonical_p1",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Aug",
+          "bars": 2,
+          "bass": 0
+        },
+        {
+          "root": 2,
+          "type": "Aug",
+          "bars": 2,
+          "bass": 2
+        },
+        {
+          "root": 0,
+          "type": "Aug",
+          "bars": 2,
+          "bass": 0
+        },
+        {
+          "root": 2,
+          "type": "Aug",
+          "bars": 2,
+          "bass": 2
+        }
+      ],
+      "coloration": "protected",
+      "voicings": [
+        {
+          "notes": [
+            0,
+            4,
+            8
+          ],
+          "held": [],
+          "bass": -24
+        },
+        {
+          "notes": [
+            2,
+            6,
+            10
+          ],
+          "held": [],
+          "bass": -22
+        },
+        {
+          "notes": [
+            0,
+            4,
+            8
+          ],
+          "held": [],
+          "bass": -24
+        },
+        {
+          "notes": [
+            2,
+            6,
+            10
+          ],
+          "held": [],
+          "bass": -22
+        }
+      ]
+    },
+    {
+      "id": 70066,
+      "symbol": "herrmannH66",
+      "name": "HE-H66 – Dur über Tritonusbass",
+      "xyz": [
+        0.55,
+        0.25,
+        0.6
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "herrmann_canonical_p1",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Maj",
+          "bars": 8,
+          "bass": 6
+        }
+      ],
+      "coloration": "protected",
+      "voicings": [
+        {
+          "notes": [
+            0,
+            4,
+            7
+          ],
+          "held": [],
+          "bass": -30
+        }
+      ]
+    },
+    {
+      "id": 70067,
+      "symbol": "herrmannH67",
+      "name": "HE-H67 – Moll über Halbtonpedal",
+      "xyz": [
+        0.15,
+        0.3,
+        0.65
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "herrmann_canonical_p1",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Min",
+          "bars": 8,
+          "bass": 1
+        }
+      ],
+      "coloration": "protected",
+      "voicings": [
+        {
+          "notes": [
+            0,
+            3,
+            7
+          ],
+          "held": [],
+          "bass": -35
+        }
+      ]
+    },
+    {
+      "id": 70076,
+      "symbol": "herrmannH76",
+      "name": "HE-H76 – Kalte Dur-Septnonakkorde in Blöcken abwärts",
+      "xyz": [
+        0.8,
+        0.2,
+        0.35
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "herrmann_canonical_p1",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Major9",
+          "bars": 2,
+          "bass": 0
+        },
+        {
+          "root": 10,
+          "type": "Major9",
+          "bars": 2,
+          "bass": 10
+        },
+        {
+          "root": 8,
+          "type": "Major9",
+          "bars": 2,
+          "bass": 8
+        },
+        {
+          "root": 6,
+          "type": "Major9",
+          "bars": 2,
+          "bass": 6
+        }
+      ],
+      "coloration": "protected",
+      "voicings": [
+        {
+          "notes": [
+            0,
+            4,
+            7,
+            11,
+            14
+          ],
+          "held": [],
+          "bass": -24
+        },
+        {
+          "notes": [
+            -2,
+            2,
+            5,
+            9,
+            12
+          ],
+          "held": [],
+          "bass": -26
+        },
+        {
+          "notes": [
+            -4,
+            0,
+            3,
+            7,
+            10
+          ],
+          "held": [],
+          "bass": -28
+        },
+        {
+          "notes": [
+            6,
+            10,
+            13,
+            17,
+            20
+          ],
+          "held": [],
+          "bass": -30
+        }
+      ]
+    },
+    {
+      "id": 70078,
+      "symbol": "herrmannH78",
+      "name": "HE-H78 – Lyrischer Vorhalt-Aufstieg",
+      "xyz": [
+        0.3,
+        0.4,
+        0.3
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "herrmann_canonical_p1",
+      "chords": [
+        {
+          "root": 0,
+          "type": "MinorAdd9",
+          "bars": 2,
+          "bass": 0
+        },
+        {
+          "root": 8,
+          "type": "Maj",
+          "bars": 2,
+          "bass": 8
+        },
+        {
+          "root": 5,
+          "type": "Min9",
+          "bars": 2,
+          "bass": 5
+        },
+        {
+          "root": 0,
+          "type": "MinMaj7",
+          "bars": 2,
+          "bass": 0
+        }
+      ],
+      "coloration": "protected",
+      "voicings": [
+        {
+          "notes": [
+            0,
+            3,
+            7,
+            14
+          ],
+          "held": [],
+          "bass": -24
+        },
+        {
+          "notes": [
+            8,
+            12,
+            15
+          ],
+          "held": [],
+          "bass": -28
+        },
+        {
+          "notes": [
+            5,
+            8,
+            12,
+            15,
+            19
+          ],
+          "held": [],
+          "bass": -31
+        },
+        {
+          "notes": [
+            0,
+            3,
+            7,
+            11
+          ],
+          "held": [],
+          "bass": -36
+        }
+      ]
+    },
+    {
+      "id": 70082,
+      "symbol": "herrmannH82",
+      "name": "HE-H82 – Kadenzattrappe",
+      "xyz": [
+        0.25,
+        0.4,
+        0.5
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "herrmann_canonical_p1",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Min",
+          "bars": 2,
+          "bass": 0
+        },
+        {
+          "root": 7,
+          "type": "Dom7b9",
+          "bars": 2,
+          "bass": 7
+        },
+        {
+          "root": 8,
+          "type": "Maj",
+          "bars": 2,
+          "bass": 8
+        },
+        {
+          "root": 7,
+          "type": "Dom7b9",
+          "bars": 2,
+          "bass": 7
+        }
+      ],
+      "coloration": "protected",
+      "voicings": [
+        {
+          "notes": [
+            0,
+            3,
+            7
+          ],
+          "held": [],
+          "bass": -24
+        },
+        {
+          "notes": [
+            7,
+            11,
+            14,
+            17,
+            20
+          ],
+          "held": [],
+          "bass": -29
+        },
+        {
+          "notes": [
+            8,
+            12,
+            15
+          ],
+          "held": [],
+          "bass": -28
+        },
+        {
+          "notes": [
+            7,
+            11,
+            14,
+            17,
+            20
+          ],
+          "held": [],
+          "bass": -29
+        }
+      ]
+    },
+    {
+      "id": 70085,
+      "symbol": "herrmannH85",
+      "name": "HE-H85 – Moll öffnet sich in die chromatische Mediante",
+      "xyz": [
+        0.4,
+        0.35,
+        0.45
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "herrmann_canonical_p1",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Min",
+          "bars": 4,
+          "bass": 0
+        },
+        {
+          "root": 4,
+          "type": "Maj",
+          "bars": 4,
+          "bass": 4
+        }
+      ],
+      "coloration": "protected",
+      "voicings": [
+        {
+          "notes": [
+            0,
+            3,
+            7
+          ],
+          "held": [],
+          "bass": -24
+        },
+        {
+          "notes": [
+            4,
+            8,
+            11
+          ],
+          "held": [],
+          "bass": -20
+        }
+      ]
+    },
+    {
+      "id": 70093,
+      "symbol": "herrmannH93",
+      "name": "HE-H93 – Übermäßige Dreiklänge parallel steigend, hell",
+      "xyz": [
+        0.65,
+        0.8,
+        0.8
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "herrmann_canonical_p1",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Aug",
+          "bars": 1,
+          "bass": 0
+        },
+        {
+          "root": 1,
+          "type": "Aug",
+          "bars": 1,
+          "bass": 1
+        },
+        {
+          "root": 2,
+          "type": "Aug",
+          "bars": 1,
+          "bass": 2
+        },
+        {
+          "root": 3,
+          "type": "Aug",
+          "bars": 1,
+          "bass": 3
+        },
+        {
+          "root": 0,
+          "type": "Aug",
+          "bars": 1,
+          "bass": 0
+        },
+        {
+          "root": 1,
+          "type": "Aug",
+          "bars": 1,
+          "bass": 1
+        },
+        {
+          "root": 2,
+          "type": "Aug",
+          "bars": 1,
+          "bass": 2
+        },
+        {
+          "root": 3,
+          "type": "Aug",
+          "bars": 1,
+          "bass": 3
+        }
+      ],
+      "coloration": "protected",
+      "voicings": [
+        {
+          "notes": [
+            0,
+            4,
+            8
+          ],
+          "held": [],
+          "bass": -24
+        },
+        {
+          "notes": [
+            1,
+            5,
+            9
+          ],
+          "held": [],
+          "bass": -23
+        },
+        {
+          "notes": [
+            2,
+            6,
+            10
+          ],
+          "held": [],
+          "bass": -22
+        },
+        {
+          "notes": [
+            3,
+            7,
+            11
+          ],
+          "held": [],
+          "bass": -21
+        },
+        {
+          "notes": [
+            0,
+            4,
+            8
+          ],
+          "held": [],
+          "bass": -24
+        },
+        {
+          "notes": [
+            1,
+            5,
+            9
+          ],
+          "held": [],
+          "bass": -23
+        },
+        {
+          "notes": [
+            2,
+            6,
+            10
+          ],
+          "held": [],
+          "bass": -22
+        },
+        {
+          "notes": [
+            3,
+            7,
+            11
+          ],
+          "held": [],
+          "bass": -21
+        }
+      ]
+    },
+    {
+      "id": 70096,
+      "symbol": "herrmannH96",
+      "name": "HE-H96 – Dur über eigener Septime",
+      "xyz": [
+        0.65,
+        0.15,
+        0.4
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "herrmann_canonical_p1",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Maj",
+          "bars": 8,
+          "bass": 11
+        }
+      ],
+      "coloration": "protected",
+      "voicings": [
+        {
+          "notes": [
+            0,
+            4,
+            7
+          ],
+          "held": [],
+          "bass": -25
+        }
+      ]
+    },
+    {
+      "id": 70051,
+      "symbol": "herrmannH51",
+      "name": "HE-H51 – Moll über Moll im Tritonus, getrennt",
+      "xyz": [
+        0.15,
+        0.25,
+        0.65
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "herrmann_canonical_p1",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Min",
+          "bars": 8,
+          "bass": 0
+        }
+      ],
+      "coloration": "protected",
+      "voicings": [
+        {
+          "notes": [
+            -12,
+            -9,
+            -5
+          ],
+          "held": [],
+          "bass": -24
+        }
+      ]
+    },
+    {
+      "id": 70053,
+      "symbol": "herrmannH53",
+      "name": "HE-H53 – Moll über Moll in großer Septime, weit",
+      "xyz": [
+        0.15,
+        0.3,
+        0.6
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "herrmann_canonical_p1",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Min",
+          "bars": 8,
+          "bass": 0
+        }
+      ],
+      "coloration": "protected",
+      "voicings": [
+        {
+          "notes": [
+            -12,
+            -9,
+            -5
+          ],
+          "held": [],
+          "bass": -24
+        }
+      ]
+    },
+    {
+      "id": 70057,
+      "symbol": "herrmannH57",
+      "name": "HE-H57 – Dur über Dur im Tritonus, hell verschmolzen",
+      "xyz": [
+        0.7,
+        0.8,
+        0.75
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "herrmann_canonical_p1",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Maj",
+          "bars": 8,
+          "bass": 0
+        }
+      ],
+      "coloration": "protected",
+      "voicings": [
+        {
+          "notes": [
+            12,
+            16,
+            19
+          ],
+          "held": [],
+          "bass": -24
+        }
+      ]
+    },
+    {
+      "id": 70058,
+      "symbol": "herrmannH58",
+      "name": "HE-H58 – Chromatische Mediante über Dur",
+      "xyz": [
+        0.6,
+        0.3,
+        0.5
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "herrmann_canonical_p1",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Maj",
+          "bars": 8,
+          "bass": 0
+        }
+      ],
+      "coloration": "protected",
+      "voicings": [
+        {
+          "notes": [
+            -12,
+            -8,
+            -5
+          ],
+          "held": [],
+          "bass": -24
+        }
+      ]
+    },
+    {
+      "id": 70060,
+      "symbol": "herrmannH60",
+      "name": "HE-H60 – Polychord rückt zusammen",
+      "xyz": [
+        0.15,
+        0.55,
+        0.65
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "herrmann_canonical_p1",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Min",
+          "bars": 8,
+          "bass": 0
+        }
+      ],
+      "coloration": "protected",
+      "voicings": [
+        {
+          "notes": [
+            -12,
+            -9,
+            -5
+          ],
+          "held": [],
+          "bass": -24
+        }
+      ]
+    },
+    {
+      "id": 70064,
+      "symbol": "herrmannH64",
+      "name": "HE-H64 – Liegeton oben als Blick",
+      "xyz": [
+        0.25,
+        0.25,
+        0.45
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "herrmann_canonical_p1",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Min",
+          "bars": 2,
+          "bass": 0
+        },
+        {
+          "root": 8,
+          "type": "Maj7",
+          "bars": 2,
+          "bass": 8
+        },
+        {
+          "root": 3,
+          "type": "Aug",
+          "bars": 2,
+          "bass": 3
+        },
+        {
+          "root": 1,
+          "type": "Maj",
+          "bars": 2,
+          "bass": 1
+        }
+      ],
+      "coloration": "protected",
+      "voicings": [
+        {
+          "notes": [
+            0,
+            3,
+            7
+          ],
+          "held": [],
+          "bass": -24
+        },
+        {
+          "notes": [
+            8,
+            12,
+            15,
+            19
+          ],
+          "held": [],
+          "bass": -28
+        },
+        {
+          "notes": [
+            3,
+            7,
+            11
+          ],
+          "held": [],
+          "bass": -33
+        },
+        {
+          "notes": [
+            1,
+            5,
+            8
+          ],
+          "held": [],
+          "bass": -35
+        }
+      ]
+    },
+    {
+      "id": 70068,
+      "symbol": "herrmannH68",
+      "name": "HE-H68 – Hochpedal über tiefem Moll",
+      "xyz": [
+        0.45,
+        0.15,
+        0.55
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "herrmann_canonical_p1",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Min",
+          "bars": 8,
+          "bass": 0
+        }
+      ],
+      "coloration": "protected",
+      "voicings": [
+        {
+          "notes": [
+            0,
+            3,
+            7
+          ],
+          "held": [],
+          "bass": -24
         }
       ]
     }

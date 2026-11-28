@@ -1450,22 +1450,28 @@ void StromscoreEditor::timerCallback()
     {
         const auto custom = stromscore::customWendung (settings);
         const auto& wd = w == stromscore::kCustomWendung ? custom : stromscore::wendungAt (gen, w,settings.profile);
+        auto withComponents=[&](juce::String primary){
+            if(gen==stromscore::GenreScore&&w!=stromscore::kCustomWendung&&settings.policy.layers.enabled)
+                for(int i=0;i<settings.policy.layers.harmonyCount;++i){const auto& b=settings.policy.layers.harmonies[i];
+                    if(b.harmonyId==static_cast<int>(wd.id)&&b.upperRoot>=0){char upper[32];stromscore::chordName(key,b.upperRoot,b.upperType,upper,32);return juce::String(juce::CharPointer_UTF8(upper))+" | "+primary;}}
+            return primary;
+        };
         char buf[32];
         stromscore::chordName (key, processor.chordRoot.load(), processor.chordType.load(), buf, (int) sizeof (buf));
-        chordDisplay.chord = juce::String (juce::CharPointer_UTF8 (buf));
+        chordDisplay.chord = withComponents(juce::String (juce::CharPointer_UTF8 (buf)));
         chordDisplay.wendung = juce::String (juce::CharPointer_UTF8 (wd.name));
         chordDisplay.custom = w == stromscore::kCustomWendung;
         const int st = processor.styleIndex.load();
         if (chordDisplay.custom && st >= 0 && st < stromscore::wendungCount (gen,settings.profile))
             chordDisplay.wendung << u8 (" · Stil: ") << juce::String (juce::CharPointer_UTF8 (stromscore::wendungAt (gen, st,settings.profile).name));
         stromscore::chordName (key, processor.nextRoot.load(), processor.nextType.load(), buf, (int) sizeof (buf));
-        chordDisplay.nextChord = juce::String (juce::CharPointer_UTF8 (buf));
+        chordDisplay.nextChord = withComponents(juce::String (juce::CharPointer_UTF8 (buf)));
         chordDisplay.progress = processor.chordProgress.load();
         chordDisplay.numChips = wd.n;
         for (int i = 0; i < wd.n; ++i)
         {
             stromscore::chordName (key, wd.ch[i].root, wd.ch[i].type, buf, (int) sizeof (buf));
-            chordDisplay.chips[i] = juce::String (juce::CharPointer_UTF8 (buf));
+            chordDisplay.chips[i] = withComponents(juce::String (juce::CharPointer_UTF8 (buf)));
             if (wd.ch[i].bass >= 0)
             {
                 stromscore::chordName (key, wd.ch[i].bass, stromscore::Maj, buf, (int) sizeof (buf));

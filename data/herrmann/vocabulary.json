@@ -1,0 +1,8277 @@
+{
+  "schema_version": 1,
+  "source_sha256": "291cadcde7d3cc65b70df264bfa495b9eedd00ec19d6ba19d332b754a0a43f98",
+  "harmonies": [
+    {
+      "bass_notes": [
+        36
+      ],
+      "harmony": 30001,
+      "source": "HE-H01",
+      "pedal": -1,
+      "high": -1,
+      "upper_root": -1,
+      "upper_type": 0,
+      "upper_notes": [
+        0,
+        0,
+        0
+      ],
+      "fused": false,
+      "stages": [],
+      "bass_register": 36,
+      "bass_mode": 0
+    },
+    {
+      "bass_notes": [
+        31
+      ],
+      "harmony": 70002,
+      "source": "HE-H02",
+      "pedal": -1,
+      "high": -1,
+      "upper_root": -1,
+      "upper_type": 0,
+      "upper_notes": [
+        0,
+        0,
+        0
+      ],
+      "fused": false,
+      "stages": [],
+      "bass_register": 24,
+      "bass_mode": 0
+    },
+    {
+      "bass_notes": [
+        36,
+        37,
+        36,
+        37
+      ],
+      "harmony": 70003,
+      "source": "HE-H03",
+      "pedal": -1,
+      "high": -1,
+      "upper_root": -1,
+      "upper_type": 0,
+      "upper_notes": [
+        0,
+        0,
+        0
+      ],
+      "fused": false,
+      "stages": [],
+      "bass_register": 36,
+      "bass_mode": 0
+    },
+    {
+      "bass_notes": [
+        30
+      ],
+      "harmony": 70005,
+      "source": "HE-H05",
+      "pedal": -1,
+      "high": -1,
+      "upper_root": -1,
+      "upper_type": 0,
+      "upper_notes": [
+        0,
+        0,
+        0
+      ],
+      "fused": false,
+      "stages": [],
+      "bass_register": 24,
+      "bass_mode": 0
+    },
+    {
+      "bass_notes": [
+        36,
+        39,
+        36,
+        39
+      ],
+      "harmony": 70006,
+      "source": "HE-H06",
+      "pedal": -1,
+      "high": -1,
+      "upper_root": -1,
+      "upper_type": 0,
+      "upper_notes": [
+        0,
+        0,
+        0
+      ],
+      "fused": false,
+      "stages": [],
+      "bass_register": 36,
+      "bass_mode": 0
+    },
+    {
+      "bass_notes": [
+        36,
+        35,
+        34,
+        33
+      ],
+      "harmony": 70007,
+      "source": "HE-H07",
+      "pedal": -1,
+      "high": -1,
+      "upper_root": -1,
+      "upper_type": 0,
+      "upper_notes": [
+        0,
+        0,
+        0
+      ],
+      "fused": false,
+      "stages": [],
+      "bass_register": 36,
+      "bass_mode": 0
+    },
+    {
+      "bass_notes": [
+        36,
+        39,
+        42,
+        45
+      ],
+      "harmony": 70008,
+      "source": "HE-H08",
+      "pedal": -1,
+      "high": -1,
+      "upper_root": -1,
+      "upper_type": 0,
+      "upper_notes": [
+        0,
+        0,
+        0
+      ],
+      "fused": false,
+      "stages": [],
+      "bass_register": 36,
+      "bass_mode": 0
+    },
+    {
+      "bass_notes": [
+        36,
+        41,
+        44,
+        48
+      ],
+      "harmony": 70009,
+      "source": "HE-H09",
+      "pedal": -1,
+      "high": -1,
+      "upper_root": -1,
+      "upper_type": 0,
+      "upper_notes": [
+        0,
+        0,
+        0
+      ],
+      "fused": false,
+      "stages": [],
+      "bass_register": 36,
+      "bass_mode": 0
+    },
+    {
+      "bass_notes": [
+        36
+      ],
+      "harmony": 70010,
+      "source": "HE-H10",
+      "pedal": -1,
+      "high": -1,
+      "upper_root": -1,
+      "upper_type": 0,
+      "upper_notes": [
+        0,
+        0,
+        0
+      ],
+      "fused": false,
+      "stages": [],
+      "bass_register": 36,
+      "bass_mode": 1
+    },
+    {
+      "bass_notes": [
+        36,
+        42
+      ],
+      "harmony": 70011,
+      "source": "HE-H11",
+      "pedal": -1,
+      "high": -1,
+      "upper_root": -1,
+      "upper_type": 0,
+      "upper_notes": [
+        0,
+        0,
+        0
+      ],
+      "fused": false,
+      "stages": [],
+      "bass_register": 36,
+      "bass_mode": 0
+    },
+    {
+      "bass_notes": [
+        36
+      ],
+      "harmony": 70013,
+      "source": "HE-H13",
+      "pedal": -1,
+      "high": -1,
+      "upper_root": -1,
+      "upper_type": 0,
+      "upper_notes": [
+        0,
+        0,
+        0
+      ],
+      "fused": false,
+      "stages": [],
+      "bass_register": 36,
+      "bass_mode": 0
+    },
+    {
+      "bass_notes": [
+        36,
+        36,
+        36,
+        36
+      ],
+      "harmony": 70014,
+      "source": "HE-H14",
+      "pedal": -1,
+      "high": -1,
+      "upper_root": -1,
+      "upper_type": 0,
+      "upper_notes": [
+        0,
+        0,
+        0
+      ],
+      "fused": false,
+      "stages": [],
+      "bass_register": 36,
+      "bass_mode": 0
+    },
+    {
+      "bass_notes": [
+        36,
+        35,
+        34,
+        33
+      ],
+      "harmony": 70015,
+      "source": "HE-H15",
+      "pedal": -1,
+      "high": -1,
+      "upper_root": -1,
+      "upper_type": 0,
+      "upper_notes": [
+        0,
+        0,
+        0
+      ],
+      "fused": false,
+      "stages": [],
+      "bass_register": 36,
+      "bass_mode": 0
+    },
+    {
+      "bass_notes": [
+        36
+      ],
+      "harmony": 70016,
+      "source": "HE-H16",
+      "pedal": -1,
+      "high": -1,
+      "upper_root": -1,
+      "upper_type": 0,
+      "upper_notes": [
+        0,
+        0,
+        0
+      ],
+      "fused": false,
+      "stages": [],
+      "bass_register": 36,
+      "bass_mode": 0
+    },
+    {
+      "bass_notes": [
+        36,
+        36,
+        36,
+        36
+      ],
+      "harmony": 70017,
+      "source": "HE-H17",
+      "pedal": -1,
+      "high": -1,
+      "upper_root": -1,
+      "upper_type": 0,
+      "upper_notes": [
+        0,
+        0,
+        0
+      ],
+      "fused": false,
+      "stages": [],
+      "bass_register": 36,
+      "bass_mode": 0
+    },
+    {
+      "bass_notes": [
+        25
+      ],
+      "harmony": 70018,
+      "source": "HE-H18",
+      "pedal": -1,
+      "high": -1,
+      "upper_root": -1,
+      "upper_type": 0,
+      "upper_notes": [
+        0,
+        0,
+        0
+      ],
+      "fused": false,
+      "stages": [],
+      "bass_register": 36,
+      "bass_mode": 0
+    },
+    {
+      "bass_notes": [
+        36
+      ],
+      "harmony": 70019,
+      "source": "HE-H19",
+      "pedal": -1,
+      "high": -1,
+      "upper_root": -1,
+      "upper_type": 0,
+      "upper_notes": [
+        0,
+        0,
+        0
+      ],
+      "fused": false,
+      "stages": [],
+      "bass_register": 36,
+      "bass_mode": 0
+    },
+    {
+      "bass_notes": [
+        36,
+        36,
+        36,
+        36
+      ],
+      "harmony": 70020,
+      "source": "HE-H20",
+      "pedal": -1,
+      "high": -1,
+      "upper_root": -1,
+      "upper_type": 0,
+      "upper_notes": [
+        0,
+        0,
+        0
+      ],
+      "fused": false,
+      "stages": [],
+      "bass_register": 36,
+      "bass_mode": 0
+    },
+    {
+      "bass_notes": [
+        36,
+        37,
+        36,
+        37
+      ],
+      "harmony": 70021,
+      "source": "HE-H21",
+      "pedal": -1,
+      "high": -1,
+      "upper_root": -1,
+      "upper_type": 0,
+      "upper_notes": [
+        0,
+        0,
+        0
+      ],
+      "fused": false,
+      "stages": [],
+      "bass_register": 36,
+      "bass_mode": 0
+    },
+    {
+      "bass_notes": [
+        36,
+        35,
+        34,
+        33
+      ],
+      "harmony": 70022,
+      "source": "HE-H22",
+      "pedal": -1,
+      "high": -1,
+      "upper_root": -1,
+      "upper_type": 0,
+      "upper_notes": [
+        0,
+        0,
+        0
+      ],
+      "fused": false,
+      "stages": [],
+      "bass_register": 36,
+      "bass_mode": 0
+    },
+    {
+      "bass_notes": [
+        36,
+        36,
+        36,
+        36
+      ],
+      "harmony": 70023,
+      "source": "HE-H23",
+      "pedal": 0,
+      "high": -1,
+      "upper_root": -1,
+      "upper_type": 0,
+      "upper_notes": [
+        0,
+        0,
+        0
+      ],
+      "fused": false,
+      "stages": [],
+      "bass_register": 36,
+      "bass_mode": 0
+    },
+    {
+      "bass_notes": [
+        36,
+        39,
+        36,
+        39
+      ],
+      "harmony": 70024,
+      "source": "HE-H24",
+      "pedal": -1,
+      "high": -1,
+      "upper_root": -1,
+      "upper_type": 0,
+      "upper_notes": [
+        0,
+        0,
+        0
+      ],
+      "fused": false,
+      "stages": [],
+      "bass_register": 36,
+      "bass_mode": 0
+    },
+    {
+      "bass_notes": [
+        31
+      ],
+      "harmony": 70025,
+      "source": "HE-H25",
+      "pedal": -1,
+      "high": -1,
+      "upper_root": -1,
+      "upper_type": 0,
+      "upper_notes": [
+        0,
+        0,
+        0
+      ],
+      "fused": false,
+      "stages": [],
+      "bass_register": 36,
+      "bass_mode": 0
+    },
+    {
+      "bass_notes": [
+        43,
+        44,
+        43,
+        44
+      ],
+      "harmony": 70028,
+      "source": "HE-H28",
+      "pedal": -1,
+      "high": -1,
+      "upper_root": -1,
+      "upper_type": 0,
+      "upper_notes": [
+        0,
+        0,
+        0
+      ],
+      "fused": false,
+      "stages": [],
+      "bass_register": 36,
+      "bass_mode": 0
+    },
+    {
+      "bass_notes": [
+        44,
+        43,
+        44,
+        43
+      ],
+      "harmony": 70030,
+      "source": "HE-H30",
+      "pedal": -1,
+      "high": -1,
+      "upper_root": -1,
+      "upper_type": 0,
+      "upper_notes": [
+        0,
+        0,
+        0
+      ],
+      "fused": false,
+      "stages": [],
+      "bass_register": 36,
+      "bass_mode": 0
+    },
+    {
+      "bass_notes": [
+        36,
+        35,
+        34,
+        33
+      ],
+      "harmony": 70032,
+      "source": "HE-H32",
+      "pedal": -1,
+      "high": -1,
+      "upper_root": -1,
+      "upper_type": 0,
+      "upper_notes": [
+        0,
+        0,
+        0
+      ],
+      "fused": false,
+      "stages": [],
+      "bass_register": 36,
+      "bass_mode": 0
+    },
+    {
+      "bass_notes": [
+        36,
+        35,
+        34,
+        33
+      ],
+      "harmony": 70033,
+      "source": "HE-H33",
+      "pedal": -1,
+      "high": -1,
+      "upper_root": -1,
+      "upper_type": 0,
+      "upper_notes": [
+        0,
+        0,
+        0
+      ],
+      "fused": false,
+      "stages": [],
+      "bass_register": 36,
+      "bass_mode": 0
+    },
+    {
+      "bass_notes": [
+        36,
+        37,
+        38,
+        39,
+        40,
+        41,
+        42,
+        43
+      ],
+      "harmony": 70035,
+      "source": "HE-H35",
+      "pedal": -1,
+      "high": -1,
+      "upper_root": -1,
+      "upper_type": 0,
+      "upper_notes": [
+        0,
+        0,
+        0
+      ],
+      "fused": false,
+      "stages": [],
+      "bass_register": 36,
+      "bass_mode": 0
+    },
+    {
+      "bass_notes": [
+        36,
+        37
+      ],
+      "harmony": 70036,
+      "source": "HE-H36",
+      "pedal": -1,
+      "high": -1,
+      "upper_root": -1,
+      "upper_type": 0,
+      "upper_notes": [
+        0,
+        0,
+        0
+      ],
+      "fused": false,
+      "stages": [],
+      "bass_register": 36,
+      "bass_mode": 0
+    },
+    {
+      "bass_notes": [
+        36,
+        34,
+        32,
+        30
+      ],
+      "harmony": 70037,
+      "source": "HE-H37",
+      "pedal": -1,
+      "high": -1,
+      "upper_root": -1,
+      "upper_type": 0,
+      "upper_notes": [
+        0,
+        0,
+        0
+      ],
+      "fused": false,
+      "stages": [],
+      "bass_register": 36,
+      "bass_mode": 0
+    },
+    {
+      "bass_notes": [
+        36,
+        30,
+        36
+      ],
+      "harmony": 70038,
+      "source": "HE-H38",
+      "pedal": -1,
+      "high": -1,
+      "upper_root": -1,
+      "upper_type": 0,
+      "upper_notes": [
+        0,
+        0,
+        0
+      ],
+      "fused": false,
+      "stages": [],
+      "bass_register": 36,
+      "bass_mode": 0
+    },
+    {
+      "bass_notes": [
+        36,
+        39,
+        42,
+        45
+      ],
+      "harmony": 70039,
+      "source": "HE-H39",
+      "pedal": -1,
+      "high": -1,
+      "upper_root": -1,
+      "upper_type": 0,
+      "upper_notes": [
+        0,
+        0,
+        0
+      ],
+      "fused": false,
+      "stages": [],
+      "bass_register": 36,
+      "bass_mode": 0
+    },
+    {
+      "bass_notes": [
+        36,
+        32
+      ],
+      "harmony": 70040,
+      "source": "HE-H40",
+      "pedal": -1,
+      "high": -1,
+      "upper_root": -1,
+      "upper_type": 0,
+      "upper_notes": [
+        0,
+        0,
+        0
+      ],
+      "fused": false,
+      "stages": [],
+      "bass_register": 36,
+      "bass_mode": 0
+    },
+    {
+      "bass_notes": [
+        36,
+        40,
+        44,
+        48
+      ],
+      "harmony": 1042,
+      "source": "HE-H41",
+      "pedal": -1,
+      "high": -1,
+      "upper_root": -1,
+      "upper_type": 0,
+      "upper_notes": [
+        0,
+        0,
+        0
+      ],
+      "fused": false,
+      "stages": [],
+      "bass_register": 36,
+      "bass_mode": 0
+    },
+    {
+      "bass_notes": [
+        36,
+        36,
+        32,
+        32,
+        28,
+        28,
+        24
+      ],
+      "harmony": 40025,
+      "source": "HE-H42",
+      "pedal": -1,
+      "high": -1,
+      "upper_root": -1,
+      "upper_type": 0,
+      "upper_notes": [
+        0,
+        0,
+        0
+      ],
+      "fused": false,
+      "stages": [],
+      "bass_register": 36,
+      "bass_mode": 0
+    },
+    {
+      "bass_notes": [
+        36,
+        36,
+        36,
+        36
+      ],
+      "harmony": 70043,
+      "source": "HE-H43",
+      "pedal": 0,
+      "high": -1,
+      "upper_root": -1,
+      "upper_type": 0,
+      "upper_notes": [
+        0,
+        0,
+        0
+      ],
+      "fused": false,
+      "stages": [],
+      "bass_register": 36,
+      "bass_mode": 0
+    },
+    {
+      "bass_notes": [
+        36,
+        36
+      ],
+      "harmony": 70045,
+      "source": "HE-H45",
+      "pedal": -1,
+      "high": -1,
+      "upper_root": -1,
+      "upper_type": 0,
+      "upper_notes": [
+        0,
+        0,
+        0
+      ],
+      "fused": false,
+      "stages": [],
+      "bass_register": 36,
+      "bass_mode": 0
+    },
+    {
+      "bass_notes": [
+        36,
+        32,
+        29,
+        24
+      ],
+      "harmony": 70046,
+      "source": "HE-H46",
+      "pedal": -1,
+      "high": -1,
+      "upper_root": -1,
+      "upper_type": 0,
+      "upper_notes": [
+        0,
+        0,
+        0
+      ],
+      "fused": false,
+      "stages": [],
+      "bass_register": 36,
+      "bass_mode": 0
+    },
+    {
+      "bass_notes": [
+        36,
+        38,
+        36,
+        38
+      ],
+      "harmony": 70048,
+      "source": "HE-H48",
+      "pedal": -1,
+      "high": -1,
+      "upper_root": -1,
+      "upper_type": 0,
+      "upper_notes": [
+        0,
+        0,
+        0
+      ],
+      "fused": false,
+      "stages": [],
+      "bass_register": 36,
+      "bass_mode": 0
+    },
+    {
+      "bass_notes": [
+        30
+      ],
+      "harmony": 70066,
+      "source": "HE-H66",
+      "pedal": -1,
+      "high": -1,
+      "upper_root": -1,
+      "upper_type": 0,
+      "upper_notes": [
+        0,
+        0,
+        0
+      ],
+      "fused": false,
+      "stages": [],
+      "bass_register": 24,
+      "bass_mode": 0
+    },
+    {
+      "bass_notes": [
+        25
+      ],
+      "harmony": 70067,
+      "source": "HE-H67",
+      "pedal": -1,
+      "high": -1,
+      "upper_root": -1,
+      "upper_type": 0,
+      "upper_notes": [
+        0,
+        0,
+        0
+      ],
+      "fused": false,
+      "stages": [],
+      "bass_register": 24,
+      "bass_mode": 0
+    },
+    {
+      "bass_notes": [
+        36,
+        34,
+        32,
+        30
+      ],
+      "harmony": 70076,
+      "source": "HE-H76",
+      "pedal": -1,
+      "high": -1,
+      "upper_root": -1,
+      "upper_type": 0,
+      "upper_notes": [
+        0,
+        0,
+        0
+      ],
+      "fused": false,
+      "stages": [],
+      "bass_register": 36,
+      "bass_mode": 0
+    },
+    {
+      "bass_notes": [
+        36,
+        32,
+        29,
+        24
+      ],
+      "harmony": 70078,
+      "source": "HE-H78",
+      "pedal": -1,
+      "high": -1,
+      "upper_root": -1,
+      "upper_type": 0,
+      "upper_notes": [
+        0,
+        0,
+        0
+      ],
+      "fused": false,
+      "stages": [],
+      "bass_register": 36,
+      "bass_mode": 0
+    },
+    {
+      "bass_notes": [
+        36,
+        31,
+        32,
+        31
+      ],
+      "harmony": 70082,
+      "source": "HE-H82",
+      "pedal": -1,
+      "high": -1,
+      "upper_root": -1,
+      "upper_type": 0,
+      "upper_notes": [
+        0,
+        0,
+        0
+      ],
+      "fused": false,
+      "stages": [],
+      "bass_register": 36,
+      "bass_mode": 0
+    },
+    {
+      "bass_notes": [
+        36,
+        40
+      ],
+      "harmony": 70085,
+      "source": "HE-H85",
+      "pedal": -1,
+      "high": -1,
+      "upper_root": -1,
+      "upper_type": 0,
+      "upper_notes": [
+        0,
+        0,
+        0
+      ],
+      "fused": false,
+      "stages": [],
+      "bass_register": 36,
+      "bass_mode": 0
+    },
+    {
+      "bass_notes": [
+        36,
+        37,
+        38,
+        39,
+        36,
+        37,
+        38,
+        39
+      ],
+      "harmony": 70093,
+      "source": "HE-H93",
+      "pedal": -1,
+      "high": -1,
+      "upper_root": -1,
+      "upper_type": 0,
+      "upper_notes": [
+        0,
+        0,
+        0
+      ],
+      "fused": false,
+      "stages": [],
+      "bass_register": 36,
+      "bass_mode": 0
+    },
+    {
+      "bass_notes": [
+        35
+      ],
+      "harmony": 70096,
+      "source": "HE-H96",
+      "pedal": -1,
+      "high": -1,
+      "upper_root": -1,
+      "upper_type": 0,
+      "upper_notes": [
+        0,
+        0,
+        0
+      ],
+      "fused": false,
+      "stages": [],
+      "bass_register": 36,
+      "bass_mode": 0
+    },
+    {
+      "bass_notes": [
+        36
+      ],
+      "harmony": 70051,
+      "source": "HE-H51",
+      "pedal": -1,
+      "high": -1,
+      "upper_root": 6,
+      "upper_type": 1,
+      "upper_notes": [
+        78,
+        81,
+        85
+      ],
+      "fused": false,
+      "stages": [],
+      "bass_register": 36,
+      "bass_mode": 0
+    },
+    {
+      "bass_notes": [
+        36
+      ],
+      "harmony": 70053,
+      "source": "HE-H53",
+      "pedal": -1,
+      "high": -1,
+      "upper_root": 11,
+      "upper_type": 1,
+      "upper_notes": [
+        71,
+        74,
+        78
+      ],
+      "fused": false,
+      "stages": [],
+      "bass_register": 36,
+      "bass_mode": 0
+    },
+    {
+      "bass_notes": [
+        36
+      ],
+      "harmony": 70057,
+      "source": "HE-H57",
+      "pedal": -1,
+      "high": -1,
+      "upper_root": 6,
+      "upper_type": 0,
+      "upper_notes": [
+        78,
+        82,
+        85
+      ],
+      "fused": true,
+      "stages": [],
+      "bass_register": 36,
+      "bass_mode": 2
+    },
+    {
+      "bass_notes": [
+        36
+      ],
+      "harmony": 70058,
+      "source": "HE-H58",
+      "pedal": -1,
+      "high": -1,
+      "upper_root": 4,
+      "upper_type": 0,
+      "upper_notes": [
+        76,
+        80,
+        83
+      ],
+      "fused": false,
+      "stages": [],
+      "bass_register": 36,
+      "bass_mode": 0
+    },
+    {
+      "bass_notes": [
+        36
+      ],
+      "harmony": 70060,
+      "source": "HE-H60",
+      "pedal": 0,
+      "high": -1,
+      "upper_root": 11,
+      "upper_type": 1,
+      "upper_notes": [
+        83,
+        86,
+        90
+      ],
+      "fused": false,
+      "stages": [
+        [
+          0,
+          0,
+          false
+        ],
+        [
+          7680,
+          -12,
+          false
+        ],
+        [
+          15360,
+          -36,
+          true
+        ]
+      ],
+      "bass_register": 36,
+      "bass_mode": 0
+    },
+    {
+      "bass_notes": [
+        36,
+        32,
+        27,
+        25
+      ],
+      "harmony": 70064,
+      "source": "HE-H64",
+      "pedal": -1,
+      "high": 79,
+      "upper_root": -1,
+      "upper_type": 0,
+      "upper_notes": [
+        0,
+        0,
+        0
+      ],
+      "fused": false,
+      "stages": [],
+      "bass_register": 36,
+      "bass_mode": 0
+    },
+    {
+      "bass_notes": [
+        36
+      ],
+      "harmony": 70068,
+      "source": "HE-H68",
+      "pedal": 0,
+      "high": 90,
+      "upper_root": -1,
+      "upper_type": 0,
+      "upper_notes": [
+        0,
+        0,
+        0
+      ],
+      "fused": false,
+      "stages": [],
+      "bass_register": 36,
+      "bass_mode": 0
+    }
+  ],
+  "figures": [
+    {
+      "id": 80010,
+      "source": "HE-R01",
+      "part": "harmonyShort",
+      "period": 7680,
+      "events": [
+        {
+          "at": 0,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "chord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 480,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "chord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 960,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "chord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 1440,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "chord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 1920,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "chord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 2400,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "chord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 2880,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "chord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 3360,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "chord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 3840,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "chord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 4320,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "chord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 4800,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "chord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 5280,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "chord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 5760,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "chord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 6240,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "chord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 6720,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "chord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 7200,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "chord",
+          "function": "A",
+          "target": -1
+        }
+      ],
+      "y": 0.4,
+      "z": 0.55,
+      "xlow": 0,
+      "xhigh": 1,
+      "context": [
+        0,
+        0
+      ],
+      "refs": [],
+      "group": 1,
+      "held": false,
+      "sparse": false
+    },
+    {
+      "id": 80020,
+      "source": "HE-R02",
+      "part": "harmonyShort",
+      "period": 7680,
+      "events": [
+        {
+          "at": 0,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "chord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 960,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "chord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 1920,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "chord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 2880,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "chord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 3840,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "chord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 4800,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "chord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 5760,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "chord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 6720,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "chord",
+          "function": "A",
+          "target": -1
+        }
+      ],
+      "y": 0.25,
+      "z": 0.4,
+      "xlow": 0,
+      "xhigh": 1,
+      "context": [
+        0,
+        0
+      ],
+      "refs": [],
+      "group": 2,
+      "held": false,
+      "sparse": false
+    },
+    {
+      "id": 80080,
+      "source": "HE-R08",
+      "part": "bassShort",
+      "period": 7680,
+      "events": [
+        {
+          "at": 0,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 88,
+          "reference": "bass",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 720,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "bass",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 1920,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 88,
+          "reference": "bass",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 2640,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "bass",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 3840,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 88,
+          "reference": "bass",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 4560,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "bass",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 5760,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 88,
+          "reference": "bass",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 6480,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "bass",
+          "function": "A",
+          "target": -1
+        }
+      ],
+      "y": 0.7,
+      "z": 0.35,
+      "xlow": 0,
+      "xhigh": 1,
+      "context": [
+        0,
+        0
+      ],
+      "refs": [],
+      "group": 8,
+      "held": false,
+      "sparse": false
+    },
+    {
+      "id": 80090,
+      "source": "HE-R09",
+      "part": "bassShort",
+      "period": 7680,
+      "events": [
+        {
+          "at": 0,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "bass",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 960,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "bass",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 1920,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "bass",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 2880,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "bass",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 3840,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "bass",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 4800,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "bass",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 5760,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "bass",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 6240,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "bass",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 6720,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "bass",
+          "function": "A",
+          "target": -1
+        }
+      ],
+      "y": 0.55,
+      "z": 0.35,
+      "xlow": 0,
+      "xhigh": 1,
+      "context": [
+        0,
+        0
+      ],
+      "refs": [],
+      "group": 9,
+      "held": false,
+      "sparse": false
+    },
+    {
+      "id": 80110,
+      "source": "HE-R11",
+      "part": "movement",
+      "period": 11520,
+      "events": [
+        {
+          "at": 0,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "brokenChord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 720,
+          "duration": 240,
+          "pitch": 1,
+          "velocity": 66,
+          "reference": "brokenChord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 1440,
+          "duration": 240,
+          "pitch": 2,
+          "velocity": 66,
+          "reference": "brokenChord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 2160,
+          "duration": 240,
+          "pitch": 3,
+          "velocity": 66,
+          "reference": "brokenChord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 2880,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "brokenChord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 3600,
+          "duration": 240,
+          "pitch": 1,
+          "velocity": 66,
+          "reference": "brokenChord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 4320,
+          "duration": 240,
+          "pitch": 2,
+          "velocity": 66,
+          "reference": "brokenChord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 5040,
+          "duration": 240,
+          "pitch": 3,
+          "velocity": 66,
+          "reference": "brokenChord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 5760,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "brokenChord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 6480,
+          "duration": 240,
+          "pitch": 1,
+          "velocity": 66,
+          "reference": "brokenChord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 7200,
+          "duration": 240,
+          "pitch": 2,
+          "velocity": 66,
+          "reference": "brokenChord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 7920,
+          "duration": 240,
+          "pitch": 3,
+          "velocity": 66,
+          "reference": "brokenChord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 8640,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "brokenChord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 9360,
+          "duration": 240,
+          "pitch": 1,
+          "velocity": 66,
+          "reference": "brokenChord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 10080,
+          "duration": 240,
+          "pitch": 2,
+          "velocity": 66,
+          "reference": "brokenChord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 10800,
+          "duration": 240,
+          "pitch": 3,
+          "velocity": 66,
+          "reference": "brokenChord",
+          "function": "A",
+          "target": -1
+        }
+      ],
+      "y": 0.45,
+      "z": 0.8,
+      "xlow": 0,
+      "xhigh": 1,
+      "context": [
+        0,
+        0
+      ],
+      "refs": [],
+      "group": 11,
+      "held": false,
+      "sparse": true
+    },
+    {
+      "id": 80111,
+      "source": "HE-R11",
+      "part": "harmonyShort",
+      "period": 11520,
+      "events": [
+        {
+          "at": 0,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "chord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 960,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "chord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 1920,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "chord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 2880,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "chord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 3840,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "chord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 4800,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "chord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 5760,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "chord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 6720,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "chord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 7680,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "chord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 8640,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "chord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 9600,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "chord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 10560,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "chord",
+          "function": "A",
+          "target": -1
+        }
+      ],
+      "y": 0.45,
+      "z": 0.8,
+      "xlow": 0,
+      "xhigh": 1,
+      "context": [
+        0,
+        0
+      ],
+      "refs": [],
+      "group": 11,
+      "held": false,
+      "sparse": false
+    },
+    {
+      "id": 80140,
+      "source": "HE-R14",
+      "part": "harmonyShort",
+      "period": 7680,
+      "events": [
+        {
+          "at": 0,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 88,
+          "reference": "chord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 720,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 88,
+          "reference": "chord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 1440,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 88,
+          "reference": "chord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 2400,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 88,
+          "reference": "chord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 3120,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 88,
+          "reference": "chord",
+          "function": "A",
+          "target": -1
+        }
+      ],
+      "y": 0.7,
+      "z": 0.6,
+      "xlow": 0,
+      "xhigh": 1,
+      "context": [
+        0,
+        0
+      ],
+      "refs": [],
+      "group": 14,
+      "held": false,
+      "sparse": false
+    },
+    {
+      "id": 80150,
+      "source": "HE-R15",
+      "part": "harmonyShort",
+      "period": 7680,
+      "events": [
+        {
+          "at": 0,
+          "duration": 720,
+          "pitch": 0,
+          "velocity": 88,
+          "reference": "chord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 720,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "chord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 1920,
+          "duration": 720,
+          "pitch": 0,
+          "velocity": 88,
+          "reference": "chord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 2640,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "chord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 3840,
+          "duration": 720,
+          "pitch": 0,
+          "velocity": 88,
+          "reference": "chord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 4560,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "chord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 5760,
+          "duration": 720,
+          "pitch": 0,
+          "velocity": 88,
+          "reference": "chord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 6480,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "chord",
+          "function": "A",
+          "target": -1
+        }
+      ],
+      "y": 0.6,
+      "z": 0.6,
+      "xlow": 0,
+      "xhigh": 1,
+      "context": [
+        0,
+        0
+      ],
+      "refs": [],
+      "group": 15,
+      "held": false,
+      "sparse": false
+    },
+    {
+      "id": 80151,
+      "source": "HE-R15",
+      "part": "bassShort",
+      "period": 7680,
+      "events": [
+        {
+          "at": 1200,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "bass",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 3120,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "bass",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 5040,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "bass",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 6960,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "bass",
+          "function": "A",
+          "target": -1
+        }
+      ],
+      "y": 0.6,
+      "z": 0.6,
+      "xlow": 0,
+      "xhigh": 1,
+      "context": [
+        0,
+        0
+      ],
+      "refs": [],
+      "group": 15,
+      "held": false,
+      "sparse": false
+    },
+    {
+      "id": 80160,
+      "source": "HE-R16",
+      "part": "harmonyLong",
+      "period": 15360,
+      "events": [
+        {
+          "at": 0,
+          "duration": 7680,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "chord",
+          "function": "A",
+          "target": -1
+        }
+      ],
+      "y": 0.25,
+      "z": 0.35,
+      "xlow": 0,
+      "xhigh": 1,
+      "context": [
+        0,
+        0
+      ],
+      "refs": [],
+      "group": 16,
+      "held": false,
+      "sparse": false
+    },
+    {
+      "id": 80170,
+      "source": "HE-R17",
+      "part": "harmonyShort",
+      "period": 15360,
+      "events": [
+        {
+          "at": 0,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "chord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 1920,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "chord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 4800,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "chord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 10080,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "chord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 15120,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "chord",
+          "function": "A",
+          "target": -1
+        }
+      ],
+      "y": 0.3,
+      "z": 0.6,
+      "xlow": 0,
+      "xhigh": 1,
+      "context": [
+        0,
+        0
+      ],
+      "refs": [],
+      "group": 17,
+      "held": false,
+      "sparse": false
+    },
+    {
+      "id": 80180,
+      "source": "HE-R18",
+      "part": "impulse",
+      "period": 15360,
+      "events": [
+        {
+          "at": 1440,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "root",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 6240,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "root",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 8400,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "root",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 14640,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "root",
+          "function": "A",
+          "target": -1
+        }
+      ],
+      "y": 0.15,
+      "z": 0.6,
+      "xlow": 0,
+      "xhigh": 1,
+      "context": [
+        0,
+        0
+      ],
+      "refs": [],
+      "group": 18,
+      "held": false,
+      "sparse": true
+    },
+    {
+      "id": 80200,
+      "source": "HE-R20",
+      "part": "harmonyShort",
+      "period": 15360,
+      "events": [
+        {
+          "at": 0,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "chord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 480,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "chord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 960,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "chord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 1440,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "chord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 1920,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "chord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 2400,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "chord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 2880,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "chord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 3360,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "chord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 3840,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "chord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 4320,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "chord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 4800,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "chord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 5280,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "chord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 7680,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "chord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 8160,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "chord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 8640,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "chord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 9120,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "chord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 9600,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "chord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 10080,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "chord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 10560,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "chord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 11040,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "chord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 11520,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "chord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 12000,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "chord",
+          "function": "A",
+          "target": -1
+        }
+      ],
+      "y": 0.35,
+      "z": 0.65,
+      "xlow": 0,
+      "xhigh": 1,
+      "context": [
+        0,
+        0
+      ],
+      "refs": [],
+      "group": 20,
+      "held": false,
+      "sparse": false
+    },
+    {
+      "id": 80270,
+      "source": "HE-R27",
+      "part": "harmonyShort",
+      "period": 15360,
+      "events": [
+        {
+          "at": 0,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 88,
+          "reference": "chord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 480,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "chord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 960,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "chord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 1440,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "chord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 1920,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "chord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 2400,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "chord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 2880,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "chord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 3360,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "chord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 3840,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "chord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 4320,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 88,
+          "reference": "chord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 4800,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "chord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 5280,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "chord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 5760,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "chord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 6240,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "chord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 6720,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "chord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 7200,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "chord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 7680,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "chord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 8160,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "chord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 8640,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 88,
+          "reference": "chord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 9120,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "chord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 9600,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "chord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 10080,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "chord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 10560,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "chord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 11040,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "chord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 11520,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "chord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 12000,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "chord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 12480,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "chord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 12960,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 88,
+          "reference": "chord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 13440,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "chord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 13920,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "chord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 14400,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "chord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 14880,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "chord",
+          "function": "A",
+          "target": -1
+        }
+      ],
+      "y": 0.35,
+      "z": 0.7,
+      "xlow": 0,
+      "xhigh": 1,
+      "context": [
+        0,
+        0
+      ],
+      "refs": [],
+      "group": 27,
+      "held": false,
+      "sparse": false
+    },
+    {
+      "id": 80280,
+      "source": "HE-R28",
+      "part": "harmonyShort",
+      "period": 7680,
+      "events": [
+        {
+          "at": 0,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 88,
+          "reference": "chord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 480,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "chord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 960,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "chord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 1440,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 88,
+          "reference": "chord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 1920,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "chord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 2400,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "chord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 2880,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 88,
+          "reference": "chord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 3360,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "chord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 3840,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 88,
+          "reference": "chord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 4320,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "chord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 4800,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "chord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 5280,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 88,
+          "reference": "chord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 5760,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "chord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 6240,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 88,
+          "reference": "chord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 6720,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "chord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 7200,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "chord",
+          "function": "A",
+          "target": -1
+        }
+      ],
+      "y": 0.45,
+      "z": 0.7,
+      "xlow": 0,
+      "xhigh": 1,
+      "context": [
+        0,
+        0
+      ],
+      "refs": [],
+      "group": 28,
+      "held": false,
+      "sparse": false
+    },
+    {
+      "id": 80290,
+      "source": "HE-R29",
+      "part": "harmonyShort",
+      "period": 11520,
+      "events": [
+        {
+          "at": 0,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "chord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 960,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "chord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 1920,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "chord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 2880,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "chord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 3840,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "chord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 4800,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "chord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 5760,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "chord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 6720,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "chord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 7680,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "chord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 8640,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "chord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 9600,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "chord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 10560,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "chord",
+          "function": "A",
+          "target": -1
+        }
+      ],
+      "y": 0.4,
+      "z": 0.7,
+      "xlow": 0,
+      "xhigh": 1,
+      "context": [
+        0,
+        0
+      ],
+      "refs": [],
+      "group": 29,
+      "held": false,
+      "sparse": false
+    },
+    {
+      "id": 80291,
+      "source": "HE-R29",
+      "part": "bassShort",
+      "period": 11520,
+      "events": [
+        {
+          "at": 0,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "bass",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 1920,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "bass",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 2880,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "bass",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 4800,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "bass",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 5760,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "bass",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 7680,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "bass",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 8640,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "bass",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 10560,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "bass",
+          "function": "A",
+          "target": -1
+        }
+      ],
+      "y": 0.4,
+      "z": 0.7,
+      "xlow": 0,
+      "xhigh": 1,
+      "context": [
+        0,
+        0
+      ],
+      "refs": [],
+      "group": 29,
+      "held": false,
+      "sparse": false
+    },
+    {
+      "id": 80300,
+      "source": "HE-R30",
+      "part": "movement",
+      "period": 19200,
+      "events": [
+        {
+          "at": 0,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "brokenChord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 480,
+          "duration": 240,
+          "pitch": 1,
+          "velocity": 66,
+          "reference": "brokenChord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 1200,
+          "duration": 240,
+          "pitch": 2,
+          "velocity": 66,
+          "reference": "brokenChord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 1680,
+          "duration": 240,
+          "pitch": 3,
+          "velocity": 66,
+          "reference": "brokenChord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 2400,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "brokenChord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 2880,
+          "duration": 240,
+          "pitch": 1,
+          "velocity": 66,
+          "reference": "brokenChord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 3600,
+          "duration": 240,
+          "pitch": 2,
+          "velocity": 66,
+          "reference": "brokenChord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 4080,
+          "duration": 240,
+          "pitch": 3,
+          "velocity": 66,
+          "reference": "brokenChord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 4800,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "brokenChord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 5280,
+          "duration": 240,
+          "pitch": 1,
+          "velocity": 66,
+          "reference": "brokenChord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 6000,
+          "duration": 240,
+          "pitch": 2,
+          "velocity": 66,
+          "reference": "brokenChord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 6480,
+          "duration": 240,
+          "pitch": 3,
+          "velocity": 66,
+          "reference": "brokenChord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 7200,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "brokenChord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 7680,
+          "duration": 240,
+          "pitch": 1,
+          "velocity": 66,
+          "reference": "brokenChord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 8400,
+          "duration": 240,
+          "pitch": 2,
+          "velocity": 66,
+          "reference": "brokenChord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 8880,
+          "duration": 240,
+          "pitch": 3,
+          "velocity": 66,
+          "reference": "brokenChord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 9600,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "brokenChord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 10080,
+          "duration": 240,
+          "pitch": 1,
+          "velocity": 66,
+          "reference": "brokenChord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 10800,
+          "duration": 240,
+          "pitch": 2,
+          "velocity": 66,
+          "reference": "brokenChord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 11280,
+          "duration": 240,
+          "pitch": 3,
+          "velocity": 66,
+          "reference": "brokenChord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 12000,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "brokenChord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 12480,
+          "duration": 240,
+          "pitch": 1,
+          "velocity": 66,
+          "reference": "brokenChord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 13200,
+          "duration": 240,
+          "pitch": 2,
+          "velocity": 66,
+          "reference": "brokenChord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 13680,
+          "duration": 240,
+          "pitch": 3,
+          "velocity": 66,
+          "reference": "brokenChord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 14400,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "brokenChord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 14880,
+          "duration": 240,
+          "pitch": 1,
+          "velocity": 66,
+          "reference": "brokenChord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 15600,
+          "duration": 240,
+          "pitch": 2,
+          "velocity": 66,
+          "reference": "brokenChord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 16080,
+          "duration": 240,
+          "pitch": 3,
+          "velocity": 66,
+          "reference": "brokenChord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 16800,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "brokenChord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 17280,
+          "duration": 240,
+          "pitch": 1,
+          "velocity": 66,
+          "reference": "brokenChord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 18000,
+          "duration": 240,
+          "pitch": 2,
+          "velocity": 66,
+          "reference": "brokenChord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 18480,
+          "duration": 240,
+          "pitch": 3,
+          "velocity": 66,
+          "reference": "brokenChord",
+          "function": "A",
+          "target": -1
+        }
+      ],
+      "y": 0.4,
+      "z": 0.75,
+      "xlow": 0,
+      "xhigh": 1,
+      "context": [
+        0,
+        0
+      ],
+      "refs": [],
+      "group": 30,
+      "held": false,
+      "sparse": true
+    },
+    {
+      "id": 80330,
+      "source": "HE-R33",
+      "part": "harmonyShort",
+      "period": 7680,
+      "events": [
+        {
+          "at": 0,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "chord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 480,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "chord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 960,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "chord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 1440,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "chord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 1920,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "chord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 2400,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "chord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 2880,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "chord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 3360,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "chord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 3840,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "chord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 4320,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "chord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 4800,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "chord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 5280,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "chord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 5760,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "chord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 6240,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "chord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 6720,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "chord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 7200,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "chord",
+          "function": "A",
+          "target": -1
+        }
+      ],
+      "y": 0.65,
+      "z": 0.8,
+      "xlow": 0,
+      "xhigh": 1,
+      "context": [
+        0,
+        0
+      ],
+      "refs": [],
+      "group": 33,
+      "held": false,
+      "sparse": false
+    },
+    {
+      "id": 80331,
+      "source": "HE-R33",
+      "part": "bassShort",
+      "period": 7680,
+      "events": [
+        {
+          "at": 480,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "bass",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 1440,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "bass",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 1920,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "bass",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 3360,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "bass",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 4560,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "bass",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 5760,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "bass",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 6720,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "bass",
+          "function": "A",
+          "target": -1
+        }
+      ],
+      "y": 0.65,
+      "z": 0.8,
+      "xlow": 0,
+      "xhigh": 1,
+      "context": [
+        0,
+        0
+      ],
+      "refs": [],
+      "group": 33,
+      "held": false,
+      "sparse": false
+    },
+    {
+      "id": 80350,
+      "source": "HE-R35",
+      "part": "harmonyLong",
+      "period": 15360,
+      "events": [
+        {
+          "at": 0,
+          "duration": 5760,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "chord",
+          "function": "A",
+          "target": -1
+        }
+      ],
+      "y": 0.1,
+      "z": 0.45,
+      "xlow": 0,
+      "xhigh": 1,
+      "context": [
+        0,
+        0
+      ],
+      "refs": [],
+      "group": 35,
+      "held": false,
+      "sparse": false
+    },
+    {
+      "id": 80351,
+      "source": "HE-R35",
+      "part": "impulse",
+      "period": 15360,
+      "events": [
+        {
+          "at": 13920,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "root",
+          "function": "A",
+          "target": -1
+        }
+      ],
+      "y": 0.1,
+      "z": 0.45,
+      "xlow": 0,
+      "xhigh": 1,
+      "context": [
+        0,
+        0
+      ],
+      "refs": [],
+      "group": 35,
+      "held": false,
+      "sparse": true
+    },
+    {
+      "id": 80360,
+      "source": "HE-R36",
+      "part": "impulse",
+      "period": 7680,
+      "events": [
+        {
+          "at": 0,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "root",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 960,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "root",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 1920,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "root",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 2880,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "root",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 3840,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "root",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 4800,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "root",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 5760,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "root",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 6720,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "root",
+          "function": "A",
+          "target": -1
+        }
+      ],
+      "y": 0.15,
+      "z": 0.4,
+      "xlow": 0,
+      "xhigh": 1,
+      "context": [
+        0,
+        0
+      ],
+      "refs": [],
+      "group": 36,
+      "held": false,
+      "sparse": true
+    },
+    {
+      "id": 80370,
+      "source": "HE-R37",
+      "part": "movement",
+      "period": 7680,
+      "events": [
+        {
+          "at": 0,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "root",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 720,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "root",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 960,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "root",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 1440,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "root",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 1920,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "root",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 2640,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "root",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 2880,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "root",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 3360,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "root",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 3840,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "root",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 4560,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "root",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 4800,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "root",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 5280,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "root",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 5760,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "root",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 6480,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "root",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 6720,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "root",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 7200,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "root",
+          "function": "A",
+          "target": -1
+        }
+      ],
+      "y": 0.2,
+      "z": 0.45,
+      "xlow": 0,
+      "xhigh": 1,
+      "context": [
+        0,
+        0
+      ],
+      "refs": [],
+      "group": 37,
+      "held": false,
+      "sparse": true
+    },
+    {
+      "id": 80371,
+      "source": "HE-R37",
+      "part": "bassLong",
+      "period": 7680,
+      "events": [
+        {
+          "at": 0,
+          "duration": 7680,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "bass",
+          "function": "A",
+          "target": -1
+        }
+      ],
+      "y": 0.2,
+      "z": 0.45,
+      "xlow": 0,
+      "xhigh": 1,
+      "context": [
+        0,
+        0
+      ],
+      "refs": [],
+      "group": 37,
+      "held": false,
+      "sparse": false
+    },
+    {
+      "id": 80450,
+      "source": "HE-R45",
+      "part": "harmonyShort",
+      "period": 7680,
+      "events": [
+        {
+          "at": 0,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "chord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 240,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "chord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 480,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "chord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 720,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "chord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 960,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "chord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 1200,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "chord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 1440,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "chord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 1680,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "chord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 1920,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "chord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 2160,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "chord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 2400,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "chord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 2640,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "chord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 2880,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "chord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 3120,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "chord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 3360,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "chord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 3600,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "chord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 3840,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "chord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 4080,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "chord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 4320,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "chord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 4560,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "chord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 4800,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "chord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 5040,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "chord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 5280,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "chord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 5520,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "chord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 5760,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "chord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 6000,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "chord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 6240,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "chord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 6480,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "chord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 6720,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "chord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 6960,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "chord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 7200,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "chord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 7440,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "chord",
+          "function": "A",
+          "target": -1
+        }
+      ],
+      "y": 0.35,
+      "z": 0.7,
+      "xlow": 0,
+      "xhigh": 1,
+      "context": [
+        0,
+        0
+      ],
+      "refs": [],
+      "group": 45,
+      "held": false,
+      "sparse": false
+    },
+    {
+      "id": 80470,
+      "source": "HE-R47",
+      "part": "impulse",
+      "period": 7680,
+      "events": [
+        {
+          "at": 0,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "root",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 480,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "root",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 1920,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "root",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 2400,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "root",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 3840,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "root",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 4320,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "root",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 5760,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "root",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 6240,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "root",
+          "function": "A",
+          "target": -1
+        }
+      ],
+      "y": 0.35,
+      "z": 0.65,
+      "xlow": 0,
+      "xhigh": 1,
+      "context": [
+        0,
+        0
+      ],
+      "refs": [],
+      "group": 47,
+      "held": false,
+      "sparse": true
+    },
+    {
+      "id": 80471,
+      "source": "HE-R47",
+      "part": "bassShort",
+      "period": 7680,
+      "events": [
+        {
+          "at": 0,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "bass",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 480,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "bass",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 960,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "bass",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 1440,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "bass",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 1920,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "bass",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 2400,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "bass",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 2880,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "bass",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 3360,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "bass",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 3840,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "bass",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 4320,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "bass",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 4800,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "bass",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 5280,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "bass",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 5760,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "bass",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 6240,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "bass",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 6720,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "bass",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 7200,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "bass",
+          "function": "A",
+          "target": -1
+        }
+      ],
+      "y": 0.35,
+      "z": 0.65,
+      "xlow": 0,
+      "xhigh": 1,
+      "context": [
+        0,
+        0
+      ],
+      "refs": [],
+      "group": 47,
+      "held": false,
+      "sparse": false
+    },
+    {
+      "id": 80540,
+      "source": "HE-R54",
+      "part": "harmonyLong",
+      "period": 7680,
+      "events": [
+        {
+          "at": 0,
+          "duration": 4800,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "chord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 4800,
+          "duration": 2880,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "chord",
+          "function": "A",
+          "target": -1
+        }
+      ],
+      "y": 0.25,
+      "z": 0.25,
+      "xlow": 0,
+      "xhigh": 1,
+      "context": [
+        0,
+        0
+      ],
+      "refs": [],
+      "group": 54,
+      "held": false,
+      "sparse": false
+    },
+    {
+      "id": 80550,
+      "source": "HE-R55",
+      "part": "impulse",
+      "period": 7680,
+      "events": [
+        {
+          "at": 0,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "root",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 240,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "root",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 480,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "root",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 720,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "root",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 5760,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "root",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 6000,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "root",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 6240,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "root",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 6480,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "root",
+          "function": "A",
+          "target": -1
+        }
+      ],
+      "y": 0.25,
+      "z": 0.7,
+      "xlow": 0,
+      "xhigh": 1,
+      "context": [
+        0,
+        0
+      ],
+      "refs": [],
+      "group": 55,
+      "held": false,
+      "sparse": true
+    },
+    {
+      "id": 80580,
+      "source": "HE-R58",
+      "part": "harmonyLong",
+      "period": 15360,
+      "events": [
+        {
+          "at": 0,
+          "duration": 1920,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "chord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 1920,
+          "duration": 1920,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "chord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 3840,
+          "duration": 1920,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "chord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 7680,
+          "duration": 1920,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "chord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 9600,
+          "duration": 1920,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "chord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 13440,
+          "duration": 1920,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "chord",
+          "function": "A",
+          "target": -1
+        }
+      ],
+      "y": 0.1,
+      "z": 0.35,
+      "xlow": 0,
+      "xhigh": 1,
+      "context": [
+        0,
+        0
+      ],
+      "refs": [],
+      "group": 58,
+      "held": false,
+      "sparse": false
+    },
+    {
+      "id": 80590,
+      "source": "HE-R59",
+      "part": "harmonyLong",
+      "period": 7680,
+      "events": [
+        {
+          "at": 1440,
+          "duration": 3840,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "chord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 5280,
+          "duration": 2400,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "chord",
+          "function": "A",
+          "target": -1
+        }
+      ],
+      "y": 0.15,
+      "z": 0.5,
+      "xlow": 0,
+      "xhigh": 1,
+      "context": [
+        0,
+        0
+      ],
+      "refs": [],
+      "group": 59,
+      "held": false,
+      "sparse": false
+    },
+    {
+      "id": 80600,
+      "source": "HE-R60",
+      "part": "harmonyShort",
+      "period": 15360,
+      "events": [
+        {
+          "at": 0,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "chord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 480,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "chord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 7680,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "chord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 8160,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "chord",
+          "function": "A",
+          "target": -1
+        }
+      ],
+      "y": 0.3,
+      "z": 0.6,
+      "xlow": 0,
+      "xhigh": 1,
+      "context": [
+        0,
+        0
+      ],
+      "refs": [],
+      "group": 60,
+      "held": false,
+      "sparse": false
+    },
+    {
+      "id": 80601,
+      "source": "HE-R60",
+      "part": "bassShort",
+      "period": 15360,
+      "events": [
+        {
+          "at": 1440,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "bass",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 1920,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "bass",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 9840,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "bass",
+          "function": "A",
+          "target": -1
+        }
+      ],
+      "y": 0.3,
+      "z": 0.6,
+      "xlow": 0,
+      "xhigh": 1,
+      "context": [
+        0,
+        0
+      ],
+      "refs": [],
+      "group": 60,
+      "held": false,
+      "sparse": false
+    },
+    {
+      "id": 80630,
+      "source": "HE-R63",
+      "part": "movement",
+      "period": 19200,
+      "events": [
+        {
+          "at": 0,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "brokenChord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 480,
+          "duration": 240,
+          "pitch": 1,
+          "velocity": 66,
+          "reference": "brokenChord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 960,
+          "duration": 240,
+          "pitch": 2,
+          "velocity": 66,
+          "reference": "brokenChord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 1440,
+          "duration": 240,
+          "pitch": 3,
+          "velocity": 66,
+          "reference": "brokenChord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 1920,
+          "duration": 240,
+          "pitch": 4,
+          "velocity": 66,
+          "reference": "brokenChord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 2400,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "brokenChord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 2880,
+          "duration": 240,
+          "pitch": 1,
+          "velocity": 66,
+          "reference": "brokenChord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 3360,
+          "duration": 240,
+          "pitch": 2,
+          "velocity": 66,
+          "reference": "brokenChord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 3840,
+          "duration": 240,
+          "pitch": 3,
+          "velocity": 66,
+          "reference": "brokenChord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 4320,
+          "duration": 240,
+          "pitch": 4,
+          "velocity": 66,
+          "reference": "brokenChord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 4800,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "brokenChord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 5280,
+          "duration": 240,
+          "pitch": 1,
+          "velocity": 66,
+          "reference": "brokenChord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 5760,
+          "duration": 240,
+          "pitch": 2,
+          "velocity": 66,
+          "reference": "brokenChord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 6240,
+          "duration": 240,
+          "pitch": 3,
+          "velocity": 66,
+          "reference": "brokenChord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 6720,
+          "duration": 240,
+          "pitch": 4,
+          "velocity": 66,
+          "reference": "brokenChord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 7200,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "brokenChord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 7680,
+          "duration": 240,
+          "pitch": 1,
+          "velocity": 66,
+          "reference": "brokenChord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 8160,
+          "duration": 240,
+          "pitch": 2,
+          "velocity": 66,
+          "reference": "brokenChord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 8640,
+          "duration": 240,
+          "pitch": 3,
+          "velocity": 66,
+          "reference": "brokenChord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 9120,
+          "duration": 240,
+          "pitch": 4,
+          "velocity": 66,
+          "reference": "brokenChord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 9600,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "brokenChord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 10080,
+          "duration": 240,
+          "pitch": 1,
+          "velocity": 66,
+          "reference": "brokenChord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 10560,
+          "duration": 240,
+          "pitch": 2,
+          "velocity": 66,
+          "reference": "brokenChord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 11040,
+          "duration": 240,
+          "pitch": 3,
+          "velocity": 66,
+          "reference": "brokenChord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 11520,
+          "duration": 240,
+          "pitch": 4,
+          "velocity": 66,
+          "reference": "brokenChord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 12000,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "brokenChord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 12480,
+          "duration": 240,
+          "pitch": 1,
+          "velocity": 66,
+          "reference": "brokenChord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 12960,
+          "duration": 240,
+          "pitch": 2,
+          "velocity": 66,
+          "reference": "brokenChord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 13440,
+          "duration": 240,
+          "pitch": 3,
+          "velocity": 66,
+          "reference": "brokenChord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 13920,
+          "duration": 240,
+          "pitch": 4,
+          "velocity": 66,
+          "reference": "brokenChord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 14400,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "brokenChord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 14880,
+          "duration": 240,
+          "pitch": 1,
+          "velocity": 66,
+          "reference": "brokenChord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 15360,
+          "duration": 240,
+          "pitch": 2,
+          "velocity": 66,
+          "reference": "brokenChord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 15840,
+          "duration": 240,
+          "pitch": 3,
+          "velocity": 66,
+          "reference": "brokenChord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 16320,
+          "duration": 240,
+          "pitch": 4,
+          "velocity": 66,
+          "reference": "brokenChord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 16800,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 66,
+          "reference": "brokenChord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 17280,
+          "duration": 240,
+          "pitch": 1,
+          "velocity": 66,
+          "reference": "brokenChord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 17760,
+          "duration": 240,
+          "pitch": 2,
+          "velocity": 66,
+          "reference": "brokenChord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 18240,
+          "duration": 240,
+          "pitch": 3,
+          "velocity": 66,
+          "reference": "brokenChord",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 18720,
+          "duration": 240,
+          "pitch": 4,
+          "velocity": 66,
+          "reference": "brokenChord",
+          "function": "A",
+          "target": -1
+        }
+      ],
+      "y": 0.4,
+      "z": 0.65,
+      "xlow": 0,
+      "xhigh": 1,
+      "context": [
+        0,
+        0
+      ],
+      "refs": [],
+      "group": 63,
+      "held": false,
+      "sparse": true
+    },
+    {
+      "id": 80640,
+      "source": "HE-R64",
+      "part": "impulse",
+      "period": 7680,
+      "events": [
+        {
+          "at": 0,
+          "duration": 240,
+          "pitch": 12,
+          "velocity": 66,
+          "reference": "root",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 480,
+          "duration": 240,
+          "pitch": 12,
+          "velocity": 66,
+          "reference": "root",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 2400,
+          "duration": 240,
+          "pitch": 12,
+          "velocity": 66,
+          "reference": "root",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 2880,
+          "duration": 240,
+          "pitch": 12,
+          "velocity": 66,
+          "reference": "root",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 4800,
+          "duration": 240,
+          "pitch": 12,
+          "velocity": 66,
+          "reference": "root",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 5280,
+          "duration": 240,
+          "pitch": 12,
+          "velocity": 66,
+          "reference": "root",
+          "function": "A",
+          "target": -1
+        }
+      ],
+      "y": 0.15,
+      "z": 0.55,
+      "xlow": 0.5,
+      "xhigh": 1,
+      "context": [
+        0,
+        0
+      ],
+      "refs": [],
+      "group": 64,
+      "held": false,
+      "sparse": true
+    },
+    {
+      "id": 81001,
+      "source": "HE-B01",
+      "part": "bassLong",
+      "period": 15360,
+      "events": [
+        {
+          "at": 0,
+          "duration": 15360,
+          "pitch": 36,
+          "velocity": 65,
+          "reference": "fixed",
+          "function": "A",
+          "target": -1
+        }
+      ],
+      "y": 0.15,
+      "z": 0.3,
+      "xlow": 0,
+      "xhigh": 1,
+      "refs": [
+        70064
+      ],
+      "context": [
+        137,
+        265
+      ],
+      "group": 0,
+      "held": true,
+      "sparse": false
+    },
+    {
+      "id": 81002,
+      "source": "HE-B02",
+      "part": "bassLong",
+      "period": 15360,
+      "events": [
+        {
+          "at": 0,
+          "duration": 15360,
+          "pitch": 30,
+          "velocity": 65,
+          "reference": "fixed",
+          "function": "A",
+          "target": -1
+        }
+      ],
+      "y": 0.2,
+      "z": 0.65,
+      "xlow": 0,
+      "xhigh": 1,
+      "refs": [
+        70005,
+        70066
+      ],
+      "context": [
+        2185,
+        145
+      ],
+      "group": 0,
+      "held": true,
+      "sparse": false
+    },
+    {
+      "id": 81003,
+      "source": "HE-B03",
+      "part": "bassLong",
+      "period": 15360,
+      "events": [
+        {
+          "at": 0,
+          "duration": 15360,
+          "pitch": 25,
+          "velocity": 65,
+          "reference": "fixed",
+          "function": "A",
+          "target": -1
+        }
+      ],
+      "y": 0.25,
+      "z": 0.65,
+      "xlow": 0,
+      "xhigh": 1,
+      "refs": [
+        70018,
+        70067
+      ],
+      "context": [
+        273,
+        137
+      ],
+      "group": 0,
+      "held": true,
+      "sparse": false
+    },
+    {
+      "id": 81005,
+      "source": "HE-B05",
+      "part": "bassLong",
+      "period": 15360,
+      "events": [
+        {
+          "at": 1440,
+          "duration": 10080,
+          "pitch": 36,
+          "velocity": 65,
+          "reference": "fixed",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 13920,
+          "duration": 1440,
+          "pitch": 36,
+          "velocity": 65,
+          "reference": "fixed",
+          "function": "A",
+          "target": -1
+        }
+      ],
+      "y": 0.15,
+      "z": 0.5,
+      "xlow": 0,
+      "xhigh": 1,
+      "refs": [
+        30001
+      ],
+      "context": [
+        2185
+      ],
+      "group": 0,
+      "held": false,
+      "sparse": false
+    },
+    {
+      "id": 81010,
+      "source": "HE-B10",
+      "part": "bassLong",
+      "period": 30720,
+      "events": [
+        {
+          "at": 0,
+          "duration": 1920,
+          "pitch": 36,
+          "velocity": 65,
+          "reference": "fixed",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 1920,
+          "duration": 1920,
+          "pitch": 36,
+          "velocity": 65,
+          "reference": "fixed",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 3840,
+          "duration": 1920,
+          "pitch": 36,
+          "velocity": 65,
+          "reference": "fixed",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 5760,
+          "duration": 1920,
+          "pitch": 36,
+          "velocity": 65,
+          "reference": "fixed",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 7680,
+          "duration": 1920,
+          "pitch": 36,
+          "velocity": 65,
+          "reference": "fixed",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 9600,
+          "duration": 1920,
+          "pitch": 36,
+          "velocity": 65,
+          "reference": "fixed",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 11520,
+          "duration": 1920,
+          "pitch": 36,
+          "velocity": 65,
+          "reference": "fixed",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 13440,
+          "duration": 1920,
+          "pitch": 36,
+          "velocity": 65,
+          "reference": "fixed",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 15360,
+          "duration": 1920,
+          "pitch": 36,
+          "velocity": 65,
+          "reference": "fixed",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 17280,
+          "duration": 1920,
+          "pitch": 36,
+          "velocity": 65,
+          "reference": "fixed",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 19200,
+          "duration": 1920,
+          "pitch": 36,
+          "velocity": 65,
+          "reference": "fixed",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 21120,
+          "duration": 1920,
+          "pitch": 36,
+          "velocity": 65,
+          "reference": "fixed",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 23040,
+          "duration": 1920,
+          "pitch": 36,
+          "velocity": 65,
+          "reference": "fixed",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 24960,
+          "duration": 1920,
+          "pitch": 36,
+          "velocity": 65,
+          "reference": "fixed",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 26880,
+          "duration": 1920,
+          "pitch": 36,
+          "velocity": 65,
+          "reference": "fixed",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 28800,
+          "duration": 1920,
+          "pitch": 36,
+          "velocity": 65,
+          "reference": "fixed",
+          "function": "A",
+          "target": -1
+        }
+      ],
+      "y": 0.3,
+      "z": 0.5,
+      "xlow": 0,
+      "xhigh": 1,
+      "refs": [
+        70023
+      ],
+      "context": [
+        585,
+        1170
+      ],
+      "group": 0,
+      "held": false,
+      "sparse": false
+    },
+    {
+      "id": 81011,
+      "source": "HE-B11",
+      "part": "bassShort",
+      "period": 7680,
+      "events": [
+        {
+          "at": 1200,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 65,
+          "reference": "root",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 3120,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 65,
+          "reference": "root",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 5040,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 65,
+          "reference": "root",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 6960,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 65,
+          "reference": "root",
+          "function": "A",
+          "target": -1
+        }
+      ],
+      "y": 0.55,
+      "z": 0.6,
+      "xlow": 0,
+      "xhigh": 1,
+      "refs": [
+        70025
+      ],
+      "context": [
+        2468
+      ],
+      "group": 0,
+      "held": false,
+      "sparse": false
+    },
+    {
+      "id": 81014,
+      "source": "HE-B14",
+      "part": "bassLong",
+      "period": 15360,
+      "events": [
+        {
+          "at": 0,
+          "duration": 7680,
+          "pitch": 36,
+          "velocity": 65,
+          "reference": "fixed",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 7680,
+          "duration": 7680,
+          "pitch": 37,
+          "velocity": 65,
+          "reference": "fixed",
+          "function": "A",
+          "target": -1
+        }
+      ],
+      "y": 0.25,
+      "z": 0.6,
+      "xlow": 0,
+      "xhigh": 1,
+      "refs": [
+        70043,
+        70067
+      ],
+      "context": [
+        137,
+        290
+      ],
+      "group": 0,
+      "held": false,
+      "sparse": false
+    },
+    {
+      "id": 81015,
+      "source": "HE-B15",
+      "part": "bassLong",
+      "period": 15360,
+      "events": [
+        {
+          "at": 0,
+          "duration": 7680,
+          "pitch": 36,
+          "velocity": 65,
+          "reference": "fixed",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 7680,
+          "duration": 7680,
+          "pitch": 30,
+          "velocity": 65,
+          "reference": "fixed",
+          "function": "U",
+          "target": -1
+        }
+      ],
+      "y": 0.4,
+      "z": 0.7,
+      "xlow": 0,
+      "xhigh": 1,
+      "refs": [
+        70011
+      ],
+      "context": [
+        2185,
+        610
+      ],
+      "group": 0,
+      "held": false,
+      "sparse": false
+    },
+    {
+      "id": 81016,
+      "source": "HE-B16",
+      "part": "bassShort",
+      "period": 7680,
+      "events": [
+        {
+          "at": 0,
+          "duration": 240,
+          "pitch": 36,
+          "velocity": 65,
+          "reference": "fixed",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 960,
+          "duration": 240,
+          "pitch": 36,
+          "velocity": 65,
+          "reference": "fixed",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 1920,
+          "duration": 240,
+          "pitch": 36,
+          "velocity": 65,
+          "reference": "fixed",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 2880,
+          "duration": 240,
+          "pitch": 36,
+          "velocity": 65,
+          "reference": "fixed",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 3840,
+          "duration": 240,
+          "pitch": 36,
+          "velocity": 65,
+          "reference": "fixed",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 4800,
+          "duration": 240,
+          "pitch": 36,
+          "velocity": 65,
+          "reference": "fixed",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 5760,
+          "duration": 240,
+          "pitch": 36,
+          "velocity": 65,
+          "reference": "fixed",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 6720,
+          "duration": 240,
+          "pitch": 36,
+          "velocity": 65,
+          "reference": "fixed",
+          "function": "A",
+          "target": -1
+        }
+      ],
+      "y": 0.35,
+      "z": 0.45,
+      "xlow": 0,
+      "xhigh": 1,
+      "refs": [
+        70022
+      ],
+      "context": [
+        1097,
+        2596
+      ],
+      "group": 0,
+      "held": false,
+      "sparse": false
+    },
+    {
+      "id": 81018,
+      "source": "HE-B18",
+      "part": "bassShort",
+      "period": 7680,
+      "events": [
+        {
+          "at": 0,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 65,
+          "reference": "root",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 720,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 65,
+          "reference": "root",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 1920,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 65,
+          "reference": "fifth",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 2640,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 65,
+          "reference": "root",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 3840,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 65,
+          "reference": "root",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 4560,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 65,
+          "reference": "root",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 5760,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 65,
+          "reference": "fifth",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 6480,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 65,
+          "reference": "root",
+          "function": "A",
+          "target": -1
+        }
+      ],
+      "y": 0.7,
+      "z": 0.35,
+      "xlow": 0,
+      "xhigh": 1,
+      "refs": [],
+      "context": [
+        137,
+        2312
+      ],
+      "group": 0,
+      "held": false,
+      "sparse": false
+    },
+    {
+      "id": 81020,
+      "source": "HE-B20",
+      "part": "bassShort",
+      "period": 15360,
+      "events": [
+        {
+          "at": 12960,
+          "duration": 240,
+          "pitch": 24,
+          "velocity": 65,
+          "reference": "fixed",
+          "function": "A",
+          "target": -1
+        }
+      ],
+      "y": 0.15,
+      "z": 0.5,
+      "xlow": 0,
+      "xhigh": 1,
+      "refs": [],
+      "context": [
+        7
+      ],
+      "group": 0,
+      "held": false,
+      "sparse": true
+    },
+    {
+      "id": 81024,
+      "source": "HE-B24",
+      "part": "bassShort",
+      "period": 34560,
+      "events": [
+        {
+          "at": 0,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 65,
+          "reference": "root",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 720,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 65,
+          "reference": "octave",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 1440,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 65,
+          "reference": "root",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 2160,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 65,
+          "reference": "root",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 2880,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 65,
+          "reference": "octave",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 3600,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 65,
+          "reference": "root",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 4320,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 65,
+          "reference": "root",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 5040,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 65,
+          "reference": "octave",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 5760,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 65,
+          "reference": "root",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 6480,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 65,
+          "reference": "root",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 7200,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 65,
+          "reference": "octave",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 7920,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 65,
+          "reference": "root",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 8640,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 65,
+          "reference": "root",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 9360,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 65,
+          "reference": "octave",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 10080,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 65,
+          "reference": "root",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 10800,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 65,
+          "reference": "root",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 11520,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 65,
+          "reference": "octave",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 12240,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 65,
+          "reference": "root",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 12960,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 65,
+          "reference": "root",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 13680,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 65,
+          "reference": "octave",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 14400,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 65,
+          "reference": "root",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 15120,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 65,
+          "reference": "root",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 15840,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 65,
+          "reference": "octave",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 16560,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 65,
+          "reference": "root",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 17280,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 65,
+          "reference": "root",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 18000,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 65,
+          "reference": "octave",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 18720,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 65,
+          "reference": "root",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 19440,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 65,
+          "reference": "root",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 20160,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 65,
+          "reference": "octave",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 20880,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 65,
+          "reference": "root",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 21600,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 65,
+          "reference": "root",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 22320,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 65,
+          "reference": "octave",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 23040,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 65,
+          "reference": "root",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 23760,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 65,
+          "reference": "root",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 24480,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 65,
+          "reference": "octave",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 25200,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 65,
+          "reference": "root",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 25920,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 65,
+          "reference": "root",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 26640,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 65,
+          "reference": "octave",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 27360,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 65,
+          "reference": "root",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 28080,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 65,
+          "reference": "root",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 28800,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 65,
+          "reference": "octave",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 29520,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 65,
+          "reference": "root",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 30240,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 65,
+          "reference": "root",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 30960,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 65,
+          "reference": "octave",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 31680,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 65,
+          "reference": "root",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 32400,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 65,
+          "reference": "root",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 33120,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 65,
+          "reference": "octave",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 33840,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 65,
+          "reference": "root",
+          "function": "A",
+          "target": -1
+        }
+      ],
+      "y": 0.55,
+      "z": 0.85,
+      "xlow": 0,
+      "xhigh": 1,
+      "refs": [],
+      "context": [
+        2061,
+        27
+      ],
+      "group": 0,
+      "held": false,
+      "sparse": false
+    },
+    {
+      "id": 81025,
+      "source": "HE-B25",
+      "part": "bassLong",
+      "period": 15360,
+      "events": [
+        {
+          "at": 0,
+          "duration": 7680,
+          "pitch": 0,
+          "velocity": 65,
+          "reference": "root",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 7680,
+          "duration": 7680,
+          "pitch": 0,
+          "velocity": 65,
+          "reference": "root",
+          "function": "A",
+          "target": -1
+        }
+      ],
+      "y": 0.5,
+      "z": 0.6,
+      "xlow": 0,
+      "xhigh": 1,
+      "refs": [],
+      "context": [
+        2061,
+        27
+      ],
+      "group": 0,
+      "held": false,
+      "sparse": false
+    },
+    {
+      "id": 81027,
+      "source": "HE-B27",
+      "part": "bassShort",
+      "period": 15360,
+      "events": [
+        {
+          "at": 0,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 65,
+          "reference": "root",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 480,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 65,
+          "reference": "root",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 5280,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 65,
+          "reference": "fifth",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 7680,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 65,
+          "reference": "root",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 8160,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 65,
+          "reference": "root",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 13680,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 65,
+          "reference": "fifth",
+          "function": "A",
+          "target": -1
+        }
+      ],
+      "y": 0.3,
+      "z": 0.55,
+      "xlow": 0,
+      "xhigh": 1,
+      "refs": [],
+      "context": [],
+      "group": 0,
+      "held": false,
+      "sparse": false
+    },
+    {
+      "id": 81030,
+      "source": "HE-B30",
+      "part": "bassLong",
+      "period": 7680,
+      "events": [
+        {
+          "at": 0,
+          "duration": 1920,
+          "pitch": 36,
+          "velocity": 65,
+          "reference": "fixed",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 1920,
+          "duration": 960,
+          "pitch": 35,
+          "velocity": 65,
+          "reference": "fixed",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 2880,
+          "duration": 960,
+          "pitch": 36,
+          "velocity": 65,
+          "reference": "fixed",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 3840,
+          "duration": 1920,
+          "pitch": 36,
+          "velocity": 65,
+          "reference": "fixed",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 5760,
+          "duration": 960,
+          "pitch": 35,
+          "velocity": 65,
+          "reference": "fixed",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 6720,
+          "duration": 960,
+          "pitch": 36,
+          "velocity": 65,
+          "reference": "fixed",
+          "function": "A",
+          "target": -1
+        }
+      ],
+      "y": 0.25,
+      "z": 0.5,
+      "xlow": 0,
+      "xhigh": 1,
+      "refs": [
+        30001
+      ],
+      "context": [
+        2185
+      ],
+      "group": 0,
+      "held": false,
+      "sparse": false
+    },
+    {
+      "id": 81034,
+      "source": "HE-B34",
+      "part": "bassLong",
+      "period": 15360,
+      "events": [
+        {
+          "at": 0,
+          "duration": 7680,
+          "pitch": 0,
+          "velocity": 65,
+          "reference": "fifth",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 7680,
+          "duration": 7680,
+          "pitch": 0,
+          "velocity": 65,
+          "reference": "fifth",
+          "function": "A",
+          "target": -1
+        }
+      ],
+      "y": 0.3,
+      "z": 0.55,
+      "xlow": 0,
+      "xhigh": 1,
+      "refs": [
+        70002,
+        70030
+      ],
+      "context": [
+        2185,
+        329
+      ],
+      "group": 0,
+      "held": false,
+      "sparse": false
+    },
+    {
+      "id": 81035,
+      "source": "HE-B35",
+      "part": "bassShort",
+      "period": 15360,
+      "events": [
+        {
+          "at": 0,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 65,
+          "reference": "root",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 1920,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 65,
+          "reference": "root",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 2880,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 65,
+          "reference": "root",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 4800,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 65,
+          "reference": "root",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 7680,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 65,
+          "reference": "root",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 8640,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 65,
+          "reference": "root",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 10560,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 65,
+          "reference": "root",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 13440,
+          "duration": 240,
+          "pitch": 0,
+          "velocity": 65,
+          "reference": "root",
+          "function": "A",
+          "target": -1
+        }
+      ],
+      "y": 0.3,
+      "z": 0.65,
+      "xlow": 0,
+      "xhigh": 1,
+      "refs": [
+        70043
+      ],
+      "context": [
+        137,
+        290
+      ],
+      "group": 0,
+      "held": false,
+      "sparse": false
+    },
+    {
+      "id": 81042,
+      "source": "HE-B42",
+      "part": "bassLong",
+      "period": 15360,
+      "events": [
+        {
+          "at": 0,
+          "duration": 7680,
+          "pitch": 55,
+          "velocity": 65,
+          "reference": "fixed",
+          "function": "A",
+          "target": -1
+        },
+        {
+          "at": 7680,
+          "duration": 7680,
+          "pitch": 55,
+          "velocity": 65,
+          "reference": "fixed",
+          "function": "A",
+          "target": -1
+        }
+      ],
+      "y": 0.1,
+      "z": 0.4,
+      "xlow": 0.4,
+      "xhigh": 1,
+      "refs": [
+        30001,
+        70010,
+        70013
+      ],
+      "context": [
+        2185,
+        2189
+      ],
+      "group": 0,
+      "held": false,
+      "sparse": false
+    }
+  ],
+  "motifs": [
+    {
+      "id": 82001,
+      "source": "HE-M01",
+      "xyz": [
+        0.2,
+        0.2,
+        0.45
+      ],
+      "context": [
+        [
+          2185,
+          0
+        ],
+        [
+          2185,
+          0
+        ]
+      ],
+      "notes": [
+        {
+          "pitch": "C4",
+          "at_ticks": 0,
+          "duration_ticks": 960
+        },
+        {
+          "pitch": "Db4",
+          "at_ticks": 960,
+          "duration_ticks": 2880
+        }
+      ],
+      "functions": [
+        [
+          60,
+          "A",
+          -1
+        ],
+        [
+          61,
+          "U",
+          -1
+        ]
+      ],
+      "bars": 1,
+      "scope": "alle X; Oktavlage nach X wählen (hoch = hell, tief = dunkel)"
+    },
+    {
+      "id": 82002,
+      "source": "HE-M02",
+      "xyz": [
+        0.25,
+        0.2,
+        0.35
+      ],
+      "context": [
+        [
+          2185,
+          0
+        ],
+        [
+          137,
+          0
+        ]
+      ],
+      "notes": [
+        {
+          "pitch": "Eb4",
+          "at_ticks": 0,
+          "duration_ticks": 1440
+        },
+        {
+          "pitch": "D4",
+          "at_ticks": 1440,
+          "duration_ticks": 480
+        }
+      ],
+      "functions": [
+        [
+          63,
+          "A",
+          -1
+        ],
+        [
+          62,
+          "T",
+          -1
+        ]
+      ],
+      "bars": 1,
+      "scope": "alle X; Oktavlage nach X wählen (hoch = hell, tief = dunkel)"
+    },
+    {
+      "id": 82003,
+      "source": "HE-M03",
+      "xyz": [
+        0.25,
+        0.3,
+        0.4
+      ],
+      "context": [
+        [
+          137,
+          0
+        ],
+        [
+          137,
+          0
+        ]
+      ],
+      "notes": [
+        {
+          "pitch": "Ab4",
+          "at_ticks": 0,
+          "duration_ticks": 960
+        },
+        {
+          "pitch": "G4",
+          "at_ticks": 960,
+          "duration_ticks": 960
+        },
+        {
+          "pitch": "F4",
+          "at_ticks": 1920,
+          "duration_ticks": 960
+        },
+        {
+          "pitch": "Eb4",
+          "at_ticks": 2880,
+          "duration_ticks": 960
+        }
+      ],
+      "functions": [
+        [
+          68,
+          "V",
+          67
+        ],
+        [
+          67,
+          "A",
+          -1
+        ],
+        [
+          65,
+          "V",
+          63
+        ],
+        [
+          63,
+          "A",
+          -1
+        ]
+      ],
+      "bars": 1,
+      "scope": "alle X; Oktavlage nach X wählen (hoch = hell, tief = dunkel)"
+    },
+    {
+      "id": 82004,
+      "source": "HE-M04",
+      "xyz": [
+        0.25,
+        0.3,
+        0.55
+      ],
+      "context": [
+        [
+          137,
+          0
+        ],
+        [
+          137,
+          0
+        ]
+      ],
+      "notes": [
+        {
+          "pitch": "D4",
+          "at_ticks": 0,
+          "duration_ticks": 480
+        },
+        {
+          "pitch": "C4",
+          "at_ticks": 480,
+          "duration_ticks": 480
+        },
+        {
+          "pitch": "D4",
+          "at_ticks": 960,
+          "duration_ticks": 480
+        },
+        {
+          "pitch": "C4",
+          "at_ticks": 1440,
+          "duration_ticks": 480
+        },
+        {
+          "pitch": "D4",
+          "at_ticks": 1920,
+          "duration_ticks": 480
+        },
+        {
+          "pitch": "C4",
+          "at_ticks": 2400,
+          "duration_ticks": 1440
+        }
+      ],
+      "functions": [
+        [
+          62,
+          "V",
+          60
+        ],
+        [
+          60,
+          "A",
+          -1
+        ],
+        [
+          62,
+          "V",
+          60
+        ],
+        [
+          60,
+          "A",
+          -1
+        ],
+        [
+          62,
+          "V",
+          60
+        ],
+        [
+          60,
+          "A",
+          -1
+        ]
+      ],
+      "bars": 1,
+      "scope": "alle X; Oktavlage nach X wählen (hoch = hell, tief = dunkel)"
+    },
+    {
+      "id": 82005,
+      "source": "HE-M05",
+      "xyz": [
+        0.2,
+        0.2,
+        0.45
+      ],
+      "context": [
+        [
+          2185,
+          0
+        ],
+        [
+          2185,
+          0
+        ]
+      ],
+      "notes": [
+        {
+          "pitch": "C4",
+          "at_ticks": 0,
+          "duration_ticks": 960
+        },
+        {
+          "pitch": "B3",
+          "at_ticks": 960,
+          "duration_ticks": 480
+        },
+        {
+          "pitch": "C4",
+          "at_ticks": 1440,
+          "duration_ticks": 2400
+        }
+      ],
+      "functions": [
+        [
+          60,
+          "A",
+          -1
+        ],
+        [
+          59,
+          "A",
+          -1
+        ],
+        [
+          60,
+          "A",
+          -1
+        ]
+      ],
+      "bars": 1,
+      "scope": "alle X; Oktavlage nach X wählen (hoch = hell, tief = dunkel)"
+    },
+    {
+      "id": 82007,
+      "source": "HE-M07",
+      "xyz": [
+        0.35,
+        0.4,
+        0.5
+      ],
+      "context": [
+        [
+          145,
+          0
+        ],
+        [
+          145,
+          0
+        ]
+      ],
+      "notes": [
+        {
+          "pitch": "G4",
+          "at_ticks": 0,
+          "duration_ticks": 480
+        },
+        {
+          "pitch": "Db5",
+          "at_ticks": 480,
+          "duration_ticks": 1440
+        },
+        {
+          "pitch": "C5",
+          "at_ticks": 1920,
+          "duration_ticks": 1920
+        }
+      ],
+      "functions": [
+        [
+          67,
+          "A",
+          -1
+        ],
+        [
+          73,
+          "V",
+          72
+        ],
+        [
+          72,
+          "A",
+          -1
+        ]
+      ],
+      "bars": 1,
+      "scope": "alle X; Oktavlage nach X wählen (hoch = hell, tief = dunkel)"
+    },
+    {
+      "id": 82009,
+      "source": "HE-M09",
+      "xyz": [
+        0.25,
+        0.25,
+        0.5
+      ],
+      "context": [
+        [
+          137,
+          0
+        ],
+        [
+          137,
+          0
+        ]
+      ],
+      "notes": [
+        {
+          "pitch": "C4",
+          "at_ticks": 0,
+          "duration_ticks": 480
+        },
+        {
+          "pitch": "Db4",
+          "at_ticks": 480,
+          "duration_ticks": 480
+        },
+        {
+          "pitch": "Eb4",
+          "at_ticks": 960,
+          "duration_ticks": 960
+        },
+        {
+          "pitch": "Db4",
+          "at_ticks": 1920,
+          "duration_ticks": 480
+        },
+        {
+          "pitch": "C4",
+          "at_ticks": 2400,
+          "duration_ticks": 1440
+        }
+      ],
+      "functions": [
+        [
+          60,
+          "A",
+          -1
+        ],
+        [
+          61,
+          "V",
+          63
+        ],
+        [
+          63,
+          "A",
+          -1
+        ],
+        [
+          61,
+          "V",
+          60
+        ],
+        [
+          60,
+          "A",
+          -1
+        ]
+      ],
+      "bars": 1,
+      "scope": "alle X; Oktavlage nach X wählen (hoch = hell, tief = dunkel)"
+    },
+    {
+      "id": 82011,
+      "source": "HE-M11",
+      "xyz": [
+        0.2,
+        0.55,
+        0.65
+      ],
+      "context": [
+        [
+          2185,
+          0
+        ],
+        [
+          2185,
+          0
+        ]
+      ],
+      "notes": [
+        {
+          "pitch": "C4",
+          "at_ticks": 0,
+          "duration_ticks": 960
+        },
+        {
+          "pitch": "Db3",
+          "at_ticks": 960,
+          "duration_ticks": 2880
+        }
+      ],
+      "functions": [
+        [
+          60,
+          "A",
+          -1
+        ],
+        [
+          49,
+          "U",
+          -1
+        ]
+      ],
+      "bars": 1,
+      "scope": "alle X; Oktavlage nach X wählen (hoch = hell, tief = dunkel)"
+    },
+    {
+      "id": 82013,
+      "source": "HE-M13",
+      "xyz": [
+        0.25,
+        0.3,
+        0.45
+      ],
+      "context": [
+        [
+          137,
+          0
+        ],
+        [
+          2185,
+          0
+        ]
+      ],
+      "notes": [
+        {
+          "pitch": "C4",
+          "at_ticks": 0,
+          "duration_ticks": 960
+        },
+        {
+          "pitch": "Eb4",
+          "at_ticks": 960,
+          "duration_ticks": 960
+        },
+        {
+          "pitch": "C4",
+          "at_ticks": 1920,
+          "duration_ticks": 960
+        },
+        {
+          "pitch": "Eb4",
+          "at_ticks": 2880,
+          "duration_ticks": 960
+        }
+      ],
+      "functions": [
+        [
+          60,
+          "A",
+          -1
+        ],
+        [
+          63,
+          "A",
+          -1
+        ],
+        [
+          60,
+          "A",
+          -1
+        ],
+        [
+          63,
+          "A",
+          -1
+        ]
+      ],
+      "bars": 1,
+      "scope": "alle X; Oktavlage nach X wählen (hoch = hell, tief = dunkel)"
+    },
+    {
+      "id": 82014,
+      "source": "HE-M14",
+      "xyz": [
+        0.2,
+        0.45,
+        0.65
+      ],
+      "context": [
+        [
+          1097,
+          0
+        ],
+        [
+          1097,
+          0
+        ]
+      ],
+      "notes": [
+        {
+          "pitch": "C4",
+          "at_ticks": 0,
+          "duration_ticks": 960
+        },
+        {
+          "pitch": "F#4",
+          "at_ticks": 960,
+          "duration_ticks": 960
+        },
+        {
+          "pitch": "F4",
+          "at_ticks": 1920,
+          "duration_ticks": 1920
+        }
+      ],
+      "functions": [
+        [
+          60,
+          "A",
+          -1
+        ],
+        [
+          66,
+          "A",
+          -1
+        ],
+        [
+          65,
+          "U",
+          -1
+        ]
+      ],
+      "bars": 1,
+      "scope": "alle X; Oktavlage nach X wählen (hoch = hell, tief = dunkel)"
+    },
+    {
+      "id": 82015,
+      "source": "HE-M15",
+      "xyz": [
+        0.25,
+        0.35,
+        0.55
+      ],
+      "context": [
+        [
+          137,
+          0
+        ],
+        [
+          137,
+          0
+        ]
+      ],
+      "notes": [
+        {
+          "pitch": "G4",
+          "at_ticks": 0,
+          "duration_ticks": 480
+        },
+        {
+          "pitch": "G4",
+          "at_ticks": 480,
+          "duration_ticks": 480
+        },
+        {
+          "pitch": "G4",
+          "at_ticks": 960,
+          "duration_ticks": 480
+        },
+        {
+          "pitch": "G4",
+          "at_ticks": 1440,
+          "duration_ticks": 480
+        },
+        {
+          "pitch": "G4",
+          "at_ticks": 1920,
+          "duration_ticks": 480
+        },
+        {
+          "pitch": "G4",
+          "at_ticks": 2400,
+          "duration_ticks": 480
+        },
+        {
+          "pitch": "Ab4",
+          "at_ticks": 2880,
+          "duration_ticks": 960
+        }
+      ],
+      "functions": [
+        [
+          67,
+          "A",
+          -1
+        ],
+        [
+          67,
+          "A",
+          -1
+        ],
+        [
+          67,
+          "A",
+          -1
+        ],
+        [
+          67,
+          "A",
+          -1
+        ],
+        [
+          67,
+          "A",
+          -1
+        ],
+        [
+          67,
+          "A",
+          -1
+        ],
+        [
+          68,
+          "T",
+          -1
+        ]
+      ],
+      "bars": 1,
+      "scope": "alle X; Oktavlage nach X wählen (hoch = hell, tief = dunkel)"
+    },
+    {
+      "id": 82016,
+      "source": "HE-M16",
+      "xyz": [
+        0.2,
+        0.45,
+        0.55
+      ],
+      "context": [
+        [
+          137,
+          0
+        ],
+        [
+          137,
+          0
+        ]
+      ],
+      "notes": [
+        {
+          "pitch": "C4",
+          "at_ticks": 0,
+          "duration_ticks": 960
+        },
+        {
+          "pitch": "Db4",
+          "at_ticks": 960,
+          "duration_ticks": 960
+        },
+        {
+          "pitch": "D4",
+          "at_ticks": 1920,
+          "duration_ticks": 960
+        },
+        {
+          "pitch": "Eb4",
+          "at_ticks": 2880,
+          "duration_ticks": 960
+        }
+      ],
+      "functions": [
+        [
+          60,
+          "A",
+          -1
+        ],
+        [
+          61,
+          "F",
+          -1
+        ],
+        [
+          62,
+          "V",
+          63
+        ],
+        [
+          63,
+          "A",
+          -1
+        ]
+      ],
+      "bars": 1,
+      "scope": "alle X; Oktavlage nach X wählen (hoch = hell, tief = dunkel)"
+    },
+    {
+      "id": 82019,
+      "source": "HE-M19",
+      "xyz": [
+        0.3,
+        0.25,
+        0.4
+      ],
+      "context": [
+        [
+          137,
+          0
+        ],
+        [
+          137,
+          0
+        ]
+      ],
+      "notes": [
+        {
+          "pitch": "C4",
+          "at_ticks": 0,
+          "duration_ticks": 960
+        },
+        {
+          "pitch": "D4",
+          "at_ticks": 960,
+          "duration_ticks": 960
+        }
+      ],
+      "functions": [
+        [
+          60,
+          "A",
+          -1
+        ],
+        [
+          62,
+          "T",
+          -1
+        ]
+      ],
+      "bars": 1,
+      "scope": "alle X; Oktavlage nach X wählen (hoch = hell, tief = dunkel)"
+    },
+    {
+      "id": 82027,
+      "source": "HE-M27",
+      "xyz": [
+        0.2,
+        0.25,
+        0.4
+      ],
+      "context": [
+        [
+          137,
+          0
+        ],
+        [
+          137,
+          0
+        ]
+      ],
+      "notes": [
+        {
+          "pitch": "Db4",
+          "at_ticks": 0,
+          "duration_ticks": 2880
+        },
+        {
+          "pitch": "C4",
+          "at_ticks": 2880,
+          "duration_ticks": 960
+        }
+      ],
+      "functions": [
+        [
+          61,
+          "V",
+          60
+        ],
+        [
+          60,
+          "A",
+          -1
+        ]
+      ],
+      "bars": 1,
+      "scope": "alle X; Oktavlage nach X wählen (hoch = hell, tief = dunkel)"
+    },
+    {
+      "id": 82031,
+      "source": "HE-M31",
+      "xyz": [
+        0.2,
+        0.3,
+        0.55
+      ],
+      "context": [
+        [
+          2185,
+          0
+        ],
+        [
+          2185,
+          0
+        ]
+      ],
+      "notes": [
+        {
+          "pitch": "Eb4",
+          "at_ticks": 0,
+          "duration_ticks": 1440
+        },
+        {
+          "pitch": "D4",
+          "at_ticks": 1440,
+          "duration_ticks": 480
+        },
+        {
+          "pitch": "Eb4",
+          "at_ticks": 1920,
+          "duration_ticks": 1440
+        },
+        {
+          "pitch": "D4",
+          "at_ticks": 3360,
+          "duration_ticks": 480
+        }
+      ],
+      "functions": [
+        [
+          63,
+          "A",
+          -1
+        ],
+        [
+          62,
+          "V",
+          63
+        ],
+        [
+          63,
+          "A",
+          -1
+        ],
+        [
+          62,
+          "T",
+          -1
+        ]
+      ],
+      "bars": 1,
+      "scope": "alle X; Oktavlage nach X wählen (hoch = hell, tief = dunkel)"
+    },
+    {
+      "id": 82034,
+      "source": "HE-M34",
+      "xyz": [
+        0.15,
+        0.5,
+        0.5
+      ],
+      "context": [
+        [
+          137,
+          0
+        ],
+        [
+          137,
+          0
+        ]
+      ],
+      "notes": [
+        {
+          "pitch": "Db5",
+          "at_ticks": 0,
+          "duration_ticks": 1920
+        },
+        {
+          "pitch": "C4",
+          "at_ticks": 1920,
+          "duration_ticks": 1920
+        }
+      ],
+      "functions": [
+        [
+          73,
+          "F",
+          -1
+        ],
+        [
+          60,
+          "A",
+          -1
+        ]
+      ],
+      "bars": 1,
+      "scope": "alle X; Oktavlage nach X wählen (hoch = hell, tief = dunkel)"
+    },
+    {
+      "id": 82036,
+      "source": "HE-M36",
+      "xyz": [
+        0.5,
+        0.1,
+        0.4
+      ],
+      "context": [
+        [
+          2185,
+          0
+        ],
+        [
+          2185,
+          0
+        ]
+      ],
+      "notes": [
+        {
+          "pitch": "Eb6",
+          "at_ticks": 1920,
+          "duration_ticks": 480
+        },
+        {
+          "pitch": "D6",
+          "at_ticks": 2400,
+          "duration_ticks": 1440
+        }
+      ],
+      "functions": [
+        [
+          87,
+          "A",
+          -1
+        ],
+        [
+          86,
+          "T",
+          -1
+        ]
+      ],
+      "bars": 1,
+      "scope": "X ≥ 0,5 (Hochlage); für dunkle Kontexte eine oder zwei Oktaven tiefer legen"
+    },
+    {
+      "id": 82038,
+      "source": "HE-M38",
+      "xyz": [
+        0.2,
+        0.25,
+        0.55
+      ],
+      "context": [
+        [
+          137,
+          0
+        ],
+        [
+          137,
+          0
+        ]
+      ],
+      "notes": [
+        {
+          "pitch": "G4",
+          "at_ticks": 0,
+          "duration_ticks": 960
+        },
+        {
+          "pitch": "Ab4",
+          "at_ticks": 960,
+          "duration_ticks": 960
+        },
+        {
+          "pitch": "G4",
+          "at_ticks": 1920,
+          "duration_ticks": 960
+        },
+        {
+          "pitch": "F#4",
+          "at_ticks": 2880,
+          "duration_ticks": 960
+        }
+      ],
+      "functions": [
+        [
+          67,
+          "A",
+          -1
+        ],
+        [
+          68,
+          "V",
+          67
+        ],
+        [
+          67,
+          "A",
+          -1
+        ],
+        [
+          66,
+          "U",
+          -1
+        ]
+      ],
+      "bars": 1,
+      "scope": "alle X; Oktavlage nach X wählen (hoch = hell, tief = dunkel)"
+    },
+    {
+      "id": 82043,
+      "source": "HE-M43",
+      "xyz": [
+        0.2,
+        0.25,
+        0.5
+      ],
+      "context": [
+        [
+          2185,
+          0
+        ],
+        [
+          2185,
+          0
+        ]
+      ],
+      "notes": [
+        {
+          "pitch": "C4",
+          "at_ticks": 0,
+          "duration_ticks": 480
+        },
+        {
+          "pitch": "B3",
+          "at_ticks": 480,
+          "duration_ticks": 480
+        },
+        {
+          "pitch": "Db4",
+          "at_ticks": 960,
+          "duration_ticks": 480
+        },
+        {
+          "pitch": "C4",
+          "at_ticks": 1440,
+          "duration_ticks": 2400
+        }
+      ],
+      "functions": [
+        [
+          60,
+          "A",
+          -1
+        ],
+        [
+          59,
+          "A",
+          -1
+        ],
+        [
+          61,
+          "V",
+          60
+        ],
+        [
+          60,
+          "A",
+          -1
+        ]
+      ],
+      "bars": 1,
+      "scope": "alle X; Oktavlage nach X wählen (hoch = hell, tief = dunkel)"
+    },
+    {
+      "id": 82048,
+      "source": "HE-M48",
+      "xyz": [
+        0.55,
+        0.1,
+        0.45
+      ],
+      "context": [
+        [
+          137,
+          0
+        ],
+        [
+          137,
+          0
+        ]
+      ],
+      "notes": [
+        {
+          "pitch": "C6",
+          "at_ticks": 0,
+          "duration_ticks": 1920
+        },
+        {
+          "pitch": "G6",
+          "at_ticks": 1920,
+          "duration_ticks": 1440
+        },
+        {
+          "pitch": "F#6",
+          "at_ticks": 3360,
+          "duration_ticks": 480
+        },
+        {
+          "pitch": "F#6",
+          "at_ticks": 3840,
+          "duration_ticks": 3840
+        }
+      ],
+      "functions": [
+        [
+          84,
+          "A",
+          -1
+        ],
+        [
+          91,
+          "A",
+          -1
+        ],
+        [
+          90,
+          "F",
+          -1
+        ],
+        [
+          90,
+          "U",
+          -1
+        ]
+      ],
+      "bars": 2,
+      "scope": "X ≥ 0,5 (Hochlage); für dunkle Kontexte eine oder zwei Oktaven tiefer legen"
+    },
+    {
+      "id": 82056,
+      "source": "HE-M56",
+      "xyz": [
+        0.6,
+        0.7,
+        0.3
+      ],
+      "context": [
+        [
+          2321,
+          0
+        ],
+        [
+          2321,
+          0
+        ]
+      ],
+      "notes": [
+        {
+          "pitch": "C5",
+          "at_ticks": 0,
+          "duration_ticks": 1920
+        },
+        {
+          "pitch": "E5",
+          "at_ticks": 1920,
+          "duration_ticks": 1920
+        },
+        {
+          "pitch": "G#5",
+          "at_ticks": 3840,
+          "duration_ticks": 3840
+        }
+      ],
+      "functions": [
+        [
+          72,
+          "A",
+          -1
+        ],
+        [
+          76,
+          "A",
+          -1
+        ],
+        [
+          80,
+          "A",
+          -1
+        ]
+      ],
+      "bars": 2,
+      "scope": "X ≥ 0,5 (Hochlage); für dunkle Kontexte eine oder zwei Oktaven tiefer legen"
+    },
+    {
+      "id": 82057,
+      "source": "HE-M57",
+      "xyz": [
+        0.75,
+        0.2,
+        0.7
+      ],
+      "context": [
+        [
+          145,
+          0
+        ],
+        [
+          145,
+          0
+        ]
+      ],
+      "notes": [
+        {
+          "pitch": "E6",
+          "at_ticks": 0,
+          "duration_ticks": 240
+        },
+        {
+          "pitch": "F6",
+          "at_ticks": 240,
+          "duration_ticks": 240
+        },
+        {
+          "pitch": "E6",
+          "at_ticks": 480,
+          "duration_ticks": 240
+        },
+        {
+          "pitch": "D#6",
+          "at_ticks": 720,
+          "duration_ticks": 240
+        },
+        {
+          "pitch": "E6",
+          "at_ticks": 960,
+          "duration_ticks": 960
+        }
+      ],
+      "functions": [
+        [
+          88,
+          "A",
+          -1
+        ],
+        [
+          89,
+          "V",
+          88
+        ],
+        [
+          88,
+          "A",
+          -1
+        ],
+        [
+          87,
+          "V",
+          88
+        ],
+        [
+          88,
+          "A",
+          -1
+        ]
+      ],
+      "bars": 1,
+      "scope": "X ≥ 0,5 (Hochlage); für dunkle Kontexte eine oder zwei Oktaven tiefer legen"
+    }
+  ],
+  "deferred": {
+    "HE-H54": "Full canonical bass requires C2+C1 simultaneously; no unverified bass-polyphony or silent omission."
+  }
+}

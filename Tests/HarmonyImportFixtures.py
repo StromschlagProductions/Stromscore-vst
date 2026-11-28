@@ -1,12 +1,24 @@
 """Test-only selection seam and an explicitly frozen historical candidate pool.
 Production source and compiled plugin selection are never changed.
 """
-import pathlib,re,sys
+import pathlib,re,sys,subprocess
 sys.path.insert(0,str(pathlib.Path(__file__).resolve().parents[1]/'scripts'))
 from reference_headers import header_snapshot
 root=pathlib.Path(__file__).resolve().parents[1]
 def prepare(destination,revision=None,historical=False,explicit=False,currentMotifs=False,currentPop=False,currentBarry=False):
  headers=header_snapshot(root,revision)
+ # Freeze the historical Herrmann weight column together with its historical
+ # candidate pool. Actual P1 production is tested without this test-only seam.
+ if not currentBarry and 'HarmonyPreferences.generated.h' in headers:
+  pinned=subprocess.check_output(['git','show','58ea29d:Source/HarmonyPreferences.generated.h'],cwd=root).decode()
+  pattern=r'^\{WendungId::(\w+),\{\{([^}]+)\}\}\},$'
+  original={m[1]:m[2].split(',') for m in re.finditer(pattern,pinned,re.M)}
+  def freeze(m):
+   values=m[2].split(',')
+   if m[1] in original and len(values)>=3:values[2]=original[m[1]][2]
+   return '{WendungId::'+m[1]+',{{'+','.join(values)+'}}},'
+  headers['HarmonyPreferences.generated.h']=re.sub(pattern,freeze,headers['HarmonyPreferences.generated.h'].decode(),flags=re.M).encode()
+
  if not currentBarry and 'HarmonyProfilePools.generated.h' in headers:
   name='HarmonyProfilePools.generated.h';s=headers[name].decode()
   s=re.sub(r'case composition::ProfileId::[^:]+:return profileScore\d+\.data\(\);', '',s)

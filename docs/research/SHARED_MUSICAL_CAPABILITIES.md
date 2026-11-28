@@ -536,3 +536,9 @@ Carpenter-Schichtung ist keine vollständige Herrmann-Modulgrammatik; zwei
 Sequencer sind keine Polychorde. Keine neue Uhr und keine vorsorglichen Ausgänge.
 Die globale XYZ-Auswahl bleibt erhalten; ausdrücklich X-unabhängige Figurendaten
 werden lokal nach Y/Z geprüft. Diese Fortschreibung implementiert nichts.
+
+## Implementierungsfortschritt Herrmann P1 – 28.11.2026
+
+Gemeinsame quellenbezogene Tonabsichten und Rollenfiguren, getrennte harmonische Komponenten, begrenzte Verschmelzung sowie tiefe/hohe Pedale sind nun tatsächlich angebunden. [P1-Bericht](bernard-herrmann/P1.md) unterscheidet Datenregistrierung und Produktionsnachweise. Die neuen Verbraucher bleiben profilgesteuert; andere Profile sind bytegleich geprüft.
+
+Keine allgemeine Polychord-/Ereignisfeld-Plattform: zwei Dreiklangskomponenten, gehaltene LF-Verschmelzung, geprüfte Registerstufen und ein tiefer/hoher Pedalfall bilden die begrenzte erste Teilmenge. Freie Ereignisfelder, beliebige Komponentenperioden, Ganzton/Hexatonik und lange P-/S-/T-Verläufe bleiben offen. Optionale rollenbezogene MIDI-CC-Klangmodulation ist als zukünftige gemeinsame Fähigkeit vorgemerkt, nicht implementiert. Die Herrmann-Hörabnahme steht aus.

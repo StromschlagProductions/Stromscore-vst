@@ -294,7 +294,7 @@ struct Meter
 class Generator
 {
 public:
-    void reset() { sequences={}; independentPedal={}; previousSettings.reset();preparedTime.reset();dispatchIdentity=0;nowTime={};currentPerformanceQuarter=0;currentTiming=execution::Timing::nominal;bassPhrase={};bassPairStart.reset();harmonicChase=false; clearHarmonicEntries(); motifCatalog.clear(); voices={};authoredRhythmCache={};arpPhrase={}; style = -1; restartAt.reset(); lastGenre = -1; resetCc(); resetVoicing(); numActive = 0; running = false; lastPpqEnd = 0.0; phraseIndex = -1; current = -1; wendungTime = musicaltime::fromGridStep(0); still = false; chordBase = 0; drivePrev = driveSeen = driveLatched = driveArrivedNow = false; driveTrajectory = false; driveProgressNow = 0; driveGenerationSeen = 0; curRoot = 0; curType = Min; curChord = -1;
+    void reset() { layerUses={};layerHarmony=0;layerGroup=0;lastLayerStage=-1;layerGroupEnd={};layerEmission=false;sequences={}; independentPedal={}; previousSettings.reset();preparedTime.reset();dispatchIdentity=0;nowTime={};currentPerformanceQuarter=0;currentTiming=execution::Timing::nominal;bassPhrase={};bassPairStart.reset();harmonicChase=false; clearHarmonicEntries(); motifCatalog.clear(); voices={};authoredRhythmCache={};arpPhrase={}; style = -1; restartAt.reset(); lastGenre = -1; resetCc(); resetVoicing(); numActive = 0; running = false; lastPpqEnd = 0.0; phraseIndex = -1; current = -1; wendungTime = musicaltime::fromGridStep(0); still = false; chordBase = 0; drivePrev = driveSeen = driveLatched = driveArrivedNow = false; driveTrajectory = false; driveProgressNow = 0; driveGenerationSeen = 0; curRoot = 0; curType = Min; curChord = -1;
                    sceneTime=musicaltime::fromGridStep(0); manualEndTime.reset(); manualFinished = manualHitSent = false; endWasRequested = false; sceneSeed = 0; autoSeed = -1; sceneBarNow = -1; sceneEnded = false; for (int l = 0; l < kNumLayers; ++l) { on[l] = prevOn[l] = hOn[l] = false; } }
 
     uint32_t unavailablePadPitchClasses() const { return unavailablePad; }
@@ -318,6 +318,8 @@ public:
         return snapshot.motifOccurrence(musicaltime::fromGridStep(tick),snapshot.locate(tick),settings,output);
     }
     const auto& inspectSequences()const{return sequences;}
+    const auto& inspectLayers()const{return layerUses;}
+    const auto& inspectMotif(int output)const{return voice(output).motif.material(motifCatalog);}
     composition::BassPhrasePlan inspectBassPhrase()const{return bassPhrase;}
     composition::RhythmPlan inspectMovementRhythm(long long tick,const Settings& s)const
     {auto snapshot=*this;snapshot.cur=&s;return snapshot.movementRhythm(snapshot.locate(tick),s);}
@@ -438,7 +440,7 @@ public:
         if (maxOut <= 0) return 0;
         for (int i = 0; i < count; ++i)
         {
-            if (xyz[i] < r * best - 1e-9f) continue;
+            if (xyz[i]<=0.f||xyz[i] < r * best - 1e-9f) continue;
             int j;
             if (n < maxOut) j = n++;
             else if (w[out[maxOut - 1]] < w[i]) j = maxOut - 1;   // ersetzt den schwaechsten
@@ -452,6 +454,10 @@ public:
     // Gewicht einer Wendung fuer die aktuelle Lage im Feld
     static float weight (const Wendung& w, const Settings& s)
     {
+        // Source eligibility is separate from XYZ distance: never play half a
+        // component/high-pedal object through an unsupported meter adapter.
+        if(s.genre==GenreScore&&s.policy.layers.enabled&&(s.meterNum!=4||s.meterDen!=4))
+            for(int i=0;i<s.policy.layers.harmonyCount;++i){const auto& b=s.policy.layers.harmonies[i];if(b.harmonyId==static_cast<int>(w.id)&&(b.upperRoot>=0||b.highPedal>=0))return 0.f;}
         const float dx = w.x - s.x, dy = (w.y - s.y) * 0.7f, dz = (w.z - s.z) * 0.8f;
         return std::exp (-(dx * dx + dy * dy + dz * dz) / 0.05f);
     }
@@ -543,7 +549,7 @@ public:
         s.genre = std::clamp (s.genre, 0, kNumGenres - 1);
         if (s.custom != wasCustom || bars != phraseBars || s.genre != lastGenre || s.profile != lastProfile)   // Umschalten, neue Laenge oder anderes Genre: neue Phrase
         {
-            if(s.genre!=lastGenre||s.profile!=lastProfile){for(int slot=0;slot<3;++slot)if(sequences[slot].source)releaseSequence(slot==0?OutBassShort:slot==1?OutArp:OutCounter,0,out);sequences={};authoredRhythmCache={};arpPhrase={};if(s.profile!=lastProfile){allNotesOff(out,0);current=-1;voices={};authoredRhythmCache={};arpPhrase={};bassPhrase={};bassPairStart.reset();clearHarmonicEntries();resetVoicing();}motifCatalog.clear();for(auto& state:voices){state.motif.clear();state.answer.clear();state.capture.clear();state.recurrence={};state.reservationRecurrence={};state.popTurnValid=false;}}
+            if(s.genre!=lastGenre||s.profile!=lastProfile){for(int i=0;i<numActive;)if(active[i].layerOwner)removeActive(i,0,out);else ++i;resetLayers();for(int slot=0;slot<3;++slot)if(sequences[slot].source)releaseSequence(slot==0?OutBassShort:slot==1?OutArp:OutCounter,0,out);sequences={};authoredRhythmCache={};arpPhrase={};if(s.profile!=lastProfile){allNotesOff(out,0);current=-1;voices={};authoredRhythmCache={};arpPhrase={};bassPhrase={};bassPairStart.reset();clearHarmonicEntries();resetVoicing();}motifCatalog.clear();for(auto& state:voices){state.motif.clear();state.answer.clear();state.capture.clear();state.recurrence={};state.reservationRecurrence={};state.popTurnValid=false;}}
             preparedTime.reset();
             phraseIndex = -1; wasCustom = s.custom; phraseBars = bars; style = -1;
             genre = s.genre; lastGenre = s.genre;lastProfile=s.profile;
@@ -575,6 +581,7 @@ public:
         if (! running || jumped)
         {
             const auto retainedPedal=independentPedal;
+            resetLayers();
             allNotesOff (out, 0);
             // Chase releases physical notes, not an already known musical intent.
             // A cold start still needs an explicit source at the destination.
@@ -677,6 +684,9 @@ public:
 private:
     static bool sameSettings(const Settings& a,const Settings& b)
     {
+        if(a.policy.layers.enabled!=b.policy.layers.enabled||a.policy.layers.figures!=b.policy.layers.figures
+            ||a.policy.layers.harmonies!=b.policy.layers.harmonies||a.policy.layers.count!=b.policy.layers.count||a.policy.layers.harmonyCount!=b.policy.layers.harmonyCount
+            ||a.policy.authoredSources!=b.policy.authoredSources||a.policy.authoredCount!=b.policy.authoredCount)return false;
         if(a.policy.sequences.enabled!=b.policy.sequences.enabled||a.policy.sequences.sources!=b.policy.sequences.sources
             ||a.policy.sequences.count!=b.policy.sequences.count||a.policy.sequences.event!=b.policy.sequences.event
             ||a.policy.sequences.eventSpacing!=b.policy.sequences.eventSpacing||a.policy.sequences.chordPulse!=b.policy.sequences.chordPulse||a.policy.pedal.enabled!=b.policy.pedal.enabled||a.policy.pedal.lifetimeBars!=b.policy.pedal.lifetimeBars
@@ -772,8 +782,10 @@ private:
 
     static constexpr float kKeepRatio = 0.5f;   // so gut muss die laufende Wendung mindestens passen, sonst wird gewechselt
 
-    struct Active { uint8_t channel, note, out; musicaltime::Tick endTime;execution::Timing timing=execution::Timing::nominal;uint64_t attack=0;bool pedalOwner=false;int8_t pedalOctave=0; };
+    struct Active { uint8_t channel, note, out; musicaltime::Tick endTime;execution::Timing timing=execution::Timing::nominal;uint64_t attack=0;bool pedalOwner=false;int8_t pedalOctave=0;bool layerOwner=false,layerAnchor=false; };
     composition::PedalPlan independentPedal;
+    void resetLayers(){layerUses={};layerHarmony=0;layerGroup=0;lastLayerStage=-1;layerGroupEnd={};}
+    std::array<composition::LayerUse,9> layerUses{};int layerHarmony=0,layerGroup=0,lastLayerStage=-1;musicaltime::Tick layerGroupEnd{};bool layerEmission=false;
 
     // Wo im Takt / in der Phrase / in der Wendung ein Schritt liegt
     struct Pos
@@ -1013,6 +1025,7 @@ private:
         {
             auto& a = active[(size_t) i];
             if (kOutputLayer[a.out] != layer) { ++i; continue; }
+            if(a.layerOwner&&cur&&layerOwns(a.out,*cur)&&on[layer]&&!sceneEnded&&!bassRest){++i;continue;}
             if (until <= time)
             {
                 removeActive (i, offset, out);
@@ -1273,7 +1286,7 @@ private:
     }
     bool scoreMotifAdaptation(const Settings& s,int output)const
     {
-        if(s.genre!=GenreScore)return false;
+        if(s.genre!=GenreScore||layerStrategy(s))return false;
         // An optional adapted return must not displace the dialog's first actual
         // introduction: its published material also drives existing Arp reservations.
         if(output==OutMelody&&on[kGegenstimme]&&s.motif&&!voice(OutCounter).motif.material(motifCatalog).complete)
@@ -1298,7 +1311,7 @@ private:
         const auto section=p.phrase-phraseOf(sceneTime);
         if(memory.count&&(time-p.phraseStartTime>=std::min(2*bar,p.phraseEndTime-p.phraseStartTime)||section!=use.introduction))memory.finish();
         if(!memory.complete)return {true,true,false,p.phraseStartTime,p.phraseStartTime+std::min(2*bar,p.phraseEndTime-p.phraseStartTime),0,0};
-        if(const auto* source=williamsMaterial(s,output);source&&source->singleIntroduction)return {};
+        if(const auto* source=authoredMaterial(s,output);source&&source->singleIntroduction)return {};
         const auto window=bar*policy.windowBars;
         if(time<origin)return {};
         const auto epoch=(time-origin)/window;
@@ -1457,9 +1470,11 @@ private:
     }
 
     bool authoredMotifs(const Settings& s)const
-    {return authoredCells(s)||(s.genre==GenreScore&&s.profile==composition::ProfileId::johnWilliams&&!s.custom);}
-    const composition::AuthoredMotifSource* williamsMaterial(const Settings& s,int output)const
+    {return (layerStrategy(s)&&s.policy.authoredSources)||authoredCells(s)||(s.genre==GenreScore&&s.profile==composition::ProfileId::johnWilliams&&!s.custom);}
+    const composition::AuthoredMotifSource* authoredMaterial(const Settings& s,int output)const
     {
+        if(layerStrategy(s)&&s.policy.authoredSources){const auto id=voice(output).motif.material(motifCatalog).vocabularyId;
+            for(int i=0;i<s.policy.authoredCount;++i)if(s.policy.authoredSources[i].id==static_cast<int>(id))return &s.policy.authoredSources[i];return nullptr;}
         if(s.genre!=GenreScore||s.profile!=composition::ProfileId::johnWilliams)return nullptr;
         const auto id=voice(output).motif.material(motifCatalog).vocabularyId;
         for(const auto& source:composition::williamsMotifs)if(static_cast<uint32_t>(source.id)==id)return &source;
@@ -1468,7 +1483,7 @@ private:
     unsigned motifPitchMask(const Chord& chord,const Settings& s,int output)const
     {
         unsigned mask=0;for(int j=0;j<kShapes[chord.type].n;++j)mask|=composition::pitchBit(s.key+chord.root+kShapes[chord.type].iv[j]);
-        if(const auto* source=williamsMaterial(s,output))
+        if(const auto* source=authoredMaterial(s,output))
             return composition::authoredPitchMask(*source,mask,s.key+bassRoot(chord),s.key,modalContextFor(s));
         return mask;
     }
@@ -1479,18 +1494,19 @@ private:
         const auto& recorded=voice(output).motif.material(motifCatalog);
         // A free prefix is already real material. A newly compatible template
         // cannot retrospectively claim it or splice a different cell into it.
-        if(s.profile==composition::ProfileId::johnWilliams&&recorded.count&&!recorded.vocabularyId)return {};
+        if((s.profile==composition::ProfileId::johnWilliams||layerStrategy(s))&&recorded.count&&!recorded.vocabularyId)return {};
         const auto track=outputCatalog(s)[output].track;composition::RoleNeed need;need.range=track.instrument.range;
         if(!composition::suitable(track,need))return {};
         AuthoredMotif result;float best=1e9f;
-        const bool williams=s.profile==composition::ProfileId::johnWilliams;
-        const auto* sources=williams?composition::williamsMotifs:composition::barry::motifs;
-        const auto size=williams?sizeof(composition::williamsMotifs)/sizeof(*sources):sizeof(composition::barry::motifs)/sizeof(*sources);
+        const bool williams=s.profile==composition::ProfileId::johnWilliams||layerStrategy(s);
+        const auto* sources=layerStrategy(s)?s.policy.authoredSources:williams?composition::williamsMotifs:composition::barry::motifs;
+        const auto size=layerStrategy(s)?static_cast<size_t>(s.policy.authoredCount):williams?sizeof(composition::williamsMotifs)/sizeof(*sources):sizeof(composition::barry::motifs)/sizeof(*sources);
         const auto context=modalContextFor(s);
         for(size_t index=0;index<size;++index)
         {
             const auto& source=sources[index];
             if(source.dialogOnly&&output!=OutCounter)continue;
+            if(s.x<source.xLow||s.x>source.xHigh)continue;
             if(source.num!=s.meterNum||source.den!=s.meterDen||(recorded.vocabularyId&&recorded.vocabularyId!=static_cast<uint32_t>(source.id)))continue;
             const auto span=musicaltime::sixteenth*source.steps;
             if(p.phraseStartTime+span>p.phraseEndTime||p.phraseStartTime+span>motifAvailableUntil(s,kOutputLayer[output]))continue;
@@ -1511,8 +1527,16 @@ private:
                 }
                 if(at<end||!masks[i])valid=false;
             }
+            if(source.functions[0])for(int i=0;i<source.count;++i)if(source.functions[i]=='V'){
+                bool resolves=false;for(int j=i+1;j<source.count;++j)if(source.pitches[j]==source.targets[i]){
+                    const auto at=p.phraseStartTime+musicaltime::sixteenth*source.at[j];const auto h=chordFor(locate(at),kOutputLayer[output],s);
+                    const auto mask=layerChordMask(h,s);resolves=(mask&composition::pitchBit(source.targets[i]+s.key))
+                        &&std::abs(source.pitches[i]-source.targets[i])<=2
+                        &&at<=p.phraseStartTime+musicaltime::sixteenth*(source.at[i]+source.lengths[i])+musicaltime::quarter;break;}
+                valid&=resolves;
+            }
             if(!valid)continue;
-            const int preferred=s.key+source.pitches[0]+(output==OutMelody?12:0)+12*octaveOf(output);
+            const int preferred=s.key+source.pitches[0]+(output==OutMelody?12:0)+12*octaveOf(output)-(source.registerByColor&&s.x<.4f?12:0);
             int chosen=-1,cost=10000;
             for(int base=0;base<128;++base)
             {
@@ -1534,7 +1558,7 @@ private:
                 if(fits&&std::abs(base-preferred)<cost){cost=std::abs(base-preferred);chosen=base;}
             }
             if(chosen<0)continue;
-            const float score=composition::barry::distance(s.x,s.y,s.z,source.x,source.y,source.z)+.0001f*cost;
+            const float score=composition::barry::distance(layerStrategy(s)?source.x:s.x,s.y,s.z,source.x,source.y,source.z)+.0001f*cost;
             if(williams&&!recorded.vocabularyId&&score>.25f*.25f)continue;
             // A stable weighted choice among compatible nearby templates. Once a
             // real prefix exists its provenance locks the thought; automation
@@ -2277,7 +2301,7 @@ private:
     {
         for (int i = 0; i < numActive;)
         {
-            if(active[static_cast<size_t>(i)].pedalOwner||(cur&&sequenceOwns(active[static_cast<size_t>(i)].out,*cur))){++i;continue;}
+            if((active[static_cast<size_t>(i)].layerOwner&&cur&&layerStrategy(*cur))||active[static_cast<size_t>(i)].pedalOwner||(cur&&sequenceOwns(active[static_cast<size_t>(i)].out,*cur))){++i;continue;}
             if (keepPad && active[(size_t) i].out == OutPadLong) limitClaim(active[static_cast<size_t>(i)],nowTime,execution::Timing::nominal);
             const int layer = kOutputLayer[active[(size_t) i].out];
             if ((layer == kFlaeche && ! (keepPad && active[(size_t) i].out == OutPadLong)) || layer == kBass || layer == kAkzent)
@@ -2345,8 +2369,9 @@ private:
     // Note anschlagen. Mehrere Ausgaenge duerfen auf demselben Kanal liegen: Trifft ein Ton auf einen schon klingenden
     // gleichen Ton desselben Kanals, wird er im selben Schritt nur verlaengert, sonst neu angeschlagen. Jeder Ausgang
     // behaelt seinen eigenen Anspruch; erst das Ende des letzten Anspruchs beendet die physische MIDI-Note.
-    void noteOn (int o, int note, int velocity, musicaltime::Tick endTime, int offset, EventList& out, bool pedalOwner=false)
+    void noteOn (int o, int note, int velocity, musicaltime::Tick endTime, int offset, EventList& out, bool pedalOwner=false,bool layerAnchor=false)
     {
+        if(cur&&layerOwns(o,*cur)&&!layerEmission)return;
         if(cur&&sequenceStrategy(*cur)&&((o==OutTupfer&&!sequenceEmission)||(o==OutStich&&!cur->stichFixed)))return;
         if(chasingPatterns&&!execution::sounding(nowTime,endTime,currentTiming,cur?cur->swing:0.f,currentPerformanceQuarter))return;
         if(cur&&sequenceStrategy(*cur)&&o==OutCounter&&!sequenceEmission)return;
@@ -2377,7 +2402,7 @@ private:
         {
             const auto& a = active[(size_t) i];
             if (a.channel != channel || a.note != note) continue;
-            existing = true; sameStep = sameStep || a.attack == dispatchIdentity;heldPedal|=a.pedalOwner;
+            existing = true; sameStep = sameStep || a.attack == dispatchIdentity;heldPedal|=a.pedalOwner||a.layerAnchor;
             if (a.out == o) own = i;
         }
         if (own < 0 && numActive >= kMaxActive) return;
@@ -2392,11 +2417,11 @@ private:
         if (own >= 0)
         {
             auto& a = active[(size_t) own];
-            if(!(sameStep||extendOnly)||performed(endTime,currentTiming)>performed(a.endTime,a.timing))
+            if((!(sameStep||extendOnly)&&!a.layerAnchor)||performed(endTime,currentTiming)>performed(a.endTime,a.timing))
                 {a.endTime=endTime;a.timing=currentTiming;}
-            a.attack = dispatchIdentity;a.pedalOwner=pedalOwner;a.pedalOctave=static_cast<int8_t>(octaveOf(o));
+            a.attack = dispatchIdentity;a.layerOwner=layerEmission;a.layerAnchor|=layerAnchor;a.pedalOwner=pedalOwner;a.pedalOctave=static_cast<int8_t>(octaveOf(o));
         }
-        else active[(size_t) numActive++] = { (uint8_t) channel, (uint8_t) note, (uint8_t) o, endTime, currentTiming, dispatchIdentity, pedalOwner,static_cast<int8_t>(octaveOf(o)) };
+        else active[(size_t) numActive++] = { (uint8_t) channel, (uint8_t) note, (uint8_t) o, endTime, currentTiming, dispatchIdentity, pedalOwner,static_cast<int8_t>(octaveOf(o)),layerEmission,layerAnchor };
         if(o==OutBassLong||o==OutBassShort)heardHarmony.bass=note;
     }
 
@@ -2635,6 +2660,7 @@ private:
 
     void padChord (const Pos& p, const Settings& s, int o, int offset, musicaltime::Tick endTime, int velocity, EventList& out)
     {
+        if(layerOwns(o,s)&&!layerEmission)return;
         const auto voiced = padVoicing (p, s, o);
         const auto* source=findHarmonyTemplate(W().id);
         const bool orderedSource=o==OutPadLong&&source&&source->voicings[0].count;
@@ -2898,6 +2924,7 @@ private:
     }
 
     #include "SequenceAdapter.h"
+    #include "LayerAdapter.h"
 
     // Liegetoene einer Akkordposition (Flaeche gehalten, Bass gehalten)
     void sustained (const Pos& p, const Settings& s, int offset, EventList& out, bool restart, unsigned mask = 3u)
@@ -3003,6 +3030,10 @@ private:
     {
         const auto p=locate(at);auto best=p.phraseEndTime;
         auto consider=[&](musicaltime::Tick time){if(time>=at&&time<best)best=time;};
+        if(layerStrategy(s)){
+            for(const auto& use:layerUses)consider(use.next(at));
+            if(const auto* b=layerBinding(s);b&&b->upperRoot>=0&&!layerFused(*b,s))consider(execution::atOrAfter(at,musicaltime::quarter));
+        }
         if(sequenceStrategy(s)){
             for(const auto& use:sequences)consider(use.next(at));
             if(s.policy.sequences.chordPulse&&on[kFlaeche]&&s.padPattern==PadAuto&&s.y>=.55f&&s.z<=.4f)consider(execution::atOrAfter(at,musicaltime::quarter));
@@ -3554,6 +3585,7 @@ private:
         const float z = s.z;
         const float yPad = layerY (s, kFlaeche), yBass = layerY (s, kBass);
 
+        if(layerStrategy(s))renderLayers(time,p,s,offset,out,structural);
         if(!structural&&sequenceStrategy(s))renderSequences(time,s,offset,out);
         if (structural&&chordStart)
             sustained (p, s, offset, out, restart, bassRest ? 1u : 3u);

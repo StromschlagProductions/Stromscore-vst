@@ -47,7 +47,12 @@ execute_process(COMMAND ${Python3_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/script
 if(NOT CARPENTER_DATA_RESULT EQUAL 0)
     message(FATAL_ERROR "Carpenter data/header drift")
 endif()
+execute_process(COMMAND ${Python3_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/scripts/build_herrmann_vocabulary.py --check RESULT_VARIABLE HERRMANN_DATA_RESULT)
+if(NOT HERRMANN_DATA_RESULT EQUAL 0)
+    message(FATAL_ERROR "Herrmann data/header drift")
+endif()
 add_custom_target(ValidateHarmonyData ALL
+    COMMAND ${Python3_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/scripts/build_herrmann_vocabulary.py --check
     COMMAND ${Python3_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/scripts/build_carpenter_vocabulary.py --check
     COMMAND ${Python3_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/scripts/build_williams_motifs.py --check
     COMMAND ${Python3_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/scripts/build_williams_vocabulary.py --check
@@ -107,6 +112,14 @@ if(BUILD_TESTING)
         target_link_options(SequenceTests PRIVATE /STACK:8388608)
     endif()
     add_test(NAME IndependentSequences COMMAND SequenceTests)
+    add_executable(LayerTests Tests/LayerTests.cpp)
+    target_include_directories(LayerTests PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/execution-fixture)
+    if(MSVC)
+        target_compile_options(LayerTests PRIVATE /utf-8)
+        target_link_options(LayerTests PRIVATE /STACK:8388608)
+    endif()
+    add_test(NAME HarmonicLayers COMMAND LayerTests)
+    add_test(NAME HerrmannData COMMAND ${Python3_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/Tests/HerrmannDataTests.py)
     add_executable(PedalTests Tests/PedalTests.cpp)
     target_include_directories(PedalTests PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/execution-fixture)
     add_test(NAME IndependentPedals COMMAND PedalTests)
@@ -567,6 +580,7 @@ if(BUILD_TESTING)
     add_test(NAME ProcessorPedals COMMAND ProcessorTests --pedals)
     add_test(NAME ProcessorMorricone COMMAND ProcessorTests --morricone)
     add_test(NAME ProcessorCarpenter COMMAND ProcessorTests --carpenter)
+    add_test(NAME ProcessorHerrmann COMMAND ProcessorTests --herrmann)
     add_test(NAME ProcessorWilliamsMotifs COMMAND ProcessorTests --williams-motifs)
 endif()
 

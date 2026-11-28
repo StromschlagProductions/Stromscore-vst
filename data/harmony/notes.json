@@ -1125,6 +1125,261 @@
       "template_id": 60084,
       "idea": "sus2-Klang rückt einen Halbton hoch und zurück; helle Variante der Blockverschiebung. Kanonische Konstruktion; Evidenz: Verfahren E – eigenständige Gestaltung; Konstruktion E",
       "instruments": "Instrumentierung frei; passende sustained/detached Patches und Tonumfänge in der DAW wählen."
+    },
+    {
+      "template_id": 70002,
+      "idea": "Wie HE-H01, aber ohne Boden: die Quinte im Bass lässt den Klang wie auf einer Kante stehen. Kanonische Konstruktion; Verfahren [N], Akkordfolge [E]",
+      "instruments": "Instrumentierung frei; geeignete Spielweisen und Register erforderlich."
+    },
+    {
+      "template_id": 70003,
+      "idea": "Dasselbe Objekt rückt einen Halbton und kehrt zurück. Nur C bleibt liegen und wird dabei umgedeutet: in C-Moll Grundton, in D♭-Moll große Septime. Alle anderen Töne verschieben sich; der Wechsel wirkt als Ruck um einen festen Punkt. Kanonische Konstruktion; Verfahren [N], Akkordfolge [E]",
+      "instruments": "Instrumentierung frei; geeignete Spielweisen und Register erforderlich."
+    },
+    {
+      "template_id": 70005,
+      "idea": "Leise und fast unbewegt, aber haltlos: der Bass steht im Tritonus zum Grundton. Kanonische Konstruktion; Verfahren [N], Akkordfolge [E]",
+      "instruments": "Instrumentierung frei; geeignete Spielweisen und Register erforderlich."
+    },
+    {
+      "template_id": 70006,
+      "idea": "Der Moll-Anteil verschwindet und kehrt zurück; der übermäßige Kern E♭–G–B bleibt stehen und schillert. Kanonische Konstruktion; Verfahren [N], Akkordfolge [E]",
+      "instruments": "Instrumentierung frei; geeignete Spielweisen und Register erforderlich."
+    },
+    {
+      "template_id": 70007,
+      "idea": "Oben ändert sich nichts, unten sinkt der Boden um je einen Halbton; der Klang wird mit jedem Schritt fremder. Kanonische Konstruktion; Verfahren [I], Akkordfolge [E]",
+      "instruments": "Instrumentierung frei; geeignete Spielweisen und Register erforderlich."
+    },
+    {
+      "template_id": 70008,
+      "idea": "Das Objekt wandert symmetrisch aufwärts; jede Station ist gleich gebaut, darum entsteht kein Ziel. Kanonische Konstruktion; Verfahren [I], Akkordfolge [E]",
+      "instruments": "Instrumentierung frei; geeignete Spielweisen und Register erforderlich."
+    },
+    {
+      "template_id": 70009,
+      "idea": "Eine fast gewöhnliche Mollfolge, die nicht schließt, sondern in einem eingefrorenen Klang stehen bleibt. Kanonische Konstruktion; Verfahren [I], Akkordfolge [E]",
+      "instruments": "Instrumentierung frei; geeignete Spielweisen und Register erforderlich."
+    },
+    {
+      "template_id": 70010,
+      "idea": "Kalte, glasige Helligkeit; leise und schön, aber nicht freundlich. Kanonische Konstruktion; Verfahren [I], Akkordfolge [E]",
+      "instruments": "Instrumentierung frei; geeignete Spielweisen und Register erforderlich."
+    },
+    {
+      "template_id": 70011,
+      "idea": "Zwei gleich gebaute Klänge ohne gemeinsamen Ton im größtmöglichen Abstand; der Wechsel wirkt wie ein Sturz. Kanonische Konstruktion; Verfahren [I], Akkordfolge [E]",
+      "instruments": "Instrumentierung frei; geeignete Spielweisen und Register erforderlich."
+    },
+    {
+      "template_id": 70013,
+      "idea": "Schwebend, ohne Schwerpunkt; jeder Ton könnte Grundton sein. Kanonische Konstruktion; Verfahren [N], Akkordfolge [E]",
+      "instruments": "Instrumentierung frei; geeignete Spielweisen und Register erforderlich."
+    },
+    {
+      "template_id": 70014,
+      "idea": "Ein Ton der symmetrischen Achse rutscht einen Halbton – einmal nach oben, einmal nach unten – und die Symmetrie kippt in einen gewöhnlichen Dreiklang. Kanonische Konstruktion; Verfahren [N], Akkordfolge [E]",
+      "instruments": "Instrumentierung frei; geeignete Spielweisen und Register erforderlich."
+    },
+    {
+      "template_id": 70015,
+      "idea": "Gleitender, schwindelnder Abstieg; nach vier Schritten ist man wieder beim Ausgangsklang (es gibt nur vier übermäßige Dreiklänge). Kanonische Konstruktion; Verfahren [I], Akkordfolge [E]",
+      "instruments": "Instrumentierung frei; geeignete Spielweisen und Register erforderlich."
+    },
+    {
+      "template_id": 70016,
+      "idea": "Heller, gläserner Klang mit einer kalten Kante (B gegen C). Kanonische Konstruktion; Verfahren [I], Akkordfolge [E]",
+      "instruments": "Instrumentierung frei; geeignete Spielweisen und Register erforderlich."
+    },
+    {
+      "template_id": 70017,
+      "idea": "Weiches Pendeln: nur E bewegt sich nach F; der Klang atmet zwischen Schweben und Klage. Kanonische Konstruktion; Verfahren [I], Akkordfolge [E]",
+      "instruments": "Instrumentierung frei; geeignete Spielweisen und Register erforderlich."
+    },
+    {
+      "template_id": 70018,
+      "idea": "Die Schwebe bekommt einen falschen Boden: D♭ steht unter C, die Symmetrie klingt bedrohlich. Kanonische Konstruktion; Verfahren [I], Akkordfolge [E]",
+      "instruments": "Instrumentierung frei; geeignete Spielweisen und Register erforderlich."
+    },
+    {
+      "template_id": 70019,
+      "idea": "Gedämpft, fragend, ohne Gewicht; der Klang fragt, ohne eine Antwort zu erwarten. Kanonische Konstruktion; Verfahren [N], Akkordfolge [E]",
+      "instruments": "Instrumentierung frei; geeignete Spielweisen und Register erforderlich."
+    },
+    {
+      "template_id": 70020,
+      "idea": "Eine Stimme hebt sich einen Halbton (A→B♭); der Klang wird weicher und zugleich unbestimmter. Kanonische Konstruktion; Verfahren [N], Akkordfolge [E]",
+      "instruments": "Instrumentierung frei; geeignete Spielweisen und Register erforderlich."
+    },
+    {
+      "template_id": 70021,
+      "idea": "Zwei symmetrische Klänge, die zusammen acht Töne abdecken; der Wechsel wirkt wie Einstürzen. Kanonische Konstruktion; Verfahren [N], Akkordfolge [E]",
+      "instruments": "Instrumentierung frei; geeignete Spielweisen und Register erforderlich."
+    },
+    {
+      "template_id": 70022,
+      "idea": "Gleich gebaute Klänge sinken in Halbtönen; kein Ziel, nur Abwärts. Kanonische Konstruktion; Verfahren [N], Akkordfolge [E]",
+      "instruments": "Instrumentierung frei; geeignete Spielweisen und Register erforderlich."
+    },
+    {
+      "template_id": 70023,
+      "idea": "Das Pedal bleibt, die drei möglichen verminderten Septakkorde wechseln darüber; C ist erst Grundton, dann Halbtonreibung, dann Septime. Kanonische Konstruktion; Verfahren [I], Akkordfolge [E]",
+      "instruments": "Instrumentierung frei; geeignete Spielweisen und Register erforderlich."
+    },
+    {
+      "template_id": 70024,
+      "idea": "Drei gemeinsame Töne (E♭, G♭, B♭); nur C wird zu D. Der Wechsel ist fast unhörbar und trotzdem ein Farbschlag. Kanonische Konstruktion; Verfahren [I], Akkordfolge [E]",
+      "instruments": "Instrumentierung frei; geeignete Spielweisen und Register erforderlich."
+    },
+    {
+      "template_id": 70025,
+      "idea": "Erwartung ohne Erfüllung; der Klang zieht nach C, kommt dort aber nie an. Kanonische Konstruktion; Verfahren [N], Akkordfolge [E]",
+      "instruments": "Instrumentierung frei; geeignete Spielweisen und Register erforderlich."
+    },
+    {
+      "template_id": 70028,
+      "idea": "Zwei unaufgelöste Spannungsklänge im Halbtonpendel; Thriller-Drängen ohne Ziel. Kanonische Konstruktion; Verfahren [I], Akkordfolge [E]",
+      "instruments": "Instrumentierung frei; geeignete Spielweisen und Register erforderlich."
+    },
+    {
+      "template_id": 70030,
+      "idea": "Die übermäßige Sexte (A♭–F♯) zielt auf den Quartsextakkord – und dort bleibt es stehen, die Dominante folgt nie. Kanonische Konstruktion; Verfahren [I], Akkordfolge [E]",
+      "instruments": "Instrumentierung frei; geeignete Spielweisen und Register erforderlich."
+    },
+    {
+      "template_id": 70032,
+      "idea": "Weicher, heller Klang, der wie in einen Abgrund rutscht; schön und haltlos zugleich. Kanonische Konstruktion; Verfahren [H], Akkordfolge [E]",
+      "instruments": "Instrumentierung frei; geeignete Spielweisen und Register erforderlich."
+    },
+    {
+      "template_id": 70033,
+      "idea": "Dumpfes, gleichförmiges Sinken; Puppenhaus-Kälte. Kanonische Konstruktion; Verfahren [N], Akkordfolge [E]",
+      "instruments": "Instrumentierung frei; geeignete Spielweisen und Register erforderlich."
+    },
+    {
+      "template_id": 70035,
+      "idea": "Unaufhaltsames Steigen; jeder Takt ist einen Halbton höher und gleich gebaut. Kanonische Konstruktion; Verfahren [N], Akkordfolge [E]",
+      "instruments": "Instrumentierung frei; geeignete Spielweisen und Register erforderlich."
+    },
+    {
+      "template_id": 70036,
+      "idea": "Großflächiger, unaufgelöster Wechsel; die neue Tonart ist nur ein Halbton entfernt und fühlt sich doch fremd an. Kanonische Konstruktion; Verfahren [N], Akkordfolge [E]",
+      "instruments": "Instrumentierung frei; geeignete Spielweisen und Register erforderlich."
+    },
+    {
+      "template_id": 70037,
+      "idea": "Langsames, schweres Absinken; nach drei Schritten ist der Tritonus erreicht. Kanonische Konstruktion; Verfahren [I], Akkordfolge [E]",
+      "instruments": "Instrumentierung frei; geeignete Spielweisen und Register erforderlich."
+    },
+    {
+      "template_id": 70038,
+      "idea": "Zwei helle Durklänge ohne gemeinsamen Ton; Helligkeit wird fremd, nicht froh. Kanonische Konstruktion; Verfahren [N], Akkordfolge [E]",
+      "instruments": "Instrumentierung frei; geeignete Spielweisen und Register erforderlich."
+    },
+    {
+      "template_id": 70039,
+      "idea": "Jeder Schritt verdunkelt anders; der Kreis schließt sich nach vier Stationen. Kanonische Konstruktion; Verfahren [I], Akkordfolge [E]",
+      "instruments": "Instrumentierung frei; geeignete Spielweisen und Register erforderlich."
+    },
+    {
+      "template_id": 70040,
+      "idea": "Dur kippt in ein Moll eine große Terz tiefer; kein Ton bleibt liegen, aber jeder bewegt sich nur einen Halbton (C→B, E→E♭, G→A♭) – das Vertraute wird unheimlich. Kanonische Konstruktion; Verfahren [N], Akkordfolge [E]",
+      "instruments": "Instrumentierung frei; geeignete Spielweisen und Register erforderlich."
+    },
+    {
+      "template_id": 70043,
+      "idea": "Ein Halbton-Schatten legt sich über das Moll und zieht sich zurück; das Pedal C hält alles fest. Kanonische Konstruktion; Verfahren [I], Akkordfolge [E]",
+      "instruments": "Instrumentierung frei; geeignete Spielweisen und Register erforderlich."
+    },
+    {
+      "template_id": 70045,
+      "idea": "Eine einzige Terz senkt sich; Licht wird zu Schatten. Melancholie ohne Drama. Kanonische Konstruktion; Verfahren [I], Akkordfolge [E]",
+      "instruments": "Instrumentierung frei; geeignete Spielweisen und Register erforderlich."
+    },
+    {
+      "template_id": 70046,
+      "idea": "Getragene, dunkle Folge; die letzte Station ist nicht Ruhe, sondern der eingefrorene Moll-Dur-Klang. Kanonische Konstruktion; Verfahren [I], Akkordfolge [E]",
+      "instruments": "Instrumentierung frei; geeignete Spielweisen und Register erforderlich."
+    },
+    {
+      "template_id": 70048,
+      "idea": "Zwei übermäßige Dreiklänge derselben Ganztonreihe (C–E–G♯ und D–F♯–A♯) wechseln ohne gemeinsamen Ton; zusammen füllen sie die ganze Reihe. Die Schwebe bekommt einen Puls, bleibt aber in einem Vorrat. Kanonische Konstruktion; Verfahren [I], Akkordfolge [E]",
+      "instruments": "Instrumentierung frei; geeignete Spielweisen und Register erforderlich."
+    },
+    {
+      "template_id": 70066,
+      "idea": "Hell im Oberklang, haltlos darunter; trügerische Ruhe. Kanonische Konstruktion; Verfahren [N], Akkordfolge [E]",
+      "instruments": "Instrumentierung frei; geeignete Spielweisen und Register erforderlich."
+    },
+    {
+      "template_id": 70067,
+      "idea": "Ein ruhiger Mollklang, dem der Boden einen Halbton zu hoch steht. Kanonische Konstruktion; Verfahren [I], Akkordfolge [E]",
+      "instruments": "Instrumentierung frei; geeignete Spielweisen und Register erforderlich."
+    },
+    {
+      "template_id": 70076,
+      "idea": "Hell, klar, lyrisch einfach – und doch fremd, weil die Blöcke nur verschoben werden; Licht ohne Wärme. Kanonische Konstruktion; Verfahren [H], Akkordfolge [E]",
+      "instruments": "Instrumentierung frei; geeignete Spielweisen und Register erforderlich."
+    },
+    {
+      "template_id": 70078,
+      "idea": "Sehnsucht, die sich hochschraubt und nicht ankommt; endet im eingefrorenen Klang. Kanonische Konstruktion; Verfahren [N], Akkordfolge [E]",
+      "instruments": "Instrumentierung frei; geeignete Spielweisen und Register erforderlich."
+    },
+    {
+      "template_id": 70082,
+      "idea": "Die Funktion wird angedeutet und verweigert; die Dominante bleibt am Ende stehen. Kanonische Konstruktion; Verfahren [I], Akkordfolge [E]",
+      "instruments": "Instrumentierung frei; geeignete Spielweisen und Register erforderlich."
+    },
+    {
+      "template_id": 70085,
+      "idea": "Ein Mollklang hellt sich nicht auf, sondern wird entrückt; der neue Durklang wirkt wie ein anderer Raum. Kanonische Konstruktion; Verfahren [I], Akkordfolge [E]",
+      "instruments": "Instrumentierung frei; geeignete Spielweisen und Register erforderlich."
+    },
+    {
+      "template_id": 70093,
+      "idea": "Schnell kletternde, helle Symmetrieklänge in hoher Lage; Taumel, Schwindel im Licht. Kanonische Konstruktion; Verfahren [I], Akkordfolge [E]",
+      "instruments": "Instrumentierung frei; geeignete Spielweisen und Register erforderlich."
+    },
+    {
+      "template_id": 70096,
+      "idea": "Ein heller Dur-Klang, unter dem die große Septime liegt; still, freundlich klingend und doch nicht stimmig. Kanonische Konstruktion; Verfahren [I], Akkordfolge [E]",
+      "instruments": "Instrumentierung frei; geeignete Spielweisen und Register erforderlich."
+    },
+    {
+      "template_id": 70051,
+      "idea": "Zwei klar unterscheidbare Schichten; keine Panik, sondern das Gefühl, dass zwei Wirklichkeiten zugleich gelten. Kanonische Konstruktion; Verfahren [N], Akkordfolge [E]",
+      "instruments": "Instrumentierung frei; geeignete Spielweisen und Register erforderlich."
+    },
+    {
+      "template_id": 70053,
+      "idea": "Die Reibung liegt in großen Septimen statt in kleinen Sekunden; bedrohlich, aber noch nicht schreiend. Kanonische Konstruktion; Verfahren [N], Akkordfolge [E]",
+      "instruments": "Instrumentierung frei; geeignete Spielweisen und Register erforderlich."
+    },
+    {
+      "template_id": 70057,
+      "idea": "Dieselbe Tritonus-Polarität wie HE-H56, aber eng, hoch, synchron und scharf: kalte, gleißende Gefahr. Kanonische Konstruktion; Verfahren [N], Akkordfolge [E]",
+      "instruments": "Instrumentierung frei; geeignete Spielweisen und Register erforderlich."
+    },
+    {
+      "template_id": 70058,
+      "idea": "Weniger dissonant als die Mollpolychorde (nur G–G♯ und B–C reiben), aber eindeutig nicht in einer Tonart; fremdes Licht. Kanonische Konstruktion; Verfahren [N], Akkordfolge [E]",
+      "instruments": "Instrumentierung frei; geeignete Spielweisen und Register erforderlich."
+    },
+    {
+      "template_id": 70060,
+      "idea": "Gleiche Töne über acht Takte; die obere Schicht sinkt Takt für Takt näher an die untere, bis beide ineinander liegen. Bedrohung wächst nur durch Lage. Kanonische Konstruktion; Verfahren [N], Akkordfolge [E]",
+      "instruments": "Instrumentierung frei; geeignete Spielweisen und Register erforderlich."
+    },
+    {
+      "template_id": 70064,
+      "idea": "Ein hoher Ton G bleibt; darunter wechseln vier Klänge, zu denen er Quinte, große Septime, Terz und Tritonus ist. Obsession: der Blick weicht nicht. Kanonische Konstruktion; Verfahren [N], Akkordfolge [E]",
+      "instruments": "Instrumentierung frei; geeignete Spielweisen und Register erforderlich."
+    },
+    {
+      "template_id": 70068,
+      "idea": "Unten ruhiges Moll, ganz oben ein einzelner, reiner F♯-Ton; kalte Helligkeit, die nicht dazugehört. Kanonische Konstruktion; Verfahren [I], Akkordfolge [E]",
+      "instruments": "Instrumentierung frei; geeignete Spielweisen und Register erforderlich."
     }
   ]
 }
