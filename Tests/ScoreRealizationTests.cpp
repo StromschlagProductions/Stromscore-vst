@@ -35,6 +35,13 @@ int main()
  CHECK(realizeScoreMotif(original,masks,limits,{60,72},quarter/4,quarter*8,60).base<0);
  for(int key=0;key<12;++key){for(int i=0;i<3;++i){masks[i]=1u<<((key+original.notes[i].interval)%12);limits[i]=quarter*2;}
   CHECK(realizeScoreMotif(original,masks,limits,{48,95},quarter/4,quarter*8,60+key).base>=0);}
+ // A fragment's first interval need not be zero. A fixed physical first note
+ // must constrain the base relative to that interval, including register edges.
+ {auto fragment=suffix;unsigned allowed[10]{};stromscore::musicaltime::Tick durations[10]{};int fixed[10];std::fill(std::begin(fixed),std::end(fixed),-1);
+  for(int i=0;i<fragment.count;++i){allowed[i]=0xfff;durations[i]=quarter*2;}
+  fixed[0]=64;const auto held=realizeScoreMotif(fragment,allowed,durations,{60,84},quarter/4,quarter*8,60,fixed);CHECK(held.base>=0);CHECK(held.base+held.figure.notes[0].interval==64);CHECK(held.figure.notes[1].interval-held.figure.notes[0].interval==3);
+  fixed[0]=0;CHECK(realizeScoreMotif(fragment,allowed,durations,{60,84},quarter/4,quarter*8,60,fixed).base<0);
+ }
  for(int numerator:{3,5,7})for(float swing:{0.f,.5f,1.f})
  {
   using namespace stromscore;Settings s;s.custom=true;s.key=0;for(int i=0;i<8;++i)s.customChords[i]={i%2?6:0,Maj7,1};

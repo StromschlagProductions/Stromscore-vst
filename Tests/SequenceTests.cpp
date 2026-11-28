@@ -9,6 +9,15 @@ using namespace stromscore::musicaltime;
 namespace stromscore {struct ExecutionTestAccess {
  static auto uses(const Generator& g){return g.sequences;}
  static PedalPlan pedal(const Generator& g){return g.independentPedal;}
+ static std::vector<int> completeSource(const SequenceSource& source,const Settings& s){
+  Generator g;g.cur=&s;g.genre=s.genre;g.lastProfile=s.profile;g.current=wendungIndex(s.genre,static_cast<WendungId>(61034),s.profile);g.phraseIndex=0;g.sceneTime={};g.wendungTime={};std::fill(std::begin(g.on),std::end(g.on),true);EventList events;
+  const int slot=source.bass?0:1,output=source.bass?OutBassShort:OutArp;g.prepareSequencePedal({},s,0,events);events.clear();
+  SequenceUse use{&source,{},(source.bass?36:60)+s.key,s.key,s.variation};CHECK(g.sequenceFits(use,{},s,output));g.sequences[slot]=use;std::vector<int> notes;
+  for(auto at=use.next({});at<source.cycle();at=use.next(at+Tick{1})){
+   events.clear();g.nowTime=at;g.releaseAt(musicaltime::toQuarters(at),0,events);g.renderSequences(at,s,0,events);
+   for(int i=0;i<events.size;++i)if(!events.events[i].type&&events.events[i].out==output&&events.events[i].velocity)notes.push_back(events.events[i].note);
+  }return notes;
+ }
 };}
 using Row=std::tuple<int64_t,int,int,int,int>;
 static Settings settings(float x=.3f,float y=.7f,float z=.5f){Settings s;s.profile=ProfileId::johnCarpenter;s.policy=policyForContext(s.profile,true);s.x=x;s.y=y;s.z=z;s.scene=false;s.sceneBars=0;s.variety=0;s.stichFixed=true;s.motif=true;s.melody=false;return s;}
@@ -56,8 +65,7 @@ int main(){
  for(const char* id:{"JC-Q054","JC-Q063","JC-B033"}){
   const SequenceSource* selected=nullptr;for(const auto& source:carpenter::sources)if(std::strcmp(source.reference,id)==0)selected=&source;CHECK(selected);
   auto s=settings(.3f,.55f,.3f);s.variety=0;if(std::strcmp(id,"JC-Q063")==0)s.z=.4f;s.policy.sequences.sources=selected;s.policy.sequences.count=1;
-  const auto identity=sequenceIdentity(*selected);auto rows=render(s,512,8);std::vector<int> notes;
-  for(auto r:rows)if(std::get<1>(r)==(selected->bass?OutBassShort:OutArp)&&std::get<4>(r))notes.push_back(std::get<3>(r));
+  const auto identity=sequenceIdentity(*selected);auto notes=ExecutionTestAccess::completeSource(*selected,s);
   CHECK(notes.size()>=static_cast<size_t>(selected->tones));
   for(int i=0;i<selected->tones;++i)CHECK(notes[i]-notes[0]==selected->pitches[i]-selected->pitches[0]);
   CHECK(sequenceIdentity(*selected)==identity);

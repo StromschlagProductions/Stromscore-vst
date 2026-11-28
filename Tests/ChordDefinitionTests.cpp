@@ -6,7 +6,7 @@ int main()
  const int counts[]={4,4,5,5,4,3,4,5,4};
  const int intervals[9][5]={{0,4,7,9},{0,3,7,14},{0,4,7,11,14},{0,4,7,10,14},{0,5,7,10},{0,3,6},{0,4,8,11},{0,4,7,11,18},{0,2,7,11}};
  int successes=0,rejections=0;
- CHECK(kNumChordTypes==27&&kNumCustomTypes==18);
+ CHECK(kNumChordTypes==38&&kNumCustomTypes==18);
  for(int t=18;t<27;++t)for(int key=0;key<12;++key)for(int low:{36,60})
  {
   const auto sh=kShapes[t];CHECK(sh.n==counts[t-18]);ChordIntent intent;intent.root=key;intent.bassPitchClass=key+7;intent.count=sh.n;intent.intensity=.8f;intent.padLow=low+12;intent.preservePitchClasses=true;

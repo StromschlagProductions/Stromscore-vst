@@ -9,7 +9,7 @@ namespace stromscore
 // Existing renderers keep this compact access shape; it is never a second authoring catalog.
 struct Wendung
 {
-    const char* name;float x,y,z;int n;Chord ch[kMaxChords];
+    const char* name;float x,y,z;int n;Chord ch[kCatalogChordSlots];
     int arp[2],bass[2],pad;WendungId id=WendungId::custom;
     ChordColoration coloration=ChordColoration::flexible;
 };

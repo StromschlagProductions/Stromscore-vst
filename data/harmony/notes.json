@@ -1380,6 +1380,326 @@
       "template_id": 70068,
       "idea": "Unten ruhiges Moll, ganz oben ein einzelner, reiner F♯-Ton; kalte Helligkeit, die nicht dazugehört. Kanonische Konstruktion; Verfahren [I], Akkordfolge [E]",
       "instruments": "Instrumentierung frei; geeignete Spielweisen und Register erforderlich."
+    },
+    {
+      "template_id": 61001,
+      "idea": "Moll und Dur-Septakkord auf ♭VI teilen drei Töne; ein heller Klang über dunklem Zentrum.",
+      "instruments": "Frei wählbare Instrumente; quelltreue harmonische Konstruktion, kein Filmzitat."
+    },
+    {
+      "template_id": 61002,
+      "idea": "Drei Pendelzyklen, dann ein Ausweg über Dm(add9); 20-Takt-Periode.",
+      "instruments": "Frei wählbare Instrumente; quelltreue harmonische Konstruktion, kein Filmzitat."
+    },
+    {
+      "template_id": 61003,
+      "idea": "Der Grundton bleibt im Bass liegen; im Fmaj7 ist er Terz und Akkordton.",
+      "instruments": "Frei wählbare Instrumente; quelltreue harmonische Konstruktion, kein Filmzitat."
+    },
+    {
+      "template_id": 61004,
+      "idea": "Imaj7 und IVmaj7; warm, schwebend, nostalgisch.",
+      "instruments": "Frei wählbare Instrumente; quelltreue harmonische Konstruktion, kein Filmzitat."
+    },
+    {
+      "template_id": 61005,
+      "idea": "Beide Klänge mit None; weicher, elektronisch-nostalgisch.",
+      "instruments": "Frei wählbare Instrumente; quelltreue harmonische Konstruktion, kein Filmzitat."
+    },
+    {
+      "template_id": 61006,
+      "idea": "Das Pendel wird durch Cmaj7 zu einem Dreiklang-Kreis erweitert.",
+      "instruments": "Frei wählbare Instrumente; quelltreue harmonische Konstruktion, kein Filmzitat."
+    },
+    {
+      "template_id": 61007,
+      "idea": "Oberbau A–C–E–G bleibt identisch; acht Basstöne erzeugen acht Bedeutungen.",
+      "instruments": "Frei wählbare Instrumente; quelltreue harmonische Konstruktion, kein Filmzitat."
+    },
+    {
+      "template_id": 61008,
+      "idea": "Der Mollklang bleibt stehen; nur der Bass pendelt zwischen 1 und ♭6.",
+      "instruments": "Frei wählbare Instrumente; quelltreue harmonische Konstruktion, kein Filmzitat."
+    },
+    {
+      "template_id": 61009,
+      "idea": "Am bleibt; der Bass wandert über C, D und F♯ und hellt auf.",
+      "instruments": "Frei wählbare Instrumente; quelltreue harmonische Konstruktion, kein Filmzitat."
+    },
+    {
+      "template_id": 61010,
+      "idea": "Heller Oberbau C–E–G–H über vier Basstönen.",
+      "instruments": "Frei wählbare Instrumente; quelltreue harmonische Konstruktion, kein Filmzitat."
+    },
+    {
+      "template_id": 61011,
+      "idea": "Am bleibt; der Bass weicht einen Halbton nach oben und unten aus.",
+      "instruments": "Frei wählbare Instrumente; quelltreue harmonische Konstruktion, kein Filmzitat."
+    },
+    {
+      "template_id": 61012,
+      "idea": "Nur A und E oben; der Bass macht daraus sus2, maj7 und 6.",
+      "instruments": "Frei wählbare Instrumente; quelltreue harmonische Konstruktion, kein Filmzitat."
+    },
+    {
+      "template_id": 61013,
+      "idea": "A-Dur bleibt; der Bass erzeugt F♯m7, Dmaj9 und die Terzlage.",
+      "instruments": "Frei wählbare Instrumente; quelltreue harmonische Konstruktion, kein Filmzitat."
+    },
+    {
+      "template_id": 61014,
+      "idea": "Am in Choral-Lage, der Bass schreitet A–G–F–E.",
+      "instruments": "Frei wählbare Instrumente; quelltreue harmonische Konstruktion, kein Filmzitat."
+    },
+    {
+      "template_id": 61015,
+      "idea": "Acht Glieder, jedes behält mindestens zwei Töne; korrigierte Fassung der Recherche-Kette K1.",
+      "instruments": "Frei wählbare Instrumente; quelltreue harmonische Konstruktion, kein Filmzitat."
+    },
+    {
+      "template_id": 61016,
+      "idea": "Grundtöne fallen in Terzen; phrygisch dunkel.",
+      "instruments": "Frei wählbare Instrumente; quelltreue harmonische Konstruktion, kein Filmzitat."
+    },
+    {
+      "template_id": 61017,
+      "idea": "Sieben Glieder, die Bässe steigen in Terzen; hell, offen.",
+      "instruments": "Frei wählbare Instrumente; quelltreue harmonische Konstruktion, kein Filmzitat."
+    },
+    {
+      "template_id": 61018,
+      "idea": "Die Moll-v ersetzt die Dominante; schließt ohne Kadenz.",
+      "instruments": "Frei wählbare Instrumente; quelltreue harmonische Konstruktion, kein Filmzitat."
+    },
+    {
+      "template_id": 61019,
+      "idea": "Dur-IV und ♭VII hellen den Mollkreis auf.",
+      "instruments": "Frei wählbare Instrumente; quelltreue harmonische Konstruktion, kein Filmzitat."
+    },
+    {
+      "template_id": 61020,
+      "idea": "♭II umrahmt die Kette; fremd, ritualhaft.",
+      "instruments": "Frei wählbare Instrumente; quelltreue harmonische Konstruktion, kein Filmzitat."
+    },
+    {
+      "template_id": 61021,
+      "idea": "Verweildauern 3-1-2-2-4-2-2; kein Glied wiederholt seine Länge regelmäßig.",
+      "instruments": "Frei wählbare Instrumente; quelltreue harmonische Konstruktion, kein Filmzitat."
+    },
+    {
+      "template_id": 61022,
+      "idea": "Septakkorde in mittlerer Lage; Wärme ohne Dur-Tonika.",
+      "instruments": "Frei wählbare Instrumente; quelltreue harmonische Konstruktion, kein Filmzitat."
+    },
+    {
+      "template_id": 61023,
+      "idea": "Zwölf Glieder, 24-Takt-Periode; Wiederkehr erst nach drei 8er-Phrasen.",
+      "instruments": "Frei wählbare Instrumente; quelltreue harmonische Konstruktion, kein Filmzitat."
+    },
+    {
+      "template_id": 61024,
+      "idea": "E bleibt in allen Klängen (5, 7, ♭3, ♭7); korrigierte Fassung von K2.",
+      "instruments": "Frei wählbare Instrumente; quelltreue harmonische Konstruktion, kein Filmzitat."
+    },
+    {
+      "template_id": 61025,
+      "idea": "A liegt in jedem Klang; die Bedeutung wechselt von 1 über 3 und 5 zur 7.",
+      "instruments": "Frei wählbare Instrumente; quelltreue harmonische Konstruktion, kein Filmzitat."
+    },
+    {
+      "template_id": 61026,
+      "idea": "C bleibt; G♯-Dur und Fm färben es unheimlich.",
+      "instruments": "Frei wählbare Instrumente; quelltreue harmonische Konstruktion, kein Filmzitat."
+    },
+    {
+      "template_id": 61027,
+      "idea": "G bleibt über Em7, Cmaj7, Am7, D♯maj7 und G.",
+      "instruments": "Frei wählbare Instrumente; quelltreue harmonische Konstruktion, kein Filmzitat."
+    },
+    {
+      "template_id": 61028,
+      "idea": "Konstanter Grund-Drone; B♭ und Gm reiben phrygisch, Fmaj7 wärmt (Recherche-Kette K3).",
+      "instruments": "Frei wählbare Instrumente; quelltreue harmonische Konstruktion, kein Filmzitat."
+    },
+    {
+      "template_id": 61029,
+      "idea": "C, G und F über dem Grundton; der Drone bleibt Tonvorratston.",
+      "instruments": "Frei wählbare Instrumente; quelltreue harmonische Konstruktion, kein Filmzitat."
+    },
+    {
+      "template_id": 61030,
+      "idea": "Dm, Am, Fmaj7, Gsus2 über A; sakral ruhig.",
+      "instruments": "Frei wählbare Instrumente; quelltreue harmonische Konstruktion, kein Filmzitat."
+    },
+    {
+      "template_id": 61031,
+      "idea": "D♯-Dur (Tritonus) und B♭ über dem Grundton; der Drone wird autorisierte Reibung.",
+      "instruments": "Frei wählbare Instrumente; quelltreue harmonische Konstruktion, kein Filmzitat."
+    },
+    {
+      "template_id": 61032,
+      "idea": "A, D, E, D über A; warm, weit, ohne Kadenzziel.",
+      "instruments": "Frei wählbare Instrumente; quelltreue harmonische Konstruktion, kein Filmzitat."
+    },
+    {
+      "template_id": 61033,
+      "idea": "Vier sus2-Klänge à 8 Takte über dem Grundton; sehr langsam.",
+      "instruments": "Frei wählbare Instrumente; quelltreue harmonische Konstruktion, kein Filmzitat."
+    },
+    {
+      "template_id": 61034,
+      "idea": "Offener Moll und tiefes ♭VI über dem Drone, je 16 Takte; fast regungslos.",
+      "instruments": "Frei wählbare Instrumente; quelltreue harmonische Konstruktion, kein Filmzitat."
+    },
+    {
+      "template_id": 61035,
+      "idea": "sus4 und sus2 über dem Grundton; dunkel, ohne Terz, ohne Bewegung.",
+      "instruments": "Frei wählbare Instrumente; quelltreue harmonische Konstruktion, kein Filmzitat."
+    },
+    {
+      "template_id": 61036,
+      "idea": "Rasch wechselnde Dur-Kette mit iii und vi; Aufbruch, Flucht mit Hoffnung.",
+      "instruments": "Frei wählbare Instrumente; quelltreue harmonische Konstruktion, kein Filmzitat."
+    },
+    {
+      "template_id": 61037,
+      "idea": "Dur-Klänge springen in großen Terzen; kraftvoll und haltlos.",
+      "instruments": "Frei wählbare Instrumente; quelltreue harmonische Konstruktion, kein Filmzitat."
+    },
+    {
+      "template_id": 61038,
+      "idea": "Langsamer Moll-Choral ohne Dominante; Orgel- oder Chorlage.",
+      "instruments": "Frei wählbare Instrumente; quelltreue harmonische Konstruktion, kein Filmzitat."
+    },
+    {
+      "template_id": 61039,
+      "idea": "I–IV–iv–I; die Moll-iv als einzige Trübung.",
+      "instruments": "Frei wählbare Instrumente; quelltreue harmonische Konstruktion, kein Filmzitat."
+    },
+    {
+      "template_id": 61040,
+      "idea": "i–iv–V–i. V–I ist hier bewusst zugelassen (Option, kein Standard).",
+      "instruments": "Frei wählbare Instrumente; quelltreue harmonische Konstruktion, kein Filmzitat."
+    },
+    {
+      "template_id": 61041,
+      "idea": "Sechs Choralglieder à 4 Takte; schwer, trauernd.",
+      "instruments": "Frei wählbare Instrumente; quelltreue harmonische Konstruktion, kein Filmzitat."
+    },
+    {
+      "template_id": 61042,
+      "idea": "Ritualhafte ♭II-Wendung.",
+      "instruments": "Frei wählbare Instrumente; quelltreue harmonische Konstruktion, kein Filmzitat."
+    },
+    {
+      "template_id": 61043,
+      "idea": "Dur-IV aus dem Dorischen; hell sakral.",
+      "instruments": "Frei wählbare Instrumente; quelltreue harmonische Konstruktion, kein Filmzitat."
+    },
+    {
+      "template_id": 61044,
+      "idea": "Moll zu Moll eine große Terz tiefer; filmisches Zeichen der dunklen Seite (Lehman, allgemein belegt).",
+      "instruments": "Frei wählbare Instrumente; quelltreue harmonische Konstruktion, kein Filmzitat."
+    },
+    {
+      "template_id": 61045,
+      "idea": "Mollklänge im Großterzzirkel abwärts; nach 12 Takten wieder am Ausgang.",
+      "instruments": "Frei wählbare Instrumente; quelltreue harmonische Konstruktion, kein Filmzitat."
+    },
+    {
+      "template_id": 61046,
+      "idea": "Hoher C-Dur-Klang über dem tiefen Grundton; Unschuld im falschen Kontext.",
+      "instruments": "Frei wählbare Instrumente; quelltreue harmonische Konstruktion, kein Filmzitat."
+    },
+    {
+      "template_id": 61047,
+      "idea": "Amaj7–Fmaj7–C♯maj7; glänzend, ohne Halt. 12-Takt-Periode.",
+      "instruments": "Frei wählbare Instrumente; quelltreue harmonische Konstruktion, kein Filmzitat."
+    },
+    {
+      "template_id": 61048,
+      "idea": "Am und D♯-Dur: beide konsonant, zusammen ortlos.",
+      "instruments": "Frei wählbare Instrumente; quelltreue harmonische Konstruktion, kein Filmzitat."
+    },
+    {
+      "template_id": 61050,
+      "idea": "Zwei Dur-Septakkorde im Tritonusabstand; schön und haltlos.",
+      "instruments": "Frei wählbare Instrumente; quelltreue harmonische Konstruktion, kein Filmzitat."
+    },
+    {
+      "template_id": 61051,
+      "idea": "Imaj7–iii7–IVmaj7–iv6; warm, wehmütig, kein Horror (Recherche-Kette K4).",
+      "instruments": "Frei wählbare Instrumente; quelltreue harmonische Konstruktion, kein Filmzitat."
+    },
+    {
+      "template_id": 61052,
+      "idea": "Zwei weiche Klänge mit gemeinsamen Tönen; Erinnerung.",
+      "instruments": "Frei wählbare Instrumente; quelltreue harmonische Konstruktion, kein Filmzitat."
+    },
+    {
+      "template_id": 61053,
+      "idea": "I–vi–IV–iv; Doo-Wop-nahe Wärme mit Trübung am Ende.",
+      "instruments": "Frei wählbare Instrumente; quelltreue harmonische Konstruktion, kein Filmzitat."
+    },
+    {
+      "template_id": 61054,
+      "idea": "Offene sus2-Klänge, einmal F♯m7; hell und ruhig.",
+      "instruments": "Frei wählbare Instrumente; quelltreue harmonische Konstruktion, kein Filmzitat."
+    },
+    {
+      "template_id": 61055,
+      "idea": "Variante der Nostalgie-Kette mit None und maj9.",
+      "instruments": "Frei wählbare Instrumente; quelltreue harmonische Konstruktion, kein Filmzitat."
+    },
+    {
+      "template_id": 61056,
+      "idea": "Mixolydische Wärme, A–G–D–A.",
+      "instruments": "Frei wählbare Instrumente; quelltreue harmonische Konstruktion, kein Filmzitat."
+    },
+    {
+      "template_id": 61057,
+      "idea": "Fmaj7 als entlehnter Schatten in Dur; Sehnsucht.",
+      "instruments": "Frei wählbare Instrumente; quelltreue harmonische Konstruktion, kein Filmzitat."
+    },
+    {
+      "template_id": 61058,
+      "idea": "Am, B♭, Am, G♯m über gehaltenem Grundton; bedrängend.",
+      "instruments": "Frei wählbare Instrumente; quelltreue harmonische Konstruktion, kein Filmzitat."
+    },
+    {
+      "template_id": 61059,
+      "idea": "A, H, C, D als enger Chorklang; Ortlosigkeit ohne Chromatik. Nur kurz einsetzen.",
+      "instruments": "Frei wählbare Instrumente; quelltreue harmonische Konstruktion, kein Filmzitat."
+    },
+    {
+      "template_id": 61060,
+      "idea": "Am mit verminderten Klängen auf D♯ und G♯; zuckend.",
+      "instruments": "Frei wählbare Instrumente; quelltreue harmonische Konstruktion, kein Filmzitat."
+    },
+    {
+      "template_id": 61061,
+      "idea": "Am bleibt oben, der Bass fällt auf den Tritonus.",
+      "instruments": "Frei wählbare Instrumente; quelltreue harmonische Konstruktion, kein Filmzitat."
+    },
+    {
+      "template_id": 61062,
+      "idea": "Power-Quinten rücken einen Halbton auf und ab.",
+      "instruments": "Frei wählbare Instrumente; quelltreue harmonische Konstruktion, kein Filmzitat."
+    },
+    {
+      "template_id": 61063,
+      "idea": "Asymmetrische Verweildauer; 3-Takt-Periode läuft gegen 4er-Phrasen.",
+      "instruments": "Frei wählbare Instrumente; quelltreue harmonische Konstruktion, kein Filmzitat."
+    },
+    {
+      "template_id": 61064,
+      "idea": "Das zweite Pendelglied wechselt die Farbe; 12-Takt-Periode.",
+      "instruments": "Frei wählbare Instrumente; quelltreue harmonische Konstruktion, kein Filmzitat."
+    },
+    {
+      "template_id": 61065,
+      "idea": "Zwei Zyklen, dann C(add9) als Ausblick.",
+      "instruments": "Frei wählbare Instrumente; quelltreue harmonische Konstruktion, kein Filmzitat."
     }
   ]
 }

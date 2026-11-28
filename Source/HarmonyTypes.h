@@ -1,5 +1,6 @@
 #pragma once
 #include "WendungId.h"
+#include "HarmonyLimits.generated.h"
 #include "ChordTypes.generated.h"
 #include "ModalContext.h"
 #include <array>
@@ -29,9 +30,9 @@ struct HarmonyVoicing
 struct HarmonyTemplate
 {
     WendungId id;const char* name;float x,y,z;int count;
-    std::array<Chord,kMaxChords> chords;
+    std::array<Chord,kCatalogChordSlots> chords;
     TemplateTonality tonality;unsigned genres;const char* sourceRef;
     ChordColoration coloration=ChordColoration::flexible;
-    std::array<HarmonyVoicing,kMaxChords> voicings{};
+    std::array<HarmonyVoicing,kCatalogChordSlots> voicings{};
 };
 }

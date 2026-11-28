@@ -136,6 +136,12 @@ int main(int argc,char** argv){
   if(at%static_cast<long long>(16*4*samplesPerQuarter)==0)ExecutionTestAccess::admission(g,s,at);
 #endif
 
+#ifdef DARK_SYNTH_DIAGNOSTICS
+  if(at%static_cast<long long>(4*samplesPerQuarter)==0){
+   for(const auto& use:g.inspectSequences())if(use.source)std::cerr<<"J,"<<at<<",0,"<<use.source->reference<<'\n';
+   for(int output:{OutTupfer,OutMelody}){const auto& plan=g.inspectFigureEvent(output);if(plan.ready)std::cerr<<"J,"<<at<<','<<output<<','<<plan.figure.id<<'\n';}
+  }
+#endif
   if(g.wendung()!=last){last=g.wendung();std::cerr<<"H,"<<at<<','<<(last<0?-1:static_cast<int>(wendungAt(s.genre,last,s.profile).id))<<'\n';}
   for(int i=0;i<es.size;++i){const auto& e=es.events[i];std::cout<<at+e.offset<<','<<int(e.out)<<','<<int(e.channel)<<','<<int(e.note)<<','<<int(e.velocity)<<','<<int(e.type)<<'\n';
 #ifdef LAYER_DIAGNOSTICS
@@ -144,6 +150,24 @@ int main(int argc,char** argv){
    if(!e.type&&e.velocity&&(e.out==OutMelody||e.out==OutCounter))ExecutionTestAccess::matched(g,s,at+e.offset,e.out,e.note);
 #endif
    if(!e.type&&e.velocity){const auto& use=g.inspectLayers()[e.out];if(use.source)std::cerr<<"L,"<<at+e.offset<<','<<int(e.out)<<','<<use.source->reference<<','<<use.origin.value<<'\n';}
+#endif
+#ifdef DARK_SYNTH_DIAGNOSTICS
+#ifdef STROMSCORE_DIAGNOSTIC_EVENTS
+   if(!e.type&&e.velocity)std::cerr<<"C,"<<at+e.offset<<','<<e.diagnosticHarmony<<','<<e.diagnosticSource<<','<<int(e.out)<<','<<int(e.note)<<','<<int(e.velocity)<<'\n';
+#endif
+   if(!e.type&&e.velocity&&(e.out==OutTupfer||e.out==OutMelody)){
+    const auto& event=g.inspectFigureEvent(e.out);const auto& m=g.inspectMotif(e.out);
+    if(event.ready){auto use=event.use();const auto nominal=execution::nominalAt((at+e.offset)/samplesPerQuarter,execution::Timing::groove,s.swing);
+     if(use.index(nominal)>=0){int operation=0;
+      if(event.replyTo>=0)operation=event.figure.id-4300;
+      else if(e.out==OutTupfer&&m.complete&&m.vocabularyId==static_cast<unsigned>(event.figure.id)){
+       if(event.figure.count<m.count)operation=7;
+       else{bool adapted=false;for(int n=0;n<m.count;++n)adapted|=event.figure.pitches[n]-event.figure.pitches[0]!=m.notes[n].interval||event.figure.attacks[n].duration!=m.notes[n].length;
+        if(adapted)operation=5;else if((event.base+event.figure.pitches[0]+12*s.octave[kAkzent]-m.origin+120)%12)operation=6;}
+      }
+      std::cerr<<"E,"<<at+e.offset<<','<<int(e.out)<<','<<event.figure.id<<','<<m.identity<<','<<m.count<<','<<m.complete<<','<<event.base<<','<<event.replyTo<<','<<operation<<','<<event.begin.value<<','<<event.end().value<<'\n';}}
+   }
+   if(at+e.offset==at)for(int slot=0;slot<3;++slot){const auto& use=g.inspectSequences()[slot];if(use.source)std::cerr<<"J,"<<at<<','<<slot<<','<<use.source->reference<<'\n';}
 #endif
 #ifdef SEQUENCE_DIAGNOSTICS
    if(e.type==0&&e.velocity&&(e.out==OutBassShort||e.out==OutArp||e.out==OutCounter)){

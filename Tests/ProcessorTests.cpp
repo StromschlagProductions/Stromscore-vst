@@ -189,10 +189,12 @@ static int testWilliamsMotifsExport(bool pedals=false,bool morricone=false,bool 
 #include "HerrmannActivityProcessorTests.h"
 #include "CcOutputProcessorTests.h"
 #include "HerrmannArQuietProcessorTests.h"
+#include "DarkSynthProcessorTests.h"
 
 int main(int argc,char** argv)
 {
     juce::ScopedJuceInitialiser_GUI init;
+    if(argc>=2&&std::string(argv[1])=="--dark-synth")return testDarkSynthProcessor(argc>2?argv[2]:nullptr);
     if(argc>=2&&std::string(argv[1])=="--herrmann-ar-quiet")return testHerrmannArQuietProcessor(argc>2?argv[2]:nullptr);
     if(argc==2&&std::string(argv[1])=="--cc-output")return testCcOutputProcessor();
     if(argc>=2&&std::string(argv[1])=="--herrmann-activity")return testHerrmannActivityProcessor(argc>2?argv[2]:nullptr);
@@ -1211,7 +1213,7 @@ int main(int argc,char** argv)
             CHECK(stream&&juce::PNGImageFormat().writeImageToStream(
                 reopened->createComponentSnapshot(reopened->getLocalBounds(),true,2.f),*stream));
         }
-        setParam(*restored,"komponist",5);CHECK(profile->getSelectedId()==6&&profile->getText()=="John Carpenter");
+        setParam(*restored,"komponist",5);CHECK(profile->getSelectedId()==6&&profile->getText()=="Dark Synth");
         CHECK(restored->currentSettings().policy.sequences.enabled);
         juce::MemoryBlock carpenterState;restored->getStateInformation(carpenterState);
         auto carpenterRestored=std::make_unique<StromscoreProcessor>();carpenterRestored->setStateInformation(carpenterState.getData(),static_cast<int>(carpenterState.getSize()));

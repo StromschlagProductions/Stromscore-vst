@@ -171,7 +171,7 @@ int main()
     HarmonicPlan hp;{NoAllocations guard;hp=planHarmony(hr);}
     CHECK(hp.valid&&hp.count==3&&hp.slots[1].pad.n==0);
     CHECK(hp.slots[2].pad.notes[0]==-7&&hp.slots[2].unavailable==(1u<<11));
-    hr.count=17;CHECK(!planHarmony(hr).valid);hr.count=3;
+    hr.count=HarmonicRequest::capacity+1;CHECK(!planHarmony(hr).valid);hr.count=3;
     hr.slots[0].pad.n=7;CHECK(!planHarmony(hr).valid);
     // Intent -> anchor: colour tones, spread/close voicings and range folding.
     ChordIntent intent;intent.root=0;intent.count=4;intent.intervals={0,4,7,11,0};

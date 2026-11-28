@@ -1,0 +1,7 @@
+generator_bytes,27824
+0,0,0,first_cpu_ms,0.138,p99_cpu_ms,0.015,max_cpu_ms,0.33
+0.1,0.1,0.9,first_cpu_ms,0.127,p99_cpu_ms,0.027,max_cpu_ms,0.342
+0.2,0.8,0.9,first_cpu_ms,0.273,p99_cpu_ms,0.157,max_cpu_ms,2.231
+0.85,0.2,0.15,first_cpu_ms,0.239,p99_cpu_ms,0.031,max_cpu_ms,0.369
+0.5,0.5,0.5,first_cpu_ms,1.085,p99_cpu_ms,0.058,max_cpu_ms,1.135
+0.8,0.8,0.8,first_cpu_ms,0.54,p99_cpu_ms,0.148,max_cpu_ms,4.252

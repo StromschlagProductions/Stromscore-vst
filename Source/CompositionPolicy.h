@@ -3,6 +3,7 @@
 #include "LayerPlan.h"
 #include "HerrmannVocabulary.generated.h"
 #include "CarpenterVocabulary.generated.h"
+#include "DarkSynthVocabulary.generated.h"
 #include "ArpeggioPhrase.h"
 #include "RhythmPlan.h"
 #include "ChordDisposition.h"
@@ -78,10 +79,10 @@ inline bool valid(const AutoAccompanimentPolicy& p)
 struct PedalPolicy { bool enabled=false; int lifetimeBars=16; };
 inline bool valid(const PedalPolicy& p){return p.lifetimeBars>=1&&p.lifetimeBars<=64;}
 struct SequencePolicy {
-    bool enabled=false,chordPulse=false;
+    bool enabled=false,chordPulse=false,independentHarmony=false;
+    const SequenceSource* events=nullptr;int eventCount=0;const SequenceSource* leads=nullptr;int leadCount=0;bool development=false;
     const SequenceSource* sources=nullptr;int count=0;
     const FigureHarmonyBinding* harmonies=nullptr;int harmonyCount=0;
-    const SequenceSource* event=nullptr;
     musicaltime::Tick eventSpacing=64*musicaltime::quarter;
 };
 inline bool valid(const SequencePolicy& p)
@@ -89,7 +90,10 @@ inline bool valid(const SequencePolicy& p)
     if(!p.enabled)return true;
     if(!p.sources||p.count<1||p.harmonyCount<0||(p.harmonyCount&&!p.harmonies)||p.eventSpacing<musicaltime::Tick{1})return false;
     for(int i=0;i<p.count;++i)if(!valid(p.sources[i]))return false;
-    return !p.event||(valid(*p.event)&&p.eventSpacing>=p.event->period);
+    if(p.eventCount<0||p.leadCount<0||(p.eventCount&&!p.events)||(p.leadCount&&!p.leads))return false;
+    for(int i=0;i<p.eventCount;++i)if(!valid(p.events[i])||p.events[i].period+4*musicaltime::quarter>p.eventSpacing)return false;
+    for(int i=0;i<p.leadCount;++i)if(!valid(p.leads[i])||p.leads[i].period+4*musicaltime::quarter>p.eventSpacing)return false;
+    return true;
 }
 struct FreeCompositionPolicy { LayerPolicy layers; const AuthoredMotifSource* authoredSources=nullptr;int authoredCount=0; SequencePolicy sequences; PedalPolicy pedal; ArpeggioPhrasePolicy arpeggioPhrase; AutoAccompanimentPolicy accompaniment; TexturePolicy texture; PopRolePolicy popRoles; MotifRecurrencePolicy motif; HookPolicy popHooks; PassingPolicy passing; BassPhrasePolicy bass; RhythmCoordinationPolicy rhythm; ChordDispositionPolicy chords; };
 inline constexpr FreeCompositionPolicy neutralFreePolicy {};
@@ -108,9 +112,11 @@ inline constexpr auto herrmannPolicy=[] {auto p=neutralFreePolicy;
     p.motif.adaptChordTones=false;for(auto& v:p.motif.variations)v=MotifVariation::original;p.motif.variations[5]=MotifVariation::rhythm;
     return p;}();
 inline constexpr auto carpenterPolicy=[] {auto p=neutralFreePolicy;p.sequences.enabled=true;p.sequences.chordPulse=true;
-    p.sequences.sources=carpenter::sources;p.sequences.count=static_cast<int>(std::size(carpenter::sources));
-    p.sequences.harmonies=carpenter::harmonies;p.sequences.harmonyCount=static_cast<int>(std::size(carpenter::harmonies));
-    p.sequences.event=&carpenter::echo;p.pedal.enabled=true;p.texture.activityStart={{0.f,0.f,.2f,.15f,.25f,.25f}};return p;}();
+    p.sequences.sources=darkSynth::sources;p.sequences.count=static_cast<int>(std::size(darkSynth::sources));
+    p.sequences.leads=darkSynth::leads;p.sequences.leadCount=static_cast<int>(std::size(darkSynth::leads));
+    p.sequences.independentHarmony=true;p.sequences.events=darkSynth::events;p.sequences.eventCount=static_cast<int>(std::size(darkSynth::events));p.sequences.development=true;p.sequences.eventSpacing=20*musicaltime::quarter;
+    p.sequences.harmonies=darkSynth::harmonies;p.sequences.harmonyCount=static_cast<int>(std::size(darkSynth::harmonies));
+    p.pedal.enabled=true;p.texture.activityStart={{0.f,0.f,.2f,.15f,.25f,.25f}};return p;}();
 // Each profile supplies data to the same planning and rendering mechanisms.
 struct CompositionProfile
 {

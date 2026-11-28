@@ -323,6 +323,139 @@
         7,
         11
       ]
+    },
+    {
+      "id": "DSShape7_2",
+      "value": 27,
+      "suffix": "[0,2,5,7,10]",
+      "minor": false,
+      "intervals": [
+        0,
+        2,
+        5,
+        7,
+        10
+      ]
+    },
+    {
+      "id": "DSShape7_5",
+      "value": 28,
+      "suffix": "[0,2,6,9,11]",
+      "minor": false,
+      "intervals": [
+        0,
+        2,
+        6,
+        9,
+        11
+      ]
+    },
+    {
+      "id": "DSShape7_6",
+      "value": 29,
+      "suffix": "[0,2,5,9]",
+      "minor": false,
+      "intervals": [
+        0,
+        2,
+        5,
+        9
+      ]
+    },
+    {
+      "id": "DSShape9_1",
+      "value": 30,
+      "suffix": "[0,4,9]",
+      "minor": false,
+      "intervals": [
+        0,
+        4,
+        9
+      ]
+    },
+    {
+      "id": "DSShape9_2",
+      "value": 31,
+      "suffix": "[0,2,7,10]",
+      "minor": false,
+      "intervals": [
+        0,
+        2,
+        7,
+        10
+      ]
+    },
+    {
+      "id": "DSShape10_2",
+      "value": 32,
+      "suffix": "[0,2,6,7,11]",
+      "minor": false,
+      "intervals": [
+        0,
+        2,
+        6,
+        7,
+        11
+      ]
+    },
+    {
+      "id": "DSShape10_3",
+      "value": 33,
+      "suffix": "[0,3,7,8]",
+      "minor": true,
+      "intervals": [
+        0,
+        3,
+        7,
+        8
+      ]
+    },
+    {
+      "id": "DSShape11_1",
+      "value": 34,
+      "suffix": "[0,2,6,11]",
+      "minor": false,
+      "intervals": [
+        0,
+        2,
+        6,
+        11
+      ]
+    },
+    {
+      "id": "DSShape11_3",
+      "value": 35,
+      "suffix": "[0,1,4,8]",
+      "minor": false,
+      "intervals": [
+        0,
+        1,
+        4,
+        8
+      ]
+    },
+    {
+      "id": "DSShape12_2",
+      "value": 36,
+      "suffix": "[0,4,11]",
+      "minor": false,
+      "intervals": [
+        0,
+        4,
+        11
+      ]
+    },
+    {
+      "id": "DSShape59_0",
+      "value": 37,
+      "suffix": "[0,2,3,5]",
+      "minor": true,
+      "intervals": [
+        0,
+        2,
+        3,
+        5
+      ]
     }
   ],
   "custom_choice_order": [

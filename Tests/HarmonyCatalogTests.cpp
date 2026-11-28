@@ -4,14 +4,14 @@
 using namespace stromscore;
 int main()
 {
- CHECK(harmonyTemplates.size()==276&&kNumWendungen==48&&kNumPopWendungen==39);
- CHECK(kMaxWendungen==54&&kCustomWendung>=kMaxWendungen);
+ CHECK(harmonyTemplates.size()==340&&kNumWendungen==48&&kNumPopWendungen==39);
+ CHECK(kMaxWendungen==94&&kCustomWendung>=kMaxWendungen);
  CHECK(!findHarmonyTemplate(WendungId::custom)&&!findHarmonyTemplate(WendungId::invalid));
  for(const auto& h:harmonyTemplates)
  {
   CHECK(findHarmonyTemplate(h.id)==&h);CHECK(h.tonality.center==0&&(static_cast<unsigned>(h.id)>=2037||h.tonality.mode==composition::Mode::automatic));
   CHECK(h.sourceRef&&*h.sourceRef);int bars=0;
-  for(int i=0;i<h.count;++i)bars+=h.chords[i].bars;CHECK(bars==8);
+  for(int i=0;i<h.count;++i)bars+=h.chords[i].bars;CHECK(bars>0);if(static_cast<unsigned>(h.id)<61001||static_cast<unsigned>(h.id)>61065)CHECK(bars==8);
   for(int genre=0;genre<kNumGenres;++genre)
   {
    const auto projected=playbackTemplate(static_cast<int>(&h-harmonyTemplates.data()));const auto* w=&projected;CHECK(w->id==h.id&&std::strcmp(h.name,w->name)==0);CHECK(h.count==w->n&&h.x==w->x&&h.y==w->y&&h.z==w->z);

@@ -1,3 +1,19 @@
+# Aktueller Hörtest – Dark Synth P2
+
+Im bestehenden Komponistenmenü **Dark Synth** wählen (ersetzt John Carpenter). 4/4, D, 100 BPM, Aufbau/Fahrt AUS, unbegrenzte Wiedergabe, automatische Spielweisen und Follow EIN. Zunächst 512 Samples als Vergleichspuffer. Vorhandene neun MIDI-Ziele unverändert auf geeignete externe Instrumente routen; Kanalnummern, klingende Tonumfänge und Benutzeroktaven kontrollieren. Die Patchfähigkeiten werden nicht automatisch erkannt.
+
+1. Ohne HM/GS bei XYZ 0/0/0 starten: eine minimale ruhige Stimmung soll unmittelbar möglich sein. Anschließend nostalgisch **.85/.20/.15**, Schatten/Bassrotation **.50/.35/.25**, ritualisch **.15/.85/.15** prüfen. LF und Bass zunächst zusammen hören, dann einzeln.
+2. Bewegung **.40/.65/.45**, hohe Unruhe **.20/.80/.90**, helle Unheimlichkeit **.85/.20/.80**. Jeweils 64–128 Takte stehen lassen, dann langsam fahren und Variation/Abwechslung wechseln. Nicht jede Quelle verlangt AR/GS oder einen Bass. Lange Harmonieperioden und ruhende Klangfelder sind beabsichtigt.
+3. TU separat hören: Akzente/Tupfer aktiv, AR/GS/HM aus; **.55/.40/.30**, mindestens 64 Takte. Keime, Pausen und Wiederkehr beachten. Danach AR/GS dazunehmen und echoartige Antworten vergleichen. TU benötigt einen tonhöhensteuerbaren Patch; ST bleibt fester Trigger 36.
+4. Optional HM und deren Motivschalter aktivieren. Die belegten TU-Expositionen sind kontextabhängig und werden nicht erzwungen; HM soll ohne Aktivierung stumm bleiben. Bei Q13-Gefrieren bleibt die Note auf AR, kein Klangwechsel nach LF. Dafür einen gehaltene Noten unterstützenden AR-Patch wählen.
+5. Neutral, Barry, Williams, Morricone, Herrmann sowie POP/ROCK gegenprüfen. Bestehende CC-Anzeige und Abschaltreset sollen unverändert funktionieren; keine neue CC16–19-Klangmodulation. Stop/Neustart/Loop und Projektladen testen.
+
+64 Takte bei 100 BPM dauern 2:34 Minuten, 128 Takte 5:07 Minuten. Die beigefügte **DARK_SYNTH_P2_MIDI.zip** enthält neun 128-taktige A/B-Paare mit getrennten Rollen. MIDI in Studio One importieren und beiden Fassungen dieselben Instrumente zuweisen. Harmonisch identische Auswahl ist bei erweitertem Profil nicht zu erwarten; die A/Bs vergleichen die komplette tatsächliche Produktion bei gleichen Parametern.
+
+DEV-Build mit gleicher Plugin-ID: Studio One beenden, bisheriges STROMSCORE-VST3 sichern und durch den entpackten `Stromscore.vst3`-Ordner im üblichen Windows-VST3-Verzeichnis ersetzen (normalerweise `C:\Program Files\Common Files\VST3`). Nicht beide Versionen parallel installieren. Studio One starten und gegebenenfalls Plugins neu einlesen. Kein offizielles Release. Musikalische Abnahme steht aus.
+
+---
+
 # Aktueller Hörtest – Herrmann: AR und Ruhebereich
 
 Referenz2170807 ist hinsichtlich CC-Anzeige/-Reset, Stich/Akzenten, Bass und Herrmann-Klangsprache positiv bestätigt. Dieses Paket korrigiert gezielt die AR-Auswahl und den stummen Start im Ruhebereich.

@@ -605,6 +605,11 @@
       "id": "herrmann_canonical_p1",
       "text": "docs/research/bernard-herrmann/STROMSCORE_Bernard_Herrmann_Vokabular_Kanonisch.md; canonical constructed material, not film transcriptions",
       "verification": "canonical_research_constructions"
+    },
+    {
+      "id": "dark_synth_p2",
+      "text": "docs/research/dark-synth/STROMSCORE_Dark_Synth_Vokabular_Erweiterung.md; DS source constructions, not soundtrack transcriptions",
+      "verification": "canonical_constructions_with_runtime_errata"
     }
   ],
   "templates": [
@@ -16088,6 +16093,5910 @@
           "bass": -24
         }
       ]
+    },
+    {
+      "id": 61001,
+      "symbol": "darkSynthH01",
+      "name": "DS-H01 – Schattenpaar ♭VImaj7",
+      "xyz": [
+        0.57,
+        0.3,
+        0.2
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "aeolian"
+      },
+      "source_ref": "dark_synth_p2",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Min",
+          "bars": 4,
+          "bass": 0
+        },
+        {
+          "root": 8,
+          "type": "Maj7",
+          "bars": 4,
+          "bass": 8
+        }
+      ],
+      "coloration": "protected",
+      "voicings": [
+        {
+          "notes": [
+            -12,
+            -9,
+            -5
+          ],
+          "held": [],
+          "bass": -36
+        },
+        {
+          "notes": [
+            -4,
+            0,
+            3,
+            7
+          ],
+          "held": [],
+          "bass": -28
+        }
+      ],
+      "period_bars": 8
+    },
+    {
+      "id": 61002,
+      "symbol": "darkSynthH02",
+      "name": "DS-H02 – Schattenpaar mit Fluchtweg",
+      "xyz": [
+        0.57,
+        0.35,
+        0.2
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "aeolian"
+      },
+      "source_ref": "dark_synth_p2",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Min",
+          "bars": 2,
+          "bass": 0
+        },
+        {
+          "root": 8,
+          "type": "Maj7",
+          "bars": 2,
+          "bass": 8
+        },
+        {
+          "root": 0,
+          "type": "Min",
+          "bars": 2,
+          "bass": 0
+        },
+        {
+          "root": 8,
+          "type": "Maj7",
+          "bars": 2,
+          "bass": 8
+        },
+        {
+          "root": 0,
+          "type": "Min",
+          "bars": 2,
+          "bass": 0
+        },
+        {
+          "root": 8,
+          "type": "Maj7",
+          "bars": 2,
+          "bass": 8
+        },
+        {
+          "root": 5,
+          "type": "MinorAdd9",
+          "bars": 2,
+          "bass": 5
+        },
+        {
+          "root": 8,
+          "type": "Maj7",
+          "bars": 2,
+          "bass": 8
+        },
+        {
+          "root": 0,
+          "type": "Min",
+          "bars": 4,
+          "bass": 0
+        }
+      ],
+      "coloration": "protected",
+      "voicings": [
+        {
+          "notes": [
+            -12,
+            -9,
+            -5
+          ],
+          "held": [],
+          "bass": -36
+        },
+        {
+          "notes": [
+            -4,
+            0,
+            3,
+            7
+          ],
+          "held": [],
+          "bass": -28
+        },
+        {
+          "notes": [
+            -12,
+            -9,
+            -5
+          ],
+          "held": [],
+          "bass": -36
+        },
+        {
+          "notes": [
+            -4,
+            0,
+            3,
+            7
+          ],
+          "held": [],
+          "bass": -28
+        },
+        {
+          "notes": [
+            -12,
+            -9,
+            -5
+          ],
+          "held": [],
+          "bass": -36
+        },
+        {
+          "notes": [
+            -4,
+            0,
+            3,
+            7
+          ],
+          "held": [],
+          "bass": -28
+        },
+        {
+          "notes": [
+            -7,
+            -4,
+            0,
+            7
+          ],
+          "held": [],
+          "bass": -31
+        },
+        {
+          "notes": [
+            -4,
+            0,
+            3,
+            7
+          ],
+          "held": [],
+          "bass": -28
+        },
+        {
+          "notes": [
+            -12,
+            -9,
+            -5
+          ],
+          "held": [],
+          "bass": -36
+        }
+      ],
+      "period_bars": 20
+    },
+    {
+      "id": 61003,
+      "symbol": "darkSynthH03",
+      "name": "DS-H03 – Schattenpaar über Grundtonpedal",
+      "xyz": [
+        0.53,
+        0.35,
+        0.2
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "aeolian"
+      },
+      "source_ref": "dark_synth_p2",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Min7",
+          "bars": 4,
+          "bass": 0
+        },
+        {
+          "root": 8,
+          "type": "Maj7",
+          "bars": 4,
+          "bass": 0
+        }
+      ],
+      "coloration": "protected",
+      "voicings": [
+        {
+          "notes": [
+            -12,
+            -9,
+            -5,
+            -2
+          ],
+          "held": [],
+          "bass": -36
+        },
+        {
+          "notes": [
+            -4,
+            0,
+            3,
+            7
+          ],
+          "held": [],
+          "bass": -36
+        }
+      ],
+      "period_bars": 8
+    },
+    {
+      "id": 61004,
+      "symbol": "darkSynthH04",
+      "name": "DS-H04 – Schattenpaar in Dur",
+      "xyz": [
+        0.75,
+        0.3,
+        0.17
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "ionian"
+      },
+      "source_ref": "dark_synth_p2",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Maj7",
+          "bars": 4,
+          "bass": 0
+        },
+        {
+          "root": 5,
+          "type": "Maj7",
+          "bars": 4,
+          "bass": 5
+        }
+      ],
+      "coloration": "protected",
+      "voicings": [
+        {
+          "notes": [
+            -12,
+            -8,
+            -5,
+            -1
+          ],
+          "held": [],
+          "bass": -36
+        },
+        {
+          "notes": [
+            -7,
+            -3,
+            0,
+            4
+          ],
+          "held": [],
+          "bass": -31
+        }
+      ],
+      "period_bars": 8
+    },
+    {
+      "id": 61005,
+      "symbol": "darkSynthH05",
+      "name": "DS-H05 – Schattenpaar mit None",
+      "xyz": [
+        0.62,
+        0.3,
+        0.2
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "aeolian"
+      },
+      "source_ref": "dark_synth_p2",
+      "chords": [
+        {
+          "root": 0,
+          "type": "MinorAdd9",
+          "bars": 4,
+          "bass": 0
+        },
+        {
+          "root": 8,
+          "type": "Major9",
+          "bars": 4,
+          "bass": 8
+        }
+      ],
+      "coloration": "protected",
+      "voicings": [
+        {
+          "notes": [
+            -12,
+            -9,
+            -5,
+            2
+          ],
+          "held": [],
+          "bass": -36
+        },
+        {
+          "notes": [
+            -4,
+            0,
+            3,
+            7,
+            10
+          ],
+          "held": [],
+          "bass": -28
+        }
+      ],
+      "period_bars": 8
+    },
+    {
+      "id": 61006,
+      "symbol": "darkSynthH06",
+      "name": "DS-H06 – Dreifacher Schatten",
+      "xyz": [
+        0.62,
+        0.35,
+        0.2
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "aeolian"
+      },
+      "source_ref": "dark_synth_p2",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Min",
+          "bars": 4,
+          "bass": 0
+        },
+        {
+          "root": 8,
+          "type": "Maj7",
+          "bars": 4,
+          "bass": 8
+        },
+        {
+          "root": 3,
+          "type": "Maj7",
+          "bars": 4,
+          "bass": 3
+        },
+        {
+          "root": 8,
+          "type": "Maj7",
+          "bars": 4,
+          "bass": 8
+        }
+      ],
+      "coloration": "protected",
+      "voicings": [
+        {
+          "notes": [
+            -12,
+            -9,
+            -5
+          ],
+          "held": [],
+          "bass": -36
+        },
+        {
+          "notes": [
+            -4,
+            0,
+            3,
+            7
+          ],
+          "held": [],
+          "bass": -28
+        },
+        {
+          "notes": [
+            -9,
+            -5,
+            -2,
+            2
+          ],
+          "held": [],
+          "bass": -33
+        },
+        {
+          "notes": [
+            -4,
+            0,
+            3,
+            7
+          ],
+          "held": [],
+          "bass": -28
+        }
+      ],
+      "period_bars": 16
+    },
+    {
+      "id": 61007,
+      "symbol": "darkSynthH07",
+      "name": "DS-H07 – Bassrotation unter Am7-Oberbau",
+      "xyz": [
+        0.5,
+        0.35,
+        0.25
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "dark_synth_p2",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Min7",
+          "bars": 2,
+          "bass": 0
+        },
+        {
+          "root": 8,
+          "type": "Major9",
+          "bars": 2,
+          "bass": 8
+        },
+        {
+          "root": 5,
+          "type": "DSShape7_2",
+          "bars": 2,
+          "bass": 5
+        },
+        {
+          "root": 8,
+          "type": "Major9",
+          "bars": 2,
+          "bass": 8
+        },
+        {
+          "root": 0,
+          "type": "Min7",
+          "bars": 2,
+          "bass": 0
+        },
+        {
+          "root": 1,
+          "type": "DSShape7_5",
+          "bars": 2,
+          "bass": 1
+        },
+        {
+          "root": 10,
+          "type": "DSShape7_6",
+          "bars": 2,
+          "bass": 10
+        },
+        {
+          "root": 0,
+          "type": "Min7",
+          "bars": 2,
+          "bass": 0
+        }
+      ],
+      "coloration": "protected",
+      "voicings": [
+        {
+          "notes": [
+            -12,
+            -9,
+            -5,
+            -2
+          ],
+          "held": [
+            -12,
+            -9,
+            -5,
+            -2
+          ],
+          "bass": -36
+        },
+        {
+          "notes": [
+            -12,
+            -9,
+            -5,
+            -2
+          ],
+          "held": [
+            -12,
+            -9,
+            -5,
+            -2
+          ],
+          "bass": -28
+        },
+        {
+          "notes": [
+            -12,
+            -9,
+            -5,
+            -2
+          ],
+          "held": [
+            -12,
+            -9,
+            -5,
+            -2
+          ],
+          "bass": -31
+        },
+        {
+          "notes": [
+            -12,
+            -9,
+            -5,
+            -2
+          ],
+          "held": [
+            -12,
+            -9,
+            -5,
+            -2
+          ],
+          "bass": -28
+        },
+        {
+          "notes": [
+            -12,
+            -9,
+            -5,
+            -2
+          ],
+          "held": [
+            -12,
+            -9,
+            -5,
+            -2
+          ],
+          "bass": -36
+        },
+        {
+          "notes": [
+            -12,
+            -9,
+            -5,
+            -2
+          ],
+          "held": [
+            -12,
+            -9,
+            -5,
+            -2
+          ],
+          "bass": -35
+        },
+        {
+          "notes": [
+            -12,
+            -9,
+            -5,
+            -2
+          ],
+          "held": [
+            -12,
+            -9,
+            -5,
+            -2
+          ],
+          "bass": -26
+        },
+        {
+          "notes": [
+            -12,
+            -9,
+            -5,
+            -2
+          ],
+          "held": [
+            -12,
+            -9,
+            -5,
+            -2
+          ],
+          "bass": -36
+        }
+      ],
+      "period_bars": 16
+    },
+    {
+      "id": 61008,
+      "symbol": "darkSynthH08",
+      "name": "DS-H08 – Pendel im Bass",
+      "xyz": [
+        0.53,
+        0.3,
+        0.2
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "aeolian"
+      },
+      "source_ref": "dark_synth_p2",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Min",
+          "bars": 4,
+          "bass": 0
+        },
+        {
+          "root": 8,
+          "type": "Maj7",
+          "bars": 4,
+          "bass": 8
+        }
+      ],
+      "coloration": "protected",
+      "voicings": [
+        {
+          "notes": [
+            -12,
+            -9,
+            -5
+          ],
+          "held": [
+            -12,
+            -9,
+            -5
+          ],
+          "bass": -36
+        },
+        {
+          "notes": [
+            -12,
+            -9,
+            -5
+          ],
+          "held": [
+            -12,
+            -9,
+            -5
+          ],
+          "bass": -28
+        }
+      ],
+      "period_bars": 8
+    },
+    {
+      "id": 61009,
+      "symbol": "darkSynthH09",
+      "name": "DS-H09 – Bassrotation unter Mollklang, dorisch",
+      "xyz": [
+        0.62,
+        0.3,
+        0.23
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "dorian"
+      },
+      "source_ref": "dark_synth_p2",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Min",
+          "bars": 4,
+          "bass": 0
+        },
+        {
+          "root": 3,
+          "type": "DSShape9_1",
+          "bars": 4,
+          "bass": 3
+        },
+        {
+          "root": 5,
+          "type": "DSShape9_2",
+          "bars": 4,
+          "bass": 5
+        },
+        {
+          "root": 9,
+          "type": "HalfDim",
+          "bars": 4,
+          "bass": 9
+        }
+      ],
+      "coloration": "protected",
+      "voicings": [
+        {
+          "notes": [
+            -12,
+            -9,
+            -5
+          ],
+          "held": [
+            -12,
+            -9,
+            -5
+          ],
+          "bass": -36
+        },
+        {
+          "notes": [
+            -12,
+            -9,
+            -5
+          ],
+          "held": [
+            -12,
+            -9,
+            -5
+          ],
+          "bass": -33
+        },
+        {
+          "notes": [
+            -12,
+            -9,
+            -5
+          ],
+          "held": [
+            -12,
+            -9,
+            -5
+          ],
+          "bass": -31
+        },
+        {
+          "notes": [
+            -12,
+            -9,
+            -5
+          ],
+          "held": [
+            -12,
+            -9,
+            -5
+          ],
+          "bass": -27
+        }
+      ],
+      "period_bars": 16
+    },
+    {
+      "id": 61010,
+      "symbol": "darkSynthH10",
+      "name": "DS-H10 – Bassrotation unter Cmaj7-Oberbau",
+      "xyz": [
+        0.75,
+        0.3,
+        0.2
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "aeolian"
+      },
+      "source_ref": "dark_synth_p2",
+      "chords": [
+        {
+          "root": 3,
+          "type": "Maj7",
+          "bars": 4,
+          "bass": 3
+        },
+        {
+          "root": 0,
+          "type": "Min9",
+          "bars": 4,
+          "bass": 0
+        },
+        {
+          "root": 8,
+          "type": "DSShape10_2",
+          "bars": 4,
+          "bass": 8
+        },
+        {
+          "root": 7,
+          "type": "DSShape10_3",
+          "bars": 4,
+          "bass": 7
+        }
+      ],
+      "coloration": "protected",
+      "voicings": [
+        {
+          "notes": [
+            -9,
+            -5,
+            -2,
+            2
+          ],
+          "held": [
+            -9,
+            -5,
+            -2,
+            2
+          ],
+          "bass": -33
+        },
+        {
+          "notes": [
+            -9,
+            -5,
+            -2,
+            2
+          ],
+          "held": [
+            -9,
+            -5,
+            -2,
+            2
+          ],
+          "bass": -36
+        },
+        {
+          "notes": [
+            -9,
+            -5,
+            -2,
+            2
+          ],
+          "held": [
+            -9,
+            -5,
+            -2,
+            2
+          ],
+          "bass": -28
+        },
+        {
+          "notes": [
+            -9,
+            -5,
+            -2,
+            2
+          ],
+          "held": [
+            -9,
+            -5,
+            -2,
+            2
+          ],
+          "bass": -29
+        }
+      ],
+      "period_bars": 16
+    },
+    {
+      "id": 61011,
+      "symbol": "darkSynthH11",
+      "name": "DS-H11 – Halbton-Bassrotation",
+      "xyz": [
+        0.2,
+        0.35,
+        0.75
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "dark_synth_p2",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Min",
+          "bars": 4,
+          "bass": 0
+        },
+        {
+          "root": 1,
+          "type": "DSShape11_1",
+          "bars": 4,
+          "bass": 1
+        },
+        {
+          "root": 0,
+          "type": "Min",
+          "bars": 4,
+          "bass": 0
+        },
+        {
+          "root": 11,
+          "type": "DSShape11_3",
+          "bars": 4,
+          "bass": 11
+        }
+      ],
+      "coloration": "protected",
+      "voicings": [
+        {
+          "notes": [
+            -12,
+            -9,
+            -5
+          ],
+          "held": [
+            -12,
+            -9,
+            -5
+          ],
+          "bass": -36
+        },
+        {
+          "notes": [
+            -12,
+            -9,
+            -5
+          ],
+          "held": [
+            -12,
+            -9,
+            -5
+          ],
+          "bass": -35
+        },
+        {
+          "notes": [
+            -12,
+            -9,
+            -5
+          ],
+          "held": [
+            -12,
+            -9,
+            -5
+          ],
+          "bass": -36
+        },
+        {
+          "notes": [
+            -12,
+            -9,
+            -5
+          ],
+          "held": [
+            -12,
+            -9,
+            -5
+          ],
+          "bass": -25
+        }
+      ],
+      "period_bars": 16
+    },
+    {
+      "id": 61012,
+      "symbol": "darkSynthH12",
+      "name": "DS-H12 – Rufbass-Rotation unter Quinte",
+      "xyz": [
+        0.55,
+        0.25,
+        0.2
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "aeolian"
+      },
+      "source_ref": "dark_synth_p2",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Fifth",
+          "bars": 4,
+          "bass": 0
+        },
+        {
+          "root": 5,
+          "type": "Sus2",
+          "bars": 4,
+          "bass": 5
+        },
+        {
+          "root": 8,
+          "type": "DSShape12_2",
+          "bars": 4,
+          "bass": 8
+        },
+        {
+          "root": 3,
+          "type": "DSShape9_1",
+          "bars": 4,
+          "bass": 3
+        }
+      ],
+      "coloration": "protected",
+      "voicings": [
+        {
+          "notes": [
+            -12,
+            -5
+          ],
+          "held": [
+            -12,
+            -5
+          ],
+          "bass": -36
+        },
+        {
+          "notes": [
+            -12,
+            -5
+          ],
+          "held": [
+            -12,
+            -5
+          ],
+          "bass": -31
+        },
+        {
+          "notes": [
+            -12,
+            -5
+          ],
+          "held": [
+            -12,
+            -5
+          ],
+          "bass": -28
+        },
+        {
+          "notes": [
+            -12,
+            -5
+          ],
+          "held": [
+            -12,
+            -5
+          ],
+          "bass": -33
+        }
+      ],
+      "period_bars": 16
+    },
+    {
+      "id": 61013,
+      "symbol": "darkSynthH13",
+      "name": "DS-H13 – Dur-Oberbau mit wanderndem Bass",
+      "xyz": [
+        0.8,
+        0.3,
+        0.2
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "ionian"
+      },
+      "source_ref": "dark_synth_p2",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Maj",
+          "bars": 4,
+          "bass": 0
+        },
+        {
+          "root": 9,
+          "type": "Min7",
+          "bars": 4,
+          "bass": 9
+        },
+        {
+          "root": 5,
+          "type": "Major7Sus2",
+          "bars": 4,
+          "bass": 5
+        },
+        {
+          "root": 0,
+          "type": "Maj",
+          "bars": 4,
+          "bass": 4
+        }
+      ],
+      "coloration": "protected",
+      "voicings": [
+        {
+          "notes": [
+            -12,
+            -8,
+            -5
+          ],
+          "held": [
+            -12,
+            -8,
+            -5
+          ],
+          "bass": -36
+        },
+        {
+          "notes": [
+            -12,
+            -8,
+            -5
+          ],
+          "held": [
+            -12,
+            -8,
+            -5
+          ],
+          "bass": -27
+        },
+        {
+          "notes": [
+            -12,
+            -8,
+            -5
+          ],
+          "held": [
+            -12,
+            -8,
+            -5
+          ],
+          "bass": -31
+        },
+        {
+          "notes": [
+            -12,
+            -8,
+            -5
+          ],
+          "held": [
+            -12,
+            -8,
+            -5
+          ],
+          "bass": -32
+        }
+      ],
+      "period_bars": 16
+    },
+    {
+      "id": 61014,
+      "symbol": "darkSynthH14",
+      "name": "DS-H14 – Choral-Oberbau über schreitendem Bass",
+      "xyz": [
+        0.53,
+        0.5,
+        0.2
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "aeolian"
+      },
+      "source_ref": "dark_synth_p2",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Min",
+          "bars": 4,
+          "bass": 0
+        },
+        {
+          "root": 10,
+          "type": "DSShape7_6",
+          "bars": 4,
+          "bass": 10
+        },
+        {
+          "root": 8,
+          "type": "Maj7",
+          "bars": 4,
+          "bass": 8
+        },
+        {
+          "root": 0,
+          "type": "Min",
+          "bars": 4,
+          "bass": 7
+        }
+      ],
+      "coloration": "protected",
+      "voicings": [
+        {
+          "notes": [
+            -9,
+            -5,
+            0
+          ],
+          "held": [
+            -9,
+            -5,
+            0
+          ],
+          "bass": -36
+        },
+        {
+          "notes": [
+            -9,
+            -5,
+            0
+          ],
+          "held": [
+            -9,
+            -5,
+            0
+          ],
+          "bass": -26
+        },
+        {
+          "notes": [
+            -9,
+            -5,
+            0
+          ],
+          "held": [
+            -9,
+            -5,
+            0
+          ],
+          "bass": -28
+        },
+        {
+          "notes": [
+            -9,
+            -5,
+            0
+          ],
+          "held": [
+            -9,
+            -5,
+            0
+          ],
+          "bass": -29
+        }
+      ],
+      "period_bars": 16
+    },
+    {
+      "id": 61015,
+      "symbol": "darkSynthH15",
+      "name": "DS-H15 – Nebelgang",
+      "xyz": [
+        0.53,
+        0.4,
+        0.28
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "dark_synth_p2",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Min",
+          "bars": 2,
+          "bass": 0
+        },
+        {
+          "root": 8,
+          "type": "Maj7",
+          "bars": 2,
+          "bass": 8
+        },
+        {
+          "root": 5,
+          "type": "Min9",
+          "bars": 2,
+          "bass": 5
+        },
+        {
+          "root": 1,
+          "type": "Maj7",
+          "bars": 2,
+          "bass": 1
+        },
+        {
+          "root": 10,
+          "type": "Sus2",
+          "bars": 2,
+          "bass": 10
+        },
+        {
+          "root": 7,
+          "type": "Min7",
+          "bars": 2,
+          "bass": 7
+        },
+        {
+          "root": 3,
+          "type": "Maj7",
+          "bars": 2,
+          "bass": 3
+        },
+        {
+          "root": 0,
+          "type": "MinorAdd9",
+          "bars": 2,
+          "bass": 0
+        }
+      ],
+      "coloration": "protected",
+      "voicings": [
+        {
+          "notes": [
+            -12,
+            -9,
+            -5
+          ],
+          "held": [],
+          "bass": -36
+        },
+        {
+          "notes": [
+            -4,
+            0,
+            3,
+            7
+          ],
+          "held": [],
+          "bass": -28
+        },
+        {
+          "notes": [
+            -7,
+            -4,
+            0,
+            3,
+            7
+          ],
+          "held": [],
+          "bass": -31
+        },
+        {
+          "notes": [
+            -11,
+            -7,
+            -4,
+            0
+          ],
+          "held": [],
+          "bass": -35
+        },
+        {
+          "notes": [
+            -2,
+            0,
+            5
+          ],
+          "held": [],
+          "bass": -26
+        },
+        {
+          "notes": [
+            -5,
+            -2,
+            2,
+            5
+          ],
+          "held": [],
+          "bass": -29
+        },
+        {
+          "notes": [
+            -9,
+            -5,
+            -2,
+            2
+          ],
+          "held": [],
+          "bass": -33
+        },
+        {
+          "notes": [
+            -12,
+            -9,
+            -5,
+            2
+          ],
+          "held": [],
+          "bass": -36
+        }
+      ],
+      "period_bars": 16
+    },
+    {
+      "id": 61016,
+      "symbol": "darkSynthH16",
+      "name": "DS-H16 – Terzkaskade",
+      "xyz": [
+        0.4,
+        0.5,
+        0.3
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "dark_synth_p2",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Min",
+          "bars": 2,
+          "bass": 0
+        },
+        {
+          "root": 8,
+          "type": "Maj7",
+          "bars": 2,
+          "bass": 8
+        },
+        {
+          "root": 5,
+          "type": "Min7",
+          "bars": 2,
+          "bass": 5
+        },
+        {
+          "root": 1,
+          "type": "Maj7",
+          "bars": 2,
+          "bass": 1
+        },
+        {
+          "root": 10,
+          "type": "Min",
+          "bars": 2,
+          "bass": 10
+        },
+        {
+          "root": 0,
+          "type": "Min",
+          "bars": 2,
+          "bass": 0
+        }
+      ],
+      "coloration": "protected",
+      "voicings": [
+        {
+          "notes": [
+            -12,
+            -9,
+            -5
+          ],
+          "held": [],
+          "bass": -36
+        },
+        {
+          "notes": [
+            -4,
+            0,
+            3,
+            7
+          ],
+          "held": [],
+          "bass": -28
+        },
+        {
+          "notes": [
+            -7,
+            -4,
+            0,
+            3
+          ],
+          "held": [],
+          "bass": -31
+        },
+        {
+          "notes": [
+            -11,
+            -7,
+            -4,
+            0
+          ],
+          "held": [],
+          "bass": -35
+        },
+        {
+          "notes": [
+            -2,
+            1,
+            5
+          ],
+          "held": [],
+          "bass": -26
+        },
+        {
+          "notes": [
+            -12,
+            -9,
+            -5
+          ],
+          "held": [],
+          "bass": -36
+        }
+      ],
+      "period_bars": 12
+    },
+    {
+      "id": 61017,
+      "symbol": "darkSynthH17",
+      "name": "DS-H17 – Aufsteigende Lichtkette",
+      "xyz": [
+        0.7,
+        0.4,
+        0.2
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "dark_synth_p2",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Min",
+          "bars": 2,
+          "bass": 0
+        },
+        {
+          "root": 3,
+          "type": "Maj7",
+          "bars": 2,
+          "bass": 3
+        },
+        {
+          "root": 7,
+          "type": "Min7",
+          "bars": 2,
+          "bass": 7
+        },
+        {
+          "root": 10,
+          "type": "Maj7",
+          "bars": 2,
+          "bass": 10
+        },
+        {
+          "root": 5,
+          "type": "Sus2",
+          "bars": 2,
+          "bass": 5
+        },
+        {
+          "root": 8,
+          "type": "Maj7",
+          "bars": 2,
+          "bass": 8
+        },
+        {
+          "root": 0,
+          "type": "Min",
+          "bars": 4,
+          "bass": 0
+        }
+      ],
+      "coloration": "protected",
+      "voicings": [
+        {
+          "notes": [
+            -12,
+            -9,
+            -5
+          ],
+          "held": [],
+          "bass": -36
+        },
+        {
+          "notes": [
+            -9,
+            -5,
+            -2,
+            2
+          ],
+          "held": [],
+          "bass": -33
+        },
+        {
+          "notes": [
+            -5,
+            -2,
+            2,
+            5
+          ],
+          "held": [],
+          "bass": -29
+        },
+        {
+          "notes": [
+            -2,
+            2,
+            5,
+            9
+          ],
+          "held": [],
+          "bass": -26
+        },
+        {
+          "notes": [
+            -7,
+            -5,
+            0
+          ],
+          "held": [],
+          "bass": -31
+        },
+        {
+          "notes": [
+            -4,
+            0,
+            3,
+            7
+          ],
+          "held": [],
+          "bass": -28
+        },
+        {
+          "notes": [
+            -12,
+            -9,
+            -5
+          ],
+          "held": [],
+          "bass": -36
+        }
+      ],
+      "period_bars": 16
+    },
+    {
+      "id": 61018,
+      "symbol": "darkSynthH18",
+      "name": "DS-H18 – Mollkreis mit Moll-v",
+      "xyz": [
+        0.45,
+        0.5,
+        0.2
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "aeolian"
+      },
+      "source_ref": "dark_synth_p2",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Min",
+          "bars": 2,
+          "bass": 0
+        },
+        {
+          "root": 5,
+          "type": "Min",
+          "bars": 2,
+          "bass": 5
+        },
+        {
+          "root": 7,
+          "type": "Min",
+          "bars": 2,
+          "bass": 7
+        },
+        {
+          "root": 8,
+          "type": "Maj7",
+          "bars": 2,
+          "bass": 8
+        },
+        {
+          "root": 5,
+          "type": "Min",
+          "bars": 2,
+          "bass": 5
+        },
+        {
+          "root": 7,
+          "type": "Min7",
+          "bars": 2,
+          "bass": 7
+        },
+        {
+          "root": 0,
+          "type": "Min",
+          "bars": 4,
+          "bass": 0
+        }
+      ],
+      "coloration": "protected",
+      "voicings": [
+        {
+          "notes": [
+            -12,
+            -9,
+            -5
+          ],
+          "held": [],
+          "bass": -36
+        },
+        {
+          "notes": [
+            -7,
+            -4,
+            0
+          ],
+          "held": [],
+          "bass": -31
+        },
+        {
+          "notes": [
+            -5,
+            -2,
+            2
+          ],
+          "held": [],
+          "bass": -29
+        },
+        {
+          "notes": [
+            -4,
+            0,
+            3,
+            7
+          ],
+          "held": [],
+          "bass": -28
+        },
+        {
+          "notes": [
+            -7,
+            -4,
+            0
+          ],
+          "held": [],
+          "bass": -31
+        },
+        {
+          "notes": [
+            -5,
+            -2,
+            2,
+            5
+          ],
+          "held": [],
+          "bass": -29
+        },
+        {
+          "notes": [
+            -12,
+            -9,
+            -5
+          ],
+          "held": [],
+          "bass": -36
+        }
+      ],
+      "period_bars": 16
+    },
+    {
+      "id": 61019,
+      "symbol": "darkSynthH19",
+      "name": "DS-H19 – Dorische Wanderung",
+      "xyz": [
+        0.65,
+        0.5,
+        0.2
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "dorian"
+      },
+      "source_ref": "dark_synth_p2",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Min",
+          "bars": 2,
+          "bass": 0
+        },
+        {
+          "root": 5,
+          "type": "Maj",
+          "bars": 2,
+          "bass": 5
+        },
+        {
+          "root": 7,
+          "type": "Min",
+          "bars": 2,
+          "bass": 7
+        },
+        {
+          "root": 10,
+          "type": "Maj",
+          "bars": 2,
+          "bass": 10
+        },
+        {
+          "root": 3,
+          "type": "Maj",
+          "bars": 2,
+          "bass": 3
+        },
+        {
+          "root": 0,
+          "type": "Min",
+          "bars": 4,
+          "bass": 0
+        }
+      ],
+      "coloration": "protected",
+      "voicings": [
+        {
+          "notes": [
+            -12,
+            -9,
+            -5
+          ],
+          "held": [],
+          "bass": -36
+        },
+        {
+          "notes": [
+            -7,
+            -3,
+            0
+          ],
+          "held": [],
+          "bass": -31
+        },
+        {
+          "notes": [
+            -5,
+            -2,
+            2
+          ],
+          "held": [],
+          "bass": -29
+        },
+        {
+          "notes": [
+            -2,
+            2,
+            5
+          ],
+          "held": [],
+          "bass": -26
+        },
+        {
+          "notes": [
+            -9,
+            -5,
+            -2
+          ],
+          "held": [],
+          "bass": -33
+        },
+        {
+          "notes": [
+            -12,
+            -9,
+            -5
+          ],
+          "held": [],
+          "bass": -36
+        }
+      ],
+      "period_bars": 14
+    },
+    {
+      "id": 61020,
+      "symbol": "darkSynthH20",
+      "name": "DS-H20 – Phrygische Kette",
+      "xyz": [
+        0.3,
+        0.5,
+        0.4
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "dark_synth_p2",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Min",
+          "bars": 2,
+          "bass": 0
+        },
+        {
+          "root": 1,
+          "type": "Maj",
+          "bars": 2,
+          "bass": 1
+        },
+        {
+          "root": 10,
+          "type": "Min",
+          "bars": 2,
+          "bass": 10
+        },
+        {
+          "root": 8,
+          "type": "Maj7",
+          "bars": 2,
+          "bass": 8
+        },
+        {
+          "root": 1,
+          "type": "Maj7",
+          "bars": 2,
+          "bass": 1
+        },
+        {
+          "root": 0,
+          "type": "Min",
+          "bars": 4,
+          "bass": 0
+        }
+      ],
+      "coloration": "protected",
+      "voicings": [
+        {
+          "notes": [
+            -12,
+            -9,
+            -5
+          ],
+          "held": [],
+          "bass": -36
+        },
+        {
+          "notes": [
+            -11,
+            -7,
+            -4
+          ],
+          "held": [],
+          "bass": -35
+        },
+        {
+          "notes": [
+            -2,
+            1,
+            5
+          ],
+          "held": [],
+          "bass": -26
+        },
+        {
+          "notes": [
+            -4,
+            0,
+            3,
+            7
+          ],
+          "held": [],
+          "bass": -28
+        },
+        {
+          "notes": [
+            -11,
+            -7,
+            -4,
+            0
+          ],
+          "held": [],
+          "bass": -35
+        },
+        {
+          "notes": [
+            -12,
+            -9,
+            -5
+          ],
+          "held": [],
+          "bass": -36
+        }
+      ],
+      "period_bars": 14
+    },
+    {
+      "id": 61021,
+      "symbol": "darkSynthH21",
+      "name": "DS-H21 – Asymmetrische Kette",
+      "xyz": [
+        0.53,
+        0.5,
+        0.3
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "aeolian"
+      },
+      "source_ref": "dark_synth_p2",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Min",
+          "bars": 3,
+          "bass": 0
+        },
+        {
+          "root": 8,
+          "type": "Maj7",
+          "bars": 1,
+          "bass": 8
+        },
+        {
+          "root": 3,
+          "type": "Maj",
+          "bars": 2,
+          "bass": 3
+        },
+        {
+          "root": 10,
+          "type": "Maj",
+          "bars": 2,
+          "bass": 10
+        },
+        {
+          "root": 0,
+          "type": "Min",
+          "bars": 4,
+          "bass": 0
+        },
+        {
+          "root": 7,
+          "type": "Min",
+          "bars": 2,
+          "bass": 7
+        },
+        {
+          "root": 8,
+          "type": "Maj7",
+          "bars": 2,
+          "bass": 8
+        }
+      ],
+      "coloration": "protected",
+      "voicings": [
+        {
+          "notes": [
+            -12,
+            -9,
+            -5
+          ],
+          "held": [],
+          "bass": -36
+        },
+        {
+          "notes": [
+            -4,
+            0,
+            3,
+            7
+          ],
+          "held": [],
+          "bass": -28
+        },
+        {
+          "notes": [
+            -9,
+            -5,
+            -2
+          ],
+          "held": [],
+          "bass": -33
+        },
+        {
+          "notes": [
+            -2,
+            2,
+            5
+          ],
+          "held": [],
+          "bass": -26
+        },
+        {
+          "notes": [
+            -12,
+            -9,
+            -5
+          ],
+          "held": [],
+          "bass": -36
+        },
+        {
+          "notes": [
+            -5,
+            -2,
+            2
+          ],
+          "held": [],
+          "bass": -29
+        },
+        {
+          "notes": [
+            -4,
+            0,
+            3,
+            7
+          ],
+          "held": [],
+          "bass": -28
+        }
+      ],
+      "period_bars": 16
+    },
+    {
+      "id": 61022,
+      "symbol": "darkSynthH22",
+      "name": "DS-H22 – Moll-Septkette",
+      "xyz": [
+        0.57,
+        0.35,
+        0.2
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "aeolian"
+      },
+      "source_ref": "dark_synth_p2",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Min7",
+          "bars": 2,
+          "bass": 0
+        },
+        {
+          "root": 5,
+          "type": "Min7",
+          "bars": 2,
+          "bass": 5
+        },
+        {
+          "root": 7,
+          "type": "Min7",
+          "bars": 2,
+          "bass": 7
+        },
+        {
+          "root": 8,
+          "type": "Maj7",
+          "bars": 2,
+          "bass": 8
+        },
+        {
+          "root": 3,
+          "type": "Maj7",
+          "bars": 2,
+          "bass": 3
+        },
+        {
+          "root": 10,
+          "type": "Maj",
+          "bars": 2,
+          "bass": 10
+        },
+        {
+          "root": 0,
+          "type": "Min7",
+          "bars": 4,
+          "bass": 0
+        }
+      ],
+      "coloration": "protected",
+      "voicings": [
+        {
+          "notes": [
+            -12,
+            -9,
+            -5,
+            -2
+          ],
+          "held": [],
+          "bass": -36
+        },
+        {
+          "notes": [
+            -7,
+            -4,
+            0,
+            3
+          ],
+          "held": [],
+          "bass": -31
+        },
+        {
+          "notes": [
+            -5,
+            -2,
+            2,
+            5
+          ],
+          "held": [],
+          "bass": -29
+        },
+        {
+          "notes": [
+            -4,
+            0,
+            3,
+            7
+          ],
+          "held": [],
+          "bass": -28
+        },
+        {
+          "notes": [
+            -9,
+            -5,
+            -2,
+            2
+          ],
+          "held": [],
+          "bass": -33
+        },
+        {
+          "notes": [
+            -2,
+            2,
+            5
+          ],
+          "held": [],
+          "bass": -26
+        },
+        {
+          "notes": [
+            -12,
+            -9,
+            -5,
+            -2
+          ],
+          "held": [],
+          "bass": -36
+        }
+      ],
+      "period_bars": 16
+    },
+    {
+      "id": 61023,
+      "symbol": "darkSynthH23",
+      "name": "DS-H23 – Lange Nachtkette",
+      "xyz": [
+        0.53,
+        0.4,
+        0.23
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "aeolian"
+      },
+      "source_ref": "dark_synth_p2",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Min",
+          "bars": 2,
+          "bass": 0
+        },
+        {
+          "root": 8,
+          "type": "Maj7",
+          "bars": 2,
+          "bass": 8
+        },
+        {
+          "root": 5,
+          "type": "Min7",
+          "bars": 2,
+          "bass": 5
+        },
+        {
+          "root": 7,
+          "type": "Min7",
+          "bars": 2,
+          "bass": 7
+        },
+        {
+          "root": 3,
+          "type": "Maj7",
+          "bars": 2,
+          "bass": 3
+        },
+        {
+          "root": 8,
+          "type": "Maj7",
+          "bars": 2,
+          "bass": 8
+        },
+        {
+          "root": 10,
+          "type": "Maj",
+          "bars": 2,
+          "bass": 10
+        },
+        {
+          "root": 7,
+          "type": "Min7",
+          "bars": 2,
+          "bass": 7
+        },
+        {
+          "root": 0,
+          "type": "Min7",
+          "bars": 2,
+          "bass": 0
+        },
+        {
+          "root": 5,
+          "type": "Min9",
+          "bars": 2,
+          "bass": 5
+        },
+        {
+          "root": 8,
+          "type": "Maj7",
+          "bars": 2,
+          "bass": 8
+        },
+        {
+          "root": 0,
+          "type": "Min",
+          "bars": 2,
+          "bass": 0
+        }
+      ],
+      "coloration": "protected",
+      "voicings": [
+        {
+          "notes": [
+            -12,
+            -9,
+            -5
+          ],
+          "held": [],
+          "bass": -36
+        },
+        {
+          "notes": [
+            -4,
+            0,
+            3,
+            7
+          ],
+          "held": [],
+          "bass": -28
+        },
+        {
+          "notes": [
+            -7,
+            -4,
+            0,
+            3
+          ],
+          "held": [],
+          "bass": -31
+        },
+        {
+          "notes": [
+            -5,
+            -2,
+            2,
+            5
+          ],
+          "held": [],
+          "bass": -29
+        },
+        {
+          "notes": [
+            -9,
+            -5,
+            -2,
+            2
+          ],
+          "held": [],
+          "bass": -33
+        },
+        {
+          "notes": [
+            -4,
+            0,
+            3,
+            7
+          ],
+          "held": [],
+          "bass": -28
+        },
+        {
+          "notes": [
+            -2,
+            2,
+            5
+          ],
+          "held": [],
+          "bass": -26
+        },
+        {
+          "notes": [
+            -5,
+            -2,
+            2,
+            5
+          ],
+          "held": [],
+          "bass": -29
+        },
+        {
+          "notes": [
+            -12,
+            -9,
+            -5,
+            -2
+          ],
+          "held": [],
+          "bass": -36
+        },
+        {
+          "notes": [
+            -7,
+            -4,
+            0,
+            3,
+            7
+          ],
+          "held": [],
+          "bass": -31
+        },
+        {
+          "notes": [
+            -4,
+            0,
+            3,
+            7
+          ],
+          "held": [],
+          "bass": -28
+        },
+        {
+          "notes": [
+            -12,
+            -9,
+            -5
+          ],
+          "held": [],
+          "bass": -36
+        }
+      ],
+      "period_bars": 24
+    },
+    {
+      "id": 61024,
+      "symbol": "darkSynthH24",
+      "name": "DS-H24 – Liegeton E über chromatischen Klängen",
+      "xyz": [
+        0.57,
+        0.3,
+        0.5
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "dark_synth_p2",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Min",
+          "bars": 4,
+          "bass": 0
+        },
+        {
+          "root": 8,
+          "type": "Maj7",
+          "bars": 4,
+          "bass": 8
+        },
+        {
+          "root": 4,
+          "type": "Min",
+          "bars": 4,
+          "bass": 4
+        },
+        {
+          "root": 9,
+          "type": "Min7",
+          "bars": 4,
+          "bass": 9
+        },
+        {
+          "root": 0,
+          "type": "Min",
+          "bars": 4,
+          "bass": 0
+        }
+      ],
+      "coloration": "protected",
+      "voicings": [
+        {
+          "notes": [
+            -12,
+            -9,
+            -5
+          ],
+          "held": [
+            -5
+          ],
+          "bass": -36
+        },
+        {
+          "notes": [
+            -5,
+            -4,
+            0,
+            3
+          ],
+          "held": [
+            -5
+          ],
+          "bass": -28
+        },
+        {
+          "notes": [
+            -8,
+            -5,
+            -1
+          ],
+          "held": [
+            -5
+          ],
+          "bass": -32
+        },
+        {
+          "notes": [
+            -5,
+            -3,
+            0,
+            4
+          ],
+          "held": [
+            -5
+          ],
+          "bass": -27
+        },
+        {
+          "notes": [
+            -12,
+            -9,
+            -5
+          ],
+          "held": [
+            -5
+          ],
+          "bass": -36
+        }
+      ],
+      "period_bars": 20
+    },
+    {
+      "id": 61025,
+      "symbol": "darkSynthH25",
+      "name": "DS-H25 – Liegeton Grundton",
+      "xyz": [
+        0.43,
+        0.3,
+        0.3
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "dark_synth_p2",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Min",
+          "bars": 4,
+          "bass": 0
+        },
+        {
+          "root": 8,
+          "type": "Maj7",
+          "bars": 4,
+          "bass": 8
+        },
+        {
+          "root": 5,
+          "type": "Min",
+          "bars": 4,
+          "bass": 5
+        },
+        {
+          "root": 1,
+          "type": "Maj7",
+          "bars": 4,
+          "bass": 1
+        }
+      ],
+      "coloration": "protected",
+      "voicings": [
+        {
+          "notes": [
+            -12,
+            -9,
+            -5
+          ],
+          "held": [
+            -12
+          ],
+          "bass": -36
+        },
+        {
+          "notes": [
+            -12,
+            -4,
+            3,
+            7
+          ],
+          "held": [
+            -12
+          ],
+          "bass": -28
+        },
+        {
+          "notes": [
+            -12,
+            -7,
+            -4
+          ],
+          "held": [
+            -12
+          ],
+          "bass": -31
+        },
+        {
+          "notes": [
+            -12,
+            -11,
+            -7,
+            -4
+          ],
+          "held": [
+            -12
+          ],
+          "bass": -35
+        }
+      ],
+      "period_bars": 16
+    },
+    {
+      "id": 61026,
+      "symbol": "darkSynthH26",
+      "name": "DS-H26 – Liegeton C, chromatisch",
+      "xyz": [
+        0.38,
+        0.3,
+        0.53
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "dark_synth_p2",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Min",
+          "bars": 4,
+          "bass": 0
+        },
+        {
+          "root": 8,
+          "type": "Maj7",
+          "bars": 4,
+          "bass": 8
+        },
+        {
+          "root": 11,
+          "type": "Maj",
+          "bars": 4,
+          "bass": 11
+        },
+        {
+          "root": 8,
+          "type": "Min",
+          "bars": 4,
+          "bass": 8
+        },
+        {
+          "root": 0,
+          "type": "Min",
+          "bars": 4,
+          "bass": 0
+        }
+      ],
+      "coloration": "protected",
+      "voicings": [
+        {
+          "notes": [
+            -12,
+            -9,
+            -5
+          ],
+          "held": [
+            -9
+          ],
+          "bass": -36
+        },
+        {
+          "notes": [
+            -9,
+            -4,
+            0,
+            7
+          ],
+          "held": [
+            -9
+          ],
+          "bass": -28
+        },
+        {
+          "notes": [
+            -9,
+            -1,
+            6
+          ],
+          "held": [
+            -9
+          ],
+          "bass": -25
+        },
+        {
+          "notes": [
+            -9,
+            -4,
+            -1
+          ],
+          "held": [
+            -9
+          ],
+          "bass": -28
+        },
+        {
+          "notes": [
+            -12,
+            -9,
+            -5
+          ],
+          "held": [
+            -9
+          ],
+          "bass": -36
+        }
+      ],
+      "period_bars": 20
+    },
+    {
+      "id": 61027,
+      "symbol": "darkSynthH27",
+      "name": "DS-H27 – Liegeton ♭7",
+      "xyz": [
+        0.53,
+        0.3,
+        0.4
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "dark_synth_p2",
+      "chords": [
+        {
+          "root": 7,
+          "type": "Min7",
+          "bars": 4,
+          "bass": 7
+        },
+        {
+          "root": 3,
+          "type": "Maj7",
+          "bars": 4,
+          "bass": 3
+        },
+        {
+          "root": 0,
+          "type": "Min7",
+          "bars": 4,
+          "bass": 0
+        },
+        {
+          "root": 6,
+          "type": "Maj7",
+          "bars": 4,
+          "bass": 6
+        },
+        {
+          "root": 10,
+          "type": "Maj",
+          "bars": 4,
+          "bass": 10
+        }
+      ],
+      "coloration": "protected",
+      "voicings": [
+        {
+          "notes": [
+            -5,
+            -2,
+            2,
+            5
+          ],
+          "held": [
+            -2
+          ],
+          "bass": -29
+        },
+        {
+          "notes": [
+            -9,
+            -5,
+            -2,
+            2
+          ],
+          "held": [
+            -2
+          ],
+          "bass": -33
+        },
+        {
+          "notes": [
+            -12,
+            -9,
+            -5,
+            -2
+          ],
+          "held": [
+            -2
+          ],
+          "bass": -36
+        },
+        {
+          "notes": [
+            -6,
+            -2,
+            1,
+            5
+          ],
+          "held": [
+            -2
+          ],
+          "bass": -30
+        },
+        {
+          "notes": [
+            -2,
+            2,
+            5
+          ],
+          "held": [
+            -2
+          ],
+          "bass": -26
+        }
+      ],
+      "period_bars": 20
+    },
+    {
+      "id": 61028,
+      "symbol": "darkSynthH28",
+      "name": "DS-H28 – Drone-Wechsel phrygisch",
+      "xyz": [
+        0.33,
+        0.35,
+        0.4
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "dark_synth_p2",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Min",
+          "bars": 4,
+          "bass": 0
+        },
+        {
+          "root": 1,
+          "type": "Maj",
+          "bars": 4,
+          "bass": 0
+        },
+        {
+          "root": 10,
+          "type": "Min",
+          "bars": 4,
+          "bass": 0
+        },
+        {
+          "root": 8,
+          "type": "Maj7",
+          "bars": 4,
+          "bass": 0
+        }
+      ],
+      "coloration": "protected",
+      "voicings": [
+        {
+          "notes": [
+            -12,
+            -9,
+            -5
+          ],
+          "held": [],
+          "bass": -36
+        },
+        {
+          "notes": [
+            -11,
+            -7,
+            -4
+          ],
+          "held": [],
+          "bass": -36
+        },
+        {
+          "notes": [
+            -2,
+            1,
+            5
+          ],
+          "held": [],
+          "bass": -36
+        },
+        {
+          "notes": [
+            -4,
+            0,
+            3,
+            7
+          ],
+          "held": [],
+          "bass": -36
+        }
+      ],
+      "period_bars": 16
+    },
+    {
+      "id": 61029,
+      "symbol": "darkSynthH29",
+      "name": "DS-H29 – Dur-Schichten über Drone",
+      "xyz": [
+        0.62,
+        0.35,
+        0.2
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "aeolian"
+      },
+      "source_ref": "dark_synth_p2",
+      "chords": [
+        {
+          "root": 3,
+          "type": "Maj",
+          "bars": 4,
+          "bass": 0
+        },
+        {
+          "root": 10,
+          "type": "Maj",
+          "bars": 4,
+          "bass": 0
+        },
+        {
+          "root": 8,
+          "type": "Maj",
+          "bars": 4,
+          "bass": 0
+        },
+        {
+          "root": 0,
+          "type": "Min",
+          "bars": 4,
+          "bass": 0
+        }
+      ],
+      "coloration": "protected",
+      "voicings": [
+        {
+          "notes": [
+            -9,
+            -5,
+            -2
+          ],
+          "held": [],
+          "bass": -36
+        },
+        {
+          "notes": [
+            -2,
+            2,
+            5
+          ],
+          "held": [],
+          "bass": -36
+        },
+        {
+          "notes": [
+            -4,
+            0,
+            3
+          ],
+          "held": [],
+          "bass": -36
+        },
+        {
+          "notes": [
+            -12,
+            -9,
+            -5
+          ],
+          "held": [],
+          "bass": -36
+        }
+      ],
+      "period_bars": 16
+    },
+    {
+      "id": 61030,
+      "symbol": "darkSynthH30",
+      "name": "DS-H30 – Choralwechsel über Drone",
+      "xyz": [
+        0.53,
+        0.5,
+        0.17
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "aeolian"
+      },
+      "source_ref": "dark_synth_p2",
+      "chords": [
+        {
+          "root": 5,
+          "type": "Min",
+          "bars": 4,
+          "bass": 0
+        },
+        {
+          "root": 0,
+          "type": "Min",
+          "bars": 4,
+          "bass": 0
+        },
+        {
+          "root": 8,
+          "type": "Maj7",
+          "bars": 4,
+          "bass": 0
+        },
+        {
+          "root": 10,
+          "type": "Sus2",
+          "bars": 4,
+          "bass": 0
+        }
+      ],
+      "coloration": "protected",
+      "voicings": [
+        {
+          "notes": [
+            -7,
+            -4,
+            0
+          ],
+          "held": [],
+          "bass": -36
+        },
+        {
+          "notes": [
+            -12,
+            -9,
+            -5
+          ],
+          "held": [],
+          "bass": -36
+        },
+        {
+          "notes": [
+            -4,
+            0,
+            3,
+            7
+          ],
+          "held": [],
+          "bass": -36
+        },
+        {
+          "notes": [
+            -2,
+            0,
+            5
+          ],
+          "held": [],
+          "bass": -36
+        }
+      ],
+      "period_bars": 16
+    },
+    {
+      "id": 61031,
+      "symbol": "darkSynthH31",
+      "name": "DS-H31 – Fremdklang über Drone",
+      "xyz": [
+        0.2,
+        0.65,
+        0.75
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "dark_synth_p2",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Min",
+          "bars": 4,
+          "bass": 0
+        },
+        {
+          "root": 6,
+          "type": "Maj",
+          "bars": 4,
+          "bass": 0
+        },
+        {
+          "root": 0,
+          "type": "Min",
+          "bars": 4,
+          "bass": 0
+        },
+        {
+          "root": 1,
+          "type": "Maj",
+          "bars": 4,
+          "bass": 0
+        }
+      ],
+      "coloration": "protected",
+      "voicings": [
+        {
+          "notes": [
+            -12,
+            -9,
+            -5
+          ],
+          "held": [],
+          "bass": -36
+        },
+        {
+          "notes": [
+            -6,
+            -2,
+            1
+          ],
+          "held": [],
+          "bass": -36
+        },
+        {
+          "notes": [
+            -12,
+            -9,
+            -5
+          ],
+          "held": [],
+          "bass": -36
+        },
+        {
+          "notes": [
+            -11,
+            -7,
+            -4
+          ],
+          "held": [],
+          "bass": -36
+        }
+      ],
+      "period_bars": 16
+    },
+    {
+      "id": 61032,
+      "symbol": "darkSynthH32",
+      "name": "DS-H32 – Lichtwechsel über Drone",
+      "xyz": [
+        0.85,
+        0.3,
+        0.17
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "ionian"
+      },
+      "source_ref": "dark_synth_p2",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Maj",
+          "bars": 4,
+          "bass": 0
+        },
+        {
+          "root": 5,
+          "type": "Maj",
+          "bars": 4,
+          "bass": 0
+        },
+        {
+          "root": 7,
+          "type": "Maj",
+          "bars": 4,
+          "bass": 0
+        },
+        {
+          "root": 5,
+          "type": "Maj",
+          "bars": 4,
+          "bass": 0
+        }
+      ],
+      "coloration": "protected",
+      "voicings": [
+        {
+          "notes": [
+            -12,
+            -8,
+            -5
+          ],
+          "held": [],
+          "bass": -36
+        },
+        {
+          "notes": [
+            -7,
+            -3,
+            0
+          ],
+          "held": [],
+          "bass": -36
+        },
+        {
+          "notes": [
+            -5,
+            -1,
+            2
+          ],
+          "held": [],
+          "bass": -36
+        },
+        {
+          "notes": [
+            -7,
+            -3,
+            0
+          ],
+          "held": [],
+          "bass": -36
+        }
+      ],
+      "period_bars": 16
+    },
+    {
+      "id": 61033,
+      "symbol": "darkSynthH33",
+      "name": "DS-H33 – Schwebeklänge über Drone",
+      "xyz": [
+        0.68,
+        0.25,
+        0.15
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "aeolian"
+      },
+      "source_ref": "dark_synth_p2",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Sus2",
+          "bars": 8,
+          "bass": 0
+        },
+        {
+          "root": 5,
+          "type": "Sus2",
+          "bars": 8,
+          "bass": 0
+        },
+        {
+          "root": 10,
+          "type": "Sus2",
+          "bars": 8,
+          "bass": 0
+        },
+        {
+          "root": 3,
+          "type": "Sus2",
+          "bars": 8,
+          "bass": 0
+        }
+      ],
+      "coloration": "protected",
+      "voicings": [
+        {
+          "notes": [
+            -12,
+            -10,
+            -5
+          ],
+          "held": [],
+          "bass": -36
+        },
+        {
+          "notes": [
+            -7,
+            -5,
+            0
+          ],
+          "held": [],
+          "bass": -36
+        },
+        {
+          "notes": [
+            -2,
+            0,
+            5
+          ],
+          "held": [],
+          "bass": -36
+        },
+        {
+          "notes": [
+            -9,
+            -7,
+            -2
+          ],
+          "held": [],
+          "bass": -36
+        }
+      ],
+      "period_bars": 32
+    },
+    {
+      "id": 61034,
+      "symbol": "darkSynthH34",
+      "name": "DS-H34 – Gruftklang",
+      "xyz": [
+        0.15,
+        0.2,
+        0.15
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "aeolian"
+      },
+      "source_ref": "dark_synth_p2",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Min",
+          "bars": 16,
+          "bass": 0
+        },
+        {
+          "root": 8,
+          "type": "Maj",
+          "bars": 16,
+          "bass": 0
+        }
+      ],
+      "coloration": "protected",
+      "voicings": [
+        {
+          "notes": [
+            -12,
+            -9,
+            -5
+          ],
+          "held": [],
+          "bass": -36
+        },
+        {
+          "notes": [
+            -4,
+            0,
+            3
+          ],
+          "held": [],
+          "bass": -36
+        }
+      ],
+      "period_bars": 32
+    },
+    {
+      "id": 61035,
+      "symbol": "darkSynthH35",
+      "name": "DS-H35 – Tiefe Quartklang-Ruhe",
+      "xyz": [
+        0.17,
+        0.2,
+        0.15
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "aeolian"
+      },
+      "source_ref": "dark_synth_p2",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Sus4",
+          "bars": 16,
+          "bass": 0
+        },
+        {
+          "root": 5,
+          "type": "Sus2",
+          "bars": 16,
+          "bass": 0
+        }
+      ],
+      "coloration": "protected",
+      "voicings": [
+        {
+          "notes": [
+            -12,
+            -7,
+            -5
+          ],
+          "held": [],
+          "bass": -36
+        },
+        {
+          "notes": [
+            -7,
+            -5,
+            0
+          ],
+          "held": [],
+          "bass": -36
+        }
+      ],
+      "period_bars": 32
+    },
+    {
+      "id": 61036,
+      "symbol": "darkSynthH36",
+      "name": "DS-H36 – Drängende Lichtkette",
+      "xyz": [
+        0.7,
+        0.8,
+        0.7
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "ionian"
+      },
+      "source_ref": "dark_synth_p2",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Maj",
+          "bars": 2,
+          "bass": 0
+        },
+        {
+          "root": 4,
+          "type": "Min",
+          "bars": 2,
+          "bass": 4
+        },
+        {
+          "root": 5,
+          "type": "Maj",
+          "bars": 2,
+          "bass": 5
+        },
+        {
+          "root": 7,
+          "type": "Maj",
+          "bars": 2,
+          "bass": 7
+        },
+        {
+          "root": 9,
+          "type": "Min",
+          "bars": 2,
+          "bass": 9
+        },
+        {
+          "root": 5,
+          "type": "Maj",
+          "bars": 2,
+          "bass": 5
+        }
+      ],
+      "coloration": "protected",
+      "voicings": [
+        {
+          "notes": [
+            -12,
+            -8,
+            -5
+          ],
+          "held": [],
+          "bass": -36
+        },
+        {
+          "notes": [
+            -8,
+            -5,
+            -1
+          ],
+          "held": [],
+          "bass": -32
+        },
+        {
+          "notes": [
+            -7,
+            -3,
+            0
+          ],
+          "held": [],
+          "bass": -31
+        },
+        {
+          "notes": [
+            -5,
+            -1,
+            2
+          ],
+          "held": [],
+          "bass": -29
+        },
+        {
+          "notes": [
+            -3,
+            0,
+            4
+          ],
+          "held": [],
+          "bass": -27
+        },
+        {
+          "notes": [
+            -7,
+            -3,
+            0
+          ],
+          "held": [],
+          "bass": -31
+        }
+      ],
+      "period_bars": 12
+    },
+    {
+      "id": 61037,
+      "symbol": "darkSynthH37",
+      "name": "DS-H37 – Große Terz im Puls",
+      "xyz": [
+        0.7,
+        0.8,
+        0.7
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "dark_synth_p2",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Maj",
+          "bars": 2,
+          "bass": 0
+        },
+        {
+          "root": 8,
+          "type": "Maj",
+          "bars": 2,
+          "bass": 8
+        },
+        {
+          "root": 0,
+          "type": "Maj",
+          "bars": 2,
+          "bass": 0
+        },
+        {
+          "root": 4,
+          "type": "Maj",
+          "bars": 2,
+          "bass": 4
+        }
+      ],
+      "coloration": "protected",
+      "voicings": [
+        {
+          "notes": [
+            -12,
+            -8,
+            -5
+          ],
+          "held": [],
+          "bass": -36
+        },
+        {
+          "notes": [
+            -4,
+            0,
+            3
+          ],
+          "held": [],
+          "bass": -28
+        },
+        {
+          "notes": [
+            -12,
+            -8,
+            -5
+          ],
+          "held": [],
+          "bass": -36
+        },
+        {
+          "notes": [
+            -8,
+            -4,
+            -1
+          ],
+          "held": [],
+          "bass": -32
+        }
+      ],
+      "period_bars": 8
+    },
+    {
+      "id": 61038,
+      "symbol": "darkSynthH38",
+      "name": "DS-H38 – Choral i–iv–♭VI–♭VII",
+      "xyz": [
+        0.4,
+        0.65,
+        0.17
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "aeolian"
+      },
+      "source_ref": "dark_synth_p2",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Min",
+          "bars": 4,
+          "bass": 0
+        },
+        {
+          "root": 5,
+          "type": "Min",
+          "bars": 4,
+          "bass": 5
+        },
+        {
+          "root": 8,
+          "type": "Maj",
+          "bars": 4,
+          "bass": 8
+        },
+        {
+          "root": 10,
+          "type": "Maj",
+          "bars": 4,
+          "bass": 10
+        },
+        {
+          "root": 0,
+          "type": "Min",
+          "bars": 4,
+          "bass": 0
+        }
+      ],
+      "coloration": "protected",
+      "voicings": [
+        {
+          "notes": [
+            -12,
+            -9,
+            -5
+          ],
+          "held": [],
+          "bass": -36
+        },
+        {
+          "notes": [
+            -7,
+            -4,
+            0
+          ],
+          "held": [],
+          "bass": -31
+        },
+        {
+          "notes": [
+            -4,
+            0,
+            3
+          ],
+          "held": [],
+          "bass": -28
+        },
+        {
+          "notes": [
+            -2,
+            2,
+            5
+          ],
+          "held": [],
+          "bass": -26
+        },
+        {
+          "notes": [
+            -12,
+            -9,
+            -5
+          ],
+          "held": [],
+          "bass": -36
+        }
+      ],
+      "period_bars": 20
+    },
+    {
+      "id": 61039,
+      "symbol": "darkSynthH39",
+      "name": "DS-H39 – Plagaler Dur-Choral mit Moll-iv",
+      "xyz": [
+        0.8,
+        0.55,
+        0.15
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "dark_synth_p2",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Maj",
+          "bars": 4,
+          "bass": 0
+        },
+        {
+          "root": 5,
+          "type": "Maj",
+          "bars": 4,
+          "bass": 5
+        },
+        {
+          "root": 5,
+          "type": "Min",
+          "bars": 4,
+          "bass": 5
+        },
+        {
+          "root": 0,
+          "type": "Maj",
+          "bars": 4,
+          "bass": 0
+        }
+      ],
+      "coloration": "protected",
+      "voicings": [
+        {
+          "notes": [
+            -12,
+            -8,
+            -5
+          ],
+          "held": [],
+          "bass": -36
+        },
+        {
+          "notes": [
+            -7,
+            -3,
+            0
+          ],
+          "held": [],
+          "bass": -31
+        },
+        {
+          "notes": [
+            -7,
+            -4,
+            0
+          ],
+          "held": [],
+          "bass": -31
+        },
+        {
+          "notes": [
+            -12,
+            -8,
+            -5
+          ],
+          "held": [],
+          "bass": -36
+        }
+      ],
+      "period_bars": 16
+    },
+    {
+      "id": 61040,
+      "symbol": "darkSynthH40",
+      "name": "DS-H40 – Choral mit Dominante",
+      "xyz": [
+        0.4,
+        0.65,
+        0.2
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "dark_synth_p2",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Min",
+          "bars": 4,
+          "bass": 0
+        },
+        {
+          "root": 5,
+          "type": "Min",
+          "bars": 4,
+          "bass": 5
+        },
+        {
+          "root": 7,
+          "type": "Maj",
+          "bars": 4,
+          "bass": 7
+        },
+        {
+          "root": 0,
+          "type": "Min",
+          "bars": 4,
+          "bass": 0
+        }
+      ],
+      "coloration": "protected",
+      "voicings": [
+        {
+          "notes": [
+            -12,
+            -9,
+            -5
+          ],
+          "held": [],
+          "bass": -36
+        },
+        {
+          "notes": [
+            -7,
+            -4,
+            0
+          ],
+          "held": [],
+          "bass": -31
+        },
+        {
+          "notes": [
+            -5,
+            -1,
+            2
+          ],
+          "held": [],
+          "bass": -29
+        },
+        {
+          "notes": [
+            -12,
+            -9,
+            -5
+          ],
+          "held": [],
+          "bass": -36
+        }
+      ],
+      "period_bars": 16
+    },
+    {
+      "id": 61041,
+      "symbol": "darkSynthH41",
+      "name": "DS-H41 – Requiem-Kette",
+      "xyz": [
+        0.38,
+        0.7,
+        0.15
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "aeolian"
+      },
+      "source_ref": "dark_synth_p2",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Min",
+          "bars": 4,
+          "bass": 0
+        },
+        {
+          "root": 7,
+          "type": "Min",
+          "bars": 4,
+          "bass": 7
+        },
+        {
+          "root": 8,
+          "type": "Maj",
+          "bars": 4,
+          "bass": 8
+        },
+        {
+          "root": 3,
+          "type": "Maj",
+          "bars": 4,
+          "bass": 3
+        },
+        {
+          "root": 5,
+          "type": "Min",
+          "bars": 4,
+          "bass": 5
+        },
+        {
+          "root": 0,
+          "type": "Min",
+          "bars": 4,
+          "bass": 0
+        }
+      ],
+      "coloration": "protected",
+      "voicings": [
+        {
+          "notes": [
+            -12,
+            -9,
+            -5
+          ],
+          "held": [],
+          "bass": -36
+        },
+        {
+          "notes": [
+            -5,
+            -2,
+            2
+          ],
+          "held": [],
+          "bass": -29
+        },
+        {
+          "notes": [
+            -4,
+            0,
+            3
+          ],
+          "held": [],
+          "bass": -28
+        },
+        {
+          "notes": [
+            -9,
+            -5,
+            -2
+          ],
+          "held": [],
+          "bass": -33
+        },
+        {
+          "notes": [
+            -7,
+            -4,
+            0
+          ],
+          "held": [],
+          "bass": -31
+        },
+        {
+          "notes": [
+            -12,
+            -9,
+            -5
+          ],
+          "held": [],
+          "bass": -36
+        }
+      ],
+      "period_bars": 24
+    },
+    {
+      "id": 61042,
+      "symbol": "darkSynthH42",
+      "name": "DS-H42 – Phrygischer Choral",
+      "xyz": [
+        0.3,
+        0.65,
+        0.3
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "dark_synth_p2",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Min",
+          "bars": 4,
+          "bass": 0
+        },
+        {
+          "root": 1,
+          "type": "Maj",
+          "bars": 4,
+          "bass": 1
+        },
+        {
+          "root": 10,
+          "type": "Min",
+          "bars": 4,
+          "bass": 10
+        },
+        {
+          "root": 0,
+          "type": "Min",
+          "bars": 4,
+          "bass": 0
+        }
+      ],
+      "coloration": "protected",
+      "voicings": [
+        {
+          "notes": [
+            -12,
+            -9,
+            -5
+          ],
+          "held": [],
+          "bass": -36
+        },
+        {
+          "notes": [
+            -11,
+            -7,
+            -4
+          ],
+          "held": [],
+          "bass": -35
+        },
+        {
+          "notes": [
+            -2,
+            1,
+            5
+          ],
+          "held": [],
+          "bass": -26
+        },
+        {
+          "notes": [
+            -12,
+            -9,
+            -5
+          ],
+          "held": [],
+          "bass": -36
+        }
+      ],
+      "period_bars": 16
+    },
+    {
+      "id": 61043,
+      "symbol": "darkSynthH43",
+      "name": "DS-H43 – Dorischer Choral",
+      "xyz": [
+        0.65,
+        0.55,
+        0.17
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "dorian"
+      },
+      "source_ref": "dark_synth_p2",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Min",
+          "bars": 4,
+          "bass": 0
+        },
+        {
+          "root": 10,
+          "type": "Maj",
+          "bars": 4,
+          "bass": 10
+        },
+        {
+          "root": 5,
+          "type": "Maj",
+          "bars": 4,
+          "bass": 5
+        },
+        {
+          "root": 0,
+          "type": "Min",
+          "bars": 4,
+          "bass": 0
+        }
+      ],
+      "coloration": "protected",
+      "voicings": [
+        {
+          "notes": [
+            -12,
+            -9,
+            -5
+          ],
+          "held": [],
+          "bass": -36
+        },
+        {
+          "notes": [
+            -2,
+            2,
+            5
+          ],
+          "held": [],
+          "bass": -26
+        },
+        {
+          "notes": [
+            -7,
+            -3,
+            0
+          ],
+          "held": [],
+          "bass": -31
+        },
+        {
+          "notes": [
+            -12,
+            -9,
+            -5
+          ],
+          "held": [],
+          "bass": -36
+        }
+      ],
+      "period_bars": 16
+    },
+    {
+      "id": 61044,
+      "symbol": "darkSynthH44",
+      "name": "DS-H44 – Tarnhelm-Schritt",
+      "xyz": [
+        0.33,
+        0.35,
+        0.62
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "dark_synth_p2",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Min",
+          "bars": 4,
+          "bass": 0
+        },
+        {
+          "root": 8,
+          "type": "Min",
+          "bars": 4,
+          "bass": 8
+        }
+      ],
+      "coloration": "protected",
+      "voicings": [
+        {
+          "notes": [
+            -12,
+            -9,
+            -5
+          ],
+          "held": [],
+          "bass": -36
+        },
+        {
+          "notes": [
+            -4,
+            -1,
+            3
+          ],
+          "held": [],
+          "bass": -28
+        }
+      ],
+      "period_bars": 8
+    },
+    {
+      "id": 61045,
+      "symbol": "darkSynthH45",
+      "name": "DS-H45 – Doppel-Tarnhelm",
+      "xyz": [
+        0.3,
+        0.45,
+        0.72
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "dark_synth_p2",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Min",
+          "bars": 4,
+          "bass": 0
+        },
+        {
+          "root": 8,
+          "type": "Min",
+          "bars": 4,
+          "bass": 8
+        },
+        {
+          "root": 4,
+          "type": "Min",
+          "bars": 4,
+          "bass": 4
+        },
+        {
+          "root": 0,
+          "type": "Min",
+          "bars": 4,
+          "bass": 0
+        }
+      ],
+      "coloration": "protected",
+      "voicings": [
+        {
+          "notes": [
+            -12,
+            -9,
+            -5
+          ],
+          "held": [],
+          "bass": -36
+        },
+        {
+          "notes": [
+            -4,
+            -1,
+            3
+          ],
+          "held": [],
+          "bass": -28
+        },
+        {
+          "notes": [
+            -8,
+            -5,
+            -1
+          ],
+          "held": [],
+          "bass": -32
+        },
+        {
+          "notes": [
+            -12,
+            -9,
+            -5
+          ],
+          "held": [],
+          "bass": -36
+        }
+      ],
+      "period_bars": 16
+    },
+    {
+      "id": 61046,
+      "symbol": "darkSynthH46",
+      "name": "DS-H46 – Spieluhr-Dur über Moll-Drone",
+      "xyz": [
+        0.75,
+        0.25,
+        0.53
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "aeolian"
+      },
+      "source_ref": "dark_synth_p2",
+      "chords": [
+        {
+          "root": 3,
+          "type": "Maj",
+          "bars": 16,
+          "bass": 0
+        }
+      ],
+      "coloration": "protected",
+      "voicings": [
+        {
+          "notes": [
+            -9,
+            -5,
+            -2
+          ],
+          "held": [],
+          "bass": -36
+        }
+      ],
+      "period_bars": 16
+    },
+    {
+      "id": 61047,
+      "symbol": "darkSynthH47",
+      "name": "DS-H47 – Großterzfall in Dur-Septakkorden",
+      "xyz": [
+        0.75,
+        0.4,
+        0.62
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "dark_synth_p2",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Maj7",
+          "bars": 4,
+          "bass": 0
+        },
+        {
+          "root": 8,
+          "type": "Maj7",
+          "bars": 4,
+          "bass": 8
+        },
+        {
+          "root": 4,
+          "type": "Maj7",
+          "bars": 4,
+          "bass": 4
+        }
+      ],
+      "coloration": "protected",
+      "voicings": [
+        {
+          "notes": [
+            -12,
+            -8,
+            -5,
+            -1
+          ],
+          "held": [],
+          "bass": -36
+        },
+        {
+          "notes": [
+            -4,
+            0,
+            3,
+            7
+          ],
+          "held": [],
+          "bass": -28
+        },
+        {
+          "notes": [
+            -8,
+            -4,
+            -1,
+            3
+          ],
+          "held": [],
+          "bass": -32
+        }
+      ],
+      "period_bars": 12
+    },
+    {
+      "id": 61048,
+      "symbol": "darkSynthH48",
+      "name": "DS-H48 – Tritonus-Spiegel",
+      "xyz": [
+        0.55,
+        0.3,
+        0.72
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "dark_synth_p2",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Min",
+          "bars": 8,
+          "bass": 0
+        },
+        {
+          "root": 6,
+          "type": "Maj",
+          "bars": 8,
+          "bass": 6
+        }
+      ],
+      "coloration": "protected",
+      "voicings": [
+        {
+          "notes": [
+            -12,
+            -9,
+            -5
+          ],
+          "held": [],
+          "bass": -36
+        },
+        {
+          "notes": [
+            -6,
+            -2,
+            1
+          ],
+          "held": [],
+          "bass": -30
+        }
+      ],
+      "period_bars": 16
+    },
+    {
+      "id": 61050,
+      "symbol": "darkSynthH50",
+      "name": "DS-H50 – Helle Ortlosigkeit",
+      "xyz": [
+        0.8,
+        0.35,
+        0.8
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "dark_synth_p2",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Maj7",
+          "bars": 4,
+          "bass": 0
+        },
+        {
+          "root": 6,
+          "type": "Maj7",
+          "bars": 4,
+          "bass": 6
+        }
+      ],
+      "coloration": "protected",
+      "voicings": [
+        {
+          "notes": [
+            -12,
+            -8,
+            -5,
+            -1
+          ],
+          "held": [],
+          "bass": -36
+        },
+        {
+          "notes": [
+            -6,
+            -2,
+            1,
+            5
+          ],
+          "held": [],
+          "bass": -30
+        }
+      ],
+      "period_bars": 8
+    },
+    {
+      "id": 61051,
+      "symbol": "darkSynthH51",
+      "name": "DS-H51 – Nostalgie hell",
+      "xyz": [
+        0.82,
+        0.3,
+        0.17
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "dark_synth_p2",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Maj7",
+          "bars": 4,
+          "bass": 0
+        },
+        {
+          "root": 4,
+          "type": "Min7",
+          "bars": 4,
+          "bass": 4
+        },
+        {
+          "root": 5,
+          "type": "Maj7",
+          "bars": 4,
+          "bass": 5
+        },
+        {
+          "root": 5,
+          "type": "Min6",
+          "bars": 4,
+          "bass": 5
+        },
+        {
+          "root": 0,
+          "type": "Maj7",
+          "bars": 4,
+          "bass": 0
+        }
+      ],
+      "coloration": "protected",
+      "voicings": [
+        {
+          "notes": [
+            -12,
+            -8,
+            -5,
+            -1
+          ],
+          "held": [],
+          "bass": -36
+        },
+        {
+          "notes": [
+            -8,
+            -5,
+            -1,
+            2
+          ],
+          "held": [],
+          "bass": -32
+        },
+        {
+          "notes": [
+            -7,
+            -3,
+            0,
+            4
+          ],
+          "held": [],
+          "bass": -31
+        },
+        {
+          "notes": [
+            -7,
+            -4,
+            0,
+            2
+          ],
+          "held": [],
+          "bass": -31
+        },
+        {
+          "notes": [
+            -12,
+            -8,
+            -5,
+            -1
+          ],
+          "held": [],
+          "bass": -36
+        }
+      ],
+      "period_bars": 20
+    },
+    {
+      "id": 61052,
+      "symbol": "darkSynthH52",
+      "name": "DS-H52 – Imaj7–vi9-Wiege",
+      "xyz": [
+        0.8,
+        0.3,
+        0.17
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "ionian"
+      },
+      "source_ref": "dark_synth_p2",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Maj7",
+          "bars": 4,
+          "bass": 0
+        },
+        {
+          "root": 9,
+          "type": "Min9",
+          "bars": 4,
+          "bass": 9
+        }
+      ],
+      "coloration": "protected",
+      "voicings": [
+        {
+          "notes": [
+            -12,
+            -8,
+            -5,
+            -1
+          ],
+          "held": [],
+          "bass": -36
+        },
+        {
+          "notes": [
+            -3,
+            0,
+            4,
+            7,
+            11
+          ],
+          "held": [],
+          "bass": -27
+        }
+      ],
+      "period_bars": 8
+    },
+    {
+      "id": 61053,
+      "symbol": "darkSynthH53",
+      "name": "DS-H53 – Weicher Kreis mit Moll-iv",
+      "xyz": [
+        0.8,
+        0.4,
+        0.2
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "dark_synth_p2",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Maj",
+          "bars": 2,
+          "bass": 0
+        },
+        {
+          "root": 9,
+          "type": "Min",
+          "bars": 2,
+          "bass": 9
+        },
+        {
+          "root": 5,
+          "type": "Maj",
+          "bars": 2,
+          "bass": 5
+        },
+        {
+          "root": 5,
+          "type": "Min",
+          "bars": 2,
+          "bass": 5
+        }
+      ],
+      "coloration": "protected",
+      "voicings": [
+        {
+          "notes": [
+            -12,
+            -8,
+            -5
+          ],
+          "held": [],
+          "bass": -36
+        },
+        {
+          "notes": [
+            -3,
+            0,
+            4
+          ],
+          "held": [],
+          "bass": -27
+        },
+        {
+          "notes": [
+            -7,
+            -3,
+            0
+          ],
+          "held": [],
+          "bass": -31
+        },
+        {
+          "notes": [
+            -7,
+            -4,
+            0
+          ],
+          "held": [],
+          "bass": -31
+        }
+      ],
+      "period_bars": 8
+    },
+    {
+      "id": 61054,
+      "symbol": "darkSynthH54",
+      "name": "DS-H54 – Sus2-Lichtung",
+      "xyz": [
+        0.82,
+        0.25,
+        0.15
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "ionian"
+      },
+      "source_ref": "dark_synth_p2",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Sus2",
+          "bars": 4,
+          "bass": 0
+        },
+        {
+          "root": 5,
+          "type": "Sus2",
+          "bars": 4,
+          "bass": 5
+        },
+        {
+          "root": 9,
+          "type": "Min7",
+          "bars": 4,
+          "bass": 9
+        },
+        {
+          "root": 5,
+          "type": "Sus2",
+          "bars": 4,
+          "bass": 5
+        }
+      ],
+      "coloration": "protected",
+      "voicings": [
+        {
+          "notes": [
+            -12,
+            -10,
+            -5
+          ],
+          "held": [],
+          "bass": -36
+        },
+        {
+          "notes": [
+            -7,
+            -5,
+            0
+          ],
+          "held": [],
+          "bass": -31
+        },
+        {
+          "notes": [
+            -3,
+            0,
+            4,
+            7
+          ],
+          "held": [],
+          "bass": -27
+        },
+        {
+          "notes": [
+            -7,
+            -5,
+            0
+          ],
+          "held": [],
+          "bass": -31
+        }
+      ],
+      "period_bars": 16
+    },
+    {
+      "id": 61055,
+      "symbol": "darkSynthH55",
+      "name": "DS-H55 – Add9-Wiege mit Moll-iv",
+      "xyz": [
+        0.8,
+        0.3,
+        0.17
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "dark_synth_p2",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Add9",
+          "bars": 4,
+          "bass": 0
+        },
+        {
+          "root": 4,
+          "type": "Min7",
+          "bars": 4,
+          "bass": 4
+        },
+        {
+          "root": 5,
+          "type": "Major9",
+          "bars": 4,
+          "bass": 5
+        },
+        {
+          "root": 5,
+          "type": "Min6",
+          "bars": 4,
+          "bass": 5
+        }
+      ],
+      "coloration": "protected",
+      "voicings": [
+        {
+          "notes": [
+            -12,
+            -8,
+            -5,
+            2
+          ],
+          "held": [],
+          "bass": -36
+        },
+        {
+          "notes": [
+            -8,
+            -5,
+            -1,
+            2
+          ],
+          "held": [],
+          "bass": -32
+        },
+        {
+          "notes": [
+            -7,
+            -3,
+            0,
+            4,
+            7
+          ],
+          "held": [],
+          "bass": -31
+        },
+        {
+          "notes": [
+            -7,
+            -4,
+            0,
+            2
+          ],
+          "held": [],
+          "bass": -31
+        }
+      ],
+      "period_bars": 16
+    },
+    {
+      "id": 61056,
+      "symbol": "darkSynthH56",
+      "name": "DS-H56 – Warmes ♭VII",
+      "xyz": [
+        0.8,
+        0.5,
+        0.17
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "mixolydian"
+      },
+      "source_ref": "dark_synth_p2",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Maj",
+          "bars": 4,
+          "bass": 0
+        },
+        {
+          "root": 10,
+          "type": "Maj",
+          "bars": 4,
+          "bass": 10
+        },
+        {
+          "root": 5,
+          "type": "Maj",
+          "bars": 4,
+          "bass": 5
+        },
+        {
+          "root": 0,
+          "type": "Maj",
+          "bars": 4,
+          "bass": 0
+        }
+      ],
+      "coloration": "protected",
+      "voicings": [
+        {
+          "notes": [
+            -12,
+            -8,
+            -5
+          ],
+          "held": [],
+          "bass": -36
+        },
+        {
+          "notes": [
+            -2,
+            2,
+            5
+          ],
+          "held": [],
+          "bass": -26
+        },
+        {
+          "notes": [
+            -7,
+            -3,
+            0
+          ],
+          "held": [],
+          "bass": -31
+        },
+        {
+          "notes": [
+            -12,
+            -8,
+            -5
+          ],
+          "held": [],
+          "bass": -36
+        }
+      ],
+      "period_bars": 16
+    },
+    {
+      "id": 61057,
+      "symbol": "darkSynthH57",
+      "name": "DS-H57 – Erinnerungs-Dur mit ♭VI",
+      "xyz": [
+        0.8,
+        0.4,
+        0.28
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "dark_synth_p2",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Maj7",
+          "bars": 4,
+          "bass": 0
+        },
+        {
+          "root": 8,
+          "type": "Maj7",
+          "bars": 4,
+          "bass": 8
+        },
+        {
+          "root": 0,
+          "type": "Maj7",
+          "bars": 4,
+          "bass": 0
+        },
+        {
+          "root": 5,
+          "type": "Major6",
+          "bars": 4,
+          "bass": 5
+        }
+      ],
+      "coloration": "protected",
+      "voicings": [
+        {
+          "notes": [
+            -12,
+            -8,
+            -5,
+            -1
+          ],
+          "held": [],
+          "bass": -36
+        },
+        {
+          "notes": [
+            -4,
+            0,
+            3,
+            7
+          ],
+          "held": [],
+          "bass": -28
+        },
+        {
+          "notes": [
+            -12,
+            -8,
+            -5,
+            -1
+          ],
+          "held": [],
+          "bass": -36
+        },
+        {
+          "notes": [
+            -7,
+            -3,
+            0,
+            2
+          ],
+          "held": [],
+          "bass": -31
+        }
+      ],
+      "period_bars": 16
+    },
+    {
+      "id": 61058,
+      "symbol": "darkSynthH58",
+      "name": "DS-H58 – Halbtonkette über Pedal",
+      "xyz": [
+        0.2,
+        0.7,
+        0.8
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "dark_synth_p2",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Min",
+          "bars": 2,
+          "bass": 0
+        },
+        {
+          "root": 1,
+          "type": "Maj",
+          "bars": 2,
+          "bass": 0
+        },
+        {
+          "root": 0,
+          "type": "Min",
+          "bars": 2,
+          "bass": 0
+        },
+        {
+          "root": 11,
+          "type": "Min",
+          "bars": 2,
+          "bass": 0
+        }
+      ],
+      "coloration": "protected",
+      "voicings": [
+        {
+          "notes": [
+            -12,
+            -9,
+            -5
+          ],
+          "held": [],
+          "bass": -36
+        },
+        {
+          "notes": [
+            -11,
+            -7,
+            -4
+          ],
+          "held": [],
+          "bass": -36
+        },
+        {
+          "notes": [
+            -12,
+            -9,
+            -5
+          ],
+          "held": [],
+          "bass": -36
+        },
+        {
+          "notes": [
+            -1,
+            2,
+            6
+          ],
+          "held": [],
+          "bass": -36
+        }
+      ],
+      "period_bars": 8
+    },
+    {
+      "id": 61059,
+      "symbol": "darkSynthH59",
+      "name": "DS-H59 – Diatonischer Sekundchor",
+      "xyz": [
+        0.3,
+        0.5,
+        0.7
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "aeolian"
+      },
+      "source_ref": "dark_synth_p2",
+      "chords": [
+        {
+          "root": 0,
+          "type": "DSShape59_0",
+          "bars": 16,
+          "bass": 0
+        }
+      ],
+      "coloration": "protected",
+      "voicings": [
+        {
+          "notes": [
+            -12,
+            -10,
+            -9,
+            -7
+          ],
+          "held": [],
+          "bass": -36
+        }
+      ],
+      "period_bars": 16
+    },
+    {
+      "id": 61060,
+      "symbol": "darkSynthH60",
+      "name": "DS-H60 – Verminderte Schwelle",
+      "xyz": [
+        0.23,
+        0.65,
+        0.75
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "dark_synth_p2",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Min",
+          "bars": 2,
+          "bass": 0
+        },
+        {
+          "root": 6,
+          "type": "DiminishedTriad",
+          "bars": 2,
+          "bass": 6
+        },
+        {
+          "root": 0,
+          "type": "Min",
+          "bars": 2,
+          "bass": 0
+        },
+        {
+          "root": 11,
+          "type": "DiminishedTriad",
+          "bars": 2,
+          "bass": 11
+        }
+      ],
+      "coloration": "protected",
+      "voicings": [
+        {
+          "notes": [
+            -12,
+            -9,
+            -5
+          ],
+          "held": [],
+          "bass": -36
+        },
+        {
+          "notes": [
+            -6,
+            -3,
+            0
+          ],
+          "held": [],
+          "bass": -30
+        },
+        {
+          "notes": [
+            -12,
+            -9,
+            -5
+          ],
+          "held": [],
+          "bass": -36
+        },
+        {
+          "notes": [
+            -1,
+            2,
+            5
+          ],
+          "held": [],
+          "bass": -25
+        }
+      ],
+      "period_bars": 8
+    },
+    {
+      "id": 61061,
+      "symbol": "darkSynthH61",
+      "name": "DS-H61 – Moll über Tritonusbass",
+      "xyz": [
+        0.2,
+        0.65,
+        0.8
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "dark_synth_p2",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Min",
+          "bars": 8,
+          "bass": 0
+        },
+        {
+          "root": 0,
+          "type": "Min",
+          "bars": 8,
+          "bass": 6
+        }
+      ],
+      "coloration": "protected",
+      "voicings": [
+        {
+          "notes": [
+            -12,
+            -9,
+            -5
+          ],
+          "held": [
+            -12,
+            -9,
+            -5
+          ],
+          "bass": -36
+        },
+        {
+          "notes": [
+            -12,
+            -9,
+            -5
+          ],
+          "held": [
+            -12,
+            -9,
+            -5
+          ],
+          "bass": -30
+        }
+      ],
+      "period_bars": 16
+    },
+    {
+      "id": 61062,
+      "symbol": "darkSynthH62",
+      "name": "DS-H62 – Kraftvoller Halbtonblock",
+      "xyz": [
+        0.23,
+        0.8,
+        0.75
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "automatic"
+      },
+      "source_ref": "dark_synth_p2",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Fifth",
+          "bars": 2,
+          "bass": 0
+        },
+        {
+          "root": 1,
+          "type": "Fifth",
+          "bars": 2,
+          "bass": 1
+        },
+        {
+          "root": 0,
+          "type": "Fifth",
+          "bars": 2,
+          "bass": 0
+        },
+        {
+          "root": 11,
+          "type": "Fifth",
+          "bars": 2,
+          "bass": 11
+        }
+      ],
+      "coloration": "protected",
+      "voicings": [
+        {
+          "notes": [
+            -12,
+            -5
+          ],
+          "held": [],
+          "bass": -36
+        },
+        {
+          "notes": [
+            -11,
+            -4
+          ],
+          "held": [],
+          "bass": -35
+        },
+        {
+          "notes": [
+            -12,
+            -5
+          ],
+          "held": [],
+          "bass": -36
+        },
+        {
+          "notes": [
+            -1,
+            6
+          ],
+          "held": [],
+          "bass": -25
+        }
+      ],
+      "period_bars": 8
+    },
+    {
+      "id": 61063,
+      "symbol": "darkSynthH63",
+      "name": "DS-H63 – Pendel 2+1",
+      "xyz": [
+        0.53,
+        0.45,
+        0.4
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "aeolian"
+      },
+      "source_ref": "dark_synth_p2",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Min",
+          "bars": 2,
+          "bass": 0
+        },
+        {
+          "root": 8,
+          "type": "Maj7",
+          "bars": 1,
+          "bass": 8
+        }
+      ],
+      "coloration": "protected",
+      "voicings": [
+        {
+          "notes": [
+            -12,
+            -9,
+            -5
+          ],
+          "held": [],
+          "bass": -36
+        },
+        {
+          "notes": [
+            -4,
+            0,
+            3,
+            7
+          ],
+          "held": [],
+          "bass": -28
+        }
+      ],
+      "period_bars": 3
+    },
+    {
+      "id": 61064,
+      "symbol": "darkSynthH64",
+      "name": "DS-H64 – Pendel 4+2 mit Farbwechsel",
+      "xyz": [
+        0.53,
+        0.4,
+        0.3
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "aeolian"
+      },
+      "source_ref": "dark_synth_p2",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Min",
+          "bars": 4,
+          "bass": 0
+        },
+        {
+          "root": 8,
+          "type": "Maj7",
+          "bars": 2,
+          "bass": 8
+        },
+        {
+          "root": 0,
+          "type": "Min",
+          "bars": 4,
+          "bass": 0
+        },
+        {
+          "root": 5,
+          "type": "Min9",
+          "bars": 2,
+          "bass": 5
+        }
+      ],
+      "coloration": "protected",
+      "voicings": [
+        {
+          "notes": [
+            -12,
+            -9,
+            -5
+          ],
+          "held": [],
+          "bass": -36
+        },
+        {
+          "notes": [
+            -4,
+            0,
+            3,
+            7
+          ],
+          "held": [],
+          "bass": -28
+        },
+        {
+          "notes": [
+            -12,
+            -9,
+            -5
+          ],
+          "held": [],
+          "bass": -36
+        },
+        {
+          "notes": [
+            -7,
+            -4,
+            0,
+            3,
+            7
+          ],
+          "held": [],
+          "bass": -31
+        }
+      ],
+      "period_bars": 12
+    },
+    {
+      "id": 61065,
+      "symbol": "darkSynthH65",
+      "name": "DS-H65 – Pendel mit drittem Glied",
+      "xyz": [
+        0.57,
+        0.4,
+        0.2
+      ],
+      "genres": [
+        "score"
+      ],
+      "tonality": {
+        "center_pc": 0,
+        "mode": "aeolian"
+      },
+      "source_ref": "dark_synth_p2",
+      "chords": [
+        {
+          "root": 0,
+          "type": "Min",
+          "bars": 2,
+          "bass": 0
+        },
+        {
+          "root": 8,
+          "type": "Maj7",
+          "bars": 2,
+          "bass": 8
+        },
+        {
+          "root": 0,
+          "type": "Min",
+          "bars": 2,
+          "bass": 0
+        },
+        {
+          "root": 8,
+          "type": "Maj7",
+          "bars": 2,
+          "bass": 8
+        },
+        {
+          "root": 3,
+          "type": "Add9",
+          "bars": 4,
+          "bass": 3
+        }
+      ],
+      "coloration": "protected",
+      "voicings": [
+        {
+          "notes": [
+            -12,
+            -9,
+            -5
+          ],
+          "held": [],
+          "bass": -36
+        },
+        {
+          "notes": [
+            -4,
+            0,
+            3,
+            7
+          ],
+          "held": [],
+          "bass": -28
+        },
+        {
+          "notes": [
+            -12,
+            -9,
+            -5
+          ],
+          "held": [],
+          "bass": -36
+        },
+        {
+          "notes": [
+            -4,
+            0,
+            3,
+            7
+          ],
+          "held": [],
+          "bass": -28
+        },
+        {
+          "notes": [
+            -9,
+            -5,
+            -2,
+            5
+          ],
+          "held": [],
+          "bass": -33
+        }
+      ],
+      "period_bars": 12
     }
   ],
   "pools": {

@@ -27,3 +27,9 @@ docs/research/ennio-morricone/STROMSCORE_Ennio_Morricone_Nachtrag_Lolita_Lyrik.m
 docs/research/ennio-morricone/STROMSCORE_Ennio_Morricone_Vokabular_Kanonisch.md -text
 docs/research/ennio-morricone/STROMSCORE_Ennio_Morricone_Tiefenrecherche.md -text
 docs/research/ennio-morricone/STROMSCORE_Ennio_Morricone_Tiefenrecherche_Vertiefung.md -text
+# Dark Synth originals: preserve uploaded LF/CRLF bytes on Windows as well.
+docs/research/dark-synth/STROMSCORE_Dark_Synth_Tiefenrecherche.md -text
+docs/research/dark-synth/STROMSCORE_Dark_Synth_Vokabular_Erweiterung.md -text
+docs/research/dark-synth/DS_Qualitaetspruefung.md -text
+docs/research/dark-synth/DS_Studien_Ereignisse.csv -text
+docs/research/dark-synth/DS_Studien_MIDI.zip -text

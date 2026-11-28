@@ -2977,6 +2977,838 @@
       ],
       "pad": "PadHeld",
       "hook": null
+    },
+    {
+      "id": "dark_synth_1",
+      "arp": [
+        "ArpCircle",
+        "ArpCell"
+      ],
+      "bass": [
+        "BassHeld",
+        "BassHeld"
+      ],
+      "pad": "PadHeld",
+      "hook": null
+    },
+    {
+      "id": "dark_synth_2",
+      "arp": [
+        "ArpCircle",
+        "ArpCell"
+      ],
+      "bass": [
+        "BassHeld",
+        "BassHeld"
+      ],
+      "pad": "PadHeld",
+      "hook": null
+    },
+    {
+      "id": "dark_synth_3",
+      "arp": [
+        "ArpCircle",
+        "ArpCell"
+      ],
+      "bass": [
+        "BassHeld",
+        "BassHeld"
+      ],
+      "pad": "PadHeld",
+      "hook": null
+    },
+    {
+      "id": "dark_synth_4",
+      "arp": [
+        "ArpCircle",
+        "ArpCell"
+      ],
+      "bass": [
+        "BassHeld",
+        "BassHeld"
+      ],
+      "pad": "PadHeld",
+      "hook": null
+    },
+    {
+      "id": "dark_synth_5",
+      "arp": [
+        "ArpCircle",
+        "ArpCell"
+      ],
+      "bass": [
+        "BassHeld",
+        "BassHeld"
+      ],
+      "pad": "PadHeld",
+      "hook": null
+    },
+    {
+      "id": "dark_synth_6",
+      "arp": [
+        "ArpCircle",
+        "ArpCell"
+      ],
+      "bass": [
+        "BassHeld",
+        "BassHeld"
+      ],
+      "pad": "PadHeld",
+      "hook": null
+    },
+    {
+      "id": "dark_synth_7",
+      "arp": [
+        "ArpCircle",
+        "ArpCell"
+      ],
+      "bass": [
+        "BassHeld",
+        "BassHeld"
+      ],
+      "pad": "PadHeld",
+      "hook": null
+    },
+    {
+      "id": "dark_synth_8",
+      "arp": [
+        "ArpCircle",
+        "ArpCell"
+      ],
+      "bass": [
+        "BassHeld",
+        "BassHeld"
+      ],
+      "pad": "PadHeld",
+      "hook": null
+    },
+    {
+      "id": "dark_synth_9",
+      "arp": [
+        "ArpCircle",
+        "ArpCell"
+      ],
+      "bass": [
+        "BassHeld",
+        "BassHeld"
+      ],
+      "pad": "PadHeld",
+      "hook": null
+    },
+    {
+      "id": "dark_synth_10",
+      "arp": [
+        "ArpCircle",
+        "ArpCell"
+      ],
+      "bass": [
+        "BassHeld",
+        "BassHeld"
+      ],
+      "pad": "PadHeld",
+      "hook": null
+    },
+    {
+      "id": "dark_synth_11",
+      "arp": [
+        "ArpCircle",
+        "ArpCell"
+      ],
+      "bass": [
+        "BassHeld",
+        "BassHeld"
+      ],
+      "pad": "PadHeld",
+      "hook": null
+    },
+    {
+      "id": "dark_synth_12",
+      "arp": [
+        "ArpCircle",
+        "ArpCell"
+      ],
+      "bass": [
+        "BassHeld",
+        "BassHeld"
+      ],
+      "pad": "PadHeld",
+      "hook": null
+    },
+    {
+      "id": "dark_synth_13",
+      "arp": [
+        "ArpCircle",
+        "ArpCell"
+      ],
+      "bass": [
+        "BassHeld",
+        "BassHeld"
+      ],
+      "pad": "PadHeld",
+      "hook": null
+    },
+    {
+      "id": "dark_synth_14",
+      "arp": [
+        "ArpCircle",
+        "ArpCell"
+      ],
+      "bass": [
+        "BassHeld",
+        "BassHeld"
+      ],
+      "pad": "PadHeld",
+      "hook": null
+    },
+    {
+      "id": "dark_synth_15",
+      "arp": [
+        "ArpCircle",
+        "ArpCell"
+      ],
+      "bass": [
+        "BassHeld",
+        "BassHeld"
+      ],
+      "pad": "PadHeld",
+      "hook": null
+    },
+    {
+      "id": "dark_synth_16",
+      "arp": [
+        "ArpCircle",
+        "ArpCell"
+      ],
+      "bass": [
+        "BassHeld",
+        "BassHeld"
+      ],
+      "pad": "PadHeld",
+      "hook": null
+    },
+    {
+      "id": "dark_synth_17",
+      "arp": [
+        "ArpCircle",
+        "ArpCell"
+      ],
+      "bass": [
+        "BassHeld",
+        "BassHeld"
+      ],
+      "pad": "PadHeld",
+      "hook": null
+    },
+    {
+      "id": "dark_synth_18",
+      "arp": [
+        "ArpCircle",
+        "ArpCell"
+      ],
+      "bass": [
+        "BassHeld",
+        "BassHeld"
+      ],
+      "pad": "PadHeld",
+      "hook": null
+    },
+    {
+      "id": "dark_synth_19",
+      "arp": [
+        "ArpCircle",
+        "ArpCell"
+      ],
+      "bass": [
+        "BassHeld",
+        "BassHeld"
+      ],
+      "pad": "PadHeld",
+      "hook": null
+    },
+    {
+      "id": "dark_synth_20",
+      "arp": [
+        "ArpCircle",
+        "ArpCell"
+      ],
+      "bass": [
+        "BassHeld",
+        "BassHeld"
+      ],
+      "pad": "PadHeld",
+      "hook": null
+    },
+    {
+      "id": "dark_synth_21",
+      "arp": [
+        "ArpCircle",
+        "ArpCell"
+      ],
+      "bass": [
+        "BassHeld",
+        "BassHeld"
+      ],
+      "pad": "PadHeld",
+      "hook": null
+    },
+    {
+      "id": "dark_synth_22",
+      "arp": [
+        "ArpCircle",
+        "ArpCell"
+      ],
+      "bass": [
+        "BassHeld",
+        "BassHeld"
+      ],
+      "pad": "PadHeld",
+      "hook": null
+    },
+    {
+      "id": "dark_synth_23",
+      "arp": [
+        "ArpCircle",
+        "ArpCell"
+      ],
+      "bass": [
+        "BassHeld",
+        "BassHeld"
+      ],
+      "pad": "PadHeld",
+      "hook": null
+    },
+    {
+      "id": "dark_synth_24",
+      "arp": [
+        "ArpCircle",
+        "ArpCell"
+      ],
+      "bass": [
+        "BassHeld",
+        "BassHeld"
+      ],
+      "pad": "PadHeld",
+      "hook": null
+    },
+    {
+      "id": "dark_synth_25",
+      "arp": [
+        "ArpCircle",
+        "ArpCell"
+      ],
+      "bass": [
+        "BassHeld",
+        "BassHeld"
+      ],
+      "pad": "PadHeld",
+      "hook": null
+    },
+    {
+      "id": "dark_synth_26",
+      "arp": [
+        "ArpCircle",
+        "ArpCell"
+      ],
+      "bass": [
+        "BassHeld",
+        "BassHeld"
+      ],
+      "pad": "PadHeld",
+      "hook": null
+    },
+    {
+      "id": "dark_synth_27",
+      "arp": [
+        "ArpCircle",
+        "ArpCell"
+      ],
+      "bass": [
+        "BassHeld",
+        "BassHeld"
+      ],
+      "pad": "PadHeld",
+      "hook": null
+    },
+    {
+      "id": "dark_synth_28",
+      "arp": [
+        "ArpCircle",
+        "ArpCell"
+      ],
+      "bass": [
+        "BassHeld",
+        "BassHeld"
+      ],
+      "pad": "PadHeld",
+      "hook": null
+    },
+    {
+      "id": "dark_synth_29",
+      "arp": [
+        "ArpCircle",
+        "ArpCell"
+      ],
+      "bass": [
+        "BassHeld",
+        "BassHeld"
+      ],
+      "pad": "PadHeld",
+      "hook": null
+    },
+    {
+      "id": "dark_synth_30",
+      "arp": [
+        "ArpCircle",
+        "ArpCell"
+      ],
+      "bass": [
+        "BassHeld",
+        "BassHeld"
+      ],
+      "pad": "PadHeld",
+      "hook": null
+    },
+    {
+      "id": "dark_synth_31",
+      "arp": [
+        "ArpCircle",
+        "ArpCell"
+      ],
+      "bass": [
+        "BassHeld",
+        "BassHeld"
+      ],
+      "pad": "PadHeld",
+      "hook": null
+    },
+    {
+      "id": "dark_synth_32",
+      "arp": [
+        "ArpCircle",
+        "ArpCell"
+      ],
+      "bass": [
+        "BassHeld",
+        "BassHeld"
+      ],
+      "pad": "PadHeld",
+      "hook": null
+    },
+    {
+      "id": "dark_synth_33",
+      "arp": [
+        "ArpCircle",
+        "ArpCell"
+      ],
+      "bass": [
+        "BassHeld",
+        "BassHeld"
+      ],
+      "pad": "PadHeld",
+      "hook": null
+    },
+    {
+      "id": "dark_synth_34",
+      "arp": [
+        "ArpCircle",
+        "ArpCell"
+      ],
+      "bass": [
+        "BassHeld",
+        "BassHeld"
+      ],
+      "pad": "PadHeld",
+      "hook": null
+    },
+    {
+      "id": "dark_synth_35",
+      "arp": [
+        "ArpCircle",
+        "ArpCell"
+      ],
+      "bass": [
+        "BassHeld",
+        "BassHeld"
+      ],
+      "pad": "PadHeld",
+      "hook": null
+    },
+    {
+      "id": "dark_synth_36",
+      "arp": [
+        "ArpCircle",
+        "ArpCell"
+      ],
+      "bass": [
+        "BassHeld",
+        "BassHeld"
+      ],
+      "pad": "PadHeld",
+      "hook": null
+    },
+    {
+      "id": "dark_synth_37",
+      "arp": [
+        "ArpCircle",
+        "ArpCell"
+      ],
+      "bass": [
+        "BassHeld",
+        "BassHeld"
+      ],
+      "pad": "PadHeld",
+      "hook": null
+    },
+    {
+      "id": "dark_synth_38",
+      "arp": [
+        "ArpCircle",
+        "ArpCell"
+      ],
+      "bass": [
+        "BassHeld",
+        "BassHeld"
+      ],
+      "pad": "PadHeld",
+      "hook": null
+    },
+    {
+      "id": "dark_synth_39",
+      "arp": [
+        "ArpCircle",
+        "ArpCell"
+      ],
+      "bass": [
+        "BassHeld",
+        "BassHeld"
+      ],
+      "pad": "PadHeld",
+      "hook": null
+    },
+    {
+      "id": "dark_synth_40",
+      "arp": [
+        "ArpCircle",
+        "ArpCell"
+      ],
+      "bass": [
+        "BassHeld",
+        "BassHeld"
+      ],
+      "pad": "PadHeld",
+      "hook": null
+    },
+    {
+      "id": "dark_synth_41",
+      "arp": [
+        "ArpCircle",
+        "ArpCell"
+      ],
+      "bass": [
+        "BassHeld",
+        "BassHeld"
+      ],
+      "pad": "PadHeld",
+      "hook": null
+    },
+    {
+      "id": "dark_synth_42",
+      "arp": [
+        "ArpCircle",
+        "ArpCell"
+      ],
+      "bass": [
+        "BassHeld",
+        "BassHeld"
+      ],
+      "pad": "PadHeld",
+      "hook": null
+    },
+    {
+      "id": "dark_synth_43",
+      "arp": [
+        "ArpCircle",
+        "ArpCell"
+      ],
+      "bass": [
+        "BassHeld",
+        "BassHeld"
+      ],
+      "pad": "PadHeld",
+      "hook": null
+    },
+    {
+      "id": "dark_synth_44",
+      "arp": [
+        "ArpCircle",
+        "ArpCell"
+      ],
+      "bass": [
+        "BassHeld",
+        "BassHeld"
+      ],
+      "pad": "PadHeld",
+      "hook": null
+    },
+    {
+      "id": "dark_synth_45",
+      "arp": [
+        "ArpCircle",
+        "ArpCell"
+      ],
+      "bass": [
+        "BassHeld",
+        "BassHeld"
+      ],
+      "pad": "PadHeld",
+      "hook": null
+    },
+    {
+      "id": "dark_synth_46",
+      "arp": [
+        "ArpCircle",
+        "ArpCell"
+      ],
+      "bass": [
+        "BassHeld",
+        "BassHeld"
+      ],
+      "pad": "PadHeld",
+      "hook": null
+    },
+    {
+      "id": "dark_synth_47",
+      "arp": [
+        "ArpCircle",
+        "ArpCell"
+      ],
+      "bass": [
+        "BassHeld",
+        "BassHeld"
+      ],
+      "pad": "PadHeld",
+      "hook": null
+    },
+    {
+      "id": "dark_synth_48",
+      "arp": [
+        "ArpCircle",
+        "ArpCell"
+      ],
+      "bass": [
+        "BassHeld",
+        "BassHeld"
+      ],
+      "pad": "PadHeld",
+      "hook": null
+    },
+    {
+      "id": "dark_synth_50",
+      "arp": [
+        "ArpCircle",
+        "ArpCell"
+      ],
+      "bass": [
+        "BassHeld",
+        "BassHeld"
+      ],
+      "pad": "PadHeld",
+      "hook": null
+    },
+    {
+      "id": "dark_synth_51",
+      "arp": [
+        "ArpCircle",
+        "ArpCell"
+      ],
+      "bass": [
+        "BassHeld",
+        "BassHeld"
+      ],
+      "pad": "PadHeld",
+      "hook": null
+    },
+    {
+      "id": "dark_synth_52",
+      "arp": [
+        "ArpCircle",
+        "ArpCell"
+      ],
+      "bass": [
+        "BassHeld",
+        "BassHeld"
+      ],
+      "pad": "PadHeld",
+      "hook": null
+    },
+    {
+      "id": "dark_synth_53",
+      "arp": [
+        "ArpCircle",
+        "ArpCell"
+      ],
+      "bass": [
+        "BassHeld",
+        "BassHeld"
+      ],
+      "pad": "PadHeld",
+      "hook": null
+    },
+    {
+      "id": "dark_synth_54",
+      "arp": [
+        "ArpCircle",
+        "ArpCell"
+      ],
+      "bass": [
+        "BassHeld",
+        "BassHeld"
+      ],
+      "pad": "PadHeld",
+      "hook": null
+    },
+    {
+      "id": "dark_synth_55",
+      "arp": [
+        "ArpCircle",
+        "ArpCell"
+      ],
+      "bass": [
+        "BassHeld",
+        "BassHeld"
+      ],
+      "pad": "PadHeld",
+      "hook": null
+    },
+    {
+      "id": "dark_synth_56",
+      "arp": [
+        "ArpCircle",
+        "ArpCell"
+      ],
+      "bass": [
+        "BassHeld",
+        "BassHeld"
+      ],
+      "pad": "PadHeld",
+      "hook": null
+    },
+    {
+      "id": "dark_synth_57",
+      "arp": [
+        "ArpCircle",
+        "ArpCell"
+      ],
+      "bass": [
+        "BassHeld",
+        "BassHeld"
+      ],
+      "pad": "PadHeld",
+      "hook": null
+    },
+    {
+      "id": "dark_synth_58",
+      "arp": [
+        "ArpCircle",
+        "ArpCell"
+      ],
+      "bass": [
+        "BassHeld",
+        "BassHeld"
+      ],
+      "pad": "PadHeld",
+      "hook": null
+    },
+    {
+      "id": "dark_synth_59",
+      "arp": [
+        "ArpCircle",
+        "ArpCell"
+      ],
+      "bass": [
+        "BassHeld",
+        "BassHeld"
+      ],
+      "pad": "PadHeld",
+      "hook": null
+    },
+    {
+      "id": "dark_synth_60",
+      "arp": [
+        "ArpCircle",
+        "ArpCell"
+      ],
+      "bass": [
+        "BassHeld",
+        "BassHeld"
+      ],
+      "pad": "PadHeld",
+      "hook": null
+    },
+    {
+      "id": "dark_synth_61",
+      "arp": [
+        "ArpCircle",
+        "ArpCell"
+      ],
+      "bass": [
+        "BassHeld",
+        "BassHeld"
+      ],
+      "pad": "PadHeld",
+      "hook": null
+    },
+    {
+      "id": "dark_synth_62",
+      "arp": [
+        "ArpCircle",
+        "ArpCell"
+      ],
+      "bass": [
+        "BassHeld",
+        "BassHeld"
+      ],
+      "pad": "PadHeld",
+      "hook": null
+    },
+    {
+      "id": "dark_synth_63",
+      "arp": [
+        "ArpCircle",
+        "ArpCell"
+      ],
+      "bass": [
+        "BassHeld",
+        "BassHeld"
+      ],
+      "pad": "PadHeld",
+      "hook": null
+    },
+    {
+      "id": "dark_synth_64",
+      "arp": [
+        "ArpCircle",
+        "ArpCell"
+      ],
+      "bass": [
+        "BassHeld",
+        "BassHeld"
+      ],
+      "pad": "PadHeld",
+      "hook": null
+    },
+    {
+      "id": "dark_synth_65",
+      "arp": [
+        "ArpCircle",
+        "ArpCell"
+      ],
+      "bass": [
+        "BassHeld",
+        "BassHeld"
+      ],
+      "pad": "PadHeld",
+      "hook": null
     }
   ],
   "bindings": [
@@ -4083,6 +4915,262 @@
     {
       "template_id": 70068,
       "recipe": "herrmann_68"
+    },
+    {
+      "template_id": 61001,
+      "recipe": "dark_synth_1"
+    },
+    {
+      "template_id": 61002,
+      "recipe": "dark_synth_2"
+    },
+    {
+      "template_id": 61003,
+      "recipe": "dark_synth_3"
+    },
+    {
+      "template_id": 61004,
+      "recipe": "dark_synth_4"
+    },
+    {
+      "template_id": 61005,
+      "recipe": "dark_synth_5"
+    },
+    {
+      "template_id": 61006,
+      "recipe": "dark_synth_6"
+    },
+    {
+      "template_id": 61007,
+      "recipe": "dark_synth_7"
+    },
+    {
+      "template_id": 61008,
+      "recipe": "dark_synth_8"
+    },
+    {
+      "template_id": 61009,
+      "recipe": "dark_synth_9"
+    },
+    {
+      "template_id": 61010,
+      "recipe": "dark_synth_10"
+    },
+    {
+      "template_id": 61011,
+      "recipe": "dark_synth_11"
+    },
+    {
+      "template_id": 61012,
+      "recipe": "dark_synth_12"
+    },
+    {
+      "template_id": 61013,
+      "recipe": "dark_synth_13"
+    },
+    {
+      "template_id": 61014,
+      "recipe": "dark_synth_14"
+    },
+    {
+      "template_id": 61015,
+      "recipe": "dark_synth_15"
+    },
+    {
+      "template_id": 61016,
+      "recipe": "dark_synth_16"
+    },
+    {
+      "template_id": 61017,
+      "recipe": "dark_synth_17"
+    },
+    {
+      "template_id": 61018,
+      "recipe": "dark_synth_18"
+    },
+    {
+      "template_id": 61019,
+      "recipe": "dark_synth_19"
+    },
+    {
+      "template_id": 61020,
+      "recipe": "dark_synth_20"
+    },
+    {
+      "template_id": 61021,
+      "recipe": "dark_synth_21"
+    },
+    {
+      "template_id": 61022,
+      "recipe": "dark_synth_22"
+    },
+    {
+      "template_id": 61023,
+      "recipe": "dark_synth_23"
+    },
+    {
+      "template_id": 61024,
+      "recipe": "dark_synth_24"
+    },
+    {
+      "template_id": 61025,
+      "recipe": "dark_synth_25"
+    },
+    {
+      "template_id": 61026,
+      "recipe": "dark_synth_26"
+    },
+    {
+      "template_id": 61027,
+      "recipe": "dark_synth_27"
+    },
+    {
+      "template_id": 61028,
+      "recipe": "dark_synth_28"
+    },
+    {
+      "template_id": 61029,
+      "recipe": "dark_synth_29"
+    },
+    {
+      "template_id": 61030,
+      "recipe": "dark_synth_30"
+    },
+    {
+      "template_id": 61031,
+      "recipe": "dark_synth_31"
+    },
+    {
+      "template_id": 61032,
+      "recipe": "dark_synth_32"
+    },
+    {
+      "template_id": 61033,
+      "recipe": "dark_synth_33"
+    },
+    {
+      "template_id": 61034,
+      "recipe": "dark_synth_34"
+    },
+    {
+      "template_id": 61035,
+      "recipe": "dark_synth_35"
+    },
+    {
+      "template_id": 61036,
+      "recipe": "dark_synth_36"
+    },
+    {
+      "template_id": 61037,
+      "recipe": "dark_synth_37"
+    },
+    {
+      "template_id": 61038,
+      "recipe": "dark_synth_38"
+    },
+    {
+      "template_id": 61039,
+      "recipe": "dark_synth_39"
+    },
+    {
+      "template_id": 61040,
+      "recipe": "dark_synth_40"
+    },
+    {
+      "template_id": 61041,
+      "recipe": "dark_synth_41"
+    },
+    {
+      "template_id": 61042,
+      "recipe": "dark_synth_42"
+    },
+    {
+      "template_id": 61043,
+      "recipe": "dark_synth_43"
+    },
+    {
+      "template_id": 61044,
+      "recipe": "dark_synth_44"
+    },
+    {
+      "template_id": 61045,
+      "recipe": "dark_synth_45"
+    },
+    {
+      "template_id": 61046,
+      "recipe": "dark_synth_46"
+    },
+    {
+      "template_id": 61047,
+      "recipe": "dark_synth_47"
+    },
+    {
+      "template_id": 61048,
+      "recipe": "dark_synth_48"
+    },
+    {
+      "template_id": 61050,
+      "recipe": "dark_synth_50"
+    },
+    {
+      "template_id": 61051,
+      "recipe": "dark_synth_51"
+    },
+    {
+      "template_id": 61052,
+      "recipe": "dark_synth_52"
+    },
+    {
+      "template_id": 61053,
+      "recipe": "dark_synth_53"
+    },
+    {
+      "template_id": 61054,
+      "recipe": "dark_synth_54"
+    },
+    {
+      "template_id": 61055,
+      "recipe": "dark_synth_55"
+    },
+    {
+      "template_id": 61056,
+      "recipe": "dark_synth_56"
+    },
+    {
+      "template_id": 61057,
+      "recipe": "dark_synth_57"
+    },
+    {
+      "template_id": 61058,
+      "recipe": "dark_synth_58"
+    },
+    {
+      "template_id": 61059,
+      "recipe": "dark_synth_59"
+    },
+    {
+      "template_id": 61060,
+      "recipe": "dark_synth_60"
+    },
+    {
+      "template_id": 61061,
+      "recipe": "dark_synth_61"
+    },
+    {
+      "template_id": 61062,
+      "recipe": "dark_synth_62"
+    },
+    {
+      "template_id": 61063,
+      "recipe": "dark_synth_63"
+    },
+    {
+      "template_id": 61064,
+      "recipe": "dark_synth_64"
+    },
+    {
+      "template_id": 61065,
+      "recipe": "dark_synth_65"
     }
   ]
 }

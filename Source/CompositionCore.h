@@ -1,4 +1,5 @@
 #pragma once
+#include "HarmonyLimits.generated.h"
 #include "VoiceLeading.h"
 #include "MusicalTime.h"
 #include "CompositionPolicy.h"
@@ -156,7 +157,16 @@ inline MotifRealization realizeScoreMotif(const MotifFigure& source,const unsign
         note.length=length;figure.span=std::max(figure.span,note.at+note.length);
     }
     constexpr int inf=100000;
-    for(int base=0;base<128;++base)
+    // A fixed first pitch permits only these five bases (the existing +/-2
+    // realization offsets). Skip mathematically impossible placements, preserving
+    // the original ascending tie order and every musical decision.
+    int firstBase=0,lastBase=127;
+    if(fixedPitches&&fixedPitches[0]>=0){
+        const int64_t center=static_cast<int64_t>(fixedPitches[0])-source.notes[0].interval;
+        if(center < -2||center>129)return result;
+        firstBase=static_cast<int>(std::max<int64_t>(0,center-2));lastBase=static_cast<int>(std::min<int64_t>(127,center+2));
+    }
+    for(int base=firstBase;base<=lastBase;++base)
     {
         int costs[10][5],previous[10][5];
         for(int i=0;i<figure.count;++i)for(int d=0;d<5;++d)
@@ -206,7 +216,7 @@ struct MotifRef { int value=-1; };
 struct MotifCatalog
 {
 private:
-    std::array<RememberedMotif,2> materials {};
+    std::array<RememberedMotif,3> materials {};
     int count=0;
 public:
     const RememberedMotif* find(MotifRef ref)const
@@ -626,7 +636,7 @@ struct HarmonicSlot
 };
 struct HarmonicRequest
 {
-    static constexpr int capacity = 16;
+    static constexpr int capacity = 2*kCatalogChordSlots;
     std::array<HarmonicSlot, capacity> slots {};
     int count = 0;
     Range padRange { 0, 127 }, bassRange { 0, 127 };
@@ -788,18 +798,26 @@ inline HarmonicSlot buildAnchor (const ChordIntent& in, Range range, bool constr
 // Integer musical ticks, independent of audio sample rate. An adapter defines ticks/bar.
 struct ChordTimeline
 {
-    std::array<musicaltime::Tick,8> durations {};
+    std::array<musicaltime::Tick,kCatalogChordSlots> durations {};
     int count=0, first=0;
     musicaltime::Tick begin{},end{};
-    bool held=false;
+    bool held=false,cyclicFromFirst=false;
 };
 struct ChordPosition { int index=0; musicaltime::Tick begin{},end{}; };
 inline ChordPosition locateChord (const ChordTimeline& t,musicaltime::Tick at)
 {
     ChordPosition p;
-    if(t.count<1||t.count>8)return p;
+    if(t.count<1||t.count>kCatalogChordSlots)return p;
     p.index=std::clamp(t.first,0,t.count-1);p.begin=t.begin;p.end=t.end;
     if(t.held)return p;
+    if(t.cyclicFromFirst){
+        const int first=p.index;
+        for(int i=0;i<t.count;++i){p.index=(first+i)%t.count;
+            if(at<p.begin+t.durations[static_cast<size_t>(p.index)]||i==t.count-1)break;
+            p.begin+=t.durations[static_cast<size_t>(p.index)];
+        }
+        p.end=std::min(t.end,p.begin+t.durations[static_cast<size_t>(p.index)]);return p;
+    }
     for(int i=p.index;i<t.count;++i)
     {
         p.index=i;

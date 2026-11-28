@@ -10,6 +10,6 @@ inline constexpr std::array<ProfileIdentity,6> profileIdentities {{
 {ProfileId::bernardHerrmann,"Bernard Herrmann",false},
 {ProfileId::johnWilliams,"John Williams",false},
 {ProfileId::ennioMorricone,"Ennio Morricone",false},
-{ProfileId::johnCarpenter,"John Carpenter",false},
+{ProfileId::johnCarpenter,"Dark Synth",false},
 }};
 }

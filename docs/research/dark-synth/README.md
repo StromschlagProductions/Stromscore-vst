@@ -11,3 +11,12 @@ Die 405 JC-IDs unter `../john-carpenter/` bleiben das Fundament. Die 236 DS-IDs 
 Elektronische Klangmodulation, Pitch-Bend, Action Synth und Space Synth bleiben spätere Aufgaben. CC16–19 der Modulationsstudien sind ausschließlich Forschungsplatzhalter. Die vorhandene Orchester-CC-Funktion bleibt unverändert.
 
 Die positive Herrmann-Hörabnahme der Ausgangsreferenz ist in `../../development/ACCEPTED_REFERENCE_eb32983.md` dokumentiert.
+
+## P2-Ergebnis
+
+- [Implementierungsbericht](P2.md)
+- [Prüfprotokoll und XYZ-Abdeckung](P2_VALIDATION.md)
+- [Alle 236 Einzelentscheidungen](P2_IMPLEMENTED_IDS.md)
+- [Maschinenlesbarer Produktionsstatus](P2_PRODUCTION_IDS.json)
+- [Konkrete MIDI-Beispiele](P2_MUSICAL_EXAMPLES.md)
+- [128-Takt-A/B-Hörbeispiele](P2_MIDI_LISTENING.zip)

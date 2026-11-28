@@ -33,6 +33,14 @@ jobs:
           @("STROMSCORE 2.2 DEVELOPMENT TEST BUILD", "Commit: $env:GITHUB_SHA", "Source: $env:GITHUB_SHA (see MUSICAL_TIME_BASE.md for migration review)", "Branch: $env:GITHUB_REF_NAME", "No release. Same plugin ID as stable: temporarily replace, do not install both.") | Set-Content package/BUILD.txt
           Copy-Item docs/development/STUDIO_ONE_TESTBUILD.md package/HOERTEST.md
           Copy-Item docs/development/MUSICAL_TIME_BASE.md package/MUSICAL_TIME_BASE.md
+          Copy-Item docs/research/dark-synth/P2.md package/DARK_SYNTH_P2.md
+          Copy-Item docs/research/dark-synth/P2_MIDI_LISTENING.zip package/DARK_SYNTH_P2_MIDI.zip
+          Copy-Item docs/research/dark-synth/P2_*.md package/
+          Copy-Item docs/research/dark-synth/P2_PRODUCTION_IDS.json package/
+          Copy-Item docs/research/dark-synth/P2_XYZ_COVERAGE.csv package/
+          Copy-Item docs/research/dark-synth/P2_RENDER_RESULTS.json package/
+          Copy-Item docs/research/dark-synth/*CPU_PROFILE.csv package/
+          Copy-Item docs/research/dark-synth/TECHNICAL_INVENTORY.json package/
       - name: Windows x64 konfigurieren
         shell: pwsh
         run: cmake -B build -A x64 "-DSTROMSCORE_DEVELOPMENT_LABEL=$env:DEV_LABEL"

@@ -4,7 +4,7 @@
 using namespace stromscore;
 int main()
 {
- CHECK(harmonyTemplates.size()==276&&kNumPopWendungen==39&&kNumWendungen==48);
+ CHECK(harmonyTemplates.size()==340&&kNumPopWendungen==39&&kNumWendungen==48);
  const int roots[3][5]={{0,10,5,0,0},{0,5,0,5,10},{0,8,10}};
  const int types[3][5]={{Maj,Maj,Maj,Sus2,Maj},{Min7,Maj,Min7,Maj,Maj},{Fifth,Fifth,Fifth}};
  const int durations[3][5]={{2,2,2,1,1},{2,2,2,1,1},{6,1,1}};
