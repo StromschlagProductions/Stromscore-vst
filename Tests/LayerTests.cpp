@@ -113,5 +113,23 @@ int main(){
    t.ppq=block*512/28800.;e.clear();{NoAllocations n;g.process(t,s,512,e);}for(int i=0;i<e.size;++i){auto r=e.events[i];if(!r.type){auto& n=open[{r.channel,r.note}];n+=r.velocity?1:-1;CHECK(n==0||n==1);}}}
   t.playing=false;e.clear();g.process(t,s,512,e);for(int i=0;i<e.size;++i)if(!e.events[i].type)open[{e.events[i].channel,e.events[i].note}]+=e.events[i].velocity?1:-1;for(auto n:open)CHECK(n.second==0);
  }
+ // Low XYZ is harmonic stillness, not exclusive ownership of a silent pad.
+ for(float x:{0.f,.02f,.05f,.08f,.1f,.12f,.15f,.2f})for(float y:{0.f,.02f,.05f,.08f,.1f,.12f,.15f,.2f})for(float z:{0.f,.02f,.05f,.08f,.1f,.12f,.15f,.2f}){
+  auto s=settings(x,y,z);int pad=0;for(auto r:render(s,512,4))if(std::get<1>(r)==OutPadLong&&std::get<4>(r))++pad;CHECK(pad>0);
+ }
+ for(int key=0;key<12;++key){auto s=settings(0,0,0);s.key=key;s.octave[kFlaeche]=-1;s.rangeOn[0]=true;s.rangeLo[0]=48;s.rangeHi[0]=84;
+  auto rows=render(s,127,32,1);CHECK(rows==render(s,2048,32,1));int pad=0;for(auto r:rows)if(std::get<4>(r)){CHECK(std::get<1>(r)==OutPadLong);CHECK(std::get<3>(r)>=48&&std::get<3>(r)<=84);++pad;}CHECK(pad>0);
+ }
+ {auto s=settings(0,0,0);int pad=0;for(auto r:render(s,512,64))if(std::get<4>(r)){CHECK(std::get<1>(r)==OutPadLong);++pad;}CHECK(pad>0&&pad<=6);s.mute[kFlaeche]=true;CHECK(render(s,512,8).empty());}
+ // Normal automatic choices, including the user's C3..D5 = MIDI60..86.
+ // No forced catalog entry and no autonomous member detached from a paired group.
+ for(int key=0;key<12;++key){auto s=settings(.5f,.85f,.8f);s.key=key;s.variation=3;s.variety=.5f;s.rangeOn[2]=true;s.rangeLo[2]=60;s.rangeHi[2]=86;
+  int arp=0;auto rows=render(s,127,64);CHECK(rows==render(s,2048,64));for(auto r:rows)if(std::get<1>(r)==OutArp&&std::get<4>(r)){CHECK(std::get<3>(r)>=60&&std::get<3>(r)<=86);++arp;}CHECK(arp>0);
+ }
+ // Independent second harmonic component is transposed as a whole into the
+ // instrument range, without changing any component tone class or interval.
+ for(int key=0;key<12;++key){auto s=settings();const auto index=wendungIndex(GenreScore,static_cast<WendungId>(70051),s.profile);const auto w=wendungAt(GenreScore,index,s.profile);s.x=w.x;s.y=w.y;s.z=w.z;s.key=key;s.variety=0;s.rangeOn[2]=true;s.rangeLo[2]=60;s.rangeHi[2]=86;
+  for(int v=1;v<=16;++v){s.variation=v;if(Generator::pick(s,0)==index)break;}int arp=0;for(auto r:render(s,512,8))if(std::get<1>(r)==OutArp&&std::get<4>(r)){const int n=std::get<3>(r);CHECK(n>=60&&n<=86);CHECK(pitchBit(n)&transposePitchMask(pitchBit(78)|pitchBit(81)|pitchBit(85),key));++arp;}CHECK(arp>0);
+ }
  std::cout<<"Herrmann shared layers: sources, 12 keys, independent cycles, explicit functions, transport, ownership, manual/Follow and block sizes passed\n";
 }

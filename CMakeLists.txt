@@ -583,6 +583,7 @@ if(BUILD_TESTING)
     add_test(NAME ProcessorHerrmann COMMAND ProcessorTests --herrmann)
     add_test(NAME ProcessorHerrmannActivity COMMAND ProcessorTests --herrmann-activity)
     add_test(NAME ProcessorCcOutput COMMAND ProcessorTests --cc-output)
+    add_test(NAME ProcessorHerrmannArQuiet COMMAND ProcessorTests --herrmann-ar-quiet)
     add_test(NAME ProcessorWilliamsMotifs COMMAND ProcessorTests --williams-motifs)
 endif()
 

@@ -1,3 +1,18 @@
+# Aktueller Hörtest – Herrmann: AR und Ruhebereich
+
+Referenz2170807 ist hinsichtlich CC-Anzeige/-Reset, Stich/Akzenten, Bass und Herrmann-Klangsprache positiv bestätigt. Dieses Paket korrigiert gezielt die AR-Auswahl und den stummen Start im Ruhebereich.
+
+SCORE / Bernard Herrmann, 4/4, D,100BPM, Aufbau/Fahrt AUS, unbegrenzte Wiedergabe. AR: Kanal5, relative Intensität0, Oktave0, C3–D5 (=MIDI60–86), Figur/Tempo AUTO, Folgt Akkorden EIN. Bass wie bisher getrennt3/4, −2Oktaven, MIDI24–67. Geeignete vorhandene Instrumente unverändert verwenden.
+
+1. Kalt mit XYZ0/0/0 starten: die ausgewählte ruhende Flächenharmonie soll sofort hörbar sein. Danach0/2/5/8/10/12/15/20% prüfen. Auch von höherer Intensität herunterregeln; die bestehende Ruhe-Hysterese10/14% bleibt erhalten. Fläche muten/Solo anderer Rollen respektiert weiterhin die Bedienung.
+2. XYZ(.50/.85/.80), Variation3, Abwechslung50%, zunächst Melodie/Gegenstimme aus:64Takte hören. Anschließend(.15/.45/.80) und(.50/.50/.75) sowie XYZ-Fahrten vergleichen. AR ist quell- und kontextabhängig, mit vollständigen Figurenpausen. Nicht jede Harmonie verlangt AR; verschmolzene Polychorde können die zweite Komponente bereits auf LF enthalten.
+3. Melodie/Gegenstimme aktivieren: AR soll deren gültigen Fenstern weiterhin Platz lassen. Mute/Solo, manuelle Figur, manuelles Tempo und Follow AUS testen. Neutral/Barry/Williams und zurück wechseln, Stop/Neustart/Seek/Loop prüfen.
+4. Die bestätigten CC-Funktionen sowie lange/kurze Bässe, Stich und Akzente gegenhören. Einzelne CPU-Spitzen bei128Samples waren bereits in der Referenz dokumentiert; für den ersten Hörvergleich512Samples verwenden.
+
+64Takte dauern bei100BPM2:34Minuten,128Takte5:07Minuten. Die neue Version bleibt ein DEV-Testbuild mit gleicher Plugin-ID; Installationshinweise weiter unten. Die folgenden früheren Anleitungen bleiben als musikalische Orientierung erhalten.
+
+---
+
 # Aktuelles Korrekturpaket – Herrmann und MIDI/CC
 
 Bernard Herrmann behält die positiv gehörten hohen Streicher, basslosen Felder und unabhängigen harmonischen Komponenten. Bitte besonders LB/KB mit der bisherigen Instrumentierung prüfen: getrennte Kanäle3/4, Bass−2Oktaven, Tonumfang C0–G3. In STROMSCORE entspricht dieser Bereich MIDI24–67 und begrenzt die **klingenden Töne nach** der Oktavverschiebung. Andere Instrumente/DAWs können dieselben MIDI-Nummern anders benennen. Der Patch wird nicht automatisch erkannt.

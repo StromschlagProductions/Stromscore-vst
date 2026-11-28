@@ -1,4 +1,6 @@
-Aktuelles Korrekturpaket: [Rollenaktivität, Ursachen und MIDI-A/B](P1_ACTIVITY_CORRECTION.md).
+Zweite Hörabnahme und aktuelles Korrekturpaket: [AR und Ruhebereich](P1_AR_QUIET_CORRECTION.md), [bestätigte Referenz2170807](../../development/ACCEPTED_REFERENCE_2170807.md).
+
+Vorheriges Korrekturpaket: [Rollenaktivität, Ursachen und MIDI-A/B](P1_ACTIVITY_CORRECTION.md).
 
 > Musikalische Rückmeldung zu0874b02: Die Herrmann-Handschrift ist positiv gehört; eine erhebliche Bassaktivitätsregression wurde gemeldet. [Geltungsbereich](../../development/ACCEPTED_REFERENCE_0874b02.md).
 

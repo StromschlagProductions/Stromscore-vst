@@ -188,10 +188,12 @@ static int testWilliamsMotifsExport(bool pedals=false,bool morricone=false,bool 
 
 #include "HerrmannActivityProcessorTests.h"
 #include "CcOutputProcessorTests.h"
+#include "HerrmannArQuietProcessorTests.h"
 
 int main(int argc,char** argv)
 {
     juce::ScopedJuceInitialiser_GUI init;
+    if(argc>=2&&std::string(argv[1])=="--herrmann-ar-quiet")return testHerrmannArQuietProcessor(argc>2?argv[2]:nullptr);
     if(argc==2&&std::string(argv[1])=="--cc-output")return testCcOutputProcessor();
     if(argc>=2&&std::string(argv[1])=="--herrmann-activity")return testHerrmannActivityProcessor(argc>2?argv[2]:nullptr);
     if(argc==2&&std::string(argv[1])=="--herrmann")return testWilliamsMotifsExport(false,false,false,true);

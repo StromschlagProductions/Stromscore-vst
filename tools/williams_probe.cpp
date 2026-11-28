@@ -117,10 +117,14 @@ int main(int argc,char** argv){
  // Optional offline audit controls; absent arguments preserve all existing probes.
  if(argc>24){const int routing=std::atoi(argv[24]);if(routing==1||routing==2)s.channel[OutBassShort]=s.channel[OutBassLong];if(routing==2)s.channel[OutPadShort]=s.channel[OutPadLong];if(routing==3){s.rangeOn[1]=true;s.rangeLo[1]=36;s.rangeHi[1]=60;}if(routing==4)s.channel[OutBassShort]=s.channel[OutBassLong]=s.channel[OutArp];if(routing==5||routing==6){s.rangeOn[1]=true;s.rangeLo[1]=24;s.rangeHi[1]=67;s.octave[kBass]=-2;if(routing==6)s.channel[OutBassShort]=s.channel[OutBassLong];}}
  if(argc>25)s.variety=std::atof(argv[25]);
+ if(argc>26)s.octave[kArp]=std::atoi(argv[26]);
+ if(argc>28){s.rangeOn[2]=std::atoi(argv[27])>=0;s.rangeLo[2]=std::atoi(argv[27]);s.rangeHi[2]=std::atoi(argv[28]);}
+ if(argc>29)s.follow[kArp]=std::atoi(argv[29])!=0;
  Generator g;Transport t;t.playing=true;t.bpm=argc>18?std::atof(argv[18]):100;
  const double samplesPerQuarter=48000.*60/t.bpm;EventList es;long long total=static_cast<long long>(bars*4.*s.meterNum/s.meterDen*samplesPerQuarter);int last=-2;
  for(long long at=0;at<total;){
   if((path==11||path==12)&&at%7200==0){double phase=at/samplesPerQuarter/(path==11?64:8);s.x=.5+.4*std::sin(phase);s.y=.65+.25*std::sin(phase*.7);s.z=.5+.45*std::cos(phase*.8);}
+  if(path==14&&at%7200==0)s.y=.2f*std::max(0.,1.-at/samplesPerQuarter/16.);
   const int n=static_cast<int>(std::min<long long>({block,total-at,7200-at%7200}));t.ppq=at/samplesPerQuarter;
   if(argc>13&&std::atoi(argv[13])){
    t.playing=!(at>=total/4&&at<total/4+7200);
