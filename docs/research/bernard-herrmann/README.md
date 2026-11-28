@@ -1,7 +1,9 @@
 # Bernard Herrmann – Forschungsbibliothek
 
-Stand: 27.11.2026. Technischer Abgleich: `023b0a6`, Williams P2/P3 einschließlich
-Build-Pfadkorrektur. Deren musikalische Hörabnahme steht weiterhin aus.
+Stand: 28.11.2026. Aktueller Planungsabgleich: `58ea29d` einschließlich Carpenter P1.
+Williams P2/P3 und Morricone P1 sind positiv gehört; Carpenter P1 wartet noch auf
+die musikalische Abnahme. Die ursprüngliche343-ID-Erfassung bleibt als historischer
+Befund zu `023b0a6` erhalten.
 
 Maßgebliche **kanonische Vorlagenbibliothek** ist dieses zusammengehörige Paket:
 
@@ -32,13 +34,16 @@ Komponente entfernen, Zyklen zurücksetzen oder beabsichtigte Dissonanzen korrig
 
 ## Technische Arbeitsunterlagen
 
-- [Implementierungsplan und kritischer Abgleich](IMPLEMENTATION_PLAN.md)
-- [343 Einzelbewertungen, lesbar](TECHNICAL_INVENTORY.md)
-- [343 Einzelbewertungen, vollständige Daten](TECHNICAL_INVENTORY.json)
+- [Aktualisierter Implementierungsplan](IMPLEMENTATION_PLAN.md)
+- [Kompakter Ergebnisbericht zu58ea29d](PLANNING_UPDATE_58ea29d.md)
+- [Fortschreibung aller343 IDs zu58ea29d](CAPABILITY_REVIEW_58ea29d.json)
+- [Historische343 Einzelbewertungen, lesbar](TECHNICAL_INVENTORY.md)
+- [Historische343 Einzelbewertungen, vollständige Daten](TECHNICAL_INVENTORY.json)
 - [Gemeinsame Fähigkeiten Williams/Herrmann/SYNTH](../SHARED_MUSICAL_CAPABILITIES.md)
 - [XYZ-Diagnose](XYZ_COVERAGE.json)
 
-Reproduktion ausschließlich offline, im Repository:
+Historische Erfassungs-/Prüfwerkzeuge, ausschließlich offline im Repository
+(nicht zur Erzeugung der redaktionellen58ea29d-Fortschreibung):
 
 ```sh
 python docs/research/bernard-herrmann/audit.py
@@ -48,7 +53,8 @@ python docs/research/bernard-herrmann/coverage.py
 
 `assessment.json` enthält die fachlich redigierten Einstufungen und Fähigkeiten.
 `audit.py` ergänzt die tatsächlichen Quellfiguren, Akkorde, Zeitwerte, Referenzen,
-MIDI-Prüfung und aktuellen Ausgabegrenzen. `coverage.py` benötigt einen C++17-
+MIDI-Prüfung und den damals redigierten Ausgabegrenzen. Für die heutigen kontextabhängigen
+Fähigkeiten ist zusätzlich der aktuelle Quellcodeabgleich maßgeblich. `coverage.py` benötigt einen C++17-
 Compiler und ruft die unveränderten Engine-Funktionen für XYZ-Gewicht und Variety
 auf; temporäre Programme liegen außerhalb des Repositorys. Keine dieser Dateien
 ist Teil von CMake, Plugin, Runtime-Datengenerierung oder Audiothread.

@@ -503,3 +503,36 @@ bleiben separate gemeinsame Folgefähigkeiten. Die Herrmann-/Williams-/Morricone
 Originalrecherchen werden dadurch nicht pauschal als implementiert ausgegeben.
 Morricone P1 und Williams P2/P3 sind positiv vom Anwender gehört; Carpenter P1
 wartet nach der technischen Auslieferung auf die musikalische Abnahme.
+
+
+## Herrmann-Planung nach Carpenter P1 (28.11.2026, `58ea29d`)
+
+Der [aktualisierte Herrmann-Plan](bernard-herrmann/IMPLEMENTATION_PLAN.md) gleicht
+alle343 historischen Einstufungen mit dem aktuellen Kern ab. Die frühen Tabellen
+dieses Berichts sind historische Befunde; ihre pauschalen Lücken „keine geordneten
+Basssequenzen/keine unabhängigen Perioden/keine verbindlichen Oberstimmen“ gelten
+in dieser Form nicht mehr. Der aktuelle Katalog enthält225 Vorlagen/27 Typen.
+Williams P2/P3 und Morricone P1 sind musikalisch positiv gehört; Carpenter P1
+wartet auf die Anwenderabnahme.
+
+Unmittelbar wiederverwenden: `PedalPlan` samt Notenbesitz, `HarmonyVoicing/held`,
+notierte exakte Parallel-Lagen, `SequenceSource/SequenceUse`, unabhängige KB/AR/GS-
+Verwendungen und gemeinsames Motivmaterial mit eigenem Stimmenzustand. Daraus
+folgt noch kein fertiger Herrmann-Verbraucher: tiefe Pedalquellen sind tonikagebunden,
+Sequenz-F/U-Freigaben eng, der neue Adapter4/4- und rollenbegrenzt. KF/TU besitzen
+nicht automatisch lange Gates; GS-Begleitung ist keine Rollenwanderung.
+
+Empfohlen wird ein gemeinsames umfangreiches Paket Klangobjekte/Pedale/kurze
+Module statt vieler Zwischenprototypen. Sein Kandidatenrahmen umfasst47 H-,28 R-,
+18 B- und22 M-Grundformen; Kontext-/Instrumentprüfung kann Quellen zurückstellen.
+Ein kleiner quellenbezogener A/T/V/F/U-Vertrag und geeignete LB-Linien-/Mehrrollen-
+Verbraucher gehören dazu. Bestehende Funktionen erweitern, keine Herrmann-Engine.
+
+Danach zweikomponentige Harmonik mit eigener Identität, Tonbezug, Register und
+Synchronität. Hohe/fremde/mehrfache Pedale, Ganzton/Hexatonik, echte pulslose
+Ereignisfelder, vollständige Moduloperationen, Rollenwanderung und lange Formen
+bleiben gemeinsame Aufgaben auch für Williams, Morricone und SYNTH. Die
+Carpenter-Schichtung ist keine vollständige Herrmann-Modulgrammatik; zwei
+Sequencer sind keine Polychorde. Keine neue Uhr und keine vorsorglichen Ausgänge.
+Die globale XYZ-Auswahl bleibt erhalten; ausdrücklich X-unabhängige Figurendaten
+werden lokal nach Y/Z geprüft. Diese Fortschreibung implementiert nichts.

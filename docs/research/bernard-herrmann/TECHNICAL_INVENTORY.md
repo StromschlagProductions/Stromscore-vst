@@ -1,5 +1,11 @@
 # HE-Einzelinventar – 343 Vorlagen
 
+> Historischer Einzelbefund zu `023b0a6`. Der aktuelle Quellcodeabgleich aller343
+> IDs zu `58ea29d` steht in [CAPABILITY_REVIEW_58ea29d.json](CAPABILITY_REVIEW_58ea29d.json);
+> musikalische Auswahl und Voraussetzungen im [aktualisierten Plan](IMPLEMENTATION_PLAN.md).
+> Die alten Bewertungen/Quelldaten werden nicht als aktueller Runtime-Stand ausgegeben.
+
+
 Stand: Engine `023b0a6`. Kategorien beziehen sich auf die musikalische Grundform einschließlich zwingender Eigenschaften; optionale Varianten werden gesondert genannt. Keine Vorlage ist aktiviert. D = direkt, A = begrenzte Anbindung, E = gemeinsame Fähigkeit fehlt, K = Klärung. Vollständige Quelldaten, Register-/Funktionsangaben und Referenzen: `TECHNICAL_INVENTORY.json`.
 
 ## H
