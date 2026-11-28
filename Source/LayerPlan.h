@@ -39,7 +39,7 @@ inline bool permittedTone(const ToneIntent& intent,int pitch,unsigned chord,unsi
  return (intent.function=='F'||intent.function=='U')&&(authored&bit);
 }
 struct LayerUse {
- const LayerFigure* source=nullptr;Tick origin{};int harmony=0;
+ const LayerFigure* source=nullptr;Tick origin{};int harmony=0;int placement=0; // Whole-figure octave placement after the user octave, never pitch folding.
  Tick next(Tick at)const {
   if(!source)return Tick{INT64_MAX/4};
   const auto turn=std::max(Tick{},at-origin)/source->period;

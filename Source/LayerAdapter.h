@@ -17,11 +17,13 @@ bool layerOwns(int output,const Settings& s)const
  if(output==OutPadLong||output==OutPadShort)return s.padPattern==PadAuto&&s.follow[kFlaeche];
  if(output==OutBassLong||output==OutBassShort)return s.bassPattern==BassAuto&&s.follow[kBass]&&bassOverride<0;
  if(output==OutArp)return s.arpFigure==ArpAuto&&s.arpRate==RateAuto&&s.follow[kArp];
- return output==OutTupfer||output==OutStich;
+ if(output==OutStich){for(int i=0;i<s.policy.layers.count;++i)if(s.policy.layers.figures[i].part==composition::FigurePart::effect)return true;return false;}
+ return output==OutTupfer;
 }
 bool layerRoute(int output,const Settings& s)const
 {
- for(int other=0;other<kNumOutputs;++other)if(other!=output&&on[kOutputLayer[other]]&&s.channel[other]==s.channel[output])return false;return true;
+ for(int other=0;other<kNumOutputs;++other)if(other!=output&&on[kOutputLayer[other]]&&s.channel[other]==s.channel[output]
+   &&kOutputLayer[other]!=kOutputLayer[output])return false;return true;
 }
 unsigned layerChordMask(const Chord& chord,const Settings& s,bool includeBass=false)const
 {
@@ -63,25 +65,54 @@ bool layerPolyphony(const composition::LayerFigure& source,musicaltime::Tick beg
  }
  return true;
 }
-bool layerFits(const composition::LayerFigure& source,musicaltime::Tick begin,const Settings& s,int output)const
+std::optional<int> layerRangeShift(int output,int low,int high,const Settings& s)const
+{
+ if(!s.rangeOn[kOutputRange[output]])return 0;
+ const auto range=outputCatalog(s)[output].track.instrument.range;
+ for(int oct=0;oct<=10;++oct)for(int sign:{1,-1}){const int shift=sign*oct*12;if(low+shift>=range.low&&high+shift<=range.high)return shift;}
+ return std::nullopt;
+}
+std::optional<int> layerBoundBassShift(const composition::HarmonicLayerBinding& b,const Settings& s)const
+{
+ if(!s.rangeOn[kOutputRange[OutBassLong]])return 0;
+ int low=128,high=-1;const int count=b.pedal>=0?1:W().n;
+ for(int i=0;i<count;++i){const int pitch=(b.pedal>=0?b.bassRegister+b.pedal:b.bassNotes[i])+s.key+12*octaveOf(OutBassLong);low=std::min(low,pitch);high=std::max(high,pitch);}
+ return layerRangeShift(OutBassLong,low,high,s);
+}
+bool layerFits(const composition::LayerFigure& source,musicaltime::Tick begin,const Settings& s,int output,int* placement=nullptr)const
 {
  using namespace composition;
- if(!layerPolyphony(source,begin,s,output))return false;
+ if(!layerRoute(output,s)||!layerPolyphony(source,begin,s,output))return false;
+ const auto capability=outputCatalog(s)[output].track.instrument;
+ const auto modal=modalContextFor(s);const int octave=12*octaveOf(output);
+ int shift=0;
+ if(s.rangeOn[kOutputRange[output]]&&source.attacks[0].reference!=PitchReference::chord){
+  int low=128,high=-1;for(int i=0;i<source.count;++i){const auto& hit=source.attacks[i];const auto at=begin+hit.at;const auto c=chordFor(locate(at),kOutputLayer[output],s);const int note=layerPitch(hit,c,s,output,at)+octave;low=std::min(low,note);high=std::max(high,note);}
+  // A moving authored bass lane is one register contract across consumers:
+  // even a shorter figure must not pick a conflicting octave before handover.
+  if(output==OutBassLong||output==OutBassShort)if(const auto* b=layerBinding(s);b&&b->pedal<0){
+   bool moving=false;for(int slot=1;slot<W().n;++slot)moving|=b->bassNotes[slot]!=b->bassNotes[0];
+   if(moving)for(int slot=0;slot<W().n;++slot){const int pitch=b->bassNotes[slot]+s.key+octave;low=std::min(low,pitch);high=std::max(high,pitch);}
+  }
+  const auto registerShift=layerRangeShift(output,low,high,s);if(!registerShift)return false;shift=*registerShift;
+ }
+ if(placement)*placement=shift;
  for(int i=0;i<source.count;++i){const auto& hit=source.attacks[i];const auto at=begin+hit.at;auto cursor=at;const auto until=at+hit.duration;
-  const auto reference=chordFor(locate(at),kOutputLayer[output],s);const int note=layerPitch(hit,reference,s,output,at);
+  const auto reference=chordFor(locate(at),kOutputLayer[output],s);const int note=layerPitch(hit,reference,s,output,at)+shift;
   if(hit.reference==PitchReference::chord){
    const auto cap=outputCatalog(s)[output].track.instrument;if(hit.duration<cap.minDuration||hit.duration>cap.maxDuration)return false;
    auto cursor=at;const auto required=layerChordMask(reference,s);
    while(cursor<until){const auto pos=locate(cursor);const auto c=chordFor(pos,kOutputLayer[output],s);if(required&~layerChordMask(c,s))return false;if(pos.chordEndTime<=cursor)return false;cursor=std::min(until,pos.chordEndTime);}continue;
   }
-  if(!layerPlayable(output,note,hit.duration,s))return false;
+  if(note+octave<capability.range.low||note+octave>capability.range.high||note+octave<0||note+octave>127
+   ||hit.duration<capability.minDuration||hit.duration>capability.maxDuration)return false;
   while(cursor<until){const auto pos=locate(cursor);const auto c=chordFor(pos,kOutputLayer[output],s);const unsigned mask=layerChordMask(c,s,output==OutBassLong||output==OutBassShort);
    unsigned authorized=0;for(unsigned context:source.context)if(context&&transposePitchMask(context,s.key)==layerChordMask(c,s))authorized|=pitchBit(note);
    bool target=false;if(hit.intent.function=='V')for(int j=i+1;j<source.count;++j)if(source.attacks[j].pitch==hit.intent.resolution){const auto targetChord=chordFor(locate(begin+source.attacks[j].at),kOutputLayer[output],s);target=(layerChordMask(targetChord,s,true)&pitchBit(hit.intent.resolution+s.key))!=0;break;}
    if((output==OutBassLong||output==OutBassShort)&&c.bass>=0&&(note%12+12)%12!=(s.key+c.bass)%12){
     bool explicitVariant=false;for(int id:source.harmonicReferences)explicitVariant|=id==static_cast<int>(W().id);if(!explicitVariant)return false;
    }
-   const auto modal=modalContextFor(s);if(!permittedTone(hit.intent,note,mask,modal.mask,authorized,target))return false;
+   if(!permittedTone(hit.intent,note,mask,modal.mask,authorized,target))return false;
    if(pos.chordEndTime<=cursor)return false;cursor=std::min(until,pos.chordEndTime);
   }
  }
@@ -110,30 +141,41 @@ void prepareLayers(musicaltime::Tick time,const Settings& s,int offset,EventList
  else{layerGroup=group;for(int i=0;i<s.policy.layers.count;++i)if(s.policy.layers.figures[i].group==group){auto period=s.policy.layers.figures[i].period;layerGroupEnd=sceneTime+period*((time-sceneTime)/period+1);break;}}
  for(int output=0;output<kNumOutputs;++output){auto& use=layerUses[output];if((output==OutBassLong&&(binding->pedal>=0||binding->bassMode!=0))||(output==OutBassShort&&binding->bassMode!=0)){use={};continue;}if(!layerOwns(output,s)||!on[kOutputLayer[output]]||!layerRoute(output,s)||still||sceneEnded){use={};continue;}
   if(use.source){const auto begin=use.origin+use.source->period*std::max<int64_t>(0,(time-use.origin)/use.source->period);
-   if((!use.source->group||use.source->group==group)&&layerFits(*use.source,begin,s,output)&&s.x>=use.source->xLow&&s.x<=use.source->xHigh){if((time-use.origin)%use.source->period!=musicaltime::Tick{}||hashInt(1901+output,(time-sceneTime)/use.source->period)%4!=0)continue;}}
+   int placement=0;
+   if((!use.source->group||use.source->group==group)&&layerFits(*use.source,begin,s,output,&placement)&&placement==use.placement&&s.x>=use.source->xLow&&s.x<=use.source->xHigh){if((time-use.origin)%use.source->period!=musicaltime::Tick{}||hashInt(1901+output,(time-sceneTime)/use.source->period)%4!=0)continue;}}
   float best=-1;composition::LayerUse chosen;
   for(int i=0;i<s.policy.layers.count;++i){const auto& source=s.policy.layers.figures[i];if((source.group&&source.group!=group)||static_cast<int>(source.part)!=output||s.x<source.xLow||s.x>source.xHigh)continue;
    const auto begin=sceneTime+source.period*std::max<int64_t>(0,(time-sceneTime)/source.period);
-   if(!layerFits(source,begin,s,output))continue;
+   int placement=0;if(!layerFits(source,begin,s,output,&placement))continue;
    const float dy=layerY(s,kOutputLayer[output])-source.y,dz=s.z-source.z;const float distance=dy*dy+.64f*dz*dz;
    const auto cycle=(time-sceneTime)/source.period;const float rank=std::exp(-distance/.06f)*(1.f+.25f*(hashInt(source.id+output,cycle/4)%100)/100.f);
-   if(rank>best){best=rank;chosen={&source,sceneTime,id};}
+   if(rank>best){best=rank;chosen={&source,sceneTime,id,placement};}
   }
-  if(use.source!=chosen.source)for(int a=0;a<numActive;)if(active[a].layerOwner&&!active[a].layerAnchor&&active[a].out==output)removeActive(a,offset,out);else ++a;
+  if(use.source!=chosen.source||use.placement!=chosen.placement)for(int a=0;a<numActive;)if(active[a].layerOwner&&!active[a].layerAnchor&&active[a].out==output)removeActive(a,offset,out);else ++a;
   use=chosen;
  }
  // The long and short bass are alternative figure contracts. A short figure can
  // coexist with a separately authorized held pedal, not a second moving LB line.
  if(binding->upperRoot>=0){layerUses[OutArp]={};if(layerFused(*binding,s)){layerUses[OutPadLong]={};layerUses[OutPadShort]={};}}
+ // One shared bass patch is one monophonic performer. An independent pedal
+ // retains priority; a moving short figure otherwise replaces the held fallback.
+ if(s.channel[OutBassLong]==s.channel[OutBassShort]&&binding->pedal>=0)layerUses[OutBassShort]={};
  if(layerUses[OutBassLong].source&&layerUses[OutBassShort].source)
-  {if(s.z>.55f&&s.y>.4f)layerUses[OutBassLong]={};else layerUses[OutBassShort]={};} for(int a=0;a<numActive;){const auto& n=active[a];
-  const bool obsolete=n.layerOwner&&n.layerAnchor&&(n.out==OutBassLong&&layerUses[OutBassLong].source&&!layerUses[OutBassLong].source->heldCycle);
+  {if(s.z>.55f&&s.y>.4f)layerUses[OutBassLong]={};else layerUses[OutBassShort]={};}
+ if(s.channel[OutBassLong]==s.channel[OutBassShort]&&!layerUses[OutBassShort].source)
+  for(int a=0;a<numActive;)if(active[a].layerOwner&&active[a].out==OutBassShort)removeActive(a,offset,out);else ++a;
+ for(int a=0;a<numActive;){const auto& n=active[a];
+  const bool obsolete=n.layerOwner&&n.out==OutBassLong&&((n.layerAnchor&&layerUses[OutBassLong].source&&!layerUses[OutBassLong].source->heldCycle)
+    ||(s.channel[OutBassLong]==s.channel[OutBassShort]&&layerUses[OutBassShort].source));
   if(obsolete)removeActive(a,offset,out);else ++a;}
 
 }
+int layerPlacedBass(int output,int pitch,const Settings& s)const
+{if((output==OutBassLong||output==OutBassShort)&&s.rangeOn[kOutputRange[output]])return fitRange(output,pitch+12*octaveOf(output))-12*octaveOf(output);return pitch;}
 void layerEmit(int output,int pitch,int velocity,musicaltime::Tick end,int offset,const Settings& s,EventList& out,bool tie=false)
 {
  if(sceneEndTime)end=std::min(end,*sceneEndTime);
+ pitch=layerPlacedBass(output,pitch,s);
  if(!layerPlayable(output,pitch,end-nowTime,s))return;
  const bool saved=layerEmission,held=extendOnly;layerEmission=true;extendOnly=tie;
  noteOn(output,pitch,velocity,end,offset,out,false,tie);layerEmission=saved;extendOnly=held;
@@ -157,8 +199,11 @@ if(layerFused(*b,s))for(int i=0;i<3;++i)if(v.n<6)v.notes[v.n++]=layerUpper(*b,i,
  }
  if(layerOwns(OutPadLong,s)&&on[kFlaeche]&&b->highPedal>=0)
   layerEmit(OutPadLong,b->highPedal+s.key,56,time+32*musicaltime::quarter,offset,s,out,true);
- if(layerOwns(OutBassLong,s)&&on[kBass]&&b->bassMode==0&&!layerUses[OutBassLong].source){
-  const auto c=chordFor(p,kBass,s);const int pitch=(b->pedal>=0?b->bassRegister+b->pedal:b->bassNotes[p.chordIdx])+s.key;
+ if(layerOwns(OutBassLong,s)&&on[kBass]&&b->bassMode==0&&!layerUses[OutBassLong].source
+   &&(s.channel[OutBassLong]!=s.channel[OutBassShort]||!layerUses[OutBassShort].source)){
+  const auto placement=layerBoundBassShift(*b,s);
+  if(!placement){for(int i=0;i<numActive;)if(active[i].layerOwner&&active[i].out==OutBassLong)removeActive(i,offset,out);else ++i;return;}
+  const int pitch=(b->pedal>=0?b->bassRegister+b->pedal:b->bassNotes[p.chordIdx])+s.key+*placement;
   // Every independent pedal must be explicitly licensed by this source context.
   const auto end=b->pedal>=0?time+32*musicaltime::quarter:p.chordEndTime;
   for(int i=0;i<numActive;)if(active[i].layerOwner&&active[i].out==OutBassLong&&active[i].note!=pitch+12*octaveOf(OutBassLong))removeActive(i,offset,out);else ++i;
@@ -173,10 +218,10 @@ void renderLayers(musicaltime::Tick time,const Pos& p,const Settings& s,int offs
   if((entering||changing)&&layerFused(*b,s))for(int i=0;i<numActive;)if(active[i].layerOwner&&active[i].out==OutPadLong&&active[i].note!=b->highPedal+s.key+12*octaveOf(OutPadLong))removeActive(i,offset,out);else ++i;
   lastLayerStage=layerStage(*b);prepareLayers(time,s,offset,out);renderLayerHarmony(time,p,s,offset,out);
   if(b->bassMode==1||b->bassMode==2)for(int i=0;i<numActive;)if(active[i].layerOwner&&active[i].out==OutBassLong)removeActive(i,offset,out);else ++i;
-  if(b->bassMode==2&&on[kBass]&&(entering||changing))layerEmit(OutBassShort,b->bassRegister+s.key+bassRoot(chordFor(p,kBass,s)),68,time+musicaltime::sixteenth,offset,s,out);
-  if(const auto* source=layerUses[OutBassLong].source;source&&source->heldCycle&&on[kBass]){const auto& hit=source->attacks[0];const auto c=chordFor(p,kBass,s);const int wanted=layerPitch(hit,c,s,OutBassLong,time)+12*octaveOf(OutBassLong);
+  if(b->bassMode==2&&on[kBass]&&layerOwns(OutBassShort,s)&&(entering||changing))layerEmit(OutBassShort,b->bassRegister+s.key+bassRoot(chordFor(p,kBass,s)),68,time+musicaltime::sixteenth,offset,s,out);
+  if(const auto* source=layerUses[OutBassLong].source;source&&source->heldCycle&&on[kBass]){const auto& hit=source->attacks[0];const auto c=chordFor(p,kBass,s);const int wanted=layerPlacedBass(OutBassLong,layerPitch(hit,c,s,OutBassLong,time)+layerUses[OutBassLong].placement,s)+12*octaveOf(OutBassLong);
    for(int i=0;i<numActive;)if(active[i].layerOwner&&active[i].out==OutBassLong&&active[i].note!=wanted)removeActive(i,offset,out);else ++i;
-   layerEmit(OutBassLong,layerPitch(hit,c,s,OutBassLong,time),hit.velocity,time+source->period+32*musicaltime::quarter,offset,s,out,true);}return;}
+   layerEmit(OutBassLong,layerPitch(hit,c,s,OutBassLong,time)+layerUses[OutBassLong].placement,hit.velocity,time+source->period+32*musicaltime::quarter,offset,s,out,true);}return;}
  if(still||sceneEnded)return;
  for(int output=0;output<kNumOutputs;++output){const auto& use=layerUses[output];if(!use.source||(bassRest&&(output==OutBassLong||output==OutBassShort))||!on[kOutputLayer[output]]||!layerOwns(output,s))continue;
   const auto& source=*use.source;const auto rel=(time-use.origin)%source.period;
@@ -188,7 +233,7 @@ void renderLayers(musicaltime::Tick time,const Pos& p,const Settings& s,int offs
    if(hit.reference==composition::PitchReference::chord){auto v=padVoicing(p,s,output);
     for(int a=0;a<numActive;)if(active[a].layerOwner&&!active[a].layerAnchor&&active[a].out==output&&active[a].endTime<=time)removeActive(a,offset,out);else ++a;
     for(int n=0;n<v.n;++n)layerEmit(output,v.notes[n],hit.velocity,end,offset,s,out);}
-   else layerEmit(output,layerPitch(hit,c,s,output,time),hit.velocity,end,offset,s,out,source.heldCycle);
+   else layerEmit(output,layerPitch(hit,c,s,output,time)+use.placement,hit.velocity,end,offset,s,out,source.heldCycle);
   }
  }
  if(b->upperRoot>=0&&!layerFused(*b,s)&&layerOwns(OutArp,s)&&on[kArp]&&!motifWindow(p,s).contains(time)){

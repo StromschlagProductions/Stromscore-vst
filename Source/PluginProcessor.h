@@ -153,6 +153,10 @@ private:
     std::bitset<128> sounding[16];   // je MIDI-Kanal
     std::atomic<bool> flushPending { false };
     bool wasPlaying = false;
+    // Last active output assignment, independent of transport/preview and preset flushes.
+    bool ccOutputWasEnabled = false;
+    int ccResetDynamics = 1, ccResetExpression = 11;
+    uint32_t ccResetChannels = 0;
 
     std::atomic<float> axisLive[3] { { 0.5f }, { 0.1f }, { 0.0f } };
     std::atomic<float> pendingMidiAxis[3] { { -1.0f }, { -1.0f }, { -1.0f } };

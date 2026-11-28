@@ -1,3 +1,7 @@
+Aktuelles Korrekturpaket: [Rollenaktivität, Ursachen und MIDI-A/B](P1_ACTIVITY_CORRECTION.md).
+
+> Musikalische Rückmeldung zu0874b02: Die Herrmann-Handschrift ist positiv gehört; eine erhebliche Bassaktivitätsregression wurde gemeldet. [Geltungsbereich](../../development/ACCEPTED_REFERENCE_0874b02.md).
+
 # Aktueller Stand: Herrmann P1
 
 Implementierung und Grenzen: [P1.md](P1.md), [IDs](P1_IMPLEMENTED_IDS.json), [Hörtest](P1_STUDIO_ONE.md). Carpenter P1 wurde inzwischen vorläufig positiv gehört; Einschränkungen siehe [Abnahme](../../development/ACCEPTED_REFERENCE_58ea29d.md). Die folgenden Bestandsaufnahmen bleiben historische Referenzen.

@@ -20,6 +20,14 @@ static std::vector<Row> render(Settings s,int block,int bars=16,int jump=0,doubl
  }
  t.playing=false;{NoAllocations guard;g.process(t,s,block,e);}collect(total);for(auto [key,n]:held)CHECK(n==0);return result;
 }
+namespace stromscore {struct ExecutionTestAccess {
+ static bool bassPlacement(Generator& g,const Settings& s,const LayerFigure& source,int& placement){g.current=wendungIndex(GenreScore,static_cast<WendungId>(30001),s.profile);g.cur=&s;const bool result=g.layerFits(source,Tick{},s,OutBassLong,&placement);g.cur=nullptr;return result;}
+ static int motifInSourceContext(Generator& g,Settings s,const AuthoredMotifSource& source,int output){
+  g.voices={};g.current=kCustomWendung;g.custom={};g.custom.n=2;g.custom.coloration=ChordColoration::protectedColor;
+  for(int bar=0;bar<2;++bar){bool found=false;for(int root=0;root<12&&!found;++root)for(int type=0;type<(int)(sizeof(kShapes)/sizeof(*kShapes))&&!found;++type){unsigned mask=0;for(int n=0;n<kShapes[type].n;++n)mask|=pitchBit(root+kShapes[type].iv[n]);if(mask==source.harmony[bar]){g.custom.ch[bar]={root,type,4,source.bass[bar]};found=true;}}CHECK(found);}
+  s.policy.authoredSources=&source;s.policy.authoredCount=1;g.cur=&s;const auto result=g.authoredMotif(g.locate(Tick{}),s,output);g.cur=nullptr;return result.source?result.source->id:0;
+ }
+};}
 int main(){
  // Every admitted harmonic source, including all component/high-pedal cases.
  for(const auto& b:herrmann::harmonies){auto s=settings();const int index=wendungIndex(GenreScore,static_cast<WendungId>(b.harmonyId),s.profile);CHECK(index>=0);
@@ -33,6 +41,41 @@ int main(){
   }
  }
 
+
+ // An explicitly shared long/short destination is one bass performer, not two
+ // conflicting roles. Physical notes remain monophonic and Stop balances them.
+ for(int shared=1;shared<=2;++shared)for(int path=0;path<3;++path){auto s=settings(.15f,path==0?.25f:.85f,path==1?.85f:.2f);s.channel[OutBassShort]=s.channel[OutBassLong];if(shared==2)s.channel[OutPadShort]=s.channel[OutPadLong];
+  const auto rows=render(s,127,32);CHECK(rows==render(s,2048,32));int bass=0,open=0,peak=0;
+  for(auto r:rows){auto [at,o,ch,n,v]=r;if(ch!=s.channel[OutBassLong])continue;if(v){++bass;++open;peak=std::max(peak,open);}else --open;}
+  CHECK(bass>0&&peak<=1&&open==0);
+ }
+ // No registered effect figure may steal the existing fixed ST trigger path.
+ {auto s=settings(.5f,.85f,.9f);int st=0;for(auto r:render(s,512,64))if(std::get<1>(r)==OutStich&&std::get<4>(r)){CHECK(std::get<3>(r)==36);++st;}CHECK(st>0);}
+ // Source anchors below a role threshold remain preferences, not an impossible
+ // admission requirement once the role is active. Exact harmony is still required.
+ for(const auto& source:herrmann::motifs)for(int key=0;key<12;++key){auto s=settings(source.x,.85f,source.z);s.key=key;s.melody=true;s.scene=false;
+  Generator g;Transport t;t.playing=true;EventList e;g.process(t,s,1,e);
+  CHECK(ExecutionTestAccess::motifInSourceContext(g,s,source,OutCounter)==source.id);
+  CHECK(ExecutionTestAccess::motifInSourceContext(g,s,source,OutMelody)==source.id);
+ }
+ // Actual hearing-test setup: separate channels3/4, minus two octaves,
+ // C0..G3 in this GUI's naming convention = MIDI24..67, AFTER the octave.
+ for(int key=0;key<12;++key){auto s=settings(.5f,.85f,.8f);s.key=key;s.octave[kBass]=-2;s.rangeOn[1]=true;s.rangeLo[1]=24;s.rangeHi[1]=67;
+  auto rows=render(s,127,32);CHECK(rows==render(s,2048,32));int count=0;for(auto r:rows){auto [at,o,ch,n,v]=r;if(v&&(o==OutBassLong||o==OutBassShort)){CHECK(n>=24&&n<=67);++count;}}CHECK(count>0);
+ }
+ // The C/B neighbour figure crosses the lower range boundary: a single
+ // common octave shift must retain the semitone, not fold each note separately.
+ {auto s=settings();s.key=0;s.octave[kBass]=-2;s.rangeOn[1]=true;s.rangeLo[1]=24;s.rangeHi[1]=67;Generator g;Transport t;t.playing=true;EventList e;g.process(t,s,1,e);
+  const LayerFigure* source=nullptr;for(const auto& f:herrmann::figures)if(f.id==81030)source=&f;CHECK(source);int placement=0;CHECK(ExecutionTestAccess::bassPlacement(g,s,*source,placement));CHECK(placement==24);s.rangeHi[1]=24;CHECK(!ExecutionTestAccess::bassPlacement(g,s,*source,placement));
+ }
+ // An authored entry impulse must not bypass a manual held-bass choice.
+ {auto s=settings();auto index=wendungIndex(GenreScore,static_cast<WendungId>(70057),s.profile);const auto w=wendungAt(GenreScore,index,s.profile);s.x=w.x;s.y=w.y;s.z=w.z;s.bassPattern=BassHeld;s.follow[kBass]=false;for(int v=1;v<=16;++v){s.variation=v;if(Generator::pick(s,0)==index)break;}int shortBass=0;for(auto r:render(s,512,8))if(std::get<1>(r)==OutBassShort&&std::get<4>(r))++shortBass;CHECK(shortBass==0);}
+ // Authored harmonic bass lanes also retain their chromatic contour when a
+ // whole phrase crosses the user's lower range edge. No scalar octave zigzag.
+ {auto s=settings();auto index=wendungIndex(GenreScore,static_cast<WendungId>(70007),s.profile);const auto w=wendungAt(GenreScore,index,s.profile);s.x=w.x;s.y=w.y;s.z=w.z;s.key=2;s.octave[kBass]=-2;s.rangeOn[1]=true;s.rangeLo[1]=24;s.rangeHi[1]=67;s.policy.layers.count=0;
+  for(int v=1;v<=16;++v){s.variation=v;if(Generator::pick(s,0)==index)break;}std::vector<int> pitches;for(auto r:render(s,127,8))if(std::get<1>(r)==OutBassLong&&std::get<4>(r))pitches.push_back(std::get<3>(r));CHECK((pitches==std::vector<int>{38,37,36,35}));
+  s.policy=policyForContext(s.profile,true);std::vector<int> actual;for(auto r:render(s,127,8))if(std::get<1>(r)==OutBassLong&&std::get<4>(r)){const int n=std::get<3>(r);if(actual.empty()||actual.back()!=n)actual.push_back(n);}CHECK((actual==std::vector<int>{38,37,36,35}));
+ }
  for(const auto& f:herrmann::figures)CHECK(valid(f));
  CHECK(herrmannPolicy.layers.enabled&&herrmannPolicy.authoredCount==22);
  CHECK(permittedTone({'A',-1},60,1,0,0));CHECK(!permittedTone({'F',-1},61,1,0,0));

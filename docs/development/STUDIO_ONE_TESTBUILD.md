@@ -1,3 +1,15 @@
+# Aktuelles Korrekturpaket – Herrmann und MIDI/CC
+
+Bernard Herrmann behält die positiv gehörten hohen Streicher, basslosen Felder und unabhängigen harmonischen Komponenten. Bitte besonders LB/KB mit der bisherigen Instrumentierung prüfen: getrennte Kanäle3/4, Bass−2Oktaven, Tonumfang C0–G3. In STROMSCORE entspricht dieser Bereich MIDI24–67 und begrenzt die **klingenden Töne nach** der Oktavverschiebung. Andere Instrumente/DAWs können dieselben MIDI-Nummern anders benennen. Der Patch wird nicht automatisch erkannt.
+
+4/4, D,100BPM, Bass AUTO, Folgt Akkorden EIN, Aufbau/Fahrt AUS, unbegrenzte Wiedergabe. Zunächst bei(.5/.85/.8)64Takte hören; anschließend ruhige und basslose Bereiche sowie langsame XYZ-Fahrten vergleichen. Einzelne vollständige Figuren werden gemeinsam oktaviert, keine Tonklassen oder Intervalle ersetzt. Absichtlich basslose Quellen bleiben basslos. ST ist wieder über seine bestehende feste Triggerfunktion erreichbar.
+
+Zusätzlich „CC-Ausgabe für alle Kanäle“ prüfen: MIDI/CC oben wird orange. Beim Ausschalten einmalig127 für Dynamik/Ausdruck auf den konfigurierten Kanälen, auch bei gestopptem Transport, sofern der Host Audioblöcke verarbeitet. Vorgabe ist CC1/CC11; umbelegte Ausgangszuordnungen werden entsprechend behandelt. Die gespeicherten Bereiche bleiben erhalten. Erneutes Einschalten nimmt ihre normale Steuerung wieder auf. Beide Themes und Projekt-Neuladen ausprobieren.
+
+Die nachfolgende ursprüngliche P1-Anleitung bleibt als musikalische Orientierung erhalten. Die Hörabnahme dieses Korrekturpakets steht aus.
+
+---
+
 # Herrmann P1 – Hörtest in Studio One
 
 Windows-DEV-Version, gleiche Plugin-ID wie bisher. Studio One schließen, bisheriges STROMSCORE-VST3 sichern und den entpackten VST3-Ordner nach `C:\Program Files\Common Files\VST3\` kopieren. Nicht beide Versionen gleichzeitig installieren. Danach Plugin-Scan und Projektkopie öffnen.

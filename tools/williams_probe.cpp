@@ -43,6 +43,59 @@ namespace stromscore {struct ExecutionTestAccess {
  }
 };}
 #endif
+#ifdef ACTIVITY_DIAGNOSTICS
+namespace stromscore {struct ExecutionTestAccess {
+ static void admission(Generator& g,const Settings& s,long long sample){
+  const auto saved=g.cur;g.cur=&s;const auto pos=g.locate(g.nowTime);const auto* binding=g.layerBinding(s);
+  if(binding)for(int i=0;i<s.policy.layers.count;++i){const auto& source=s.policy.layers.figures[i];const int output=static_cast<int>(source.part);const char* reason="eligible";
+   if(!g.on[kOutputLayer[output]])reason="inactive";
+   else if(!g.layerOwns(output,s))reason="manual";
+   else if(!g.layerRoute(output,s))reason="route";
+   else if((output==OutBassLong||output==OutBassShort)&&binding->bassMode!=0)reason="source_bass_absent_or_entry";
+   else if(s.x<source.xLow||s.x>source.xHigh)reason="source_x_domain";
+   else {bool durations=true,range=true;const auto cap=outputCatalog(s)[output].track.instrument;
+    const auto begin=g.sceneTime+source.period*std::max<int64_t>(0,(g.nowTime-g.sceneTime)/source.period);int placement=0;
+#ifdef ACTIVITY_PLACEMENT
+    const bool fits=g.layerFits(source,begin,s,output,&placement);
+#else
+    const bool fits=g.layerFits(source,begin,s,output);
+#endif
+    for(int j=0;j<source.count;++j){const auto& hit=source.attacks[j];durations&=hit.duration>=cap.minDuration&&hit.duration<=cap.maxDuration;
+     if(hit.reference!=composition::PitchReference::chord){const auto at=begin+hit.at;const auto c=g.chordFor(g.locate(at),kOutputLayer[output],s);const int pitch=g.layerPitch(hit,c,s,output,at)+12*g.octaveOf(output)+placement;range&=pitch>=cap.range.low&&pitch<=cap.range.high;}}
+    if(!durations)reason="duration";else if(!range)reason="register";
+    else if(!fits)reason="whole_context_register_slash_intent_or_polyphony";
+    else if(source.group&&source.group!=g.layerGroup)reason="other_rhythm_group";
+   }
+   const auto& use=g.layerUses[output];if(use.source==&source)reason="selected";
+   std::cerr<<"D,"<<sample<<','<<output<<','<<source.reference<<','<<reason<<'\n';
+  }
+  if(layerStrategyForAudit(s))for(int output:{OutCounter,OutMelody})for(int i=0;i<s.policy.authoredCount;++i){auto local=s;const auto& source=s.policy.authoredSources[i];local.policy.authoredSources=&source;local.policy.authoredCount=1;
+   const auto& m=g.voice(output).motif.material(g.motifCatalog);const char* reason="harmonic_register_window_or_proximity";
+   if(!g.on[kOutputLayer[output]])reason="inactive";
+   else if(m.count&&m.vocabularyId!=static_cast<unsigned>(source.id))reason="established_other_material";
+   else if(g.authoredMotif(pos,local,output).source)reason="eligible";
+   std::cerr<<"D,"<<sample<<','<<output<<",HE-M"<<(source.id%100<10?"0":"")<<source.id%100<<','<<reason<<'\n';
+  }
+  g.cur=saved;
+ }
+ static void matched(const Generator& original,const Settings& s,long long sample,int output,int pitch){
+  auto g=original;g.cur=&s;const auto at=musicaltime::fromQuarters(sample/28800.);const auto pos=g.locate(at);
+  const auto& memory=g.voice(output).motif.material(g.motifCatalog);auto occurrence=g.motifOccurrence(at,pos,s,output,true);auto local=pos;
+  int id=0;uint64_t identity=0;
+  if(memory.vocabularyId&&(!memory.complete||occurrence.active)){
+   if(memory.complete){local.phraseStartTime=occurrence.begin;local.phraseEndTime=occurrence.end;}
+   for(int i=0;i<8;++i){const auto n=g.planMotifNote(i,local,s,output,memory.complete?&memory:nullptr,occurrence.varied,&occurrence);
+    if(n.valid&&local.phraseStartTime+n.at==at&&n.pitch+12*g.octaveOf(output)==pitch){id=static_cast<int>(memory.vocabularyId);identity=memory.identity;}}
+  }
+  if(output==OutCounter){const auto handoff=g.playableMelodyHandoff(at,pos,s,true);if(handoff.plan.active)if(const auto* source=g.motifCatalog.find(handoff.plan.reference.material)){
+   const auto first=source->notes[handoff.plan.first].at;for(int i=0;i<handoff.plan.count;++i){const auto& n=source->notes[handoff.plan.first+i];
+    if(handoff.origin+handoff.plan.begin+n.at-first==at&&handoff.base+n.interval==pitch){id=static_cast<int>(source->vocabularyId);identity=source->identity;}}
+  }}
+  if(id>=82001&&id<=82057)std::cerr<<"A,"<<sample<<','<<output<<','<<id<<','<<identity<<','<<pitch<<'\n';
+ }
+ static bool layerStrategyForAudit(const Settings& s){return s.policy.layers.enabled&&s.policy.authoredSources;}
+};}
+#endif
 using namespace stromscore;
 int main(int argc,char** argv){
  if(argc<7)return 2;Settings s;s.profile=static_cast<composition::ProfileId>(std::atoi(argv[1]));const int path=std::atoi(argv[2]),mode=std::atoi(argv[3]),block=std::atoi(argv[4]),bars=std::atoi(argv[5]);s.genre=std::atoi(argv[6]);
@@ -61,6 +114,9 @@ int main(int argc,char** argv){
  #ifdef LAYER_DIAGNOSTICS
  std::cerr<<"S,"<<s.variation<<','<<s.x<<','<<s.y<<','<<s.z<<'\n';
 #endif
+ // Optional offline audit controls; absent arguments preserve all existing probes.
+ if(argc>24){const int routing=std::atoi(argv[24]);if(routing==1||routing==2)s.channel[OutBassShort]=s.channel[OutBassLong];if(routing==2)s.channel[OutPadShort]=s.channel[OutPadLong];if(routing==3){s.rangeOn[1]=true;s.rangeLo[1]=36;s.rangeHi[1]=60;}if(routing==4)s.channel[OutBassShort]=s.channel[OutBassLong]=s.channel[OutArp];if(routing==5||routing==6){s.rangeOn[1]=true;s.rangeLo[1]=24;s.rangeHi[1]=67;s.octave[kBass]=-2;if(routing==6)s.channel[OutBassShort]=s.channel[OutBassLong];}}
+ if(argc>25)s.variety=std::atof(argv[25]);
  Generator g;Transport t;t.playing=true;t.bpm=argc>18?std::atof(argv[18]):100;
  const double samplesPerQuarter=48000.*60/t.bpm;EventList es;long long total=static_cast<long long>(bars*4.*s.meterNum/s.meterDen*samplesPerQuarter);int last=-2;
  for(long long at=0;at<total;){
@@ -72,10 +128,17 @@ int main(int argc,char** argv){
    if(at>=total*3/4)t.ppq+=8.125;
   }
   es.clear();g.process(t,s,n,es);if(es.overflow)return 3;
+#ifdef ACTIVITY_DIAGNOSTICS
+  if(at%static_cast<long long>(16*4*samplesPerQuarter)==0)ExecutionTestAccess::admission(g,s,at);
+#endif
+
   if(g.wendung()!=last){last=g.wendung();std::cerr<<"H,"<<at<<','<<(last<0?-1:static_cast<int>(wendungAt(s.genre,last,s.profile).id))<<'\n';}
   for(int i=0;i<es.size;++i){const auto& e=es.events[i];std::cout<<at+e.offset<<','<<int(e.out)<<','<<int(e.channel)<<','<<int(e.note)<<','<<int(e.velocity)<<','<<int(e.type)<<'\n';
 #ifdef LAYER_DIAGNOSTICS
    if(!e.type&&e.velocity&&(e.out==OutMelody||e.out==OutCounter)){const auto& m=g.inspectMotif(e.out);std::cerr<<"P,"<<at+e.offset<<','<<int(e.out)<<','<<m.vocabularyId<<','<<m.identity<<','<<m.count<<','<<m.complete<<'\n';}
+#ifdef ACTIVITY_DIAGNOSTICS
+   if(!e.type&&e.velocity&&(e.out==OutMelody||e.out==OutCounter))ExecutionTestAccess::matched(g,s,at+e.offset,e.out,e.note);
+#endif
    if(!e.type&&e.velocity){const auto& use=g.inspectLayers()[e.out];if(use.source)std::cerr<<"L,"<<at+e.offset<<','<<int(e.out)<<','<<use.source->reference<<','<<use.origin.value<<'\n';}
 #endif
 #ifdef SEQUENCE_DIAGNOSTICS

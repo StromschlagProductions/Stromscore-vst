@@ -1559,7 +1559,7 @@ private:
             }
             if(chosen<0)continue;
             const float score=composition::barry::distance(layerStrategy(s)?source.x:s.x,s.y,s.z,source.x,source.y,source.z)+.0001f*cost;
-            if(williams&&!recorded.vocabularyId&&score>.25f*.25f)continue;
+            if(williams&&!layerStrategy(s)&&!recorded.vocabularyId&&score>.25f*.25f)continue;
             // A stable weighted choice among compatible nearby templates. Once a
             // real prefix exists its provenance locks the thought; automation
             // cannot splice another template into it.

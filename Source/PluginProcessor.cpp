@@ -541,6 +541,25 @@ void StromscoreProcessor::processSlice (juce::AudioBuffer<float>& audio, juce::M
     if (shouldFlush) flushSounding (midi, false);
     hostPlaying.store (t.playing);
     const auto settings = currentSettings();
+    uint32_t configuredCcChannels = 0;
+    for (int channel : settings.channel) configuredCcChannels |= 1u << (channel - 1);
+    if (ccOutputWasEnabled && ! settings.dynamics)
+    {
+        // Restore only our two last active controller assignments. No CC121,
+        // range mapping, parameter writes or reset of unrelated controllers.
+        const auto destinations = configuredCcChannels | ccResetChannels;
+        for (int channel = 1; channel <= 16; ++channel) if (destinations & (1u << (channel - 1)))
+        {
+            if (ccResetDynamics > 0) midi.addEvent (juce::MidiMessage::controllerEvent (channel, ccResetDynamics, 127), 0);
+            if (ccResetExpression > 0 && ccResetExpression != ccResetDynamics) midi.addEvent (juce::MidiMessage::controllerEvent (channel, ccResetExpression, 127), 0);
+        }
+    }
+    ccOutputWasEnabled = settings.dynamics;
+    if (settings.dynamics)
+    {
+        ccResetDynamics = settings.ccDynamics; ccResetExpression = settings.ccExpression;
+        ccResetChannels = configuredCcChannels;
+    }
     meterNum.store (settings.meterNum); meterDen.store (settings.meterDen);
     generator.process (t, settings, audio.getNumSamples(), events);
     if (events.overflow)

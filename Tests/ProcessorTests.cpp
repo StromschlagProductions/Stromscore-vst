@@ -7,6 +7,7 @@
 #include <thread>
 #include <tuple>
 #include <vector>
+#include <fstream>
 
 namespace
 {
@@ -185,9 +186,14 @@ static int testWilliamsMotifsExport(bool pedals=false,bool morricone=false,bool 
  std::cout<<(herrmann?"Herrmann P1 real processor live/export: ":carpenter?"Carpenter P1 real processor live/export: ":morricone?"Morricone P1 real processor live/export: ":pedals?"Williams pedals real processor live/export: ":"Williams P3 real processor live/export: ")<<cases<<" cases, no hanging notes or process allocations\n";return 0;
 }
 
+#include "HerrmannActivityProcessorTests.h"
+#include "CcOutputProcessorTests.h"
+
 int main(int argc,char** argv)
 {
     juce::ScopedJuceInitialiser_GUI init;
+    if(argc==2&&std::string(argv[1])=="--cc-output")return testCcOutputProcessor();
+    if(argc>=2&&std::string(argv[1])=="--herrmann-activity")return testHerrmannActivityProcessor(argc>2?argv[2]:nullptr);
     if(argc==2&&std::string(argv[1])=="--herrmann")return testWilliamsMotifsExport(false,false,false,true);
     if(argc==2&&std::string(argv[1])=="--carpenter")return testWilliamsMotifsExport(false,false,true);
     if(argc==2&&std::string(argv[1])=="--morricone")return testWilliamsMotifsExport(false,true);

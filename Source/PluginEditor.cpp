@@ -1308,6 +1308,7 @@ StromscoreEditor::~StromscoreEditor() { stopTimer(); setLookAndFeel (nullptr); }
 
 void StromscoreEditor::updateCcButton()
 {
+    ccButton.setToggleState (processor.apvts.getRawParameterValue ("dynamikCc")->load() >= .5f, juce::dontSendNotification);
     ccButton.setButtonText ("MIDI / CC");
     ccButton.setTooltip (u8 ("MIDI-Eingang: Färbung, Intensität, Unruhe. Ausgabe: Controller-Zuordnung und CC-Bereiche je Kanal."));
 }
@@ -1427,6 +1428,8 @@ void StromscoreEditor::showCcMenu()
 
 void StromscoreEditor::timerCallback()
 {
+    const bool ccEnabled = processor.apvts.getRawParameterValue ("dynamikCc")->load() >= .5f;
+    if (ccButton.getToggleState() != ccEnabled) ccButton.setToggleState (ccEnabled, juce::dontSendNotification);
     const bool wantsDark = processor.uiTheme.load() != 1;
     if (theme.dark != wantsDark) { theme = wantsDark ? darkTheme() : lightTheme(); applyTheme(); }
     const int width = processor.uiWidth.load();
